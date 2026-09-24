@@ -11,11 +11,19 @@ import './Aviso.css'
 
 // `mudo` (C4 · T03, G15; padrão desde o fechamento do C4): o glifo do aviso fica mudo pro leitor — o rótulo e a
 // frase já dizem o que houve. Desligado, nada muda.
-export function Aviso({ tom = 'falha', glifo = 'xis', poco = 26, nomeGlifo, titulo, frase, numero, unidade, semPoco = false, mudo = true }) {
+// `tom` 'veredito' (C11 · T11/02, G11): o com contagem quando tudo confere — o
+// rótulo de topo em lima, sem poço, 12 · 14 em volta e o traço lima embaixo
+// (Lei 1: é veredito). A contagem à direita é a mesma.
+// `bloqueio` (C11 · T16/05, G11 e G12 · a exceção da Lei 7): o que ficou
+// bloqueado, sem poço — o rótulo de topo, 14 em volta, 6 entre o rótulo e a
+// frase, e a frase de duas orações em --tinta-secundaria (A HOMOLOGAÇÃO FICA
+// BLOQUEADA). Com o tom 'falha', o traço vermelho embaixo é o de sempre.
+export function Aviso({ tom = 'falha', glifo = 'xis', poco = 26, nomeGlifo, titulo, frase, numero, unidade, semPoco = false, bloqueio = false, mudo = true }) {
   const falha = tom === 'falha'
+  const veredito = tom === 'veredito'
   return (
-    <div className={`ds-aviso ds-caixa-poco ${falha ? 'ds-caixa-falha ds-aviso-falha' : ''} ${semPoco ? 'ds-aviso-sem-poco' : ''}`}>
-      {!semPoco && <Poco tam={poco} aria-hidden={mudo ? 'true' : undefined}><Glifo estado={glifo} poco={poco} nome={nomeGlifo} /></Poco>}
+    <div className={`ds-aviso ds-caixa-poco ${falha ? 'ds-caixa-falha ds-aviso-falha' : ''} ${semPoco ? 'ds-aviso-sem-poco' : ''} ${veredito ? 'ds-aviso-veredito' : ''} ${bloqueio ? 'ds-aviso-bloqueio' : ''}`}>
+      {!semPoco && !veredito && !bloqueio && <Poco tam={poco} aria-hidden={mudo ? 'true' : undefined}><Glifo estado={glifo} poco={poco} nome={nomeGlifo} /></Poco>}
       <span className="ds-aviso-texto">
         <span className="ds-aviso-titulo">{titulo}</span>
         {frase != null && <span className="ds-aviso-frase">{frase}</span>}

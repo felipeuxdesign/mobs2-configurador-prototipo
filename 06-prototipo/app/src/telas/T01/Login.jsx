@@ -7,6 +7,9 @@
 // A interação mora aqui (useState), com o valor inicial derivado do momento
 // ou do estado da referência. O cronômetro do código anda 1 s por segundo
 // fora do print (T01·1); no print e num estado aberto pela coluna, fica parado.
+// O prazo e o reenvio descem juntos, e a folha mostra o reenvio como contagem
+// no lugar da seta, com as duas saídas desabilitadas até zerar (decisões 31 e
+// 32). O contato aparece mascarado em todo o recuperar (regras.js).
 import { useEffect, useId, useState } from 'react'
 import { useEstado } from '../../estado/estado.jsx'
 import { EM_QUADRO } from '../../estado/quadro.js'
@@ -20,7 +23,7 @@ import {
 import { TX } from './textos.js'
 import {
   REC, LIM, PASSOS, segmentosDo, entra, TELEFONE, EMAIL, contatoDo,
-  PRAZO_CHEIO, REENVIO_CHEIO, restamEnvios, requisitosDa, senhaSalvavel,
+  PRAZO_CHEIO, REENVIO_CHEIO, PRAZO_NO_REENVIO_LIBERADO, restamEnvios, requisitosDa, senhaSalvavel,
 } from './regras.js'
 import { CartaoCanal, CartaoDoCodigo, LinhaConferido, CampoSenhaNova } from './pecas.jsx'
 import { usePresenca } from './presenca.js'
@@ -39,10 +42,15 @@ export const REF = {
   esgotado: '07-estado-tentativas-esgotadas',
   senha: '08-momento-recuperar-nova-senha',
   alterada: '09-momento-senha-alterada',
+  liberado: '11-momento-nao-recebi-reenvio-liberado', // a folha quando os 60 s do reenvio zeram
+  reenviado: '12-momento-codigo-reenviado',           // Conferir e reenviar: outro código, pro mesmo contato
+  noEmail: '13-momento-codigo-no-e-mail',             // Mandar para o e-mail: o código vai pro e-mail
 }
 
-// um código novo: o do mock, que chega preenchido (D-21), com o prazo e o reenvio cheios
-const codigoNovo = () => ({ digitos: REC.codigo, erros: 0, erroVisivel: false, prazo: PRAZO_CHEIO, reenvio: REENVIO_CHEIO, folha: false })
+// um código novo, com o prazo e o reenvio cheios. O primeiro envio chega com o
+// código do mock preenchido (D-21, a 03); o reenvio chega com as células vazias
+// e o cursor na primeira (a 12 e a 13)
+const codigoNovo = (digitos = REC.codigo) => ({ digitos, erros: 0, erroVisivel: false, prazo: PRAZO_CHEIO, reenvio: REENVIO_CHEIO, folha: false })
 
 // o quadro de cada referência, montado do mock
 export function inicial(momento, estado, usuario) {
@@ -50,6 +58,9 @@ export function inicial(momento, estado, usuario) {
     quadro: 'entrada',
     usuario, senha: M.credenciais.senha, mostrar: false, lembrar: false, foco: 'senha', erroEntrada: false,
     canal: 'telefone', envios: REC.reenviosNaHora,
+    // outro: o último envio foi pro mesmo contato ("Mandamos outro para", a 12);
+    // momentoCodigo: o momento do quadro do código, pra onde a folha volta
+    outro: false, momentoCodigo: REF.codigo,
     ...codigoNovo(),
     novaSenha: REC.novaSenha, dialogo: false,
   }
@@ -58,6 +69,11 @@ export function inicial(momento, estado, usuario) {
     case REF.canal: return { ...base, quadro: 'canal' }
     case REF.codigo: return { ...base, quadro: 'codigo' }
     case REF.naoRecebi: return { ...base, quadro: 'codigo', folha: true }
+    // os 60 s do reenvio zeraram com a folha aberta: o prazo andou o mesmo tanto (9:00, atrás do véu)
+    case REF.liberado: return { ...base, quadro: 'codigo', folha: true, reenvio: 0, prazo: PRAZO_NO_REENVIO_LIBERADO }
+    // o reenvio gastou um envio da hora: o prazo e o reenvio cheios, as células vazias
+    case REF.reenviado: return { ...base, quadro: 'codigo', ...codigoNovo(''), envios: base.envios + 1, outro: true, momentoCodigo: REF.reenviado }
+    case REF.noEmail: return { ...base, quadro: 'codigo', ...codigoNovo(''), canal: 'email', envios: base.envios + 1, momentoCodigo: REF.noEmail }
     // depois de um código errado
     case REF.errado: return { ...base, quadro: 'codigo', digitos: REC.codigoErrado, erros: 1, erroVisivel: true }
     // o prazo passou: as células limpas; o reenvio, livre há muito
@@ -100,8 +116,18 @@ export function Login({ momento, estado, irMomento }) {
     return () => clearInterval(t)
   }, [corre])
 
+  // a folha diz o momento dela: esperando o reenvio, a 04; quando ele zera, a 11.
+  // Com o teto da hora atingido, as saídas não liberam, e ela fica na 04 (G25)
+  const liberada = s.reenvio <= 0 && restam > 0
+  const folhaAberta = s.folha && s.quadro === 'codigo'
+  useEffect(() => {
+    if (estado || !folhaAberta) return
+    const m = liberada ? REF.liberado : REF.naoRecebi
+    if (momento !== m) irMomento(m)
+  }, [estado, folhaAberta, liberada, momento, irMomento])
+
   // o que vem por cima: a folha sobe em 200 e sai em 150; o diálogo, 150 e 150
-  const folha = usePresenca(s.folha && s.quadro === 'codigo')
+  const folha = usePresenca(folhaAberta)
   const dialogo = usePresenca(s.dialogo && s.quadro === 'senha')
   const veu = folha.visivel ? 'folha' : dialogo.visivel ? 'dialogo' : null
 
@@ -114,18 +140,28 @@ export function Login({ momento, estado, irMomento }) {
   }
   const esqueci = () => { muda({ quadro: 'canal', canal: 'telefone' }); irMomento(REF.canal) }
   // o primeiro envio não conta no teto; só o reenvio conta (T01·2)
-  const enviarCodigo = () => { muda({ quadro: 'codigo', ...codigoNovo() }); irMomento(REF.codigo) }
-  const reenviar = (canal) => { setS((x) => ({ ...x, ...codigoNovo(), canal: canal ?? x.canal, envios: x.envios + 1 })); irMomento(REF.codigo) }
-  const digitar = (digitos) => { muda({ digitos, erroVisivel: false }); if (s.erroVisivel) irMomento(REF.codigo) }
+  const enviarCodigo = () => { muda({ quadro: 'codigo', ...codigoNovo(), outro: false, momentoCodigo: REF.codigo }); irMomento(REF.codigo) }
+  // o reenvio fecha a folha e volta pro código: o prazo em 10:00, as células vazias
+  // e o cursor na primeira. Pro mesmo contato, "Mandamos outro para" (a 12); pro
+  // e-mail, "Mandamos para" o e-mail (a 13). "Enviar outro código" (06, 07) é o
+  // mesmo reenvio, pro mesmo contato
+  const reenviar = (canal = s.canal) => {
+    const outro = canal === s.canal
+    const m = outro ? REF.reenviado : REF.noEmail
+    setS((x) => ({ ...x, ...codigoNovo(''), canal, envios: x.envios + 1, outro, momentoCodigo: m }))
+    irMomento(m)
+  }
+  const digitar = (digitos) => { muda({ digitos, erroVisivel: false }); if (s.erroVisivel) irMomento(s.momentoCodigo) }
   const confirmar = () => {
     if (s.digitos === REC.codigo) { muda({ quadro: 'senha', novaSenha: REC.novaSenha, folha: false }); irMomento(REF.senha); return }
     const erros = s.erros + 1
     muda({ erros, erroVisivel: true, ...(erros >= LIM.tentativas ? { reenvio: 0 } : {}) })
     irMomento(REF.errado)
   }
-  const tentarDeNovo = () => { muda({ digitos: '', erroVisivel: false }); irMomento(REF.codigo) }
-  const abrirFolha = () => { muda({ folha: true }); irMomento(REF.naoRecebi) }
-  const fecharFolha = () => { muda({ folha: false }); irMomento(errado || esgotado ? REF.errado : REF.codigo) }
+  const tentarDeNovo = () => { muda({ digitos: '', erroVisivel: false }); irMomento(s.momentoCodigo) }
+  // abrir a folha: o momento dela (04 ou 11) vem do reenvio, no efeito acima
+  const abrirFolha = () => muda({ folha: true })
+  const fecharFolha = () => { muda({ folha: false }); irMomento(errado || esgotado ? REF.errado : s.momentoCodigo) }
   const salvar = () => { muda({ dialogo: true }); irMomento(REF.alterada) }
   // de volta à entrada, com o usuário e a senha vazia (T01·7 b)
   const entrarComNova = () => { muda({ quadro: 'entrada', dialogo: false, senha: '', erroEntrada: false, foco: 'senha', mostrar: false }); irMomento(null) }
@@ -187,9 +223,10 @@ export function Login({ momento, estado, irMomento }) {
     // o título diz a falha do código (R-03, a exceção declarada da T01); o expirado não
     const titulo = errado || esgotado ? TX.naoConfere : TX.digite
     let cartao, legenda, primario, aoPrimario, primarioDesabilitado = false
+    // sem envio na hora, o que ainda não tem texto aprovado fica vazio: a linha fica (G25)
     if (esgotado) {
       cartao = <CartaoDoCodigo falha rotulo={TX.tentativasRestantes} numero={LIM.tentativas - s.erros} frase={TX.expirouFrase} />
-      legenda = restam ? TX.podePedirAgora(restam) : ''
+      legenda = restam ? TX.reenvioLiberado(restam) : ''
       primario = TX.enviarOutro; aoPrimario = () => reenviar(); primarioDesabilitado = !restam
     } else if (expirado) {
       cartao = <CartaoDoCodigo numeroFalha rotulo={TX.expirou} numero={minSeg(s.prazo)} />
@@ -201,13 +238,14 @@ export function Login({ momento, estado, irMomento }) {
       primario = TX.tentarDeNovo; aoPrimario = tentarDeNovo
     } else {
       cartao = <CartaoDoCodigo rotulo={TX.valePor} numero={minSeg(s.prazo)} />
-      legenda = !restam ? '' : s.reenvio ? TX.podePedirDeNovo(s.reenvio, restam) : TX.podePedirAgora(restam)
+      // depois do último envio da hora, a espera ainda corre (a 12 e a 13)
+      legenda = s.reenvio ? (restam ? TX.reenviarEm(s.reenvio, restam) : TX.reenviarEmUltimo(s.reenvio)) : restam ? TX.reenvioLiberado(restam) : ''
       primario = TX.confirmar; aoPrimario = confirmar; primarioDesabilitado = s.digitos.length < REC.codigo.length
     }
     return (
       <>
         <div className="tela-miolo t01-miolo t01-miolo-passo">
-          {cabecaDoPasso('codigo', TX.mandamos(contatoDo(s.canal)))}
+          {cabecaDoPasso('codigo', <span className="t01-destino">{(s.outro ? TX.mandamosOutro : TX.mandamos)(contatoDo(s.canal))}</span>)}
           <h1 className="t01-titulo">{titulo}</h1>
           <div className="t01-codigo-grupo">
             <Codigo celulas={REC.codigo.length} digitos={expirado ? '' : s.digitos} focado={vivo && !errado} errado={!vivo ? esgotado : errado}
@@ -224,21 +262,19 @@ export function Login({ momento, estado, irMomento }) {
   }
 
   function NaoRecebi() {
-    const contato = contatoDo(s.canal)
+    // as duas saídas (decisão 32) esperam o mesmo reenvio: qualquer envio novo
+    // espera os 60 s (pendencias.md). Até zerar, a contagem no lugar da seta e a
+    // linha desabilitada de verdade (a 04); zerou, a seta e a linha acesa (a 11).
+    // Com o teto da hora atingido, a contagem para em 0:00 e as saídas não
+    // liberam — não há texto nem desenho pro teto (G25)
+    const espera = liberada ? null : minSeg(s.reenvio)
     return (
       <div className="t01-sobre">
         <Veu de="folha" visivel={folha.visivel}>
           <Folha titulo={TX.naoRecebi} rotuloFechar={TX.fechar} aoFechar={fecharFolha} aberta={folha.visivel}>
             <CartaoDeOpcoes>
-              {/* reenvia pro mesmo canal quando o reenvio libera (T01·3) */}
-              <LinhaDeOpcao icone="reenviar" titulo={TX.conferirReenviar} detalhe={s.reenvio ? TX.contatoEReenvio(contato, s.reenvio) : contato}
-                desabilitado={s.reenvio > 0 || !restam} aoTocar={() => reenviar()} />
-              {/* trocar pro e-mail não espera o reenvio (T01·3); se o código já foi
-                  pro e-mail, é o mesmo reenvio, e espera os 60 s (HU-T01-7) */}
-              <LinhaDeOpcao icone="email" titulo={TX.mandarEmail} detalhe={EMAIL}
-                desabilitado={!restam || (s.canal === 'email' && s.reenvio > 0)} aoTocar={() => reenviar('email')} />
-              {/* do gestor não há dado nem referência: só fecha a folha (T01·3, G25) */}
-              <LinhaDeOpcao icone="gestor" titulo={TX.pedirGestor} detalhe={TX.gestorDetalhe} aoTocar={fecharFolha} />
+              <LinhaDeOpcao icone="reenviar" titulo={TX.conferirReenviar} detalhe={contatoDo(s.canal)} espera={espera} aoTocar={() => reenviar()} />
+              <LinhaDeOpcao icone="email" titulo={TX.mandarEmail} detalhe={EMAIL} espera={espera} aoTocar={() => reenviar('email')} />
             </CartaoDeOpcoes>
           </Folha>
         </Veu>

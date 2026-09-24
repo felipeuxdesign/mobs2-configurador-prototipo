@@ -8,3 +8,11 @@
 /* sem poço (T04/08, Lei 7 · exceção): só o texto, com 12 em volta */
 .ds-aviso-sem-poco { padding: var(--e-12); }
 .ds-aviso-sem-poco .ds-aviso-frase { line-height: var(--entrelinha-texto); }
+/* C11 · T11/02 · o veredito que confere: sem poço, 12 · 14, o rótulo de topo e o traço em lima */
+.ds-aviso.ds-aviso-veredito { padding: var(--e-12) var(--e-14); border-bottom: var(--traco-destaque) solid var(--lima); }
+.ds-aviso-veredito .ds-aviso-titulo { font-size: var(--t-rotulo-topo); letter-spacing: var(--ls-rotulo-topo); color: var(--lima); }
+/* C11 · T16/05 · o bloqueio: sem poço, 14 em volta, o rótulo de topo e a frase de duas orações (Lei 7 · exceção) */
+.ds-aviso.ds-aviso-bloqueio { padding: var(--e-14); }
+.ds-aviso-bloqueio .ds-aviso-texto { gap: var(--e-6); }
+.ds-aviso-bloqueio .ds-aviso-titulo { font-size: var(--t-rotulo-topo); letter-spacing: var(--ls-rotulo-topo); }
+.ds-aviso-bloqueio .ds-aviso-frase { color: var(--tinta-secundaria); line-height: var(--entrelinha-frase-caixa); }

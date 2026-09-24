@@ -31,6 +31,47 @@ Achar o módulo, conectar e conferir, antes de qualquer gravação, se ele pode 
 
 Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe.
 
+- barra do sistema
+- barra do sistema sem sessão
+- faixa · sem ação
+- duas ações
+- uma ação
+- processo correndo
+- com legenda
+- aprovada
+- reprovada, com causa
+- não se aplica
+- parou aqui
+- ainda não
+- pré-checagem
+- pré-checagem com sessão
+- seção aberta do checklist
+- seção recolhida
+- falha
+- aviso
+- processo parado
+- nota tracejada
+- linha do histórico
+- a lista de garagens
+- com contador neutro
+- com contador de falha
+- checkbox
+- checkbox marcado
+- justificativa
+- linha de opção
+- linha de módulo
+- linha de ônibus
+- bloco escolhido
+- escolhido com trava
+- tira de leituras
+- lista com contagem
+- linha da fila
+- linha da re-checagem
+
+## No protótipo · as peças que o código usa
+
+Anotação de construção, medida no código e nas referências. A lista de cima é a do design; esta é a que o protótipo usa, e a diferença entre as duas vai pro arquiteto.
+
 - primário · normal
 - primário · pressionado
 - primário · desabilitado

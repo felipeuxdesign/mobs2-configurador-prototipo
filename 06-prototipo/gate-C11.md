@@ -1,6 +1,6 @@
 # Gate C11 · Encerrar e consultar — T16, T15, T11 e T12
 
-**Data:** 2026-09-24 · **Estado:** execução liberada pelo diretor, com os padrões do C0. Roda junto com o C10.
+**Data:** 2026-09-24 · **Estado:** construído em 2026-09-24 — os 19 quadros comparados e explicados, `checar` e `build` aprovando; o caminho do herói de ponta a ponta e o voltar do Android nas 16 telas ficam no fechamento. Roda junto com o C10.
 
 ## O censo · o que existe no começo do ciclo
 

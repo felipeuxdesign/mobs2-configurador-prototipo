@@ -1,6 +1,6 @@
 {
   "telas": 16,
-  "referencias": 110,
+  "referencias": 113,
   "itens": [
     {
       "id": "T01/00-tela",
@@ -141,6 +141,42 @@
       "png": "02-telas/T01-login/referencias/png/10-momento-senha-visivel.png"
     },
     {
+      "id": "T01/11-momento-nao-recebi-reenvio-liberado",
+      "tela": "T01",
+      "pasta": "T01-login",
+      "tipo": "momento",
+      "nome": "11-momento-nao-recebi-reenvio-liberado",
+      "titulo": "T01 recuperar · nao recebi · reenvio liberado",
+      "como": "os 60 s do reenvio zeram",
+      "caso": "recuperacao.limites.reenvioSeg",
+      "html": "02-telas/T01-login/referencias/html/11-momento-nao-recebi-reenvio-liberado.html",
+      "png": "02-telas/T01-login/referencias/png/11-momento-nao-recebi-reenvio-liberado.png"
+    },
+    {
+      "id": "T01/12-momento-codigo-reenviado",
+      "tela": "T01",
+      "pasta": "T01-login",
+      "tipo": "momento",
+      "nome": "12-momento-codigo-reenviado",
+      "titulo": "T01 recuperar · codigo reenviado",
+      "como": "tocar em *Conferir e reenviar*",
+      "caso": "recuperacao.limites",
+      "html": "02-telas/T01-login/referencias/html/12-momento-codigo-reenviado.html",
+      "png": "02-telas/T01-login/referencias/png/12-momento-codigo-reenviado.png"
+    },
+    {
+      "id": "T01/13-momento-codigo-no-e-mail",
+      "tela": "T01",
+      "pasta": "T01-login",
+      "tipo": "momento",
+      "nome": "13-momento-codigo-no-e-mail",
+      "titulo": "T01 recuperar · codigo no e-mail",
+      "como": "tocar em *Mandar para o e-mail*",
+      "caso": "credenciais.contato",
+      "html": "02-telas/T01-login/referencias/html/13-momento-codigo-no-e-mail.html",
+      "png": "02-telas/T01-login/referencias/png/13-momento-codigo-no-e-mail.png"
+    },
+    {
       "id": "T02/00-tela",
       "tela": "T02",
       "pasta": "T02-selecionar-contexto",
@@ -171,8 +207,8 @@
       "tipo": "estado",
       "nome": "02-estado-lista-longa-com-busca",
       "titulo": "T02 · lista longa com busca",
-      "como": "a empresa tem garagens demais pra uma tela",
-      "caso": "",
+      "como": "a empresa tem mais de 6 garagens — a busca aparece, e a lista rola por baixo do rodapé",
+      "caso": "lista-longa-garagens",
       "html": "02-telas/T02-selecionar-contexto/referencias/html/02-estado-lista-longa-com-busca.html",
       "png": "02-telas/T02-selecionar-contexto/referencias/png/02-estado-lista-longa-com-busca.png",
       "rotulo": "Lista longa, com busca",

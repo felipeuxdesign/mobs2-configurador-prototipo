@@ -21,7 +21,7 @@ Cada lei tem o porquê. Uma lei sem motivo vira gosto, e gosto se discute; lei c
 | 11 ◆ | **Tinta mínima de texto: `--tinta-apagada`**, com contraste AA medido no fundo real. O traço de vazio (—) não é texto e pode usar `--marca-limite` | abaixo disso, some no sol |
 | 12 | **Prova só quando diz algo novo** | a frase que repete o que a tela já mostra é ruído |
 | 13 | **Valor vem de token.** Nenhum número solto | o número solto é o primeiro a divergir |
-| 14 ◆ | **Ícone vem do Lucide**, com o traço dos tokens por classe: glifo de estado 2,2 em todo tamanho · ferramenta e ícone de ação 1,8 · fechar e chevron 2,2 · check abaixo de 14px 2,6 | ícone de sistema tem forma canônica — o wi-fi tem o ponto |
+| 14 ◆ | **Ícone vem do Lucide**, com o traço dos tokens por classe: glifo de estado 2,2 em todo tamanho · ferramenta e ícone de ação 1,8 · fechar e chevron 2,2 · check abaixo de 14px 2,6 · **exceção: o olho da senha**, desenhado no app, com a amêndoa baixa — e o riscado é o mesmo olho, inteiro, com um risco que corta o contorno onde passa | ícone de sistema tem forma canônica — o wi-fi tem o ponto · o eye-off do Lucide tem outro desenho e parece um olho quebrado ao lado do nosso |
 | 15 | **A marca usa o `--lima`.** A logo foi alinhada ao `#AAEF00`, o lima de produto da Mobs2 — o mesmo do Vídeo Telemetria, ao lado do roxo institucional `#402070` | o arquivo antigo tinha `#B8F23D`: quase igual ao sistema, e quase igual parece erro |
 
 ## Leis de medida
@@ -32,7 +32,7 @@ Cada lei tem o porquê. Uma lei sem motivo vira gosto, e gosto se discute; lei c
 | **Toda medida é por dentro** | `box-sizing: border-box` em tudo | o número escrito é o tamanho que aparece |
 | **Nada visível a menos de 32px do pé** | rodapé que termina em link fecha com 24; em botão, com 32 | a barra de gestos do Android, e o polegar |
 | **Toque de 48** ◆ | todo tocável tem 48 de toque, e o primário 56. O desenho pode ser menor (o olho, o X, o link de 44): a área de toque cresce por fora, sem mudar o desenho | luva, sol e o polegar |
-| **Nada encosta** ◆ | todo tocável — botão, checkbox, rádio, campo — a 8px de qualquer vizinho · poço a 6px da divisória · texto a 6px da borda · caixa a 6px da caixa vizinha | peça encostada lê como uma peça só |
+| **Nada encosta** ◆ | todo tocável — botão, checkbox, rádio, campo — a 8px de qualquer vizinho · poço a 6px da divisória · texto a 6px da borda · caixa a 6px da caixa vizinha · **área de toque a 8px de qualquer outra**: quando o desenho não deixa esse espaço, a área cresce só pro lado livre — o link do rodapé, pra baixo; o avatar da conta, pra cima — e o que se vê não muda | peça encostada lê como uma peça só, e toque encostado cai no vizinho |
 | **Poço na linha** ◆ | linha de 38 leva poço de 24 · 44 leva 30 · 50 leva 32 — sempre no centro. Exceções declaradas: a linha de conferência (T11) leva 26 em linha de 50, a linha da fila (T15) leva 30 | o poço é da linha, não da divisória |
 | **A barra do sistema sangra no primeiro andar** | a cor dela é a do que está logo embaixo; sob o véu, escurece junto | a tela começa na borda, não embaixo de uma faixa |
 | **Folga até o rodapé** | 16px no mínimo, em toda tela | o conteúdo não pode encostar nas ações |

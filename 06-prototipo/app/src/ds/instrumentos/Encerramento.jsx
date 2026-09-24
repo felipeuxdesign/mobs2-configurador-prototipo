@@ -10,7 +10,11 @@
 import { Trilho } from './Trilho.jsx'
 import './Encerramento.css'
 
-const TOM = { ok: 'feito', agora: 'corre', energia: 'corre', xis: 'falha' }
+// C11 · T16/06 (G11): +estado 'pausa' — a cadeia da sessão interrompida, no
+// desenho do encerramento: o bloco em que ela parou leva a pausa no poço, o
+// nome e o 'parou aqui' em --tinta, como o que corre, e o trilho de baixo fica
+// na divisória (o que vem depois não passou).
+const TOM = { ok: 'feito', agora: 'corre', energia: 'corre', xis: 'falha', pausa: 'corre' }
 
 export function Encerramento({ passos, justo = false }) {
   return (

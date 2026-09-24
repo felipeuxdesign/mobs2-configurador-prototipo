@@ -3,7 +3,9 @@
 // e, embaixo, o que vem depois. O segmento do passo atual é branco e mais
 // alto; o feito é lima apagado (--lima-feito); o pendente, a borda.
 // `segmentos`: um por passo, 'atual' · 'feito' · 'pendente' — e 'atual-feito'
-// (C9 · T10/01, G11): o passo atual já feito, alto como o atual e lima apagado.
+// (C9 · T10/01, G11): o passo atual já feito, alto como o atual e lima apagado —
+// e 'atual-falha' (C10 · T13/09, G11): o passo atual reprovado, alto como o
+// atual e em vermelho (a falha mora no elemento que falhou, Lei 2).
 import './Segmentado.css'
 
 // `folga`: o vão entre o cabeçalho, os segmentos e a legenda — 6 (a folha 5)

@@ -5,3 +5,7 @@
   line-height: var(--entrelinha-cronometro);
 }
 .ds-prazo-detalhe { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-secundaria); }
+/* C10 · T14/02 (G11): o prazo estourado — o número em vermelho, e as frases do
+ * que isso quer dizer, uma por linha, na entrelinha da legenda de 12 */
+.ds-prazo-falha .ds-prazo-tempo { color: var(--vermelho); }
+.ds-prazo-frases { display: flex; flex-direction: column; line-height: var(--entrelinha-legenda); }

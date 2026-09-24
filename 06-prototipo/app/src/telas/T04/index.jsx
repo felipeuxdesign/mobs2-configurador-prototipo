@@ -114,16 +114,28 @@ export default function T04({ momento, estado: est }) {
   // o ENCERRAR da faixa e o Encerrar a sessão das folhas do módulo e do ativo: o mesmo destino
   const encerrar = () => ir('T16', { momento: ENCERRAR_SEM_HOMOLOGAR })
 
+  // C11 · G23: os primários dos diálogos de sair e de trocar encerram a sessão
+  // pelos 4 passos da sessão abortada da T16 (03), sem confirmação, e seguem
+  // pro destino depois deles: o destino fica gravado no estado único
+  // (etapas.encerramento.destino), e a T16 o aplica ao fechar o 4º passo.
+  const encerrarE = (destino) => {
+    despachar({ tipo: 'mesclar', parcial: { etapas: { ...mundo.etapas, encerramento: { destino } } } })
+    ir('T16', { momento: ENCERRAR_SEM_HOMOLOGAR })
+  }
+
   // Sair da conta (T04·5 a): sem sessão e sem fila, sai direto; senão, o diálogo.
-  // Provisório até o C11: com a sessão aberta, o primário não passa pelo
-  // encerramento sem homologar da T16 — encerra e vai pro login.
+  // Com a sessão aberta, o primário passa pelo encerramento sem homologar da
+  // T16 e vai pro login, com a fila preservada (G23).
   const sairDeVez = () => {
     despachar({ tipo: 'mesclar', parcial: { sessao: null, contexto: vazio.contexto, etapas: vazio.etapas } })
     ir('T01')
   }
   const pedirSaida = () => (sessao || itensNaFila > 0 ? abrir('sair') : sairDeVez())
+  const sairEncerrando = () => (sessao ? encerrarE({ tela: 'T01', contexto: vazio.contexto }) : sairDeVez())
   // Trocar de garagem (T04·4 a): com a sessão aberta, o diálogo; sem ela, direto.
-  // Provisório até o C11: o primário segue direto pra T03 da garagem nova.
+  // No diálogo, o primário passa pelo encerramento sem homologar da T16 e segue
+  // pra T03 da garagem nova (G23).
+  const trocarEncerrando = (id) => encerrarE({ tela: 'T03', contexto: { uoId: id, pacote: null } })
   const trocarDeVez = (id) => {
     despachar({ tipo: 'mesclar', parcial: { sessao: null, etapas: vazio.etapas, contexto: { uoId: id, pacote: null } } })
     ir('T03')
@@ -190,7 +202,7 @@ export default function T04({ momento, estado: est }) {
   } else if (sobre === 'sair') {
     porCima = (
       <Veu de="dialogo">
-        <Dialogo titulo="Sair da conta" primario="Encerrar a sessão e sair" aoPrimario={sairDeVez}
+        <Dialogo titulo="Sair da conta" primario="Encerrar a sessão e sair" aoPrimario={sairEncerrando}
           saida="Cancelar" aoSair={() => abrir('conta')} saidaDe44 margem={20}>
           {itensNaFila > 0 && <Frase><Destaque>{itensNaFila}</Destaque> itens continuam na fila e sobem no próximo login.</Frase>}
           {sessao && <Frase>A sessão de configuração do <Destaque>{sessao.moduloSerial}</Destaque> é encerrada antes.</Frase>}
@@ -223,7 +235,7 @@ export default function T04({ momento, estado: est }) {
     const alvo = trocarPara ?? garagens().find((g) => g.id !== uoId && !g.vencida)?.id
     porCima = (
       <Veu de="dialogo">
-        <Dialogo titulo="Trocar de garagem" primario="Encerrar a sessão e trocar" aoPrimario={() => trocarDeVez(alvo)}
+        <Dialogo titulo="Trocar de garagem" primario="Encerrar a sessão e trocar" aoPrimario={() => trocarEncerrando(alvo)}
           saida="Cancelar" aoSair={() => setTrocarPara(null)} margem={20}>
           <Frase>A sessão de configuração do <Destaque>{sessao?.moduloSerial}</Destaque> é encerrada antes da troca.</Frase>
           <Frase>O que já foi gravado fica no módulo.</Frase>

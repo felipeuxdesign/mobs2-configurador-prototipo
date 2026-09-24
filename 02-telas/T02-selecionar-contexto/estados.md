@@ -6,6 +6,6 @@
 |---|---|---|---|
 | `00-tela` | tela | a entrada da tela | Viação Atlântico Sul · três garagens · Várzea com pacote de ontem |
 | `01-momento-escolhida` | momento | tocar numa garagem | `ucs · uos` |
-| `02-estado-lista-longa-com-busca` | estado | a empresa tem garagens demais pra uma tela | derivado do fluxo |
+| `02-estado-lista-longa-com-busca` | estado | a empresa tem mais de 6 garagens — a busca aparece, e a lista rola por baixo do rodapé | `lista-longa-garagens` |
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.

@@ -1,0 +1,5 @@
+/* T12 · o grupo por idade: o rótulo de 10/700 em caixa alta, a 4 do cartão
+ * (00-tela.html:39). O último guarda 16 até o fim do miolo (00-tela.html:85). */
+.t12-grupo { flex-shrink: 0; display: flex; flex-direction: column; gap: var(--e-4); }
+.t12-grupo-ultimo { margin-bottom: var(--respiro); }
+.t12-grupo-rotulo { font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--tinta-apagada); }

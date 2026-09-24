@@ -34,7 +34,8 @@ Mudam **no lugar**. O ritmo do protótipo é de apresentação: rápido o bastan
 | conferência da T11 · cada linha | 400ms |
 | encerramento · cada passo | 600ms |
 | autoteste · cada assertiva | 400ms |
-| ciclo dinâmico · cada passo do veículo | 3s |
+| ciclo dinâmico · cada passo do veículo | 3s · a semente traz 2 feitos, e o passo k acende a k × 3s do disparo: +9, +12 e +15s (T14·1) |
+| ciclo dinâmico · a fila do módulo drenando, antes do disparo | 3s no total · depois, o `Disparar evento de teste` acende (T14-D11) |
 | prazo do evento | 1s real vale 4s de prazo |
 | sincronização do pacote | 4s no total |
 | cronômetro do código (T01) | 1s real vale 1s · o prazo e o reenvio abrem cheios, como o mock diz (T01·1) |

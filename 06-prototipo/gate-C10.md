@@ -1,6 +1,6 @@
 # Gate C10 · O ciclo e o checklist — T14 e T13
 
-**Data:** 2026-09-24 · **Estado:** execução liberada pelo diretor, com os padrões do C0. Roda junto com o C11.
+**Data:** 2026-09-24 · **Estado:** fechado em 2026-09-24 — os 19 quadros comparados e explicados, os textos conferidos com os desvios nomeados no CHANGELOG, `checar` e `build` aprovando. Roda junto com o C11.
 
 ## O censo · o que existe no começo do ciclo
 

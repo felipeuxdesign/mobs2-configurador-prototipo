@@ -1,0 +1,25 @@
+/* T16 · Sessão — só a montagem da tela; o desenho de cada bloco é da peça.
+ * A barra do sistema na cor da faixa, a faixa (sem ação enquanto encerra, sem
+ * sessão depois), o miolo e o rodapé. */
+.t16 { height: 100%; display: flex; flex-direction: column; background: var(--fundo-pagina); color: var(--tinta); }
+
+/* o miolo: entre a faixa e o rodapé, rola quando passa de 800 (G16). A folga de
+ * 16 até o rodapé é o recheio dele. 14 entre os blocos enquanto a cadeia corre
+ * (00, 01, 03) e na sessão interrompida (06); 12 na sessão encerrada (02, 04, 05),
+ * como as referências desenham (T16-V6, G11). */
+.t16 .tela-miolo {
+  flex-grow: 1; min-height: 0; overflow-y: auto;
+  display: flex; flex-direction: column; gap: var(--e-14);
+  padding: var(--e-14) var(--e-16) var(--respiro) var(--e-16);
+}
+.t16 .tela-miolo > * { flex-shrink: 0; }
+.t16 .t16-miolo-encerrada { gap: var(--e-12); }
+
+/* o que entra quando chega a última assertiva (T16·4): a prova, o bloqueio e o
+ * Voltar ao menu já têm o lugar deles e esperam invisíveis e mudos — nada se
+ * move quando entram (Lei 3). O esmaecer da entrada é do C12. */
+.t16-vez { flex-shrink: 0; }
+.t16-por-vir { opacity: 0; }
+
+/* a nota solta embaixo do cartão das assertivas (T16/02): a frase de 12, apagada */
+.t16-nota { font-size: var(--t-legenda); font-weight: 500; line-height: var(--entrelinha-legenda); color: var(--tinta-apagada); }

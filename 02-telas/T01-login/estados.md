@@ -15,5 +15,8 @@
 | `08-momento-recuperar-nova-senha` | momento | o código certo | derivado do fluxo |
 | `09-momento-senha-alterada` | momento | a nova senha cumpre os seis requisitos | derivado do fluxo |
 | `10-momento-senha-visivel` | momento | tocar no olho — a senha aparece por extenso e o olho vira o riscado | `credenciais.senha` |
+| `11-momento-nao-recebi-reenvio-liberado` | momento | os 60 s do reenvio zeram | `recuperacao.limites.reenvioSeg` |
+| `12-momento-codigo-reenviado` | momento | tocar em *Conferir e reenviar* | `recuperacao.limites` |
+| `13-momento-codigo-no-e-mail` | momento | tocar em *Mandar para o e-mail* | `credenciais.contato` |
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.

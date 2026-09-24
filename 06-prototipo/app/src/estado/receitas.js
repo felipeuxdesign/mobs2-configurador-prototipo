@@ -6,7 +6,7 @@ export const RECEITAS = {
   'T01/01-estado-usuario-ou-senha-incorretos': { dados: ['credenciais'] },
   'T01/06-estado-codigo-expirado': { dados: ['credenciais.recuperacao.limites.validadeMin'] },
   'T01/07-estado-tentativas-esgotadas': { dados: ['credenciais.recuperacao.limites.tentativas'] },
-  'T02/02-estado-lista-longa-com-busca': { dados: ['uos'], obs: 'condição de apresentação: a busca aparece' },
+  'T02/02-estado-lista-longa-com-busca': { casos: ['lista-longa-garagens'], obs: 'a mesma empresa com 9 garagens em 3 regiões: mais de 6, a busca aparece (entrega do design de 24/09)' },
   'T03/01-estado-falha-de-rede': { casos: ['sync-falha-rede'] },
   'T03/03-estado-pacote-de-4-dias': { dados: ['pacotes'] },
   'T03/04-estado-pacote-vencido': { dados: ['pacotes'] },

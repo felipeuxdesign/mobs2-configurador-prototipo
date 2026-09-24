@@ -5,3 +5,10 @@
 .ds-cabecalho-contador-falha { font-weight: 700; color: var(--vermelho); }
 .ds-cabecalho-contador-falha .ds-cabecalho-unidade { font-weight: 600; }
 .ds-cabecalho-contador-veredito { color: var(--lima); }
+/* C11 · T12 (G11) · o contador forte: o veredito de uma coisa só, em 700 (o 'aprovada' em lima do detalhe, T12/01) */
+.ds-cabecalho-contador-forte { font-weight: 700; }
+/* C11 · T16 (G11) · o subtítulo de 12 embaixo do título: 4 na sessão interrompida (06), 6 no sem homologar (03) */
+.ds-cabecalho-com-subtitulo { display: flex; flex-direction: column; flex-shrink: 0; }
+.ds-cabecalho-folga-4 { gap: var(--e-4); }
+.ds-cabecalho-folga-6 { gap: var(--e-6); }
+.ds-cabecalho-subtitulo { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-apagada); }

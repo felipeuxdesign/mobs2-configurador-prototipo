@@ -34,8 +34,9 @@ app/
 4. **Nada de hover.** O que responde é o pressionado — no clique, como no toque. Dentro do celular, o cursor fica a seta normal; a mãozinha só nas peças do palco
 5. **Nada de foco de teclado desenhado no app.** O palco pode ter o dele
 6. **Nome em todo tocável**, pro leitor de tela
-7. **O PNG é gabarito, nunca peça.** Nenhuma imagem de tela entra no protótipo — o celular sempre roda código
-8. **Mesma entrada, mesma saída.** Relógio congelado em 14:30; os tempos dos processos são os de `03-design-system/movimento.md`
+7. **Área de toque a 8px de qualquer outra.** Onde o desenho deixa menos, ela cresce só pro lado livre — o link do rodapé pra baixo, o avatar pra cima —, e o que se vê fica igual à referência
+8. **O PNG é gabarito, nunca peça.** Nenhuma imagem de tela entra no protótipo — o celular sempre roda código
+9. **Mesma entrada, mesma saída.** Relógio congelado em 14:30; os tempos dos processos são os de `03-design-system/movimento.md`
 
 ## Como você trabalha
 

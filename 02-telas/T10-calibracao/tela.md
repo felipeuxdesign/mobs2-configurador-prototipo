@@ -22,6 +22,26 @@ Corrigido no C9 pelas referências e pelas decisões do C0 (G1): o toque do cart
 
 ## Peças do design system que esta tela usa
 
+Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe.
+
+- barra do sistema
+- faixa · sessão aberta
+- faixa · sem ação
+- duas ações
+- processo correndo
+- com legenda
+- segmentado
+- foto · aguarda
+- foto · tirada
+- valor em poço
+- régua da diferença
+- o valor alvo
+- o que não se aplica
+
+## No protótipo · as peças que o código usa
+
+Anotação de construção, medida no código e nas referências. A lista de cima é a do design; esta é a que o protótipo usa, e a diferença entre as duas vai pro arquiteto.
+
 Medido nas 5 referências e construído no C9 (T10-V8, G1): as peças que a tela usa de fato. Construa com o componente — nunca redesenhe.
 
 - primário · normal

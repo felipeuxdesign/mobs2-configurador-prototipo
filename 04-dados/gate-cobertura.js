@@ -432,6 +432,236 @@ chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência n
     ativoPool && ativoPool.moduloSerial);
 })();
 
+/* ── P·C11 · T12 · últimas instalações: os grupos por idade (AC-16) e a garagem vazia (AC-21) ── */
+(function () {
+  var G = M.criteriosRegra.gruposIdade;
+  chk("P·C11 · T12 o corte dos grupos por idade: hoje 0, ontem 1 e esteMesAte de 17 a 26 (AC-16, o número é do diretor)",
+    !!G && G.hoje === 0 && G.ontem === 1 && G.esteMesAte >= 17 && G.esteMesAte < 27, G && "esteMesAte " + G.esteMesAte);
+  var ativo = function (id) { return M.ativos.filter(function (a) { return a.id === id; })[0]; };
+  var grupo = function (d) { return d <= G.hoje ? "HOJE" : d <= G.ontem ? "ONTEM" : d <= G.esteMesAte ? "ESTE MÊS" : "MAIS DE UM MÊS"; };
+  var varzea = M.instalacoes.filter(function (i) { return ativo(i.ativoId).uoId === M.contextoAtivo.uoId; })
+    .sort(function (a, b) { return a.diasAtras - b.diasAtras; });
+  var desenho = varzea.map(function (i) { return grupo(i.diasAtras) + " " + ativo(i.ativoId).placa; }).join(" · ");
+  chk("P·C11 · T12 a 00: as 5 de Várzea nos quatro grupos da referência (RKT-8H42 hoje · PCX-9A17 ontem · RVM-1E54 e QJF-2C61 este mês · KNB-5H39 mais de um mês)",
+    desenho === "HOJE RKT-8H42 · ONTEM PCX-9A17 · ESTE MÊS RVM-1E54 · ESTE MÊS QJF-2C61 · MAIS DE UM MÊS KNB-5H39", desenho);
+  var v = M.casos["instalacoes-vazia"];
+  chk("P·C11 · T12 a 02 (AC-21): a consulta da garagem volta sem nenhum id, e sem sessão", !!v && Array.isArray(v.instalacaoIds) && v.instalacaoIds.length === 0 && v.sessao === null);
+  var ids = M.instalacoes.map(function (i) { return i.id; }).join(",");
+  chk("P·C11 · T12 as 13 instalações ficam intocadas (i-01 a i-13, na ordem; Várzea 5, Ibura 5, Caruaru 3)",
+    ids === "i-01,i-02,i-03,i-04,i-05,i-06,i-07,i-08,i-09,i-10,i-11,i-12,i-13" && M.uos.map(function (u) {
+      return M.instalacoes.filter(function (i) { return ativo(i.ativoId).uoId === u.id; }).length; }).join(" ") === "5 5 3");
+  var sr = M.casos["instalacoes-sem-rede"];
+  chk("P·C11 · T12 a 03: a consulta anterior é de hoje, a uma hora do dia antes das 14:30 (11:47)",
+    sr.diasAtras === 0 && /^\d\d:\d\d$/.test(sr.consultadoAs) && sr.consultadoAs < M.HORA_NOMINAL, sr.consultadoAs);
+  var h = M.instalacoes.filter(function (i) { return !!i.etapas; });
+  chk("P·C11 · T12 o 01: só a i-01 tem as etapas do detalhe (T12·2: as outras abrem só com o que o resumo sustenta)",
+    h.length === 1 && h[0].id === varzea[0].id && M.instalacoes.every(function (i) { return !!i.etapas || !!i.resumo; }), h.map(function (i) { return i.id; }).join(","));
+})();
+
+/* ── P·C11 · T15 · fila de saída: os rótulos curtos (AC-14), a janela da re-checagem (AC-15) e os três recortes (AC-22, G21) ── */
+(function () {
+  var F = M.filaSaida, T = M.tiposFila || [];
+  var curto = function (tipo) { var t = T.filter(function (x) { return x.tipo === tipo; })[0]; return t && t.rotuloCurto; };
+  var fontesFila = M.checklist.itens.filter(function (i) { return /^fila:/.test(i.fonte || ""); }).map(function (i) { return i.fonte.slice(5); });
+  var semCurto = F.map(function (f) { return f.tipo; }).concat(fontesFila).filter(function (t) { return !curto(t); });
+  chk("P·C11 · T15 todo tipo da fila e toda fonte 'fila:<tipo>' do checklist têm rótulo curto (AC-14)", T.length > 0 && !semCurto.length, semCurto.join(", ") || T.length + " tipos");
+  chk("P·C11 · T15 os rótulos curtos que as referências mostram: Evidências, Calibração, Checklist",
+    curto("Evidências da instalação") === "Evidências" && curto("Foto de calibração") === "Calibração" && curto("Checklist de homologação") === "Checklist");
+  chk("P·C11 · T15 a re-checagem da Seção F tem janela em horas, maior que 0 (AC-15: 'confere em 24 h')",
+    M.criteriosRegra.recheckHoras > 0, M.criteriosRegra.recheckHoras + " h");
+  var item = function (id) { return F.filter(function (f) { return f.id === id; })[0]; };
+  var uo = function (f) { return M.ativos.filter(function (a) { return a.id === f.ativoId; })[0].uoId; };
+  var RECORTES = ["fila-sem-erro", "fila-dois-erros", "fila-vazia"];
+  chk("P·C11 · T15 os três recortes existem e todo id deles está em filaSaida (AC-22)", RECORTES.every(function (k) {
+    var c = M.casos[k]; return !!c && Array.isArray(c.itens) && c.itens.every(function (id) { return !!item(id); }); }));
+  var se = M.casos["fila-sem-erro"].itens.map(item);
+  var varzea = F.filter(function (f) { return uo(f) === "uo-01"; }).map(function (f) { return f.id; }).sort().join(",");
+  chk("P·C11 · T15 o 01 (fila-sem-erro) é a fila inteira da Várzea: 5 itens, um enviando com progresso e tamanho, nenhum erro",
+    se.map(function (f) { return f.id; }).sort().join(",") === varzea && se.length === 5 &&
+    se.filter(function (f) { return f.estado === "enviando" && f.progresso > 0 && f.tamanhoMb > 0; }).length === 1 &&
+    !se.some(function (f) { return /^erro/.test(f.estado); }), varzea);
+  var de = M.casos["fila-dois-erros"].itens.map(item);
+  chk("P·C11 · T15 o 02 (fila-dois-erros): 4 itens, uma recusa manual com motivo e um erro de rede automático com tentativas e a próxima",
+    de.length === 4 && de.filter(function (f) { return f.estado === "erro-recusa" && f.reenvio === "manual" && !!f.motivo; }).length === 1 &&
+    de.filter(function (f) { return f.estado === "erro-rede" && f.reenvio === "automático" && f.tentativas > 0 && /^\d\d:\d\d$/.test(f.proximaTentativaAs); }).length === 1);
+  var va = M.casos["fila-vazia"];
+  chk("P·C11 · T15 o 03 e o 04 (fila-vazia): nada no recorte, o último envio em HH:MM antes das 14:30, sem sessão",
+    va.itens.length === 0 && /^\d\d:\d\d$/.test(va.ultimoEnvioAs) && va.ultimoEnvioAs < M.HORA_NOMINAL && va.sessao === null, va.ultimoEnvioAs);
+  var ibura = F.filter(function (f) { return uo(f) === "uo-02"; }).map(function (f) { return f.id; }).sort().join(",");
+  chk("P·C11 · T15 a semente da 00 (G21: a seleção f-10, f-02, f-08) é a fila inteira da Ibura, com uma recusa",
+    ibura === "f-02,f-08,f-10" && item("f-10").estado === "erro-recusa", ibura);
+  chk("P·C11 · T15 a fila fica intocada: 10 itens, f-01 a f-10, na ordem",
+    F.length === 10 && F.every(function (f, i) { return f.id === "f-" + (i < 9 ? "0" : "") + (i + 1); }));
+})();
+
+/* ── P·C10 · T14 · o ciclo dinâmico: os campos do evento (AC-09), o passo de cada sinal (AC-10) e os três casos que a T14 lê ── */
+(function () {
+  var C = M.ciclo, ev = C.evento;
+  var um = function (lista, id) { return lista.filter(function (x) { return x.id === id; })[0]; };
+  chk("P·C10 · T14 o 00 é o instante antes de o evento chegar: 120 − 24 = 96 s, o 1:36 (e 24 < 33 < 120)",
+    C.prazoEventoSeg - ev.recebidoAosSeg === 96 && ev.recebidoAosSeg < ev.conferidoAosSeg && ev.conferidoAosSeg < C.prazoEventoSeg);
+  chk("P·C10 · T14 o evento confere campos, e o '6 de 6' sai daqui (AC-09)", Number.isInteger(ev.campos) && ev.campos > 0, ev.campos + " campos");
+  var ma01 = um(M.modelosAtivo, "ma-01");
+  var passos = um(M.instalacoes, "i-01").etapas.cicloDinamico.passos;
+  var sinais = Object.keys(C.passoDoSinal || {});
+  chk("P·C10 · T14 o passo de cada sinal: as chaves são sinais dinâmicos do ma-01, e os valores, passos da i-01 (AC-10)",
+    sinais.length > 0 && sinais.every(function (k) { var s = um(ma01.sinaisCan, k); return !!s && s.fase === "dinamico" && passos.indexOf(C.passoDoSinal[k]) >= 0; }),
+    sinais.map(function (k) { return k + " → " + C.passoDoSinal[k]; }).join(" · "));
+  var cf = M.casos["can-fora-esperado"];
+  chk("P·C10 · T14 o 03: o sinal do caso can-fora-esperado reprova um passo do ciclo (velocidade → Movimento detectado)",
+    !!C.passoDoSinal[cf.sinal] && !!cf.lido, cf.sinal + " " + cf.lido + " → " + C.passoDoSinal[cf.sinal]);
+  var id = M.casos["identificador-divergente"], ex = id.exemplos.filter(function (e) { return e.cartaoId === id.cartaoId; })[0];
+  var cartao = um(M.identificadores.cartoes, id.cartaoId);
+  chk("P·C10 · T14 o 04: o cartão do caso foi lido diferente do que o cadastro espera, e o esperado é o do cartão (9412857 × 0009412857)",
+    !!ex && !!cartao && ex.esperado === cartao.codigoEsperado && ex.lido !== ex.esperado, ex && ex.lido + " × " + ex.esperado);
+  var ativo = function (i) { return um(M.ativos, i); };
+  var sr = M.casos["evento-sem-resposta"], a3 = ativo(id.ativoId);
+  chk("P·C10 · T14 a faixa dos três estados é o par do cadastro (a-04 × M2C-0335, a-02, a-03), e o identificador cai num ativo com leitor de cartão",
+    !!ativo(sr.ativoId) && ativo(sr.ativoId).moduloSerial === sr.moduloSerial && sr.tentativa === 1 && !!ativo(cf.ativoId) && !!ativo(cf.ativoId).moduloSerial &&
+    !!a3 && !!a3.moduloSerial && um(M.modelosAtivo, a3.modeloAtivoId).leitor.tipo === "cartao-serial");
+})();
+
+/* ── P·C11 · T11 · conferir configuração: o par que confere (AC-17) e o que a tela lê dos dois casos ── */
+(function () {
+  var Cd = M.cadeia, blocos = Cd.ordem.filter(function (b) { return !!Cd.versoes[b]; });
+  var ativo = function (id) { return M.ativos.filter(function (a) { return a.id === id; })[0]; };
+  var real = function (c) { var a = c && ativo(c.ativoId); return !!a && a.moduloSerial === c.moduloSerial && M.modulos.some(function (m) { return m.serial === c.moduloSerial; }); };
+  var cc = M.casos["conferencia-confere"], dd = M.casos["diff-divergente"], ic = M.casos["indice-nao-classificado"];
+  chk("P·C11 · T11 AC-17: o par que confere é real (a-01 × M2C-0417), sem valor declarado, e não é o par do diff-divergente",
+    real(cc) && cc.ativoId === "a-01" && Object.keys(cc).join(",") === "ativoId,moduloSerial" && !(cc.ativoId === dd.ativoId && cc.moduloSerial === dd.moduloSerial));
+  chk("P·C11 · T11 a 00 e a 01: o diff-divergente e o indice-nao-classificado são do mesmo par real (M2C-0438 · ONK-8Q90)",
+    real(dd) && real(ic) && dd.ativoId === ic.ativoId && dd.moduloSerial === ic.moduloSerial && ativo(dd.ativoId).placa === "ONK-8Q90");
+  chk("P·C11 · T11 as linhas são os 5 blocos versionados, na ordem canônica, e os 5 divergem na 00 ('5 de 5', 'os cinco')",
+    dd.divergencias.map(function (d) { return d.bloco; }).join(",") === blocos.join(",") && blocos.length === 5 && blocos.every(function (b) { return !!Cd.rotulos[b]; }),
+    blocos.map(function (b) { return Cd.rotulos[b]; }).join(" · "));
+  var a = ativo(cc.ativoId), mdl = M.modelosAtivo.filter(function (m) { return m.id === a.modeloAtivoId; })[0];
+  var pe = M.presetsEvento.filter(function (p) { return p.id === mdl.presetEventoId; })[0];
+  var regioes = M.cercas.regioes.filter(function (r) { return r.ativoId === a.id; }).length;
+  var perto = (M.situacao.porPerto || []).filter(function (p) { return p.serial === cc.moduloSerial; })[0];
+  chk("P·C11 · T11 o 02 pelo cadastro do herói: '4 regiões', 'intervalo 30 s' e o leitor sem fio da sessão, como a referência",
+    regioes === 4 && pe.intervaloRastreamentoSeg === 30 && !!perto && perto.meio === "sem-fio", regioes + " · " + pe.intervaloRastreamentoSeg + " s · " + (perto && perto.meio));
+  chk("P·C11 · T11 o 02, o custo declarado (G9): a tradução do herói é 'urbano v3', e a 'frota v2' da referência é a do a-16",
+    mdl.traducaoCan === "urbano v3" && dd.divergencias[0].noCadastro === "tradução " + M.modelosAtivo.filter(function (m) { return m.id === ativo(dd.ativoId).modeloAtivoId; })[0].traducaoCan);
+})();
+
+/* ── P·C10 · T13 · checklist: os títulos, a dica e a justificativa (AC-11, AC-12), a leitura nominal (AC-13) e o que a tela deriva ── */
+(function () {
+  var CK = M.checklist;
+  var um = function (lista, id) { return lista.filter(function (x) { return x.id === id; })[0]; };
+  var secao = function (id) { return um(CK.secoes, id); };
+  var item = function (id) { return um(CK.itens, id); };
+  chk("P·C10 · T13 AC-11: as 6 seções têm o título longo, e B e C dão o rótulo de topo do nível do item ('B · INSTALAÇÃO FÍSICA', 'C · SAÚDE DO HARDWARE')",
+    CK.secoes.length === 6 && CK.secoes.every(function (s) { return !!s.titulo && !!s.rotulo; }) &&
+    ("B · " + secao("B").titulo).toUpperCase() === "B · INSTALAÇÃO FÍSICA" && ("C · " + secao("C").titulo).toUpperCase() === "C · SAÚDE DO HARDWARE",
+    CK.secoes.map(function (s) { return s.id + " " + s.titulo; }).join(" · "));
+  var B = CK.itens.filter(function (i) { return i.secao === "B"; });
+  chk("P·C10 · T13 AC-11: o nível do item da T13/07 (título, 'Depois:' e dica) e o da T13/09 (título) saem dos itens",
+    item("b-modulo").pergunta === "Módulo fixado e posicionado" && B[B.indexOf(item("b-modulo")) + 1].pergunta === "Antena GPS posicionada e livre" &&
+    item("b-modulo").instrucao === "Enquadre o módulo e o ponto de fixação" && item("c-alimentacao").pergunta === "Tensão da bateria na faixa");
+  chk("P·C10 · T13 AC-11: só a dica do b-modulo tem texto aprovado — os outros quatro de B ficam sem dica (G25, T13-V6)",
+    B.filter(function (i) { return !!i.instrucao; }).map(function (i) { return i.id; }).join(",") === "b-modulo");
+  chk("P·C10 · T13 AC-12: a justificativa de exemplo não é vazia, e não é a ressalva de outra instalação",
+    typeof CK.exemploJustificativa === "string" && CK.exemploJustificativa.length > 0 &&
+    M.instalacoes.every(function (i) { return !i.ressalva || i.ressalva.justificativa !== CK.exemploJustificativa; }));
+  chk("P·C10 · T13 G8: o relatório leva um número inteiro de evidências (o '12' da T13/06 e da T13/11)", Number.isInteger(CK.evidencias) && CK.evidencias > 0, CK.evidencias);
+  var L = M.leituraNominalModulo;
+  chk("P·C10 · T13 AC-13: as entradas usadas cabem no total (4 de 4), e o modem lido fica dentro da faixa esperada (−71 em −100 a −60)",
+    !!L && L.entradasUsadas <= L.entradasTotal && L.entradasTotal > 0 && L.modemDbm >= L.modemFaixa.min && L.modemDbm <= L.modemFaixa.max,
+    L && (L.entradasUsadas + " de " + L.entradasTotal + " · " + L.modemDbm + " em " + L.modemFaixa.min + "…" + L.modemFaixa.max));
+  // T13·5 (a): a escala do cartão com barra — bateria 10–16, satélites 0–12, modem −110 a −50 — dá as posições da T13/03
+  var pos = function (x, a, b) { return Math.round(((x - a) / (b - a)) * 1000) / 10; };
+  var bat = um(um(M.modelosAtivo, "ma-01").sinaisCan, "bateria"), sat = um(um(M.modelosAtivo, "ma-01").sinaisCan, "satelites");
+  var nBat = Number(bat.lido.split(" ")[0].replace(",", "."));
+  chk("P·C10 · T13 T13·5: a alimentação do herói em 10–16 dá a faixa de 33,3% a 83,3% e o marcador em 63,3% (T13/03)",
+    pos(bat.faixa.min, 10, 16) === 33.3 && pos(bat.faixa.max, 10, 16) === 83.3 && pos(nBat, 10, 16) === 63.3);
+  chk("P·C10 · T13 T13·5: o modem em −110 a −50 dá a faixa de 16,7% a 83,3% e o marcador em 65% (T13/03); o GPS em 0–12 dá 75% (o 56,3% da referência é desvio)",
+    pos(L.modemFaixa.min, -110, -50) === 16.7 && pos(L.modemFaixa.max, -110, -50) === 83.3 && pos(L.modemDbm, -110, -50) === 65 && pos(Number(sat.lido), 0, 12) === 75);
+  var iso = M.casos["can-estatico-isolado"], lido = Number(iso.lidos.bateria.split(" ")[0].replace(",", "."));
+  chk("P·C10 · T13 o 09 pelo caso can-estatico-isolado (G21): a bateria do a-02 abaixo do mínimo, '1,1 V abaixo', o marcador a 15% de 10–16, e ela é o 1º item de C",
+    lido < bat.faixa.min && (bat.faixa.min - lido).toFixed(1) === "1.1" && pos(lido, 10, 16) === 15 &&
+    CK.itens.filter(function (i) { return i.secao === "C"; })[0].id === "c-alimentacao", iso.ativoId + " · " + iso.lidos.bateria);
+  var pf = M.casos["pronto-para-fechar"], a09 = um(M.ativos, pf.ativoId);
+  chk("P·C10 · T13 o 10 pelo caso pronto-para-fechar (G21): o par é o do cadastro (KNB-5H39 × M2C-0371), e o servidor não respondeu",
+    !!a09 && a09.moduloSerial === pf.moduloSerial && pf.recebimento === "sem resposta", a09 && a09.placa + " × " + pf.moduloSerial);
+  // G22: a Seção F só conta o que é desta sessão (criadoAs ≥ a abertura, 14:30) — o que o herói subiu às 09:14 e 09:15 é de antes
+  var desta = M.filaSaida.filter(function (f) { return f.ativoId === "a-01" && f.diasAtras === 0 && f.criadoAs >= M.HORA_NOMINAL; });
+  chk("P·C10 · T13 G22: a fila do herói não tem nada desta sessão (f-05 e f-06 são de antes das 14:30), e a Seção F nasce esperando",
+    desta.length === 0 && M.filaSaida.filter(function (f) { return f.ativoId === "a-01"; }).length === 2);
+  chk("P·C10 · T13 AC-14: as fontes 'fila:<tipo>' da Seção F são tipos da fila", CK.itens.filter(function (i) { return /^fila:/.test(i.fonte || ""); }).every(function (i) {
+    return (M.tiposFila || []).some(function (t) { return "fila:" + t.tipo === i.fonte; }); }));
+  // a 00 pela semente (G21, G9): o herói depois da calibração — o Painel herda a foto (b-painel-legivel) —, antes do ciclo e da fila.
+  // Cada seção recomputada do que a tela lê: A pelo cadastro do par, B pelo que herda, C pelas leituras, D pela cadeia e pelo painel, E e F vazias
+  var heroi = um(M.ativos, "a-01"), mod = M.modulos.filter(function (m) { return m.serial === heroi.moduloSerial; })[0], ma = um(M.modelosAtivo, heroi.modeloAtivoId);
+  var linha = M.matrizCapacidades.filter(function (r) { return r.modeloId === mod.modeloId && r.variante === mod.variante; })[0];
+  var da = function (s) { return CK.itens.filter(function (i) { return i.secao === s; }); };
+  var partida = M.calibracao.porModelo[ma.id].calibraveis.filter(function (g) { return M.calibracao.painel[heroi.id][g] != null; });
+  var conta = {
+    A: linha.firmwares.indexOf(mod.firmware) >= 0 && ma.chassiPelaCan ? da("A").length : 0,
+    B: da("B").filter(function (i) { return i.herda === "calibracao"; }).length * (partida.length ? 1 : 0),
+    C: [nBat >= bat.faixa.min && nBat <= bat.faixa.max, Number(sat.lido) >= sat.faixa.min, L.entradasUsadas <= L.entradasTotal,
+      L.modemDbm >= L.modemFaixa.min && L.modemDbm <= L.modemFaixa.max].filter(Boolean).length,
+    D: da("D").filter(function (i) {
+      var f = String(i.fonte).split(":");
+      if (f[0] === "bloco") return M.cadeia.ordem.indexOf(f[1]) >= 0;
+      if (f[0] === "cal") return M.calibracao.painel[heroi.id][f[1]] != null && M.calibracao.porModelo[ma.id].calibraveis.indexOf(f[1]) >= 0;
+      return i.fonte === "servidor" ? !!M.cadeia.leituraFinal.servidor : i.fonte === "versao";
+    }).length,
+    E: 0, F: desta.length
+  };
+  var feitos = Object.keys(conta).reduce(function (s, k) { return s + conta[k]; }, 0);
+  chk("P·C10 · T13 a 00: 19 de 31 pela semente (A 4 · B 1, o Painel herdado · C 4 · D 10 · E 0 · F 0) e 'Faltam 9' (B 4 + E 5)",
+    item(M.calibracao.itemChecklist.id).herda === "calibracao" && feitos === 19 && da("B").length - conta.B + da("E").length - conta.E === 9,
+    Object.keys(conta).map(function (k) { return k + " " + conta[k]; }).join(" · ") + " = " + feitos);
+})();
+
+/* ── P·C11 · T16 · sessão: o que o encerramento, o autoteste e os dois estados leem (nenhum campo novo, T16-A18) ── */
+(function () {
+  var um = function (lista, id) { return lista.filter(function (x) { return x.id === id; })[0]; };
+  var ativo = function (id) { return um(M.ativos, id); };
+  var modelo = function (serial) { var m = M.modulos.filter(function (x) { return x.serial === serial; })[0]; return m && um(M.modelos, m.modeloId); };
+  var E = M.autotesteEncerramento;
+  chk("P·C11 · T16 as 8 assertivas na ordem da 02 e da 05, com os três valores fixos (fechado · restaurado · na fila)",
+    E.map(function (a) { return a.rotulo; }).join(" · ") === "Configuração · Contadores · Identificadores · Faixa de contadores · Pontos de cerca · Canal de programação · Repouso do módulo · ID na plataforma" &&
+    E.filter(function (a) { return a.valor; }).map(function (a) { return a.valor; }).join(" · ") === "fechado · restaurado · na fila");
+  chk("P·C11 · T16 só a #8 (ID na plataforma) não bloqueia, e só a #4 (faixa) é condicional",
+    E.filter(function (a) { return a.bloqueia === false; }).map(function (a) { return a.id; }).join(",") === "plataforma" &&
+    E.filter(function (a) { return a.condicional; }).map(function (a) { return a.id; }).join(",") === "faixa");
+  var heroi = ativo("a-01");
+  var varzeaCorte = M.ativos.filter(function (a) { return a.uoId === M.contextoAtivo.uoId && a.moduloSerial && modelo(a.moduloSerial).reinicioPorComando === false; });
+  chk("P·C11 · T16 T16·1: o herói (VL06) reinicia por comando, e em Várzea só o KNB-5H39 × M2C-0371 (VL08) pede o corte — a 01",
+    modelo(heroi.moduloSerial).reinicioPorComando === true && varzeaCorte.length === 1 && varzeaCorte[0].placa === "KNB-5H39" && varzeaCorte[0].moduloSerial === "M2C-0371",
+    varzeaCorte.map(function (a) { return a.placa + " × " + a.moduloSerial; }).join(","));
+  var painel = M.calibracao.painel[heroi.id];
+  chk("P·C11 · T16 os contadores da 02 são os do painel do herói (482.317 km · 9.640 h), nas unidades da calibração",
+    painel.hodometro === 482317 && painel.horimetro === 9640 && um(M.calibracao.grandezas, "hodometro").unidade === "km" && um(M.calibracao.grandezas, "horimetro").unidade === "h");
+  chk("P·C11 · T16 'Identificadores 3 de 3': os índices alocados são os cartões do pacote",
+    M.identificadores.indicesAlocados.length === 3 && M.identificadores.cartoes.length === 3);
+  chk("P·C11 · T16 T16·2: o herói tem 4 regiões (a assertiva de cercas se aplica pelo dado; o texto vai ao diretor) e o a-14 da 05, nenhuma",
+    M.cercas.regioes.filter(function (r) { return r.ativoId === heroi.id; }).length === 4 && M.cercas.regioes.filter(function (r) { return r.ativoId === "a-14"; }).length === 0);
+  var af = M.casos["autoteste-falhando"], ne = af.noEncerramento;
+  chk("P·C11 · T16 a 05: a assertiva que falha no encerramento é uma das 8 e bloqueia, com o lido do caso ('Contadores · 0 km'), e o '7 de 8' é o total menos ela (T16·3)",
+    !!um(E, ne.assertiva) && um(E, ne.assertiva).bloqueia !== false && ne.lido === "0 km" && E.length - 1 === 7 && !!ativo(af.ativoId).moduloSerial,
+    um(E, ne.assertiva) && um(E, ne.assertiva).rotulo + " · " + ne.lido);
+  var si = M.casos["sessao-interrompida"], Cd = M.cadeia;
+  var composta = Cd.ordem.slice(0, si.confirmados).filter(function (b) { return !!Cd.versoes[b]; }).map(function (b) { return Cd.versoes[b]; }).join(".");
+  chk("P·C11 · T16 a 06: o par é o do cadastro (QAH-1M67 × M2C-0411), de hoje, e o bloco depois dos 3 confirmados é o do ponto de retomada (Leitor, 'Bloco 4 de 6')",
+    ativo(si.ativoId).moduloSerial === si.moduloSerial && ativo(si.ativoId).placa === "QAH-1M67" && si.diasAtras === 0 &&
+    Cd.ordem[si.confirmados - 1] === si.ultimoConfirmado && si.pontoRetomada === "Bloco " + (si.confirmados + 1) + " de " + Cd.ordem.length + " — " + Cd.rotulos[Cd.ordem[si.confirmados]],
+    si.pontoRetomada);
+  chk("P·C11 · T16 a 06: a versão gravada até aqui é a composta dos confirmados (A12.G07)", si.versaoGravada === composta, composta);
+})();
+
+/* ── design · a entrega de 24/09 da T02: a lista longa ── */
+chk("design · T02 lista longa: 9 garagens em 3 regiões, mais que o limite sem busca, com a empresa do herói intacta", (function () {
+  var c = M.casos["lista-longa-garagens"]; if (!c) return false;
+  var ucs = c.ucs.map(function (u) { return u.id; });
+  return c.uos.length === 9 && c.ucs.length === 3 && c.uos.length > c.limiteSemBusca &&
+    c.uos.every(function (u) { return ucs.indexOf(u.ucId) >= 0 && u.ativos > 0; }) && M.uos.length === 3; })());
+chk("design · T02 lista longa: as garagens do herói aparecem com o mesmo pacote que o mundo dele", (function () {
+  var c = M.casos["lista-longa-garagens"];
+  return M.uos.every(function (u) { var l = c.uos.find(function (x) { return x.id === u.id; }); var p = M.pacotes.find(function (x) { return x.uoId === u.id; });
+    return l && p && l.pacoteIdadeDias === p.diasAtras && l.pacoteHora === p.hora && l.ativos === p.contem.ativos; }); })());
+
 /* ── Higiene ── */
 var fonte = null;
 try { fonte = require("fs").readFileSync(require("path").join(__dirname, "mocks.js"), "utf8"); } catch (e) {}

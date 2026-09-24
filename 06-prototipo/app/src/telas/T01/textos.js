@@ -31,8 +31,9 @@ export const TX = {
   restaEnvio: (n) => `resta ${n} envio nesta hora`,
   enviarCodigo: 'Enviar o código',
 
-  // 03 · 05 · 06 · 07 · o código
+  // 03 · 05 · 06 · 07 · 12 · 13 · o código
   mandamos: (contato) => `Mandamos para ${contato}`,
+  mandamosOutro: (contato) => `Mandamos outro para ${contato}`,
   digite: 'Digite o código',
   naoConfere: 'Código não confere',
   valePor: 'VALE POR',
@@ -40,23 +41,23 @@ export const TX = {
   naTerceira: 'na terceira, o código expira',
   expirouFrase: 'o código expirou — peça um novo',
   expirou: 'O CÓDIGO EXPIROU',
-  podePedirDeNovo: (seg, n) => `Pode pedir de novo em ${seg} s · resta ${n} envio nesta hora`,
-  podePedirAgora: (n) => `Pode pedir outro agora · resta ${n} envio nesta hora`,
+  // a espera do reenvio, no resto do recuperar, se chama "reenviar em" (decisão 31)
+  reenviarEm: (seg, n) => `Reenviar em ${seg} s · resta ${n} envio nesta hora`,
+  reenviarEmUltimo: (seg) => `Reenviar em ${seg} s · este foi o último envio desta hora`,
+  reenvioLiberado: (n) => `Reenvio liberado · resta ${n} envio nesta hora`,
   aindaVale: (tempo) => `Ainda vale por ${tempo}`,
-  aindaValeEReenvio: (tempo, seg) => `Ainda vale por ${tempo} · pode pedir outro em ${seg} s`,
+  aindaValeEReenvio: (tempo, seg) => `Ainda vale por ${tempo} · reenviar em ${seg} s`,
   pecaNovo: (n) => `Peça um código novo · resta ${n} envio nesta hora`,
   naoRecebi: 'Não recebi o código',
   confirmar: 'Confirmar',
   tentarDeNovo: 'Tentar de novo',
   enviarOutro: 'Enviar outro código',
 
-  // 04 · a folha
+  // 04 · 11 · a folha: duas saídas (decisão 32). A espera é a contagem no
+  // lugar da seta (o minSeg do reenvio), não mais texto na linha (decisão 31)
   fechar: 'Fechar',
   conferirReenviar: 'Conferir e reenviar',
-  contatoEReenvio: (contato, seg) => `${contato} · pode pedir em ${seg} s`,
   mandarEmail: 'Mandar para o e-mail',
-  pedirGestor: 'Pedir ajuda ao gestor',
-  gestorDetalhe: 'ele libera o acesso por outro caminho',
 
   // 08 · a senha nova
   seisItens: 'Os seis itens marcam sozinhos',

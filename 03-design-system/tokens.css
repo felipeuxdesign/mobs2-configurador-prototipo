@@ -316,6 +316,22 @@
 
   /* ── a entrega do design de 24/09 · o olho riscado ── */
   --olho-corte: 4.6;          /* a borda do risco do olho riscado, na cor do poço, que corta o contorno do olho (T01/10, folha 6; em unidades do desenho de 24) */
+
+  /* ── C10 · C11 · o que as telas T11, T13, T15 e T16 pediram (cada um com o papel e quem usa) ── */
+  --linha-conferencia-fim: 72px; /* a última linha da lista de conferência, com a folga do pé do cartão: 22 a mais que as de 50 (T11/00–02) · LinhaChecagem (folgaFim 'conferencia') */
+  --escala-item: 22px;          /* a barra do instrumento do item reprovado, no nível do item (T13/09) · Escala (tam item) */
+  --risco-item-forte: 12px;     /* o risco forte (os limites da faixa) na barra do item reprovado (T13/09) · Escala (tam item) */
+  --ls-colunas-mapa: 1.2px;     /* a letra do cabeçalho das colunas SEÇÃO / RESOLVIDO sobre o mapa do checklist (T13/00, 11) · T13 */
+  --entrelinha-titulo-item: 1.2; /* o título de 28 do nível do item do checklist, que quebra em duas linhas (T13/07 a 09) · T13 */
+  --icone-visor: 46px;          /* a câmera no visor do item manual (T13/07, 08) · T13 (pecas.jsx, VisorCamera) */
+  --botao-secundario-compacto: 46px;    /* o botão secundário dentro do cartão com mais de um erro (T15/02); o toque de 48 cresce por fora (G14) · BotaoSecundario (compacto) */
+  --cartao-acao-recheio-compacto: 18px; /* o recheio de cima e de baixo do cartão que pede ação com mais de um erro (T15/02) · CartaoAcao (compacto) */
+  --escala-envio: 16px;                 /* a barra do envio da fila, o item que sobe agora (T15/01) · Escala (tam envio) */
+  --cartao-envio-folga: 18px;           /* entre o rótulo, o item que sobe e a legenda, no cartão SUBINDO AGORA (T15/01) · T15 (pecas.jsx, Subindo) */
+  --entrelinha-frase-caixa: 1.45; /* a frase de 13 embaixo do rótulo, nas caixas do fim da sessão: o que não rodou (NÃO RODARAM, T16/04) e o que ficou bloqueado (A HOMOLOGAÇÃO FICA BLOQUEADA, T16/05) · Nota (corpo pulado), Aviso (bloqueio) */
+
+  /* ── a entrega do design de 24/09 · a espera do reenvio da T01 ── */
+  --n-espera: 15px; /* a contagem do reenvio no lugar da seta, na linha de opção que espera (T01/04: 0:44, tabular, 700) · LinhaDeOpcao (espera) */
 }
 
 @media (prefers-reduced-motion: reduce) {

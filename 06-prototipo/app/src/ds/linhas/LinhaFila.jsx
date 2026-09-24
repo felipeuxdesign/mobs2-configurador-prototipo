@@ -13,9 +13,12 @@ import { Poco } from '../primitivos/Poco.jsx'
 import { Glifo } from '../primitivos/Glifo.jsx'
 import './LinhaFila.css'
 
-export function LinhaFila({ estado = 'ok', titulo, legenda, quando, nomeGlifo, divisoria = false, className = '' }) {
+// `posicao` (C11 · T15, G11, T15-V2): na lista da fila, a altura é regra de
+// posição — 'meio', 50 com a divisória, em qualquer estado (a recebida do meio
+// da T15/01); 'fim', a última, 62. Sem ela, a altura segue o estado, como acima.
+export function LinhaFila({ estado = 'ok', titulo, legenda, quando, nomeGlifo, divisoria = false, posicao, className = '' }) {
   return (
-    <div className={`ds-linha-fila ds-linha-fila-${estado} ${divisoria ? 'ds-linha-fila-divisoria' : ''} ${className}`}>
+    <div className={`ds-linha-fila ds-linha-fila-${estado} ${divisoria ? 'ds-linha-fila-divisoria' : ''} ${posicao ? `ds-linha-fila-${posicao}` : ''} ${className}`}>
       <Poco tam={30}><Glifo estado={estado} poco={28} nome={nomeGlifo} /></Poco>
       <span className="ds-linha-fila-texto">
         <span className="ds-linha-fila-titulo">{titulo}</span>

@@ -4,11 +4,13 @@
 // e solta em 100ms (só transform se move).
 import './BotaoSecundario.css'
 
-export function BotaoSecundario({ children, aoTocar, rotulo, desabilitado = false, forcaToque = false }) {
+// `compacto` (C11 · T15/02, G11): o botão do cartão com dois erros, 46 de
+// desenho e 15 de letra; o toque de 48 cresce por fora, sem mudar o desenho (G14).
+export function BotaoSecundario({ children, aoTocar, rotulo, desabilitado = false, forcaToque = false, compacto = false }) {
   return (
     <button
       type="button"
-      className={`ds-secundario ${forcaToque ? 'ds-forca-toque' : ''}`}
+      className={`ds-secundario ${compacto ? 'ds-secundario-compacto' : ''} ${forcaToque ? 'ds-forca-toque' : ''}`}
       disabled={desabilitado}
       aria-label={rotulo}
       onClick={desabilitado ? undefined : aoTocar}

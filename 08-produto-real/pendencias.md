@@ -9,14 +9,20 @@ Perguntas que **não são de desenho** e estão com quem decide. Enquanto não v
 | T09 | `Tentar de novo` regrava a cadeia inteira ou do bloco recusado pra frente? | do bloco recusado |
 | T14 | quantas vezes pode disparar o evento antes de a Seção F reprovar de vez? | sem limite |
 | T13 | como trocar uma foto ruim de um item já respondido? | foto tirada fica tirada |
+| T13 | o voltar do Android numa seção aberta do checklist fecha a seção ou sai da tela? | faz o `Voltar ao menu` desenhado (T13·6, G20) |
 | T08 | refazer a leitura pode reprovar item do checklist que estava conforme? | não reprova |
 | T12 | a *falha reconhecida* tem ação, ou é só registro? | só registro |
-| T16 | de que ponto a sessão interrompida retoma? | do último passo confirmado |
+| T11 | `Só registrar o diagnóstico` registra onde, e o diagnóstico sobe pra plataforma como, se a fila não tem esse tipo de envio (HU-T11-7, T11-V4)? | fica na sessão, com os blocos que não bateram e a hora, e volta ao menu; nenhum item entra na fila (G25) |
+| T16 | de que ponto a sessão interrompida retoma? | do último passo confirmado: o `Retomar` reabre a cadeia no bloco seguinte a ele, o que parou (o Leitor, `Bloco 4 de 6`, T16·5) |
+| T16 | o voltar do Android na sessão interrompida faz o quê? | nada: `Retomar` e `Descartar` são atos, e o voltar não escolhe no lugar do técnico (T16·6, G20) |
+| T16 | o `Descartar` da sessão interrompida fica registrado onde (HU-T16-7)? | em lugar nenhum: volta ao menu sem sessão e sem item de fila, porque o registro do descarte não tem dado (T16·5, G25) |
 | T10 | os sinais podem se chamar Bateria e Alternador no cadastro? | o nome do cadastro |
 | todas | o app respeita a fonte aumentada do Android? | trava o tamanho |
 | T14 | se o evento falhar de novo: *confira a conexão do módulo* | aparece na segunda falha |
 | T06 | no conflito de pinos com saída, `Usar leitor sem fio` resolve ali, ou a saída é reconectar o módulo sem fio, como a HU-T06-5 e o domínio dizem (T06-N1)? | resolve ali: a sessão passa a sem fio e o mesmo ônibus segue pra confirmação (T06·4) |
 | T06 | `Solicitar correção de cadastro` manda o pedido pra quem, e o técnico vê o quê depois? | só o pressionado; nada é criado (G25) |
+| T01 | o celular e o e-mail do técnico aparecem mascarados antes do login? | mascarados: `(81) •••••-8675` e `r•••••@atlsul.com.br` |
+| T01 | a espera de 60 s do reenvio vale também pra trocar de canal? | vale: qualquer envio novo espera |
 | T06 | a frase da trava de fora do pacote é `Pertence a {garagem}.`: com a garagem do mock sai `Pertence a Pátio Caruaru.`, e a da referência já vinha sem crase (`a Garagem Ibura`, T06-N4). A frase leva o artigo da garagem (`à Garagem`, `ao Pátio`)? | o texto como está, com o nome da garagem do mock |
 
 ## Validar no aparelho

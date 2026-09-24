@@ -56,3 +56,31 @@
 .ds-checagem.ds-checagem-fim-pre-checagem-parada { height: var(--linha-precheck-fim-parada); }
 /* C7 · T05/15 · o 'parou aqui' neutro, que não é erro: o valor sai do vermelho */
 .ds-checagem-parou.ds-checagem-tom-neutro .ds-checagem-valor { color: var(--tinta-secundaria); }
+/* C11 · T11/00 e 01 · o bloco que não bate: o traço no poço, e o que o cadastro manda em --tinta */
+.ds-checagem-conferencia.ds-checagem-diverge .ds-checagem-valor { color: var(--tinta); }
+/* C11 · T11 · a última da lista de conferência, com a folga do pé do cartão (72) */
+.ds-checagem.ds-checagem-fim-conferencia { height: var(--linha-conferencia-fim); }
+/* C11 · T11 · a leitura ainda não chegou nesta linha: o poço fica vazio */
+.ds-checagem-lendo .ds-poco > * { opacity: 0; }
+/* C10 · T14 (G11) · o passo do ciclo com a causa: a causa na entrelinha do texto,
+ * e o recheio da referência — 8 no passo reprovado (T14/03, a linha de 50) e 4 no
+ * teste do cartão, a última (T14/04) */
+.ds-checagem.ds-checagem-recheio-largo { padding: var(--e-8) 0; }
+.ds-checagem.ds-checagem-recheio-justo { padding: var(--e-4) 0; }
+.ds-checagem-recheio-largo .ds-checagem-causa, .ds-checagem-recheio-justo .ds-checagem-causa { line-height: normal; }
+/* C11 · T16 (G11) · a assertiva da sessão: o nome fica aceso em todo estado; o
+ * veredito é do glifo e do valor. O 'ainda não' (na fila) leva o relógio e o valor
+ * em --tinta-secundaria, e não apaga (T16/02 e 05) */
+.ds-checagem-dupla.ds-checagem-nao-se-aplica .ds-checagem-titulo,
+.ds-checagem-dupla.ds-checagem-ainda-nao .ds-checagem-titulo { color: var(--tinta); }
+.ds-checagem-dupla.ds-checagem-ainda-nao .ds-checagem-valor,
+.ds-checagem-dupla.ds-checagem-ainda-nao .ds-glifo-cor-secundaria { color: var(--tinta-secundaria); }
+/* C11 · T16 · a última do cartão das assertivas, com a folga do pé do cartão (54) */
+.ds-checagem.ds-checagem-fim-assertiva { height: calc(var(--linha-dupla) + var(--e-4)); }
+/* C11 · T12 (G11, G25) · o valor que quebra: o título fica numa linha, e o valor longo
+ * quebra em duas, alinhado à direita, na mesma altura (o recebimento de outra garagem) */
+.ds-checagem-valor-quebra .ds-checagem-titulo { white-space: nowrap; }
+.ds-checagem-valor-quebra .ds-checagem-valor { flex-shrink: 1; text-align: right; }
+/* o corpo do título não encolhe: sem isso ele cedia 10 do título ao valor, e o
+ * 'Recebimento' passava da própria caixa até a borda do valor (revisão C11 · T12) */
+.ds-checagem-valor-quebra .ds-checagem-corpo { flex-shrink: 0; }

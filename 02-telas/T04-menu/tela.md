@@ -31,6 +31,40 @@ O painel das ferramentas: o que está pronto pra usar, o que espera o quê.
 
 Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe.
 
+- barra do sistema no menu
+- faixa · módulo com falha
+- faixa · sem ação
+- tira de contexto
+- faixa no menu
+- o topo do menu inteiro
+- folha
+- diálogo
+- diálogo sem saída
+- diálogo com ciência
+- folha com opções
+- seção aberta do checklist
+- seção recolhida
+- disponível
+- decide agora
+- espera
+- conectado
+- com pendência
+- espera a rede
+- nota com rótulo
+- linha do histórico
+- linha de garagem
+- linha de garagem · a atual
+- a lista de garagens
+- cadeia concluída
+- cadeia recusada
+- linha da fila
+- linha da re-checagem
+- contador no menu
+
+## No protótipo · as peças que o código usa
+
+Anotação de construção, medida no código e nas referências. A lista de cima é a do design; esta é a que o protótipo usa, e a diferença entre as duas vai pro arquiteto.
+
 - primário · normal
 - primário · pressionado
 - link · normal e pressionado

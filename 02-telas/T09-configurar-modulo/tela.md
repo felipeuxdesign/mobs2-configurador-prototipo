@@ -20,6 +20,29 @@ Gravar os blocos no módulo, um de cada vez, cada um relido antes do próximo.
 
 ## Peças do design system que esta tela usa
 
+Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe.
+
+- barra do sistema
+- faixa · sessão aberta
+- faixa · sem ação
+- duas ações
+- uma ação
+- processo correndo
+- com legenda
+- falha
+- aviso
+- processo parado
+- cadeia concluída
+- cadeia recusada
+- a pré-condição dos pinos
+- com contador neutro
+- com contador de falha
+- prova da cadeia
+
+## No protótipo · as peças que o código usa
+
+Anotação de construção, medida no código e nas referências. A lista de cima é a do design; esta é a que o protótipo usa, e a diferença entre as duas vai pro arquiteto.
+
 Medido nas 5 referências e construído no C9 (G1): as peças que a tela usa de fato. Construa com o componente — nunca redesenhe.
 
 - primário · normal

@@ -4,8 +4,8 @@
 
 | Referência | Tipo | Como se chega · o que causa | Caso do mock |
 |---|---|---|---|
-| `00-tela` | tela | a entrada da tela | sessão M2C-0417 + RKT-8H42 · fila com 6 mensagens e 2 de diagnóstico |
-| `01-momento-antes-do-disparo` | momento | a fila do módulo ainda drenando | `ciclo.mensagensGuardadas` |
+| `00-tela` | tela | 6 s depois do disparo: o prazo em 1:36, o instante antes de o evento chegar (C10 · G27: a entrada é a `01`) | sessão M2C-0417 + RKT-8H42 · fila com 6 mensagens e 2 de diagnóstico |
+| `01-momento-antes-do-disparo` | momento | a entrada da tela: a fila do módulo ainda drenando (G27) | `ciclo.mensagensGuardadas` |
 | `02-estado-prazo-estourado` | estado | o evento não chega em 2:00 | `evento-sem-resposta` |
 | `03-estado-dinamico-fora-do-esperado` | estado | um sinal andando fora do esperado | `can-fora-esperado` |
 | `04-estado-identificador-divergente` | estado | o cartão lido não bate | `identificador-divergente` |

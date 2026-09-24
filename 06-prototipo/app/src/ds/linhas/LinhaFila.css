@@ -10,3 +10,6 @@
 .ds-linha-fila-quando { font-size: var(--t-secundario); font-weight: 600; color: var(--tinta-secundaria); flex-shrink: 0; }
 /* esperando, o círculo é fato: --tinta-secundaria, não o --marca do Glifo 'espera' */
 .ds-linha-fila-espera .ds-glifo { color: var(--tinta-secundaria); }
+/* C11 · T15 (G11, T15-V2): a altura pela posição na lista, quando quem monta diz */
+.ds-linha-fila.ds-linha-fila-meio { height: var(--linha-dupla); }
+.ds-linha-fila.ds-linha-fila-fim { height: var(--linha-fila); }

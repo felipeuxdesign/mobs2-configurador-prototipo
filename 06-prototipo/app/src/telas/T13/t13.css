@@ -1,0 +1,42 @@
+/* T13 · Checklist — só a montagem da tela; o desenho de cada bloco é da peça.
+ * A barra do sistema na cor da faixa, a faixa da sessão, o miolo e o rodapé;
+ * por cima, o diálogo da Seção F, com o véu só abaixo da faixa (T13/10). */
+.t13 { height: 100%; display: flex; flex-direction: column; background: var(--fundo-pagina); color: var(--tinta); }
+
+/* a faixa mora num fieldset, que a desabilita com o diálogo aberto: sem o
+ * desenho e sem o papel do fieldset, ela fica igual (como o topo da T04) */
+.t13-topo { flex-shrink: 0; min-width: 0; margin: 0; padding: 0; border: 0; }
+.t13-topo:disabled { pointer-events: none; }
+
+.t13-corpo { position: relative; flex-grow: 1; min-height: 0; display: flex; flex-direction: column; }
+/* isolado: a camada do toque das linhas e dos cartões fica dentro dele, e o véu passa por cima (como a T04) */
+.t13-conteudo { flex-grow: 1; min-height: 0; display: flex; flex-direction: column; isolation: isolate; }
+
+/* o miolo: entre a faixa e o rodapé, rola quando passa de 800 (G16). A folga
+ * de 16 até o rodapé é o recheio dele. O visor e o instrumento do nível do
+ * item crescem no que sobra (pecas.css). */
+.t13 .tela-miolo {
+  flex-grow: 1; min-height: 0; overflow-y: auto;
+  display: flex; flex-direction: column; gap: var(--e-12);
+  padding: var(--e-14) var(--e-16) var(--respiro) var(--e-16);
+}
+.t13 .tela-miolo > * { flex-shrink: 0; }
+
+/* o cabeçalho das colunas sobre o mapa (T13/00, 11) */
+.t13-colunas {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-colunas-mapa); color: var(--tinta-apagada);
+}
+/* o mapa: as seis linhas soltas, sem cartão (T13/00, T13-A16) */
+.t13-mapa { display: flex; flex-direction: column; }
+
+/* o título do nível do item: a pergunta que o técnico confere agora */
+.t13-titulo-item {
+  font-size: var(--t-titulo-proc); font-weight: 700;
+  line-height: var(--entrelinha-titulo-item); letter-spacing: var(--ls-titulo-proc);
+}
+/* o Não conforme fica a 16 do fim do miolo (T13/07) */
+.t13 .ds-linha-tocavel.t13-nao-conforme { margin-bottom: var(--respiro); }
+
+/* por cima: o véu cobre o corpo, abaixo da faixa acesa (T13/10) */
+.t13-sobre { position: absolute; inset: 0; display: flex; flex-direction: column; }

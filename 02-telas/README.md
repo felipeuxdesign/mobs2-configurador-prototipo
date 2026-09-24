@@ -14,7 +14,7 @@ Uma pasta por tela. Dentro de cada uma, sempre os mesmos cinco itens:
 
 | Tela | Pasta | Momentos | Estados |
 |---|---|---|---|
-| T01 · Login | `T01-login/` | 6 | 3 |
+| T01 · Login | `T01-login/` | 10 | 3 |
 | T02 · Selecionar contexto | `T02-selecionar-contexto/` | 1 | 1 |
 | T03 · Sincronizar | `T03-sincronizar/` | 1 | 3 |
 | T04 · Menu | `T04-menu/` | 7 | 4 |
@@ -31,6 +31,6 @@ Uma pasta por tela. Dentro de cada uma, sempre os mesmos cinco itens:
 | T15 · Fila de saída | `T15-fila-de-saida/` | 0 | 4 |
 | T16 · Sessão | `T16-sessao/` | 4 | 2 |
 
-`indice.json` lista as 109 referências com tela, tipo, nome, título, como se chega, caso do mock e os caminhos do HTML e do PNG. **É o que o palco lê pra montar a coluna.**
+`indice.json` lista as 113 referências com tela, tipo, nome, título, como se chega, caso do mock e os caminhos do HTML e do PNG. **É o que o palco lê pra montar a coluna.**
 
 **As referências são gabarito, nunca peça do app.** O HTML existe pra você ler um valor exato e pra comparar o seu print com o PNG. O app se constrói com os componentes do design system.

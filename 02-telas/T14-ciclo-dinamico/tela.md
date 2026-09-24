@@ -12,12 +12,19 @@ Andar com o ônibus e deixar o app provar o que só fecha em movimento.
 
 ## O que se toca
 
-- a fila do módulo drena → `Disparar evento de teste` acende
-- disparado → o prazo de 2:00 começa
-- os passos do veículo acendem sozinhos
-- `Encerrar o ciclo` → T13
-- prazo estourado: `Disparar outro evento` — os passos continuam valendo
-- identificador divergente: `Solicitar correção de cadastro` → o link vira o registro, *Correção solicitada às 14:30*, e deixa de ser tocável
+- a tela entra no quadro `01`: a fila do módulo drenando, o prazo cheio e o disparo indisponível com o motivo (G27). A fila drena em 3 s (`movimento.md`), e o `Disparar evento de teste` acende; esse quadro não tem referência e junta as peças que existem (G25)
+- disparado → o prazo de 2:00 começa: 1 s real vale 4 s de prazo
+- os passos do veículo acendem sozinhos: a semente traz 2 feitos, e os passos 3 a 5 acendem a +9, +12 e +15 s do disparo (T14·1). A `00` é o instante antes de o evento chegar (1:36)
+- o evento chega aos 24 s do prazo e os campos conferem aos 33 (o mock): o número passa a ser o tempo que ele levou, e a barra para no que restava. Os cinco passos e o evento → `05` (C10 · G9: 0:24 e 14:30:24, o valor do mock)
+- `Encerrar o ciclo` → T13, e fecha a captura: os pendentes ficam pendentes na Seção E · `Ir para o checklist` → T13, com o ciclo aberto (T14·2). Voltar à T14 com o ciclo aberto retoma os passos que já valem, e o evento se dispara de novo
+- ciclo concluído: `Voltar ao checklist` → T13 · `Voltar ao menu` → T04 (T14·4)
+- `ENCERRAR` → a sessão abortada antes de homologar (G23)
+- o voltar do Android (no computador, o Esc) faz o mesmo que o link de saída do rodapé (`logica.md`): `Ir para o checklist`, com o ciclo aberto, e no ciclo concluído `Voltar ao menu`. Com o caso de identificador, o link do rodapé é o pedido de correção, que não sai, e o voltar não faz nada
+- prazo estourado (`evento-sem-resposta`, uma vez por sessão): `Disparar outro evento` — os passos continuam valendo, e a segunda tentativa confirma
+- sinal fora do esperado (`can-fora-esperado`): o passo que o sinal prova reprova, com a causa embaixo, e os outros seguem acendendo
+- a linha do teste do cartão só entra com o caso de identificador (T14·3), e conta nos passos (*de 6*)
+- identificador divergente: `Solicitar correção de cadastro` → o link vira o registro no mesmo lugar e do mesmo tamanho, com o relógio, *Correção solicitada às 14:30* (a hora do protótipo), e deixa de ser tocável — é o momento `06`, do caso `identificador-divergente`. Pro leitor de tela, o registro é um aviso de status, não um botão
+- o ciclo fica gravado em `etapas.ciclo` (`logica.md`)
 
 ## Peças do design system que esta tela usa
 

@@ -1,4 +1,4 @@
-.ds-grade-cartoes { display: grid; gap: var(--e-8); }
+.ds-grade-cartoes { display: grid; gap: var(--e-8); grid-auto-flow: row dense; }
 .ds-grade-cartoes-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .ds-grade-cartoes-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
@@ -13,6 +13,13 @@
 .ds-cartao-valor-numero { font-size: var(--n-cartao-secao); font-weight: 700; line-height: var(--entrelinha-numero); color: var(--tinta); }
 .ds-cartao-valor-aguarda .ds-cartao-valor-numero { color: var(--tinta-apagada); }
 .ds-cartao-valor-unidade { font-size: var(--n-unidade-cartao); font-weight: 500; color: var(--tinta-apagada); padding-left: var(--e-2); }
+/* C10 · T13 (G11): a palavra que acompanha o valor, em 12 ('Mobs2 dados', '12 subiram') */
+.ds-cartao-valor-unidade.ds-cartao-valor-unidade-texto { font-size: var(--n-unidade-p); }
+/* C10 · T13 (G11, T13·1 a): o cartão das duas colunas (a versão gravada inteira) */
+.ds-cartao-valor.ds-cartao-valor-larga { grid-column: 1 / -1; }
+/* C10 · T13 (G11): o cartão que leva a outra tela é o Tocavel inteiro — a mesma caixa, empilhada */
+.ds-tocavel.ds-cartao-valor { flex-direction: column; align-items: stretch; }
+.ds-tocavel.ds-cartao-valor::after { border-radius: calc(var(--raio) - var(--traco-borda)); }
 
 /* sem faixa: o traço guarda o lugar da barra */
 .ds-cartao-valor-sem-faixa { height: var(--barra-cartao); display: flex; align-items: center; }

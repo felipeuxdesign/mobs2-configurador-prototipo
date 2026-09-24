@@ -10,10 +10,10 @@ const faixaAberta = { serial: 'M2C-0417', placa: 'RKT-8H42' }
 
 const tira = <TiraDeContexto garagem="GARAGEM VÁRZEA" iniciais="RV" rotuloConta="Conta — Rafael Vieira" />
 
+// as folhas 2 e 6 da entrega de 24/09: duas saídas (decisão 32) e o contato mascarado (decisão 31)
 const opcoes = [
-  <LinhaDeOpcao key="r" icone="reenviar" titulo="Conferir e reenviar" detalhe="(81) 98715-8675 · pode pedir em 44 s" />,
-  <LinhaDeOpcao key="e" icone="email" titulo="Mandar para o e-mail" detalhe="r.vieira@atlsul.com.br" />,
-  <LinhaDeOpcao key="g" icone="gestor" titulo="Pedir ajuda ao gestor" detalhe="ele libera o acesso por outro caminho" />,
+  <LinhaDeOpcao key="r" icone="reenviar" titulo="Conferir e reenviar" detalhe="(81) •••••-8675" />,
+  <LinhaDeOpcao key="e" icone="email" titulo="Mandar para o e-mail" detalhe="r•••••@atlsul.com.br" />,
 ]
 
 export const especimes = [

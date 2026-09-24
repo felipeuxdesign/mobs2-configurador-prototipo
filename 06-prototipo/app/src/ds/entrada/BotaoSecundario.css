@@ -7,3 +7,7 @@
   transition: transform var(--mov-solta) var(--mov-curva);
 }
 .ds-secundario:active:not(:disabled), .ds-secundario.ds-forca-toque { transform: scale(var(--escala-toque)); transition: none; }
+/* C11 · T15/02 (G11): o compacto, dentro do cartão com dois erros — 46 de
+   desenho e 15 de letra; o toque de 48 é uma área invisível por fora (G14) */
+.ds-secundario-compacto { position: relative; height: var(--botao-secundario-compacto); font-size: var(--t-link); }
+.ds-secundario-compacto::before { content: ''; position: absolute; inset: calc((var(--botao-secundario-compacto) - var(--alvo-min)) / 2 - var(--traco-borda)) 0; }

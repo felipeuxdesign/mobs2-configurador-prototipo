@@ -12,10 +12,12 @@ Encerrar a sessão de configuração provando que a configuração sobreviveu ao
 
 ## O que se toca
 
-- `ENCERRAR` na faixa → o encerramento corre
-- no passo do corte: o técnico desliga e religa a alimentação
-- encerrada: `Voltar ao menu`
-- ENCERRAR antes de homologar → os 4 passos da sessão abortada, sem confirmação
+- `ENCERRAR` na faixa → o encerramento corre: com a sessão homologada, os passos 1 a 7, um a cada 600 ms; ao fechar o 7, a faixa fica sem sessão e a tela passa pra *Sessão encerrada*, onde as 8 assertivas acendem a 400 ms, e a prova e o `Voltar ao menu` entram com a última (T16·4)
+- no passo do corte, só quando o driver não reinicia por comando (T16·1): o técnico desliga e religa a alimentação; no protótipo, o módulo volta sozinho no ritmo do passo
+- encerrada: `Voltar ao menu` → o menu sem sessão; o voltar faz o mesmo
+- ENCERRAR antes de homologar → os 4 passos da sessão abortada, sem confirmação, e a *Sessão encerrada* sem homologar. Pelos diálogos do menu (`Encerrar a sessão e sair`, `Encerrar a sessão e trocar`), os 4 passos seguem pro destino deles (G23)
+- sessão interrompida: `Retomar` → a cadeia da T09, no bloco que parou; `Descartar` → o menu sem sessão, sem item de fila (T16·5); o voltar não faz nada (T16·6)
+- no encerramento e no autoteste, o voltar não faz nada
 
 ## Peças do design system que esta tela usa
 

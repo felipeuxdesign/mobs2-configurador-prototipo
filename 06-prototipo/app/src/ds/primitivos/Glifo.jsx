@@ -2,8 +2,17 @@
 // vermelho é falha, cinza é fato. Ícones do Lucide (G5), com o traço do
 // token por classe. O nome pro leitor de tela é a legenda da folha 3 (G15).
 // 'traco' e 'agora' não são ícones: são marcas (DS-V3).
-import { CircleCheck, CircleX, Circle, WifiOff, Power, Pause, Clock, Moon } from 'lucide-react'
+import { CircleCheck, CircleX, Circle, WifiOff, Power, Pause, Clock, Moon, CircleMinus } from 'lucide-react'
 import './Glifo.css'
+
+// C11 · T16 (G11): os glifos que as telas desenham e a folha 3 não tem. Ficam
+// fora de ESTADOS, que é a linha de glifos da folha (o espécime f3 a percorre).
+// · 'traco-circulo' — o não se aplica da assertiva da sessão: o círculo com o
+//   traço, apagado (T16/02 e 05, Faixa de contadores e Pontos de cerca). O nome
+//   é o do traço da folha 3: 'não se aplica' (G15).
+const FORA_DA_FOLHA = {
+  'traco-circulo':  { Icone: CircleMinus, cor: 'marca',     nome: 'não se aplica' },
+}
 
 export const ESTADOS = {
   ok:               { Icone: CircleCheck, cor: 'lima',      nome: 'aprovado' },
@@ -22,7 +31,7 @@ export const ESTADOS = {
 
 // o tamanho do glifo vem do poço: --glifo-<poço> (a linha de tamanhos da folha 3, G5)
 export function Glifo({ estado = 'ok', poco = 24, nome, className = '' }) {
-  const e = ESTADOS[estado]
+  const e = ESTADOS[estado] ?? FORA_DA_FOLHA[estado]
   const rotulo = nome ?? e.nome
   if (e.marca) return <span role="img" aria-label={rotulo} className={`ds-glifo-marca ds-glifo-${e.marca} ${className}`} />
   const { Icone } = e

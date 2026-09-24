@@ -317,7 +317,11 @@
         /* ⚠ C23 (sweep) · `preChecagem` FICA DECLARADO, sem leitor. Mesma
            natureza de `blocos 6/6`, `checklist 10/10` e `autoteste 8/8`, que
            T12 declara sem leitor desde o C22: são ETAPAS, e etapa é o
-           relatório. Consumidor: a tela web do gestor. */
+           relatório. Consumidor: a tela web do gestor.
+           protótipo C11 (T12) · a referência vence (G1, T12-A7): o detalhe
+           da T12/01 lê as etapas da i-01 (as sete linhas, com o readBack da
+           cadeia), e o `resumo` das outras dá as quatro linhas que ele
+           sustenta (T12·2). Nada aqui muda. */
         preChecagem: { checagens: 12, passaram: 12 },
         cadeia: [
           { bloco: "limpeza", hora: "10:02", readBack: "confirmado" },
@@ -386,7 +390,11 @@
      `atrasado` — posição que chegou tarde é exatamente o que um gestor não
      aprova sozinho, e sem ela a palavra seria vocabulário nunca visto.
      Os três números da janela (3 × intervalo + 2 min) e o teto de espera
-     moram AQUI para não virarem literal de tela (Lei 8). */
+     moram AQUI para não virarem literal de tela (Lei 8).
+     protótipo C11 (T12) · nenhuma das quatro referências da T12 mostra os três
+     critérios, a janela ou o teto (HU-T12-1 a 4 sem referência, G25, T12-A7):
+     no protótipo eles ficam sem leitor, e a T12 lê daqui só os `gruposIdade`
+     (AC-16, no fim do arquivo). Nada aqui muda. */
   var CRITERIOS_REGRA = {
     fatorJanela: 3,
     folgaJanelaSeg: 120,
@@ -452,11 +460,32 @@
   /* ── Casos — cada estado de bloqueio/tela aponta para dado CONCRETO da
      obra. Nenhum é opcional: tela sem o seu caso morre sem dado. ── */
   var CASOS = {
+    /* T02 · a lista longa. A empresa do herói tem 3 garagens (o gate trava
+       isso), e a busca só aparece com MAIS DE 6 — então a lista longa vive
+       num caso: a mesma empresa, num mundo com 9 garagens em 3 regiões.
+       O texto da linha deriva do dado: idade 0 → "pacote de hoje", 1 →
+       "pacote de ontem", n → "pacote de n dias"; acima do limite de 7,
+       só a causa: "pacote vencido há n dias". */
+    "lista-longa-garagens": { limiteSemBusca: 6,
+      ucs: [ { id: "uc-01", nome: "RMR – Recife" }, { id: "uc-03", nome: "Zona da Mata – Vitória" }, { id: "uc-02", nome: "Agreste – Caruaru" } ],
+      uos: [
+        { id: "uo-01", ucId: "uc-01", nome: "Garagem Várzea",     cidade: "Recife",                  pacoteIdadeDias: 1, pacoteHora: "07:10", ativos: 10 },
+        { id: "uo-02", ucId: "uc-01", nome: "Garagem Ibura",      cidade: "Recife",                  pacoteIdadeDias: 4, pacoteHora: "06:55", ativos: 8 },
+        { id: "uo-11", ucId: "uc-01", nome: "Garagem Boa Viagem", cidade: "Recife",                  pacoteIdadeDias: 1, pacoteHora: "06:40", ativos: 14 },
+        { id: "uo-12", ucId: "uc-01", nome: "Garagem Olinda",     cidade: "Olinda",                  pacoteIdadeDias: 0, pacoteHora: "06:15", ativos: 12 },
+        { id: "uo-13", ucId: "uc-01", nome: "Garagem Camaragibe", cidade: "Camaragibe",              pacoteIdadeDias: 1, pacoteHora: "07:30", ativos: 9 },
+        { id: "uo-14", ucId: "uc-03", nome: "Garagem Vitória",    cidade: "Vitória de Santo Antão",  pacoteIdadeDias: 2, pacoteHora: "07:05", ativos: 7 },
+        { id: "uo-15", ucId: "uc-03", nome: "Garagem Carpina",    cidade: "Carpina",                 pacoteIdadeDias: 1, pacoteHora: "06:50", ativos: 5 },
+        { id: "uo-03", ucId: "uc-02", nome: "Pátio Caruaru",      cidade: "Caruaru",                 pacoteIdadeDias: 8, pacoteHora: "07:30", ativos: 6 },
+        { id: "uo-16", ucId: "uc-02", nome: "Garagem Gravatá",    cidade: "Gravatá",                 pacoteIdadeDias: 1, pacoteHora: "07:20", ativos: 4 } ] },
     "serial-nao-cadastrado": { serial: "M2C-0999" },
     /* C22 · T12 — a CONSULTA ANTERIOR, declarada: `consultado hoje às 11:47`
        é valor da obra, não derivado de i-01. O offline se alcança por AÇÃO
        (o primeiro `Atualizar` não acha rede), nunca ligado por padrão
-       (D-61), e offline neste produto é condição de trabalho, não erro. */
+       (D-61), e offline neste produto é condição de trabalho, não erro.
+       protótipo C11 (T12) · nenhuma referência da T12 tem o `Atualizar`
+       (T12-A13): no protótipo a T12/03 abre pela coluna do palco, com a lista
+       da garagem e esta hora no aviso. Nada aqui muda. */
     "instalacoes-sem-rede": { consultadoAs: "11:47", diasAtras: 0 },
     "modelo-sem-driver": { moduloSerial: "M2C-0497", ativoId: "a-21",
       motivo: "O modelo VC07 ainda não é atendido por esta versão do app." },
@@ -496,6 +525,15 @@
       motivo: "Sinal dinâmico — só confirma durante o ciclo dinâmico." },
     "grandeza-indisponivel": { modeloAtivoId: "ma-02", grandeza: "horímetro",
       motivo: "A leitura desta linha não fornece horímetro. Use o valor do painel na próxima revisão." },
+    /* protótipo C11 (T11) · o que a T11 lê destes dois casos (G9, T11-V1,
+       T11-V7). Do diff-divergente: o par, o bloco e o noCadastro; o noModulo
+       FICA DECLARADO, sem leitor — as referências mostram só o que o cadastro
+       manda (HU-T11-2 parcial). Do indice-nao-classificado: só a existência e
+       o par; posicao e motivo FICAM DECLARADOS, sem leitor — a frase da nota
+       é a do textos.md, e a posição na memória é vocabulário que o técnico
+       não lê. O noCadastro de Leitor e de Eventos não bate com o cadastro do
+       ma-02 (chave-de-contato; pe-rodoviario, 60 s · T11-A3): no par dele, a
+       tela mostra o que o caso declara. */
     "diff-divergente": { ativoId: "a-16", moduloSerial: "M2C-0438",
       divergencias: [
         { bloco: "ativo",   noModulo: "tradução frota v1", noCadastro: "tradução frota v2" },
@@ -506,6 +544,20 @@
       ] },
     "indice-nao-classificado": { ativoId: "a-16", moduloSerial: "M2C-0438",
       posicao: 7, motivo: "Conteúdo gravado que o app não reconhece — não pertence a nenhum bloco." },
+    /* protótipo C11 (T11) · AC-17 — o par que CONFERE (T11/02, T11·1 a): a
+       T11 aberta pelo menu com a sessão do herói não acha divergência e vai
+       pro "tudo confere". Caso ADITIVO e SEM VALOR DECLARADO: o que o cadastro
+       manda sai do cadastro do próprio par (a tradução do modelo, as regiões
+       do ativo, o meio da sessão, o preset de eventos), e a divergência só
+       existe no par do diff-divergente. É o par que o endereço do 02 monta
+       (G20), e ele desfaz o "diff-divergente, invertido" do índice (T11-N3):
+       o 02 tem a faixa do herói E o cadastro do herói. Custo declarado (G9):
+       a tradução do ma-01 é "urbano v3", e a referência 02 diz "frota v2",
+       que é a do ma-02 (T11-A1) — o mock ganha no valor. O Leitor sai do
+       meio da sessão (situacao.porPerto, D-39: "sem-fio" é o leitor sem fio,
+       como na T06·4), e não do leitor.tipo do modelo ("cartao-serial" no
+       ma-01), que fica sem leitor na T11: só "leitor sem fio" tem texto. */
+    "conferencia-confere": { ativoId: "a-01", moduloSerial: "M2C-0417" },
     /* C16 · +noEncerramento, ADITIVO: a assertiva de BANCADA que falha aqui
        ("Ignição desliga") é da lista de T12/T13 e fica intacta — no
        encerramento o que um reinício reprova de verdade é o CONTADOR, que
@@ -838,6 +890,9 @@
      HU-T13-2). Por isso a tensão de bateria devolve a T07, que é quem a lê na
      CAN, e as entradas digitais devolvem a T06, que é onde a matriz do arnês
      se resolve.
+     protótipo C10 (T13·2 a): na tela, a bateria reprovada leva à T08, pelo
+     texto aprovado 'Refazer a leitura da CAN' (T13/09); a T08 relê e devolve
+     à T07 (HU-T08-3). `origem: "can"` continua dizendo quem lê o fato.
 
      ⚠ `foto` é do ITEM, não da seção: os cinco de B pedem foto, dois por
      CONDIÇÃO (`condicao`). Condição ausente = NÃO SE APLICA, fato declarado,
@@ -1040,6 +1095,111 @@
      fim, pra não mudar a ordem de nenhuma chave de antes. */
   CASOS["can-estatico-hodometro-a22"] = { ativoId: "a-22", lidos: { hodometro: "121.003 km" } };
 
+  /* protótipo C10 (T14) · AC-09 — quantos campos o servidor confere no evento
+     de teste: o "6 de 6" da T14/05 (T14-A2) sai daqui. É fato do evento, como
+     os dois degraus (recebido e conferido). Campo ADITIVO: nada de antes muda. */
+  CICLO.evento.campos = 6;
+  /* protótipo C10 (T14) · AC-10 — o passo do ciclo que cada sinal DINÂMICO
+     prova. É por ele que o caso can-fora-esperado (velocidade 0 km/h) reprova
+     o passo "Movimento detectado" (T14/03, T14-A8). As chaves são ids de sinal
+     dinâmico do ma-01; os valores, passos canônicos da i-01 (PASSOS_CICLO).
+     A frase da causa ("devia passar de zero") é texto, do textos.md (G9). */
+  CICLO.passoDoSinal = { velocidade: "Movimento detectado", re: "Ré acionada" };
+
+  /* protótipo C11 (T12) · AC-16 — os grupos por idade da lista das últimas
+     instalações (T12·1 a, T12-A4): HOJE, ONTEM, ESTE MÊS e MAIS DE UM MÊS saem
+     de diasAtras por um corte NOMEADO, e não pelo calendário — com o
+     calendário, a QJF-2C61 (17 dias, 23/02) cairia em fevereiro e sairia de
+     ESTE MÊS, e a referência deixaria de valer. Até `hoje` dias é HOJE, até
+     `ontem` é ONTEM, até `esteMesAte` é ESTE MÊS, e acima é MAIS DE UM MÊS. O
+     corte que reproduz a referência fica entre 17 e 26; 17 é o menor, e o
+     número é do DIRETOR. É REGRA, como os critérios, e não campo por
+     instalação: as 13 instalações ficam intocadas. */
+  CRITERIOS_REGRA.gruposIdade = { hoje: 0, ontem: 1, esteMesAte: 17 };
+  /* protótipo C11 (T12) · AC-21 — a garagem sem nenhuma instalação (T12/02):
+     o único estado da T12 que nada no mock produzia (T12-A3: Várzea tem 5,
+     Ibura 5, Caruaru 3). Caso ADITIVO: é a CONSULTA da garagem que volta
+     vazia — `instalacaoIds` é o recorte que o servidor devolve, sem nenhum
+     id —, e as 13 instalações ficam intocadas. Sem sessão aberta
+     (`sessao: null`), como a referência desenha: a garagem vazia é a de quem
+     trocou de contexto, e trocar de garagem encerra a sessão (T04/09, T12-N2). */
+  CASOS["instalacoes-vazia"] = { instalacaoIds: [], sessao: null };
+
+  /* protótipo C11 (T15) · AC-14 — o rótulo curto de cada tipo da fila de
+     saída (T15-V4, T15-D10): a linha da fila e o cartão do topo dizem
+     `Evidências`, `Calibração` e `Checklist`. O tipo longo continua sendo o
+     do servidor, e é ele que as fontes `fila:<tipo>` da seção F do checklist
+     citam. `Registro da sessão` (T16/04) e `Diagnóstico` (T11) entram com o
+     rótulo igual ao tipo: nenhuma referência os encurta. Lista FECHADA: todo
+     filaSaida.tipo está aqui (o gate confere). Chave de topo nova, no fim
+     do objeto, pra não mudar a ordem de nenhuma de antes. */
+  var TIPOS_FILA = [
+    { tipo: "Evidências da instalação", rotuloCurto: "Evidências" },
+    { tipo: "Foto de calibração",       rotuloCurto: "Calibração" },
+    { tipo: "Checklist de homologação", rotuloCurto: "Checklist" },
+    { tipo: "Registro da sessão",       rotuloCurto: "Registro da sessão" },
+    { tipo: "Diagnóstico",              rotuloCurto: "Diagnóstico" }
+  ];
+  /* protótipo C11 (T15) · AC-15 — a janela da re-checagem da Seção F, em
+     horas (dominio.md:177-180, HU-T12-6): o app confere o recebimento por
+     24 h antes de a instalação virar reprovada. É REGRA de estado, como os
+     critérios, e não campo da secaoF (G8). ⚠ A secaoF aponta a i-06, há 9
+     dias em re-checagem — mais que a janela: a contradição vai ao PM
+     (T15-A5), e a T15/04 mostra a janela ('confere em 24 h'), como a
+     referência desenha. */
+  CRITERIOS_REGRA.recheckHoras = 24;
+  /* protótipo C11 (T15) · AC-22 e G21 — os três estados da fila de saída que
+     nada no mock produzia (T15-A1, A3, A4, A6). Cada caso é o RECORTE que a
+     tela mostra, por id de filaSaida; a fila fica intocada.
+       fila-sem-erro (T15/01): a fila inteira da Várzea, a garagem do herói —
+         o envio corrente (f-04), um na fila (f-01) e três recebidas, nenhum
+         erro. É o recorte que dá o '5 nesta garagem' da referência.
+       fila-dois-erros (T15/02): a recusa do servidor (f-10) e o erro de rede
+         (f-09), mais o que anda sozinho (f-02, f-08). O '4' é o recorte, e
+         ele cruza garagens (T15-A3, com o diretor).
+       fila-vazia (T15/03 e 04): nada esperando envio, sem sessão aberta (a
+         referência desenha 'Sem sessão de configuração', T15-V1), e o
+         horário do último envio, que nenhum item do mock tem: o último
+         confirmadoAs é 09:15 (T15-A4). */
+  CASOS["fila-sem-erro"] = { itens: ["f-04", "f-01", "f-05", "f-06", "f-07"] };
+  CASOS["fila-dois-erros"] = { itens: ["f-10", "f-09", "f-02", "f-08"] };
+  CASOS["fila-vazia"] = { itens: [], ultimoEnvioAs: "14:02", sessao: null };
+
+  /* protótipo C10 (T13) · AC-11 — os títulos longos das seções e o que o
+     nível do item diz. ADITIVO: o `rotulo` (o nome curto do mapa e do
+     acordeão, 'B · Montagem') fica intacto. `titulo` é o rótulo de topo do
+     nível do item ('B · INSTALAÇÃO FÍSICA', 'C · SAÚDE DO HARDWARE', T13/07 a
+     09; a tela põe em caixa alta), e os seis vêm da fonte
+     (_fontes-v1/requisitos-v1.md, §Seção A a F, T13-A17). `instrucao` é a dica
+     do visor da câmera (T13/07) e a `pergunta` do c-alimentacao é o título do
+     nível do item reprovado (T13/09, como a pergunta de B é o título do item
+     manual). Só esses dois têm texto aprovado (textos.md, T13-V6): os outros
+     quatro de B ficam sem dica, e o visor mostra só a câmera, até o texto vir
+     do diretor (G25). */
+  [["A", "Identificação"], ["B", "Instalação física"], ["C", "Saúde do hardware"],
+   ["D", "Configuração embarcada"], ["E", "Teste dinâmico"], ["F", "Recebimento no servidor"]]
+    .forEach(function (p) { CHECKLIST.secoes.filter(function (s) { return s.id === p[0]; })[0].titulo = p[1]; });
+  CHECKLIST.itens.filter(function (i) { return i.id === "b-modulo"; })[0].instrucao = "Enquadre o módulo e o ponto de fixação";
+  CHECKLIST.itens.filter(function (i) { return i.id === "c-alimentacao"; })[0].pergunta = "Tensão da bateria na faixa";
+  /* protótipo C10 (T13) · AC-12 — a justificativa de exemplo do não conforme
+     (T13/08): o campo nasce preenchido com dado do mock (D-21), e o técnico
+     escreve por cima. */
+  CHECKLIST.exemploJustificativa = "Suporte trincado; fixei com abraçadeira até a troca.";
+  /* protótipo C10 (T13) · G8 (T13-A5) — quantas evidências o relatório da
+     instalação leva: o '12 subiram' da Seção F (T13/06) e o '12 evidências'
+     do homologado (T13/11). É fato do relatório que o Finalizar gera
+     (HU-T13-7), e não conta de outra coleção. */
+  CHECKLIST.evidencias = 12;
+  /* protótipo C10 (T13) · AC-13 — a leitura nominal do módulo que a Seção C
+     mostra e que nenhuma coleção tem: as entradas digitais (4 de 4, T13/03) e
+     o sinal do modem (−71 dBm), com a faixa esperada do sinal (−100 a −60, a
+     que a T13/03 desenha em lima). Vale pra todo módulo que conecta são: é o
+     nominal, como o `lido` dos sinais da CAN. Chave de topo nova, no fim do
+     objeto, pra não mudar a ordem de nenhuma de antes. ⚠ 'dBm' é unidade de
+     rádio na tela de quem lê negócio (T13-N5): o texto aprovado fica, e a
+     palavra vai ao diretor junto da lacuna R3. */
+  var LEITURA_NOMINAL_MODULO = { entradasUsadas: 4, entradasTotal: 4, modemDbm: -71, modemFaixa: { min: -100, max: -60 } };
+
   window.M2CF_MOCKS = {
     DIA_NOMINAL: "2026-03-12",
     HORA_NOMINAL: "14:30",
@@ -1190,6 +1350,10 @@
     secaoF: SECAO_F,
     ciclo: CICLO,
     casos: CASOS,
-    dominiosCan: DOMINIOS_CAN
+    dominiosCan: DOMINIOS_CAN,
+    /* protótipo C11 (T15) · AC-14 */
+    tiposFila: TIPOS_FILA,
+    /* protótipo C10 (T13) · AC-13 */
+    leituraNominalModulo: LEITURA_NOMINAL_MODULO
   };
 })();

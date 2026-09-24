@@ -19,7 +19,7 @@ export function CartaoCanal({ rotulo, contato, tipo, escolhido = false, aoTocar 
   )
 }
 
-// O cartão do código (03, 05, 06, 07): o prazo que resta ou as tentativas.
+// O cartão do código (03, 05, 06, 07, 12, 13): o prazo que resta ou as tentativas.
 // `falha` acende o traço vermelho embaixo e o rótulo (a falha mora no
 // elemento, Lei 2); `numeroFalha` pinta só o número (o expirado, 06).
 export function CartaoDoCodigo({ rotulo, numero, frase, falha = false, numeroFalha = false }) {

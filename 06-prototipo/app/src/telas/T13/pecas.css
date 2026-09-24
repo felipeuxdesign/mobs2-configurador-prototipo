@@ -1,0 +1,36 @@
+/* T13 · o visor da câmera e o instrumento do item reprovado (pecas.jsx) */
+
+/* o visor: o poço que cresce até o que vem embaixo, a câmera e a dica */
+.t13-visor {
+  flex-grow: 1; flex-shrink: 1; min-height: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: var(--e-14); padding: var(--e-16);
+}
+.t13-visor .ds-icone.t13-visor-camera { width: var(--icone-visor); height: var(--icone-visor); }
+.t13-visor-dica {
+  font-size: var(--t-corpo); font-weight: 600; color: var(--tinta-secundaria);
+  text-align: center; line-height: var(--entrelinha-texto);
+}
+
+/* o instrumento: o poço com o traço de baixo vermelho (a caixa de poço com a falha) */
+.t13-instrumento {
+  flex-grow: 1; flex-shrink: 1; min-height: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: var(--e-12); padding: var(--e-20) var(--e-16);
+}
+.t13-instrumento-rotulo {
+  font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--vermelho);
+}
+.t13-instrumento-numero {
+  font-size: var(--n-destaque); font-weight: 700; letter-spacing: var(--ls-n-destaque); line-height: var(--entrelinha-numero);
+}
+.t13-instrumento-unidade {
+  font-size: var(--n-unidade-g); font-weight: 500; color: var(--tinta-secundaria); padding-left: var(--e-4);
+}
+.t13-instrumento .ds-escala { width: 100%; }
+.t13-instrumento-legendas {
+  width: 100%; display: flex; justify-content: space-between;
+  font-size: var(--t-legenda); font-weight: 600; color: var(--tinta-apagada);
+}
+.t13-instrumento-faixa { color: var(--lima); }
+.t13-instrumento-frase { font-size: var(--t-secundario); font-weight: 500; color: var(--tinta-secundaria); }

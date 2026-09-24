@@ -34,3 +34,5 @@ Cada decisão com o contexto, a escolha, o que foi descartado e a consequência.
 | [28](28-lima-da-marca.md) | A marca usa o mesmo lima do sistema |
 | [29](29-um-marcador-so.md) | Um marcador de escolha só |
 | [30](30-lugar-do-voltar-ao-fluxo.md) | O lugar do Voltar ao fluxo é fixo |
+| [31](31-contato-mascarado.md) | O contato mascarado, e a espera virando número |
+| [32](32-sem-gestor-no-nao-recebi.md) | O não recebi o código não aciona o gestor |

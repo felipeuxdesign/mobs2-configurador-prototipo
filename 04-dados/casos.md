@@ -4,6 +4,7 @@ Cada caso de `mocks.js` → a tela e o estado que ele produz. **O estado se mont
 
 | Caso | Onde aparece |
 |---|---|
+| `a-01` | `T04/11-momento-folha-ativo-da-sessao` |
 | `ativo-fora-pacote` | `T06/04-estado-fora-do-pacote` |
 | `autoteste-falhando` | `T16/05-estado-assertiva-falhando` |
 | `bloco-recusado` | `T09/01-estado-bloco-recusado` |
@@ -18,16 +19,17 @@ Cada caso de `mocks.js` → a tela e o estado que ele produz. **O estado se mont
 | `conflito-pinos-sem-saida` | `T06/06-estado-conflito-de-pinos-sem-saida` |
 | `conteudo-nao-cabe` | `T05/11-estado-pre-checagem-conteudo-nao-cabe` |
 | `diff-divergente` | `T11/02-momento-tudo-confere` |
-| `divergencia-chassi` | `T06/02-estado-chassi-divergente` |
+| `divergencia-chassi` | `T06/02-estado-chassi-divergente` · `T06/07-momento-correcao-solicitada` |
 | `evento-sem-resposta` | `T14/02-estado-prazo-estourado` |
 | `firmware-fora-matriz` | `T05/08-estado-pre-checagem-firmware-fora-da-matriz` · `T05/09-estado-firmware-fora-sem-rede-no-modulo` · `T05/10-momento-atualizando-o-firmware` |
 | `firmware-fora-sem-rede` | `T05/09-estado-firmware-fora-sem-rede-no-modulo` (por cima do `firmware-fora-matriz`, o mesmo par) |
 | `grandeza-indisponivel` | `T10/04-estado-modulo-sem-pulsos` |
 | `i-01` | `T12/01-momento-detalhe-da-instalacao` |
-| `identificador-divergente` | `T14/04-estado-identificador-divergente` |
+| `identificador-divergente` | `T14/04-estado-identificador-divergente` · `T14/06-momento-correcao-solicitada` |
 | `indice-nao-classificado` | `T11/01-estado-conteudo-que-o-app-nao-reconhece` |
 | `instalacoes-sem-rede` | `T12/03-estado-sem-rede` |
 | `link-perdido` | `T04/03-estado-faixa-modulo-com-falha` · `T05/14-estado-pre-checagem-link-perdido-na-6a` |
+| `lista-longa-garagens` | `T02/02-estado-lista-longa-com-busca` |
 | `ma-02` | `T06/03-estado-sem-chassi-na-can` · `T10/02-estado-rotacao-caminhao-coletor` |
 | `modelo-sem-driver` | `T05/07-estado-pre-checagem-modelo-sem-driver` |
 | `modulo-com-pendencias` | `T05/13-estado-pre-checagem-canal-aberto-e-pendencias` (por cima do `canal-aberto`, o mesmo módulo) |

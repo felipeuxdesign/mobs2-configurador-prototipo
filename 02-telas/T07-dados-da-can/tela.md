@@ -34,6 +34,30 @@ Tudo sai de `sinaisCan` do modelo do ativo da sessão, no mock: o lido, a faixa 
 
 Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe.
 
+- barra do sistema
+- faixa · sessão aberta
+- faixa · sem ação
+- duas ações
+- processo correndo
+- com legenda
+- leitura na faixa
+- fora da faixa
+- leitura pequena
+- leitura com mínimo
+- tambor
+- sinais liga-desliga
+- instrumentos apagados
+- com contador neutro
+- com contador de falha
+- cartões de valor
+- cartão com barra
+- cartão de configuração
+- cartões que esperam o ciclo
+
+## No protótipo · as peças que o código usa
+
+Anotação de construção, medida no código e nas referências. A lista de cima é a do design; esta é a que o protótipo usa, e a diferença entre as duas vai pro arquiteto.
+
 - primário · normal
 - primário · pressionado
 - link · normal e pressionado

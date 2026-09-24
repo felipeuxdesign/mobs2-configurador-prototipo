@@ -9,7 +9,9 @@ export const RITMOS = {
   conferenciaLinhaMs: 400,   // conferência da T11 · cada linha
   encerramentoPassoMs: 600,  // encerramento · cada passo
   autotesteAssertivaMs: 400, // autoteste · cada assertiva
-  cicloPassoMs: 3000,        // ciclo dinâmico · cada passo do veículo
+  cicloPassoMs: 3000,        // ciclo dinâmico · cada passo do veículo: o passo k acende a k × 3 s do disparo (+9, +12 e +15 s · T14·1)
+  cicloPassosNaEntrada: 2,   // ciclo dinâmico · os passos que a semente já traz feitos antes do disparo (T14·1 · C10)
+  filaDrenagemMs: 3000,      // ciclo dinâmico · a fila do módulo drena antes do disparo, 3 s no total (G4, T14-D11 · C10)
   prazoFator: 4,             // prazo do evento · 1 s real vale 4 s de prazo
   sincronizacaoTotalMs: 4000, // sincronização do pacote · 4 s no total
   cronometroCodigoMs: 1000,   // cronômetro do código (T01) · 1 s real vale 1 s de prazo e de reenvio (T01·1)

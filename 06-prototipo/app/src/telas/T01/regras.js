@@ -2,7 +2,7 @@
 // com a máscara do DDI, os passos da recuperação e os seis requisitos da senha
 // nova. Funções puras: mesma entrada, mesma saída.
 import { M } from '../../dados/mock.js'
-import { mascara } from '../../dados/formato.js'
+import { mascararTelefone, mascararEmail } from '../../dados/formato.js'
 
 export const CRED = M.credenciais
 export const REC = CRED.recuperacao
@@ -18,10 +18,12 @@ export const segmentosDo = (passo) => PASSOS.map((p, i) => {
 // Entrar: qualquer senha com o mínimo do mock entra (tela.md, logica.md:20)
 export const entra = (senha) => senha.length >= CRED.minimoEntrar
 
-// o contato: o telefone pela máscara do DDI dele (HU-T01-6), o e-mail como está
+// o contato, mascarado em todo o recuperar acesso (decisão 31): o telefone pela
+// máscara do DDI dele (HU-T01-6), o e-mail pela primeira letra e o domínio.
+// Derivados do contato do mock, nunca digitados (formato.js)
 const ddi = M.ddis.find((d) => d.codigo === CRED.contato.telefone.ddi)
-export const TELEFONE = mascara(ddi.mascara, CRED.contato.telefone.numero)
-export const EMAIL = CRED.contato.email
+export const TELEFONE = mascararTelefone(ddi.mascara, CRED.contato.telefone.numero)
+export const EMAIL = mascararEmail(CRED.contato.email)
 export const contatoDo = (canal) => (canal === 'telefone' ? TELEFONE : EMAIL)
 
 // os limites em segundos (a tela conta a partir daqui, sem relógio: T01·1)
@@ -29,6 +31,9 @@ export const PRAZO_CHEIO = LIM.validadeMin * 60
 export const REENVIO_CHEIO = LIM.reenvioSeg
 // o que resta de envio na hora: só o reenvio conta (T01·2)
 export const restamEnvios = (envios) => Math.max(0, LIM.tetoPorHora - envios)
+// o quadro em que o reenvio zera (T01/11): os 60 s do reenvio passaram, e o
+// prazo andou o mesmo tanto — 10:00 − 60 s = 9:00, atrás do véu
+export const PRAZO_NO_REENVIO_LIBERADO = PRAZO_CHEIO - REENVIO_CHEIO
 
 // Os requisitos da senha nova, na ordem do mock. O trecho (mocks.js,
 // "sem-usuario-nem-sequencia") é o tamanho que conta como sequência — abc,

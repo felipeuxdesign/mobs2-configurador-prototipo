@@ -17,6 +17,21 @@ Fechar a homologação: o que o app já provou sozinho, e o que o técnico ainda
 - item manual → responder: foto, ou não conforme com justificativa
 - `Finalizar instalação` → homologado; com a Seção F falhando, pede a ciência
 
+## As regras (C10, decididas no C0 e escritas aqui — G1)
+
+- **o acordeão:** uma seção aberta por vez; tocar em outra troca a aberta, e tocar na aberta fecha e volta ao mapa. Abrir tira o placar e o cabeçalho das colunas, como as referências 01 a 06 desenham. Abrir não anima altura
+- **o que é um item resolvido:** o automático cuja fonte passa, o manual com foto (tirada aqui, ou herdada da calibração) ou com ressalva, e o que não se aplica. O placar e a contagem de cada seção contam os resolvidos; o `Faltam N itens` conta só os das seções que bloqueiam (A a E) — com 1, o texto não existe e a legenda some (G25)
+- **de onde cada seção lê:** A, da sessão, da pré-checagem e do vínculo do ativo · B, das fotos e ressalvas desta tela e da foto da calibração (o Painel) · C, da leitura da CAN e da leitura nominal do módulo (as entradas e o modem) · D, da cadeia gravada e da calibração (o valor de partida é o do painel) · E, do ciclo da T14 · F, da fila desta sessão (G22)
+- **a semente:** pular pro checklist pelo palco é o herói depois da calibração e antes do ciclo — A, C e D resolvidas, o Painel herdado, B e E por fazer, F esperando: 19 de 31, `Faltam 9 itens`
+- **a Seção F:** conta só o que entrou na fila depois da abertura da sessão (G22). Antes do Finalizar, nada desta sessão está na fila, e ela espera (o relógio, `não bloqueia`). O `Finalizar instalação` gera o relatório da instalação — as evidências e o checklist — na fila (HU-T13-7), e a Seção F passa a contar ele: `12 subiram`, `31 de 31`, e o ID na plataforma `na fila`. Ela **falha** quando o servidor diz que não: o evento de teste que não chegou no prazo (T14/02), um item desta sessão recusado, ou o caso do ativo sem resposta (pronto-para-fechar)
+- **o Finalizar (T13·3):** acende quando o que bloqueia fecha; o homologado aparece depois do toque. Com a Seção F falhando, o toque abre o diálogo da ciência (10), e o `Finalizar instalação` do diálogo espera o `Estou ciente` marcado
+- **o item manual:** tocar num cartão de foto por fazer abre o nível do item (07). `Tirar foto` ou `Salvar com ressalva` resolvem o item e seguem pro próximo por fazer da seção; sem próximo, voltam à Seção B aberta. A foto tirada fica tirada, e o Painel herdado não se fotografa de novo: o cartão já resolvido não se toca (pendencias.md)
+- **o item reprovado (T13·2):** o cartão reprovado se toca e abre o nível do item (09), com o motivo; `Refazer a leitura da CAN` leva à T08. Nada automático se marca à mão
+- **a Seção E (T13·4):** o cartão do passo que falta (ou que reprovou) abre a T14. Nada de E se responde aqui. O passo que a T14 aprovou mostra `confere` — nenhuma referência desenha a Seção E feita, e a palavra é a aprovada pro chassi (G25). Sair da T14 por `Encerrar o ciclo` ou por `Ir para o checklist` (T14·2) dá a mesma Seção E: os pendentes ficam pendentes, e o cartão deles abre a T14
+- **a versão gravada (T13·1):** inteira, num cartão das duas colunas; a grade preenche o lugar que ele deixa com o cartão seguinte
+- **a escala do cartão com barra (T13·5):** a bateria com a faixa esperada entre 1/3 e 5/6 da barra (10 a 16 V no herói, a mesma do nível do item reprovado), os satélites de 0 a 12, e o sinal do modem com a faixa entre 1/6 e 5/6 (−110 a −50 dBm). As posições saem da conta
+- **o voltar (T13·6):** no mapa e numa seção aberta, faz o `Voltar ao menu`; no nível do item, o `Voltar ao checklist`, que volta à seção do item aberta; no diálogo, o `Cancelar`
+
 ## Peças do design system que esta tela usa
 
 Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe.
@@ -57,6 +72,36 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - cartões que esperam o ciclo
 - linha da fila
 - linha da re-checagem
+
+## No protótipo · as peças que o código usa
+
+Anotação de construção, medida no código e nas referências. A lista de cima é a do design; esta é a que o protótipo usa, e a diferença entre as duas vai pro arquiteto.
+
+Medido nas referências e no código do C10 (G10): toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe. O visor da câmera e o instrumento do item reprovado são peças só desta tela (`app/src/telas/T13/pecas.jsx`), montadas com os primitivos.
+
+- barra do sistema
+- faixa · sessão aberta
+- com contador neutro
+- placar da homologação
+- linha de seção do mapa
+- seção aberta do checklist
+- seção recolhida
+- a seção aberta inteira
+- cartões de valor
+- cartão com barra
+- cartão de configuração
+- cartões de foto
+- cartões que esperam o ciclo
+- segmentado
+- linha tocável (a linha de ação: `Não conforme · pede justificativa`)
+- justificativa
+- campo focado
+- checkbox
+- checkbox marcado
+- nota tracejada
+- diálogo com ciência
+- duas ações
+- com legenda
 
 ## Histórias de usuário
 

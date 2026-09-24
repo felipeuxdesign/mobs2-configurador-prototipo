@@ -19,7 +19,7 @@ E espera o *vai*.
 Revisado no C0 (`gate-C0.md`, parte 8): cada tela entra **com os seus estados**, o mock cresce com a tela que o lê, o C1 cria o repositório e a ferramenta de print, o C2 constrói as peças que as folhas desenham (não as linhas da tabela), e a T05 ocupa dois ciclos. Continuam 15 ciclos.
 
 ### C0 · Estudo
-- **entra:** ler a pasta inteira, abrir as 109 referências e devolver o gate de entendimento
+- **entra:** ler a pasta inteira, abrir as 113 referências e devolver o gate de entendimento
 - **está pronto quando:** `gate-C0.md`, com as oito partes
 
 ### C1 · Fundação
@@ -35,7 +35,7 @@ Revisado no C0 (`gate-C0.md`, parte 8): cada tela entra **com os seus estados**,
 ### C3 · O palco
 - **entra:** o quadrado, o painel em duas partes, a coluna com os 50 estados, os dois jeitos do celular, a URL de tela, estado e momento, o modo estreito, a etiqueta e o Recomeçar; as sementes e as receitas, com teste
 - **não entra:** as telas são vazias com o nome
-- **está pronto quando:** os 16 lugares, os 50 estados e os 39 momentos abrem pela URL
+- **está pronto quando:** os 16 lugares, os 50 estados e os 47 momentos abrem pela URL
 
 ### C4 · Entrar — T01, T02 e T03 com os 7 estados · 18 referências comparadas
 ### C5 · O menu e as folhas — T04 com as folhas, os dois diálogos e os 4 estados · 10 referências
@@ -53,7 +53,7 @@ Em cada ciclo de tela entram também os acréscimos do mock que as telas dele le
 - **está pronto quando:** cada movimento conferido contra a regra
 
 ### C13 · Auditoria de fidelidade
-- **entra:** as 109 referências, as 8 folhas e os 5 quadros fotografados, com o relatório de diferenças
+- **entra:** as 113 referências, as 8 folhas e os 5 quadros fotografados, com o relatório de diferenças
 - **está pronto quando:** zero diferença sem desvio nomeado
 
 ### C14 · No ar

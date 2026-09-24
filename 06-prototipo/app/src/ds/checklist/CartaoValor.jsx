@@ -6,6 +6,16 @@
 //                      em lima e o marcador do valor lido (o cartão com barra)
 // aguarda: o valor ainda não veio (o traço da Seção E até o veículo andar).
 // A família de cartão: CartaoValor, CartaoFoto, na GradeCartoes.
+// C10 · T13 (G11), três acréscimos, e o que já existia fica igual:
+//   unidadeTexto · a palavra que acompanha o valor ('Mobs2 dados', '12 subiram')
+//                  em 12 (--n-unidade-p), e não a unidade de 10 (T13/04, 06)
+//   larga        · o cartão ocupa as duas colunas da grade (a versão gravada
+//                  inteira, T13·1 a); a grade preenche o buraco que ele deixa
+//   aoTocar      · o cartão que leva a outra tela (o item reprovado → o nível
+//                  do item; o passo de E que falta → T14, T13·4) vira o
+//                  Tocavel inteiro, com o nome em `rotulo` (G14)
+// A faixa aberta pra cima (max null, os satélites) vai até o fim da escala.
+import { Tocavel } from '../primitivos/Tocavel.jsx'
 import './CartaoValor.css'
 
 // a posição na escala, em %, com uma casa (a régua das referências)
@@ -17,7 +27,7 @@ export function GradeCartoes({ colunas = 2, children }) {
 
 function BarraCartao({ min, max, faixa, valor }) {
   const de = pos(faixa[0], min, max)
-  const ate = pos(faixa[1], min, max)
+  const ate = pos(faixa[1] ?? max, min, max)
   const estilo = { '--ds-faixa-de': `${de}%`, '--ds-faixa-largura': `${(ate - de).toFixed(1)}%`, '--ds-agulha-em': `${pos(valor, min, max)}%` }
   return (
     <div className="ds-cartao-barra" style={estilo} aria-hidden="true">
@@ -27,13 +37,18 @@ function BarraCartao({ min, max, faixa, valor }) {
   )
 }
 
-export function CartaoValor({ nome, valor, unidade, medida, aguarda = false }) {
-  return (
-    <div className={`ds-cartao-valor ${aguarda ? 'ds-cartao-valor-aguarda' : ''}`}>
+export function CartaoValor({ nome, valor, unidade, medida, aguarda = false, unidadeTexto = false, larga = false, aoTocar, rotulo }) {
+  const classes = ['ds-cartao-valor']
+  if (aguarda) classes.push('ds-cartao-valor-aguarda')
+  if (larga) classes.push('ds-cartao-valor-larga')
+  const conteudo = (
+    <>
       <span className="ds-cartao-valor-nome">{nome}</span>
-      <span className="ds-cartao-valor-numero">{valor}{unidade && <span className="ds-cartao-valor-unidade">{unidade}</span>}</span>
+      <span className="ds-cartao-valor-numero">{valor}{unidade && <span className={`ds-cartao-valor-unidade ${unidadeTexto ? 'ds-cartao-valor-unidade-texto' : ''}`}>{unidade}</span>}</span>
       {medida === 'traco' && <div className="ds-cartao-valor-sem-faixa" aria-hidden="true"><span className="ds-cartao-valor-traco" /></div>}
       {medida && typeof medida === 'object' && <BarraCartao {...medida} />}
-    </div>
+    </>
   )
+  if (aoTocar) return <Tocavel rotulo={rotulo} aoTocar={aoTocar} className={classes.join(' ')}>{conteudo}</Tocavel>
+  return <div className={classes.join(' ')}>{conteudo}</div>
 }

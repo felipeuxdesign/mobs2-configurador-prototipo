@@ -21,6 +21,22 @@ A grade monta os sinais do modelo do ativo da sessão, na ordem dos domínios e,
 
 ## Peças do design system que esta tela usa
 
+Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe.
+
+- barra do sistema
+- faixa · sem ação
+- duas ações
+- uma ação
+- processo correndo
+- com legenda
+- mostrador · apagado
+- mostrador · relendo
+- mostrador · aceso
+
+## No protótipo · as peças que o código usa
+
+Anotação de construção, medida no código e nas referências. A lista de cima é a do design; esta é a que o protótipo usa, e a diferença entre as duas vai pro arquiteto.
+
 Medido nas referências no C8 (a lista do C0 trazia seis peças que não aparecem, T08-A4). Construa com o componente — nunca redesenhe.
 
 - primário · normal

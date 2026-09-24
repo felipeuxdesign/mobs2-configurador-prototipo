@@ -8,3 +8,9 @@
 .ds-link-toque[data-texto]::before { content: attr(data-texto); }
 .ds-link:active .ds-link-toque, .ds-link.ds-forca-toque .ds-link-toque { opacity: 1; transition: none; }
 .ds-link.ds-forca-toque .ds-link-texto { opacity: 0; }
+/* C10 · T14/06 (G11): o link registrado — o mesmo lugar de 48, sem toque: o glifo
+ * de 14 e o que ficou feito, em --tinta-apagada, a 8. Na troca, só o conteúdo esmaece */
+.ds-link.ds-link-registro { display: flex; align-items: center; justify-content: center; gap: var(--e-8); color: var(--tinta-apagada); }
+.ds-link-registro .ds-glifo { color: var(--tinta-apagada); }
+.ds-link-registro-entra > * { animation: ds-link-esmaece var(--mov-rapido) var(--mov-curva) both; }
+@keyframes ds-link-esmaece { from { opacity: 0; } to { opacity: 1; } }

@@ -8,18 +8,24 @@
 //   aguarda   → o relógio apagado, nome e contagem apagados: espera outra tela
 //   reprovada → o X vermelho
 // legenda: a linha abaixo do nome (F · não bloqueia), numa linha de 60.
+// nomeGlifo (C10 · T13, G15): o nome do glifo pro leitor, pelo estado do dado
+// (o relógio da seção que espera diz 'ainda não', não 'em andamento'). Sem ele,
+// o nome do Glifo.
+// recolhida (C10 · T13, G15): a linha é a seção recolhida do acordeão — o
+// leitor ouve que ela abre (aria-expanded false). Sem ela, a linha de antes.
 import { Tocavel, Poco, Glifo, Icone } from '../index.js'
 import './LinhaSecaoMapa.css'
 
 const GLIFO = { aprovada: 'ok', pendente: 'espera', aguarda: 'relogio', reprovada: 'xis' }
 
-export function LinhaSecaoMapa({ estado = 'aprovada', titulo, legenda, contagem, divisoria = true, aoTocar, rotulo }) {
+export function LinhaSecaoMapa({ estado = 'aprovada', titulo, legenda, contagem, divisoria = true, aoTocar, rotulo, nomeGlifo, recolhida = false }) {
   const classes = ['ds-linha-secao-mapa', `ds-linha-secao-mapa-${estado}`]
   if (legenda) classes.push('ds-linha-secao-mapa-com-legenda')
   if (!divisoria) classes.push('ds-linha-secao-mapa-sem-divisoria')
   return (
-    <Tocavel rotulo={rotulo ?? [titulo, legenda, contagem].filter(Boolean).join(', ')} aoTocar={aoTocar} className={classes.join(' ')}>
-      <Poco tam={32}><Glifo estado={GLIFO[estado]} poco={30} className="ds-linha-secao-mapa-glifo" /></Poco>
+    <Tocavel rotulo={rotulo ?? [titulo, legenda, contagem].filter(Boolean).join(', ')} aoTocar={aoTocar} className={classes.join(' ')}
+      aria-expanded={recolhida ? false : undefined}>
+      <Poco tam={32}><Glifo estado={GLIFO[estado]} poco={30} nome={nomeGlifo} className="ds-linha-secao-mapa-glifo" /></Poco>
       <span className="ds-linha-secao-mapa-texto">
         <span className="ds-linha-secao-mapa-titulo">{titulo}</span>
         {legenda && <span className="ds-linha-secao-mapa-legenda">{legenda}</span>}

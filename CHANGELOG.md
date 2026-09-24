@@ -1,5 +1,116 @@
 # Registro de mudanças
 
+## 2026-09-24 · C11 · encerrar e consultar — T16, T15, T11 e T12
+
+- **as quatro telas em `app/src/telas/`**, com os 19 quadros e os toques de cada `tela.md`, cada uma construída por um agente e revisada por outro:
+  - **T16, a sessão:** o ENCERRAR de toda tela leva a ela. Com a sessão homologada, o encerramento corre os 7 passos a 600 ms, e as 8 assertivas acendem a 400 ms; a prova e o *Voltar ao menu* entram com a última. Antes de homologar, a sessão abortada tem 4 passos, sem confirmação, e os diálogos do menu passam por eles antes do destino (G23). A sessão interrompida retoma no bloco que parou, e o *Descartar* volta ao menu sem sessão
+  - **T15, a fila de saída:** a fila da garagem ativa, com o que a sessão criou, e os 4 estados (sem erro, dois erros, vazia e a Seção F em re-checagem)
+  - **T11, conferir a configuração:** a conferência lê ao abrir, as cinco linhas acendem a 400 ms, e *Regravar os cinco blocos* leva à T09. Pelo menu, com a sessão do herói, tudo confere
+  - **T12, as últimas instalações:** agrupadas por idade, o detalhe da instalação e os estados vazio e sem rede
+- **a bancada, contra o HTML:**
+  - **T16:** de 0,02 a 0,06%;
+  - **T11:** 0,02 a 0,14%;
+  - **T12:** 0 a 0,07%;
+  - **T15:** 0 a 0,09%, e 4,65% no estado sem erro, porque o recorte da fila que a referência desenha não sai do mock (o dado ganha no valor, G9);
+  - o resto é o glifo do Lucide contra o desenhado à mão (G5) e a linha de baixo da faixa (G13) · os textos conferem, fora os do valor que o mock ganha
+- **o mock:** os acréscimos do C11, só aditivos e com checagem no gate (o par que confere, as instalações vazias, a fila sem erro, com dois erros e vazia) · **41 casos no mock**
+- **os tokens:** os 12 que o C10, o C11 e a T01 pediram entraram no `tokens.css`, cada um com o papel (262 → **274**)
+- **as peças:** variantes nomeadas (G11) na linha de checagem, no aviso, na nota, no cabeçalho do conteúdo, no encerramento, na linha do histórico, no cartão que pede ação e num glifo de fora da folha 3 · os 122 espécimes da vitrine continuam com os números do C2, fora os das folhas que o design mudou
+- **desvios nomeados:**
+  - **G13:** a faixa da sessão fica com a linha de baixo, que as referências da T11 e da T12 não desenham;
+  - **G9:** na T11 aberta pelo menu, o Ativo diz *tradução urbano v3*, o cadastro do RKT-8H42, e a referência diz *frota v2*. Na T15, a evidência do RSW-9L02 é *há 2 dias*, e não *ontem 10:05*;
+  - **G24, a Lei 3:** a assertiva que falha, a sessão interrompida, o corte e o sem rede da T12 mudam o desenho do cartão, como as referências desenham. **Para o diretor:** reservar os lugares;
+  - **Lei 1:** o cartão *Subindo agora* da T15 fecha com o traço lima enquanto o envio corre, como a referência. São duas exceções propostas ao diretor;
+  - **T16·2:** os Pontos de cerca do herói ficam *não se aplica*, porque o texto da assertiva aplicada não existe
+- **para o diretor e o arquiteto:**
+  - os textos que faltam: os passos do encerramento enquanto correm, os vereditos da T12 sem referência, o *quando* do detalhe de outro dia;
+  - o corte dos grupos por idade da T12 (17 é o menor que reproduz a referência);
+  - a ressalva, que não aparece em lugar nenhum
+- **pendente no fechamento:** o caminho do herói de ponta a ponta e o voltar do Android em todas as telas
+
+## 2026-09-24 · C10 · o ciclo e o checklist — T14 e T13
+
+- **a T14, o ciclo dinâmico:**
+  - a fila do módulo drena em 3 s, e o *Disparar evento de teste* acende;
+  - o prazo de 2:00 anda 4 s por segundo, e os passos 3 a 5 acendem a +9, +12 e +15 s do disparo;
+  - o evento chega aos 24 s, e os campos conferem;
+  - os três estados, e a correção solicitada (06), que vira o registro no mesmo lugar, como na T06
+- **a T13, o checklist:**
+  - as seis seções com o mapa e o acordeão (os 12 quadros);
+  - cada item lê a etapa que o produziu no estado único;
+  - o item reprovado leva à tela que corrige;
+  - o *Finalizar* homologa, ou abre a ciência com a Seção F falhando;
+  - o contador do menu conta B e E não resolvidos
+- **a bancada, contra o HTML:**
+  - **T14:** 0,04 a 0,05% nos quadros sem valor do mock. Na 01, 04 e 06, de 0,72 a 1,77%, pela faixa travada em 52 (G13). Na 05, 0,87%, porque o evento chega aos 24 s do mock, e não aos 48 da referência (G9);
+  - **T13:** 0,04 a 0,66% em 9 dos 12 quadros. A D (2,75%), a E (2,07%) e a ciência (1,12%) sobem pela faixa (G13), pela versão gravada inteira num cartão de duas colunas (T13·1) e pelo valor do mock
+- **desvios nomeados (G9, G22):**
+  - pelo palco, o checklist mostra 19 de 31 e *Faltam 9 itens*, e não 21 e 10: a foto do painel já veio da calibração, e a Seção F só conta o que esta sessão enviou;
+  - o firmware do herói é o 2.3.5 do cadastro;
+  - os pontos de cerca mostram G07;
+  - a barra do GPS vai de 0 a 12, como a T07;
+  - o homologado diz 14:30, o relógio parado
+- **a Seção E feita** mostra *confere* em cada passo, a palavra já aprovada pro chassi · nenhuma referência desenha a E feita (G25)
+- **para o diretor:** reservar os lugares da T14, que se movem entre os quadros como as referências desenham (G24)
+
+## 2026-09-24 · as entregas 4 e 5 do design, construídas e organizadas
+
+- **T01 · o não recebi o código, pela 4ª entrega:**
+  - a folha tem as duas saídas; *Conferir e reenviar* e *Mandar para o e-mail* voltam pro código, com o prazo cheio, as células vazias e o cursor na primeira (12 e 13);
+  - a espera do reenvio é a contagem no lugar da seta, com as duas linhas desabilitadas de verdade até zerar; ao zerar, a seta entra e as linhas acendem em 150 ms (11);
+  - o contato aparece mascarado nas seis telas do recuperar, derivado do mock (`dados/formato.js`), com reticências quando não cabe (decisão 31);
+  - nenhum *Pedir ajuda ao gestor* sobrou (decisão 32);
+  - **o revisor achou e corrigiu:** o leitor de tela lia duas vezes o texto da linha que espera
+- **T02 · a lista longa, pela 5ª entrega:**
+  - a busca só aparece com mais de 6 garagens, e filtra por nome ou cidade, sem acento e sem caixa. O herói, com 3, não tem busca;
+  - o estado 02 é o caso novo `lista-longa-garagens`, com 9 garagens rolando por baixo do rodapé parado;
+  - a frase da idade sai do dado: *pacote de hoje*, *de ontem*, *de 4 dias*, e a vencida diz só *pacote vencido há 8 dias* (D-41)
+- **a bancada:** a T02 em 0, 0 e 0,01% · a T01 em 0% em sete dos 14 quadros
+- **desvios nomeados na T01:**
+  - **T01·1:** as referências 03, 04 e 05 desenham 9:41, 0:44 e 9:28, que não saem do mock; o app abre cheio, em 10:00 e 60 s (0,52%, 2,19% e 0,07%);
+  - **T01·6:** o Confirmar fica desabilitado com as células vazias, e as referências 12 e 13 desenham ele aceso (5,9%, só no botão);
+  - **G25:** a folha e o diálogo aparecem sobre a tela de onde nasceram (04, 09 e 11)
+- **a documentação das quatro pastas** (`atualizacao`, `atualizacao2`, `atualizacao33` e `atualizacao98`) entrou sem perder o que o protótipo e o diretor mudaram:
+  - em cada `tela.md`, a lista de peças é a do design, e a lista medida foi pra *No protótipo · as peças que o código usa*;
+  - o `componentes.md` tem a tabela do design e, embaixo, o que o protótipo mediu;
+  - as leis ganharam a exceção do olho e a área de toque, e ficaram com o R-14, o R-15 e as marcas do C1;
+  - o changelog do arquiteto entrou uma vez só, sem o que ele repetia
+- **os números:** 113 referências, 47 momentos, 50 estados, 274 tokens, 126 peças e 41 casos · a diferença entre o que o design diz e o que o protótipo mede está em `diferencas-para-o-arquiteto.md`
+- **para o arquiteto:**
+  - desenhar a 03, a 04 e a 05 da T01 no quadro da chegada;
+  - a T01·6;
+  - o teto da hora, que não tem texto nem desenho;
+  - as duas linhas com o mesmo destino no canal e-mail;
+  - as listas de peças do design com peças que a tela não desenha
+- **a entrega tem uma ferramenta:** `app/scripts/entrega.mjs` classifica os arquivos de uma pasta nova do arquiteto e junta os `tela.md` pela regra dele
+
+## 2026-09-24 · a lista longa da T02
+
+- **a busca da T02 aparece com mais de 6 garagens** — antes a regra dizia só *garagens demais*
+- o mock ganhou o caso **`lista-longa-garagens`**: a mesma empresa, num mundo com 9 garagens em 3 regiões · o gate continua aprovando, e são **34 casos**
+- a tela da lista longa foi redesenhada **com a lista longa de verdade**, rolando por baixo do rodapé — antes ela mostrava as mesmas 3 garagens
+- o texto das linhas: *pacote de 4 dias*, e não *pacote de há 4 dias* · e a vencida diz só a causa, *pacote vencido há 8 dias*, pela D-41 — causa ou ação, nunca as duas
+
+## 2026-09-24 · as saídas do não recebi o código, e o contato mascarado
+
+- **o não recebi o código** agora tem o que acontece em cada toque: *Conferir e reenviar* volta pro código com o prazo em 10:00; *Mandar para o e-mail* volta pro código dizendo o e-mail · 3 momentos novos na T01
+- **o acionar gestor saiu**, por decisão do PM: a folha tem duas saídas · decisão 32 e a HU-T01-8 marcada
+- a espera de 60 s do reenvio virou **número no lugar da seta**, com a linha desabilitada até zerar · no resto do recuperar, ela se chama *reenviar em*
+- o celular e o e-mail aparecem **mascarados** nas seis telas do recuperar acesso · pendência pro PM · decisão 31
+- agora são **113 referências** e **47 momentos**
+
+## 2026-09-24 · a tela da senha visível, e a regra da área de toque
+
+- **a senha visível virou tela**, na T01: o login com a senha por extenso e o olho riscado, pra comparar o print · agora são **110 referências** e **44 momentos**
+- **a área de toque** entrou na lei *nada encosta*: nunca a menos de 8px de outra · quando o desenho não deixa espaço, ela cresce só pro lado livre, e o que se vê não muda · o link do rodapé cresce pra baixo, o avatar da conta pra cima
+
+## 2026-09-24 · o olho da senha, e o que o erro faz com ela
+
+- o campo de senha ganhou o **estado visível** na folha 6: a senha por extenso, o **olho riscado** e o nome *Ocultar a senha* · o movimento de trocar está na animação da T01
+- **no erro do login, a senha é apagada e o cursor vai pra ela** — o usuário fica, pra ele só redigitar a senha
+- o design system tem **116 peças**
+- **as listas de peças de cada tela foram corrigidas**: o gerador reconhecia algumas peças por um bloco genérico, e o campo e o campo focado apareciam em telas sem campo · agora cada peça é reconhecida pelo primeiro bloco com fundo ou borda, e peças que faltavam entraram, como os cartões de valor da T07
+
 ## 2026-09-24 · a terceira entrega do design, construída no protótipo
 
 - **o olho da senha é o do design, não o do Lucide** (a exceção da Lei 14): a amêndoa baixa e a pupila inteiras, e o riscado é o mesmo olho com um risco diagonal que tem uma borda da cor do poço, pra cortar o contorno onde passa · 1 token novo (`--olho-corte`, **262**)

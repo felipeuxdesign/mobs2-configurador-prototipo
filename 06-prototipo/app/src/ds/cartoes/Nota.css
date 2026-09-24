@@ -4,5 +4,13 @@
 .ds-nota-frase { font-size: var(--t-legenda); font-weight: 500; line-height: var(--entrelinha-legenda); color: var(--tinta-apagada); }
 .ds-nota-fato .ds-nota-titulo { color: var(--tinta-secundaria); }
 .ds-nota-fato .ds-nota-frase { font-size: var(--t-secundario); color: var(--tinta-forte); }
+/* C11 · T11/01 (G11): o achado da leitura, o conteúdo que o app não classifica */
+.ds-nota.ds-nota-achado { gap: var(--e-2); padding: var(--e-10) var(--e-12); border-color: var(--borda-poco); }
+.ds-nota-achado .ds-nota-titulo { color: var(--tinta-secundaria); }
+.ds-nota-achado .ds-nota-frase { font-size: var(--t-secundario); line-height: var(--entrelinha-texto); color: var(--tinta-secundaria); }
 /* C4 · T03 (G11): a frase de 13, em 400, da nota que diz o bloqueio (T03/04) */
 .ds-nota-corpo-secundario .ds-nota-frase { font-size: var(--t-secundario); font-weight: 400; line-height: var(--entrelinha-nota-secundaria); }
+/* C11 · T16/04 (G11): a frase de 13, em 500 e --tinta-secundaria, do que não rodou */
+.ds-nota-corpo-pulado .ds-nota-frase { font-size: var(--t-secundario); line-height: var(--entrelinha-frase-caixa); color: var(--tinta-secundaria); }
+/* C10 · T13/09 (G11): a frase de 13, em 400, na entrelinha da frase da caixa apagada (o item que não se marca à mão) */
+.ds-nota-corpo-item .ds-nota-frase { font-size: var(--t-secundario); font-weight: 400; line-height: var(--entrelinha-frase); }

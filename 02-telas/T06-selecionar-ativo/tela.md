@@ -24,6 +24,38 @@ Escolher o ônibus que está na frente do técnico e provar que é ele.
 
 ## Peças do design system que esta tela usa
 
+Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe.
+
+- barra do sistema
+- faixa · sem ação
+- duas ações
+- uma ação
+- processo correndo
+- com legenda
+- seção aberta do checklist
+- seção recolhida
+- nota com rótulo
+- o par comparado
+- linha do histórico
+- a lista de garagens
+- com contador neutro
+- com contador de falha
+- checkbox
+- checkbox marcado
+- campo de busca
+- justificativa
+- linha de opção
+- linha de ônibus
+- escolhido com trava · T06
+- cartão que pede ação
+- lista com contagem
+- linha da fila
+- linha da re-checagem
+
+## No protótipo · as peças que o código usa
+
+Anotação de construção, medida no código e nas referências. A lista de cima é a do design; esta é a que o protótipo usa, e a diferença entre as duas vai pro arquiteto.
+
 Medido nas 7 referências e construído no C8 (T06-A6, G1): as peças que a tela usa de fato. Construa com o componente — nunca redesenhe.
 
 - primário · normal

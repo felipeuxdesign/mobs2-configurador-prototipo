@@ -23,6 +23,23 @@ No protótipo, a sincronização corre um item por vez — Modelos, Ativos, Cart
 
 Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe.
 
+- barra do sistema sem sessão
+- duas ações
+- uma ação
+- processo correndo
+- com legenda
+- falha
+- aviso
+- processo parado
+- linha do histórico
+- a lista de garagens
+- linha de opção
+- lista com contagem
+
+## No protótipo · as peças que o código usa
+
+Anotação de construção, medida no código e nas referências. A lista de cima é a do design; esta é a que o protótipo usa, e a diferença entre as duas vai pro arquiteto.
+
 - primário · normal
 - primário · pressionado
 - primário · desabilitado

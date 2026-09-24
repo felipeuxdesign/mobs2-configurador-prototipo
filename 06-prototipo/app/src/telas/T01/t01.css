@@ -1,5 +1,6 @@
-/* T01 · Login — medido nas dez referências (02-telas/T01-login/referencias/html).
- * Só tokens: os que faltavam entraram no tokens.css, pelo papel (C4). */
+/* T01 · Login — medido nas catorze referências (02-telas/T01-login/referencias/html).
+ * Só tokens: os que faltavam entraram no tokens.css, pelo papel (C4 e a
+ * entrega do design de 24/09). */
 
 .t01 { position: relative; height: 100%; display: flex; flex-direction: column; background: var(--fundo-pagina); color: var(--tinta); }
 
@@ -29,7 +30,10 @@
 .t01-aviso { flex-shrink: 0; display: flex; flex-direction: column; margin-bottom: var(--e-4); }
 .t01-lembrar { flex-shrink: 0; display: flex; flex-direction: column; margin: var(--e-8) 0; }
 
-/* ── a recuperação · 02 a 08 ── */
+/* ── a recuperação · 02 a 08, 12 e 13 ── */
+/* o contato mascarado fica numa linha só; se não couber, reticências (decisão 31):
+ * no cartão do canal (02) e no "Mandamos para" (03 a 07, 12 e 13) */
+.t01-destino { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .t01-miolo-passo { padding: var(--e-36) var(--e-20) 0 var(--e-20); gap: var(--passo-folga); }
 /* O link "Não recebi o código" fecha o miolo com o desenho de 44 e o toque de
  * 48 (G14): os 2 do toque que passam do desenho sairiam do miolo e o fariam
@@ -53,7 +57,7 @@
 .t01-canal.t01-canal-escolhido { border-bottom: var(--traco-destaque) solid var(--lima); }
 .t01-canal-rotulo { font-size: var(--t-rotulo-topo); font-weight: 700; letter-spacing: var(--ls-rotulo-topo); color: var(--tinta-apagada); }
 .t01-canal-escolhido .t01-canal-rotulo { color: var(--lima); }
-.t01-canal-contato { font-weight: 700; }
+.t01-canal-contato { max-width: 100%; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .t01-canal-contato-telefone { font-size: var(--n-cartao); color: var(--tinta); }
 .t01-canal-contato-email { font-size: var(--t-contato-email); color: var(--tinta-forte); }
 
@@ -93,5 +97,5 @@
 }
 .t01-requisitos { flex-grow: 1; display: flex; flex-direction: column; }
 
-/* ── por cima da tela: a folha (04) e o diálogo (09), sobre a tela de onde nasceram (G25) ── */
+/* ── por cima da tela: a folha (04, 11) e o diálogo (09), sobre a tela de onde nasceram (G25) ── */
 .t01-sobre { position: absolute; top: var(--barra-sistema); right: 0; bottom: 0; left: 0; z-index: 1; display: flex; flex-direction: column; }

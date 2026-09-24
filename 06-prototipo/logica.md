@@ -44,8 +44,8 @@ Pular direto pra uma tela pelo painel monta o estado mínimo que ela precisa pra
 | T08 · Refazer leitura da CAN | sessão M2C-0417 + RKT-8H42 · leitura feita |
 | T09 · Configurar módulo | sessão M2C-0417 + RKT-8H42 · os blocos do mock |
 | T10 · Calibração | sessão M2C-0417 + RKT-8H42 · hodômetro 184.320 no módulo, 482.317 no painel |
-| T11 · Conferir configuração | M2C-0438 + ONK-8Q90 · caso diff-divergente |
-| T12 · Últimas instalações | garagem Várzea · cinco instalações |
+| T11 · Conferir configuração | M2C-0438 + ONK-8Q90 · caso diff-divergente · garagem Ibura, a do ONK-8Q90, com o pacote dela (G21) |
+| T12 · Últimas instalações | sessão M2C-0417 + RKT-8H42 · garagem Várzea · cinco instalações (a 00 desenha a sessão aberta, G21) |
 | T13 · Checklist | sessão M2C-0417 + RKT-8H42 · 31 itens |
 | T14 · Ciclo dinâmico | sessão M2C-0417 + RKT-8H42 · fila com 6 mensagens e 2 de diagnóstico |
 | T15 · Fila de saída | fila com dois itens · um com erro |
@@ -59,15 +59,16 @@ Na T05, o que acontece uma vez vale uma vez por sessão (G21, `casosConsumidos`)
 
 ## ENCERRAR
 
-- **depois de homologar:** os passos do encerramento, o corte de alimentação que o técnico faz, e o autoteste
-- **antes de homologar:** a sessão abortada — **4 passos, sem confirmação**. Quem tocou no ENCERRAR da faixa já decidiu
+- **depois de homologar:** os passos do encerramento, o corte de alimentação que o técnico faz quando o driver não reinicia por comando, e o autoteste (T16·1). O herói é um VL06, que reinicia por comando; o corte aparece na sessão do KNB-5H39 · M2C-0371, que se abre pelo endereço do momento. Ao fechar o sétimo passo, a sessão sai do estado único e a tela passa pra *Sessão encerrada*, onde as oito assertivas acendem uma a uma; a prova e o `Voltar ao menu` entram com a última (T16·4)
+- **antes de homologar:** a sessão abortada — **4 passos, sem confirmação**. Quem tocou no ENCERRAR da faixa já decidiu. Do ENCERRAR, os 4 passos terminam na *Sessão encerrada* sem homologar; dos diálogos do menu (`Encerrar a sessão e sair`, `Encerrar a sessão e trocar`), o destino fica gravado no estado único e, depois dos 4 passos, o app segue pra ele — o login com a fila preservada, ou a sincronização da garagem nova (G23)
+- **a sessão interrompida (T16/06):** `Retomar` reabre a cadeia da T09 no bloco que parou, com os blocos já confirmados; `Descartar` volta ao menu sem sessão e não cria item de fila; o voltar não faz nada (T16·5, T16·6)
 - **a exceção da T09 (G23, HU-T09-9):** enquanto a Conexão não gravou, o ENCERRAR e o `Voltar ao menu` com a cadeia parada levam à recuperação (T09/03), onde o ENCERRAR não faz nada e `Continuar a gravação` retoma do mesmo bloco. Com a cadeia concluída, o ENCERRAR volta a ser o de cima
 
 ## Os contadores do menu (T04·1, T04·2)
 
 - **no cartão Fila de saída:** o que ainda não chegou ao servidor (tudo o que não foi recebido), só da garagem ativa — na Várzea, 2
 - **no diálogo Sair da conta:** o que está na fila, de todas as garagens — 3. As duas contas são diferentes, e a diferença está com o diretor (T04·1)
-- **no cartão Finalizar com checklist:** só depois que o checklist foi aberto uma vez na sessão; conta os itens das seções B e E, os que o técnico resolve, ainda não resolvidos — 10 na semente — e some ao homologar (T04·2)
+- **no cartão Finalizar com checklist:** só depois que o checklist foi aberto uma vez na sessão; conta os itens das seções B e E, os que o técnico resolve, ainda não resolvidos — 10 na semente — e some ao homologar (T04·2). A T13 grava a conta em `etapas.checklist.pendentes` a cada item que resolve (C10). **Um item resolvido** é o manual com foto — tirada no checklist, ou herdada da calibração (o Painel, HU-T10-4) — ou com ressalva (não conforme com justificativa, que não bloqueia), o passo de E que a T14 aprovou, e o que não se aplica. Pela conta da T13, a semente do checklist dá 9, porque o Painel já vem herdado; o menu segue com a conta dele (10) até ler `pendentes`
 - **a troca de garagem com evidência subindo** (T04/08) abre pela coluna do palco: no fluxo, a semente do menu não tem envio em curso, e a folha abre sem o aviso (T04·3)
 
 ## A escolha do ativo (T06·1 a T06·5)
@@ -92,12 +93,40 @@ Na T05, o que acontece uma vez vale uma vez por sessão (G21, `casosConsumidos`)
 - **o que fica gravado:** a cada bloco relido, `etapas.cadeia` fica com quantos confirmaram e a versão composta até ali (HU-T09-8); com os seis, `A12.G07.L02.E05.C03`. A T09 aberta depois disso já abre concluída
 - **a saída:** a cadeia concluída tem só `Voltar ao menu`, que leva ao menu, de onde a Calibração segue: nenhuma referência desenha um `Calibrar` (T09-A3, G25)
 
+## A conferência (T11·1, T11·2)
+
+- **o que diverge:** só o par do caso `diff-divergente` (M2C-0438 + ONK-8Q90, a semente do painel), e ele abre na 00 com os cinco blocos não batendo. A T11 aberta pelo menu com a sessão do herói (o par do caso `conferencia-confere`) não acha divergência e vai pro **02, tudo confere** (T11·1). O endereço do 02 monta esse par, com a garagem dele
+- **depois de regravar:** `Regravar os cinco blocos` leva à T09; com a cadeia concluída, `etapas.cadeia` registra os seis blocos relidos, e a T11 reaberta com a mesma sessão abre em tudo confere (T11·2)
+- **o valor de cada linha:** o que o cadastro manda — o do caso, no par do `diff-divergente`; nos outros, o cadastro do próprio par: a tradução do modelo, as regiões do ativo, o meio da sessão, o intervalo do preset de eventos (G9)
+- **a leitura:** ao abrir, as cinco linhas acendem em ordem, uma a cada 400 ms, sobre o desenho do quadro a que ela chega — a 00 quando diverge, o 02 quando confere (G27); num estado da coluna, ela nasce lida
+- **o voltar:** faz a saída do rodapé — na 00 e na 01, o `Só registrar o diagnóstico`; no 02, o `Voltar ao menu`
+- **o conteúdo que o app não reconhece** (o 01) abre só pela coluna: o par da semente é o mesmo dos dois casos, e a semente abre na 00
+- **o que fica gravado:** `Só registrar o diagnóstico` põe em `etapas.conferencia` os blocos que não bateram e a hora, 14:30, e volta ao menu; nenhum item entra na fila (G25)
+
+## O ciclo dinâmico (T14·1 a T14·4)
+
+- **a entrada:** a tela entra no quadro da 01 — a fila do módulo drenando, o prazo cheio, o disparo indisponível (G27). A fila é a de todo módulo (`ciclo.mensagensGuardadas`, 6 e 2) ou, no serial do `modulo-com-pendencias`, a dele (12 e 3), e drena em 3 s; o `Disparar evento de teste` acende
+- **o ritmo:** disparado, o prazo de 2:00 anda 4 s por segundo real. A semente traz 2 passos feitos; os passos 3 a 5 acendem a +9, +12 e +15 s do disparo (T14·1, `ritmos.js`). O evento chega aos 24 s do prazo — a 00 é o instante antes, 1:36 — e os campos conferem aos 33 (`6 de 6`, `ciclo.evento.campos`). Chegou, o número passa a ser o tempo que ele levou (0:24), e a barra para no que restava. Os cinco passos e o evento → 05
+- **os casos, pelo par da faixa (G28):** o `evento-sem-resposta` (M2C-0335 + KHT-4B08) estoura o prazo na 1ª tentativa, uma vez por sessão (G21), e `Disparar outro evento` confirma na 2ª, com os passos valendo · o `can-fora-esperado` (QJF-2C61) reprova o passo que o sinal prova (`ciclo.passoDoSinal`: velocidade → Movimento detectado) · o `identificador-divergente` (PCX-9A17) acrescenta a linha do teste do cartão, que só existe com o caso (T14·3). Os dois últimos são fato do veículo e do cadastro: valem toda vez
+- **as saídas:** `Encerrar o ciclo` fecha a captura, e os pendentes ficam pendentes na Seção E; `Ir para o checklist` sai com o ciclo aberto — os dois → T13 (T14·2). Concluído, `Voltar ao checklist` → T13 e `Voltar ao menu` → T04 (T14·4). `Solicitar correção de cadastro` vira o registro no mesmo lugar, com a hora do protótipo e os dois valores anexados
+- **o que fica gravado:** `etapas.ciclo` guarda o par, os passos pelo id do item da Seção E (`aprovada`, `reprovada` ou `pendente`), quantos foram feitos, o evento (`antes`, `disparado`, `recebido`, `conferido` ou `nao-chegou`) e a tentativa, o cartão e a correção pedida (o lido, o esperado e 14:30), se o ciclo concluiu e se a captura foi fechada. Voltar à T14 com o ciclo aberto, no mesmo par, retoma os passos que já valem e a correção; o evento se dispara de novo. Concluído, ela abre concluída
+
+## O checklist (T13·1 a T13·6)
+
+- **cada item lê a etapa que o produziu:** A, a sessão, `etapas.preChecagem` e `etapas.ativo` · B, as fotos e ressalvas do próprio checklist e a foto de `etapas.calibracao` · C, `etapas.can` (o lido do caso do ativo, se não foi consumido, ou o nominal) e a leitura nominal do módulo (`leituraNominalModulo`, AC-13) · D, `etapas.cadeia` e `etapas.calibracao` · E, `etapas.ciclo` · F, a fila desta sessão
+- **a semente:** pular pro checklist pelo palco semeia só a sessão; sem a pré-checagem gravada, o checklist lê o que as telas T05 a T10 gravariam no caminho do herói — a pré-checagem aprovada, o chassi pela CAN, a CAN lida, os seis blocos relidos e o hodômetro semeado com a foto. A, C e D resolvidas, o Painel herdado, B e E por fazer, F esperando: 19 de 31, `Faltam 9 itens` (G9 contra o 21 e o 10 das referências, que não contam o Painel nem a regra da Seção F)
+- **a Seção F (G22):** conta só os itens da fila do ativo criados depois da abertura da sessão, pelos tipos da fila (AC-14). O que o herói subiu às 09:14 e 09:15 é da instalação de antes, e não conta. Antes do Finalizar, nada desta sessão está na fila, e ela espera. O `Finalizar instalação` gera o relatório (HU-T13-7) — as evidências e o checklist — na fila, às 14:30, e a Seção F conta ele: `12 subiram`, `31 de 31`, o ID na plataforma `na fila`. Ela falha quando o servidor diz que não: o evento de teste que não chegou (T14/02), um item desta sessão recusado, ou o ativo do `pronto-para-fechar`, sem resposta
+- **o Finalizar (T13·3):** acende quando A a E estão resolvidas; o toque grava `etapas.checklist.homologada` e a hora, gera o relatório e mostra o homologado (11). Com a Seção F falhando, o toque abre o diálogo da ciência (10); marcado o `Estou ciente`, o Finalizar do diálogo homologa, e a ciência fica gravada com o nome e a hora
+- **o que fica gravado:** `etapas.checklist` guarda o ativo, que foi aberto, as fotos tiradas e as ressalvas (a justificativa e a hora), a conta do menu (`pendentes`), se homologou e quando, e a ciência. Voltar ao checklist no mesmo ativo reabre o que foi resolvido; homologado, ele abre no 11
+- **os caminhos:** o cartão reprovado leva ao nível do item (09), e `Refazer a leitura da CAN` à T08 (T13·2) · o cartão de E que falta abre a T14 (T13·4), e a Seção E é a mesma se a T14 saiu por `Encerrar o ciclo` ou por `Ir para o checklist` (T14·2): os pendentes ficam pendentes, e o aprovado diz `confere` · `Tirar foto` e `Salvar com ressalva` seguem pro próximo item por fazer; sem próximo, voltam à Seção B · o voltar faz o `Voltar ao menu` no mapa e na seção aberta (T13·6), e o `Voltar ao checklist` no nível do item
+
 ## O voltar do Android
 
 O botão de voltar do sistema faz **o mesmo que o link de saída do rodapé** daquela tela — nunca um caminho que a tela não oferece. Nos processos que não podem parar, ele **não sai**:
 
 - **na cadeia da T09**, antes de a Conexão gravar, ele abre a recuperação
-- **na pré-checagem, no encerramento e no autoteste**, ele não faz nada — o processo termina sozinho em segundos
+- **na pré-checagem, no encerramento e no autoteste**, ele não faz nada — o processo termina sozinho em segundos. Na *Sessão encerrada*, com o autoteste terminado, ele faz o `Voltar ao menu`, a saída que ela tem (T16)
+- **na sessão interrompida (T16/06)**, ele não faz nada: `Retomar` e `Descartar` são atos, e o voltar não escolhe no lugar do técnico (T16·6)
 - **numa folha ou num diálogo**, ele fecha a folha ou o diálogo, como o X ou o Cancelar
 
 ## Os cartões em espera
@@ -126,6 +155,10 @@ Pendências que não são de desenho seguem um padrão até o PM decidir — a l
 | `T01/05-momento-codigo-errado` | digitar um código diferente de 482913 |
 | `T01/08-momento-recuperar-nova-senha` | o código certo |
 | `T01/09-momento-senha-alterada` | a nova senha cumpre os seis requisitos |
+| `T01/10-momento-senha-visivel` | tocar no olho — a senha aparece por extenso e o olho vira o riscado |
+| `T01/11-momento-nao-recebi-reenvio-liberado` | os 60 s do reenvio zeram |
+| `T01/12-momento-codigo-reenviado` | tocar em *Conferir e reenviar* |
+| `T01/13-momento-codigo-no-e-mail` | tocar em *Mandar para o e-mail* |
 | `T02/01-momento-escolhida` | tocar numa garagem |
 | `T03/02-momento-concluido` | o download termina |
 | `T04/01-momento-sem-modulo` | o menu antes de conectar |
@@ -145,7 +178,7 @@ Pendências que não são de desenho seguem um padrão até o PM decidir — a l
 | `T08/02-momento-concluida` | a releitura termina |
 | `T09/04-momento-cadeia-concluida` | o último bloco relido |
 | `T10/01-momento-hodometro-semeado` | `Semear o hodômetro` |
-| `T11/02-momento-tudo-confere` | nada diverge |
+| `T11/02-momento-tudo-confere` | nada diverge: pelo menu, com a sessão do herói, ou depois de regravar pela T09 (T11·1, T11·2) |
 | `T12/01-momento-detalhe-da-instalacao` | tocar numa instalação |
 | `T13/01-momento-a-identificacao-aberta` | tocar na seção |
 | `T13/02-momento-b-montagem-aberta` | tocar na seção |
@@ -155,7 +188,7 @@ Pendências que não são de desenho seguem um padrão até o PM decidir — a l
 | `T13/06-momento-f-servidor-aberta` | tocar na seção |
 | `T13/07-momento-responder-item` | tocar num item manual |
 | `T13/08-momento-nao-conforme-com-justificativa` | marcar não conforme |
-| `T13/11-momento-homologado` | tudo passa |
+| `T13/11-momento-homologado` | tocar em `Finalizar instalação`, com A a E resolvidas (T13·3) |
 | `T14/01-momento-antes-do-disparo` | a fila do módulo ainda drenando |
 | `T14/05-momento-ciclo-concluido` | os cinco passos e o evento |
 | `T14/06-momento-correcao-solicitada` | tocar em `Solicitar correção de cadastro` no identificador divergente |
@@ -173,7 +206,7 @@ Pendências que não são de desenho seguem um padrão até o PM decidir — a l
 | `T01/01-estado-usuario-ou-senha-incorretos` | Entrar com senha de menos de 8 caracteres | `credenciais` |
 | `T01/06-estado-codigo-expirado` | o código passa de 10 minutos | `recuperacao.limites.validadeMin` |
 | `T01/07-estado-tentativas-esgotadas` | o terceiro código errado | `recuperacao.limites.tentativas` |
-| `T02/02-estado-lista-longa-com-busca` | a empresa tem garagens demais pra uma tela | derivado do fluxo |
+| `T02/02-estado-lista-longa-com-busca` | a empresa tem mais de 6 garagens — a busca aparece, e a lista rola por baixo do rodapé | `lista-longa-garagens` |
 | `T03/01-estado-falha-de-rede` | a rede cai no meio do download | `sync-falha-rede` |
 | `T03/03-estado-pacote-de-4-dias` | o pacote tem entre 3 e 7 dias | `pacotes · pac-uo-02` |
 | `T03/04-estado-pacote-vencido` | o pacote passou de 7 dias | `pacotes · pac-uo-03` |
@@ -207,10 +240,10 @@ Pendências que não são de desenho seguem um padrão até o PM decidir — a l
 | `T10/03-estado-ja-semeado` | o hodômetro já foi semeado antes | `calibracao` |
 | `T10/04-estado-modulo-sem-pulsos` | o módulo não recebe pulsos | `grandeza-indisponivel` |
 | `T11/01-estado-conteudo-que-o-app-nao-reconhece` | índice que o app não classifica | `indice-nao-classificado` |
-| `T12/02-estado-nenhuma-instalacao` | a garagem não tem instalações | `instalacoes` |
+| `T12/02-estado-nenhuma-instalacao` | a garagem não tem instalações | `instalacoes` + `instalacoes-vazia` (a consulta da garagem que volta vazia, sem sessão, C11) |
 | `T12/03-estado-sem-rede` | a consulta sem rede | `instalacoes-sem-rede` |
-| `T13/09-estado-item-reprovado` | um item automático reprova | `can-fora-esperado` |
-| `T13/10-estado-finalizar-com-a-secao-f-falhando` | `Finalizar` com a Seção F falhando | `secaoF` |
+| `T13/09-estado-item-reprovado` | um item automático reprova — a bateria abaixo do mínimo, na CAN | `can-estatico-isolado` (T13-A1) |
+| `T13/10-estado-finalizar-com-a-secao-f-falhando` | `Finalizar` com a Seção F falhando — o servidor não respondeu | `pronto-para-fechar` (T13-A2) |
 | `T14/02-estado-prazo-estourado` | o evento não chega em 2:00 | `evento-sem-resposta` |
 | `T14/03-estado-dinamico-fora-do-esperado` | um sinal andando fora do esperado | `can-fora-esperado` |
 | `T14/04-estado-identificador-divergente` | o cartão lido não bate | `identificador-divergente` |
