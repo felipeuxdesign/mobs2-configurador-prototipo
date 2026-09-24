@@ -1,0 +1,35 @@
+/* T04 · Menu — só a montagem da tela; o desenho de cada bloco é da peça. */
+.t04 {
+  position: relative; height: 100%; overflow: hidden;
+  display: flex; flex-direction: column;
+  background: var(--fundo-pagina);
+}
+
+/* o título que só o leitor de tela ouve (a referência tem o h1 "Menu" escondido) */
+.t04-titulo {
+  position: absolute; width: var(--so-leitor-caixa); height: var(--so-leitor-caixa); margin: calc(var(--so-leitor-caixa) * -1);
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* o menu embaixo da barra: o topo, o título escondido e o miolo. Com a folha ou
+ * o diálogo aberto, fica inerte inteiro (index.jsx). */
+.t04-fundo { flex-grow: 1; min-height: 0; display: flex; flex-direction: column; }
+
+/* o miolo: a grade rola entre o topo e o pé, se passar de 800 (G16). Isolado:
+ * a camada do toque dos cartões fica dentro dele, e o véu passa por cima. */
+.t04-miolo {
+  flex-grow: 1; min-height: 0; overflow-y: auto; isolation: isolate;
+  padding: var(--e-14) var(--e-16) var(--e-24) var(--e-16);
+}
+
+/* por cima do menu, o véu cobre tudo abaixo da tira, que fica acesa, com a
+ * linha de baixo dela: o separador do topo do menu (--separador), que as
+ * referências 05 a 09 desenham logo embaixo da tira. No menu real, nesse
+ * ponto está a borda de cima da faixa (--borda-rodape); a linha do topo
+ * passa por cima dela, e o véu começa depois. O menu fica atrás do véu (G25). */
+.t04-sobre {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  top: calc(var(--barra-sistema) + var(--tira-contexto));
+  border-top: var(--traco-borda) solid var(--separador);
+  display: flex; flex-direction: column;
+}

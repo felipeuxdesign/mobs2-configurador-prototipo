@@ -1,0 +1,122 @@
+[
+ {
+  "tela": "T04",
+  "ref": "00-tela",
+  "html": {
+   "fino": 0.37,
+   "estrutural": 0.19
+  },
+  "png": {
+   "fino": 1.03,
+   "estrutural": 0.63
+  }
+ },
+ {
+  "tela": "T04",
+  "ref": "01-momento-sem-modulo",
+  "html": {
+   "fino": 0.5,
+   "estrutural": 0.12
+  },
+  "png": {
+   "fino": 1.62,
+   "estrutural": 0.18
+  }
+ },
+ {
+  "tela": "T04",
+  "ref": "02-momento-modulo-sem-ativo",
+  "html": {
+   "fino": 0.44,
+   "estrutural": 0.13
+  },
+  "png": {
+   "fino": 1.43,
+   "estrutural": 0.25
+  }
+ },
+ {
+  "tela": "T04",
+  "ref": "03-estado-faixa-modulo-com-falha",
+  "html": {
+   "fino": 0.44,
+   "estrutural": 0.25
+  },
+  "png": {
+   "fino": 1.02,
+   "estrutural": 0.61
+  }
+ },
+ {
+  "tela": "T04",
+  "ref": "04-estado-checklist-pendente",
+  "html": {
+   "fino": 0.37,
+   "estrutural": 0.19
+  },
+  "png": {
+   "fino": 1.04,
+   "estrutural": 0.63
+  }
+ },
+ {
+  "tela": "T04",
+  "ref": "05-momento-folha-conta",
+  "html": {
+   "fino": 0.75,
+   "estrutural": 0
+  },
+  "png": {
+   "fino": 1.43,
+   "estrutural": 0.23
+  }
+ },
+ {
+  "tela": "T04",
+  "ref": "06-momento-folha-conta-sair-com-sessao-aberta",
+  "html": {
+   "fino": 1.24,
+   "estrutural": 0
+  },
+  "png": {
+   "fino": 2.08,
+   "estrutural": 0.62
+  }
+ },
+ {
+  "tela": "T04",
+  "ref": "07-momento-folha-trocar-de-garagem",
+  "html": {
+   "fino": 0.97,
+   "estrutural": 0
+  },
+  "png": {
+   "fino": 2.03,
+   "estrutural": 0.43
+  }
+ },
+ {
+  "tela": "T04",
+  "ref": "08-estado-folha-trocar-de-garagem-envio-em-andamento",
+  "html": {
+   "fino": 0.97,
+   "estrutural": 0
+  },
+  "png": {
+   "fino": 2.02,
+   "estrutural": 0.4
+  }
+ },
+ {
+  "tela": "T04",
+  "ref": "09-estado-folha-trocar-de-garagem-com-modulo-conectado",
+  "html": {
+   "fino": 1.24,
+   "estrutural": 0
+  },
+  "png": {
+   "fino": 2.18,
+   "estrutural": 0.7
+  }
+ }
+]

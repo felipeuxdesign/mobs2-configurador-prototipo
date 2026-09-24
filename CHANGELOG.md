@@ -1,5 +1,28 @@
 # Registro de mudanças
 
+## 2026-09-24 · C5 · o menu e as folhas
+
+- **a T04 inteira** em `app/src/telas/T04/`:
+  - os 10 quadros: a tela, 5 momentos e 4 estados;
+  - a grade dos dez cartões, cada um dizendo o que falta, pelo estado único;
+  - a folha da conta com o prazo do acesso;
+  - a folha de trocar de garagem;
+  - os diálogos de sair e de trocar com a sessão aberta;
+  - os contadores pelas regras T04·1 e T04·2, contados do mock
+- **a bancada:** contra o HTML, os 10 quadros ficam entre 0,37% e 1,24%, e a diferença de cada um está explicada: os ícones do Lucide (G5), o cartão Últimas instalações (G9) e, nas folhas e diálogos, o menu atrás do véu (G25). A estrutural fica em 0% nas cinco folhas e diálogos · prints lado a lado em `06-prototipo/prints/C5/`
+- **o `logica.md`** ganhou as regras dos três contadores do menu
+- **desvio nomeado (G9):** o mock diz que o aparelho tem rede, então o cartão Últimas instalações sai liberado. As referências 00 a 04 o desenham travado ("sem conexão", "espera conexão"). **Vai ao diretor:** o menu do herói é sem rede, como o design desenha, ou com rede, como o mock diz?
+- **desvio nomeado (G9):** no menu sem módulo (01) e com o módulo sem ônibus (02), o cartão da fila mostra os 2 itens que ainda não chegaram, como no 00. Essas referências não desenham o contador
+- **desvio nomeado (G25):** atrás do véu das folhas e dos diálogos fica o próprio menu, escurecido. As referências desenham o véu sobre uma página só com a tira
+- **desvio nomeado (G24):** na faixa com o módulo em falha (03), o traço vermelho sai por cima da faixa, sem roubar altura
+- **desvio nomeado (Lei 3):** o 01 põe a faixa sem sessão 1px abaixo, com as duas linhas trocadas. Aqui ela fica no lugar em que a sessão vai aparecer
+- **desvio nomeado (Lei 3):** a folha de trocar com envio em andamento (08) cresce, porque o aviso toma o lugar do subtítulo. **Vai ao diretor:** a proposta de reservar o lugar
+- **provisório até o C11 (T04·4, T04·5, G23):** "Encerrar a sessão e trocar" leva direto à sincronização da garagem nova, e "Encerrar a sessão e sair" leva direto ao login. Nenhum dos dois passa ainda pelo encerramento sem homologar da T16. A fila continua, como o diálogo diz
+- **vão ao diretor:**
+  - os dois contadores contam coisas diferentes: 2 no menu e 3 no diálogo de sair (T04·1, junto do "3 nesta garagem" da T15);
+  - "Sincronize no menu para liberar" e "Sincronize para renovar o acesso" apontam uma ação que o menu não tem (T04·6);
+  - a HU-T04-4 promete um aviso persistente do checklist, e a referência desenha um contador
+
 ## 2026-09-24 · C4 · entrar — login, garagem e sincronização
 
 - **a T01, a T02 e a T03 inteiras** em `app/src/telas/`: os 18 quadros e os toques de cada `tela.md`
