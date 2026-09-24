@@ -1,5 +1,20 @@
 # Registro de mudanças
 
+## 2026-09-24 · C6 · conectar: a busca e o caminho feliz — T05
+
+- **o caminho feliz da T05** em `app/src/telas/T05/`: a busca, a escolha, a conexão, a pré-checagem acendendo as onze linhas a 600 ms, a sessão abrindo com a faixa, e a atualização do firmware
+- **a bancada:** o 00, o 01 e o 02 em 0% contra o HTML; o 05 em 0,1% (os checks do Lucide, G5, e a linha de baixo da faixa, G13); o 10 em 0,07% (G5) · os textos conferem nos cinco · prints lado a lado em `06-prototipo/prints/C6/`
+- **pedido do diretor:** pelo menu, "Conectar módulo" abre a lista **sem nada escolhido** (o 01), e só então o técnico escolhe e conecta. A 00, com o módulo do herói escolhido, abre pelo endereço, como o quadro da referência. Depois de aprovada a pré-checagem, é o "Selecionar ativo" que leva à T06
+- **o mock:** a lista "por perto" com o meio de cada módulo (AC-06: o herói sem fio primeiro, e mais quatro) e o quadro da atualização de firmware (AC-19, 62%), só aditivos · **o gate foi de 109 pra 122** (com o C8)
+- **as peças** ganharam variantes nomeadas (G11): a linha de módulo com o fim da lista e como escolha; a linha de checagem no estado "agora", com a folga do fim da pré-checagem e o relógio apagado; o rodapé fechando no botão durante o processo · as 121 fotos da vitrine continuam iguais ao C2
+- **os tokens:** os 8 que o C6 e o C8 pediram entraram no bloco *C6 · C8* do `tokens.css` (239 → 247)
+- o `logica.md` e o `08-produto-real/o-que-o-prototipo-simula.md` passaram a dizer **cinco** módulos por perto (o do herói e mais quatro), como as referências e o mock
+- **desvio nomeado (G4, G25):** a busca acha os módulos na hora, e a atualização do firmware fica parada nos 62% da referência. Nenhum dos dois tem ritmo declarado, e ele entra no C12
+- **desvio nomeado (G20):** o quadro de um só módulo encontrado (02) abre só pelo endereço. Nenhum dado do mock faz a busca achar um só
+- **desvio nomeado (G25):** a pré-checagem correndo não tem referência. O topo mostra o serial e a placa do ônibus cadastrado, como nas falhas, e as linhas que esperam mostram o círculo de "ainda não"
+- **desvio nomeado (Lei 3):** quando a pré-checagem aprova, a faixa aparece e a lista desce 37 px. A descida animada é do C12
+- **vão ao PM:** o topo da pré-checagem mostra a placa, e a faixa aprovada diz "sem ativo" (T05-N3) · "sem rede" com check junto de "Rede do módulo conectada" (T05-N1)
+
 ## 2026-09-24 · C5 · o menu e as folhas
 
 - **a T04 inteira** em `app/src/telas/T04/`:

@@ -8,7 +8,7 @@ Um objeto só guarda tudo o que o app sabe, e **toda tela lê dele**:
 tecnico      Rafael Vieira · r.vieira
 contexto     empresa · garagem · pacote e a idade dele
 sessao       nenhuma | { modulo, ativo, aberta às 14:30, etapa }
-etapas       o que já foi feito: pré-checagem, cadeia, calibração, ciclo, checklist
+etapas       o que já foi feito: pré-checagem, a CAN (lida · refeita), cadeia, calibração, ciclo, checklist
 fila         os itens esperando envio
 tela         onde o app está · momento ou estado aberto
 ```
@@ -23,7 +23,7 @@ O protótipo abre no **login, às 14:30, com o Rafael Vieira**. O usuário vem p
 
 ```
 login → garagem Várzea → sincroniza o pacote → menu
-→ conectar: acha quatro módulos, escolhe o M2C-0417, conecta, a pré-checagem acende as onze linhas → a faixa desce
+→ conectar: acha cinco módulos (o do herói e mais quatro), escolhe o M2C-0417, conecta, a pré-checagem acende as onze linhas → a faixa desce
 → o ônibus RKT-8H42 → os chassis batem → a CAN lida → a cadeia grava e relê os blocos → calibra o hodômetro
 → o ciclo dinâmico: os cinco passos sozinhos, o evento chega → o checklist fecha → ENCERRAR → a faixa sobe → menu sem sessão
 ```
@@ -38,10 +38,10 @@ Pular direto pra uma tela pelo painel monta o estado mínimo que ela precisa pra
 | T02 · Selecionar contexto | Viação Atlântico Sul · três garagens · Várzea com pacote de ontem |
 | T03 · Sincronizar | garagem Várzea · pacote pac-uo-01 |
 | T04 · Menu | sessão M2C-0417 + RKT-8H42 · fila com 2 itens |
-| T05 · Conectar módulo | quatro módulos por perto · M2C-0417 é o do herói |
+| T05 · Conectar módulo | cinco módulos por perto (situacao.porPerto) · M2C-0417 é o do herói · pelo menu, a tela abre na lista sem nada escolhido (01) |
 | T06 · Selecionar ativo | sessão M2C-0417 · dez ônibus no pacote |
 | T07 · Dados da CAN | sessão M2C-0417 + RKT-8H42 · doze sinais do mock |
-| T08 · Refazer leitura da CAN | sessão com leitura feita |
+| T08 · Refazer leitura da CAN | sessão M2C-0417 + RKT-8H42 · leitura feita |
 | T09 · Configurar módulo | sessão M2C-0417 + RKT-8H42 · os blocos do mock |
 | T10 · Calibração | sessão M2C-0417 + RKT-8H42 · hodômetro 184.320 no módulo, 482.317 no painel |
 | T11 · Conferir configuração | M2C-0438 + ONK-8Q90 · caso diff-divergente |
@@ -66,6 +66,21 @@ Tocar num módulo ou ônibus da lista que é **caso do mock** abre o estado dele
 - **no diálogo Sair da conta:** o que está na fila, de todas as garagens — 3. As duas contas são diferentes, e a diferença está com o diretor (T04·1)
 - **no cartão Finalizar com checklist:** só depois que o checklist foi aberto uma vez na sessão; conta os itens das seções B e E, os que o técnico resolve, ainda não resolvidos — 10 na semente — e some ao homologar (T04·2)
 - **a troca de garagem com evidência subindo** (T04/08) abre pela coluna do palco: no fluxo, a semente do menu não tem envio em curso, e a folha abre sem o aviso (T04·3)
+
+## A escolha do ativo (T06·1 a T06·5)
+
+- **a lista:** os ônibus do pacote da garagem do contexto, na ordem do mock — na Várzea, os 10, com "10 no pacote" (G9). O conteúdo rola; o KNB-5H39 é o nono
+- **a ordem das checagens:** ao tocar num ônibus, a confirmação checa o pacote, depois os pinos, depois o chassi (T06·3). O conflito de pinos vale quando o módulo da faixa, o ônibus e o meio da sessão são os do caso; o chassi lido é o do caso de divergência, e nos outros é o do cadastro (T06·2)
+- **o que fica gravado:** `Usar este ativo` põe o ativo na sessão e anota em `etapas.ativo` como o vínculo foi provado — `chassi` ou `confirmacao` do técnico — e a hora, 14:30. `Usar leitor sem fio` passa a sessão a sem fio, e o conflito some (T06·4)
+- **os casos não se consomem:** a divergência do chassi e o ônibus de outra garagem são fato do cadastro, e valem toda vez que o ônibus é tocado
+
+## A releitura da CAN (T08·1, T08·2, T08·3)
+
+- **a ordem da grade:** a dos domínios do mock (`dominiosCan`) e, dentro do domínio, o sinal estático antes do dinâmico; no mais, a ordem de `sinaisCan`. No herói, o Motor põe a Temperatura antes da Rotação, como as referências desenham
+- **quantos sinais:** a grade monta os sinais do modelo do ativo da sessão. "doze" e "de 12" são `sinaisCan.length`, por extenso no texto: 12 no herói, 8 num ônibus do ma-02
+- **o ritmo:** um sinal responde a cada 600ms, na ordem da grade (`movimento.md`, `ritmos.js`). O valor que volta é o `lido` do sinal estático e o `lidoDinamico` do dinâmico. Quando o ônibus tem caso estático no mock, vale o lido do caso que passa, como na T07 (o hodômetro do QJF-2C61, do PCX-9A17 e do KNB-5H39); a falha que o caso trazia dá lugar ao nominal, porque a releitura é leitura nova e o caso vale uma vez por sessão (G21, como o `Ler novamente` da T07). Ao terminar, o caso fica consumido, e a T07 que abre depois mostra a mesma leitura
+- **o que fica gravado:** ao terminar, `etapas.can` fica com `lida` e `refeita`. A T07 aberta por `Ver os dados da CAN` já abre lida (G27). A T16 continua sem a assertiva 4, como as referências desenham (T08·3)
+- **ENCERRAR no meio da releitura:** a sessão abortada, como em qualquer tela antes de homologar; a releitura para ali
 
 ## A URL
 

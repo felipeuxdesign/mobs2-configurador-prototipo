@@ -12,7 +12,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | primário · pressionado | src/ds/primitivos/Primario.jsx (forcaToque na vitrine; :active no app) |
 | primário · desabilitado | src/ds/primitivos/Primario.jsx (desabilitado) |
 | link · normal e pressionado | src/ds/primitivos/Link.jsx |
-| linha tocável · normal e pressionada | src/ds/linhas/LinhaTocavel.jsx, sobre src/ds/primitivos/Tocavel.jsx |
+| linha tocável · normal e pressionada | src/ds/linhas/LinhaTocavel.jsx, sobre src/ds/primitivos/Tocavel.jsx (variante acao: a linha de ação de 50, sem poço — T06/02 e T13/07 · C8) |
 
 ## Folha 2 · chrome rodape folha dialogo
 
@@ -30,7 +30,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | o topo do menu inteiro | src/ds/chrome/TopoDoMenu.jsx |
 | duas ações | src/ds/chrome/Rodape.jsx (lugar login: o rodapé da T01, sem traço, 20 · 28) |
 | uma ação | src/ds/chrome/Rodape.jsx |
-| processo correndo | src/ds/chrome/Rodape.jsx (primarioDesabilitado + explicacao) |
+| processo correndo | src/ds/chrome/Rodape.jsx (primarioDesabilitado + explicacao; pe 'botao', o pé de 32 com a explicação da T05/10 · C6) |
 | com legenda | src/ds/chrome/Rodape.jsx (legenda) |
 | folha | src/ds/chrome/Folha.jsx + Veu.jsx (conteúdo: CartaoDaConta, PrazoDaConta, BotaoDaFolha; folga 12 e subtitulo na de trocar de garagem · C5, T04/07) |
 | diálogo | src/ds/chrome/Dialogo.jsx (+ Frase, Destaque) |
@@ -57,8 +57,8 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | reprovada, com causa | src/ds/linhas/LinhaChecagem.jsx (causa) |
 | não se aplica | src/ds/linhas/LinhaChecagem.jsx |
 | parou aqui | src/ds/linhas/LinhaChecagem.jsx |
-| ainda não | src/ds/linhas/LinhaChecagem.jsx (estado ainda-nao) |
-| pré-checagem | src/ds/linhas/LinhaChecagem.jsx (compacta) |
+| ainda não | src/ds/linhas/LinhaChecagem.jsx (estado ainda-nao; com glifo trocado, o relógio apagado da T05/10 · C6) |
+| pré-checagem | src/ds/linhas/LinhaChecagem.jsx (compacta; estado agora, a checagem que corre, e folgaFim 'pre-checagem', a última de 43 da T05/05 · C6) |
 | pré-checagem com sessão | src/ds/linhas/LinhaChecagem.jsx (compacta) |
 | passo do ciclo | src/ds/linhas/LinhaChecagem.jsx (variante passo) |
 | assertiva da sessão | src/ds/linhas/LinhaChecagem.jsx (variante dupla) |
@@ -79,7 +79,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | vazio declarado | src/ds/cartoes/Vazio.jsx |
 | nota tracejada | src/ds/cartoes/Nota.jsx (tom explica; corpo secundario, a frase de 13 da T03/04 · C4) |
 | nota com rótulo | src/ds/cartoes/Nota.jsx (tom fato) |
-| o par comparado | src/ds/cartoes/ParComparado.jsx |
+| o par comparado | src/ds/cartoes/ParComparado.jsx (veredito: quando batem, NO CADASTRO em lima e a frase em 600 · C8, T06/01) |
 | linha do histórico | src/ds/linhas/LinhaHistorico.jsx |
 | linha da fila · esperando | src/ds/linhas/LinhaFilaEsperando.jsx (→ LinhaFila.jsx estado espera) |
 | linha de garagem | src/ds/linhas/LinhaGaragem.jsx (estado espera: a troca espera o envio · C5, T04/08) |
@@ -92,7 +92,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 |---|---|
 | leitura na faixa | src/ds/instrumentos/Leitura.jsx (+ Escala.jsx) |
 | fora da faixa | src/ds/instrumentos/Leitura.jsx (fora) |
-| leitura pequena | src/ds/instrumentos/LeituraPequena.jsx (+ GradeLeituras) |
+| leitura pequena | src/ds/instrumentos/LeituraPequena.jsx (+ GradeLeituras; folga 10 na T07 · sem faixa, o nível, sem a faixa na escala · semLeitura, o sinal que não chegou, T07/02 · C8) |
 | leitura com mínimo | src/ds/instrumentos/LeituraPequena.jsx (faixa aberta) |
 | tambor | src/ds/instrumentos/LeituraTambor.jsx (+ Tambor.jsx, RodaDigito.jsx) |
 | sinais liga-desliga | src/ds/instrumentos/Sinais.jsx |
@@ -127,11 +127,11 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | campo de busca | src/ds/entrada/Busca.jsx (a dica é texto por cima do campo vazio, não placeholder · C4) |
 | justificativa | src/ds/entrada/Justificativa.jsx (+ CampoTexto.jsx) |
 | linha de opção | src/ds/chrome/LinhaDeOpcao.jsx (+ CartaoDeOpcoes · desabilitado, T01/04) |
-| linha de módulo | src/ds/entrada/LinhaModulo.jsx |
-| linha de ônibus | src/ds/entrada/LinhaOnibus.jsx |
-| bloco escolhido | src/ds/entrada/BlocoEscolhido.jsx |
+| linha de módulo | src/ds/entrada/LinhaModulo.jsx (fim: a última de 56 da T05/00; escolha: o marcador de escolha e o firmware, 72 e a última de 76, da T05/01 · C6) |
+| linha de ônibus | src/ds/entrada/LinhaOnibus.jsx (fim: a última da lista, 78, como o fim da linha de módulo · C8, T06/00) |
+| bloco escolhido | src/ds/entrada/BlocoEscolhido.jsx (justo: não cresce, 22; tom apagado quando o chassi diverge, 18 · C8, T06/01–03) |
 | escolhido com trava | src/ds/entrada/BlocoEscolhido.jsx (falha, passos) |
-| escolhido com trava · T06 | src/ds/entrada/BlocoEscolhido.jsx (falha, motivo) |
+| escolhido com trava · T06 | src/ds/entrada/BlocoEscolhido.jsx (falha, motivo; tom neutro na trava com saída · C8, T06/05) |
 | cartão que pede ação | src/ds/entrada/CartaoAcao.jsx (+ BotaoSecundario.jsx) |
 | botão secundário | src/ds/entrada/BotaoSecundario.jsx |
 | tira de leituras | src/ds/entrada/TiraLeituras.jsx |
@@ -150,8 +150,8 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | foto · aguarda | src/ds/checklist/FotoProva.jsx |
 | foto · tirada | src/ds/checklist/FotoProva.jsx (tirada) |
 | mostrador · apagado | src/ds/checklist/Mostrador.jsx (apagado) |
-| mostrador · relendo | src/ds/checklist/Mostrador.jsx (relendo) |
-| mostrador · aceso | src/ds/checklist/Mostrador.jsx (aceso) |
+| mostrador · relendo | src/ds/checklist/Mostrador.jsx (relendo; unidade junto do valor · C8, T08/01) |
+| mostrador · aceso | src/ds/checklist/Mostrador.jsx (aceso; unidade junto do valor · C8, T08/02) |
 | cartões que esperam o ciclo | src/ds/checklist/CartaoValor.jsx (aguarda) |
 | bloco do evento | src/ds/checklist/BlocoEvento.jsx |
 | linha da fila | src/ds/linhas/LinhaFila.jsx (reexportada por checklist/LinhaFila.jsx) |
@@ -179,5 +179,5 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 - linhas/Lista.jsx, o cartão de lista de todas as linhas
 - cartoes/GradeFerramentas.jsx (folga 10 no menu da T04 · C5)
 - entrada/CampoTexto.jsx, o campo longo da justificativa; entrada/Requisito.jsx · Requisitos, a lista
-- instrumentos/Escala.jsx (semLados: a barra do download da T03, o placar sem as bordas dos lados · C4), Trilho.jsx, Tambor.jsx, RodaDigito.jsx (G29) e LeituraPequena.jsx · GradeLeituras
+- instrumentos/Escala.jsx (semLados: a barra do download da T03, o placar sem as bordas dos lados · C4; vazia: o poço do sinal que não chegou, só o traço no meio · C8, T07/02), Trilho.jsx, Tambor.jsx, RodaDigito.jsx (G29) e LeituraPequena.jsx · GradeLeituras
 - checklist/CartaoValor.jsx · GradeCartoes

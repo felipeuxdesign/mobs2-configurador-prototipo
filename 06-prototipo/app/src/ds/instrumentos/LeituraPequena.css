@@ -1,4 +1,6 @@
 .ds-grade-leituras { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--e-12); }
+/* C8 · T07 (G11, T07-V5): na tela, os cartões ficam a 10 */
+.ds-grade-leituras-10 { gap: var(--e-10); }
 .ds-leitura-pequena { padding: var(--e-10); gap: var(--e-6); }
 .ds-leitura-pequena-cabeca { display: flex; align-items: baseline; justify-content: space-between; }
 .ds-leitura-pequena-valor { font-size: var(--n-pequeno); font-weight: 700; line-height: var(--entrelinha-numero); }
@@ -6,3 +8,7 @@
   font-size: var(--n-unidade-pequena); font-weight: 500; color: var(--tinta-secundaria);
   padding-left: var(--e-2);
 }
+/* C8 · T07 (G11) · sem leitura (T07/02): a falha mora no cartão (Lei 2) */
+.ds-leitura-pequena-sem-leitura { border-color: var(--vermelho); }
+.ds-leitura-pequena-sem-leitura .ds-leitura-pequena-valor,
+.ds-leitura-pequena-sem-leitura .ds-inst-legenda { color: var(--vermelho); }

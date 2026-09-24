@@ -277,6 +277,71 @@ chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência n
     return p.limiares.bloqueioDias + 1 === 8; }));
 })();
 
+/* ── P·C8 · T07 · dados da CAN: a faixa esperada em número e o rótulo curto (AC-07) ── */
+(function () {
+  /* "2.500" → 2500 · "12,0" → 12 · "−40" (U+2212) → −40 */
+  var num = function (s) { return Number(String(s).replace(/\./g, "").replace(",", ".").replace("−", "-")); };
+  var doTexto = function (e) {
+    var m = e && e.match(/^([−\d.,]+) a ([−\d.,]+) /); if (m) return { min: num(m[1]), max: num(m[2]) };
+    var p = e && e.match(/^(\d+) ou mais$/); if (p) return { min: num(p[1]), max: null };
+    return null;
+  };
+  var todos = [];
+  M.modelosAtivo.forEach(function (m) { m.sinaisCan.forEach(function (s) { todos.push({ m: m.id, s: s }); }); });
+  var errados = todos.filter(function (x) {
+    var t = doTexto(x.s.esperado), f = x.s.faixa;
+    return t ? !(f && f.min === t.min && f.max === t.max) : f !== undefined;
+  });
+  chk("P·C8 · T07 a faixa em número bate com o esperado de cada sinal (e só onde ele é intervalo ou piso)", errados.length === 0 && todos.some(function (x) { return x.s.faixa; }),
+    errados.map(function (x) { return x.m + "/" + x.s.id; }).join(",") || undefined);
+  var dentro = function (f, v) { return v >= f.min && (f.max === null || v <= f.max); };
+  var lidoNum = function (l) { return num(String(l).split(" ")[0]); };
+  var fora = todos.filter(function (x) { return x.s.fase === "estatico" && x.s.faixa && !dentro(x.s.faixa, lidoNum(x.s.lido)); });
+  chk("P·C8 · T07 o lido nominal de todo estático com faixa fica dentro dela", fora.length === 0, fora.map(function (x) { return x.m + "/" + x.s.id; }).join(",") || undefined);
+  var sinal = function (ativoId, id) {
+    var a = M.ativos.filter(function (x) { return x.id === ativoId; })[0];
+    return M.modelosAtivo.filter(function (m) { return m.id === a.modeloAtivoId; })[0].sinaisCan.filter(function (s) { return s.id === id; })[0];
+  };
+  var iso = M.casos["can-estatico-isolado"], bat = sinal(iso.ativoId, "bateria"), lido = lidoNum(iso.lidos.bateria);
+  chk("P·C8 · T07 o caso isolado cai fora da faixa, abaixo do mínimo (10,9 < 12,0)", !dentro(bat.faixa, lido) && lido < bat.faixa.min, lido + " em " + bat.faixa.min + "–" + bat.faixa.max);
+  chk("P·C8 · T07 o '1,1 V abaixo do mínimo' é min − lido", (bat.faixa.min - lido).toFixed(1).replace(".", ",") === "1,1");
+  var aus = M.casos["can-estatico-ausente"];
+  chk("P·C8 · T07 o caso ausente não tem leitura num sinal com faixa (satélites)", aus.lidos.satelites === null && !!sinal(aus.ativoId, "satelites").faixa);
+  var ma01 = M.modelosAtivo.filter(function (m) { return m.id === "ma-01"; })[0].sinaisCan;
+  var din = ma01.filter(function (s) { return s.fase === "dinamico"; });
+  chk("P·C8 · T07 o resumo dos que fecham andando, com o rótulo curto: 5 sinais, 'Alternador · Velocidade · Ré · Rotação · Consumo'",
+    din.length === 5 && din.map(function (s) { return s.rotuloCurto || s.rotulo; }).join(" · ") === "Alternador · Velocidade · Ré · Rotação · Consumo",
+    din.map(function (s) { return s.rotuloCurto || s.rotulo; }).join(" · "));
+  chk("P·C8 · T07 o contador da 00: 7 estáticos de 12 sinais no ma-01", ma01.length === 12 && ma01.filter(function (s) { return s.fase === "estatico"; }).length === 7);
+})();
+
+/* ── P·C6 · T05 · conectar: os módulos por perto (AC-06), a pré-checagem do herói e a atualização (AC-19) ── */
+(function () {
+  var perto = M.situacao.porPerto;
+  var heroi = M.ativos.filter(function (a) { return a.id === "a-01"; })[0];
+  var modulo = function (s) { return M.modulos.filter(function (m) { return m.serial === s; })[0]; };
+  var linha = function (mod) { return M.matrizCapacidades.filter(function (r) { return r.modeloId === mod.modeloId && r.variante === mod.variante; })[0]; };
+  chk("P·C6 · T05 por perto: 5 módulos, seriais únicos, o herói primeiro e sem fio (T05/00 e 01: '5 encontrados', 'OUTROS QUATRO')",
+    perto.length === 5 && perto[0].serial === heroi.moduloSerial && perto[0].meio === "sem-fio" &&
+    perto.map(function (p) { return p.serial; }).filter(function (s, i, arr) { return arr.indexOf(s) === i; }).length === 5,
+    perto.map(function (p) { return p.serial + ":" + p.meio; }).join(" · "));
+  chk("P·C6 · T05 por perto: todo serial está no cadastro ou fora dele, e o meio é 'sem-fio' ou 'cabo'", perto.every(function (p) {
+    return (!!modulo(p.serial) || M.seriaisForaCadastro.indexOf(p.serial) >= 0) && (p.meio === "sem-fio" || p.meio === "cabo"); }));
+  chk("P·C6 · T05 por perto: variante sem sem fio na matriz ⇒ por cabo", perto.every(function (p) {
+    var mod = modulo(p.serial); if (!mod) return true; var l = linha(mod); return !l || l.semFio || p.meio === "cabo"; }));
+  var cp = M.casos["conflito-pinos-resolvivel"], doCaso = perto.filter(function (p) { return p.serial === cp.moduloSerial; })[0];
+  chk("P·C6 · T05 por perto: o meio do M2C-0335 é o meioAtual do conflito-pinos-resolvivel", !!doCaso && doCaso.meio === cp.meioAtual, doCaso && doCaso.meio);
+  var mod = modulo(heroi.moduloSerial), l = linha(mod);
+  var modelo = M.modelos.filter(function (m) { return m.id === mod.modeloId; })[0];
+  var conteudo = M.modelosAtivo.filter(function (m) { return m.id === heroi.modeloAtivoId; })[0].conteudoRegistros;
+  var regioes = M.cercas.regioes.filter(function (r) { return r.ativoId === heroi.id; }).length;
+  chk("P·C6 · T05 a pré-checagem do herói aprova pelo cadastro (T05/05: VL06 CAN-BT · 2.3.5 · 128 de 192 · 4 de 4)",
+    modelo.driverV1 && l.firmwares.indexOf(mod.firmware) >= 0 && l.can && conteudo <= l.capacidadeRegistros && regioes <= l.regioesMax &&
+    [modelo.nome + " " + mod.variante, mod.firmware, conteudo + " de " + l.capacidadeRegistros, regioes + " de " + l.regioesMax].join(" · ") === "VL06 CAN-BT · 2.3.5 · 128 de 192 · 4 de 4");
+  var at = M.casos["firmware-fora-matriz"].atualizacao;
+  chk("P·C6 · T05 a atualização do firmware tem o quadro da 10 entre 0 e 100 (62%)", !!at && at.quadroPct > 0 && at.quadroPct < 100, at && at.quadroPct + "%");
+})();
+
 /* ── Higiene ── */
 var fonte = null;
 try { fonte = require("fs").readFileSync(require("path").join(__dirname, "mocks.js"), "utf8"); } catch (e) {}

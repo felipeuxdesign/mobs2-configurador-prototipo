@@ -8,3 +8,6 @@
 .ds-par-difere { color: var(--vermelho); }
 .ds-par-separador { display: block; height: var(--traco-borda); background: var(--separador); }
 .ds-par-explicacao { font-size: var(--t-secundario); font-weight: 500; line-height: var(--entrelinha-texto); color: var(--tinta-secundaria); }
+/* C8 · T06/01 (G11, G12): os dois batem — o rótulo do cadastro é a prova, e a frase é o veredito */
+.ds-par-titulo.ds-par-titulo-veredito { color: var(--lima); }
+.ds-par-confere .ds-par-explicacao { font-weight: 600; line-height: normal; }

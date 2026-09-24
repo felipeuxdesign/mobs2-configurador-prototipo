@@ -1,0 +1,31 @@
+/* T05 · Conectar módulo — só a montagem da tela; o desenho de cada bloco é da
+ * peça. Só tokens (tokens.css). */
+.t05 { height: 100%; display: flex; flex-direction: column; background: var(--fundo-pagina); color: var(--tinta); }
+
+/* o miolo: entre a barra (ou a faixa) e o rodapé, rola quando passa de 800
+ * (G16), sem a barra de rolagem do computador; a folga de 16 até o rodapé é
+ * o recheio dele. A busca abre com 28 em cima e 14 entre os blocos; a
+ * pré-checagem, com 14 e 12, como as referências desenham. */
+.t05 .tela-miolo {
+  flex-grow: 1; min-height: 0; overflow-y: auto; scrollbar-width: none;
+  display: flex; flex-direction: column;
+}
+.t05 .t05-miolo-busca { gap: var(--e-14); padding: var(--e-28) var(--respiro) var(--respiro) var(--respiro); }
+.t05 .t05-miolo-pre { gap: var(--e-12); padding: var(--e-14) var(--respiro) var(--respiro) var(--respiro); }
+
+/* as listas não encolhem: quem cede espaço é o bloco escolhido (flex-grow) */
+.t05-lista { flex-shrink: 0; }
+
+/* o rótulo de bloco em cima dos outros módulos por perto */
+.t05-rotulo-bloco {
+  flex-shrink: 0;
+  font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--tinta-apagada);
+}
+
+/* a frase de abertura em cima da lista de escolha (T05/01) */
+.t05-frase { flex-shrink: 0; font-size: var(--t-link); font-weight: 500; line-height: var(--entrelinha-texto); color: var(--tinta-secundaria); }
+
+/* o cabeçalho da pré-checagem: sem a faixa, o serial e a placa no rótulo de
+ * topo, a 2 do título; com a faixa, só o título e o contador */
+.t05-cabeca { flex-shrink: 0; display: flex; flex-direction: column; gap: var(--e-2); }
+.t05-rotulo-topo { font-size: var(--t-rotulo-topo); font-weight: 700; letter-spacing: var(--ls-rotulo-topo); color: var(--tinta-secundaria); }

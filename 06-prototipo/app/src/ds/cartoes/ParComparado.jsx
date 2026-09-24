@@ -17,10 +17,10 @@ function trechos(valor, outro) {
   return lista
 }
 
-function Metade({ titulo, valor, outro }) {
+function Metade({ titulo, valor, outro, veredito = false }) {
   return (
     <div className="ds-par-metade">
-      <span className="ds-par-titulo">{titulo}</span>
+      <span className={`ds-par-titulo ${veredito ? 'ds-par-titulo-veredito' : ''}`}>{titulo}</span>
       <span className="ds-par-valor">
         {trechos(valor, outro).map((t, i) => (t.difere ? <span key={i} className="ds-par-difere">{t.texto}</span> : t.texto))}
       </span>
@@ -28,13 +28,17 @@ function Metade({ titulo, valor, outro }) {
   )
 }
 
-export function ParComparado({ lido, cadastro, explicacao }) {
+// C8 · T06/01 (G11, G12): `veredito` — quando os dois batem, o rótulo do
+// cadastro é a prova e vira lima (Lei 1, NO CADASTRO), e a explicação é a
+// frase de 600, sem entrelinha aberta. Com os dois diferentes, não muda nada.
+export function ParComparado({ lido, cadastro, explicacao, veredito = false, className = '' }) {
   const difere = lido.valor !== cadastro.valor
+  const confere = veredito && !difere
   return (
-    <div className={`ds-par ds-caixa-poco ${difere ? 'ds-caixa-falha' : ''}`}>
+    <div className={`ds-par ds-caixa-poco ${difere ? 'ds-caixa-falha' : ''} ${confere ? 'ds-par-confere' : ''} ${className}`}>
       <Metade titulo={lido.titulo} valor={lido.valor} outro={cadastro.valor} />
       <span className="ds-par-separador" aria-hidden="true" />
-      <Metade titulo={cadastro.titulo} valor={cadastro.valor} outro={lido.valor} />
+      <Metade titulo={cadastro.titulo} valor={cadastro.valor} outro={lido.valor} veredito={confere} />
       {explicacao != null && <span className="ds-par-explicacao">{explicacao}</span>}
     </div>
   )

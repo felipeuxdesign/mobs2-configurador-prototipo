@@ -13,4 +13,5 @@ export const RITMOS = {
   prazoFator: 4,             // prazo do evento · 1 s real vale 4 s de prazo
   sincronizacaoTotalMs: 4000, // sincronização do pacote · 4 s no total
   cronometroCodigoMs: 1000,   // cronômetro do código (T01) · 1 s real vale 1 s de prazo e de reenvio (T01·1)
+  releituraSinalMs: 600,      // releitura da CAN (T08) · cada sinal que responde (G4, T08-D5 · C8)
 }

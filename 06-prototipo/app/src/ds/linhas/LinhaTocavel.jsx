@@ -9,10 +9,14 @@ import { Poco } from '../primitivos/Poco.jsx'
 import { Glifo } from '../primitivos/Glifo.jsx'
 import './LinhaTocavel.css'
 
-export function LinhaTocavel({ titulo, valor, estado = 'espera', nomeGlifo, aoTocar, rotulo, desabilitado = false, forcaToque = false, className = '' }) {
+// variante (C8 · T06/02, G11): 'padrao' (a folha 1) ou 'acao' — a linha de
+// ação solta, de 50 e sem poço: o que se pede em 14/600 e, à direita, o que
+// acompanha em 12 apagado (T06/02 'anexa os dois', T13/07 'pede justificativa')
+export function LinhaTocavel({ titulo, valor, estado = 'espera', nomeGlifo, aoTocar, rotulo, desabilitado = false, forcaToque = false, variante = 'padrao', className = '' }) {
+  const acao = variante === 'acao'
   return (
-    <Tocavel className={`ds-linha-tocavel ${forcaToque ? 'ds-forca-toque' : ''} ${className}`} rotulo={rotulo} aoTocar={aoTocar} desabilitado={desabilitado}>
-      <Poco tam={26}><Glifo estado={estado} poco={26} nome={nomeGlifo} /></Poco>
+    <Tocavel className={`ds-linha-tocavel ${acao ? 'ds-linha-tocavel-acao' : ''} ${forcaToque ? 'ds-forca-toque' : ''} ${className}`} rotulo={rotulo} aoTocar={aoTocar} desabilitado={desabilitado}>
+      {!acao && <Poco tam={26}><Glifo estado={estado} poco={26} nome={nomeGlifo} /></Poco>}
       <span className="ds-linha-tocavel-titulo">{titulo}</span>
       {valor != null && <span className="ds-linha-tocavel-valor">{valor}</span>}
     </Tocavel>

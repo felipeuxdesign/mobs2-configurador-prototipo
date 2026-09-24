@@ -16,6 +16,9 @@
 .ds-escala-placar  { --ds-escala-alto: var(--escala-placar);  --ds-risco: var(--risco-placar);  --ds-risco-forte: var(--risco-placar-forte);  --ds-marcador: var(--marcador-pequeno); }
 /* C4 · T03 (G11): a barra do download da sincronização é o placar sem as bordas dos lados */
 .ds-escala-sem-lados { border-left: 0; border-right: 0; }
+/* C8 · T07 (G11): o poço vazio do sinal que não chegou, com o traço de 10 no meio (T07/02) */
+.ds-escala-vazia { display: flex; align-items: center; justify-content: center; }
+.ds-escala-vazia-traco { display: block; width: var(--e-10); height: var(--traco-borda); background: var(--borda-poco); }
 
 /* a faixa esperada (ou o preenchido) */
 .ds-escala-faixa {

@@ -40,3 +40,11 @@
 .ds-checagem-nao-se-aplica .ds-checagem-valor,
 .ds-checagem-ainda-nao .ds-checagem-titulo,
 .ds-checagem-ainda-nao .ds-checagem-valor { color: var(--tinta-apagada); }
+
+/* C6 · T05 · a checagem que corre: o quadrado branco de 10 no poço de 24, o valor em --tinta */
+.ds-checagem-agora .ds-poco-24 .ds-glifo-agora { width: var(--e-10); height: var(--e-10); }
+.ds-checagem-agora .ds-checagem-valor { color: var(--tinta); }
+/* C6 · T05/10 · no 'ainda não', o glifo que troca o círculo (o relógio) fica apagado */
+.ds-checagem-ainda-nao .ds-glifo-cor-secundaria { color: var(--marca-limite); }
+/* C6 · T05/05 · a última da pré-checagem inteira aprovada, com a folga do pé do cartão (43) */
+.ds-checagem.ds-checagem-fim-pre-checagem { height: var(--linha-precheck-fim); }

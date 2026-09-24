@@ -4,9 +4,9 @@
 
 | Referência | Tipo | Como se chega · o que causa | Caso do mock |
 |---|---|---|---|
-| `00-tela` | tela | a entrada da tela | quatro módulos por perto · M2C-0417 é o do herói |
-| `01-momento-nenhum-escolhido` | momento | a busca achou, nada tocado ainda | `modulos` |
-| `02-momento-um-encontrado` | momento | só um módulo por perto | `modulos` |
+| `00-tela` | tela | a entrada da tela | cinco módulos por perto (`situacao.porPerto`: o do herói e outros quatro) · M2C-0417 é o do herói |
+| `01-momento-nenhum-escolhido` | momento | a busca achou, nada tocado ainda | `situacao.porPerto` · `modulos` |
+| `02-momento-um-encontrado` | momento | só um módulo por perto · no protótipo, só pelo endereço | `situacao.porPerto` (só o do herói) · `modulos` |
 | `03-estado-nenhum-encontrado` | estado | nenhum módulo responde | `busca-vazia` |
 | `04-estado-conexao-falhou` | estado | o módulo não responde ao conectar | `conexao-falha` |
 | `05-momento-pre-checagem` | momento | conectado | `matrizCapacidades` |
@@ -14,7 +14,7 @@
 | `07-estado-pre-checagem-modelo-sem-driver` | estado | o modelo não tem driver | `modelo-sem-driver` |
 | `08-estado-pre-checagem-firmware-fora-da-matriz` | estado | o firmware não é homologado | `firmware-fora-matriz` |
 | `09-estado-firmware-fora-sem-rede-no-modulo` | estado | firmware fora e o módulo sem rede | `firmware-fora-matriz + modem sem rede` |
-| `10-momento-atualizando-o-firmware` | momento | `Atualizar firmware` | `firmware-fora-matriz` |
+| `10-momento-atualizando-o-firmware` | momento | `Atualizar firmware` | `firmware-fora-matriz` (`.atualizacao`, o quadro de 62%) |
 | `11-estado-pre-checagem-conteudo-nao-cabe` | estado | a configuração não cabe no módulo | `conteudo-nao-cabe` |
 | `12-estado-pre-checagem-pool-de-cercas-esgotado` | estado | as cercas passam do limite | `pool-esgotado` |
 | `13-estado-pre-checagem-canal-aberto-e-pendencias` | estado | o módulo tem canal de sessão anterior — o app fecha antes de começar | `canal-aberto` |

@@ -17,7 +17,15 @@ export function Escala({
   divisoes, marcas, fortes = [],
   tam = 'leitura', falha = false, corre = false,
   semLados = false, // C4 · T03 (G11): a barra do download, o desenho do placar sem as bordas dos lados
+  vazia = false,    // C8 · T07 (G11): o poço vazio do sinal que não chegou — só o traço no meio (T07/02)
 }) {
+  if (vazia) {
+    return (
+      <div className={`ds-escala ds-escala-${tam} ds-escala-vazia`} aria-hidden="true">
+        <span className="ds-escala-vazia-traco" />
+      </div>
+    )
+  }
   // pctInteiro: a posição arredondada ao % inteiro, como a folha desenha o placar (21 de 31 → 68%)
   const pct = (v) => { const p = (100 * (noIntervalo(v, min, max) - min)) / (max - min); return pctInteiro ? Math.round(p) : p }
   // os riscos: n divisões iguais da escala, ou os valores dados

@@ -11,8 +11,11 @@ import { Primario } from '../primitivos/Primario.jsx'
 import { Link } from '../primitivos/Link.jsx'
 import './Rodape.css'
 
-export function Rodape({ primario, aoPrimario, primarioDesabilitado = false, rotuloPrimario, link, aoLink, rotuloLink, legenda, explicacao, lugar = 'tela' }) {
-  const fechaNoBotao = !link && !explicacao
+// `pe` (C6 · T05, G11): 'botao' fecha em 32 mesmo com a explicação embaixo
+// (o processo correndo da T05/10, como a referência desenha); sem ele, o pé
+// segue a regra de cima.
+export function Rodape({ primario, aoPrimario, primarioDesabilitado = false, rotuloPrimario, link, aoLink, rotuloLink, legenda, explicacao, lugar = 'tela', pe }) {
+  const fechaNoBotao = pe ? pe === 'botao' : !link && !explicacao
   return (
     <div className={`ds-rodape ${fechaNoBotao ? 'ds-rodape-fecha-botao' : ''} ${lugar === 'login' ? 'ds-rodape-login' : ''}`}>
       {legenda && <span className="ds-rodape-legenda">{legenda}</span>}

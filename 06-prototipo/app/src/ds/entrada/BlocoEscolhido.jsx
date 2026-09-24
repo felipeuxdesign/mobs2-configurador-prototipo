@@ -7,10 +7,18 @@
 // O estado muda o conteúdo (Lei 3): o bloco é o mesmo, o recheio acompanha.
 import './BlocoEscolhido.css'
 
-export function BlocoEscolhido({ rotulo, identidade, detalhe, falha = false, passos, motivo, className = '', ...resto }) {
+// C8 · T06 (G11): duas propriedades nomeadas.
+// · `tom` — 'escolhido' (o traço lima, o padrão) · 'neutro' (a trava que tem
+//   saída: rótulo em --tinta-secundaria e traço --borda-neutra, T06/05) ·
+//   'apagado' (o escolhido que o chassi desmente: rótulo em --tinta-apagada e
+//   só a borda do poço, T06/02). `falha` continua valendo o tom da falha.
+// · `justo` — o bloco não cresce: fica em cima da prova do vínculo, com 22 em
+//   cima e embaixo (18 quando apagado), T06/01, 02 e 03.
+export function BlocoEscolhido({ rotulo, identidade, detalhe, falha = false, tom = 'escolhido', justo = false, passos, motivo, className = '', ...resto }) {
   const extra = passos ? 'ds-escolhido-com-passos' : motivo ? 'ds-escolhido-com-motivo' : ''
+  const cor = falha ? 'ds-escolhido-falha' : tom === 'neutro' || tom === 'apagado' ? `ds-escolhido-${tom}` : ''
   return (
-    <div className={`ds-escolhido ${falha ? 'ds-escolhido-falha' : ''} ${extra} ${className}`} {...resto}>
+    <div className={`ds-escolhido ${cor} ${justo ? 'ds-escolhido-justo' : ''} ${extra} ${className}`} {...resto}>
       <span className="ds-escolhido-rotulo">{rotulo}</span>
       <span className="ds-escolhido-identidade">{identidade}</span>
       {detalhe && <span className="ds-escolhido-detalhe">{detalhe}</span>}

@@ -1,0 +1,62 @@
+[
+ {
+  "tela": "T05",
+  "ref": "00-tela",
+  "html": {
+   "fino": 0,
+   "estrutural": 0
+  },
+  "png": {
+   "fino": 0.93,
+   "estrutural": 0.48
+  }
+ },
+ {
+  "tela": "T05",
+  "ref": "01-momento-nenhum-escolhido",
+  "html": {
+   "fino": 0,
+   "estrutural": 0
+  },
+  "png": {
+   "fino": 1.28,
+   "estrutural": 0.38
+  }
+ },
+ {
+  "tela": "T05",
+  "ref": "02-momento-um-encontrado",
+  "html": {
+   "fino": 0,
+   "estrutural": 0
+  },
+  "png": {
+   "fino": 0.87,
+   "estrutural": 0.38
+  }
+ },
+ {
+  "tela": "T05",
+  "ref": "05-momento-pre-checagem",
+  "html": {
+   "fino": 0.1,
+   "estrutural": 0.05
+  },
+  "png": {
+   "fino": 1.81,
+   "estrutural": 0.84
+  }
+ },
+ {
+  "tela": "T05",
+  "ref": "10-momento-atualizando-o-firmware",
+  "html": {
+   "fino": 0.07,
+   "estrutural": 0
+  },
+  "png": {
+   "fino": 1.71,
+   "estrutural": 0.23
+  }
+ }
+]

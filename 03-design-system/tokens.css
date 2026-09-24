@@ -283,6 +283,16 @@
   --barra-idade: 14px;                 /* a altura da barra de idade do pacote, o elemento-assinatura (T03/03, 04) · T03 */
   --idade-preenchido: var(--borda-poco); /* o preenchido da régua de idade, o tempo que passou, no pacote que ainda vale (T03/03): o cinza da borda do poço, #332C49 · T03 */
   --entrelinha-nota-secundaria: 1.55;  /* a frase de 13 da nota tracejada que diz o bloqueio (T03/04, T03-V6) · Nota (corpo secundario) */
+
+  /* ── C6 · C8 · o que as telas T05 a T08 pediram (cada um com o papel e quem usa) ── */
+  --linha-modulo-fim: 56px;         /* a última linha da lista dos outros módulos por perto, com a folga do pé do cartão (T05/00, 04) · LinhaModulo (fim) */
+  --linha-modulo-escolha-fim: 76px; /* a última linha da lista de escolha de módulos, com a folga do pé do cartão (T05/01) · LinhaModulo (escolha, fim) */
+  --linha-precheck-fim: 43px;       /* a última linha da pré-checagem inteira aprovada, com a folga do pé do cartão (T05/05) · LinhaChecagem (folgaFim 'pre-checagem') */
+  --linha-onibus-fim: 78px;         /* a última linha de ônibus da lista, com a folga do pé do cartão: 6 a mais que as de 72 (T06/00) · LinhaOnibus (fim), como o --linha-modulo-escolha-fim da T05 */
+  --escolhido-justo-respiro: 22px;  /* o recheio de cima e de baixo do bloco escolhido que não cresce, em cima da prova do vínculo (T06/01, 03) · BlocoEscolhido (justo) */
+  --escolhido-apagado-respiro: 18px;/* o mesmo recheio quando o escolhido apaga, porque o chassi lido desmente o cadastro (T06/02) · BlocoEscolhido (justo, apagado) */
+  --linha-acao: 50px;               /* a linha de ação solta, em cartão próprio: o que se pede e o que acompanha (T06/02, T13/07) · LinhaTocavel (acao) */
+  --entrelinha-frase-garantia: 1.55; /* a frase de 14 da caixa do que fica, antes de apagar (NADA SE PERDE, T08/00) · T08 */
 }
 
 @media (prefers-reduced-motion: reduce) {

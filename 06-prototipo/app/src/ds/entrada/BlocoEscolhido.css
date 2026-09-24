@@ -9,6 +9,14 @@
   border-bottom: var(--traco-destaque) solid var(--lima);
 }
 .ds-escolhido-falha { border-bottom-color: var(--vermelho); }
+/* C8 · T06 (G11): o tom neutro (a trava com saída, T06/05) e o apagado (o chassi desmente, T06/02) */
+.ds-escolhido-neutro { border-bottom-color: var(--borda-neutra); }
+.ds-escolhido-neutro .ds-escolhido-rotulo { color: var(--tinta-secundaria); }
+.ds-escolhido-apagado { border-bottom: var(--traco-borda) solid var(--borda-poco); }
+.ds-escolhido-apagado .ds-escolhido-rotulo { color: var(--tinta-apagada); }
+/* C8 · T06 (G11): o justo não cresce — fica em cima da prova do vínculo (T06/01, 02, 03) */
+.ds-escolhido-justo { flex-grow: 0; flex-shrink: 0; padding: var(--escolhido-justo-respiro) var(--e-16); }
+.ds-escolhido-justo.ds-escolhido-apagado { padding: var(--escolhido-apagado-respiro) var(--e-16); }
 
 .ds-escolhido-rotulo { font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--lima); }
 .ds-escolhido-falha .ds-escolhido-rotulo { color: var(--vermelho); }

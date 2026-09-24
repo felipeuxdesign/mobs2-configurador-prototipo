@@ -50,3 +50,15 @@ export function idadeNaLinhaDaGaragem(p) {
 export function chaveDeBusca(s) {
   return String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim()
 }
+
+/** C8 · T08·2 — a contagem por extenso, no masculino, de 0 a 99, sem Intl:
+ *  12 → "doze" (o herói, ma-01) · 8 → "oito" (o ma-02). Fora disso, o algarismo. */
+const EXTENSO_ATE_19 = ['zero', 'um', 'dois', 'três', 'quatro', 'cinco', 'seis', 'sete', 'oito', 'nove', 'dez',
+  'onze', 'doze', 'treze', 'catorze', 'quinze', 'dezesseis', 'dezessete', 'dezoito', 'dezenove']
+const EXTENSO_DEZENAS = ['', '', 'vinte', 'trinta', 'quarenta', 'cinquenta', 'sessenta', 'setenta', 'oitenta', 'noventa']
+export function porExtenso(n) {
+  if (!Number.isInteger(n) || n < 0 || n > 99) return String(n)
+  if (n < 20) return EXTENSO_ATE_19[n]
+  const dezena = EXTENSO_DEZENAS[Math.floor(n / 10)]; const resto = n % 10
+  return resto ? `${dezena} e ${EXTENSO_ATE_19[resto]}` : dezena
+}

@@ -539,6 +539,12 @@
   };
   CASOS["sessao-interrompida"].data = diasAntes(0);
   CASOS["canal-aberto"].sessaoAnterior.data = diasAntes(9);
+  /* protótipo C6 (T05) · AC-19 — a atualização do firmware (T05/10): o
+     quadro que a referência desenha, 62% gravados ("atualizando · 62%").
+     Campo ADITIVO no caso: o par módulo × ativo e o firmwareDisponivel
+     ficam intocados. O ritmo da atualização não é dado de negócio e não
+     está declarado em movimento.md (G4): até lá, o quadro fica parado. */
+  CASOS["firmware-fora-matriz"].atualizacao = { quadroPct: 62 };
   /* C6 · caso ADITIVO (recorte canônico acima intocado — sha256 conferido
      antes e depois). Pacote velho + rede ruim é o caso de campo: a primeira
      sincronização do pacote BLOQUEADO (pac-uo-03, 8 dias) falha no tick
@@ -621,6 +627,30 @@
     ]
   };
   MODELOS_ATIVO.forEach(function (m) { m.sinaisCan = SINAIS_CAN[m.id] || []; });
+  /* protótipo C8 (T07) · AC-07 — a FAIXA ESPERADA em número e o RÓTULO CURTO.
+     ADITIVO: o `esperado` (o texto do cadastro) fica intacto. O sinal cuja
+     faixa é intervalo ("12,0 a 15,0 V") ou piso ("4 ou mais") ganha
+     `faixa: { min, max }` com os mesmos números, na unidade do `lido`
+     (max null = aberta pra cima). Ficam sem faixa em número: o esperado null
+     (presença, C11.6), o texto ("ligada", "fixa", "acende ao engatar") e o
+     "acima de 0 …" (dinâmico e estrito — é do ciclo dinâmico, T14). A T07
+     desenha daqui a escala e o "1,1 V abaixo do mínimo" (= min − lido)
+     (T07·2 a, G8). `rotuloCurto`: o nome do sinal no resumo dos que fecham
+     andando (T07 · 'Alternador'); sem ele, vale o `rotulo`. O gate confere
+     no bloco P·C8 · T07. */
+  var FAIXA_CAN = {
+    "ma-01": { bateria: [12, 15], alternador: [13.5, 14.8], satelites: [4, null], rotacao: [600, 2500], temperatura: [-40, 120] },
+    "ma-02": { bateria: [24, 29], rotacao: [600, 2200], temperatura: [-40, 120], oleo: [-40, 150] },
+    "ma-03": { bateria: [12, 15], satelites: [4, null], rotacao: [800, 2200], temperatura: [-40, 120] }
+  };
+  var ROTULO_CURTO_CAN = { "ma-01": { alternador: "Alternador" } };
+  MODELOS_ATIVO.forEach(function (m) {
+    var f = FAIXA_CAN[m.id] || {}, c = ROTULO_CURTO_CAN[m.id] || {};
+    m.sinaisCan.forEach(function (s) {
+      if (f[s.id]) s.faixa = { min: f[s.id][0], max: f[s.id][1] };
+      if (c[s.id]) s.rotuloCurto = c[s.id];
+    });
+  });
   /* Casos ADITIVOS da fase ESTÁTICA — sobrescrevem o `lido` por ativo. A
      causa provável segue a NATUREZA da falha (C11.8):
      isolado   · a-02 · bateria 10,9 V, leitura PRESENTE → VEÍCULO ou CADASTRO
@@ -887,6 +917,9 @@
      M2C-0371 sem fio na lista de T05 em Várzea, arnês livre, e de quebra é
      ma-02: o horímetro dele NÃO SE APLICA, e a Seção D fecha com 9 aprovados
      e 1 declarado — o estado que prova que `não se aplica` não bloqueia.
+     protótipo C8 (T06·2 a): no protótipo o a-06 é escolhível na T06 — nenhum
+     caso trava ele lá, e o M2C-0362 não dá conflito com ele. A escolha do a-09
+     continua valendo pelos outros motivos acima (sem fio na lista, ma-02).
      A secaoF e a i-06 ficam INTACTAS: elas contam a história do a-06 para
      T12 e T15, e nada aqui as move. O herói fica com o outro caminho: Seção E
      aguardando e `Finalizar` bloqueado com motivo.
@@ -1017,7 +1050,25 @@
        prazo, com AVISO no 5º dia. Nasce no 5º: o aviso está ligado hoje e
        imprime sem truque. O aviso é informação, não bloqueio. */
     situacao: { rede: "conectada", sessaoConfiguracao: null,
-      sessaoAcesso: { abertaDiasAtras: 5, validadeDias: 7, avisoNoDia: 5 } },
+      sessaoAcesso: { abertaDiasAtras: 5, validadeDias: 7, avisoNoDia: 5 },
+      /* protótipo C6 (T05) · AC-06 — os módulos POR PERTO: o que a busca da
+         T05 acha, na ordem da referência (T05/00 e 01: "5 encontrados",
+         "OUTROS QUATRO POR PERTO"). É o AGORA do aparelho, como a rede: por
+         isso mora em situacao, e não no cadastro. `meio` é como o módulo foi
+         encontrado — o fato da sessão que a matriz de pinos da T06 lê em
+         sessao.meio (D-39): o herói sem fio primeiro; os três seguintes por
+         cabo (CAN e ECO não têm sem fio na matriz; o M2C-0335 é o do
+         conflito-pinos-resolvivel, meioAtual "cabo"); o M2C-0999, fora do
+         cadastro, por cabo — sem sessão possível, o meio dele não tem leitor.
+         O "5" e o "QUATRO" saem do tamanho desta lista; nada de contagem
+         digitada na tela. */
+      porPerto: [
+        { serial: "M2C-0417", meio: "sem-fio" },
+        { serial: "M2C-0362", meio: "cabo" },
+        { serial: "M2C-0394", meio: "cabo" },
+        { serial: "M2C-0335", meio: "cabo" },
+        { serial: "M2C-0999", meio: "cabo" }
+      ] },
 
     /* C16 · o TÉCNICO (decisão 3 do estudo do C12, aprovada pelo diretor):
        dado de cadastro, coerente com credenciais.usuario "r.vieira". Aparece

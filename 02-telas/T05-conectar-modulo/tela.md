@@ -6,17 +6,19 @@ Achar o módulo, conectar e conferir, antes de qualquer gravação, se ele pode 
 |---|---|
 | **Elemento-assinatura** | a pré-checagem acendendo as onze linhas em ordem — é aqui que a sessão nasce, e a faixa desce |
 | **Chrome** | sem faixa até a pré-checagem aprovar |
-| **Semente no protótipo** | quatro módulos por perto · M2C-0417 é o do herói |
+| **Semente no protótipo** | cinco módulos por perto (`situacao.porPerto` do mock: o do herói e outros quatro) · M2C-0417, o do herói, vem escolhido |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
 | **Momentos · estados** | 4 · 11 — ver `estados.md` |
 
 ## O que se toca
 
-- a busca corre sozinha → a lista de módulos por perto
-- tocar num módulo → escolhido → `Conectar ao M2C-0417`
-- conectado → a pré-checagem corre sozinha
-- pré-checagem aprovada → a faixa de sessão desce → T06
+- a busca corre sozinha → a lista de módulos por perto. No protótipo ela acha na hora: o ritmo da busca não está em `movimento.md`
+- a tela abre com o do herói escolhido (00) · `Procurar de novo` → a busca de novo, sem nada escolhido (01)
+- tocar num módulo → escolhido → `Conectar ao M2C-0417`, com o serial do escolhido · o não cadastrado não se toca
+- conectado → a pré-checagem corre sozinha, uma linha a cada 600ms. O cadastro decide o que reprova: o serial fora do cadastro, o modelo sem driver, o firmware fora da matriz, a variante sem CAN, o conteúdo que não cabe
+- pré-checagem aprovada → a sessão nasce, com o meio em que a busca achou o módulo, e a faixa de sessão desce → `Selecionar ativo` (T06) · `Voltar ao menu` (T04)
 - numa falha: a ação do aviso (`Procurar outro módulo`, `Atualizar firmware`, `Reconectar`...)
+- `Atualizar firmware` → a linha do firmware corre com a porcentagem gravada, e as seguintes esperam; ao terminar, a pré-checagem recomeça. No protótipo, a atualização fica no quadro da referência (62%) até o ritmo dela ser declarado
 
 ## Peças do design system que esta tela usa
 

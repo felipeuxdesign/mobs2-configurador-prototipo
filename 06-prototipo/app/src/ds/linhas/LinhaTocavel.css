@@ -8,3 +8,7 @@
 .ds-linha-tocavel::after { border-radius: calc(var(--raio) - var(--traco-borda)); }
 .ds-linha-tocavel-titulo { flex-grow: 1; font-size: var(--t-link); font-weight: 600; color: var(--tinta); }
 .ds-linha-tocavel-valor { font-size: var(--t-secundario); color: var(--tinta-secundaria); }
+/* C8 · T06/02 (G11): a linha de ação — 50, sem poço, o pedido em 14 e o que acompanha em 12 apagado */
+.ds-linha-tocavel.ds-linha-tocavel-acao { height: var(--linha-acao); flex-shrink: 0; }
+.ds-linha-tocavel-acao .ds-linha-tocavel-titulo { font-size: var(--t-corpo); }
+.ds-linha-tocavel-acao .ds-linha-tocavel-valor { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-apagada); }

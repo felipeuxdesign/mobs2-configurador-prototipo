@@ -1,5 +1,5 @@
 /* T01 · Login — medido nas dez referências (02-telas/T01-login/referencias/html).
- * Só tokens: os que faltavam estão em tokens-propostos.css, pelo papel. */
+ * Só tokens: os que faltavam entraram no tokens.css, pelo papel (C4). */
 
 .t01 { position: relative; height: 100%; display: flex; flex-direction: column; background: var(--fundo-pagina); color: var(--tinta); }
 

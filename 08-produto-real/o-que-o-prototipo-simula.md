@@ -2,7 +2,7 @@
 
 | No protótipo | No produto |
 |---|---|
-| a busca de módulos acha quatro, sempre | busca por Bluetooth ou cabo, conforme a variante |
+| a busca de módulos acha cinco, sempre — o do herói e mais quatro (situacao.porPerto) | busca por Bluetooth ou cabo, conforme a variante |
 | a pré-checagem acende uma linha a cada 600ms | cada checagem lê o módulo de verdade |
 | a CAN chega com os valores do mock | leitura dos sinais do ônibus pelo módulo |
 | a cadeia grava e relê um bloco por segundo | gravação real, com read-back de cada bloco |

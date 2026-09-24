@@ -116,7 +116,7 @@ export default function T04({ momento, estado: est }) {
   // ── os dois cartões largos: o módulo e o ativo (T04·7: com a sessão, não navegam) ──
   const poco = sessao ? 30 : 34
   const conectar = !sessao
-    ? <CartaoFerramenta largo estado="decide" icone="conectar" poco={poco} titulo="CONECTAR MÓDULO" valor="toque para procurar" aoTocar={() => ir('T05')} />
+    ? <CartaoFerramenta largo estado="decide" icone="conectar" poco={poco} titulo="CONECTAR MÓDULO" valor="toque para procurar" aoTocar={() => ir('T05', { momento: '01-momento-nenhum-escolhido' })} />
     : <CartaoFerramenta largo icone="conectar" poco={poco} titulo="CONECTAR MÓDULO" valor={sessao.moduloSerial} travado />
   const ativo = !sessao
     ? <CartaoFerramenta largo estado="espera" poco={poco} titulo="ATIVO SELECIONADO" valor="nenhum" />
