@@ -1,0 +1,9 @@
+.ds-quadrado { display: block; flex-shrink: 0; border: var(--traco-borda) solid var(--marca-vazia); }
+.ds-quadrado-cheio { background: var(--lima); border-color: var(--lima); }
+.ds-quadrado-10 { width: var(--e-10); height: var(--e-10); }
+.ds-quadrado-11 { width: var(--marcador-11); height: var(--marcador-11); }
+.ds-quadrado-12 { width: var(--e-12); height: var(--e-12); }
+.ds-led { display: block; width: var(--e-8); height: var(--e-8); border-radius: 50%; flex-shrink: 0; }
+.ds-led-viva { background: var(--lima); }
+.ds-led-sem-sessao { background: var(--marca); }
+.ds-led-falha { background: var(--vermelho); }

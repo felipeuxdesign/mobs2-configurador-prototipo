@@ -1,0 +1,9 @@
+.ds-link {
+  position: relative; height: var(--alvo-min); width: 100%;
+  display: grid; place-items: center; font-size: var(--t-link); font-weight: 500; touch-action: manipulation;
+}
+.ds-link > span { grid-area: 1 / 1; }
+.ds-link-texto { color: var(--tinta-secundaria); }
+.ds-link-toque { color: var(--tinta); opacity: 0; transition: opacity var(--mov-solta) var(--mov-curva); }
+.ds-link:active .ds-link-toque, .ds-link.ds-forca-toque .ds-link-toque { opacity: 1; transition: none; }
+.ds-link.ds-forca-toque .ds-link-texto { opacity: 0; }

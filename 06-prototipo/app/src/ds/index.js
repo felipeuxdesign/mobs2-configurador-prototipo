@@ -1,0 +1,11 @@
+// O design system — uma vez, usado em tudo (06-prototipo/CLAUDE.md, regra 1).
+import './base.css'
+import './tipo.css'
+export { Poco } from './primitivos/Poco.jsx'
+export { Glifo, ESTADOS } from './primitivos/Glifo.jsx'
+export { Icone, ICONES } from './primitivos/Icone.jsx'
+export { Quadrado, Led } from './primitivos/Marcador.jsx'
+export { Tocavel } from './primitivos/Tocavel.jsx'
+export { Primario } from './primitivos/Primario.jsx'
+export { SoIcone } from './primitivos/SoIcone.jsx'
+export { Link } from './primitivos/Link.jsx'

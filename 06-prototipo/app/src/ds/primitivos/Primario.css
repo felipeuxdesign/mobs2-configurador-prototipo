@@ -1,0 +1,17 @@
+.ds-primario {
+  position: relative; height: var(--alvo-primario); width: 100%; border-radius: var(--raio);
+  display: flex; align-items: center; justify-content: center;
+  font-size: var(--t-botao); font-weight: 700; color: var(--lima);
+  background: var(--roxo); overflow: hidden; touch-action: manipulation; user-select: none;
+  transition: transform var(--mov-solta) var(--mov-curva);
+}
+.ds-primario::after {
+  content: ''; position: absolute; inset: 0; background: var(--roxo-pressionado); opacity: 0;
+  transition: opacity var(--mov-solta) var(--mov-curva);
+}
+.ds-primario-texto { position: relative; z-index: 1; }
+.ds-primario:active:not(:disabled), .ds-primario.ds-forca-toque { transform: scale(0.98); transition: none; }
+.ds-primario:active:not(:disabled)::after, .ds-primario.ds-forca-toque::after { opacity: 1; transition: none; }
+.ds-primario-desabilitado {
+  background: var(--fundo-cartao); border: var(--traco-borda) solid var(--borda); color: var(--tinta-apagada);
+}

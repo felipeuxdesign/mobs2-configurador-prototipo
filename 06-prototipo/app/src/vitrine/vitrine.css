@@ -1,0 +1,15 @@
+/* A moldura de espécime é a das folhas: 360 de largura, recheio 16 (0 no
+ * chrome), fundo da página e borda tracejada (DS-D11). */
+.vitrine { background: var(--poco); min-height: 100%; padding: var(--e-40); }
+.vitrine-um { padding: 0; }
+.vitrine-folha { margin-bottom: var(--e-40); }
+.vitrine-titulo { font-size: var(--t-titulo-tela); font-weight: 700; color: var(--tinta); margin: 0 0 var(--e-24); }
+.vitrine-grade { display: flex; flex-wrap: wrap; gap: var(--e-40); align-items: flex-start; }
+.vitrine-especime { width: var(--tela-largura); display: flex; flex-direction: column; gap: var(--e-10); }
+.vitrine-rotulo { font-size: var(--t-rotulo-topo); font-weight: 700; letter-spacing: var(--ls-rotulo-topo); color: var(--tinta-secundaria); }
+.vitrine-legenda { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-apagada); line-height: 1.45; }
+.vitrine-moldura {
+  width: var(--tela-largura); padding: var(--e-16); background: var(--fundo-pagina);
+  border: var(--traco-borda) dashed var(--borda); display: flex; flex-direction: column; overflow: hidden;
+}
+.vitrine-moldura-chrome { padding: 0; }

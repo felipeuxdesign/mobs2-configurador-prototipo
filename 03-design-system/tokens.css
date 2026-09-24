@@ -142,6 +142,12 @@
   --mov-solta:         100ms;  /* o pressionado solta (movimento.md:24) · a célula do código */
   --mov-escalonar-lista: 80ms; /* entre as linhas da busca de módulos (T05) */
   --mov-escalonar-tambor: 40ms;/* entre as rodinhas do tambor (T07, T10) */
+
+  /* ── C2 · as medidas das peças, com o papel ── */
+  /* o glifo dentro do poço — a linha de tamanhos da folha 3 (≈ 60% do poço, G5) */
+  --glifo-22: 13px; --glifo-24: 14px; --glifo-26: 16px; --glifo-28: 17px;
+  --glifo-30: 18px; --glifo-32: 19px; --glifo-34: 20px; --glifo-44: 26px;
+  --marcador-11: 11px;   /* o quadrado de escolha da folha 3 e das linhas de garagem */
 }
 
 @media (prefers-reduced-motion: reduce) {

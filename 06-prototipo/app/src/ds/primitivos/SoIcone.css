@@ -1,0 +1,4 @@
+.ds-so-icone { position: relative; width: var(--poco-44); height: var(--poco-44); display: flex; align-items: center; justify-content: center; flex-shrink: 0; touch-action: manipulation; }
+.ds-so-icone::before { content: ''; position: absolute; inset: calc((var(--poco-44) - var(--alvo-min)) / 2); }
+.ds-so-icone:active { opacity: 0.7; transition: none; }
+.ds-so-icone { transition: opacity var(--mov-solta) var(--mov-curva); }

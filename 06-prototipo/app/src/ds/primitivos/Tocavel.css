@@ -1,0 +1,8 @@
+.ds-tocavel { position: relative; display: flex; align-items: center; text-align: left; width: 100%; touch-action: manipulation; user-select: none; }
+.ds-tocavel::after {
+  content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: var(--elevado); opacity: 0;
+  transition: opacity var(--mov-solta) var(--mov-curva);
+}
+.ds-tocavel > * { position: relative; z-index: 1; }
+.ds-tocavel:active:not(.ds-tocavel-desabilitado)::after, .ds-tocavel.ds-forca-toque::after { opacity: 1; transition: none; }

@@ -1,0 +1,14 @@
+/* A base do app: vale dentro de .app e da vitrine. Sem hover, sem foco
+ * desenhado (o leitor de tela do sistema desenha o dele), seta normal.
+ * Tudo em :where() — peso zero, pra qualquer peça ganhar do reset. */
+:where(.app, .vitrine) {
+  font-family: var(--fonte);
+  font-variant-numeric: tabular-nums;
+  color: var(--tinta);
+  -webkit-tap-highlight-color: transparent;
+}
+:where(.app, .vitrine) * { cursor: default; }
+:where(.app, .vitrine) :where(:focus, :focus-visible) { outline: none; }
+:where(.app, .vitrine) :where(a) { color: inherit; text-decoration: none; }
+:where(.app, .vitrine) :where(button) { font: inherit; color: inherit; background: none; border: 0; padding: 0; margin: 0; }
+:where(.app, .vitrine) :where(p, h1, h2, h3, ul, ol) { margin: 0; padding: 0; }
