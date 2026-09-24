@@ -3,14 +3,16 @@
 // está acontecendo. Um por tela.
 import './Primario.css'
 
-export function Primario({ children, aoTocar, desabilitado = false, rotulo, forcaToque = false }) {
+// `inerte` (C9 · T10·4): não responde por um instante, com o mesmo desenho e o
+// mesmo texto — o semear da calibração, enquanto o número rola e o módulo relê.
+export function Primario({ children, aoTocar, desabilitado = false, inerte = false, rotulo, forcaToque = false }) {
   return (
     <button
       type="button"
       className={`ds-primario ${desabilitado ? 'ds-primario-desabilitado' : ''} ${forcaToque ? 'ds-forca-toque' : ''}`}
-      disabled={desabilitado}
+      disabled={desabilitado || inerte}
       aria-label={rotulo}
-      onClick={desabilitado ? undefined : aoTocar}
+      onClick={desabilitado || inerte ? undefined : aoTocar}
     >
       <span className="ds-primario-texto">{children}</span>
     </button>

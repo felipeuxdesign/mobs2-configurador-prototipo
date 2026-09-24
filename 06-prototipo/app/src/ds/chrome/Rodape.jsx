@@ -14,12 +14,14 @@ import './Rodape.css'
 // `pe` (C6 · T05, G11): 'botao' fecha em 32 mesmo com a explicação embaixo
 // (o processo correndo da T05/10, como a referência desenha); sem ele, o pé
 // segue a regra de cima.
-export function Rodape({ primario, aoPrimario, primarioDesabilitado = false, rotuloPrimario, link, aoLink, rotuloLink, legenda, explicacao, lugar = 'tela', pe }) {
+// `primarioInerte` (C9 · T10·4): o primário fica parado um instante, com o mesmo
+// desenho e o mesmo texto, sem responder (Primario inerte).
+export function Rodape({ primario, aoPrimario, primarioDesabilitado = false, primarioInerte = false, rotuloPrimario, link, aoLink, rotuloLink, legenda, explicacao, lugar = 'tela', pe }) {
   const fechaNoBotao = pe ? pe === 'botao' : !link && !explicacao
   return (
     <div className={`ds-rodape ${fechaNoBotao ? 'ds-rodape-fecha-botao' : ''} ${lugar === 'login' ? 'ds-rodape-login' : ''}`}>
       {legenda && <span className="ds-rodape-legenda">{legenda}</span>}
-      <Primario desabilitado={primarioDesabilitado} aoTocar={aoPrimario} rotulo={rotuloPrimario}>{primario}</Primario>
+      <Primario desabilitado={primarioDesabilitado} inerte={primarioInerte} aoTocar={aoPrimario} rotulo={rotuloPrimario}>{primario}</Primario>
       {link && <Link className="ds-rodape-link" aoTocar={aoLink} rotulo={rotuloLink}>{link}</Link>}
       {explicacao && <span className="ds-rodape-explicacao">{explicacao}</span>}
     </div>

@@ -8,4 +8,6 @@
 .ds-segmento { display: block; flex-grow: 1; height: var(--segmento); align-self: center; background: var(--borda); }
 .ds-segmento-feito { background: var(--lima-feito); }
 .ds-segmento-atual { height: var(--segmento-atual); align-self: auto; background: var(--tinta); }
+/* o passo atual já feito (T10/01): a altura do atual, a cor do feito */
+.ds-segmento-atual-feito { height: var(--segmento-atual); align-self: auto; background: var(--lima-feito); }
 .ds-segmentado-legenda { font-size: var(--t-legenda); font-weight: 600; color: var(--tinta-apagada); }

@@ -1,0 +1,134 @@
+[
+ {
+  "tela": "T05",
+  "ref": "03-estado-nenhum-encontrado",
+  "html": {
+   "fino": 0,
+   "estrutural": 0
+  },
+  "png": {
+   "fino": 0.92,
+   "estrutural": 0.39
+  }
+ },
+ {
+  "tela": "T05",
+  "ref": "04-estado-conexao-falhou",
+  "html": {
+   "fino": 0,
+   "estrutural": 0
+  },
+  "png": {
+   "fino": 1.49,
+   "estrutural": 0.81
+  }
+ },
+ {
+  "tela": "T05",
+  "ref": "06-estado-pre-checagem-serial-nao-cadastrado",
+  "html": {
+   "fino": 0.05,
+   "estrutural": 0.02
+  },
+  "png": {
+   "fino": 2.44,
+   "estrutural": 0.85
+  }
+ },
+ {
+  "tela": "T05",
+  "ref": "07-estado-pre-checagem-modelo-sem-driver",
+  "html": {
+   "fino": 0.05,
+   "estrutural": 0.02
+  },
+  "png": {
+   "fino": 1.78,
+   "estrutural": 0.55
+  }
+ },
+ {
+  "tela": "T05",
+  "ref": "08-estado-pre-checagem-firmware-fora-da-matriz",
+  "html": {
+   "fino": 0.07,
+   "estrutural": 0.03
+  },
+  "png": {
+   "fino": 1.94,
+   "estrutural": 0.78
+  }
+ },
+ {
+  "tela": "T05",
+  "ref": "09-estado-firmware-fora-sem-rede-no-modulo",
+  "html": {
+   "fino": 0.07,
+   "estrutural": 0.03
+  },
+  "png": {
+   "fino": 2.15,
+   "estrutural": 0.77
+  }
+ },
+ {
+  "tela": "T05",
+  "ref": "11-estado-pre-checagem-conteudo-nao-cabe",
+  "html": {
+   "fino": 0.08,
+   "estrutural": 0.03
+  },
+  "png": {
+   "fino": 1.77,
+   "estrutural": 0.78
+  }
+ },
+ {
+  "tela": "T05",
+  "ref": "12-estado-pre-checagem-pool-de-cercas-esgotado",
+  "html": {
+   "fino": 0.09,
+   "estrutural": 0.04
+  },
+  "png": {
+   "fino": 1.87,
+   "estrutural": 0.87
+  }
+ },
+ {
+  "tela": "T05",
+  "ref": "13-estado-pre-checagem-canal-aberto-e-pendencias",
+  "html": {
+   "fino": 0.1,
+   "estrutural": 0.05
+  },
+  "png": {
+   "fino": 2.02,
+   "estrutural": 0.82
+  }
+ },
+ {
+  "tela": "T05",
+  "ref": "14-estado-pre-checagem-link-perdido-na-6a",
+  "html": {
+   "fino": 0.08,
+   "estrutural": 0.02
+  },
+  "png": {
+   "fino": 1.37,
+   "estrutural": 0.55
+  }
+ },
+ {
+  "tela": "T05",
+  "ref": "15-estado-pre-checagem-modulo-em-repouso-na-9a",
+  "html": {
+   "fino": 0.1,
+   "estrutural": 0.05
+  },
+  "png": {
+   "fino": 1.38,
+   "estrutural": 0.63
+  }
+ }
+]

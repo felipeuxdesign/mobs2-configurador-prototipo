@@ -1,5 +1,22 @@
 # Registro de mudanças
 
+## 2026-09-24 · C7 · conectar: os estados — T05
+
+- **os 11 estados da T05**, continuados do agente que o limite de gasto interrompeu:
+  - achar: nenhum encontrado;
+  - conectar: conexão falhou;
+  - conferir: as nove falhas da pré-checagem;
+  - com as ações de cada aviso e as portas naturais (G28)
+- **a bancada:** o 03 e o 04 em 0%, e os outros entre 0,05 e 0,1% (os glifos do Lucide, G5, e a linha de baixo da faixa, G13) · os 5 quadros do C6 continuam iguais · **os textos conferem nos 16 quadros** · prints lado a lado em `06-prototipo/prints/C7/`
+- **o mock:** a duração da busca vazia (AC-18) e o caso do firmware fora com o módulo sem rede (AC-20), só aditivos · **o gate foi de 122 pra 141 checagens** (com o C9)
+- **as peças** ganharam variantes nomeadas (G11): a linha de checagem com a nota, o parou neutro e a última de 45; o cabeçalho com a unidade sem contagem; a tira de leituras com destaque e complemento · o vazio da busca virou peça da tela, e o vazio declarado voltou ao desenho do C2 · **as 121 fotos da vitrine continuam iguais ao C2**
+- **a R-14 vale na lista:** marcar um módulo tira a frase "Escolha um módulo para continuar", e o botão passa a "Conectar ao …"
+- **desvio nomeado (G28):** a busca vazia (03), a conexão que falha (04) e os estados 06, 07, 08, 09, 12 e 14 abrem só pela coluna do palco. Nenhum desses módulos tem linha tocável na lista da busca
+- **desvio nomeado (G25):** depois de "Gravar a conexão" (09), a saída troca direto pra "Atualizar firmware". O quadro da gravação não tem referência
+- **desvio nomeado (Lei 3, G24):** na 14 e na 15, o aviso entra em cima da lista, a lista desce e a tira de leituras some, como as referências desenham
+- **vão ao diretor:** os estados sem porta natural, que no palco ficam parados e escondem as saídas deles · se a 00 também tiver de marcar com o quadrado, e não trocar o ESCOLHIDO no lugar, ela precisa de um desenho novo
+- **vão ao PM**, como o C0 já registra: T05-N1, T05-N2 e T05-N3
+
 ## 2026-09-24 · um marcador de escolha só, e a coluna do palco no meio
 
 - **o marcador de escolha é um só**: vazado de 11 no desmarcado e lima de 11 no marcado · poço de 24 no checkbox e na coluna do palco, 30 na linha de lista · decisão 29

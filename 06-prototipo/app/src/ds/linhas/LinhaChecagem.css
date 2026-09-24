@@ -48,3 +48,11 @@
 .ds-checagem-ainda-nao .ds-glifo-cor-secundaria { color: var(--marca-limite); }
 /* C6 · T05/05 · a última da pré-checagem inteira aprovada, com a folga do pé do cartão (43) */
 .ds-checagem.ds-checagem-fim-pre-checagem { height: var(--linha-precheck-fim); }
+/* C7 · T05 · a nota: o fato resolvido embaixo do título, apagado, sem veredito (T05/13) */
+.ds-checagem-nota { color: var(--tinta-apagada); }
+/* C7 · T05/13 · a última da aprovada inteira, com a nota: 8 em cima e embaixo */
+.ds-checagem.ds-checagem-fim-pre-checagem.ds-checagem-com-causa { height: auto; padding: var(--e-8) 0; }
+/* C7 · T05 · a última da pré-checagem que terminou numa falha ou parou no caso (45) */
+.ds-checagem.ds-checagem-fim-pre-checagem-parada { height: var(--linha-precheck-fim-parada); }
+/* C7 · T05/15 · o 'parou aqui' neutro, que não é erro: o valor sai do vermelho */
+.ds-checagem-parou.ds-checagem-tom-neutro .ds-checagem-valor { color: var(--tinta-secundaria); }

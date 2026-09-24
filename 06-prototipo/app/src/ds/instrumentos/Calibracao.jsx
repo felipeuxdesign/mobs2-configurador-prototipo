@@ -36,9 +36,11 @@ export function ReguaDiferenca({ children, confere = false, nomeGlifo }) {
 
 // O valor alvo: o número do painel, o que vai pro módulo. O poço com o traço
 // lima embaixo, o rótulo da prova em lima (Lei 1), o número de 48 e a frase.
-export function ValorAlvo({ rotulo, valor, unidade, legenda }) {
+// `cumprido` (C9 · T10/01, G11): depois de semear e reler, o alvo já foi — o
+// traço lima sai (fica a borda do poço) e o rótulo apaga.
+export function ValorAlvo({ rotulo, valor, unidade, legenda, cumprido = false }) {
   return (
-    <div className="ds-valor-alvo ds-caixa-poco">
+    <div className={`ds-valor-alvo ds-caixa-poco ${cumprido ? 'ds-valor-alvo-cumprido' : ''}`}>
       <span className="ds-valor-alvo-rotulo">{rotulo}</span>
       <span className="ds-valor-alvo-numero">
         {valor}{unidade != null && <span className="ds-valor-alvo-unidade">{unidade}</span>}

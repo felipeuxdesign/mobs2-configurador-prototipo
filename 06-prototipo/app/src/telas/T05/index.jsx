@@ -5,7 +5,8 @@
 // · 00-tela — a busca achou os módulos por perto (M.situacao.porPerto, AC-06)
 //   e o do herói, o primeiro, vem escolhido: a semente (G21)
 // · 01-momento-nenhum-escolhido — a busca achou e nada foi tocado: é onde
-//   `Procurar de novo` leva. Tocar num módulo o escolhe, e a tela volta à 00
+//   `Procurar de novo` leva, e onde o menu abre. Tocar num módulo só o marca
+//   (o quadrado lima) e acende `Conectar ao …`; é o botão que conecta (R-14)
 // · 02-momento-um-encontrado — só um por perto: a busca em que só o herói
 //   responde. Sem gatilho no mock, abre só pela URL (G20)
 // · 05-momento-pre-checagem — conectado: as onze linhas acendem uma a uma, no
@@ -27,15 +28,18 @@
 //   que o caso muda na linha dele; 14 e 15 param na checagem do caso (C7·2).
 //   A falha mora na linha que falhou (Lei 3); onde a referência remonta (o
 //   aviso em cima, a tira que some, a faixa), ela é construída fiel (G24)
-// · as portas naturais (G28): tocar num módulo da lista que é caso do mock
-//   (M2C-0362 → 13, M2C-0394 → 11, M2C-0335 → 15) e conectar abre o estado
-//   dele no fluxo. O M2C-0999 não se toca, como a referência desenha
+// · as portas naturais (G28, R-11): marcar na lista um módulo que é caso do
+//   mock (M2C-0362 → 13, M2C-0394 → 11, M2C-0335 → 15) e tocar em
+//   `Conectar ao …` abre o estado dele no fluxo — o toque na linha só marca
+//   (R-14). O M2C-0999 não se toca, como a referência desenha
+// · o bloco do nenhum encontrado (03) é peça desta tela (pecas.jsx)
 // · cada caso que acontece uma vez vale uma vez por sessão (G21, casosConsumidos)
 import { useEffect, useRef, useState } from 'react'
 import {
   BarraDoSistema, Faixa, Rodape, CabecalhoConteudo, BlocoEscolhido, Lista, LinhaModulo,
-  LinhaChecagem, TiraLeituras, Nota, Aviso, Vazio,
+  LinhaChecagem, TiraLeituras, Nota, Aviso, ESTADOS,
 } from '../../ds/index.js'
+import { VazioDaBusca } from './pecas.jsx'
 import { useEstado } from '../../estado/estado.jsx'
 import { EM_QUADRO } from '../../estado/quadro.js'
 import { RITMOS } from '../../estado/ritmos.js'
@@ -48,7 +52,6 @@ import {
   casosDoModulo, serialDoCaso, paradaDe, leiturasDa, buscaVazia, serialDaFalha, pertoComFalha,
   CASO_BUSCA_VAZIA, CASO_CONEXAO, CASO_SEM_REDE, CASO_CANAL,
 } from './dados.js'
-import './tokens-propostos.css'
 import './t05.css'
 
 const M01 = '01-momento-nenhum-escolhido'
@@ -210,7 +213,7 @@ export default function T05({ momento, estado: est }) {
     miolo = (
       <>
         <CabecalhoConteudo titulo={TX.titulo} unidade={TX.nenhumEncontrado} />
-        <Vazio variante="busca" titulo={TX.nenhumRespondeu} frase={TX.aproxime} />
+        <VazioDaBusca titulo={TX.nenhumRespondeu} frase={TX.aproxime} />
         {legenda && <span className="t05-legenda">{legenda}</span>}
       </>
     )
@@ -294,7 +297,7 @@ export default function T05({ momento, estado: est }) {
         <Lista className="t05-lista">
           {linhas.map((l, i) => (
             <LinhaChecagem key={l.id} estado={l.estado} tom={l.tom} titulo={l.titulo} valor={l.valor} causa={l.causa} nota={l.nota}
-              glifo={l.glifo} nomeGlifo={l.estado === 'ainda-nao' ? 'ainda não' : undefined}
+              glifo={l.glifo} nomeGlifo={l.estado === 'ainda-nao' ? ESTADOS.espera.nome : undefined}
               divisoria={i < TOTAL - 1} folgaFim={i === TOTAL - 1 ? fim : false} />
           ))}
         </Lista>

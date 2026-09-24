@@ -301,6 +301,14 @@
   --rolagem-cor: var(--tinta-apagada); /* a cor do indicador */
   --rolagem-espera: 900ms;    /* quanto o indicador fica depois que a rolagem para, antes de sumir (não é movimento: não zera no reduzir) */
   --camada-sistema: 2;        /* o que é do sistema fica por cima do app: o indicador de rolagem */
+
+  /* ── C7 · C9 · o que a T05 (os estados) e a T09 pediram (cada um com o papel e quem usa) ── */
+  --linha-precheck-fim-parada: 45px; /* a última linha da pré-checagem que terminou numa falha ou parou no caso, com a folga do pé do cartão (T05/06–09, 11, 12, 14, 15) · LinhaChecagem (folgaFim 'pre-checagem-parada') */
+  --ls-rotulo-topo-fora: 1.2px;      /* a letra do rótulo de topo do serial fora do cadastro, em 12 (T05/06: 'M2C-0999 · fora do cadastro') · T05 */
+  --marca-vazio-busca: 44px;         /* o quadrado tracejado com o traço, em cima do vazio da busca (T05/03) · T05 (pecas.jsx, VazioDaBusca) */
+  --entrelinha-frase-busca: 1.45;    /* a frase de 14 do vazio da busca, centrada ('Aproxime o aparelho do módulo…', T05/03) · T05 (pecas.jsx, VazioDaBusca) */
+  --cadeia-elo-correndo: 86px;  /* a altura de um elo da cadeia com trilho enquanto ela grava, o quadrado de agora num dos poços (T09/00 · a cadeia correndo) · Cadeia (altura 'correndo') */
+  --cadeia-elo-pausada: 68px;   /* o elo quando a cadeia pausou e divide a tela com o contador e o aviso (T09/02 e 03 · a cadeia pausada) · Cadeia (altura 'pausada') */
 }
 
 @media (prefers-reduced-motion: reduce) {

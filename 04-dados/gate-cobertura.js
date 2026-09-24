@@ -342,6 +342,96 @@ chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência n
   chk("P·C6 · T05 a atualização do firmware tem o quadro da 10 entre 0 e 100 (62%)", !!at && at.quadroPct > 0 && at.quadroPct < 100, at && at.quadroPct + "%");
 })();
 
+/* ── P·C9 · T10 · calibração: o hodômetro do a-22 (AC-08) e o que a tela deriva de calibracao ── */
+(function () {
+  var C = M.calibracao;
+  var num = function (s) { return Number(String(s).split(" ")[0].replace(/\./g, "").replace(",", ".")); };
+  var gr = function (id) { return C.grandezas.filter(function (g) { return g.id === id; })[0]; };
+  var ativo = function (id) { return M.ativos.filter(function (a) { return a.id === id; })[0]; };
+  var linha = function (a) {
+    var mod = M.modulos.filter(function (m) { return m.serial === a.moduloSerial; })[0];
+    return M.matrizCapacidades.filter(function (r) { return r.modeloId === mod.modeloId && r.variante === mod.variante; })[0];
+  };
+  /* o hodômetro que a CAN lê: o do caso estático do ativo, se houver; senão, o nominal do modelo */
+  var lidoCan = function (a) {
+    var k = Object.keys(M.casos).filter(function (x) { return x.indexOf("can-estatico-") === 0 && M.casos[x].ativoId === a.id && M.casos[x].lidos && M.casos[x].lidos.hodometro; })[0];
+    if (k) return M.casos[k].lidos.hodometro;
+    return M.modelosAtivo.filter(function (m) { return m.id === a.modeloAtivoId; })[0].sinaisCan.filter(function (s) { return s.id === "hodometro"; })[0].lido;
+  };
+  var ids = Object.keys(C.bruto);
+  var fora = ids.filter(function (id) { return num(lidoCan(ativo(id))) !== C.bruto[id].hodometro / gr("hodometro").fatorEnvio; });
+  chk("P·C9 · T10 AC-08: o hodômetro da CAN é o bruto ÷ fator em todo ativo de calibracao.bruto (184.320 · 87.604 · 121.003)",
+    fora.length === 0 && ids.length === 3, fora.map(function (id) { return id + ": " + lidoCan(ativo(id)) + " × " + C.bruto[id].hodometro / 1000; }).join(" · ") || undefined);
+  var c22 = M.casos["can-estatico-hodometro-a22"], a22 = c22 && ativo(c22.ativoId);
+  chk("P·C9 · T10 AC-08: o caso do a-22 aponta o ativo do cadastro, com módulo (RJP-1W48 · M2C-0480)", !!a22 && a22.placa === "RJP-1W48" && a22.moduloSerial === "M2C-0480");
+  /* as grandezas de cada quadro: o cadastro do modelo, menos as de ajuste quando o módulo não lê pulsos */
+  var doPar = function (id) {
+    var a = ativo(id), pm = C.porModelo[a.modeloAtivoId], pulsos = linha(a).pulsos;
+    var derrubadas = pm.calibraveis.filter(function (g) { return !pulsos && gr(g).natureza === "ajuste"; });
+    return { calibraveis: pm.calibraveis.filter(function (g) { return derrubadas.indexOf(g) < 0; }), derrubadas: derrubadas };
+  };
+  var p01 = doPar("a-01"), p09 = doPar("a-09"), p22 = doPar("a-22");
+  chk("P·C9 · T10 os passos: o herói 2 (hodômetro, horímetro) · o a-09 3 (rotação, velocidade, hodômetro) · o a-22 1 (só o hodômetro)",
+    p01.calibraveis.join(",") === "hodometro,horimetro" && p09.calibraveis.join(",") === "rotacao,velocidade,hodometro" && p22.calibraveis.join(",") === "hodometro",
+    [p01, p09, p22].map(function (p) { return p.calibraveis.join("+"); }).join(" · "));
+  chk("P·C9 · T10 o rótulo da caixa (T10·5): só o módulo do a-22 derruba grandezas (rotação e velocidade, 'não lê pulsos')",
+    p01.derrubadas.length === 0 && p09.derrubadas.length === 0 && p22.derrubadas.join(",") === "rotacao,velocidade" && C.motivoSemPulsos === "não lê pulsos");
+  var t = C.tolerancia.hodometro, fator = gr("hodometro").fatorEnvio, relido = C.painel["a-01"].hodometro * fator + t.desvio;
+  chk("P·C9 · T10 a releitura do hodômetro confere na tolerância (120 ≤ 100 + 40) e mostra o número do painel (482.317)",
+    t.desvio <= t.granularidade + t.decorrido && Math.floor(relido / t.porUnidade) === C.painel["a-01"].hodometro && t.porUnidade === fator);
+  chk("P·C9 · T10 'semeado há N dias' só com 1 ou mais (G22): o herói 0 (desta sessão), o a-09 27, o a-22 39",
+    C.ultimas["a-01"].hodometro === 0 && C.ultimas["a-09"].hodometro === 27 && C.ultimas["a-22"].hodometro === 39);
+  var h = gr("horimetro"), bh = C.bruto["a-01"].horimetro / h.fatorEnvio;
+  chk("P·C9 · T10 o passo do horímetro do herói: 8.540 h no módulo, 9.640 no painel, diferença de 1.100",
+    Number.isInteger(bh) && bh === 8540 && C.painel["a-01"].horimetro - bh === 1100, bh + " h");
+  var item = M.checklist.itens.filter(function (i) { return i.id === C.itemChecklist.id; })[0];
+  chk("P·C9 · T10 a foto do painel vale no item da Seção B (HU-T10-4): o item existe, é da B e herda da calibração",
+    !!item && item.secao === C.itemChecklist.secao && C.itemChecklist.secao === "B" && item.herda === "calibracao" && item.foto === true);
+})();
+
+/* ── P·C9 · T09 · configurar módulo: o que a cadeia lê de M.cadeia e dos dois casos (nenhum campo novo) ── */
+(function () {
+  var Cd = M.cadeia, ordem = Cd.ordem;
+  var versionados = ordem.filter(function (b) { return !!Cd.versoes[b]; });
+  chk("P·C9 · T09 os 6 passos têm rótulo, e só a limpeza não tem versão (5 blocos versionados)",
+    ordem.every(function (b) { return !!Cd.rotulos[b]; }) && versionados.length === 5 && !Cd.versoes.limpeza && ordem.indexOf("conexao") === ordem.length - 1,
+    versionados.join(","));
+  chk("P·C9 · T09 a prova da 04: as versões na ordem canônica dão A12.G07.L02.E05.C03, dos seis blocos",
+    versionados.map(function (b) { return Cd.versoes[b]; }).join(".") === "A12.G07.L02.E05.C03" && ordem.length === 6);
+  var rec = M.casos["bloco-recusado"], que = M.casos["queda-na-cadeia"];
+  var iR = ordem.indexOf(rec.bloco), iQ = ordem.indexOf(que.noBloco);
+  chk("P·C9 · T09 o 01: o bloco recusado é Cercas, o 3º, com dois relidos antes e três não alcançados depois",
+    iR === 2 && Cd.rotulos[rec.bloco] === "Cercas" && ordem.length - iR - 1 === 3);
+  chk("P·C9 · T09 o 02 e o 03: a queda é no Leitor, com três gravados (3 de 6) e a Conexão ainda por gravar",
+    iQ === 3 && Cd.rotulos[que.noBloco] === "Leitor" && iQ < ordem.indexOf("conexao"));
+  var placa = function (id) { return M.ativos.filter(function (a) { return a.id === id; })[0].placa; };
+  chk("P·C9 · T09 a faixa dos estados: M2C-0301 · QJF-2C61 no 01, M2C-0312 · PCX-9A17 no 02 e no 03",
+    rec.moduloSerial === "M2C-0301" && placa(rec.ativoId) === "QJF-2C61" && que.moduloSerial === "M2C-0312" && placa(que.ativoId) === "PCX-9A17");
+})();
+
+/* ── P·C7 · T05 · conectar: os estados (AC-18, AC-20) e os pares dos casos que a T05 lê (T05-A18) ── */
+(function () {
+  var par = function (c) { var a = M.ativos.filter(function (x) { return x.id === c.ativoId; })[0]; return !!a && a.moduloSerial === c.moduloSerial; };
+  var bv = M.casos["busca-vazia"];
+  chk("P·C7 · T05 a busca vazia tem a duração da tentativa, maior que 0 (T05/03: '8 s · primeira tentativa')",
+    !!bv && bv.duracaoSeg > 0 && bv.tentativa === 1, bv && bv.duracaoSeg + " s · tentativa " + bv.tentativa);
+  var ff = M.casos["firmware-fora-matriz"], fs = M.casos["firmware-fora-sem-rede"];
+  chk("P·C7 · T05 o firmware fora sem rede é o mesmo par do firmware fora da matriz, com o modem sem rede (T05/09)",
+    !!fs && fs.moduloSerial === ff.moduloSerial && fs.ativoId === ff.ativoId && par(fs) && !!fs.modem, fs && fs.moduloSerial + " × " + fs.ativoId + " · " + fs.modem);
+  var mod = M.modulos.filter(function (m) { return m.serial === fs.moduloSerial; })[0];
+  var lin = M.matrizCapacidades.filter(function (r) { return r.modeloId === mod.modeloId && r.variante === mod.variante; })[0];
+  chk("P·C7 · T05 o firmware do módulo do par está fora da matriz dele (2.4.1 fora de 2.2.0 e 2.3.5)", !!lin && lin.firmwares.indexOf(mod.firmware) < 0,
+    mod.firmware + " × " + lin.firmwares.join(" e "));
+  var DOS_PARES = ["conexao-falha", "link-perdido", "modulo-em-repouso", "modulo-com-pendencias", "canal-aberto", "modelo-sem-driver", "conteudo-nao-cabe"];
+  chk("P·C7 · T05 os casos da T05 apontam o par ativo × módulo do cadastro", DOS_PARES.every(function (k) { return par(M.casos[k]); }),
+    DOS_PARES.filter(function (k) { return !par(M.casos[k]); }).join(",") || undefined);
+  chk("P·C7 · T05 o link cai e o módulo dorme dentro das onze checagens (6 e 9)", ["link-perdido", "modulo-em-repouso"].every(function (k) {
+    var n = M.casos[k].naChecagem; return n >= 1 && n <= 11; }), M.casos["link-perdido"].naChecagem + " · " + M.casos["modulo-em-repouso"].naChecagem);
+  var pool = M.casos["pool-esgotado"], ativoPool = M.ativos.filter(function (a) { return a.id === pool.ativoId; })[0];
+  chk("P·C7 · T05 o pool esgotado aponta um ativo com módulo cadastrado (a-05 × M2C-0348)", !!ativoPool && M.modulos.some(function (m) { return m.serial === ativoPool.moduloSerial; }),
+    ativoPool && ativoPool.moduloSerial);
+})();
+
 /* ── Higiene ── */
 var fonte = null;
 try { fonte = require("fs").readFileSync(require("path").join(__dirname, "mocks.js"), "utf8"); } catch (e) {}

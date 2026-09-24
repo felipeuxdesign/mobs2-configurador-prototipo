@@ -6,3 +6,6 @@
 .ds-tira-leitura { display: flex; flex-direction: column; gap: var(--e-2); min-width: 0; }
 .ds-tira-leitura-rotulo { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-apagada); }
 .ds-tira-leitura-valor { font-size: var(--t-secundario); font-weight: 700; color: var(--tinta-secundaria); }
+/* C7 · T05/13 · a leitura com o que contar: o número em --tinta, o complemento apagado */
+.ds-tira-leitura-valor.ds-tira-leitura-destaque { color: var(--tinta); }
+.ds-tira-leitura-complemento { font-weight: 500; color: var(--tinta-apagada); }

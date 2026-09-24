@@ -24,3 +24,6 @@
 .ds-valor-alvo-numero { font-size: var(--n-destaque); font-weight: 700; letter-spacing: var(--ls-n-destaque); line-height: var(--entrelinha-numero); }
 .ds-valor-alvo-unidade { font-size: var(--n-unidade-g); font-weight: 500; color: var(--tinta-secundaria); padding-left: var(--e-4); }
 .ds-valor-alvo-legenda { font-size: var(--t-secundario); font-weight: 500; color: var(--tinta-apagada); }
+/* o alvo cumprido (T10/01): sem o traço lima, com a borda do poço, e o rótulo apagado */
+.ds-valor-alvo.ds-caixa-poco.ds-valor-alvo-cumprido { border-bottom: var(--traco-borda) solid var(--borda-poco); }
+.ds-valor-alvo-cumprido .ds-valor-alvo-rotulo { color: var(--tinta-apagada); }

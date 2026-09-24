@@ -6,9 +6,11 @@
 import '../cartoes/caixas.css'   // a caixa apagada é a do vazio declarado e das notas (revisão do C2)
 import './Declarado.css'
 
-export function Declarado({ rotulo, texto, linhas, aoPe = false }) {
+// `divisoriaNoFim` (C9 · T10/02, G11 · T10-D16): a última linha fica com a
+// divisória embaixo, como a referência do passo de rotação desenha.
+export function Declarado({ rotulo, texto, linhas, aoPe = false, divisoriaNoFim = false }) {
   return (
-    <div className={`ds-declarado ds-caixa-apagada ${aoPe ? 'ds-declarado-ao-pe' : ''}`}>
+    <div className={`ds-declarado ds-caixa-apagada ${aoPe ? 'ds-declarado-ao-pe' : ''} ${divisoriaNoFim ? 'ds-declarado-divisoria-fim' : ''}`}>
       <span className="ds-declarado-rotulo">{rotulo}</span>
       {texto != null && <p className="ds-declarado-texto">{texto}</p>}
       {linhas && (

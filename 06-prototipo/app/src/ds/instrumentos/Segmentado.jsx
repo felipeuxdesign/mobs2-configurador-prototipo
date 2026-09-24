@@ -2,7 +2,8 @@
 // rótulo e o contador (o número em branco, o total apagado) —, os segmentos
 // e, embaixo, o que vem depois. O segmento do passo atual é branco e mais
 // alto; o feito é lima apagado (--lima-feito); o pendente, a borda.
-// `segmentos`: um por passo, 'atual' · 'feito' · 'pendente'.
+// `segmentos`: um por passo, 'atual' · 'feito' · 'pendente' — e 'atual-feito'
+// (C9 · T10/01, G11): o passo atual já feito, alto como o atual e lima apagado.
 import './Segmentado.css'
 
 // `folga`: o vão entre o cabeçalho, os segmentos e a legenda — 6 (a folha 5)

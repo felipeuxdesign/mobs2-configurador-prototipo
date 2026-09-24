@@ -19,22 +19,33 @@ import './LinhaChecagem.css'
 const GLIFO = { aprovada: 'ok', reprovada: 'xis', 'nao-se-aplica': 'traco', parou: 'sem-sinal', 'ainda-nao': 'espera', agora: 'agora' }
 const POCO = { compacta: 24, passo: 24, dupla: 32, conferencia: 26 }
 
+// C7 · T05 (G11), três propriedades nomeadas; sem elas, a linha é a de sempre:
+// · `nota` — a linha de 12 embaixo do título, como a causa, mas em
+//   --tinta-apagada: o fato que a checagem resolveu e não reprova ('aberto
+//   desde 03/03 às 13:20', o canal que o app fechou, T05/13). A linha cresce igual.
+// · `tom` 'neutro' — o 'parou aqui' que não é erro (o módulo em repouso,
+//   T05/15): a lua no poço e o valor em --tinta-secundaria, no lugar do vermelho.
+// · folgaFim 'pre-checagem-parada' — a última da pré-checagem que terminou numa
+//   falha ou parou no caso (45, T05/06–09, 11, 12, 14, 15). Com a `nota`, a
+//   'pre-checagem' (a inteira aprovada) abre 8 em cima e embaixo (T05/13).
 export function LinhaChecagem({
-  estado = 'aprovada', variante = 'compacta', titulo, causa, valor,
+  estado = 'aprovada', variante = 'compacta', titulo, causa, nota, valor, tom,
   glifo, nomeGlifo, divisoria = true, folgaFim = false, className = '',
 }) {
   const tam = POCO[variante]
+  const neutro = tom === 'neutro' && estado === 'parou'
   const classes = [
-    'ds-checagem', `ds-checagem-${variante}`, `ds-checagem-${estado}`,
-    causa ? 'ds-checagem-com-causa' : '', divisoria ? '' : 'ds-checagem-sem-divisoria',
+    'ds-checagem', `ds-checagem-${variante}`, `ds-checagem-${estado}`, neutro ? 'ds-checagem-tom-neutro' : '',
+    causa || nota ? 'ds-checagem-com-causa' : '', divisoria ? '' : 'ds-checagem-sem-divisoria',
     folgaFim === true ? 'ds-checagem-folga-fim' : folgaFim ? `ds-checagem-fim-${folgaFim}` : '', className,
   ].filter(Boolean).join(' ')
   return (
     <div className={classes}>
-      <Poco tam={tam}><Glifo estado={glifo ?? GLIFO[estado]} poco={tam} nome={nomeGlifo} /></Poco>
+      <Poco tam={tam}><Glifo estado={glifo ?? (neutro ? 'lua' : GLIFO[estado])} poco={tam} nome={nomeGlifo} /></Poco>
       <span className="ds-checagem-corpo">
         <span className="ds-checagem-titulo">{titulo}</span>
         {causa && <span className="ds-checagem-causa">{causa}</span>}
+        {nota && <span className="ds-checagem-causa ds-checagem-nota">{nota}</span>}
       </span>
       {valor != null && <span className="ds-checagem-valor">{valor}</span>}
     </div>

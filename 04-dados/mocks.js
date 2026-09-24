@@ -574,6 +574,19 @@
   CASOS["link-perdido"] = { moduloSerial: "M2C-0312", ativoId: "a-03", naChecagem: 6 };
   CASOS["modulo-em-repouso"] = { moduloSerial: "M2C-0335", ativoId: "a-04", naChecagem: 9 };
   CASOS["modulo-com-pendencias"] = { moduloSerial: "M2C-0362", ativoId: "a-06", mensagens: 12, diagnostico: 3 };
+  /* protótipo C7 (T05) · AC-18 — quanto a busca vazia durou (T05/03: "A
+     busca durou 8 s · primeira tentativa"). Campo ADITIVO no caso: a
+     tentativa e o motivo ficam intocados. É o tempo que a busca esperou
+     resposta, fato desta tentativa — não é ritmo de animação. */
+  CASOS["busca-vazia"].duracaoSeg = 8;
+  /* protótipo C7 (T05) · AC-20 — o firmware fora da matriz com o módulo SEM
+     REDE (T05/09): o único estado da T05 que nada no mock produzia. Caso
+     ADITIVO, o MESMO par do firmware-fora-matriz (M2C-0451 × a-18), que fica
+     intocado: aqui mora só o que muda, o modem do módulo sem rede. Sem rede,
+     o firmware não baixa pelo módulo: a saída é gravar a conexão antes
+     (HU-T05-5). A tira "Rede do módulo · conectada" da mesma referência é
+     outro fato (a rede que o módulo tem cadastrada) — sinalizado, T05-N1. */
+  CASOS["firmware-fora-sem-rede"] = { moduloSerial: "M2C-0451", ativoId: "a-18", modem: "sem rede" };
 
   /* C11 · T07 — SINAIS DA CAN por modelo de ativo (bloco Ativo). ADITIVO: os
      três modelos ganham `sinaisCan`; nada acima muda. Cada sinal declara a
@@ -689,6 +702,9 @@
      versoes · a versão de cada bloco versionável; a tela compõe a string
        posicional A12.G07.L02.E05.C03 DEPOIS do read-back de cada bloco
        (HU-T09-8) e grava em sessao.cadeia.versaoGravada — nunca em tela.
+       protótipo C9 (T09) · a referência vence (G1, T09-A6): a string aparece
+       na prova da cadeia concluída (T09/04) e na T16; no app ela é gravada em
+       etapas.cadeia.versaoGravada a cada bloco relido.
      leituraFinal · os dois parâmetros críticos que não derivam de outra
        coleção (os outros três: traducaoCan do modelo, preset de eventos,
        pontos de cerca do ativo). Vocabulário de campo: rede do módulo,
@@ -697,7 +713,12 @@
        (a-02/M2C-0301: bateria em 10,9 V, módulo que já falhou em responder —
        recusa Cercas UMA vez; pool-esgotado/a-05 não serve: trava em T05 e
        nunca abre sessão); queda-na-cadeia reusa o par de link-perdido (link
-       ruim é história desse módulo). */
+       ruim é história desse módulo).
+     protótipo C9 (T09) · o `motivo` de bloco-recusado fica sem leitor: a
+       causa na tela é o texto aprovado da T09/01, "os pontos das áreas não
+       voltaram" (G9, T09-A5). E o a-02 não tem região de cerca em
+       CERCAS.regioes (T09-A15): a recusa de Cercas cai num ônibus sem cercas
+       — pendência do PM, sem mudar o dado. */
   CADEIA.escopos = {
     total:        { apaga: ["cercas", "identificadores", "configuracao-anterior"], mantem: ["leituras", "firmware"] },
     configuracao: { apaga: ["configuracao-anterior"], mantem: ["cercas", "identificadores", "leituras", "firmware"] }
@@ -1010,6 +1031,14 @@
      ma-01, Várzea, e o conflito de pinos dele é o RESOLVÍVEL — T06 oferece o
      leitor sem fio e o fluxo segue. */
   CASOS["evento-sem-resposta"] = { ativoId: "a-04", moduloSerial: "M2C-0335", tentativa: 1 };
+
+  /* protótipo C9 (T10) · AC-08 — o hodômetro estático do a-22, o mesmo que a
+     T10 calibra no módulo sem pulsos (T10/04): bruto 121.003.000 m ÷ fatorEnvio
+     1000 = 121.003 km, contra 121.480 no painel. Sem ele, a T07 e a T08 leriam
+     o nominal do ma-02 (96.410) e contradiriam a calibração do mesmo módulo.
+     NÃO é falha — é coerência, como o can-estatico-hodometro do a-09. Entra no
+     fim, pra não mudar a ordem de nenhuma chave de antes. */
+  CASOS["can-estatico-hodometro-a22"] = { ativoId: "a-22", lidos: { hodometro: "121.003 km" } };
 
   window.M2CF_MOCKS = {
     DIA_NOMINAL: "2026-03-12",

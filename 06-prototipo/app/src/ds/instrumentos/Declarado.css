@@ -11,5 +11,6 @@
   border-bottom: var(--traco-borda) solid var(--borda-rodape);
 }
 .ds-declarado-linha:last-child { border-bottom: 0; }
+.ds-declarado-divisoria-fim .ds-declarado-linha:last-child { border-bottom: var(--traco-borda) solid var(--borda-rodape); }
 .ds-declarado-nome { font-size: var(--t-secundario); font-weight: 600; color: var(--tinta-apagada); }
 .ds-declarado-motivo { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-apagada); }

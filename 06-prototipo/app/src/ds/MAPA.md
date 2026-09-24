@@ -98,7 +98,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | sinais liga-desliga | src/ds/instrumentos/Sinais.jsx |
 | instrumentos apagados | src/ds/instrumentos/Declarado.jsx (texto) |
 | cadeia concluída | src/ds/instrumentos/Cadeia.jsx (+ Trilho.jsx) |
-| cadeia recusada | src/ds/instrumentos/Cadeia.jsx (justa) |
+| cadeia recusada | src/ds/instrumentos/Cadeia.jsx (justa; altura correndo, a cadeia gravando com o quadrado de agora e os que esperam com a versão apagada, elo de 86, T09/00 · altura pausada, a cadeia parada com o contador e o aviso, o elo pausado e os pendentes em traço, elo de 68, T09/02 e 03 · C9) |
 | segmentado | src/ds/instrumentos/Segmentado.jsx (folga 8 na recuperação da T01) |
 | a pré-condição dos pinos | src/ds/instrumentos/Precondicao.jsx |
 | encerrando | src/ds/instrumentos/Encerramento.jsx (+ Trilho.jsx) |

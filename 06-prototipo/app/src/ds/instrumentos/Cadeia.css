@@ -1,5 +1,8 @@
 .ds-cadeia { flex-shrink: 0; display: flex; flex-direction: column; --ds-cadeia-elo: var(--cadeia-elo); --ds-cadeia-fecho: var(--e-14); }
 .ds-cadeia-justa { --ds-cadeia-elo: var(--cadeia-elo-justo); --ds-cadeia-fecho: var(--e-12); }
+/* C9 · T09 (G11): a cadeia gravando (00) e a pausada (02, 03) */
+.ds-cadeia-correndo { --ds-cadeia-elo: var(--cadeia-elo-correndo); --ds-cadeia-fecho: var(--e-14); }
+.ds-cadeia-pausada { --ds-cadeia-elo: var(--cadeia-elo-pausada); --ds-cadeia-fecho: var(--e-12); }
 .ds-cadeia-elo { display: flex; gap: var(--e-12); min-height: var(--ds-cadeia-elo); }
 .ds-cadeia-elo-ultimo { min-height: 0; }
 .ds-cadeia-texto {

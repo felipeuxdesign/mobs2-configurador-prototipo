@@ -3,6 +3,8 @@
 import './caixas.css'
 import './Vazio.css'
 
+// (o vazio da busca de módulos da T05/03 não é este: é peça da tela, em
+// src/telas/T05/pecas.jsx, como o tela.md dela diz)
 export function Vazio({ titulo, frase }) {
   return (
     <div className="ds-vazio ds-caixa-apagada">

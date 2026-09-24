@@ -1,0 +1,18 @@
+/* As peças só da T05 (pecas.jsx). Só tokens (tokens.css e, até o fechamento
+ * do C7, no tokens.css). */
+
+/* C7 · T05/03 · o bloco do nenhum encontrado: a caixa de poço cresce no lugar
+ * da lista, centrada, com a marca tracejada de 44 em cima */
+.t05-vazio {
+  flex-grow: 1; min-height: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--e-12);
+  padding: var(--e-24) var(--e-20); text-align: center;
+}
+.t05-vazio-marca {
+  width: var(--marca-vazio-busca); height: var(--marca-vazio-busca);
+  display: flex; align-items: center; justify-content: center;
+  border: var(--traco-borda) dashed var(--borda-poco);
+}
+.t05-vazio-marca::after { content: ''; display: block; width: var(--e-14); height: var(--traco-borda); background: var(--borda-poco); }
+.t05-vazio-titulo { font-size: var(--t-titulo-bloco); font-weight: 700; line-height: var(--entrelinha-cartao); color: var(--tinta); }
+.t05-vazio-frase { font-size: var(--t-corpo); font-weight: 500; line-height: var(--entrelinha-frase-busca); color: var(--tinta-secundaria); }
