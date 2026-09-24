@@ -1,4 +1,4 @@
-/* app/mocks.js — C2 · a OBRA CANÔNICA. Toda tela deriva daqui (Lei 8/17).
+/* 04-dados/mocks.js — C2 · a OBRA CANÔNICA. Toda tela deriva daqui (Lei 8/17).
  * C4: +credenciais e +ddis (T01) — dois campos raiz, âncoras intactas.
  * C4.1: +credenciais.contato e +recuperacao.novaSenha (D-21: todo campo nasce
  *   preenchido com dado do mock — telefone/e-mail/senha literais no JSX violariam a Lei 8).
@@ -21,7 +21,7 @@
  * via aritmética de calendário PURA — zero objeto Date, zero Date.now,
  * zero Math.random. 2026 NÃO é bissexto (fev = 28).
  *
- * Âncoras (a auditoria recomputa — tools/gate-cobertura.js):
+ * Âncoras (a auditoria recomputa — 04-dados/gate-cobertura.js):
  *   24 ativos · 20 módulos · 4 ativos sem módulo · 2 seriais fora do
  *   cadastro · 1 modelo sem driver (VC07) · 13 instalações
  *   (6 aprovadas · 2 aguardando · 1 falha reconhecida · 1 reprocessada ·

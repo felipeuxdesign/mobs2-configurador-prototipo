@@ -10,7 +10,7 @@
 
 Na Vercel não tem servidor nem pasta do lado. Então:
 
-- a fonte empacotada com `@fontsource/barlow` · os ícones com `lucide-react` · a logo como arquivo do projeto
+- a fonte de `05-recursos/fontes/`, empacotada no build · os ícones com `lucide-react` · a logo como arquivo do projeto
 - o mock importado no build · **nenhuma chamada pra fora**
 - nenhuma imagem de tela — o celular sempre roda código
 

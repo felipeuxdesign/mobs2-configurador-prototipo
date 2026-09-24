@@ -2,7 +2,7 @@
 
 A stack do produto está sendo decidida com o PM. **Nada nesta pasta depende dela:**
 
-- os tokens estão em `tokens.json`, formato neutro — qualquer stack lê
+- os tokens estão em `tokens.css`, e o `tokens.json` é gerado dele, em formato neutro — qualquer stack lê
 - os textos estão em `textos.md`, prontos pra virar arquivo de tradução
 - o comportamento está em linguagem de produto, não de framework
 - as referências são HTML puro e PNG — valem pra comparar em qualquer tecnologia

@@ -16,94 +16,48 @@ E espera o *vai*.
 
 ## Os ciclos
 
-### C0 · Estudo
+Revisado no C0 (`gate-C0.md`, parte 8): cada tela entra **com os seus estados**, o mock cresce com a tela que o lê, o C1 cria o repositório e a ferramenta de print, o C2 constrói as peças que as folhas desenham (não as linhas da tabela), e a T05 ocupa dois ciclos. Continuam 15 ciclos.
 
+### C0 · Estudo
 - **entra:** ler a pasta inteira, abrir as 105 referências e devolver o gate de entendimento
-- **não entra:** nenhum código
-- **está pronto quando:** o documento do gate: o produto em suas palavras, o censo das telas, peças e casos, os achados, as dúvidas numeradas com padrão, e o plano dos ciclos revisado
+- **está pronto quando:** `gate-C0.md`, com as oito partes
 
 ### C1 · Fundação
-
-- **entra:** o projeto Vite, os tokens, a fonte, os ícones, o estado único vazio e o celular de 360 × 800
-- **não entra:** nenhuma tela
-- **está pronto quando:** `npm run dev` abre o celular vazio no tamanho certo · tokens carregados · gate do mock aprovando
+- **entra:** o repositório git, o projeto Vite, os tokens (`tokens.css` como norma, o JSON gerado dele), a fonte de `05-recursos`, os ícones, a ponte do mock, o estado único vazio com a forma completa, o celular de 360 × 800, a ferramenta de print (`?print=1`) e o `npm run checar`
+- **não entra:** nenhuma tela, nenhuma peça
+- **está pronto quando:** `npm run dev` abre o celular vazio · o print sai em 720 × 1600 · `npm run checar` aprova
 
 ### C2 · Design system
-
-- **entra:** as 114 peças como componentes, numa página de vitrine só pra conferir
+- **entra:** os 8 primitivos (tipografia, poço, glifo, ícone, marcador, primário, só-ícone, superfície tocável) e as 7 famílias de peças, numa vitrine; o `componentes.md` e as listas de peças das telas corrigidos pelo medido
 - **não entra:** nenhuma tela montada
-- **está pronto quando:** cada peça fotografada e comparada com a folha dela
+- **está pronto quando:** cada espécime fotografado e comparado com a folha dele
 
 ### C3 · O palco
-
-- **entra:** o quadrado, o painel em duas partes, a coluna, os dois jeitos do celular, a URL e o recomeçar
+- **entra:** o quadrado, o painel em duas partes, a coluna com os 50 estados, os dois jeitos do celular, a URL de tela, estado e momento, o modo estreito, a etiqueta e o Recomeçar; as sementes e as receitas, com teste
 - **não entra:** as telas são vazias com o nome
-- **está pronto quando:** navegar por URL, abrir e fechar o painel, abrir um estado vazio, recomeçar
+- **está pronto quando:** os 16 lugares, os 50 estados e os 39 momentos abrem pela URL
 
-### C4 · Entrar
+### C4 · Entrar — T01, T02 e T03 com os 7 estados · 18 referências comparadas
+### C5 · O menu e as folhas — T04 com as folhas, os dois diálogos e os 4 estados · 10 referências
+### C6 · Conectar: a busca e o caminho feliz — T05 00, 01, 02, 05 e 10, a faixa nascendo · 5 referências
+### C7 · Conectar: os estados — os 11 estados da T05 e as portas naturais dela · 11 referências
+### C8 · O ônibus e a CAN — T06, T07 e T08 com os 8 estados, o tambor na T07 · 14 referências
+### C9 · Configurar e calibrar — T09 e T10 com os 6 estados, a cadeia e o tambor · 10 referências
+### C10 · O ciclo e o checklist — T14 e T13 com os 5 estados · 18 referências
+### C11 · Encerrar e consultar — T16, T15, T11 e T12 com os 9 estados · 19 referências · o caminho do herói inteiro
 
-- **entra:** T01 a T03, com a recuperação de acesso inteira
-- **não entra:** o resto do app
-- **está pronto quando:** as referências da T01, T02 e T03 comparadas
-
-### C5 · O menu e as folhas
-
-- **entra:** T04, as folhas e o diálogo de sair
-- **não entra:** as ferramentas por dentro
-- **está pronto quando:** as referências da T04 comparadas
-
-### C6 · Conectar
-
-- **entra:** T05 com a busca, a conexão, a pré-checagem acendendo e a faixa descendo
-- **não entra:** os estados da pré-checagem
-- **está pronto quando:** o caminho feliz da T05 animado, e a faixa nascendo
-
-### C7 · O ônibus e a CAN
-
-- **entra:** T06, T07 e T08, com o tambor
-- **não entra:** estados
-- **está pronto quando:** as telas-base e os momentos comparados
-
-### C8 · Configurar e calibrar
-
-- **entra:** T09 com a cadeia e a T10 com o tambor rolando
-- **não entra:** estados
-- **está pronto quando:** a cadeia no ritmo de 1s por bloco · o tambor de 184.320 a 482.317
-
-### C9 · O ciclo e o checklist
-
-- **entra:** T14 com os passos sozinhos e o prazo, e a T13 com o placar
-- **não entra:** estados
-- **está pronto quando:** o ciclo inteiro e o checklist fechando em homologado
-
-### C10 · Encerrar e consultar
-
-- **entra:** T16 com os dois encerramentos, e T15, T11 e T12
-- **não entra:** estados
-- **está pronto quando:** o caminho do herói inteiro, do login ao menu sem sessão
-
-### C11 · Todos os estados
-
-- **entra:** os 50 estados pela coluna, cada um montado pelo caso do mock, e as portas naturais
-- **não entra:** nada novo de desenho
-- **está pronto quando:** os 50 comparados com o PNG
+Em cada ciclo de tela entram também os acréscimos do mock que as telas dele leem (gate C0, anexo A), com o gate do mock crescendo junto.
 
 ### C12 · Movimento fino
-
-- **entra:** cada linha de todos os `animacao.md`, e o reduzir movimento
-- **não entra:** nada novo
-- **está pronto quando:** cada movimento conferido contra a tabela da tela
+- **entra:** cada linha de todos os `animacao.md`, com as contradições decididas, e o reduzir movimento
+- **está pronto quando:** cada movimento conferido contra a regra
 
 ### C13 · Auditoria de fidelidade
-
-- **entra:** as 105 referências fotografadas e comparadas, com o relatório de diferenças
-- **não entra:** correção fora do relatório
+- **entra:** as 105 referências, as 8 folhas e os 5 quadros fotografados, com o relatório de diferenças
 - **está pronto quando:** zero diferença sem desvio nomeado
 
 ### C14 · No ar
-
-- **entra:** o build de produção, a prévia local e a publicação na Vercel
-- **não entra:** mudança de desenho
+- **entra:** o build de produção, a prévia local e a publicação na Vercel — **com o ok do diretor**, porque é publicação
 - **está pronto quando:** o link público abrindo no computador e no celular, com a etiqueta da versão
 
 ## Ao fim de cada ciclo

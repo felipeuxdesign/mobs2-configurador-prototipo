@@ -100,8 +100,8 @@
   --pe-visivel: 32px;
   --rodape-pe-com-link: 24px;
   --rodape-pe-com-botao: 32px;
-  --poco-folga-divisoria: 6px; --poco-24: 24px; --poco-26: 26px; --poco-28: 28px;
-  --poco-30: 30px; --poco-32: 32px; --poco-34: 34px; --poco-44: 44px;  /* ícone = 60% */
+  --poco-folga-divisoria: 6px; --poco-26: 26px; --poco-28: 28px;
+  --poco-30: 30px; --poco-34: 34px;  /* ícone = 60% do poço */
   --traco-glifo:       2.2;   /* glifos de estado */
   --traco-icone:       1.8;   /* ícones de ferramenta e ícones de 22px ou mais */
   --traco-mini:        2.6;   /* ícones abaixo de 14px */
@@ -111,10 +111,41 @@
   --mov-padrao:        200ms;
   --mov-lento:         300ms;
   --mov-curva:         cubic-bezier(0.2, 0.8, 0.2, 1);   /* desacelera no fim */
+
+  /* ── C1 · valores que as referências usam e ainda não tinham token ──
+   * Cada um com o papel. Os que dependem de uma peça entram no C2, com ela. */
+  --barra-sistema:     30px;   /* a barra do Android, em toda tela */
+  --campo:             54px;   /* o campo de texto: rótulo em cima, poço de 54 */
+  --traco-borda:       1px;    /* borda, divisória, separador */
+  --traco-destaque:    2px;    /* o traço do campo focado, da falha, do escolhido */
+  --marca-topo:        207px;  /* a logo do login, presa a esta distância do topo (decisão 19) */
+  --marca-largura:     196px;  /* a largura da logo no login */
+
+  /* espaçamento de letra — os 10 que os comentários acima já davam, e os 5 medidos */
+  --ls-rotulo-bloco:   1.5px;  /* com --t-rotulo-bloco, caixa alta */
+  --ls-rotulo-topo:    1.4px;  /* com --t-rotulo-topo, caixa alta */
+  --ls-titulo-bloco:  -0.2px;
+  --ls-titulo-tela:   -0.3px;
+  --ls-titulo-proc:   -0.4px;
+  --ls-n-cartao:      -0.4px;
+  --ls-n-identidade:  -0.6px;
+  --ls-n-progresso:   -1px;
+  --ls-n-destaque:    -1.6px;
+  --ls-n-cronometro:  -2px;
+  --ls-barra:          0.1px;  /* a hora da barra do sistema */
+  --ls-identidade:     0.3px;  /* serial e placa na faixa de sessão */
+  --ls-encerrar:       0.6px;  /* o ENCERRAR da faixa */
+  --ls-marca:          1.2px;  /* o CONFIGURADOR do login */
+  --ls-senha:          2px;    /* os pontos da senha */
+
+  /* movimento que o movimento.md e as telas pedem — zera no reduzir */
+  --mov-solta:         100ms;  /* o pressionado solta (movimento.md:24) · a célula do código */
+  --mov-escalonar-lista: 80ms; /* entre as linhas da busca de módulos (T05) */
+  --mov-escalonar-tambor: 40ms;/* entre as rodinhas do tambor (T07, T10) */
 }
 
 @media (prefers-reduced-motion: reduce) {
-  :root { --mov-rapido: 0ms; --mov-padrao: 0ms; --mov-lento: 0ms; }
+  :root { --mov-rapido: 0ms; --mov-padrao: 0ms; --mov-lento: 0ms; --mov-solta: 0ms; --mov-escalonar-lista: 0ms; --mov-escalonar-tambor: 0ms; }
 }
 
 body {

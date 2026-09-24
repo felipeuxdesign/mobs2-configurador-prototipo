@@ -1,6 +1,8 @@
-/* tools/gate-cobertura.js — gate de cobertura da obra canônica.
- * Roda em TODO cycle que tocar app/mocks.js (não é ritual do C2).
- * Uso: node tools/gate-cobertura.js  →  exit 0 aprovado / 1 reprovado.
+/* 04-dados/gate-cobertura.js — gate de cobertura da obra canônica.
+ * Roda em TODO ciclo que tocar 04-dados/mocks.js.
+ * Uso: node 04-dados/gate-cobertura.js  →  exit 0 aprovado / 1 reprovado.
+ * Nota de leitura: nos comentários do mock, 'Lei N', 'D-NN' e 'Cn' são da
+ * numeração do v1 (_fontes-v1), não de leis.md, 07-decisoes nem ciclos.md.
  * Recomputa TODAS as âncoras a partir do mock — nada conferido no olho. */
 "use strict";
 if (typeof window === "undefined") {
@@ -151,6 +153,57 @@ chk("C10: divergência de chassi por dígitos transpostos, mesmo comprimento", (
   var c = M.casos["divergencia-chassi"]; var a = M.ativos.find(function (x) { return x.id === c.ativoId; });
   return a.chassi === c.chassiCadastro && c.chassiLido.length === c.chassiCadastro.length && c.chassiLido !== c.chassiCadastro &&
     c.chassiLido.split("").sort().join("") === c.chassiCadastro.split("").sort().join(""); })());
+
+/* ── P·C1 · o que as telas leem e o gate ainda não conferia (gate C1) ── */
+var cred = M.credenciais, rec = cred.recuperacao, lim = rec.limites;
+chk("P·C1 credenciais: usuário do técnico e código de 6 dígitos", cred.usuario === "r.vieira" && !!M.tecnico.nome && /^\d{6}$/.test(rec.codigo));
+chk("P·C1 credenciais: a senha nova cumpre as regras verificáveis", (function () {
+  var s = rec.novaSenha; return s.length >= 10 && /[a-z]/.test(s) && /[A-Z]/.test(s) && /\d/.test(s) && /[^A-Za-z0-9]/.test(s) &&
+    s.toLowerCase().indexOf(cred.usuario.split(".")[1]) < 0 && s !== cred.senha; })());
+chk("P·C1 credenciais: limites 10 min · 3 tentativas · 60 s · 3 por hora", lim.validadeMin === 10 && lim.tentativas === 3 && lim.reenvioSeg === 60 && lim.tetoPorHora === 3,
+  "resta " + (lim.tetoPorHora - rec.reenviosNaHora) + " envio nesta hora");
+chk("P·C1 credenciais: reenvios da hora abaixo do teto", rec.reenviosNaHora < lim.tetoPorHora);
+chk("P·C1 DDIs: o telefone tem os dígitos que a máscara do DDI pede", (function () {
+  var d = M.ddis.find(function (x) { return x.codigo === cred.contato.telefone.ddi; });
+  return !!d && (d.mascara.match(/#/g) || []).length === cred.contato.telefone.numero.length; })());
+chk("P·C1 DDIs: três países, máscaras de comprimentos distintos", M.ddis.length === 3 &&
+  M.ddis.map(function (d) { return (d.mascara.match(/#/g) || []).length; }).filter(function (v, i, a) { return a.indexOf(v) === i; }).length === 3);
+chk("P·C1 sessão de acesso: aberta dentro da validade, aviso antes do fim", (function () {
+  var a = M.situacao.sessaoAcesso; return a.abertaDiasAtras < a.validadeDias && a.avisoNoDia <= a.validadeDias; })(),
+  "restam " + (M.situacao.sessaoAcesso.validadeDias - M.situacao.sessaoAcesso.abertaDiasAtras) + " de " + M.situacao.sessaoAcesso.validadeDias + " dias");
+chk("P·C1 calibração: o bruto do módulo dá o número da T10 (184.320 · 87.604 · 121.003)", (function () {
+  var b = M.calibracao.bruto; return b["a-01"].hodometro / 1000 === 184320 && b["a-09"].hodometro / 1000 === 87604 && b["a-22"].hodometro / 1000 === 121003; })());
+chk("P·C1 calibração: as diferenças da T10 derivam do mock (297.997 · 108 · 477)", (function () {
+  var b = M.calibracao.bruto, p = M.calibracao.painel;
+  return p["a-01"].hodometro - b["a-01"].hodometro / 1000 === 297997 && p["a-09"].hodometro - b["a-09"].hodometro / 1000 === 108 &&
+    p["a-22"].hodometro - b["a-22"].hodometro / 1000 === 477; })());
+chk("P·C1 calibração: calibráveis e indisponíveis não se cruzam, em todo modelo", Object.keys(M.calibracao.porModelo).every(function (k) {
+  var m = M.calibracao.porModelo[k]; return m.indisponiveis.every(function (i) { return m.calibraveis.indexOf(i.grandeza) < 0; }); }));
+chk("P·C1 calibração: todo modelo de ativo tem regra de calibração", M.modelosAtivo.every(function (m) { return !!M.calibracao.porModelo[m.id]; }));
+chk("P·C1 checklist: 31 itens = 4 + 5 + 4 + 10 + 5 + 3", M.checklist.itens.length === 31 &&
+  JSON.stringify(M.checklist.secoes.map(function (s) { return M.checklist.itens.filter(function (i) { return i.secao === s.id; }).length; })) === "[4,5,4,10,5,3]");
+chk("P·C1 checklist: todo item aponta uma seção que existe", M.checklist.itens.every(function (i) { return M.checklist.secoes.some(function (s) { return s.id === i.secao; }); }));
+chk("P·C1 ciclo: o evento chega e confere dentro do prazo (24 < 33 < 120 s)", (function () {
+  var c = M.ciclo; return 0 < c.evento.recebidoAosSeg && c.evento.recebidoAosSeg < c.evento.conferidoAosSeg && c.evento.conferidoAosSeg < c.prazoEventoSeg; })());
+chk("P·C1 ciclo: a fila do módulo tem mensagens e diagnóstico", M.ciclo.mensagensGuardadas.mensagens > 0 && M.ciclo.mensagensGuardadas.diagnostico > 0);
+chk("P·C1 autoteste de encerramento: 8 assertivas, 1 condicional", M.autotesteEncerramento.length === 8 &&
+  M.autotesteEncerramento.filter(function (a) { return a.condicional; }).length === 1);
+chk("P·C1 critérios: a regra cobre todo estado de instalação", M.instalacoes.every(function (i) { return !!M.criteriosRegra.porEstado[i.estado]; }));
+chk("P·C1 pacotes: os limiares batem com as três idades (1d ok · 4d aviso · 8d bloqueio)", M.pacotes.every(function (p) {
+  var l = p.limiares; return l && typeof l.avisoDias === "number" && typeof l.bloqueioDias === "number"; }) &&
+  M.pacotes.map(function (p) { return p.diasAtras; }).join(",") === "1,4,8");
+var SEM_GATE = ["conexao-falha", "link-perdido", "modulo-em-repouso", "modulo-com-pendencias", "can-estatico-isolado", "can-estatico-ausente",
+  "can-estatico-dominio", "can-estatico-hodometro", "bloco-recusado", "queda-na-cadeia", "pronto-para-fechar", "evento-sem-resposta"];
+chk("P·C1 os 12 casos sem conferência apontam ativo e módulo reais", SEM_GATE.every(function (k) {
+  var c = M.casos[k]; if (!c) return false;
+  if (c.ativoId && !M.ativos.some(function (a) { return a.id === c.ativoId; })) return false;
+  if (c.moduloSerial && !M.modulos.some(function (m) { return m.serial === c.moduloSerial; })) return false;
+  return true; }));
+chk("P·C1 casos de módulo: o par ativo × módulo é o do cadastro", SEM_GATE.every(function (k) {
+  var c = M.casos[k]; if (!c.ativoId || !c.moduloSerial) return true;
+  var a = M.ativos.find(function (x) { return x.id === c.ativoId; }); return a.moduloSerial === c.moduloSerial; }));
+chk("P·C1 sync-falha-rede aponta um pacote que existe", M.pacotes.some(function (p) { return p.id === M.casos["sync-falha-rede"].pacoteId; }));
+chk("P·C1 a cadeia tem 6 passos e 5 blocos versionados", M.cadeia.ordem.length === 6 && M.cadeia.ordem[0] === "limpeza");
 
 /* ── Higiene ── */
 var fonte = null;

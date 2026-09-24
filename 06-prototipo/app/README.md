@@ -1,3 +1,28 @@
 # app/
 
-Vazia de propósito. **É aqui que o protótipo é construído**, a partir do ciclo C1 de `../ciclos.md`, com a estrutura de `../CLAUDE.md`.
+O protótipo navegável do App Configurador Mobs2 — Vite + React 18, em JavaScript. A estrutura e as regras estão em `../CLAUDE.md`; os ciclos, em `../ciclos.md`.
+
+## Rodar
+
+```
+npm install        # uma vez
+npm run dev        # http://localhost:5173 — o palco com o celular
+npm run build      # a versão de produção, em dist/
+npm run preview    # abre o build em http://localhost:4173
+```
+
+## Conferir
+
+```
+npm run checar     # o gate do mock, tokens.json = tokens.css, e a higiene do código
+npm run gate       # só o gate do mock
+npm run tokens     # regenera 03-design-system/tokens.json a partir do tokens.css
+npm run print -- "http://localhost:5173/?print=1" prints/x.png      # 360 × 800 a 2×
+npm run comparar -- prints/x.png ../../02-telas/T01-login/referencias/png/00-tela.png
+```
+
+`?print=1` mostra só a tela do app, sem o palco — é o que se compara com o PNG de referência.
+
+## De fora da app
+
+O mock (`04-dados/mocks.js`), os tokens (`03-design-system/tokens.css`), a fonte e a marca (`05-recursos/`) são lidos de onde estão — nunca copiados pra cá (`../publicar.md`). Na Vercel, "Include files outside the Root Directory" precisa estar ligado.

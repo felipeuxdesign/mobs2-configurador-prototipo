@@ -1,0 +1,47 @@
+// A checagem de todo ciclo: o gate do mock, os tokens, a higiene do código.
+// Uso: npm run checar  → exit 0 aprovado / 1 reprovado.
+import { execFileSync } from 'node:child_process'
+import { readFileSync, readdirSync, statSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
+import { dirname, resolve, join, relative } from 'node:path'
+import { jsonDoCss } from './tokens-json.mjs'
+
+const app = resolve(dirname(fileURLToPath(import.meta.url)), '..')
+const raiz = resolve(app, '../..')
+let falhas = 0
+const chk = (nome, ok, det) => { console.log((ok ? 'OK     ' : 'FALHA  ') + nome + (det ? ' — ' + det : '')); if (!ok) falhas++ }
+
+// 1 · o gate do mock
+try {
+  const saida = execFileSync('node', [resolve(raiz, '04-dados/gate-cobertura.js')], { encoding: 'utf8' })
+  const ok = saida.split('\n').filter(l => l.startsWith('OK')).length
+  chk('gate do mock', /GATE APROVADO/.test(saida), ok + ' checagens')
+} catch (e) { chk('gate do mock', false, 'reprovou'); console.log(e.stdout) }
+
+// 2 · tokens.json gerado do tokens.css
+chk('tokens.json = tokens.css', readFileSync(resolve(raiz, '03-design-system/tokens.json'), 'utf8') === jsonDoCss())
+
+// 3 · higiene de app/src: relógio, acaso, locale, valor solto
+function arquivos(d) {
+  return readdirSync(d).flatMap(n => { const p = join(d, n); return statSync(p).isDirectory() ? arquivos(p) : [p] })
+}
+const src = arquivos(resolve(app, 'src')).filter(p => /\.(jsx?|css)$/.test(p))
+const semComentario = s => s.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/[^\n]*/g, '$1')
+const achados = { relogio: [], locale: [], hex: [], px: [] }
+for (const p of src) {
+  const s = semComentario(readFileSync(p, 'utf8')); const r = relative(app, p)
+  if (/Math\.random|Date\.now|new Date\s*\(|performance\.now/.test(s)) achados.relogio.push(r)
+  if (/toLocale\w*String|\bIntl\./.test(s)) achados.locale.push(r)
+  if (/#[0-9a-fA-F]{3,8}\b/.test(s.replace(/href="#[^"]*"/g, '').replace(/['"]#[a-z-]+['"]/g, ''))) achados.hex.push(r)
+  if (/\.css$/.test(p) && !/palco-tokens\.css$/.test(p)) {
+    const px = s.split('\n').filter(l => /\d+(\.\d+)?px/.test(l) && !/var\(--/.test(l))
+    if (px.length) achados.px.push(r + ' (' + px.length + ')')
+  }
+}
+chk('zero relógio e acaso em app/src (Math.random, Date.now, new Date, performance.now)', !achados.relogio.length, achados.relogio.join(', '))
+chk('zero locale em app/src (toLocaleString, Intl)', !achados.locale.length, achados.locale.join(', '))
+chk('zero cor solta em app/src (hex)', !achados.hex.length, achados.hex.join(', '))
+chk('zero px solto no CSS do app (fora do palco-tokens)', !achados.px.length, achados.px.join(', '))
+
+console.log(falhas ? '\nCHECAR REPROVADO — ' + falhas + ' falha(s)' : '\nCHECAR APROVADO')
+process.exitCode = falhas ? 1 : 0

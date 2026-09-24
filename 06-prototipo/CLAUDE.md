@@ -10,7 +10,7 @@ Vale junto com o `CLAUDE.md` da raiz. Esta lei é só do protótipo navegável.
 
 - **Vite + React 18, em JavaScript**
 - CSS com as variáveis de `03-design-system/tokens.css` — nenhum valor solto
-- `@fontsource/barlow` pra fonte · `lucide-react` pros ícones
+- a Barlow dos woff2 de `05-recursos/fontes/` pra fonte, os mesmos das referências · `lucide-react` pros ícones
 - nada de biblioteca de componentes de fora: **os componentes são os do design system**, construídos aqui
 
 ## A estrutura em `app/`

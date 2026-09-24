@@ -4,7 +4,7 @@
 
 - o comportamento de cada tela, momento e estado · `02-telas/*/tela.md` e `estados.md`
 - os textos, exatos · `02-telas/*/textos.md`
-- os tokens e as medidas · `03-design-system/tokens.json`
+- os tokens e as medidas · `03-design-system/tokens.css` — o `tokens.json` é gerado dele, em formato neutro
 - as leis visuais, de medida e de produto · `03-design-system/leis.md`
 - o movimento · `03-design-system/movimento.md` e cada `animacao.md`
 - as regras de negócio e as histórias · `01-produto/dominio.md` e `historias.md`

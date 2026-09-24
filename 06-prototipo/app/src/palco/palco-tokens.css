@@ -1,0 +1,14 @@
+/* Os valores do palco que não são do app (G19). O palco é ilustração
+ * (08-produto-real/norma-e-ilustracao.md): os tokens do app não mudam por ele.
+ * Apoiados nos tokens do app sempre que o valor já existe lá. */
+:root {
+  --palco-moldura: var(--e-8);                               /* 8 de moldura: 376 × 816 por fora */
+  --palco-celular-largura: calc(var(--tela-largura) + 2 * var(--palco-moldura));
+  --palco-celular-altura: calc(var(--tela-altura) + 2 * var(--palco-moldura));
+  --palco-raio-fora: 34px;
+  --palco-raio-tela: 26px;
+  --palco-quadrado: var(--alvo-min);                          /* hoje 48; o palco.md pede 44 — C3 */
+  --palco-coluna: 230px;
+  --palco-painel: 280px;
+  --palco-margem: var(--e-16);
+}
