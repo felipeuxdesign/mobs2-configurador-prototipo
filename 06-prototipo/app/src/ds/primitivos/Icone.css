@@ -15,3 +15,5 @@
 .ds-icone-cor-tinta { color: var(--tinta); }
 .ds-icone-cor-vermelho { color: var(--vermelho); }
 .ds-icone-cor-marca { color: var(--marca); }
+/* o risco do olho da senha: a borda da cor do fundo do campo corta o contorno onde passa (Lei 14, exceção) */
+.ds-icone svg .ds-olho-corte { stroke: var(--poco); stroke-width: var(--olho-corte); }

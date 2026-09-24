@@ -313,6 +313,9 @@
   /* ── a atualização do design · o que as folhas novas da T04 pediram ── */
   --icone-poco-44: 22px;   /* o ícone de ferramenta no poço de 44: o módulo e o ativo que a sessão prendeu, no cartão da folha (T04/10, 11) · T04 (pecas.jsx, CartaoPreso) */
   --t-preso: 18px;         /* a identidade do que a sessão prendeu, o serial ou a placa, no cartão da folha (T04/10, 11) · T04 (pecas.jsx, CartaoPreso) */
+
+  /* ── a entrega do design de 24/09 · o olho riscado ── */
+  --olho-corte: 4.6;          /* a borda do risco do olho riscado, na cor do poço, que corta o contorno do olho (T01/10, folha 6; em unidades do desenho de 24) */
 }
 
 @media (prefers-reduced-motion: reduce) {

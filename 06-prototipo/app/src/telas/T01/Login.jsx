@@ -28,6 +28,7 @@ import './t01.css'
 
 // as referências da pasta: o momento aonde se chega tocando, o estado pela coluna
 export const REF = {
+  senhaVisivel: '10-momento-senha-visivel', // tocar no olho: a senha por extenso e o olho riscado
   entrada: '00-tela',
   incorretos: '01-estado-usuario-ou-senha-incorretos',
   canal: '02-momento-recuperar-escolher-canal',
@@ -65,6 +66,7 @@ export function inicial(momento, estado, usuario) {
     case REF.esgotado: return { ...base, quadro: 'codigo', digitos: REC.codigoErrado, erros: LIM.tentativas, erroVisivel: true, reenvio: 0 }
     case REF.senha: return { ...base, quadro: 'senha' }
     case REF.alterada: return { ...base, quadro: 'senha', dialogo: true }
+    case REF.senhaVisivel: return { ...base, mostrar: true }
     default: return base
   }
 }
@@ -149,7 +151,7 @@ export function Login({ momento, estado, irMomento }) {
             <Campo rotulo={TX.senha} valor={s.senha} aoMudar={(v) => muda({ senha: v })} oculto={!s.mostrar} focado={s.foco === 'senha'}
               onFocus={() => muda({ foco: 'senha' })} autoComplete="current-password" autoCapitalize="none" spellCheck={false}
               id={idSenha}
-              acao={<SoIcone icone={s.mostrar ? 'olho-riscado' : 'olho'} rotulo={s.mostrar ? TX.ocultarSenha : TX.mostrarSenha} cor="marca-limite" aoTocar={() => muda({ mostrar: !s.mostrar })} />} />
+              acao={<SoIcone icone={s.mostrar ? 'olho-riscado' : 'olho'} rotulo={s.mostrar ? TX.ocultarSenha : TX.mostrarSenha} cor="marca-limite" aoTocar={() => { muda({ mostrar: !s.mostrar }); irMomento(s.mostrar ? null : REF.senhaVisivel) }} />} />
           </div>
           <div className="t01-lembrar">
             <Checkbox marcado={s.lembrar} aoMudar={(v) => muda({ lembrar: v })}>{TX.lembrar}</Checkbox>

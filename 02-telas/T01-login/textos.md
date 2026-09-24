@@ -41,3 +41,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `09-momento-senha-alterada`
 
 `14:30` · `Senha alterada` · `A senha nova já vale. Os outros aparelhos saíram da sua conta.` · `Entrar com a senha nova`
+
+## `10-momento-senha-visivel`
+
+`14:30` · `Entrar` · `CONFIGURADOR` · `USUÁRIO` · `SENHA` · `Lembrar meu usuário` · `Entrar` · `Esqueci a senha`

@@ -1,5 +1,17 @@
 # Registro de mudanças
 
+## 2026-09-24 · a terceira entrega do design, construída no protótipo
+
+- **o olho da senha é o do design, não o do Lucide** (a exceção da Lei 14): a amêndoa baixa e a pupila inteiras, e o riscado é o mesmo olho com um risco diagonal que tem uma borda da cor do poço, pra cortar o contorno onde passa · 1 token novo (`--olho-corte`, **262**)
+- **a T01 tem o momento 10, a senha visível:** tocar no olho leva a ele, e o endereço segue · a T01/00 foi de 0,01% pra **0%**, porque o que sobrava era o olho do Lucide, e a T01/10 dá **0%**, com os textos conferindo · os espécimes *campo focado* e *botões só de ícone* foram a 0%
+- **a área de toque a 8 de qualquer outra** (a lei *nada encosta*): medida em 19 quadros de T01 a T10
+  - **o link do rodapé:** a área dele encostava a 2 do primário, em toda tela. Agora ela começa a 8 do primário e cresce só pra baixo, com 48
+  - **o avatar da conta** ficava a 3,5 do ENCERRAR. Agora a área dele cresce pra cima e pro lado, com 48, e fica a 10,5
+  - o que se vê não mudou: as 121 fotos da vitrine e todas as referências de T01 a T10 continuam com os mesmos números
+  - **para o arquiteto:** as linhas de uma mesma lista (as garagens, os módulos, os ônibus) encostam umas nas outras, como o desenho manda. Li a regra como valendo entre peças diferentes, não entre as linhas de uma lista
+- **o `indice.json`** ganhou a referência nova e os textos que o design mudou, e ficou com os rótulos da coluna do palco: **110 referências**, 16 telas, 44 momentos e 50 estados
+- entraram sem conflito: a referência T01/10 (HTML e PNG), o `estados.md` e o `textos.md` da T01 e a folha 6 · **os outros 15 arquivos esperam o vai**, porque a cópia do design apagaria o que o protótipo e o diretor mudaram (R-14, R-15, as leis ajustadas no C1, os fatos medidos do `logica.md`) — a diferença, arquivo por arquivo, está em `diferencas-para-o-arquiteto.md`, na raiz
+
 ## 2026-09-24 · o olho da senha, construído, e a documentação das peças do C7, do C9 e da atualização
 
 - **o campo de senha tem os dois estados da folha 6 nova:**
