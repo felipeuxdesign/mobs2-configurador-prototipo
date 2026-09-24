@@ -2,13 +2,23 @@
  * (08-produto-real/norma-e-ilustracao.md): os tokens do app não mudam por ele.
  * Apoiados nos tokens do app sempre que o valor já existe lá. */
 :root {
-  --palco-moldura: var(--e-8);                               /* 8 de moldura: 376 × 816 por fora */
+  --palco-moldura: var(--e-8);                                 /* 8 de moldura, com a borda: 376 × 816 */
   --palco-celular-largura: calc(var(--tela-largura) + 2 * var(--palco-moldura));
   --palco-celular-altura: calc(var(--tela-altura) + 2 * var(--palco-moldura));
   --palco-raio-fora: 34px;
   --palco-raio-tela: 26px;
-  --palco-quadrado: var(--alvo-min);                          /* hoje 48; o palco.md pede 44 — C3 */
+  --palco-quadrado: var(--poco-44);                             /* 44 × 44 (palco.md) */
   --palco-coluna: 230px;
+  --palco-coluna-distancia: var(--e-40);
   --palco-painel: 280px;
+  --palco-painel-cabeca: 68px;
+  --palco-linha-coluna: var(--poco-32);                        /* as linhas da coluna têm 32 */
+  --palco-linha-painel: var(--poco-34);                        /* as do painel, 34 */
+  --palco-botao-voltar: var(--poco-34);
+  --palco-x: 36px;
+  --palco-codigo: var(--e-28);                                 /* a coluna do código T01 no painel */
   --palco-margem: var(--e-16);
+  --palco-ls-rotulo: 1.6px;                                    /* ESTADOS DESTA TELA, PROTÓTIPO */
+  --palco-opacidade-pisca: 0.4;                                /* o Voltar ao fluxo pisca uma vez */
+  --palco-estreito: 900px;                                     /* abaixo disso, o modo estreito */
 }

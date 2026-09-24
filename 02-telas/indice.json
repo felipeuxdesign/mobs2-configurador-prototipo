@@ -24,7 +24,9 @@
    "como": "Entrar com senha de menos de 8 caracteres",
    "caso": "credenciais",
    "html": "02-telas/T01-login/referencias/html/01-estado-usuario-ou-senha-incorretos.html",
-   "png": "02-telas/T01-login/referencias/png/01-estado-usuario-ou-senha-incorretos.png"
+   "png": "02-telas/T01-login/referencias/png/01-estado-usuario-ou-senha-incorretos.png",
+   "rotulo": "Usuário ou senha incorretos",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T01/02-momento-recuperar-escolher-canal",
@@ -84,7 +86,9 @@
    "como": "o código passa de 10 minutos",
    "caso": "recuperacao.limites.validadeMin",
    "html": "02-telas/T01-login/referencias/html/06-estado-codigo-expirado.html",
-   "png": "02-telas/T01-login/referencias/png/06-estado-codigo-expirado.png"
+   "png": "02-telas/T01-login/referencias/png/06-estado-codigo-expirado.png",
+   "rotulo": "Código expirado",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T01/07-estado-tentativas-esgotadas",
@@ -96,7 +100,9 @@
    "como": "o terceiro código errado",
    "caso": "recuperacao.limites.tentativas",
    "html": "02-telas/T01-login/referencias/html/07-estado-tentativas-esgotadas.html",
-   "png": "02-telas/T01-login/referencias/png/07-estado-tentativas-esgotadas.png"
+   "png": "02-telas/T01-login/referencias/png/07-estado-tentativas-esgotadas.png",
+   "rotulo": "Tentativas esgotadas",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T01/08-momento-recuperar-nova-senha",
@@ -156,7 +162,9 @@
    "como": "a empresa tem garagens demais pra uma tela",
    "caso": "",
    "html": "02-telas/T02-selecionar-contexto/referencias/html/02-estado-lista-longa-com-busca.html",
-   "png": "02-telas/T02-selecionar-contexto/referencias/png/02-estado-lista-longa-com-busca.png"
+   "png": "02-telas/T02-selecionar-contexto/referencias/png/02-estado-lista-longa-com-busca.png",
+   "rotulo": "Lista longa, com busca",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T03/00-tela",
@@ -180,7 +188,9 @@
    "como": "a rede cai no meio do download",
    "caso": "sync-falha-rede",
    "html": "02-telas/T03-sincronizar/referencias/html/01-estado-falha-de-rede.html",
-   "png": "02-telas/T03-sincronizar/referencias/png/01-estado-falha-de-rede.png"
+   "png": "02-telas/T03-sincronizar/referencias/png/01-estado-falha-de-rede.png",
+   "rotulo": "Falha de rede",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T03/02-momento-concluido",
@@ -204,7 +214,9 @@
    "como": "o pacote tem entre 3 e 7 dias",
    "caso": "pacotes · pac-uo-02",
    "html": "02-telas/T03-sincronizar/referencias/html/03-estado-pacote-de-4-dias.html",
-   "png": "02-telas/T03-sincronizar/referencias/png/03-estado-pacote-de-4-dias.png"
+   "png": "02-telas/T03-sincronizar/referencias/png/03-estado-pacote-de-4-dias.png",
+   "rotulo": "Pacote de 4 dias",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T03/04-estado-pacote-vencido",
@@ -216,7 +228,9 @@
    "como": "o pacote passou de 7 dias",
    "caso": "pacotes · pac-uo-03",
    "html": "02-telas/T03-sincronizar/referencias/html/04-estado-pacote-vencido.html",
-   "png": "02-telas/T03-sincronizar/referencias/png/04-estado-pacote-vencido.png"
+   "png": "02-telas/T03-sincronizar/referencias/png/04-estado-pacote-vencido.png",
+   "rotulo": "Pacote vencido",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T04/00-tela",
@@ -264,7 +278,9 @@
    "como": "o módulo da sessão perde o link",
    "caso": "link-perdido",
    "html": "02-telas/T04-menu/referencias/html/03-estado-faixa-modulo-com-falha.html",
-   "png": "02-telas/T04-menu/referencias/png/03-estado-faixa-modulo-com-falha.png"
+   "png": "02-telas/T04-menu/referencias/png/03-estado-faixa-modulo-com-falha.png",
+   "rotulo": "Módulo com falha",
+   "rotuloOrigem": "quadro"
   },
   {
    "id": "T04/04-estado-checklist-pendente",
@@ -276,7 +292,9 @@
    "como": "o checklist tem itens abertos",
    "caso": "checklist",
    "html": "02-telas/T04-menu/referencias/html/04-estado-checklist-pendente.html",
-   "png": "02-telas/T04-menu/referencias/png/04-estado-checklist-pendente.png"
+   "png": "02-telas/T04-menu/referencias/png/04-estado-checklist-pendente.png",
+   "rotulo": "Checklist pendente",
+   "rotuloOrigem": "quadro"
   },
   {
    "id": "T04/05-momento-folha-conta",
@@ -324,7 +342,9 @@
    "como": "trocar com evidência subindo",
    "caso": "filaSaida",
    "html": "02-telas/T04-menu/referencias/html/08-estado-folha-trocar-de-garagem-envio-em-andamento.html",
-   "png": "02-telas/T04-menu/referencias/png/08-estado-folha-trocar-de-garagem-envio-em-andamento.png"
+   "png": "02-telas/T04-menu/referencias/png/08-estado-folha-trocar-de-garagem-envio-em-andamento.png",
+   "rotulo": "Trocar com envio em andamento",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T04/09-estado-folha-trocar-de-garagem-com-modulo-conectado",
@@ -336,7 +356,9 @@
    "como": "trocar com a sessão aberta",
    "caso": "",
    "html": "02-telas/T04-menu/referencias/html/09-estado-folha-trocar-de-garagem-com-modulo-conectado.html",
-   "png": "02-telas/T04-menu/referencias/png/09-estado-folha-trocar-de-garagem-com-modulo-conectado.png"
+   "png": "02-telas/T04-menu/referencias/png/09-estado-folha-trocar-de-garagem-com-modulo-conectado.png",
+   "rotulo": "Trocar com módulo conectado",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T05/00-tela",
@@ -384,7 +406,10 @@
    "como": "nenhum módulo responde",
    "caso": "busca-vazia",
    "html": "02-telas/T05-conectar-modulo/referencias/html/03-estado-nenhum-encontrado.html",
-   "png": "02-telas/T05-conectar-modulo/referencias/png/03-estado-nenhum-encontrado.png"
+   "png": "02-telas/T05-conectar-modulo/referencias/png/03-estado-nenhum-encontrado.png",
+   "rotulo": "Nenhum encontrado",
+   "rotuloOrigem": "quadro",
+   "grupo": "achar"
   },
   {
    "id": "T05/04-estado-conexao-falhou",
@@ -396,7 +421,10 @@
    "como": "o módulo não responde ao conectar",
    "caso": "conexao-falha",
    "html": "02-telas/T05-conectar-modulo/referencias/html/04-estado-conexao-falhou.html",
-   "png": "02-telas/T05-conectar-modulo/referencias/png/04-estado-conexao-falhou.png"
+   "png": "02-telas/T05-conectar-modulo/referencias/png/04-estado-conexao-falhou.png",
+   "rotulo": "Conexão falhou",
+   "rotuloOrigem": "quadro",
+   "grupo": "conectar"
   },
   {
    "id": "T05/05-momento-pre-checagem",
@@ -420,7 +448,10 @@
    "como": "o serial não está no cadastro",
    "caso": "serial-nao-cadastrado",
    "html": "02-telas/T05-conectar-modulo/referencias/html/06-estado-pre-checagem-serial-nao-cadastrado.html",
-   "png": "02-telas/T05-conectar-modulo/referencias/png/06-estado-pre-checagem-serial-nao-cadastrado.png"
+   "png": "02-telas/T05-conectar-modulo/referencias/png/06-estado-pre-checagem-serial-nao-cadastrado.png",
+   "rotulo": "Serial não cadastrado",
+   "rotuloOrigem": "quadro",
+   "grupo": "conferir"
   },
   {
    "id": "T05/07-estado-pre-checagem-modelo-sem-driver",
@@ -432,7 +463,10 @@
    "como": "o modelo não tem driver",
    "caso": "modelo-sem-driver",
    "html": "02-telas/T05-conectar-modulo/referencias/html/07-estado-pre-checagem-modelo-sem-driver.html",
-   "png": "02-telas/T05-conectar-modulo/referencias/png/07-estado-pre-checagem-modelo-sem-driver.png"
+   "png": "02-telas/T05-conectar-modulo/referencias/png/07-estado-pre-checagem-modelo-sem-driver.png",
+   "rotulo": "Modelo sem driver",
+   "rotuloOrigem": "quadro",
+   "grupo": "conferir"
   },
   {
    "id": "T05/08-estado-pre-checagem-firmware-fora-da-matriz",
@@ -444,7 +478,10 @@
    "como": "o firmware não é homologado",
    "caso": "firmware-fora-matriz",
    "html": "02-telas/T05-conectar-modulo/referencias/html/08-estado-pre-checagem-firmware-fora-da-matriz.html",
-   "png": "02-telas/T05-conectar-modulo/referencias/png/08-estado-pre-checagem-firmware-fora-da-matriz.png"
+   "png": "02-telas/T05-conectar-modulo/referencias/png/08-estado-pre-checagem-firmware-fora-da-matriz.png",
+   "rotulo": "Firmware fora",
+   "rotuloOrigem": "quadro",
+   "grupo": "conferir"
   },
   {
    "id": "T05/09-estado-firmware-fora-sem-rede-no-modulo",
@@ -456,7 +493,10 @@
    "como": "firmware fora e o módulo sem rede",
    "caso": "firmware-fora-matriz + modem sem rede",
    "html": "02-telas/T05-conectar-modulo/referencias/html/09-estado-firmware-fora-sem-rede-no-modulo.html",
-   "png": "02-telas/T05-conectar-modulo/referencias/png/09-estado-firmware-fora-sem-rede-no-modulo.png"
+   "png": "02-telas/T05-conectar-modulo/referencias/png/09-estado-firmware-fora-sem-rede-no-modulo.png",
+   "rotulo": "Firmware fora · sem rede",
+   "rotuloOrigem": "quadro",
+   "grupo": "conferir"
   },
   {
    "id": "T05/10-momento-atualizando-o-firmware",
@@ -480,7 +520,10 @@
    "como": "a configuração não cabe no módulo",
    "caso": "conteudo-nao-cabe",
    "html": "02-telas/T05-conectar-modulo/referencias/html/11-estado-pre-checagem-conteudo-nao-cabe.html",
-   "png": "02-telas/T05-conectar-modulo/referencias/png/11-estado-pre-checagem-conteudo-nao-cabe.png"
+   "png": "02-telas/T05-conectar-modulo/referencias/png/11-estado-pre-checagem-conteudo-nao-cabe.png",
+   "rotulo": "Conteúdo não cabe",
+   "rotuloOrigem": "quadro",
+   "grupo": "conferir"
   },
   {
    "id": "T05/12-estado-pre-checagem-pool-de-cercas-esgotado",
@@ -492,7 +535,10 @@
    "como": "as cercas passam do limite",
    "caso": "pool-esgotado",
    "html": "02-telas/T05-conectar-modulo/referencias/html/12-estado-pre-checagem-pool-de-cercas-esgotado.html",
-   "png": "02-telas/T05-conectar-modulo/referencias/png/12-estado-pre-checagem-pool-de-cercas-esgotado.png"
+   "png": "02-telas/T05-conectar-modulo/referencias/png/12-estado-pre-checagem-pool-de-cercas-esgotado.png",
+   "rotulo": "Pool esgotado",
+   "rotuloOrigem": "quadro",
+   "grupo": "conferir"
   },
   {
    "id": "T05/13-estado-pre-checagem-canal-aberto-e-pendencias",
@@ -504,7 +550,10 @@
    "como": "o módulo tem canal de sessão anterior — o app fecha antes de começar",
    "caso": "canal-aberto",
    "html": "02-telas/T05-conectar-modulo/referencias/html/13-estado-pre-checagem-canal-aberto-e-pendencias.html",
-   "png": "02-telas/T05-conectar-modulo/referencias/png/13-estado-pre-checagem-canal-aberto-e-pendencias.png"
+   "png": "02-telas/T05-conectar-modulo/referencias/png/13-estado-pre-checagem-canal-aberto-e-pendencias.png",
+   "rotulo": "Canal aberto",
+   "rotuloOrigem": "quadro",
+   "grupo": "conferir"
   },
   {
    "id": "T05/14-estado-pre-checagem-link-perdido-na-6a",
@@ -516,7 +565,10 @@
    "como": "o link cai na sexta checagem",
    "caso": "link-perdido",
    "html": "02-telas/T05-conectar-modulo/referencias/html/14-estado-pre-checagem-link-perdido-na-6a.html",
-   "png": "02-telas/T05-conectar-modulo/referencias/png/14-estado-pre-checagem-link-perdido-na-6a.png"
+   "png": "02-telas/T05-conectar-modulo/referencias/png/14-estado-pre-checagem-link-perdido-na-6a.png",
+   "rotulo": "Link perdido",
+   "rotuloOrigem": "quadro",
+   "grupo": "conferir"
   },
   {
    "id": "T05/15-estado-pre-checagem-modulo-em-repouso-na-9a",
@@ -528,7 +580,10 @@
    "como": "o módulo dorme na nona checagem — não é erro",
    "caso": "modulo-em-repouso",
    "html": "02-telas/T05-conectar-modulo/referencias/html/15-estado-pre-checagem-modulo-em-repouso-na-9a.html",
-   "png": "02-telas/T05-conectar-modulo/referencias/png/15-estado-pre-checagem-modulo-em-repouso-na-9a.png"
+   "png": "02-telas/T05-conectar-modulo/referencias/png/15-estado-pre-checagem-modulo-em-repouso-na-9a.png",
+   "rotulo": "Em repouso",
+   "rotuloOrigem": "quadro",
+   "grupo": "conferir"
   },
   {
    "id": "T06/00-tela",
@@ -564,7 +619,9 @@
    "como": "o chassi lido não bate",
    "caso": "divergencia-chassi",
    "html": "02-telas/T06-selecionar-ativo/referencias/html/02-estado-chassi-divergente.html",
-   "png": "02-telas/T06-selecionar-ativo/referencias/png/02-estado-chassi-divergente.png"
+   "png": "02-telas/T06-selecionar-ativo/referencias/png/02-estado-chassi-divergente.png",
+   "rotulo": "Chassi divergente",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T06/03-estado-sem-chassi-na-can",
@@ -576,7 +633,9 @@
    "como": "o modelo não manda chassi",
    "caso": "modelosAtivo · ma-02 · chassiPelaCan: false",
    "html": "02-telas/T06-selecionar-ativo/referencias/html/03-estado-sem-chassi-na-can.html",
-   "png": "02-telas/T06-selecionar-ativo/referencias/png/03-estado-sem-chassi-na-can.png"
+   "png": "02-telas/T06-selecionar-ativo/referencias/png/03-estado-sem-chassi-na-can.png",
+   "rotulo": "Sem chassi na CAN",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T06/04-estado-fora-do-pacote",
@@ -588,7 +647,9 @@
    "como": "o ônibus não está no pacote",
    "caso": "ativo-fora-pacote",
    "html": "02-telas/T06-selecionar-ativo/referencias/html/04-estado-fora-do-pacote.html",
-   "png": "02-telas/T06-selecionar-ativo/referencias/png/04-estado-fora-do-pacote.png"
+   "png": "02-telas/T06-selecionar-ativo/referencias/png/04-estado-fora-do-pacote.png",
+   "rotulo": "Fora do pacote",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T06/05-estado-conflito-de-pinos-resolvivel",
@@ -600,7 +661,9 @@
    "como": "pinos ocupados, com saída",
    "caso": "conflito-pinos-resolvivel",
    "html": "02-telas/T06-selecionar-ativo/referencias/html/05-estado-conflito-de-pinos-resolvivel.html",
-   "png": "02-telas/T06-selecionar-ativo/referencias/png/05-estado-conflito-de-pinos-resolvivel.png"
+   "png": "02-telas/T06-selecionar-ativo/referencias/png/05-estado-conflito-de-pinos-resolvivel.png",
+   "rotulo": "Pinos em conflito, com saída",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T06/06-estado-conflito-de-pinos-sem-saida",
@@ -612,7 +675,9 @@
    "como": "pinos ocupados, sem saída",
    "caso": "conflito-pinos-sem-saida",
    "html": "02-telas/T06-selecionar-ativo/referencias/html/06-estado-conflito-de-pinos-sem-saida.html",
-   "png": "02-telas/T06-selecionar-ativo/referencias/png/06-estado-conflito-de-pinos-sem-saida.png"
+   "png": "02-telas/T06-selecionar-ativo/referencias/png/06-estado-conflito-de-pinos-sem-saida.png",
+   "rotulo": "Pinos em conflito, sem saída",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T07/00-tela",
@@ -636,7 +701,9 @@
    "como": "um sinal fora do esperado",
    "caso": "can-estatico-isolado",
    "html": "02-telas/T07-dados-da-can/referencias/html/01-estado-fora-da-faixa.html",
-   "png": "02-telas/T07-dados-da-can/referencias/png/01-estado-fora-da-faixa.png"
+   "png": "02-telas/T07-dados-da-can/referencias/png/01-estado-fora-da-faixa.png",
+   "rotulo": "Fora da faixa",
+   "rotuloOrigem": "quadro"
   },
   {
    "id": "T07/02-estado-sem-leitura",
@@ -648,7 +715,9 @@
    "como": "um sinal não chega",
    "caso": "can-estatico-ausente",
    "html": "02-telas/T07-dados-da-can/referencias/html/02-estado-sem-leitura.html",
-   "png": "02-telas/T07-dados-da-can/referencias/png/02-estado-sem-leitura.png"
+   "png": "02-telas/T07-dados-da-can/referencias/png/02-estado-sem-leitura.png",
+   "rotulo": "Sem leitura",
+   "rotuloOrigem": "quadro"
   },
   {
    "id": "T07/03-estado-dominio-mudo",
@@ -660,7 +729,9 @@
    "como": "um domínio inteiro calado",
    "caso": "can-estatico-dominio",
    "html": "02-telas/T07-dados-da-can/referencias/html/03-estado-dominio-mudo.html",
-   "png": "02-telas/T07-dados-da-can/referencias/png/03-estado-dominio-mudo.png"
+   "png": "02-telas/T07-dados-da-can/referencias/png/03-estado-dominio-mudo.png",
+   "rotulo": "Domínio mudo",
+   "rotuloOrigem": "quadro"
   },
   {
    "id": "T08/00-tela",
@@ -720,7 +791,9 @@
    "como": "o módulo recusa um bloco",
    "caso": "bloco-recusado",
    "html": "02-telas/T09-configurar-modulo/referencias/html/01-estado-bloco-recusado.html",
-   "png": "02-telas/T09-configurar-modulo/referencias/png/01-estado-bloco-recusado.png"
+   "png": "02-telas/T09-configurar-modulo/referencias/png/01-estado-bloco-recusado.png",
+   "rotulo": "Bloco recusado",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T09/02-estado-queda-na-cadeia",
@@ -732,7 +805,9 @@
    "como": "o link cai no meio da cadeia",
    "caso": "queda-na-cadeia",
    "html": "02-telas/T09-configurar-modulo/referencias/html/02-estado-queda-na-cadeia.html",
-   "png": "02-telas/T09-configurar-modulo/referencias/png/02-estado-queda-na-cadeia.png"
+   "png": "02-telas/T09-configurar-modulo/referencias/png/02-estado-queda-na-cadeia.png",
+   "rotulo": "Queda na cadeia",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T09/03-estado-recuperacao-ate-a-conexao-gravar",
@@ -744,7 +819,9 @@
    "como": "tentar sair antes da Conexão gravar",
    "caso": "",
    "html": "02-telas/T09-configurar-modulo/referencias/html/03-estado-recuperacao-ate-a-conexao-gravar.html",
-   "png": "02-telas/T09-configurar-modulo/referencias/png/03-estado-recuperacao-ate-a-conexao-gravar.png"
+   "png": "02-telas/T09-configurar-modulo/referencias/png/03-estado-recuperacao-ate-a-conexao-gravar.png",
+   "rotulo": "Recuperação até a Conexão gravar",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T09/04-momento-cadeia-concluida",
@@ -792,7 +869,9 @@
    "como": "o modelo calibra rotação e velocidade",
    "caso": "calibracao.porModelo · ma-02 · KNB-5H39",
    "html": "02-telas/T10-calibracao/referencias/html/02-estado-rotacao-caminhao-coletor.html",
-   "png": "02-telas/T10-calibracao/referencias/png/02-estado-rotacao-caminhao-coletor.png"
+   "png": "02-telas/T10-calibracao/referencias/png/02-estado-rotacao-caminhao-coletor.png",
+   "rotulo": "Rotação · caminhão coletor",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T10/03-estado-ja-semeado",
@@ -804,7 +883,9 @@
    "como": "o hodômetro já foi semeado antes",
    "caso": "calibracao",
    "html": "02-telas/T10-calibracao/referencias/html/03-estado-ja-semeado.html",
-   "png": "02-telas/T10-calibracao/referencias/png/03-estado-ja-semeado.png"
+   "png": "02-telas/T10-calibracao/referencias/png/03-estado-ja-semeado.png",
+   "rotulo": "Já semeado",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T10/04-estado-modulo-sem-pulsos",
@@ -816,7 +897,9 @@
    "como": "o módulo não recebe pulsos",
    "caso": "grandeza-indisponivel",
    "html": "02-telas/T10-calibracao/referencias/html/04-estado-modulo-sem-pulsos.html",
-   "png": "02-telas/T10-calibracao/referencias/png/04-estado-modulo-sem-pulsos.png"
+   "png": "02-telas/T10-calibracao/referencias/png/04-estado-modulo-sem-pulsos.png",
+   "rotulo": "Módulo sem pulsos",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T11/00-tela",
@@ -840,7 +923,9 @@
    "como": "índice que o app não classifica",
    "caso": "indice-nao-classificado",
    "html": "02-telas/T11-conferir-configuracao/referencias/html/01-estado-conteudo-que-o-app-nao-reconhece.html",
-   "png": "02-telas/T11-conferir-configuracao/referencias/png/01-estado-conteudo-que-o-app-nao-reconhece.png"
+   "png": "02-telas/T11-conferir-configuracao/referencias/png/01-estado-conteudo-que-o-app-nao-reconhece.png",
+   "rotulo": "Conteúdo não reconhecido",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T11/02-momento-tudo-confere",
@@ -888,7 +973,9 @@
    "como": "a garagem não tem instalações",
    "caso": "instalacoes",
    "html": "02-telas/T12-ultimas-instalacoes/referencias/html/02-estado-nenhuma-instalacao.html",
-   "png": "02-telas/T12-ultimas-instalacoes/referencias/png/02-estado-nenhuma-instalacao.png"
+   "png": "02-telas/T12-ultimas-instalacoes/referencias/png/02-estado-nenhuma-instalacao.png",
+   "rotulo": "Nenhuma instalação",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T12/03-estado-sem-rede",
@@ -900,7 +987,9 @@
    "como": "a consulta sem rede",
    "caso": "instalacoes-sem-rede",
    "html": "02-telas/T12-ultimas-instalacoes/referencias/html/03-estado-sem-rede.html",
-   "png": "02-telas/T12-ultimas-instalacoes/referencias/png/03-estado-sem-rede.png"
+   "png": "02-telas/T12-ultimas-instalacoes/referencias/png/03-estado-sem-rede.png",
+   "rotulo": "Sem rede",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T13/00-tela",
@@ -1020,7 +1109,9 @@
    "como": "um item automático reprova",
    "caso": "can-fora-esperado",
    "html": "02-telas/T13-checklist/referencias/html/09-estado-item-reprovado.html",
-   "png": "02-telas/T13-checklist/referencias/png/09-estado-item-reprovado.png"
+   "png": "02-telas/T13-checklist/referencias/png/09-estado-item-reprovado.png",
+   "rotulo": "Item reprovado",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T13/10-estado-finalizar-com-a-secao-f-falhando",
@@ -1032,7 +1123,9 @@
    "como": "`Finalizar` com a Seção F falhando",
    "caso": "secaoF",
    "html": "02-telas/T13-checklist/referencias/html/10-estado-finalizar-com-a-secao-f-falhando.html",
-   "png": "02-telas/T13-checklist/referencias/png/10-estado-finalizar-com-a-secao-f-falhando.png"
+   "png": "02-telas/T13-checklist/referencias/png/10-estado-finalizar-com-a-secao-f-falhando.png",
+   "rotulo": "Finalizar com a Seção F falhando",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T13/11-momento-homologado",
@@ -1080,7 +1173,9 @@
    "como": "o evento não chega em 2:00",
    "caso": "evento-sem-resposta",
    "html": "02-telas/T14-ciclo-dinamico/referencias/html/02-estado-prazo-estourado.html",
-   "png": "02-telas/T14-ciclo-dinamico/referencias/png/02-estado-prazo-estourado.png"
+   "png": "02-telas/T14-ciclo-dinamico/referencias/png/02-estado-prazo-estourado.png",
+   "rotulo": "Prazo estourado",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T14/03-estado-dinamico-fora-do-esperado",
@@ -1092,7 +1187,9 @@
    "como": "um sinal andando fora do esperado",
    "caso": "can-fora-esperado",
    "html": "02-telas/T14-ciclo-dinamico/referencias/html/03-estado-dinamico-fora-do-esperado.html",
-   "png": "02-telas/T14-ciclo-dinamico/referencias/png/03-estado-dinamico-fora-do-esperado.png"
+   "png": "02-telas/T14-ciclo-dinamico/referencias/png/03-estado-dinamico-fora-do-esperado.png",
+   "rotulo": "Dinâmico fora do esperado",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T14/04-estado-identificador-divergente",
@@ -1104,7 +1201,9 @@
    "como": "o cartão lido não bate",
    "caso": "identificador-divergente",
    "html": "02-telas/T14-ciclo-dinamico/referencias/html/04-estado-identificador-divergente.html",
-   "png": "02-telas/T14-ciclo-dinamico/referencias/png/04-estado-identificador-divergente.png"
+   "png": "02-telas/T14-ciclo-dinamico/referencias/png/04-estado-identificador-divergente.png",
+   "rotulo": "Identificador divergente",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T14/05-momento-ciclo-concluido",
@@ -1140,7 +1239,9 @@
    "como": "a fila sem erros",
    "caso": "filaSaida",
    "html": "02-telas/T15-fila-de-saida/referencias/html/01-estado-sem-erro.html",
-   "png": "02-telas/T15-fila-de-saida/referencias/png/01-estado-sem-erro.png"
+   "png": "02-telas/T15-fila-de-saida/referencias/png/01-estado-sem-erro.png",
+   "rotulo": "Sem erro",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T15/02-estado-dois-erros",
@@ -1152,7 +1253,9 @@
    "como": "dois itens recusados",
    "caso": "filaSaida",
    "html": "02-telas/T15-fila-de-saida/referencias/html/02-estado-dois-erros.html",
-   "png": "02-telas/T15-fila-de-saida/referencias/png/02-estado-dois-erros.png"
+   "png": "02-telas/T15-fila-de-saida/referencias/png/02-estado-dois-erros.png",
+   "rotulo": "Dois erros",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T15/03-estado-fila-vazia",
@@ -1164,7 +1267,9 @@
    "como": "nada esperando envio",
    "caso": "filaSaida",
    "html": "02-telas/T15-fila-de-saida/referencias/html/03-estado-fila-vazia.html",
-   "png": "02-telas/T15-fila-de-saida/referencias/png/03-estado-fila-vazia.png"
+   "png": "02-telas/T15-fila-de-saida/referencias/png/03-estado-fila-vazia.png",
+   "rotulo": "Fila vazia",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T15/04-estado-secao-f-em-re-checagem",
@@ -1176,7 +1281,9 @@
    "como": "a Seção F esperando o servidor",
    "caso": "secaoF · RVM-1E54",
    "html": "02-telas/T15-fila-de-saida/referencias/html/04-estado-secao-f-em-re-checagem.html",
-   "png": "02-telas/T15-fila-de-saida/referencias/png/04-estado-secao-f-em-re-checagem.png"
+   "png": "02-telas/T15-fila-de-saida/referencias/png/04-estado-secao-f-em-re-checagem.png",
+   "rotulo": "Seção F em re-checagem",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T16/00-tela",
@@ -1248,7 +1355,9 @@
    "como": "uma assertiva falha",
    "caso": "autoteste-falhando",
    "html": "02-telas/T16-sessao/referencias/html/05-estado-assertiva-falhando.html",
-   "png": "02-telas/T16-sessao/referencias/png/05-estado-assertiva-falhando.png"
+   "png": "02-telas/T16-sessao/referencias/png/05-estado-assertiva-falhando.png",
+   "rotulo": "Assertiva falhando",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T16/06-estado-sessao-interrompida",
@@ -1260,7 +1369,9 @@
    "como": "a sessão caiu e volta oferecida",
    "caso": "sessao-interrompida",
    "html": "02-telas/T16-sessao/referencias/html/06-estado-sessao-interrompida.html",
-   "png": "02-telas/T16-sessao/referencias/png/06-estado-sessao-interrompida.png"
+   "png": "02-telas/T16-sessao/referencias/png/06-estado-sessao-interrompida.png",
+   "rotulo": "Sessão interrompida",
+   "rotuloOrigem": "proposto"
   }
  ]
 }

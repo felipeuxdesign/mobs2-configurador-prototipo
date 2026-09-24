@@ -4,6 +4,7 @@
 // montar — nada é copiado pra dentro dos componentes.
 import { createContext, useContext, useReducer } from 'react'
 import { M } from '../dados/mock.js'
+import { SEMENTES } from './sementes.js'
 
 export function estadoVazio() {
   return {
@@ -18,13 +19,30 @@ export function estadoVazio() {
     situacao: { rede: M.situacao.rede, sessaoAcesso: M.situacao.sessaoAcesso },
     casosConsumidos: [],                              // cada caso vale uma vez por sessão (G21)
     tela: { id: 'T01', momento: null, estado: null, folha: null },
+    antes: null,                                      // o instante de antes de abrir um estado (G19)
+  }
+}
+
+// Pular direto pra uma tela (o painel, a URL) monta o estado mínimo dela (G21).
+export function semeado(tela, extra = {}) {
+  const base = estadoVazio(), s = SEMENTES[tela] ?? {}
+  return {
+    ...base,
+    contexto: s.contexto ?? base.contexto,
+    sessao: s.sessao ?? base.sessao,
+    etapas: { ...base.etapas, ...s.etapas },
+    tela: { ...base.tela, id: tela, momento: extra.momento ?? null, estado: extra.estado ?? null },
   }
 }
 
 function reduzir(estado, acao) {
   switch (acao.tipo) {
     case 'recomecar': return estadoVazio()
-    case 'ir': return { ...estado, tela: { id: acao.tela, momento: acao.momento ?? null, estado: acao.estado ?? null, folha: null } }
+    case 'ir': return { ...estado, antes: null, tela: { id: acao.tela, momento: acao.momento ?? null, estado: acao.estado ?? null, folha: null } }
+    case 'pular': return semeado(acao.tela)
+    // abrir um estado guarda o instante; trocar de estado não troca o instante guardado
+    case 'abrir-estado': return { ...estado, antes: estado.antes ?? { ...estado, antes: null }, tela: { ...estado.tela, estado: acao.estado, momento: null } }
+    case 'voltar-ao-fluxo': return estado.antes ?? semeado(estado.tela.id)
     case 'mesclar': return { ...estado, ...acao.parcial }
     default: return estado
   }

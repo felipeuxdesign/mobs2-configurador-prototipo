@@ -1,39 +1,105 @@
-/* O palco: o fundo, o celular no centro. O resto (quadrado, painel, coluna)
- * entra no C3. Nada reage a passar o mouse (palco.md). */
+/* O palco: o fundo --poco-fundo, o quadrado, o celular no centro, a coluna,
+ * o painel e a etiqueta. Nada reage a passar o mouse; o que responde é o
+ * pressionado. A mãozinha só nas peças do palco; dentro do celular, a seta. */
 html, body, #raiz { height: 100%; }
-body { background: var(--poco-fundo); }
+body { background: var(--poco-fundo); overflow: hidden; }
 
-.palco {
-  min-height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--palco-margem);
+.palco { position: relative; min-height: 100%; height: 100%; font-family: var(--fonte); color: var(--tinta); }
+.palco :where(button) { font: inherit; color: inherit; background: none; border: 0; padding: 0; margin: 0; cursor: pointer; }
+.palco button:focus-visible { outline: var(--traco-destaque) solid var(--tinta-forte); outline-offset: var(--traco-destaque); }
+.palco-rotulo { font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--palco-ls-rotulo); color: var(--tinta-apagada); }
+.palco-icone-14 { width: var(--e-14); height: var(--e-14); stroke-width: var(--traco-icone); }
+.palco-icone-16 { width: var(--e-16); height: var(--e-16); stroke-width: var(--traco-icone); }
+.palco-icone-18 { width: var(--glifo-30); height: var(--glifo-30); stroke-width: var(--traco-icone); }
+
+/* o quadrado · 44 × 44, a 16 das bordas */
+.palco-quadrado {
+  position: absolute; left: var(--palco-margem); top: var(--palco-margem); z-index: 5;
+  width: var(--palco-quadrado); height: var(--palco-quadrado); display: flex; align-items: center; justify-content: center;
+  background: var(--poco); border-top: var(--traco-borda) solid var(--poco-fundo); border-bottom: var(--traco-borda) solid var(--borda-poco);
+  border-left: var(--traco-borda) solid var(--poco-lado); border-right: var(--traco-borda) solid var(--poco-lado);
+  color: var(--tinta-apagada);
 }
+.palco-quadrado:active { background: var(--elevado); }
 
+/* a cena · o celular centrado nos dois eixos; a coluna a 40 dele, alinhada ao topo */
+.palco-cena { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
 .celular {
-  width: var(--palco-celular-largura);
-  height: var(--palco-celular-altura);
-  padding: var(--palco-moldura);
-  border: var(--traco-borda) solid var(--borda);
-  border-radius: var(--palco-raio-fora);
-  background: var(--poco);
-  flex-shrink: 0;
+  position: relative; flex-shrink: 0;
+  width: var(--palco-celular-largura); height: var(--palco-celular-altura);
+  padding: calc(var(--palco-moldura) - var(--traco-borda));
+  border: var(--traco-borda) solid var(--borda); border-radius: var(--palco-raio-fora); background: var(--poco);
+  transform-origin: center center;
 }
+.celular-estado { border-color: var(--borda-neutra); }
+.celular-tela { width: var(--tela-largura); height: var(--tela-altura); border-radius: var(--palco-raio-tela); overflow: hidden; background: var(--fundo-pagina); position: relative; cursor: default; }
+.celular-tela * { cursor: default; }
 
-.celular-tela {
-  width: var(--tela-largura);
-  height: var(--tela-altura);
-  border-radius: var(--palco-raio-tela);
-  overflow: hidden;
-  background: var(--fundo-pagina);
-  position: relative;
-  cursor: default;               /* dentro do celular, a seta normal (06-prototipo/CLAUDE.md) */
+.coluna { position: absolute; top: calc(50% - var(--palco-celular-altura) / 2); left: calc(50% + var(--palco-celular-largura) / 2 + var(--palco-coluna-distancia));
+  width: var(--palco-coluna); display: flex; flex-direction: column; gap: var(--e-14); }
+.coluna-cabeca { display: flex; flex-direction: column; gap: var(--e-2); }
+.coluna-tela { font-size: var(--t-secundario); font-weight: 600; color: var(--tinta-secundaria); }
+.coluna-voltar {
+  height: var(--palco-botao-voltar); display: flex; align-items: center; gap: var(--e-8); padding: 0 var(--e-12); align-self: flex-start;
+  background: var(--fundo-faixa); border: var(--traco-borda) solid var(--borda-poco); border-radius: var(--raio);
+  font-size: var(--t-secundario); font-weight: 700; color: var(--tinta);
 }
+.coluna-voltar:active { background: var(--elevado); }
+.coluna-voltar-pisca { animation: palco-pisca var(--mov-lento) var(--mov-curva) 1; }
+@keyframes palco-pisca { 50% { opacity: var(--palco-opacidade-pisca); } }
+.coluna-lista { display: flex; flex-direction: column; gap: var(--e-10); }
+.coluna-grupo { display: flex; flex-direction: column; }
+.coluna-grupo-nome { font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--tinta-apagada); padding: var(--e-6) 0 var(--e-4); }
+.coluna-linha { height: var(--palco-linha-coluna); display: flex; align-items: center; gap: var(--e-10); text-align: left; }
+.coluna-linha:active .coluna-nome { color: var(--tinta); }
+.coluna-poco { width: var(--poco-24); height: var(--poco-24); flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+  background: var(--poco); border-top: var(--traco-borda) solid var(--poco-fundo); border-bottom: var(--traco-borda) solid var(--borda-poco);
+  border-left: var(--traco-borda) solid var(--poco-lado); border-right: var(--traco-borda) solid var(--poco-lado); }
+.coluna-quadrado { display: block; width: var(--e-10); height: var(--e-10); background: var(--lima); }
+.coluna-nome { font-size: var(--t-secundario); font-weight: 500; color: var(--tinta-apagada); }
+.coluna-linha-aberta .coluna-nome { font-weight: 700; color: var(--tinta); }
 
-/* ?print=1 — só a tela do app, no canto, sem moldura: o que se compara com o PNG */
-.palco-print { padding: 0; align-items: flex-start; justify-content: flex-start; background: var(--fundo-pagina); }
-.palco-print .celular { width: var(--tela-largura); height: var(--tela-altura); padding: 0; border: 0; border-radius: 0; }
+/* o painel · 280, da esquerda, por cima de tudo */
+.painel-fora { position: fixed; inset: 0; z-index: 9; pointer-events: none; }
+.painel-fora-aberto { pointer-events: auto; }
+.painel {
+  position: fixed; left: 0; top: 0; bottom: 0; z-index: 10; width: var(--palco-painel); display: flex; flex-direction: column;
+  background: var(--fundo-faixa); border-right: var(--traco-borda) solid var(--borda);
+  transform: translateX(-100%); transition: transform var(--mov-padrao) var(--mov-curva);
+}
+.painel-aberto { transform: none; }
+.painel-cabeca { height: var(--palco-painel-cabeca); flex-shrink: 0; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 var(--e-16) 0 var(--e-20); border-bottom: var(--traco-borda) solid var(--borda-rodape); }
+.painel-titulo { display: flex; flex-direction: column; gap: var(--e-2); }
+.painel-telas { font-size: var(--t-destaque); font-weight: 700; }
+.painel-x { width: var(--palco-x); height: var(--palco-x); display: flex; align-items: center; justify-content: center; color: var(--tinta-secundaria);
+  background: var(--poco); border-top: var(--traco-borda) solid var(--poco-fundo); border-bottom: var(--traco-borda) solid var(--borda-poco);
+  border-left: var(--traco-borda) solid var(--poco-lado); border-right: var(--traco-borda) solid var(--poco-lado); }
+.painel-lista { flex-grow: 1; min-height: 0; overflow-y: auto; padding: var(--e-4) 0 var(--e-16); }
+.painel-parte { padding: var(--e-12) var(--e-20) var(--e-4); font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--tinta-apagada); }
+.painel-linha { width: 100%; height: var(--palco-linha-painel); display: flex; align-items: center; gap: var(--e-10); padding: 0 var(--e-20); text-align: left; }
+.painel-linha:active, .painel-linha-aberta { background: var(--elevado); }
+.painel-codigo { width: var(--palco-codigo); font-size: var(--t-legenda); font-weight: 700; color: var(--tinta-apagada); }
+.painel-nome { font-size: var(--t-corpo); font-weight: 500; color: var(--tinta-forte); }
+.painel-linha-aberta .painel-codigo { color: var(--tinta-secundaria); }
+.painel-linha-aberta .painel-nome { color: var(--tinta); font-weight: 700; }
+.painel-recomecar { flex-shrink: 0; height: var(--palco-linha-painel); padding: 0 var(--e-20); text-align: left; font-size: var(--t-corpo); font-weight: 600; color: var(--tinta-secundaria);
+  border-top: var(--traco-borda) solid var(--borda-rodape); }
+.painel-recomecar:active { background: var(--elevado); }
+
+.palco-etiqueta { position: absolute; left: var(--palco-margem); bottom: var(--palco-margem); font-size: var(--t-legenda); color: var(--tinta-apagada); }
+
+/* ?print=1 — só a tela do app, no canto: o que se compara com o PNG */
+.palco-print { background: var(--fundo-pagina); }
 .palco-print .celular-tela { border-radius: 0; }
 
-.app { width: 100%; height: 100%; }
+/* janela estreita (<900): o app em tela cheia, sem moldura nem coluna; o quadrado flutua */
+.palco-estreito .palco-cena { align-items: stretch; justify-content: stretch; }
+.palco-estreito .celular { width: 100%; height: 100%; padding: 0; border: 0; border-radius: 0; }
+.palco-estreito .celular-tela { width: 100%; height: 100%; border-radius: 0; overflow-y: auto; }
+.palco-estreito .palco-etiqueta { display: none; }
+/* no estreito, o painel leva o Voltar ao fluxo e a etiqueta (G19); o toque no
+   app parado pisca o quadrado, que é a porta do Voltar */
+.painel-voltar { margin: 0 var(--e-20) var(--e-12); }
+.painel-etiqueta { flex-shrink: 0; padding: var(--e-8) var(--e-20) var(--e-16); font-size: var(--t-legenda); color: var(--tinta-apagada); }
+.palco-pisca { animation: palco-pisca var(--mov-lento) var(--mov-curva) 1; }
