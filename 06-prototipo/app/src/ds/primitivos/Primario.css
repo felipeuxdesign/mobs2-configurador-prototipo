@@ -10,7 +10,7 @@
   transition: opacity var(--mov-solta) var(--mov-curva);
 }
 .ds-primario-texto { position: relative; z-index: 1; }
-.ds-primario:active:not(:disabled), .ds-primario.ds-forca-toque { transform: scale(0.98); transition: none; }
+.ds-primario:active:not(:disabled), .ds-primario.ds-forca-toque { transform: scale(var(--escala-toque)); transition: none; }
 .ds-primario:active:not(:disabled)::after, .ds-primario.ds-forca-toque::after { opacity: 1; transition: none; }
 .ds-primario-desabilitado {
   background: var(--fundo-cartao); border: var(--traco-borda) solid var(--borda); color: var(--tinta-apagada);

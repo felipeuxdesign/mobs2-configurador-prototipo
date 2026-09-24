@@ -7,7 +7,7 @@
 .vitrine-grade { display: flex; flex-wrap: wrap; gap: var(--e-40); align-items: flex-start; }
 .vitrine-especime { width: var(--tela-largura); display: flex; flex-direction: column; gap: var(--e-10); }
 .vitrine-rotulo { font-size: var(--t-rotulo-topo); font-weight: 700; letter-spacing: var(--ls-rotulo-topo); color: var(--tinta-secundaria); }
-.vitrine-legenda { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-apagada); line-height: 1.45; }
+.vitrine-legenda { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-apagada); line-height: var(--entrelinha-legenda); }
 .vitrine-moldura {
   width: var(--tela-largura); padding: var(--e-16); background: var(--fundo-pagina);
   border: var(--traco-borda) dashed var(--borda); display: flex; flex-direction: column; overflow: hidden;

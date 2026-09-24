@@ -7,7 +7,7 @@
 //   node scripts/especime.mjs todos            → compara todos os espécimes registrados
 // Saída: prints/especimes/<id>-folha.png, -vitrine.png, -diff.png e uma linha de resultado.
 import { execFileSync } from 'node:child_process'
-import { readFileSync, writeFileSync, mkdirSync, readdirSync } from 'node:fs'
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, rmSync, statSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { dirname, resolve } from 'node:path'
 import { PNG } from 'pngjs'
@@ -20,7 +20,24 @@ const TMP = resolve(app, 'prints/tmp'); const OUT = resolve(app, 'prints/especim
 mkdirSync(TMP, { recursive: true }); mkdirSync(OUT, { recursive: true })
 const DEV = process.env.DEV || 'http://localhost:5173'
 
-function chrome(args) { return execFileSync(CHROME, ['--headless=new', '--disable-gpu', '--hide-scrollbars', '--allow-file-access-from-files', '--virtual-time-budget=4000', ...args], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], maxBuffer: 64 * 1024 * 1024 }) }
+// O Chrome headless não aguenta instâncias paralelas nesta máquina (trava):
+// uma trava de pasta faz as fotos rodarem uma de cada vez, mesmo com vários
+// processos (vários agentes) chamando a bancada ao mesmo tempo.
+const TRAVA = resolve(TMP, 'chrome.trava')
+const dorme = (ms) => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms)
+function comTrava(fn) {
+  for (let i = 0; ; i++) {
+    try { mkdirSync(TRAVA); break } catch {
+      try { if (Date.now() - statSync(TRAVA).mtimeMs > 120000) rmSync(TRAVA, { recursive: true, force: true }) } catch {}
+      dorme(200)
+    }
+  }
+  try { return fn() } finally { rmSync(TRAVA, { recursive: true, force: true }) }
+}
+function chrome(args) {
+  return comTrava(() => execFileSync(CHROME, ['--headless=new', '--disable-gpu', '--hide-scrollbars', '--allow-file-access-from-files', '--virtual-time-budget=4000', ...args],
+    { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'], maxBuffer: 64 * 1024 * 1024, timeout: 90000 }))
+}
 function lerPre(dom) { const m = dom.match(/<pre id="m2cf-out"[^>]*>([\s\S]*?)<\/pre>/); if (!m) throw new Error('sem medida'); return JSON.parse(m[1].replace(/&quot;/g, '"').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')) }
 function recorta(png, r) {
   const x = Math.round(r.x), y = Math.round(r.y), w = Math.round(r.w), h = Math.round(r.h)
@@ -40,10 +57,10 @@ export function especimeDaFolha(n, rotulo, id) {
     const o=document.createElement('pre');o.id='m2cf-out';o.style.display='none';
     if(!s){o.textContent=JSON.stringify({erro:'rótulo não achado'})}else{const r=s.nextElementSibling.getBoundingClientRect();o.textContent=JSON.stringify({x:r.x+scrollX,y:r.y+scrollY,w:r.width,h:r.height,H:document.documentElement.scrollHeight})}
     document.body.appendChild(o)})</script>`
-  const tmp = resolve(TMP, `folha-${n}.html`); writeFileSync(tmp, html.replace('</body>', medir + '</body>'))
+  const tmp = resolve(TMP, `folha-${n}-${process.pid}.html`); writeFileSync(tmp, html.replace('</body>', medir + '</body>'))
   const r = lerPre(chrome(['--window-size=1440,900', '--dump-dom', 'file://' + tmp]))
   if (r.erro) throw new Error(`folha ${n}: ${r.erro} — "${rotulo}"`)
-  const shot = resolve(TMP, `folha-${n}.png`)
+  const shot = resolve(TMP, `folha-${n}-${process.pid}.png`)
   chrome([`--window-size=1440,${Math.ceil(r.H)}`, '--screenshot=' + shot, 'file://' + tmp])
   const png = recorta(PNG.sync.read(readFileSync(shot)), r)
   writeFileSync(resolve(OUT, `${id}-folha.png`), PNG.sync.write(png))
@@ -53,7 +70,7 @@ export function especimeDaFolha(n, rotulo, id) {
 export function especimeDaVitrine(id) {
   const url = `${DEV}/?vitrine=1&especime=${encodeURIComponent(id)}&medir=1`
   const r = lerPre(chrome(['--window-size=360,1200', '--dump-dom', url]))
-  const shot = resolve(TMP, `vitrine-${id}.png`)
+  const shot = resolve(TMP, `vitrine-${id}-${process.pid}.png`)
   chrome([`--window-size=${Math.ceil(r.w)},${Math.ceil(r.h) + 2}`, '--screenshot=' + shot, url])
   const png = recorta(PNG.sync.read(readFileSync(shot)), { x: 0, y: 0, w: r.w, h: r.h })
   writeFileSync(resolve(OUT, `${id}-vitrine.png`), PNG.sync.write(png))

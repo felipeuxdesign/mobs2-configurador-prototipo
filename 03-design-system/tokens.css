@@ -148,6 +148,10 @@
   --glifo-22: 13px; --glifo-24: 14px; --glifo-26: 16px; --glifo-28: 17px;
   --glifo-30: 18px; --glifo-32: 19px; --glifo-34: 20px; --glifo-44: 26px;
   --marcador-11: 11px;   /* o quadrado de escolha da folha 3 e das linhas de garagem */
+  --escala-toque: 0.98;  /* o primário afunda 2% no toque (movimento.md:24) */
+  --escala-surge: 0.8;   /* o que surge no lugar parte de 80% (o quadrado do checkbox, T01) */
+  --entrelinha-texto: 1.4;    /* texto corrido de peça (o do checkbox, das linhas de opção) */
+  --entrelinha-legenda: 1.45; /* legenda de 12px */
 }
 
 @media (prefers-reduced-motion: reduce) {

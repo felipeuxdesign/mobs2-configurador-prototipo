@@ -33,7 +33,7 @@ for (const p of src) {
   if (/Math\.random|Date\.now|new Date\s*\(|performance\.now/.test(s)) achados.relogio.push(r)
   if (/toLocale\w*String|\bIntl\./.test(s)) achados.locale.push(r)
   if (/#[0-9a-fA-F]{3,8}\b/.test(s.replace(/href="#[^"]*"/g, '').replace(/['"]#[a-z-]+['"]/g, ''))) achados.hex.push(r)
-  if (/\.css$/.test(p) && !/palco-tokens\.css$/.test(p)) {
+  if (/\.css$/.test(p) && !/(palco-tokens|tokens-propostos)\.css$/.test(p)) {
     const px = s.split('\n').filter(l => /\d+(\.\d+)?px/.test(l) && !/var\(--/.test(l))
     if (px.length) achados.px.push(r + ' (' + px.length + ')')
   }
