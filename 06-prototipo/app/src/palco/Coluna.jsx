@@ -1,5 +1,5 @@
 // A coluna (palco.md): só os estados da tela aberta, linhas de 32, o marcador
-// igual ao do app (poço de 24 com o quadrado lima de 10). Com mais de seis, em
+// igual ao do app (decisão 29: poço de 24 com o quadrado vazado de 11, lima de 11 no escolhido). Com mais de seis, em
 // grupos (só a T05). O topo tem um lugar fixo (decisão 30): a frase do fluxo, ou
 // o "Voltar ao fluxo" com um estado aberto. A coluna fica no meio da altura do celular.
 import { Undo2 } from 'lucide-react'
@@ -9,7 +9,7 @@ import { Poco, Quadrado } from '../ds/index.js'
 function Linha({ e, aberto, aoAbrir }) {
   return (
     <button type="button" role="radio" aria-checked={aberto} className={`coluna-linha ${aberto ? 'coluna-linha-aberta' : ''}`} onClick={() => aoAbrir(e.nome)}>
-      <Poco tam={24}><Quadrado tam={11} escolhido={aberto} /></Poco>
+      <Poco tam={24}><Quadrado escolhido={aberto} /></Poco>
       <span className="coluna-nome">{e.rotulo}</span>
     </button>
   )

@@ -309,6 +309,10 @@
   --entrelinha-frase-busca: 1.45;    /* a frase de 14 do vazio da busca, centrada ('Aproxime o aparelho do módulo…', T05/03) · T05 (pecas.jsx, VazioDaBusca) */
   --cadeia-elo-correndo: 86px;  /* a altura de um elo da cadeia com trilho enquanto ela grava, o quadrado de agora num dos poços (T09/00 · a cadeia correndo) · Cadeia (altura 'correndo') */
   --cadeia-elo-pausada: 68px;   /* o elo quando a cadeia pausou e divide a tela com o contador e o aviso (T09/02 e 03 · a cadeia pausada) · Cadeia (altura 'pausada') */
+
+  /* ── a atualização do design · o que as folhas novas da T04 pediram ── */
+  --icone-poco-44: 22px;   /* o ícone de ferramenta no poço de 44: o módulo e o ativo que a sessão prendeu, no cartão da folha (T04/10, 11) · T04 (pecas.jsx, CartaoPreso) */
+  --t-preso: 18px;         /* a identidade do que a sessão prendeu, o serial ou a placa, no cartão da folha (T04/10, 11) · T04 (pecas.jsx, CartaoPreso) */
 }
 
 @media (prefers-reduced-motion: reduce) {

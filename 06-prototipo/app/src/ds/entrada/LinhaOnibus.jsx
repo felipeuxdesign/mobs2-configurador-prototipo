@@ -17,7 +17,7 @@ export function LinhaOnibus({ placa, modelo, rotuloFrota, frota, escolhido = fal
       role="radio"
       aria-checked={escolhido}
     >
-      <Poco tam={30}><Quadrado tam={11} escolhido={escolhido} /></Poco>
+      <Poco tam={30}><Quadrado escolhido={escolhido} /></Poco>
       <span className="ds-linha-onibus-id">
         <span className="ds-linha-onibus-placa">{placa}</span>
         <span className="ds-linha-onibus-modelo">{modelo}</span>

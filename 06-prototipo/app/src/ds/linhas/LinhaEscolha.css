@@ -1,5 +1,5 @@
-/* A escolha numa lista (folha 3, T02): 72 de alto, poço de 26, o quadrado
- * lima cheio de 12 no escolhido, o vazio de 11 nos outros, o traço no vencido. */
+/* A escolha numa lista (folha 3, T02): 72 de alto, poço de 30, o marcador de
+ * escolha (decisão 29) — lima de 11 no escolhido, vazado de 11 nos outros —, o traço no vencido. */
 .ds-escolha { gap: var(--e-10); height: var(--linha-escolha); border-bottom: var(--traco-borda) solid var(--divisoria); }
 .ds-escolha-sem-divisoria { border-bottom: 0; }
 .ds-escolha-corpo { flex-grow: 1; display: flex; flex-direction: column; gap: var(--e-2); }

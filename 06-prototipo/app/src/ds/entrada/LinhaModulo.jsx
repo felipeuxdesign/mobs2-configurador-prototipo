@@ -4,7 +4,7 @@
 // cai pra --tinta-apagada e a linha não é tocável.
 // C6 · T05 (G11), duas propriedades nomeadas; sem elas, a linha é a de sempre:
 // · `escolha` — a lista de escolha da T05/01: 72 de alto, o marcador de
-//   escolha vazio no poço de 30 (o traço, mudo, no apagado), o serial em cima
+//   escolha (o Quadrado vazado de 11, decisão 29) no poço de 30 (o traço, mudo, no apagado), o serial em cima
 //   da variante e, à direita, `rotuloValor` em cima de `valor` (FIRMWARE ·
 //   2.3.5). É rádio (aria-checked), e o marcador fica mudo (G15).
 // · `fim` — a última linha da lista, com a folga que a referência desenha no
@@ -21,7 +21,7 @@ export function LinhaModulo({ serial, variante, aoTocar, rotulo, apagada = false
   ].filter(Boolean).join(' ')
   const conteudo = escolha ? (
     <>
-      <Poco tam={30} aria-hidden="true">{apagada ? <Glifo estado="traco" /> : <Quadrado tam={11} escolhido={marcado} />}</Poco>
+      <Poco tam={30} aria-hidden="true">{apagada ? <Glifo estado="traco" /> : <Quadrado escolhido={marcado} />}</Poco>
       <span className="ds-linha-modulo-corpo">
         <span className="ds-linha-modulo-serial">{serial}</span>
         <span className="ds-linha-modulo-variante">{variante}</span>

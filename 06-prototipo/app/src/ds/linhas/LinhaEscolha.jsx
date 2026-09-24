@@ -1,5 +1,7 @@
 // A escolha numa lista (folha 3, T02): tocar numa garagem a deixa escolhida.
 // O quadrado lima cheio é o escolhido (Lei 1); o nome sobe pra --tinta.
+// O marcador é o de todas as escolhas (decisão 29): poço de 30, vazado de 11
+// no desmarcado e lima de 11 no marcado.
 //
 // nome, detalhe ('pacote de ontem, 07:10'), valor ('10 ativos'),
 // estado: 'disponivel' · 'escolhida' · 'vencida' (o traço; não se escolhe, fora com escolhivel)
@@ -22,7 +24,7 @@ export function LinhaEscolha({ nome, detalhe, valor, estado = 'disponivel', aoTo
       role="radio" aria-checked={escolhida}
       rotulo={rotulo} aoTocar={aoTocar} desabilitado={vencida && !escolhivel}
     >
-      <Poco tam={26} aria-hidden={vencida && escolhivel ? true : undefined}>{vencida ? <Glifo estado="traco" nome={nomeGlifo} /> : <Quadrado escolhido={escolhida} tam={escolhida ? 12 : 11} />}</Poco>
+      <Poco tam={30} aria-hidden={vencida && escolhivel ? true : undefined}>{vencida ? <Glifo estado="traco" nome={nomeGlifo} /> : <Quadrado escolhido={escolhida} />}</Poco>
       <span className="ds-escolha-corpo">
         <span className="ds-escolha-nome">{nome}</span>
         <span className="ds-escolha-detalhe">{detalhe}</span>

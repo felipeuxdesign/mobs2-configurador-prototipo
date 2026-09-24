@@ -1,13 +1,14 @@
 // T06 · Selecionar ativo (02-telas/T06-selecionar-ativo): escolher o ônibus que
 // está na frente do técnico e provar que é ele. A lista são os ônibus do pacote
 // da garagem do contexto (G9: os 10 do mock, e o miolo rola, G16). Tocar num
-// deles vai direto à confirmação (T06·1 a), e a confirmação checa, nesta ordem,
-// o pacote, os pinos e o chassi (T06·3 a):
+// deles o marca, e o 'Usar este ativo' leva à confirmação (R-14; T06·1 b, o
+// T06-N3), que checa, nesta ordem, o pacote, os pinos e o chassi (T06·3 a):
 //   · fora do pacote → a trava, sem pedir cadastro (04)
 //   · o par da faixa é um caso de pinos → a trava com ou sem saída (05, 06);
 //     'Usar leitor sem fio' resolve no lugar: a sessão passa a sem fio (T06·4 a)
 //   · o modelo não manda chassi → a confirmação marcada libera o primário (03)
-//   · o chassi lido contra o do cadastro: batem (01) ou divergem (02)
+//   · o chassi lido contra o do cadastro: batem (01) ou divergem (02);
+//     'Solicitar correção de cadastro' vira o registro no mesmo cartão (07)
 // O ônibus que não é caso abre a 01 com o lido igual ao cadastro (T06·2 a).
 // 'Usar este ativo' grava o ativo na sessão e segue pra T07.
 import { useState } from 'react'
@@ -32,8 +33,10 @@ export default function T06({ momento, estado: est }) {
   const sessaoFluxo = unico.sessao ?? SEMENTES.T06.sessao
   const uoFluxo = unico.contexto.uoId ?? M.contextoAtivo.uoId
 
-  // num estado da coluna, o mundo é o do caso (receitas.js); no fluxo, o do estado único
-  const doEstado = est ? mundoDoEstado(est, { sessao: sessaoFluxo, uoId: uoFluxo }) : null
+  // num estado da coluna, o mundo é o do caso (receitas.js); no fluxo, o do estado
+  // único. O momento 07 também é do caso: o do chassi divergente (mundoDoEstado)
+  const doCaso = est ?? (momento === REF.corrigida ? momento : null)
+  const doEstado = doCaso ? mundoDoEstado(doCaso, { sessao: sessaoFluxo, uoId: uoFluxo }) : null
   const sessao = doEstado?.sessao ?? sessaoFluxo
   const uoId = doEstado?.uoId ?? uoFluxo
 
@@ -44,9 +47,12 @@ export default function T06({ momento, estado: est }) {
   // na lista, tocar num ônibus o marca, e o 'Usar este ativo' leva à confirmação
   // (decisão do diretor, 24/09: a T06·1 passa pra (b), o T06-N3)
   const [marcado, setMarcado] = useState(null)
+  // os ônibus com a correção de cadastro já pedida, enquanto a T06 está aberta:
+  // o pedido não volta a ser tocável — escolher o mesmo ônibus de novo abre o registro (07)
+  const [pedidos, setPedidos] = useState(() => (momento === REF.corrigida && doEstado?.ativoId ? [doEstado.ativoId] : []))
 
   const ir = (tela, extra = {}) => despachar({ tipo: 'ir', tela, ...extra })
-  const escolher = (id) => { setEscolhido(id); setConfirmado(false); ir('T06', { momento: REF.confirmar }) }
+  const escolher = (id) => { setEscolhido(id); setConfirmado(false); ir('T06', { momento: pedidos.includes(id) ? REF.corrigida : REF.confirmar }) }
   const escolherOutro = () => { setEscolhido(null); setMarcado(null); setConfirmado(false); ir('T06') }
   const voltarAoMenu = () => ir('T04')
   const encerrar = () => ir('T16', { momento: ENCERRAR_SEM_HOMOLOGAR })
@@ -74,6 +80,12 @@ export default function T06({ momento, estado: est }) {
   const usarSemFio = () => {
     despachar({ tipo: 'mesclar', parcial: { sessao: { ...sessao, meio: 'sem-fio' } } })
     ir('T06', { momento: REF.confirmar })
+  }
+  // 'Solicitar correção de cadastro' (T06·2, o 07): o pedido vira o registro no
+  // mesmo cartão, com a hora do protótipo, e deixa de ser tocável
+  const solicitarCorrecao = () => {
+    setPedidos((p) => (p.includes(ativo.id) ? p : [...p, ativo.id]))
+    ir('T06', { momento: REF.corrigida })
   }
 
   const faixa = (
@@ -149,8 +161,11 @@ export default function T06({ momento, estado: est }) {
             lido={{ titulo: 'CHASSI LIDO DO VEÍCULO', valor: prova.lido }}
             cadastro={{ titulo: 'NO CADASTRO', valor: prova.cadastro }}
             explicacao={explicacao} />
-          {/* G25: o pedido de correção dá o pressionado e só o que o texto promete — sem dado nem destino no mock */}
-          {!bate && <LinhaTocavel variante="acao" className="t06-antes-do-rodape" titulo="Solicitar correção de cadastro" valor="anexa os dois" aoTocar={() => {}} />}
+          {/* 02 → 07: o pedido de correção, e depois do toque o registro no mesmo cartão (a hora é a do protótipo) */}
+          {!bate && (pedidos.includes(ativo.id)
+            ? <LinhaTocavel variante="acao" registrado estado="relogio" className="t06-antes-do-rodape"
+                titulo={`Correção solicitada às ${M.HORA_NOMINAL}`} valor="o gestor recebe os dois chassis" />
+            : <LinhaTocavel variante="acao" className="t06-antes-do-rodape" titulo="Solicitar correção de cadastro" valor="anexa os dois" aoTocar={solicitarCorrecao} />)}
         </>
       )
       rodape = bate

@@ -15,19 +15,45 @@ export const REF = {
   garagem: '07-momento-folha-trocar-de-garagem',
   envio: '08-estado-folha-trocar-de-garagem-envio-em-andamento',
   trocar: '09-estado-folha-trocar-de-garagem-com-modulo-conectado',
+  modulo: '10-momento-folha-modulo-conectado',
+  ativo: '11-momento-folha-ativo-da-sessao',
 }
 
 // o que está por cima do menu em cada referência: a folha da conta, o
-// diálogo de sair, a folha da garagem ou o diálogo de trocar
+// diálogo de sair, a folha da garagem, o diálogo de trocar, e as folhas do
+// módulo e do ativo que a sessão prendeu (HU-T16-2)
 export const SOBRE = {
   [REF.conta]: 'conta', [REF.sair]: 'sair', [REF.garagem]: 'garagem',
   [REF.envio]: 'garagem', [REF.trocar]: 'trocar',
+  [REF.modulo]: 'modulo', [REF.ativo]: 'ativo',
 }
-export const MOMENTO_DA_FOLHA = { conta: REF.conta, sair: REF.sair, garagem: REF.garagem }
+export const MOMENTO_DA_FOLHA = { conta: REF.conta, sair: REF.sair, garagem: REF.garagem, modulo: REF.modulo, ativo: REF.ativo }
+// as folhas sobem do pé (os diálogos, não); as do módulo e do ativo abrem
+// embaixo da faixa, que fica acesa em cima do véu (T04/10, 11)
+export const FOLHAS = ['conta', 'garagem', 'modulo', 'ativo']
+export const SOB_A_FAIXA = ['modulo', 'ativo']
 
 const ativo = (id) => M.ativos.find((a) => a.id === id)
 export const placaDe = (id) => ativo(id)?.placa
 export const uoDe = (id) => M.uos.find((u) => u.id === id)
+
+// O que a sessão prendeu, pro cartão da folha (T04/10, 11): a identidade e as
+// linhas do detalhe, do mock. As palavras em volta do dado (firmware, frota,
+// chassi) são as do textos.md.
+// o módulo: 'VL06 · CAN-BT · firmware 2.3.5'
+export function moduloPreso(serial) {
+  const m = M.modulos.find((x) => x.serial === serial)
+  if (!m) return { identidade: serial, detalhes: [] }
+  const modelo = M.modelos.find((x) => x.id === m.modeloId)
+  return { identidade: serial, detalhes: [`${modelo.nome} · ${m.variante} · firmware ${m.firmware}`] }
+}
+// o ativo: 'frota 1003 · Ônibus urbano OF-1621' e 'chassi 9BM384067GB120401'
+export function ativoPreso(id) {
+  const a = ativo(id)
+  if (!a) return { identidade: undefined, detalhes: [] }
+  const modelo = M.modelosAtivo.find((x) => x.id === a.modeloAtivoId)
+  return { identidade: a.placa, detalhes: [`frota ${a.frota} · ${modelo.nome}`, `chassi ${a.chassi}`] }
+}
 
 // as iniciais do técnico: a primeira letra do primeiro e do último nome
 export function iniciais(nome) {

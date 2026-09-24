@@ -25,7 +25,7 @@ export function LinhaGaragem({
       role="radio" aria-checked={estado === 'atual'}
       rotulo={rotulo} aoTocar={aoTocar} desabilitado={travada}
     >
-      <Poco tam={30}>{travada ? <Glifo estado="traco" nome={nomeGlifo} /> : <Quadrado escolhido={estado === 'atual'} tam={11} />}</Poco>
+      <Poco tam={30}>{travada ? <Glifo estado="traco" nome={nomeGlifo} /> : <Quadrado escolhido={estado === 'atual'} />}</Poco>
       <span className="ds-garagem-corpo">
         <span className="ds-garagem-nome">{nome}</span>
         <span className="ds-garagem-pacote">{pacote}</span>

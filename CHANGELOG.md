@@ -1,5 +1,27 @@
 # Registro de mudanças
 
+## 2026-09-24 · a atualização do design, construída no protótipo
+
+- **o marcador de escolha é um só** (decisão 29), o `Quadrado` dentro do `Poco`:
+  - vazado de 11 no desmarcado, e lima de 11 no marcado, que surge no toque;
+  - poço de 24 no checkbox e na coluna do palco, e de 30 na linha de lista;
+  - o checkbox, a escolha numa lista (a T02, que foi do poço de 26 pro de 30 e do lima de 12 pro de 11), a garagem, o módulo, o ônibus, a justificativa e o diálogo com ciência usam o mesmo;
+  - as folhas 2, 3 e 6 novas estão no lugar, e os 5 espécimes que mudaram com elas voltaram a 0%. Os 121 números são iguais ao C2
+- **as telas prontas contra os PNGs novos:** a T01/00 e 01 em 0,01% (os glifos do Lucide), a T02 em 0, 0 e 0,01%, a T06/03 em 0,01% (a linha da faixa, G13) · as outras 60 referências de T01 a T10 não mudaram
+- **T04 · as folhas do módulo conectado (10) e do ativo da sessão (11):** com a sessão aberta, tocar no cartão CONECTAR MÓDULO ou no ATIVO SELECIONADO abre a folha, que sobe em 200 ms.
+  - A folha mostra o que a sessão prendeu, lido do mock, a nota TRAVADO NA SESSÃO (HU-T16-2) e o "Encerrar a sessão", que faz o mesmo que o ENCERRAR da faixa;
+  - fecha pelo X, tocando fora e pelo Esc, que é o voltar do Android no computador;
+  - a propriedade `travado` do cartão saiu do DS;
+  - **0,71%** contra o HTML nas duas, só o menu atrás do véu (G25) e o caminhão do Lucide (G5)
+- **T04 · as folhas da conta e da garagem** também sobem e descem, e fecham pelo véu e pelo Esc. Nos diálogos, o Esc faz o mesmo que o Cancelar
+- **T04 · os cartões em espera são desabilitados de verdade**, com o nome e o motivo pro leitor de tela (a regra nova do `logica.md`)
+- **T06 · a correção solicitada (07):** tocar em "Solicitar correção de cadastro" troca o botão, no mesmo lugar e do mesmo tamanho, pelo registro com o relógio e "Correção solicitada às 14:30". Ele deixa de ser tocável · **0,02%** contra o HTML
+- **o revisor achou e corrigiu:** com uma folha da T04 aberta, a tira de contexto, que fica acesa por cima do véu, estava inerte, e o leitor de tela não a achava
+- **no palco:** com o painel e uma folha abertos ao mesmo tempo, o Esc fecha só o painel, que está por cima
+- **os tokens:** os 2 que as folhas novas da T04 pediram (259 → **261**)
+- **desvio nomeado:** o h1 escondido "Menu" só existe nas referências dos diálogos (T04/06 e 09), e não nas das folhas. No app, atrás do diálogo, ele fica inerte. **Para o arquiteto:** unificar
+- **pendente:** o voltar do Android está ligado nas folhas e nos diálogos da T04. Nas outras telas, ele entra com o caminho do herói inteiro, no C11 · a correção solicitada da T14 entra com a T14, no C10
+
 ## 2026-09-24 · C9 · configurar e calibrar — T09 e T10
 
 - **a T09** (a cadeia) e **a T10** (a calibração) em `app/src/telas/`: os 10 quadros e os toques de cada `tela.md`

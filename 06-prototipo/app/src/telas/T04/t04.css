@@ -12,8 +12,16 @@
 }
 
 /* o menu embaixo da barra: o topo, o título escondido e o miolo. Com a folha ou
- * o diálogo aberto, fica inerte inteiro (index.jsx). */
+ * o diálogo aberto, o título e o miolo ficam inertes, atrás do véu; o topo fica
+ * desabilitado, e a faixa, quando o véu a cobre (05 a 09), inerte (index.jsx). */
 .t04-fundo { flex-grow: 1; min-height: 0; display: flex; flex-direction: column; }
+
+/* o topo do menu mora num fieldset, que desabilita a tira e a faixa de uma vez
+ * quando a folha ou o diálogo abre (T04/05 a 11): sem o desenho e sem o papel
+ * do fieldset (role presentation), o topo fica igual. Desabilitado, nenhum
+ * toque chega nele. */
+.t04-topo { flex-shrink: 0; min-width: 0; margin: 0; padding: 0; border: 0; }
+.t04-topo:disabled { pointer-events: none; }
 
 /* o miolo: a grade rola entre o topo e o pé, se passar de 800 (G16). Isolado:
  * a camada do toque dos cartões fica dentro dele, e o véu passa por cima. */
@@ -33,3 +41,8 @@
   border-top: var(--traco-borda) solid var(--separador);
   display: flex; flex-direction: column;
 }
+
+/* nas folhas do módulo e do ativo (T04/10, 11), o véu começa embaixo da faixa:
+ * a tira e a faixa ficam acesas em cima dele. A linha de cima é a mesma de
+ * baixo do topo do menu (--separador), no mesmo pixel. */
+.t04-sobre-faixa { top: calc(var(--barra-sistema) + var(--tira-contexto) + var(--faixa-sessao-menu)); }

@@ -19,8 +19,10 @@ function Linha({ id, aberta, aoIr }) {
 export function Painel({ aberto, tela, aoIr, aoFechar, aoRecomecar, estreito, numEstado, aoVoltar }) {
   useEffect(() => {
     if (!aberto) return
-    const esc = (e) => { if (e.key === 'Escape') aoFechar() }
-    window.addEventListener('keydown', esc); return () => window.removeEventListener('keydown', esc)
+    // o Esc do painel vem antes do Esc do app (a captura) e para aí: com o painel e uma folha
+    // abertos ao mesmo tempo, um Esc fecha só o painel, que está por cima
+    const esc = (e) => { if (e.key === 'Escape') { e.stopImmediatePropagation(); aoFechar() } }
+    window.addEventListener('keydown', esc, true); return () => window.removeEventListener('keydown', esc, true)
   }, [aberto, aoFechar])
   return (
     <>

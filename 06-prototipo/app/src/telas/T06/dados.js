@@ -12,6 +12,7 @@ export const REF = {
   fora: '04-estado-fora-do-pacote',
   resolvivel: '05-estado-conflito-de-pinos-resolvivel',
   semSaida: '06-estado-conflito-de-pinos-sem-saida',
+  corrigida: '07-momento-correcao-solicitada',
 }
 
 export const ativoDe = (id) => M.ativos.find((a) => a.id === id)
@@ -105,7 +106,10 @@ export function mundoDoEstado(est, base) {
     return { ativoId: c.ativoId, desde: 'pinos', uoId: base.uoId, sessao: { ...base.sessao, moduloSerial: c.moduloSerial, meio: c.meioAtual } }
   }
   switch (est) {
+    // o 07 é um momento, mas o mundo dele é o do caso do 02 (indice.json: divergencia-chassi):
+    // aberto pela URL, ou chegando pelo toque num 02 aberto pela coluna, o ônibus e a checagem são os do caso
     case REF.divergente:
+    case REF.corrigida:
       return { ativoId: M.casos['divergencia-chassi'].ativoId, desde: 'chassi', uoId: base.uoId, sessao: base.sessao }
     case REF.semChassi:
       // o modelo que não manda o chassi (ma-02): o primeiro ônibus dele no pacote

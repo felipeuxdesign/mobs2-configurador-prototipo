@@ -1,9 +1,11 @@
-// Os marcadores (folha 3): o quadrado de escolha e o LED da sessão.
+// Os marcadores (folha 3): o marcador de escolha e o LED da sessão.
 import './Marcador.css'
 
-// o quadrado de escolha: vazio ou lima cheio. tam 10, 11 ou 12 (as três medidas da pasta)
-export function Quadrado({ escolhido = false, tam = 11 }) {
-  return <span aria-hidden="true" className={`ds-quadrado ds-quadrado-${tam} ${escolhido ? 'ds-quadrado-cheio' : ''}`} />
+// o marcador de escolha é um só (decisão 29): o quadrado de 11, vazado (a borda
+// em --marca-vazia) no desmarcado e lima cheio no marcado. O poço é de quem usa:
+// 24 no checkbox e na coluna do palco, 30 na linha de lista.
+export function Quadrado({ escolhido = false }) {
+  return <span aria-hidden="true" className={`ds-quadrado ${escolhido ? 'ds-quadrado-cheio' : ''}`} />
 }
 
 // o LED da faixa: viva (lima), sem sessão (apagado), falha (vermelho)

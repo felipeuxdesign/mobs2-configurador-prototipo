@@ -14,6 +14,7 @@ O que vale pra toda peça em `src/ds/`. Vem das leis (`03-design-system/leis.md`
 - **Medida por dentro** (`box-sizing` já é global). **Números tabulares** (já na base).
 - **Sem hover. Sem foco desenhado.** O que responde é o pressionado, com `:active` — por `Tocavel` (camada `--elevado`), `Primario` (roxo pressionado e escala), `Link` (duas camadas). Pra fotografar o pressionado parado, a classe `ds-forca-toque`.
 - **Só transform e opacity se movem.** Cor não anima: duas camadas, e a de cima entra por opacity. Tempos: `--mov-rapido` 150 · `--mov-padrao` 200 · `--mov-lento` 300 · `--mov-solta` 100, curva `--mov-curva`. O reduzir movimento zera os tempos sozinho.
+- **O marcador de escolha é um só, o `Quadrado`** (decisão 29): vazado de 11 no desmarcado, lima de 11 no marcado, que surge por opacidade e escala. Quem escolhe — o `Checkbox`, as linhas de escolha, a coluna do palco — põe o `Quadrado` num `Poco`: 24 no checkbox e na coluna, 30 na linha de lista. Nenhum poço de escolha fica vazio.
 - **Glifo sempre pelo `Glifo`** (Lucide, com o nome pro leitor de tela), dentro de um `Poco` do tamanho da linha: 38 → 24, 44 → 30, 50 → 32. **Ícone pelo `Icone`**.
 
 ## A peça

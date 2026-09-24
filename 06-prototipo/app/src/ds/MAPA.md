@@ -12,7 +12,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | primário · pressionado | src/ds/primitivos/Primario.jsx (forcaToque na vitrine; :active no app) |
 | primário · desabilitado | src/ds/primitivos/Primario.jsx (desabilitado) |
 | link · normal e pressionado | src/ds/primitivos/Link.jsx |
-| linha tocável · normal e pressionada | src/ds/linhas/LinhaTocavel.jsx, sobre src/ds/primitivos/Tocavel.jsx (variante acao: a linha de ação de 50, sem poço — T06/02 e T13/07 · C8) |
+| linha tocável · normal e pressionada | src/ds/linhas/LinhaTocavel.jsx, sobre src/ds/primitivos/Tocavel.jsx (variante acao: a linha de ação de 50, sem poço — T06/02 e T13/07 · C8; registrado: a linha de ação depois do toque, o registro do pedido no mesmo cartão, sem toque, com o glifo no poço de 24 e o feito sobre o que acontece agora — T06/07) |
 
 ## Folha 2 · chrome rodape folha dialogo
 
@@ -32,7 +32,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | uma ação | src/ds/chrome/Rodape.jsx |
 | processo correndo | src/ds/chrome/Rodape.jsx (primarioDesabilitado + explicacao; pe 'botao', o pé de 32 com a explicação da T05/10 · C6) |
 | com legenda | src/ds/chrome/Rodape.jsx (legenda) |
-| folha | src/ds/chrome/Folha.jsx + Veu.jsx (conteúdo: CartaoDaConta, PrazoDaConta, BotaoDaFolha; folga 12 e subtitulo na de trocar de garagem · C5, T04/07) |
+| folha | src/ds/chrome/Folha.jsx + Veu.jsx (conteúdo: CartaoDaConta, PrazoDaConta, BotaoDaFolha; folga 12 e subtitulo na de trocar de garagem · C5, T04/07; aoTocarFora no Veu, o toque no véu fecha a folha, T04 · o cartão do que a sessão prendeu é peça da T04, pecas.jsx) |
 | diálogo | src/ds/chrome/Dialogo.jsx (+ Frase, Destaque) |
 | diálogo sem saída | src/ds/chrome/Dialogo.jsx (sem saida) |
 | diálogo com ciência | src/ds/chrome/Dialogo.jsx (ciencia → primitivos/Checkbox.jsx) |
@@ -43,11 +43,11 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 
 | Peça | Componente |
 |---|---|
-| escolha numa lista | src/ds/linhas/LinhaEscolha.jsx (escolhivel: a vencida também se escolhe, T02·1 · C4) |
+| escolha numa lista | src/ds/linhas/LinhaEscolha.jsx (poço de 30 com o Quadrado · decisão 29; escolhivel: a vencida também se escolhe, T02·1 · C4) |
 | os glifos de estado | src/ds/primitivos/Glifo.jsx (ESTADOS) |
 | os ícones de ferramenta | src/ds/primitivos/Icone.jsx (ICONES) |
 | os poços | src/ds/primitivos/Poco.jsx |
-| os marcadores | src/ds/primitivos/Marcador.jsx (Quadrado, Led) |
+| os marcadores | src/ds/primitivos/Marcador.jsx (Quadrado: o marcador de escolha, um só, vazado ou lima de 11 · decisão 29; Led) |
 
 ## Folha 4 · linhas cartoes aviso
 
@@ -68,7 +68,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | passos com o prazo estourado | src/ds/linhas/Lista.jsx (recheio passos) + LinhaChecagem.jsx |
 | disponível | src/ds/cartoes/CartaoFerramenta.jsx (+ GradeFerramentas.jsx) |
 | decide agora | src/ds/cartoes/CartaoFerramenta.jsx (largo, estado decide; poço 30 com a sessão aberta · C5) |
-| conectado | src/ds/cartoes/CartaoFerramenta.jsx (largo; travado com a sessão aberta · C5, T04·7) |
+| conectado | src/ds/cartoes/CartaoFerramenta.jsx (largo; com a sessão aberta, o toque abre a folha do que ela prendeu, T04/10 e 11 · o travado do C5 saiu, HU-T16-2) |
 | com pendência | src/ds/cartoes/CartaoFerramenta.jsx + Contador.jsx |
 | espera | src/ds/cartoes/CartaoFerramenta.jsx (estado espera; sem folga entre o poço e o nome, como a folha 4 desenha; largo, o ativo que espera o módulo · C5) |
 | espera a rede | src/ds/cartoes/CartaoFerramenta.jsx (estado sem-rede) |
@@ -122,8 +122,8 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | código errado | src/ds/entrada/Codigo.jsx (errado) |
 | link dentro do conteúdo | src/ds/entrada/LinkConteudo.jsx |
 | botões só de ícone | src/ds/primitivos/SoIcone.jsx |
-| checkbox | src/ds/primitivos/Checkbox.jsx |
-| checkbox marcado | src/ds/primitivos/Checkbox.jsx (marcado) |
+| checkbox | src/ds/primitivos/Checkbox.jsx (Poco de 24 com o Quadrado vazado · decisão 29) |
+| checkbox marcado | src/ds/primitivos/Checkbox.jsx (marcado: o Quadrado lima de 11) |
 | campo de busca | src/ds/entrada/Busca.jsx (a dica é texto por cima do campo vazio, não placeholder · C4) |
 | justificativa | src/ds/entrada/Justificativa.jsx (+ CampoTexto.jsx) |
 | linha de opção | src/ds/chrome/LinhaDeOpcao.jsx (+ CartaoDeOpcoes · desabilitado, T01/04) |
