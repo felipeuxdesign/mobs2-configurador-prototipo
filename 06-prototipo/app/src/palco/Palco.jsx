@@ -27,6 +27,22 @@ function medirEscala(temColuna) {
   return Math.min(1, (window.innerHeight - margem) / alturaCel, (window.innerWidth - margem - 2 * lado) / larguraCel)
 }
 
+// Pra régua dos textos (scripts/textos.mjs): no print com &textos=1, escreve
+// num <pre> escondido os textos da tela na ordem do documento, que o
+// --dump-dom do Chrome lê. É ferramenta do ciclo, não do app.
+function Textos() {
+  useEffect(() => {
+    document.fonts.ready.then(() => setTimeout(() => {
+      const raiz = document.querySelector('.celular-tela'); const lista = []
+      const w = document.createTreeWalker(raiz, NodeFilter.SHOW_TEXT)
+      for (let n = w.nextNode(); n; n = w.nextNode()) { const t = n.textContent.replace(/\s+/g, ' ').trim(); if (t) lista.push(t) }
+      const out = document.createElement('pre'); out.id = 'm2cf-out'; out.style.display = 'none'; out.textContent = JSON.stringify(lista)
+      document.body.appendChild(out)
+    }, 50))
+  }, [])
+  return null
+}
+
 export function Palco() {
   if (new URLSearchParams(window.location.search).get('vitrine') === '1') return <Vitrine />
   return <PalcoApp />
@@ -43,12 +59,13 @@ function PalcoApp() {
   useEffect(() => { escreverUrl({ tela, estado: est, momento }) }, [tela, est, momento])
   useEffect(() => { const r = () => setJanela({ w: window.innerWidth, h: window.innerHeight }); window.addEventListener('resize', r); return () => window.removeEventListener('resize', r) }, [])
 
-  const ir = useCallback((id) => { despachar({ tipo: 'pular', tela: id }); setPainel(false) }, [despachar])
+  // o painel só fecha no X, tocando fora ou com Esc — escolher uma tela não fecha (diretor, 24/09)
+  const ir = useCallback((id) => despachar({ tipo: 'pular', tela: id }), [despachar])
   const abrirEstado = (nome) => despachar({ tipo: 'abrir-estado', estado: nome })
-  const voltarAoFluxo = () => { despachar({ tipo: 'voltar-ao-fluxo' }); setPainel(false) }
-  const recomecar = () => { despachar({ tipo: 'recomecar' }); setPainel(false) }
+  const voltarAoFluxo = () => despachar({ tipo: 'voltar-ao-fluxo' })
+  const recomecar = () => despachar({ tipo: 'recomecar' })
 
-  if (print) return <main className="palco palco-print"><div className="celular-tela"><App /></div></main>
+  if (print) return <main className="palco palco-print"><div className="celular-tela"><App /></div>{lerUrl().textos && <Textos />}</main>
 
   const estreito = janela.w < larguraEstreita()
   const temColuna = !estreito && estadosDa(tela).length > 0

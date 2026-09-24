@@ -1,5 +1,10 @@
 # Registro de mudanças
 
+## 2026-09-24 · o palco, pelo diretor
+
+- **o painel não fecha ao escolher uma tela** — fecha só no X, tocando fora ou com Esc; o Recomeçar e o Voltar ao fluxo também deixam ele aberto. O `palco.md` passou a dizer isso
+- **num estado, a moldura do celular fica igual à do fluxo** (`--borda`), sem clarear: o estado se lê na coluna. Desvio nomeado contra o quadro `02-num-estado`, que desenha a moldura em `--borda-neutra`; o `palco.md` passou a dizer isso
+
 ## 2026-09-24 · C3 · palco
 
 - **o palco** em `app/src/palco`, separado do app: o quadrado, o celular nos dois jeitos, a coluna, o painel em duas partes, a etiqueta `C3 · 2026-09-24` e o Recomeçar do login

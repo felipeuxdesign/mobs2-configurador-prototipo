@@ -31,7 +31,7 @@ body { background: var(--poco-fundo); overflow: hidden; }
   border: var(--traco-borda) solid var(--borda); border-radius: var(--palco-raio-fora); background: var(--poco);
   transform-origin: center center;
 }
-.celular-estado { border-color: var(--borda-neutra); }
+/* num estado, a moldura fica igual à do fluxo: o estado se lê na coluna (diretor, 24/09) */
 .celular-tela { width: var(--tela-largura); height: var(--tela-altura); border-radius: var(--palco-raio-tela); overflow: hidden; background: var(--fundo-pagina); position: relative; cursor: default; }
 .celular-tela * { cursor: default; }
 

@@ -9,7 +9,7 @@ A moldura de apresentação em volta do app. **Três peças e mais nada**, no fu
 | **o quadrado** | 44 × 44, no canto de cima à esquerda, a 16px das bordas · abre o painel |
 | **o celular** | no centro, **o app em tamanho real, 360 × 800**, com moldura de 8px — 376 × 816 por fora · raio 34 por fora, 26 na tela · escala inteiro pra caber na janela, **nunca maior que o real** |
 | **a coluna** | 230 de largura, 40 à direita do celular, alinhada ao topo · os estados da tela aberta, linhas de 32 |
-| **o painel** | 280 de largura, desliza da esquerda por cima de tudo · fecha no X ou tocando fora |
+| **o painel** | 280 de largura, desliza da esquerda por cima de tudo · fecha no X ou tocando fora · escolher uma tela não fecha o painel |
 
 ## O painel · em duas partes
 
@@ -32,7 +32,7 @@ A tela aberta aparece marcada. As folhas não entram no painel: são momentos da
 | | |
 |---|---|
 | **no fluxo** | o app interativo · moldura `--borda` |
-| **num estado** | **o próprio app, montado pelo caso do mock, parado e sem toque** · moldura `--borda-neutra`, um tom mais clara · tocar nele faz o `Voltar ao fluxo` piscar uma vez |
+| **num estado** | **o próprio app, montado pelo caso do mock, parado e sem toque** · a moldura é a mesma do fluxo, `--borda`: o estado se lê na coluna · tocar nele faz o `Voltar ao fluxo` piscar uma vez |
 
 ## As regras
 
