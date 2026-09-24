@@ -1,0 +1,62 @@
+[
+ {
+  "tela": "T03",
+  "ref": "00-tela",
+  "html": {
+   "fino": 0.01,
+   "estrutural": 0
+  },
+  "png": {
+   "fino": 0.91,
+   "estrutural": 0.26
+  }
+ },
+ {
+  "tela": "T03",
+  "ref": "01-estado-falha-de-rede",
+  "html": {
+   "fino": 0.18,
+   "estrutural": 0.15
+  },
+  "png": {
+   "fino": 1.89,
+   "estrutural": 1.05
+  }
+ },
+ {
+  "tela": "T03",
+  "ref": "02-momento-concluido",
+  "html": {
+   "fino": 0.02,
+   "estrutural": 0.01
+  },
+  "png": {
+   "fino": 1.39,
+   "estrutural": 0.71
+  }
+ },
+ {
+  "tela": "T03",
+  "ref": "03-estado-pacote-de-4-dias",
+  "html": {
+   "fino": 0.01,
+   "estrutural": 0.01
+  },
+  "png": {
+   "fino": 1.06,
+   "estrutural": 0.24
+  }
+ },
+ {
+  "tela": "T03",
+  "ref": "04-estado-pacote-vencido",
+  "html": {
+   "fino": 0,
+   "estrutural": 0
+  },
+  "png": {
+   "fino": 1.12,
+   "estrutural": 0.11
+  }
+ }
+]

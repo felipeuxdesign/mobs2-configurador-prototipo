@@ -3,15 +3,19 @@
 // o traço vermelho embaixo e o rótulo em vermelho (Lei 2); o aviso neutro é o
 // mesmo desenho, cinza, sem traço. Com contagem, o número vai à direita, com a
 // unidade junto (Lei 10). O glifo é o de estado da folha 3, pelo nome.
+// `semPoco`: a exceção da Lei 7 — o aviso da folha de trocar de garagem
+// (T04/08) é só o rótulo e a frase, com 12 em volta e a frase a 1,4 (G11).
 import { Poco, Glifo } from '../index.js'
 import './caixas.css'
 import './Aviso.css'
 
-export function Aviso({ tom = 'falha', glifo = 'xis', poco = 26, nomeGlifo, titulo, frase, numero, unidade }) {
+// `mudo` (C4 · T03, G15; padrão desde o fechamento do C4): o glifo do aviso fica mudo pro leitor — o rótulo e a
+// frase já dizem o que houve. Desligado, nada muda.
+export function Aviso({ tom = 'falha', glifo = 'xis', poco = 26, nomeGlifo, titulo, frase, numero, unidade, semPoco = false, mudo = true }) {
   const falha = tom === 'falha'
   return (
-    <div className={`ds-aviso ds-caixa-poco ${falha ? 'ds-caixa-falha ds-aviso-falha' : ''}`}>
-      <Poco tam={poco}><Glifo estado={glifo} poco={poco} nome={nomeGlifo} /></Poco>
+    <div className={`ds-aviso ds-caixa-poco ${falha ? 'ds-caixa-falha ds-aviso-falha' : ''} ${semPoco ? 'ds-aviso-sem-poco' : ''}`}>
+      {!semPoco && <Poco tam={poco} aria-hidden={mudo ? 'true' : undefined}><Glifo estado={glifo} poco={poco} nome={nomeGlifo} /></Poco>}
       <span className="ds-aviso-texto">
         <span className="ds-aviso-titulo">{titulo}</span>
         {frase != null && <span className="ds-aviso-frase">{frase}</span>}

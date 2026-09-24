@@ -205,6 +205,78 @@ chk("P·C1 casos de módulo: o par ativo × módulo é o do cadastro", SEM_GATE.
 chk("P·C1 sync-falha-rede aponta um pacote que existe", M.pacotes.some(function (p) { return p.id === M.casos["sync-falha-rede"].pacoteId; }));
 chk("P·C1 a cadeia tem 6 passos e 5 blocos versionados", M.cadeia.ordem.length === 6 && M.cadeia.ordem[0] === "limpeza");
 
+/* ── P·C4 · entrar: o login e a sincronização (gate C4) ── */
+chk("P·C4 código errado: seis dígitos, diferente do código", /^\d{6}$/.test(rec.codigoErrado) && rec.codigoErrado !== rec.codigo);
+chk("P·C4 entrar: a senha do mock passa do mínimo de 8", cred.minimoEntrar === 8 && cred.senha.length >= cred.minimoEntrar);
+chk("P·C4 requisitos: seis, o mínimo 10, e a senha nova cumpre os verificáveis", (function () {
+  var r = cred.requisitosSenha, s = rec.novaSenha; if (!r || r.length !== 6) return false;
+  var min = r[0].minimo; return r[0].id === "tamanho" && min === 10 && s.length >= min && r[5].verificavelNoAparelho === false; })());
+chk("P·C4 pacotes: a estimativa dá ~40 s com 7 itens por baixar em Várzea", (function () {
+  var p = M.pacotes[0], c = p.contem, total = c.ativos + c.modelosAtivo + c.cartoes;
+  return total === 16 && Math.round((total - 9) * p.segPorItem / 10) * 10 === 40; })());
+chk("P·C4 pacotes: a versão deriva de uoId e data (pct-uo01-2026-03-11)", "pct-" + M.pacotes[0].uoId.replace("-", "") + "-" + M.pacotes[0].data === "pct-uo01-2026-03-11");
+
+/* ── P·C4 · T02 · selecionar contexto: a linha de cada garagem lê o pacote dela ── */
+chk("P·C4 · T02 cada UO tem um pacote só (a linha lê idade, hora e ativos dele)", M.uos.every(function (uo) {
+  return M.pacotes.filter(function (p) { return p.uoId === uo.id; }).length === 1; }));
+chk("P·C4 · T02 os ativos do pacote cruzam com o cadastro da UO (T02·5 · 10·8·6)", M.pacotes.every(function (p) {
+  return p.contem.ativos === M.ativos.filter(function (a) { return a.uoId === p.uoId; }).length; }),
+  M.pacotes.map(function (p) { return p.contem.ativos; }).join("·"));
+
+/* ── P·C4 · T01 · login: a senha nova não tem sequência nem pedaço do usuário ── */
+chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência nem pedaço do usuário de 3", (function () {
+  var r = cred.requisitosSenha.filter(function (x) { return x.id === "sem-usuario-nem-sequencia"; })[0], n = r && r.trecho;
+  if (n !== 3) return false;
+  var s = rec.novaSenha.toLowerCase(), u = cred.usuario.toLowerCase(), i, j;
+  for (i = 0; i + n <= u.length; i++) if (s.indexOf(u.slice(i, i + n)) >= 0) return false;
+  for (i = 0; i + n <= s.length; i++) {
+    var d = s.charCodeAt(i + 1) - s.charCodeAt(i), seguido = Math.abs(d) <= 1;
+    for (j = i + 1; seguido && j < i + n; j++) if (s.charCodeAt(j) - s.charCodeAt(j - 1) !== d) seguido = false;
+    if (seguido) return false;
+  }
+  return true; })(), "trecho " + cred.requisitosSenha[4].trecho);
+
+/* ── P·C5 · T04 · menu: os contadores e as folhas saem das regras da T04 (nenhum campo novo) ── */
+(function () {
+  var uoDe = function (id) { var a = M.ativos.filter(function (x) { return x.id === id; })[0]; return a && a.uoId; };
+  var uo = M.contextoAtivo.uoId, fila = M.filaSaida;
+  var menu = fila.filter(function (f) { return f.estado !== "recebida" && uoDe(f.ativoId) === uo; });
+  chk("P·C5 · T04 o contador do menu: o que não chegou, só da garagem ativa (T04·1 b · 2)", menu.length === 2,
+    menu.map(function (f) { return f.id; }).join(","));
+  var sair = fila.filter(function (f) { return f.estado === "na-fila"; });
+  chk("P·C5 · T04 o diálogo de sair: o que está na fila, de todas as garagens (T04·1 b · 3)", sair.length === 3,
+    sair.map(function (f) { return f.id; }).join(","));
+  chk("P·C5 · T04 a folha da garagem no 08: uma evidência subindo", fila.filter(function (f) { return f.estado === "enviando"; }).length === 1);
+  var manuais = M.checklist.secoes.filter(function (s) { return s.natureza === "manual" || s.natureza === "dinamico"; }).map(function (s) { return s.id; });
+  var abertos = M.checklist.itens.filter(function (i) { return manuais.indexOf(i.secao) >= 0; });
+  chk("P·C5 · T04 o contador do checklist: B + E, os que o técnico resolve (T04·2 b · 10)", manuais.join("") === "BE" && abertos.length === 10, abertos.length);
+  var ac = M.situacao.sessaoAcesso;
+  chk("P·C5 · T04 a folha da conta: restam 2 de 7 dias, já no aviso", ac.validadeDias - ac.abertaDiasAtras === 2 && ac.validadeDias === 7 && ac.abertaDiasAtras >= ac.avisoNoDia);
+  chk("P·C5 · T04 a folha da garagem: só o Pátio Caruaru passa do limite (8 > 7)", M.pacotes.filter(function (p) { return p.diasAtras > p.limiares.bloqueioDias; }).map(function (p) { return p.uoId; }).join(",") === "uo-03");
+})();
+
+/* ── P·C4 · T03 · sincronizar: as regras que a tela lê do pacote (nenhum campo novo) ── */
+(function () {
+  var ORDEM = ["modelosAtivo", "ativos", "cartoes"]; /* T03·1: Modelos → Ativos → Cartões, um item por tick */
+  var total = function (p) { return ORDEM.reduce(function (s, k) { return s + p.contem[k]; }, 0); };
+  var feito = function (p, n) { var r = {}; ORDEM.forEach(function (k) { r[k] = Math.min(n, p.contem[k]); n -= r[k]; }); return r; };
+  var v = M.pacotes.filter(function (p) { return p.uoId === M.contextoAtivo.uoId; })[0], q = feito(v, 9);
+  chk("P·C4 · T03 o quadro da 00: 9 itens na ordem dão Modelos 3 de 3, Ativos 6 de 10, Cartões 0 (T03·1)",
+    total(v) === 16 && q.modelosAtivo === 3 && q.ativos === 6 && v.contem.ativos === 10 && q.cartoes === 0, JSON.stringify(q));
+  var caso = M.casos["sync-falha-rede"], pc = M.pacotes.filter(function (p) { return p.id === caso.pacoteId; })[0];
+  chk("P·C4 · T03 a falha de rede cai num item do pacote do caso (1 ≤ falhaNoTick ≤ total)", !!pc && caso.falhaNoTick >= 1 && caso.falhaNoTick <= total(pc),
+    caso.falhaNoTick + " de " + (pc && total(pc)));
+  var usados = function (p) { var s = {}; M.ativos.filter(function (a) { return a.uoId === p.uoId; }).forEach(function (a) {
+    s[M.modelosAtivo.filter(function (m) { return m.id === a.modeloAtivoId; })[0].presetEventoId] = 1; }); return Object.keys(s).sort().join(","); };
+  chk("P·C4 · T03 o pacote traz o catálogo de modelos da empresa e só os presets em uso (T03·8 a)", M.pacotes.every(function (p) {
+    return p.contem.modelosAtivo === M.modelosAtivo.length && p.presetsEventoIds.slice().sort().join(",") === usados(p); }));
+  var avisa = M.pacotes.filter(function (p) { return p.diasAtras >= p.limiares.avisoDias && p.diasAtras <= p.limiares.bloqueioDias; });
+  chk("P·C4 · T03 só o pacote de Ibura avisa sem bloquear (3 ≤ 4 ≤ 7, T03·3) — a 03", avisa.length === 1 && avisa[0].id === "pac-uo-02",
+    avisa.map(function (p) { return p.id; }).join(","));
+  chk("P·C4 · T03 a régua da idade vai de 0 a bloqueioDias + 1 (T03·4) — o 8 da 03 e da 04", M.pacotes.every(function (p) {
+    return p.limiares.bloqueioDias + 1 === 8; }));
+})();
+
 /* ── Higiene ── */
 var fonte = null;
 try { fonte = require("fs").readFileSync(require("path").join(__dirname, "mocks.js"), "utf8"); } catch (e) {}

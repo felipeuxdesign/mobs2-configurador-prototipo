@@ -9,6 +9,8 @@
 //   sem-rede   · o mesmo da espera, com a causa da rede e o traço um a menos
 //                (9, como a folha 4 e a T04 o desenham)
 // A contagem é o contador no canto (o da fila, HU-T04-3).
+// `travado`: o cartão mostra o que a sessão prendeu e não se toca, sem mudar o
+// desenho — o módulo e o ativo com a sessão aberta (T04·7, HU-T16-2).
 import { Tocavel, Poco, Glifo, Icone } from '../index.js'
 import { Contador } from './Contador.jsx'
 import './CartaoFerramenta.css'
@@ -17,7 +19,7 @@ const ICONE_DO_POCO = { 30: 18, 34: 20 } // o ícone de ferramenta dentro do po�
 
 export function CartaoFerramenta({
   largo = false, estado = 'disponivel', icone, poco = 30,
-  titulo, valor, causa, contagem, rotulo, aoTocar, className = '',
+  titulo, valor, causa, contagem, rotulo, aoTocar, travado = false, className = '',
 }) {
   const espera = estado === 'espera' || estado === 'sem-rede'
   const marca = espera
@@ -29,7 +31,7 @@ export function CartaoFerramenta({
   const classe = `ds-ferramenta ds-ferramenta-${largo ? 'largo' : 'meia'} ${espera ? 'ds-ferramenta-espera' : ''} ds-ferramenta-${estado} ${className}`
   if (largo) {
     return (
-      <Tocavel className={classe} rotulo={nome} aoTocar={aoTocar} desabilitado={espera}>
+      <Tocavel className={classe} rotulo={nome} aoTocar={aoTocar} desabilitado={espera || travado}>
         <Poco tam={poco}>{marca}</Poco>
         <span className="ds-ferramenta-leitura">
           <span className="ds-ferramenta-rotulo">{titulo}</span>
@@ -39,7 +41,7 @@ export function CartaoFerramenta({
     )
   }
   return (
-    <Tocavel className={classe} rotulo={nome} aoTocar={aoTocar} desabilitado={espera}>
+    <Tocavel className={classe} rotulo={nome} aoTocar={aoTocar} desabilitado={espera || travado}>
       <span className="ds-ferramenta-topo">
         <Poco tam={poco}>{marca}</Poco>
         {contagem != null && <Contador valor={contagem} />}

@@ -1,4 +1,4 @@
-/* A linha de garagem (folha 4, T01 T04): 72 no mínimo com 10 em cima e
+/* A linha de garagem (folha 4, T04): 72 no mínimo com 10 em cima e
  * embaixo, poço de 30 com o marcador de 11, o nome e a idade do pacote,
  * a contagem à direita com o rótulo em cima. */
 .ds-garagem { gap: var(--e-12); min-height: var(--linha-escolha); padding: var(--e-10) 0; border-bottom: var(--traco-borda) solid var(--divisoria); }
@@ -17,3 +17,5 @@
 /* a vencida: tudo apagado, menos o aviso do que fazer */
 .ds-garagem-vencida .ds-garagem-nome,
 .ds-garagem-vencida .ds-garagem-numero { color: var(--tinta-apagada); }
+/* a que espera (T04/08): só o nome apaga; a contagem fica */
+.ds-garagem-espera .ds-garagem-nome { color: var(--tinta-apagada); }

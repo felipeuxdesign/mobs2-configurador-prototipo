@@ -1,0 +1,20 @@
+/* T02 · Selecionar contexto — só tokens. A tela sem faixa: a barra do sistema
+ * na cor da página, o miolo (que rola entre a barra e o rodapé quando passa
+ * de 800, G16) e o rodapé de uma ação. O miolo rola sem a barra de rolagem
+ * do navegador do computador, que nenhuma referência desenha (como na T03). */
+.t02 { height: 100%; display: flex; flex-direction: column; background: var(--fundo-pagina); }
+
+.t02-miolo {
+  flex-grow: 1; min-height: 0; overflow-y: auto; scrollbar-width: none;
+  display: flex; flex-direction: column; gap: var(--e-14);
+  padding: var(--e-28) var(--respiro) var(--respiro) var(--respiro);
+}
+
+/* o cabeçalho de entrada: a empresa no rótulo de topo e o título de procedimento */
+.t02-cabeca { flex-shrink: 0; display: flex; flex-direction: column; gap: var(--e-4); }
+.t02-empresa { font-size: var(--t-rotulo-topo); font-weight: 700; letter-spacing: var(--ls-rotulo-topo); color: var(--tinta-secundaria); }
+.t02-titulo { margin: 0; font-size: var(--t-titulo-proc); font-weight: 700; letter-spacing: var(--ls-titulo-proc); color: var(--tinta); }
+
+/* o grupo da UC: o rótulo do bloco a 6 do cartão com as garagens */
+.t02-grupo { flex-shrink: 0; display: flex; flex-direction: column; gap: var(--e-6); }
+.t02-grupo-rotulo { font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--tinta-apagada); }

@@ -14,6 +14,8 @@
 .ds-escala-pequena { --ds-escala-alto: var(--escala-pequena); --ds-risco: var(--risco-pequena); --ds-risco-forte: var(--risco-pequena-forte); --ds-marcador: var(--marcador-pequeno); }
 .ds-escala-prazo   { --ds-escala-alto: var(--escala-prazo);   --ds-risco: var(--risco-prazo);   --ds-risco-forte: var(--risco-prazo-forte);   --ds-marcador: var(--marcador-leitura); }
 .ds-escala-placar  { --ds-escala-alto: var(--escala-placar);  --ds-risco: var(--risco-placar);  --ds-risco-forte: var(--risco-placar-forte);  --ds-marcador: var(--marcador-pequeno); }
+/* C4 · T03 (G11): a barra do download da sincronização é o placar sem as bordas dos lados */
+.ds-escala-sem-lados { border-left: 0; border-right: 0; }
 
 /* a faixa esperada (ou o preenchido) */
 .ds-escala-faixa {

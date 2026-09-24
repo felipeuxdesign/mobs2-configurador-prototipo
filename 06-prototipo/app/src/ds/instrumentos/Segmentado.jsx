@@ -5,9 +5,11 @@
 // `segmentos`: um por passo, 'atual' · 'feito' · 'pendente'.
 import './Segmentado.css'
 
-export function Segmentado({ rotulo, contagem, total, segmentos, legenda }) {
+// `folga`: o vão entre o cabeçalho, os segmentos e a legenda — 6 (a folha 5)
+// ou 8 (a recuperação da T01, como as referências dela desenham · G11).
+export function Segmentado({ rotulo, contagem, total, segmentos, legenda, folga = 6 }) {
   return (
-    <div className="ds-segmentado">
+    <div className={`ds-segmentado ${folga === 8 ? 'ds-segmentado-folga-8' : ''}`}>
       <div className="ds-segmentado-cabeca">
         <span className="ds-segmentado-rotulo">{rotulo}</span>
         <span className="ds-segmentado-contador">{contagem} <span className="ds-segmentado-total">{total}</span></span>

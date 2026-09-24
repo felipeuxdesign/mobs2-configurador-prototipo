@@ -16,6 +16,7 @@ export function Escala({
   min, max, valor, faixa, pctInteiro,
   divisoes, marcas, fortes = [],
   tam = 'leitura', falha = false, corre = false,
+  semLados = false, // C4 · T03 (G11): a barra do download, o desenho do placar sem as bordas dos lados
 }) {
   // pctInteiro: a posição arredondada ao % inteiro, como a folha desenha o placar (21 de 31 → 68%)
   const pct = (v) => { const p = (100 * (noIntervalo(v, min, max) - min)) / (max - min); return pctInteiro ? Math.round(p) : p }
@@ -26,7 +27,7 @@ export function Escala({
   const de = faixa ? (faixa.de ?? min) : null
   const ate = faixa ? (faixa.ate ?? max) : null
   return (
-    <div className={`ds-escala ds-escala-${tam} ${falha ? 'ds-escala-falha' : ''}`} aria-hidden="true">
+    <div className={`ds-escala ds-escala-${tam} ${falha ? 'ds-escala-falha' : ''} ${semLados ? 'ds-escala-sem-lados' : ''}`} aria-hidden="true">
       {faixa && (
         <div
           className={`ds-escala-faixa ${de > min ? 'ds-escala-faixa-de' : ''} ${ate < max ? 'ds-escala-faixa-ate' : ''}`}

@@ -1,5 +1,49 @@
 # Registro de mudanças
 
+## 2026-09-24 · C4 · entrar — login, garagem e sincronização
+
+- **a T01, a T02 e a T03 inteiras** em `app/src/telas/`: os 18 quadros e os toques de cada `tela.md`
+  - **T01:** o Entrar, a recuperação em três passos, a folha "Não recebi o código", o aviso de senha alterada e os três estados
+  - **T02:** a escolha da garagem e a busca
+  - **T03:** a sincronização correndo em 4 s, item a item, a falha de rede com o Reconectar, e o pacote de 4 dias e o vencido
+  - **a tela remonta a cada pulo do palco,** e o estado próprio dela não vaza de um pulo pro outro
+- **a bancada:**
+  - **T01:** 0% contra o HTML em 5 dos 10 quadros, e até 0,09% em mais 3; o 03 e as duas folhas estão explicados (T01·1 e G25);
+  - **T02:** os 3 quadros em 0 a 0,01%;
+  - **T03:** os 5 quadros em 0 a 0,18%;
+  - o que sobra é o glifo do Lucide (G5) ou um desvio abaixo · prints lado a lado em `06-prototipo/prints/C4/`
+- **a régua dos textos** (`node scripts/textos.mjs Tnn`):
+  - **T02:** os 3 quadros conferem;
+  - **T01:** 7 de 10 conferem;
+  - **T03:** 4 de 5 conferem;
+  - o que não confere é desvio nomeado abaixo;
+  - ela passou a pular o que fica inerte atrás do véu e a avisar quando o quadro rola
+- **o mock:** o código errado, o mínimo de 8 do Entrar, os seis requisitos da senha, com o trecho de 3 da regra da sequência, e os 6 s por item. Só aditivo, provado campo a campo, e **o gate foi de 90 pra 109 checagens**
+- **as peças** ganharam variantes nomeadas (G11), anotadas no `MAPA.md` e no `componentes.md`:
+  - o rodapé do login, o segmentado com folga 8, o código com o foco em outra célula e a linha de opção desabilitada;
+  - a escala sem os lados, a nota com o corpo secundário, e o aviso sem poço e mudo por padrão (G15);
+  - a linha de escolha escolhível e a busca com a dica em texto;
+  - no C5, a grade com folga 10, o cartão travado, a folha com folga e subtítulo, a faixa com o traço sobreposto e a linha de garagem em espera;
+  - a camada do toque do link e das peças de duas camadas repete o texto por CSS, e o documento fica com um texto só;
+  - **as 121 fotos da vitrine continuam iguais ao C2**
+- **os tokens:** os 11 que as telas pediram entraram no bloco *C4 · C5* do `tokens.css` (228 → 239)
+- **o ritmo do cronômetro** do código entrou no `ritmos.js` e no `movimento.md` · os `tela.md` da T01, T03 e T04 seguem o código
+- **desvio nomeado (T01·1):** o prazo do código abre em 10:00 e o reenvio em 60 s, como o mock diz, e os dois descem um segundo por segundo. As referências 03, 04 e 05 mostram 9:41, 9:28 e 44 s, que não saem do mock e não batem entre si
+- **desvio nomeado (G25):** a folha "Não recebi o código" e o aviso "Senha alterada" aparecem por cima da tela de onde nasceram, escurecida. As referências desenham o véu sobre uma página vazia
+- **desvio nomeado (G24):** no código errado e nas tentativas esgotadas, as células sobem 9 px, como a referência desenha. **Vai ao diretor:** reservar o lugar da frase das tentativas
+- **desvio nomeado (G9):** a falha de rede (T03/01) mostra o Pátio Caruaru parado no quarto item: 0 de 6 ativos, e o pacote de 04/03. O caso do mock é a primeira sincronização do pacote vencido de Caruaru, e a referência desenha a Várzea em 9 de 16
+- **desvio nomeado (G24, Lei 3):** na T03, o aviso e a régua de idade tomam o lugar do poço, e a lista sobe (01, 02, 03 e 04), como as referências desenham
+- **desvio nomeado (G21):** a T02/02 mostra as mesmas três garagens com a busca aberta. Nenhuma empresa do mock tem garagens demais pra uma tela
+- **como a referência desenha (T03·2):** a T03/03 mostra o código do pacote (pac-uo-02), e não a versão. **Vai ao diretor:** a regra única da versão
+- **vão ao diretor:**
+  - o texto do limite de envios da hora atingido, que hoje deixa os botões desabilitados com o mesmo rótulo (G25);
+  - o texto de "Entrar com a senha nova", que volta ao login sem entrar (T01·7);
+  - o destino de "Pedir ajuda ao gestor", que só fecha a folha (T01·3);
+  - o "faltam ~40 s" num download que termina em 4 s;
+  - o "Com 7 ele bloqueia" da T03/03, contra a regra de mais de 7 dias (T03·3);
+  - o vazio da busca da T02, que ainda não tem texto
+- **HU sem referência:** a sincronização incremental por versão (HU-T03-1) e a versão gravada na evidência (HU-T03-3). O protótipo baixa o pacote inteiro e guarda a versão no estado
+
 ## 2026-09-24 · C2 · design system
 
 - **as peças** em `app/src/ds/`:

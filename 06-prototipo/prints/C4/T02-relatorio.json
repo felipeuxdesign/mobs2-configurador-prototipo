@@ -1,0 +1,38 @@
+[
+ {
+  "tela": "T02",
+  "ref": "00-tela",
+  "html": {
+   "fino": 0,
+   "estrutural": 0
+  },
+  "png": {
+   "fino": 1.22,
+   "estrutural": 0.2
+  }
+ },
+ {
+  "tela": "T02",
+  "ref": "01-momento-escolhida",
+  "html": {
+   "fino": 0,
+   "estrutural": 0
+  },
+  "png": {
+   "fino": 1.22,
+   "estrutural": 0.24
+  }
+ },
+ {
+  "tela": "T02",
+  "ref": "02-estado-lista-longa-com-busca",
+  "html": {
+   "fino": 0.01,
+   "estrutural": 0
+  },
+  "png": {
+   "fino": 1.41,
+   "estrutural": 0.2
+  }
+ }
+]

@@ -32,3 +32,21 @@ export function mascara(masc, digitos) {
 export function caixaAlta(s) {
   return String(s).toUpperCase()
 }
+
+/** C4 · T02·6 — o pacote passou do limiar de bloqueio (mais de 7 dias, HU-T03-4) */
+export function pacotePassouDoBloqueio(p) {
+  return p.diasAtras > p.limiares.bloqueioDias
+}
+
+/** C4 · T02·6 — a idade do pacote na linha da garagem, derivada na hora dos
+ *  limiares do mock: passou do bloqueio → vencido · 1 dia → ontem · senão, há N dias */
+export function idadeNaLinhaDaGaragem(p) {
+  if (pacotePassouDoBloqueio(p)) return 'pacote vencido · sincronize antes de usar'
+  if (p.diasAtras === 1) return `pacote de ontem, ${p.hora}`
+  return `pacote de há ${p.diasAtras} dias, ${p.hora}`
+}
+
+/** C4 · T02·7 — a chave de busca: sem acento e sem caixa ("Várzea" → "varzea") */
+export function chaveDeBusca(s) {
+  return String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim()
+}

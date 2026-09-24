@@ -37,6 +37,7 @@ Mudam **no lugar**. O ritmo do protótipo é de apresentação: rápido o bastan
 | ciclo dinâmico · cada passo do veículo | 3s |
 | prazo do evento | 1s real vale 4s de prazo |
 | sincronização do pacote | 4s no total |
+| cronômetro do código (T01) | 1s real vale 1s · o prazo e o reenvio abrem cheios, como o mock diz (T01·1) |
 
 ## Só isto se move
 

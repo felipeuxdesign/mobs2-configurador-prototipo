@@ -4,6 +4,8 @@
   border-top: var(--traco-borda) solid var(--borda-rodape);
 }
 .ds-rodape-fecha-botao { padding-bottom: var(--rodape-pe-com-botao); }
+/* o rodapé do login (T01): sem o traço em cima, 20 dos lados e 28 no pé */
+.ds-rodape.ds-rodape-login { padding: var(--e-14) var(--e-20) var(--e-28) var(--e-20); border-top: 0; }
 /* o link tem 48 de toque e come 4 de cada lado: o desenho fica colado no primário */
 .ds-rodape .ds-link.ds-rodape-link { margin: calc(var(--e-4) * -1) 0; }
 .ds-rodape-legenda { padding-bottom: var(--e-6); text-align: center; font-size: var(--t-legenda); font-weight: 600; color: var(--tinta-apagada); }

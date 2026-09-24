@@ -23,16 +23,16 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | barra do sistema sem sessão | src/ds/chrome/BarraDoSistema.jsx (fundo pagina) |
 | faixa · sessão aberta | src/ds/chrome/Faixa.jsx |
 | faixa · sem sessão | src/ds/chrome/Faixa.jsx (estado sem-sessao) |
-| faixa · módulo com falha | src/ds/chrome/Faixa.jsx (estado falha) |
+| faixa · módulo com falha | src/ds/chrome/Faixa.jsx (estado falha; tracoSobreposto no menu: o traço sem roubar altura, G24 · C5, T04/03) |
 | faixa · sem ação | src/ds/chrome/Faixa.jsx (sem acao, casca da T16 · DS-D5) |
 | tira de contexto | src/ds/chrome/TiraDeContexto.jsx (+ Avatar.jsx, Camadas.jsx) |
 | faixa no menu | src/ds/chrome/Faixa.jsx (lugar menu) |
 | o topo do menu inteiro | src/ds/chrome/TopoDoMenu.jsx |
-| duas ações | src/ds/chrome/Rodape.jsx |
+| duas ações | src/ds/chrome/Rodape.jsx (lugar login: o rodapé da T01, sem traço, 20 · 28) |
 | uma ação | src/ds/chrome/Rodape.jsx |
 | processo correndo | src/ds/chrome/Rodape.jsx (primarioDesabilitado + explicacao) |
 | com legenda | src/ds/chrome/Rodape.jsx (legenda) |
-| folha | src/ds/chrome/Folha.jsx + Veu.jsx (conteúdo: CartaoDaConta, PrazoDaConta, BotaoDaFolha) |
+| folha | src/ds/chrome/Folha.jsx + Veu.jsx (conteúdo: CartaoDaConta, PrazoDaConta, BotaoDaFolha; folga 12 e subtitulo na de trocar de garagem · C5, T04/07) |
 | diálogo | src/ds/chrome/Dialogo.jsx (+ Frase, Destaque) |
 | diálogo sem saída | src/ds/chrome/Dialogo.jsx (sem saida) |
 | diálogo com ciência | src/ds/chrome/Dialogo.jsx (ciencia → primitivos/Checkbox.jsx) |
@@ -43,7 +43,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 
 | Peça | Componente |
 |---|---|
-| escolha numa lista | src/ds/linhas/LinhaEscolha.jsx |
+| escolha numa lista | src/ds/linhas/LinhaEscolha.jsx (escolhivel: a vencida também se escolhe, T02·1 · C4) |
 | os glifos de estado | src/ds/primitivos/Glifo.jsx (ESTADOS) |
 | os ícones de ferramenta | src/ds/primitivos/Icone.jsx (ICONES) |
 | os poços | src/ds/primitivos/Poco.jsx |
@@ -67,22 +67,22 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | seção recolhida | src/ds/linhas/CabecaSecao.jsx |
 | passos com o prazo estourado | src/ds/linhas/Lista.jsx (recheio passos) + LinhaChecagem.jsx |
 | disponível | src/ds/cartoes/CartaoFerramenta.jsx (+ GradeFerramentas.jsx) |
-| decide agora | src/ds/cartoes/CartaoFerramenta.jsx (largo, estado decide) |
-| conectado | src/ds/cartoes/CartaoFerramenta.jsx (largo) |
+| decide agora | src/ds/cartoes/CartaoFerramenta.jsx (largo, estado decide; poço 30 com a sessão aberta · C5) |
+| conectado | src/ds/cartoes/CartaoFerramenta.jsx (largo; travado com a sessão aberta · C5, T04·7) |
 | com pendência | src/ds/cartoes/CartaoFerramenta.jsx + Contador.jsx |
-| espera | src/ds/cartoes/CartaoFerramenta.jsx (estado espera) |
+| espera | src/ds/cartoes/CartaoFerramenta.jsx (estado espera; sem folga entre o poço e o nome, como a folha 4 desenha; largo, o ativo que espera o módulo · C5) |
 | espera a rede | src/ds/cartoes/CartaoFerramenta.jsx (estado sem-rede) |
-| falha | src/ds/cartoes/Aviso.jsx (tom falha) |
-| aviso | src/ds/cartoes/Aviso.jsx (tom neutro) |
+| falha | src/ds/cartoes/Aviso.jsx (tom falha; mudo, o glifo calado pro leitor, G15 · C4, T03/01 e 03) |
+| aviso | src/ds/cartoes/Aviso.jsx (tom neutro; semPoco no da folha de garagem, Lei 7 · C5, T04/08) |
 | processo parado | src/ds/cartoes/Aviso.jsx (glifo xis) |
 | com contagem | src/ds/cartoes/Aviso.jsx (numero, unidade) |
 | vazio declarado | src/ds/cartoes/Vazio.jsx |
-| nota tracejada | src/ds/cartoes/Nota.jsx (tom explica) |
+| nota tracejada | src/ds/cartoes/Nota.jsx (tom explica; corpo secundario, a frase de 13 da T03/04 · C4) |
 | nota com rótulo | src/ds/cartoes/Nota.jsx (tom fato) |
 | o par comparado | src/ds/cartoes/ParComparado.jsx |
 | linha do histórico | src/ds/linhas/LinhaHistorico.jsx |
 | linha da fila · esperando | src/ds/linhas/LinhaFilaEsperando.jsx (→ LinhaFila.jsx estado espera) |
-| linha de garagem | src/ds/linhas/LinhaGaragem.jsx |
+| linha de garagem | src/ds/linhas/LinhaGaragem.jsx (estado espera: a troca espera o envio · C5, T04/08) |
 | linha de garagem · a atual | src/ds/linhas/LinhaGaragem.jsx (estado atual) |
 | a lista de garagens | src/ds/linhas/Lista.jsx + LinhaGaragem.jsx |
 
@@ -99,7 +99,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | instrumentos apagados | src/ds/instrumentos/Declarado.jsx (texto) |
 | cadeia concluída | src/ds/instrumentos/Cadeia.jsx (+ Trilho.jsx) |
 | cadeia recusada | src/ds/instrumentos/Cadeia.jsx (justa) |
-| segmentado | src/ds/instrumentos/Segmentado.jsx |
+| segmentado | src/ds/instrumentos/Segmentado.jsx (folga 8 na recuperação da T01) |
 | a pré-condição dos pinos | src/ds/instrumentos/Precondicao.jsx |
 | encerrando | src/ds/instrumentos/Encerramento.jsx (+ Trilho.jsx) |
 | pede o corte | src/ds/instrumentos/Encerramento.jsx (justo, energia) |
@@ -118,15 +118,15 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | campo | src/ds/entrada/Campo.jsx |
 | campo focado | src/ds/entrada/Campo.jsx (focado, + TracoFoco.css) |
 | requisitos da senha | src/ds/entrada/Requisito.jsx (+ Requisitos) |
-| código · seis células | src/ds/entrada/Codigo.jsx |
+| código · seis células | src/ds/entrada/Codigo.jsx (focoEm: o traço fora do próximo dígito, T01/06) |
 | código errado | src/ds/entrada/Codigo.jsx (errado) |
 | link dentro do conteúdo | src/ds/entrada/LinkConteudo.jsx |
 | botões só de ícone | src/ds/primitivos/SoIcone.jsx |
 | checkbox | src/ds/primitivos/Checkbox.jsx |
 | checkbox marcado | src/ds/primitivos/Checkbox.jsx (marcado) |
-| campo de busca | src/ds/entrada/Busca.jsx |
+| campo de busca | src/ds/entrada/Busca.jsx (a dica é texto por cima do campo vazio, não placeholder · C4) |
 | justificativa | src/ds/entrada/Justificativa.jsx (+ CampoTexto.jsx) |
-| linha de opção | src/ds/chrome/LinhaDeOpcao.jsx (+ CartaoDeOpcoes) |
+| linha de opção | src/ds/chrome/LinhaDeOpcao.jsx (+ CartaoDeOpcoes · desabilitado, T01/04) |
 | linha de módulo | src/ds/entrada/LinhaModulo.jsx |
 | linha de ônibus | src/ds/entrada/LinhaOnibus.jsx |
 | bloco escolhido | src/ds/entrada/BlocoEscolhido.jsx |
@@ -135,7 +135,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | cartão que pede ação | src/ds/entrada/CartaoAcao.jsx (+ BotaoSecundario.jsx) |
 | botão secundário | src/ds/entrada/BotaoSecundario.jsx |
 | tira de leituras | src/ds/entrada/TiraLeituras.jsx |
-| lista com contagem | src/ds/entrada/LinhaContagem.jsx (+ linhas/Lista.jsx) |
+| lista com contagem | src/ds/entrada/LinhaContagem.jsx (+ linhas/Lista.jsx; nomeGlifo, o nome pelo estado do dado · C4) |
 
 ## Folha 7 · checklist evidencia
 
@@ -174,10 +174,10 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 - chrome/CartaoDaConta.jsx, PrazoDaConta.jsx e BotaoDaFolha.jsx, o conteúdo da 'folha' da conta, T04/05
 - chrome/Avatar.jsx, na tira e no cartão da conta
 - chrome/Veu.jsx, o véu da folha e do diálogo
-- chrome/Camadas.jsx, interna
+- chrome/Camadas.jsx, interna (a camada do toque repete a frase por CSS, como o Link · C5)
 - chrome/Dialogo.jsx · Frase, Destaque; chrome/LinhaDeOpcao.jsx · CartaoDeOpcoes
 - linhas/Lista.jsx, o cartão de lista de todas as linhas
-- cartoes/GradeFerramentas.jsx
+- cartoes/GradeFerramentas.jsx (folga 10 no menu da T04 · C5)
 - entrada/CampoTexto.jsx, o campo longo da justificativa; entrada/Requisito.jsx · Requisitos, a lista
-- instrumentos/Escala.jsx, Trilho.jsx, Tambor.jsx, RodaDigito.jsx (G29) e LeituraPequena.jsx · GradeLeituras
+- instrumentos/Escala.jsx (semLados: a barra do download da T03, o placar sem as bordas dos lados · C4), Trilho.jsx, Tambor.jsx, RodaDigito.jsx (G29) e LeituraPequena.jsx · GradeLeituras
 - checklist/CartaoValor.jsx · GradeCartoes

@@ -7,6 +7,8 @@
 }
 .ds-folha-fechada { transform: translateY(100%); transition-duration: var(--mov-rapido); }
 .ds-folha-minima { min-height: var(--folha-minima); }
+.ds-folha-folga-12 { gap: var(--e-12); }
+.ds-folha-subtitulo { font-size: var(--t-secundario); font-weight: 500; line-height: var(--entrelinha-legenda); color: var(--tinta-secundaria); }
 
 .ds-folha-puxador { display: flex; justify-content: center; margin: calc(var(--e-6) * -1) 0 var(--e-2) 0; }
 .ds-folha-puxador > span { display: block; width: var(--e-36); height: var(--e-4); border-radius: var(--raio); background: var(--borda-neutra); }

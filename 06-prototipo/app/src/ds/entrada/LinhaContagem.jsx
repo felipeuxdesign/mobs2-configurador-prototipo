@@ -7,10 +7,12 @@
 import { Poco, Glifo } from '../index.js'
 import './LinhaContagem.css'
 
-export function LinhaContagem({ nome, contagem, estado = 'espera', divisoria = true }) {
+// nomeGlifo (C4 · T03, G15): o nome pro leitor segue o estado do dado, não o
+// desenho — na baixa que parou, o quadrado de 'agora' diz 'parou'
+export function LinhaContagem({ nome, contagem, estado = 'espera', divisoria = true, nomeGlifo }) {
   return (
     <div className={`ds-linha-contagem ds-linha-contagem-${estado} ${divisoria ? '' : 'ds-sem-divisoria'}`}>
-      <Poco tam={26}><Glifo estado={estado} poco={26} /></Poco>
+      <Poco tam={26}><Glifo estado={estado} poco={26} nome={nomeGlifo} /></Poco>
       <span className="ds-linha-contagem-nome">{nome}</span>
       <span className="ds-linha-contagem-valor">{contagem}</span>
     </div>

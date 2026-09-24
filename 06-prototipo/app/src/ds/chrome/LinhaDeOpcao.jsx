@@ -14,9 +14,11 @@ export function CartaoDeOpcoes({ children }) {
 }
 
 // icone: um nome do Icone (reenviar, email, gestor…)
-export function LinhaDeOpcao({ icone, titulo, detalhe, aoTocar, rotulo, forcaToque = false }) {
+// desabilitado: a saída que ainda não vale (T01·3, o reenvio antes dos 60 s) —
+// o mesmo desenho, sem o pressionado e sem o toque (Tocavel).
+export function LinhaDeOpcao({ icone, titulo, detalhe, aoTocar, rotulo, forcaToque = false, desabilitado = false }) {
   return (
-    <Tocavel className={`ds-linha-opcao ${forcaToque ? 'ds-forca-toque' : ''}`} rotulo={rotulo} aoTocar={aoTocar}>
+    <Tocavel className={`ds-linha-opcao ${forcaToque ? 'ds-forca-toque' : ''}`} rotulo={rotulo} aoTocar={aoTocar} desabilitado={desabilitado}>
       <Poco tam={30}><Icone nome={icone} tam={18} cor="secundaria" /></Poco>
       <span className="ds-linha-opcao-textos">
         <span className="ds-linha-opcao-titulo">{titulo}</span>

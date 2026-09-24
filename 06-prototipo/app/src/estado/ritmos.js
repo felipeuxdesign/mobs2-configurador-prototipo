@@ -11,5 +11,6 @@ export const RITMOS = {
   autotesteAssertivaMs: 400, // autoteste · cada assertiva
   cicloPassoMs: 3000,        // ciclo dinâmico · cada passo do veículo
   prazoFator: 4,             // prazo do evento · 1 s real vale 4 s de prazo
-  sincronizacaoTotalMs: 4000 // sincronização do pacote · 4 s no total
+  sincronizacaoTotalMs: 4000, // sincronização do pacote · 4 s no total
+  cronometroCodigoMs: 1000,   // cronômetro do código (T01) · 1 s real vale 1 s de prazo e de reenvio (T01·1)
 }

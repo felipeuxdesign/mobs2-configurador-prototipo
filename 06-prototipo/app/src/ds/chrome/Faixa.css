@@ -8,6 +8,8 @@
 .ds-faixa-sem-sessao { border-bottom: 0; }
 .ds-faixa-menu { height: var(--faixa-sessao-menu); border-top: var(--traco-borda) solid var(--borda-rodape); border-bottom: 0; }
 .ds-faixa-falha { border-bottom: var(--traco-destaque) solid var(--vermelho); }
+/* no menu, o traço da falha por cima, sem roubar altura (G24, T04/03) */
+.ds-faixa-menu.ds-faixa-falha.ds-faixa-traco-sobreposto { border-bottom: 0; box-shadow: inset 0 calc(var(--traco-destaque) * -1) 0 var(--vermelho); }
 
 .ds-faixa-id { display: flex; align-items: center; gap: var(--e-10); min-width: 0; }
 .ds-faixa-serial { font-size: var(--t-destaque); font-weight: 700; letter-spacing: var(--ls-identidade); white-space: nowrap; color: var(--tinta); }

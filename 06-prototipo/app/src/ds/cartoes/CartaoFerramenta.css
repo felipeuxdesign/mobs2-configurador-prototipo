@@ -7,6 +7,9 @@
 .ds-ferramenta-largo.ds-tocavel { grid-column: span 2; gap: var(--e-12); padding: var(--e-14) var(--e-12); }
 .ds-ferramenta-decide.ds-tocavel { border-color: var(--lima); }
 .ds-ferramenta-espera.ds-tocavel { background: var(--fundo-apagado); border: var(--traco-borda) dashed var(--divisoria); }
+/* a espera não tem folga entre o poço e o nome (folha 4 · espera, T04/01 e 02):
+ * com o título em duas linhas e a causa, o cartão cabe nos 108. A da rede tem. */
+.ds-ferramenta-meia.ds-ferramenta-espera.ds-tocavel:not(.ds-ferramenta-sem-rede) { gap: 0; }
 
 /* meia largura: o poço (e o contador no canto) em cima, o nome embaixo */
 .ds-ferramenta-topo { display: flex; align-items: flex-start; justify-content: space-between; }

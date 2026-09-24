@@ -10,9 +10,9 @@ Cada linha é um espécime de moldura das folhas (121), e a folha 3 soma quatro 
 |---|---|---|
 | primário · normal | roxo com o texto lima · 56 | T01 T02 T03 T04 T05 T06 T07 T08 T09 T10 T11 T12 T13 T14 T15 T16 |
 | primário · pressionado | o roxo clareia e afunda 2% | T01 T02 T03 T04 T05 T06 T07 T08 T09 T10 T11 T12 T13 T14 T15 T16 · no toque |
-| primário · desabilitado | sem roxo · diz o que está acontecendo | T02 T03 T05 T06 T08 T09 T10 T13 T14 T16 |
+| primário · desabilitado | sem roxo · diz o que está acontecendo | T01 T02 T03 T05 T06 T08 T09 T10 T13 T14 T16 |
 | link · normal e pressionado | o cinza vira branco no toque · 48 de toque | T01 T03 T04 T05 T06 T07 T08 T09 T10 T11 T13 T14 T16 |
-| linha tocável · normal e pressionada | a base de toda linha que se toca · o pressionado acende o fundo | T01 T03 T04 T05 T06 T11 T12 T13 T15 T16 |
+| linha tocável · normal e pressionada | a base de toda linha que se toca · o pressionado acende o fundo | T01 T02 T04 T05 T06 T11 T12 T13 T15 T16 |
 
 ## Folha 2 · chrome rodape folha dialogo · `referencias/png/folha-2-chrome-rodape-folha-dialogo.png`
 
@@ -20,22 +20,22 @@ Cada linha é um espécime de moldura das folhas (121), e a folha 3 soma quatro 
 |---|---|---|
 | barra do sistema | desenho do Android · não é do app | T05 T06 T07 T08 T09 T10 T11 T12 T13 T14 T15 T16 |
 | barra do sistema no menu | sobre o fundo da tira | T04 |
-| barra do sistema sem sessão | a cor da página — ela sangra no que vem embaixo | T02 T03 T05 |
+| barra do sistema sem sessão | a cor da página — ela sangra no que vem embaixo | T01 T02 T03 T05 |
 | faixa · sessão aberta | LED lima, serial, placa e o ENCERRAR | T07 T09 T10 T13 T14 T15 T16 |
-| faixa · sem sessão | LED apagado · só o fato | T12 T15 T16 |
-| faixa · módulo com falha | o serial sai · LED vermelho | T04 |
-| faixa · sem ação | na tela que ela abriu — o encerramento | T04 T05 T06 T07 T08 T09 T10 T11 T12 T13 T14 T15 T16 |
+| faixa · sem sessão | LED apagado · só o fato | T04 T12 T15 T16 |
+| faixa · módulo com falha | o serial sai · LED vermelho · variante: no menu, o traço vermelho por cima, sem roubar altura (T04) | T04 |
+| faixa · sem ação | na tela que ela abriu — o encerramento | T05 T06 T07 T08 T09 T10 T11 T12 T13 T14 T15 T16 |
 | tira de contexto | só no menu · a garagem e a conta | T04 |
 | faixa no menu | 50 em vez de 52 · embaixo da tira | T04 |
 | o topo do menu inteiro | tira e faixa juntas | T04 |
-| duas ações | primário 56 · link com 48 de toque | T03 T05 T06 T07 T08 T09 T10 T11 T13 T14 T16 |
+| duas ações | primário 56 · link com 48 de toque · variante: o rodapé do login, sem o traço em cima, 20 dos lados e 28 no pé (T01) | T01 T03 T05 T06 T07 T08 T09 T10 T11 T13 T14 T16 |
 | uma ação | quando só existe um caminho | T02 T03 T05 T06 T08 T09 T11 T12 T15 T16 |
 | processo correndo | o primário diz o que acontece | T03 T05 T06 T07 T08 T09 T10 T11 T13 T14 T16 |
-| com legenda | uma linha que explica a ação, a 12px do botão | T03 T05 T06 T07 T08 T09 T10 T11 T13 T14 T16 |
-| folha | sobe do rodapé · puxador · X | T01 T04 |
-| diálogo | só pra ação que encerra trabalho | T01 T04 T13 |
-| diálogo sem saída | quando o que aconteceu já está feito · uma ação só | T01 T04 T13 |
-| diálogo com ciência | o técnico assina a decisão · o primário espera o check | T01 T04 T13 |
+| com legenda | uma linha que explica a ação, a 12px do botão | T05 T06 T07 T08 T09 T10 T11 T13 T14 T16 |
+| folha | sobe do rodapé · puxador · X · variante: folga 12 e uma frase embaixo do título, a de trocar de garagem (T04) | T01 T04 |
+| diálogo | só pra ação que encerra trabalho | T04 T13 |
+| diálogo sem saída | quando o que aconteceu já está feito · uma ação só | T01 T13 |
+| diálogo com ciência | o técnico assina a decisão · o primário espera o check | T13 |
 | folha com opções | cada saída numa linha, com o que ela faz | T01 |
 | barra do sistema sob o véu | escurece junto quando não há tira | T01 |
 
@@ -43,7 +43,7 @@ Cada linha é um espécime de moldura das folhas (121), e a folha 3 soma quatro 
 
 | Peça | Regra | Telas que usam |
 |---|---|---|
-| escolha numa lista | o quadrado lima cheio é o escolhido | T02 |
+| escolha numa lista | o quadrado lima cheio é o escolhido · variante: escolhível, a garagem vencida também se escolhe (T02) | T02 |
 | os glifos de estado | doze, um por natureza · com o nome pro leitor de tela | todas, dentro das peças · sem uso nas 105: ok cinza |
 | os ícones de ferramenta | dez, do Lucide, no traço dos tokens | T04 e as telas das ferramentas · sem uso nas 105: o ativo de Últimas instalações |
 | os poços | oito tamanhos, de 22 a 44 | todas, dentro das peças · sem uso nas 105: 22, 28 e 44 |
@@ -63,28 +63,28 @@ Cada linha é um espécime de moldura das folhas (121), e a folha 3 soma quatro 
 | passo do ciclo | compacta · 38 | T14 |
 | assertiva da sessão | dupla · 50 | T11 T12 T16 |
 | linha de conferência | dupla · 50 | T11 T12 T16 |
-| seção aberta do checklist | a cabeça do acordeão | T01 T13 |
-| seção recolhida | as outras, embaixo da aberta | T01 T13 |
+| seção aberta do checklist | a cabeça do acordeão | T13 |
+| seção recolhida | as outras, embaixo da aberta | T13 |
 | passos com o prazo estourado | a lista inteira da T14 | T14 |
-| disponível | ícone em poço · nome embaixo | T04 |
-| decide agora | borda lima · o próximo passo | T04 |
-| conectado | o cartão largo com o serial | T04 |
+| disponível | ícone em poço · nome embaixo · variante: a grade com 10 entre os cartões, no menu (T04) | T04 |
+| decide agora | borda lima · o próximo passo · variante: poço 30 com a sessão aberta (T04) | T04 |
+| conectado | o cartão largo com o serial · variante: travado, com a sessão aberta mostra o que ela prendeu e não se toca (T04) | T04 |
 | com pendência | o contador no canto, igual ao da fila | T04 |
-| espera | tracejado · a causa no lugar da ação | T04 |
+| espera | tracejado · a causa no lugar da ação · variante: o cartão largo, o ativo que espera o módulo (T04) | T04 |
 | espera a rede | sem conexão · fundo apagado, borda sólida, traço no poço | T04 |
-| falha | traço vermelho embaixo | T03 T05 T09 |
-| aviso | o mesmo desenho, cinza, sem traço | T03 T05 T09 T12 T16 |
-| processo parado | o veredito de uma cadeia ou de um download | T03 T05 T09 |
+| falha | traço vermelho embaixo · variante: o glifo calado pro leitor de tela, o rótulo e a frase já dizem (T03) | T01 T03 T05 T09 |
+| aviso | o mesmo desenho, cinza, sem traço · variante: sem poço, só o rótulo e a frase, na folha de trocar de garagem (T04) | T03 T04 T05 T09 T12 T16 |
+| processo parado | o veredito de uma cadeia ou de um download | T05 T09 |
 | com contagem | quantos não bateram, à direita | T11 |
 | vazio declarado | tracejado · título e uma frase · sem ícone | T12 T15 |
-| nota tracejada | o que falta explicar, sem ser aviso | T05 |
+| nota tracejada | o que falta explicar, sem ser aviso · variante: a frase em 13, mais aberta, a que diz o bloqueio do pacote (T03) | T03 T05 |
 | nota com rótulo | o fato declarado, com o nome dele em cima | T06 T16 |
 | o par comparado | lido × cadastro | T06 T15 |
-| linha do histórico | placa, módulo e hora · o veredito à direita | T01 T02 T03 T04 T05 T06 T11 T12 T13 T15 T16 |
+| linha do histórico | placa, módulo e hora · o veredito à direita | T05 T06 T11 T12 T13 T15 T16 |
 | linha da fila · esperando | o que ainda não subiu | T15 |
-| linha de garagem | na folha · o pacote e a contagem | T01 T04 |
-| linha de garagem · a atual | o marcador lima de 11px | T01 T04 |
-| a lista de garagens | na folha, com as três | T01 T02 T03 T04 T05 T06 T11 T12 T13 T15 T16 |
+| linha de garagem | na folha · o pacote e a contagem · variante: em espera, não se escolhe até o envio terminar, o traço e o que ela espera no lugar do pacote (T04) | T04 |
+| linha de garagem · a atual | o marcador lima de 11px | T04 |
+| a lista de garagens | na folha, com as três | T04 T05 T06 T11 T12 T13 T15 T16 |
 
 ## Folha 5 · instrumentos cadeia processo · `referencias/png/folha-5-instrumentos-cadeia-processo.png`
 
@@ -97,16 +97,16 @@ Cada linha é um espécime de moldura das folhas (121), e a folha 3 soma quatro 
 | tambor | hodômetro é rolete | T07 |
 | sinais liga-desliga | o fato e o check, sem barra | T07 |
 | instrumentos apagados | o resumo do que só fecha andando | T07 |
-| cadeia concluída | trilho lima | T01 T03 T05 T06 T09 T11 T12 T13 T14 T15 T16 |
-| cadeia recusada | o elo que falhou acende | T01 T03 T05 T06 T09 T11 T12 T13 T14 T15 T16 |
-| segmentado | um segmento por passo | T02 T10 T13 T14 T16 |
+| cadeia concluída | trilho lima | T05 T06 T09 T11 T12 T13 T14 T15 T16 |
+| cadeia recusada | o elo que falhou acende | T05 T06 T09 T11 T12 T13 T14 T15 T16 |
+| segmentado | um segmento por passo · variante: folga 8, a da recuperação do acesso (T01) | T01 T10 T13 T14 T16 |
 | a pré-condição dos pinos | a primeira linha da configuração, embaixo do título | T09 |
-| encerrando | a legenda só no passo que corre | T01 T03 T05 T06 T09 T11 T12 T13 T14 T15 T16 |
-| pede o corte | é com você · o único passo em que ele age | T01 T03 T05 T06 T09 T11 T12 T13 T14 T15 T16 |
-| sem homologar | só os quatro que deixam o módulo seguro · os pulados com traço | T01 T03 T05 T06 T09 T11 T12 T13 T14 T15 T16 |
+| encerrando | a legenda só no passo que corre | T05 T06 T09 T11 T12 T13 T14 T15 T16 |
+| pede o corte | é com você · o único passo em que ele age | T05 T06 T09 T11 T12 T13 T14 T15 T16 |
+| sem homologar | só os quatro que deixam o módulo seguro · os pulados com traço | T05 T06 T09 T11 T12 T13 T14 T15 T16 |
 | cronômetro | o prazo drena | T14 |
 | prazo cheio | antes do disparo · a fila drenando | T14 |
-| placar da homologação | a única barra que enche | T13 |
+| placar da homologação | a única barra que enche · variante: a barra sem as bordas dos lados, no download do pacote (T03) | T13 |
 
 ## Folha 6 · entrada escolha cabecalho · `referencias/png/folha-6-entrada-escolha-cabecalho.png`
 
@@ -114,19 +114,19 @@ Cada linha é um espécime de moldura das folhas (121), e a folha 3 soma quatro 
 |---|---|---|
 | com contador neutro | o contador conta o que passou | T05 T06 T07 T09 T12 T13 T14 T15 T16 |
 | com contador de falha | quantos reprovaram, em vermelho | T05 T06 T07 T09 T12 T13 T14 T15 T16 |
-| a marca no login | o logo e CONFIGURADOR entre dois traços | T01 T02 T03 T04 T05 T06 T07 T08 T09 T10 T11 T12 T13 T14 T15 T16 |
-| campo | rótulo em cima · poço de 48 | T01 T02 T03 T04 T05 T06 T07 T08 T09 T10 T11 T12 T13 T14 T15 T16 |
-| campo focado | rótulo e traço de baixo em lima | T01 T02 T03 T04 T05 T06 T07 T08 T09 T10 T11 T12 T13 T14 T15 T16 |
+| a marca no login | o logo e CONFIGURADOR entre dois traços | T01 T05 T06 T07 T08 T09 T10 T11 T12 T13 T14 T15 T16 |
+| campo | rótulo em cima · poço de 48 | T01 T05 T06 T07 T08 T09 T10 T11 T12 T13 T14 T15 T16 |
+| campo focado | rótulo e traço de baixo em lima | T01 T05 T06 T07 T08 T09 T10 T11 T12 T13 T14 T15 T16 |
 | requisitos da senha | cada regra vira check quando a senha cumpre | T01 |
-| código · seis células | uma célula por dígito | T01 |
+| código · seis células | uma célula por dígito · variante: o foco numa célula dada, fora do próximo dígito, como no código expirado (T01) | T01 |
 | código errado | as células ficam vermelhas | T01 |
 | link dentro do conteúdo | sublinhado · ação sobre o que está perto | T01 |
 | botões só de ícone | fechar e mostrar a senha · 44 de desenho, 48 de toque · com nome pro leitor de tela | T01 T04 |
 | checkbox | o marcador de escolha, com o texto do que se confirma | T01 T06 T13 |
 | checkbox marcado | o mesmo poço com o quadrado lima de 10 · surge em 150ms | T01 T06 T13 · ao marcar |
-| campo de busca | lupa e dica · quando a lista é longa | T02 T06 |
+| campo de busca | lupa e dica · quando a lista é longa · variante: a dica é texto sobre o campo vazio (T02) | T02 T06 |
 | justificativa | o não conforme com o porquê | T13 |
-| linha de opção | o ícone, o que faz, e pra onde | T01 T03 T05 T06 T11 T12 T13 T15 T16 |
+| linha de opção | o ícone, o que faz, e pra onde · variante: desabilitada, a saída que ainda não vale, sem toque (T01) | T01 T05 T06 T11 T12 T13 T15 T16 |
 | linha de módulo | serial e variante · T05 | T05 |
 | linha de ônibus | placa, modelo e frota · T06 | T05 T06 T12 |
 | bloco escolhido | traço lima embaixo = escolhido | T05 |
@@ -135,7 +135,7 @@ Cada linha é um espécime de moldura das folhas (121), e a folha 3 soma quatro 
 | cartão que pede ação | o erro que precisa dele | T06 T15 |
 | botão secundário | fundo --elevado · a ação da linha | T15 |
 | tira de leituras | duas colunas · rótulo em cima | T05 |
-| lista com contagem | o pacote baixando | T01 T03 T05 T06 T11 T12 T13 T15 T16 |
+| lista com contagem | o pacote baixando · variante: o nome pro leitor segue o dado, na baixa que parou a linha diz que parou (T03) | T03 T05 T06 T11 T12 T13 T15 T16 |
 
 ## Folha 7 · checklist evidencia · `referencias/png/folha-7-checklist-evidencia.png`
 

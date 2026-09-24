@@ -20,16 +20,19 @@ Dizer em que garagem o técnico está hoje — o pacote de dados que o app vai u
 
 Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe.
 
+- primário · normal
+- primário · pressionado
+- primário · desabilitado
+- linha tocável · normal e pressionada
 - barra do sistema sem sessão
 - uma ação
 - escolha numa lista
-- linha do histórico
-- a lista de garagens
-- segmentado
-- a marca no login
-- campo
-- campo focado
+- os glifos de estado
+- os poços
+- os marcadores
 - campo de busca
+
+Corrigida no C4 pelo medido (G10, T02-A3): saíram as 6 peças que nenhuma das três desenha (linha do histórico, a lista de garagens, segmentado, a marca no login, campo e campo focado) e entraram as que a tela usa e faltavam: o primário nos três estados, a linha tocável, os glifos, os poços e os marcadores. A lista das garagens daqui é a escolha numa lista, não a lista de garagens da folha (T02-A4). O que só a T02 desenha virou variante nomeada (G11): a linha de escolha escolhível, em que a garagem vencida também se escolhe, e a busca com a dica em texto.
 
 ## Histórias de usuário
 

@@ -34,9 +34,12 @@ function Textos() {
   useEffect(() => {
     document.fonts.ready.then(() => setTimeout(() => {
       const raiz = document.querySelector('.celular-tela'); const lista = []
-      const w = document.createTreeWalker(raiz, NodeFilter.SHOW_TEXT)
+      // o que está inerte (a tela atrás do véu de uma folha ou diálogo, G25) não conta: não é o quadro da referência
+      const w = document.createTreeWalker(raiz, NodeFilter.SHOW_TEXT, { acceptNode: (n) => (n.parentElement?.closest('[inert]') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT) })
       for (let n = w.nextNode(); n; n = w.nextNode()) { const t = n.textContent.replace(/\s+/g, ' ').trim(); if (t) lista.push(t) }
-      const out = document.createElement('pre'); out.id = 'm2cf-out'; out.style.display = 'none'; out.textContent = JSON.stringify(lista)
+      // o miolo que rola no quadro da referência é defeito (a foto sai na rolagem 0 e esconde o que passou de 800)
+      const rolam = [...raiz.querySelectorAll('*')].filter((e) => /auto|scroll/.test(getComputedStyle(e).overflowY) && e.scrollHeight > e.clientHeight + 1).map((e) => `${e.className || e.tagName} (${e.scrollHeight} > ${e.clientHeight})`)
+      const out = document.createElement('pre'); out.id = 'm2cf-out'; out.style.display = 'none'; out.textContent = JSON.stringify({ lista, rolam })
       document.body.appendChild(out)
     }, 50))
   }, [])

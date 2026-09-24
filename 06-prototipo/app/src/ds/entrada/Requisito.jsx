@@ -17,9 +17,11 @@ export function Requisito({ texto, cumprido = false, nota }) {
           <Icone nome="check" tam={16} cor="lima" />
         </span>
       </span>
+      {/* C4 · T01: o texto do documento é um só (o que o leitor e a régua dos
+          textos leem); a camada clara o repete por CSS (data-texto), como o Link */}
       <span className="ds-requisito-texto">
-        <span className="ds-requisito-texto-falta" aria-hidden={cumprido || undefined}>{texto}</span>
-        <span className="ds-requisito-texto-cumprido" aria-hidden={!cumprido || undefined}>{texto}</span>
+        <span className="ds-requisito-texto-falta">{texto}</span>
+        <span className="ds-requisito-texto-cumprido" aria-hidden="true" data-texto={texto} />
       </span>
       {nota && <span className="ds-requisito-nota">{nota}</span>}
     </div>

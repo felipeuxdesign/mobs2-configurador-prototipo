@@ -1,0 +1,122 @@
+[
+ {
+  "tela": "T01",
+  "ref": "00-tela",
+  "html": {
+   "fino": 0.01,
+   "estrutural": 0
+  },
+  "png": {
+   "fino": 0.29,
+   "estrutural": 0.17
+  }
+ },
+ {
+  "tela": "T01",
+  "ref": "01-estado-usuario-ou-senha-incorretos",
+  "html": {
+   "fino": 0.01,
+   "estrutural": 0
+  },
+  "png": {
+   "fino": 0.47,
+   "estrutural": 0.23
+  }
+ },
+ {
+  "tela": "T01",
+  "ref": "02-momento-recuperar-escolher-canal",
+  "html": {
+   "fino": 0,
+   "estrutural": 0
+  },
+  "png": {
+   "fino": 1.17,
+   "estrutural": 0.6
+  }
+ },
+ {
+  "tela": "T01",
+  "ref": "03-momento-recuperar-digitar-codigo",
+  "html": {
+   "fino": 0.52,
+   "estrutural": 0.51
+  },
+  "png": {
+   "fino": 1.33,
+   "estrutural": 0.73
+  }
+ },
+ {
+  "tela": "T01",
+  "ref": "04-momento-nao-recebi-o-codigo",
+  "html": {
+   "fino": 2.18,
+   "estrutural": 0.03
+  },
+  "png": {
+   "fino": 3,
+   "estrutural": 0.56
+  }
+ },
+ {
+  "tela": "T01",
+  "ref": "05-momento-codigo-errado",
+  "html": {
+   "fino": 0.09,
+   "estrutural": 0
+  },
+  "png": {
+   "fino": 1.47,
+   "estrutural": 0.66
+  }
+ },
+ {
+  "tela": "T01",
+  "ref": "06-estado-codigo-expirado",
+  "html": {
+   "fino": 0,
+   "estrutural": 0
+  },
+  "png": {
+   "fino": 0.89,
+   "estrutural": 0.24
+  }
+ },
+ {
+  "tela": "T01",
+  "ref": "07-estado-tentativas-esgotadas",
+  "html": {
+   "fino": 0,
+   "estrutural": 0
+  },
+  "png": {
+   "fino": 1.47,
+   "estrutural": 0.68
+  }
+ },
+ {
+  "tela": "T01",
+  "ref": "08-momento-recuperar-nova-senha",
+  "html": {
+   "fino": 0.02,
+   "estrutural": 0
+  },
+  "png": {
+   "fino": 1.48,
+   "estrutural": 0.61
+  }
+ },
+ {
+  "tela": "T01",
+  "ref": "09-momento-senha-alterada",
+  "html": {
+   "fino": 2.35,
+   "estrutural": 0
+  },
+  "png": {
+   "fino": 3.2,
+   "estrutural": 0.38
+  }
+ }
+]

@@ -8,15 +8,18 @@
 // 52, com a borda (DS-D5). No menu (lugar 'menu') ela tem 50 (--faixa-sessao-menu)
 // e borda de cima --borda-rodape, embaixo da tira. 'sem ativo' na placa fica em
 // --tinta-apagada (G13).
+// `tracoSobreposto` (no menu): o traço vermelho da falha é desenhado por cima
+// dos 2 de baixo, sem roubar altura — o conteúdo fica onde está na faixa
+// aberta (G24, T04/03). Sem ele, o traço é a borda, como a folha 2 desenha.
 import { Led } from '../primitivos/Marcador.jsx'
 import { Camadas } from './Camadas.jsx'
 import './Faixa.css'
 
 const LED = { aberta: 'viva', 'sem-sessao': 'sem-sessao', falha: 'falha' }
 
-export function Faixa({ estado = 'aberta', lugar = 'tela', serial, placa, semAtivo = false, fato, acao, aoEncerrar, rotuloAcao, forcaToque = false }) {
+export function Faixa({ estado = 'aberta', lugar = 'tela', serial, placa, semAtivo = false, fato, acao, aoEncerrar, rotuloAcao, forcaToque = false, tracoSobreposto = false }) {
   return (
-    <div className={`ds-faixa ds-faixa-${estado} ${lugar === 'menu' ? 'ds-faixa-menu' : ''}`}>
+    <div className={`ds-faixa ds-faixa-${estado} ${lugar === 'menu' ? 'ds-faixa-menu' : ''} ${tracoSobreposto ? 'ds-faixa-traco-sobreposto' : ''}`}>
       <div className="ds-faixa-id">
         <Led estado={LED[estado]} />
         {estado === 'aberta' ? (

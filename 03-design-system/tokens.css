@@ -270,6 +270,19 @@
 
   /* ── movimento ──────────────────────────────────────────────── */
   --escala-dialogo: 0.98;            /* o diálogo nasce de 98% e cresce a 100% (movimento.md, por cima da tela) · Dialogo */
+
+  /* ── C4 · C5 · o que as telas T01 a T04 pediram (cada um com o papel e quem usa) ── */
+  --passo-folga: 18px;             /* entre os blocos de um passo da recuperação: o cabeçalho do passo, o título, o conteúdo, a legenda (T01/02–08) · T01 */
+  --entrelinha-titulo-proc: 1.15;  /* o título de 28 do passo, que quebra em duas linhas ('Para onde mandamos / o código?', T01/02–08) · T01 */
+  --t-contato-email: 18px;         /* o e-mail no cartão do canal; o telefone vai em --n-cartao (T01/02, T01·5) · T01 */
+  --campo-senha-nova: 58px;        /* o campo da senha nova, sem rótulo e com o texto à vista (T01/08) · T01 */
+  --t-senha-nova: 20px;            /* a senha nova à vista no campo (T01/08) · T01 */
+  --so-leitor-caixa: 1px;          /* a caixa do texto que só o leitor de tela ouve: o h1 "Entrar" escondido da referência (T01/00, 01) e o h1 "Menu" da T04 · T01, T04 */
+  --instrumento-recheio: 18px;         /* o recheio de cima e de baixo do poço dos instrumentos da T03: o download, o concluído e a idade do pacote (T03-V2) · T03 */
+  --n-unidade-progresso: 17px;         /* a unidade junto do número de 40 no concluído e na idade do pacote (T03/02, 03, 04); no download (00) ela é --n-unidade-g (T03-V3) · T03 */
+  --barra-idade: 14px;                 /* a altura da barra de idade do pacote, o elemento-assinatura (T03/03, 04) · T03 */
+  --idade-preenchido: var(--borda-poco); /* o preenchido da régua de idade, o tempo que passou, no pacote que ainda vale (T03/03): o cinza da borda do poço, #332C49 · T03 */
+  --entrelinha-nota-secundaria: 1.55;  /* a frase de 13 da nota tracejada que diz o bloqueio (T03/04, T03-V6) · Nota (corpo secundario) */
 }
 
 @media (prefers-reduced-motion: reduce) {

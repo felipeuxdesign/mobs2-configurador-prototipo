@@ -1,0 +1,97 @@
+/* T01 · Login — medido nas dez referências (02-telas/T01-login/referencias/html).
+ * Só tokens: os que faltavam estão em tokens-propostos.css, pelo papel. */
+
+.t01 { position: relative; height: 100%; display: flex; flex-direction: column; background: var(--fundo-pagina); color: var(--tinta); }
+
+/* o nome da tela pro leitor, que ninguém vê (o h1 'Entrar' da referência) */
+.t01-titulo-oculto {
+  position: absolute; width: var(--so-leitor-caixa); height: var(--so-leitor-caixa); margin: calc(-1 * var(--so-leitor-caixa));
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* o quadro embaixo da barra: o miolo e o rodapé. Com a folha ou o diálogo por
+ * cima, fica inerte inteiro (Login.jsx) */
+.t01-fundo { flex-grow: 1; min-height: 0; display: flex; flex-direction: column; }
+
+/* o miolo: rola entre a barra e o rodapé quando passa de 800 (G16) */
+.t01-miolo { flex-grow: 1; min-height: 0; display: flex; flex-direction: column; overflow-x: hidden; overflow-y: auto; }
+
+/* ── a entrada · 00 e 01 ── */
+.t01-miolo-entrada { padding: 0 var(--e-20); }
+/* a marca presa a 207 do topo: o formulário cresce embaixo dela sem movê-la.
+ * Os blocos que crescem não encolhem abaixo do que mostram: se o miolo não
+ * couber (a janela baixa), ele rola, e nada se sobrepõe (G16). */
+.t01-marca {
+  flex-grow: 1; display: flex; flex-direction: column; align-items: center;
+  padding-top: calc(var(--marca-topo) - var(--barra-sistema));
+}
+.t01-campos { flex-shrink: 0; display: flex; flex-direction: column; gap: var(--e-16); }
+.t01-aviso { flex-shrink: 0; display: flex; flex-direction: column; margin-bottom: var(--e-4); }
+.t01-lembrar { flex-shrink: 0; display: flex; flex-direction: column; margin: var(--e-8) 0; }
+
+/* ── a recuperação · 02 a 08 ── */
+.t01-miolo-passo { padding: var(--e-36) var(--e-20) 0 var(--e-20); gap: var(--passo-folga); }
+/* O link "Não recebi o código" fecha o miolo com o desenho de 44 e o toque de
+ * 48 (G14): os 2 do toque que passam do desenho sairiam do miolo e o fariam
+ * rolar 2. O miolo ganha esses 2 embaixo e os devolve com a margem, por cima
+ * do recheio vazio do rodapé: nada se move, e o miolo não rola. */
+.t01-miolo-passo {
+  padding-bottom: calc((var(--alvo-min) - var(--linha-padrao)) / 2);
+  margin-bottom: calc((var(--linha-padrao) - var(--alvo-min)) / 2);
+}
+.t01-titulo {
+  flex-shrink: 0; font-size: var(--t-titulo-proc); font-weight: 700;
+  letter-spacing: var(--ls-titulo-proc); line-height: var(--entrelinha-titulo-proc);
+}
+
+/* 02 · os dois canais crescem até a sobra; cada um do tamanho do que diz.
+ * O poço é a caixa de poço do design system (caixas.css) */
+.t01-canais { flex-grow: 1; display: flex; flex-direction: column; gap: var(--e-10); }
+.t01-canal.ds-tocavel {
+  flex-grow: 1; flex-direction: column; align-items: center; justify-content: center; gap: var(--e-6); text-align: center;
+}
+.t01-canal.t01-canal-escolhido { border-bottom: var(--traco-destaque) solid var(--lima); }
+.t01-canal-rotulo { font-size: var(--t-rotulo-topo); font-weight: 700; letter-spacing: var(--ls-rotulo-topo); color: var(--tinta-apagada); }
+.t01-canal-escolhido .t01-canal-rotulo { color: var(--lima); }
+.t01-canal-contato { font-weight: 700; }
+.t01-canal-contato-telefone { font-size: var(--n-cartao); color: var(--tinta); }
+.t01-canal-contato-email { font-size: var(--t-contato-email); color: var(--tinta-forte); }
+
+.t01-legenda-dupla { flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding-bottom: var(--e-6); font-size: var(--t-legenda); }
+.t01-legenda-dupla-fato { font-weight: 500; color: var(--tinta-apagada); }
+.t01-legenda-dupla-resta { font-weight: 700; color: var(--tinta-secundaria); }
+
+/* 03 · 05 · 06 · 07 · as células e o cartão, centrados na sobra */
+.t01-codigo-grupo { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; gap: var(--e-20); }
+.t01-cartao-codigo { display: flex; flex-direction: column; align-items: center; gap: var(--e-4); padding: var(--e-16); }
+.t01-cartao-codigo-rotulo { font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--tinta-apagada); }
+.t01-cartao-codigo-falha .t01-cartao-codigo-rotulo { color: var(--vermelho); }
+.t01-cartao-codigo-numero {
+  font-size: var(--n-destaque); font-weight: 700; letter-spacing: var(--ls-n-destaque);
+  line-height: var(--entrelinha-numero); color: var(--tinta);
+}
+.t01-cartao-codigo-numero-falha { color: var(--vermelho); }
+.t01-cartao-codigo-frase { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-apagada); }
+/* a legenda do prazo e do reenvio: a linha fica mesmo sem texto (Lei 3) */
+.t01-legenda { flex-shrink: 0; min-height: 1lh; font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-apagada); }
+
+/* 08 · o código conferido, o campo e os seis requisitos */
+.t01-conferido-lugar { flex-shrink: 0; display: flex; flex-direction: column; }
+.t01-conferido { display: flex; align-items: center; gap: var(--e-10); height: var(--linha-padrao); }
+.t01-conferido-marca { width: var(--e-20); flex-shrink: 0; display: flex; justify-content: center; }
+.t01-conferido-marca .ds-icone { width: var(--glifo-confere); height: var(--glifo-confere); }
+.t01-conferido-texto { flex-grow: 1; font-size: var(--t-secundario); font-weight: 500; color: var(--tinta-apagada); }
+.t01-conferido-valor { font-size: var(--t-corpo); font-weight: 700; color: var(--tinta-secundaria); }
+
+.t01-senha-nova-lugar { flex-shrink: 0; display: flex; flex-direction: column; }
+.t01-senha-nova {
+  height: var(--campo-senha-nova); display: flex; align-items: center; padding: 0 var(--e-14);
+}
+.t01-senha-nova-entrada {
+  flex-grow: 1; min-width: 0; margin: 0; padding: revert; background: transparent; border: 0; outline: none;
+  color: var(--tinta); font-family: inherit; font-size: var(--t-senha-nova); font-weight: 700;
+}
+.t01-requisitos { flex-grow: 1; display: flex; flex-direction: column; }
+
+/* ── por cima da tela: a folha (04) e o diálogo (09), sobre a tela de onde nasceram (G25) ── */
+.t01-sobre { position: absolute; top: var(--barra-sistema); right: 0; bottom: 0; left: 0; z-index: 1; display: flex; flex-direction: column; }

@@ -10,4 +10,10 @@
   flex-grow: 1; min-width: 0; margin: 0; padding: 0; background: transparent; border: 0; outline: none;
   color: var(--tinta); font-family: inherit; font-size: var(--t-link); font-weight: 500;
 }
-.ds-busca-entrada::placeholder { color: var(--tinta-apagada); opacity: 1; }
+/* o lugar do texto: a altura inteira do campo; a dica fica por cima do campo vazio, centrada como ele */
+.ds-busca-lugar { position: relative; flex-grow: 1; min-width: 0; align-self: stretch; display: flex; align-items: center; }
+.ds-busca-dica {
+  position: absolute; inset: 0; display: flex; align-items: center; pointer-events: none;
+  white-space: nowrap; overflow: hidden;
+  font-size: var(--t-link); font-weight: 500; color: var(--tinta-apagada);
+}

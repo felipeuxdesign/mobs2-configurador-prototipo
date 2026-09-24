@@ -4,3 +4,5 @@
 .ds-nota-frase { font-size: var(--t-legenda); font-weight: 500; line-height: var(--entrelinha-legenda); color: var(--tinta-apagada); }
 .ds-nota-fato .ds-nota-titulo { color: var(--tinta-secundaria); }
 .ds-nota-fato .ds-nota-frase { font-size: var(--t-secundario); color: var(--tinta-forte); }
+/* C4 · T03 (G11): a frase de 13, em 400, da nota que diz o bloqueio (T03/04) */
+.ds-nota-corpo-secundario .ds-nota-frase { font-size: var(--t-secundario); font-weight: 400; line-height: var(--entrelinha-nota-secundaria); }

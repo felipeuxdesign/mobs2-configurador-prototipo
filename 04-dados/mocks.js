@@ -403,16 +403,19 @@
 
   /* ── Pacote de sincronização — um por UO, em TRÊS idades (T03).
      Idade → estado deriva NA TELA a partir dos limiares daqui. */
+  /* protótipo C4 (AC-05) · segPorItem: a estimativa do servidor por item,
+     de onde sai o "faltam ~40 s" da T03 (7 itens × 6 s = 42, arredonda pra
+     dezena). A versão do pacote deriva de uoId e data (T03·2), sem campo. */
   var PACOTES = comData([
-    { id: "pac-uo-01", uoId: "uo-01", diasAtras: 1, hora: "07:10",
+    { id: "pac-uo-01", uoId: "uo-01", diasAtras: 1, hora: "07:10", segPorItem: 6,
       limiares: { avisoDias: 3, bloqueioDias: 7 },
       presetsEventoIds: ["pe-urbano", "pe-rodoviario"],
       contem: { ativos: 10, modelosAtivo: 3, cartoes: 3 } },
-    { id: "pac-uo-02", uoId: "uo-02", diasAtras: 4, hora: "06:55",
+    { id: "pac-uo-02", uoId: "uo-02", diasAtras: 4, hora: "06:55", segPorItem: 6,
       limiares: { avisoDias: 3, bloqueioDias: 7 },
       presetsEventoIds: ["pe-urbano", "pe-rodoviario"],
       contem: { ativos: 8, modelosAtivo: 3, cartoes: 3 } },
-    { id: "pac-uo-03", uoId: "uo-03", diasAtras: 8, hora: "07:30",
+    { id: "pac-uo-03", uoId: "uo-03", diasAtras: 8, hora: "07:30", segPorItem: 6,
       limiares: { avisoDias: 3, bloqueioDias: 7 },
       presetsEventoIds: ["pe-urbano", "pe-rodoviario", "pe-maquina"],
       contem: { ativos: 6, modelosAtivo: 3, cartoes: 3 } }
@@ -1051,8 +1054,29 @@
         codigo: "482913",
         novaSenha: "Garagem!Ibura27",
         limites: { validadeMin: 10, tentativas: 3, reenvioSeg: 60, tetoPorHora: 3 },
-        reenviosNaHora: 2
-      }
+        reenviosNaHora: 2,
+        /* protótipo C4 (AC-01) · o código que a T01/05 e a T01/07 mostram
+           digitado: seis dígitos, diferente do código. */
+        codigoErrado: "482911"
+      },
+      /* protótipo C4 (DADOS-A11, G1) · o protótipo segue o tela.md da T01:
+         qualquer senha com 8 caracteres ou mais entra; com menos, a mesma
+         mensagem de usuário ou senha incorretos. O par acima é o que vem
+         preenchido. */
+      minimoEntrar: 8,
+      /* protótipo C4 (AC-03) · os seis requisitos da senha nova, na ordem da
+         T01/08. O texto de cada um mora no textos.md; aqui, só a regra. O
+         sexto não se verifica no aparelho e confere ao salvar. */
+      requisitosSenha: [
+        { id: "tamanho", minimo: 10 },
+        { id: "caixas" },
+        { id: "numero" },
+        { id: "simbolo" },
+        /* protótipo C4 (T01) · o trecho: três caracteres seguidos contam como
+           sequência (abc, 321, aaa) e como pedaço do usuário (vie). */
+        { id: "sem-usuario-nem-sequencia", trecho: 3 },
+        { id: "diferente-das-ultimas", ultimas: 3, verificavelNoAparelho: false }
+      ]
     },
 
     /* ── C4 · DDIs — a máscara de telefone DERIVA do DDI (HU-T01-6), nunca

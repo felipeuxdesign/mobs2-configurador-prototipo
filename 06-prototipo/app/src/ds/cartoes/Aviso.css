@@ -5,3 +5,6 @@
 .ds-aviso-frase { font-size: var(--t-secundario); font-weight: 500; color: var(--tinta-forte); }
 .ds-aviso-numero { flex-shrink: 0; font-size: var(--t-titulo-bloco); font-weight: 700; color: var(--tinta); }
 .ds-aviso-unidade { font-size: var(--t-secundario); font-weight: 500; color: var(--tinta-secundaria); }
+/* sem poço (T04/08, Lei 7 · exceção): só o texto, com 12 em volta */
+.ds-aviso-sem-poco { padding: var(--e-12); }
+.ds-aviso-sem-poco .ds-aviso-frase { line-height: var(--entrelinha-texto); }

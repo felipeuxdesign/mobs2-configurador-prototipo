@@ -20,6 +20,7 @@ export function estadoVazio() {
     casosConsumidos: [],                              // cada caso vale uma vez por sessão (G21)
     tela: { id: 'T01', momento: null, estado: null, folha: null },
     antes: null,                                      // o instante de antes de abrir um estado (G19)
+    geracao: 0,                                       // sobe a cada pulo do palco: o App remonta a tela (C4)
   }
 }
 
@@ -37,12 +38,13 @@ export function semeado(tela, extra = {}) {
 
 function reduzir(estado, acao) {
   switch (acao.tipo) {
-    case 'recomecar': return estadoVazio()
+    // os pulos do palco trocam o estado inteiro: a geração sobe, e a tela remonta do zero
+    case 'recomecar': return { ...estadoVazio(), geracao: estado.geracao + 1 }
     case 'ir': return { ...estado, antes: null, tela: { id: acao.tela, momento: acao.momento ?? null, estado: acao.estado ?? null, folha: null } }
-    case 'pular': return semeado(acao.tela)
+    case 'pular': return { ...semeado(acao.tela), geracao: estado.geracao + 1 }
     // abrir um estado guarda o instante; trocar de estado não troca o instante guardado
-    case 'abrir-estado': return { ...estado, antes: estado.antes ?? { ...estado, antes: null }, tela: { ...estado.tela, estado: acao.estado, momento: null } }
-    case 'voltar-ao-fluxo': return estado.antes ?? semeado(estado.tela.id)
+    case 'abrir-estado': return { ...estado, geracao: estado.geracao + 1, antes: estado.antes ?? { ...estado, antes: null }, tela: { ...estado.tela, estado: acao.estado, momento: null } }
+    case 'voltar-ao-fluxo': return { ...(estado.antes ?? semeado(estado.tela.id)), geracao: estado.geracao + 1 }
     case 'mesclar': return { ...estado, ...acao.parcial }
     default: return estado
   }

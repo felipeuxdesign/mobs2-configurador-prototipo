@@ -5,11 +5,15 @@
 // em 100ms, como o Link (movimento.md).
 import './LinkConteudo.css'
 
+// C4 · T01: como o Link (C4 · T03), quando o texto é uma frase a camada do
+// toque o repete por CSS (data-texto): o texto do documento fica um só — o que
+// o leitor e a régua dos textos leem. O desenho é o mesmo.
 export function LinkConteudo({ children, aoTocar, rotulo, forcaToque = false }) {
+  const frase = typeof children === 'string' ? children : undefined
   return (
     <button type="button" className={`ds-link-conteudo ${forcaToque ? 'ds-forca-toque' : ''}`} aria-label={rotulo} onClick={aoTocar}>
       <span className="ds-link-conteudo-texto">{children}</span>
-      <span className="ds-link-conteudo-toque" aria-hidden="true">{children}</span>
+      <span className="ds-link-conteudo-toque" aria-hidden="true" data-texto={frase}>{frase == null ? children : null}</span>
     </button>
   )
 }

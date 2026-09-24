@@ -16,6 +16,7 @@ Entrar no app com usuário e senha, e recuperar o acesso sem ligar pra ninguém.
 - `Esqueci a senha` → recuperar: escolher o canal
 - canal escolhido → digitar o código (482913 no mock) → nova senha → senha alterada → login
 - `Não recebi o código` → a folha com as três saídas
+- o terceiro código errado mata o código e libera o reenvio na hora, sem esperar os 60 s (T01·4)
 - o olho do campo de senha mostra e esconde
 - `Lembrar meu usuário` marca e desmarca · desmarcado por padrão
 
@@ -23,23 +24,21 @@ Entrar no app com usuário e senha, e recuperar o acesso sem ligar pra ninguém.
 
 Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe.
 
+- primário · normal
+- primário · pressionado
+- primário · desabilitado
+- link · normal e pressionado
+- linha tocável · normal e pressionada
+- barra do sistema sem sessão
+- duas ações
 - folha
-- diálogo
 - diálogo sem saída
-- diálogo com ciência
 - folha com opções
 - barra do sistema sob o véu
-- seção aberta do checklist
-- seção recolhida
-- linha do histórico
-- linha de garagem
-- linha de garagem · a atual
-- a lista de garagens
-- cadeia concluída
-- cadeia recusada
-- encerrando
-- pede o corte
-- sem homologar
+- os glifos de estado
+- os poços
+- falha
+- segmentado
 - a marca no login
 - campo
 - campo focado
@@ -47,9 +46,12 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - código · seis células
 - código errado
 - link dentro do conteúdo
+- botões só de ícone
 - checkbox
+- checkbox marcado
 - linha de opção
-- lista com contagem
+
+Corrigida no C4 pelo medido (G10, T01-A10): saíram as 14 peças que nenhuma das dez desenha (diálogo, diálogo com ciência, as duas seções do checklist, linha do histórico, as três da garagem, as cinco da cadeia e do encerramento, e a lista com contagem). Entraram as que a tela usa e faltavam: as de toque da folha 1, a barra sem sessão, as duas ações, os glifos e os poços, a falha do 01, o segmentado, os botões só de ícone e o checkbox marcado. O primário desabilitado não está desenhado em nenhuma referência: aparece no toque, com o código incompleto, sem envio na hora ou com a senha nova fora dos requisitos. O que só a T01 desenha virou variante nomeada (G11): o rodapé do login, o segmentado com folga 8, o foco do código fora do próximo dígito e a linha de opção desabilitada. O cartão do canal, o do código, a linha do código conferido e o campo da senha nova não têm linha no `componentes.md`: são peças desta tela, em `06-prototipo/app/src/telas/T01/`.
 
 ## Histórias de usuário
 

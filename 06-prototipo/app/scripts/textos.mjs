@@ -27,7 +27,9 @@ function textosDoApp(t, ref) {
   return JSON.parse(pre[1].replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&'))
 }
 export function confere(t, ref, norma) {
-  const tem = textosDoApp(t, ref); const iguais = JSON.stringify(tem) === JSON.stringify(norma)
+  const { lista: tem, rolam } = textosDoApp(t, ref)
+  if (rolam.length) console.log(`AVISO  ${t}/${ref} — o quadro rola: ${rolam.join(' · ')}`)
+  const iguais = JSON.stringify(tem) === JSON.stringify(norma)
   if (iguais) return { ref, ok: true }
   const falta = norma.filter((x, i) => tem.indexOf(x) < 0 || norma.slice(0, i).filter((y) => y === x).length >= tem.filter((y) => y === x).length)
   const sobra = tem.filter((x, i) => norma.indexOf(x) < 0 || tem.slice(0, i).filter((y) => y === x).length >= norma.filter((y) => y === x).length)

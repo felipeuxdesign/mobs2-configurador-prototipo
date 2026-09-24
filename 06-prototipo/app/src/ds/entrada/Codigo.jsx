@@ -7,8 +7,11 @@
 // o teclado numérico.
 import './Codigo.css'
 
-export function Codigo({ digitos = '', celulas = 6, focado = false, errado = false, rotulo, aoDigitar }) {
-  const foco = focado && !errado ? Math.min(digitos.length, celulas - 1) : -1
+// `focoEm`: a célula do traço lima, quando a referência a desenha fora do
+// próximo dígito — o código expirado (T01/06) limpa as células e o traço fica
+// na sexta, onde estava (G11, T01-V5).
+export function Codigo({ digitos = '', celulas = 6, focado = false, errado = false, rotulo, aoDigitar, focoEm }) {
+  const foco = focoEm ?? (focado && !errado ? Math.min(digitos.length, celulas - 1) : -1)
   return (
     <div className={`ds-codigo ${errado ? 'ds-codigo-errado' : ''}`} role={aoDigitar ? undefined : 'group'} aria-label={aoDigitar ? undefined : rotulo}>
       {Array.from({ length: celulas }, (_, i) => {

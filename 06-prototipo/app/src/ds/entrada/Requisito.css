@@ -16,6 +16,7 @@
 .ds-requisito-texto { flex-grow: 1; display: grid; font-size: var(--t-corpo); font-weight: 500; }
 .ds-requisito-texto-falta { color: var(--tinta-apagada); }
 .ds-requisito-texto-cumprido { color: var(--tinta-secundaria); opacity: 0; }
+.ds-requisito-texto-cumprido::before { content: attr(data-texto); }
 .ds-requisito-cumprido .ds-requisito-texto-cumprido { opacity: 1; }
 .ds-requisito-cumprido .ds-requisito-texto-falta { opacity: 0; }
 

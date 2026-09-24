@@ -7,5 +7,7 @@ export function App() {
   const { estado } = useEstado()
   const { id, momento, estado: est } = estado.tela
   const Tela = telaDe(id)
-  return <div className="app" aria-label="App Configurador"><Tela momento={momento} estado={est} /></div>
+  // a chave muda de tela em tela e a cada pulo do palco (a geração): a tela remonta
+  // do zero, e o estado próprio dela não vaza de um pulo pro outro
+  return <div className="app" aria-label="App Configurador"><Tela key={`${id}·${estado.geracao}`} momento={momento} estado={est} /></div>
 }
