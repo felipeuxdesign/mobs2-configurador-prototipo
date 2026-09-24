@@ -4,6 +4,7 @@ Vale o `03-design-system/movimento.md`. Entre telas, só o conteúdo esmaece em 
 
 | Elemento | Quando | O que muda | Tempo | Curva | Com reduzir movimento |
 |---|---|---|---|---|---|
+| olho da senha | tocar no olho | a senha troca entre os pontos e o texto, no lugar, e o olho troca pelo riscado | 150ms | esmaece | troca direta |
 | campo em foco | tocar no campo | o traço de baixo acende em lima, da esquerda pra direita (scaleX 0→1) | 150ms | desacelera | aparece aceso |
 | aviso de erro | Entrar com senha inválida | surge no lugar (opacidade 0→1); a marca NÃO se move | 150ms | desacelera | aparece |
 | célula do código | cada dígito digitado | o dígito surge e o traço lima pula pra próxima célula | 100ms | desacelera | troca direta |

@@ -74,6 +74,9 @@ export function Login({ momento, estado, irMomento }) {
   const [s, setS] = useState(() => inicial(momento, estado, unico.tecnico.usuario))
   const muda = (parcial) => setS((x) => ({ ...x, ...parcial }))
   const idTitulo = useId()
+  // no erro do login, a senha é apagada e o cursor vai pra ela; o usuário fica (tela.md, estados.md).
+  // O cursor vai no toque do Entrar, não ao abrir o estado 01 (no print, um cursor piscando mudaria a foto)
+  const idSenha = useId()
 
   // o código: vivo, errado, expirado ou morto pelas tentativas
   const esgotado = s.erros >= LIM.tentativas
@@ -105,6 +108,7 @@ export function Login({ momento, estado, irMomento }) {
   const entrar = () => {
     if (entra(s.senha)) { despachar({ tipo: 'ir', tela: 'T02' }); return }
     muda({ senha: '', erroEntrada: true, foco: 'senha', mostrar: false })
+    setTimeout(() => document.getElementById(idSenha)?.focus(), 0)
   }
   const esqueci = () => { muda({ quadro: 'canal', canal: 'telefone' }); irMomento(REF.canal) }
   // o primeiro envio não conta no teto; só o reenvio conta (T01·2)
@@ -144,7 +148,8 @@ export function Login({ momento, estado, irMomento }) {
               onFocus={() => muda({ foco: 'usuario' })} autoComplete="username" autoCapitalize="none" spellCheck={false} />
             <Campo rotulo={TX.senha} valor={s.senha} aoMudar={(v) => muda({ senha: v })} oculto={!s.mostrar} focado={s.foco === 'senha'}
               onFocus={() => muda({ foco: 'senha' })} autoComplete="current-password" autoCapitalize="none" spellCheck={false}
-              acao={<SoIcone icone="olho" rotulo={TX.mostrarSenha} cor="marca-limite" pressionado={s.mostrar} aoTocar={() => muda({ mostrar: !s.mostrar })} />} />
+              id={idSenha}
+              acao={<SoIcone icone={s.mostrar ? 'olho-riscado' : 'olho'} rotulo={s.mostrar ? TX.ocultarSenha : TX.mostrarSenha} cor="marca-limite" aoTocar={() => muda({ mostrar: !s.mostrar })} />} />
           </div>
           <div className="t01-lembrar">
             <Checkbox marcado={s.lembrar} aoMudar={(v) => muda({ lembrar: v })}>{TX.lembrar}</Checkbox>

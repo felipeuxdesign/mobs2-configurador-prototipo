@@ -31,19 +31,13 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - com legenda
 - passo do ciclo
 - passos com o prazo estourado
-- cadeia concluída
-- cadeia recusada
-- segmentado
-- encerrando
-- pede o corte
-- sem homologar
 - cronômetro
 - prazo cheio
 - com contador neutro
 - com contador de falha
-- a marca no login
-- campo
-- campo focado
+- checkbox
+- checkbox marcado
+- justificativa
 - bloco do evento
 
 ## Histórias de usuário

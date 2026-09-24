@@ -23,3 +23,9 @@
 .ds-campo-oculto { letter-spacing: var(--ls-senha); }
 /* o botão de 44 encosta no recheio: sai 6 pra dentro dele */
 .ds-campo-acao { display: flex; flex-shrink: 0; margin-right: calc(-1 * var(--e-6)); }
+
+/* a troca da senha escondida ↔ visível: o texto esmaece no lugar (T01 · animacao.md, 150ms) */
+.ds-troca-a { animation: ds-troca-a var(--mov-rapido) var(--mov-curva); }
+.ds-troca-b { animation: ds-troca-b var(--mov-rapido) var(--mov-curva); }
+@keyframes ds-troca-a { from { opacity: 0; } }
+@keyframes ds-troca-b { from { opacity: 0; } }

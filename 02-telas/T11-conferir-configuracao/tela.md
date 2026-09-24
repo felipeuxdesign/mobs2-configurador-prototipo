@@ -31,14 +31,6 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - com contagem
 - linha do histórico
 - a lista de garagens
-- cadeia concluída
-- cadeia recusada
-- encerrando
-- pede o corte
-- sem homologar
-- a marca no login
-- campo
-- campo focado
 - linha de opção
 - lista com contagem
 

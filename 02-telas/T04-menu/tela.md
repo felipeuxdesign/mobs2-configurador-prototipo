@@ -14,7 +14,6 @@ O painel das ferramentas: o que está pronto pra usar, o que espera o quê.
 
 - `Conectar módulo` → T05
 - `Ativo selecionado` → T06, com o módulo conectado e o ônibus ainda não escolhido
-- com a sessão aberta, `Conectar módulo` e `Ativo selecionado` mostram o que a sessão prendeu e não se tocam (T04·7)
 - cada ferramenta liberada → a tela dela
 - `ENCERRAR` → a sessão abortada, na T16 (`logica.md` · ENCERRAR)
 - o nome da garagem na tira → folha Trocar de garagem
@@ -23,9 +22,10 @@ O painel das ferramentas: o que está pronto pra usar, o que espera o quê.
 - `Sair da conta` → diálogo, se houver sessão ou fila; sem as duas, direto pro login, e o diálogo mostra só a frase que vale (T04·5)
 - o `Cancelar` dos dois diálogos volta à folha de onde ele nasceu (T04·8)
 - `Encerrar a sessão e sair` → login, com a fila preservada · `Encerrar a sessão e trocar` → a sincronização da garagem nova. Os dois passam pelo encerramento sem homologar da T16 quando ele existir (C11); até lá, seguem direto (G23)
-- com a folha ou o diálogo aberto, o menu não se toca — nem o que fica atrás do véu, nem a tira, que fica acesa em cima dele
-- com a sessão aberta, o cartão do módulo → folha Módulo conectado · o do ativo → folha Ativo da sessão · os dois ficam travados: a folha diz isso e oferece `Encerrar a sessão`
-- cartão de ferramenta em espera é desabilitado de verdade: o toque não faz nada, e o motivo já está escrito nele
+- com a folha ou o diálogo aberto, o menu não se toca — nem o que fica atrás do véu, nem a tira, que fica acesa em cima dele. Nas folhas do módulo e do ativo, o véu começa embaixo da faixa, e a faixa também fica acesa, sem se tocar
+- a folha fecha pelo X, tocando no véu, fora dela, e pelo voltar do sistema (no computador, o Esc); o diálogo, pelo `Cancelar` e pelo voltar, que faz o mesmo que ele (`logica.md` · O voltar do Android)
+- com a sessão aberta, o cartão do módulo → folha Módulo conectado (10) · o do ativo → folha Ativo da sessão (11) · os dois ficam travados (HU-T16-2): a folha diz isso e oferece `Encerrar a sessão`, que leva ao mesmo destino do `ENCERRAR` da faixa. Com o módulo sem ativo (02), o cartão do módulo já abre a folha dele. Substitui a T04·7 do C0, em que os dois cartões não se tocavam
+- cartão de ferramenta em espera é desabilitado de verdade: o toque não faz nada, o motivo já está escrito nele, e pro leitor de tela ele é desabilitado (`logica.md` · Os cartões em espera)
 
 ## Peças do design system que esta tela usa
 
@@ -47,9 +47,6 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - os ícones de ferramenta
 - os poços
 - os marcadores
-- diálogo sem saída
-- diálogo com ciência
-- folha com opções
 - disponível
 - decide agora
 - conectado
@@ -58,14 +55,13 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - espera a rede
 - aviso
 - nota com rótulo
-- linha do histórico
 - linha de garagem
 - linha de garagem · a atual
 - a lista de garagens
 - botões só de ícone
 - contador no menu
 
-Corrigida no C5 pelas referências (G1, G10, T04-A8): saíram as sete peças que nenhuma das dez desenha (faixa · sem ação, diálogo sem saída, diálogo com ciência, linha do histórico, a marca no login, campo e campo focado) e entraram a faixa · sem sessão do 01 e o aviso do 08. O que só a T04 desenha virou variante nomeada da peça (G11): o cartão largo em espera e o 'decide agora' com poço 30 (CartaoFerramenta), o aviso sem poço (Aviso), a folha com folga 12 e subtítulo (Folha), a linha de garagem que espera o envio (LinhaGaragem) e o traço da falha por cima da faixa do menu (Faixa). O cartão da conta, o prazo do acesso e o Sair da conta são as peças da folha 2 que moram dentro da folha. No acerto do design system pelo medido (G10), entraram as peças de toque da folha 1 (o primário e o link dos diálogos, e a linha tocável), os átomos da folha 3 (glifos, ícones de ferramenta, poços e marcadores) e o X das folhas; e entraram como variante também a grade com 10 entre os cartões e o cartão travado com a sessão aberta.
+Corrigida no C5 pelas referências (G1, G10, T04-A8): saíram as sete peças que nenhuma das dez desenha (faixa · sem ação, diálogo sem saída, diálogo com ciência, linha do histórico, a marca no login, campo e campo focado) e entraram a faixa · sem sessão do 01 e o aviso do 08. O que só a T04 desenha virou variante nomeada da peça (G11): o cartão largo em espera e o 'decide agora' com poço 30 (CartaoFerramenta), o aviso sem poço (Aviso), a folha com folga 12 e subtítulo (Folha), a linha de garagem que espera o envio (LinhaGaragem) e o traço da falha por cima da faixa do menu (Faixa). O cartão da conta, o prazo do acesso e o Sair da conta são as peças da folha 2 que moram dentro da folha. No acerto do design system pelo medido (G10), entraram as peças de toque da folha 1 (o primário e o link dos diálogos, e a linha tocável), os átomos da folha 3 (glifos, ícones de ferramenta, poços e marcadores) e o X das folhas; e entraram como variante também a grade com 10 entre os cartões e o cartão travado com a sessão aberta. Com as folhas do módulo e do ativo (10, 11), o cartão travado saiu, do DS e da linha do conectado no `componentes.md`: com a sessão aberta, o cartão largo é o de sempre e abre a folha. As folhas usam a folha com o X, a nota com rótulo (TRAVADO NA SESSÃO) e o botão da folha, embaixo da tira e da faixa do menu; o cartão do que a sessão prendeu (o ícone de ferramenta num poço de 44, a identidade e o detalhe) só elas desenham, e é peça da tela (`pecas.jsx`), montada com os poços e os ícones da folha 3. O véu ganhou o toque fora da folha, declarado como variante da folha (G11). No acerto pelo medido depois das duas folhas (G10), a T04 entrou na coluna da nota com rótulo, e saíram da lista as quatro que a junção da atualização tinha trazido de volta e que nenhuma das doze desenha nem o código usa: diálogo sem saída, diálogo com ciência, folha com opções e linha do histórico.
 
 ## Histórias de usuário
 

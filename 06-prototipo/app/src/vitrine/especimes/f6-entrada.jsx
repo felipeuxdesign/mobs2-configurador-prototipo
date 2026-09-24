@@ -34,6 +34,11 @@ export const especimes = [
       <Campo rotulo="SENHA" valor="••••••••••••••" oculto focado
         acao={<SoIcone icone="olho" rotulo="Mostrar a senha" cor="marca-limite" />} />
     ) },
+  { id: 'f6-senha-visivel', folha: 6, rotulo: 'senha visível', legenda: 'o olho riscado esconde de novo · o nome muda pra Ocultar a senha',
+    render: () => (
+      <Campo rotulo="SENHA" valor="Patio#Varzea26" focado
+        acao={<SoIcone icone="olho-riscado" rotulo="Ocultar a senha" cor="marca-limite" />} />
+    ) },
   { id: 'f6-requisitos', folha: 6, rotulo: 'requisitos da senha', legenda: 'cada regra vira check quando a senha cumpre',
     render: () => <Requisito texto="10 caracteres ou mais" cumprido /> },
   { id: 'f6-codigo', folha: 6, rotulo: 'código · seis células', legenda: 'uma célula por dígito',

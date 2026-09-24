@@ -1,5 +1,17 @@
 # Registro de mudanças
 
+## 2026-09-24 · o olho da senha, construído, e a documentação das peças do C7, do C9 e da atualização
+
+- **o campo de senha tem os dois estados da folha 6 nova:**
+  - escondida: os pontos, o olho e o nome "Mostrar a senha";
+  - visível: o texto por extenso, com o espaçamento normal, o olho riscado (o eye-off do Lucide) e o nome "Ocultar a senha";
+  - a troca esmaece no lugar, em 150 ms, no texto e no olho, sem remontar o campo, e ao abrir a tela nada anima;
+  - o espécime novo, *senha visível*, dá **0%** contra a folha 6
+- **no erro do login, a senha é apagada e o cursor vai pra ela** no toque do Entrar; o usuário fica. O apagar já vinha do C4, e o cursor entrou agora
+- a T01 continua com os mesmos números nos 10 quadros, e os 121 espécimes com os mesmos números do C2
+- entraram, da entrega nova do design, os 8 arquivos que só o design mudou (a animação e os estados da T01, e os `tela.md` da T11 à T16) e a folha 6 · os outros 15 esperam o vai do diretor, porque o protótipo também mudou eles
+- **a documentação das peças do C7, do C9 e da primeira atualização:** as listas da T04, T05, T06, T09 e T10 e a coluna "Telas que usam", pelo medido no código e nas referências; as variantes do C7 e do C9 na coluna Regra; a "variante: travado" saiu, porque a propriedade saiu do DS; a decisão 29 nas linhas do marcador
+
 ## 2026-09-24 · a atualização do design, construída no protótipo
 
 - **o marcador de escolha é um só** (decisão 29), o `Quadrado` dentro do `Poco`:

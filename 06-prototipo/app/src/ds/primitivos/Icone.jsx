@@ -4,7 +4,7 @@
 // No menu, os nomes da G5: settings, wrench, activity, list-checks, truck.
 import {
   Radio, Truck, Activity, Settings, RefreshCcw, Gauge, Wrench, ListChecks, Upload, History,
-  X, ChevronRight, ChevronDown, ChevronUp, RotateCw, Mail, UserRound, Eye, Search, Camera, Image, Check, ArrowUp,
+  X, ChevronRight, ChevronDown, ChevronUp, RotateCw, Mail, UserRound, Eye, EyeOff, Search, Camera, Image, Check, ArrowUp,
 } from 'lucide-react'
 import './Icone.css'
 
@@ -15,7 +15,7 @@ export const ICONES = {
   checklist: [ListChecks, 'acao'], fila: [Upload, 'acao'], instalacoes: [History, 'acao'],
   // ação
   fechar: [X, 'fechar'], avancar: [ChevronRight, 'fechar'], abrir: [ChevronDown, 'fechar'], recolher: [ChevronUp, 'fechar'],
-  reenviar: [RotateCw, 'acao'], email: [Mail, 'acao'], gestor: [UserRound, 'acao'], olho: [Eye, 'acao'],
+  reenviar: [RotateCw, 'acao'], email: [Mail, 'acao'], gestor: [UserRound, 'acao'], olho: [Eye, 'acao'], 'olho-riscado': [EyeOff, 'acao'],
   busca: [Search, 'acao'], camera: [Camera, 'acao'], foto: [Image, 'acao'], subir: [ArrowUp, 'acao'],
   check: [Check, 'fechar'], 'check-mini': [Check, 'mini'],
 }

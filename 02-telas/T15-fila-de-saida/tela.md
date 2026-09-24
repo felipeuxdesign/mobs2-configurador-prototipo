@@ -24,6 +24,8 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - faixa · sem sessão
 - faixa · sem ação
 - uma ação
+- seção aberta do checklist
+- seção recolhida
 - vazio declarado
 - o par comparado
 - linha do histórico
@@ -31,14 +33,8 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - a lista de garagens
 - cadeia concluída
 - cadeia recusada
-- encerrando
-- pede o corte
-- sem homologar
 - com contador neutro
 - com contador de falha
-- a marca no login
-- campo
-- campo focado
 - linha de opção
 - cartão que pede ação
 - botão secundário

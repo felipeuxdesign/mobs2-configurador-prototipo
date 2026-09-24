@@ -5,7 +5,7 @@
 | Referência | Tipo | Como se chega · o que causa | Caso do mock |
 |---|---|---|---|
 | `00-tela` | tela | a entrada da tela | nenhuma sessão · usuário r.vieira preenchido |
-| `01-estado-usuario-ou-senha-incorretos` | estado | Entrar com senha de menos de 8 caracteres | `credenciais` |
+| `01-estado-usuario-ou-senha-incorretos` | estado | Entrar com senha de menos de 8 caracteres · a senha é apagada e o cursor vai pra ela; o usuário fica | `credenciais` |
 | `02-momento-recuperar-escolher-canal` | momento | `Esqueci a senha` | derivado do fluxo |
 | `03-momento-recuperar-digitar-codigo` | momento | escolher o canal | `credenciais.recuperacao` |
 | `04-momento-nao-recebi-o-codigo` | momento | `Não recebi o código` | derivado do fluxo |

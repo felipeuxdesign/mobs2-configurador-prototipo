@@ -36,8 +36,6 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - a lista de garagens
 - leitura pequena
 - leitura com mínimo
-- cadeia concluída
-- cadeia recusada
 - segmentado
 - encerrando
 - pede o corte
@@ -45,9 +43,6 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - placar da homologação
 - com contador neutro
 - com contador de falha
-- a marca no login
-- campo
-- campo focado
 - checkbox
 - checkbox marcado
 - justificativa
@@ -60,6 +55,8 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - cartões de foto
 - a seção aberta inteira
 - cartões que esperam o ciclo
+- linha da fila
+- linha da re-checagem
 
 ## Histórias de usuário
 

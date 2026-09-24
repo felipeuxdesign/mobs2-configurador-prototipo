@@ -20,20 +20,29 @@ Gravar os blocos no módulo, um de cada vez, cada um relido antes do próximo.
 
 ## Peças do design system que esta tela usa
 
-Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe. (C9, G10: a lista segue o medido no gate C0; saíram as dez que nenhuma referência da T09 desenha — faixa · sem ação, com legenda, falha, encerrando, pede o corte, sem homologar, com contador de falha, a marca no login, campo, campo focado.)
+Medido nas 5 referências e construído no C9 (G1): as peças que a tela usa de fato. Construa com o componente — nunca redesenhe.
 
+- primário · normal
+- primário · pressionado
+- primário · desabilitado
+- link · normal e pressionado
 - barra do sistema
 - faixa · sessão aberta
 - duas ações
 - uma ação
 - processo correndo
+- os glifos de estado
+- os poços
+- os marcadores
 - aviso
 - processo parado
 - cadeia concluída
-- cadeia recusada — e, com a mesma peça, a cadeia correndo (00, elo de 86) e a pausada (02 e 03, elo de 68), variantes de altura (G11)
+- cadeia recusada
 - a pré-condição dos pinos
 - com contador neutro
 - prova da cadeia
+
+No acerto do design system pelo medido (G10), a lista ficou só com os nomes das linhas do `componentes.md`, e as anotações viraram variante nomeada da peça (G11), declarada lá, na linha da cadeia recusada: a cadeia correndo, gravando com o elo de 86 (00), e a pausada, parada com o contador e o aviso, com o elo de 68 (02 e 03). Entraram as de toque da folha 1 (o primário nos três estados e o link) e os átomos da folha 3 (os glifos da cadeia, do aviso e dos pinos, os poços deles e o LED da faixa). A linha dos pinos no pé do 01 é o lugar que a referência dá a ela na tela, não variante da peça (T09-D2). Na coluna do `componentes.md`, a T09 saiu das dez linhas que nenhuma das cinco desenha (faixa · sem ação, com legenda, falha, encerrando, pede o corte, sem homologar, com contador de falha, a marca no login, campo e campo focado): o aviso vermelho do 01 é o processo parado, e o 00 explica embaixo do primário, sem legenda em cima.
 
 ## Histórias de usuário
 

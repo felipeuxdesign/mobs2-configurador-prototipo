@@ -11,6 +11,7 @@ export const TX = {
   usuario: 'USUÁRIO',
   senha: 'SENHA',
   mostrarSenha: 'Mostrar a senha',
+  ocultarSenha: 'Ocultar a senha',
   lembrar: 'Lembrar meu usuário',
   esqueci: 'Esqueci a senha',
   erroTitulo: 'USUÁRIO OU SENHA INCORRETOS',

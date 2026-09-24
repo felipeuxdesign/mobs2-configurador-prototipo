@@ -22,19 +22,27 @@ Corrigido no C9 pelas referências e pelas decisões do C0 (G1): o toque do cart
 
 ## Peças do design system que esta tela usa
 
-Medido nas 5 referências e construído no C9 (T10-V8, G1): as peças que a tela usa de fato. Saíram as seis que nenhuma referência da T10 desenha — faixa · sem ação, processo correndo, com legenda, a marca no login, campo e campo focado. Construa com o componente — nunca redesenhe.
+Medido nas 5 referências e construído no C9 (T10-V8, G1): as peças que a tela usa de fato. Construa com o componente — nunca redesenhe.
 
+- primário · normal
+- primário · pressionado
+- primário · desabilitado
+- link · normal e pressionado
+- linha tocável · normal e pressionada
 - barra do sistema
 - faixa · sessão aberta
 - duas ações
-- primário · normal, pressionado e desabilitado — o desabilitado com o nome da ação (a 02)
-- segmentado — e o passo atual já feito, alto e lima apagado (a 01, G11)
-- valor em poço — apagado antes de semear, aceso depois (a 01)
-- régua da diferença — e o `confere`, com o check solto (a 01, Lei 4 · exceção)
-- o valor alvo — e o cumprido, sem o traço lima (a 01, G11)
+- os glifos de estado
+- os marcadores
+- segmentado
 - foto · aguarda
 - foto · tirada
-- o que não se aplica — e a divisória na última linha (a 02, G11)
+- valor em poço
+- régua da diferença
+- o valor alvo
+- o que não se aplica
+
+No acerto do design system pelo medido (G10), a lista ficou só com os nomes das linhas do `componentes.md`, e as anotações viraram variante nomeada da peça (G11), declarada lá: o primário inerte no semear, com o mesmo desenho e o mesmo texto, e o rodapé que o leva; o segmentado com o passo atual já feito, alto e lima apagado (01); o valor em poço aceso depois de semear (01); a régua que confere, com o check solto (01, Lei 4 · exceção); o valor alvo cumprido, sem o traço lima (01); e o que não se aplica com a divisória na última linha (02). O cartão da foto é tocável inteiro, com o nome da ação (G14), e a variante também está lá. O primário desabilitado leva o nome da ação (02). Entraram as de toque da folha 1 (o primário nos três estados, o link e a linha tocável, que é o toque do cartão da foto) e os átomos da folha 3 (o check da régua e o LED da faixa). O número que rola no valor em poço é interno dele (`instrumentos/Tambor.jsx`), não a linha do tambor da T07. Na coluna do `componentes.md`, a T10 saiu das seis linhas que nenhuma das cinco desenha (faixa · sem ação, processo correndo, com legenda, a marca no login, campo e campo focado) e entrou na linha tocável.
 
 ## Histórias de usuário
 
