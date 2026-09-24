@@ -12,19 +12,36 @@ Ver os sinais que o ônibus manda parado — e saber o que só fecha andando.
 
 ## O que se toca
 
-- `Configurar módulo` → T09
-- no fora da faixa: `Ler novamente`
+- com tudo aprovado (00): `Configurar módulo` → T09 · `Voltar ao menu` → T04
+- com um sinal reprovado (fora da faixa ou sem leitura, 01 e 02): `Ler novamente` relê no lugar (T07·5 a) · `Configurar módulo` → T09
+- `ENCERRAR`, antes de homologar: a sessão abortada da T16 (G23) · depois de homologar (a tela segue aberta pelo menu): os passos do encerramento, a T16 (`logica.md`, como a T08)
+
+Corrigido no C8 pelas referências (G1, T07-A13): o `Voltar ao menu` da 00 e o `Ler novamente` também no sem leitura. O caso vale uma vez por sessão (G21): o `Ler novamente` o consome, e a releitura traz o nominal do sinal que falhou; o que o caso lê e passa (o hodômetro do ativo) é do veículo e fica. Voltar do menu mostra a última leitura.
+
+## Como a leitura se monta (C8)
+
+Tudo sai de `sinaisCan` do modelo do ativo da sessão, no mock: o lido, a faixa `{min, max}` e o rótulo curto (AC-07). No protótipo, a tela abre já lida (G27, C8·2); o ritmo da leitura, o marcador que corre e o tambor que rola são do C12.
+
+- **A peça de cada sinal** (T07·4 b), por um mapa por id, na ordem da tela: bateria → leitura na faixa · hodômetro → tambor · temperatura, satélites e nível → leitura pequena · ignição e posição → sinais liga-desliga. Só o ma-01 tem referência: o ma-02 e o ma-03 montam pelo mesmo mapa o que ele conhece, e o sinal que ele não conhece (o óleo, o horímetro) fica de fora até ter desenho.
+- **A escala da leitura grande** (T07·2 a): a faixa com 1,0 de cada lado; se o lido cai fora, a escala estica até o inteiro que o contém (10,9 → 10,0). As marcas a cada 0,5, ou a cada 1 quando 0,5 daria mais de 10 divisões; as maiores nas bordas da faixa e no meio dela, quando o meio cai numa marca. As legendas têm as casas do lido (11,0 · 12,0 — 15,0 · 16,0).
+- **A escala da leitura pequena** (T07·2 a): 4 divisões, com a maior no meio. Com a faixa inteira, a escala é a própria faixa (−40 a 120); com a faixa aberta pra cima, satélites de 0 a 12 e a legenda `mínimo 4`; sem faixa, nível de 0 a 100 e a legenda `sem faixa`. A posição vai ao % inteiro, como as referências desenham.
+- **O veredito**: com faixa, o lido dentro dela; sem faixa (esperado null), a leitura chegou; com texto, o lido igual ao esperado. O contador diz os estáticos que passaram de todos os sinais do modelo (`7 de 12`); com um reprovado, `1 reprovado`, em vermelho.
+- **A causa provável** (C11.8, no mock): lido fora da faixa → `veículo ou cadastro`, com a diferença até o mínimo (`1,1 V abaixo do mínimo`); sem leitura, sozinho no domínio → `sem leitura · ligação`.
+- **O resumo apagado**: os dinâmicos do modelo, contados e pelo rótulo curto quando há (`Alternador`).
+- **O domínio mudo (03) fica fora do ciclo** (T07·1 a): a referência desenha o ma-01 com a placa do a-16, que é ma-02. Até chegar a referência nova, a coluna abre a tela com o nome, e no fluxo o caso não se aplica.
 
 ## Peças do design system que esta tela usa
 
 Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe.
 
+- primário · normal
+- primário · pressionado
+- link · normal e pressionado
 - barra do sistema
 - faixa · sessão aberta
-- faixa · sem ação
 - duas ações
-- processo correndo
-- com legenda
+- com contador neutro
+- com contador de falha
 - leitura na faixa
 - fora da faixa
 - leitura pequena
@@ -32,13 +49,8 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - tambor
 - sinais liga-desliga
 - instrumentos apagados
-- com contador neutro
-- com contador de falha
-- a marca no login
-- campo
-- campo focado
-- cartão com barra
-- cartão de configuração
+
+Corrigida no C8 pelas referências (G1, G10, T07-A14): saíram as 8 peças que nenhuma das quatro desenha (faixa · sem ação, processo correndo, com legenda, a marca no login, campo, campo focado, cartão com barra, cartão de configuração) e entraram as de toque da folha 1. Duas variantes da leitura pequena estão desenhadas só aqui e não têm linha no `componentes.md`: **sem faixa** (o nível, Lei 5 · exceção) e **sem leitura** (o satélites do 02: borda vermelha, traço no lugar do número, o poço vazio com o traço no meio e a causa embaixo). A grade das leituras fica a 10, e não a 12 da folha (T07-V5).
 
 ## Histórias de usuário
 

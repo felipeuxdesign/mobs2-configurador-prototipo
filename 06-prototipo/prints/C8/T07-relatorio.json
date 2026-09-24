@@ -1,0 +1,38 @@
+[
+ {
+  "tela": "T07",
+  "ref": "00-tela",
+  "html": {
+   "fino": 0,
+   "estrutural": 0
+  },
+  "png": {
+   "fino": 2.16,
+   "estrutural": 0.51
+  }
+ },
+ {
+  "tela": "T07",
+  "ref": "01-estado-fora-da-faixa",
+  "html": {
+   "fino": 1.32,
+   "estrutural": 0.32
+  },
+  "png": {
+   "fino": 3.87,
+   "estrutural": 1.02
+  }
+ },
+ {
+  "tela": "T07",
+  "ref": "02-estado-sem-leitura",
+  "html": {
+   "fino": 0,
+   "estrutural": 0
+  },
+  "png": {
+   "fino": 2.31,
+   "estrutural": 0.57
+  }
+ }
+]

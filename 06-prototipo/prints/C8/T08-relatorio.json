@@ -1,0 +1,38 @@
+[
+ {
+  "tela": "T08",
+  "ref": "00-tela",
+  "html": {
+   "fino": 0.01,
+   "estrutural": 0.01
+  },
+  "png": {
+   "fino": 1.92,
+   "estrutural": 0.84
+  }
+ },
+ {
+  "tela": "T08",
+  "ref": "01-momento-relendo",
+  "html": {
+   "fino": 0.01,
+   "estrutural": 0.01
+  },
+  "png": {
+   "fino": 1.97,
+   "estrutural": 0.47
+  }
+ },
+ {
+  "tela": "T08",
+  "ref": "02-momento-concluida",
+  "html": {
+   "fino": 0.16,
+   "estrutural": 0.13
+  },
+  "png": {
+   "fino": 2.48,
+   "estrutural": 0.78
+  }
+ }
+]

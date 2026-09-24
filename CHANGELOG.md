@@ -1,5 +1,35 @@
 # Registro de mudanças
 
+## 2026-09-24 · C8 · o ônibus e a CAN — T06, T07 e T08
+
+- **a T06** (selecionar ativo), **a T07** (dados da CAN) e **a T08** (refazer leitura) em `app/src/telas/`: 13 dos 14 quadros e os toques de cada `tela.md`
+- **decisão do diretor, no meio do ciclo (T06·1 passa pra (b), o T06-N3):** na lista, tocar num ônibus o **marca** (o quadrado lima) e acende o "Usar este ativo", que leva à confirmação do veículo. Tocar em outro troca a marca. A linha de ônibus virou uma escolha pro leitor de tela (radio, aria-checked). A lista com um ônibus marcado não tem referência e se monta com as peças que existem (G25). **Pedido ao arquiteto:** desenhar esse quadro
+- **a bancada:**
+  - **T06:** 0,01% em 5 dos 7 quadros, só a linha de baixo da faixa (G13); o 00 e o 04 diferem pelo mock (G9, abaixo);
+  - **T07:** o 00 e o 02 em 0%, e o 01 em 1,32%, pela faixa travada em 52 e pelo conteúdo que rola (G13, G24);
+  - **T08:** 0,01% nos três, e mais o valor do mock no 02 (G9);
+  - prints lado a lado em `06-prototipo/prints/C8/`
+- **os textos:** conferem na T07 (00, 01, 02) e na T06 e T08, fora os desvios de valor abaixo
+- **o mock:** a faixa esperada dos sinais e o rótulo curto (AC-07), só aditivo · um comentário do mock passou a dizer que o a-06 é escolhível na T06 (G1)
+- **desvio nomeado (T07·1 a):** o estado domínio mudo (T07/03) **não se constrói**. A referência dele desenha o painel do ônibus urbano com a placa ONK-8Q90, que é de outro modelo, e o caso é do ma-02. A coluna do palco abre a tela só com o nome e o rótulo do estado. **Pedido ao arquiteto:** uma referência nova do 03 pro ma-02
+- **desvio nomeado (G9):** a T06/00 mostra os 10 ônibus do pacote da Várzea, com "10 no pacote", e a lista rola (G16). A referência desenha 5
+- **desvio nomeado (G9):** o ônibus de fora do pacote (T06/04) é o KUD-4Y21, do Pátio Caruaru, como diz o caso. A referência desenha o ONK-8Q90, da Ibura
+- **desvio nomeado (G9):** na leitura refeita (T08/02), a rotação sai 1.180 rpm e o consumo 9,4 L/h, como o mock diz. A referência mostra 980 e 24,8
+- **desvio nomeado (G13):** a faixa da sessão tem a linha de baixo de 1px em todas as telas com sessão. As referências da T06 e da T08 desenham a faixa sem ela, e o conteúdo da faixa fica meio pixel mais alto
+- **desvio nomeado (G24, Lei 3):** nas travas da T06 (04, 05, 06) e no escolhido apagado (02), a placa desce, porque a trava junta o escolhido e o motivo · na T07/01, a linha da causa faz o cartão da bateria crescer 14 px · na T08, o rodapé desce 38 px enquanto a leitura corre. Tudo como as referências desenham. **Vai ao diretor:** a proposta de reservar os lugares
+- **ainda sem ritmo (G4, C12):** a leitura da CAN aparece já feita, e o "Ler novamente" troca na hora. A leitura sinal a sinal espera o ritmo, que entra no C12
+- **vão ao diretor:**
+  - o texto do vazio da busca da T06;
+  - os textos que a T07 pediria e não existem (o resumo com 1 sinal, o lido acima do máximo, o plural de reprovado);
+  - a HU-T08-3, que diz "a leitura em branco", contra as referências, que devolvem a leitura nova;
+  - a proposta de unir o placar da releitura ao aviso "com contagem"
+- **vão ao PM:**
+  - o destino de "Solicitar correção de cadastro";
+  - "Usar leitor sem fio" contra reconectar sem fio (T06-N1);
+  - "SEM ENERGIA" com "Ignição ligada" na mesma tela (T07-N1);
+  - a T08 fecha em "12 de 12", e a T07 diz "7 de 12" pro mesmo ônibus
+- **HU sem referência:** a ferramenta indisponível sem mapa de contadores (HU-T08-4) · os modelos ma-02 e ma-03 na T07, que montam só o que o mapa do ônibus urbano conhece
+
 ## 2026-09-24 · C6 · conectar: a busca e o caminho feliz — T05
 
 - **o caminho feliz da T05** em `app/src/telas/T05/`: a busca, a escolha, a conexão, a pré-checagem acendendo as onze linhas a 600 ms, a sessão abrindo com a faixa, e a atualização do firmware

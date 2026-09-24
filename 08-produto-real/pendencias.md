@@ -15,6 +15,9 @@ Perguntas que **não são de desenho** e estão com quem decide. Enquanto não v
 | T10 | os sinais podem se chamar Bateria e Alternador no cadastro? | o nome do cadastro |
 | todas | o app respeita a fonte aumentada do Android? | trava o tamanho |
 | T14 | se o evento falhar de novo: *confira a conexão do módulo* | aparece na segunda falha |
+| T06 | no conflito de pinos com saída, `Usar leitor sem fio` resolve ali, ou a saída é reconectar o módulo sem fio, como a HU-T06-5 e o domínio dizem (T06-N1)? | resolve ali: a sessão passa a sem fio e o mesmo ônibus segue pra confirmação (T06·4) |
+| T06 | `Solicitar correção de cadastro` manda o pedido pra quem, e o técnico vê o quê depois? | só o pressionado; nada é criado (G25) |
+| T06 | a frase da trava de fora do pacote é `Pertence a {garagem}.`: com a garagem do mock sai `Pertence a Pátio Caruaru.`, e a da referência já vinha sem crase (`a Garagem Ibura`, T06-N4). A frase leva o artigo da garagem (`à Garagem`, `ao Pátio`)? | o texto como está, com o nome da garagem do mock |
 
 ## Validar no aparelho
 

@@ -1,0 +1,86 @@
+[
+ {
+  "tela": "T06",
+  "ref": "00-tela",
+  "html": {
+   "fino": 0.76,
+   "estrutural": 0.41
+  },
+  "png": {
+   "fino": 2.23,
+   "estrutural": 0.69
+  }
+ },
+ {
+  "tela": "T06",
+  "ref": "01-momento-confirmar-o-veiculo",
+  "html": {
+   "fino": 0.01,
+   "estrutural": 0.01
+  },
+  "png": {
+   "fino": 0.95,
+   "estrutural": 0.53
+  }
+ },
+ {
+  "tela": "T06",
+  "ref": "02-estado-chassi-divergente",
+  "html": {
+   "fino": 0.01,
+   "estrutural": 0.01
+  },
+  "png": {
+   "fino": 1.52,
+   "estrutural": 0.73
+  }
+ },
+ {
+  "tela": "T06",
+  "ref": "03-estado-sem-chassi-na-can",
+  "html": {
+   "fino": 0.01,
+   "estrutural": 0.01
+  },
+  "png": {
+   "fino": 1.66,
+   "estrutural": 1
+  }
+ },
+ {
+  "tela": "T06",
+  "ref": "04-estado-fora-do-pacote",
+  "html": {
+   "fino": 0.59,
+   "estrutural": 0.57
+  },
+  "png": {
+   "fino": 1.23,
+   "estrutural": 0.87
+  }
+ },
+ {
+  "tela": "T06",
+  "ref": "05-estado-conflito-de-pinos-resolvivel",
+  "html": {
+   "fino": 0.01,
+   "estrutural": 0.01
+  },
+  "png": {
+   "fino": 1,
+   "estrutural": 0.54
+  }
+ },
+ {
+  "tela": "T06",
+  "ref": "06-estado-conflito-de-pinos-sem-saida",
+  "html": {
+   "fino": 0.01,
+   "estrutural": 0.01
+  },
+  "png": {
+   "fino": 1.01,
+   "estrutural": 0.56
+  }
+ }
+]

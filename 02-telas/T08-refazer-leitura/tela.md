@@ -6,32 +6,33 @@ Apagar só os valores lidos e ler de novo, do zero.
 |---|---|
 | **Elemento-assinatura** | a lista do que apaga ao lado do que fica — o técnico sabe o que perde antes de tocar |
 | **Chrome** | faixa de sessão |
-| **Semente no protótipo** | sessão com leitura feita |
+| **Semente no protótipo** | sessão M2C-0417 + RKT-8H42 com a leitura feita |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
 | **Momentos · estados** | 2 · 0 — ver `estados.md` |
 
 ## O que se toca
 
-- `Refazer a leitura` → relendo → concluída
-- `Ver os dados da CAN` → T07 com a leitura nova
+- `Refazer a leitura` → relendo → concluída. Um sinal responde a cada 600ms, na ordem da grade (`movimento.md`)
+- `Ver os dados da CAN` → T07 com a leitura nova, que abre já lida (G27)
+- `Voltar ao menu` → T04
+- `ENCERRAR`, antes de homologar → a sessão abortada, e a releitura para (G23)
+
+A grade monta os sinais do modelo do ativo da sessão, na ordem dos domínios e, dentro do domínio, o estático antes do dinâmico (T08·1). "doze" e "de 12" são o número de sinais, por extenso no texto (T08·2). O valor que volta é o do mock, o mesmo que a T07 mostra depois: o caso do ônibus, quando ele tem um, com a falha dando lugar ao nominal, porque a releitura é leitura nova (G21). Ao terminar, a leitura refeita fica gravada no estado único (T08·3). As regras estão no `06-prototipo/logica.md`.
 
 ## Peças do design system que esta tela usa
 
-Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe.
+Medido nas referências no C8 (a lista do C0 trazia seis peças que não aparecem, T08-A4). Construa com o componente — nunca redesenhe.
 
 - barra do sistema
-- faixa · sem ação
+- faixa · sessão aberta — sem a linha de baixo nas três referências; a peça fica com ela (G13)
 - duas ações
-- uma ação
-- processo correndo
-- com legenda
-- a marca no login
-- campo
-- campo focado
-- cartões de foto
+- processo correndo — o primário desabilitado sozinho, sem a explicação embaixo, com o pé de 32 (T08-V1)
+- cartões de valor — a grade de três colunas
 - mostrador · apagado
-- mostrador · relendo
-- mostrador · aceso
+- mostrador · relendo — com a unidade junto do valor
+- mostrador · aceso — com a unidade junto do valor
+
+E duas caixas desta tela, sem linha no `componentes.md`, na caixa de poço: a garantia do que fica (NADA SE PERDE) e o placar da releitura (5 de 12).
 
 ## Histórias de usuário
 

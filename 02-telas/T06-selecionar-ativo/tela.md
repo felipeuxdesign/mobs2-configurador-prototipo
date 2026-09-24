@@ -12,44 +12,35 @@ Escolher o ônibus que está na frente do técnico e provar que é ele.
 
 ## O que se toca
 
-- tocar num ônibus → confirmar o veículo
-- `Usar este ativo` → T07
-- `Escolher outro` → a lista
-- a busca filtra por placa, frota ou módulo
-- sem chassi na CAN: marcar a confirmação libera o `Usar este ativo`
-- chassi divergente: `Solicitar correção de cadastro`
+- a lista são os ônibus do pacote da garagem do contexto, na ordem do mock — na Várzea, os 10 (G9); o conteúdo rola entre a faixa e o rodapé (G16)
+- tocar num ônibus → ele fica **marcado** (o quadrado lima no poço) e o `Usar este ativo` acende; o `Usar este ativo` → confirmar o veículo. Tocar em outro ônibus troca a marca (decisão do diretor, 24/09: a T06·1 passa pra (b), o T06-N3). A lista com um ônibus marcado não tem referência: monta-se com as peças que existem (G25)
+- a confirmação checa nesta ordem: o pacote, os pinos e o chassi (T06·3). O ônibus que não é caso abre com o chassi lido igual ao do cadastro (T06·2)
+- `Usar este ativo` → o ativo entra na sessão, com o vínculo anotado (o chassi lido ou a confirmação do técnico, às 14:30), e segue pra T07
+- `Escolher outro` e `Escolher outro veículo` → a lista, com a busca como estava · `Voltar ao menu` → T04 · `ENCERRAR` → a sessão abortada (T16/03, G23)
+- a busca filtra ao digitar por placa, frota, módulo esperado e chassi, sem caixa, sem acento e sem o hífen da placa; a placa de um ônibus de outro pacote abre a trava de fora do pacote; sem resultado, o cartão fica vazio e sem texto (T06·5)
+- sem chassi na CAN: marcar a confirmação libera o `Usar este ativo`; a legenda fica onde está, porque nenhuma referência desenha o quadro marcado e tirá-la moveria o rodapé (G25)
+- chassi divergente: `Solicitar correção de cadastro` dá o pressionado e só o que o texto promete — sem dado nem destino no mock (G25)
+- conflito de pinos com saída: `Usar leitor sem fio` resolve no lugar — a sessão passa a sem fio e o mesmo ônibus segue pra confirmação (T06·4). O conflito vale quando o módulo da faixa, o ônibus e o meio da sessão são os do caso (G28)
 
 ## Peças do design system que esta tela usa
 
-Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe.
+Medido nas 7 referências e construído no C8 (T06-A6, G1): as peças que a tela usa de fato. Construa com o componente — nunca redesenhe.
 
 - barra do sistema
-- faixa · sem ação
+- faixa · sessão aberta (com 'sem ativo')
+- com contador neutro
+- campo de busca
+- linha de ônibus (a última com 78 e sem divisória)
+- a lista em cartão
+- bloco escolhido (justo; apagado quando o chassi diverge)
+- o par comparado (com o veredito quando batem)
+- linha tocável (a linha de ação: 'Solicitar correção de cadastro')
+- nota com rótulo
+- checkbox
+- escolhido com trava · T06 (falha; neutro no conflito com saída)
 - duas ações
 - uma ação
-- processo correndo
 - com legenda
-- nota com rótulo
-- o par comparado
-- linha do histórico
-- a lista de garagens
-- cadeia concluída
-- cadeia recusada
-- encerrando
-- pede o corte
-- sem homologar
-- com contador neutro
-- com contador de falha
-- a marca no login
-- campo
-- campo focado
-- checkbox
-- campo de busca
-- linha de opção
-- linha de ônibus
-- escolhido com trava · T06
-- cartão que pede ação
-- lista com contagem
 
 ## Histórias de usuário
 

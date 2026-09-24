@@ -1,0 +1,20 @@
+/* T06 · Selecionar ativo — só tokens. A barra do sistema na cor da faixa, a
+ * faixa da sessão sem ativo, o miolo (que rola entre a faixa e o rodapé
+ * quando passa de 800, G16 — a lista do pacote tem 10) e o rodapé. O miolo
+ * rola sem a barra de rolagem do navegador, que nenhuma referência desenha. */
+.t06 { height: 100%; display: flex; flex-direction: column; background: var(--fundo-pagina); }
+
+.t06-miolo {
+  flex-grow: 1; min-height: 0; overflow-y: auto; scrollbar-width: none;
+  display: flex; flex-direction: column; gap: var(--e-14);
+  padding: var(--e-14) var(--respiro) var(--respiro) var(--respiro);
+}
+
+/* a frase que diz o que fazer, embaixo da busca */
+.t06-instrucao { flex-shrink: 0; font-size: var(--t-link); font-weight: 500; line-height: var(--entrelinha-texto); color: var(--tinta-secundaria); }
+
+/* a lista do pacote não encolhe: o miolo rola */
+.t06-lista { flex-shrink: 0; margin-bottom: var(--respiro); }
+
+/* o último bloco do conteúdo guarda 16 até o rodapé, como as referências desenham */
+.t06-antes-do-rodape { margin-bottom: var(--respiro); }
