@@ -24,13 +24,21 @@ Achar o módulo, conectar e conferir, antes de qualquer gravação, se ele pode 
 
 Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe.
 
+- primário · normal
+- primário · pressionado
+- primário · desabilitado
+- link · normal e pressionado
+- linha tocável · normal e pressionada
 - barra do sistema
 - barra do sistema sem sessão
-- faixa · sem ação
+- faixa · sessão aberta
 - duas ações
 - uma ação
 - processo correndo
 - com legenda
+- os glifos de estado
+- os poços
+- os marcadores
 - aprovada
 - reprovada, com causa
 - não se aplica
@@ -40,27 +48,14 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - pré-checagem com sessão
 - falha
 - aviso
-- processo parado
 - nota tracejada
-- linha do histórico
-- a lista de garagens
-- cadeia concluída
-- cadeia recusada
-- encerrando
-- pede o corte
-- sem homologar
 - com contador neutro
-- com contador de falha
-- a marca no login
-- campo
-- campo focado
-- linha de opção
 - linha de módulo
-- linha de ônibus
 - bloco escolhido
 - escolhido com trava
 - tira de leituras
-- lista com contagem
+
+Corrigida no C6 pelo medido (G10, T05-A14). A T05 se constrói em dois ciclos: a lista conta o que o código usa hoje (o caminho feliz, C6) e o que as 16 referências desenham (os estados, C7). Saíram as 16 peças que nenhuma das 16 desenha (faixa · sem ação, processo parado, linha do histórico, a lista de garagens, as duas da cadeia, as três do encerramento, com contador de falha, a marca no login, campo, campo focado, linha de opção, linha de ônibus e lista com contagem): a faixa da T05 sempre tem o ENCERRAR, e as falhas da pré-checagem contam em cinza o que passou. Entraram as de toque da folha 1 (o primário nos três estados, o link e a linha tocável), a faixa · sessão aberta da pré-checagem aprovada (05 e 13) e os glifos, os poços e os marcadores da folha 3. Desenhadas e ainda sem código até o C7: o escolhido com trava (04), a parou aqui (14), a falha (14) e o aviso (15). O que só a T05 desenha virou variante nomeada (G11): a linha de módulo com o fim da lista e como escolha, a checagem no estado agora, a última de 43 da pré-checagem aprovada, o relógio apagado do ainda não, o processo correndo com o pé de 32, o contador do veredito e a faixa sem ativo. O rótulo de topo com o serial e a placa, o rótulo dos outros por perto e o bloco do nenhum encontrado (03) não têm linha no `componentes.md`: são peças desta tela, em `06-prototipo/app/src/telas/T05/`.
 
 ## Histórias de usuário
 

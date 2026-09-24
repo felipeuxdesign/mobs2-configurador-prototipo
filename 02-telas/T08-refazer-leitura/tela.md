@@ -23,14 +23,20 @@ A grade monta os sinais do modelo do ativo da sessão, na ordem dos domínios e,
 
 Medido nas referências no C8 (a lista do C0 trazia seis peças que não aparecem, T08-A4). Construa com o componente — nunca redesenhe.
 
+- primário · normal
+- primário · pressionado
+- primário · desabilitado
+- link · normal e pressionado
 - barra do sistema
-- faixa · sessão aberta — sem a linha de baixo nas três referências; a peça fica com ela (G13)
+- faixa · sessão aberta
 - duas ações
-- processo correndo — o primário desabilitado sozinho, sem a explicação embaixo, com o pé de 32 (T08-V1)
-- cartões de valor — a grade de três colunas
+- processo correndo
+- os marcadores
 - mostrador · apagado
-- mostrador · relendo — com a unidade junto do valor
-- mostrador · aceso — com a unidade junto do valor
+- mostrador · relendo
+- mostrador · aceso
+
+No acerto do design system pelo medido (G10), a lista ficou só com os nomes das linhas do `componentes.md`: entraram as de toque da folha 1 (o primário nos três estados e o link) e o marcador da folha 3, o LED da faixa. As anotações viraram variante nomeada da peça (G11), declarada lá: o processo correndo sem a explicação, o primário sozinho fechando em 32 (T08-V1), e a unidade junto do valor no mostrador relendo e aceso. A faixa sem a linha de baixo nas três referências é desvio, não variante: a peça fica com ela (G13). Saiu 'cartões de valor': nenhuma das três desenha o cartão de valor da folha 7, e os doze mostradores ficam na grade de cartões em três colunas, peça interna sem linha própria (`checklist/CartaoValor.jsx · GradeCartoes`). Na coluna do `componentes.md`, a T08 saiu de 7 linhas que nenhuma das três desenha (faixa · sem ação, uma ação, com legenda, a marca no login, campo, campo focado e cartões de foto) e entrou na faixa · sessão aberta e nos marcadores.
 
 E duas caixas desta tela, sem linha no `componentes.md`, na caixa de poço: a garantia do que fica (NADA SE PERDE) e o placar da releitura (5 de 12).
 

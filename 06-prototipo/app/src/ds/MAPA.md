@@ -21,7 +21,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | barra do sistema | src/ds/chrome/BarraDoSistema.jsx |
 | barra do sistema no menu | src/ds/chrome/BarraDoSistema.jsx (fundo tira) |
 | barra do sistema sem sessão | src/ds/chrome/BarraDoSistema.jsx (fundo pagina) |
-| faixa · sessão aberta | src/ds/chrome/Faixa.jsx |
+| faixa · sessão aberta | src/ds/chrome/Faixa.jsx; semAtivo, a placa em --tinta-apagada ("sem ativo") · C6, C8 |
 | faixa · sem sessão | src/ds/chrome/Faixa.jsx (estado sem-sessao) |
 | faixa · módulo com falha | src/ds/chrome/Faixa.jsx (estado falha; tracoSobreposto no menu: o traço sem roubar altura, G24 · C5, T04/03) |
 | faixa · sem ação | src/ds/chrome/Faixa.jsx (sem acao, casca da T16 · DS-D5) |
@@ -112,7 +112,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 
 | Peça | Componente |
 |---|---|
-| com contador neutro | src/ds/entrada/CabecalhoConteudo.jsx |
+| com contador neutro | src/ds/entrada/CabecalhoConteudo.jsx; o contador do veredito, em lima quando tudo aprova (11 de 11) · C6 |
 | com contador de falha | src/ds/entrada/CabecalhoConteudo.jsx (tom falha) |
 | a marca no login | src/ds/entrada/Marca.jsx |
 | campo | src/ds/entrada/Campo.jsx |

@@ -26,21 +26,29 @@ Escolher o ônibus que está na frente do técnico e provar que é ele.
 
 Medido nas 7 referências e construído no C8 (T06-A6, G1): as peças que a tela usa de fato. Construa com o componente — nunca redesenhe.
 
+- primário · normal
+- primário · pressionado
+- primário · desabilitado
+- link · normal e pressionado
+- linha tocável · normal e pressionada
 - barra do sistema
-- faixa · sessão aberta (com 'sem ativo')
-- com contador neutro
-- campo de busca
-- linha de ônibus (a última com 78 e sem divisória)
-- a lista em cartão
-- bloco escolhido (justo; apagado quando o chassi diverge)
-- o par comparado (com o veredito quando batem)
-- linha tocável (a linha de ação: 'Solicitar correção de cadastro')
-- nota com rótulo
-- checkbox
-- escolhido com trava · T06 (falha; neutro no conflito com saída)
+- faixa · sessão aberta
 - duas ações
 - uma ação
 - com legenda
+- os poços
+- os marcadores
+- nota com rótulo
+- o par comparado
+- com contador neutro
+- checkbox
+- checkbox marcado
+- campo de busca
+- linha de ônibus
+- bloco escolhido
+- escolhido com trava · T06
+
+No acerto do design system pelo medido (G10), a lista ficou só com os nomes das linhas do `componentes.md`, e as anotações viraram variante nomeada da peça (G11), declarada lá: a faixa sem ativo, a linha de ônibus com o fim da lista e como escolha, o bloco escolhido justo e apagado, o par comparado com o veredito, a linha tocável de ação ('Solicitar correção de cadastro') e o escolhido com trava neutro, o do conflito com saída. Entraram as de toque da folha 1 (o primário nos três estados, o link e a linha tocável), os poços e os marcadores da folha 3 e o checkbox marcado, que aparece ao marcar. Saiu a lista em cartão, que não tem linha: é o recipiente de todas as linhas (`linhas/Lista.jsx`). Na coluna do `componentes.md`, a T06 saiu de 16 linhas que nenhuma das sete desenha (faixa · sem ação, processo correndo, linha do histórico, a lista de garagens, as duas da cadeia, as três do encerramento, com contador de falha, a marca no login, campo e campo focado, linha de opção, cartão que pede ação e lista com contagem) e entrou na faixa · sessão aberta e no bloco escolhido.
 
 ## Histórias de usuário
 

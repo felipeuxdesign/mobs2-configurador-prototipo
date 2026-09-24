@@ -40,6 +40,8 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - barra do sistema
 - faixa · sessão aberta
 - duas ações
+- os glifos de estado
+- os marcadores
 - com contador neutro
 - com contador de falha
 - leitura na faixa
@@ -50,7 +52,7 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - sinais liga-desliga
 - instrumentos apagados
 
-Corrigida no C8 pelas referências (G1, G10, T07-A14): saíram as 8 peças que nenhuma das quatro desenha (faixa · sem ação, processo correndo, com legenda, a marca no login, campo, campo focado, cartão com barra, cartão de configuração) e entraram as de toque da folha 1. Duas variantes da leitura pequena estão desenhadas só aqui e não têm linha no `componentes.md`: **sem faixa** (o nível, Lei 5 · exceção) e **sem leitura** (o satélites do 02: borda vermelha, traço no lugar do número, o poço vazio com o traço no meio e a causa embaixo). A grade das leituras fica a 10, e não a 12 da folha (T07-V5).
+Corrigida no C8 pelas referências (G1, G10, T07-A14): saíram as 8 peças que nenhuma das quatro desenha (faixa · sem ação, processo correndo, com legenda, a marca no login, campo, campo focado, cartão com barra, cartão de configuração) e entraram as de toque da folha 1. No acerto do design system pelo medido (G10), entraram os átomos da folha 3 que a tela usa: o glifo é o check solto dos liga-desliga (Lei 4 · exceção), e o marcador é o LED da faixa. O que só a T07 desenha virou variante nomeada da leitura pequena (G11), declarada no `componentes.md`: **sem faixa** (o nível, Lei 5 · exceção), **sem leitura** (o satélites do 02: borda vermelha, traço no lugar do número, a escala vazia com o traço no meio e a causa embaixo) e a grade das leituras a 10, e não a 12 da folha (T07-V5).
 
 ## Histórias de usuário
 
