@@ -12,37 +12,27 @@ Gravar os blocos no módulo, um de cada vez, cada um relido antes do próximo.
 
 ## O que se toca
 
-- a cadeia corre sozinha
+- a cadeia corre sozinha, um bloco por segundo: o próximo começa no instante em que o anterior confirma (T09·1). A tela entra no quadro da `00` — três relidos, o Leitor gravando — e anda Leitor → Eventos → Conexão; nada conta de zero ao abrir (C9 · G27)
 - bloco recusado: `Tentar de novo`, do bloco recusado
 - queda: `Reconectar e seguir`, do mesmo bloco
-- cadeia concluída: `Calibrar` → T10
-- tentar sair no meio → a recuperação, até a Conexão gravar
+- cadeia concluída: `Voltar ao menu` → T04, de onde a Calibração segue. A 04 não desenha um `Calibrar`, e texto novo não entra (C9 · T09-A3, G1, G25)
+- tentar sair no meio — o `ENCERRAR`, ou o `Voltar ao menu` com a cadeia parada — → a recuperação, até a Conexão gravar; nela, o `ENCERRAR` não faz nada, e `Continuar a gravação` retoma do mesmo bloco (G23). Depois da Conexão, o `ENCERRAR` é o de toda tela com sessão
 
 ## Peças do design system que esta tela usa
 
-Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe.
+Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe. (C9, G10: a lista segue o medido no gate C0; saíram as dez que nenhuma referência da T09 desenha — faixa · sem ação, com legenda, falha, encerrando, pede o corte, sem homologar, com contador de falha, a marca no login, campo, campo focado.)
 
 - barra do sistema
 - faixa · sessão aberta
-- faixa · sem ação
 - duas ações
 - uma ação
 - processo correndo
-- com legenda
-- falha
 - aviso
 - processo parado
 - cadeia concluída
-- cadeia recusada
+- cadeia recusada — e, com a mesma peça, a cadeia correndo (00, elo de 86) e a pausada (02 e 03, elo de 68), variantes de altura (G11)
 - a pré-condição dos pinos
-- encerrando
-- pede o corte
-- sem homologar
 - com contador neutro
-- com contador de falha
-- a marca no login
-- campo
-- campo focado
 - prova da cadeia
 
 ## Histórias de usuário

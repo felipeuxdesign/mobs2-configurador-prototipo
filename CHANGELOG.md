@@ -1,5 +1,30 @@
 # Registro de mudanças
 
+## 2026-09-24 · C9 · configurar e calibrar — T09 e T10
+
+- **a T09** (a cadeia) e **a T10** (a calibração) em `app/src/telas/`: os 10 quadros e os toques de cada `tela.md`
+  - **T09:** a cadeia grava e relê bloco a bloco, a 1 s por bloco, com o trilho de 300 ms correndo junto (T09·1); o bloco recusado, a queda com "Reconectar e seguir", e a recuperação até a Conexão gravar
+  - **T10:** o hodômetro do módulo e o do painel, a régua da diferença, a foto, o semear com o tambor e a régua virando "confere" (T10·4), e os três estados
+- **a bancada:**
+  - **T09:** 0,05 a 0,07% nos três estados (os glifos do Lucide, G5); o 00 e o 04 em 1,5%, pela faixa travada em 52 (G13);
+  - **T10:** 0,02 a 0,16%;
+  - os textos conferem, fora o "relido às 14:30" da T10/01 · prints lado a lado em `06-prototipo/prints/C9/`
+- **o mock:** o hodômetro estático do a-22 (AC-08) e os acréscimos da cadeia, só aditivos · agora são **35 casos no mock**
+- **os tokens:** os 6 que o C7 e o C9 pediram entraram no bloco *C7 · C9* do `tokens.css` (253 → 259)
+- **desvio nomeado (G13):** a faixa fica sempre com 52 e a linha de baixo; na gravação e na cadeia concluída, a referência deixa ela encolher 1 px
+- **desvio nomeado (G25, T09-A3):** a cadeia concluída não tem "Calibrar", porque nenhuma referência desenha esse botão. O caminho da T09 pra T10 passa pelo menu. **Vai ao diretor:** o salto direto pede texto e referência
+- **desvio nomeado (G27):** no fluxo, a T09 abre com três blocos relidos e o Leitor gravando, e anda Leitor, Eventos e Conexão. Nada conta de zero ao abrir
+- **desvio nomeado (G24, Lei 3):** os elos da cadeia mudam de altura entre os quadros (86 gravando, 70 na recusa, 68 na pausa, 72 na concluída) · na T10, os estados mudam o lugar dos blocos · tudo como as referências desenham. **Vai ao diretor:** reservar os lugares
+- **desvio nomeado (G9):** a T10/01 diz "relido às 14:30", porque o relógio do protótipo fica em 14:30; a referência diz 14:31 · a rotação do caminhão coletor (T10/02) tem três segmentos, porque o modelo calibra três grandezas, e a referência desenha dois
+- **desvio nomeado (G29):** o tambor troca o valor em 500 ms (300 por rodinha e 40 entre elas), e não nos 600 que a animação da T10 pedia. O movimento fino é do C12
+- **desvio nomeado (G25):** o semear do horímetro e a rotação com o motor ligado não têm referência nem texto: o primário fica desabilitado com o mesmo rótulo
+- **vão ao diretor:**
+  - o "Voltar ao menu" da T09/04 é o primário, em lima, e é uma saída (R-02, T09-A14);
+  - o "Depois:" da T10/03 mostra todas as grandezas que faltam, contra a regra de mostrar só a próxima (T10·2)
+- **vão ao PM:**
+  - o caso do bloco recusado cai num ônibus sem cercas (T09-A15);
+  - as HU-T09-3 e HU-T09-7 não têm referência
+
 ## 2026-09-24 · C7 · conectar: os estados — T05
 
 - **os 11 estados da T05**, continuados do agente que o limite de gasto interrompeu:

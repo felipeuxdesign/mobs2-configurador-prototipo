@@ -1,0 +1,62 @@
+[
+ {
+  "tela": "T10",
+  "ref": "00-tela",
+  "html": {
+   "fino": 0.02,
+   "estrutural": 0
+  },
+  "png": {
+   "fino": 1.79,
+   "estrutural": 0.64
+  }
+ },
+ {
+  "tela": "T10",
+  "ref": "01-momento-hodometro-semeado",
+  "html": {
+   "fino": 0.04,
+   "estrutural": 0.04
+  },
+  "png": {
+   "fino": 1.85,
+   "estrutural": 0.44
+  }
+ },
+ {
+  "tela": "T10",
+  "ref": "02-estado-rotacao-caminhao-coletor",
+  "html": {
+   "fino": 0.16,
+   "estrutural": 0.15
+  },
+  "png": {
+   "fino": 1.27,
+   "estrutural": 0.41
+  }
+ },
+ {
+  "tela": "T10",
+  "ref": "03-estado-ja-semeado",
+  "html": {
+   "fino": 0.02,
+   "estrutural": 0
+  },
+  "png": {
+   "fino": 1.87,
+   "estrutural": 0.67
+  }
+ },
+ {
+  "tela": "T10",
+  "ref": "04-estado-modulo-sem-pulsos",
+  "html": {
+   "fino": 0.02,
+   "estrutural": 0
+  },
+  "png": {
+   "fino": 1.68,
+   "estrutural": 0.82
+  }
+ }
+]

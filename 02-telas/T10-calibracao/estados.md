@@ -11,3 +11,5 @@
 | `04-estado-modulo-sem-pulsos` | estado | o módulo não recebe pulsos | `grandeza-indisponivel` |
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.
+
+**O rótulo da caixa do que não se aplica** (T10·5, C9): `NÃO SE APLICAM NESTE MODELO` quando todo motivo vem do cadastro do modelo; `NÃO SE APLICAM` quando pelo menos um vem do módulo — o módulo que não lê pulsos derruba a rotação e a velocidade (a 04, que mistura dois motivos do módulo com um do cadastro).

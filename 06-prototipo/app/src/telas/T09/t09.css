@@ -1,0 +1,17 @@
+/* T09 · Configurar módulo — só a montagem da tela; o desenho de cada bloco é da peça.
+ * A barra do sistema na cor da faixa, a faixa da sessão, o miolo e o rodapé. */
+.t09 { height: 100%; display: flex; flex-direction: column; background: var(--fundo-pagina); color: var(--tinta); }
+
+/* o miolo: entre a faixa e o rodapé, rola quando passa de 800 (G16), sem a
+ * barra de rolagem do navegador do computador, que nenhuma referência desenha.
+ * A folga de 16 até o rodapé é o recheio dele (G16): os 16 a mais que a 00 e a
+ * 04 põem embaixo da cadeia e da prova ficam de fora, porque lá o conteúdo é
+ * cortado e eles nunca aparecem — aqui fariam o quadro rolar à toa. */
+.t09 .tela-miolo {
+  flex-grow: 1; min-height: 0; overflow-y: auto; scrollbar-width: none;
+  display: flex; flex-direction: column; gap: var(--e-14);
+  padding: var(--e-14) var(--e-16) var(--respiro) var(--e-16);
+}
+.t09 .tela-miolo > * { flex-shrink: 0; }
+/* com a cadeia parada (01, 02, 03), os blocos ficam a 12, como as referências desenham */
+.t09 .t09-miolo-justo { gap: var(--e-12); }
