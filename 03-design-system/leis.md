@@ -51,6 +51,8 @@ Cada lei tem o porquê. Uma lei sem motivo vira gosto, e gosto se discute; lei c
 | R-08 | O processo que para é **aviso**, no formato único |
 | R-09 | A calibração mostra o número **rolando no lugar** — o tambor —, sem remontar a tela |
 | R-10 | No protótipo, os passos do ciclo dinâmico **acontecem sozinhos**, um a cada 3 segundos |
-| R-11 | Tocar num módulo ou ônibus que é caso do mock **abre o estado dele** — a porta natural |
+| R-11 ◆ | Escolher e seguir com um módulo ou ônibus que é caso do mock **abre o estado dele** — a porta natural. Com a R-14, o estado aparece quando o técnico aperta o botão, não no toque da linha |
 | R-12 | Estados de toque: **normal, pressionado, desabilitado.** Sem hover. Sem foco de teclado no app |
 | R-13 | O palco fica **fora do app**. Comparar com a referência é trabalho do ciclo, não do palco |
+| R-14 ◆ | **Escolher numa lista marca; quem avança é o botão.** Tocar numa linha que tem o marcador de escolha (o quadrado) só marca — o quadrado lima surge — e acende o primário; é o primário que segue. Tocar em outra linha troca a marca. A linha com chevron (uma opção, uma consulta) age no toque. *Decisão do diretor, 24/09* |
+| R-15 ◆ | **O celular não mostra a barra de rolagem do navegador.** O que rola mostra o indicador do sistema: fino, por cima do conteúdo, sem ocupar lugar, enquanto rola, e some depois. *Decisão do diretor, 24/09* |

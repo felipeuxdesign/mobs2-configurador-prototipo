@@ -13,8 +13,8 @@ Achar o módulo, conectar e conferir, antes de qualquer gravação, se ele pode 
 ## O que se toca
 
 - a busca corre sozinha → a lista de módulos por perto. No protótipo ela acha na hora: o ritmo da busca não está em `movimento.md`
-- a tela abre com o do herói escolhido (00) · `Procurar de novo` → a busca de novo, sem nada escolhido (01)
-- tocar num módulo → escolhido → `Conectar ao M2C-0417`, com o serial do escolhido · o não cadastrado não se toca
+- pelo menu, a tela abre na lista sem nada escolhido (01), com o primário apagado · `Procurar de novo` → a busca de novo, sem nada escolhido (01) · a 00, com o do herói escolhido, abre pelo endereço, como o quadro da referência
+- tocar num módulo da lista **só o marca** (o quadrado lima surge no poço) e acende `Conectar ao M2C-0417`, com o serial do marcado; tocar em outro troca a marca · é o primário que conecta (R-14, decisão do diretor, 24/09) · o não cadastrado não se toca
 - conectado → a pré-checagem corre sozinha, uma linha a cada 600ms. O cadastro decide o que reprova: o serial fora do cadastro, o modelo sem driver, o firmware fora da matriz, a variante sem CAN, o conteúdo que não cabe
 - pré-checagem aprovada → a sessão nasce, com o meio em que a busca achou o módulo, e a faixa de sessão desce → `Selecionar ativo` (T06) · `Voltar ao menu` (T04)
 - numa falha: a ação do aviso (`Procurar outro módulo`, `Atualizar firmware`, `Reconectar`...)

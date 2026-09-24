@@ -10,6 +10,7 @@ export { Primario } from './primitivos/Primario.jsx'
 export { SoIcone } from './primitivos/SoIcone.jsx'
 export { Link } from './primitivos/Link.jsx'
 export { Checkbox } from './primitivos/Checkbox.jsx'
+export { Rolagem } from './primitivos/Rolagem.jsx'
 
 // as seis famílias (C2) — as telas importam tudo daqui
 export * from './chrome/index.js'

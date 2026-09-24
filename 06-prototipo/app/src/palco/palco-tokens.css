@@ -21,4 +21,6 @@
   --palco-ls-rotulo: 1.6px;                                    /* ESTADOS DESTA TELA, PROTÓTIPO */
   --palco-opacidade-pisca: 0.4;                                /* o Voltar ao fluxo pisca uma vez */
   --palco-estreito: 900px;                                     /* abaixo disso, o modo estreito */
+  --palco-rolagem: 6px;                                        /* a barra de rolagem do palco (o painel e a coluna): fina, nas cores do palco (diretor, 24/09) */
+  --palco-rolagem-cor: var(--borda-neutra);                    /* a cor dela, sem trilho claro */
 }

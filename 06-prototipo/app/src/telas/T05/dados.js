@@ -3,6 +3,7 @@
 // variante, o firmware, a matriz, o conteúdo e as cercas saem de M.
 import { M } from '../../dados/mock.js'
 import { TX } from './textos.js'
+import { milhar } from '../../dados/formato.js'
 
 // ── a busca (AC-06) ──
 // os módulos por perto, na ordem da referência, o herói primeiro (gate P·C6)
@@ -84,10 +85,12 @@ export function faltas(c) {
   return { semDriver, semCadastro, firmwareFora }
 }
 
-// o resultado de cada uma das onze, quando termina
-export function resultados(c) {
+// o resultado de cada uma das onze, quando termina: a regra do cadastro e, por
+// cima, o que o caso do mock muda na linha dele (C7 · NA_LINHA)
+export function resultados(c, casos = []) {
   const f = faltas(c)
-  return LINHAS.map((l) => ({ ...l.avalia(c, f), titulo: l.titulo, id: l.id }))
+  const troca = Object.assign({}, ...casos.filter((k) => NA_LINHA[k]).map((k) => NA_LINHA[k](M.casos[k])))
+  return LINHAS.map((l) => ({ ...(troca[l.id] ?? l.avalia(c, f)), titulo: l.titulo, id: l.id }))
 }
 
 // a sessão que nasce na pré-checagem aprovada (logica.md, C6·2): o módulo, sem
@@ -97,3 +100,71 @@ export const sessaoNova = (serial) => ({ moduloSerial: serial, ativoId: null, sa
 // a atualização do firmware (AC-19): o módulo do caso e o quadro que a 10 desenha
 export const CASO_FIRMWARE = 'firmware-fora-matriz'
 export const casoFirmware = () => M.casos[CASO_FIRMWARE]
+
+// ── C7 · os estados: o que cada caso do mock faz na conexão ──
+// Os casos que a T05 lê (receitas.js). Cada um aponta um módulo: o serial do
+// caso, ou o módulo do ativo dele (o pool esgotado só traz o ativo).
+export const CASOS_T05 = [
+  'serial-nao-cadastrado', 'modelo-sem-driver', 'firmware-fora-matriz', 'firmware-fora-sem-rede',
+  'conteudo-nao-cabe', 'pool-esgotado', 'canal-aberto', 'modulo-com-pendencias',
+  'link-perdido', 'modulo-em-repouso', 'conexao-falha',
+]
+export const CASO_BUSCA_VAZIA = 'busca-vazia'
+export const CASO_CONEXAO = 'conexao-falha'
+export const CASO_SEM_REDE = 'firmware-fora-sem-rede'
+export const CASO_CANAL = 'canal-aberto'
+// Os que acontecem uma vez (G21, casosConsumidos): a falha ao conectar, o link
+// que cai, o módulo que dorme, o canal antigo que o app fecha e o módulo sem
+// rede até a conexão gravar. O resto é fato do cadastro — o serial, o driver,
+// a matriz, o conteúdo, as cercas e as pendências — e vale toda vez.
+const UMA_VEZ = new Set([CASO_BUSCA_VAZIA, CASO_CONEXAO, 'link-perdido', 'modulo-em-repouso', CASO_CANAL, CASO_SEM_REDE])
+
+export function serialDoCaso(id) {
+  const c = M.casos[id]
+  return c.moduloSerial ?? c.serial ?? (c.ativoId ? M.ativos.find((a) => a.id === c.ativoId)?.moduloSerial : null) ?? null
+}
+// os casos da T05 que valem agora pra um módulo, na sessão do estado único
+export const casosDoModulo = (serial, consumidos = []) =>
+  CASOS_T05.filter((k) => serialDoCaso(k) === serial && !(UMA_VEZ.has(k) && consumidos.includes(k)))
+
+// '2026-03-03' → '03/03' (o dia e o mês, sem Intl)
+const diaMes = (iso) => { const [, mes, dia] = iso.split('-'); return `${dia}/${mes}` }
+
+// o que o caso muda na linha dele, por cima da regra do cadastro
+const NA_LINHA = {
+  // 09 · o modem do módulo sem rede (AC-20): a linha diz o que o caso lê
+  [CASO_SEM_REDE]: (caso) => ({ modem: ok(caso.modem) }),
+  // 12 · o pool esgotado: as regiões usadas contra o máximo, e a que não cabe
+  'pool-esgotado': (caso) => ({ cercas: reprova(TX.deTotal(caso.regioesUsadas, caso.regioesMax), TX.regiaoNaoCabe(caso.regiaoSolicitada)) }),
+  // 13 · o canal da sessão anterior, que o app fecha antes de começar: passa, com a nota do quando
+  [CASO_CANAL]: (caso) => ({ canal: { ...ok(TX.fechado), nota: TX.abertoDesde(diaMes(caso.sessaoAnterior.data), caso.sessaoAnterior.hora) } }),
+}
+
+// onde a pré-checagem para (C7·2): o link que cai (14) e o módulo que dorme
+// (15), na checagem do caso. A linha que parou diz o que houve; as seguintes esperam.
+const PARA = {
+  'link-perdido': () => ({ tipo: 'link', linha: { estado: 'parou', valor: TX.semResposta } }),
+  'modulo-em-repouso': () => ({ tipo: 'repouso', linha: { estado: 'parou', tom: 'neutro', valor: TX.emRepouso } }),
+}
+export function paradaDe(casos) {
+  const k = casos.find((id) => PARA[id])
+  if (!k) return null
+  const n = M.casos[k].naChecagem
+  return { caso: k, n, indice: n - 1, ...PARA[k]() }
+}
+
+// a tira: as mensagens que o módulo guardou (13, modulo-com-pendencias) e a rede dele
+export function leiturasDa(casos) {
+  const p = casos.includes('modulo-com-pendencias') ? M.casos['modulo-com-pendencias'] : null
+  return [
+    p ? { rotulo: TX.mensagensPendentes, valor: milhar(p.mensagens), destaque: true, complemento: TX.deDiagnostico(milhar(p.diagnostico)) }
+      : { rotulo: TX.mensagensPendentes, valor: TX.nenhuma },
+    { rotulo: TX.redeDoModulo, valor: TX.conectada },
+  ]
+}
+
+// 03 · a busca vazia: quanto durou (AC-18) e qual tentativa
+export const buscaVazia = () => M.casos[CASO_BUSCA_VAZIA]
+// 04 · a conexão que falha: o módulo do caso no lugar do escolhido (o do herói), os outros quatro por perto
+export const serialDaFalha = () => M.casos[CASO_CONEXAO].moduloSerial
+export const pertoComFalha = () => M.situacao.porPerto.map((p, i) => (i === 0 ? { serial: serialDaFalha() } : p))

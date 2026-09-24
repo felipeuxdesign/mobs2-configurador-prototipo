@@ -1,0 +1,10 @@
+/* T05 · os valores que as referências dos estados da T05 usam e o tokens.css
+ * ainda não tem (C7). Cada um com o papel e quem usa; no fechamento do C7,
+ * passam pro tokens.css (o bloco C6 · C8, junto de --linha-precheck-fim) e
+ * este arquivo sai. */
+:root {
+  --linha-precheck-fim-parada: 45px; /* a última linha da pré-checagem que terminou numa falha ou parou no caso, com a folga do pé do cartão (T05/06–09, 11, 12, 14, 15) · LinhaChecagem (folgaFim 'pre-checagem-parada') */
+  --ls-rotulo-topo-fora: 1.2px;      /* a letra do rótulo de topo do serial fora do cadastro, em 12 (T05/06: 'M2C-0999 · fora do cadastro') · T05 */
+  --marca-vazio-busca: 44px;         /* o quadrado tracejado com o traço, em cima do vazio da busca (T05/03) · Vazio (variante 'busca') */
+  --entrelinha-frase-busca: 1.45;    /* a frase de 14 do vazio da busca, centrada ('Aproxime o aparelho do módulo…', T05/03) · Vazio (variante 'busca') */
+}

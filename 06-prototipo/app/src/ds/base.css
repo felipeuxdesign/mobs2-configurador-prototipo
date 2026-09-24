@@ -13,4 +13,9 @@
 :where(.app, .vitrine) :where(button) { font: inherit; color: inherit; background: none; border: 0; padding: 0; margin: 0; }
 :where(.app, .vitrine) :where(p, h1, h2, h3, ul, ol) { margin: 0; padding: 0; }
 
-:where(.app) { height: 100%; }
+:where(.app) { height: 100%; position: relative; }
+
+/* o celular não mostra a barra de rolagem do navegador, em nenhuma tela: quem
+   mostra a rolagem é o indicador do sistema (Rolagem), por cima do conteúdo (diretor, 24/09) */
+:where(.app) :where(*) { scrollbar-width: none; }
+:where(.app) :where(*)::-webkit-scrollbar { display: none; width: 0; height: 0; }

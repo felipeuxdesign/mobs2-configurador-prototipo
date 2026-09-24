@@ -1,5 +1,19 @@
 # Registro de mudanças
 
+## 2026-09-24 · o toque e a rolagem, pelo diretor
+
+- **R-14 · escolher numa lista marca; quem avança é o botão.** Tocar numa linha com o marcador de escolha só marca, e o primário acende e segue. Tocar em outra linha troca a marca. Vale no app inteiro, e entrou nas leis de produto
+  - **na T05:** a lista (01) marca o módulo, e o "Conectar ao M2C-…" conecta; antes, o toque pulava direto pro quadro do escolhido (a 00). A 00 continua abrindo pelo endereço, como o quadro da referência
+  - **na T06**, já era assim desde o C8, e **na T02**, desde o C4
+  - **a R-11** (a porta natural) passou a dizer que o estado do caso aparece quando o técnico aperta o botão
+- **o quadrado de escolha surge no toque,** como a `animacao.md` da T02 pede: a camada lima entra por opacidade e escala, de 80% a 100%, em 150 ms, e com "reduzir movimento" aparece direto. Parado, o desenho é o mesmo: as 121 fotos da vitrine continuam iguais ao C2
+- **R-15 · o celular não mostra a barra de rolagem do navegador.** O que rola mostra o indicador do sistema:
+  - fino, 3 px, por cima do conteúdo e sem ocupar lugar;
+  - aparece enquanto rola e some 900 ms depois;
+  - é um só pro app inteiro (`Rolagem`, nos primitivos) · 6 tokens novos no bloco *o sistema*, **247 → 253**
+- **o painel e a coluna do palco** rolam com uma barra fina, nas cores do palco, sem trilho claro
+- as telas T01 a T08 continuam com os mesmos números contra a referência · **pedidos ao arquiteto:** o quadro da lista com um item marcado, na T05 e na T06
+
 ## 2026-09-24 · C8 · o ônibus e a CAN — T06, T07 e T08
 
 - **a T06** (selecionar ativo), **a T07** (dados da CAN) e **a T08** (refazer leitura) em `app/src/telas/`: 13 dos 14 quadros e os toques de cada `tela.md`

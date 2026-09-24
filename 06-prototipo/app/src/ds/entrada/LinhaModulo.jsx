@@ -12,14 +12,16 @@
 import { Tocavel, Poco, Glifo, Quadrado } from '../index.js'
 import './LinhaModulo.css'
 
-export function LinhaModulo({ serial, variante, aoTocar, rotulo, apagada = false, divisoria = true, escolha = false, rotuloValor, valor, fim = false }) {
+// `marcado` (diretor, 24/09): na lista de escolha, tocar marca o módulo (o quadrado lima)
+//   e quem avança é o primário — a linha não navega.
+export function LinhaModulo({ serial, variante, aoTocar, rotulo, apagada = false, divisoria = true, escolha = false, marcado = false, rotuloValor, valor, fim = false }) {
   const classe = [
     'ds-linha-modulo', escolha ? 'ds-linha-modulo-escolha' : '', apagada ? 'ds-linha-modulo-apagada' : '',
     divisoria ? '' : 'ds-sem-divisoria', fim ? 'ds-linha-modulo-fim' : '',
   ].filter(Boolean).join(' ')
   const conteudo = escolha ? (
     <>
-      <Poco tam={30} aria-hidden="true">{apagada ? <Glifo estado="traco" /> : <Quadrado tam={11} />}</Poco>
+      <Poco tam={30} aria-hidden="true">{apagada ? <Glifo estado="traco" /> : <Quadrado tam={11} escolhido={marcado} />}</Poco>
       <span className="ds-linha-modulo-corpo">
         <span className="ds-linha-modulo-serial">{serial}</span>
         <span className="ds-linha-modulo-variante">{variante}</span>
@@ -38,6 +40,6 @@ export function LinhaModulo({ serial, variante, aoTocar, rotulo, apagada = false
     </>
   )
   if (apagada) return <div className={classe}>{conteudo}</div>
-  const radio = escolha ? { role: 'radio', 'aria-checked': false } : {}
+  const radio = escolha ? { role: 'radio', 'aria-checked': marcado } : {}
   return <Tocavel className={classe} rotulo={rotulo} aoTocar={aoTocar} {...radio}>{conteudo}</Tocavel>
 }

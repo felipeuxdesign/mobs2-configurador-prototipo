@@ -103,3 +103,12 @@ body { background: var(--poco-fundo); overflow: hidden; }
 .painel-voltar { margin: 0 var(--e-20) var(--e-12); }
 .painel-etiqueta { flex-shrink: 0; padding: var(--e-8) var(--e-20) var(--e-16); font-size: var(--t-legenda); color: var(--tinta-apagada); }
 .palco-pisca { animation: palco-pisca var(--mov-lento) var(--mov-curva) 1; }
+/* a rolagem do palco (diretor, 24/09): o painel e a coluna rolam com uma barra
+   fina, nas cores do palco, sem trilho claro; no celular estreito, a rolagem
+   é a do sistema (o indicador do app), e a barra do navegador não aparece */
+.palco :where(.painel-lista, .coluna) { scrollbar-width: thin; scrollbar-color: var(--palco-rolagem-cor) transparent; }
+.palco :where(.painel-lista, .coluna)::-webkit-scrollbar { width: var(--palco-rolagem); }
+.palco :where(.painel-lista, .coluna)::-webkit-scrollbar-track { background: transparent; }
+.palco :where(.painel-lista, .coluna)::-webkit-scrollbar-thumb { background: var(--palco-rolagem-cor); border-radius: calc(var(--palco-rolagem) / 2); }
+.celular-tela { scrollbar-width: none; }
+.celular-tela::-webkit-scrollbar { display: none; width: 0; height: 0; }

@@ -74,4 +74,49 @@ export const TX = {
   foraDoCadastro: 'fora do cadastro',
   procurarOutro: 'Procurar outro módulo',
   atualizarFirmware: 'Atualizar firmware',
+
+  // ── C7 · os estados ──
+  // Os ordinais e o extenso saem do número do mock, mas só o que o textos.md
+  // escreve (como o 'OUTROS QUATRO' da busca): com outro número, a frase fica
+  // sem texto (G25), nunca uma palavra inventada.
+
+  // 03 · nenhum encontrado (busca-vazia)
+  nenhumEncontrado: 'nenhum encontrado',
+  nenhumRespondeu: 'Nenhum módulo respondeu',
+  aproxime: 'Aproxime o aparelho do módulo e confira se ele está alimentado.',
+  tentativa: { 1: 'primeira' },
+  buscaDurou: (seg, tentativa) => (TX.tentativa[tentativa] ? `A busca durou ${seg} s · ${TX.tentativa[tentativa]} tentativa` : null),
+
+  // 04 · a conexão falhou (conexao-falha): a trava mora no escolhido
+  naoRespondeu: 'NÃO RESPONDEU',
+  conferir: [
+    { titulo: '1 · Cabo e conector', texto: '— encaixe firme' },
+    { titulo: '2 · Alimentação', texto: '— energia chegando' },
+    { titulo: '3 · Cadastro', texto: '— serial e modelo conferem' },
+  ],
+  tentarDeNovo: 'Tentar de novo',
+
+  // 09 · o firmware fora com o módulo sem rede
+  comConexaoGravada: 'Com a conexão gravada, o firmware atualiza pelo módulo.',
+  gravarConexao: 'Gravar a conexão',
+
+  // 12 · o pool de cercas esgotado: a região pedida não cabe
+  regiaoNaoCabe: (nome) => `${nome} não cabe`,
+
+  // 13 · o canal aberto de uma sessão anterior, que o app fecha, e as pendências
+  fechado: 'fechado',
+  abertoDesde: (dia, hora) => `aberto desde ${dia} às ${hora}`,
+  deDiagnostico: (n) => `· ${n} de diagnóstico`,
+
+  // 14 · o link cai na checagem do caso
+  semRespostaDoModulo: 'SEM RESPOSTA DO MÓDULO',
+  reconecteDa: { 6: 'Reconecte para seguir da sexta.' },
+  semResposta: 'sem resposta',
+  reconectar: 'Reconectar',
+
+  // 15 · o módulo dorme na checagem do caso — não é erro
+  moduloEmRepouso: 'MÓDULO EM REPOUSO',
+  acordeDa: { 9: 'Acorde para seguir da nona.' },
+  emRepouso: 'em repouso',
+  acordarModulo: 'Acordar módulo',
 }

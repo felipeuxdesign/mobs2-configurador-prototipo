@@ -293,6 +293,14 @@
   --escolhido-apagado-respiro: 18px;/* o mesmo recheio quando o escolhido apaga, porque o chassi lido desmente o cadastro (T06/02) · BlocoEscolhido (justo, apagado) */
   --linha-acao: 50px;               /* a linha de ação solta, em cartão próprio: o que se pede e o que acompanha (T06/02, T13/07) · LinhaTocavel (acao) */
   --entrelinha-frase-garantia: 1.55; /* a frase de 14 da caixa do que fica, antes de apagar (NADA SE PERDE, T08/00) · T08 */
+
+  /* ── o sistema · a rolagem (diretor, 24/09): o celular não mostra a barra do navegador; quem mostra a rolagem é o indicador do sistema, fino, por cima do conteúdo, que aparece enquanto rola e some ── */
+  --rolagem-largura: 3px;     /* a espessura do indicador de rolagem */
+  --rolagem-recuo: 2px;       /* a distância do indicador até a borda do que rola */
+  --rolagem-minimo: 32px;     /* a altura mínima do indicador, numa lista muito longa */
+  --rolagem-cor: var(--tinta-apagada); /* a cor do indicador */
+  --rolagem-espera: 900ms;    /* quanto o indicador fica depois que a rolagem para, antes de sumir (não é movimento: não zera no reduzir) */
+  --camada-sistema: 2;        /* o que é do sistema fica por cima do app: o indicador de rolagem */
 }
 
 @media (prefers-reduced-motion: reduce) {
