@@ -23,4 +23,5 @@
   --palco-estreito: 900px;                                     /* abaixo disso, o modo estreito */
   --palco-rolagem: 6px;                                        /* a barra de rolagem do palco (o painel e a coluna): fina, nas cores do palco (diretor, 24/09) */
   --palco-rolagem-cor: var(--borda-neutra);                    /* a cor dela, sem trilho claro */
+  --palco-topo-coluna: var(--poco-34);                         /* o lugar fixo do topo da coluna: a frase do fluxo ou o Voltar ao fluxo (decisão 30) */
 }

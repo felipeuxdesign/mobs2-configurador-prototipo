@@ -29,3 +29,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `06-estado-conflito-de-pinos-sem-saida`
 
 `14:30` · `M2C-0389` · `sem ativo` · `ENCERRAR` · `Confirmar o veículo` · `ERRO DE PROJETO DE INSTALAÇÃO` · `PGE-6K41` · `frota 1033 · Ônibus urbano OF-1621` · `O fio branco é do sensor de porta, e este módulo não tem leitor sem fio.` · `Acione o gestor.` · `Escolher outro`
+
+## `07-momento-correcao-solicitada`
+
+`14:30` · `M2C-0417` · `sem ativo` · `ENCERRAR` · `Confirmar o veículo` · `ESCOLHIDO` · `RDF-3R14` · `frota 1051 · Ônibus urbano OF-1621` · `CHASSI LIDO DO VEÍCULO` · `9BM384067GB1204` · `71` · `NO CADASTRO` · `9BM384067GB1204` · `17` · `Os dois últimos dígitos estão trocados de lugar — erro de digitação no cadastro.` · `Correção solicitada às 14:30` · `o gestor recebe os dois chassis` · `Escolher outro veículo` · `Voltar ao menu`

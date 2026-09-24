@@ -8,7 +8,7 @@ O painel das ferramentas: o que está pronto pra usar, o que espera o quê.
 | **Chrome** | tira de contexto (garagem) + faixa de sessão · sem sessão, a faixa diz só o fato (01) |
 | **Semente no protótipo** | sessão M2C-0417 + RKT-8H42 · fila com 2 itens |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 5 · 4 — ver `estados.md` |
+| **Momentos · estados** | 7 · 4 — ver `estados.md` |
 
 ## O que se toca
 
@@ -24,6 +24,8 @@ O painel das ferramentas: o que está pronto pra usar, o que espera o quê.
 - o `Cancelar` dos dois diálogos volta à folha de onde ele nasceu (T04·8)
 - `Encerrar a sessão e sair` → login, com a fila preservada · `Encerrar a sessão e trocar` → a sincronização da garagem nova. Os dois passam pelo encerramento sem homologar da T16 quando ele existir (C11); até lá, seguem direto (G23)
 - com a folha ou o diálogo aberto, o menu não se toca — nem o que fica atrás do véu, nem a tira, que fica acesa em cima dele
+- com a sessão aberta, o cartão do módulo → folha Módulo conectado · o do ativo → folha Ativo da sessão · os dois ficam travados: a folha diz isso e oferece `Encerrar a sessão`
+- cartão de ferramenta em espera é desabilitado de verdade: o toque não faz nada, e o motivo já está escrito nele
 
 ## Peças do design system que esta tela usa
 
@@ -45,6 +47,9 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - os ícones de ferramenta
 - os poços
 - os marcadores
+- diálogo sem saída
+- diálogo com ciência
+- folha com opções
 - disponível
 - decide agora
 - conectado
@@ -52,6 +57,8 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - espera
 - espera a rede
 - aviso
+- nota com rótulo
+- linha do histórico
 - linha de garagem
 - linha de garagem · a atual
 - a lista de garagens

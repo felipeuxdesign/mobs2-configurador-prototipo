@@ -25,3 +25,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `05-momento-ciclo-concluido`
 
 `14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Ciclo dinâmico` · `5` · `de 5 passos` · `O EVENTO CHEGOU EM` · `FILA DRENADA` · `0:48` · `disparado 14:30` · `limite 2:00` · `EVENTO DE TESTE` · `disparado pelo app` · `14:30` · `recebido no servidor` · `14:30:48` · `campos conferidos` · `6 de 6` · `Ignição ligada` · `Movimento detectado` · `Ré acionada` · `Porta aberta` · `Ignição desligada` · `Voltar ao checklist` · `Voltar ao menu`
+
+## `06-momento-correcao-solicitada`
+
+`14:30` · `M2C-0312` · `PCX-9A17` · `ENCERRAR` · `Ciclo dinâmico` · `2` · `de 6 passos` · `PRAZO DO EVENTO` · `FILA DRENADA` · `1:36` · `0:00` · `limite 2:00` · `EVENTO DE TESTE` · `disparado pelo app` · `14:30` · `recebido no servidor` · `campos conferidos` · `Ignição ligada` · `Movimento detectado` · `Ré acionada` · `Porta aberta` · `Ignição desligada` · `Cartão do motorista` · `leu 9412857 · o cadastro espera 0009412857` · `Encerrar o ciclo` · `Correção solicitada às 14:30`

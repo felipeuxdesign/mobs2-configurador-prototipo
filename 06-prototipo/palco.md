@@ -8,7 +8,7 @@ A moldura de apresentação em volta do app. **Três peças e mais nada**, no fu
 |---|---|
 | **o quadrado** | 44 × 44, no canto de cima à esquerda, a 16px das bordas · abre o painel |
 | **o celular** | no centro, **o app em tamanho real, 360 × 800**, com moldura de 8px — 376 × 816 por fora · raio 34 por fora, 26 na tela · escala inteiro pra caber na janela, **nunca maior que o real** |
-| **a coluna** | 230 de largura, 40 à direita do celular, alinhada ao topo · os estados da tela aberta, linhas de 32 |
+| **a coluna** | 230 de largura, 40 à direita do celular, **centralizada na altura dele** — a caixa tem a altura do celular e o conteúdo fica no meio · os estados da tela aberta, linhas de 32 |
 | **o painel** | 280 de largura, desliza da esquerda por cima de tudo · fecha no X ou tocando fora · escolher uma tela não fecha o painel |
 
 ## O painel · em duas partes
@@ -23,8 +23,8 @@ A tela aberta aparece marcada. As folhas não entram no painel: são momentos da
 
 - lista **só os estados** da tela aberta — momento é fluxo e não entra
 - com mais de seis, os estados se agrupam pelo que o técnico estava fazendo — na T05: achar, conectar, conferir
-- o marcador é **o mesmo do app**: poço de 24 com o quadrado lima de 10 no escolhido
-- com um estado aberto, aparece **`Voltar ao fluxo`** no topo da coluna · ele devolve o instante de antes do primeiro estado aberto; se o estado veio pelo endereço, monta a semente da tela
+- o marcador é **o mesmo do app**: poço de 24 com o quadrado vazado de 11, que vira lima de 11 no escolhido
+- **o topo da coluna tem um lugar fixo, de 34px**: no fluxo, o texto *no fluxo · toque num estado pra ver*; num estado, o **`Voltar ao fluxo`**. Com a mesma altura, a lista nunca se mexe quando um estado abre · o `Voltar ao fluxo` devolve o instante de antes do primeiro estado aberto; se o estado veio pelo endereço, monta a semente da tela
 - tela sem estados: a coluna não aparece
 
 ## O celular, nos dois jeitos

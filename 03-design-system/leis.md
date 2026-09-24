@@ -36,6 +36,7 @@ Cada lei tem o porquê. Uma lei sem motivo vira gosto, e gosto se discute; lei c
 | **Poço na linha** ◆ | linha de 38 leva poço de 24 · 44 leva 30 · 50 leva 32 — sempre no centro. Exceções declaradas: a linha de conferência (T11) leva 26 em linha de 50, a linha da fila (T15) leva 30 | o poço é da linha, não da divisória |
 | **A barra do sistema sangra no primeiro andar** | a cor dela é a do que está logo embaixo; sob o véu, escurece junto | a tela começa na borda, não embaixo de uma faixa |
 | **Folga até o rodapé** | 16px no mínimo, em toda tela | o conteúdo não pode encostar nas ações |
+| **O marcador de escolha é um só** | poço de 24 no checkbox e na coluna do palco, 30 na linha de lista · quadrado vazado de 11, com borda `#4A4166`, no desmarcado · lima cheio de 11 no marcado | quatro versões do mesmo marcador liam como quatro peças diferentes |
 
 ## Leis de produto
 

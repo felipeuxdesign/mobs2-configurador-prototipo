@@ -85,7 +85,7 @@ function PalcoApp() {
           onClickCapture={numEstado ? (e) => { e.stopPropagation(); e.preventDefault(); setPisca((n) => n + 1) } : undefined}>
           <div className="celular-tela" inert={numEstado ? '' : undefined}><App /></div>
         </div>
-        {temColuna && <Coluna tela={tela} estado={est} aoAbrir={abrirEstado} aoVoltar={voltarAoFluxo} pisca={pisca} />}
+        {temColuna && <Coluna tela={tela} estado={est} aoAbrir={abrirEstado} aoVoltar={voltarAoFluxo} pisca={pisca} escala={escala} />}
       </div>
       <span className="palco-etiqueta">{VERSAO.ciclo} · {VERSAO.data}</span>
       <Painel aberto={painel} tela={tela} aoIr={ir} aoFechar={() => setPainel(false)} aoRecomecar={recomecar}

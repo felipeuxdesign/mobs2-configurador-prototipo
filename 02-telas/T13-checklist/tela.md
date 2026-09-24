@@ -49,6 +49,7 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - campo
 - campo focado
 - checkbox
+- checkbox marcado
 - justificativa
 - linha de opção
 - lista com contagem

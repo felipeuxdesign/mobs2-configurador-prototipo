@@ -32,3 +32,5 @@ Cada decisão com o contexto, a escolha, o que foi descartado e a consequência.
 | [26](26-sessao-abortada.md) | ENCERRAR antes de homologar não pede confirmação |
 | [27](27-acesso-7-dias.md) | O acesso vale por 7 dias |
 | [28](28-lima-da-marca.md) | A marca usa o mesmo lima do sistema |
+| [29](29-um-marcador-so.md) | Um marcador de escolha só |
+| [30](30-lugar-do-voltar-ao-fluxo.md) | O lugar do Voltar ao fluxo é fixo |

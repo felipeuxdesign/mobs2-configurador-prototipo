@@ -35,8 +35,13 @@ body { background: var(--poco-fundo); overflow: hidden; }
 .celular-tela { width: var(--tela-largura); height: var(--tela-altura); border-radius: var(--palco-raio-tela); overflow: hidden; background: var(--fundo-pagina); position: relative; cursor: default; }
 .celular-tela * { cursor: default; }
 
-.coluna { position: absolute; top: calc(50% - var(--palco-celular-altura) / 2); left: calc(50% + var(--palco-celular-largura) / 2 + var(--palco-coluna-distancia));
-  width: var(--palco-coluna); display: flex; flex-direction: column; gap: var(--e-14); }
+/* a coluna tem a altura do celular (na escala dele), e o conteúdo fica no meio (palco.md, decisão 30) */
+.coluna { position: absolute; top: calc(50% - var(--palco-celular-altura) * var(--escala, 1) / 2);
+  left: calc(50% + var(--palco-celular-largura) * var(--escala, 1) / 2 + var(--palco-coluna-distancia));
+  height: calc(var(--palco-celular-altura) * var(--escala, 1)); overflow-y: auto;
+  width: var(--palco-coluna); display: flex; flex-direction: column; justify-content: safe center; gap: var(--e-14); }
+.coluna-topo { flex-shrink: 0; height: var(--palco-topo-coluna); display: flex; align-items: center; }
+.coluna-no-fluxo { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-apagada); }
 .coluna-cabeca { display: flex; flex-direction: column; gap: var(--e-2); }
 .coluna-tela { font-size: var(--t-secundario); font-weight: 600; color: var(--tinta-secundaria); }
 .coluna-voltar {
@@ -52,10 +57,6 @@ body { background: var(--poco-fundo); overflow: hidden; }
 .coluna-grupo-nome { font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--tinta-apagada); padding: var(--e-6) 0 var(--e-4); }
 .coluna-linha { height: var(--palco-linha-coluna); display: flex; align-items: center; gap: var(--e-10); text-align: left; }
 .coluna-linha:active .coluna-nome { color: var(--tinta); }
-.coluna-poco { width: var(--poco-24); height: var(--poco-24); flex-shrink: 0; display: flex; align-items: center; justify-content: center;
-  background: var(--poco); border-top: var(--traco-borda) solid var(--poco-fundo); border-bottom: var(--traco-borda) solid var(--borda-poco);
-  border-left: var(--traco-borda) solid var(--poco-lado); border-right: var(--traco-borda) solid var(--poco-lado); }
-.coluna-quadrado { display: block; width: var(--e-10); height: var(--e-10); background: var(--lima); }
 .coluna-nome { font-size: var(--t-secundario); font-weight: 500; color: var(--tinta-apagada); }
 .coluna-linha-aberta .coluna-nome { font-weight: 700; color: var(--tinta); }
 

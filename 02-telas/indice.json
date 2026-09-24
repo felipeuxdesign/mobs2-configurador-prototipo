@@ -1,6 +1,6 @@
 {
  "telas": 16,
- "referencias": 105,
+ "referencias": 109,
  "itens": [
   {
    "id": "T01/00-tela",
@@ -361,6 +361,30 @@
    "rotuloOrigem": "proposto"
   },
   {
+   "id": "T04/10-momento-folha-modulo-conectado",
+   "tela": "T04",
+   "pasta": "T04-menu",
+   "tipo": "momento",
+   "nome": "10-momento-folha-modulo-conectado",
+   "titulo": "FOLHA · Modulo conectado · travado na sessao",
+   "como": "tocar no cartão do módulo com a sessão aberta",
+   "caso": "modulos · M2C-0417",
+   "html": "02-telas/T04-menu/referencias/html/10-momento-folha-modulo-conectado.html",
+   "png": "02-telas/T04-menu/referencias/png/10-momento-folha-modulo-conectado.png"
+  },
+  {
+   "id": "T04/11-momento-folha-ativo-da-sessao",
+   "tela": "T04",
+   "pasta": "T04-menu",
+   "tipo": "momento",
+   "nome": "11-momento-folha-ativo-da-sessao",
+   "titulo": "FOLHA · Ativo da sessao · travado na sessao",
+   "como": "tocar no cartão do ativo com a sessão aberta",
+   "caso": "ativos · a-01",
+   "html": "02-telas/T04-menu/referencias/html/11-momento-folha-ativo-da-sessao.html",
+   "png": "02-telas/T04-menu/referencias/png/11-momento-folha-ativo-da-sessao.png"
+  },
+  {
    "id": "T05/00-tela",
    "tela": "T05",
    "pasta": "T05-conectar-modulo",
@@ -678,6 +702,18 @@
    "png": "02-telas/T06-selecionar-ativo/referencias/png/06-estado-conflito-de-pinos-sem-saida.png",
    "rotulo": "Pinos em conflito, sem saída",
    "rotuloOrigem": "proposto"
+  },
+  {
+   "id": "T06/07-momento-correcao-solicitada",
+   "tela": "T06",
+   "pasta": "T06-selecionar-ativo",
+   "tipo": "momento",
+   "nome": "07-momento-correcao-solicitada",
+   "titulo": "T06 · chassi divergente · correcao solicitada",
+   "como": "tocar em `Solicitar correção de cadastro` no chassi divergente",
+   "caso": "divergencia-chassi",
+   "html": "02-telas/T06-selecionar-ativo/referencias/html/07-momento-correcao-solicitada.html",
+   "png": "02-telas/T06-selecionar-ativo/referencias/png/07-momento-correcao-solicitada.png"
   },
   {
    "id": "T07/00-tela",
@@ -1216,6 +1252,18 @@
    "caso": "ciclo",
    "html": "02-telas/T14-ciclo-dinamico/referencias/html/05-momento-ciclo-concluido.html",
    "png": "02-telas/T14-ciclo-dinamico/referencias/png/05-momento-ciclo-concluido.png"
+  },
+  {
+   "id": "T14/06-momento-correcao-solicitada",
+   "tela": "T14",
+   "pasta": "T14-ciclo-dinamico",
+   "tipo": "momento",
+   "nome": "06-momento-correcao-solicitada",
+   "titulo": "T14 · identificador · correcao solicitada",
+   "como": "tocar em `Solicitar correção de cadastro` no identificador divergente",
+   "caso": "identificador-divergente",
+   "html": "02-telas/T14-ciclo-dinamico/referencias/html/06-momento-correcao-solicitada.html",
+   "png": "02-telas/T14-ciclo-dinamico/referencias/png/06-momento-correcao-solicitada.png"
   },
   {
    "id": "T15/00-tela",

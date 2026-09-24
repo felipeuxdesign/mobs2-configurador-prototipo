@@ -122,8 +122,8 @@ Cada linha é um espécime de moldura das folhas (121), e a folha 3 soma quatro 
 | código errado | as células ficam vermelhas | T01 |
 | link dentro do conteúdo | sublinhado · ação sobre o que está perto | T01 |
 | botões só de ícone | fechar e mostrar a senha · 44 de desenho, 48 de toque · com nome pro leitor de tela | T01 T04 |
-| checkbox | o marcador de escolha, com o texto do que se confirma | T01 T06 T13 |
-| checkbox marcado | o mesmo poço com o quadrado lima de 10 · surge em 150ms | T01 T06 T13 · ao marcar |
+| checkbox | o marcador de escolha: poço de 24 com o vazado de 11, e o texto do que se confirma | T01 T06 T13 |
+| checkbox marcado | o mesmo poço, com o vazado virando lima de 11 · surge em 150ms | T01 T06 T13 · ao marcar |
 | campo de busca | lupa e dica · quando a lista é longa · variante: a dica é texto sobre o campo vazio (T02) | T02 T06 |
 | justificativa | o não conforme com o porquê | T13 |
 | linha de opção | o ícone, o que faz, e pra onde · variante: desabilitada, a saída que ainda não vale, sem toque (T01) | T01 T11 T12 T13 T15 T16 |

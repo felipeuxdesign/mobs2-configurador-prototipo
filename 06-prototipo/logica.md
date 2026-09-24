@@ -53,12 +53,15 @@ Pular direto pra uma tela pelo painel monta o estado mínimo que ela precisa pra
 
 ## As portas naturais
 
-Tocar num módulo ou ônibus da lista que é **caso do mock** abre o estado dele, igual ao que o técnico veria no mundo. Na T05, tocar no M2C-0999 abre o serial não cadastrado; na T06, tocar no KNB-5H39 abre o sem chassi na CAN. A coluna do palco sempre funciona também.
+Escolher e seguir com um módulo ou ônibus da lista que é **caso do mock** abre o estado dele, igual ao que o técnico veria no mundo. Com a R-14, tocar na linha só marca: o estado aparece quando o técnico aperta o botão (R-11). Na T05, marcar o M2C-0394 e tocar em `Conectar ao M2C-0394` leva a pré-checagem ao conteúdo que não cabe (o 11); o M2C-0362 fecha o canal da sessão anterior e mostra as pendências (o 13); o M2C-0335 dorme na nona, e o `Acordar módulo` segue dali (o 15). O M2C-0999 não se toca, como a referência desenha: o serial não cadastrado abre pela coluna. Na T06, tocar no KNB-5H39 abre o sem chassi na CAN. A coluna do palco sempre funciona também.
+
+Na T05, o que acontece uma vez vale uma vez por sessão (G21, `casosConsumidos`): o link que cai, o módulo que dorme, o canal antigo que o app fecha, a falha ao conectar e o módulo sem rede até a conexão gravar. O que é fato do cadastro — o serial, o driver, a matriz, o conteúdo, as cercas e as pendências — vale toda vez que o módulo conecta.
 
 ## ENCERRAR
 
 - **depois de homologar:** os passos do encerramento, o corte de alimentação que o técnico faz, e o autoteste
 - **antes de homologar:** a sessão abortada — **4 passos, sem confirmação**. Quem tocou no ENCERRAR da faixa já decidiu
+- **a exceção da T09 (G23, HU-T09-9):** enquanto a Conexão não gravou, o ENCERRAR e o `Voltar ao menu` com a cadeia parada levam à recuperação (T09/03), onde o ENCERRAR não faz nada e `Continuar a gravação` retoma do mesmo bloco. Com a cadeia concluída, o ENCERRAR volta a ser o de cima
 
 ## Os contadores do menu (T04·1, T04·2)
 
@@ -81,6 +84,29 @@ Tocar num módulo ou ônibus da lista que é **caso do mock** abre o estado dele
 - **o ritmo:** um sinal responde a cada 600ms, na ordem da grade (`movimento.md`, `ritmos.js`). O valor que volta é o `lido` do sinal estático e o `lidoDinamico` do dinâmico. Quando o ônibus tem caso estático no mock, vale o lido do caso que passa, como na T07 (o hodômetro do QJF-2C61, do PCX-9A17 e do KNB-5H39); a falha que o caso trazia dá lugar ao nominal, porque a releitura é leitura nova e o caso vale uma vez por sessão (G21, como o `Ler novamente` da T07). Ao terminar, o caso fica consumido, e a T07 que abre depois mostra a mesma leitura
 - **o que fica gravado:** ao terminar, `etapas.can` fica com `lida` e `refeita`. A T07 aberta por `Ver os dados da CAN` já abre lida (G27). A T16 continua sem a assertiva 4, como as referências desenham (T08·3)
 - **ENCERRAR no meio da releitura:** a sessão abortada, como em qualquer tela antes de homologar; a releitura para ali
+
+## A cadeia (T09·1)
+
+- **o ritmo:** um bloco grava e relê a cada 1 s, na ordem do mock (`cadeia.ordem`), e o próximo começa no instante em que o anterior confirma (T09·1)
+- **a entrada:** a tela entra no quadro da 00 — três relidos, o Leitor gravando — e anda Leitor → Eventos → Conexão (G27). Quando o par módulo × ativo da faixa é o de um caso da cadeia, ela para no bloco do caso, uma vez por sessão (G21, G28): a recusa de Cercas (`bloco-recusado`) ou a queda no Leitor (`queda-na-cadeia`). `Tentar de novo` e `Reconectar e seguir` retomam do mesmo bloco
+- **o que fica gravado:** a cada bloco relido, `etapas.cadeia` fica com quantos confirmaram e a versão composta até ali (HU-T09-8); com os seis, `A12.G07.L02.E05.C03`. A T09 aberta depois disso já abre concluída
+- **a saída:** a cadeia concluída tem só `Voltar ao menu`, que leva ao menu, de onde a Calibração segue: nenhuma referência desenha um `Calibrar` (T09-A3, G25)
+
+## O voltar do Android
+
+O botão de voltar do sistema faz **o mesmo que o link de saída do rodapé** daquela tela — nunca um caminho que a tela não oferece. Nos processos que não podem parar, ele **não sai**:
+
+- **na cadeia da T09**, antes de a Conexão gravar, ele abre a recuperação
+- **na pré-checagem, no encerramento e no autoteste**, ele não faz nada — o processo termina sozinho em segundos
+- **numa folha ou num diálogo**, ele fecha a folha ou o diálogo, como o X ou o Cancelar
+
+## Os cartões em espera
+
+A ferramenta que espera módulo ou ônibus é **desabilitada de verdade**: o toque não faz nada, e o motivo já está escrito no cartão. Pro leitor de tela, ela é desabilitada — nunca um botão que não responde.
+
+## Módulo e ativo travados
+
+Com a sessão aberta, **o módulo e o ativo não trocam** — é a HU-T16-2. Tocar no cartão de qualquer um dos dois, no menu, abre a folha dele: o que está conectado, *Travado na sessão*, e `Encerrar a sessão`, que segue a mesma regra do ENCERRAR da faixa.
 
 ## A URL
 
@@ -107,11 +133,14 @@ Pendências que não são de desenho seguem um padrão até o PM decidir — a l
 | `T04/05-momento-folha-conta` | tocar nas iniciais |
 | `T04/06-momento-folha-conta-sair-com-sessao-aberta` | `Sair da conta` com sessão ou fila |
 | `T04/07-momento-folha-trocar-de-garagem` | tocar no nome da garagem |
+| `T04/10-momento-folha-modulo-conectado` | tocar no cartão do módulo com a sessão aberta |
+| `T04/11-momento-folha-ativo-da-sessao` | tocar no cartão do ativo com a sessão aberta |
 | `T05/01-momento-nenhum-escolhido` | a busca achou, nada tocado ainda |
 | `T05/02-momento-um-encontrado` | só um módulo por perto |
 | `T05/05-momento-pre-checagem` | conectado |
 | `T05/10-momento-atualizando-o-firmware` | `Atualizar firmware` |
 | `T06/01-momento-confirmar-o-veiculo` | tocar num ônibus |
+| `T06/07-momento-correcao-solicitada` | tocar em `Solicitar correção de cadastro` no chassi divergente |
 | `T08/01-momento-relendo` | `Refazer a leitura` |
 | `T08/02-momento-concluida` | a releitura termina |
 | `T09/04-momento-cadeia-concluida` | o último bloco relido |
@@ -129,6 +158,7 @@ Pendências que não são de desenho seguem um padrão até o PM decidir — a l
 | `T13/11-momento-homologado` | tudo passa |
 | `T14/01-momento-antes-do-disparo` | a fila do módulo ainda drenando |
 | `T14/05-momento-ciclo-concluido` | os cinco passos e o evento |
+| `T14/06-momento-correcao-solicitada` | tocar em `Solicitar correção de cadastro` no identificador divergente |
 | `T16/01-momento-pede-o-corte-de-alimentacao` | o passo do corte |
 | `T16/02-momento-sessao-encerrada` | o autoteste passa |
 | `T16/03-momento-encerrando-sem-homologar` | ENCERRAR antes de homologar |
@@ -156,10 +186,10 @@ Pendências que não são de desenho seguem um padrão até o PM decidir — a l
 | `T05/06-estado-pre-checagem-serial-nao-cadastrado` | o serial não está no cadastro | `serial-nao-cadastrado` |
 | `T05/07-estado-pre-checagem-modelo-sem-driver` | o modelo não tem driver | `modelo-sem-driver` |
 | `T05/08-estado-pre-checagem-firmware-fora-da-matriz` | o firmware não é homologado | `firmware-fora-matriz` |
-| `T05/09-estado-firmware-fora-sem-rede-no-modulo` | firmware fora e o módulo sem rede | `firmware-fora-matriz + modem sem rede` |
+| `T05/09-estado-firmware-fora-sem-rede-no-modulo` | firmware fora e o módulo sem rede | `firmware-fora-matriz` + `firmware-fora-sem-rede` (o modem sem rede, C7) |
 | `T05/11-estado-pre-checagem-conteudo-nao-cabe` | a configuração não cabe no módulo | `conteudo-nao-cabe` |
 | `T05/12-estado-pre-checagem-pool-de-cercas-esgotado` | as cercas passam do limite | `pool-esgotado` |
-| `T05/13-estado-pre-checagem-canal-aberto-e-pendencias` | o módulo tem canal de sessão anterior — o app fecha antes de começar | `canal-aberto` |
+| `T05/13-estado-pre-checagem-canal-aberto-e-pendencias` | o módulo tem canal de sessão anterior — o app fecha antes de começar | `canal-aberto` + `modulo-com-pendencias` |
 | `T05/14-estado-pre-checagem-link-perdido-na-6a` | o link cai na sexta checagem | `link-perdido` |
 | `T05/15-estado-pre-checagem-modulo-em-repouso-na-9a` | o módulo dorme na nona checagem — não é erro | `modulo-em-repouso` |
 | `T06/02-estado-chassi-divergente` | o chassi lido não bate | `divergencia-chassi` |

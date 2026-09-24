@@ -8,7 +8,7 @@ Escolher o ônibus que está na frente do técnico e provar que é ele.
 | **Chrome** | faixa de sessão |
 | **Semente no protótipo** | sessão M2C-0417 · dez ônibus no pacote |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 1 · 5 — ver `estados.md` |
+| **Momentos · estados** | 2 · 5 — ver `estados.md` |
 
 ## O que se toca
 
@@ -19,7 +19,7 @@ Escolher o ônibus que está na frente do técnico e provar que é ele.
 - `Escolher outro` e `Escolher outro veículo` → a lista, com a busca como estava · `Voltar ao menu` → T04 · `ENCERRAR` → a sessão abortada (T16/03, G23)
 - a busca filtra ao digitar por placa, frota, módulo esperado e chassi, sem caixa, sem acento e sem o hífen da placa; a placa de um ônibus de outro pacote abre a trava de fora do pacote; sem resultado, o cartão fica vazio e sem texto (T06·5)
 - sem chassi na CAN: marcar a confirmação libera o `Usar este ativo`; a legenda fica onde está, porque nenhuma referência desenha o quadro marcado e tirá-la moveria o rodapé (G25)
-- chassi divergente: `Solicitar correção de cadastro` dá o pressionado e só o que o texto promete — sem dado nem destino no mock (G25)
+- chassi divergente: `Solicitar correção de cadastro` → o cartão vira o registro, *Correção solicitada às 14:30*, e deixa de ser tocável
 - conflito de pinos com saída: `Usar leitor sem fio` resolve no lugar — a sessão passa a sem fio e o mesmo ônibus segue pra confirmação (T06·4). O conflito vale quando o módulo da faixa, o ônibus e o meio da sessão são os do caso (G28)
 
 ## Peças do design system que esta tela usa

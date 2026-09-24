@@ -8,7 +8,7 @@ Andar com o ônibus e deixar o app provar o que só fecha em movimento.
 | **Chrome** | faixa de sessão |
 | **Semente no protótipo** | sessão M2C-0417 + RKT-8H42 · fila com 6 mensagens e 2 de diagnóstico |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 2 · 3 — ver `estados.md` |
+| **Momentos · estados** | 3 · 3 — ver `estados.md` |
 
 ## O que se toca
 
@@ -17,7 +17,7 @@ Andar com o ônibus e deixar o app provar o que só fecha em movimento.
 - os passos do veículo acendem sozinhos
 - `Encerrar o ciclo` → T13
 - prazo estourado: `Disparar outro evento` — os passos continuam valendo
-- identificador divergente: `Solicitar correção de cadastro`
+- identificador divergente: `Solicitar correção de cadastro` → o link vira o registro, *Correção solicitada às 14:30*, e deixa de ser tocável
 
 ## Peças do design system que esta tela usa
 

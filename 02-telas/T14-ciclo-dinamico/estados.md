@@ -10,5 +10,6 @@
 | `03-estado-dinamico-fora-do-esperado` | estado | um sinal andando fora do esperado | `can-fora-esperado` |
 | `04-estado-identificador-divergente` | estado | o cartão lido não bate | `identificador-divergente` |
 | `05-momento-ciclo-concluido` | momento | os cinco passos e o evento | `ciclo` |
+| `06-momento-correcao-solicitada` | momento | tocar em `Solicitar correção de cadastro` no identificador divergente | `identificador-divergente` |
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.

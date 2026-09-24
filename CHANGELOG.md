@@ -1,5 +1,40 @@
 # Registro de mudanças
 
+## 2026-09-24 · um marcador de escolha só, e a coluna do palco no meio
+
+- **o marcador de escolha é um só**: vazado de 11 no desmarcado e lima de 11 no marcado · poço de 24 no checkbox e na coluna do palco, 30 na linha de lista · decisão 29
+- os checkboxes e a coluna do palco ganharam o quadrado vazado · o lima da T02 foi de 12 pra 11 e o dos checkboxes de 10 pra 11 · a linha de garagem da T02 foi pro poço de 30
+- a coluna do palco agora fica **centralizada na altura do celular**, e o topo dela tem **um lugar fixo pro Voltar ao fluxo** — no fluxo, ele diz *no fluxo · toque num estado pra ver* · decisão 30
+
+## 2026-09-24 · os toques sem destino
+
+- **4 momentos novos**, pra nenhum toque ficar sem resposta: a folha do módulo conectado e a do ativo da sessão, na T04 — os dois travados enquanto a sessão está aberta, pela HU-T16-2 —, e a correção solicitada na T06 e na T14
+- escritas na lógica: **o voltar do Android**, **os cartões em espera** e **módulo e ativo travados**
+- agora são **109 referências**: 16 telas, 43 momentos e 50 estados · o design system tem **115 peças**
+
+## 2026-09-24 · a marca no lima do sistema
+
+- a logo passou de `#B8F23D` pro `--lima` `#AAEF00`, o lima de produto da Mobs2 · lei 15 e decisão 28
+- mudaram a logo em `05-recursos/marca/` e os dois PNGs do login em `02-telas/T01-login/`
+- o *Lembrar meu usuário* desceu 8px: o toque dele encostava no campo de senha · agora fica a 8px do campo, e o quadradinho a 20px
+- o formulário do login subiu 8px, campos e checkbox juntos: do checkbox até o *Entrar* eram 26px, abaixo dos 30 do resto do produto · agora são 34
+- o design system ganhou o **checkbox marcado** na folha 6, ao lado do desmarcado · e o movimento de marcar entrou na animação da T01 e da T13
+- saiu do login e do erro a frase *O acesso vale por 7 dias sem sincronizar* — ninguém age sobre ela no login
+
+## 2026-09-24 · a atualização do design, organizada no protótipo
+
+- os 74 arquivos de `atualizacao/` entraram no lugar de cada um: 51 copiados (10 novos, 41 que só o design mudou) e 4 que já eram iguais · as 6 folhas do design system (2, 3 e 6, em HTML e PNG) entram no fechamento do C7 e do C9, porque são a régua de comparação dos agentes que estão rodando
+- **12 que o protótipo também tinha mudado foram juntados, não sobrescritos** (passo 2 do pedido do arquiteto), com o vai do diretor:
+  - **o `tela.md` da T06:** a regra do diretor (R-14, tocar marca e o botão avança) fica, e a correção solicitada do design entra;
+  - **o `palco.md`:** a coluna centralizada e o lugar fixo de 34 do design, com o painel que não fecha ao escolher (diretor) e a volta ao instante de antes;
+  - **o `componentes.md`:** a regra nova do checkbox, sobre as 125 linhas do C2;
+  - **o `ciclos.md`:** o plano revisado do C0, com as 109 referências;
+  - **os `tela.md` da T01 e da T04:** as listas medidas e as regras do C4 e do C5, com as linhas novas do design;
+  - o `indice.json`, as `leis.md` e o `logica.md` juntaram sem conflito;
+  - o `05-recursos/README.md` ficou como estava, porque a cópia do design era a antiga;
+- **os números da versão** vêm do design onde ele mudou o censo (109 referências, 43 momentos) e do medido onde o protótipo cresceu: **253 tokens** (G3) e **125 peças** (os 121 espécimes das folhas e os 4 grupos de átomos da folha 3, G10) · as cores continuam 25, como medido no C1. **Para o arquiteto:** o design diz 115 peças e 23 cores, e o protótipo mede 125 e 25
+- o censo confere: **109 referências no `indice.json`** — 16 telas, 43 momentos e 50 estados
+
 ## 2026-09-24 · o toque e a rolagem, pelo diretor
 
 - **R-14 · escolher numa lista marca; quem avança é o botão.** Tocar numa linha com o marcador de escolha só marca, e o primário acende e segue. Tocar em outra linha troca a marca. Vale no app inteiro, e entrou nas leis de produto

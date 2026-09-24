@@ -14,5 +14,7 @@
 | `07-momento-folha-trocar-de-garagem` | momento | tocar no nome da garagem | `uos · pacotes` |
 | `08-estado-folha-trocar-de-garagem-envio-em-andamento` | estado | trocar com evidência subindo | `filaSaida` |
 | `09-estado-folha-trocar-de-garagem-com-modulo-conectado` | estado | trocar com a sessão aberta | derivado do fluxo |
+| `10-momento-folha-modulo-conectado` | momento | tocar no cartão do módulo com a sessão aberta | `modulos · M2C-0417` |
+| `11-momento-folha-ativo-da-sessao` | momento | tocar no cartão do ativo com a sessão aberta | `ativos · a-01` |
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.
