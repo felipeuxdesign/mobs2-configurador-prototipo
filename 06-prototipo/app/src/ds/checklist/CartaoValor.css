@@ -1,0 +1,33 @@
+.ds-grade-cartoes { display: grid; gap: var(--e-8); }
+.ds-grade-cartoes-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.ds-grade-cartoes-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+.ds-cartao-valor {
+  background: var(--fundo-cartao); border: var(--traco-borda) solid var(--borda); border-radius: var(--raio);
+  padding: var(--e-10); display: flex; flex-direction: column; gap: var(--e-6);
+}
+.ds-cartao-valor-nome {
+  font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco);
+  color: var(--tinta-apagada); line-height: var(--entrelinha-cartao);
+}
+.ds-cartao-valor-numero { font-size: var(--n-cartao-secao); font-weight: 700; line-height: var(--entrelinha-numero); color: var(--tinta); }
+.ds-cartao-valor-aguarda .ds-cartao-valor-numero { color: var(--tinta-apagada); }
+.ds-cartao-valor-unidade { font-size: var(--n-unidade-cartao); font-weight: 500; color: var(--tinta-apagada); padding-left: var(--e-2); }
+
+/* sem faixa: o traço guarda o lugar da barra */
+.ds-cartao-valor-sem-faixa { height: var(--barra-cartao); display: flex; align-items: center; }
+.ds-cartao-valor-traco { display: block; width: var(--e-12); height: var(--traco-borda); background: var(--borda-poco); }
+
+/* a barra: um poço de 9, a faixa esperada e o marcador do valor lido */
+.ds-cartao-barra {
+  position: relative; height: var(--barra-cartao); overflow: hidden;
+  background: var(--poco);
+  border-top: var(--traco-borda) solid var(--poco-fundo); border-bottom: var(--traco-borda) solid var(--borda-poco);
+  border-left: var(--traco-borda) solid var(--poco-lado); border-right: var(--traco-borda) solid var(--poco-lado);
+}
+.ds-cartao-barra-faixa {
+  position: absolute; top: 0; bottom: 0; left: var(--ds-faixa-de); width: var(--ds-faixa-largura);
+  background: var(--lima-faixa);
+  border-left: var(--traco-borda) solid var(--lima-borda); border-right: var(--traco-borda) solid var(--lima-borda);
+}
+.ds-cartao-barra-agulha { position: absolute; top: 0; bottom: 0; left: var(--ds-agulha-em); width: var(--marcador-pequeno); background: var(--tinta); }

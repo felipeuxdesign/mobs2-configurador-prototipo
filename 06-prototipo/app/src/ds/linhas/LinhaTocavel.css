@@ -1,0 +1,10 @@
+/* A linha tocável solta (folha 1): um cartão de 54, poço de 26, o nome e o
+ * valor. No toque, o fundo sobe pra --elevado (a camada do Tocavel). */
+.ds-linha-tocavel {
+  height: var(--linha-tocavel); gap: var(--e-12); padding: 0 var(--e-12);
+  background: var(--fundo-cartao); border: var(--traco-borda) solid var(--borda); border-radius: var(--raio);
+}
+/* a camada do toque fica por dentro da borda: o raio de dentro é o raio menos o traço */
+.ds-linha-tocavel::after { border-radius: calc(var(--raio) - var(--traco-borda)); }
+.ds-linha-tocavel-titulo { flex-grow: 1; font-size: var(--t-link); font-weight: 600; color: var(--tinta); }
+.ds-linha-tocavel-valor { font-size: var(--t-secundario); color: var(--tinta-secundaria); }

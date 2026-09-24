@@ -1,0 +1,6 @@
+.ds-botao-folha {
+  height: var(--botao-secundario); justify-content: center;
+  background: var(--fundo-cartao);
+  border: var(--traco-borda) solid var(--borda); border-radius: var(--raio);
+  font-size: var(--t-link); font-weight: 700; color: var(--tinta);
+}

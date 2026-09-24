@@ -1,0 +1,22 @@
+.ds-dialogo-lugar-16 { padding: var(--e-16); }
+.ds-dialogo-lugar-20 { padding: var(--e-20); }
+
+.ds-dialogo {
+  display: flex; flex-direction: column; gap: var(--e-12);
+  padding: var(--e-20) var(--sobreposto-recheio) var(--e-12) var(--sobreposto-recheio);
+  background: var(--fundo-faixa);
+  border: var(--traco-borda) solid var(--borda-poco); border-radius: var(--raio);
+  transition: opacity var(--mov-rapido) var(--mov-curva), transform var(--mov-rapido) var(--mov-curva);
+}
+.ds-dialogo-fechado { opacity: 0; transform: scale(var(--escala-dialogo)); }
+
+.ds-dialogo-titulo { font-size: var(--t-titulo-bloco); font-weight: 700; color: var(--tinta); }
+.ds-dialogo-frase { font-size: var(--t-corpo); font-weight: 500; line-height: var(--entrelinha-dialogo); color: var(--tinta-forte); }
+.ds-dialogo-destaque { font-weight: 700; color: var(--tinta); }
+
+.ds-dialogo-acoes { display: flex; flex-direction: column; gap: var(--e-6); margin-top: var(--e-4); }
+.ds-dialogo-acoes .ds-link { margin: calc(var(--e-4) * -1) 0; }
+/* a saída de 44 (T04/06): ações a 6 do texto e a 4 entre si; o toque de 48 cresce por fora */
+.ds-dialogo-acoes-44 { gap: var(--e-4); margin-top: var(--e-6); }
+.ds-dialogo-acoes-44 .ds-link { margin: 0; height: var(--linha-padrao); }
+.ds-dialogo-acoes-44 .ds-link::before { content: ''; position: absolute; inset: calc((var(--linha-padrao) - var(--alvo-min)) / 2) 0; }

@@ -1,0 +1,48 @@
+// O diálogo (folha 2): só pra ação que encerra trabalho. A caixa
+// --fundo-faixa com borda --borda-poco, o título de 20, as frases e as ações
+// (o primário e, se houver, a saída). Três desenhos, cada um como a referência
+// desenha (G11):
+//   diálogo            · a saída de 44 (`saidaDe44`), ações a 6 e entre si a 4 (T04/06)
+//   diálogo sem saída  · uma ação só, sem `saida` (T01/09)
+//   diálogo com ciência · o checkbox da `ciencia`; o primário espera o check (T13/10)
+// A saída de 48 come 4 de cada lado; a de 44 ganha 48 de toque por fora (G14).
+// `margem`: o ar em volta da caixa, 16 (T01, T13) ou 20 (T04), dentro do Veu
+// (de 'dialogo'). Nasce esmaecendo e crescendo de 98% a 100% em 150ms.
+// Pro leitor (G15): diálogo modal, com o nome no título que já se vê.
+import { useId } from 'react'
+import { Primario } from '../primitivos/Primario.jsx'
+import { Link } from '../primitivos/Link.jsx'
+import { Checkbox } from '../primitivos/Checkbox.jsx'
+import './Dialogo.css'
+
+export function Dialogo({
+  titulo, children, primario, aoPrimario, primarioDesabilitado = false, rotuloPrimario,
+  saida, aoSair, saidaDe44 = false, ciencia, ciente = false, aoMudarCiencia,
+  margem = 16, aberto = true,
+}) {
+  const id = useId()
+  const esperaCheck = Boolean(ciencia) && !ciente
+  return (
+    <div className={`ds-dialogo-lugar ds-dialogo-lugar-${margem}`}>
+      <div role="dialog" aria-modal="true" aria-labelledby={id} className={`ds-dialogo ${aberto ? '' : 'ds-dialogo-fechado'}`}>
+        <h2 id={id} className="ds-dialogo-titulo">{titulo}</h2>
+        {children}
+        {ciencia && <Checkbox marcado={ciente} aoMudar={aoMudarCiencia}>{ciencia}</Checkbox>}
+        <div className={`ds-dialogo-acoes ${saidaDe44 ? 'ds-dialogo-acoes-44' : ''}`}>
+          <Primario desabilitado={primarioDesabilitado || esperaCheck} aoTocar={aoPrimario} rotulo={rotuloPrimario}>{primario}</Primario>
+          {saida && <Link aoTocar={aoSair}>{saida}</Link>}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// a frase do diálogo: 14/500 em --tinta-forte
+export function Frase({ children }) {
+  return <p className="ds-dialogo-frase">{children}</p>
+}
+
+// o número ou o serial dentro da frase: 700 em --tinta
+export function Destaque({ children }) {
+  return <strong className="ds-dialogo-destaque">{children}</strong>
+}

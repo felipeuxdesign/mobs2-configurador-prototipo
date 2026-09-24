@@ -1,0 +1,44 @@
+/* A escala: a barra em poço (o desenho do poço, Lei 4), com a faixa, os
+ * riscos e o marcador por cima, nessa ordem. As posições chegam da conta,
+ * em --de, --ate, --p e --pos (0 a 100). */
+.ds-escala {
+  position: relative; flex-shrink: 0; overflow: hidden;
+  height: var(--ds-escala-alto);
+  background: var(--poco);
+  border-top: var(--traco-borda) solid var(--poco-fundo);
+  border-bottom: var(--traco-borda) solid var(--borda-poco);
+  border-left: var(--traco-borda) solid var(--poco-lado);
+  border-right: var(--traco-borda) solid var(--poco-lado);
+}
+.ds-escala-leitura { --ds-escala-alto: var(--escala-leitura); --ds-risco: var(--risco-leitura); --ds-risco-forte: var(--risco-leitura-forte); --ds-marcador: var(--marcador-leitura); }
+.ds-escala-pequena { --ds-escala-alto: var(--escala-pequena); --ds-risco: var(--risco-pequena); --ds-risco-forte: var(--risco-pequena-forte); --ds-marcador: var(--marcador-pequeno); }
+.ds-escala-prazo   { --ds-escala-alto: var(--escala-prazo);   --ds-risco: var(--risco-prazo);   --ds-risco-forte: var(--risco-prazo-forte);   --ds-marcador: var(--marcador-leitura); }
+.ds-escala-placar  { --ds-escala-alto: var(--escala-placar);  --ds-risco: var(--risco-placar);  --ds-risco-forte: var(--risco-placar-forte);  --ds-marcador: var(--marcador-pequeno); }
+
+/* a faixa esperada (ou o preenchido) */
+.ds-escala-faixa {
+  position: absolute; top: 0; bottom: 0;
+  left: calc(var(--de) * 1%); width: calc((var(--ate) - var(--de)) * 1%);
+  background: var(--lima-faixa);
+}
+.ds-escala-faixa-de { border-left: var(--traco-borda) solid var(--lima-borda); }
+.ds-escala-faixa-ate { border-right: var(--traco-borda) solid var(--lima-borda); }
+
+/* os riscos, presos no topo */
+.ds-escala-risco {
+  position: absolute; top: 0; left: calc(var(--p) * 1%);
+  width: var(--traco-borda); height: var(--ds-risco); background: var(--marca);
+}
+.ds-escala-risco-forte { height: var(--ds-risco-forte); background: var(--marca-limite); }
+
+/* o marcador: a agulha é a camada da largura da barra que corre (translateX
+ * em % da própria largura = % da escala); parado, ela não tem transform */
+.ds-escala-agulha { position: absolute; inset: 0; }
+.ds-escala-marcador {
+  position: absolute; top: 0; bottom: 0; width: var(--ds-marcador);
+  left: min(calc(var(--pos) * 1%), calc(100% - var(--ds-marcador)));
+  background: var(--tinta);
+}
+.ds-escala-falha .ds-escala-marcador { background: var(--vermelho); }
+.ds-escala-corre { animation: ds-escala-corre var(--mov-lento) var(--mov-curva) both; }
+@keyframes ds-escala-corre { from { transform: translateX(calc(var(--pos) * -1%)); } to { transform: none; } }

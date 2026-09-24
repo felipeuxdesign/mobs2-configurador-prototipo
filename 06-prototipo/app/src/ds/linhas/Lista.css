@@ -1,0 +1,9 @@
+/* A lista em cartão (folha 4): o fundo do cartão, a borda única, o raio, e
+ * 12 dos lados. As linhas dentro dela trazem a própria divisória. */
+.ds-lista {
+  display: flex; flex-direction: column;
+  background: var(--fundo-cartao); border: var(--traco-borda) solid var(--borda); border-radius: var(--raio);
+  padding: 0 var(--e-12);
+}
+/* os passos do ciclo (T14): 2 em cima e embaixo */
+.ds-lista-passos { padding: var(--e-2) var(--e-12); flex-shrink: 0; }

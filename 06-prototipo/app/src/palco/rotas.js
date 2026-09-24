@@ -12,6 +12,7 @@ export function lerUrl() {
     estado: valido('estado', q.get('estado')) ? q.get('estado') : null,
     momento: valido('momento', q.get('momento')) ? q.get('momento') : null,
     print: q.get('print') === '1',
+    textos: q.get('textos') === '1',
   }
 }
 

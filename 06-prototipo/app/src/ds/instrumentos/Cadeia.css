@@ -1,0 +1,21 @@
+.ds-cadeia { flex-shrink: 0; display: flex; flex-direction: column; --ds-cadeia-elo: var(--cadeia-elo); --ds-cadeia-fecho: var(--e-14); }
+.ds-cadeia-justa { --ds-cadeia-elo: var(--cadeia-elo-justo); --ds-cadeia-fecho: var(--e-12); }
+.ds-cadeia-elo { display: flex; gap: var(--e-12); min-height: var(--ds-cadeia-elo); }
+.ds-cadeia-elo-ultimo { min-height: 0; }
+.ds-cadeia-texto {
+  flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--e-2);
+  padding: var(--e-4) 0 var(--ds-cadeia-fecho) 0;
+}
+.ds-cadeia-linha { display: flex; align-items: baseline; justify-content: space-between; gap: var(--e-10); }
+.ds-cadeia-nome { font-size: var(--t-destaque); font-weight: 600; color: var(--tinta); }
+.ds-cadeia-valor { font-size: var(--t-secundario); font-weight: 700; color: var(--tinta-secundaria); }
+.ds-cadeia-descricao { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-apagada); line-height: var(--entrelinha-detalhe); }
+
+/* o que corre: o valor em branco */
+.ds-cadeia-elo-corre .ds-cadeia-valor { color: var(--tinta); }
+/* o elo que falhou acende */
+.ds-cadeia-elo-falha .ds-cadeia-valor, .ds-cadeia-elo-falha .ds-cadeia-descricao { color: var(--vermelho); }
+/* os que não foram alcançados, apagados */
+.ds-cadeia-elo-resto .ds-cadeia-nome, .ds-cadeia-elo-resto .ds-cadeia-valor { color: var(--tinta-apagada); }
+/* na recusada, o que já foi feito sobe um tom */
+.ds-cadeia-recusada .ds-cadeia-elo-feito .ds-cadeia-descricao { color: var(--tinta-secundaria); }

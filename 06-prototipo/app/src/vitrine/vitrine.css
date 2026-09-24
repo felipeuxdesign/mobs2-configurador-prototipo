@@ -13,3 +13,11 @@
   border: var(--traco-borda) dashed var(--borda); display: flex; flex-direction: column; overflow: hidden;
 }
 .vitrine-moldura-chrome { padding: 0; }
+/* o lote da bancada: as molduras uma embaixo da outra, em x = 0 como a do
+ * espécime sozinho, e cada uma levada ao pixel inteiro (Vitrine.jsx). Sem altura
+ * mínima: a posição não depende da janela. Em colunas, o Chrome antialiasa o
+ * SVG um pouco diferente fora de x = 0 (medido: até 27 níveis no círculo). */
+.vitrine-lote {
+  padding: 0; min-height: 0; width: var(--tela-largura);
+}
+.vitrine-lote > .vitrine-moldura { margin-bottom: var(--e-40); }

@@ -2,11 +2,17 @@
 
 Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recortada da tela onde foi aprovada**. Construa cada uma como componente, uma vez, e use em todas as telas da lista.
 
+Cada linha é um espécime de moldura das folhas (121), e a folha 3 soma quatro linhas pros seus 35 átomos: **125 linhas**. No protótipo, o mapa de cada linha pro componente que a constrói está em `06-prototipo/app/src/ds/MAPA.md`. A coluna *Telas que usam* se corrige pelo medido no ciclo de cada tela (G10).
+
 ## Folha 1 · fundamentos · `referencias/png/folha-1-fundamentos.png`
 
 | Peça | Regra | Telas que usam |
 |---|---|---|
-| falha | traço vermelho embaixo | T03 T05 T09 |
+| primário · normal | roxo com o texto lima · 56 | T01 T02 T03 T04 T05 T06 T07 T08 T09 T10 T11 T12 T13 T14 T15 T16 |
+| primário · pressionado | o roxo clareia e afunda 2% | T01 T02 T03 T04 T05 T06 T07 T08 T09 T10 T11 T12 T13 T14 T15 T16 · no toque |
+| primário · desabilitado | sem roxo · diz o que está acontecendo | T02 T03 T05 T06 T08 T09 T10 T13 T14 T16 |
+| link · normal e pressionado | o cinza vira branco no toque · 48 de toque | T01 T03 T04 T05 T06 T07 T08 T09 T10 T11 T13 T14 T16 |
+| linha tocável · normal e pressionada | a base de toda linha que se toca · o pressionado acende o fundo | T01 T03 T04 T05 T06 T11 T12 T13 T15 T16 |
 
 ## Folha 2 · chrome rodape folha dialogo · `referencias/png/folha-2-chrome-rodape-folha-dialogo.png`
 
@@ -38,8 +44,10 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 | Peça | Regra | Telas que usam |
 |---|---|---|
 | escolha numa lista | o quadrado lima cheio é o escolhido | T02 |
-| ainda não | círculo apagado · valor em traço | T05 |
-| espera | tracejado · a causa no lugar da ação | T04 |
+| os glifos de estado | doze, um por natureza · com o nome pro leitor de tela | todas, dentro das peças · sem uso nas 105: ok cinza |
+| os ícones de ferramenta | dez, do Lucide, no traço dos tokens | T04 e as telas das ferramentas · sem uso nas 105: o ativo de Últimas instalações |
+| os poços | oito tamanhos, de 22 a 44 | todas, dentro das peças · sem uso nas 105: 22, 28 e 44 |
+| os marcadores | o quadrado do escolhido e os LEDs | T02 T04 T05 T06 T07 T09 T10 T13 T14 T15 T16 |
 
 ## Folha 4 · linhas cartoes aviso · `referencias/png/folha-4-linhas-cartoes-aviso.png`
 
@@ -49,6 +57,7 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 | reprovada, com causa | X, título e valor em vermelho · a causa embaixo | T05 |
 | não se aplica | traço · depende de outra que reprovou | T05 |
 | parou aqui | o processo caiu nesta | T05 |
+| ainda não | círculo apagado · valor em traço | T05 |
 | pré-checagem | compacta · 38 | T05 |
 | pré-checagem com sessão | a mesma 38 — a exceção acabou | T05 |
 | passo do ciclo | compacta · 38 | T14 |
@@ -61,7 +70,9 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 | decide agora | borda lima · o próximo passo | T04 |
 | conectado | o cartão largo com o serial | T04 |
 | com pendência | o contador no canto, igual ao da fila | T04 |
+| espera | tracejado · a causa no lugar da ação | T04 |
 | espera a rede | sem conexão · fundo apagado, borda sólida, traço no poço | T04 |
+| falha | traço vermelho embaixo | T03 T05 T09 |
 | aviso | o mesmo desenho, cinza, sem traço | T03 T05 T09 T12 T16 |
 | processo parado | o veredito de uma cadeia ou de um download | T03 T05 T09 |
 | com contagem | quantos não bateram, à direita | T11 |
@@ -110,6 +121,7 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 | código · seis células | uma célula por dígito | T01 |
 | código errado | as células ficam vermelhas | T01 |
 | link dentro do conteúdo | sublinhado · ação sobre o que está perto | T01 |
+| botões só de ícone | fechar e mostrar a senha · 44 de desenho, 48 de toque · com nome pro leitor de tela | T01 T04 |
 | checkbox | o marcador de escolha, com o texto do que se confirma | T01 T06 T13 |
 | checkbox marcado | o mesmo poço com o quadrado lima de 10 · surge em 150ms | T01 T06 T13 · ao marcar |
 | campo de busca | lupa e dica · quando a lista é longa | T02 T06 |
@@ -146,7 +158,7 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 | linha da re-checagem | a Seção F esperando o servidor | T15 |
 | prova da cadeia | a versão gravada e relida | T09 |
 | prova da sessão | o que sobreviveu ao reinício | T16 |
-| contador no menu | itens na fila, no canto do cartão | T04 |
+| contador no menu | itens na fila, no canto do cartão · a mesma peça do *com pendência* da folha 4 | T04 |
 
 ## Folha 8 · calibracao · `referencias/png/folha-8-calibracao.png`
 

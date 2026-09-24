@@ -1,0 +1,10 @@
+.ds-prova {
+  flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: var(--e-6);
+  padding: var(--e-12) var(--e-14); background: var(--poco);
+  border-top: var(--traco-borda) solid var(--poco-fundo); border-bottom: var(--traco-destaque) solid var(--lima);
+  border-left: var(--traco-borda) solid var(--poco-lado); border-right: var(--traco-borda) solid var(--poco-lado);
+}
+.ds-prova-rotulo { font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--lima); }
+.ds-prova-versao { font-size: var(--n-prova-cadeia); font-weight: 700; letter-spacing: var(--ls-versao); color: var(--tinta); }
+.ds-prova-sessao .ds-prova-versao { font-size: var(--n-prova-sessao); }
+.ds-prova-legenda { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-apagada); }

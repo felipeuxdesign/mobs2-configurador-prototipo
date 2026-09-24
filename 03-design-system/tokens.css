@@ -152,6 +152,124 @@
   --escala-surge: 0.8;   /* o que surge no lugar parte de 80% (o quadrado do checkbox, T01) */
   --entrelinha-texto: 1.4;    /* texto corrido de peça (o do checkbox, das linhas de opção) */
   --entrelinha-legenda: 1.45; /* legenda de 12px */
+
+  /* ── C2 · as peças das oito folhas (a revisão juntou as seis famílias; cada um com o papel e quem usa) ── */
+
+  /* ── alturas de linha e de peça ─────────────────────────────── */
+  --linha-tocavel: 54px;             /* a linha tocável solta, em cartão próprio (folha 1) · LinhaTocavel */
+  --linha-secao-mapa: 54px;          /* a linha de seção do mapa do checklist (T13), com poço de 32 · LinhaSecaoMapa */
+  --linha-secao-mapa-legenda: 60px;  /* a mesma linha, com a legenda embaixo do nome (F · não bloqueia, T13) · LinhaSecaoMapa */
+  --linha-fila: 62px;                /* a linha da fila que já subiu (T15), com poço de 30 · LinhaFila */
+  --linha-rechecagem: 54px;          /* a linha da re-checagem da Seção F (T15), no mínimo · LinhaRechecagem */
+  --linha-requisito: 40px;           /* a linha de cada requisito da senha (T01) · Requisito */
+  --linha-contagem: 58px;            /* a linha da lista com contagem, o pacote baixando (T03) · LinhaContagem */
+  --linha-declarada: 26px;           /* a linha do que não se aplica, no fato declarado (T10) · Declarado */
+  --celula-codigo: 58px;             /* a altura de cada célula do código de recuperação (T01) · Codigo */
+  --conferencia-nome: 74px;          /* a coluna do nome na linha de conferência (T11, folha 4) · LinhaChecagem */
+  --cartao-ferramenta-altura: 108px; /* a altura mínima do cartão de ferramenta de meia largura, no menu (T04) · CartaoFerramenta */
+  --botao-secundario: 52px;          /* o botão que não é o primário: o secundário da linha (T15) e o Sair da conta na folha (T04/05) · BotaoSecundario, BotaoDaFolha */
+  --tira-contexto: 52px;             /* a tira de contexto do menu: a garagem e a conta (T04) · TiraDeContexto */
+  --folha-minima: 430px;             /* a folha da conta abre com pelo menos esta altura (T04/05) · Folha */
+  --mostrador-altura: 88px;          /* o mostrador do sinal (T08), no mínimo · Mostrador */
+  --mostrador-nome: 32px;            /* o nome do sinal reserva duas linhas · Mostrador */
+
+  /* ── recheios e folgas ──────────────────────────────────────── */
+  --sobreposto-recheio: 18px;        /* o recheio do que vem por cima da tela: o topo da folha e os lados do diálogo · Folha, Dialogo */
+  --vazio-recheio-bloco: 22px;       /* o recheio de cima e de baixo do vazio declarado · Vazio */
+  --vazio-recheio-lado: 18px;        /* o recheio dos lados do vazio declarado · Vazio */
+  --par-intervalo: 18px;             /* entre o lido, o separador, o cadastro e a explicação do par comparado · ParComparado */
+  --escolhido-motivo-respiro: 22px;  /* o recheio de cima e de baixo do escolhido com o motivo (T06) · BlocoEscolhido */
+  --separador-motivo: 60%;           /* a largura do separador curto antes do motivo (T06) · BlocoEscolhido */
+  --cartao-acao-folga: 18px;         /* entre o rótulo, o erro e a ação no cartão que pede ação (T15) · CartaoAcao */
+  --marca-folga: 18px;               /* entre a logo e o CONFIGURADOR (T01) · Marca */
+  --marca-traco: 22px;               /* o comprimento de cada traço em volta do CONFIGURADOR · Marca */
+  --marca-proporcao: 271 / 57;       /* a proporção do logo-mobs2.svg: a altura fica reservada antes do arquivo carregar · Marca */
+
+  /* ── a barra do sistema (o desenho do Android) ──────────────── */
+  --barra-sistema-recuo: 18px;       /* a hora da barra do Android, a 18 da borda esquerda (a direita é --e-14) · BarraDoSistema */
+  --barra-icone: 11px;               /* a altura dos três ícones do Android na barra: sinal, wi-fi e bateria · BarraDoSistema */
+  --barra-sinal: 15px;               /* a largura do sinal e do wi-fi na barra · BarraDoSistema */
+  --barra-bateria: 23px;             /* a largura da bateria na barra · BarraDoSistema */
+  --barra-bateria-casca: 0.45;       /* a opacidade do contorno e do polo da bateria, mais apagados que a carga · BarraDoSistema */
+
+  /* ── a conta ────────────────────────────────────────────────── */
+  --avatar-tira: 32px;               /* o avatar da conta na tira de contexto · Avatar */
+  --avatar-conta: 52px;              /* o avatar na folha da conta · Avatar */
+  --ls-avatar-conta: 1px;            /* as iniciais no avatar de 52 · Avatar */
+  --t-nome-conta: 18px;              /* o nome da pessoa no cartão da conta · CartaoDaConta */
+  --toque-apagado: 0.7;              /* o botão sem fundo (o avatar da tira) apaga no toque, como o SoIcone · TiraDeContexto */
+
+  /* ── texto: tamanho, letra e entrelinha ─────────────────────── */
+  --t-placa: 18px;                   /* a placa na linha de ônibus (T06) · LinhaOnibus */
+  --t-passo: 15px;                   /* o nome de cada passo do encerramento (T16) · Encerramento */
+  --ls-dado: 0.2px;                  /* o dado curto no lugar da identidade: o valor do cartão largo do menu (serial, placa, próximo passo), a placa na linha do histórico, o fato da faixa sem serial (sem sessão, módulo com falha) · CartaoFerramenta, LinhaHistorico, Faixa */
+  --ls-par-valor: 1.4px;             /* o código do par comparado (o chassi), pra ler dígito a dígito · ParComparado */
+  --ls-versao: 1px;                  /* a letra da versão, na prova · Prova */
+  --entrelinha-numero: 1;            /* número de instrumento sozinho na linha: a caixa é a própria letra · CartaoValor, Mostrador, PrazoDaConta, BlocoEscolhido, LeituraPequena, Calibracao */
+  --entrelinha-cartao: 1.25;         /* o nome, o rótulo e o título dentro de cartão ou caixa: o cartão de ferramenta, o cartão de valor e de foto, o vazio declarado · CartaoFerramenta, Vazio, CartaoValor, CartaoFoto */
+  --entrelinha-titulo-cartao: 1.2;   /* o título de 22 do cartão que pede ação · CartaoAcao */
+  --entrelinha-nome: 1.3;            /* o nome que pode quebrar em duas linhas: o do sinal no mostrador e o título da linha dupla de 50 (a assertiva da sessão) · Mostrador, LinhaChecagem */
+  --entrelinha-detalhe: 1.35;        /* a linha de 12 embaixo do nome, numa linha de lista: a causa da reprovada e a descrição do elo da cadeia · LinhaChecagem, Cadeia */
+  --entrelinha-frase: 1.5;           /* a frase que explica, na caixa apagada: a do vazio declarado e o resumo dos instrumentos apagados · Vazio, Declarado */
+  --entrelinha-dialogo: 1.45;        /* a frase do diálogo, de 14 · Dialogo */
+  --entrelinha-texto-livre: 1.45;    /* o texto que o técnico escreve em várias linhas (a justificativa, T13) · CampoTexto */
+  --entrelinha-mostrador: 1.15;      /* o valor do sinal, que pode quebrar · Mostrador */
+  --entrelinha-leitura: 0.95;        /* o número de 48 da leitura: a caixa aperta a letra · Leitura */
+  --entrelinha-cronometro: 0.92;     /* o número de 62 do prazo do evento · Prazo */
+
+  /* ── números de instrumento ─────────────────────────────────── */
+  --n-pequeno: 22px;                 /* o número da leitura de meia largura e o do valor em poço (T07, T13, T10) · LeituraPequena, Calibracao */
+  --ls-n-poco: -0.3px;               /* o número do valor em poço, o tambor de texto (T10) · Calibracao */
+  --n-unidade-pequena: 11px;         /* a unidade junto do número de 22 da leitura de meia largura (°C) · LeituraPequena */
+  --n-tambor: 34px;                  /* o dígito na célula do tambor do hodômetro (T07, G29) · Tambor */
+  --ls-n-tambor: -0.6px;             /* o espaçamento do dígito do tambor · Tambor */
+  --tambor-celula: 52px;             /* a altura da célula de cada rodinha do tambor (T07, G29) · Tambor */
+  --tambor-unidade: 32px;            /* a largura da unidade (km) ao lado das células do tambor · Tambor */
+  --n-cartao-secao: 18px;            /* o valor do cartão de meia largura da seção aberta · CartaoValor */
+  --n-unidade-cartao: 10px;          /* a unidade junto do valor de 18 (V, sat, de 4) · CartaoValor */
+  --n-mostrador: 17px;               /* o valor do sinal que respondeu · Mostrador */
+  --n-mostrador-vazio: 22px;         /* o traço do sinal apagado · Mostrador */
+  --n-prova-cadeia: 20px;            /* a versão gravada e relida (T09) · Prova */
+  --n-prova-sessao: 22px;            /* a versão que sobreviveu ao reinício (T16) · Prova */
+
+  /* ── a escala: a barra em poço, uma altura por uso ──────────── */
+  --escala-leitura: 26px;            /* a barra da leitura de largura inteira (T07) · Escala */
+  --escala-pequena: 14px;            /* a barra da leitura de meia largura (T07, T13) · Escala */
+  --escala-prazo: 20px;              /* a barra do prazo do evento (T14) · Escala */
+  --escala-placar: 18px;             /* a barra do placar da homologação (T13) · Escala */
+  --risco-leitura: 6px;              /* o risco comum na leitura de largura inteira · Escala */
+  --risco-leitura-forte: 13px;       /* o risco forte (limite da faixa ou meio) na leitura de largura inteira · Escala */
+  --risco-pequena: 5px;              /* o risco comum numa barra pequena: a leitura de meia largura e os quartos do prazo da conta · Escala, PrazoDaConta */
+  --risco-pequena-forte: 8px;        /* o risco do meio numa barra pequena: a leitura de meia largura e o prazo da conta · Escala, PrazoDaConta */
+  --risco-prazo: 7px;                /* o risco comum na barra do prazo do evento · Escala */
+  --risco-prazo-forte: 10px;         /* o risco do meio na barra do prazo do evento · Escala */
+  --risco-placar: 6px;               /* o risco comum no placar da homologação · Escala */
+  --risco-placar-forte: 9px;         /* o risco do meio no placar da homologação · Escala */
+  --marcador-leitura: 4px;           /* o marcador do valor na leitura de largura inteira e no prazo do evento · Escala */
+  --marcador-pequeno: 3px;           /* o marcador do valor numa barra baixa: a leitura de meia largura, o placar, a barra do cartão, o agora do prazo da conta · Escala, CartaoValor, PrazoDaConta */
+  --barra-cartao: 9px;               /* a barra do cartão da seção aberta, e o lugar do traço quando não há faixa · CartaoValor */
+
+  /* ── a cadeia, o encerramento e o segmentado ────────────────── */
+  --traco-trilho: 2px;               /* o trilho que liga um poço ao próximo, na cadeia e no encerramento · Trilho */
+  --cadeia-elo: 72px;                /* a altura de um elo da cadeia com trilho (T09 · cadeia concluída) · Cadeia */
+  --cadeia-elo-justo: 70px;          /* o elo quando a cadeia divide a tela com o aviso da recusa (T09/01) · Cadeia */
+  --encerramento-passo: 62px;        /* a altura de um passo do encerramento com trilho (T16 · encerrando) · Encerramento */
+  --encerramento-passo-justo: 58px;  /* o passo quando a tela abre espaço pro corte ou pro sem homologar (T16/01, 03, 06) · Encerramento */
+  --encerramento-fim: 34px;          /* o último passo do encerramento, sem trilho · Encerramento */
+  --segmento: 5px;                   /* o segmento feito ou pendente do segmentado · Segmentado */
+  --segmento-atual: 8px;             /* o segmento do passo atual, mais alto que os outros · Segmentado */
+
+  /* ── glifo, ícone e foto fora da linha de tamanhos ──────────── */
+  --glifo-confere: 15px;             /* o check solto do "confere" na régua da diferença (T10/01, Lei 4 · exceção) · Calibracao */
+  --glifo-cartao-acao: 22px;         /* o glifo solto ao lado do rótulo do cartão que pede ação (T15) · CartaoAcao */
+  --ferramenta-traco-sem-rede: 9px;  /* o traço no poço do cartão que espera a rede (T04 · Últimas instalações); o da espera é --e-10 · CartaoFerramenta */
+  --visor-foto: 46px;                /* o visor do cartão de foto · CartaoFoto */
+  --traco-visor: 13px;               /* o traço do visor que ainda espera a foto · CartaoFoto */
+  --miniatura-foto: 44px;            /* a miniatura da foto da prova (T10) · FotoProva */
+  --icone-foto: 22px;                /* o ícone dentro da miniatura da foto · FotoProva */
+
+  /* ── movimento ──────────────────────────────────────────────── */
+  --escala-dialogo: 0.98;            /* o diálogo nasce de 98% e cresce a 100% (movimento.md, por cima da tela) · Dialogo */
 }
 
 @media (prefers-reduced-motion: reduce) {

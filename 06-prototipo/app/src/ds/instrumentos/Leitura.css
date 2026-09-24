@@ -1,0 +1,10 @@
+.ds-leitura { padding: var(--e-10) var(--e-14); gap: var(--e-8); }
+.ds-leitura-fora { gap: var(--e-6); border-color: var(--vermelho); }
+.ds-leitura-numero { display: flex; align-items: baseline; gap: var(--e-4); }
+.ds-leitura-valor {
+  font-size: var(--n-destaque); font-weight: 700; letter-spacing: var(--ls-n-destaque);
+  line-height: var(--entrelinha-leitura);
+}
+.ds-leitura-fora .ds-leitura-valor { color: var(--vermelho); }
+.ds-leitura-unidade { font-size: var(--n-unidade-g); font-weight: 500; color: var(--tinta-secundaria); }
+.ds-leitura-causa { font-size: var(--t-legenda); font-weight: 600; color: var(--vermelho); }

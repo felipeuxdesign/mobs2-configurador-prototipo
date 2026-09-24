@@ -1,0 +1,25 @@
+.ds-barra-sistema {
+  position: relative; isolation: isolate;
+  height: var(--barra-sistema); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 var(--e-14) 0 var(--barra-sistema-recuo);
+  background: var(--fundo-faixa);
+}
+.ds-barra-sistema-tira { background: var(--poco); }
+.ds-barra-sistema-pagina { background: var(--fundo-pagina); }
+
+/* sob o véu: a camada escura fica por baixo da hora e dos ícones */
+.ds-barra-sistema::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: var(--veu); opacity: 0;
+  transition: opacity var(--mov-rapido) var(--mov-curva);
+}
+.ds-barra-sistema-veu-folha::before { opacity: 1; transition-duration: var(--mov-padrao); }
+.ds-barra-sistema-veu-dialogo::before { opacity: 1; }
+
+.ds-barra-sistema-hora { font-size: var(--t-corpo); font-weight: 500; letter-spacing: var(--ls-barra); color: var(--tinta); }
+.ds-barra-sistema-icones { display: flex; align-items: center; gap: var(--e-6); color: var(--tinta); }
+.ds-barra-sistema-icones svg { display: block; height: var(--barra-icone); }
+.ds-barra-sistema-sinal { width: var(--barra-sinal); }
+.ds-barra-sistema-bateria { width: var(--barra-bateria); margin-left: var(--e-2); }
+.ds-barra-sistema-casca { stroke-opacity: var(--barra-bateria-casca); }

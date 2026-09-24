@@ -1,0 +1,7 @@
+.ds-prazo { padding: var(--e-12); gap: var(--e-6); }
+.ds-prazo-numero { display: flex; align-items: baseline; justify-content: center; gap: var(--e-4); }
+.ds-prazo-tempo {
+  font-size: var(--n-cronometro); font-weight: 700; letter-spacing: var(--ls-n-cronometro);
+  line-height: var(--entrelinha-cronometro);
+}
+.ds-prazo-detalhe { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-secundaria); }

@@ -1,0 +1,20 @@
+.ds-campo-texto { display: flex; flex-direction: column; gap: var(--e-6); }
+.ds-campo-texto-rotulo { font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--tinta-secundaria); }
+.ds-foco .ds-campo-texto-rotulo, .ds-campo-texto:focus-within .ds-campo-texto-rotulo { color: var(--lima); }
+
+.ds-campo-texto-poco {
+  min-height: var(--alvo-min);
+  padding: var(--e-10) var(--e-12) calc(var(--e-10) + var(--traco-destaque) - var(--traco-borda));
+  background: var(--poco);
+  border-top: var(--traco-borda) solid var(--poco-fundo);
+  border-bottom: var(--traco-borda) solid var(--borda-poco);
+  border-left: var(--traco-borda) solid var(--poco-lado);
+  border-right: var(--traco-borda) solid var(--poco-lado);
+}
+.ds-foco .ds-campo-texto-poco, .ds-campo-texto-poco:focus-within { padding-bottom: var(--e-10); }
+.ds-campo-texto-entrada {
+  display: block; width: 100%; field-sizing: content; min-height: 0; margin: 0; padding: 0;
+  resize: none; overflow: hidden; background: transparent; border: 0; outline: none;
+  color: var(--tinta); font-family: inherit; font-size: var(--t-corpo); font-weight: 500;
+  line-height: var(--entrelinha-texto-livre);
+}

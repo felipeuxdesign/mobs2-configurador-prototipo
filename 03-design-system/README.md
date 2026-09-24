@@ -4,10 +4,10 @@
 
 | Arquivo | O que tem |
 |---|---|
-| `tokens.css` · `tokens.json` | os 119 valores — cor, tipo, espaço, medida, movimento. O `tokens.css` é a norma; o JSON é gerado dele (`npm run tokens`, na `app/`), em formato neutro, pra qualquer stack |
+| `tokens.css` · `tokens.json` | os 228 valores — cor, tipo, espaço, medida, movimento, e as medidas das peças (o bloco C2). O `tokens.css` é a norma; o JSON é gerado dele (`npm run tokens`, na `app/`), em formato neutro, pra qualquer stack |
 | `leis.md` | as leis visuais e de produto, cada uma com o porquê |
 | `movimento.md` | as regras de animação que valem pro app inteiro |
-| `componentes.md` | as 115 peças, com a folha onde estão desenhadas e as telas que usam cada uma |
+| `componentes.md` | as 125 peças — os 121 espécimes das folhas e os quatro grupos de átomos da folha 3 —, com a folha onde estão desenhadas e as telas que usam cada uma |
 | `referencias/` | as oito folhas, em HTML e PNG |
 
 **Medido na versão 2:** todo desenho que se repete nas 105 telas está numa folha · as 25 cores estão na paleta · as 6 transparências têm nome · os 17 tamanhos de letra estão na escala · **toda medida é por dentro**: o poço de 24 tem 24, o botão de 56 tem 56, a linha de 38 tem 38.

@@ -1,0 +1,24 @@
+.ds-faixa {
+  height: var(--faixa-sessao); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 var(--e-16);
+  background: var(--fundo-faixa);
+  border-bottom: var(--traco-borda) solid var(--separador);
+}
+.ds-faixa-sem-sessao { border-bottom: 0; }
+.ds-faixa-menu { height: var(--faixa-sessao-menu); border-top: var(--traco-borda) solid var(--borda-rodape); border-bottom: 0; }
+.ds-faixa-falha { border-bottom: var(--traco-destaque) solid var(--vermelho); }
+
+.ds-faixa-id { display: flex; align-items: center; gap: var(--e-10); min-width: 0; }
+.ds-faixa-serial { font-size: var(--t-destaque); font-weight: 700; letter-spacing: var(--ls-identidade); white-space: nowrap; color: var(--tinta); }
+.ds-faixa-divisor { display: block; width: var(--traco-borda); height: var(--e-16); background: var(--separador); flex-shrink: 0; }
+.ds-faixa-placa { font-size: var(--t-link); font-weight: 500; white-space: nowrap; color: var(--tinta-secundaria); }
+.ds-faixa-sem-ativo { color: var(--tinta-apagada); }
+.ds-faixa-fato { font-size: var(--t-corpo); font-weight: 600; letter-spacing: var(--ls-dado); white-space: nowrap; color: var(--tinta-apagada); }
+.ds-faixa-falha .ds-faixa-fato { font-size: var(--t-destaque); font-weight: 700; color: var(--vermelho); }
+
+.ds-faixa-acao {
+  height: var(--alvo-min); flex-shrink: 0;
+  display: flex; align-items: center; padding-left: var(--e-12);
+  font-size: var(--t-secundario); font-weight: 700; letter-spacing: var(--ls-encerrar); color: var(--tinta-secundaria);
+}

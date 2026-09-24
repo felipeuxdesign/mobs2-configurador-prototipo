@@ -1,0 +1,7 @@
+.ds-avatar {
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  border: var(--traco-borda) solid var(--borda-neutra); border-radius: 50%;
+  font-weight: 700; color: var(--tinta-forte);
+}
+.ds-avatar-tira { width: var(--avatar-tira); height: var(--avatar-tira); font-size: var(--t-rotulo-topo); letter-spacing: var(--ls-rotulo-topo); }
+.ds-avatar-conta { width: var(--avatar-conta); height: var(--avatar-conta); font-size: var(--t-destaque); letter-spacing: var(--ls-avatar-conta); }

@@ -1,0 +1,21 @@
+.ds-tira-contexto {
+  height: var(--tira-contexto); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 var(--e-12) 0 var(--e-16);
+}
+
+.ds-tira-contexto-garagem {
+  position: relative; height: var(--linha-padrao);
+  display: flex; align-items: center; gap: var(--e-6); padding: 0 var(--e-4) 0 0;
+}
+.ds-tira-contexto-garagem::before { content: ''; position: absolute; inset: calc((var(--linha-padrao) - var(--alvo-min)) / 2) 0; }
+.ds-tira-contexto-garagem-texto { font-size: var(--t-rotulo-topo); font-weight: 700; letter-spacing: var(--ls-rotulo-topo); color: var(--tinta-secundaria); }
+
+.ds-tira-contexto-conta {
+  position: relative; width: var(--poco-44); height: var(--poco-44); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  touch-action: manipulation; user-select: none;
+  transition: opacity var(--mov-solta) var(--mov-curva);
+}
+.ds-tira-contexto-conta::before { content: ''; position: absolute; inset: calc((var(--poco-44) - var(--alvo-min)) / 2); }
+.ds-tira-contexto-conta:active, .ds-tira-contexto-conta.ds-forca-toque { opacity: var(--toque-apagado); transition: none; }

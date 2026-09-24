@@ -1,0 +1,26 @@
+/* o valor em poço */
+.ds-valor-poco { flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: var(--e-12) var(--e-14); }
+.ds-valor-poco-rotulo { font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--tinta-secundaria); }
+.ds-valor-poco-numero { font-size: var(--n-pequeno); font-weight: 700; letter-spacing: var(--ls-n-poco); }
+.ds-valor-poco-unidade { font-size: var(--n-unidade-p); font-weight: 500; color: var(--tinta-secundaria); padding-left: var(--e-4); }
+.ds-valor-poco-apagado .ds-valor-poco-rotulo,
+.ds-valor-poco-apagado .ds-valor-poco-numero,
+.ds-valor-poco-apagado .ds-valor-poco-unidade { color: var(--tinta-apagada); }
+
+/* a régua da diferença */
+.ds-regua { flex-shrink: 0; display: flex; align-items: center; gap: var(--e-10); padding: 0 var(--e-2); }
+.ds-regua-traco { display: block; flex-grow: 1; height: var(--traco-borda); background: var(--divisoria); }
+.ds-regua-texto { font-size: var(--t-secundario); font-weight: 700; color: var(--tinta-secundaria); }
+.ds-regua-confere { display: flex; align-items: center; gap: var(--e-6); color: var(--tinta); }
+.ds-regua-confere .ds-glifo { width: var(--glifo-confere); height: var(--glifo-confere); }
+
+/* o valor alvo */
+.ds-valor-alvo.ds-caixa-poco {
+  flex-grow: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: var(--e-8); padding: var(--e-16);
+  border-bottom: var(--traco-destaque) solid var(--lima);
+}
+.ds-valor-alvo-rotulo { font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--lima); }
+.ds-valor-alvo-numero { font-size: var(--n-destaque); font-weight: 700; letter-spacing: var(--ls-n-destaque); line-height: var(--entrelinha-numero); }
+.ds-valor-alvo-unidade { font-size: var(--n-unidade-g); font-weight: 500; color: var(--tinta-secundaria); padding-left: var(--e-4); }
+.ds-valor-alvo-legenda { font-size: var(--t-secundario); font-weight: 500; color: var(--tinta-apagada); }

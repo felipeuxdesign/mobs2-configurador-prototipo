@@ -1,0 +1,10 @@
+.ds-par {
+  flex-grow: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center;
+  gap: var(--par-intervalo); padding: var(--e-20) var(--e-16);
+}
+.ds-par-metade { display: flex; flex-direction: column; gap: var(--e-4); }
+.ds-par-titulo { font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--tinta-apagada); }
+.ds-par-valor { font-size: var(--t-titulo-bloco); font-weight: 700; letter-spacing: var(--ls-par-valor); color: var(--tinta); }
+.ds-par-difere { color: var(--vermelho); }
+.ds-par-separador { display: block; height: var(--traco-borda); background: var(--separador); }
+.ds-par-explicacao { font-size: var(--t-secundario); font-weight: 500; line-height: var(--entrelinha-texto); color: var(--tinta-secundaria); }

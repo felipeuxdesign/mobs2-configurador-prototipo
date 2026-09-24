@@ -1,0 +1,849 @@
+[
+ {
+  "id": "f1-primario-normal",
+  "folha": 1,
+  "rotulo": "primário · normal",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f1-primario-pressionado",
+  "folha": 1,
+  "rotulo": "primário · pressionado",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f1-primario-desabilitado",
+  "folha": 1,
+  "rotulo": "primário · desabilitado",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f1-link",
+  "folha": 1,
+  "rotulo": "link · normal e pressionado",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f2-barra",
+  "folha": 2,
+  "rotulo": "barra do sistema",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f2-barra-menu",
+  "folha": 2,
+  "rotulo": "barra do sistema no menu",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f2-barra-sem-sessao",
+  "folha": 2,
+  "rotulo": "barra do sistema sem sessão",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f2-faixa-aberta",
+  "folha": 2,
+  "rotulo": "faixa · sessão aberta",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f2-faixa-sem-sessao",
+  "folha": 2,
+  "rotulo": "faixa · sem sessão",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f2-faixa-falha",
+  "folha": 2,
+  "rotulo": "faixa · módulo com falha",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f2-faixa-sem-acao",
+  "folha": 2,
+  "rotulo": "faixa · sem ação",
+  "diferenca": 6.67,
+  "tam": "folha 360×21 · vitrine 360×54"
+ },
+ {
+  "id": "f2-tira",
+  "folha": 2,
+  "rotulo": "tira de contexto",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f2-faixa-menu",
+  "folha": 2,
+  "rotulo": "faixa no menu",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f2-topo-menu",
+  "folha": 2,
+  "rotulo": "o topo do menu inteiro",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f2-rodape-duas",
+  "folha": 2,
+  "rotulo": "duas ações",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f2-rodape-uma",
+  "folha": 2,
+  "rotulo": "uma ação",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f2-rodape-correndo",
+  "folha": 2,
+  "rotulo": "processo correndo",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f2-rodape-legenda",
+  "folha": 2,
+  "rotulo": "com legenda",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f2-folha",
+  "folha": 2,
+  "rotulo": "folha",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f2-dialogo",
+  "folha": 2,
+  "rotulo": "diálogo",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f2-dialogo-sem-saida",
+  "folha": 2,
+  "rotulo": "diálogo sem saída",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f2-dialogo-ciencia",
+  "folha": 2,
+  "rotulo": "diálogo com ciência",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f2-folha-opcoes",
+  "folha": 2,
+  "rotulo": "folha com opções",
+  "diferenca": 0.13,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f2-barra-veu",
+  "folha": 2,
+  "rotulo": "barra do sistema sob o véu",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f6-linha-opcao",
+  "folha": 6,
+  "rotulo": "linha de opção",
+  "diferenca": 0.2,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-cartao-disponivel",
+  "folha": 4,
+  "rotulo": "disponível",
+  "diferenca": 0.12,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-cartao-decide-agora",
+  "folha": 4,
+  "rotulo": "decide agora",
+  "diferenca": 0.01,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-cartao-espera",
+  "folha": 4,
+  "rotulo": "espera",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-cartao-conectado",
+  "folha": 4,
+  "rotulo": "conectado",
+  "diferenca": 0.02,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-cartao-com-pendencia",
+  "folha": 4,
+  "rotulo": "com pendência",
+  "diferenca": 0.08,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-cartao-espera-a-rede",
+  "folha": 4,
+  "rotulo": "espera a rede",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-aviso-falha",
+  "folha": 4,
+  "rotulo": "falha",
+  "diferenca": 0.07,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-aviso",
+  "folha": 4,
+  "rotulo": "aviso",
+  "diferenca": 0.06,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-aviso-processo-parado",
+  "folha": 4,
+  "rotulo": "processo parado",
+  "diferenca": 0.11,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-aviso-com-contagem",
+  "folha": 4,
+  "rotulo": "com contagem",
+  "diferenca": 0.14,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-vazio-declarado",
+  "folha": 4,
+  "rotulo": "vazio declarado",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-nota-tracejada",
+  "folha": 4,
+  "rotulo": "nota tracejada",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-nota-com-rotulo",
+  "folha": 4,
+  "rotulo": "nota com rótulo",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-par-comparado",
+  "folha": 4,
+  "rotulo": "o par comparado",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-aprovada",
+  "folha": 4,
+  "rotulo": "aprovada",
+  "diferenca": 0.13,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-reprovada",
+  "folha": 4,
+  "rotulo": "reprovada, com causa",
+  "diferenca": 0.15,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-nao-se-aplica",
+  "folha": 4,
+  "rotulo": "não se aplica",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-parou-aqui",
+  "folha": 4,
+  "rotulo": "parou aqui",
+  "diferenca": 0.08,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-ainda-nao",
+  "folha": 4,
+  "rotulo": "ainda não",
+  "diferenca": 0.03,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-pre-checagem",
+  "folha": 4,
+  "rotulo": "pré-checagem",
+  "diferenca": 0.13,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-pre-checagem-sessao",
+  "folha": 4,
+  "rotulo": "pré-checagem com sessão",
+  "diferenca": 0.13,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-passo-ciclo",
+  "folha": 4,
+  "rotulo": "passo do ciclo",
+  "diferenca": 0.13,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-assertiva",
+  "folha": 4,
+  "rotulo": "assertiva da sessão",
+  "diferenca": 0.16,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-conferencia",
+  "folha": 4,
+  "rotulo": "linha de conferência",
+  "diferenca": 0.13,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-secao-aberta",
+  "folha": 4,
+  "rotulo": "seção aberta do checklist",
+  "diferenca": 0.23,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-secao-recolhida",
+  "folha": 4,
+  "rotulo": "seção recolhida",
+  "diferenca": 0.17,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-passos-prazo",
+  "folha": 4,
+  "rotulo": "passos com o prazo estourado",
+  "diferenca": 0.2,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-historico",
+  "folha": 4,
+  "rotulo": "linha do histórico",
+  "diferenca": 0.13,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-fila-esperando",
+  "folha": 4,
+  "rotulo": "linha da fila · esperando",
+  "diferenca": 0.12,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-garagem",
+  "folha": 4,
+  "rotulo": "linha de garagem",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-garagem-atual",
+  "folha": 4,
+  "rotulo": "linha de garagem · a atual",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f4-lista-garagens",
+  "folha": 4,
+  "rotulo": "a lista de garagens",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f1-linha-tocavel",
+  "folha": 1,
+  "rotulo": "linha tocável · normal e pressionada",
+  "diferenca": 0.06,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f3-escolha-lista",
+  "folha": 3,
+  "rotulo": "escolha numa lista",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f5-leitura-na-faixa",
+  "folha": 5,
+  "rotulo": "leitura na faixa",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f5-fora-da-faixa",
+  "folha": 5,
+  "rotulo": "fora da faixa",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f5-leitura-pequena",
+  "folha": 5,
+  "rotulo": "leitura pequena",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f5-leitura-com-minimo",
+  "folha": 5,
+  "rotulo": "leitura com mínimo",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f5-tambor",
+  "folha": 5,
+  "rotulo": "tambor",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f5-sinais-liga-desliga",
+  "folha": 5,
+  "rotulo": "sinais liga-desliga",
+  "diferenca": 0.01,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f5-instrumentos-apagados",
+  "folha": 5,
+  "rotulo": "instrumentos apagados",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f5-cadeia-concluida",
+  "folha": 5,
+  "rotulo": "cadeia concluída",
+  "diferenca": 0.17,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f5-cadeia-recusada",
+  "folha": 5,
+  "rotulo": "cadeia recusada",
+  "diferenca": 0.09,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f5-segmentado",
+  "folha": 5,
+  "rotulo": "segmentado",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f5-precondicao-pinos",
+  "folha": 5,
+  "rotulo": "a pré-condição dos pinos",
+  "diferenca": 0.22,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f5-encerrando",
+  "folha": 5,
+  "rotulo": "encerrando",
+  "diferenca": 0.1,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f5-pede-o-corte",
+  "folha": 5,
+  "rotulo": "pede o corte",
+  "diferenca": 0.11,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f5-sem-homologar",
+  "folha": 5,
+  "rotulo": "sem homologar",
+  "diferenca": 0.05,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f5-cronometro",
+  "folha": 5,
+  "rotulo": "cronômetro",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f5-prazo-cheio",
+  "folha": 5,
+  "rotulo": "prazo cheio",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f5-placar-homologacao",
+  "folha": 5,
+  "rotulo": "placar da homologação",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f6-checkbox",
+  "folha": 6,
+  "rotulo": "checkbox",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f6-checkbox-marcado",
+  "folha": 6,
+  "rotulo": "checkbox marcado",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f6-cabecalho-neutro",
+  "folha": 6,
+  "rotulo": "com contador neutro",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f6-cabecalho-falha",
+  "folha": 6,
+  "rotulo": "com contador de falha",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f6-marca",
+  "folha": 6,
+  "rotulo": "a marca no login",
+  "diferenca": 11.82,
+  "tam": "folha 360×48 · vitrine 360×107"
+ },
+ {
+  "id": "f6-campo",
+  "folha": 6,
+  "rotulo": "campo",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f6-campo-focado",
+  "folha": 6,
+  "rotulo": "campo focado",
+  "diferenca": 0.11,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f6-requisitos",
+  "folha": 6,
+  "rotulo": "requisitos da senha",
+  "diferenca": 0.01,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f6-codigo",
+  "folha": 6,
+  "rotulo": "código · seis células",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f6-codigo-errado",
+  "folha": 6,
+  "rotulo": "código errado",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f6-link-conteudo",
+  "folha": 6,
+  "rotulo": "link dentro do conteúdo",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f6-busca",
+  "folha": 6,
+  "rotulo": "campo de busca",
+  "diferenca": 0.13,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f6-justificativa",
+  "folha": 6,
+  "rotulo": "justificativa",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f6-so-icone",
+  "folha": 6,
+  "rotulo": "botões só de ícone",
+  "diferenca": 0.14,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f6-linha-modulo",
+  "folha": 6,
+  "rotulo": "linha de módulo",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f6-linha-onibus",
+  "folha": 6,
+  "rotulo": "linha de ônibus",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f6-escolhido",
+  "folha": 6,
+  "rotulo": "bloco escolhido",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f6-escolhido-trava",
+  "folha": 6,
+  "rotulo": "escolhido com trava",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f6-escolhido-trava-t06",
+  "folha": 6,
+  "rotulo": "escolhido com trava · T06",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f6-cartao-acao",
+  "folha": 6,
+  "rotulo": "cartão que pede ação",
+  "diferenca": 0.08,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f6-secundario",
+  "folha": 6,
+  "rotulo": "botão secundário",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f6-tira-leituras",
+  "folha": 6,
+  "rotulo": "tira de leituras",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f6-lista-contagem",
+  "folha": 6,
+  "rotulo": "lista com contagem",
+  "diferenca": 0.07,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f7-linha-secao-mapa",
+  "folha": 7,
+  "rotulo": "linha de seção do mapa",
+  "diferenca": 0.2,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f7-cartoes-valor",
+  "folha": 7,
+  "rotulo": "cartões de valor",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f7-cartao-barra",
+  "folha": 7,
+  "rotulo": "cartão com barra",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f7-cartao-configuracao",
+  "folha": 7,
+  "rotulo": "cartão de configuração",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f7-cartoes-foto",
+  "folha": 7,
+  "rotulo": "cartões de foto",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f7-secao-aberta",
+  "folha": 7,
+  "rotulo": "a seção aberta inteira",
+  "diferenca": 0.07,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f7-foto-aguarda",
+  "folha": 7,
+  "rotulo": "foto · aguarda",
+  "diferenca": 0.26,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f7-foto-tirada",
+  "folha": 7,
+  "rotulo": "foto · tirada",
+  "diferenca": 0.44,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f7-mostrador-apagado",
+  "folha": 7,
+  "rotulo": "mostrador · apagado",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f7-mostrador-relendo",
+  "folha": 7,
+  "rotulo": "mostrador · relendo",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f7-mostrador-aceso",
+  "folha": 7,
+  "rotulo": "mostrador · aceso",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f7-cartoes-esperam-ciclo",
+  "folha": 7,
+  "rotulo": "cartões que esperam o ciclo",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f7-bloco-evento",
+  "folha": 7,
+  "rotulo": "bloco do evento",
+  "diferenca": 0.14,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f7-linha-fila",
+  "folha": 7,
+  "rotulo": "linha da fila",
+  "diferenca": 0.16,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f7-linha-rechecagem",
+  "folha": 7,
+  "rotulo": "linha da re-checagem",
+  "diferenca": 0.16,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f7-prova-cadeia",
+  "folha": 7,
+  "rotulo": "prova da cadeia",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f7-prova-sessao",
+  "folha": 7,
+  "rotulo": "prova da sessão",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f7-contador-menu",
+  "folha": 7,
+  "rotulo": "contador no menu",
+  "diferenca": 0.03,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f8-valor-em-poco",
+  "folha": 8,
+  "rotulo": "valor em poço",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f8-regua-da-diferenca",
+  "folha": 8,
+  "rotulo": "régua da diferença",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f8-valor-alvo",
+  "folha": 8,
+  "rotulo": "o valor alvo",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ },
+ {
+  "id": "f8-nao-se-aplica",
+  "folha": 8,
+  "rotulo": "o que não se aplica",
+  "diferenca": 0,
+  "tam": "mesmo tamanho"
+ }
+]

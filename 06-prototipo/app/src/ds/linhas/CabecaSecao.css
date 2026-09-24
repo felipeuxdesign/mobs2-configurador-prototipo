@@ -1,0 +1,7 @@
+/* A cabeça da seção do checklist (folha 4, T13): 44 de alto, poço de 30,
+ * o nome, a contagem e o chevron — aberta aponta pra cima, recolhida pro lado. */
+.ds-cabeca-secao { gap: var(--e-10); height: var(--linha-padrao); }
+.ds-cabeca-secao-titulo { flex-grow: 1; font-size: var(--t-link); font-weight: 600; color: var(--tinta); }
+.ds-cabeca-secao-contagem { font-size: var(--t-secundario); font-weight: 600; color: var(--tinta-secundaria); flex-shrink: 0; }
+/* a seção por fazer: o círculo em --tinta-secundaria, não no apagado do Glifo (folha 4) */
+.ds-cabeca-secao .ds-glifo.ds-cabeca-secao-glifo-pendente { color: var(--tinta-secundaria); }

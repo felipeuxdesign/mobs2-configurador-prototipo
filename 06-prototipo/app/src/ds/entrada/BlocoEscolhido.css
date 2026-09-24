@@ -1,0 +1,34 @@
+.ds-escolhido {
+  flex-grow: 1; min-height: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--e-8);
+  padding: var(--e-24) var(--e-16);
+  background: var(--poco);
+  border-top: var(--traco-borda) solid var(--poco-fundo);
+  border-left: var(--traco-borda) solid var(--poco-lado);
+  border-right: var(--traco-borda) solid var(--poco-lado);
+  border-bottom: var(--traco-destaque) solid var(--lima);
+}
+.ds-escolhido-falha { border-bottom-color: var(--vermelho); }
+
+.ds-escolhido-rotulo { font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--lima); }
+.ds-escolhido-falha .ds-escolhido-rotulo { color: var(--vermelho); }
+.ds-escolhido-identidade {
+  font-size: var(--n-identidade); font-weight: 700; letter-spacing: var(--ls-n-identidade);
+  line-height: var(--entrelinha-numero); color: var(--tinta);
+}
+.ds-escolhido-detalhe { font-size: var(--t-secundario); font-weight: 500; color: var(--tinta-secundaria); }
+.ds-escolhido-separador { display: block; height: var(--traco-borda); background: var(--separador); }
+
+/* com passos (T05): a coluna inteira, o topo centrado, os passos à esquerda */
+.ds-escolhido-com-passos { align-items: stretch; gap: var(--e-10); padding: var(--e-16); }
+.ds-escolhido-com-passos .ds-escolhido-rotulo,
+.ds-escolhido-com-passos .ds-escolhido-identidade,
+.ds-escolhido-com-passos .ds-escolhido-detalhe { text-align: center; }
+.ds-escolhido-com-passos .ds-escolhido-separador { margin: var(--e-4) 0; }
+.ds-escolhido-passo { font-size: var(--t-secundario); font-weight: 400; color: var(--tinta-secundaria); }
+.ds-escolhido-passo-titulo { font-weight: 700; color: var(--tinta); }
+
+/* com motivo (T06): centrado, o separador curto, as frases em 15 */
+.ds-escolhido-com-motivo { padding: var(--escolhido-motivo-respiro) var(--e-16); }
+.ds-escolhido-com-motivo .ds-escolhido-separador { width: var(--separador-motivo); margin: var(--e-8) 0; }
+.ds-escolhido-motivo { font-size: var(--t-link); font-weight: 500; color: var(--tinta-forte); }

@@ -1,0 +1,9 @@
+.ds-trilho { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; }
+.ds-trilho-32 { width: var(--poco-32); }
+.ds-trilho-34 { width: var(--poco-34); }
+.ds-trilho-linha { display: block; flex-grow: 1; width: var(--traco-trilho); background: var(--divisoria); }
+.ds-trilho-linha-feito { background: var(--lima); }
+.ds-trilho-linha-corre { background: var(--tinta); }
+.ds-trilho-pulado { display: block; width: var(--e-10); height: var(--traco-borda); background: var(--marca-limite); }
+/* o quadrado do "agora" cresce com o poço: 12 no de 32 (folha 3), 14 no de 34 (T09) */
+.ds-trilho-34 .ds-glifo-agora { width: var(--e-14); height: var(--e-14); }

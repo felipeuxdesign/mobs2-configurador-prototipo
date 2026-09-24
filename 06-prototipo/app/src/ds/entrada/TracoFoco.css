@@ -1,0 +1,16 @@
+/* O traço de foco dos campos (folha 6, T01 animacao.md). Em foco, o traço de
+ * baixo do poço vira 2 de lima — o traço de verdade, igual à folha — e acende
+ * da esquerda pra direita: uma capa com o desenho do traço apagado (o poço e o
+ * traço de 1) cobre o lima e encolhe pra direita (scaleX 1 → 0, 150ms). Fora
+ * do foco a capa tem as mesmas cores do que cobre, e some no olho. Só
+ * transform se move; com reduzir movimento, aparece aceso. */
+.ds-traco-foco { position: relative; }
+.ds-traco-foco::after {
+  content: ''; position: absolute; left: 0; right: 0; pointer-events: none;
+  bottom: calc(-1 * var(--traco-borda)); height: var(--traco-destaque);
+  background: var(--poco); border-bottom: var(--traco-borda) solid var(--borda-poco);
+  transform-origin: right; transform: scaleX(1);
+  transition: transform var(--mov-rapido) var(--mov-curva);
+}
+.ds-foco .ds-traco-foco, .ds-traco-foco:focus-within { border-bottom: var(--traco-destaque) solid var(--lima); }
+.ds-foco .ds-traco-foco::after, .ds-traco-foco:focus-within::after { bottom: calc(-1 * var(--traco-destaque)); transform: scaleX(0); }

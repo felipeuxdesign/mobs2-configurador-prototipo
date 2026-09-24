@@ -1,5 +1,22 @@
 # Registro de mudanças
 
+## 2026-09-24 · C2 · design system
+
+- **as peças** em `app/src/ds/`:
+  - os 10 primitivos: o poço, o glifo, o ícone, os marcadores, a superfície tocável, o primário, o só-ícone, o link e o checkbox;
+  - as 6 famílias: chrome, linhas, cartões, instrumentos (com o tambor de roda de dígito, G29), entrada e checklist;
+  - tudo sai de `src/ds/index.js`, e o mapa de cada linha do `componentes.md` pro componente que a constrói está em `src/ds/MAPA.md`
+- **a vitrine** (`?vitrine=1`) mostra os **121 espécimes** das oito folhas, com o texto e a legenda de cada uma, e os **35 átomos** da folha 3. Um verificador independente conferiu o censo, folha por folha (5 · 20 · 1 · 32 · 17 · 24 · 18 · 4), sem espécime faltando e sem registro sobrando
+- **a bancada** (`node scripts/especime.mjs todos`) compara cada espécime com a folha, os dois no mesmo Chrome a 1×. **73 dão 0%.** 46 diferem só no glifo do Lucide contra o desenhado à mão (G5, até 0,44%, 0 pixel fora da caixa do svg) · o relatório está em `06-prototipo/prints/C2/`
+- **a bancada mede o desenho, não o arredondamento:** a moldura que cai em coordenada fracionária na folha vai pro pixel inteiro antes da foto (antes dava 1–2% em 24 espécimes certos). Ela também fotografa em lote, uma vez por folha
+- **o fotógrafo** (`npm run fotografo` e `npm run fotografo:1`): um Chrome só, aberto uma vez, com 4 abas em paralelo, uma instância por escala. Antes, era um Chrome por foto e em fila, porque várias instâncias travam nesta máquina. **Medido: o mesmo PNG pixel a pixel** que o Chrome de linha de comando, nas escalas 1 e 2 · os 121 espécimes em 25 s · as réguas usam ele quando está no ar e caem na linha de comando quando não (`scripts/cromo.mjs`)
+- **os tokens:** os 96 que as peças pediam entraram no bloco *C2 · as peças* do `tokens.css`, cada um com o papel e quem usa, com os nomes repetidos unificados pela revisão. Com os 13 do começo do ciclo (os glifos por tamanho, o marcador de 11, as escalas do toque e do surgir, e as entrelinhas), são **119 → 228**. Nenhuma cor nova
+- **o `componentes.md`**, pela G10: **115 → 125 linhas**. Entraram os 5 espécimes da folha 1 (o primário nos três estados, o link e a linha tocável), os botões só de ícone e os quatro grupos de átomos da folha 3, com o que não tem uso nas 105 marcado. A *falha*, o *ainda não* e o *espera* passaram pra folha 4, e o *contador no menu* ficou marcado como a mesma peça do *com pendência*. Os números da versão no `CLAUDE.md` e no README do design system acompanham
+- **duplicatas resolvidas** pela revisão, sem mudar o desenho (as 121 fotos saíram iguais antes e depois): a linha da fila, o cartão de opções, a caixa de poço e a caixa apagada
+- **desvio nomeado (G13, DS-D5):** a *faixa · sem ação* é construída com a casca da T16 (52, fundo da faixa, recheio 16, borda de baixo). A folha 2 desenha só o miolo, e a bancada mostra os 6,67% dessa diferença
+- **desvio nomeado, para o arquiteto:** o espécime *a marca no login* da folha 6 não tem a logo, nem no HTML nem no PNG, mas a legenda dele diz "o logo e CONFIGURADOR entre dois traços". A peça segue a T01/00, que tem a logo, e a bancada mostra 11,82%. **Pedido:** redesenhar o espécime com a logo
+- o placar da homologação posiciona pelo % inteiro, como a folha desenha (21 de 31 → 68%) · o só-ícone usa o token do toque apagado, que antes era um valor solto
+
 ## 2026-09-24 · o palco, pelo diretor
 
 - **o painel não fecha ao escolher uma tela** — fecha só no X, tocando fora ou com Esc; o Recomeçar e o Voltar ao fluxo também deixam ele aberto. O `palco.md` passou a dizer isso

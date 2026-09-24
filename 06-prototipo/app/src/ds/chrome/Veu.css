@@ -1,0 +1,9 @@
+.ds-veu {
+  flex-grow: 1; min-height: 0;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  background: var(--veu);
+  transition: opacity var(--mov-rapido) var(--mov-curva);
+}
+.ds-veu-dialogo { justify-content: center; }
+.ds-veu-folha:not(.ds-veu-oculto) { transition-duration: var(--mov-padrao); }
+.ds-veu-oculto { opacity: 0; pointer-events: none; }

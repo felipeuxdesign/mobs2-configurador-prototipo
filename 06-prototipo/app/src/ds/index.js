@@ -10,3 +10,11 @@ export { Primario } from './primitivos/Primario.jsx'
 export { SoIcone } from './primitivos/SoIcone.jsx'
 export { Link } from './primitivos/Link.jsx'
 export { Checkbox } from './primitivos/Checkbox.jsx'
+
+// as seis famílias (C2) — as telas importam tudo daqui
+export * from './chrome/index.js'
+export * from './linhas/index.js'
+export * from './cartoes/index.js'
+export * from './instrumentos/index.js'
+export * from './entrada/index.js'
+export * from './checklist/index.js'

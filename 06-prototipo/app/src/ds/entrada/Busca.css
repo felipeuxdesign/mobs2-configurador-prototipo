@@ -1,0 +1,13 @@
+.ds-busca {
+  flex-shrink: 0; height: var(--alvo-min); display: flex; align-items: center; gap: var(--e-10); padding: 0 var(--e-12);
+  background: var(--poco);
+  border-top: var(--traco-borda) solid var(--poco-fundo);
+  border-bottom: var(--traco-borda) solid var(--borda-poco);
+  border-left: var(--traco-borda) solid var(--poco-lado);
+  border-right: var(--traco-borda) solid var(--poco-lado);
+}
+.ds-busca-entrada {
+  flex-grow: 1; min-width: 0; margin: 0; padding: 0; background: transparent; border: 0; outline: none;
+  color: var(--tinta); font-family: inherit; font-size: var(--t-link); font-weight: 500;
+}
+.ds-busca-entrada::placeholder { color: var(--tinta-apagada); opacity: 1; }

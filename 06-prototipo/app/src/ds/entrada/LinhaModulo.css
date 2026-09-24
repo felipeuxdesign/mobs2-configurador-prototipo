@@ -1,0 +1,8 @@
+.ds-linha-modulo {
+  display: flex; align-items: center; justify-content: space-between;
+  height: var(--linha-dupla); border-bottom: var(--traco-borda) solid var(--divisoria);
+}
+.ds-linha-modulo.ds-sem-divisoria { border-bottom: 0; }
+.ds-linha-modulo-serial { font-size: var(--t-link); font-weight: 700; color: var(--tinta-forte); }
+.ds-linha-modulo-apagada .ds-linha-modulo-serial { color: var(--tinta-apagada); }
+.ds-linha-modulo-variante { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-apagada); }
