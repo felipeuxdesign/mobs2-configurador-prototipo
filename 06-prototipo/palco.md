@@ -1,0 +1,43 @@
+# O palco
+
+A moldura de apresentação em volta do app. **Três peças e mais nada**, no fundo `--poco-fundo`. As referências estão em `palco/referencias/`.
+
+## As peças
+
+| Peça | Como é |
+|---|---|
+| **o quadrado** | 44 × 44, no canto de cima à esquerda, a 16px das bordas · abre o painel |
+| **o celular** | no centro, **o app em tamanho real, 360 × 800**, com moldura de 8px — 376 × 816 por fora · raio 34 por fora, 26 na tela · escala inteiro pra caber na janela, **nunca maior que o real** |
+| **a coluna** | 230 de largura, 40 à direita do celular, alinhada ao topo · os estados da tela aberta, linhas de 32 |
+| **o painel** | 280 de largura, desliza da esquerda por cima de tudo · fecha no X ou tocando fora |
+
+## O painel · em duas partes
+
+- **O caminho** — as telas na ordem do fluxo: T01 a T10, depois T14, T13 e T16
+- **As consultas** — T15, T11, T12 e T08, que o técnico abre a qualquer hora pelo menu
+- no pé, **`Recomeçar do login`** — zera o estado único e volta ao começo
+
+A tela aberta aparece marcada. As folhas não entram no painel: são momentos da T04.
+
+## A coluna
+
+- lista **só os estados** da tela aberta — momento é fluxo e não entra
+- com mais de seis, os estados se agrupam pelo que o técnico estava fazendo — na T05: achar, conectar, conferir
+- o marcador é **o mesmo do app**: poço de 24 com o quadrado lima de 10 no escolhido
+- com um estado aberto, aparece **`Voltar ao fluxo`** no topo da coluna
+- tela sem estados: a coluna não aparece
+
+## O celular, nos dois jeitos
+
+| | |
+|---|---|
+| **no fluxo** | o app interativo · moldura `--borda` |
+| **num estado** | **o próprio app, montado pelo caso do mock, parado e sem toque** · moldura `--borda-neutra`, um tom mais clara · tocar nele faz o `Voltar ao fluxo` piscar uma vez |
+
+## As regras
+
+- **nada reage a passar o mouse** — nem no palco. O quadrado e os itens do painel respondem no clique, com o pressionado
+- dentro do celular, a seta normal do cursor; a mãozinha só nas peças do palco
+- **janela estreita** — abaixo de 900px de largura, como no celular de quem recebe o link: o app em tela cheia, sem moldura e sem coluna, e o quadrado flutuando no canto. O painel continua abrindo por ele
+- uma **etiqueta discreta com a data e o ciclo** no canto de baixo, pra quem comenta dizer qual versão viu
+- o palco nunca mostra comparação com a referência — isso é trabalho do ciclo

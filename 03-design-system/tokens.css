@@ -1,0 +1,128 @@
+/* tokens.css — a fonte única de todo valor visual do App Configurador.
+ * Derivado do design system (referencias/design-system/). Valor solto fora deste
+ * arquivo é dívida: a auditoria procura hex, px e rgba fora daqui.
+ * Dark-only. Barlow empacotada no app (@fontsource), nunca do Google. */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+:root {
+  /* ── fundos ─────────────────────────────────────────── */
+  --fundo-pagina:      #0F0D14;   /* a página do app */
+  --fundo-faixa:       #16131D;   /* faixa de sessão, folha */
+  --fundo-cartao:      #1A1726;   /* cartão e lista */
+  --fundo-apagado:     #131019;   /* vazio declarado, tracejado */
+  --poco:              #0B0910;   /* o poço */
+  --poco-fundo:        #06050A;   /* a borda funda do poço (topo) */
+
+  /* ── bordas e elevação ──────────────────────────────── */
+  --borda-poco:        #332C49;   /* borda de baixo do poço */
+  --borda:             #2B2540;   /* cartão e lista — uma só */
+  --divisoria:         #241F33;   /* entre linhas */
+  --separador:         #2E2840;   /* separador curto */
+  --borda-rodape:      #221D2E;   /* topo do rodapé */
+  --poco-lado:         #14111C;   /* laterais do poço */
+  --elevado:           #1E1A29;   /* pressionado, botão secundário */
+
+  /* ── tinta de texto · nada abaixo de --tinta-apagada ─── */
+  --tinta:             #F2F0F7;
+  --tinta-forte:       #C9C3DA;
+  --tinta-secundaria:  #A9A2BC;
+  --tinta-apagada:     #867E9A;   /* o piso de texto: 4,5:1 em todos os fundos */
+
+  /* ── só fora de texto ───────────────────────────────── */
+  --marca-limite:      #6E6683;   /* traço dos limites da faixa (3:1) */
+  --marca:             #4E475E;   /* traço, poço vazio, ícone apagado */
+  --marca-vazia:       #4A4166;   /* marcador de escolha vazio */
+  --borda-neutra:      #3A3350;   /* caixa neutra, moldura de estado estático */
+
+  /* ── ação e veredito ────────────────────────────────── */
+  --lima:              #AAEF00;   /* veredito, escolhido, texto do primário — nunca enfeite */
+  --roxo:              #402070;   /* fundo do primário */
+  --roxo-pressionado:  #4A2A80;   /* NOVO · validar no aparelho */
+  --vermelho:          #E06A5A;   /* falha */
+
+  /* ── transparências com nome ────────────────────────── */
+  --lima-faixa:        rgba(170, 239, 0, 0.14);  /* a faixa esperada da barra */
+  --lima-feito:        rgba(170, 239, 0, 0.5);   /* segmento feito */
+  --lima-borda:        rgba(170, 239, 0, 0.6);   /* as bordas da faixa */
+  --vermelho-faixa:    rgba(224, 106, 90, 0.18);
+  --vermelho-borda:    rgba(224, 106, 90, 0.8);
+  --veu:               rgba(6, 5, 10, 0.72);     /* o fundo atrás de folha e diálogo */
+
+  /* ── tipo · Barlow 400 · 500 · 600 · 700 ────────────── */
+  --fonte: 'Barlow', system-ui, sans-serif;
+  --t-rotulo-bloco:    10px;  /* caixa alta · letra 1.5px */
+  --t-rotulo-topo:     11px;  /* caixa alta · letra 1.4px */
+  --t-legenda:         12px;  /* o piso de texto que informa */
+  --t-secundario:      13px;
+  --t-corpo:           14px;
+  --t-link:            15px;
+  --t-destaque:        16px;
+  --t-botao:           17px;
+  --t-titulo-bloco:    20px;  /* letra −0.2px */
+  --t-titulo-tela:     22px;  /* letra −0.3px · um por tela */
+  --t-titulo-proc:     28px;  /* letra −0.4px · entrada e passo em foco */
+
+  /* ── números de instrumento · sempre tabular ────────── */
+  --n-cartao:          26px;  /* letra −0.4px */
+  --n-identidade:      34px;  /* serial e placa · −0.6px */
+  --n-progresso:       40px;  /* −1px */
+  --n-destaque:        48px;  /* −1.6px */
+  --n-cronometro:      62px;  /* −2px */
+  --n-unidade-p:       12px;  /* junto de número até 34 */
+  --n-unidade-g:       18px;  /* junto de 48 e 62 */
+
+  /* ── espaço · de 2 em 2 ─────────────────────────────── */
+  --e-2: 2px;  --e-4: 4px;  --e-6: 6px;  --e-8: 8px;  --e-10: 10px;
+  --e-12: 12px; --e-14: 14px; --e-16: 16px; --e-20: 20px; --e-24: 24px;
+  --e-28: 28px; --e-36: 36px; --e-40: 40px;
+  --respiro: 16px;            /* padding do conteúdo e espaço antes do rodapé */
+
+  /* ── alturas ────────────────────────────────────────── */
+  --linha-compacta:    38px;
+  --linha-padrao:      44px;
+  --linha-dupla:       50px;
+  --linha-escolha:     72px;
+  --linha-precheck-sessao: 38px;  /* exceção declarada: pré-checagem com a faixa de sessão */
+  --alvo-min:          48px;
+  --alvo-primario:     56px;
+  --faixa-sessao:      52px;
+  --faixa-sessao-menu: 50px;
+
+  /* ── forma ──────────────────────────────────────────── */
+  --raio:              4px;   /* em tudo; círculo só no LED e no avatar */
+  --poco-22: 22px;
+  --poco-24: 24px;
+  --poco-32: 32px;
+  --poco-44: 44px;
+  --tela-largura: 360px;
+  --tela-altura: 800px;
+  --pe-visivel: 32px;
+  --rodape-pe-com-link: 24px;
+  --rodape-pe-com-botao: 32px;
+  --poco-folga-divisoria: 6px; --poco-24: 24px; --poco-26: 26px; --poco-28: 28px;
+  --poco-30: 30px; --poco-32: 32px; --poco-34: 34px; --poco-44: 44px;  /* ícone = 60% */
+  --traco-glifo:       2.2;   /* glifos de estado */
+  --traco-icone:       1.8;   /* ícones de ferramenta e ícones de 22px ou mais */
+  --traco-mini:        2.6;   /* ícones abaixo de 14px */
+
+  /* ── movimento · só transform e opacity ─────────────── */
+  --mov-rapido:        150ms;
+  --mov-padrao:        200ms;
+  --mov-lento:         300ms;
+  --mov-curva:         cubic-bezier(0.2, 0.8, 0.2, 1);   /* desacelera no fim */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --mov-rapido: 0ms; --mov-padrao: 0ms; --mov-lento: 0ms; }
+}
+
+body {
+  margin: 0;
+  font-family: var(--fonte);
+  background: var(--fundo-pagina);
+  color: var(--tinta);
+  font-variant-numeric: tabular-nums;
+}
+
+a { color: inherit; text-decoration: none; }   /* cor de link nunca é global */

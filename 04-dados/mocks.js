@@ -1,0 +1,1091 @@
+/* app/mocks.js — C2 · a OBRA CANÔNICA. Toda tela deriva daqui (Lei 8/17).
+ * C4: +credenciais e +ddis (T01) — dois campos raiz, âncoras intactas.
+ * C4.1: +credenciais.contato e +recuperacao.novaSenha (D-21: todo campo nasce
+ *   preenchido com dado do mock — telefone/e-mail/senha literais no JSX violariam a Lei 8).
+ * C8: +5 casos ADITIVOS de T05 (gatilhos de simulação e leituras) — recorte
+ *   canônico intocado; ver o bloco no fim dos CASOS.
+ * C10: +frota (24 ativos), +chassiPelaCan/leitor/leituraCan (3 modelos de
+ *   ativo), +meioAtual/consumidores nos dois casos de pinos. Tudo aditivo:
+ *   âncoras intactas, ocupadoPor intacto.
+ * C16: +autotesteEncerramento (as 8 assertivas de T16 — as de bancada, em
+ *   autotesteAssertivas, ficam INTACTAS), +tecnico, +situacao.sessaoAcesso,
+ *   +modelos[].reinicioPorComando, +3 campos em sessao-interrompida e
+ *   +noEncerramento em autoteste-falhando. Tudo ADITIVO: as âncoras que o
+ *   gate recomputa não se movem.
+ * C22: +criteriosRegra (a REGRA dos três critérios de T12 — não campo por
+ *   instalação: o que o `resumo` já diz não se reescreve) e
+ *   +casos["instalacoes-sem-rede"] (o carimbo da consulta anterior,
+ *   declarado). Tudo ADITIVO: âncoras intactas, instalações intactas.
+ *
+ * Dia nominal FIXO: 2026-03-12 (quinta), 14:30. Toda data deriva por offset
+ * via aritmética de calendário PURA — zero objeto Date, zero Date.now,
+ * zero Math.random. 2026 NÃO é bissexto (fev = 28).
+ *
+ * Âncoras (a auditoria recomputa — tools/gate-cobertura.js):
+ *   24 ativos · 20 módulos · 4 ativos sem módulo · 2 seriais fora do
+ *   cadastro · 1 modelo sem driver (VC07) · 13 instalações
+ *   (6 aprovadas · 2 aguardando · 1 falha reconhecida · 1 reprocessada ·
+ *    1 reprovada · +2 ressalvadas) · cobertura 45 dias corridos,
+ *   13 dias distintos com intervenção · pacotes em 3 idades (1d·4d·8d) ·
+ *   fila com 5 estados.
+ */
+(function () {
+  /* Calendário puro a partir do dia nominal. */
+  var DIAS_MES = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  function diasAntes(n) {
+    var y = 2026, m = 3, d = 12 - n;
+    while (d < 1) { m -= 1; if (m < 1) { m = 12; y -= 1; } d += DIAS_MES[m - 1]; }
+    return y + "-" + (m < 10 ? "0" : "") + m + "-" + (d < 10 ? "0" : "") + d;
+  }
+  function comData(lista) {
+    return lista.map(function (x) { x.data = diasAntes(x.diasAtras); return x; });
+  }
+
+  /* ── Modelos de ATIVO — a linha do veículo. O sistema decide por aqui
+     (princípio 2): tradução CAN, mapa de contadores, método de calibração
+     de velocidade e preset de evento vêm do cadastro, nunca do técnico.
+     ma-03 SEM mapa de contadores declarado → T08 indisponível com motivo.
+     C8.12: +conteudoRegistros — o TAMANHO do pacote que este modelo pede ao
+     módulo (eventos, cercas, tradução). É propriedade do MODELO DE ATIVO, não
+     do módulo nem do ativo: mesma linha de veículo, mesmo conteúdo. Fecha o
+     #8 de T05 como COMPARAÇÃO (conteúdo × capacidadeRegistros da matriz) em
+     vez do verbo "cabe", e faz o caso conteudo-nao-cabe deixar de ser número
+     solto: ma-01 pede 128 e a variante ECO guarda 96 — a aritmética é a
+     regra, o caso só nomeia onde ela aparece.
+     C10 (T06): +chassiPelaCan — o MODELO decide se o vínculo é lido e
+     comparado (sim) ou confirmado pelo técnico (não); ma-01 sim, os outros
+     não (D5: em Várzea o caminho CAN cobre 9 de 10, o humano é a exceção —
+     a-09). +leitor (bloco Leitor: tipo do identificador e se o buzzer está
+     no fio) e +leituraCan (bloco Ativo: "barramento" físico ou "gateway"
+     indutivo) — duas das TRÊS fontes da matriz de ocupação de pinos; a
+     terceira é sessao.meio (D-39). ma-03 lê a CAN por gateway: máquina não
+     expõe barramento — é isso que faz o gateway ser consumidor real.
+     ⚠ Consequência declarada: TODO ma-01 em ECO não cabe — a-10/M2C-0394 (o
+     caso) e a-20/M2C-0472, em Caruaru. Não é gatilho novo escondido: é a
+     mesma conta, e o ECO ser pequeno para ônibus urbano é o motivo de o caso
+     existir.
+     ⚠ C23 (sweep) · SAÍRAM daqui três campos sem leitor, confirmados por grep
+     no app, nas 21 cascas e no gate: `grandezasCalibraveis` e
+     `grandezasIndisponiveis` (contradiziam `calibracao.porModelo`, que é a
+     fonte viva — ver o comentário de CALIBRACAO) e `categoria` ("ônibus" ·
+     "caminhão" · "máquina": o `nome` já diz, e o produto não agrupa nem
+     filtra por ela em lugar nenhum).
+     `metodoVelocidade` FICA DECLARADO, sem leitor de tela: é o fato de
+     cadastro que ORIGINA `calibracao.porModelo` (gps → velocidade "não
+     precisa"; pulso → velocidade calibrável). Consumidor: o cadastro/backend
+     que emite o pacote — nunca a tela, que lê a forma já derivada. */
+  var MODELOS_ATIVO = [
+    { id: "ma-01", nome: "Ônibus urbano OF-1621",
+      traducaoCan: "urbano v3",
+      mapaContadores: { declarado: true, versao: "v2" },
+      conteudoRegistros: 128,
+      metodoVelocidade: "gps",
+      presetEventoId: "pe-urbano",
+      chassiPelaCan: true,
+      leitor: { tipo: "cartao-serial", buzzerNoFio: false },
+      leituraCan: "barramento" },
+    { id: "ma-02", nome: "Caminhão coletor 17.230",
+      traducaoCan: "frota v2",
+      mapaContadores: { declarado: true, versao: "v1" },
+      conteudoRegistros: 84,
+      metodoVelocidade: "pulso",
+      presetEventoId: "pe-rodoviario",
+      chassiPelaCan: false,
+      leitor: { tipo: "chave-de-contato", buzzerNoFio: false },
+      leituraCan: "barramento" },
+    { id: "ma-03", nome: "Retroescavadeira 580N",
+      traducaoCan: "máquina v1",
+      mapaContadores: { declarado: false,
+        /* C16 · "Reset de leitura" virou "Refazer leitura da CAN" (R3: reset
+           é jargão, e o nome antigo não dizia o que reseta). */
+        motivo: "Mapa de contadores não declarado no cadastro deste modelo. Refazer leitura da CAN indisponível — acione o gestor." },
+      conteudoRegistros: 112,
+      metodoVelocidade: "gps",
+      presetEventoId: "pe-maquina",
+      chassiPelaCan: false,
+      leitor: { tipo: "sem-fio", buzzerNoFio: false },
+      leituraCan: "gateway" }
+  ];
+
+  /* Presets de evento (vêm no pacote): a janela de posicionamento de T12 é
+     DERIVADA — 3 × intervalo + 2 min — nunca número cravado em tela. */
+  /* ⚠ C23 (sweep) · `modoFila` e `indiceTeste` FICAM DECLARADOS, sem leitor
+     de tela e por decisão. A spec de T14 diz que o bloco Eventos declara o
+     modo de fila e que o evento de teste tem ÍNDICE PRÓPRIO RESERVADO — e o
+     que essa reserva garante é que a PLATAFORMA não entregue o evento de
+     teste ao cliente: fora de relatório, BI, ranking e notificação.
+     Consumidor: a plataforma, nunca o app. Sem eles o produto declararia
+     uma garantia que não modela. */
+  var PRESETS_EVENTO = [
+    { id: "pe-urbano",     nome: "Urbano",     intervaloRastreamentoSeg: 30,  modoFila: "tempo real", indiceTeste: 90 },
+    { id: "pe-rodoviario", nome: "Rodoviário", intervaloRastreamentoSeg: 60,  modoFila: "tempo real", indiceTeste: 91 },
+    { id: "pe-maquina",    nome: "Máquina",    intervaloRastreamentoSeg: 120, modoFila: "lote",       indiceTeste: 92 }
+  ];
+
+  /* ── Modelos de MÓDULO ── VC07 é o modelo SEM driver na v1.
+     C16 · +reinicioPorComando — o passo 2 do encerramento (HU-T16-3)
+     reinicia "por comando quando o driver suportar; senão, o app pede um
+     corte de alimentação, UMA vez". É capacidade do DRIVER, e o driver mora
+     aqui (driverV1 já é isto) — não na matriz, que é modelo × variante ×
+     firmware. VL08 não aceita: o passo 2 pede o corte em M2C-0371 (a-09,
+     Várzea, um toque na lista de T05) e em M2C-0438. VC07 nunca abre sessão
+     (trava em T05, sem driver), então o valor dele não tem consumidor. */
+  var MODELOS_MODULO = [
+    { id: "vl06", nome: "VL06", variantes: ["FULL", "ECO", "CAN-BT", "CAN"], driverV1: true,  reinicioPorComando: true },
+    { id: "vl08", nome: "VL08", variantes: ["STD"], driverV1: true,  reinicioPorComando: false },
+    { id: "vc07", nome: "VC07", variantes: ["STD"], driverV1: false, reinicioPorComando: false }
+  ];
+
+  /* Matriz de capacidades: modelo × variante × firmware. O módulo M2C-0451
+     roda 2.4.1, que NÃO está aqui → caminho de atualização (T05).
+     VC07 não tem linha: sem driver, o bloqueio acontece antes da matriz. */
+  var MATRIZ_CAPACIDADES = [
+    { modeloId: "vl06", variante: "FULL",   firmwares: ["2.2.0", "2.3.5"], can: true,  semFio: true,  pulsos: true,  regioesMax: 4, posicoesPorRegiao: 2, capacidadeRegistros: 192 },
+    { modeloId: "vl06", variante: "ECO",    firmwares: ["2.2.0"],          can: false, semFio: false, pulsos: true,  regioesMax: 2, posicoesPorRegiao: 2, capacidadeRegistros: 96 },
+    { modeloId: "vl06", variante: "CAN-BT", firmwares: ["2.3.5"],          can: true,  semFio: true,  pulsos: false, regioesMax: 4, posicoesPorRegiao: 2, capacidadeRegistros: 192 },
+    { modeloId: "vl06", variante: "CAN",    firmwares: ["2.3.5"],          can: true,  semFio: false, pulsos: false, regioesMax: 4, posicoesPorRegiao: 2, capacidadeRegistros: 192 },
+    { modeloId: "vl08", variante: "STD",    firmwares: ["3.0.2", "3.1.0"], can: true,  semFio: true,  pulsos: true,  regioesMax: 6, posicoesPorRegiao: 3, capacidadeRegistros: 384 }
+  ];
+
+  /* ── 20 módulos cadastrados (o vínculo módulo↔ativo vive no ativo). ── */
+  var MODULOS = [
+    { serial: "M2C-0301", modeloId: "vl06", variante: "FULL",   firmware: "2.3.5" },
+    { serial: "M2C-0312", modeloId: "vl06", variante: "CAN-BT", firmware: "2.3.5" },
+    { serial: "M2C-0335", modeloId: "vl06", variante: "CAN-BT", firmware: "2.3.5" },
+    { serial: "M2C-0348", modeloId: "vl06", variante: "FULL",   firmware: "2.3.5" },
+    { serial: "M2C-0362", modeloId: "vl06", variante: "CAN",    firmware: "2.3.5" },
+    { serial: "M2C-0371", modeloId: "vl08", variante: "STD",    firmware: "3.0.2" },
+    { serial: "M2C-0389", modeloId: "vl06", variante: "CAN",    firmware: "2.3.5" },
+    { serial: "M2C-0394", modeloId: "vl06", variante: "ECO",    firmware: "2.2.0" },
+    { serial: "M2C-0402", modeloId: "vl06", variante: "FULL",   firmware: "2.3.5" },
+    { serial: "M2C-0411", modeloId: "vl06", variante: "CAN-BT", firmware: "2.3.5" },
+    { serial: "M2C-0417", modeloId: "vl06", variante: "CAN-BT", firmware: "2.3.5" }, /* herói */
+    { serial: "M2C-0423", modeloId: "vl06", variante: "FULL",   firmware: "2.2.0" },
+    { serial: "M2C-0438", modeloId: "vl08", variante: "STD",    firmware: "3.1.0" },
+    { serial: "M2C-0445", modeloId: "vl06", variante: "CAN",    firmware: "2.3.5" },
+    { serial: "M2C-0451", modeloId: "vl06", variante: "FULL",   firmware: "2.4.1" }, /* fora da matriz */
+    { serial: "M2C-0466", modeloId: "vl06", variante: "FULL",   firmware: "2.3.5" },
+    { serial: "M2C-0472", modeloId: "vl06", variante: "ECO",    firmware: "2.2.0" },
+    { serial: "M2C-0480", modeloId: "vl06", variante: "CAN",    firmware: "2.3.5" },
+    { serial: "M2C-0489", modeloId: "vl06", variante: "FULL",   firmware: "2.3.5" },
+    { serial: "M2C-0497", modeloId: "vc07", variante: "STD",    firmware: "1.1.0" }  /* sem driver */
+  ];
+
+  /* ── 24 ativos — 4 SEM módulo (a-07, a-08, a-15, a-23): exercitam a trava
+     do princípio 5 (sem cadastro prévio, o app trava).
+     C10 (D4): +frota — o número curto pintado no veículo, o que o técnico
+     digita na busca de T06 junto com a placa. IDENTIFICADOR = chassi (a
+     spec: "identificador do chassi pela CAN"), campo pesquisável porque a
+     HU pede e porque colar funciona — não nasce campo novo. ── */
+  var ATIVOS = [
+    /* uo-01 · Garagem Várzea (10) */
+    { id: "a-01", placa: "RKT-8H42", frota: "1003", modeloAtivoId: "ma-01", chassi: "9BM384067GB120401", uoId: "uo-01", moduloSerial: "M2C-0417" }, /* HERÓI */
+    { id: "a-02", placa: "QJF-2C61", frota: "1006", modeloAtivoId: "ma-01", chassi: "9BM384067GB120402", uoId: "uo-01", moduloSerial: "M2C-0301" },
+    { id: "a-03", placa: "PCX-9A17", frota: "1009", modeloAtivoId: "ma-01", chassi: "9BM384067GB120403", uoId: "uo-01", moduloSerial: "M2C-0312" },
+    { id: "a-04", placa: "KHT-4B08", frota: "1012", modeloAtivoId: "ma-01", chassi: "9BM384067GB120404", uoId: "uo-01", moduloSerial: "M2C-0335" },
+    { id: "a-05", placa: "OYS-7D93", frota: "1015", modeloAtivoId: "ma-01", chassi: "9BM384067GB120405", uoId: "uo-01", moduloSerial: "M2C-0348" },
+    { id: "a-06", placa: "RVM-1E54", frota: "1018", modeloAtivoId: "ma-01", chassi: "9BM384067GB120406", uoId: "uo-01", moduloSerial: "M2C-0362" },
+    { id: "a-07", placa: "PDZ-3F26", frota: "1021", modeloAtivoId: "ma-01", chassi: "9BM384067GB120407", uoId: "uo-01", moduloSerial: null },
+    { id: "a-08", placa: "QRA-8G70", frota: "1024", modeloAtivoId: "ma-01", chassi: "9BM384067GB120408", uoId: "uo-01", moduloSerial: null },
+    { id: "a-09", placa: "KNB-5H39", frota: "1027", modeloAtivoId: "ma-02", chassi: "9BW958017HT450409", uoId: "uo-01", moduloSerial: "M2C-0371" },
+    { id: "a-10", placa: "OCT-2J85", frota: "1030", modeloAtivoId: "ma-01", chassi: "9BM384067GB120410", uoId: "uo-01", moduloSerial: "M2C-0394" },
+    /* uo-02 · Garagem Ibura (8) */
+    { id: "a-11", placa: "PGE-6K41", frota: "1033", modeloAtivoId: "ma-01", chassi: "9BM384067GB120411", uoId: "uo-02", moduloSerial: "M2C-0389" },
+    { id: "a-12", placa: "RSW-9L02", frota: "1036", modeloAtivoId: "ma-01", chassi: "9BM384067GB120412", uoId: "uo-02", moduloSerial: "M2C-0402" },
+    { id: "a-13", placa: "QAH-1M67", frota: "1039", modeloAtivoId: "ma-01", chassi: "9BM384067GB120413", uoId: "uo-02", moduloSerial: "M2C-0411" },
+    { id: "a-14", placa: "KJC-7N23", frota: "1042", modeloAtivoId: "ma-01", chassi: "9BM384067GB120414", uoId: "uo-02", moduloSerial: "M2C-0423" },
+    { id: "a-15", placa: "PBV-4P58", frota: "1045", modeloAtivoId: "ma-01", chassi: "9BM384067GB120415", uoId: "uo-02", moduloSerial: null },
+    { id: "a-16", placa: "ONK-8Q90", frota: "1048", modeloAtivoId: "ma-02", chassi: "9BW958017HT450416", uoId: "uo-02", moduloSerial: "M2C-0438" },
+    { id: "a-17", placa: "RDF-3R14", frota: "1051", modeloAtivoId: "ma-01", chassi: "9BM384067GB120417", uoId: "uo-02", moduloSerial: "M2C-0445" },
+    { id: "a-18", placa: "QTM-5S79", frota: "1054", modeloAtivoId: "ma-01", chassi: "9BM384067GB120418", uoId: "uo-02", moduloSerial: "M2C-0451" },
+    /* uo-03 · Pátio Caruaru (6) */
+    { id: "a-19", placa: "KWX-2T36", frota: "1057", modeloAtivoId: "ma-02", chassi: "9BW958017HT450419", uoId: "uo-03", moduloSerial: "M2C-0466" },
+    { id: "a-20", placa: "PEY-9U62", frota: "1060", modeloAtivoId: "ma-01", chassi: "9BM384067GB120420", uoId: "uo-03", moduloSerial: "M2C-0472" },
+    { id: "a-21", placa: "OHL-6V07", frota: "1063", modeloAtivoId: "ma-03", chassi: "9CS580N26KR330421", uoId: "uo-03", moduloSerial: "M2C-0497" },
+    { id: "a-22", placa: "RJP-1W48", frota: "1066", modeloAtivoId: "ma-02", chassi: "9BW958017HT450422", uoId: "uo-03", moduloSerial: "M2C-0480" },
+    { id: "a-23", placa: "QSN-7X95", frota: "1069", modeloAtivoId: "ma-03", chassi: "9CS580N26KR330423", uoId: "uo-03", moduloSerial: null },
+    { id: "a-24", placa: "KUD-4Y21", frota: "1072", modeloAtivoId: "ma-02", chassi: "9BW958017HT450424", uoId: "uo-03", moduloSerial: "M2C-0489" }
+  ];
+
+  /* ── Cadeia dos 6 blocos — ordem CANÔNICA, invariante (lei do produto).
+     Arraste do reenvio cirúrgico (T11): o conjunto arrastado vai SEMPRE na
+     ordem canônica, nunca na ordem em que as divergências apareceram. */
+  var CADEIA = {
+    ordem: ["limpeza", "ativo", "cercas", "leitor", "eventos", "conexao"],
+    rotulos: { limpeza: "Limpeza", ativo: "Ativo", cercas: "Cercas", leitor: "Leitor", eventos: "Eventos", conexao: "Conexão" },
+    arraste: { ativo: ["eventos"], cercas: ["leitor", "eventos"], leitor: ["eventos"], eventos: [], conexao: [] }
+  };
+
+  /* Cercas: 2 áreas × 2 cercas = 4 regiões (herói). O pool esgotado vive
+     no caso "pool-esgotado" (a-05): regiões E posições no limite.
+     ⚠ C23 (sweep) · `areas` TEM LEITOR e não é tela: é o gate
+     (gate-cobertura.js, "cercas: 2 áreas × 2 = 4 regiões"). `areaId` fica
+     declarado por consequência — é o elo que faz o × 2 dessa assertiva ser
+     verdade; sem ele as duas áreas ficariam contadas e vazias. As telas leem
+     só a CONTAGEM de regiões por ativo (T05, T13, T16).
+     ⚠ Sinalizado, não decidido: `regioes[].nome` também não tem leitor, e não
+     estava na lista de candidatos do C23. Fica intocado. */
+  var CERCAS = {
+    areas: [
+      { id: "ar-01", nome: "Garagem Várzea" },
+      { id: "ar-02", nome: "Terminal Joana Bezerra" }
+    ],
+    regioes: [
+      { id: "rg-01", areaId: "ar-01", nome: "Pátio interno",       ativoId: "a-01" },
+      { id: "rg-02", areaId: "ar-01", nome: "Portão de saída",     ativoId: "a-01" },
+      { id: "rg-03", areaId: "ar-02", nome: "Plataforma norte",    ativoId: "a-01" },
+      { id: "rg-04", areaId: "ar-02", nome: "Bolsão de recolhida", ativoId: "a-01" }
+    ]
+  };
+
+  /* Identificadores: cartões com a string ESPERADA + mapa de índices.
+     A divergência por zeros à esquerda / prefixo é o caso mais
+     representativo do produto (falhava no último item do ciclo, sem
+     diagnóstico) — vive em casos["identificador-divergente"]. */
+  var IDENTIFICADORES = {
+    cartoes: [
+      { id: "id-01", rotulo: "Cartão do motorista 041", codigoEsperado: "0009412857" },
+      { id: "id-02", rotulo: "Cartão do motorista 112", codigoEsperado: "0007733904" },
+      { id: "id-03", rotulo: "Cartão reserva da UO",    codigoEsperado: "PE-0033120" }
+    ],
+    indicesAlocados: [
+      { indice: 1, cartaoId: "id-01" },
+      { indice: 2, cartaoId: "id-02" },
+      { indice: 3, cartaoId: "id-03" }
+    ]
+  };
+
+  /* ═══ C16 · AS 8 ASSERTIVAS DO ENCERRAMENTO (T16) — outra lista, outro
+     autoteste. As de baixo (AUTOTESTE_ASSERTIVAS) são as de bancada que
+     T12/T13 contam ("Ignição liga", "Leitor de cartão responde"); estas são
+     o que UM REINÍCIO E UMA RELEITURA provam — a resposta ao incidente que
+     originou o produto. Cada uma é `Checagem` no uso pleno, COM O VALOR
+     LIDO: nunca um "OK" agregado (HU-T16-4).
+     `fonte` é chave de CÓDIGO (a tela deriva o valor do mock, Lei 17), nunca
+     texto de tela. `valor` fixo só onde o fato é o próprio estado do módulo.
+     ⚠ #4 é CONDICIONAL (R2): só existe quando a leitura da CAN foi refeita
+     na sessão. Não aplicável aparece como `não se aplica` COM MOTIVO — nunca
+     verde por omissão, que seria o autoteste mentindo sobre o que provou.
+     ⚠ #8 NÃO BLOQUEIA (R1): depende de servidor, não do módulo na frente do
+     técnico — sai da conta de bloqueio. É o que o C21 (T13, Seção D) consome.
+     ⚠ #5 é a única que a spec não nomeia — desvio sinalizado no gate: a
+     releitura prova os pontos de cerca separadamente dos identificadores
+     porque a memória é compartilhada entre os dois (razão da ordem canônica
+     Cercas ANTES de Leitor). */
+  /* ⚠ RÓTULOS MEDIDOS (craft §1/§2): o orçamento do rótulo é 180 (360 − 32
+     de padding − 20 do ícone − 8 − 108 da coluna do valor − 12 do gap), e
+     "Configuração dos blocos", "Contadores sobreviveram" e "Identificadores
+     íntegros" mediam ~190 e QUEBRAVAM em duas linhas no print. Viraram
+     substantivos: o eyebrow AUTOTESTE nomeia a coluna uma vez, e
+     "sobreviveram"/"íntegros" era a afirmação que TODAS as oito fazem —
+     repetir em cada linha é ruído, não dado (o encurtamento que o diretor
+     autorizou para os contadores, aplicado às três). Maior rótulo agora:
+     "Canal de programação", 172 em 180. */
+  var AUTOTESTE_ENCERRAMENTO = [
+    { id: "configuracao",    rotulo: "Configuração", fonte: "versao" },
+    { id: "contadores",      rotulo: "Contadores", fonte: "contador" },
+    { id: "identificadores", rotulo: "Identificadores", fonte: "identificadores" },
+    { id: "faixa",           rotulo: "Faixa de contadores", fonte: "faixa", condicional: true,
+      motivo: "a leitura da CAN não foi refeita" },
+    { id: "cercas",          rotulo: "Pontos de cerca", fonte: "cercas",
+      motivoSemCercas: "nenhuma cerca neste ativo" },
+    { id: "canal",           rotulo: "Canal de programação", fonte: "canal", valor: "fechado" },
+    { id: "repouso",         rotulo: "Repouso do módulo", fonte: "repouso", valor: "restaurado" },
+    { id: "plataforma",      rotulo: "ID na plataforma", fonte: "plataforma", valor: "na fila",
+      nota: "confirma quando a evidência subir", bloqueia: false }
+  ];
+
+  /* Autoteste — as 8 assertivas canônicas (T13/T12). */
+  var AUTOTESTE_ASSERTIVAS = [
+    "Posição GPS válida",
+    "Ignição liga",
+    "Ignição desliga",
+    "Comunicação com o servidor",
+    "Leitura do hodômetro",
+    "Leitura do horímetro",
+    "Leitor de cartão responde",
+    "Memória de eventos grava"
+  ];
+
+  /* ── 13 instalações · 13 dias distintos · span 0–44 = 45 corridos.
+     6 aprovadas puras · 2 aguardando puras · 1 falha reconhecida ·
+     1 reprocessada · 1 reprovada · +2 ressalvadas (1 aprovada, 1 aguardando). */
+  var INSTALACOES = comData([
+    { id: "i-01", ativoId: "a-01", moduloSerial: "M2C-0417", diasAtras: 0,  hora: "11:47",
+      estado: "aprovada", ressalva: null,
+      etapas: { /* história completa do herói */
+        /* ⚠ C23 (sweep) · `preChecagem` FICA DECLARADO, sem leitor. Mesma
+           natureza de `blocos 6/6`, `checklist 10/10` e `autoteste 8/8`, que
+           T12 declara sem leitor desde o C22: são ETAPAS, e etapa é o
+           relatório. Consumidor: a tela web do gestor. */
+        preChecagem: { checagens: 12, passaram: 12 },
+        cadeia: [
+          { bloco: "limpeza", hora: "10:02", readBack: "confirmado" },
+          { bloco: "ativo",   hora: "10:06", readBack: "confirmado" },
+          { bloco: "cercas",  hora: "10:11", readBack: "confirmado" },
+          { bloco: "leitor",  hora: "10:15", readBack: "confirmado" },
+          { bloco: "eventos", hora: "10:21", readBack: "confirmado" },
+          { bloco: "conexao", hora: "10:26", readBack: "confirmado" }
+        ],
+        calibracao: { grandeza: "hodômetro", valorPainel: "482.317 km", foto: true },
+        cicloDinamico: { completo: true, passos: ["Ignição ligada", "Movimento detectado", "Ré acionada", "Porta aberta", "Ignição desligada"], confirmados: 5 },
+        checklist: { itens: 10, concluidos: 10 },
+        autoteste: { assertivas: 8, passaram: 8 },
+        recebimento: { confirmado: true, hora: "11:47" }
+      } },
+    { id: "i-02", ativoId: "a-03", moduloSerial: "M2C-0312", diasAtras: 1,  hora: "16:05",
+      estado: "aguardando-validacao", ressalva: null,
+      resumo: { blocos: "6/6", checklist: "10/10", autoteste: "8/8", recebimento: "confirmado" } },
+    { id: "i-03", ativoId: "a-12", moduloSerial: "M2C-0402", diasAtras: 2,  hora: "10:22",
+      estado: "aguardando-validacao",
+      ressalva: { item: "Fixação da antena", justificativa: "Suporte original quebrado — fixada com abraçadeira reforçada" },
+      resumo: { blocos: "6/6", checklist: "10/10", autoteste: "8/8", recebimento: "confirmado" } },
+    { id: "i-04", ativoId: "a-19", moduloSerial: "M2C-0466", diasAtras: 4,  hora: "09:40",
+      estado: "aprovada",
+      ressalva: { item: "Foto do painel", justificativa: "Vidro do painel trincado — foto lateral autorizada pelo gestor" },
+      resumo: { blocos: "6/6", checklist: "10/10", autoteste: "8/8", recebimento: "confirmado" } },
+    { id: "i-05", ativoId: "a-14", moduloSerial: "M2C-0423", diasAtras: 6,  hora: "15:12",
+      estado: "reprovada", ressalva: null,
+      resumo: { blocos: "6/6", checklist: "10/10", autoteste: "7/8", assertivaFalhou: "Ignição desliga", recebimento: "confirmado" } },
+    { id: "i-06", ativoId: "a-06", moduloSerial: "M2C-0362", diasAtras: 9,  hora: "13:58",
+      estado: "falha-recebimento-reconhecida", ressalva: null,
+      resumo: { blocos: "6/6", checklist: "10/10", autoteste: "8/8", recebimento: "não confirmado — falha reconhecida pelo técnico" } },
+    { id: "i-07", ativoId: "a-16", moduloSerial: "M2C-0438", diasAtras: 13, hora: "08:31",
+      estado: "aprovada-reprocessamento", ressalva: null,
+      resumo: { blocos: "6/6", checklist: "10/10", autoteste: "8/8", recebimento: "confirmado após reprocessamento" } },
+    { id: "i-08", ativoId: "a-02", moduloSerial: "M2C-0301", diasAtras: 17, hora: "14:03",
+      estado: "aprovada", ressalva: null,
+      resumo: { blocos: "6/6", checklist: "10/10", autoteste: "8/8", recebimento: "confirmado" } },
+    { id: "i-09", ativoId: "a-20", moduloSerial: "M2C-0472", diasAtras: 22, hora: "10:47",
+      estado: "aguardando-validacao", ressalva: null,
+      resumo: { blocos: "6/6", checklist: "10/10", autoteste: "8/8", recebimento: "confirmado" } },
+    { id: "i-10", ativoId: "a-09", moduloSerial: "M2C-0371", diasAtras: 27, hora: "16:55",
+      estado: "aprovada", ressalva: null,
+      resumo: { blocos: "6/6", checklist: "10/10", autoteste: "8/8", recebimento: "confirmado" } },
+    { id: "i-11", ativoId: "a-13", moduloSerial: "M2C-0411", diasAtras: 33, hora: "09:18",
+      estado: "aprovada", ressalva: null,
+      resumo: { blocos: "6/6", checklist: "10/10", autoteste: "8/8", recebimento: "confirmado" } },
+    { id: "i-12", ativoId: "a-22", moduloSerial: "M2C-0480", diasAtras: 39, hora: "11:36",
+      estado: "aprovada", ressalva: null,
+      resumo: { blocos: "6/6", checklist: "10/10", autoteste: "8/8", recebimento: "confirmado" } },
+    { id: "i-13", ativoId: "a-17", moduloSerial: "M2C-0445", diasAtras: 44, hora: "15:29",
+      estado: "aprovada", ressalva: null,
+      resumo: { blocos: "6/6", checklist: "10/10", autoteste: "8/8", recebimento: "confirmado" } }
+  ]);
+
+  /* ── C22 · T12 · A REGRA dos três critérios — não é campo por instalação.
+     O que o `resumo` já diz não se reescreve (o veredito sai de
+     `recebimento`, a razão da reprovada sai de `assertivaFalhou`); o que ele
+     não tem são os três critérios, e eles DERIVAM do estado:
+       aprovada / reprocessada / aguardando → os três chegaram; o que falta
+         em aguardando é o gestor, não o dado.
+       reprovada → `Ignição desliga` não passou: sem desligar a ignição a
+         viagem não fecha e o evento sai do parâmetro.
+       falha reconhecida → nada chegou ao servidor, coerente com a secaoF.
+     ⚠ UMA exceção declarada (aprovada no gate): i-09, posicionamento
+     `atrasado` — posição que chegou tarde é exatamente o que um gestor não
+     aprova sozinho, e sem ela a palavra seria vocabulário nunca visto.
+     Os três números da janela (3 × intervalo + 2 min) e o teto de espera
+     moram AQUI para não virarem literal de tela (Lei 8). */
+  var CRITERIOS_REGRA = {
+    fatorJanela: 3,
+    folgaJanelaSeg: 120,
+    tetoEsperaMin: 10,
+    porEstado: {
+      "aprovada":                      { posicionamento: "conforme", eventos: "conforme",          viagens: "completa" },
+      "aprovada-reprocessamento":      { posicionamento: "conforme", eventos: "conforme",          viagens: "completa" },
+      "aguardando-validacao":          { posicionamento: "conforme", eventos: "conforme",          viagens: "completa" },
+      "reprovada":                     { posicionamento: "conforme", eventos: "fora do parâmetro", viagens: "incompleta" },
+      "falha-recebimento-reconhecida": { posicionamento: "ausente",  eventos: "ausente",           viagens: "ausente" }
+    },
+    excecoes: { "i-09": { posicionamento: "atrasado" } }
+  };
+
+  /* ── Pacote de sincronização — um por UO, em TRÊS idades (T03).
+     Idade → estado deriva NA TELA a partir dos limiares daqui. */
+  var PACOTES = comData([
+    { id: "pac-uo-01", uoId: "uo-01", diasAtras: 1, hora: "07:10",
+      limiares: { avisoDias: 3, bloqueioDias: 7 },
+      presetsEventoIds: ["pe-urbano", "pe-rodoviario"],
+      contem: { ativos: 10, modelosAtivo: 3, cartoes: 3 } },
+    { id: "pac-uo-02", uoId: "uo-02", diasAtras: 4, hora: "06:55",
+      limiares: { avisoDias: 3, bloqueioDias: 7 },
+      presetsEventoIds: ["pe-urbano", "pe-rodoviario"],
+      contem: { ativos: 8, modelosAtivo: 3, cartoes: 3 } },
+    { id: "pac-uo-03", uoId: "uo-03", diasAtras: 8, hora: "07:30",
+      limiares: { avisoDias: 3, bloqueioDias: 7 },
+      presetsEventoIds: ["pe-urbano", "pe-rodoviario", "pe-maquina"],
+      contem: { ativos: 6, modelosAtivo: 3, cartoes: 3 } }
+  ]);
+
+  /* ── Fila de saída (T15) — tempo parado deriva de criadoAs vs 14:30.
+     Erro de rede reenvia SOZINHO; recusa do servidor exige ação do
+     técnico, NUNCA silenciosa. Seção F em re-checagem é seção separada. */
+  var FILA_SAIDA = comData([
+    { id: "f-01", tipo: "Evidências da instalação",  ativoId: "a-03", diasAtras: 0, criadoAs: "14:28", estado: "na-fila" },
+    { id: "f-02", tipo: "Foto de calibração",        ativoId: "a-12", diasAtras: 0, criadoAs: "14:12", estado: "na-fila" },
+    { id: "f-03", tipo: "Checklist de homologação",  ativoId: "a-20", diasAtras: 0, criadoAs: "11:30", estado: "na-fila" },
+    /* C19 · +tamanhoMb — SÓ no corrente, um campo com UM leitor: é a escala
+       do progresso (`62% · 8,4 MB`) e o que explica por que uma evidência
+       demora e a outra não. Nos outros nove seria número sem decisão. */
+    { id: "f-04", tipo: "Evidências da instalação",  ativoId: "a-09", diasAtras: 0, criadoAs: "14:29", estado: "enviando", progresso: 62, tamanhoMb: 8.4 },
+    { id: "f-05", tipo: "Evidências da instalação",  ativoId: "a-01", diasAtras: 0, criadoAs: "09:02", estado: "recebida", confirmadoAs: "09:14" },
+    { id: "f-06", tipo: "Checklist de homologação",  ativoId: "a-01", diasAtras: 0, criadoAs: "09:03", estado: "recebida", confirmadoAs: "09:15" },
+    { id: "f-07", tipo: "Foto de calibração",        ativoId: "a-03", diasAtras: 1, criadoAs: "16:20", estado: "recebida", confirmadoAs: "16:40" },
+    { id: "f-08", tipo: "Evidências da instalação",  ativoId: "a-12", diasAtras: 2, criadoAs: "09:48", estado: "recebida", confirmadoAs: "10:05" },
+    { id: "f-09", tipo: "Evidências da instalação",  ativoId: "a-19", diasAtras: 0, criadoAs: "13:40", estado: "erro-rede",
+      reenvio: "automático", tentativas: 3, proximaTentativaAs: "14:32" },
+    /* C19 · motivo ENCURTADO, medido: a frase do servidor dá 585,7 na faixa
+       de 296 do Checagem (três linhas), e `O servidor recusou o pacote` é o
+       que a coluna da direita já diz em `recusado`. Original do servidor,
+       para procedência: "O servidor recusou o pacote: esta instalação consta
+       encerrada por outro usuário." */
+    { id: "f-10", tipo: "Evidências da instalação",  ativoId: "a-14", diasAtras: 0, criadoAs: "12:05", estado: "erro-recusa",
+      reenvio: "manual", motivo: "instalação encerrada por outro usuário" }
+  ]);
+  var SECAO_F = { emRecheck: true, ativoId: "a-06", instalacaoId: "i-06",
+    motivo: "Confirmação de recebimento pendente desde a falha reconhecida" };
+
+  /* ── Casos — cada estado de bloqueio/tela aponta para dado CONCRETO da
+     obra. Nenhum é opcional: tela sem o seu caso morre sem dado. ── */
+  var CASOS = {
+    "serial-nao-cadastrado": { serial: "M2C-0999" },
+    /* C22 · T12 — a CONSULTA ANTERIOR, declarada: `consultado hoje às 11:47`
+       é valor da obra, não derivado de i-01. O offline se alcança por AÇÃO
+       (o primeiro `Atualizar` não acha rede), nunca ligado por padrão
+       (D-61), e offline neste produto é condição de trabalho, não erro. */
+    "instalacoes-sem-rede": { consultadoAs: "11:47", diasAtras: 0 },
+    "modelo-sem-driver": { moduloSerial: "M2C-0497", ativoId: "a-21",
+      motivo: "O modelo VC07 ainda não é atendido por esta versão do app." },
+    /* ⚠ C23 (sweep) · `firmwareLido` SAIU: duplicava
+       modulos["M2C-0451"].firmware ("2.4.1"), que é o que T05 lê de verdade
+       (`d.mod.firmware`). Duas fontes para o mesmo fato é uma que pode
+       divergir. `firmwareDisponivel` FICA — tem leitor em T05. */
+    "firmware-fora-matriz": { moduloSerial: "M2C-0451", ativoId: "a-18",
+      firmwareDisponivel: "2.3.5" },
+    "conteudo-nao-cabe": { ativoId: "a-10", moduloSerial: "M2C-0394",
+      conteudoRegistros: 128, capacidadeRegistros: 96 },
+    "pool-esgotado": { ativoId: "a-05",
+      regioesUsadas: 4, regioesMax: 4, posicoesUsadas: 8, posicoesMax: 8,
+      regiaoSolicitada: "Terminal Cosme e Damião" },
+    "ativo-fora-pacote": { ativoId: "a-24", pacoteId: "pac-uo-01",
+      motivo: "Este ativo pertence ao Pátio Caruaru e não veio no pacote desta UO." },
+    "divergencia-chassi": { ativoId: "a-17",
+      chassiCadastro: "9BM384067GB120417", chassiLido: "9BM384067GB120471" },
+    /* C10 (D8) · ocupadoPor "sensor de porta" é ENTRADA DIGITAL (checagem #5
+       de T05); consumidores é o PAR SERIAL (entrada do leitor + saída de
+       transmissão) da matriz de T06. Linhas físicas diferentes, dois
+       assuntos — não fundir. meioAtual (D-39): o meio é como o módulo foi
+       ENCONTRADO, fato da sessão, não capacidade da variante. */
+    "conflito-pinos-resolvivel": { ativoId: "a-04", moduloSerial: "M2C-0335",
+      recurso: "leitor", fio: "fio branco", ocupadoPor: "sensor de porta",
+      saida: "oferecer leitor sem fio",
+      meioAtual: "cabo",
+      consumidores: ["leitor serial", "cabo de programação"] },
+    "conflito-pinos-sem-saida": { ativoId: "a-11", moduloSerial: "M2C-0389",
+      recurso: "leitor", fio: "fio branco", ocupadoPor: "sensor de porta",
+      saida: "escalonar ao gestor — este módulo não tem opção sem fio",
+      meioAtual: "cabo",
+      consumidores: ["leitor serial", "cabo de programação"] },
+    "can-fora-esperado": { ativoId: "a-02", sinal: "velocidade",
+      lido: "0 km/h", esperado: "maior que zero com o motor ligado" },
+    "sinal-aguardando-ciclo": { ativoId: "a-03", sinal: "ré",
+      motivo: "Sinal dinâmico — só confirma durante o ciclo dinâmico." },
+    "grandeza-indisponivel": { modeloAtivoId: "ma-02", grandeza: "horímetro",
+      motivo: "A leitura desta linha não fornece horímetro. Use o valor do painel na próxima revisão." },
+    "diff-divergente": { ativoId: "a-16", moduloSerial: "M2C-0438",
+      divergencias: [
+        { bloco: "ativo",   noModulo: "tradução frota v1", noCadastro: "tradução frota v2" },
+        { bloco: "cercas",  noModulo: "3 regiões",         noCadastro: "4 regiões" },
+        { bloco: "leitor",  noModulo: "leitor no fio branco", noCadastro: "leitor sem fio" },
+        { bloco: "eventos", noModulo: "intervalo 60 s",    noCadastro: "intervalo 30 s" },
+        { bloco: "conexao", noModulo: "rede do módulo antiga", noCadastro: "rede do módulo atual" }
+      ] },
+    "indice-nao-classificado": { ativoId: "a-16", moduloSerial: "M2C-0438",
+      posicao: 7, motivo: "Conteúdo gravado que o app não reconhece — não pertence a nenhum bloco." },
+    /* C16 · +noEncerramento, ADITIVO: a assertiva de BANCADA que falha aqui
+       ("Ignição desliga") é da lista de T12/T13 e fica intacta — no
+       encerramento o que um reinício reprova de verdade é o CONTADOR, que
+       volta zerado. Mesmo ativo, mesma consequência: bloqueia a homologação,
+       não o encerramento (HU-T16-5). */
+    "autoteste-falhando": { instalacaoId: "i-05", ativoId: "a-14",
+      assertiva: "Ignição desliga", passaram: 7, total: 8,
+      efeito: "bloqueia a homologação, não o encerramento",
+      noEncerramento: { assertiva: "contadores", lido: "0 km",
+        causa: "o módulo voltou com a leitura zerada" } },
+    "identificador-divergente": {
+      /* o caso mais representativo do produto: falhava no último item do
+         ciclo, sem diagnóstico — o app mostra lido × esperado em formato
+         de negócio (HU-T14-5) */
+      exemplos: [
+        { cartaoId: "id-01", esperado: "0009412857", lido: "9412857", tipo: "zeros à esquerda" },
+        { cartaoId: "id-03", esperado: "PE-0033120", lido: "0033120", tipo: "prefixo" }
+      ] },
+    /* C16 (HU-T16-6) · +o último bloco confirmado POR READ-BACK e a versão
+       composta até ele — é o que a retomada mostra e o que faz o TEMPO
+       DECORRIDO existir de verdade (13:05 → 14:30 = 1h25; o zero estrutural
+       do C12.6 morre aqui). 3 confirmados = limpeza · ativo · cercas, e o
+       ponto de retomada é o bloco 4 (Leitor) — coerente com pontoRetomada.
+       versaoGravada só dos VERSIONÁVEIS confirmados (Limpeza não versiona). */
+    "sessao-interrompida": { ativoId: "a-13", moduloSerial: "M2C-0411",
+      diasAtras: 0, iniciadaAs: "13:05", pontoRetomada: "Bloco 4 de 6 — Leitor",
+      confirmados: 3, ultimoConfirmado: "cercas", versaoGravada: "A12.G07" },
+    "canal-aberto": { moduloSerial: "M2C-0362", ativoId: "a-06",
+      sessaoAnterior: { diasAtras: 9, hora: "13:20" },
+      tratamento: "o app fecha o canal antigo antes de abrir a sessão" }
+  };
+  CASOS["sessao-interrompida"].data = diasAntes(0);
+  CASOS["canal-aberto"].sessaoAnterior.data = diasAntes(9);
+  /* C6 · caso ADITIVO (recorte canônico acima intocado — sha256 conferido
+     antes e depois). Pacote velho + rede ruim é o caso de campo: a primeira
+     sincronização do pacote BLOQUEADO (pac-uo-03, 8 dias) falha no tick
+     declarado; Reconectar retoma do mesmo `baixados` e completa. Constante
+     declarada, não moeda (E8): nada depende de quantas vezes a tela montou. */
+  CASOS["sync-falha-rede"] = { pacoteId: "pac-uo-03", falhaNoTick: 4,
+    motivo: "O que já baixou fica guardado." };
+  /* C8 · T05 — casos ADITIVOS (gate C8, decisão 1). Mesma forma do
+     sync-falha-rede: constante DECLARADA, não moeda (E8) — sem gatilho no
+     mock, quatro HUs de T05 seriam ramo cego (lição do C7.18).
+       busca-vazia: a 1ª busca após chegar não encontra nada — o módulo leva
+         segundos para acordar depois de alimentado. É o vazio mais importante
+         do produto e precisa ser alcançável por navegação (HU-T05-1).
+       conexao-falha: a 1ª tentativa neste módulo não responde. A causa vive
+         no backend (senha divergente devolve recusa ou silêncio); em tela é UM
+         estado com três coisas a checar (HU-T05-4). Tentar novamente conecta.
+       link-perdido · modulo-em-repouso: gatilhos da HU-T05-9 — escopo do C9;
+         SEM CONSUMIDOR até lá, declarados agora porque dado é aditivo.
+       modulo-com-pendencias: o módulo do canal aberto (M2C-0362) guardou
+         mensagens enquanto o canal ficou em programação — leitura que
+         INFORMA, não trava (HU-T05-7). A rede do módulo NÃO entra aqui:
+         "não conectada" seria a trava do #6, não uma leitura — um fato, um
+         portador. */
+  CASOS["busca-vazia"] = { tentativa: 1,
+    motivo: "O módulo leva alguns segundos para acordar depois de alimentado." };
+  CASOS["conexao-falha"] = { moduloSerial: "M2C-0301", ativoId: "a-02", tentativa: 1 };
+  CASOS["link-perdido"] = { moduloSerial: "M2C-0312", ativoId: "a-03", naChecagem: 6 };
+  CASOS["modulo-em-repouso"] = { moduloSerial: "M2C-0335", ativoId: "a-04", naChecagem: 9 };
+  CASOS["modulo-com-pendencias"] = { moduloSerial: "M2C-0362", ativoId: "a-06", mensagens: 12, diagnostico: 3 };
+
+  /* C11 · T07 — SINAIS DA CAN por modelo de ativo (bloco Ativo). ADITIVO: os
+     três modelos ganham `sinaisCan`; nada acima muda. Cada sinal declara a
+     FASE (estático = chave ligada, motor desligado · dinâmico = motor ligado /
+     em movimento) e a FAIXA ESPERADA — sem faixa (esperado: null) é checagem de
+     PRESENÇA (C11.6): prova que a CAN informa; o valor é assunto de T10. Os domínios vêm DAQUI, não de
+     constante: domínio sem sinal no modelo não aparece em tela — ma-02 não
+     lê GPS pela CAN, ma-03 (máquina, gateway) não tem Velocidade nem
+     Combustível. `lido` é a leitura NOMINAL do sinal estático com o módulo
+     são; os casos abaixo sobrescrevem por ativo.
+     ⚠ casos["can-fora-esperado"] (velocidade 0 km/h) é sinal DINÂMICO: não
+     pode reprovar em T07 — fica intacto, reservado ao ciclo dinâmico (T14). */
+  /* C11.9 · o DOMÍNIO é a categoria, o SINAL é a grandeza: "Velocidade →
+     Velocidade" e "Motor/Rotação → Rotação" repetiam (craft §2). Movimento e
+     Motor seguem o padrão que Combustível → Nível · Consumo já tinha. ⚠ A spec
+     nomeia "Velocidade" e "Motor/Rotação" — desvio de COPY sinalizado; o
+     agrupamento é o mesmo. */
+  var DOMINIOS_CAN = ["Geral", "Sistema elétrico", "Movimento", "GPS", "Motor", "Combustível"];
+  var SINAIS_CAN = {
+    "ma-01": [
+      { id: "ignicao",     dominio: "Geral",            rotulo: "Ignição",              fase: "estatico", esperado: "ligada",            lido: "ligada" },
+      { id: "hodometro",   dominio: "Geral",            rotulo: "Hodômetro",            fase: "estatico", esperado: null,                lido: "184.320 km" },
+      { id: "bateria",     dominio: "Sistema elétrico", rotulo: "Tensão da bateria",    fase: "estatico", esperado: "12,0 a 15,0 V",     lido: "13,8 V" },
+      { id: "alternador",  dominio: "Sistema elétrico", rotulo: "Tensão do alternador", fase: "dinamico", esperado: "13,5 a 14,8 V" },
+      { id: "velocidade",  dominio: "Movimento",        rotulo: "Velocidade",           fase: "dinamico", esperado: "acima de 0 km/h" },
+      { id: "re",          dominio: "Movimento",        rotulo: "Ré",                   fase: "dinamico", esperado: "acende ao engatar" },
+      { id: "satelites",   dominio: "GPS",              rotulo: "Satélites",            fase: "estatico", esperado: "4 ou mais",         lido: "9" },
+      { id: "posicao",     dominio: "GPS",              rotulo: "Posição",              fase: "estatico", esperado: "fixa",              lido: "fixa" },
+      { id: "rotacao",     dominio: "Motor",            rotulo: "Rotação",              fase: "dinamico", esperado: "600 a 2.500 rpm" },
+      { id: "temperatura", dominio: "Motor",            rotulo: "Temperatura",          fase: "estatico", esperado: "−40 a 120 °C",      lido: "31 °C" },
+      { id: "nivel",       dominio: "Combustível",      rotulo: "Nível",                fase: "estatico", esperado: null,                lido: "62 %" },
+      { id: "consumo",     dominio: "Combustível",      rotulo: "Consumo",              fase: "dinamico", esperado: "acima de 0 L/h" }
+    ],
+    "ma-02": [
+      { id: "ignicao",     dominio: "Geral",            rotulo: "Ignição",              fase: "estatico", esperado: "ligada",            lido: "ligada" },
+      { id: "hodometro",   dominio: "Geral",            rotulo: "Hodômetro",            fase: "estatico", esperado: null,                lido: "96.410 km" },
+      { id: "bateria",     dominio: "Sistema elétrico", rotulo: "Tensão da bateria",    fase: "estatico", esperado: "24,0 a 29,0 V",     lido: "27,1 V" },
+      { id: "velocidade",  dominio: "Movimento",        rotulo: "Velocidade",           fase: "dinamico", esperado: "acima de 0 km/h" },
+      { id: "rotacao",     dominio: "Motor",            rotulo: "Rotação",              fase: "dinamico", esperado: "600 a 2.200 rpm" },
+      { id: "temperatura", dominio: "Motor",            rotulo: "Temperatura",          fase: "estatico", esperado: "−40 a 120 °C",      lido: "29 °C" },
+      { id: "oleo",        dominio: "Motor",            rotulo: "Temperatura do óleo",  fase: "estatico", esperado: "−40 a 150 °C",      lido: "27 °C" },
+      { id: "nivel",       dominio: "Combustível",      rotulo: "Nível",                fase: "estatico", esperado: null,                lido: "48 %" }
+    ],
+    "ma-03": [
+      { id: "ignicao",     dominio: "Geral",            rotulo: "Ignição",              fase: "estatico", esperado: "ligada",            lido: "ligada" },
+      { id: "horimetro",   dominio: "Geral",            rotulo: "Horímetro",            fase: "estatico", esperado: null,                lido: "4.812 h" },
+      { id: "bateria",     dominio: "Sistema elétrico", rotulo: "Tensão da bateria",    fase: "estatico", esperado: "12,0 a 15,0 V",     lido: "12,9 V" },
+      { id: "satelites",   dominio: "GPS",              rotulo: "Satélites",            fase: "estatico", esperado: "4 ou mais",         lido: "7" },
+      { id: "rotacao",     dominio: "Motor",            rotulo: "Rotação",              fase: "dinamico", esperado: "800 a 2.200 rpm" },
+      { id: "temperatura", dominio: "Motor",            rotulo: "Temperatura",          fase: "estatico", esperado: "−40 a 120 °C",      lido: "34 °C" }
+    ]
+  };
+  MODELOS_ATIVO.forEach(function (m) { m.sinaisCan = SINAIS_CAN[m.id] || []; });
+  /* Casos ADITIVOS da fase ESTÁTICA — sobrescrevem o `lido` por ativo. A
+     causa provável segue a NATUREZA da falha (C11.8):
+     isolado   · a-02 · bateria 10,9 V, leitura PRESENTE → VEÍCULO ou CADASTRO
+     ausente   · a-03 · satélites sem leitura, 1 no domínio → LIGAÇÃO
+     dominio   · a-16 · Motor inteiro sem leitura → BARRAMENTO ou MODELO
+   ⚠ C17.3 · o domínio SAIU DE a-09: era o mesmo ativo que fecha a instalação
+     em T13, e a demo mostrava o checklist aprovando com um buraco na CAN — o
+     incidente que originou o produto dentro da tela que existe para impedi-lo.
+     O destino NÃO É a-08: a-08 é ma-01, e o Motor de ma-01 tem UM estático
+     (Temperatura; Rotação é dinâmica e não conta) → semLeit === 1 → "ligação",
+     que é o can-estatico-ausente de novo. O caso só existe porque o Motor de
+     ma-02 tem DOIS estáticos (Temperatura + óleo) → "barramento ou modelo".
+     a-16 é ma-02, tem M2C-0438, e nenhum caso que trave T06/T07 — os dois que
+     ele carrega (diff-divergente, indice-nao-classificado) são de T11, e
+     nenhum declara lidos ou semLeituraDominio. Custo declarado: a-16 é Ibura,
+     então o domínio pede troca de UO em T02 — Várzea tem exatamente UM ma-02,
+     que é a-09, e era por isso que os dois casos moravam juntos. É a troca
+     mais barata que existe: mesma UC (RMR – Recife), pacote no prazo.
+     ⚠ Descartados: a-08 (ma-01, vira "ligação" — ver acima); a-19, a-22 e
+     a-24 são todos de CARUARU, cujo pacote tem 8 dias e está BLOQUEADO — a UO
+     nem abre em T02 sem passar por T03; e a-24 é ainda o ativo-fora-pacote e
+     a-22 carrega mock de calibração, a mesma armadilha do a-09. */
+  CASOS["can-estatico-isolado"] = { ativoId: "a-02", lidos: { bateria: "10,9 V", hodometro: "201.115 km" } };
+  CASOS["can-estatico-ausente"] = { ativoId: "a-03", lidos: { satelites: null, hodometro: "176.902 km" } };
+  CASOS["can-estatico-dominio"] = { ativoId: "a-16", semLeituraDominio: "Motor" };
+  /* ⚠ NÃO é falha — é COERÊNCIA, e por isso ficou em a-09 quando o domínio
+     saiu: o hodômetro que T07 lê é o mesmo que T10 calibra (bruto 87.604.000 m
+     contra 87.712 no painel). Sem ele, T07 cairia no nominal de ma-02 (96.410)
+     e contradiria a calibração no ativo do herói. */
+  CASOS["can-estatico-hodometro"] = { ativoId: "a-09", lidos: { hodometro: "87.604 km" } };
+
+  /* C14 · T09 — a CADEIA, tudo ADITIVO (ordem e arraste intactos, gate confere).
+     escopos · o bloco 1 declara o que apaga e o que preserva (HU-T09-3); o
+       escopo é DERIVADO na tela: módulo cadastrado neste mesmo ativo →
+       configuracao, senão → total. Contagens vêm de CERCAS/IDENTIFICADORES.
+     versoes · a versão de cada bloco versionável; a tela compõe a string
+       posicional A12.G07.L02.E05.C03 DEPOIS do read-back de cada bloco
+       (HU-T09-8) e grava em sessao.cadeia.versaoGravada — nunca em tela.
+     leituraFinal · os dois parâmetros críticos que não derivam de outra
+       coleção (os outros três: traducaoCan do modelo, preset de eventos,
+       pontos de cerca do ativo). Vocabulário de campo: rede do módulo,
+       endereço do servidor — nunca APN, nunca IP/DNS.
+     Casos: bloco-recusado reusa o par de conexao-falha + can-estatico-isolado
+       (a-02/M2C-0301: bateria em 10,9 V, módulo que já falhou em responder —
+       recusa Cercas UMA vez; pool-esgotado/a-05 não serve: trava em T05 e
+       nunca abre sessão); queda-na-cadeia reusa o par de link-perdido (link
+       ruim é história desse módulo). */
+  CADEIA.escopos = {
+    total:        { apaga: ["cercas", "identificadores", "configuracao-anterior"], mantem: ["leituras", "firmware"] },
+    configuracao: { apaga: ["configuracao-anterior"], mantem: ["cercas", "identificadores", "leituras", "firmware"] }
+  };
+  CADEIA.versoes = { ativo: "A12", cercas: "G07", leitor: "L02", eventos: "E05", conexao: "C03" };
+  CADEIA.leituraFinal = { redeDoModulo: "Mobs2 dados", servidor: "principal" };
+  CASOS["bloco-recusado"] = { ativoId: "a-02", moduloSerial: "M2C-0301", bloco: "cercas",
+    motivo: "O módulo não confirmou os pontos das áreas." };
+  CASOS["queda-na-cadeia"] = { ativoId: "a-03", moduloSerial: "M2C-0312", noBloco: "leitor" };
+
+  /* C15 · T10 — CALIBRAÇÃO, tudo ADITIVO (âncoras do gate intactas: nada
+     acima muda). Quatro grandezas, DUAS NATUREZAS — e é isso que muda a tela.
+     `natureza` é chave de CÓDIGO, nunca texto de tela:
+       ajuste  · o técnico confirma a condição que lê no painel e o módulo
+                 calcula sozinho (rotação, velocidade). O número calculado
+                 nunca aparece (princípio 1).
+       partida · o módulo recebe o valor INICIAL lido no painel (hodômetro,
+                 horímetro). Ele digita km e horas; `fatorEnvio` converte para
+                 a unidade do módulo e a conversão não aparece em lugar nenhum.
+     ROTAÇÃO é a grandeza; rpm é a unidade — só aparece junto de número.
+
+     porModelo é CADASTRO (princípio 2), não derivação de sinaisCan: o sinal
+     existir na tradução não quer dizer que o veículo o entrega confiável. A
+     tradução urbano v3 (ma-01) entrega rotação boa — por isso lá ela "já vem
+     da CAN"; a frota v2 (ma-02) não, e lá a rotação se calibra. Grandeza que o
+     modelo NÃO TEM não entra em lista nenhuma (ma-03 não tem hodômetro):
+     indisponível é o que existe e não se calibra.
+     Motivos CURTOS de propósito — moram na coluna de 124 do Checagem.
+     ⚠ C23 (sweep) · ESTA É A FONTE ÚNICA, e agora a ÚNICA. Os campos
+     `grandezasCalibraveis` e `grandezasIndisponiveis` do C2 SAÍRAM dos três
+     modelos: contradiziam esta declaração (ma-01 listava velocidade como
+     calibrável com método "gps", e aqui ela é "não precisa") e nenhuma tela
+     os lia — grep confirmado no app, nas 21 cascas e no gate. A forma longa
+     do motivo de ma-02/horímetro morava lá "intacta para T08", e T08 nunca
+     chegou a lê-la: a forma curta daqui é a que existe. */
+  var CALIBRACAO = {
+    grandezas: [
+      { id: "rotacao",    rotulo: "Rotação",    natureza: "ajuste",  unidade: "rpm",  icone: "activity" },
+      { id: "velocidade", rotulo: "Velocidade", natureza: "ajuste",  unidade: "km/h", icone: "gauge" },
+      { id: "hodometro",  rotulo: "Hodômetro",  natureza: "partida", unidade: "km",   icone: "map",
+        rotuloCampo: "Quilômetros no painel", fatorEnvio: 1000 },
+      { id: "horimetro",  rotulo: "Horímetro",  natureza: "partida", unidade: "h",    icone: "clock",
+        rotuloCampo: "Horas no painel",       fatorEnvio: 3600 }
+    ],
+    porModelo: {
+      "ma-01": { calibraveis: ["hodometro", "horimetro"],
+        indisponiveis: [{ grandeza: "rotacao", motivo: "já vem da CAN" },
+                        { grandeza: "velocidade", motivo: "não precisa" }] },
+      "ma-02": { calibraveis: ["rotacao", "velocidade", "hodometro"],
+        indisponiveis: [{ grandeza: "horimetro", motivo: "sem horímetro" }] },
+      "ma-03": { calibraveis: ["horimetro"],
+        indisponiveis: [{ grandeza: "rotacao", motivo: "já vem da CAN" }] }
+    },
+    /* o MÓDULO derruba o que o cadastro dá: variante sem leitura de pulsos não
+       mede rotação nem velocidade. Deriva de matrizCapacidades.pulsos — não é
+       lista nova. Alcançável em a-22 (M2C-0480, VL06 CAN). */
+    motivoSemPulsos: "não lê pulsos",
+    /* a condição que o cadastro manda o técnico reproduzir no painel */
+    alvos: { rotacao: { valor: 1200 }, velocidade: { valor: 60 } },
+    /* HU-T10-5 · a tolerância do read-back, SEMPRE na unidade do REPORTE
+       (minutos para horímetro, metros para hodômetro): granularidade do módulo
+       + o que o veículo andou entre semear e reler. `porUnidade` converte a
+       unidade de tela na de reporte; `desvio` é o que o módulo devolve acima do
+       semeado — a ficção que torna a tolerância visível em vez de decorativa.
+       Horímetro fecha NO LIMITE (3 = 1 + 2): é o caso que prova que comparação
+       estrita reprovaria toda calibração.
+       ⚠ C23 (sweep) · `reporte` FICA DECLARADO, sem leitor de tela: é a
+       unidade em que `granularidade`, `decorrido` e `desvio` estão escritos,
+       e esses três têm leitor. Sem ele os números ficam mudos — `1 · 2 · 3`
+       do horímetro são minutos, não horas. Consumidor: o módulo, que reporta
+       nessa unidade; a tela converte por `porUnidade` e mostra em
+       `grandeza.unidade`. */
+    tolerancia: {
+      rotacao:    { granularidade: 10,  decorrido: 0,  reporte: "rpm",     porUnidade: 1,    desvio: 4 },
+      velocidade: { granularidade: 1,   decorrido: 0,  reporte: "km/h",    porUnidade: 1,    desvio: 1 },
+      hodometro:  { granularidade: 100, decorrido: 40, reporte: "metros",  porUnidade: 1000, desvio: 120 },
+      horimetro:  { granularidade: 1,   decorrido: 2,  reporte: "minutos", porUnidade: 60,   desvio: 3 }
+    },
+    /* o que está escrito no painel do veículo hoje (D-21: campo nasce
+       preenchido com dado do mock). a-01 bate com a calibração de i-01
+       (482.317 km); a-09 vai à frente do que a CAN reporta (87.604) — é
+       exatamente a diferença que a calibração corrige. */
+    painel: {
+      "a-01": { hodometro: 482317, horimetro: 9640 },
+      "a-09": { hodometro: 87712 },
+      "a-22": { hodometro: 121480 }
+    },
+    /* leitura BRUTA do contador do módulo, na unidade de ENVIO (metros,
+       segundos). HU-T10-7: recalibrar recomputa valorPainel×fator − bruto,
+       nunca ajuste anterior + delta. NUNCA renderizado. */
+    bruto: {
+      "a-01": { hodometro: 184320000, horimetro: 30744000 },
+      "a-09": { hodometro: 87604000 },
+      "a-22": { hodometro: 121003000 }
+    },
+    /* última calibração conhecida, em dias atrás (0 = hoje; ausente = nunca) */
+    ultimas: {
+      "a-01": { hodometro: 0 },
+      "a-09": { velocidade: 12, hodometro: 27 },
+      "a-22": { hodometro: 39 }
+    },
+    /* HU-T10-4 · uma foto, dois itens: o vínculo que T13 consome no C21 para
+       abrir a Seção B com o item já marcado, mostrando a origem na linha. */
+    itemChecklist: { id: "b-painel-legivel", secao: "B",
+      rotulo: "Painel do ativo com hodômetro e horímetro legíveis" }
+  };
+
+  /* C17 · T13 — O CHECKLIST DE HOMOLOGAÇÃO, tudo ADITIVO (âncoras do gate
+     intactas). O que entra aqui é a LISTA e a NATUREZA dos 31 itens — e nada
+     além: nenhum valor lido é declarado, porque todos já existem na obra
+     (cadeia, cercas, identificadores, presets, calibração, fila). Item que
+     precisasse de número novo seria item inventado.
+
+     `natureza` é chave de CÓDIGO: automatico | manual | dinamico | servidor.
+     `fonte` é o que a tela deriva; `origem` é A TELA QUE LÊ O FATO — não a
+     que fala dele (é o que transforma o checklist de relatório em ferramenta,
+     HU-T13-2). Por isso a tensão de bateria devolve a T07, que é quem a lê na
+     CAN, e as entradas digitais devolvem a T06, que é onde a matriz do arnês
+     se resolve.
+
+     ⚠ `foto` é do ITEM, não da seção: os cinco de B pedem foto, dois por
+     CONDIÇÃO (`condicao`). Condição ausente = NÃO SE APLICA, fato declarado,
+     nunca pendência. E `natureza: "manual"` com `foto: false` é a regra do
+     `marcar todos` — hoje SEM NENHUM DONO, e por isso o controle não existe
+     em tela (um controle para zero itens é a armadilha do Campo.aviso).
+
+     ⚠ RÓTULOS MEDIDOS dentro da linha (craft §1), nunca por multiplicação:
+     o item manual tem 152 de faixa (maior: `Leitor posicionado`, 139,4) e o
+     automático tem 176 (maior: `Movimento detectado`, 164,7). Os nomes das
+     seções pagam a conta do fato à direita — ver o comentário da cabeça em
+     chrome.css. */
+  var PASSOS_CICLO = INSTALACOES.filter(function (i) { return i.id === "i-01"; })[0]
+    .etapas.cicloDinamico.passos;
+  var CHECKLIST = {
+    secoes: [
+      { id: "A", rotulo: "Identificação",  natureza: "automatico", bloqueia: true },
+      { id: "B", rotulo: "Montagem",       natureza: "manual",     bloqueia: true },
+      { id: "C", rotulo: "Hardware",       natureza: "automatico", bloqueia: true },
+      { id: "D", rotulo: "Configuração",   natureza: "automatico", bloqueia: true },
+      { id: "E", rotulo: "Teste dinâmico", natureza: "dinamico",   bloqueia: true },
+      /* ⚠ A ÚNICA que não bloqueia (HU-T13-6): depende do servidor, não do
+         módulo na frente do técnico. Segurá-lo no pátio por isso seria
+         prendê-lo por algo que ele não resolve — e é por isso que finalizar
+         com ela falhando exige CIÊNCIA, com nome e hora. */
+      { id: "F", rotulo: "Servidor",       natureza: "servidor",   bloqueia: false }
+    ],
+    itens: [
+      { id: "a-serial",    secao: "A", rotulo: "Serial do módulo",  fonte: "serial",   origem: "conectar" },
+      { id: "a-firmware",  secao: "A", rotulo: "Firmware",          fonte: "firmware", origem: "conectar" },
+      { id: "a-ativo",     secao: "A", rotulo: "Ativo vinculado",   fonte: "ativo",    origem: "ativo" },
+      { id: "a-chassi",    secao: "A", rotulo: "Chassi",            fonte: "chassi",   origem: "ativo" },
+
+      /* ⚠ O RÓTULO É O OBJETO; O VERBO É A RESPOSTA. `fixado`, `posicionado`,
+         `protegido` e `livre` diziam a MESMA asserção cinco vezes — "está
+         montado certo" —, que é exatamente o que o valor à direita responde
+         (conforme · ressalvado · pendente). Informação que se repete em cinco
+         de cinco linhas não é dado, é ruído (craft §2), e era ela que fazia
+         três dos cinco quebrarem em duas linhas dentro do contêiner.
+         `pergunta` guarda a frase inteira e é o TÍTULO DO NÍVEL 2: a lista
+         varre em substantivos, e quem abre o item lê o que exatamente tem de
+         conferir. Nada se perde. */
+      { id: "b-modulo",         secao: "B", rotulo: "Módulo",     pergunta: "Módulo fixado e posicionado",    foto: true },
+      { id: "b-antena",         secao: "B", rotulo: "Antena GPS", pergunta: "Antena GPS posicionada e livre", foto: true },
+      { id: "b-chicote",        secao: "B", rotulo: "Chicote",    pergunta: "Chicote e emendas protegidos",   foto: true },
+      { id: "b-leitor",         secao: "B", rotulo: "Leitor",     pergunta: "Leitor posicionado", foto: true, condicao: "leitor" },
+      /* ⚠ O item que T10 já resolveu: a foto do painel satisfaz os dois
+         (HU-T10-4). O id é o mesmo de calibracao.itemChecklist — é por ele
+         que o vínculo é encontrado, e é por isso que T13 NÃO pede a foto de
+         novo. Sem calibração na sessão, o item não se aplica. */
+      { id: "b-painel-legivel", secao: "B", rotulo: "Painel",
+        pergunta: "Painel com hodômetro e horímetro legíveis",
+        foto: true, condicao: "calibracao", herda: "calibracao" },
+
+      { id: "c-alimentacao", secao: "C", rotulo: "Alimentação",       fonte: "alimentacao", origem: "can" },
+      { id: "c-gps",         secao: "C", rotulo: "GPS e antena",      fonte: "gps",         origem: "conectar" },
+      { id: "c-entradas",    secao: "C", rotulo: "Entradas digitais", fonte: "entradas",    origem: "ativo" },
+      { id: "c-modem",       secao: "C", rotulo: "Modem e sinal",     fonte: "modem",       origem: "conectar" },
+
+      { id: "d-limpeza",   secao: "D", rotulo: "Limpeza",              fonte: "bloco:limpeza", origem: "configurar" },
+      { id: "d-ativo",     secao: "D", rotulo: "Tradução da CAN",      fonte: "bloco:ativo",   origem: "configurar" },
+      { id: "d-cercas",    secao: "D", rotulo: "Pontos de cerca",      fonte: "bloco:cercas",  origem: "configurar" },
+      { id: "d-leitor",    secao: "D", rotulo: "Identificadores",      fonte: "bloco:leitor",  origem: "configurar" },
+      { id: "d-eventos",   secao: "D", rotulo: "Eventos",              fonte: "bloco:eventos", origem: "configurar" },
+      { id: "d-conexao",   secao: "D", rotulo: "Rede do módulo",       fonte: "bloco:conexao", origem: "configurar" },
+      { id: "d-servidor",  secao: "D", rotulo: "Endereço",             fonte: "servidor",      origem: "configurar" },
+      { id: "d-versao",    secao: "D", rotulo: "Versão gravada",       fonte: "versao",        origem: "configurar" },
+      { id: "d-hodometro", secao: "D", rotulo: "Hodômetro",            fonte: "cal:hodometro", origem: "calibracao" },
+      { id: "d-horimetro", secao: "D", rotulo: "Horímetro",            fonte: "cal:horimetro", origem: "calibracao" },
+
+      { id: "f-evidencias", secao: "F", rotulo: "Evidências",      fonte: "fila:Evidências da instalação", origem: "fila" },
+      { id: "f-checklist",  secao: "F", rotulo: "Checklist",       fonte: "fila:Checklist de homologação", origem: "fila" },
+      { id: "f-plataforma", secao: "F", rotulo: "ID na plataforma", fonte: "plataforma",                   origem: "fila" }
+    ]
+  };
+  /* Os cinco de E são os passos CANÔNICOS do ciclo dinâmico — referência ao
+     que i-01 já declara, nunca cópia (duas listas divergem no primeiro
+     ajuste). Eles não se respondem aqui: T13 exibe e devolve a T14.
+     ⚠ UM ÚNICO ENCURTAMENTO, medido: `Movimento detectado` pede 164,7 e a
+     faixa do rótulo dentro do contêiner é 144. O passo canônico segue
+     inteiro em `pergunta`; só a coluna encurta. */
+  var E_ENCURTA = { "Movimento detectado": "Movimento" };
+  PASSOS_CICLO.forEach(function (p, i) {
+    CHECKLIST.itens.splice(23 + i, 0,
+      { id: "e-" + (i + 1), secao: "E", rotulo: E_ENCURTA[p] || p, pergunta: p, fonte: "ciclo", origem: "ciclo" });
+  });
+  /* C17 · caso ADITIVO — O ATIVO QUE CHEGA PRONTO PARA FECHAR. Sem ele, com
+     T14 em placeholder, `Finalizar`, a ciência da Seção F e o estado
+     finalizado seriam INALCANÇÁVEIS: a tela onde a instalação fecha
+     entregaria sem ninguém poder ver ela fechar. Mesma regra do teto de
+     reenvios do C4 (nasce em 2) — estado que só se alcança esperando não é
+     revisável.
+     DOIS FATOS NO MESMO ATIVO, e têm de ser o mesmo: E completa para o botão
+     acender, e o servidor sem responder para o diálogo existir.
+     ⚠ É a-09, e a escolha foi MEDIDA na navegação, não no papel: a-06 (o ativo
+     da secaoF) NÃO É SELECIONÁVEL — M2C-0362 só aparece por CABO e o arnês
+     dele dá conflito sem saída em T06, que é onde o fluxo morre. a-09 tem
+     M2C-0371 sem fio na lista de T05 em Várzea, arnês livre, e de quebra é
+     ma-02: o horímetro dele NÃO SE APLICA, e a Seção D fecha com 9 aprovados
+     e 1 declarado — o estado que prova que `não se aplica` não bloqueia.
+     A secaoF e a i-06 ficam INTACTAS: elas contam a história do a-06 para
+     T12 e T15, e nada aqui as move. O herói fica com o outro caminho: Seção E
+     aguardando e `Finalizar` bloqueado com motivo.
+     ⚠ C17.3 · SAÍRAM `cicloConcluidoAs` e `motivo` — dado sem leitor é
+     armadilha (lição do C16.12 com pais/codigo/total). O `motivo` era pior
+     que órfão: guardava `o recebimento não foi confirmado`, a frase que o
+     C17.2 aposentou em favor de `o servidor não confirmou` — o mock
+     contradizia a tela. A causa vive em ChecklistScreen:249, e a hora do
+     fechamento não tem onde ser dita sem abrir 2ª linha na Seção E (craft).
+     ⚠ `moduloSerial` TAMBÉM não tem leitor — sinalizado, não removido: é a
+     convenção dos outros CASOS (sessao-interrompida, canal-aberto,
+     diff-divergente) e o par ativo↔módulo é o que o caso documenta. */
+  CASOS["pronto-para-fechar"] = { ativoId: "a-09", moduloSerial: "M2C-0371",
+    recebimento: "sem resposta" };
+
+  /* ═══ C20 · T14 — O CICLO DINÂMICO. Tudo ADITIVO (âncoras do gate
+     intactas: nada acima muda).
+     `prazoEventoSeg` e os dois degraus do evento são fato de NEGÓCIO e
+     moram aqui; a CADÊNCIA de simulação (quantos ms vale um segundo de
+     prazo) é constante declarada na tela, como TICK_MS em T03/T05 — nada
+     no mock depende de quanto tempo a revisão leva.
+     `mensagensGuardadas` é o tráfego que TODO módulo acumulou enquanto o
+     canal esteve em programação: a drenagem é universal, não privilégio de
+     um caso. `modulo-com-pendencias` (12 + 3) continua intacto e SOBREPÕE
+     quando o serial da sessão é o dele — consumir só o caso deixaria a
+     drenagem inalcançável, porque a-06 não é selecionável (ver o comentário
+     de `pronto-para-fechar`).
+     `viagem.distanciaKm` é o que o deslocamento andou: o hodômetro final
+     DERIVA do inicial (a tela soma), nunca um segundo literal que possa
+     contradizer o primeiro. */
+  var CICLO = {
+    prazoEventoSeg: 120,
+    evento: { recebidoAosSeg: 24, conferidoAosSeg: 33 },
+    mensagensGuardadas: { mensagens: 6, diagnostico: 2 },
+    viagem: { distanciaKm: 3 }
+  };
+
+  /* A leitura dos sinais de fase DINÂMICA — os que só existem com o veículo
+     andando, e que por isso nasceram sem `lido` no C11.
+     ⚠ Campo NOVO em vez de preencher `lido`: `lido` está documentado como a
+     leitura do sinal ESTÁTICO, e T07 deriva a fase estática dele — preencher
+     `lido` no dinâmico mudaria T07, que está fora deste cycle. Um campo, um
+     consumidor (T14). O caso `can-fora-esperado` (a-02, velocidade 0 km/h)
+     sobrepõe estes valores: é ele que finalmente ganha consumidor, reservado
+     ao ciclo dinâmico desde o C11. */
+  var LIDO_DINAMICO = {
+    "ma-01": { alternador: "14,1 V", velocidade: "38 km/h", re: "acendeu", rotacao: "1.180 rpm", consumo: "9,4 L/h" },
+    "ma-02": { velocidade: "31 km/h", rotacao: "1.240 rpm" },
+    "ma-03": { rotacao: "1.050 rpm" }
+  };
+  MODELOS_ATIVO.forEach(function (m) {
+    var mapa = LIDO_DINAMICO[m.id] || {};
+    (m.sinaisCan || []).forEach(function (s) {
+      if (s.fase === "dinamico" && mapa[s.id]) s.lidoDinamico = mapa[s.id];
+    });
+  });
+
+  /* O MODO DE EXTRAÇÃO do identificador — como o leitor daquele ativo extrai
+     o código do cartão. É característica de CADASTRO (princípio 2) e NASCE
+     CONFORME nos três modelos: `numero-impresso` = o número impresso no
+     cartão, inteiro, com zeros e prefixo. Governa a comparação de T14 e
+     ⚠ NUNCA APARECE EM TELA — nomeá-lo seria protocolo (princípio 1).
+     ⚠ A divergência NÃO mora aqui: pendurada no modelo, ela cairia nos
+     dezessete ma-01, o herói entre eles, e o fluxo feliz nunca fecharia. É
+     exceção, e exceção neste projeto mora em CASO. */
+  MODELOS_ATIVO.forEach(function (m) { if (m.leitor) m.leitor.modoExtracao = "numero-impresso"; });
+
+  /* O caso mais representativo do produto ganha ATIVO e CARTÃO (aditivo: os
+     `exemplos` do C2 ficam intactos e é deles que sai o `lido`).
+     ⚠ a-03 foi escolhido na NAVEGAÇÃO, não no papel: é ma-01 (o único com
+     cartão), NÃO é o herói, e é Várzea — sem troca de UO. Custo declarado:
+     M2C-0312 perde o link na checagem 6 de T05 (reconecta com um toque) e
+     cai uma vez no bloco Leitor de T09 (retoma com um toque); nenhum dos
+     dois trava o ciclo. Descartados: a-01 (herói), a-02 (já carrega a
+     velocidade fora do esperado), a-04 (fica com o evento sem resposta —
+     duas falhas na mesma tela não se leem), a-05/a-10 (travam em T05),
+     a-06 (não selecionável), a-07/a-08 (sem módulo), a-09 (ma-02, e é o
+     ativo que fecha a instalação). */
+  CASOS["identificador-divergente"].ativoId = "a-03";
+  CASOS["identificador-divergente"].cartaoId = "id-01";
+
+  /* O evento de teste que não volta no prazo. Mesma forma do `conexao-falha`
+     (constante DECLARADA, não moeda): a 1ª tentativa estoura, a 2ª confirma
+     — e é essa a razão de campo do `Disparar novamente`, o técnico ainda no
+     veículo resolvendo na hora em vez de descobrir no relatório dias depois.
+     ⚠ a-04 e não a-02: a velocidade fora do esperado já é de a-02, e prazo
+     estourado + sinal reprovado na mesma tela não se leem limpos. a-04 é
+     ma-01, Várzea, e o conflito de pinos dele é o RESOLVÍVEL — T06 oferece o
+     leitor sem fio e o fluxo segue. */
+  CASOS["evento-sem-resposta"] = { ativoId: "a-04", moduloSerial: "M2C-0335", tentativa: 1 };
+
+  window.M2CF_MOCKS = {
+    DIA_NOMINAL: "2026-03-12",
+    HORA_NOMINAL: "14:30",
+    diasAntes: diasAntes,
+
+    empresa: { id: "emp-01", nome: "Viação Atlântico Sul" },
+    ucs: [
+      { id: "uc-01", nome: "RMR – Recife" },
+      { id: "uc-02", nome: "Agreste – Caruaru" }
+    ],
+    uos: [
+      { id: "uo-01", ucId: "uc-01", nome: "Garagem Várzea" },
+      { id: "uo-02", ucId: "uc-01", nome: "Garagem Ibura" },
+      { id: "uo-03", ucId: "uc-02", nome: "Pátio Caruaru" }
+    ],
+    contextoAtivo: { empresaId: "emp-01", ucId: "uc-01", uoId: "uo-01" },
+
+    /* ── C3 · situacao — o AGORA do aparelho. UM campo raiz (gate C3), dois
+       fatos que nenhum cadastro carrega:
+         rede: "conectada" | "sem-conexao" — estado do APARELHO (nunca a
+           "rede do módulo"/APN). Gating de "Últimas instalações"; vive no
+           mock porque navigator.onLine quebraria o determinismo (Lei 17).
+           Começa CONECTADA (correção 1 do gate): T03 acabou de sincronizar
+           (pacote de 1 dia) — offline é condição de TRABALHO, não estado
+           de abertura. O caso offline vive em estados/offline e nos casos.
+         sessaoConfiguracao: null | { moduloSerial, ativoId: null|id,
+           saude: "ok"|"falha", abertaAs: "HH:MM" } — a sessão de
+           configuração corrente. Derivam daqui: semáforo do módulo (T04),
+           faixa de sessão (chrome), gating módulo/ativo. Conexão é fato da
+           SESSÃO, não do cadastro — por isso NÃO existe estadoConexao nos
+           20 módulos. C8 (D4): null NO BOOT — é o AGORA do mock: às 14:29 a
+           evidência de a-09 está subindo (f-04), a sessão acabou de fechar.
+           T05 abre a próxima como ESTADO DO APP (Prototype.jsx, padrão do
+           contexto no C6), com seed daqui; abertaAs = HORA_NOMINAL. */
+    /* C16 (HU-T01-11) · +sessaoAcesso — a sessão de ACESSO, que não é a de
+       configuração: 7 dias, não expira por inatividade, só por Sair ou pelo
+       prazo, com AVISO no 5º dia. Nasce no 5º: o aviso está ligado hoje e
+       imprime sem truque. O aviso é informação, não bloqueio. */
+    situacao: { rede: "conectada", sessaoConfiguracao: null,
+      sessaoAcesso: { abertaDiasAtras: 5, validadeDias: 7, avisoNoDia: 5 } },
+
+    /* C16 · o TÉCNICO (decisão 3 do estudo do C12, aprovada pelo diretor):
+       dado de cadastro, coerente com credenciais.usuario "r.vieira". Aparece
+       na folha (junto do tema e do Sair) e na tela de saída. */
+    tecnico: { nome: "Rafael Vieira" },
+
+    /* ── C4 · credenciais — a PORTA (T01). Escopo fechado no gate: só o
+       necessário para exercitar acerto e erro.
+         usuario/senha: a ÚNICA combinação válida; qualquer outra cai na
+           MESMA mensagem (HU-T01-1: não distingue usuário de senha —
+           mensagem distinta revelaria quais usuários existem).
+         recuperacao.codigo: o código que o "servidor" envia; o comprimento
+           em tela deriva de codigo.length.
+         limites: os quatro limites da HU-T01-7 — a tela conta a partir
+           daqui com estado de componente (zero Date.now).
+         reenviosNaHora: nasce em 2 (correção 3 do gate) — o teto de 3 fica
+           alcançável em UM toque na revisão; estado que só se alcança após
+           três minutos reais não é revisável.
+       Requisito 6 da senha (≠ 3 últimas) NÃO tem dado aqui: não é
+       verificável no aparelho — a tela mostra pendente e resolve no envio.
+       Sessão de ACESSO (7 dias, aviso no 5º, troca de usuário) não vive
+       aqui: HU-T01-2/4/11 movidas para o C16. */
+    credenciais: {
+      usuario: "r.vieira",
+      senha: "Patio#Varzea26",
+      /* C4.1 (D-21) · o destino da recuperação e a senha nova nascem
+         PREENCHIDOS na tela — dado é dado, vive aqui, não no JSX (Lei 8).
+         contato: e-mail e telefone cadastrados do usuário; o DDI aponta
+         para a entrada de ddis (mascarados em tela: r•••••@… · •••••-8675).
+         novaSenha: atende os 6 requisitos (≥10, caixa mista, número,
+         especial, sem sequência nem o usuário) e difere da senha atual. */
+      contato: { email: "r.vieira@atlsul.com.br", telefone: { ddi: "+55", numero: "81987158675" } },
+      recuperacao: {
+        codigo: "482913",
+        novaSenha: "Garagem!Ibura27",
+        limites: { validadeMin: 10, tentativas: 3, reenvioSeg: 60, tetoPorHora: 3 },
+        reenviosNaHora: 2
+      }
+    },
+
+    /* ── C4 · DDIs — a máscara de telefone DERIVA do DDI (HU-T01-6), nunca
+       é fixa. Três países com máscaras E comprimentos distintos, para a
+       troca de DDI ter efeito visível (reaplica e avisa); a quantidade de
+       dígitos deriva da contagem de # na máscara. */
+    ddis: [
+      { codigo: "+55",  pais: "Brasil",    mascara: "(##) #####-####" },
+      { codigo: "+595", pais: "Paraguai",  mascara: "### ### ###" },
+      { codigo: "+54",  pais: "Argentina", mascara: "## ####-####" }
+    ],
+
+    modelosAtivo: MODELOS_ATIVO,
+    presetsEvento: PRESETS_EVENTO,
+    modelos: MODELOS_MODULO,
+    matrizCapacidades: MATRIZ_CAPACIDADES,
+    modulos: MODULOS,
+    seriaisForaCadastro: ["M2C-0999", "M2C-1042"],
+    ativos: ATIVOS,
+    cadeia: CADEIA,
+    calibracao: CALIBRACAO,
+    checklist: CHECKLIST,
+    cercas: CERCAS,
+    identificadores: IDENTIFICADORES,
+    autotesteAssertivas: AUTOTESTE_ASSERTIVAS,
+    autotesteEncerramento: AUTOTESTE_ENCERRAMENTO,
+    instalacoes: INSTALACOES,
+    criteriosRegra: CRITERIOS_REGRA,
+    pacotes: PACOTES,
+    filaSaida: FILA_SAIDA,
+    secaoF: SECAO_F,
+    ciclo: CICLO,
+    casos: CASOS,
+    dominiosCan: DOMINIOS_CAN
+  };
+})();

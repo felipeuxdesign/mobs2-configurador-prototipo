@@ -1,0 +1,34 @@
+# As decisões
+
+Cada decisão com o contexto, a escolha, o que foi descartado e a consequência. **Uma decisão que não é registrada volta a ser discutida.**
+
+| # | Decisão |
+|---|---|
+| [01](01-evidencia-gerada.md) | A evidência é gerada, nunca digitada |
+| [02](02-so-escuro.md) | Só o tema escuro |
+| [03](03-lima-veredito.md) | O lima marca só veredito e escolhido |
+| [04](04-falha-no-elemento.md) | A falha mora no elemento, o título fica |
+| [05](05-nada-se-remonta.md) | O estado muda o conteúdo, nunca o desenho |
+| [06](06-momento-e-estado.md) | Momento é fluxo; estado é coluna |
+| [07](07-faixa-nasce.md) | A sessão nasce na pré-checagem, e a faixa desce ali |
+| [08](08-precheck-em-lista.md) | A pré-checagem é lista, na ordem |
+| [09](09-aviso-unico.md) | O aviso tem um formato só |
+| [10](10-tambor.md) | A calibração rola o número no lugar |
+| [11](11-porta-natural.md) | Tocar no caso abre o estado |
+| [12](12-toque-sem-hover.md) | Três estados de toque, e nada de hover |
+| [13](13-palco-fora.md) | O palco fica fora do app |
+| [14](14-tela-800.md) | A tela é 360 × 800 |
+| [15](15-medida-por-dentro.md) | Toda medida é por dentro |
+| [16](16-pe-32.md) | Nada visível a menos de 32px do pé |
+| [17](17-nada-encosta.md) | Nada encosta |
+| [18](18-barra-sangra.md) | A barra do sistema sangra no primeiro andar |
+| [19](19-logo-presa.md) | A marca do login não se move |
+| [20](20-prazo-estourado.md) | O prazo estourado é a mesma tela do ciclo |
+| [21](21-so-registrar.md) | Só registrar o diagnóstico, no rodapé |
+| [22](22-pinos-linha.md) | A ocupação de pinos é uma linha embaixo do título |
+| [23](23-estado-e-o-app.md) | O estado no palco é o próprio app |
+| [24](24-transicao.md) | Entre telas, só o conteúdo esmaece |
+| [25](25-painel-duas-partes.md) | O painel do palco em duas partes |
+| [26](26-sessao-abortada.md) | ENCERRAR antes de homologar não pede confirmação |
+| [27](27-acesso-7-dias.md) | O acesso vale por 7 dias |
+| [28](28-lima-da-marca.md) | A marca usa o mesmo lima do sistema |
