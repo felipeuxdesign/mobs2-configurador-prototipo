@@ -13,7 +13,9 @@ Ver o que ainda vai subir pro servidor, e o que precisa do técnico.
 ## O que se toca
 
 - `Ressincronizar e reenviar` no item com erro → os itens com erro voltam pra fila, e o envio recomeça (a entrega do design de 25/09; antes era só o pressionado, G25)
+  - **no protótipo**, só o que as referências e o mock sustentam (G25): o cartão que pede ação sai, porque nada mais precisa do técnico, e os itens entram na lista como *na fila*, com a espera de `criadoAs` às 14:30 — na semente, *Evidências · KJC-7N23 · na fila · há 145 min*, embaixo de *NA FILA E RECEBIDAS*, com a lista logo abaixo do cabeçalho. Nenhum vira o *SUBINDO AGORA*: o progresso e o tamanho só existem no f-04 do mock. O contador não muda (conta os mostrados). No menu, o diálogo *Sair da conta* passa a contar o item na fila, de 3 pra 4; o cartão da Fila de saída não muda, porque o erro já contava como pendente (T04·1, `estado/fila.js`). Sair da tela não desfaz (HU-T15-2); o C12 dá o movimento
 - a notificação local da fila parada diz *Envio parado · 3 itens esperando há 30 min* — os 30 min são padrão até o PM definir o limite
+  - **no protótipo, não se constrói:** nenhuma referência desenha a notificação (é do sistema, fora da tela), e o texto não está no `textos.md` (G25). Fica com o arquiteto: onde ela aparece e como se desenha
 - `Voltar ao menu` → T04. O voltar do Android (o Esc, no computador) faz o mesmo (`logica.md`)
 - `ENCERRAR` → antes de homologar, a sessão abortada (T16/03, G23); depois, os passos do encerramento (T16)
 - nada anda sozinho: o envio da fila não tem ritmo declarado (G4), e o `01` é estado, parado. A barra que enche e o item que esmaece são do C12
@@ -21,7 +23,7 @@ Ver o que ainda vai subir pro servidor, e o que precisa do técnico.
 ## A fila que a tela mostra
 
 - **no fluxo**, a seleção da semente (f-10, f-02, f-08) mais os itens que a sessão criou (`fila`, no estado único) na garagem ativa; **nos estados**, o recorte do caso de cada um (`estados.md`)
-- **o cartão do topo** cresce até o espaço livre e leva o que precisa do técnico: com erro, o cartão que pede ação, pela recusa do servidor — com um erro, o desenho da folha 6 (`00`); com mais, o compacto, com o erro de rede embaixo e a legenda (`02`). Sem erro, o item que sobe agora (`01`)
+- **o cartão do topo** cresce até o espaço livre e leva o que precisa do técnico: com erro, o cartão que pede ação, pela recusa do servidor — com um erro, o desenho da folha 6 (`00`); com mais, o compacto, com o erro de rede embaixo e a legenda (`02`). Sem erro, o item que sobe agora (`01`); sem erro e sem nada subindo (a semente depois do `Ressincronizar e reenviar`), nenhum cartão, e a lista sobe pra baixo do cabeçalho (G25)
 - **embaixo, a lista**: o que está na fila, e depois o que foi recebido, do mais novo pro mais velho. A altura é da posição (T15-V2): 50 com a divisória no meio, 62 a última
 - **o contador** conta todos os itens mostrados, pendentes e recebidos (T15·2 a). O do menu conta só os pendentes da garagem ativa (T04·1): a diferença está com o diretor
 - **o título do item** é o rótulo curto do tipo (`tiposFila`, AC-14) e a placa; **o quando** é, na fila, há quanto tempo o item espera (de `criadoAs` às 14:30); recebido, a hora de hoje, `ontem` com a hora, ou há quantos dias (G9: o f-08 é de 2 dias atrás, e a referência diz ontem)

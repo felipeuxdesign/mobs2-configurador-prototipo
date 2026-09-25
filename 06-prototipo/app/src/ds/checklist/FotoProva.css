@@ -1,21 +1,9 @@
+/* a foto que prova (folha 7 de 25/09): o cartão, com o poço de 44, o texto e,
+ * na que se tira, a seta. O pressionado é a camada do Tocavel, com o raio do cartão. */
 .ds-foto {
-  flex-shrink: 0; display: flex; align-items: center; gap: var(--e-12); padding: var(--e-12);
-  background: var(--poco);
-  border-top: var(--traco-borda) solid var(--poco-fundo); border-bottom: var(--traco-borda) solid var(--borda-poco);
-  border-left: var(--traco-borda) solid var(--poco-lado); border-right: var(--traco-borda) solid var(--poco-lado);
+  flex-shrink: 0; display: flex; align-items: center; gap: var(--e-12); padding: var(--e-10) var(--e-12);
+  background: var(--fundo-cartao); border: var(--traco-borda) solid var(--borda); border-radius: var(--raio);
 }
-/* a miniatura: duas camadas no mesmo lugar; a da foto entra por opacidade */
-.ds-foto-miniatura { position: relative; width: var(--miniatura-foto); height: var(--miniatura-foto); flex-shrink: 0; }
-.ds-foto-camada {
-  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-  border: var(--traco-borda) solid; transition: opacity var(--mov-rapido) var(--mov-curva);
-}
-.ds-foto-camada-aguarda { background: var(--poco-lado); border-color: var(--separador); }
-.ds-foto-camada-tirada { background: var(--fundo-cartao); border-color: var(--borda-neutra); opacity: 0; }
-.ds-foto-tirada .ds-foto-camada-aguarda { opacity: 0; }
-.ds-foto-tirada .ds-foto-camada-tirada { opacity: 1; }
-.ds-foto-miniatura .ds-icone { width: var(--icone-foto); height: var(--icone-foto); }
-.ds-foto-texto { flex-grow: 1; display: flex; flex-direction: column; gap: var(--e-2); }
-.ds-foto-titulo { font-size: var(--t-corpo); font-weight: 600; color: var(--tinta); }
-.ds-foto-legenda { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-apagada); }
-.ds-foto-situacao { font-size: var(--t-legenda); font-weight: 700; color: var(--tinta); flex-shrink: 0; }
+.ds-foto-texto { flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--e-2); }
+.ds-foto-titulo { font-size: var(--t-link); font-weight: 600; color: var(--tinta); }
+.ds-foto-legenda { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-secundaria); }

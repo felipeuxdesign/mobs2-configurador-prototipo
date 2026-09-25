@@ -1,5 +1,6 @@
 // O vazio declarado (folha 4): quando não há nada, a tela diz o que isso
-// significa — tracejado, título e uma frase, sem ícone (T12, T15).
+// significa — tracejado, título e uma frase, sem ícone (T12, T15; e a busca
+// sem resultado, com o termo no título, T02/03 e T06/08 · a entrega de 25/09).
 import './caixas.css'
 import './Vazio.css'
 

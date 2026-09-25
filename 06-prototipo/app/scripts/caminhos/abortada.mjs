@@ -12,14 +12,21 @@ const ATE_A_FAIXA = [
 // os 4 passos, um a cada 600 ms (encerramentoPassoMs), sem diálogo nenhum no caminho
 const OS_QUATRO_PASSOS = [
   { chega: 'T16', momento: '03-momento-encerrando-sem-homologar', ms: 1000 },
+  // o primeiro dos quatro corre dizendo o que faz (as legendas do tela.md, a entrega de 25/09)
+  { ve: 'Devolve o módulo ao repouso que ele tinha antes da sessão.', ms: 500 },
   { naoVe: 'Cancelar', ms: 300 },
   { ve: 'Sem homologar · só o que deixa o módulo seguro' },
   { ve: 'Encerrando · não desconecte' },
   { ve: 'A saída volta quando o módulo desconectar' },
   { ve: 'pulado' },
+  // o segundo dos quatro, com a legenda dele
+  { ve: 'Fecha o canal que o app abriu no módulo. Ele fecha sempre, mesmo sem homologar.', entre: [0, 1000] },
   { fica: 'T16', ms: 300 },
   { tecla: 'Escape' },   // no encerramento, o voltar não faz nada
-  { chega: 'T16', momento: '04-momento-encerrada-sem-homologar', entre: [1500, 3500] },
+  // o terceiro e o quarto, cada um com a sua, um a cada 600 ms
+  { ve: 'Guarda o que foi feito aqui, pra ir ao servidor junto com a instalação.', entre: [0, 1000] },
+  { ve: 'Solta o Bluetooth. O módulo fica livre pra outro aparelho.', entre: [300, 1000] },
+  { chega: 'T16', momento: '04-momento-encerrada-sem-homologar', entre: [300, 1000] },
   { ve: 'Sem sessão de configuração' },
   { naoVe: 'ENCERRAR' },
   { ve: 'SEM HOMOLOGAR' },
@@ -48,6 +55,10 @@ export default [
   { chega: 'T03', momento: '02-momento-concluido', ms: 8000 },
   { toca: 'Ir para o menu' },
   { chega: 'T04', momento: '01-momento-sem-modulo' },
+  // o 5º dia do acesso: o aviso na primeira chegada ao menu, e o Entendi fecha (T04/12)
+  { ve: 'Seu acesso vence em 2 dias' },
+  { toca: 'Entendi' },
+  { naoVe: 'Seu acesso vence em 2 dias' },
   // 1ª passada: com o ônibus na sessão, ENCERRAR da faixa na CAN
   ...ATE_A_FAIXA,
   { toca: 'Selecionar ativo' },

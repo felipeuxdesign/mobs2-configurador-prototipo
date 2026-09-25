@@ -46,6 +46,10 @@ export default [
   { chega: 'T03', momento: '02-momento-concluido', ms: 8000 },
   { toca: 'Ir para o menu' },
   { chega: 'T04', momento: '01-momento-sem-modulo' },
+  // o 5º dia do acesso: o aviso na primeira chegada ao menu, e o Entendi fecha (T04/12)
+  { ve: 'Seu acesso vence em 2 dias' },
+  { toca: 'Entendi' },
+  { naoVe: 'Seu acesso vence em 2 dias' },
 
   // T05 · R-14: o módulo marca, o primário diz o serial do marcado, e só ele conecta
   ...A_LISTA,

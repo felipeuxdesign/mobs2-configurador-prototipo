@@ -1,9 +1,9 @@
 // T04 · Menu (02-telas/T04-menu): a grade de dez cartões em que cada
 // ferramenta diz, no próprio cartão, o que falta pra ela funcionar. Em cima, a
 // tira de contexto e a faixa da sessão; por cima, as folhas da conta, da
-// garagem, do módulo e do ativo da sessão, e os dois diálogos. Tudo lê do
-// estado único e do mock: o estado muda o que os blocos dizem, nunca onde eles
-// ficam (Lei 3).
+// garagem, do módulo e do ativo da sessão, os dois diálogos e o aviso do
+// acesso vencendo (12). Tudo lê do estado único e do mock: o estado muda o que
+// os blocos dizem, nunca onde eles ficam (Lei 3).
 import { useEffect, useRef, useState } from 'react'
 import {
   BarraDoSistema, TopoDoMenu, TiraDeContexto, Faixa, GradeFerramentas, CartaoFerramenta,
@@ -12,6 +12,7 @@ import {
 } from '../../ds/index.js'
 import { useEstado, estadoVazio } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
+import { EM_QUADRO } from '../../estado/quadro.js'
 import { SEMENTES } from '../../estado/sementes.js'
 import { M } from '../../dados/mock.js'
 import { caixaAlta } from '../../dados/formato.js'
@@ -20,7 +21,7 @@ import { usePresenca } from '../T01/presenca.js'
 import { CartaoPreso } from './pecas.jsx'
 import {
   REF, SOBRE, MOMENTO_DA_FOLHA, FOLHAS, SOB_A_FAIXA, placaDe, uoDe, iniciais, filaToda, pendentesDaGaragem, naFila,
-  enviando, checklistPendentes, prazoDoAcesso, garagens, moduloPreso, ativoPreso,
+  enviando, checklistPendentes, prazoDoAcesso, avisoDoAcesso, garagens, moduloPreso, ativoPreso,
 } from './dados.js'
 import './t04.css'
 
@@ -89,6 +90,21 @@ export default function T04({ momento, estado: est }) {
   const folha = folhaPedida ?? (presenca.montado && !sobre ? ultimaFolha.current : null)
   // as folhas do módulo e do ativo abrem embaixo da faixa, que fica acesa em cima do véu (T04/10, 11)
   const sobFaixa = SOB_A_FAIXA.includes(folha)
+
+  // O aviso do acesso vencendo (logica.md · O aviso do acesso, T04/12): no dia
+  // do aviso, o diálogo aparece na primeira chegada ao menu — pelo fluxo ou pela
+  // semente (o pulo do palco, o endereço) —, com nada por cima, uma vez. O
+  // Entendi fecha e grava no estado único que ele foi visto; o Recomeçar do
+  // login e o pulo do palco zeram o estado, e ele volta. Num estado da coluna,
+  // só no 12; no print, também só no 12, o quadro que a referência desenha.
+  // Os dias saem do mock (M.situacao.sessaoAcesso). Nasce aberto, com o menu;
+  // fecha pelo movimento da peça (o diálogo e o véu esmaecem em 150). Se ele
+  // esperava uma folha (o endereço da folha), só é pedido depois de ela
+  // terminar de descer: entra pela presença da peça, sem o véu dele aparecer
+  // de uma vez em cima do da folha que some, e o voltar nesse meio não o fecha.
+  const prazoDoAviso = avisoDoAcesso(mundo.situacao.sessaoAcesso)
+  const avisoPedido = prazoDoAviso != null && (est ? est === REF.acesso : !EM_QUADRO && !sobre && !presenca.montado && !mundo.avisoDoAcessoVisto)
+  const presencaDoAviso = usePresenca(avisoPedido)
 
   // a URL segue o quadro do menu (G20): sem sessão é o 01, sem ativo é o 02
   useEffect(() => {
@@ -232,13 +248,29 @@ export default function T04({ momento, estado: est }) {
       </Veu>
     )
   }
+  // o aviso do acesso: o véu cobre também a tira e a faixa (T04/12), e o
+  // Entendi é o único jeito de fechar
+  const entendi = () => despachar({ tipo: 'mesclar', parcial: { avisoDoAcessoVisto: true } })
+  const aviso = !porCima && presencaDoAviso.montado
+  if (aviso) {
+    porCima = (
+      <Veu de="dialogo" visivel={presencaDoAviso.visivel}>
+        <Dialogo titulo={`Seu acesso vence em ${prazoDoAviso.restam} dias`} primario="Entendi" aoPrimario={entendi}
+          margem={24} aberto={presencaDoAviso.visivel}>
+          <Frase>Depois disso, ele pede a senha de novo — e pra isso precisa de rede.</Frase>
+        </Dialogo>
+      </Veu>
+    )
+  }
 
   // o voltar do Android (logica.md): o X da folha, o Cancelar do diálogo; no
-  // menu, que não tem saída desenhada, nada. Num estado da coluna, a peça não escuta
+  // aviso do acesso, o Entendi, que só fecha e é a única saída; no menu, que
+  // não tem saída desenhada, nada. Num estado da coluna, a peça não escuta
   const voltar = folhaPedida ? fechar
     : sobre === 'sair' ? () => abrir('conta')
       : sobre === 'trocar' ? () => setTrocarPara(null)
-        : null
+        : avisoPedido ? entendi
+          : null
   useVoltar(voltar)
 
   // O que fica atrás do véu (G25) é inerte: a folha e o diálogo são modais
@@ -247,13 +279,14 @@ export default function T04({ momento, estado: est }) {
   // nada, e o leitor ouve desabilitado (tela.md: com a folha ou o diálogo
   // aberto, a tira não se toca): a tira, com toda folha e diálogo (05 a 11), e
   // a faixa também nas folhas do módulo e do ativo, em que o véu começa
-  // embaixo dela (10, 11). Nas outras, a faixa fica atrás do véu, inerte.
+  // embaixo dela (10, 11). Nas outras, a faixa fica atrás do véu, inerte. No
+  // aviso do acesso, o véu cobre a tira também (12): o topo inteiro fica inerte.
   const atras = porCima ? '' : undefined
   return (
     <div className="t04">
       <BarraDoSistema hora={M.HORA_NOMINAL} fundo="tira" />
       <div className="t04-fundo">
-        <fieldset className="t04-topo" role="presentation" disabled={Boolean(porCima)}>
+        <fieldset className="t04-topo" role="presentation" disabled={Boolean(porCima)} inert={aviso ? '' : undefined}>
           <TopoDoMenu>
             <TiraDeContexto garagem={caixaAlta(uoDe(uoId).nome)} aoTrocarGaragem={() => abrir('garagem')}
               iniciais={sigla} rotuloConta={`Conta — ${tecnico}`} aoAbrirConta={() => abrir('conta')} />
@@ -277,7 +310,7 @@ export default function T04({ momento, estado: est }) {
           </GradeFerramentas>
         </div>
       </div>
-      {porCima && <div className={`t04-sobre ${sobFaixa ? 't04-sobre-faixa' : ''}`}>{porCima}</div>}
+      {porCima && <div className={`t04-sobre ${sobFaixa ? 't04-sobre-faixa' : ''} ${aviso ? 't04-sobre-tudo' : ''}`}>{porCima}</div>}
     </div>
   )
 }

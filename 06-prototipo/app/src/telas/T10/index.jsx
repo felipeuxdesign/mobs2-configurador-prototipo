@@ -1,68 +1,129 @@
 // T10 · Calibração (02-telas/T10-calibracao): o módulo passa a contar o mesmo
-// que o painel do veículo, com a foto do painel como prova.
+// que o painel do veículo — e só semeia com a prova (decisão 33, a entrega do
+// design de 25/09).
 // · As grandezas e a ordem: o cadastro do modelo do ativo da sessão, menos as
 //   que o módulo não mede (T10·1, calibracao.js). O 'Depois:' mostra só a
-//   próxima (T10·2); a 03 mantém o texto dela, com todas as que faltam.
-// · Fotografar o painel (o cartão inteiro, G14) → a foto entra, e vale também
-//   no item da Seção B do checklist: etapas.calibracao.foto, com o id do item
-//   (HU-T10-4). Foto e semear não dependem uma da outra (T10·3).
-// · Semear → em sequência (T10·4): o tambor troca o número do módulo pelo do
-//   painel (a roda de dígito, G29: 300ms por rodinha e 40 entre elas, dos
-//   tokens); depois a releitura confere e a régua vira 'confere' (300ms); o
-//   primário fica inerte, com o mesmo texto, e no fim troca pro passo
-//   seguinte. A calibração vai pro estado único (etapas.calibracao) e a URL
-//   diz 01. O movimento fino (o tambor rolando, a régua encolhendo) é do C12.
-// · O passo do horímetro não tem referência: monta-se com as peças e os
-//   textos que existem, e o semear dele, sem texto, fica com o primário
-//   desabilitado e o mesmo rótulo (G25).
-// · Os estados da coluna, parados, pelo dado da receita (calibracao.js): o
-//   02 e o 03 no a-09, o 04 no a-22 (G21). Mudam o conteúdo; onde a
-//   referência remonta (a foto some, a linha 'Depois' some), ela é construída
-//   fiel (G24).
-// · ENCERRAR, antes de homologar, é a sessão abortada da T16 (G23); depois,
-//   o encerramento. Voltar ao menu → T04.
+//   próxima (T10·2); a 03 mantém o texto dela, com todas as que faltam. Sem
+//   próxima, 'Último passo' (08), e com tudo semeado, 'Calibração completa' (09).
+// · O campo do painel (o valor alvo, com o teclado numérico): o técnico digita
+//   o que o painel mostra. O botão só acende com o número digitado E a foto, e
+//   sempre diz o que falta: Digite o que o painel mostra → Fotografe o painel →
+//   Semear o hodômetro.
+// · Fotografar o painel (o cartão inteiro) → a câmera do próprio app (06, o
+//   quadro parado feito em código, pecas.jsx) → Tirar foto → volta com o
+//   registro no lugar do cartão, sem toque: foto tirada fica tirada. A foto
+//   leva a hora, o técnico, o ativo e o módulo carimbados, e vale também no
+//   item da Seção B do checklist (etapas.calibracao, HU-T10-4). Voltar à
+//   calibração (e o voltar do sistema) sai da câmera sem foto.
+// · Semear → Gravando no módulo… → Relendo… (1 s + 1 s, ritmos.js) → o tambor
+//   rola até o relido e a tela vira o semeado (01), ou, com a releitura acima
+//   da tolerância, o não confere (10), que pede Semear de novo — a foto
+//   continua valendo. O movimento fino (o tambor, a régua encolhendo) é do C12.
+// · O horímetro (08): o mesmo fluxo, com o número dele, até Concluir a
+//   calibração (09) → o menu.
+// · A calibração vai pro estado único (etapas.calibracao: o digitado, a foto e
+//   o semeado de cada grandeza) e volta de onde parou; a URL diz o quadro da
+//   referência em que o passo está (calibracao.js, quadroDe).
+// · Os estados da coluna, parados, pelo dado da receita (calibracao.js): o 02
+//   e o 03 no a-09, o 04 no a-22 (G21), o 10 no caso releitura-nao-confere.
+// · ENCERRAR, antes de homologar, é a sessão abortada da T16 (G23); depois, o
+//   encerramento. Voltar ao menu → T04.
 import { useEffect, useRef, useState } from 'react'
 import {
   BarraDoSistema, Faixa, Segmentado, ValorEmPoco, ReguaDiferenca, ValorAlvo, FotoProva, Declarado, Rodape,
 } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
+import { EM_QUADRO } from '../../estado/quadro.js'
+import { RITMOS } from '../../estado/ritmos.js'
 import { SEMENTES } from '../../estado/sementes.js'
 import { M } from '../../dados/mock.js'
 import { milhar } from '../../dados/formato.js'
 import {
   REF, grandezaDe, ativoDe, grandezasDoPar, moduloConta, painelMostra, semeadoHa, releitura, secaoDaFoto, mundoDoEstado,
+  digitos, quadroDe,
 } from './calibracao.js'
+import { VisorCamera } from './pecas.jsx'
 import { T } from './textos.js'
 import './t10.css'
 
 const ENCERRAR_SEM_HOMOLOGAR = '03-momento-encerrando-sem-homologar' // G23: a sessão abortada (T16/03)
+const HORA = M.HORA_NOMINAL
+// o módulo foi gravado: o segmento do passo acende (01 e 10), alto como o atual (08 e 09)
+const GRAVADO = ['semeada', 'nao-confere']
+const passoVazio = () => ({ digitado: '', foto: null, fase: 'pronta', relido: null })
 
-// os tempos do semear saem dos tokens (G29, T10·4) e zeram com reduzir movimento
-const token = (nome) => parseFloat(getComputedStyle(document.documentElement).getPropertyValue(nome)) || 0
-const tempoDoTambor = (texto) => {
-  const rodas = String(texto).replace(/\D/g, '').length
-  return token('--mov-lento') + Math.max(0, rodas - 1) * token('--mov-escalonar-tambor')
+// um passo como o estado único guardou — ou como a T13 o semeia, com o semeado e sem o digitado
+function passoDaEtapa(e, g) {
+  const s = e.semeadas?.[g]
+  const digitado = e.painel?.[g] ?? (s?.painel != null ? String(s.painel) : '')
+  const foto = e.fotos?.[g] ?? (s && e.foto ? { as: s.as ?? HORA } : null)
+  if (!s) return { ...passoVazio(), digitado, foto }
+  return { digitado, foto, fase: 'semeada', relido: { valor: s.relido ?? s.painel, confere: true } }
 }
-const tempoDaRegua = () => token('--mov-lento')
 
-// as fases do passo atual: pronta → escrevendo (o tambor) → relendo (a régua) → semeada
-const RELIDO = ['relendo', 'semeada']
-const ESCRITO = ['escrevendo', ...RELIDO]
-const partida = (g) => grandezaDe(g)?.natureza === 'partida'
+// a calibração no estado único: o digitado, a foto e o semeado de cada grandeza.
+// `foto` diz se o painel já foi fotografado: é o que a T13 lê pro item da Seção B
+function etapaDe(fluxo, ordem, ativoId, moduloSerial) {
+  const painel = {}; const fotos = {}; const semeadas = {}
+  for (const g of ordem) {
+    const p = fluxo.passos[g]
+    if (p.digitado) painel[g] = p.digitado
+    if (p.foto) fotos[g] = p.foto
+    if (p.fase === 'semeada') semeadas[g] = { painel: Number(p.digitado), relido: p.relido?.valor, confere: true, as: HORA }
+  }
+  return {
+    ativoId, moduloSerial, itemChecklist: M.calibracao.itemChecklist.id, passo: ordem[fluxo.atual],
+    painel, fotos, foto: Object.keys(fotos).length > 0, semeadas, concluida: fluxo.concluida,
+  }
+}
 
 // o quadro em que a tela abre. No estado da coluna, o do caso, parado. No
-// fluxo, o que o estado único guardou desta calibração; na 01, o hodômetro
-// semeado com a foto tirada (T10·3: a 01 exata é foto + semear).
-function inicio({ momento, est, ordem, etapa, ativoId }) {
-  const vazio = { atual: 0, semeadas: {}, foto: false, fase: 'pronta' }
-  if (est) return vazio
-  const g = etapa && etapa.ativoId === ativoId ? etapa : null
-  const base = g ? { ...vazio, atual: Math.max(0, ordem.indexOf(g.passo)), semeadas: { ...g.semeadas }, foto: !!g.foto } : vazio
-  if (momento === REF.semeado && partida(ordem[0])) {
-    return { ...base, atual: 0, semeadas: { ...base.semeadas, [ordem[0]]: true }, foto: true, fase: 'semeada' }
+// fluxo, o que o estado único guardou desta calibração — e ele ganha da URL:
+// de volta da coluna do palco, o momento só devolve o que a etapa não guarda,
+// a câmera aberta (06) e o foco no campo (05), e o número digitado continua o
+// do técnico. Sem etapa, pela URL, o quadro da referência, depois dos toques
+// que levam a ele (o número digitado é o do mock).
+function inicio({ momento, est, mundo, ordem, etapa, ativoId, carimbo }) {
+  const passos = Object.fromEntries(ordem.map((g) => [g, passoVazio()]))
+  const f = { atual: 0, passos, camera: false, focado: false, concluida: false }
+  if (est) {
+    const c = est === REF.naoConfere ? mundo?.caso : null
+    if (c && passos[c.grandeza]) {
+      const painel = painelMostra(ativoId, c.grandeza)
+      passos[c.grandeza] = { digitado: String(painel), foto: carimbo, fase: 'nao-confere', relido: releitura(c.grandeza, painel, c.relidoBruto) }
+      f.atual = ordem.indexOf(c.grandeza)
+    }
+    return f
   }
-  return { ...base, fase: base.semeadas[ordem[base.atual]] ? 'semeada' : 'pronta' }
+  const e = etapa && etapa.ativoId === ativoId ? etapa : null
+  if (e) {
+    for (const g of ordem) passos[g] = passoDaEtapa(e, g)
+    f.atual = Math.max(0, ordem.indexOf(e.passo)); f.concluida = !!e.concluida
+    f.camera = momento === REF.camera
+    f.focado = momento === REF.digitado
+    return f
+  }
+  const temPainel = (g) => painelMostra(ativoId, g) != null
+  const digita = (g) => { passos[g] = { ...passos[g], digitado: String(painelMostra(ativoId, g)) } }
+  const fotografa = (g) => { passos[g] = { ...passos[g], foto: carimbo } }
+  const semeia = (g) => { digita(g); fotografa(g); passos[g] = { ...passos[g], fase: 'semeada', relido: releitura(g, Number(passos[g].digitado)) } }
+  const hod = ordem.indexOf('hodometro'); const hor = ordem.indexOf('horimetro')
+  if ([REF.digitado, REF.camera, REF.fotografado, REF.semeado].includes(momento) && hod >= 0 && temPainel('hodometro')) {
+    f.atual = hod
+    digita('hodometro')
+    if (momento === REF.digitado) f.focado = true
+    if (momento === REF.camera) f.camera = true
+    if (momento === REF.fotografado) fotografa('hodometro')
+    if (momento === REF.semeado) semeia('hodometro')
+  }
+  if ([REF.horimetro, REF.completa].includes(momento) && hor > 0 && ordem.slice(0, hor).every(temPainel)) {
+    ordem.slice(0, hor).forEach(semeia)
+    passos.horimetro = passoVazio()
+    f.atual = hor
+    if (momento === REF.completa && temPainel('horimetro')) semeia('horimetro')
+  }
+  return f
 }
 
 export default function T10({ momento, estado: est }) {
@@ -71,144 +132,166 @@ export default function T10({ momento, estado: est }) {
   const sessao = mundo
     ? { ...SEMENTES.T10.sessao, ativoId: mundo.ativoId, moduloSerial: mundo.moduloSerial }
     : (unico.sessao?.ativoId ? unico.sessao : SEMENTES.T10.sessao)
-  const { ativoId } = sessao
-  const par = grandezasDoPar(ativoId, sessao.moduloSerial)
+  const { ativoId, moduloSerial } = sessao
+  const par = grandezasDoPar(ativoId, moduloSerial)
   const ordem = mundo ? mundo.ordem : par.calibraveis
-  const [fluxo, setFluxo] = useState(() => inicio({ momento, est, ordem, etapa: unico.etapas.calibracao, ativoId }))
-  const vivo = useRef(null)
+  // a foto da câmera do app, carimbada: a hora, o técnico, o ativo e o módulo (logica.md)
+  const carimbo = { as: HORA, tecnico: unico.tecnico.nome, ativoId, moduloSerial }
+  const [fluxo, setFluxo] = useState(() => inicio({ momento, est, mundo, ordem, etapa: unico.etapas.calibracao, ativoId, carimbo }))
+  const vivo = useRef(unico)
   vivo.current = unico
   const relogios = useRef([])
   useEffect(() => () => relogios.current.forEach(clearTimeout), [])
+  const campo = useRef(null)
 
-  // a calibração no estado único (etapas.calibracao) — só no fluxo
-  function gravar(mudanca) {
+  const ir = (tela, extra = {}) => despachar({ tipo: 'ir', tela, ...extra })
+  // a calibração no estado único (etapas.calibracao) — só no fluxo, e só depois do primeiro passo dado
+  function gravar(f) {
     if (est) return
     const e = vivo.current
     const antes = e.etapas.calibracao?.ativoId === ativoId ? e.etapas.calibracao : null
-    const calibracao = {
-      ativoId, moduloSerial: sessao.moduloSerial, itemChecklist: M.calibracao.itemChecklist.id,
-      foto: false, passo: ordem[fluxo.atual], semeadas: {}, ...antes, ...mudanca(antes),
-    }
-    despachar({ tipo: 'mesclar', parcial: { etapas: { ...e.etapas, calibracao } } })
+    const mexeu = f.atual > 0 || f.concluida || ordem.some((g) => f.passos[g].digitado || f.passos[g].foto || f.passos[g].fase !== 'pronta')
+    if (!mexeu && !antes) return
+    despachar({ tipo: 'mesclar', parcial: { etapas: { ...e.etapas, calibracao: etapaDe(f, ordem, ativoId, moduloSerial) } } })
   }
-  const semeadaNoEstado = (antes, g) => {
-    const r = releitura(ativoId, g)
-    return { semeadas: { ...antes?.semeadas, [g]: { painel: painelMostra(ativoId, g), relido: r?.valor, confere: !!r?.confere, as: M.HORA_NOMINAL } }, passo: g }
-  }
+  useEffect(() => { gravar(fluxo) }, [fluxo.atual, fluxo.passos, fluxo.concluida]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // a 01 aberta pela URL ou pelo palco é o fluxo depois dos dois toques: grava o que eles gravariam
+  // a URL segue o quadro: o momento da referência em que o passo está, ou nenhum
+  const quadro = est ? null : quadroDe({ ordem, ...fluxo })
   useEffect(() => {
-    if (est || momento !== REF.semeado || fluxo.fase !== 'semeada') return
-    const g = ordem[fluxo.atual]
-    gravar((antes) => ({ ...semeadaNoEstado(antes, g), foto: true }))
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+    if (est || EM_QUADRO) return
+    if (quadro !== (vivo.current.tela.momento ?? null)) ir('T10', { momento: quadro })
+  }, [quadro]) // eslint-disable-line react-hooks/exhaustive-deps
+  // a 05 aberta pela URL chega com o foco no campo, e o teclado aberto
+  useEffect(() => { if (!EM_QUADRO && !est && fluxo.focado) campo.current?.focus() }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const g = ordem[fluxo.atual]
-  const gr = grandezaDe(g) ?? { natureza: 'partida' }
+  const p = fluxo.passos[g] ?? passoVazio()
+  const gr = grandezaDe(g) ?? { natureza: 'partida', unidade: '' }
   const ajuste = gr.natureza === 'ajuste'
-  const { fase, foto } = fluxo
+  const semeada = p.fase === 'semeada'
+  const naoConfere = p.fase === 'nao-confere'
 
   // ── os toques ──
-  const ir = (tela, extra = {}) => despachar({ tipo: 'ir', tela, ...extra })
+  const mudaPasso = (x, mudanca) => setFluxo((f) => ({ ...f, passos: { ...f.passos, [x]: { ...f.passos[x], ...mudanca } } }))
   const encerrar = () => (unico.etapas.checklist?.homologada ? ir('T16') : ir('T16', { momento: ENCERRAR_SEM_HOMOLOGAR }))
-  // O voltar do Android (logica.md): o Voltar ao menu, o link de saída do rodapé,
-  // em todo passo — e a calibração volta de onde parou
-  useVoltar(() => ir('T04'))
-  function fotografar() {
-    setFluxo((f) => ({ ...f, foto: true }))
-    gravar(() => ({ foto: true }))
-  }
+  const abrirCamera = () => setFluxo((f) => ({ ...f, camera: true, focado: false }))
+  const fecharCamera = () => setFluxo((f) => ({ ...f, camera: false }))
+  const tirarFoto = () => setFluxo((f) => ({ ...f, camera: false, passos: { ...f.passos, [g]: { ...f.passos[g], foto: carimbo } } }))
+  const focar = (v) => setFluxo((f) => (f.focado === v ? f : { ...f, focado: v }))
   function semear() {
-    const passo = g
-    setFluxo((f) => ({ ...f, fase: 'escrevendo' }))
+    const passo = g; const painel = Number(p.digitado)
+    mudaPasso(passo, { fase: 'gravando', relido: null })
     relogios.current.push(setTimeout(() => {
-      setFluxo((f) => ({ ...f, fase: 'relendo' }))
+      mudaPasso(passo, { fase: 'relendo' })
       relogios.current.push(setTimeout(() => {
-        setFluxo((f) => ({ ...f, fase: 'semeada', semeadas: { ...f.semeadas, [passo]: true } }))
-        gravar((antes) => semeadaNoEstado(antes, passo))
-        if (passo === 'hodometro') ir('T10', { momento: REF.semeado })
-      }, tempoDaRegua()))
-    }, tempoDoTambor(milhar(painelMostra(ativoId, passo)))))
+        const r = releitura(passo, painel)
+        mudaPasso(passo, { fase: r?.confere ? 'semeada' : 'nao-confere', relido: r })
+      }, RITMOS.semearRelendoMs))
+    }, RITMOS.semearGravandoMs))
   }
-  function proximo() {
-    const atual = fluxo.atual + 1
-    setFluxo((f) => ({ ...f, atual, fase: f.semeadas[ordem[atual]] ? 'semeada' : 'pronta' }))
-    gravar(() => ({ passo: ordem[atual] }))
-    ir('T10') // o passo seguinte não tem referência: a URL sai da 01
+  const proximo = () => setFluxo((f) => ({ ...f, atual: f.atual + 1, focado: false }))
+  function concluir() {
+    const f = { ...fluxo, concluida: true }
+    setFluxo(f); gravar(f); ir('T04')
   }
-  // a volta pelo menu reabre no quadro guardado (etapas.calibracao); se é o
-  // hodômetro semeado, a URL segue o quadro, como no toque que leva à 01
-  useEffect(() => {
-    if (!est && !momento && fluxo.fase === 'semeada' && g === 'hodometro') ir('T10', { momento: REF.semeado })
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // ── o segmentado: um segmento por passo; o que já foi relido fica feito, e
-  // o atual feito continua alto (a 01) ──
-  const feito = (x, i) => fluxo.semeadas[x] || (i === fluxo.atual && RELIDO.includes(fase))
+  // ── o segmentado: um segmento por passo; o gravado fica lima apagado e alto ──
+  const gravado = (x) => GRAVADO.includes(fluxo.passos[x]?.fase)
   const segmentos = ordem.map((x, i) => {
-    if (i === fluxo.atual) return feito(x, i) ? 'atual-feito' : 'atual'
-    return feito(x, i) ? 'feito' : 'pendente'
+    if (gravado(x)) return 'atual-feito'
+    return i === fluxo.atual ? 'atual' : 'pendente'
   })
   const restantes = ordem.slice(fluxo.atual + 1).map((x) => grandezaDe(x).rotulo)
-  const legenda = restantes.length ? T.depois(est === REF.jaSemeado ? restantes : restantes.slice(0, 1)) : undefined
+  const todas = ordem.length > 0 && ordem.every((x) => fluxo.passos[x]?.fase === 'semeada')
+  let legenda
+  if (restantes.length) legenda = T.depois(est === REF.jaSemeado ? restantes : restantes.slice(0, 1))
+  else if (todas) legenda = T.completa
+  else if (fluxo.atual > 0) legenda = T.ultimoPasso
 
   // ── os números ──
   const conta = ajuste ? null : moduloConta(ativoId, g)
-  const painel = ajuste ? null : painelMostra(ativoId, g)
-  const rel = ajuste ? null : releitura(ativoId, g)
-  const relido = RELIDO.includes(fase) && !!rel?.confere
-  const escrito = ESCRITO.includes(fase)
-  const dias = semeadoHa(ativoId, g)
-  let valorModulo = T.vazio
-  if (relido) valorModulo = milhar(rel.valor)
-  else if (escrito && painel != null) valorModulo = milhar(painel)
-  else if (conta != null) valorModulo = milhar(conta)
+  const dias = ajuste ? null : semeadoHa(ativoId, g)
+  const digitado = p.digitado ? Number(p.digitado) : null
+  let poco = { rotulo: T.moduloConta, valor: conta != null ? milhar(conta) : T.vazio, tom: 'apagado' }
+  if (ajuste) poco = { rotulo: T.moduloLe, valor: T.vazio, tom: 'apagado' }
+  else if (semeada) poco = { rotulo: T.moduloAgora, valor: milhar(p.relido.valor), tom: 'ativo' }
+  else if (naoConfere) poco = { rotulo: T.moduloReleu, valor: milhar(p.relido.valor), tom: 'falha' }
 
   let regua
-  if (relido) regua = <ReguaDiferenca confere>{T.relido(M.HORA_NOMINAL)}</ReguaDiferenca>
-  else if (ajuste) regua = <ReguaDiferenca>{T.ligueMotor}</ReguaDiferenca>
-  else if (conta != null && painel != null) {
-    regua = <ReguaDiferenca>{[T.diferenca(milhar(painel - conta), gr.unidade), ...(dias != null ? [T.semeadoHa(dias)] : [])].join(T.entre)}</ReguaDiferenca>
-  } else regua = <ReguaDiferenca /> // sem o número no mock: só os traços
+  if (ajuste) regua = <ReguaDiferenca>{T.ligueMotor}</ReguaDiferenca>
+  else if (semeada) regua = <ReguaDiferenca confere>{T.relido(HORA)}</ReguaDiferenca>
+  else if (naoConfere) {
+    // só o que o módulo releu a menos tem texto (T10/10); o resto, só os traços (G25)
+    const menos = p.relido.desvio < 0 && T.naoConfere[g]
+    regua = menos ? <ReguaDiferenca falha>{T.naoConfere[g](milhar(Math.abs(Math.round(p.relido.desvio))))}</ReguaDiferenca> : <ReguaDiferenca />
+  } else if (digitado != null && conta != null) regua = <ReguaDiferenca>{T.diferenca(milhar(Math.abs(digitado - conta)), gr.unidade)}</ReguaDiferenca>
+  else if (dias != null) regua = <ReguaDiferenca>{T.semeadoHa(dias)}</ReguaDiferenca>
+  else if (conta != null) regua = <ReguaDiferenca>{T.lido(HORA)}</ReguaDiferenca>
+  else regua = <ReguaDiferenca /> // sem o número no mock: só os traços
 
-  let alvoLegenda = T.alvoVai
-  if (relido) alvoLegenda = T.alvoCumprido
-  else if (ajuste) alvoLegenda = T.alvoAjuste[g]
+  // o campo do painel: digita-se enquanto o passo não foi semeado
+  const comCampo = p.fase === 'pronta'
+  const foco = comCampo && fluxo.focado
+  let alvoLegenda = digitado != null ? T.alvoVai : T.painelVazio
+  if (ajuste) alvoLegenda = T.alvoAjuste[g]
+  else if (semeada) alvoLegenda = T.alvoCumprido
 
-  // ── o rodapé ──
-  const rotuloSemear = dias != null ? T.semearDeNovo : T.semear[g]
-  const rotuloDoPasso = rotuloSemear ?? T.calibrar[g] // G25: sem o texto do semear, o mesmo rótulo que trouxe aqui
+  // ── o rodapé: o primário diz o que falta ──
   const seguinte = ordem[fluxo.atual + 1]
   let primario
-  if (ajuste) primario = { rotulo: T.calibrar[g], desabilitado: true } // o módulo ainda não lê: o motor desligado (HU-T10-2)
-  else if (fase === 'pronta') primario = { rotulo: rotuloDoPasso, aoTocar: semear, desabilitado: !rotuloSemear || conta == null || painel == null }
-  else if (fase !== 'semeada') primario = { rotulo: rotuloDoPasso, inerte: true }
-  else if (seguinte && T.calibrar[seguinte]) primario = { rotulo: T.calibrar[seguinte], aoTocar: proximo }
-  else primario = { rotulo: rotuloDoPasso, desabilitado: true } // G25: nada desenhado depois do último passo
+  if (fluxo.camera) primario = { rotulo: T.tirarFoto, aoTocar: tirarFoto }
+  else if (ajuste) primario = { rotulo: T.ligue, desabilitado: true } // o módulo ainda não lê: o motor desligado (HU-T10-2)
+  else if (p.fase === 'gravando') primario = { rotulo: T.gravando, desabilitado: true }
+  else if (p.fase === 'relendo') primario = { rotulo: T.relendo, desabilitado: true }
+  else if (naoConfere) primario = { rotulo: T.semearDeNovo, aoTocar: semear }
+  else if (semeada && !seguinte) primario = { rotulo: T.concluir, aoTocar: concluir }
+  else if (semeada && T.calibrar[seguinte]) primario = { rotulo: T.calibrar[seguinte], aoTocar: proximo }
+  else if (semeada) primario = { rotulo: T.semear[g], desabilitado: true } // G25: o passo seguinte sem texto
+  else if (digitado == null) primario = { rotulo: T.digite, desabilitado: true }
+  else if (!p.foto) primario = { rotulo: T.fotografe, desabilitado: true }
+  else primario = { rotulo: T.semear[g], aoTocar: semear }
+  let link = { rotulo: T.voltar, aoTocar: () => ir('T04') }
+  if (fluxo.camera) link = { rotulo: T.voltarCalibracao, aoTocar: fecharCamera }
+  else if (semeada && !seguinte) link = null // a calibração completa só sai pelo Concluir (09)
+  // O voltar do Android (logica.md): o link de saída do rodapé — em todo passo, o
+  // Voltar ao menu, e a calibração volta de onde parou; na câmera, o Voltar à
+  // calibração, sem foto. Na calibração completa, sem link, o Concluir, que é a
+  // única saída e leva ao menu
+  useVoltar(link ? link.aoTocar : primario.aoTocar)
 
   return (
     <div className="t10">
-      <BarraDoSistema hora={M.HORA_NOMINAL} fundo="faixa" />
-      <Faixa serial={sessao.moduloSerial} placa={ativoDe(ativoId)?.placa} acao={T.encerrar} aoEncerrar={encerrar} />
+      <BarraDoSistema hora={HORA} fundo="faixa" />
+      <Faixa serial={moduloSerial} placa={ativoDe(ativoId)?.placa} acao={T.encerrar} aoEncerrar={encerrar} />
       <div className="tela-miolo t10-miolo">
         <Segmentado rotulo={T.rotulo} contagem={String(fluxo.atual + 1)} total={T.deTotal(ordem.length)} segmentos={segmentos} legenda={legenda} />
-        <h1 className="t10-titulo">{gr.rotulo}</h1>
-        {/* a chave é a grandeza: o tambor rola no semear, não na troca de passo */}
-        <ValorEmPoco key={g} rotulo={relido ? T.moduloAgora : ajuste ? T.moduloLe : T.moduloConta} valor={valorModulo} unidade={gr.unidade}
-          tom={relido ? 'ativo' : 'apagado'} />
-        {regua}
-        <ValorAlvo rotulo={T.painel} valor={painel != null ? milhar(painel) : T.vazio} unidade={gr.unidade} legenda={alvoLegenda} cumprido={relido} />
-        {!ajuste && (
-          <FotoProva titulo={T.foto} legenda={foto ? T.fotoTirada(secaoDaFoto()) : T.fotoLegenda} situacao={foto ? T.fotografada : T.aguarda}
-            tirada={foto} aoTocar={fotografar} rotulo={T.fotografar} />
-        )}
-        {par.naoSeAplicam.length > 0 && (
-          <Declarado aoPe rotulo={par.doModulo ? T.naoSeAplicam : T.naoSeAplicamModelo} divisoriaNoFim={ajuste}
-            linhas={par.naoSeAplicam.map((l) => ({ nome: l.nome, motivo: l.motivo }))} />
+        {fluxo.camera ? (
+          <>
+            <h1 className="t10-titulo">{T.fotoDoPainel}</h1>
+            <VisorCamera dica={T.enquadre(gr.rotulo.toLowerCase())} />
+          </>
+        ) : (
+          <>
+            <h1 className="t10-titulo">{gr.rotulo}</h1>
+            {/* a chave é a grandeza: o tambor rola no semear, não na troca de passo */}
+            <ValorEmPoco key={g} rotulo={poco.rotulo} valor={poco.valor} unidade={gr.unidade} tom={poco.tom} />
+            {regua}
+            <ValorAlvo rotulo={T.painel} valor={digitado != null ? milhar(digitado) : T.vazio} unidade={gr.unidade} legenda={alvoLegenda}
+              vazio={digitado == null} cumprido={digitado != null && !foco} foco={foco}
+              campo={comCampo ? { valor: p.digitado, aoMudar: (v) => mudaPasso(g, { digitado: digitos(v) }), aoFocar: () => focar(true), aoSair: () => focar(false), ref: campo } : undefined} />
+            {!ajuste && (p.foto
+              ? <FotoProva tirada titulo={T.fotografado(p.foto.as)} legenda={T.fotoVale(secaoDaFoto())} />
+              : <FotoProva titulo={T.fotografar} legenda={T.fotoLegenda} aoTocar={abrirCamera} />)}
+            {par.naoSeAplicam.length > 0 && (
+              <Declarado aoPe rotulo={par.doModulo ? T.naoSeAplicam : T.naoSeAplicamModelo} divisoriaNoFim={ajuste}
+                linhas={par.naoSeAplicam.map((l) => ({ nome: l.nome, motivo: l.motivo }))} />
+            )}
+          </>
         )}
       </div>
-      <Rodape primario={primario.rotulo} aoPrimario={primario.aoTocar} primarioDesabilitado={!!primario.desabilitado} primarioInerte={!!primario.inerte}
-        link={T.voltar} aoLink={() => ir('T04')} />
+      <Rodape primario={primario.rotulo} aoPrimario={primario.aoTocar} primarioDesabilitado={!!primario.desabilitado}
+        link={link?.rotulo} aoLink={link?.aoTocar} />
     </div>
   )
 }

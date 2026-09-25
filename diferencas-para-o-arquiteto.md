@@ -56,6 +56,17 @@ Os 67 arquivos entraram. O gate aprova, e o censo confere: **122 referências no
 - **o `palco.md`:** entrou só o grupo do caminho sem a T08. O resto da sua cópia desfazia três decisões do diretor (a coluna centralizada, o painel que não fecha ao escolher, a moldura igual no estado), e fica o nosso
 - **os números:** o `CLAUDE.md`, os READMEs, o `ciclos.md` e o `pendencias.md` (a notificação de 30 min) · os tokens continuam **274**
 
+### O que a construção da entrega de 25/09 achou
+
+- **a tolerância do hodômetro:** o comentário do caso `releitura-nao-confere` e o `estados.md` da T10 dizem 120 m; o modelo do mock e a HU-T10-5 dão 140 m (a granularidade mais o decorrido). Os dois dão *não confere* pros 500 m, e a tela é a mesma
+- **a folha 8** escreve *tinta apagada* no painel vazio e desenha `--marca-limite`: o código segue o desenho
+- **a T06/08** desenha 5 no pacote; o mock da Várzea tem 10
+- **o `Entrar` apagado** fica só no erro (a T01/01). Com a senha vazia fora do erro, a 00 desenha ele aceso
+- **o singular:** com 1 dia, o título seria *vence em 1 dias*. Falta a forma do singular
+- **o login com rede** devia renovar o acesso, e o mock mantém `abertaDiasAtras` 5
+- **a câmera do app** é a mesma na T10 e na T13, e o DS não a lista. Proposta: uma peça na folha 7
+- **a T16 e o número digitado:** a assertiva dos contadores mostra o painel do mock (482.317 km · 9.640 h), como o `estados.md` dela manda. Com a decisão 33, o número é o que o técnico digita; se ele digitar outro, a T16 diria que voltou um número que não foi semeado. Proposta: a T16 ler o que foi semeado
+
 ## O que as referências pedem ao design · medido no C10, no C11 e nas entregas 4 e 5
 
 Nenhuma referência foi mexida: o protótipo mede e propõe, e a correção é na fonte. Cada item diz o que muda e, quando medido, quanto a diferença cai.

@@ -6,8 +6,9 @@
 //   diálogo sem saída  · uma ação só, sem `saida` (T01/09)
 //   diálogo com ciência · o checkbox da `ciencia`; o primário espera o check (T13/10)
 // A saída de 48 come 4 de cada lado; a de 44 ganha 48 de toque por fora (G14).
-// `margem`: o ar em volta da caixa, 16 (T01, T13) ou 20 (T04), dentro do Veu
-// (de 'dialogo'). Nasce esmaecendo e crescendo de 98% a 100% em 150ms.
+// `margem`: o ar em volta da caixa, 16 (T01, T13), 20 (os diálogos da folha da
+// T04, 06 e 09) ou 24 (o aviso do acesso, sem saída, sobre o menu inteiro, T04/12),
+// dentro do Veu (de 'dialogo'). Nasce esmaecendo e crescendo de 98% a 100% em 150ms.
 // Pro leitor (G15): diálogo modal, com o nome no título que já se vê.
 import { useId } from 'react'
 import { Primario } from '../primitivos/Primario.jsx'

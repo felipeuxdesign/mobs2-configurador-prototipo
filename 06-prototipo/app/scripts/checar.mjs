@@ -21,10 +21,11 @@ try {
 // 2 · tokens.json gerado do tokens.css
 chk('tokens.json = tokens.css', readFileSync(resolve(raiz, '03-design-system/tokens.json'), 'utf8') === jsonDoCss())
 
-// 2b · as sementes e as receitas dos 50 estados (G21)
+// 2b · as sementes e as receitas dos estados do indice.json (G21) — a conta vem do teste
 try {
   const saida = execFileSync('node', [resolve(app, 'scripts/testar-estado.mjs')], { encoding: 'utf8' })
-  chk('sementes e receitas', /TESTE APROVADO/.test(saida), '50 estados, todo id no mock')
+  const n = saida.match(/os (\d+) estados do indice\.json/)?.[1] ?? '?'
+  chk('sementes e receitas', /TESTE APROVADO/.test(saida), n + ' estados, todo id no mock')
 } catch (e) { chk('sementes e receitas', false, 'reprovou'); console.log(e.stdout) }
 
 // 3 · higiene de app/src: relógio, acaso, locale, valor solto

@@ -1,0 +1,11 @@
+/* T10 · a câmera do app (T10/06): o poço que cresce no que sobra, a câmera e a frase no meio */
+.t10-visor {
+  flex-grow: 1; flex-shrink: 1; min-height: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: var(--e-14); padding: var(--e-16);
+}
+.t10-visor .ds-icone.t10-visor-camera { width: var(--icone-visor); height: var(--icone-visor); }
+.t10-visor-dica {
+  font-size: var(--t-corpo); font-weight: 600; color: var(--tinta-secundaria);
+  text-align: center; line-height: var(--entrelinha-texto);
+}

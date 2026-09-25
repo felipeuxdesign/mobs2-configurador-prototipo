@@ -172,7 +172,7 @@ Cada linha é um espécime de moldura das folhas (123), e a folha 3 soma quatro 
 
 | Peça | Regra, medida | Telas que usam, medido |
 |---|---|---|
-| primário · normal | roxo com o texto lima · 56 · variante: inerte, o mesmo desenho e o mesmo texto, sem responder por um instante, enquanto o número rola e o módulo relê (T10) · **peça nova no protótipo** | T01 T02 T03 T04 T05 T06 T07 T08 T09 T10 T11 T12 T13 T14 T15 T16 |
+| primário · normal | roxo com o texto lima · 56 · **peça nova no protótipo** | T01 T02 T03 T04 T05 T06 T07 T08 T09 T10 T11 T12 T13 T14 T15 T16 |
 | primário · pressionado | o roxo clareia e afunda 2% · **peça nova no protótipo** | T01 T02 T03 T04 T05 T06 T07 T08 T09 T10 T11 T12 T13 T14 T15 T16 · no toque |
 | primário · desabilitado | sem roxo · diz o que está acontecendo · **peça nova no protótipo** | T01 T02 T03 T05 T06 T08 T09 T10 T13 T14 T16 |
 | link · normal e pressionado | o cinza vira branco no toque · 48 de toque · variante: registrado, depois do toque o pedido feito no mesmo lugar de 48, sem toque, o relógio de 14 e o texto em --tinta-apagada, a 8 um do outro (T14) · **peça nova no protótipo** | T01 T03 T04 T05 T06 T07 T08 T09 T10 T11 T13 T14 T16 |
@@ -187,13 +187,13 @@ Cada linha é um espécime de moldura das folhas (123), e a folha 3 soma quatro 
 | faixa · sem sessão | LED apagado · só o fato | T04 T12 T15 T16 |
 | faixa · módulo com falha | o serial sai · LED vermelho · variante: no menu, o traço vermelho por cima, sem roubar altura (T04) | T04 |
 | faixa · sem ação | na tela que ela abriu — o encerramento | T16 |
-| duas ações | primário 56 · link com 48 de toque · variante: o rodapé do login, sem o traço em cima, 20 dos lados e 28 no pé (T01) · variante: o primário inerte, parado um instante com o mesmo desenho, no semear da calibração (T10) · variante: o link registrado, o pedido feito no lugar do link, sem toque (T14) | T01 T03 T05 T06 T07 T08 T09 T10 T11 T13 T14 T16 |
-| uma ação | quando só existe um caminho | T02 T03 T05 T06 T09 T11 T12 T15 T16 |
-| processo correndo | o primário diz o que acontece · variante: o pé de 32 com a explicação embaixo, a atualização do firmware (T05) · variante: sem a explicação, o primário sozinho fecha em 32, a releitura (T08) | T03 T05 T08 T09 T16 |
+| duas ações | primário 56 · link com 48 de toque · variante: o rodapé do login, sem o traço em cima, 20 dos lados e 28 no pé (T01) · variante: o link registrado, o pedido feito no lugar do link, sem toque (T14) | T01 T03 T05 T06 T07 T08 T09 T10 T11 T13 T14 T16 |
+| uma ação | quando só existe um caminho | T02 T03 T05 T06 T09 T10 T11 T12 T15 T16 |
+| processo correndo | o primário diz o que acontece · variante: o pé de 32 com a explicação embaixo, a atualização do firmware (T05) · variante: sem a explicação, o primário sozinho fecha em 32, a releitura (T08) · o semear da calibração, *Gravando no módulo…* e *Relendo…* no primário desabilitado, com o link ao lado (T10) | T03 T05 T08 T09 T10 T16 |
 | com legenda | uma linha que explica a ação, a 12px do botão · variante: junta, a legenda a 6 do botão, só com o vão do rodapé (T13) | T05 T06 T13 T14 |
 | folha | sobe do rodapé · puxador · X · variante: folga 12 e uma frase embaixo do título, a de trocar de garagem (T04) · variante: o toque no véu, fora da folha, fecha a folha como o X (T04) | T01 T04 |
 | diálogo | só pra ação que encerra trabalho | T04 |
-| diálogo sem saída | quando o que aconteceu já está feito · uma ação só | T01 |
+| diálogo sem saída | quando o que aconteceu já está feito · uma ação só · variante: margem 24, o ar em volta da caixa, com o véu embaixo da barra do sistema, cobrindo a tira e a faixa: o aviso do acesso sobre o menu inteiro (T04) | T01 T04 |
 | diálogo com ciência | o técnico assina a decisão · o primário espera o check | T13 |
 
 ### Folha 3 · glifos icones poco
@@ -202,14 +202,15 @@ Cada linha é um espécime de moldura das folhas (123), e a folha 3 soma quatro 
 |---|---|---|
 | escolha numa lista | o marcador de escolha no poço de 30: o vazado de 11, e o quadrado lima cheio de 11 é o escolhido · variante: escolhível, a garagem vencida também se escolhe (T02) | T02 |
 | os glifos de estado | doze, um por natureza · com o nome pro leitor de tela · variante: o círculo com o traço, fora da folha e fora dos doze, o não se aplica da assertiva da sessão, apagado e com o nome 'não se aplica' (T16) · **peça nova no protótipo** | todas, dentro das peças · sem uso nas 105: ok cinza |
-| os ícones de ferramenta | dez, do Lucide, no traço dos tokens · variante: subindo, fora das dez, a seta do SUBINDO AGORA, com o traço 2,2 do glifo (T15) · **peça nova no protótipo** | T04 T15 e as telas das ferramentas · sem uso nas 105: o ativo de Últimas instalações |
-| os poços | oito tamanhos, de 22 a 44 · **peça nova no protótipo** | todas, dentro das peças · sem uso nas 105: 22, 28 e 44 · o de 44 entrou na T04 (10 e 11) |
+| os ícones de ferramenta | dez, do Lucide, no traço dos tokens · variante: subindo, fora das dez, a seta do SUBINDO AGORA, com o traço 2,2 do glifo (T15) · variante: xis-mini, o xis solto de 14 do não confere, com traço 2,6 (T10) · **peça nova no protótipo** | T04 T10 T15 e as telas das ferramentas · sem uso nas 105: o ativo de Últimas instalações |
+| os poços | oito tamanhos, de 22 a 44 · **peça nova no protótipo** | todas, dentro das peças · sem uso nas 105: 22, 28 e 44 · o de 44 entrou na T04 (10 e 11) e na T10 (a foto) |
 | os marcadores | o marcador de escolha, um só: o quadrado vazado de 11 no desmarcado e o lima de 11 no escolhido · e os LEDs · **peça nova no protótipo** | T01 T02 T04 T05 T06 T07 T08 T09 T10 T11 T12 T13 T14 T15 T16 |
 
 ### Folha 4 · linhas cartoes aviso
 
 | Peça | Regra, medida | Telas que usam, medido |
 |---|---|---|
+| vazio declarado | tracejado · título e uma frase · sem ícone · também a busca sem resultado, com o termo no título (T02/03, T06/08) | T02 T06 T12 T15 |
 | aprovada | check lima · valor em --tinta-secundaria · variante: com a nota, o fato que a checagem resolveu embaixo do título, em --tinta-apagada, e a linha cresce como na causa (T05) | T05 |
 | parou aqui | o processo caiu nesta · variante: neutro, o parou que não é erro, a lua no poço e o valor em --tinta-secundaria, no módulo em repouso (T05) | T05 |
 | ainda não | círculo apagado · valor em traço · variante: o relógio apagado no lugar do círculo, nas que esperam a atualização do firmware (T05) · **em outra folha: o design a põe na Folha 3** | T05 |
@@ -261,7 +262,7 @@ Cada linha é um espécime de moldura das folhas (123), e a folha 3 soma quatro 
 | campo focado | rótulo e traço de baixo em lima | T01 T13 |
 | código · seis células | uma célula por dígito · variante: o foco numa célula dada, fora do próximo dígito, como no código expirado (T01) | T01 |
 | botões só de ícone | fechar e mostrar a senha · 44 de desenho, 48 de toque · com nome pro leitor de tela · **peça nova no protótipo** | T01 T04 |
-| campo de busca | lupa e dica · quando a lista é longa · variante: a dica é texto sobre o campo vazio (T02) | T02 T06 |
+| campo de busca | lupa e dica · quando a lista é longa · variante: a dica é texto sobre o campo vazio (T02) · variante: focado, o traço de baixo em 2 de lima, aceso parado enquanto a busca não acha nada, e o termo em números tabulares (T02/03, T06/08) | T02 T06 |
 | linha de opção | o ícone, o que faz, e pra onde · variante: em espera, a saída que espera o reenvio, apagada e desabilitada, com a contagem no lugar da seta; ao liberar, a seta entra e a linha acende (T01) | T01 |
 | linha de módulo | serial e variante · T05 · variante: a última da lista, 56 (T05) · variante: a lista de escolha, o marcador vazado de 11 no poço de 30, o serial em cima da variante e o firmware à direita, 72 e a última de 76 (T05) | T05 |
 | linha de ônibus | placa, modelo e frota · T06 · variante: a última da lista, 78 e sem divisória (T06) · variante: escolha, tocar marca o quadrado lima e o primário avança, e o leitor de tela lê a escolha (T06) | T06 |
@@ -287,13 +288,16 @@ Cada linha é um espécime de moldura das folhas (123), e a folha 3 soma quatro 
 | bloco do evento | o que foi disparado e recebido · variante: o nome do relógio segue o dado, ainda não antes do disparo, e na linha feita o relógio fica no lugar, mudo (T14) | T14 |
 | linha da fila | o que sobe e quando · variante: pela posição, a altura vem do lugar na lista, 50 com a divisória no meio e 62 na última, em qualquer estado (T15) | T15 |
 | prova da cadeia | a versão gravada e relida | T09 T11 |
+| foto · a tirar | tocável, com a câmera · a legenda diz pra que ela serve · o cartão inteiro é o toque, com o nome da ação pro leitor de tela; a câmera no poço de 44 e a seta | T10 |
+| foto · tirada | vira o registro no lugar, e deixa de ser tocável · diz onde mais ela vale · o check lima no poço de 44, sem seta, e não é botão pro leitor de tela | T10 |
 | contador no menu | itens na fila, no canto do cartão · a mesma peça do *com pendência* da folha 4 | T04 |
 
 ### Folha 8 · calibracao
 
 | Peça | Regra, medida | Telas que usam, medido |
 |---|---|---|
-| valor em poço | o que o módulo conta hoje · variante: aceso, depois de semear e reler, o que o módulo conta agora em --tinta (T10) | T10 |
-| régua da diferença | a distância entre os dois · vira "confere" depois · variante: o confere desenhado, o check lima solto, sem poço, no lugar da diferença (T10) | T10 |
-| o valor alvo | o número do painel, o que vai pro módulo · variante: cumprido, depois de semear e reler, sem o traço lima e com o rótulo apagado (T10) | T10 |
+| valor em poço | o que o módulo conta hoje · variante: aceso, depois de semear e reler, o que o módulo conta agora em --tinta (T10) · variante: falha, a releitura que não confere, com o número em vermelho (T10/10) | T10 |
+| régua da diferença | a distância entre os dois · vira "confere" depois · variante: o confere desenhado, o check lima solto, sem poço, no lugar da diferença (T10) · variante: falha, o xis-mini solto de 14 e a frase em vermelho, o não confere (T10/10) | T10 |
+| o valor alvo | o número do painel, o que vai pro módulo · variante: cumprido, o número fora do foco ou semeado, sem o traço lima e com o rótulo apagado (T10/01, 07, 09, 10) · variante: foco, o lima de volta por cima (T10/05) · variante: campo, o input numérico invisível por cima do poço, com o rótulo como nome (T10) | T10 |
+| o painel · vazio | antes de digitar · o traço e o rótulo em --marca-limite, sem o lima · a folha 8 escreve *tinta apagada* e desenha --marca-limite: o código segue o desenho | T10 |
 | o que não se aplica | fato declarado, sem vermelho · variante: a divisória também embaixo da última linha, no passo da rotação (T10) | T10 |

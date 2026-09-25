@@ -40,6 +40,7 @@ Mudam **no lugar**. O ritmo do protótipo é de apresentação: rápido o bastan
 | sincronização do pacote | 4s no total |
 | cronômetro do código (T01) | 1s real vale 1s · o prazo e o reenvio abrem cheios, como o mock diz (T01·1) |
 | releitura da CAN (T08) · cada sinal que responde | 600ms · na ordem da grade (T08·1) |
+| semear da calibração (T10) · gravando e relendo | 1s + 1s · o botão diz *Gravando no módulo…* e depois *Relendo…*; aí o tambor e a régua (a `animacao.md` da T10) |
 
 ## Só isto se move
 

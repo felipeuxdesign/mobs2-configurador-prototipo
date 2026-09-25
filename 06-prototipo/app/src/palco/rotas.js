@@ -1,5 +1,5 @@
 // A URL: todo lugar do protótipo tem endereço (logica.md, G20).
-// ?tela=T07 · ?tela=T07&estado=01-estado-fora-da-faixa · ?tela=T05&momento=02-momento-um-encontrado
+// ?tela=T07 · ?tela=T07&estado=01-estado-fora-da-faixa · ?tela=T05&momento=02-momento-um-encontrado · &painel=1 (o painel aberto)
 // A troca usa replaceState: o voltar do navegador sai do protótipo (G20).
 import { NOMES, REFERENCIAS } from './telas.js'
 
@@ -16,10 +16,13 @@ export function lerUrl() {
   }
 }
 
-export function escreverUrl({ tela, estado, momento }) {
+// o painel também vai no endereço (C3: a URL leva o painel): aberto, &painel=1; fechado, sai —
+// assim o link copiado com o painel fechado não abre o painel em quem recebe
+export function escreverUrl({ tela, estado, momento, painel }) {
   const q = new URLSearchParams(window.location.search)
   q.set('tela', tela)
   estado ? q.set('estado', estado) : q.delete('estado')
   momento ? q.set('momento', momento) : q.delete('momento')
+  painel ? q.set('painel', '1') : q.delete('painel')
   window.history.replaceState(null, '', '?' + q.toString())
 }

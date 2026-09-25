@@ -5,12 +5,16 @@
 // C4 (T02): a dica é texto por cima do campo vazio, no lugar do placeholder,
 // pra ser texto da tela como na referência (a régua dos textos lê o texto, e
 // o placeholder não é texto). Muda pro leitor: o nome já vai no aria-label.
+// A entrega de 25/09 (T02/03, T06/08): em foco, o traço de baixo vira 2 de lima,
+// como o campo focado (TracoFoco.css) — no toque, o foco de verdade; `focado`
+// fotografa o foco parado, no quadro da busca sem resultado.
 import { Icone } from '../index.js'
+import './TracoFoco.css'
 import './Busca.css'
 
-export function Busca({ dica, valor = '', aoMudar, rotulo }) {
+export function Busca({ dica, valor = '', aoMudar, rotulo, focado = false }) {
   return (
-    <label className="ds-busca">
+    <label className={`ds-busca ds-traco-foco ${focado ? 'ds-foco' : ''}`}>
       <Icone nome="busca" tam={18} cor="apagada" />
       <span className="ds-busca-lugar">
         <input

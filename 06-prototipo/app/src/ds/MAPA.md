@@ -34,7 +34,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | com legenda | src/ds/chrome/Rodape.jsx (legenda; legendaJunta, a legenda a 6 do botão — T13 · C10) |
 | folha | src/ds/chrome/Folha.jsx + Veu.jsx (conteúdo: CartaoDaConta, PrazoDaConta, BotaoDaFolha; folga 12 e subtitulo na de trocar de garagem · C5, T04/07; aoTocarFora no Veu, o toque no véu fecha a folha, T04 · o cartão do que a sessão prendeu é peça da T04, pecas.jsx) |
 | diálogo | src/ds/chrome/Dialogo.jsx (+ Frase, Destaque) |
-| diálogo sem saída | src/ds/chrome/Dialogo.jsx (sem saida) |
+| diálogo sem saída | src/ds/chrome/Dialogo.jsx (sem saida; margem 24, o aviso do acesso sobre o menu inteiro — T04/12, entrega de 25/09) |
 | diálogo com ciência | src/ds/chrome/Dialogo.jsx (ciencia → primitivos/Checkbox.jsx) |
 | folha com opções | src/ds/chrome/Folha.jsx + LinhaDeOpcao.jsx (CartaoDeOpcoes) |
 | barra do sistema sob o véu | src/ds/chrome/BarraDoSistema.jsx (veu) |
@@ -45,7 +45,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 |---|---|
 | escolha numa lista | src/ds/linhas/LinhaEscolha.jsx (poço de 30 com o Quadrado · decisão 29; escolhivel: a vencida também se escolhe, T02·1 · C4) |
 | os glifos de estado | src/ds/primitivos/Glifo.jsx (ESTADOS; fora da folha, fora de ESTADOS: traco-circulo, o não se aplica da assertiva da sessão · C11, T16/02 e 05) |
-| os ícones de ferramenta | src/ds/primitivos/Icone.jsx (ICONES; subindo: a seta do SUBINDO AGORA, com o traço 2,2 do glifo · C11, T15/01) |
+| os ícones de ferramenta | src/ds/primitivos/Icone.jsx (ICONES; subindo: a seta do SUBINDO AGORA, com o traço 2,2 do glifo · C11, T15/01; xis-mini: o xis solto de 14 do não confere, traço 2,6 · a entrega de 25/09, T10/10) |
 | os poços | src/ds/primitivos/Poco.jsx |
 | os marcadores | src/ds/primitivos/Marcador.jsx (Quadrado: o marcador de escolha, um só, vazado ou lima de 11 · decisão 29; Led) |
 
@@ -76,7 +76,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | aviso | src/ds/cartoes/Aviso.jsx (tom neutro; semPoco no da folha de garagem, Lei 7 · C5, T04/08) |
 | processo parado | src/ds/cartoes/Aviso.jsx (glifo xis) |
 | com contagem | src/ds/cartoes/Aviso.jsx (numero, unidade; tom veredito, o que confere em lima, sem poço, 12 · 14 · C11, T11/02) |
-| vazio declarado | src/ds/cartoes/Vazio.jsx |
+| vazio declarado | src/ds/cartoes/Vazio.jsx (também a busca sem resultado, com o termo no título — T02/03, T06/08 · entrega de 25/09) |
 | nota tracejada | src/ds/cartoes/Nota.jsx (tom explica; corpo secundario, a frase de 13 da T03/04 · C4; corpo pulado, a frase de 13 em --tinta-secundaria do NÃO RODARAM · C11, T16/04; corpo item, a frase de 13 em 400 do ISTO NÃO SE MARCA À MÃO · C10, T13/09) |
 | nota com rótulo | src/ds/cartoes/Nota.jsx (tom fato; tom achado, o que a leitura achou e não classifica, com a borda do poço, 10 · 12 · C11, T11/01) |
 | o par comparado | src/ds/cartoes/ParComparado.jsx (veredito: quando batem, NO CADASTRO em lima e a frase em 600 · C8, T06/01) |
@@ -125,7 +125,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | botões só de ícone | src/ds/primitivos/SoIcone.jsx |
 | checkbox | src/ds/primitivos/Checkbox.jsx (Poco de 24 com o Quadrado vazado · decisão 29) |
 | checkbox marcado | src/ds/primitivos/Checkbox.jsx (marcado: o Quadrado lima de 11) |
-| campo de busca | src/ds/entrada/Busca.jsx (a dica é texto por cima do campo vazio, não placeholder · C4) |
+| campo de busca | src/ds/entrada/Busca.jsx (a dica é texto por cima do campo vazio, não placeholder · C4; focado: em foco, o traço de baixo vira 2 de lima e acende como o campo focado, TracoFoco.css, e o termo sai com os números tabulares — T02/03, T06/08 · entrega de 25/09) |
 | justificativa | src/ds/entrada/Justificativa.jsx (+ CampoTexto.jsx) |
 | linha de opção | src/ds/chrome/LinhaDeOpcao.jsx (+ CartaoDeOpcoes · o detalhe numa linha só, com reticências, pelas folhas 2 e 6 de 24/09 · `espera`, T01/04 e 11: a saída que espera o reenvio, apagada e desabilitada de verdade, com a contagem no lugar da seta — `--n-espera`, no tokens.css —; ao liberar, a seta entra e a linha acende, duas camadas trocando por opacity em --mov-rapido (a cópia apagada do texto é um span vazio com aria-hidden que o CSS preenche, como no Link: o leitor lê cada texto uma vez) · a `desabilitado` do C4 saiu, trocada pela `espera`) |
 | linha de módulo | src/ds/entrada/LinhaModulo.jsx (fim: a última de 56 da T05/00; escolha: o marcador de escolha e o firmware, 72 e a última de 76, da T05/01 · C6) |
@@ -148,8 +148,8 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | cartão de configuração | src/ds/checklist/CartaoValor.jsx (sem medida) |
 | cartões de foto | src/ds/checklist/CartaoFoto.jsx (+ GradeCartoes; desabilitado, o item já resolvido ou herdado — T13/02 · C10) |
 | a seção aberta inteira | src/ds/checklist/SecaoChecklist.jsx (+ linhas/CabecaSecao.jsx; legenda, nomeGlifo e divisoria, a última do acordeão sem traço — T13 · C10) |
-| foto · aguarda | src/ds/checklist/FotoProva.jsx |
-| foto · tirada | src/ds/checklist/FotoProva.jsx (tirada) |
+| foto · a tirar | src/ds/checklist/FotoProva.jsx (o cartão tocável inteiro, com a câmera no poço de 44 e a seta · a entrega de 25/09, decisão 33) |
+| foto · tirada | src/ds/checklist/FotoProva.jsx (tirada: o registro no lugar do cartão, o check lima, sem seta e sem toque) |
 | mostrador · apagado | src/ds/checklist/Mostrador.jsx (apagado) |
 | mostrador · relendo | src/ds/checklist/Mostrador.jsx (relendo; unidade junto do valor · C8, T08/01) |
 | mostrador · aceso | src/ds/checklist/Mostrador.jsx (aceso; unidade junto do valor · C8, T08/02) |
@@ -165,9 +165,10 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 
 | Peça | Componente |
 |---|---|
-| valor em poço | src/ds/instrumentos/Calibracao.jsx · ValorEmPoco (+ Tambor.jsx) |
-| régua da diferença | src/ds/instrumentos/Calibracao.jsx · ReguaDiferenca |
-| o valor alvo | src/ds/instrumentos/Calibracao.jsx · ValorAlvo |
+| valor em poço | src/ds/instrumentos/Calibracao.jsx · ValorEmPoco (+ Tambor.jsx; tom falha: a releitura que não confere, o número em vermelho · T10/10) |
+| régua da diferença | src/ds/instrumentos/Calibracao.jsx · ReguaDiferenca (confere; falha: o xis solto e a frase em vermelho · T10/10) |
+| o valor alvo | src/ds/instrumentos/Calibracao.jsx · ValorAlvo (o lima é o campo em foco, T10/05; cumprido: o número fora do foco, sem o lima, T10/01, 07, 09, 10; foco; campo: o input numérico por cima do poço, sem desenho) |
+| o painel · vazio | src/ds/instrumentos/Calibracao.jsx · ValorAlvo (vazio: o traço em --marca-limite, sem o lima · a entrega de 25/09) |
 | o que não se aplica | src/ds/instrumentos/Declarado.jsx (linhas) |
 
 ## Peças internas, sem linha própria

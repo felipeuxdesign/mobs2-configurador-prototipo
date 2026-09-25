@@ -4,6 +4,7 @@
 import { M } from '../../dados/mock.js'
 import { decimal } from '../../dados/formato.js'
 import { RECEITAS } from '../../estado/receitas.js'
+import { comoEsta } from '../../estado/fila.js'
 import { T } from './textos.js'
 
 // os nomes das referências (02-telas/T15-fila-de-saida/referencias)
@@ -47,12 +48,14 @@ export function quadroDoEstado(est) {
 }
 
 // No fluxo, a fila que a tela mostra: a seleção da semente mais o que a sessão
-// criou (estado único, `fila`) na garagem ativa. A Seção F não aparece: a 00
-// não a desenha, e ela entra pela coluna (04).
+// criou (estado único, `fila`) na garagem ativa, cada item como está — o erro
+// que o técnico reenviou volta pra fila (estado/fila.js, `reenviados`). A
+// Seção F não aparece: a 00 não a desenha, e ela entra pela coluna (04).
 export function quadroDoFluxo(unico) {
   const uo = unico.contexto.uoId ?? M.contextoAtivo.uoId
   const daSessao = (unico.fila ?? []).filter((f) => ativo(f.ativoId)?.uoId === uo)
-  return { itens: [...SELECAO_DA_SEMENTE.map(itemDoMock), ...daSessao], ultimoEnvioAs: null, semSessao: false, secaoF: null }
+  const itens = [...SELECAO_DA_SEMENTE.map(itemDoMock), ...daSessao].map((f) => comoEsta(f, unico.reenviados))
+  return { itens, ultimoEnvioAs: null, semSessao: false, secaoF: null }
 }
 
 // Os três grupos da tela: os erros vão pro cartão do topo — a recusa, que

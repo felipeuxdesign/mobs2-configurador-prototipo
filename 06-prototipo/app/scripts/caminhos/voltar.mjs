@@ -44,6 +44,11 @@ export default [
   esc,
   { fica: 'T02', ms: 500 },
   { chega: 'T02', momento: '01-momento-escolhida' },
+  // a busca sem resultado (03, a entrega de 25/09), no mundo do caso da lista longa: nada
+  { abre: '?tela=T02&momento=03-momento-busca-sem-resultado' },
+  esc,
+  { fica: 'T02', ms: 500 },
+  { chega: 'T02', momento: '03-momento-busca-sem-resultado' },
 
   // ── T03 · baixando, nada; no concluído, o Ir para o menu; na falha, o Voltar ao contexto ──
   { abre: '?tela=T03' },
@@ -61,11 +66,17 @@ export default [
   esc,
   { chega: 'T02' },
 
-  // ── T04 · no menu, nada; a folha fecha; o diálogo faz o Cancelar ──
+  // ── T04 · no aviso do acesso, o Entendi (a semente também é chegada); no menu, nada;
+  //    a folha fecha; o diálogo faz o Cancelar; o 12 aberto pela coluna fica parado ──
   { abre: '?tela=T04' },
+  { ve: 'Seu acesso vence em 2 dias' },
+  esc,
+  { naoVe: 'Seu acesso vence em 2 dias' },
+  { chega: 'T04', momento: null },
   esc,
   { fica: 'T04', ms: 500 },
   { chega: 'T04', momento: null },
+  { naoVe: 'Seu acesso vence em 2 dias' },
   { toca: 'Conta' },
   { chega: 'T04', momento: '05-momento-folha-conta' },
   esc,
@@ -78,6 +89,21 @@ export default [
   { chega: 'T04', momento: '05-momento-folha-conta' },
   esc,
   { chega: 'T04', momento: null },
+  // o endereço da folha abre a folha, e o aviso espera: o voltar fecha a folha, o aviso entra
+  // depois de ela descer, e o voltar seguinte faz o Entendi
+  { abre: '?tela=T04&momento=05-momento-folha-conta' },
+  { naoVe: 'Seu acesso vence em 2 dias' },
+  esc,
+  { chega: 'T04', momento: null },
+  { ve: 'Seu acesso vence em 2 dias' },
+  esc,
+  { naoVe: 'Seu acesso vence em 2 dias' },
+  { chega: 'T04', momento: null },
+  { abre: '?tela=T04&estado=12-estado-acesso-vencendo' },
+  esc,
+  { fica: 'T04', ms: 500 },
+  { chega: 'T04', estado: '12-estado-acesso-vencendo' },
+  { ve: 'Seu acesso vence em 2 dias' },
 
   // ── T05 · na busca, nada; a pré-checagem correndo, nada; aprovada, o Voltar ao menu;
   //    reprovada ou parada, o Procurar outro módulo, que volta à lista ──
@@ -125,13 +151,18 @@ export default [
   esc,
   { chega: 'T04' },
   // a trava sem link (04, fora do pacote): o Escolher outro do primário, de volta à lista
+  // com a busca como estava — a placa não está no pacote, e é a busca sem resultado (08,
+  // a entrega de 25/09); ali, o voltar é o Voltar ao menu, como na lista
   { abre: '?tela=T06' },
   { digita: 'ONK-8Q90', em: 'Buscar placa' },
   { chega: 'T06', momento: '01-momento-confirmar-o-veiculo' },
   { ve: 'FORA DO PACOTE DESTA UO' },
   esc,
-  { chega: 'T06', momento: null },
+  { chega: 'T06', momento: '08-momento-busca-sem-resultado' },
   { naoVe: 'FORA DO PACOTE DESTA UO' },
+  { ve: 'Nada com “ONK-8Q90”' },
+  esc,
+  { chega: 'T04' },
 
   // ── T07 · tudo aprovado, o Voltar ao menu; com um sinal reprovado, nada ──
   { abre: '?tela=T07' },
@@ -175,11 +206,36 @@ export default [
   esc,
   { chega: 'T04' },
 
-  // ── T10 · o Voltar ao menu, em todo passo ──
+  // ── T10 · o Voltar ao menu, em todo passo; na câmera, o Voltar à calibração, sem foto;
+  //    na calibração completa, sem link, o Concluir a calibração → o menu (decisão 33) ──
   { abre: '?tela=T10' },
   esc,
   { chega: 'T04' },
+  { abre: '?tela=T10&momento=05-momento-hodometro-digitado' },
+  esc,
+  { chega: 'T04' },
+  { abre: '?tela=T10&momento=06-momento-camera-do-painel' },
+  { ve: 'Enquadre o hodômetro do painel' },
+  esc,
+  { chega: 'T10', momento: '05-momento-hodometro-digitado' },
+  { toca: 'Fotografar o painel' },   // sem foto: o cartão continua a tirar
+  { chega: 'T10', momento: '06-momento-camera-do-painel' },
+  { toca: 'Voltar à calibração' },
+  { chega: 'T10', momento: '05-momento-hodometro-digitado' },
+  { desligado: 'Fotografe o painel' },
+  esc,
+  { chega: 'T04' },
+  { abre: '?tela=T10&momento=07-momento-painel-fotografado' },
+  esc,
+  { chega: 'T04' },
   { abre: '?tela=T10&momento=01-momento-hodometro-semeado' },
+  esc,
+  { chega: 'T04' },
+  { abre: '?tela=T10&momento=08-momento-horimetro' },
+  esc,
+  { chega: 'T04' },
+  { abre: '?tela=T10&momento=09-momento-calibracao-completa' },
+  { ve: 'Concluir a calibração' },
   esc,
   { chega: 'T04' },
 

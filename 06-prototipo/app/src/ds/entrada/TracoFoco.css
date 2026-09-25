@@ -12,5 +12,6 @@
   transform-origin: right; transform: scaleX(1);
   transition: transform var(--mov-rapido) var(--mov-curva);
 }
-.ds-foco .ds-traco-foco, .ds-traco-foco:focus-within { border-bottom: var(--traco-destaque) solid var(--lima); }
-.ds-foco .ds-traco-foco::after, .ds-traco-foco:focus-within::after { bottom: calc(-1 * var(--traco-destaque)); transform: scaleX(0); }
+/* `ds-foco` no próprio poço: o campo de busca, que é o poço inteiro (Busca, a entrega de 25/09) */
+.ds-foco .ds-traco-foco, .ds-traco-foco.ds-foco, .ds-traco-foco:focus-within { border-bottom: var(--traco-destaque) solid var(--lima); }
+.ds-foco .ds-traco-foco::after, .ds-traco-foco.ds-foco::after, .ds-traco-foco:focus-within::after { bottom: calc(-1 * var(--traco-destaque)); transform: scaleX(0); }

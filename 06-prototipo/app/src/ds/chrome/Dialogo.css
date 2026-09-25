@@ -1,5 +1,6 @@
 .ds-dialogo-lugar-16 { padding: var(--e-16); }
 .ds-dialogo-lugar-20 { padding: var(--e-20); }
+.ds-dialogo-lugar-24 { padding: var(--e-24); }   /* o aviso do acesso, sobre o menu inteiro (T04/12) */
 
 .ds-dialogo {
   display: flex; flex-direction: column; gap: var(--e-12);

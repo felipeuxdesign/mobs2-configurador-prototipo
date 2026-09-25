@@ -1,5 +1,22 @@
 # Registro de mudanças
 
+## 2026-09-25 · a entrega de 25/09, construída no protótipo
+
+- **T10 · a calibração só semeia com a prova** (decisão 33): o campo do painel com o teclado numérico, o botão que diz o que falta (*Digite o que o painel mostra* → *Fotografe o painel* → *Semear o hodômetro*), a câmera do app desenhada em código, o registro da foto no lugar do cartão, o semear com *Gravando no módulo…* e *Relendo…*, a releitura que não confere com *Semear de novo*, o horímetro no mesmo fluxo e *Concluir a calibração* → o menu · a foto de cada grandeza fica gravada, e o checklist continua herdando o Painel · **as 11 referências de 0 a 0,16%**
+- **T01:** no erro, o *Entrar* fica apagado, dizendo *Digite a senha*, até a senha ter um caractere · **T02 e T06:** a busca sem resultado diz o que não achou e como buscar
+- **T04 · o aviso do acesso:** o diálogo *Seu acesso vence em 2 dias* na primeira chegada ao menu, com os dias do mock; *Entendi* fecha, e o voltar faz o mesmo. No caminho feliz ele aparece uma vez; o *Recomeçar do login* e o pulo do palco mostram de novo
+- **o painel do palco em duas partes**, o caminho e as consultas, com o *Recomeçar do login* no pé · **a régua do palco** nasceu (`app/scripts/palco.mjs`): os 5 quadros do palco, e o painel do 04 em 0,01%
+- **T15:** o *Ressincronizar e reenviar* devolve os itens com erro pra fila, e o envio recomeça · **T16:** as legendas de cada passo do encerramento
+- **as peças:** a foto *a tirar* e *tirada*, o painel vazio, a falha do valor em poço e da régua, o xis-mini, a busca focada e o diálogo com o ar de 24 · os espécimes das folhas 7 e 8 novas em 0%, e nenhum outro mudou
+- **a régua inteira:** 9 roteiros e **1.137 passos** aprovando — o caminho do herói vai do login ao menu sem sessão passando pelo aviso e pela calibração com a prova · nenhuma das 122 referências piorou contra a base, e quatro da T10 melhoraram · `checar` e `build` aprovam
+- **os revisores acharam e corrigiram:** a T10 perdia o número digitado ao voltar pela coluna; o aviso que esperava a folha entrava de uma vez, e o Esc fechava um aviso que ninguém tinha visto; no palco, o anel de foco vazava pro app, o X do painel não tinha pressionado, o *Voltar ao fluxo* encostava na linha no modo estreito, e o `&painel=1` não ia pro endereço
+- **desvios nomeados:**
+  - **G9:** a hora da foto e da releitura é 14:30, o relógio parado (as referências dizem 14:31 a 14:33); a T06/08 mostra os 10 do pacote, e a referência 5;
+  - o aviso do acesso aparece uma vez por percurso, e não por dia, porque o relógio não anda;
+  - o *Entrar* apagado vale só no erro; com a senha vazia fora dele, o toque dá o erro;
+  - no meio do semear, o *Voltar ao menu* e o voltar param o semear, e a volta cai no passo com a foto (pergunta ao diretor)
+- **para o diretor:** quatro perguntas novas em `06-prototipo/decisoes-do-diretor.md` (a busca que esconde a escolha, as garagens sem pacote da lista longa, o voltar no meio do semear, a legenda do corte no herói)
+
 ## 2026-09-24 · a calibração com prova, e os outros buracos
 
 - **a calibração só semeia com a prova**: o campo do painel pra digitar, a câmera do próprio app, o botão dizendo o que falta, a releitura que não confere, e o horímetro até *Concluir a calibração* · decisão 33 e o caso `releitura-nao-confere`

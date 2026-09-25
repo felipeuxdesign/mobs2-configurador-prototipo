@@ -16,6 +16,8 @@ export const TX = {
   esqueci: 'Esqueci a senha',
   erroTitulo: 'USUÁRIO OU SENHA INCORRETOS',
   erroFrase: 'Confira os dois e entre de novo.',
+  // o Entrar apagado no erro, até a senha ter um caractere (01, a entrega de 25/09)
+  digiteSenha: 'Digite a senha',
 
   // a recuperação · o cabeçalho do passo
   recuperar: 'RECUPERAR ACESSO',

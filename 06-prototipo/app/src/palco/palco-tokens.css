@@ -10,8 +10,10 @@
   --palco-quadrado: var(--poco-44);                             /* 44 × 44 (palco.md) */
   --palco-coluna: 230px;
   --palco-coluna-distancia: var(--e-40);
+  --palco-cabeca-coluna-vao: 3px;                              /* entre ESTADOS DESTA TELA e o nome da tela, no topo da coluna (os 5 quadros desenham 3, fora da grade de 2) */
   --palco-painel: 280px;
-  --palco-painel-cabeca: 68px;
+  --palco-painel-cabeca: 68px;                                 /* o cabeçalho do painel, por dentro; a linha de baixo é o topo do corpo (quadro 04: 68 + 1) */
+  --palco-recomecar: var(--linha-padrao);                      /* o Recomeçar do login no pé do painel tem 44 (quadro 04, entrega de 25/09) */
   --palco-linha-coluna: var(--poco-32);                        /* as linhas da coluna têm 32 */
   --palco-linha-painel: var(--poco-34);                        /* as do painel, 34 */
   --palco-botao-voltar: var(--poco-34);

@@ -50,10 +50,11 @@ export const especimes = [
     render: () => <SecaoChecklist estado="aprovada" titulo="A · Identificação" contagem="4 de 4" aberta>{identificacao()}</SecaoChecklist> },
 
   // ── evidência
-  { id: 'f7-foto-aguarda', folha: 7, rotulo: 'foto · aguarda', legenda: 'a legenda diz pra que ela serve',
-    render: () => <FotoProva titulo="Foto do painel" legenda="É a prova do número — e vale no checklist" situacao="aguarda" /> },
-  { id: 'f7-foto-tirada', folha: 7, rotulo: 'foto · tirada', legenda: 'e onde mais ela vale',
-    render: () => <FotoProva tirada titulo="Foto do painel" legenda="Também vale no checklist, na Seção B" situacao="fotografada" /> },
+  // a entrega de 25/09 (decisão 33): a que se tira é o cartão tocável, com a câmera e a seta; a tirada, o registro no lugar
+  { id: 'f7-foto-a-tirar', folha: 7, rotulo: 'foto · a tirar', legenda: 'tocável, com a câmera · a legenda diz pra que ela serve',
+    render: () => <FotoProva titulo="Fotografar o painel" legenda="é a prova do número — vale no checklist" aoTocar={() => {}} /> },
+  { id: 'f7-foto-tirada', folha: 7, rotulo: 'foto · tirada', legenda: 'vira o registro no lugar, e deixa de ser tocável · diz onde mais ela vale',
+    render: () => <FotoProva tirada titulo="Painel fotografado às 14:31" legenda="vale também no checklist, na Seção B" /> },
   { id: 'f7-mostrador-apagado', folha: 7, rotulo: 'mostrador · apagado', legenda: 'tracejado · o traço no lugar do valor',
     render: () => <Mostrador estado="apagado" valor="—" nome="Ignição" /> },
   { id: 'f7-mostrador-relendo', folha: 7, rotulo: 'mostrador · relendo', legenda: 'acende quando o sinal responde',

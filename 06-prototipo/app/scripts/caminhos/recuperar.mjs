@@ -84,6 +84,11 @@ export default [
   { fica: 'T01', ms: 400 },
   { ve: 'USUÁRIO OU SENHA INCORRETOS' },
   { ve: 'Confira os dois e entre de novo.' },
+  // no erro, o Entrar fica apagado, dizendo Digite a senha, até a senha ter um caractere (a 01, entrega de 25/09)
+  { desligado: 'Digite a senha' },
+  { digita: 'G', em: 'SENHA' },
+  { naoVe: 'Digite a senha' },
+  { ve: 'USUÁRIO OU SENHA INCORRETOS' },
   // o olho mostra e esconde: visível, o olho riscado e o nome Ocultar a senha (a 10)
   { digita: 'Garagem!Ibura27', em: 'SENHA' },
   { toca: 'Mostrar a senha' },

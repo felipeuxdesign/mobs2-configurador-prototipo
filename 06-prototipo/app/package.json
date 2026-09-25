@@ -15,6 +15,7 @@
     "comparar": "node scripts/comparar.mjs",
     "tela": "node scripts/tela.mjs",
     "textos": "node scripts/textos.mjs",
+    "palco": "node scripts/palco.mjs",
     "fotografo": "node scripts/fotografo.mjs",
     "fotografo:1": "ESCALA=1 node scripts/fotografo.mjs"
   },

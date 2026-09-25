@@ -12,13 +12,20 @@
 //   onde elas mudam de desenho (o cartão compacto da 02, a Seção F da 04), a
 //   tela é construída fiel (G24).
 // · Os toques: Voltar ao menu → T04 (e o voltar do Android, o Esc no
-//   computador, faz o mesmo: logica.md) · Ressincronizar e reenviar dá o
-//   pressionado e não muda o quadro — o resultado não tem referência nem
-//   texto (G25, vai ao PM) · ENCERRAR, antes de homologar, é a sessão abortada
-//   da T16 (G23); depois de homologar, os passos do encerramento.
+//   computador, faz o mesmo: logica.md) · Ressincronizar e reenviar (a entrega
+//   do design de 25/09): os itens com erro voltam pra fila e o envio recomeça.
+//   O que isso mostra é só o que as referências e o mock sustentam (G25): o
+//   cartão que pede ação sai, porque nada mais precisa do técnico, e os itens
+//   entram na lista como 'na fila', com a espera de criadoAs às 14:30. Nenhum
+//   deles vira o SUBINDO AGORA: o progresso e o tamanho só existem no f-04 do
+//   mock. O item reenviado mora no estado único (`reenviados`, estado/fila.js),
+//   e sair da tela não o desfaz (HU-T15-2) · ENCERRAR, antes de homologar, é a
+//   sessão abortada da T16 (G23); depois de homologar, os passos do encerramento.
+// · A notificação local da fila parada (HU-T15-6, o tela.md de 25/09) não se
+//   constrói: nenhuma referência a desenha, e ela é do sistema, fora da tela.
 // · Sem processo que ande sozinho: o envio da fila não tem ritmo declarado
 //   (G4), e o 01 é estado, parado. O movimento (a barra que enche, o item que
-//   esmaece) é do C12.
+//   esmaece, o cartão que sai) é do C12.
 import {
   BarraDoSistema, Faixa, CabecalhoConteudo, CartaoAcao, Lista, LinhaFila, LinhaRechecagem, Vazio, Rodape,
 } from '../../ds/index.js'
@@ -66,12 +73,17 @@ export default function T15({ estado: est }) {
   // compacto, com o erro de rede e a legenda embaixo (02, T15·1)
   const recusa = erros.find((f) => f.estado === 'erro-recusa')
   const outros = erros.filter((f) => f !== recusa)
+  // Ressincronizar e reenviar: os itens com erro do cartão voltam pra fila
+  // (estado único, `reenviados`); sem erro, o cartão sai e eles entram na lista
+  const reenviar = () => despachar({
+    tipo: 'mesclar', parcial: { reenviados: [...new Set([...(unico.reenviados ?? []), ...erros.map((f) => f.id)])] },
+  })
   let cartao = null
   if (recusa) {
     const compacto = erros.length > 1
     cartao = (
       <CartaoAcao compacto={compacto} rotulo={T.rotuloDosErros[erros.length]} titulo={tituloDoItem(recusa)}
-        descricao={causaDaRecusa(recusa, erros.length)} acao={T.ressincronizar}>
+        descricao={causaDaRecusa(recusa, erros.length)} acao={T.ressincronizar} aoAgir={reenviar}>
         {outros.map((f) => <ItemQueReenvia key={f.id} titulo={tituloDoItem(f)} causa={causaDaRede(f)} nomeGlifo="sem conexão" />)}
         {compacto && outros.length === 1 && outros[0].estado === 'erro-rede' && <Legenda>{T.soAPrimeira}</Legenda>}
       </CartaoAcao>

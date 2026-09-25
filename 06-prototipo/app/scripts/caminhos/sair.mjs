@@ -12,6 +12,12 @@ const LOGIN_ATE_O_MENU = [
   { toca: 'Ir para o menu' },
   { chega: 'T04', momento: '01-momento-sem-modulo' },
 ]
+// o 5º dia do acesso: o aviso na primeira chegada ao menu, e o Entendi fecha (T04/12)
+const O_AVISO = [
+  { ve: 'Seu acesso vence em 2 dias' },
+  { toca: 'Entendi' },
+  { naoVe: 'Seu acesso vence em 2 dias' },
+]
 const SESSAO_ABERTA = [
   { toca: 'CONECTAR MÓDULO' },
   { chega: 'T05', momento: '01-momento-nenhum-escolhido' },
@@ -41,6 +47,7 @@ const OS_QUATRO_PASSOS = [
 export default [
   { abre: '' },
   ...LOGIN_ATE_O_MENU,
+  ...O_AVISO,
   ...SESSAO_ABERTA,
   // Sair da conta: as iniciais → a folha Conta → o diálogo
   { toca: 'Conta — Rafael Vieira' },
@@ -65,6 +72,7 @@ export default [
   ...LOGIN_ATE_O_MENU,
   { naoVe: 'ENCERRAR' },
   { ve: 'Sem sessão de configuração' },
+  { naoVe: 'Seu acesso vence em 2 dias' },   // sair e entrar de novo não zera o aviso: ele é uma vez por dia
   // a fila preservada: a mesma conta no cartão (a garagem ativa) e no diálogo (todas)
   { toca: 'Conta — Rafael Vieira' },
   { chega: 'T04', momento: '05-momento-folha-conta' },

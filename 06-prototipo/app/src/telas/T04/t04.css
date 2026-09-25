@@ -46,3 +46,8 @@
  * a tira e a faixa ficam acesas em cima dele. A linha de cima é a mesma de
  * baixo do topo do menu (--separador), no mesmo pixel. */
 .t04-sobre-faixa { top: calc(var(--barra-sistema) + var(--tira-contexto) + var(--faixa-sessao-menu)); }
+
+/* no aviso do acesso vencendo (T04/12), o véu começa embaixo da barra do
+ * sistema: a tira e a faixa ficam atrás dele, com o menu, sem a linha de cima
+ * (a de baixo do topo do menu fica sob o véu, como a referência desenha). */
+.t04-sobre-tudo { top: var(--barra-sistema); border-top: 0; }

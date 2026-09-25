@@ -16,8 +16,10 @@ export function estadoVazio() {
       calibracao: null, ciclo: null, checklist: null, encerramento: null,
     },
     fila: [],                                         // os itens que a sessão cria, além de M.filaSaida
+    reenviados: [],                                   // os ids que o Ressincronizar e reenviar devolveu à fila (T15 · estado/fila.js)
     situacao: { rede: M.situacao.rede, sessaoAcesso: M.situacao.sessaoAcesso },
     casosConsumidos: [],                              // cada caso vale uma vez por sessão (G21)
+    avisoDoAcessoVisto: false,                        // o aviso do acesso vencendo já foi fechado no Entendi (logica.md · O aviso do acesso)
     tela: { id: 'T01', momento: null, estado: null, folha: null },
     antes: null,                                      // o instante de antes de abrir um estado (G19)
     geracao: 0,                                       // sobe a cada pulo do palco: o App remonta a tela (C4)

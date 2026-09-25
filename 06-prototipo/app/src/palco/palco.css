@@ -6,7 +6,8 @@ body { background: var(--poco-fundo); overflow: hidden; }
 
 .palco { position: relative; min-height: 100%; height: 100%; font-family: var(--fonte); color: var(--tinta); }
 .palco :where(button) { font: inherit; color: inherit; background: none; border: 0; padding: 0; margin: 0; cursor: pointer; }
-.palco button:focus-visible { outline: var(--traco-destaque) solid var(--tinta-forte); outline-offset: var(--traco-destaque); }
+/* o foco do teclado é só das peças do palco (06-prototipo/CLAUDE.md, regra 5): o botão do app, dentro do celular, não ganha anel */
+:is(.palco-quadrado, .painel button, .coluna button):focus-visible { outline: var(--traco-destaque) solid var(--tinta-forte); outline-offset: var(--traco-destaque); }
 .palco-rotulo { font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--palco-ls-rotulo); color: var(--tinta-apagada); }
 .palco-icone-14 { width: var(--e-14); height: var(--e-14); stroke-width: var(--traco-icone); }
 .palco-icone-16 { width: var(--e-16); height: var(--e-16); stroke-width: var(--traco-icone); }
@@ -42,7 +43,7 @@ body { background: var(--poco-fundo); overflow: hidden; }
   width: var(--palco-coluna); display: flex; flex-direction: column; justify-content: safe center; gap: var(--e-14); }
 .coluna-topo { flex-shrink: 0; height: var(--palco-topo-coluna); display: flex; align-items: center; }
 .coluna-no-fluxo { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-apagada); }
-.coluna-cabeca { display: flex; flex-direction: column; gap: var(--e-2); }
+.coluna-cabeca { display: flex; flex-direction: column; gap: var(--palco-cabeca-coluna-vao); }
 .coluna-tela { font-size: var(--t-secundario); font-weight: 600; color: var(--tinta-secundaria); }
 .coluna-voltar {
   height: var(--palco-botao-voltar); display: flex; align-items: center; gap: var(--e-8); padding: 0 var(--e-12); align-self: flex-start;
@@ -52,9 +53,11 @@ body { background: var(--poco-fundo); overflow: hidden; }
 .coluna-voltar:active { background: var(--elevado); }
 .coluna-voltar-pisca { animation: palco-pisca var(--mov-lento) var(--mov-curva) 1; }
 @keyframes palco-pisca { 50% { opacity: var(--palco-opacidade-pisca); } }
-.coluna-lista { display: flex; flex-direction: column; gap: var(--e-10); }
+.coluna-lista { display: flex; flex-direction: column; }
 .coluna-grupo { display: flex; flex-direction: column; }
-.coluna-grupo-nome { font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--tinta-apagada); padding: var(--e-6) 0 var(--e-4); }
+/* o nome do grupo (só a T05): 10 em cima e 2 embaixo, sem vão entre os grupos, como os quadros 00 e 03 desenham;
+   a tinta e a letra são as do rótulo de 10 (lei 11: o quadro usa --marca-limite, abaixo do piso de texto, PALCO-A15) */
+.coluna-grupo-nome { font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--tinta-apagada); padding: var(--e-10) 0 var(--e-2); }
 .coluna-linha { height: var(--palco-linha-coluna); display: flex; align-items: center; gap: var(--e-10); text-align: left; }
 .coluna-linha:active .coluna-nome { color: var(--tinta); }
 .coluna-nome { font-size: var(--t-secundario); font-weight: 500; color: var(--tinta-apagada); }
@@ -70,23 +73,33 @@ body { background: var(--poco-fundo); overflow: hidden; }
 }
 .painel-aberto { transform: none; }
 .painel-cabeca { height: var(--palco-painel-cabeca); flex-shrink: 0; display: flex; align-items: center; justify-content: space-between;
-  padding: 0 var(--e-16) 0 var(--e-20); border-bottom: var(--traco-borda) solid var(--borda-rodape); }
+  padding: 0 var(--e-16) 0 var(--e-20); }
+/* o corpo: o que fica entre o cabeçalho e o pé, com a linha do cabeçalho no topo (o cabeçalho tem os seus 68 por dentro, quadro 04) */
+.painel-corpo { flex-grow: 1; min-height: 0; display: flex; flex-direction: column; border-top: var(--traco-borda) solid var(--borda-rodape); }
 .painel-titulo { display: flex; flex-direction: column; gap: var(--e-2); }
 .painel-telas { font-size: var(--t-destaque); font-weight: 700; }
 .painel-x { width: var(--palco-x); height: var(--palco-x); display: flex; align-items: center; justify-content: center; color: var(--tinta-secundaria);
   background: var(--poco); border-top: var(--traco-borda) solid var(--poco-fundo); border-bottom: var(--traco-borda) solid var(--borda-poco);
   border-left: var(--traco-borda) solid var(--poco-lado); border-right: var(--traco-borda) solid var(--poco-lado); }
+/* o X responde como o quadrado, o outro poço do palco (palco.md: tudo responde no clique, com o pressionado) */
+.painel-x:active { background: var(--elevado); }
 .painel-lista { flex-grow: 1; min-height: 0; overflow-y: auto; padding: var(--e-4) 0 var(--e-16); }
 .painel-parte { padding: var(--e-12) var(--e-20) var(--e-4); font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--tinta-apagada); }
 .painel-linha { width: 100%; height: var(--palco-linha-painel); display: flex; align-items: center; gap: var(--e-10); padding: 0 var(--e-20); text-align: left; }
-.painel-linha:active, .painel-linha-aberta { background: var(--elevado); }
+/* a tela aberta: o fundo do cartão e o traço claro à esquerda, sem lima (quadro 00 e 04); o pressionado sobe pra --elevado (movimento.md) */
+.painel-linha-aberta { background: var(--fundo-cartao); box-shadow: inset var(--traco-destaque) 0 0 var(--tinta); }
+.painel-linha:active { background: var(--elevado); }
 .painel-codigo { width: var(--palco-codigo); font-size: var(--t-legenda); font-weight: 700; color: var(--tinta-apagada); }
 .painel-nome { font-size: var(--t-corpo); font-weight: 500; color: var(--tinta-forte); }
 .painel-linha-aberta .painel-codigo { color: var(--tinta-secundaria); }
 .painel-linha-aberta .painel-nome { color: var(--tinta); font-weight: 700; }
-.painel-recomecar { flex-shrink: 0; height: var(--palco-linha-painel); padding: 0 var(--e-20); text-align: left; font-size: var(--t-corpo); font-weight: 600; color: var(--tinta-secundaria);
-  border-top: var(--traco-borda) solid var(--borda-rodape); }
-.painel-recomecar:active { background: var(--elevado); }
+/* o pé: a borda, e o Recomeçar do login com o ícone de voltar ao começo (quadro 04); no estreito, a etiqueta embaixo dele */
+.painel-pe { flex-shrink: 0; display: flex; flex-direction: column; padding: var(--e-12) var(--e-20) var(--e-20); border-top: var(--traco-borda) solid var(--borda); }
+.painel-recomecar { height: var(--palco-recomecar); display: flex; align-items: center; gap: var(--e-10); text-align: left;
+  font-size: var(--t-corpo); font-weight: 600; color: var(--tinta-forte); }
+.painel-recomecar svg { color: var(--tinta-secundaria); }
+/* o pressionado, como o do link (movimento.md): o texto e o ícone vão pra --tinta */
+.painel-recomecar:active, .painel-recomecar:active svg { color: var(--tinta); }
 
 .palco-etiqueta { position: absolute; left: var(--palco-margem); bottom: var(--palco-margem); font-size: var(--t-legenda); color: var(--tinta-apagada); }
 
@@ -101,8 +114,10 @@ body { background: var(--poco-fundo); overflow: hidden; }
 .palco-estreito .palco-etiqueta { display: none; }
 /* no estreito, o painel leva o Voltar ao fluxo e a etiqueta (G19); o toque no
    app parado pisca o quadrado, que é a porta do Voltar */
-.painel-voltar { margin: 0 var(--e-20) var(--e-12); }
-.painel-etiqueta { flex-shrink: 0; padding: var(--e-8) var(--e-20) var(--e-16); font-size: var(--t-legenda); color: var(--tinta-apagada); }
+/* 12 da linha do cabeçalho (decisão 17: nada encosta); embaixo, o recheio da lista e o do nome da parte já dão 16 até O CAMINHO.
+   Nunca encolhe quando a lista não cabe e rola */
+.painel-voltar { flex-shrink: 0; margin: var(--e-12) var(--e-20) 0; }
+.painel-etiqueta { font-size: var(--t-legenda); color: var(--tinta-apagada); }
 .palco-pisca { animation: palco-pisca var(--mov-lento) var(--mov-curva) 1; }
 /* a rolagem do palco (diretor, 24/09): o painel e a coluna rolam com uma barra
    fina, nas cores do palco, sem trilho claro; no celular estreito, a rolagem

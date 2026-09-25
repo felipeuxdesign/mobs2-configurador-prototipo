@@ -17,6 +17,15 @@ export default [
   { toca: 'Ir para o menu' },
   { chega: 'T04' },
   { ve: 'Sem sessão de configuração' },
+  // o herói está no 5º dia do acesso: o aviso na primeira chegada ao menu, uma vez (T04/12)
+  { ve: 'Seu acesso vence em 2 dias' },
+  { dorme: 200 },
+  { quieto: true },   // nasce aberto, com o menu: a chegada não anima
+  { ve: 'Depois disso, ele pede a senha de novo — e pra isso precisa de rede.' },
+  { naoToca: 'CONECTAR MÓDULO' },   // o menu atrás do véu não se toca
+  { toca: 'Entendi', anima: [{ prop: 'opacity', ms: 150, em: 'ds-dialogo' }, { prop: 'opacity', ms: 150, em: 'ds-veu' }] },
+  { naoVe: 'Seu acesso vence em 2 dias' },
+  { chega: 'T04', momento: '01-momento-sem-modulo' },
   // conectar: a lista, marcar o do herói e o botão (R-14)
   { toca: 'CONECTAR MÓDULO' },
   { chega: 'T05', momento: '01-momento-nenhum-escolhido' },
@@ -65,21 +74,53 @@ export default [
   { ve: 'o módulo devolveu os seis blocos' },
   { toca: 'Voltar ao menu' },
   { chega: 'T04' },
-  // a calibração do hodômetro: a foto do painel e o semear
+  // a calibração só semeia com a prova (decisão 33): o número do painel digitado e a foto
+  // da câmera do app; o botão diz o que falta. O hodômetro, e depois o horímetro, até Concluir
   { toca: 'Calibração' },
-  { chega: 'T10' },
+  { chega: 'T10', momento: null },
   { ve: 'O MÓDULO CONTA' },
   { ve: '184.320' },
-  { ve: 'aguarda' },
+  { ve: 'lido do módulo às 14:30' },   // os 14:31 a 14:33 das referências são o desvio nomeado G9 (o relógio parado)
+  { desligado: 'Digite o que o painel mostra' },
+  { digita: '482317', em: 'O PAINEL MOSTRA' },   // calibracao.painel · a-01 · hodômetro
+  { chega: 'T10', momento: '05-momento-hodometro-digitado' },
+  { ve: 'diferença de 297.997 km' },
+  { ve: 'é este que vai para o módulo' },
+  { desligado: 'Fotografe o painel' },
   { toca: 'Fotografar o painel' },
-  { ve: 'fotografada' },
-  { fica: 'T10', ms: 300 },
+  { chega: 'T10', momento: '06-momento-camera-do-painel' },
+  { ve: 'Enquadre o hodômetro do painel' },
+  { toca: 'Tirar foto' },
+  { chega: 'T10', momento: '07-momento-painel-fotografado' },
+  { ve: 'Painel fotografado às 14:30' },
+  { ve: 'vale também no checklist, na Seção B' },
+  { naoToca: 'Painel fotografado' },   // foto tirada fica tirada: o registro não se toca
   { toca: 'Semear o hodômetro' },
-  { chega: 'T10', momento: '01-momento-hodometro-semeado' },
+  { desligado: 'Gravando no módulo…' },
+  { desligado: 'Relendo…', entre: [700, 1500] },
+  { chega: 'T10', momento: '01-momento-hodometro-semeado', entre: [700, 1500] },
   { ve: 'O MÓDULO CONTA AGORA' },
-  { ve: 'relido às 14:30 · confere com o painel' },   // o 14:31 da referência é o desvio nomeado G9 (CHANGELOG)
-  { ve: 'Calibrar o horímetro' },
-  { toca: 'Voltar ao menu' },
+  { ve: 'relido às 14:30 · confere com o painel' },
+  { ve: 'o mesmo que o módulo agora conta' },
+  { toca: 'Calibrar o horímetro' },
+  { chega: 'T10', momento: '08-momento-horimetro' },
+  { ve: 'Último passo' },
+  { ve: '8.540' },
+  { desligado: 'Digite o que o painel mostra' },
+  { digita: '9640', em: 'O PAINEL MOSTRA' },   // calibracao.painel · a-01 · horímetro
+  { chega: 'T10', momento: null },   // o digitado, a câmera e o fotografado do horímetro não têm referência
+  { ve: 'diferença de 1.100 h' },
+  { desligado: 'Fotografe o painel' },
+  { toca: 'Fotografar o painel' },
+  { ve: 'Enquadre o horímetro do painel' },
+  { toca: 'Tirar foto' },
+  { toca: 'Semear o horímetro' },
+  { desligado: 'Gravando no módulo…' },
+  { chega: 'T10', momento: '09-momento-calibracao-completa', entre: [1400, 3000] },
+  { ve: 'Calibração completa' },
+  { ve: '9.640' },
+  { naoToca: 'Voltar ao menu' },   // a calibração completa só sai pelo Concluir
+  { toca: 'Concluir a calibração' },
   { chega: 'T04' },
   // o checklist: a Seção E abre o ciclo dinâmico
   { toca: 'Finalizar com checklist' },
@@ -140,8 +181,18 @@ export default [
   { ve: 'Encerrando · não desconecte' },
   { ve: 'Contadores e estado' },
   { ve: 'Autoteste' },
+  // cada passo que corre diz o que faz, embaixo do nome (as 8 legendas do tela.md, a entrega de 25/09)
+  { ve: 'Grava os contadores e o estado no módulo, pra nada se perder no reinício.' },
+  // o herói reinicia por comando: o passo 2 corre sem pedir o corte (T16·1, T16·7)
+  { naoVe: 'Grava os contadores e o estado no módulo', entre: [0, 1000] },
+  { naoVe: 'Desligue e ligue a alimentação do módulo.' },
+  { ve: 'Ele lê de volta o que ficou gravado. É isto que prova que a configuração sobreviveu ao reinício.' },
+  { ve: 'Devolve o módulo ao repouso que ele tinha antes da sessão.' },
+  { ve: 'Fecha o canal que o app abriu no módulo. Ele fecha sempre, mesmo sem homologar.' },
+  { ve: 'Guarda o que foi feito aqui, pra ir ao servidor junto com a instalação.' },
+  { ve: 'Solta o Bluetooth. O módulo fica livre pra outro aparelho.' },
   // fechado o sétimo passo, a faixa sobe e a tela passa pra Sessão encerrada
-  { chega: 'T16', momento: '02-momento-sessao-encerrada', entre: [3000, 6000] },
+  { chega: 'T16', momento: '02-momento-sessao-encerrada', entre: [100, 1500] },
   { ve: 'Sem sessão de configuração' },
   { naoVe: 'ENCERRAR' },
   { ve: 'Sessão encerrada' },
@@ -156,5 +207,6 @@ export default [
   { naoVe: 'ENCERRAR' },
   { naoVe: 'RKT-8H42' },
   { ve: 'toque para procurar' },
+  { naoVe: 'Seu acesso vence em 2 dias' },   // o aviso já foi visto: não volta no mesmo dia
   { fica: 'T04', ms: 600 },
 ]

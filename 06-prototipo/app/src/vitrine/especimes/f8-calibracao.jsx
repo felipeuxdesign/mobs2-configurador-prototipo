@@ -1,5 +1,6 @@
 // Folha 8 · a calibração (T10): o que o módulo conta, a distância até o
-// painel, o número que vai e o que não se aplica. Texto exato da folha.
+// painel, o número que vai, o painel antes de digitar (a entrega de 25/09)
+// e o que não se aplica. Texto exato da folha.
 import { ValorEmPoco, ReguaDiferenca, ValorAlvo, Declarado } from '../../ds/instrumentos/index.js'
 
 export const especimes = [
@@ -9,6 +10,9 @@ export const especimes = [
     render: () => <ReguaDiferenca>diferença de 297.997 km</ReguaDiferenca> },
   { id: 'f8-valor-alvo', folha: 8, rotulo: 'o valor alvo', legenda: 'o número do painel, o que vai pro módulo',
     render: () => <ValorAlvo rotulo="O PAINEL MOSTRA" valor="482.317" unidade="km" legenda="é este que vai para o módulo" /> },
+  // a entrega de 25/09 (decisão 33): o campo do painel antes de digitar
+  { id: 'f8-painel-vazio', folha: 8, rotulo: 'o painel · vazio', legenda: 'antes de digitar · o traço em tinta apagada, sem o lima',
+    render: () => <ValorAlvo vazio rotulo="O PAINEL MOSTRA" valor="—" unidade="km" legenda="toque e digite o que o painel mostra" /> },
   { id: 'f8-nao-se-aplica', folha: 8, rotulo: 'o que não se aplica', legenda: 'fato declarado, sem vermelho',
     render: () => (
       <Declarado aoPe rotulo="NÃO SE APLICAM NESTE MODELO"

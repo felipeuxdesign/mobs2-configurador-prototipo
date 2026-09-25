@@ -174,6 +174,10 @@ export function Login({ momento, estado, irMomento }) {
   )
 
   function Entrada() {
+    // no erro, o Entrar fica apagado, dizendo Digite a senha, até a senha ter um
+    // caractere (tela.md, a entrega de 25/09). Na entrada sem erro, com a senha
+    // vazia, fica aceso: nenhuma referência desenha o apagado ali (pendência)
+    const esperaSenha = s.erroEntrada && !s.senha
     return (
       <>
         <h1 className="t01-titulo-oculto">{TX.entrar}</h1>
@@ -194,7 +198,8 @@ export function Login({ momento, estado, irMomento }) {
             <Checkbox marcado={s.lembrar} aoMudar={(v) => muda({ lembrar: v })}>{TX.lembrar}</Checkbox>
           </div>
         </div>
-        <Rodape lugar="login" primario={TX.entrar} aoPrimario={entrar} link={TX.esqueci} aoLink={esqueci} />
+        <Rodape lugar="login" primario={esperaSenha ? TX.digiteSenha : TX.entrar} primarioDesabilitado={esperaSenha}
+          aoPrimario={entrar} link={TX.esqueci} aoLink={esqueci} />
       </>
     )
   }

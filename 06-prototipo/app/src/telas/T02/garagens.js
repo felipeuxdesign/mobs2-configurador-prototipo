@@ -12,6 +12,8 @@ import { RECEITAS } from '../../estado/receitas.js'
 import { chaveDeBusca, idadeNaLinhaDaGaragem, passouDoBloqueio } from '../../dados/formato.js'
 
 export const LISTA_LONGA = '02-estado-lista-longa-com-busca'
+// a busca sem resultado (a entrega de 25/09): um momento do mesmo caso, que abre pelo endereço
+export const SEM_RESULTADO = '03-momento-busca-sem-resultado'
 const casoDaListaLonga = () => M.casos[RECEITAS[`T02/${LISTA_LONGA}`].casos[0]]
 
 // o limiar do vencido: o do pacote da UO no mock. A garagem que só o caso tem
@@ -38,15 +40,18 @@ const HEROI = agrupar(M.ucs, M.uos, (uo) => {
 const caso = casoDaListaLonga()
 const LONGA = agrupar(caso.ucs, caso.uos, (uo) => linha(uo, uo.pacoteIdadeDias, uo.pacoteHora, uo.ativos, bloqueioDe(uo.id)))
 
-/** os grupos do mundo que o quadro mostra: o do caso no estado 02, o do herói no resto */
-export const gruposDo = (estado) => (estado === LISTA_LONGA ? LONGA : HEROI)
+/** os grupos do mundo que o quadro mostra: o do caso no estado 02 e no momento 03, o do herói no resto */
+export const gruposDo = (doCaso) => (doCaso ? LONGA : HEROI)
+
+/** as garagens que o mundo do herói também tem: só elas têm pacote na T03 (M.pacotes) */
+export const temPacote = (uoId) => M.pacotes.some((p) => p.uoId === uoId)
 
 /** a busca aparece com mais garagens que o limite sem busca do caso (mais de 6) */
 export const temBusca = (grupos) => grupos.reduce((n, g) => n + g.linhas.length, 0) > caso.limiteSemBusca
 
 /** a busca: a linha fica se o texto está no nome da garagem ou na cidade dela,
- *  sem acento e sem caixa; o grupo sem linha some. O vazio fica sem frase: o
- *  textos.md não tem uma (T02·7, vai ao diretor desde o C4). */
+ *  sem acento e sem caixa; o grupo sem linha some. Sem nenhuma, a tela diz o
+ *  vazio declarado, com o termo no título (o momento 03, a entrega de 25/09). */
 export function filtrar(grupos, texto) {
   const q = chaveDeBusca(texto)
   if (!q) return grupos

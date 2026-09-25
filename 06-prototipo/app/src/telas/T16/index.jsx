@@ -4,7 +4,9 @@
 //   correm em "Encerrar sessão", um a cada RITMOS.encerramentoPassoMs, desde o
 //   passo 1 (G27); a 00 é o quadro com a releitura correndo. O passo 2 reinicia
 //   por comando quando o driver suporta; senão pede o corte (01, T16·1), e o
-//   módulo volta sozinho no mesmo ritmo. Ao fechar o 7, a sessão sai do estado
+//   módulo volta sozinho no mesmo ritmo. O passo que corre leva a legenda
+//   dele embaixo do nome (as 8 legendas do tela.md, a entrega de 25/09); o 2,
+//   só no corte (T16·7). Ao fechar o 7, a sessão sai do estado
 //   único e a faixa troca pra "sem sessão" (o subir dela é do C12); a tela
 //   passa pra "Sessão encerrada", onde as 8 assertivas acendem, uma a cada
 //   RITMOS.autotesteAssertivaMs, e a prova e o Voltar ao menu entram quando

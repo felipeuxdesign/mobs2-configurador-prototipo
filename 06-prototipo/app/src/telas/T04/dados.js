@@ -3,6 +3,7 @@
 // digitado: toda contagem sai de M (G8, G9).
 import { M } from '../../dados/mock.js'
 import { caixaAlta, pacotePassouDoBloqueio } from '../../dados/formato.js'
+import { filaDoMundo } from '../../estado/fila.js'
 
 // os nomes das referências (02-telas/T04-menu/referencias)
 export const REF = {
@@ -17,6 +18,7 @@ export const REF = {
   trocar: '09-estado-folha-trocar-de-garagem-com-modulo-conectado',
   modulo: '10-momento-folha-modulo-conectado',
   ativo: '11-momento-folha-ativo-da-sessao',
+  acesso: '12-estado-acesso-vencendo',
 }
 
 // o que está por cima do menu em cada referência: a folha da conta, o
@@ -62,7 +64,8 @@ export function iniciais(nome) {
 }
 
 // a fila inteira: a do mock mais o que a sessão criou (estado único)
-export const filaToda = (unico) => [...M.filaSaida, ...unico.fila]
+// — e o erro que o técnico reenviou na T15 já de volta na fila (estado/fila.js)
+export const filaToda = (unico) => filaDoMundo(unico)
 
 // T04·1 (b) · o contador do menu: o que ainda não chegou, só da garagem ativa
 export function pendentesDaGaragem(fila, uoId) {
@@ -84,6 +87,12 @@ export function checklistPendentes(etapa) {
 // o prazo da sessão de acesso (M.situacao.sessaoAcesso): o que resta de quanto
 export function prazoDoAcesso(acesso) {
   return { restam: acesso.validadeDias - acesso.abertaDiasAtras, total: acesso.validadeDias }
+}
+// o aviso do acesso vencendo (T04/12): do dia do aviso (avisoNoDia) até o
+// último dia da validade, o que resta; fora disso, nada (null)
+export function avisoDoAcesso(acesso) {
+  const noAviso = acesso.abertaDiasAtras >= acesso.avisoNoDia && acesso.abertaDiasAtras < acesso.validadeDias
+  return noAviso ? prazoDoAcesso(acesso) : null
 }
 
 // as garagens da folha, cada uma com o pacote dela (M.pacotes): a idade, se

@@ -13,6 +13,7 @@ export const REF = {
   resolvivel: '05-estado-conflito-de-pinos-resolvivel',
   semSaida: '06-estado-conflito-de-pinos-sem-saida',
   corrigida: '07-momento-correcao-solicitada',
+  semResultado: '08-momento-busca-sem-resultado', // a busca que não acha nenhum ônibus do pacote (a entrega de 25/09)
 }
 
 export const ativoDe = (id) => M.ativos.find((a) => a.id === id)

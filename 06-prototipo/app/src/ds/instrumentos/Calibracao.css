@@ -6,6 +6,8 @@
 .ds-valor-poco-apagado .ds-valor-poco-rotulo,
 .ds-valor-poco-apagado .ds-valor-poco-numero,
 .ds-valor-poco-apagado .ds-valor-poco-unidade { color: var(--tinta-apagada); }
+/* a releitura que não confere (T10/10): o número em vermelho */
+.ds-valor-poco-falha .ds-valor-poco-numero { color: var(--vermelho); }
 
 /* a régua da diferença */
 .ds-regua { flex-shrink: 0; display: flex; align-items: center; gap: var(--e-10); padding: 0 var(--e-2); }
@@ -13,17 +15,33 @@
 .ds-regua-texto { font-size: var(--t-secundario); font-weight: 700; color: var(--tinta-secundaria); }
 .ds-regua-confere { display: flex; align-items: center; gap: var(--e-6); color: var(--tinta); }
 .ds-regua-confere .ds-glifo { width: var(--glifo-confere); height: var(--glifo-confere); }
+/* o não confere (T10/10): o xis solto de 14 e a frase, em vermelho */
+.ds-regua-falha { display: flex; align-items: center; gap: var(--e-6); color: var(--vermelho); }
 
-/* o valor alvo */
+/* o valor alvo: o campo do painel em foco, com o lima (a folha 8) */
 .ds-valor-alvo.ds-caixa-poco {
-  flex-grow: 1; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  position: relative; flex-grow: 1; min-height: 0; overflow: hidden; /* o número que não cabe não vaza do poço */
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: var(--e-8); padding: var(--e-16);
   border-bottom: var(--traco-destaque) solid var(--lima);
 }
 .ds-valor-alvo-rotulo { font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--lima); }
-.ds-valor-alvo-numero { font-size: var(--n-destaque); font-weight: 700; letter-spacing: var(--ls-n-destaque); line-height: var(--entrelinha-numero); }
+.ds-valor-alvo-numero { font-size: var(--n-destaque); font-weight: 700; letter-spacing: var(--ls-n-destaque); line-height: var(--entrelinha-numero); white-space: nowrap; }
 .ds-valor-alvo-unidade { font-size: var(--n-unidade-g); font-weight: 500; color: var(--tinta-secundaria); padding-left: var(--e-4); }
 .ds-valor-alvo-legenda { font-size: var(--t-secundario); font-weight: 500; color: var(--tinta-apagada); }
-/* o alvo cumprido (T10/01): sem o traço lima, com a borda do poço, e o rótulo apagado */
+/* sem o lima: o painel vazio (folha 8) e o número fora do foco (o cumprido, T10/01, 07, 09, 10) —
+   a borda do poço e o rótulo apagado; no vazio, o traço no lugar do número em --marca-limite */
+.ds-valor-alvo.ds-caixa-poco.ds-valor-alvo-vazio,
 .ds-valor-alvo.ds-caixa-poco.ds-valor-alvo-cumprido { border-bottom: var(--traco-borda) solid var(--borda-poco); }
+.ds-valor-alvo-vazio .ds-valor-alvo-rotulo,
 .ds-valor-alvo-cumprido .ds-valor-alvo-rotulo { color: var(--tinta-apagada); }
+.ds-valor-alvo-vazio .ds-valor-alvo-numero { color: var(--marca-limite); }
+/* o campo em foco: o lima de volta, por cima das duas (T10/05) */
+.ds-valor-alvo.ds-caixa-poco.ds-valor-alvo-foco { border-bottom: var(--traco-destaque) solid var(--lima); }
+.ds-valor-alvo-foco .ds-valor-alvo-rotulo { color: var(--lima); }
+/* o campo: por cima do poço inteiro, sem desenho — o que se vê é o número da peça */
+.ds-valor-alvo-campo {
+  position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; padding: 0; border: 0;
+  background: transparent; color: transparent; caret-color: transparent; opacity: 0;
+  font-family: inherit; font-size: var(--t-destaque);
+}

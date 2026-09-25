@@ -10,11 +10,13 @@
 //   · o chassi lido contra o do cadastro: batem (01) ou divergem (02);
 //     'Solicitar correção de cadastro' vira o registro no mesmo cartão (07)
 // O ônibus que não é caso abre a 01 com o lido igual ao cadastro (T06·2 a).
+// A busca que não acha nenhum ônibus do pacote mostra o vazio declarado, com o
+// termo no título (08, a entrega de 25/09, que muda a T06·5).
 // 'Usar este ativo' grava o ativo na sessão e segue pra T07.
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   BarraDoSistema, Faixa, CabecalhoConteudo, Busca, Lista, LinhaOnibus, BlocoEscolhido,
-  ParComparado, Nota, Checkbox, LinhaTocavel, Rodape,
+  ParComparado, Nota, Checkbox, LinhaTocavel, Rodape, Vazio,
 } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
@@ -28,6 +30,9 @@ import {
 import './t06.css'
 
 const ENCERRAR_SEM_HOMOLOGAR = '03-momento-encerrando-sem-homologar' // G23: a sessão abortada (T16/03)
+// o termo que a referência 08 desenha digitado (textos.md): o endereço do momento abre com ele
+const TERMO_DA_08 = 'ABC-1234'
+const nadaCom = (termo) => `Nada com “${termo}”`
 
 export default function T06({ momento, estado: est }) {
   const { estado: unico, despachar } = useEstado()
@@ -43,7 +48,7 @@ export default function T06({ momento, estado: est }) {
 
   // o ônibus escolhido: o do caso, o do módulo da sessão (a 01 aberta pela URL) ou nenhum (a lista)
   const [escolhido, setEscolhido] = useState(() => doEstado?.ativoId ?? (momento === REF.confirmar ? ativoDoModulo(uoFluxo, sessaoFluxo) : null))
-  const [busca, setBusca] = useState('')
+  const [busca, setBusca] = useState(momento === REF.semResultado ? TERMO_DA_08 : '')
   const [confirmado, setConfirmado] = useState(false)
   // na lista, tocar num ônibus o marca, e o 'Usar este ativo' leva à confirmação
   // (decisão do diretor, 24/09: a T06·1 passa pra (b), o T06-N3)
@@ -68,8 +73,22 @@ export default function T06({ momento, estado: est }) {
   const ativo = escolhido ? ativoDe(escolhido) : null
   const prova = ativo ? avaliar(ativo, { uoId, sessao }, doEstado?.desde) : null
 
-  // O voltar do Android (logica.md): o link de saída do rodapé — na lista, no
-  // chassi divergente e na correção pedida (00, 02, 07), o Voltar ao menu; na
+  // a lista do pacote, filtrada pela busca. Sem nenhum ônibus, o vazio declarado
+  // no lugar da instrução e da lista, e o primário espera, como a 08 desenha; o
+  // ônibus marcado fica guardado e volta com a lista
+  const lista = ativo ? [] : filtrar(doPacote(uoId), busca)
+  const semResultado = !ativo && busca.trim() !== '' && lista.length === 0
+  // a URL diz o 08 enquanto a busca não acha nada; a que volta a achar o tira.
+  // Num estado da coluna, nada anda
+  useEffect(() => {
+    if (est) return
+    if (semResultado && momento !== REF.semResultado) despachar({ tipo: 'ir', tela: 'T06', momento: REF.semResultado })
+    else if (!semResultado && momento === REF.semResultado) despachar({ tipo: 'ir', tela: 'T06', momento: null })
+  }, [est, semResultado, momento, despachar])
+
+  // O voltar do Android (logica.md): o link de saída do rodapé — na lista, na
+  // busca sem resultado, no chassi divergente e na correção pedida (00, 08, 02,
+  // 07), o Voltar ao menu; na
   // confirmação (01, 03, 05), o Escolher outro, que volta à lista. Nas travas sem
   // link (04, 06), o Escolher outro do primário, a saída que elas têm
   useVoltar(!ativo || prova.passo === 'diverge' ? voltarAoMenu : escolherOutro)
@@ -101,22 +120,27 @@ export default function T06({ momento, estado: est }) {
 
   let miolo, rodape
   if (!ativo) {
-    // ── 00 · a lista do pacote ──
-    const lista = filtrar(doPacote(uoId), busca)
+    // ── 00 · a lista do pacote · 08 · a busca sem resultado ──
     miolo = (
       <>
         <CabecalhoConteudo titulo="Selecionar ativo" contagem={contagemDoPacote(unico.contexto, uoId)} unidade="no pacote" />
-        <Busca dica="Buscar placa, frota ou módulo" valor={busca} aoMudar={buscar} />
-        <span className="t06-instrucao">Escolha o veículo que está na sua frente.</span>
-        <Lista className="t06-lista">
-          {lista.map((a, i) => (
-            <LinhaOnibus key={a.id} placa={a.placa} modelo={modeloDe(a).nome} rotuloFrota="FROTA" frota={a.frota}
-              divisoria={i < lista.length - 1} fim={i === lista.length - 1} escolhido={a.id === marcado} aoTocar={() => setMarcado(a.id)} />
-          ))}
-        </Lista>
+        <Busca dica="Buscar placa, frota ou módulo" valor={busca} aoMudar={buscar} focado={semResultado} />
+        {semResultado ? (
+          <Vazio titulo={nadaCom(busca.trim())} frase="Confira a placa, ou busque pela frota." />
+        ) : (
+          <>
+            <span className="t06-instrucao">Escolha o veículo que está na sua frente.</span>
+            <Lista className="t06-lista">
+              {lista.map((a, i) => (
+                <LinhaOnibus key={a.id} placa={a.placa} modelo={modeloDe(a).nome} rotuloFrota="FROTA" frota={a.frota}
+                  divisoria={i < lista.length - 1} fim={i === lista.length - 1} escolhido={a.id === marcado} aoTocar={() => setMarcado(a.id)} />
+              ))}
+            </Lista>
+          </>
+        )}
       </>
     )
-    rodape = <Rodape primario="Usar este ativo" primarioDesabilitado={!marcado} aoPrimario={() => escolher(marcado)} link="Voltar ao menu" aoLink={voltarAoMenu} />
+    rodape = <Rodape primario="Usar este ativo" primarioDesabilitado={!marcado || semResultado} aoPrimario={() => escolher(marcado)} link="Voltar ao menu" aoLink={voltarAoMenu} />
   } else {
     const modelo = modeloDe(ativo)
     const detalhe = `frota ${ativo.frota} · ${modelo.nome}`

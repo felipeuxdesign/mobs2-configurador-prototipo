@@ -42,6 +42,9 @@ export const ICONES = {
   // glifo de estado do cartão (o xis do cartão que pede ação), com o traço dele, 2,2
   subindo: [ArrowUp, 'fechar'],
   check: [Check, 'fechar'], 'check-mini': [Check, 'mini'],
+  // a entrega de 25/09 · T10/10: o xis solto do "não confere", na régua da
+  // diferença — o vermelho da falha, de 14, com o traço 2,6 da referência
+  'xis-mini': [X, 'mini'],
 }
 
 // tam: o lado do ícone, por token (--icone-*)

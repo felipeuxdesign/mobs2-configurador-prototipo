@@ -49,9 +49,11 @@ export function parDoCorte(uoId) {
 
 // ── a cadeia do encerramento ──
 // Com a sessão homologada: os passos 1 a 7 correm, um por vez (`k` é o que
-// corre); o 8, o autoteste, é a tela seguinte (T16·4). O passo 2 vira o corte
-// quando o módulo não reinicia por comando, e o passo baixa pro justo, como
-// a 01 desenha (G11).
+// corre), cada um com a legenda dele embaixo do nome (o tela.md, a entrega de
+// 25/09 · a peça só mostra a legenda no passo que corre); o 8, o autoteste, é
+// a tela seguinte (T16·4). O passo 2 vira o corte quando o módulo não
+// reinicia por comando, e o passo baixa pro justo, como a 01 desenha (G11);
+// no reinício por comando, ele corre sem legenda (T16·7, textos.js).
 export function passosEncerrando(k, corte) {
   return PASSOS.map((p, i) => {
     if (i < k) return { estado: 'ok', nome: p.nome, situacao: p.feito ?? '' }
@@ -62,8 +64,8 @@ export function passosEncerrando(k, corte) {
     return { estado: 'espera', nome: p.nome, situacao: T.aindaNao }
   })
 }
-// Sem homologar: só os quatro seguros correm (`feitos` é quantos já fecharam);
-// os outros ficam pulados, com o traço.
+// Sem homologar: só os quatro seguros correm (`feitos` é quantos já fecharam),
+// cada um com a legenda dele enquanto corre; os outros ficam pulados, com o traço.
 export function passosAbortando(feitos) {
   return PASSOS.map((p) => {
     const j = SEGUROS.indexOf(p)
