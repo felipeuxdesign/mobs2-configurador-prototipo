@@ -8,17 +8,23 @@ Fechar a homologação: o que o app já provou sozinho, e o que o técnico ainda
 | **Chrome** | faixa de sessão |
 | **Semente no protótipo** | sessão M2C-0417 + RKT-8H42 · 31 itens |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 9 · 2 — ver `estados.md` |
+| **Momentos · estados** | 11 · 3 — ver `estados.md` |
 
 ## O que se toca
 
-- tocar numa seção → ela aberta
-- item automático reprovado → a tela que corrige
-- item manual → responder: foto, ou não conforme com justificativa
+- **cada seção é um cartão**, com quem age na segunda linha — *o app confere sozinho*, *você fotografa 4 itens*, *você faz o ciclo em movimento*, *espera o servidor · não bloqueia* · tocar num cartão faz ele crescer no lugar, com a seta pra cima; as outras seções descem, e nada mais se mexe
+- **tem seta, toca; não tem seta, é leitura** · as leituras da A, da C e da D, os itens feitos e os passos da E não têm seta
+- na B, cada foto a tirar tem a câmera e a seta → a câmera do app · o Painel vem feito da calibração, e diz *fotografado na calibração, às 14:30*
+- item pendente leva à tela que resolve, pelo campo *origem* do mock: conectar → T05 · ativo → T06 · can → T08 · configurar → T09 · calibração → T10
+- na E, uma ação só: *Fazer o ciclo dinâmico* → T14 · os cinco passos são leitura, e depois do ciclo dizem *confere*
+- o item não conforme salvo com justificativa aparece com o check e *com ressalva · a causa*
+- homologado: o veredito no topo — *Instalação homologada às 14:30* — e o relatório embaixo · com a localização negada, *o relatório vai sem localização*
+- `Finalizar instalação` só acende com 100% de A, C, D, E e das fotos da B · a F não bloqueia
 - item manual sem a permissão da câmera → igual à câmera da T10 (T10/11): o visor com a câmera riscada e o `Tirar foto` vira `Abrir as configurações` — permitida lá, a câmera abre na volta · o `Não conforme` continua, porque a ressalva não precisa da câmera · nenhuma referência desenha este quadro e o `textos.md` não tem a frase do que falta pro item, então o visor fica só com a câmera riscada (G25), e a URL sai do momento (sem a referência, o 07 e o 08 não o desenham); no protótipo, nenhum estado da coluna chega nele, e ele se vê na vitrine (`f7-visor-sem-permissao-item`). O primário, nos três casos (o `Tirar foto`, o `Abrir as configurações` e o `Salvar com ressalva`), sai de uma função só, provada no node (`app/src/estado/camera.js` · `primarioDaCamera`, `app/scripts/testar-camera.mjs`)
-- `Finalizar instalação` → homologado; com a Seção F falhando, pede a ciência
 
 ## As regras (C10, decididas no C0 e escritas aqui — G1)
+
+**A entrega de 25/09 (decisão 34) trouxe a estrutura nova do checklist.** Continuam valendo o que é um item resolvido, de onde cada seção lê, a semente, a Seção F, o Finalizar com a ciência, o item manual, o item reprovado e o voltar. As regras que falam do placar, do mapa, do acordeão que tira o placar, dos cartões da Seção E, da versão em duas colunas e da escala do cartão com barra descrevem o C10, e são reescritas na construção da T13 nova.
 
 - **o acordeão:** uma seção aberta por vez; tocar em outra troca a aberta, e tocar na aberta fecha e volta ao mapa. Abrir tira o placar e o cabeçalho das colunas, como as referências 01 a 06 desenham. Abrir não anima altura
 - **o que é um item resolvido:** o automático cuja fonte passa, o manual com foto (tirada aqui, ou herdada da calibração) ou com ressalva, e o que não se aplica. O placar e a contagem de cada seção contam os resolvidos; o `Faltam N itens` conta só os das seções que bloqueiam (A a E) — com 1, o texto não existe e a legenda some (G25)
@@ -46,31 +52,30 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - diálogo
 - diálogo sem saída
 - diálogo com ciência
+- assertiva da sessão
+- linha de conferência
 - seção aberta do checklist
 - seção recolhida
-- linha do histórico
-- a lista de garagens
-- leitura pequena
-- leitura com mínimo
 - segmentado
 - encerrando
 - pede o corte
 - sem homologar
-- placar da homologação
+- a barra do checklist
 - com contador neutro
 - com contador de falha
 - checkbox
 - checkbox marcado
 - justificativa
-- linha de opção
-- lista com contagem
-- linha de seção do mapa
-- cartões de valor
-- cartão com barra
-- cartão de configuração
-- cartões de foto
-- a seção aberta inteira
-- cartões que esperam o ciclo
+- seção fechada
+- seção aberta · de leitura
+- seção aberta · de tocar
+- item de leitura
+- item de tocar
+- item feito
+- item com ressalva
+- o veredito
+- a ação da seção
+- a câmera do app
 - linha da fila
 - linha da re-checagem
 

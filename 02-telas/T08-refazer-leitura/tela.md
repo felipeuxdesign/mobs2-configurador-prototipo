@@ -25,6 +25,7 @@ A grade monta os sinais do modelo do ativo da sessão, na ordem dos domínios e,
 Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe.
 
 - barra do sistema
+- faixa · sessão aberta
 - faixa · sem ação
 - duas ações
 - uma ação

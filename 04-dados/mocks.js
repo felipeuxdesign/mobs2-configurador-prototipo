@@ -460,6 +460,10 @@
   /* ── Casos — cada estado de bloqueio/tela aponta para dado CONCRETO da
      obra. Nenhum é opcional: tela sem o seu caso morre sem dado. ── */
   var CASOS = {
+    /* T13 · a localização negada (HU-T13-7). Nada trava: o checklist
+       homologa igual, e o relatório vai sem a geolocalização — o veredito
+       diz "o relatório vai sem localização". */
+    "localizacao-negada": { tela: "T13", permissao: "localizacao", resposta: "negada" },
     /* O mundo real · quatro estados que não dependem do módulo nem do
        ativo, e sim do celular. Nenhum trava o que já foi feito.
        - bluetooth-desligado: a T05 não busca · "Ligar o Bluetooth" pede ao

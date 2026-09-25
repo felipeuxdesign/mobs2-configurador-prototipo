@@ -26,9 +26,9 @@ Encerrar a sessão de configuração provando que a configuração sobreviveu ao
 Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe.
 
 - barra do sistema
-- faixa · sessão aberta
 - faixa · sem sessão
 - faixa · sem ação
+- o topo do menu inteiro
 - duas ações
 - uma ação
 - processo correndo
@@ -46,6 +46,8 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - com contador de falha
 - linha de opção
 - lista com contagem
+- item feito
+- item com ressalva
 - prova da sessão
 
 ## No protótipo · as peças que o código usa

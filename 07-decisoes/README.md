@@ -37,3 +37,5 @@ Cada decisão com o contexto, a escolha, o que foi descartado e a consequência.
 | [31](31-contato-mascarado.md) | O contato mascarado, e a espera virando número |
 | [32](32-sem-gestor-no-nao-recebi.md) | O não recebi o código não aciona o gestor |
 | [33](33-calibracao-so-com-a-prova.md) | A calibração só semeia com a prova |
+| [34](34-checklist-numa-estrutura-so.md) | O checklist numa estrutura só |
+| [35](35-calibracao-aponta-o-ciclo.md) | A calibração aponta o ciclo dinâmico |

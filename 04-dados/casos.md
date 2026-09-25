@@ -33,6 +33,7 @@ Cada caso de `mocks.js` → a tela e o estado que ele produz. **O estado se mont
 | `instalacoes-sem-rede` | `T12/03-estado-sem-rede` |
 | `link-perdido` | `T04/03-estado-faixa-modulo-com-falha` · `T05/14-estado-pre-checagem-link-perdido-na-6a` |
 | `lista-longa-garagens` | `T02/02-estado-lista-longa-com-busca` · `T02/03-momento-busca-sem-resultado` |
+| `localizacao-negada` | `T13/14-estado-homologado-sem-localizacao` |
 | `ma-02` | `T06/03-estado-sem-chassi-na-can` · `T10/02-estado-rotacao-caminhao-coletor` |
 | `modelo-sem-driver` | `T05/07-estado-pre-checagem-modelo-sem-driver` |
 | `modulo-com-pendencias` | `T05/13-estado-pre-checagem-canal-aberto-e-pendencias` (por cima do `canal-aberto`, o mesmo módulo) |

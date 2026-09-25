@@ -50,10 +50,6 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - instrumentos apagados
 - com contador neutro
 - com contador de falha
-- cartões de valor
-- cartão com barra
-- cartão de configuração
-- cartões que esperam o ciclo
 
 ## No protótipo · as peças que o código usa
 

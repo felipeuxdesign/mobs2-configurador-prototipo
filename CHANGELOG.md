@@ -1,5 +1,18 @@
 # Registro de mudanças
 
+## 2026-09-25 · o checklist numa estrutura só, e a faixa igual em toda tela
+
+- **o checklist numa estrutura só**: o título com a contagem, a barra fina e seis cartões de seção; abrir uma seção faz o cartão crescer no lugar · **tem seta, toca; sem seta, é leitura** · a E com uma ação só, a F esperando o servidor, o Painel dizendo de onde veio, o modem sem dBm · os números do mock: 19 de 31 · decisão 34
+- três telas novas no checklist: **a E resolvida**, **a B com ressalva** e **o homologado sem localização**, com o caso `localizacao-negada`
+- o homologado mostra **o veredito e o relatório** no topo
+- **a calibração aponta o ciclo dinâmico**: *Fazer o ciclo dinâmico* no lugar de *Concluir a calibração* · decisão 35
+- **a conferência mostra o que não bate**: cada bloco divergente com o par *no módulo · no cadastro* · o conteúdo não reconhecido com os blocos conferindo · a Conexão com a altura das outras
+- **o poço na lei da linha**, na T11, na T15 e na correção da T06
+- **a faixa da sessão é uma peça só**: 52px com a linha em todas as 73 telas que têm faixa, sem encolher — nova lei de medida
+- consertos: a última linha do T06, o Pátio Caruaru só com a causa nas folhas de garagem, e as horas da calibração no relógio parado, 14:30
+- o design system troca as peças do checklist antigo pelas do novo, e ganha a câmera do app como peça única
+- agora são **129 referências** — 56 momentos e 57 estados —, **118 peças**, **40 casos** e **35 decisões**
+
 ## 2026-09-25 · o mundo real, construído no protótipo
 
 - **T01/14 · o login sem conexão:** o Entrar sem internet mostra *SEM CONEXÃO · O login precisa de internet.*, os campos ficam preenchidos, e o Entrar tenta de novo · **0%**

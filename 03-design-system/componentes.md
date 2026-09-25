@@ -54,8 +54,6 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 | passo do ciclo | compacta · 38 | T14 |
 | assertiva da sessão | dupla · 50 | T11 T12 T16 |
 | linha de conferência | dupla · 50 | T11 T12 T16 |
-| seção aberta do checklist | a cabeça do acordeão | T01 T13 |
-| seção recolhida | as outras, embaixo da aberta | T01 T13 |
 | passos com o prazo estourado | a lista inteira da T14 | T14 |
 | disponível | ícone em poço · nome embaixo | T04 |
 | decide agora | borda lima · o próximo passo | T04 |
@@ -93,9 +91,9 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 | encerrando | a legenda só no passo que corre | T01 T03 T05 T06 T09 T11 T12 T13 T14 T15 T16 |
 | pede o corte | é com você · o único passo em que ele age | T01 T03 T05 T06 T09 T11 T12 T13 T14 T15 T16 |
 | sem homologar | só os quatro que deixam o módulo seguro · os pulados com traço | T01 T03 T05 T06 T09 T11 T12 T13 T14 T15 T16 |
+| a barra do checklist | o que já passou, em lima · o número fica no título | T13 |
 | cronômetro | o prazo drena | T14 |
 | prazo cheio | antes do disparo · a fila drenando | T14 |
-| placar da homologação | a única barra que enche | T13 |
 
 ## Folha 6 · entrada escolha cabecalho · `referencias/png/folha-6-entrada-escolha-cabecalho.png`
 
@@ -130,18 +128,21 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 
 | Peça | Regra | Telas que usam |
 |---|---|---|
-| linha de seção do mapa | o veredito · a contagem · o chevron | T13 |
-| cartões de valor | o valor que veio de outra tela | T13 |
-| cartão com barra | o instrumento em meia largura | T07 T13 |
-| cartão de configuração | Seção D · o valor que veio da cadeia | T07 T13 |
-| cartões de foto | visor de 46 · o nome embaixo | T08 T13 |
-| a seção aberta inteira | a cabeça e os cartões, como abrem no acordeão | T13 |
+| seção fechada | um cartão por seção · quem age, a contagem e a seta | T13 |
+| seção aberta · de leitura | o cartão cresce no lugar · as leituras sem seta | T13 |
+| seção aberta · de tocar | cada item com a câmera e a seta | T13 |
+| item de leitura | sem seta · não toca | T13 |
+| item de tocar | a câmera e a seta · abre a foto | T13 |
+| item feito | o check e de onde veio · sem seta | T13 |
+| item com ressalva | passou, mas diz a ressalva embaixo | T13 |
+| o veredito | o topo do checklist homologado · o relatório embaixo | T13 |
+| a ação da seção | uma linha só com seta · o resto é leitura | T13 |
+| a câmera do app | a mesma na calibração e no checklist | T10 T13 |
 | foto · a tirar | tocável, com a câmera · a legenda diz pra que ela serve | T10 |
 | foto · tirada | vira o registro no lugar, e deixa de ser tocável · diz onde mais ela vale | T10 |
 | mostrador · apagado | tracejado · o traço no lugar do valor | T08 |
 | mostrador · relendo | acende quando o sinal responde | T08 |
 | mostrador · aceso | o nome com altura de duas linhas | T08 |
-| cartões que esperam o ciclo | Seção E · o traço até o veículo andar | T13 |
 | bloco do evento | o que foi disparado e recebido | T14 |
 | linha da fila | o que sobe e quando | T15 |
 | linha da re-checagem | a Seção F esperando o servidor | T15 |
@@ -163,7 +164,7 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 
 Anotação de construção. A tabela de cima é a do design; esta diz, só nas linhas em que o protótipo mediu diferente, o que o código usa — a regra com as variantes nomeadas (G11) e as telas que usam, corrigidas pelo medido no ciclo de cada tela (G10). A diferença vai pro arquiteto.
 
-Cada linha é um espécime de moldura das folhas (123), e a folha 3 soma quatro linhas pros seus 35 átomos: com as de cima, **127 peças**. O mapa de cada linha pro componente que a constrói está em `06-prototipo/app/src/ds/MAPA.md`.
+Cada linha é um espécime de moldura das folhas, e a folha 3 soma quatro linhas pros seus 35 átomos: com as de cima, **128 peças**. O mapa de cada linha pro componente que a constrói está em `06-prototipo/app/src/ds/MAPA.md`.
 
 - **peça nova no protótipo:** a folha desenha, e o design ainda não tem linha
 - **em outra folha:** o espécime está desenhado nesta folha, e não na que o design diz
@@ -219,8 +220,6 @@ Cada linha é um espécime de moldura das folhas (123), e a folha 3 soma quatro 
 | passo do ciclo | compacta · 38 · variante: com a causa, o passo reprovado cresce com a causa na entrelinha normal, e não na de 1,35 da causa, 8 em cima e embaixo no meio da lista e 4 no teste do cartão, o último (T14) | T14 |
 | assertiva da sessão | dupla · 50 · variante: o nome aceso em todo estado, o não se aplica com o círculo com o traço e o valor apagado, e o ainda não com o relógio e o valor em --tinta-secundaria (T16) · variante: a última de 54, com a folga do pé do cartão (T16) · variante: lendo, a assertiva que ainda não acendeu, o poço vazio (T16) · variante: o valor que quebra, o título numa linha só e o valor longo em duas, à direita, na mesma altura (T12) | T12 T16 |
 | linha de conferência | dupla · 50 · variante: diverge, o bloco que não bate, o traço no poço e o valor em --tinta (T11) · variante: a última de 72, com a folga do pé do cartão (T11) · variante: lendo, o poço vazio enquanto a leitura não chega (T11) | T11 |
-| seção aberta do checklist | a cabeça do acordeão · variante: aguarda, a seção que espera outra tela, o relógio em --marca-limite, e o nome e a contagem não apagam (T13) · variante: com legenda, a linha de 12 embaixo do nome, na mesma cabeça de 44, o F · não bloqueia (T13) | T13 |
-| seção recolhida | as outras, embaixo da aberta · variante: aguarda e com legenda, como a aberta (T13) | T13 |
 | disponível | ícone em poço · nome embaixo · variante: a grade com 10 entre os cartões, no menu (T04) | T04 |
 | decide agora | borda lima · o próximo passo · variante: poço 30 com a sessão aberta (T04) | T04 |
 | espera | tracejado · a causa no lugar da ação · variante: o cartão largo, o ativo que espera o módulo (T04) · **em outra folha: o design a põe na Folha 3** | T04 |
@@ -249,7 +248,6 @@ Cada linha é um espécime de moldura das folhas (123), e a folha 3 soma quatro 
 | pede o corte | é com você · o único passo em que ele age | T16 |
 | sem homologar | só os quatro que deixam o módulo seguro · os pulados com traço | T16 |
 | cronômetro | o prazo drena · variante: estourado, o número em vermelho, e sem o que resta a escala fica sem o preenchido, com o marcador no zero (T14) · variante: o detalhe em lista, as frases do estado uma por linha, na entrelinha da legenda (T14) | T14 |
-| placar da homologação | a única barra que enche · variante: a barra sem as bordas dos lados, no download do pacote (T03) · variante: o veredito, o placar que fechou, o rótulo em lima e a meta à direita, na linha de base (T13) | T13 |
 
 ### Folha 6 · entrada escolha cabecalho
 
@@ -277,12 +275,6 @@ Cada linha é um espécime de moldura das folhas (123), e a folha 3 soma quatro 
 
 | Peça | Regra, medida | Telas que usam, medido |
 |---|---|---|
-| linha de seção do mapa | o veredito · a contagem · o chevron · variante: o nome do glifo pro leitor segue o estado do dado, e o relógio da seção que espera diz ainda não (T13) · variante: recolhida, o leitor ouve que a linha abre a seção (T13) | T13 |
-| cartões de valor | o valor que veio de outra tela · variante: a palavra de 12 junto do valor, e não a unidade de 10 (T13) · variante: larga, o cartão nas duas colunas, a versão gravada inteira, e a grade preenche o buraco que ele deixa (T13) · variante: tocável, o cartão inteiro leva a outra tela, o item reprovado ao nível do item e o passo de E que falta à T14, com o nome pro leitor (T13) | T13 |
-| cartão com barra | o instrumento em meia largura | T13 |
-| cartão de configuração | Seção D · o valor que veio da cadeia | T13 |
-| cartões de foto | visor de 46 · o nome embaixo · variante: desabilitado, o item já resolvido ou herdado da calibração, o mesmo desenho, sem toque e desabilitado pro leitor (T13) | T13 |
-| a seção aberta inteira | a cabeça e os cartões, como abrem no acordeão · variante: sem divisória, a última do acordeão sem o traço de baixo (T13) · a legenda e o nome do glifo passam pra cabeça, como na seção aberta do checklist | T13 |
 | mostrador · relendo | acende quando o sinal responde · variante: a unidade junto do valor, menor e apagada (T08) | T08 |
 | mostrador · aceso | o nome com altura de duas linhas · variante: a unidade junto do valor, menor e apagada (T08) | T08 |
 | bloco do evento | o que foi disparado e recebido · variante: o nome do relógio segue o dado, ainda não antes do disparo, e na linha feita o relógio fica no lugar, mudo (T14) | T14 |
@@ -301,3 +293,19 @@ Cada linha é um espécime de moldura das folhas (123), e a folha 3 soma quatro 
 | o valor alvo | o número do painel, o que vai pro módulo · variante: cumprido, o número fora do foco ou semeado, sem o traço lima e com o rótulo apagado (T10/01, 07, 09, 10) · variante: foco, o lima de volta por cima (T10/05) · variante: campo, o input numérico invisível por cima do poço, com o rótulo como nome (T10) | T10 |
 | o painel · vazio | antes de digitar · o traço e o rótulo em --marca-limite, sem o lima · a folha 8 escreve *tinta apagada* e desenha --marca-limite: o código segue o desenho | T10 |
 | o que não se aplica | fato declarado, sem vermelho · variante: a divisória também embaixo da última linha, no passo da rotação (T10) | T10 |
+
+### Saíram do design na entrega de 25/09 (o checklist numa estrutura só, decisão 34)
+
+O código ainda usa estas peças, até a T13 ser refeita pela estrutura nova. Com ela construída, saem do código e daqui.
+
+| Peça | Regra, medida | Telas que usam, medido |
+|---|---|---|
+| seção aberta do checklist | a cabeça do acordeão · variante: aguarda, a seção que espera outra tela, o relógio em --marca-limite, e o nome e a contagem não apagam (T13) · variante: com legenda, a linha de 12 embaixo do nome, na mesma cabeça de 44, o F · não bloqueia (T13) | T13 |
+| seção recolhida | as outras, embaixo da aberta · variante: aguarda e com legenda, como a aberta (T13) | T13 |
+| placar da homologação | a única barra que enche · variante: a barra sem as bordas dos lados, no download do pacote (T03) · variante: o veredito, o placar que fechou, o rótulo em lima e a meta à direita, na linha de base (T13) | T13 |
+| linha de seção do mapa | o veredito · a contagem · o chevron · variante: o nome do glifo pro leitor segue o estado do dado, e o relógio da seção que espera diz ainda não (T13) · variante: recolhida, o leitor ouve que a linha abre a seção (T13) | T13 |
+| cartões de valor | o valor que veio de outra tela · variante: a palavra de 12 junto do valor, e não a unidade de 10 (T13) · variante: larga, o cartão nas duas colunas, a versão gravada inteira, e a grade preenche o buraco que ele deixa (T13) · variante: tocável, o cartão inteiro leva a outra tela, o item reprovado ao nível do item e o passo de E que falta à T14, com o nome pro leitor (T13) | T13 |
+| cartão com barra | o instrumento em meia largura | T13 |
+| cartão de configuração | Seção D · o valor que veio da cadeia | T13 |
+| cartões de foto | visor de 46 · o nome embaixo · variante: desabilitado, o item já resolvido ou herdado da calibração, o mesmo desenho, sem toque e desabilitado pro leitor (T13) | T13 |
+| a seção aberta inteira | a cabeça e os cartões, como abrem no acordeão · variante: sem divisória, a última do acordeão sem o traço de baixo (T13) · a legenda e o nome do glifo passam pra cabeça, como na seção aberta do checklist | T13 |

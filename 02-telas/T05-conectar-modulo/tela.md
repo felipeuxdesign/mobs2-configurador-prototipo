@@ -38,7 +38,9 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 
 - barra do sistema
 - barra do sistema sem sessão
+- faixa · sessão aberta
 - faixa · sem ação
+- o topo do menu inteiro
 - duas ações
 - uma ação
 - processo correndo
@@ -50,8 +52,6 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - ainda não
 - pré-checagem
 - pré-checagem com sessão
-- seção aberta do checklist
-- seção recolhida
 - falha
 - aviso
 - processo parado

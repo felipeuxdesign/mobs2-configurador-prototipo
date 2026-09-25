@@ -25,6 +25,7 @@ No protótipo, a sincronização corre um item por vez — Modelos, Ativos, Cart
 Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe.
 
 - barra do sistema sem sessão
+- o topo do menu inteiro
 - duas ações
 - uma ação
 - processo correndo

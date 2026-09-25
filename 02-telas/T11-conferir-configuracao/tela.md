@@ -28,7 +28,9 @@ Corrigido no C11 pelas referências e pelas decisões do C0 (G1): a leitura ao a
 Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe.
 
 - barra do sistema
+- faixa · sessão aberta
 - faixa · sem ação
+- o topo do menu inteiro
 - duas ações
 - uma ação
 - processo correndo
@@ -38,8 +40,13 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - com contagem
 - linha do histórico
 - a lista de garagens
+- encerrando
+- pede o corte
+- sem homologar
 - linha de opção
 - lista com contagem
+- item feito
+- item com ressalva
 
 ## No protótipo · as peças que o código usa
 

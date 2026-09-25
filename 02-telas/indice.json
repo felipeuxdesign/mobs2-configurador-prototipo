@@ -1,6 +1,6 @@
 {
  "telas": 16,
- "referencias": 126,
+ "referencias": 129,
  "itens": [
   {
    "id": "T01/00-tela",
@@ -1392,6 +1392,44 @@
    "caso": "checklist",
    "html": "02-telas/T13-checklist/referencias/html/11-momento-homologado.html",
    "png": "02-telas/T13-checklist/referencias/png/11-momento-homologado.png"
+  },
+  {
+   "id": "T13/12-momento-b-com-ressalva",
+   "tela": "T13",
+   "pasta": "T13-checklist",
+   "tipo": "momento",
+   "nome": "12-momento-b-com-ressalva",
+   "titulo": "T13 · B com ressalva",
+   "como": "salvar um item como não conforme, com a justificativa",
+   "caso": "",
+   "html": "02-telas/T13-checklist/referencias/html/12-momento-b-com-ressalva.html",
+   "png": "02-telas/T13-checklist/referencias/png/12-momento-b-com-ressalva.png"
+  },
+  {
+   "id": "T13/13-momento-e-resolvida",
+   "tela": "T13",
+   "pasta": "T13-checklist",
+   "tipo": "momento",
+   "nome": "13-momento-e-resolvida",
+   "titulo": "T13 · E Teste dinamico resolvida",
+   "como": "voltar do ciclo dinâmico com os cinco passos feitos",
+   "caso": "",
+   "html": "02-telas/T13-checklist/referencias/html/13-momento-e-resolvida.html",
+   "png": "02-telas/T13-checklist/referencias/png/13-momento-e-resolvida.png"
+  },
+  {
+   "id": "T13/14-estado-homologado-sem-localizacao",
+   "tela": "T13",
+   "pasta": "T13-checklist",
+   "tipo": "estado",
+   "nome": "14-estado-homologado-sem-localizacao",
+   "titulo": "T13 · homologado sem localizacao",
+   "como": "finalizar com a localização negada",
+   "caso": "localizacao-negada",
+   "html": "02-telas/T13-checklist/referencias/html/14-estado-homologado-sem-localizacao.html",
+   "png": "02-telas/T13-checklist/referencias/png/14-estado-homologado-sem-localizacao.png",
+   "rotulo": "Homologado sem localização",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T14/00-tela",

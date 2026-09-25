@@ -26,6 +26,7 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - barra do sistema
 - faixa · sessão aberta
 - faixa · sem ação
+- o topo do menu inteiro
 - duas ações
 - uma ação
 - processo correndo

@@ -94,6 +94,23 @@ As 4 referências novas dão 0% contra o HTML. O que falta no design pra elas fi
 - **o `Esqueci a senha` sem internet:** a T01/14 não diz o que ele faz. No protótipo, segue como antes
 - **os números:** um token entrou, a largura da explicação da câmera sem permissão (274 → **275**)
 
+## A entrega do checklist numa estrutura só (`atualizacao56565/`)
+
+Aplicada depois da do mundo real, sem misturar. Os 178 arquivos entraram. O gate aprova, e o censo confere: **129 referências no `indice.json`** — 16 telas, 56 momentos e 57 estados. A base de cada junção foi a sua cópia anterior. O que mudou em cada arquivo:
+
+- **entraram como vieram:** o `02-telas/README.md`, o `textos.md` da T04 e da T10, o `PROMPT-DE-ABERTURA.md`, o `LEIA-PRIMEIRO.md`, o README das decisões e as decisões 34 e 35
+- **as referências:** 135 substituídas e as 3 novas da T13 (12, 13 e 14), em HTML e PNG
+- **os 15 `tela.md`:** a lista de peças é a sua; o *O que se toca* juntou sem perder o do protótipo. Dois pediram mão:
+  - **T10:** fica o nosso *Semear* (mais completo, com o *Gravando* e o *Relendo*), e o horímetro termina no seu *Fazer o ciclo dinâmico* → T14 (decisão 35);
+  - **T13:** entraram as suas 8 linhas da estrutura nova, e ficou a nossa da câmera sem permissão, que você confirmou. As regras do C10 ganharam um aviso: as que falam do placar, do mapa e dos cartões antigos são reescritas na construção da T13 nova
+- **o `estados.md` e a `animacao.md` da T13 e da T11** (sem cópia anterior sua; juntei contra o C0): entraram os seus, e ficaram três correções medidas no C10 e no C11 — os casos certos da T13/09 (`can-estatico-isolado`) e da T13/10 (`pronto-para-fechar`), o homologado que chega pelo toque no *Finalizar*, e o reduzir da conferência da T11 no mesmo ritmo (G26). **Pra olhar:** a sua `animacao.md` da T13 ainda diz *o placar completa*, e o placar saiu
+- **as `leis.md`:** entraram a lei 16 (*tem seta, toca*), *a faixa da sessão é uma peça só* e o *poço na linha* sem as exceções da T11 e da T15, e com o aviso fora dela. Ficaram as marcas ◆ e o *toque de 48*
+- **o `componentes.md`:** a sua tabela inteira, com as 118 peças. Na seção do protótipo, as 9 linhas das peças que saíram (o placar, o mapa, os cartões de valor e de foto, as seções antigas) foram pra uma subseção, porque o código ainda as usa até a T13 ser refeita · **128 peças no protótipo**
+- **o `mocks.js` e o `casos.md`:** o caso `localizacao-negada` · **47 casos** (os seus 40 e os nossos 7)
+- **o `logica.md`:** entraram as suas seções *O checklist* e *O próximo passo depois da calibração*, e as linhas novas das tabelas. Ficaram as nossas do mundo real, do teclado, do retrato e da regra 12
+- **o `indice.json`:** as 129, com os campos do palco; o estado novo ganhou o rótulo *Homologado sem localização*
+- **os números:** o `CLAUDE.md`, o README do design system e o `ciclos.md` · 275 tokens, 25 cores
+
 ## O que as referências pedem ao design · medido no C10, no C11 e nas entregas 4 e 5
 
 Nenhuma referência foi mexida: o protótipo mede e propõe, e a correção é na fonte. Cada item diz o que muda e, quando medido, quanto a diferença cai.

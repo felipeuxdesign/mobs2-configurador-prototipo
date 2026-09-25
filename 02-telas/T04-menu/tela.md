@@ -46,8 +46,6 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - diálogo sem saída
 - diálogo com ciência
 - folha com opções
-- seção aberta do checklist
-- seção recolhida
 - disponível
 - decide agora
 - espera

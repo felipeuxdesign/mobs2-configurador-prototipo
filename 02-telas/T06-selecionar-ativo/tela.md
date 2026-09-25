@@ -29,18 +29,21 @@ Escolher o ônibus que está na frente do técnico e provar que é ele.
 Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe.
 
 - barra do sistema
+- faixa · sessão aberta
 - faixa · sem ação
+- o topo do menu inteiro
 - duas ações
 - uma ação
 - processo correndo
 - com legenda
-- seção aberta do checklist
-- seção recolhida
 - vazio declarado
 - nota com rótulo
 - o par comparado
 - linha do histórico
 - a lista de garagens
+- encerrando
+- pede o corte
+- sem homologar
 - com contador neutro
 - com contador de falha
 - checkbox
@@ -52,6 +55,7 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - escolhido com trava · T06
 - cartão que pede ação
 - lista com contagem
+- item feito
 - linha da fila
 - linha da re-checagem
 

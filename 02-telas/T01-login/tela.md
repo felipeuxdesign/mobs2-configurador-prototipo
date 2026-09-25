@@ -46,8 +46,6 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - diálogo com ciência
 - folha com opções
 - barra do sistema sob o véu
-- seção aberta do checklist
-- seção recolhida
 - linha do histórico
 - linha de garagem
 - linha de garagem · a atual

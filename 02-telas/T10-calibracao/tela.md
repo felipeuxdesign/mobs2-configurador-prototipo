@@ -19,7 +19,7 @@ Fazer o módulo contar igual ao painel do ônibus — com a foto do painel como 
 - `Fotografar o painel` → a câmera do próprio app, com o quadro e *Enquadre o hodômetro do painel* → `Tirar foto` → volta com o registro no lugar do cartão · sem galeria, e foto tirada fica tirada · `Voltar à calibração` sai da câmera sem foto · a foto pode vir antes do número: o botão segue dizendo o que falta
 - o botão só acende com o número digitado **e** a foto tirada, e sempre diz o que falta: *Digite o que o painel mostra* → *Fotografe o painel* → *Semear o hodômetro*
 - `Semear o hodômetro` → grava e relê → semeado · o botão diz *Gravando no módulo…* e depois *Relendo…* (1 s cada, `animacao.md`), e aí o módulo mostra o relido · se a releitura passar da tolerância, *não confere* e `Semear de novo` — a foto continua valendo · semeado o passo, o número não se digita mais
-- `Calibrar o horímetro` → o 2 de 2, no mesmo fluxo do hodômetro — o digitado e o fotografado do horímetro são iguais aos do hodômetro, só muda o número; a câmera diz *Enquadre o horímetro do painel* → `Semear o horímetro` → `Concluir a calibração` → o menu · no último passo, embaixo dos segmentos, *Último passo*; com tudo semeado, *Calibração completa*, e sem o `Voltar ao menu`
+- `Calibrar o horímetro` → o 2 de 2, no mesmo fluxo do hodômetro — o digitado e o fotografado do horímetro são iguais aos do hodômetro, só muda o número; a câmera diz *Enquadre o horímetro do painel* → `Semear o horímetro` → a calibração completa: `Fazer o ciclo dinâmico` → T14, com `Voltar ao menu` embaixo (a entrega de 25/09, decisão 35: o caminho feliz anda em linha — calibra, ciclo, checklist)
 - na rotação, o botão diz *Ligue o motor* até o módulo ler; depois, *Digite o que o conta-giros mostra*
 - passo seguinte: o horímetro, ou a rotação e a velocidade no caminhão coletor. As grandezas e a ordem são as do cadastro do modelo do ativo, menos as que o módulo não mede (T10·1); o `Depois:` mostra só a próxima (T10·2)
 - `Voltar ao menu` → T04, e a calibração volta de onde parou: o número digitado, a foto e o semeado de cada grandeza ficam na etapa (o endereço volta a ser o da referência do passo: 05, 07, 01, 08 ou 09) · `ENCERRAR`, antes de homologar: a sessão abortada da T16 (G23); depois, o encerramento
@@ -34,13 +34,14 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - barra do sistema
 - faixa · sessão aberta
 - faixa · sem ação
+- o topo do menu inteiro
 - duas ações
-- uma ação
 - processo correndo
 - com legenda
 - segmentado
 - foto · a tirar
 - foto · tirada
+- a câmera do app
 - valor em poço
 - régua da diferença
 - o valor alvo

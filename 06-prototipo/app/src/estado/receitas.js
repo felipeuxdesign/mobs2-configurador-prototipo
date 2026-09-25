@@ -50,6 +50,7 @@ export const RECEITAS = {
   'T12/03-estado-sem-rede': { casos: ['instalacoes-sem-rede'] },
   'T13/09-estado-item-reprovado': { casos: ['can-estatico-isolado'] },
   'T13/10-estado-finalizar-com-a-secao-f-falhando': { casos: ['pronto-para-fechar'] },
+  'T13/14-estado-homologado-sem-localizacao': { casos: ['localizacao-negada'], obs: 'homologa igual, e o relatório vai sem a geolocalização (entrega do design de 25/09, o checklist numa estrutura só)' },
   'T14/02-estado-prazo-estourado': { casos: ['evento-sem-resposta'] },
   'T14/03-estado-dinamico-fora-do-esperado': { casos: ['can-fora-esperado'] },
   'T14/04-estado-identificador-divergente': { casos: ['identificador-divergente'] },

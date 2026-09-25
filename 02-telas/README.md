@@ -26,11 +26,11 @@ Uma pasta por tela. Dentro de cada uma, sempre os mesmos cinco itens:
 | T10 · Calibração | `T10-calibracao/` | 6 | 5 |
 | T11 · Conferir configuração | `T11-conferir-configuracao/` | 1 | 1 |
 | T12 · Últimas instalações | `T12-ultimas-instalacoes/` | 1 | 2 |
-| T13 · Checklist | `T13-checklist/` | 9 | 2 |
+| T13 · Checklist | `T13-checklist/` | 11 | 3 |
 | T14 · Ciclo dinâmico | `T14-ciclo-dinamico/` | 3 | 3 |
 | T15 · Fila de saída | `T15-fila-de-saida/` | 0 | 4 |
 | T16 · Sessão | `T16-sessao/` | 4 | 2 |
 
-`indice.json` lista as 126 referências com tela, tipo, nome, título, como se chega, caso do mock e os caminhos do HTML e do PNG. **É o que o palco lê pra montar a coluna.**
+`indice.json` lista as 129 referências com tela, tipo, nome, título, como se chega, caso do mock e os caminhos do HTML e do PNG. **É o que o palco lê pra montar a coluna.**
 
 **As referências são gabarito, nunca peça do app.** O HTML existe pra você ler um valor exato e pra comparar o seu print com o PNG. O app se constrói com os componentes do design system.

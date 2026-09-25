@@ -217,7 +217,7 @@ Quatro estados que vêm do celular, e não do módulo nem do ativo. Nenhum trava
 
 A **localização negada** não tem tela: nada trava, e o relatório do checklist sai sem a geolocalização, com a linha dizendo *sem localização*.
 
-- **no protótipo**, nada lê a localização, então nada trava. O relatório é o que o `Finalizar instalação` põe na fila (as evidências e o checklist, HU-T13-7), e nenhuma referência desenha o que vai dentro dele; o mock não tem a localização da sessão, nem um caso que a negue, e nenhum `textos.md` tem o *sem localização*. A linha espera o quadro e o texto, que vão pro arquiteto
+- **no protótipo**, nada lê a localização, então nada trava. O relatório é o que o `Finalizar instalação` põe na fila (as evidências e o checklist, HU-T13-7), e nenhuma referência desenha o que vai dentro dele; o mock não tem a localização da sessão, nem um caso que a negue, e nenhum `textos.md` tem o *sem localização*. A linha espera o quadro e o texto, que vão pro arquiteto · a entrega de 25/09 trouxe os dois (o caso `localizacao-negada` e a T13/14), e a linha entra com a T13 nova
 
 ## O teclado (regra 10)
 
@@ -241,6 +241,19 @@ O app não gira. No modo estreito com a janela mais larga que alta — o celular
 - **o que não faz nada é desabilitado de verdade**, como os cartões em espera: o toque não faz nada, o leitor ouve desabilitado, e o desenho é o da referência — o primário apagado que diz o que falta, a tira da T04 com a folha ou o diálogo por cima, a faixa da T13 com o diálogo da Seção F
 - **a régua:** `app/scripts/aceso.mjs` toca cada tocável aceso de cada tela e momento do fluxo, um por vez, e confere se alguma coisa mudou — o endereço, o desenho ou o foco levado a outro lugar (o foco que o botão ganha do próprio toque não conta). Os lugares que nascem de um toque depois da entrada entram com esse toque: o menu sem o aviso do acesso (T04/00, 01 e 02), a busca que acha na T02 e a recuperação da T09. O cronômetro do código da T01 se mede sem os números, e a conferência da T11 e o encerramento sem homologar, depois de acabar. São 75 lugares; os 4 que não se medem — a releitura da CAN (T08/01), a cadeia (T09/00) e o autoteste (T16/00 e 01) — acabam em outro lugar, que se mede sozinho (`node scripts/aceso.mjs`, `prints/aceso.json`). O encerramento sem homologar (T16/03) também acaba em outro lugar, a 04: conforme o tempo da máquina, a régua o mede depois de acabar ou o deixa sem medir, e a 04 se mede nos dois casos (no fechamento do mundo real, a rodada inteira deixou 5 sem medir)
 - **os três que ficam**, cada um com o padrão que o `tela.md` manda, a nota na régua e a pergunta no `decisoes-do-diretor.md`: o `ENCERRAR` da recuperação da T09 (T09/03, G23: nela, ele não faz nada), o `Sincronizar` das seis garagens sem pacote da lista longa (T02/03, depois de uma busca que acha) e o `Procurar de novo` da lista sem nada escolhido (T05/01): a busca de novo acha a mesma lista na hora, e nada muda
+
+## O checklist
+
+Uma estrutura só em todas as telas da T13: o título com a contagem, a barra fina e os seis cartões de seção. Tocar num cartão faz ele crescer no lugar — as seções de baixo descem, e nada mais se mexe. **Tem seta, toca; sem seta, é leitura.**
+
+- a contagem vem do mock: no caminho feliz, ao abrir o checklist depois do ciclo, são 24 de 31 · antes do ciclo, 19 de 31, porque o Painel já vem da calibração e a F espera o servidor
+- item pendente leva à tela que resolve, pelo campo `origem` de cada item do mock
+- a E tem uma ação só, *Fazer o ciclo dinâmico*, que abre a T14 · a F não tem ação: espera o servidor
+- o homologado mostra o veredito e o relatório no topo · com a localização negada, o relatório vai sem ela
+
+## O próximo passo depois da calibração
+
+A calibração completa leva direto ao ciclo dinâmico: *Fazer o ciclo dinâmico* é o botão principal, e *Voltar ao menu* fica embaixo. O caminho feliz anda em linha — calibra, ciclo, checklist.
 
 ## A URL
 
@@ -301,6 +314,8 @@ Pendências que não são de desenho seguem um padrão até o PM decidir — a l
 | `T13/07-momento-responder-item` | tocar num item manual |
 | `T13/08-momento-nao-conforme-com-justificativa` | marcar não conforme |
 | `T13/11-momento-homologado` | tocar em `Finalizar instalação`, com A a E resolvidas (T13·3) |
+| `T13/12-momento-b-com-ressalva` | salvar um item como não conforme, com a justificativa |
+| `T13/13-momento-e-resolvida` | voltar do ciclo dinâmico com os cinco passos feitos |
 | `T14/01-momento-antes-do-disparo` | a fila do módulo ainda drenando |
 | `T14/05-momento-ciclo-concluido` | os cinco passos e o evento |
 | `T14/06-momento-correcao-solicitada` | tocar em `Solicitar correção de cadastro` no identificador divergente |
@@ -362,6 +377,7 @@ Pendências que não são de desenho seguem um padrão até o PM decidir — a l
 | `T12/03-estado-sem-rede` | a consulta sem rede | `instalacoes-sem-rede` |
 | `T13/09-estado-item-reprovado` | um item automático reprova — a bateria abaixo do mínimo, na CAN | `can-estatico-isolado` (T13-A1) |
 | `T13/10-estado-finalizar-com-a-secao-f-falhando` | `Finalizar` com a Seção F falhando — o servidor não respondeu | `pronto-para-fechar` (T13-A2) |
+| `T13/14-estado-homologado-sem-localizacao` | finalizar com a localização negada | `localizacao-negada` |
 | `T14/02-estado-prazo-estourado` | o evento não chega em 2:00 | `evento-sem-resposta` |
 | `T14/03-estado-dinamico-fora-do-esperado` | um sinal andando fora do esperado | `can-fora-esperado` |
 | `T14/04-estado-identificador-divergente` | o cartão lido não bate | `identificador-divergente` |

@@ -32,11 +32,11 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `07-momento-folha-trocar-de-garagem`
 
-`14:30` · `GARAGEM VÁRZEA` · `RV` · `Trocar de garagem` · `Trocar recarrega os ativos e o pacote desta garagem.` · `Garagem Várzea` · `carregado ontem, 07:10` · `ATIVOS` · `10` · `Garagem Ibura` · `carregado há 4 dias` · `ATIVOS` · `8` · `Pátio Caruaru` · `carregado há 8 dias · o limite é 7` · `Sincronize no menu para liberar` · `ATIVOS` · `6`
+`14:30` · `GARAGEM VÁRZEA` · `RV` · `Trocar de garagem` · `Trocar recarrega os ativos e o pacote desta garagem.` · `Garagem Várzea` · `carregado ontem, 07:10` · `ATIVOS` · `10` · `Garagem Ibura` · `carregado há 4 dias` · `ATIVOS` · `8` · `Pátio Caruaru` · `pacote vencido há 8 dias` · `ATIVOS` · `6`
 
 ## `08-estado-folha-trocar-de-garagem-envio-em-andamento`
 
-`14:30` · `GARAGEM VÁRZEA` · `RV` · `Trocar de garagem` · `UMA EVIDÊNCIA ESTÁ SUBINDO` · `Troque de garagem quando a fila terminar.` · `Garagem Várzea` · `carregado ontem, 07:10` · `ATIVOS` · `10` · `Garagem Ibura` · `espera o envio terminar` · `ATIVOS` · `8` · `Pátio Caruaru` · `carregado há 8 dias · o limite é 7` · `Sincronize no menu para liberar` · `ATIVOS` · `6`
+`14:30` · `GARAGEM VÁRZEA` · `RV` · `Trocar de garagem` · `UMA EVIDÊNCIA ESTÁ SUBINDO` · `Troque de garagem quando a fila terminar.` · `Garagem Várzea` · `carregado ontem, 07:10` · `ATIVOS` · `10` · `Garagem Ibura` · `espera o envio terminar` · `ATIVOS` · `8` · `Pátio Caruaru` · `pacote vencido há 8 dias` · `ATIVOS` · `6`
 
 ## `09-estado-folha-trocar-de-garagem-com-modulo-conectado`
 

@@ -28,10 +28,9 @@ No protótipo (entrega do design de 25/09, que resolve o vazio sem frase do T02�
 Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe.
 
 - barra do sistema sem sessão
+- o topo do menu inteiro
 - uma ação
 - escolha numa lista
-- seção aberta do checklist
-- seção recolhida
 - vazio declarado
 - linha do histórico
 - a lista de garagens
