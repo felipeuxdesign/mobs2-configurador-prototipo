@@ -126,7 +126,7 @@ function PalcoApp() {
   const numEstado = !!est
 
   return (
-    <main className={`palco ${estreito ? 'palco-estreito' : ''} ${deitada ? 'palco-deitado' : ''}`}>
+    <main className={`palco ${estreito ? 'palco-estreito' : ''} ${deitada ? 'palco-deitado' : ''} ${celular ? 'palco-celular' : ''}`}>
       {!celular && (
         <button type="button" key={estreito ? pisca : 0} className={`palco-quadrado ${estreito && pisca ? 'palco-pisca' : ''}`} aria-label="Telas do protótipo" onClick={() => setPainel(true)}>
           <LayoutGrid aria-hidden="true" className="palco-icone-18" />

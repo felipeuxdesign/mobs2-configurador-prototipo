@@ -115,6 +115,11 @@ body { background: var(--poco-fundo); overflow: hidden; }
 .palco-estreito:not(.palco-deitado) .celular { width: 100%; height: 100%; padding: 0; border: 0; border-radius: 0; }
 .palco-estreito:not(.palco-deitado) .celular-tela { width: 100%; height: 100%; border-radius: 0; overflow-y: auto; }
 .palco-estreito .palco-etiqueta { display: none; }
+/* no celular de verdade, com o app na tela inteira, a barra desenhada sai (diretor, 25/09): a altura dela vira
+   zero, e tudo que as telas medem a partir dela (o véu, as folhas, o topo do login) acompanha. No computador,
+   no print e no celular deitado (que desenha o celular), ela fica */
+.palco-celular:not(.palco-deitado) { --barra-sistema: var(--palco-barra-no-celular); }
+.palco-celular:not(.palco-deitado) .ds-barra-sistema { overflow: hidden; padding: 0; }
 /* no estreito, o painel leva o Voltar ao fluxo e a etiqueta (G19); o toque no
    app parado pisca o quadrado, que é a porta do Voltar */
 /* 12 da linha do cabeçalho (decisão 17: nada encosta); embaixo, o recheio da lista e o do nome da parte já dão 16 até O CAMINHO.
