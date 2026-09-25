@@ -24,7 +24,9 @@ const campoDoApp = () => { const e = document.activeElement; return abreTeclado(
 // e a altura em que o celular em escala cabe: o teclado aberto não o encolhe (retrato.js, alturaDoPalco)
 const medirJanela = (antes) => {
   const agora = { w: window.innerWidth, h: window.innerHeight }, campo = campoDoApp()
-  return { ...agora, deitado: deitado(antes, agora, campo), alto: alturaDoPalco(antes, agora, campo) }
+  // de toque: o dedo é o ponteiro principal (o celular); a janela estreita do computador não conta
+  const toque = window.matchMedia?.('(pointer: coarse)').matches ?? false
+  return { ...agora, toque, deitado: deitado(antes, agora, campo), alto: alturaDoPalco(antes, agora, campo) }
 }
 
 function medirEscala(temColuna, alto) {
@@ -100,8 +102,12 @@ function PalcoApp() {
   const print = lerUrl().print
   const medir = new URLSearchParams(window.location.search).get('medir') === '1'
 
+  // no celular de verdade (estreito e de toque), o palco sai do caminho (diretor, 25/09): sem o quadrado por
+  // cima do app, e o endereço não acompanha a navegação — recarregar volta ao que foi aberto (o login, no link
+  // principal), e o link direto de uma tela ou estado continua abrindo certo. O painel ainda abre pelo &painel=1
+  const celular = janela.w < larguraEstreita() && janela.toque
   // no print não há painel: o endereço do print fica só com a tela, o estado e o momento
-  useEffect(() => { escreverUrl({ tela, estado: est, momento, painel: painel && !print }) }, [tela, est, momento, painel, print])
+  useEffect(() => { if (!celular) escreverUrl({ tela, estado: est, momento, painel: painel && !print }) }, [tela, est, momento, painel, print, celular])
   useEffect(() => { const r = () => setJanela(medirJanela); window.addEventListener('resize', r); return () => window.removeEventListener('resize', r) }, [])
 
   // o painel só fecha no X, tocando fora ou com Esc — escolher uma tela não fecha (diretor, 24/09)
@@ -121,9 +127,11 @@ function PalcoApp() {
 
   return (
     <main className={`palco ${estreito ? 'palco-estreito' : ''} ${deitada ? 'palco-deitado' : ''}`}>
-      <button type="button" key={estreito ? pisca : 0} className={`palco-quadrado ${estreito && pisca ? 'palco-pisca' : ''}`} aria-label="Telas do protótipo" onClick={() => setPainel(true)}>
-        <LayoutGrid aria-hidden="true" className="palco-icone-18" />
-      </button>
+      {!celular && (
+        <button type="button" key={estreito ? pisca : 0} className={`palco-quadrado ${estreito && pisca ? 'palco-pisca' : ''}`} aria-label="Telas do protótipo" onClick={() => setPainel(true)}>
+          <LayoutGrid aria-hidden="true" className="palco-icone-18" />
+        </button>
+      )}
       <div className="palco-cena">
         <div className={`celular ${numEstado ? 'celular-estado' : ''}`} style={estreito && !deitada ? undefined : { transform: `scale(${escala})` }}
           onClickCapture={numEstado ? (e) => { e.stopPropagation(); e.preventDefault(); setPisca((n) => n + 1) } : undefined}>
