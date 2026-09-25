@@ -60,7 +60,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | ainda não | src/ds/linhas/LinhaChecagem.jsx (estado ainda-nao; com glifo trocado, o relógio apagado da T05/10 · C6) |
 | pré-checagem | src/ds/linhas/LinhaChecagem.jsx (compacta; estado agora, a checagem que corre, e folgaFim 'pre-checagem', a última de 43 da T05/05 · C6) |
 | pré-checagem com sessão | src/ds/linhas/LinhaChecagem.jsx (compacta) |
-| passo do ciclo | src/ds/linhas/LinhaChecagem.jsx (variante passo; recheioCausa: o passo reprovado com a causa, 'largo' 8 no meio da lista e 'justo' 4 no teste do cartão, a causa na entrelinha do texto — T14/03 e 04 · C10) |
+| passo do ciclo | src/ds/linhas/LinhaChecagem.jsx (variante passo; recheioCausa: o passo reprovado com a causa, 'largo' 8 no meio da lista e 'justo' 4 no teste do cartão, a causa na entrelinha normal, e não na --entrelinha-detalhe — T14/03 e 04 · C10) |
 | assertiva da sessão | src/ds/linhas/LinhaChecagem.jsx (variante dupla; valorQuebra, o valor longo em duas linhas à direita, o recebimento de outra garagem · C11, T12·2; o nome aceso em todo estado, o não se aplica com o traco-circulo e o ainda não com o relógio em --tinta-secundaria, folgaFim 'assertiva', a última de 54, e lendo, a assertiva que ainda não acendeu · C11, T16) |
 | linha de conferência | src/ds/linhas/LinhaChecagem.jsx (variante conferencia; estado diverge, o traço no poço e o valor em --tinta; folgaFim 'conferencia', a última de 72; lendo, o poço vazio enquanto a leitura não chega · C11, T11) |
 | seção aberta do checklist | src/ds/linhas/CabecaSecao.jsx (aberta; estado aguarda, o relógio em --marca-limite, e legenda, F · não bloqueia — T13/01–06 · C10) |
@@ -117,6 +117,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | a marca no login | src/ds/entrada/Marca.jsx |
 | campo | src/ds/entrada/Campo.jsx |
 | campo focado | src/ds/entrada/Campo.jsx (focado, + TracoFoco.css) |
+| senha visível | src/ds/entrada/Campo.jsx (sem oculto: a senha por extenso, e a troca esmaece no lugar em --mov-rapido) + primitivos/SoIcone.jsx (olho-riscado, o olho do Icone com o risco; o nome Ocultar a senha vem da tela — a entrega de 24/09, T01/10) |
 | requisitos da senha | src/ds/entrada/Requisito.jsx (+ Requisitos) |
 | código · seis células | src/ds/entrada/Codigo.jsx (focoEm: o traço fora do próximo dígito, T01/06) |
 | código errado | src/ds/entrada/Codigo.jsx (errado) |

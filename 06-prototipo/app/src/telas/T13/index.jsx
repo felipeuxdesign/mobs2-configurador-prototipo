@@ -27,6 +27,7 @@ import {
   CartaoValor, CartaoFoto, Segmentado, LinhaTocavel, Justificativa, Nota, Rodape, Veu, Dialogo, Frase,
 } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
+import { useVoltar } from '../../estado/voltar.js'
 import { SEMENTES } from '../../estado/sementes.js'
 import { M } from '../../dados/mock.js'
 import {
@@ -44,16 +45,6 @@ const NOME_DO_ESTADO = { aprovada: 'aprovado', pendente: 'ainda não', aguarda: 
 const NOME_DO_ITEM = { ok: 'aprovado', ressalva: T.naoConforme, nsa: 'não se aplica', pendente: 'ainda não', aguarda: 'ainda não', reprovado: 'falha' }
 // o que o nível do item reprovado explica, por item (textos.md · 09)
 const NOTA_DO_REPROVADO = { 'c-alimentacao': T.confiraAlimentacao }
-
-// O voltar do Android (logica.md): no computador, o Esc. Sem ação, não escuta.
-function useVoltar(acao) {
-  useEffect(() => {
-    if (!acao) return undefined
-    const esc = (e) => { if (e.key === 'Escape') acao() }
-    window.addEventListener('keydown', esc)
-    return () => window.removeEventListener('keydown', esc)
-  }, [acao])
-}
 
 // Homologado ⇒ o relatório está na fila (o Finalizar o gerou): a Seção F desta
 // sessão lê dele (G22). O mundo com o registro da tela e esse relatório.
@@ -170,9 +161,8 @@ export default function T13({ momento, estado: est }) {
   const finalizar = () => (ck.falhandoF ? setQ({ ...q, dialogo: true, ciente: false }) : homologar(null))
   const cancelar = () => setQ({ ...q, dialogo: false, ciente: false })
 
-  // o voltar do sistema: num estado da coluna o app está parado, e o voltar também
-  const voltar = est ? null : q.dialogo ? cancelar : q.item ? voltarAoChecklist : voltarAoMenu
-  useVoltar(voltar)
+  // o voltar do Android (logica.md, T13·6): num estado da coluna o app está parado, e a peça não escuta
+  useVoltar(q.dialogo ? cancelar : q.item ? voltarAoChecklist : voltarAoMenu)
 
   // ── o que se mostra ──
   const { sessao } = mundo

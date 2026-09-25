@@ -19,11 +19,11 @@
 // · Sem processo que ande sozinho: o envio da fila não tem ritmo declarado
 //   (G4), e o 01 é estado, parado. O movimento (a barra que enche, o item que
 //   esmaece) é do C12.
-import { useEffect } from 'react'
 import {
   BarraDoSistema, Faixa, CabecalhoConteudo, CartaoAcao, Lista, LinhaFila, LinhaRechecagem, Vazio, Rodape,
 } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
+import { useVoltar } from '../../estado/voltar.js'
 import { SEMENTES } from '../../estado/sementes.js'
 import { M } from '../../dados/mock.js'
 import {
@@ -35,17 +35,6 @@ import { T } from './textos.js'
 import './t15.css'
 
 const ENCERRAR_SEM_HOMOLOGAR = '03-momento-encerrando-sem-homologar' // G23: a sessão abortada (T16/03)
-
-// O voltar do Android (logica.md): no computador, o Esc. Faz o mesmo que a
-// saída do rodapé, o Voltar ao menu. Num estado da coluna, o app está parado.
-function useVoltar(acao) {
-  useEffect(() => {
-    if (!acao) return undefined
-    const esc = (e) => { if (e.key === 'Escape') acao() }
-    window.addEventListener('keydown', esc)
-    return () => window.removeEventListener('keydown', esc)
-  }, [acao])
-}
 
 export default function T15({ estado: est }) {
   const { estado: unico, despachar } = useEstado()
@@ -62,7 +51,9 @@ export default function T15({ estado: est }) {
   const voltarAoMenu = () => ir('T04')
   // G23: antes de homologar, a sessão abortada (T16/03); depois, o encerramento (T16)
   const encerrar = () => (unico.etapas.checklist?.homologada ? ir('T16') : ir('T16', { momento: ENCERRAR_SEM_HOMOLOGAR }))
-  useVoltar(est ? null : voltarAoMenu)
+  // o voltar do Android (logica.md): o mesmo que a saída do rodapé, o Voltar ao
+  // menu. Num estado da coluna, o app está parado, e a peça não escuta
+  useVoltar(voltarAoMenu)
 
   const faixa = !sessao
     ? <Faixa estado="sem-sessao" fato={T.semSessao} />

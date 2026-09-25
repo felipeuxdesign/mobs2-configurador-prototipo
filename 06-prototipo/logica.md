@@ -28,6 +28,8 @@ login → garagem Várzea → sincroniza o pacote → menu
 → o ciclo dinâmico: os cinco passos sozinhos, o evento chega → o checklist fecha → ENCERRAR → a faixa sobe → menu sem sessão
 ```
 
+O roteiro `app/scripts/caminhos/heroi.mjs` prova o caminho só por toque, do login ao menu sem sessão, sem pulo do palco (`node scripts/caminho.mjs heroi`). Da calibração, o caminho volta ao menu e segue pelo `Finalizar com checklist`: o menu não tem cartão do ciclo, e é o cartão da Seção E que falta que abre a T14 (T13·4); o `Voltar ao checklist` do ciclo concluído leva de volta, e o checklist fecha com as quatro fotos de B (o Painel vem herdado da calibração) e o `Finalizar instalação`.
+
 ## As sementes
 
 Pular direto pra uma tela pelo painel monta o estado mínimo que ela precisa pra fazer sentido:
@@ -57,12 +59,16 @@ Escolher e seguir com um módulo ou ônibus da lista que é **caso do mock** abr
 
 Na T05, o que acontece uma vez vale uma vez por sessão (G21, `casosConsumidos`): o link que cai, o módulo que dorme, o canal antigo que o app fecha, a falha ao conectar e o módulo sem rede até a conexão gravar. O que é fato do cadastro — o serial, o driver, a matriz, o conteúdo, as cercas e as pendências — vale toda vez que o módulo conecta.
 
+O roteiro `app/scripts/caminhos/portas.mjs` prova as portas e a R-14 nas três listas de escolha — a T02, a T05 (a lista e a 00) e a T06 (`node scripts/caminho.mjs portas`).
+
 ## ENCERRAR
 
 - **depois de homologar:** os passos do encerramento, o corte de alimentação que o técnico faz quando o driver não reinicia por comando, e o autoteste (T16·1). O herói é um VL06, que reinicia por comando; o corte aparece na sessão do KNB-5H39 · M2C-0371, que se abre pelo endereço do momento. Ao fechar o sétimo passo, a sessão sai do estado único e a tela passa pra *Sessão encerrada*, onde as oito assertivas acendem uma a uma; a prova e o `Voltar ao menu` entram com a última (T16·4)
 - **antes de homologar:** a sessão abortada — **4 passos, sem confirmação**. Quem tocou no ENCERRAR da faixa já decidiu. Do ENCERRAR, os 4 passos terminam na *Sessão encerrada* sem homologar; dos diálogos do menu (`Encerrar a sessão e sair`, `Encerrar a sessão e trocar`), o destino fica gravado no estado único e, depois dos 4 passos, o app segue pra ele — o login com a fila preservada, ou a sincronização da garagem nova (G23)
 - **a sessão interrompida (T16/06):** `Retomar` reabre a cadeia da T09 no bloco que parou, com os blocos já confirmados; `Descartar` volta ao menu sem sessão e não cria item de fila; o voltar não faz nada (T16·5, T16·6)
 - **a exceção da T09 (G23, HU-T09-9):** enquanto a Conexão não gravou, o ENCERRAR e o `Voltar ao menu` com a cadeia parada levam à recuperação (T09/03), onde o ENCERRAR não faz nada e `Continuar a gravação` retoma do mesmo bloco. Com a cadeia concluída, o ENCERRAR volta a ser o de cima
+
+Os roteiros provam: `heroi.mjs`, o depois de homologar · `abortada.mjs`, o antes — o ENCERRAR da faixa na pré-checagem, na CAN e no menu, e o `Encerrar a sessão` da folha do módulo · `sair.mjs`, os dois diálogos do menu e os destinos deles.
 
 ## Os contadores do menu (T04·1, T04·2)
 
@@ -122,12 +128,42 @@ Na T05, o que acontece uma vez vale uma vez por sessão (G21, `casosConsumidos`)
 
 ## O voltar do Android
 
-O botão de voltar do sistema faz **o mesmo que o link de saída do rodapé** daquela tela — nunca um caminho que a tela não oferece. Nos processos que não podem parar, ele **não sai**:
+O botão de voltar do sistema faz **o mesmo que o link de saída do rodapé** daquela tela — nunca um caminho que a tela não oferece. No protótipo é o Esc do computador, numa peça só pras 16 telas, `useVoltar` (`app/src/estado/voltar.js`): cada tela diz o que ele faz em cada momento, e passa nada onde ele não faz nada.
 
-- **na cadeia da T09**, antes de a Conexão gravar, ele abre a recuperação
-- **na pré-checagem, no encerramento e no autoteste**, ele não faz nada — o processo termina sozinho em segundos. Na *Sessão encerrada*, com o autoteste terminado, ele faz o `Voltar ao menu`, a saída que ela tem (T16)
+- **a saída é o link que sai:** o que leva a outra tela, ou ao nível de cima da mesma (a lista, o mapa, a seção). O link que fica no lugar (o `Procurar de novo` da busca da T05, o pedido de correção da T14) ou que avança o fluxo (o `Configurar módulo` da T07 com um sinal reprovado) não é saída, e o voltar não faz nada
+- **sem link**, a saída é o primário quando ele é a única saída e só navega: o `Voltar ao menu` da *Sessão encerrada* (T16) e da cadeia concluída (T09/04), o `Ir para o menu` do pacote baixado (T03/02), o `Escolher outro` das travas sem link da T06. O primário que é ato (`Entrar`, `Sincronizar`) não é saída
+- **onde a tela não tem saída desenhada** — o login, a escolha da garagem, o menu, a busca da T05 —, ele não faz nada no protótipo (`08-produto-real/pendencias.md`)
+
+Nos processos que não podem parar, ele **não sai**:
+
+- **na cadeia da T09**, antes de a Conexão gravar, ele abre a recuperação; na recuperação, que só oferece `Continuar a gravação`, não faz nada
+- **na pré-checagem correndo, na atualização do firmware, no encerramento e no autoteste**, ele não faz nada — o processo termina sozinho em segundos. Terminado o processo, vale a saída do rodapé: a pré-checagem aprovada tem o `Voltar ao menu`, e a reprovada ou parada no caso, o `Procurar outro módulo`. Na *Sessão encerrada*, com o autoteste terminado, ele faz o `Voltar ao menu`, a saída que ela tem (T16)
+- **na baixa do pacote (T03) e na releitura da CAN (T08)**, que dizem *não saia da tela* e não têm saída, ele não faz nada
 - **na sessão interrompida (T16/06)**, ele não faz nada: `Retomar` e `Descartar` são atos, e o voltar não escolhe no lugar do técnico (T16·6)
-- **numa folha ou num diálogo**, ele fecha a folha ou o diálogo, como o X ou o Cancelar
+- **numa folha ou num diálogo**, ele fecha a folha ou o diálogo, como o X ou o Cancelar. O diálogo sem X nem Cancelar — o *Senha alterada* (T01/09, HU-T01-10) — não fecha, e o voltar não faz nada
+
+**Onde ele não escuta:** no print (`?print=1`) e num estado aberto pela coluna do palco, que fica parado e sem toque. Com o painel do palco aberto, o Esc fecha só o painel, que o pega antes (na captura).
+
+| Tela | O que o voltar faz |
+|---|---|
+| T01 | na entrada (00, 01, 10), nada · no canal, no código e na senha nova (02, 03, 05 a 08, 12, 13), o `Voltar ao login` · na folha *Não recebi o código* (04, 11), fecha, como o X · no diálogo *Senha alterada* (09), nada |
+| T02 | nada (00 a 02) |
+| T03 | baixando (00), nada · na falha (01), o `Voltar ao contexto` → T02 · baixado (02), o `Ir para o menu` → T04 · no de 4 dias (03), o `Continuar com este pacote` → T04 · no vencido (04), o `Trocar de garagem` → T02 |
+| T04 | no menu (00 a 04), nada · numa folha (05, 07, 08, 10, 11), fecha, como o X · no diálogo de sair (06), o `Cancelar`, que volta à folha Conta · no de trocar (09), o `Cancelar` |
+| T05 | na busca (00, 01, 02, 04), nada · no vazio (03), o `Voltar ao menu` · na pré-checagem correndo (05) e na atualização (10), nada · aprovada (05, 13), o `Voltar ao menu` · reprovada ou parada no caso (06 a 09, 11, 12, 14, 15), o `Procurar outro módulo` → a lista (01) |
+| T06 | na lista (00), no chassi divergente (02) e na correção pedida (07), o `Voltar ao menu` · na confirmação (01, 03) e no conflito com saída (05), o `Escolher outro` → a lista · nas travas sem link (04, 06), o `Escolher outro` do primário → a lista |
+| T07 | tudo aprovado (00), o `Voltar ao menu` · com um sinal reprovado (01, 02), nada |
+| T08 | antes e depois da releitura (00, 02), o `Voltar ao menu` · relendo (01), nada |
+| T09 | correndo (00), recusado (01) e pausado (02), a recuperação (03) · na recuperação, nada · concluída (04), o `Voltar ao menu` |
+| T10 | o `Voltar ao menu`, em todo passo (00 a 04) |
+| T11 | o que diverge (00, 01), o `Só registrar o diagnóstico` · tudo confere (02), o `Voltar ao menu` |
+| T12 | na lista (00, 02, 03), o `Voltar ao menu` · no detalhe (01), o `Voltar às instalações` |
+| T13 | no mapa, numa seção aberta e no homologado (00 a 06, 11), o `Voltar ao menu` · no nível do item (07 a 09), o `Voltar ao checklist` · no diálogo da ciência (10), o `Cancelar` |
+| T14 | com o ciclo aberto (00 a 03), o `Ir para o checklist` · no ciclo concluído (05), o `Voltar ao menu` · com o caso de identificador correndo (04, 06), nada |
+| T15 | o `Voltar ao menu` (00 a 04) |
+| T16 | no encerramento (00, 01), no autoteste e na sessão abortando (03), nada · encerrada (02, 04, 05), o `Voltar ao menu` · interrompida (06), nada |
+
+O roteiro `app/scripts/caminhos/voltar.mjs` prova a tabela: cada tela pelo endereço e pelos momentos com saída própria, o Esc e o destino (`node scripts/caminho.mjs voltar`).
 
 ## Os cartões em espera
 

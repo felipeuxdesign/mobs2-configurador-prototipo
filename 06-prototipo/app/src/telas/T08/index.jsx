@@ -15,6 +15,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { BarraDoSistema, Faixa, GradeCartoes, Mostrador, Rodape } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
+import { useVoltar } from '../../estado/voltar.js'
 import { EM_QUADRO } from '../../estado/quadro.js'
 import { RITMOS } from '../../estado/ritmos.js'
 import { M } from '../../dados/mock.js'
@@ -86,6 +87,10 @@ export default function T08({ momento }) {
     : { tipo: 'ir', tela: 'T16', momento: ENCERRAR_SEM_HOMOLOGAR })
 
   const { fase, lidos } = fluxo
+  // O voltar do Android (logica.md): antes e depois da releitura, o Voltar ao
+  // menu, o link de saída do rodapé. Relendo, a tela não tem saída (não saia da
+  // tela): não faz nada — a releitura termina sozinha
+  useVoltar(fase === 'relendo' ? null : voltar)
   const extenso = porExtenso(total)
 
   let cabeca

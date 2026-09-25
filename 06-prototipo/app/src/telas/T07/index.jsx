@@ -20,6 +20,7 @@ import {
   Sinais, Declarado, Rodape,
 } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
+import { useVoltar } from '../../estado/voltar.js'
 import { SEMENTES } from '../../estado/sementes.js'
 import { M } from '../../dados/mock.js'
 import { caixaAlta } from '../../dados/formato.js'
@@ -71,6 +72,11 @@ function DadosDaCan({ est }) {
   const lerNovamente = () => {
     if (caso && !unico.casosConsumidos.includes(caso)) despachar({ tipo: 'mesclar', parcial: { casosConsumidos: [...unico.casosConsumidos, caso] } })
   }
+
+  // O voltar do Android (logica.md): com tudo aprovado, o Voltar ao menu, o link
+  // de saída do rodapé. Com um sinal reprovado, o link é o Configurar módulo, que
+  // avança pra gravação e não é saída: não faz nada (pendencias.md)
+  useVoltar(falhou ? null : () => ir('T04'))
 
   const rodape = falhou
     ? <Rodape primario={T.lerNovamente} aoPrimario={lerNovamente} link={T.configurar} aoLink={() => ir('T09')} />

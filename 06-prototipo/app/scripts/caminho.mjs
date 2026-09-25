@@ -17,9 +17,14 @@
 //   { chega: 'T03' } · { chega: 'T01', momento: '02-…' } · { chega: 'T05', estado: null }   espera a URL dizer isso
 //   { ve: 'texto' } · { naoVe: 'texto' }  espera o texto aparecer, ou sumir, no celular
 //   { fica: 'T13', ms: 1500 }              confere que o app continua nessa tela depois de ms (o voltar que não faz nada)
+//   { desligado: 'Conectar' }              espera o tocável com esse nome existir desabilitado (o primário apagado, o cartão em espera)
+//   { naoToca: 'M2C-0999' }                confere que nenhum tocável tem esse nome (o que a referência desenha sem toque)
 //   { dorme: 500 }
 // Todo passo que espera aceita `ms` (padrão 15000): os processos correm no ritmo de ritmos.js,
-// e `entre: [min, max]`: quanto tempo a espera pode levar, em ms (o ritmo de um processo).
+// e `entre: [min, max]`: quanto tempo a espera pode levar, em ms (o ritmo de um processo) — no toca,
+// a espera é a do tocável aparecer ligado (o Voltar ao menu que entra com a última assertiva).
+// Se a página recarrega sem um abre (o dev server trocou um arquivo que outro agente editou), o
+// estado único volta ao começo: a régua para e diz isso, em vez de só "não chegou".
 //
 // O movimento (movimento.md): todo toque grava o que começou a animar no celular logo depois,
 // em prints/caminho/<roteiro>-movimento.json, e acusa com ⚠ o que a lei proíbe (animar
@@ -27,7 +32,9 @@
 //   { toca: 'X', anima: [{ prop: 'opacity', ms: 150, curva?, atraso?, em? }] }   o toque tem de começar isso
 //   { anima: [...] }                        o que está animando agora (depois de um dorme, num processo)
 //   { quieto: true }                        nada animando agora (a tela abre sem animar a entrada)
-//   { reduzir: true } · { reduzir: false }  liga e desliga o prefers-reduced-motion: com ele, toda duração é zero
+//   { reduzir: true } · { reduzir: false }  liga e desliga o prefers-reduced-motion (com ele, toda duração é zero), e espera 400 ms
+//                                          pro que o toque anterior começou acabar
+// Fora do celular (a vitrine, ?vitrine=1), a régua procura na página inteira.
 import { spawn } from 'node:child_process'
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs'
 import { fileURLToPath, pathToFileURL } from 'node:url'
@@ -72,7 +79,8 @@ const dorme = (ms) => new Promise((r) => setTimeout(r, ms))
 
 // dentro da página: os tocáveis do celular, com o nome que o leitor de tela lê
 const NA_PAGINA = `(() => {
-  const raiz = document.querySelector('.celular-tela .app') || document.querySelector('.app')
+  // o celular; fora dele (a vitrine das peças, ?vitrine=1), a página inteira
+  const raiz = document.querySelector('.celular-tela .app') || document.querySelector('.app') || document.body
   const limpa = (s) => (s || '').replace(/\\s+/g, ' ').trim()
   const nome = (e) => limpa(e.getAttribute('aria-label')
     || (e.getAttribute('aria-labelledby') || '').split(' ').map((i) => document.getElementById(i)?.innerText).join(' ')
@@ -116,6 +124,7 @@ async function espera(fn, ms, passo, entre) {
 // o movimento: o que a lei proíbe (movimento.md, "Só isto se move") e o que o roteiro espera
 const PODE = new Set(['transform', 'opacity', 'translate', 'scale', 'rotate'])
 let registro = []
+let abrindo = false   // o abre navega de propósito; fora dele, navegar é o app recarregando
 function avisaLei(vistas, onde) {
   for (const a of vistas) {
     const fora = a.props.filter((p) => !PODE.has(p))
@@ -136,12 +145,23 @@ function confere(esperado, vistas, onde) {
 async function passo(s, p) {
   const ms = p.ms ?? 15000
   if (p.abre !== undefined) {
-    await cdp('Page.navigate', { url: BASE + p.abre }, s)
-    return espera(() => na(s, `return !!P.raiz && document.fonts.status === 'loaded'`).catch(() => false), ms, 'abre')
+    abrindo = true
+    try {
+      // a página de antes continua na tela até a nova chegar: marca a velha, e espera uma sem a marca
+      // (o endereço não serve de prova, porque o palco o reescreve ao abrir)
+      await na(s, `window.__m2cfVelha = true; return true`).catch(() => {})
+      await cdp('Page.navigate', { url: BASE + p.abre }, s)
+      await espera(() => na(s, `return !window.__m2cfVelha && document.readyState === 'complete' && !!P.raiz && document.fonts.status === 'loaded'`).catch(() => false), ms, 'abre')
+      // o app desenhou, mas os efeitos do React (o Esc de cada tela, o relógio dos processos)
+      // correm depois da pintura: dois quadros e uma volta do laço, senão a tecla logo depois do
+      // abre cai antes de a tela escutar
+      await na(s, `return new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(() => r(true), 50))))`)
+      return
+    } finally { abrindo = false }
   }
   if (p.toca !== undefined || p.marca !== undefined) {
     const alvo = p.toca ?? p.marca
-    await espera(() => na(s, `const e = P.acha(${JSON.stringify(alvo)}); return !!e && !P.desligado(e) || (e ? 'está desligado' : 'não achei')`), ms, `toca "${alvo}"`)
+    await espera(() => na(s, `const e = P.acha(${JSON.stringify(alvo)}); return !!e && !P.desligado(e) || (e ? 'está desligado' : 'não achei')`), ms, `toca "${alvo}"`, p.entre)
     const c = await na(s, `const e = P.acha(${JSON.stringify(alvo)}); e.scrollIntoView({ block: 'center' }); const r = e.getBoundingClientRect();
       const x = r.left + r.width / 2, y = r.top + r.height / 2, em = document.elementFromPoint(x, y);
       return { x, y, cobre: em && !e.contains(em) && !em.contains(e) ? (em.className || em.tagName) + ' · ' + P.nome(em) : null }`)
@@ -159,7 +179,11 @@ async function passo(s, p) {
     if (vistas.length) throw new Error(`quieto: está animando ${vistas.map((a) => `${a.em} ${a.props.join('+')} ${a.ms}ms`).join(' · ')}`)
     return
   }
-  if (p.reduzir !== undefined) return cdp('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: p.reduzir ? 'reduce' : 'no-preference' }] }, s)
+  if (p.reduzir !== undefined) {
+    await cdp('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: p.reduzir ? 'reduce' : 'no-preference' }] }, s)
+    // o que o toque anterior começou guarda o tempo dele: espera acabar, pra não contar como do reduzir
+    return dorme(400)
+  }
   if (p.digita !== undefined) {
     await espera(() => na(s, `const i = [...P.raiz.querySelectorAll('input, textarea')].find((e) => P.nome(e).startsWith(${JSON.stringify(p.em)}) || (e.labels?.[0] && P.limpa(e.labels[0].innerText).startsWith(${JSON.stringify(p.em)})));
       if (!i) return 'não achei o campo'; i.focus(); i.select?.(); return true`), ms, `digita em "${p.em}"`)
@@ -183,6 +207,8 @@ async function passo(s, p) {
     if (u.tela !== p.fica) throw new Error(`fica ${p.fica}: foi pra ${u.tela}`)
     return
   }
+  if (p.naoToca !== undefined) return espera(() => na(s, `const e = P.acha(${JSON.stringify(p.naoToca)}); return !e || 'é tocável: ' + P.nome(e)`), ms, `não toca "${p.naoToca}"`, p.entre)
+  if (p.desligado !== undefined) return espera(() => na(s, `const e = P.acha(${JSON.stringify(p.desligado)}); return !!e && P.desligado(e) || (e ? 'está ligado' : 'não achei')`), ms, `desligado "${p.desligado}"`, p.entre)
   if (p.ve !== undefined) return espera(() => na(s, `return P.raiz.innerText.includes(${JSON.stringify(p.ve)})`), ms, `vê "${p.ve}"`, p.entre)
   if (p.naoVe !== undefined) return espera(() => na(s, `return !P.raiz.innerText.includes(${JSON.stringify(p.naoVe)})`), ms, `não vê "${p.naoVe}"`, p.entre)
   if (p.dorme !== undefined) return dorme(p.dorme)
@@ -199,10 +225,17 @@ async function roda(nome) {
   await cdp('Emulation.setFocusEmulationEnabled', { enabled: true }, s)
   await cdp('Emulation.setDeviceMetricsOverride', { width: W, height: H, deviceScaleFactor: 1, mobile: false }, s)
   const t0 = performance.now(); let falhou = null; registro = []
+  // a página que recarrega sem o roteiro mandar (o dev server trocou um arquivo que outro
+  // agente editou) volta o estado único ao começo: a régua diz isso, em vez de só "não chegou"
+  let recarregou = false
+  const ouve = (m) => { if (m.sessionId === s && m.method === 'Page.frameNavigated' && !m.params.frame.parentId && !abrindo) recarregou = true }
+  ouvintes.add(ouve)
+  const RECARGA = 'o app recarregou no meio do caminho (o dev server trocou um arquivo?) e o estado voltou ao começo — rode de novo'
   try {
     for (const [i, p] of passos.entries()) {
-      try { await passo(s, p); console.log(`  ✔ ${String(i + 1).padStart(3)} ${rotulo(p)}`) }
+      try { await passo(s, p); if (recarregou) throw new Error(RECARGA); console.log(`  ✔ ${String(i + 1).padStart(3)} ${rotulo(p)}`) }
       catch (e) {
+        if (recarregou && e.message !== RECARGA) e.message = RECARGA + ' · ' + e.message
         falhou = { passo: i + 1, erro: e.message, onde: await onde(s).catch(() => null), tocaveis: await nomes(s).catch(() => []) }
         const { data } = await cdp('Page.captureScreenshot', { format: 'png' }, s)
         writeFileSync(resolve(SAIDA, `${nome}-falha.png`), Buffer.from(data, 'base64'))
@@ -210,7 +243,7 @@ async function roda(nome) {
         break
       }
     }
-  } finally { await cdp('Target.closeTarget', { targetId }).catch(() => {}) }
+  } finally { ouvintes.delete(ouve); await cdp('Target.closeTarget', { targetId }).catch(() => {}) }
   writeFileSync(resolve(SAIDA, `${nome}-movimento.json`), JSON.stringify(registro, null, 1))
   const seg = ((performance.now() - t0) / 1000).toFixed(1)
   console.log(falhou ? `${nome}: PAROU no passo ${falhou.passo} de ${passos.length} (${seg} s)` : `${nome}: OK, ${passos.length} passos (${seg} s)`)

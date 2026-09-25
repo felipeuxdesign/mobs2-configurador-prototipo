@@ -16,6 +16,7 @@ Apagar só os valores lidos e ler de novo, do zero.
 - `Ver os dados da CAN` → T07 com a leitura nova, que abre já lida (G27)
 - `Voltar ao menu` → T04
 - `ENCERRAR`, antes de homologar → a sessão abortada, e a releitura para (G23)
+- o voltar do sistema (no computador, o Esc) faz o `Voltar ao menu` antes e depois da releitura; relendo, a tela diz *não saia da tela* e não tem saída, e ele não faz nada (`06-prototipo/logica.md` · O voltar do Android)
 
 A grade monta os sinais do modelo do ativo da sessão, na ordem dos domínios e, dentro do domínio, o estático antes do dinâmico (T08·1). "doze" e "de 12" são o número de sinais, por extenso no texto (T08·2). O valor que volta é o do mock, o mesmo que a T07 mostra depois: o caso do ônibus, quando ele tem um, com a falha dando lugar ao nominal, porque a releitura é leitura nova (G21). Ao terminar, a leitura refeita fica gravada no estado único (T08·3). As regras estão no `06-prototipo/logica.md`.
 

@@ -47,6 +47,30 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - justificativa
 - bloco do evento
 
+## No protótipo · as peças que o código usa
+
+Anotação de construção, medida no código e nas referências. A lista de cima é a do design; esta é a que o protótipo usa, e a diferença entre as duas vai pro arquiteto.
+
+- primário · normal
+- primário · pressionado
+- primário · desabilitado
+- link · normal e pressionado
+- barra do sistema
+- faixa · sessão aberta
+- duas ações
+- com legenda
+- os glifos de estado
+- os poços
+- os marcadores
+- passo do ciclo
+- passos com o prazo estourado
+- cronômetro
+- prazo cheio
+- com contador neutro
+- bloco do evento
+
+Medido no código do C10, no fechamento do C10 e do C11 (G10), com os nomes das linhas do `componentes.md`. Saíram as seis que o código não usa: a faixa · sem ação (a faixa da T14 sempre tem o ENCERRAR), o processo correndo (no `01`, o primário apagado diz a ação, e quem explica é a legenda em cima), o com contador de falha (o contador conta os passos que passaram, neutro), o checkbox, o checkbox marcado e a justificativa. Entraram as de toque da folha 1 (o primário nos três estados, apagado enquanto a fila drena, e o link de saída do rodapé) e os átomos da folha 3 (os glifos e os poços dos passos, o relógio do evento e do registro, e o LED da faixa). As diferenças da tela contra a folha viraram variante nomeada da peça (G11), declarada lá: o passo do ciclo reprovado com a causa (`03` e `04`); o cronômetro estourado, com o número em vermelho e as frases do estado uma por linha (`02`); o nome do relógio do bloco do evento pelo dado; e o link registrado, o pedido de correção feito no lugar do link, nas duas ações (`06`).
+
 ## Histórias de usuário
 
 - **HU-T14-1** — Um deslocamento alimenta 4 blocos: CAN dinâmica · Seção E · evento de teste · viagem

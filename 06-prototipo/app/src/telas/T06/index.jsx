@@ -17,6 +17,7 @@ import {
   ParComparado, Nota, Checkbox, LinhaTocavel, Rodape,
 } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
+import { useVoltar } from '../../estado/voltar.js'
 import { SEMENTES } from '../../estado/sementes.js'
 import { M } from '../../dados/mock.js'
 import { caixaAlta } from '../../dados/formato.js'
@@ -66,6 +67,12 @@ export default function T06({ momento, estado: est }) {
 
   const ativo = escolhido ? ativoDe(escolhido) : null
   const prova = ativo ? avaliar(ativo, { uoId, sessao }, doEstado?.desde) : null
+
+  // O voltar do Android (logica.md): o link de saída do rodapé — na lista, no
+  // chassi divergente e na correção pedida (00, 02, 07), o Voltar ao menu; na
+  // confirmação (01, 03, 05), o Escolher outro, que volta à lista. Nas travas sem
+  // link (04, 06), o Escolher outro do primário, a saída que elas têm
+  useVoltar(!ativo || prova.passo === 'diverge' ? voltarAoMenu : escolherOutro)
 
   // 'Usar este ativo': o ativo entra na sessão, e o vínculo fica anotado com
   // como foi provado — o chassi lido ou a confirmação do técnico, às 14:30

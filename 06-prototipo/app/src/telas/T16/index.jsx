@@ -25,6 +25,7 @@ import {
   BarraDoSistema, Faixa, CabecalhoConteudo, Encerramento, Lista, LinhaChecagem, Prova, Aviso, Nota, Rodape,
 } from '../../ds/index.js'
 import { useEstado, estadoVazio } from '../../estado/estado.jsx'
+import { useVoltar } from '../../estado/voltar.js'
 import { SEMENTES } from '../../estado/sementes.js'
 import { EM_QUADRO } from '../../estado/quadro.js'
 import { RITMOS } from '../../estado/ritmos.js'
@@ -88,18 +89,6 @@ function proximo(f) {
   return f
 }
 const RITMO = { encerrando: RITMOS.encerramentoPassoMs, autoteste: RITMOS.autotesteAssertivaMs, abortando: RITMOS.encerramentoPassoMs }
-
-// O voltar do Android (logica.md): no computador, o Esc. No encerramento e no
-// autoteste ele não faz nada; na sessão interrompida também não (T16·6). Na
-// sessão encerrada, faz o mesmo que o Voltar ao menu, a saída do rodapé.
-function useVoltar(acao) {
-  useEffect(() => {
-    if (!acao) return undefined
-    const esc = (e) => { if (e.key === 'Escape') acao() }
-    window.addEventListener('keydown', esc)
-    return () => window.removeEventListener('keydown', esc)
-  }, [acao])
-}
 
 // o que entra quando chega a última assertiva: o lugar já existe, invisível e mudo
 function Vez({ porVir, children }) {
@@ -183,7 +172,10 @@ export default function T16({ momento, estado: est }) {
 
   const { fase, par } = fluxo
   const fechada = fase === 'encerrada' || fase === 'abortada'
-  useVoltar(est == null && fechada ? voltarAoMenu : null)
+  // O voltar do Android (logica.md): no encerramento e no autoteste ele não faz
+  // nada; na sessão interrompida também não (T16·6). Na sessão encerrada, faz o
+  // mesmo que o Voltar ao menu, a saída do rodapé. Num estado da coluna, a peça não escuta
+  useVoltar(fechada ? voltarAoMenu : null)
 
   // ── o topo: a faixa sem ação enquanto a sessão fecha; depois, sem sessão ──
   const viva = fase === 'encerrando' || fase === 'abortando'

@@ -24,9 +24,10 @@
 //   ENCERRAR → a T16, sem homologar antes do checklist (G23). O voltar do
 //   Android (o Esc) faz o mesmo que o link de saída do rodapé (logica.md): no
 //   00, registra e volta; no 02, volta.
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { BarraDoSistema, Faixa, CabecalhoConteudo, Aviso, Lista, LinhaChecagem, Nota, Prova, Rodape, ESTADOS } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
+import { useVoltar } from '../../estado/voltar.js'
 import { SEMENTES } from '../../estado/sementes.js'
 import { EM_QUADRO } from '../../estado/quadro.js'
 import { RITMOS } from '../../estado/ritmos.js'
@@ -103,15 +104,8 @@ export default function T11({ momento, estado: est }) {
   const encerrar = () => ir('T16', unico.etapas.checklist?.homologada ? {} : { momento: ENCERRAR_SEM_HOMOLOGAR })
 
   // O voltar do Android (logica.md): no computador, o Esc — o mesmo que o link
-  // de saída do rodapé. Num estado da coluna, o celular não toca.
-  const saida = useRef(null)
-  saida.current = confere ? voltar : registrar
-  useEffect(() => {
-    if (est != null) return undefined
-    const esc = (e) => { if (e.key === 'Escape') saida.current() }
-    window.addEventListener('keydown', esc)
-    return () => window.removeEventListener('keydown', esc)
-  }, [est])
+  // de saída do rodapé. Num estado da coluna, a peça não escuta.
+  useVoltar(confere ? voltar : registrar)
 
   const cabeca = confere
     ? <Aviso tom="veredito" titulo={T.confere} numero={total - divergem.length} unidade={T.deTotal(total)} />

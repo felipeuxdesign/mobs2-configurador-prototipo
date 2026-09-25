@@ -1,5 +1,23 @@
 # Registro de mudanças
 
+## 2026-09-25 · C11 · fechamento: o caminho do herói e o voltar do Android
+
+- **o caminho do herói, de ponta a ponta, só por toque:** do login às 14:30 ao menu sem sessão, passando pela garagem, a sincronização, o módulo, a pré-checagem, o ônibus, a CAN, a cadeia, a calibração, o ciclo, o checklist e o encerramento · 141 passos, em 44 s, sem nenhum pulo do palco
+- **cinco caminhos alternativos:**
+  - a sessão abortada antes de homologar;
+  - os diálogos de sair e de trocar de garagem com a sessão;
+  - o recuperar acesso pela entrega nova;
+  - as portas naturais e a R-14 nas listas de escolha;
+  - o voltar do Android nas 16 telas
+  - **ao todo, 890 passos aprovando** · nenhum defeito de tela apareceu: o caminho já funcionava como foi construído
+- **o voltar do Android numa peça só** (`src/estado/voltar.js`), no lugar das 7 cópias: faz o mesmo que o link de saída do rodapé; numa folha ou diálogo, fecha; nos processos que não podem parar, nada. Não escuta no print nem num estado da coluna · ligado nas 9 telas que não tinham · a tabela das 16 no `logica.md`
+  - **uma leitura nomeada:** o link que fica no lugar ou avança o fluxo (o *Procurar de novo* da T05, o *Configurar módulo* da T07 reprovada) não é saída, e ali o voltar não faz nada;
+  - **pro PM:** o voltar no login, na garagem e no menu, que não têm saída desenhada (`pendencias.md`)
+- **a régua do caminho** (`app/scripts/caminho.mjs`) toca pelo nome, espera a URL, e grava e confere o movimento, pro C12. Corrigida no fechamento: ela esperava o documento novo antes de tocar, e às vezes tocava no velho
+- **a documentação das peças do C10, do C11 e das entregas:** a seção do protótipo do `componentes.md` foi de 78 pra 91 linhas, com as variantes e as telas que usam, conferidas contra o código · as listas medidas da T14 e da T16
+- **o que espera o diretor** ficou num arquivo só: `06-prototipo/decisoes-do-diretor.md`
+- as 113 referências continuam com os números do C11, e `checar` e `build` aprovam
+
 ## 2026-09-24 · C11 · encerrar e consultar — T16, T15, T11 e T12
 
 - **as quatro telas em `app/src/telas/`**, com os 19 quadros e os toques de cada `tela.md`, cada uma construída por um agente e revisada por outro:

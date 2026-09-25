@@ -17,6 +17,7 @@ Fazer o módulo contar igual ao painel do ônibus — com a foto do painel como 
 - passo seguinte: o horímetro, ou a rotação e a velocidade no caminhão coletor. As grandezas e a ordem são as do cadastro do modelo do ativo, menos as que o módulo não mede (T10·1); o `Depois:` mostra só a próxima (T10·2)
 - o passo do horímetro não tem referência nem o texto do semear: monta-se com as peças e os textos que existem, com o botão desabilitado e o mesmo rótulo, `Calibrar o horímetro` (G25). A rotação do caminhão coletor (a 02) fica igual: `Calibrar a rotação` desabilitado, porque o módulo só lê com o motor ligado (HU-T10-2). Semeado o último passo (o hodômetro do ônibus de um passo só), nada está desenhado depois: o botão fica desabilitado, com o mesmo rótulo (G25)
 - `Voltar ao menu` → T04, e a calibração volta de onde parou (no hodômetro semeado, o endereço volta a ser o da 01) · `ENCERRAR`, antes de homologar: a sessão abortada da T16 (G23); depois, o encerramento
+- o voltar do sistema (no computador, o Esc) faz o `Voltar ao menu`, em todo passo (`06-prototipo/logica.md` · O voltar do Android)
 
 Corrigido no C9 pelas referências e pelas decisões do C0 (G1): o toque do cartão da foto, a sequência do semear e o passo sem referência. O tambor troca o valor; o movimento dele rolando é do C12 (C9·2).
 

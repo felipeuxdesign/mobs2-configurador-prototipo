@@ -16,6 +16,7 @@ Dizer em que garagem o técnico está hoje — o pacote de dados que o app vai u
 - `Sincronizar Garagem X` → T03
 - com **mais de 6 garagens**, o campo de busca aparece em cima e filtra por nome ou cidade · a lista rola por baixo do rodapé, que fica parado
 - a linha de garagem diz a idade do pacote — *pacote de hoje*, *de ontem*, *de 4 dias* —, e vencida diz só a causa: *pacote vencido há 8 dias* · a ação de sincronizar mora na T03
+- o voltar do sistema (no computador, o Esc) não faz nada: a tela não tem saída desenhada, e o `Sincronizar` é o ato, não a saída (`06-prototipo/logica.md` · O voltar do Android; a pergunta está em `08-produto-real/pendencias.md`)
 
 No protótipo (entrega do design de 24/09): o 6 é o `limiteSemBusca` do caso `lista-longa-garagens`, e a busca aparece em qualquer mundo com mais garagens que ele — o do herói, com 3, não a tem; o estado 02 é o mundo do caso, com 9. A busca olha o nome da garagem e o campo `cidade` do caso, sem acento e sem caixa; o nome da região saiu da busca (muda o T02·7), e o vazio continua sem frase. A frase da idade sai de `idadeNaLinhaDaGaragem`, em `app/src/dados/formato.js` (muda o T02·6); a garagem que só o caso tem lê o limiar de 7 que os pacotes do mock declaram.
 

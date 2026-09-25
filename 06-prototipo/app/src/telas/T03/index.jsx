@@ -12,6 +12,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { BarraDoSistema, Rodape, Aviso, Nota, Lista, LinhaContagem } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
+import { useVoltar } from '../../estado/voltar.js'
 import { EM_QUADRO } from '../../estado/quadro.js'
 import { M } from '../../dados/mock.js'
 import { caixaAlta } from '../../dados/formato.js'
@@ -131,6 +132,16 @@ export default function T03({ momento, estado: est }) {
     despachar({ tipo: 'mesclar', parcial: { contexto: { ...vivo.current.estado.contexto, uoId: q.uoId, pacote: pacoteAtual(p) } } })
     despachar(MENU)
   }
+
+  // O voltar do Android (logica.md): o link de saída do rodapé — na falha, o
+  // Voltar ao contexto; no vencido, o Trocar de garagem; no de 4 dias, o
+  // Continuar com este pacote. No concluído, o Ir para o menu, a saída que ele
+  // tem (como a Sessão encerrada da T16). Baixando, a tela não tem saída (não
+  // saia da tela): não faz nada
+  useVoltar(q.fase === 'falha' || (q.fase === 'idade' && bloqueia(p)) ? () => despachar(CONTEXTO)
+    : q.fase === 'idade' ? continuar
+      : q.fase === 'concluido' ? () => despachar(MENU)
+        : null)
 
   // o bloco de cima: o instrumento da fase, ou a falha no lugar dele (G24)
   let instrumento

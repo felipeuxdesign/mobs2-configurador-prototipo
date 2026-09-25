@@ -15,6 +15,9 @@ Perguntas que **não são de desenho** e estão com quem decide. Enquanto não v
 | T11 | `Só registrar o diagnóstico` registra onde, e o diagnóstico sobe pra plataforma como, se a fila não tem esse tipo de envio (HU-T11-7, T11-V4)? | fica na sessão, com os blocos que não bateram e a hora, e volta ao menu; nenhum item entra na fila (G25) |
 | T16 | de que ponto a sessão interrompida retoma? | do último passo confirmado: o `Retomar` reabre a cadeia no bloco seguinte a ele, o que parou (o Leitor, `Bloco 4 de 6`, T16·5) |
 | T16 | o voltar do Android na sessão interrompida faz o quê? | nada: `Retomar` e `Descartar` são atos, e o voltar não escolhe no lugar do técnico (T16·6, G20) |
+| T01 · T02 · T04 | o voltar do Android no login, na escolha da garagem e no menu, que não têm saída desenhada, faz o quê — fecha o app, como o Android faz na primeira tela? | nada: a tela não oferece o caminho, e o voltar não inventa (`06-prototipo/logica.md` · O voltar do Android, G25) |
+| T05 | o voltar do Android na busca (00, 01, 02, 04), em que o rodapé só oferece o `Procurar de novo` e nenhuma saída pro menu, faz o quê? | nada: o link não sai da tela (G25) |
+| T07 | o voltar do Android com um sinal reprovado (01, 02), em que o link do rodapé é o `Configurar módulo`, faz o quê? | nada: o link avança pra gravação da cadeia, e o voltar não avança (G25) |
 | T16 | o `Descartar` da sessão interrompida fica registrado onde (HU-T16-7)? | em lugar nenhum: volta ao menu sem sessão e sem item de fila, porque o registro do descarte não tem dado (T16·5, G25) |
 | T10 | os sinais podem se chamar Bateria e Alternador no cadastro? | o nome do cadastro |
 | todas | o app respeita a fonte aumentada do Android? | trava o tamanho |

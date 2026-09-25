@@ -21,6 +21,7 @@ Entrar no app com usuário e senha, e recuperar o acesso sem ligar pra ninguém.
 - o olho do campo de senha mostra e esconde: escondida, o olho e o nome *Mostrar a senha*; visível, o olho riscado e o nome *Ocultar a senha*
 - no erro, a senha é apagada e o cursor vai pra ela — o usuário fica, pra ele só redigitar a senha
 - `Lembrar meu usuário` marca e desmarca · desmarcado por padrão
+- o voltar do sistema (no computador, o Esc) faz o `Voltar ao login` em cada passo do recuperar — o canal, o código, a senha nova —, e na folha *Não recebi o código* a fecha, como o X. Na entrada, que não tem saída desenhada, e no diálogo *Senha alterada*, sem X nem Cancelar, ele não faz nada (`06-prototipo/logica.md` · O voltar do Android; a pergunta está em `08-produto-real/pendencias.md`)
 
 **Como o protótipo constrói** (entrega de 24/09, decisões 31 e 32):
 
@@ -81,6 +82,7 @@ Anotação de construção, medida no código e nas referências. A lista de cim
 - barra do sistema sob o véu
 - os glifos de estado
 - os poços
+- os marcadores
 - falha
 - segmentado
 - a marca no login
@@ -96,7 +98,7 @@ Anotação de construção, medida no código e nas referências. A lista de cim
 - checkbox marcado
 - linha de opção
 
-Corrigida no C4 pelo medido (G10, T01-A10): saíram as 14 peças que nenhuma das dez desenha (diálogo, diálogo com ciência, as duas seções do checklist, linha do histórico, as três da garagem, as cinco da cadeia e do encerramento, e a lista com contagem). Entraram as que a tela usa e faltavam: as de toque da folha 1, a barra sem sessão, as duas ações, os glifos e os poços, a falha do 01, o segmentado, os botões só de ícone e o checkbox marcado. O primário desabilitado não está desenhado em nenhuma referência: aparece no toque, com o código incompleto, sem envio na hora ou com a senha nova fora dos requisitos. O que só a T01 desenha virou variante nomeada (G11): o rodapé do login, o segmentado com folga 8, o foco do código fora do próximo dígito e a linha de opção em espera (a 04: apagada, desabilitada, com a contagem no lugar da seta; a 11: acesa). A senha visível (a 10) entrou na entrega de 24/09. O cartão do canal, o do código, a linha do código conferido e o campo da senha nova não têm linha no `componentes.md`: são peças desta tela, em `06-prototipo/app/src/telas/T01/`.
+Corrigida no C4 pelo medido (G10, T01-A10): saíram as 14 peças que nenhuma das dez desenha (diálogo, diálogo com ciência, as duas seções do checklist, linha do histórico, as três da garagem, as cinco da cadeia e do encerramento, e a lista com contagem). Entraram as que a tela usa e faltavam: as de toque da folha 1, a barra sem sessão, as duas ações, os glifos e os poços, a falha do 01, o segmentado, os botões só de ícone e o checkbox marcado. O primário desabilitado não está desenhado em nenhuma referência: aparece no toque, com o código incompleto, sem envio na hora ou com a senha nova fora dos requisitos. O que só a T01 desenha virou variante nomeada (G11): o rodapé do login, o segmentado com folga 8, o foco do código fora do próximo dígito e a linha de opção em espera (a 04: apagada, desabilitada, com a contagem no lugar da seta; a 11: acesa). A senha visível (a 10) entrou na entrega de 24/09. Com o marcador único (decisão 29), entrou o marcador da folha 3: o quadrado do checkbox do *Lembrar meu usuário*. O cartão do canal, o do código, a linha do código conferido e o campo da senha nova não têm linha no `componentes.md`: são peças desta tela, em `06-prototipo/app/src/telas/T01/`.
 
 ## Histórias de usuário
 

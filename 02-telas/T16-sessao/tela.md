@@ -46,6 +46,35 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - lista com contagem
 - prova da sessão
 
+## No protótipo · as peças que o código usa
+
+Anotação de construção, medida no código e nas referências. A lista de cima é a do design; esta é a que o protótipo usa, e a diferença entre as duas vai pro arquiteto.
+
+- primário · normal
+- primário · pressionado
+- primário · desabilitado
+- link · normal e pressionado
+- barra do sistema
+- faixa · sem sessão
+- faixa · sem ação
+- duas ações
+- uma ação
+- processo correndo
+- os glifos de estado
+- os poços
+- os marcadores
+- assertiva da sessão
+- falha
+- aviso
+- nota tracejada
+- encerrando
+- pede o corte
+- sem homologar
+- com contador neutro
+- prova da sessão
+
+Medido nas referências e no código do C11, no fechamento (G10), com os nomes das linhas do `componentes.md`. Saíram as nove que o código não usa: a faixa · sessão aberta (enquanto a sessão fecha, a faixa é a sem ação, e depois a sem sessão), a com legenda (quem explica o primário apagado é a explicação embaixo dele, a do processo correndo), a linha de conferência, a nota com rótulo (o NÃO RODARAM é a nota tracejada), a linha do histórico, a lista de garagens, o com contador de falha (a sessão que falha conta em neutro as que passaram, T16·3), a linha de opção e a lista com contagem. Entraram as de toque da folha 1 (o primário nos três estados, apagado enquanto o encerramento corre, e o link do `Descartar`), os átomos da folha 3 (os glifos e os poços do encerramento e das assertivas, e o LED da faixa), a falha (A HOMOLOGAÇÃO FICA BLOQUEADA, `05`) e a nota tracejada (`04`). As diferenças da tela contra a folha viraram variante nomeada da peça (G11), declarada lá: a assertiva da sessão com o nome aceso em todo estado, o círculo com o traço no não se aplica (o glifo de fora da folha 3) e o relógio no ainda não, a última de 54 e a que ainda não acendeu; a falha em bloqueio, sem poço (Lei 7 · exceção); a nota tracejada do que não rodou; o encerramento em pausa, a sessão interrompida (`06`); e o cabeçalho com o subtítulo (`03` e `06`).
+
 ## Histórias de usuário
 
 - **HU-T16-1** — A faixa fica no topo de toda tela: abertura, módulo, tempo decorrido e a única saída

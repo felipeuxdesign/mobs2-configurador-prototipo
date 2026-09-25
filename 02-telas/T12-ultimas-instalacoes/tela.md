@@ -58,6 +58,7 @@ Medido nas 4 referências e construído no C11 (T12-A1, G1): as peças que a tel
 - faixa · sem sessão
 - uma ação
 - com contador neutro
+- com contador de falha
 - linha do histórico
 - assertiva da sessão
 - aviso
@@ -66,7 +67,7 @@ Medido nas 4 referências e construído no C11 (T12-A1, G1): as peças que a tel
 - os poços
 - os marcadores
 
-Saíram as que nenhuma das quatro referências desenha (faixa · sem ação, linha de conferência, a lista de garagens, encerrando, pede o corte, sem homologar, com contador de falha, linha de opção, linha de ônibus, lista com contagem), e entrou a faixa · sessão aberta, que a 00, a 01 e a 03 desenham. As variantes nomeadas (G11) ficam declaradas na peça: a linha do histórico com o veredito pela natureza do estado (o que espera em `--tinta`, a falha em `--vermelho`) e com a linha de baixo em 12 quando diz há quantos dias (G12, T12-V2); o contador neutro forte, em 700, no veredito do detalhe; a assertiva da sessão com o valor longo em duas linhas. Peça só da tela: o grupo por idade, o rótulo em cima do cartão (`app/src/telas/T12/pecas.jsx`), e a linha módulo · quando · técnico embaixo do cabeçalho do detalhe.
+Saíram as que nenhuma das quatro referências desenha e o código não usa (faixa · sem ação, linha de conferência, a lista de garagens, encerrando, pede o corte, sem homologar, linha de opção, linha de ônibus, lista com contagem), e entrou a faixa · sessão aberta, que a 00, a 01 e a 03 desenham. O com contador de falha nenhuma das quatro desenha, mas o código usa (G10, no fechamento do C11): é o cabeçalho do detalhe de uma instalação reprovada ou com a falha reconhecida, o veredito em vermelho, em 700 — a i-06 da garagem do herói abre nele. As variantes nomeadas (G11) ficam declaradas na peça: a linha do histórico com o veredito pela natureza do estado (o que espera em `--tinta`, a falha em `--vermelho`) e com a linha de baixo em 12 quando diz há quantos dias (G12, T12-V2); o contador neutro forte, em 700, no veredito do detalhe; a assertiva da sessão com o valor longo em duas linhas. Peça só da tela: o grupo por idade, o rótulo em cima do cartão (`app/src/telas/T12/pecas.jsx`), e a linha módulo · quando · técnico embaixo do cabeçalho do detalhe.
 
 ## Histórias de usuário
 

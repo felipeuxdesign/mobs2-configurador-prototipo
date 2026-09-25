@@ -24,6 +24,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { BarraDoSistema, Faixa, CabecalhoConteudo, Precondicao, Aviso, Cadeia, Prova, Rodape } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
+import { useVoltar } from '../../estado/voltar.js'
 import { SEMENTES } from '../../estado/sementes.js'
 import { EM_QUADRO } from '../../estado/quadro.js'
 import { RITMOS } from '../../estado/ritmos.js'
@@ -141,6 +142,11 @@ export default function T09({ momento, estado: est }) {
   }
 
   const { par, confirmados: k, fase } = fluxo
+  // O voltar do Android (logica.md): antes de a Conexão gravar — correndo (00),
+  // recusado (01), pausado (02) —, abre a recuperação, como o Voltar ao menu com
+  // a cadeia parada; na recuperação, que só oferece continuar, não faz nada; na
+  // concluída (04), o Voltar ao menu, a saída que ela tem
+  useVoltar(fase === 'concluida' ? () => ir('T04') : fase === 'recuperacao' ? null : recuperar)
   const bloco = ORDEM[k]
   const parada = fase === 'recusado' || fase === 'pausado' || fase === 'recuperacao'
   const pinos = <Precondicao>{T.pinos}</Precondicao>

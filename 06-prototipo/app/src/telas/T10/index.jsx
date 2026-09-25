@@ -26,6 +26,7 @@ import {
   BarraDoSistema, Faixa, Segmentado, ValorEmPoco, ReguaDiferenca, ValorAlvo, FotoProva, Declarado, Rodape,
 } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
+import { useVoltar } from '../../estado/voltar.js'
 import { SEMENTES } from '../../estado/sementes.js'
 import { M } from '../../dados/mock.js'
 import { milhar } from '../../dados/formato.js'
@@ -110,6 +111,9 @@ export default function T10({ momento, estado: est }) {
   // ── os toques ──
   const ir = (tela, extra = {}) => despachar({ tipo: 'ir', tela, ...extra })
   const encerrar = () => (unico.etapas.checklist?.homologada ? ir('T16') : ir('T16', { momento: ENCERRAR_SEM_HOMOLOGAR }))
+  // O voltar do Android (logica.md): o Voltar ao menu, o link de saída do rodapé,
+  // em todo passo — e a calibração volta de onde parou
+  useVoltar(() => ir('T04'))
   function fotografar() {
     setFluxo((f) => ({ ...f, foto: true }))
     gravar(() => ({ foto: true }))

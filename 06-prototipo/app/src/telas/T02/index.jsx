@@ -15,6 +15,7 @@
 import { useState } from 'react'
 import { BarraDoSistema, Busca, Lista, LinhaEscolha, Rodape } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
+import { useVoltar } from '../../estado/voltar.js'
 import { M } from '../../dados/mock.js'
 import { caixaAlta } from '../../dados/formato.js'
 import { filtrar, gruposDo, temBusca } from './garagens.js'
@@ -58,6 +59,10 @@ export default function T02({ momento, estado }) {
     despachar({ tipo: 'mesclar', parcial: { contexto: { ...app.contexto, uoId: uo.id, pacote: null } } })
     despachar({ tipo: 'ir', tela: 'T03' })
   }
+
+  // O voltar do Android (logica.md): a escolha da garagem não tem saída
+  // desenhada — o primário é o ato, não a saída —, e ele não faz nada (pendencias.md)
+  useVoltar(null)
 
   return (
     <div className="t02">

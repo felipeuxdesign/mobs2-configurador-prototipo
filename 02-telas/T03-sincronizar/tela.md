@@ -16,6 +16,7 @@ Baixar o pacote da garagem e dizer se dá pra trabalhar com ele.
 - na falha de rede: `Reconectar` (segue de onde parou) ou `Voltar ao contexto` → T02
 - pacote vencido: `Sincronizar agora` ou `Trocar de garagem` → T02
 - pacote de 4 dias: `Sincronizar agora` ou `Continuar com este pacote` → T04, o menu antes de conectar, com o pacote de Ibura
+- o voltar do sistema (no computador, o Esc) faz o mesmo que o link do rodapé — `Voltar ao contexto`, `Trocar de garagem`, `Continuar com este pacote` —, e no concluído o `Ir para o menu`, a saída que ele tem. Baixando, a tela diz *não saia da tela* e não tem saída: ele não faz nada (`06-prototipo/logica.md` · O voltar do Android)
 
 No protótipo, a sincronização corre um item por vez — Modelos, Ativos, Cartões —, em 4 s no total, e o poço acompanha os ativos (T03·1, T03·5). A primeira baixa do Pátio Caruaru cai no quarto item (o caso `sync-falha-rede`), uma vez por sessão. Ao terminar, o pacote novo fica no estado único (T03·7).
 

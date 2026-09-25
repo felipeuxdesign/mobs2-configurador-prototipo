@@ -330,6 +330,8 @@
   --cartao-envio-folga: 18px;           /* entre o rótulo, o item que sobe e a legenda, no cartão SUBINDO AGORA (T15/01) · T15 (pecas.jsx, Subindo) */
   --entrelinha-frase-caixa: 1.45; /* a frase de 13 embaixo do rótulo, nas caixas do fim da sessão: o que não rodou (NÃO RODARAM, T16/04) e o que ficou bloqueado (A HOMOLOGAÇÃO FICA BLOQUEADA, T16/05) · Nota (corpo pulado), Aviso (bloqueio) */
 
+  /* ── C12 · o movimento fino (cada um com o papel e quem usa; o que zera no reduzir vai também no bloco do reduzir, embaixo) ── */
+
   /* ── a entrega do design de 24/09 · a espera do reenvio da T01 ── */
   --n-espera: 15px; /* a contagem do reenvio no lugar da seta, na linha de opção que espera (T01/04: 0:44, tabular, 700) · LinhaDeOpcao (espera) */
 }

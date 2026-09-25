@@ -65,7 +65,9 @@ Medido nas 5 referências e construído no C11 (T15-A13, G1): as peças que a te
 - faixa · sem sessão
 - uma ação
 - os glifos de estado
+- os ícones de ferramenta (a seta `subindo`)
 - os poços
+- os marcadores
 - com contador neutro
 - cartão que pede ação
 - botão secundário
@@ -74,7 +76,7 @@ Medido nas 5 referências e construído no C11 (T15-A13, G1): as peças que a te
 - linha da fila
 - linha da re-checagem
 
-As variantes nomeadas (G11), declaradas na peça: o cartão que pede ação **compacto**, com mais de um erro (`02`: o título de 17, a causa de 13, o botão compacto de 46 com o toque de 48, a divisória e o que vem depois); a linha da fila com a altura pela **posição** (`01`: a recebida do meio com 50); a escala do **envio** (a barra de 16 do `01`); e a seta do SUBINDO AGORA no dicionário de ícones (`subindo`, com o traço 2,2 do glifo). Peças só da tela, sem linha no `componentes.md` (`app/src/telas/T15/pecas.jsx`): o cartão SUBINDO AGORA, o erro que reenvia sozinho e a legenda dentro do cartão; os rótulos das seções são só tipografia. Saíram da lista 15 linhas que nenhuma das cinco desenha: faixa · sem ação, o par comparado, linha do histórico, a lista de garagens, as duas da cadeia, as três do encerramento, com contador de falha, a marca no login, campo e campo focado, linha de opção e lista com contagem.
+As variantes nomeadas (G11), declaradas na peça: o cartão que pede ação **compacto**, com mais de um erro (`02`: o título de 17, a causa de 13, o botão compacto de 46 com o toque de 48, a divisória e o que vem depois); a linha da fila com a altura pela **posição** (`01`: a recebida do meio com 50); a escala do **envio** (a barra de 16 do `01`); e a seta do SUBINDO AGORA no dicionário de ícones (`subindo`, com o traço 2,2 do glifo). Peças só da tela, sem linha no `componentes.md` (`app/src/telas/T15/pecas.jsx`): o cartão SUBINDO AGORA, o erro que reenvia sozinho e a legenda dentro do cartão; os rótulos das seções são só tipografia. Na coluna do `componentes.md`, a T15 saiu de 15 linhas que nenhuma das cinco desenha: faixa · sem ação, o par comparado, linha do histórico, a lista de garagens, as duas da cadeia, as três do encerramento, com contador de falha, a marca no login, campo e campo focado, linha de opção e lista com contagem. Da lista do design saíram também a seção aberta do checklist e a seção recolhida, que a coluna não dava à T15. No fechamento do C11 (G10), entraram os marcadores da folha 3 (o LED da faixa) e o dicionário de ícones, pela seta do SUBINDO AGORA, que mora na linha dos ícones de ferramenta.
 
 ## Histórias de usuário
 

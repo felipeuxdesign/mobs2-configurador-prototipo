@@ -41,6 +41,7 @@ import {
 } from '../../ds/index.js'
 import { VazioDaBusca } from './pecas.jsx'
 import { useEstado } from '../../estado/estado.jsx'
+import { useVoltar } from '../../estado/voltar.js'
 import { EM_QUADRO } from '../../estado/quadro.js'
 import { RITMOS } from '../../estado/ritmos.js'
 import { RECEITAS } from '../../estado/receitas.js'
@@ -197,6 +198,14 @@ export default function T05({ momento, estado: est }) {
     ir('T05', { momento: M10 })
   }
   const voltar = () => ir('T04')
+
+  // O voltar do Android (logica.md): o link de saída do rodapé. Na busca (00,
+  // 01, 02, 04), o link é o Procurar de novo, que não sai da tela: não faz nada
+  // (pendencias.md). Na pré-checagem correndo e na atualização do firmware, não
+  // faz nada — o processo termina sozinho. Aprovada, e no vazio (03), o Voltar
+  // ao menu; reprovada ou parada no caso, o Procurar outro módulo, que volta à lista
+  const preParada = q.fase === 'pre' && q.atualizando == null && (concluida || parou)
+  useVoltar(q.fase === 'vazia' || aprovada ? voltar : preParada ? procurar : null)
 
   // ── o topo: a barra na cor do que vem embaixo, e a faixa quando a sessão nasce ──
   const comFaixa = aprovada

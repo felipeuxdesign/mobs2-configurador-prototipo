@@ -33,6 +33,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { BarraDoSistema, Faixa, CabecalhoConteudo, Prazo, BlocoEvento, Lista, LinhaChecagem, Rodape, ESTADOS } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
+import { useVoltar } from '../../estado/voltar.js'
 import { EM_QUADRO } from '../../estado/quadro.js'
 import { RITMOS } from '../../estado/ritmos.js'
 import { M } from '../../dados/mock.js'
@@ -235,14 +236,8 @@ export default function T14({ momento, estado: est }) {
   // saída do rodapé: 'Ir para o checklist' (sai com o ciclo aberto, T14·2) e, no
   // ciclo concluído, 'Voltar ao menu'. Com o caso de identificador, o link do
   // rodapé é o pedido de correção, que não sai: o voltar não faz nada (como o menu
-  // da T04). Num estado da coluna, o celular não toca.
-  const saida = useRef(null)
-  saida.current = est != null ? null : fase === 'concluido' ? () => ir('T04') : casos.cartao && fase === 'correndo' ? null : irAoChecklist
-  useEffect(() => {
-    const esc = (e) => { if (e.key === 'Escape' && saida.current) saida.current() }
-    window.addEventListener('keydown', esc)
-    return () => window.removeEventListener('keydown', esc)
-  }, [])
+  // da T04). Num estado da coluna, o celular não toca, e a peça não escuta.
+  useVoltar(fase === 'concluido' ? () => ir('T04') : casos.cartao && fase === 'correndo' ? null : irAoChecklist)
 
   let rodape
   if (fase === 'drenando') {

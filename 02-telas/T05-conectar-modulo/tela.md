@@ -26,6 +26,7 @@ Achar o módulo, conectar e conferir, antes de qualquer gravação, se ele pode 
 - as portas naturais (G28, R-11): marcar na lista um módulo que é caso do mock e tocar em `Conectar ao …` leva a pré-checagem ao estado dele. O M2C-0362 fecha o canal da sessão anterior e mostra as pendências (13), o M2C-0394 não comporta o conteúdo (11), e o M2C-0335 dorme na nona (15). O M2C-0999 não se toca, como a referência desenha. Os estados sem linha tocável na lista (03, 04, 06, 07, 08, 09, 12, 14) abrem pela coluna do palco
 - o que acontece uma vez vale uma vez por sessão (G21): a falha ao conectar, o link que cai, o módulo que dorme, o canal antigo que o app fecha e o módulo sem rede até a conexão gravar. O que é fato do cadastro vale toda vez
 - `Atualizar firmware` → a linha do firmware corre com a porcentagem gravada, e as seguintes esperam; ao terminar, a pré-checagem recomeça. No protótipo, a atualização fica no quadro da referência (62%) até o ritmo dela ser declarado
+- o voltar do sistema (no computador, o Esc) faz o mesmo que o link de saída do rodapé: com a pré-checagem aprovada, e no nenhum encontrado (03), o `Voltar ao menu`; reprovada ou parada no caso, o `Procurar outro módulo`, que volta à lista (01). Na pré-checagem correndo e na atualização do firmware, não faz nada — o processo termina sozinho. Na busca (00, 01, 02, 04), o link é o `Procurar de novo`, que não sai da tela, e ele não faz nada (`06-prototipo/logica.md` · O voltar do Android; a pergunta está em `08-produto-real/pendencias.md`)
 
 ## Peças do design system que esta tela usa
 

@@ -79,8 +79,16 @@ Anotação de construção, medida no código e nas referências. A lista de cim
 
 Medido nas referências e no código do C10 (G10): toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe. O visor da câmera e o instrumento do item reprovado são peças só desta tela (`app/src/telas/T13/pecas.jsx`), montadas com os primitivos.
 
+- primário · normal
+- primário · pressionado
+- primário · desabilitado
+- link · normal e pressionado
+- linha tocável · normal e pressionada (a linha de ação: `Não conforme · pede justificativa`)
 - barra do sistema
 - faixa · sessão aberta
+- os glifos de estado
+- os poços
+- os marcadores
 - com contador neutro
 - placar da homologação
 - linha de seção do mapa
@@ -93,7 +101,6 @@ Medido nas referências e no código do C10 (G10): toda peça abaixo está desen
 - cartões de foto
 - cartões que esperam o ciclo
 - segmentado
-- linha tocável (a linha de ação: `Não conforme · pede justificativa`)
 - justificativa
 - campo focado
 - checkbox
@@ -102,6 +109,8 @@ Medido nas referências e no código do C10 (G10): toda peça abaixo está desen
 - diálogo com ciência
 - duas ações
 - com legenda
+
+No fechamento do C10 e do C11, a lista ficou só com os nomes das linhas do `componentes.md` (G10): entraram as de toque da folha 1 (o primário nos três estados, desabilitado enquanto faltam itens ou falta a justificativa, e o link do rodapé e do diálogo) e os átomos da folha 3 (os glifos e os poços do mapa e das seções, e os marcadores: o LED da faixa e o quadrado do checkbox). As diferenças da tela contra a folha viraram variante nomeada da peça (G11), declarada lá: a seção que aguarda outra tela e a legenda F · não bloqueia, na cabeça do acordeão; a última seção sem divisória; o nome do glifo pelo dado e a linha recolhida, no mapa; a palavra junto do valor, o cartão largo e o cartão tocável, nos cartões de valor; o cartão de foto desabilitado; o placar que fechou, com o veredito e a meta; o segmento atual com falha (`09`); a nota do item que não se marca à mão (`09`); e a legenda junta, a 6 do botão. A barra de 22 do instrumento do item reprovado é o tamanho `item` da escala, peça interna (`06-prototipo/app/src/ds/MAPA.md`). Da lista do design saíram as 16 que o código não usa (faixa · sem ação, processo correndo, diálogo, diálogo sem saída, linha do histórico, a lista de garagens, leitura pequena, leitura com mínimo, encerrando, pede o corte, sem homologar, com contador de falha, linha de opção, lista com contagem, linha da fila e linha da re-checagem). Na coluna do `componentes.md`, a T13 saiu de 18 linhas: dessas 16, menos a linha da fila e a linha da re-checagem, que a coluna do design não dava à T13, e mais a cadeia concluída, a cadeia recusada, a marca no login e o campo.
 
 ## Histórias de usuário
 

@@ -11,9 +11,10 @@
 //   lista, que desce como a referência desenha (G24).
 // · O voltar do Android (logica.md), no computador o Esc, faz o mesmo que a
 //   saída do rodapé: no detalhe, volta às instalações; na lista, ao menu.
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { BarraDoSistema, Faixa, CabecalhoConteudo, Aviso, Vazio, Lista, LinhaHistorico, LinhaChecagem, Rodape } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
+import { useVoltar } from '../../estado/voltar.js'
 import { M } from '../../dados/mock.js'
 import { TX } from './textos.js'
 import { REF, ativoDe, instalacaoDe, agrupar, vereditoDe, detalheDaLinha, linhaDoDetalhe, linhasDoDetalhe, mundoDe } from './dados.js'
@@ -37,14 +38,8 @@ export default function T12({ momento, estado: est }) {
   const voltarAoMenu = () => ir('T04')
   const encerrar = () => (unico.etapas.checklist?.homologada ? ir('T16') : ir('T16', { momento: ENCERRAR_SEM_HOMOLOGAR }))
 
-  // o voltar do Android: o Esc faz o que a saída do rodapé faz; num estado da coluna, nada
-  const voltar = useRef(null)
-  voltar.current = est ? null : detalhe ? voltarAsInstalacoes : voltarAoMenu
-  useEffect(() => {
-    const esc = (e) => { if (e.key === 'Escape' && voltar.current) voltar.current() }
-    window.addEventListener('keydown', esc)
-    return () => window.removeEventListener('keydown', esc)
-  }, [])
+  // o voltar do Android: o Esc faz o que a saída do rodapé faz; num estado da coluna, a peça não escuta
+  useVoltar(detalhe ? voltarAsInstalacoes : voltarAoMenu)
 
   // ── o topo: a barra na cor da faixa, e a faixa da sessão ou sem sessão ──
   const faixa = sessao

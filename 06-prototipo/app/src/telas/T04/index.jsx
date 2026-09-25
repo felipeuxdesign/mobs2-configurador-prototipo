@@ -11,6 +11,7 @@ import {
   Aviso, Nota, Lista, LinhaGaragem,
 } from '../../ds/index.js'
 import { useEstado, estadoVazio } from '../../estado/estado.jsx'
+import { useVoltar } from '../../estado/voltar.js'
 import { SEMENTES } from '../../estado/sementes.js'
 import { M } from '../../dados/mock.js'
 import { caixaAlta } from '../../dados/formato.js'
@@ -34,18 +35,6 @@ const FERRAMENTAS = [
 ]
 const HEROI = SEMENTES.T04.sessao
 const ENCERRAR_SEM_HOMOLOGAR = '03-momento-encerrando-sem-homologar' // G23: a sessão abortada (T16/03)
-
-// O voltar do Android (logica.md): no computador, o Esc. Numa folha ou num
-// diálogo, faz o mesmo que o X ou o Cancelar; no menu, que não tem link de
-// saída, não faz nada. Sem ação, não escuta.
-function useVoltar(acao) {
-  useEffect(() => {
-    if (!acao) return undefined
-    const esc = (e) => { if (e.key === 'Escape') acao() }
-    window.addEventListener('keydown', esc)
-    return () => window.removeEventListener('keydown', esc)
-  }, [acao])
-}
 
 // O palco abre o momento com a semente da T04 (a sessão do herói). O 01 e o 02
 // pedem outro mundo: sem sessão, e com o módulo sem o ativo. A tela ajusta o
@@ -244,13 +233,12 @@ export default function T04({ momento, estado: est }) {
     )
   }
 
-  // o voltar do sistema: o X da folha, o Cancelar do diálogo. Num estado da
-  // coluna, o app está parado (o palco o deixa inerte), e o voltar também.
-  const voltar = est ? null
-    : folhaPedida ? fechar
-      : sobre === 'sair' ? () => abrir('conta')
-        : sobre === 'trocar' ? () => setTrocarPara(null)
-          : null
+  // o voltar do Android (logica.md): o X da folha, o Cancelar do diálogo; no
+  // menu, que não tem saída desenhada, nada. Num estado da coluna, a peça não escuta
+  const voltar = folhaPedida ? fechar
+    : sobre === 'sair' ? () => abrir('conta')
+      : sobre === 'trocar' ? () => setTrocarPara(null)
+        : null
   useVoltar(voltar)
 
   // O que fica atrás do véu (G25) é inerte: a folha e o diálogo são modais

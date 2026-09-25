@@ -12,6 +12,7 @@
 // 32). O contato aparece mascarado em todo o recuperar (regras.js).
 import { useEffect, useId, useState } from 'react'
 import { useEstado } from '../../estado/estado.jsx'
+import { useVoltar } from '../../estado/voltar.js'
 import { EM_QUADRO } from '../../estado/quadro.js'
 import { RITMOS } from '../../estado/ritmos.js'
 import { M } from '../../dados/mock.js'
@@ -321,6 +322,12 @@ export function Login({ momento, estado, irMomento }) {
   // a tela de onde a folha ou o diálogo nasceu fica atrás do véu (G25) e, como
   // eles são modais (aria-modal, G15), inerte: nem o toque nem o leitor chegam nela
   const porCima = folha.montado || dialogo.montado
+
+  // O voltar do Android (logica.md): o link de saída de cada passo do recuperar,
+  // o Voltar ao login; na folha Não recebi o código, o X. Na entrada, que não tem
+  // saída desenhada (pendencias.md), e no diálogo Senha alterada, que não tem X
+  // nem Cancelar (HU-T01-10), não faz nada; nem com a folha descendo
+  useVoltar(folhaAberta ? fecharFolha : porCima || s.quadro === 'entrada' ? null : aoLogin)
   return (
     <div className="t01">
       <BarraDoSistema hora={M.HORA_NOMINAL} fundo="pagina" veu={veu} />

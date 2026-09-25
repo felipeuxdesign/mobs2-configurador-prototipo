@@ -23,7 +23,7 @@ O painel das ferramentas: o que está pronto pra usar, o que espera o quê.
 - o `Cancelar` dos dois diálogos volta à folha de onde ele nasceu (T04·8)
 - `Encerrar a sessão e sair` → login, com a fila preservada · `Encerrar a sessão e trocar` → a sincronização da garagem nova. Os dois passam pelo encerramento sem homologar da T16 quando ele existir (C11); até lá, seguem direto (G23)
 - com a folha ou o diálogo aberto, o menu não se toca — nem o que fica atrás do véu, nem a tira, que fica acesa em cima dele. Nas folhas do módulo e do ativo, o véu começa embaixo da faixa, e a faixa também fica acesa, sem se tocar
-- a folha fecha pelo X, tocando no véu, fora dela, e pelo voltar do sistema (no computador, o Esc); o diálogo, pelo `Cancelar` e pelo voltar, que faz o mesmo que ele (`logica.md` · O voltar do Android)
+- a folha fecha pelo X, tocando no véu, fora dela, e pelo voltar do sistema (no computador, o Esc); o diálogo, pelo `Cancelar` e pelo voltar, que faz o mesmo que ele (`logica.md` · O voltar do Android). No menu, sem folha nem diálogo, o voltar não faz nada: ele não tem saída desenhada (`08-produto-real/pendencias.md`)
 - com a sessão aberta, o cartão do módulo → folha Módulo conectado (10) · o do ativo → folha Ativo da sessão (11) · os dois ficam travados (HU-T16-2): a folha diz isso e oferece `Encerrar a sessão`, que leva ao mesmo destino do `ENCERRAR` da faixa. Com o módulo sem ativo (02), o cartão do módulo já abre a folha dele. Substitui a T04·7 do C0, em que os dois cartões não se tocavam
 - cartão de ferramenta em espera é desabilitado de verdade: o toque não faz nada, o motivo já está escrito nele, e pro leitor de tela ele é desabilitado (`logica.md` · Os cartões em espera)
 
