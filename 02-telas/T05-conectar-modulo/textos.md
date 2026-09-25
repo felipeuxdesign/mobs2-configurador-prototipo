@@ -65,3 +65,11 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `15-estado-pre-checagem-modulo-em-repouso-na-9a`
 
 `14:30` · `M2C-0335 · KHT-4B08` · `Pré-checagem` · `8` · `de 11` · `MÓDULO EM REPOUSO` · `Acorde para seguir da nona.` · `Serial no cadastro` · `VL06 CAN-BT` · `Firmware` · `2.3.5` · `Alimentação e bateria` · `na faixa` · `GPS e antena` · `antena ok` · `Entradas digitais` · `conforme` · `Modem, SIM e sinal` · `na rede` · `CAN` · `sem erros` · `Espaço no módulo` · `128 de 192` · `Espaço para cercas` · `em repouso` · `ID no destino` · `—` · `Canal de programação` · `—` · `Acordar módulo` · `Procurar outro módulo`
+
+## `16-estado-bluetooth-desligado`
+
+`14:30` · `Conectar módulo` · `sem Bluetooth` · `O Bluetooth está desligado` · `Sem ele, o app não acha o módulo. Ligue, e a busca começa sozinha.` · `Ligar o Bluetooth` · `Voltar ao menu`
+
+## `17-estado-bluetooth-sem-permissao`
+
+`14:30` · `Conectar módulo` · `sem permissão` · `Falta a permissão do Bluetooth` · `O app usa só pra achar os módulos por perto. Sem ela, a busca não começa.` · `Permitir` · `Voltar ao menu`

@@ -8,10 +8,12 @@ Achar o módulo, conectar e conferir, antes de qualquer gravação, se ele pode 
 | **Chrome** | sem faixa até a pré-checagem aprovar |
 | **Semente no protótipo** | cinco módulos por perto (`situacao.porPerto` do mock: o do herói e outros quatro) · M2C-0417, o do herói, vem escolhido |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 4 · 11 — ver `estados.md` |
+| **Momentos · estados** | 4 · 13 — ver `estados.md` |
 
 ## O que se toca
 
+- `Ligar o Bluetooth` → o Android pergunta · ligado, a busca começa sozinha
+- `Permitir` → o Android pergunta de novo · se o técnico marcou *não perguntar de novo*, o botão vira `Abrir as configurações`
 - a busca corre sozinha → a lista de módulos por perto. No protótipo ela acha na hora: o ritmo da busca não está em `movimento.md`
 - pelo menu, a tela abre na lista sem nada escolhido (01), com o primário apagado · `Procurar de novo` → a busca de novo, sem nada escolhido (01) · a 00, com o do herói escolhido, abre pelo endereço, como o quadro da referência
 - tocar num módulo da lista **só o marca** (o quadrado lima surge no poço) e acende `Conectar ao M2C-0417`, com o serial do marcado; tocar em outro troca a marca · é o primário que conecta (R-14, decisão do diretor, 24/09) · o não cadastrado não se toca · na 00, o ESCOLHIDO é a marca: tocar num dos outros por perto troca o escolhido no lugar, e o primário passa a dizer o serial dele — também não conecta

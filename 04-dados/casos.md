@@ -4,11 +4,14 @@ Cada caso de `mocks.js` → a tela e o estado que ele produz. **O estado se mont
 
 | Caso | Onde aparece |
 |---|---|
-| `a-01` | `T04/11-momento-folha-ativo-da-sessao` |
+| `a-01` | `T04/11-momento-folha-ativo-da-sessao` · `T10/05-momento-hodometro-digitado` · `T10/08-momento-horimetro` |
 | `ativo-fora-pacote` | `T06/04-estado-fora-do-pacote` |
 | `autoteste-falhando` | `T16/05-estado-assertiva-falhando` |
 | `bloco-recusado` | `T09/01-estado-bloco-recusado` |
+| `bluetooth-desligado` | `T05/16-estado-bluetooth-desligado` |
+| `bluetooth-sem-permissao` | `T05/17-estado-bluetooth-sem-permissao` |
 | `busca-vazia` | `T05/03-estado-nenhum-encontrado` |
+| `camera-sem-permissao` | `T10/11-estado-camera-sem-permissao` |
 | `can-estatico-ausente` | `T07/02-estado-sem-leitura` |
 | `can-estatico-dominio` | `T07/03-estado-dominio-mudo` |
 | `can-estatico-isolado` | `T07/01-estado-fora-da-faixa` |
@@ -29,7 +32,7 @@ Cada caso de `mocks.js` → a tela e o estado que ele produz. **O estado se mont
 | `indice-nao-classificado` | `T11/01-estado-conteudo-que-o-app-nao-reconhece` |
 | `instalacoes-sem-rede` | `T12/03-estado-sem-rede` |
 | `link-perdido` | `T04/03-estado-faixa-modulo-com-falha` · `T05/14-estado-pre-checagem-link-perdido-na-6a` |
-| `lista-longa-garagens` | `T02/02-estado-lista-longa-com-busca` |
+| `lista-longa-garagens` | `T02/02-estado-lista-longa-com-busca` · `T02/03-momento-busca-sem-resultado` |
 | `ma-02` | `T06/03-estado-sem-chassi-na-can` · `T10/02-estado-rotacao-caminhao-coletor` |
 | `modelo-sem-driver` | `T05/07-estado-pre-checagem-modelo-sem-driver` |
 | `modulo-com-pendencias` | `T05/13-estado-pre-checagem-canal-aberto-e-pendencias` (por cima do `canal-aberto`, o mesmo módulo) |
@@ -38,6 +41,8 @@ Cada caso de `mocks.js` → a tela e o estado que ele produz. **O estado se mont
 | `pac-uo-03` | `T03/04-estado-pacote-vencido` |
 | `pool-esgotado` | `T05/12-estado-pre-checagem-pool-de-cercas-esgotado` |
 | `queda-na-cadeia` | `T09/02-estado-queda-na-cadeia` |
+| `releitura-nao-confere` | `T10/10-estado-releitura-nao-confere` |
+| `sem-conexao-no-login` | `T01/14-estado-login-sem-conexao` |
 | `serial-nao-cadastrado` | `T05/06-estado-pre-checagem-serial-nao-cadastrado` |
 | `sessao-interrompida` | `T16/06-estado-sessao-interrompida` |
 | `sync-falha-rede` | `T03/01-estado-falha-de-rede` |

@@ -45,3 +45,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `10-estado-releitura-nao-confere`
 
 `14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `CALIBRAÇÃO` · `1` · `de 2` · `Depois: Horímetro` · `Hodômetro` · `O MÓDULO RELEU` · `482.316` · `km` · `não confere · 500 m a menos que o painel` · `O PAINEL MOSTRA` · `482.317` · `km` · `é este que vai para o módulo` · `Painel fotografado às 14:31` · `vale também no checklist, na Seção B` · `NÃO SE APLICAM NESTE MODELO` · `Rotação` · `já vem da CAN` · `Velocidade` · `não precisa` · `Semear de novo` · `Voltar ao menu`
+
+## `11-estado-camera-sem-permissao`
+
+`14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `CALIBRAÇÃO` · `1` · `de 2` · `Depois: Horímetro` · `Foto do painel` · `O app precisa da câmera pra fotografar o painel` · `Sem a foto, a calibração não semeia.` · `Abrir as configurações` · `Voltar à calibração`

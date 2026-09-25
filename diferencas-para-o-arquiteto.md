@@ -67,6 +67,20 @@ Os 67 arquivos entraram. O gate aprova, e o censo confere: **122 referências no
 - **a câmera do app** é a mesma na T10 e na T13, e o DS não a lista. Proposta: uma peça na folha 7
 - **a T16 e o número digitado:** a assertiva dos contadores mostra o painel do mock (482.317 km · 9.640 h), como o `estados.md` dela manda. Com a decisão 33, o número é o que o técnico digita; se ele digitar outro, a T16 diria que voltou um número que não foi semeado. Proposta: a T16 ler o que foi semeado
 
+## A entrega do mundo real (`atualizacao000002/`)
+
+Aplicada depois de a da calibração terminar, sem misturar as duas. Os 28 arquivos entraram. O gate aprova, e o censo confere: **126 referências no `indice.json`** — 16 telas, 54 momentos e 56 estados. A base de cada junção foi a sua cópia anterior, então o que entrou é exatamente o que você mudou agora:
+
+- **entraram como vieram:** o `02-telas/README.md`, o `estados.md` e o `textos.md` da T01, o `textos.md` da T10, o `PROMPT-DE-ABERTURA.md` e o `LEIA-PRIMEIRO.md`
+- **as 8 referências novas:** a T01/14, a T05/16 e 17, e a T10/11, em HTML e PNG
+- **juntados, sem conflito:** o `tela.md` da T01 (o login sem conexão), o `estados.md` e o `textos.md` da T05, o `estados.md` e o `tela.md` da T10 (a câmera sem permissão), o `casos.md`, o `mocks.js` (os 4 casos novos, por cima dos nossos 7) e o `06-prototipo/CLAUDE.md` (as regras 10, 11 e 12)
+- **juntados, com o que o protótipo já tinha:**
+  - **o `tela.md` da T05:** entraram as duas linhas do Bluetooth, em cima das nossas. As suas outras 5 linhas eram a versão curta das nossas, que ficam;
+  - **o `logica.md`:** entrou a seção *O mundo real* e a linha da T10/11. Ficaram as regras do aviso do acesso que a construção escreveu, e a nossa linha da T10/10, que explica a tolerância de 140 m (a sua diz 120);
+  - **os números:** o `ciclos.md` e o README do design system com as 126 · as cores continuam 25, medidas no C1
+- **o `indice.json`:** as 126, com os campos do palco. Os 4 estados novos ganharam o rótulo da coluna, proposto: *Login sem conexão*, *Bluetooth desligado*, *Bluetooth sem permissão* e *Câmera sem permissão*
+- **os números do protótipo:** 56 estados, 274 tokens, 127 peças e **46 casos** (os seus 39 e os nossos 7)
+
 ## O que as referências pedem ao design · medido no C10, no C11 e nas entregas 4 e 5
 
 Nenhuma referência foi mexida: o protótipo mede e propõe, e a correção é na fonte. Cada item diz o que muda e, quando medido, quanto a diferença cai.

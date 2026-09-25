@@ -1,6 +1,6 @@
 {
  "telas": 16,
- "referencias": 122,
+ "referencias": 126,
  "itens": [
   {
    "id": "T01/00-tela",
@@ -175,6 +175,20 @@
    "caso": "credenciais.contato",
    "html": "02-telas/T01-login/referencias/html/13-momento-codigo-no-e-mail.html",
    "png": "02-telas/T01-login/referencias/png/13-momento-codigo-no-e-mail.png"
+  },
+  {
+   "id": "T01/14-estado-login-sem-conexao",
+   "tela": "T01",
+   "pasta": "T01-login",
+   "tipo": "estado",
+   "nome": "14-estado-login-sem-conexao",
+   "titulo": "T01 · login sem conexao",
+   "como": "`Entrar` sem internet",
+   "caso": "sem-conexao-no-login",
+   "html": "02-telas/T01-login/referencias/html/14-estado-login-sem-conexao.html",
+   "png": "02-telas/T01-login/referencias/png/14-estado-login-sem-conexao.png",
+   "rotulo": "Login sem conexão",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T02/00-tela",
@@ -684,6 +698,34 @@
    "grupo": "conferir"
   },
   {
+   "id": "T05/16-estado-bluetooth-desligado",
+   "tela": "T05",
+   "pasta": "T05-conectar-modulo",
+   "tipo": "estado",
+   "nome": "16-estado-bluetooth-desligado",
+   "titulo": "T05 · Bluetooth desligado",
+   "como": "o Bluetooth do celular está desligado",
+   "caso": "bluetooth-desligado",
+   "html": "02-telas/T05-conectar-modulo/referencias/html/16-estado-bluetooth-desligado.html",
+   "png": "02-telas/T05-conectar-modulo/referencias/png/16-estado-bluetooth-desligado.png",
+   "rotulo": "Bluetooth desligado",
+   "rotuloOrigem": "proposto"
+  },
+  {
+   "id": "T05/17-estado-bluetooth-sem-permissao",
+   "tela": "T05",
+   "pasta": "T05-conectar-modulo",
+   "tipo": "estado",
+   "nome": "17-estado-bluetooth-sem-permissao",
+   "titulo": "T05 · Bluetooth sem permissao",
+   "como": "o técnico negou a permissão do Bluetooth",
+   "caso": "bluetooth-sem-permissao",
+   "html": "02-telas/T05-conectar-modulo/referencias/html/17-estado-bluetooth-sem-permissao.html",
+   "png": "02-telas/T05-conectar-modulo/referencias/png/17-estado-bluetooth-sem-permissao.png",
+   "rotulo": "Bluetooth sem permissão",
+   "rotuloOrigem": "proposto"
+  },
+  {
    "id": "T06/00-tela",
    "tela": "T06",
    "pasta": "T06-selecionar-ativo",
@@ -1095,6 +1137,20 @@
    "html": "02-telas/T10-calibracao/referencias/html/10-estado-releitura-nao-confere.html",
    "png": "02-telas/T10-calibracao/referencias/png/10-estado-releitura-nao-confere.png",
    "rotulo": "Releitura não confere",
+   "rotuloOrigem": "proposto"
+  },
+  {
+   "id": "T10/11-estado-camera-sem-permissao",
+   "tela": "T10",
+   "pasta": "T10-calibracao",
+   "tipo": "estado",
+   "nome": "11-estado-camera-sem-permissao",
+   "titulo": "T10 · camera sem permissao",
+   "como": "o técnico negou a permissão da câmera",
+   "caso": "camera-sem-permissao",
+   "html": "02-telas/T10-calibracao/referencias/html/11-estado-camera-sem-permissao.html",
+   "png": "02-telas/T10-calibracao/referencias/png/11-estado-camera-sem-permissao.png",
+   "rotulo": "Câmera sem permissão",
    "rotuloOrigem": "proposto"
   },
   {

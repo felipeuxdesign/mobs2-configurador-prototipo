@@ -201,6 +201,17 @@ No protótipo, o relógio parado faz do *uma vez por dia* uma vez só:
 - **o `Entendi` é o único jeito de fechar**: o diálogo não tem `Cancelar`, e o voltar faz o mesmo que ele (O voltar do Android). O véu cobre o menu inteiro, a tira e a faixa também, e nada atrás dele se toca (T04/12)
 - **o estado 12** abre pela coluna com o diálogo aberto, parado e sem toque. **No print**, o aviso só aparece no 12: a foto é o quadro que a referência desenha, e as outras da T04 não desenham ele
 
+## O mundo real
+
+Quatro estados que vêm do celular, e não do módulo nem do ativo. Nenhum trava o que já foi feito.
+
+- **Bluetooth desligado**, na T05 — `Ligar o Bluetooth` pede ao Android, e a busca começa sozinha quando ele liga
+- **Bluetooth sem permissão**, na T05 — `Permitir` pede de novo. Se o técnico marcou *não perguntar de novo*, o Android não deixa o app perguntar: o botão vira `Abrir as configurações`
+- **câmera sem permissão**, na T10 — o quadro diz o que falta, e o botão vira `Abrir as configurações`. Vale igual pra câmera do checklist
+- **login sem conexão**, na T01 — o aviso *SEM CONEXÃO*, e os campos ficam preenchidos, porque a senha não estava errada
+
+A **localização negada** não tem tela: nada trava, e o relatório do checklist sai sem a geolocalização, com a linha dizendo *sem localização*.
+
 ## A URL
 
 Todo lugar do protótipo tem endereço: `?tela=T07` abre a tela · `?tela=T07&estado=01-estado-fora-da-faixa` abre o estado. Um link mandado pra alguém abre exatamente o que se quis mostrar.
@@ -277,6 +288,7 @@ Pendências que não são de desenho seguem um padrão até o PM decidir — a l
 | `T01/01-estado-usuario-ou-senha-incorretos` | Entrar com senha de menos de 8 caracteres · a senha é apagada e o cursor vai pra ela; o usuário fica | `credenciais` |
 | `T01/06-estado-codigo-expirado` | o código passa de 10 minutos | `recuperacao.limites.validadeMin` |
 | `T01/07-estado-tentativas-esgotadas` | o terceiro código errado | `recuperacao.limites.tentativas` |
+| `T01/14-estado-login-sem-conexao` | `Entrar` sem internet | `sem-conexao-no-login` |
 | `T02/02-estado-lista-longa-com-busca` | a empresa tem mais de 6 garagens — a busca aparece, e a lista rola por baixo do rodapé | `lista-longa-garagens` |
 | `T03/01-estado-falha-de-rede` | a rede cai no meio do download | `sync-falha-rede` |
 | `T03/03-estado-pacote-de-4-dias` | o pacote tem entre 3 e 7 dias | `pacotes · pac-uo-02` |
@@ -297,6 +309,8 @@ Pendências que não são de desenho seguem um padrão até o PM decidir — a l
 | `T05/13-estado-pre-checagem-canal-aberto-e-pendencias` | o módulo tem canal de sessão anterior — o app fecha antes de começar | `canal-aberto` + `modulo-com-pendencias` |
 | `T05/14-estado-pre-checagem-link-perdido-na-6a` | o link cai na sexta checagem | `link-perdido` |
 | `T05/15-estado-pre-checagem-modulo-em-repouso-na-9a` | o módulo dorme na nona checagem — não é erro | `modulo-em-repouso` |
+| `T05/16-estado-bluetooth-desligado` | o Bluetooth do celular está desligado | `bluetooth-desligado` |
+| `T05/17-estado-bluetooth-sem-permissao` | o técnico negou a permissão do Bluetooth | `bluetooth-sem-permissao` |
 | `T06/02-estado-chassi-divergente` | o chassi lido não bate | `divergencia-chassi` |
 | `T06/03-estado-sem-chassi-na-can` | o modelo não manda chassi | `modelosAtivo · ma-02 · chassiPelaCan: false` |
 | `T06/04-estado-fora-do-pacote` | o ônibus não está no pacote | `ativo-fora-pacote` |
@@ -312,6 +326,7 @@ Pendências que não são de desenho seguem um padrão até o PM decidir — a l
 | `T10/03-estado-ja-semeado` | o hodômetro já foi semeado antes | `calibracao` |
 | `T10/04-estado-modulo-sem-pulsos` | o módulo não recebe pulsos | `grandeza-indisponivel` |
 | `T10/10-estado-releitura-nao-confere` | a releitura passa da tolerância: 500 m a menos, e o limite é a granularidade mais o decorrido do mock, 100 + 40 = 140 m (HU-T10-5; o comentário do caso diz 120 m, e os dois dão *não confere*: vai pro arquiteto) | `releitura-nao-confere` |
+| `T10/11-estado-camera-sem-permissao` | o técnico negou a permissão da câmera | `camera-sem-permissao` |
 | `T11/01-estado-conteudo-que-o-app-nao-reconhece` | índice que o app não classifica | `indice-nao-classificado` |
 | `T12/02-estado-nenhuma-instalacao` | a garagem não tem instalações | `instalacoes` + `instalacoes-vazia` (a consulta da garagem que volta vazia, sem sessão, C11) |
 | `T12/03-estado-sem-rede` | a consulta sem rede | `instalacoes-sem-rede` |

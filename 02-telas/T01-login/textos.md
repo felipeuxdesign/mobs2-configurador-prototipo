@@ -57,3 +57,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `13-momento-codigo-no-e-mail`
 
 `14:30` · `RECUPERAR ACESSO` · `2` · `de 3` · `Mandamos para r•••••@atlsul.com.br` · `Digite o código` · `VALE POR` · `10:00` · `Reenviar em 60 s · este foi o último envio desta hora` · `Não recebi o código` · `Confirmar` · `Voltar ao login`
+
+## `14-estado-login-sem-conexao`
+
+`14:30` · `Entrar` · `CONFIGURADOR` · `SEM CONEXÃO` · `O login precisa de internet.` · `USUÁRIO` · `SENHA` · `Lembrar meu usuário` · `Entrar` · `Esqueci a senha`

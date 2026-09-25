@@ -37,6 +37,9 @@ app/
 7. **Área de toque a 8px de qualquer outra.** Onde o desenho deixa menos, ela cresce só pro lado livre — o link do rodapé pra baixo, o avatar pra cima —, e o que se vê fica igual à referência
 8. **O PNG é gabarito, nunca peça.** Nenhuma imagem de tela entra no protótipo — o celular sempre roda código
 9. **Mesma entrada, mesma saída.** Relógio congelado em 14:30; os tempos dos processos são os de `03-design-system/movimento.md`
+10. **O teclado nunca esconde o que importa.** Com o teclado aberto, a tela rola pra deixar o campo em foco e o botão principal acima dele, e o rodapé sobe junto. O campo do painel, na T10, abre o teclado numérico
+11. **Sempre em retrato.** O app não gira, nem com o celular deitado no painel do ônibus
+12. **Permissão negada tem saída.** Se o Android não deixa perguntar de novo, o botão vira `Abrir as configurações` — nunca um botão que não faz nada
 
 ## Como você trabalha
 

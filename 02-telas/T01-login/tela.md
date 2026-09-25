@@ -8,10 +8,11 @@ Entrar no app com usuário e senha, e recuperar o acesso sem ligar pra ninguém.
 | **Chrome** | sem faixa · barra do sistema na cor da página |
 | **Semente no protótipo** | nenhuma sessão · usuário r.vieira preenchido |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 10 · 3 — ver `estados.md` |
+| **Momentos · estados** | 10 · 4 — ver `estados.md` |
 
 ## O que se toca
 
+- sem internet, o `Entrar` mostra o aviso *SEM CONEXÃO · O login precisa de internet.* · os campos ficam preenchidos, porque a senha não estava errada
 - no erro, o `Entrar` fica apagado, dizendo *Digite a senha*, até a senha ter um caractere
 - `Entrar` → T02 se a senha tiver 8 caracteres ou mais; com menos, o erro de usuário ou senha
 - `Esqueci a senha` → recuperar: escolher o canal

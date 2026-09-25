@@ -460,6 +460,20 @@
   /* ── Casos — cada estado de bloqueio/tela aponta para dado CONCRETO da
      obra. Nenhum é opcional: tela sem o seu caso morre sem dado. ── */
   var CASOS = {
+    /* O mundo real · quatro estados que não dependem do módulo nem do
+       ativo, e sim do celular. Nenhum trava o que já foi feito.
+       - bluetooth-desligado: a T05 não busca · "Ligar o Bluetooth" pede ao
+         Android, e a busca começa sozinha quando ele liga
+       - bluetooth-sem-permissao: "Permitir" pede de novo · se o técnico
+         marcou "não perguntar de novo", o botão vira "Abrir as configurações"
+       - camera-sem-permissao: a câmera do app não abre · "Abrir as
+         configurações" · vale pra câmera da T10 e do checklist
+       - sem-conexao-no-login: o login precisa de rede · os campos ficam
+         preenchidos, porque a senha não estava errada */
+    "bluetooth-desligado": { tela: "T05", bluetooth: "desligado" },
+    "bluetooth-sem-permissao": { tela: "T05", permissao: "bluetooth", resposta: "negada" },
+    "camera-sem-permissao": { tela: "T10", permissao: "camera", resposta: "negada" },
+    "sem-conexao-no-login": { tela: "T01", rede: false },
     /* T10 · a releitura que não confere (HU-T10-5). O técnico semeou
        482.317 km, e o módulo releu 482.316,5 km: 500 m a menos. A tolerância
        do hodômetro é calibracao.tolerancia.hodometro.desvio = 120 m — então

@@ -8,10 +8,11 @@ Fazer o módulo contar igual ao painel do ônibus — com a foto do painel como 
 | **Chrome** | faixa de sessão |
 | **Semente no protótipo** | sessão M2C-0417 + RKT-8H42 · hodômetro 184.320 no módulo, 482.317 no painel |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 6 · 4 — ver `estados.md` |
+| **Momentos · estados** | 6 · 5 — ver `estados.md` |
 
 ## O que se toca
 
+- sem a permissão da câmera, o quadro diz *O app precisa da câmera pra fotografar o painel* e o botão vira `Abrir as configurações` · vale pra câmera do checklist também
 - o campo do painel → tocar e digitar o que o painel mostra, com o teclado numérico
 - `Fotografar o painel` → a câmera do próprio app, com o quadro e *Enquadre o hodômetro do painel* → `Tirar foto` → volta com o registro no lugar do cartão · sem galeria, e foto tirada fica tirada · `Voltar à calibração` sai da câmera sem foto · a foto pode vir antes do número: o botão segue dizendo o que falta
 - o botão só acende com o número digitado **e** a foto tirada, e sempre diz o que falta: *Digite o que o painel mostra* → *Fotografe o painel* → *Semear o hodômetro*

@@ -1,5 +1,12 @@
 # Registro de mudanças
 
+## 2026-09-24 · o mundo real
+
+- **quatro estados que vêm do celular**: o Bluetooth desligado e sem permissão, na T05; a câmera sem permissão, na T10; e o login sem conexão, na T01 · cada um com o seu caso no mock
+- **três regras na lei de construir**: o teclado nunca esconde o que importa, o app fica sempre em retrato, e permissão negada tem saída
+- a **localização negada** não trava nada: o relatório sai sem a geolocalização, e a linha diz isso
+- agora são **126 referências** — 54 momentos e 56 estados — e **39 casos**
+
 ## 2026-09-25 · a entrega de 25/09, construída no protótipo
 
 - **T10 · a calibração só semeia com a prova** (decisão 33): o campo do painel com o teclado numérico, o botão que diz o que falta (*Digite o que o painel mostra* → *Fotografe o painel* → *Semear o hodômetro*), a câmera do app desenhada em código, o registro da foto no lugar do cartão, o semear com *Gravando no módulo…* e *Relendo…*, a releitura que não confere com *Semear de novo*, o horímetro no mesmo fluxo e *Concluir a calibração* → o menu · a foto de cada grandeza fica gravada, e o checklist continua herdando o Painel · **as 11 referências de 0 a 0,16%**

@@ -20,5 +20,7 @@
 | `13-estado-pre-checagem-canal-aberto-e-pendencias` | estado | o módulo tem canal de sessão anterior — o app fecha antes de começar | `canal-aberto` + `modulo-com-pendencias` (as mensagens da tira) |
 | `14-estado-pre-checagem-link-perdido-na-6a` | estado | o link cai na sexta checagem | `link-perdido` |
 | `15-estado-pre-checagem-modulo-em-repouso-na-9a` | estado | o módulo dorme na nona checagem — não é erro | `modulo-em-repouso` |
+| `16-estado-bluetooth-desligado` | estado | o Bluetooth do celular está desligado | `bluetooth-desligado` |
+| `17-estado-bluetooth-sem-permissao` | estado | o técnico negou a permissão do Bluetooth | `bluetooth-sem-permissao` |
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.

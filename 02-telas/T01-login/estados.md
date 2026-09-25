@@ -18,5 +18,6 @@
 | `11-momento-nao-recebi-reenvio-liberado` | momento | os 60 s do reenvio zeram | `recuperacao.limites.reenvioSeg` |
 | `12-momento-codigo-reenviado` | momento | tocar em *Conferir e reenviar* | `recuperacao.limites` |
 | `13-momento-codigo-no-e-mail` | momento | tocar em *Mandar para o e-mail* | `credenciais.contato` |
+| `14-estado-login-sem-conexao` | estado | `Entrar` sem internet | `sem-conexao-no-login` |
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.

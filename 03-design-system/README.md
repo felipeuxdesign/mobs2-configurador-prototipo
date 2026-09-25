@@ -10,4 +10,4 @@
 | `componentes.md` | as 117 peças do design, com a folha onde estão desenhadas e as telas que usam cada uma · e, numa seção separada, o que o protótipo mediu: **127 peças**, os 123 espécimes das folhas e os quatro grupos de átomos da folha 3 |
 | `referencias/` | as oito folhas, em HTML e PNG |
 
-**Medido na versão 2:** todo desenho que se repete nas 122 telas está numa folha · as 25 cores estão na paleta · as 6 transparências têm nome · os 17 tamanhos de letra estão na escala · **toda medida é por dentro**: o poço de 24 tem 24, o botão de 56 tem 56, a linha de 38 tem 38.
+**Medido na versão 2:** todo desenho que se repete nas 126 telas está numa folha · as 25 cores estão na paleta · as 6 transparências têm nome · os 17 tamanhos de letra estão na escala · **toda medida é por dentro**: o poço de 24 tem 24, o botão de 56 tem 56, a linha de 38 tem 38.
