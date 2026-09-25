@@ -1,0 +1,23 @@
+/* a senha do protótipo publicado (Acesso.jsx): a porta do palco, com os tokens do projeto */
+.acesso {
+  min-height: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+  padding: var(--e-24); background: var(--fundo-pagina); color: var(--tinta); font-family: var(--fonte);
+}
+.acesso-caixa {
+  width: 100%; max-width: var(--tela-largura); display: flex; flex-direction: column; gap: var(--e-12);
+  padding: var(--e-24); border: var(--traco-borda) solid var(--borda); border-radius: var(--raio); background: var(--poco);
+}
+.acesso-titulo { margin: 0 0 var(--e-12); font-size: var(--t-titulo-tela); font-weight: 700; }
+.acesso-rotulo { font-size: var(--t-rotulo-topo); font-weight: 700; letter-spacing: var(--ls-rotulo-topo); text-transform: uppercase; color: var(--tinta-secundaria); }
+.acesso-campo {
+  height: var(--alvo-min); padding: 0 var(--e-12); border: var(--traco-borda) solid var(--borda-poco); border-radius: var(--raio);
+  background: var(--fundo-pagina); color: var(--tinta); font: inherit; font-size: var(--t-destaque);
+}
+.acesso-campo:focus { outline: none; border-color: var(--tinta-apagada); }
+.acesso-erro { margin: 0; font-size: var(--t-corpo); color: var(--vermelho); }
+.acesso-botao {
+  height: var(--alvo-primario); margin-top: var(--e-12); border: 0; border-radius: var(--raio);
+  background: var(--roxo); color: var(--lima); font: inherit; font-size: var(--t-botao); font-weight: 700; cursor: pointer;
+}
+.acesso-botao:active { background: var(--roxo-pressionado); }
+.acesso-botao:disabled { background: var(--borda); color: var(--tinta-apagada); cursor: default; }

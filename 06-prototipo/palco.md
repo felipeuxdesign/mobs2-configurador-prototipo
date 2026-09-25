@@ -43,3 +43,7 @@ A tela aberta aparece marcada. As folhas não entram no painel: são momentos da
 - **janela estreita deitada** — mais larga que alta, o celular de lado: o app não gira (a regra 11 do `CLAUDE.md`). O celular volta a ser o do palco — 360 × 800, com a moldura, no centro e em escala pra caber, nunca maior que o real —, sem a coluna, e o resto do estreito fica: o quadrado, o painel com o `Voltar ao fluxo` e a etiqueta. De pé de novo, a tela cheia volta. O teclado aberto num campo do app só encolhe a altura, e não conta como deitar, nem reescala o celular: ele fica na escala que tinha, e o app encolhe até o que sobra acima do teclado — vale também pro palco largo de um tablet (`app/src/palco/retrato.js`, `logica.md` · O retrato e O teclado)
 - uma **etiqueta discreta com a data e o ciclo** no canto de baixo, pra quem comenta dizer qual versão viu
 - o palco nunca mostra comparação com a referência — isso é trabalho do ciclo
+
+## A senha do protótipo publicado
+
+No link publicado, antes do palco, uma porta simples pede a senha *configurador* (sem diferença de maiúscula), e o navegador lembra depois da primeira vez (diretor, 25/09). **Não é segurança:** a senha está no código que o navegador baixa; é só pra o link não abrir pra qualquer um. Na máquina local (o `localhost` do desenvolvimento, o print e as réguas) ela não existe. O site também pede pra não entrar em buscador (`noindex`). O código: `app/src/palco/Acesso.jsx`.

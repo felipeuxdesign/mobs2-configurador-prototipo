@@ -14,6 +14,7 @@ import { estadosDa } from './telas.js'
 import { deitado, alturaDoPalco } from './retrato.js'
 import { abreTeclado } from '../estado/teclado-conta.js'
 import { VERSAO } from './versao.js'
+import { Acesso, precisaDeSenha } from './Acesso.jsx'
 
 // a largura que o palco pede antes de encolher o celular: celular + distância + coluna + margens
 // o corte do modo estreito mora no palco-tokens.css (--palco-estreito)
@@ -89,6 +90,9 @@ function Medida() {
 }
 
 export function Palco() {
+  // a senha do protótipo publicado (Acesso.jsx): fora da máquina local, uma vez por navegador
+  const [aberto, setAberto] = useState(() => !precisaDeSenha())
+  if (!aberto) return <Acesso aoEntrar={() => setAberto(true)} />
   if (new URLSearchParams(window.location.search).get('vitrine') === '1') return <Vitrine />
   return <PalcoApp />
 }
