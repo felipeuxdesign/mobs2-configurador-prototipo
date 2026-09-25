@@ -7,11 +7,18 @@
 // espaçamento normal. Quando troca entre os dois, o texto esmaece no lugar, em
 // --mov-rapido (animacao.md da T01); ao abrir, nada anima. `acao` é o botão só
 // de ícone dentro do poço (o olho da senha, que vira o riscado).
+//
+// `lembrado` é a variante do usuário lembrado (folha 6, T01/16): o xis de
+// limpar dentro do poço, no lugar do olho — de 18, em --tinta-secundaria, com o
+// traço --traco-limpar —, e o poço sem o recheio da direita, como a folha e a
+// T01/16 desenham. `rotuloLimpar` é o nome dele pro leitor; `aoLimpar`, o toque
+// (a tela limpa o campo e esquece o usuário).
 import { useId, useRef } from 'react'
+import { SoIcone } from '../index.js'
 import './TracoFoco.css'
 import './Campo.css'
 
-export function Campo({ rotulo, valor = '', aoMudar, focado = false, oculto = false, acao, id, tipo = 'text', ...resto }) {
+export function Campo({ rotulo, valor = '', aoMudar, focado = false, oculto = false, acao, lembrado = false, rotuloLimpar, aoLimpar, id, tipo = 'text', ...resto }) {
   const gerado = useId()
   const idCampo = id ?? gerado
   // a troca entre escondida e visível reinicia a animação trocando o nome dela (a e b),
@@ -19,8 +26,9 @@ export function Campo({ rotulo, valor = '', aoMudar, focado = false, oculto = fa
   const inicial = useRef(oculto); const mudou = useRef(false)
   if (inicial.current !== oculto) mudou.current = true
   const troca = mudou.current ? (oculto ? 'ds-troca-a' : 'ds-troca-b') : ''
+  const botao = lembrado ? <SoIcone icone="limpar" tam={18} rotulo={rotuloLimpar} aoTocar={aoLimpar} /> : acao
   return (
-    <div className={`ds-campo ${acao ? 'ds-campo-com-acao' : ''} ${focado ? 'ds-foco' : ''}`}>
+    <div className={`ds-campo ${botao ? 'ds-campo-com-acao' : ''} ${lembrado ? 'ds-campo-lembrado' : ''} ${focado ? 'ds-foco' : ''}`}>
       <label htmlFor={idCampo} className="ds-campo-rotulo">{rotulo}</label>
       <div className="ds-campo-poco ds-traco-foco">
         <input
@@ -32,7 +40,7 @@ export function Campo({ rotulo, valor = '', aoMudar, focado = false, oculto = fa
           readOnly={!aoMudar}
           {...resto}
         />
-        {acao && <span className="ds-campo-acao">{acao}</span>}
+        {botao && <span className="ds-campo-acao">{botao}</span>}
       </div>
     </div>
   )

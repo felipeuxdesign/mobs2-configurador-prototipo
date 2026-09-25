@@ -21,12 +21,19 @@ import './Aviso.css'
 // `traco` (o mundo real · T01/14, G11): o aviso neutro com o traço embaixo, em
 // cinza — o que falta é do mundo, não um erro do técnico (SEM CONEXÃO, no
 // login). O desenho é o do aviso; só o traço de baixo acende, na cor do rótulo.
+// Com contagem (a entrega do checklist · a folha 4 e a T11/00 e 01): o poço de
+// 32, com o glifo de 16 (o tamanho do glifo do poço de 26) — o aviso tem o poço
+// dele, e a lei do poço na linha não vale pra ele.
+const CONTAGEM = { poco: 32, glifo: 26 }
 export function Aviso({ tom = 'falha', glifo = 'xis', poco = 26, nomeGlifo, titulo, frase, numero, unidade, semPoco = false, bloqueio = false, traco = false, mudo = true }) {
   const falha = tom === 'falha'
   const veredito = tom === 'veredito'
+  const contagem = numero != null
+  const tamPoco = contagem ? CONTAGEM.poco : poco
+  const tamGlifo = contagem ? CONTAGEM.glifo : poco
   return (
     <div className={`ds-aviso ds-caixa-poco ${falha ? 'ds-caixa-falha ds-aviso-falha' : ''} ${semPoco ? 'ds-aviso-sem-poco' : ''} ${veredito ? 'ds-aviso-veredito' : ''} ${bloqueio ? 'ds-aviso-bloqueio' : ''} ${traco && !falha ? 'ds-aviso-traco' : ''}`}>
-      {!semPoco && !veredito && !bloqueio && <Poco tam={poco} aria-hidden={mudo ? 'true' : undefined}><Glifo estado={glifo} poco={poco} nome={nomeGlifo} /></Poco>}
+      {!semPoco && !veredito && !bloqueio && <Poco tam={tamPoco} aria-hidden={mudo ? 'true' : undefined}><Glifo estado={glifo} poco={tamGlifo} nome={nomeGlifo} /></Poco>}
       <span className="ds-aviso-texto">
         <span className="ds-aviso-titulo">{titulo}</span>
         {frase != null && <span className="ds-aviso-frase">{frase}</span>}

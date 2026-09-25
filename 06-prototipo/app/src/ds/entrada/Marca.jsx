@@ -1,5 +1,7 @@
 // A marca no login (folha 6, T01): a logo da Mobs2 e, embaixo, o nome do
-// app entre dois traços. A logo é o arquivo do projeto (05-recursos/marca),
+// app entre dois traços — a assinatura da otimização do design: o nome com a
+// largura da logo (196), os fios crescendo até as bordas dela, e o rótulo sem o
+// espaço do letter-spacing depois do último R. A logo é o arquivo do projeto (05-recursos/marca),
 // nunca por endereço de fora; o lima dela é o --lima (Lei 15). Quem prende a
 // marca a 207 do topo (--marca-topo) é a tela.
 import logo from '../../../../../05-recursos/marca/logo-mobs2.svg'

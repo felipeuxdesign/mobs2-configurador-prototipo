@@ -39,6 +39,9 @@ export const especimes = [
       <Campo rotulo="SENHA" valor="Patio#Varzea26" focado
         acao={<SoIcone icone="olho-riscado" rotulo="Ocultar a senha" cor="marca-limite" />} />
     ) },
+  // a otimização do design: a variante do campo, com o xis no lugar do olho (T01/16)
+  { id: 'f6-usuario-lembrado', folha: 6, rotulo: 'usuário lembrado', legenda: 'o xis no lugar do olho · limpa o campo e esquece o usuário',
+    render: () => <Campo rotulo="USUÁRIO" valor="r.vieira" lembrado rotuloLimpar="Limpar o usuário" /> },
   { id: 'f6-requisitos', folha: 6, rotulo: 'requisitos da senha', legenda: 'cada regra vira check quando a senha cumpre',
     render: () => <Requisito texto="10 caracteres ou mais" cumprido /> },
   { id: 'f6-codigo', folha: 6, rotulo: 'código · seis células', legenda: 'uma célula por dígito',

@@ -13,7 +13,8 @@
 .t13-conteudo { flex-grow: 1; min-height: 0; display: flex; flex-direction: column; isolation: isolate; }
 
 /* o miolo: entre a faixa e o rodapé, rola quando passa de 800 (G16). A folga
- * de 16 até o rodapé é o recheio dele. O visor e o instrumento do nível do
+ * de 16 até o rodapé é o recheio dele: as seções abertas rolam aqui, e a
+ * rolagem 0 é o quadro da referência. O visor e o instrumento do nível do
  * item crescem no que sobra (pecas.css). */
 .t13 .tela-miolo {
   flex-grow: 1; min-height: 0; overflow-y: auto;
@@ -22,13 +23,8 @@
 }
 .t13 .tela-miolo > * { flex-shrink: 0; }
 
-/* o cabeçalho das colunas sobre o mapa (T13/00, 11) */
-.t13-colunas {
-  display: flex; align-items: center; justify-content: space-between;
-  font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-colunas-mapa); color: var(--tinta-apagada);
-}
-/* o mapa: as seis linhas soltas, sem cartão (T13/00, T13-A16) */
-.t13-mapa { display: flex; flex-direction: column; }
+/* a barra do checklist, a 8 do título: a folga de 12 do miolo, menos 4 (T13/00 a 14) */
+.t13 .ds-barra-ck.t13-barra { margin-top: calc(-1 * var(--e-4)); }
 
 /* o título do nível do item: a pergunta que o técnico confere agora */
 .t13-titulo-item {

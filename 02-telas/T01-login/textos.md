@@ -61,3 +61,11 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `14-estado-login-sem-conexao`
 
 `14:30` · `Entrar` · `CONFIGURADOR` · `SEM CONEXÃO` · `O login precisa de internet.` · `USUÁRIO` · `SENHA` · `Lembrar meu usuário` · `Entrar` · `Esqueci a senha`
+
+## `15-estado-primeiro-acesso`
+
+`14:30` · `Entrar` · `CONFIGURADOR` · `USUÁRIO` · `SENHA` · `Lembrar meu usuário` · `Digite o usuário` · `Esqueci a senha`
+
+## `16-estado-usuario-lembrado`
+
+`14:30` · `Entrar` · `CONFIGURADOR` · `USUÁRIO` · `SENHA` · `Lembrar meu usuário` · `Digite a senha` · `Esqueci a senha`

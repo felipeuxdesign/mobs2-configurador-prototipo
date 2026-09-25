@@ -1,7 +1,8 @@
 // Folha 4 · a linha de checagem e a família da linha de lista — e as duas
 // linhas que moram em outras folhas: a linha tocável (folha 1) e a escolha
 // numa lista (folha 3). Os textos e as legendas são os da folha.
-import { Lista, LinhaChecagem, CabecaSecao, LinhaHistorico, LinhaFilaEsperando, LinhaGaragem, LinhaEscolha, LinhaTocavel } from '../../ds/linhas/index.js'
+import { Lista, LinhaChecagem, LinhaHistorico, LinhaFilaEsperando, LinhaGaragem, LinhaEscolha, LinhaTocavel } from '../../ds/linhas/index.js'
+import { secaoALeitura, secaoBFechada } from './f7-checklist.jsx'
 
 const pilha = { display: 'flex', flexDirection: 'column', gap: 'var(--e-10)' }
 
@@ -29,10 +30,9 @@ export const especimes = [
     render: () => <Lista><LinhaChecagem variante="dupla" titulo="Configuração" valor="confere" /></Lista> },
   { id: 'f4-conferencia', folha: 4, rotulo: 'linha de conferência', legenda: 'dupla · 50',
     render: () => <Lista><LinhaChecagem variante="conferencia" titulo="Ativo" valor="tradução frota v2" /></Lista> },
-  { id: 'f4-secao-aberta', folha: 4, rotulo: 'seção aberta do checklist', legenda: 'a cabeça do acordeão',
-    render: () => <Lista><CabecaSecao aberta estado="aprovada" titulo="A · Identificação" contagem="4 de 4" /></Lista> },
-  { id: 'f4-secao-recolhida', folha: 4, rotulo: 'seção recolhida', legenda: 'as outras, embaixo da aberta',
-    render: () => <CabecaSecao estado="pendente" titulo="B · Montagem" contagem="0 de 5" /> },
+  // a entrega do checklist (decisão 34): a folha 4 desenha as duas com a seção nova, a mesma peça da folha 7
+  { id: 'f4-secao-aberta', folha: 4, rotulo: 'seção aberta do checklist', legenda: 'o cartão cresce no lugar · a seta vira pra cima', render: secaoALeitura },
+  { id: 'f4-secao-recolhida', folha: 4, rotulo: 'seção recolhida', legenda: 'um cartão por seção · quem age, a contagem e a seta', render: secaoBFechada },
   { id: 'f4-passos-prazo', folha: 4, rotulo: 'passos com o prazo estourado', legenda: 'a lista inteira da T14',
     render: () => (
       <Lista recheio="passos">
@@ -58,7 +58,7 @@ export const especimes = [
       <Lista>
         <LinhaGaragem estado="atual" nome="Garagem Várzea" pacote="carregado ontem, 07:10" rotuloContagem="ATIVOS" contagem={10} />
         <LinhaGaragem nome="Garagem Ibura" pacote="carregado há 4 dias" rotuloContagem="ATIVOS" contagem={8} />
-        <LinhaGaragem estado="vencida" nome="Pátio Caruaru" pacote="carregado há 8 dias · o limite é 7" aviso="Sincronize no menu para liberar" rotuloContagem="ATIVOS" contagem={6} divisoria={false} />
+        <LinhaGaragem estado="vencida" nome="Pátio Caruaru" pacote="pacote vencido há 8 dias" rotuloContagem="ATIVOS" contagem={6} divisoria={false} />
       </Lista>
     ) },
 

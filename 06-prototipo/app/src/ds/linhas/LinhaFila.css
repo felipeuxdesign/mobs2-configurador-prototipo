@@ -1,5 +1,5 @@
-/* A linha da fila (T15): poço de 30 (exceção declarada nas leis), o que é e de
- * quem embaixo, o quando à direita. 62 depois de subir (folha 7), 50 esperando
+/* A linha da fila (T15): o poço da linha (32 na de 50, 30 na de 62 · o poço na
+ * linha), o que é e de quem embaixo, o quando à direita. 62 depois de subir (folha 7), 50 esperando
  * (folha 4, com a divisória da lista) — a altura por estado espera o arquiteto. */
 .ds-linha-fila { display: flex; align-items: center; gap: var(--e-12); height: var(--linha-fila); }
 .ds-linha-fila-espera { height: var(--linha-dupla); }

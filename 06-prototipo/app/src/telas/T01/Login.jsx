@@ -10,6 +10,13 @@
 // O prazo e o reenvio descem juntos, e a folha mostra o reenvio como contagem
 // no lugar da seta, com as duas saídas desabilitadas até zerar (decisões 31 e
 // 32). O contato aparece mascarado em todo o recuperar (regras.js).
+//
+// A entrada (a otimização do design): o Entrar diz o que falta — Digite o
+// usuário, Digite a senha, Entrar —, e o usuário lembrado tem o xis dentro do
+// campo (a variante `lembrado` do Campo). O palco começa na 00, sem ninguém
+// lembrado; o Entrar com a caixa marcada guarda o usuário no estado único, e o
+// login seguinte abre como a 16 — sem a caixa, como a 15, com os dois campos
+// vazios (regras.js · entradaDoFluxo). A 15 e a 16 abrem pela coluna, pelo caso.
 import { useEffect, useId, useState } from 'react'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
@@ -25,7 +32,8 @@ import { TX } from './textos.js'
 import {
   REC, LIM, PASSOS, segmentosDo, TELEFONE, EMAIL, contatoDo,
   PRAZO_CHEIO, REENVIO_CHEIO, PRAZO_NO_REENVIO_LIBERADO, restamEnvios, requisitosDa, senhaSalvavel,
-  redeDoCaso, depoisDoEntrar, entrarApagado,
+  redeDoCaso, depoisDoEntrar, oQueFalta, CASO_PRIMEIRO_ACESSO, CASO_LEMBRADO, lembradoDoCaso,
+  entradaDoLembrado, entradaDoFluxo, depoisDoXis, lembradoDepoisDoEntrar,
 } from './regras.js'
 import { CartaoCanal, CartaoDoCodigo, LinhaConferido, CampoSenhaNova } from './pecas.jsx'
 import { usePresenca } from './presenca.js'
@@ -48,6 +56,8 @@ export const REF = {
   reenviado: '12-momento-codigo-reenviado',           // Conferir e reenviar: outro código, pro mesmo contato
   noEmail: '13-momento-codigo-no-e-mail',             // Mandar para o e-mail: o código vai pro e-mail
   semConexao: '14-estado-login-sem-conexao',           // Entrar sem internet: o aviso, e os campos ficam (o mundo real)
+  primeiroAcesso: '15-estado-primeiro-acesso',         // nada lembrado: os dois campos vazios, o foco no usuário (a otimização)
+  lembrado: '16-estado-usuario-lembrado',              // o usuário lembrado, com o xis, a caixa marcada e o foco na senha
 }
 
 // um código novo, com o prazo e o reenvio cheios. O primeiro envio chega com o
@@ -55,11 +65,14 @@ export const REF = {
 // e o cursor na primeira (a 12 e a 13)
 const codigoNovo = (digitos = REC.codigo) => ({ digitos, erros: 0, erroVisivel: false, prazo: PRAZO_CHEIO, reenvio: REENVIO_CHEIO, folha: false })
 
-// o quadro de cada referência, montado do mock
-export function inicial(momento, estado, usuario) {
+// o quadro de cada referência, montado do mock. `situacao` é o que o celular
+// sabe, no fluxo (o estado único): no começo do palco, a entrada abre na T01/00,
+// com os dois campos preenchidos (o palco anda num toque); depois do primeiro
+// Entrar, com o usuário lembrado, como a 16, e sem ele, como a 15 (entradaDoFluxo)
+export function inicial(momento, estado, usuario, situacao = null) {
   const base = {
     quadro: 'entrada',
-    usuario, senha: M.credenciais.senha, mostrar: false, lembrar: false, foco: 'senha', erroEntrada: false, semConexao: false,
+    usuario, senha: M.credenciais.senha, mostrar: false, lembrar: false, lembrado: false, foco: 'senha', erroEntrada: false, semConexao: false,
     canal: 'telefone', envios: REC.reenviosNaHora,
     // outro: o último envio foi pro mesmo contato ("Mandamos outro para", a 12);
     // momentoCodigo: o momento do quadro do código, pra onde a folha volta
@@ -88,18 +101,22 @@ export function inicial(momento, estado, usuario) {
     case REF.senha: return { ...base, quadro: 'senha' }
     case REF.alterada: return { ...base, quadro: 'senha', dialogo: true }
     case REF.senhaVisivel: return { ...base, mostrar: true }
-    default: return base
+    // quem abre o app (a otimização do design): nada lembrado (a 15) ou o usuário lembrado (a 16), do caso
+    case REF.primeiroAcesso: return entradaDoLembrado(base, lembradoDoCaso(CASO_PRIMEIRO_ACESSO))
+    case REF.lembrado: return entradaDoLembrado(base, lembradoDoCaso(CASO_LEMBRADO))
+    default: return !estado && !momento ? entradaDoFluxo(base, situacao) : base
   }
 }
 
 export function Login({ momento, estado, irMomento }) {
   const { estado: unico, despachar } = useEstado()
-  const [s, setS] = useState(() => inicial(momento, estado, unico.tecnico.usuario))
+  const [s, setS] = useState(() => inicial(momento, estado, unico.tecnico.usuario, unico.situacao))
   const muda = (parcial) => setS((x) => ({ ...x, ...parcial }))
   const idTitulo = useId()
   // no erro do login, a senha é apagada e o cursor vai pra ela; o usuário fica (tela.md, estados.md).
   // O cursor vai no toque do Entrar, não ao abrir o estado 01 (no print, um cursor piscando mudaria a foto)
   const idSenha = useId()
+  const idUsuario = useId()
 
   // o código: vivo, errado, expirado ou morto pelas tentativas
   const esgotado = s.erros >= LIM.tentativas
@@ -138,14 +155,25 @@ export function Login({ momento, estado, irMomento }) {
 
   // ── os toques ──
   const aoLogin = () => { muda({ quadro: 'entrada', folha: false, dialogo: false }); irMomento(null) }
+  // o que o celular sabe do login, no estado único: o usuário que ele lembra
+  // (situacao.usuarioLembrado, HU-T01-3) e se o Entrar já entrou (situacao.jaEntrou)
+  const noCelular = (parcial) => despachar({ tipo: 'mesclar', parcial: { situacao: { ...unico.situacao, ...parcial } } })
   // o Entrar (regras.js · depoisDoEntrar): sem internet, o aviso SEM CONEXÃO e os
   // campos ficam, e tocar de novo tenta de novo; com ela, a regra da senha. A rede
-  // é a do aparelho, no estado único (logica.md · O mundo real)
+  // é a do aparelho, no estado único (logica.md · O mundo real). O Entrar que entra
+  // guarda o usuário lembrado: com a caixa marcada, o identificador; sem ela, nada.
+  // Dali em diante, o login só traz o que o celular lembra (a 16, ou a 15)
   const entrar = () => {
     const depois = depoisDoEntrar(s, unico.situacao.rede)
-    if (depois === 'T02') { despachar({ tipo: 'ir', tela: 'T02' }); return }
+    if (depois === 'T02') { noCelular({ usuarioLembrado: lembradoDepoisDoEntrar(s), jaEntrou: true }); despachar({ tipo: 'ir', tela: 'T02' }); return }
     setS(depois)
     if (depois.erroEntrada) setTimeout(() => document.getElementById(idSenha)?.focus(), 0)
+  }
+  // o xis do usuário lembrado: limpa o campo e esquece o usuário; a caixa fica
+  // como o técnico deixou, e o cursor vai pro usuário, o primeiro campo vazio
+  const limpar = () => {
+    setS((x) => depoisDoXis(x)); noCelular({ usuarioLembrado: null })
+    setTimeout(() => document.getElementById(idUsuario)?.focus(), 0)
   }
   const esqueci = () => { muda({ quadro: 'canal', canal: 'telefone' }); irMomento(REF.canal) }
   // o primeiro envio não conta no teto; só o reenvio conta (T01·2)
@@ -182,11 +210,12 @@ export function Login({ momento, estado, irMomento }) {
   )
 
   function Entrada() {
-    // no erro, o Entrar fica apagado, dizendo Digite a senha, até a senha ter um
-    // caractere (tela.md, a entrega de 25/09). Na entrada sem erro, com a senha
-    // vazia, fica aceso: nenhuma referência desenha o apagado ali (pendência).
-    // Sem conexão, aceso: a senha está lá, e o toque tenta de novo (a 14)
-    const esperaSenha = entrarApagado(s)
+    // o Entrar diz o que falta enquanto o técnico apaga e digita: Digite o
+    // usuário (a 15) → Digite a senha (a 01 e a 16) → Entrar, apagado e
+    // desabilitado de verdade enquanto falta (a lei 17). Sem conexão, aceso: os
+    // dois estão lá, e o toque tenta de novo (a 14)
+    const falta = oQueFalta(s)
+    const primario = falta === 'usuario' ? TX.digiteUsuario : falta === 'senha' ? TX.digiteSenha : TX.entrar
     return (
       <>
         <h1 className="t01-titulo-oculto">{TX.entrar}</h1>
@@ -200,8 +229,10 @@ export function Login({ momento, estado, irMomento }) {
             {!s.erroEntrada && s.semConexao && (
               <div className="t01-aviso"><Aviso tom="neutro" traco glifo="sem-sinal-neutro" poco={26} titulo={TX.semConexao} frase={TX.semConexaoFrase} /></div>
             )}
+            {/* o usuário lembrado tem o xis dentro do campo (a 16): a variante do campo */}
             <Campo rotulo={TX.usuario} valor={s.usuario} aoMudar={(v) => muda({ usuario: v })} focado={s.foco === 'usuario'}
-              onFocus={() => muda({ foco: 'usuario' })} autoComplete="username" autoCapitalize="none" spellCheck={false} />
+              onFocus={() => muda({ foco: 'usuario' })} autoComplete="username" autoCapitalize="none" spellCheck={false}
+              id={idUsuario} lembrado={s.lembrado} rotuloLimpar={TX.limparUsuario} aoLimpar={limpar} />
             <Campo rotulo={TX.senha} valor={s.senha} aoMudar={(v) => muda({ senha: v })} oculto={!s.mostrar} focado={s.foco === 'senha'}
               onFocus={() => muda({ foco: 'senha' })} autoComplete="current-password" autoCapitalize="none" spellCheck={false}
               id={idSenha}
@@ -211,7 +242,7 @@ export function Login({ momento, estado, irMomento }) {
             <Checkbox marcado={s.lembrar} aoMudar={(v) => muda({ lembrar: v })}>{TX.lembrar}</Checkbox>
           </div>
         </div>
-        <Rodape lugar="login" primario={esperaSenha ? TX.digiteSenha : TX.entrar} primarioDesabilitado={esperaSenha}
+        <Rodape lugar="login" primario={primario} primarioDesabilitado={falta !== null}
           aoPrimario={entrar} link={TX.esqueci} aoLink={esqueci} />
       </>
     )

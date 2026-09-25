@@ -8,7 +8,7 @@
 //   (Lei 3): muda o que o visor diz. Na T13, que não tem o texto, só a câmera
 //   riscada (G25).
 // Não se toca: o toque é do rodapé (Tirar foto, ou Abrir as configurações).
-// O design system ainda não lista esta peça (vai pro arquiteto).
+// A peça 'a câmera do app' da folha 7, desde a entrega do checklist.
 import { Icone } from '../index.js'
 import '../cartoes/caixas.css'   // a caixa de poço é a do aviso e do valor em poço
 import './VisorCamera.css'

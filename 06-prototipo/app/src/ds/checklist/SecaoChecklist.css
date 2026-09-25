@@ -1,8 +1,0 @@
-.ds-secao { display: flex; flex-direction: column; border-bottom: var(--traco-borda) solid var(--divisoria); }
-/* C10 · T13 (G11): a última seção do acordeão, sem o traço de baixo */
-.ds-secao.ds-secao-sem-divisoria { border-bottom: 0; }
-/* o corpo sangra por cima do recheio (12) e da borda (1) do cartão da lista */
-.ds-secao-corpo {
-  background: var(--fundo-apagado); border-top: var(--traco-borda) solid var(--divisoria);
-  margin: 0 calc(-1 * (var(--e-12) + var(--traco-borda))); padding: var(--e-10) var(--e-12);
-}

@@ -12,6 +12,9 @@ Achar o módulo, conectar e conferir, antes de qualquer gravação, se ele pode 
 
 ## O que se toca
 
+- enquanto a pré-checagem corre, o ENCERRAR da faixa fica desabilitado e em tinta apagada · com o resultado na tela, ele volta (a lei 17)
+- `Procurar de novo` → a busca da T05/00 corre de novo, e a lista volta
+
 - `Ligar o Bluetooth` → o Android pergunta · ligado, a busca começa sozinha
 - `Permitir` → o Android pergunta de novo · se o técnico marcou *não perguntar de novo*, o botão vira `Abrir as configurações`
 - no protótipo, a resposta do Android vem do caso (a entrega do mundo real): o `bluetooth-desligado` não traz recusa, e o `Ligar o Bluetooth` leva à busca, que acha na hora — a lista sem nada escolhido (01), como o `Procurar de novo`. No `bluetooth-sem-permissao`, a resposta é *negada*: negada de novo, o Android não deixa o app perguntar mais, e o primário vira `Abrir as configurações`, no mesmo bloco (a letra é a da T10/11; nenhuma referência da T05 desenha o botão virado). `Abrir as configurações` leva às configurações do Android, que o protótipo não desenha: o técnico volta com a permissão dada, e a busca começa (01) · nunca um botão que não faz nada (a lei de construir, 12)

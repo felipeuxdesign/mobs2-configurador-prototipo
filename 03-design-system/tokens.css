@@ -157,8 +157,8 @@
 
   /* ── alturas de linha e de peça ─────────────────────────────── */
   --linha-tocavel: 54px;             /* a linha tocável solta, em cartão próprio (folha 1) · LinhaTocavel */
-  --linha-secao-mapa: 54px;          /* a linha de seção do mapa do checklist (T13), com poço de 32 · LinhaSecaoMapa */
-  --linha-secao-mapa-legenda: 60px;  /* a mesma linha, com a legenda embaixo do nome (F · não bloqueia, T13) · LinhaSecaoMapa */
+  --linha-secao-mapa: 54px;          /* a linha de seção do mapa do checklist (T13), com poço de 32 · LinhaSecaoMapa · sem uso desde a entrega do checklist: o mapa saiu, e a seção é o cartão de 58 (--secao-checklist) */
+  --linha-secao-mapa-legenda: 60px;  /* a mesma linha, com a legenda embaixo do nome (F · não bloqueia, T13) · LinhaSecaoMapa · sem uso desde a entrega do checklist: o mapa saiu */
   --linha-fila: 62px;                /* a linha da fila que já subiu (T15), com poço de 30 · LinhaFila */
   --linha-rechecagem: 54px;          /* a linha da re-checagem da Seção F (T15), no mínimo · LinhaRechecagem */
   --linha-requisito: 40px;           /* a linha de cada requisito da senha (T01) · Requisito */
@@ -182,7 +182,7 @@
   --separador-motivo: 60%;           /* a largura do separador curto antes do motivo (T06) · BlocoEscolhido */
   --cartao-acao-folga: 18px;         /* entre o rótulo, o erro e a ação no cartão que pede ação (T15) · CartaoAcao */
   --marca-folga: 18px;               /* entre a logo e o CONFIGURADOR (T01) · Marca */
-  --marca-traco: 22px;               /* o comprimento de cada traço em volta do CONFIGURADOR · Marca */
+  --marca-traco: 22px;               /* o comprimento de cada traço em volta do CONFIGURADOR, até a T01 de 25/09 · sem uso desde a otimização do design: os fios crescem até as bordas da marca (--marca-largura) */
   --marca-proporcao: 271 / 57;       /* a proporção do logo-mobs2.svg: a altura fica reservada antes do arquivo carregar · Marca */
 
   /* ── a barra do sistema (o desenho do Android) ──────────────── */
@@ -205,8 +205,8 @@
   --ls-dado: 0.2px;                  /* o dado curto no lugar da identidade: o valor do cartão largo do menu (serial, placa, próximo passo), a placa na linha do histórico, o fato da faixa sem serial (sem sessão, módulo com falha) · CartaoFerramenta, LinhaHistorico, Faixa */
   --ls-par-valor: 1.4px;             /* o código do par comparado (o chassi), pra ler dígito a dígito · ParComparado */
   --ls-versao: 1px;                  /* a letra da versão, na prova · Prova */
-  --entrelinha-numero: 1;            /* número de instrumento sozinho na linha: a caixa é a própria letra · CartaoValor, Mostrador, PrazoDaConta, BlocoEscolhido, LeituraPequena, Calibracao */
-  --entrelinha-cartao: 1.25;         /* o nome, o rótulo e o título dentro de cartão ou caixa: o cartão de ferramenta, o cartão de valor e de foto, o vazio declarado · CartaoFerramenta, Vazio, CartaoValor, CartaoFoto */
+  --entrelinha-numero: 1;            /* número de instrumento sozinho na linha: a caixa é a própria letra · Mostrador, PrazoDaConta, BlocoEscolhido, LeituraPequena, Calibracao, o instrumento do item reprovado (T13/09) · o CartaoValor saiu com a entrega do checklist */
+  --entrelinha-cartao: 1.25;         /* o nome, o rótulo e o título dentro de cartão ou caixa: o cartão de ferramenta, o vazio declarado · CartaoFerramenta, Vazio (o cartão de valor e o de foto, CartaoValor e CartaoFoto, saíram com a entrega do checklist) */
   --entrelinha-titulo-cartao: 1.2;   /* o título de 22 do cartão que pede ação · CartaoAcao */
   --entrelinha-nome: 1.3;            /* o nome que pode quebrar em duas linhas: o do sinal no mostrador e o título da linha dupla de 50 (a assertiva da sessão) · Mostrador, LinhaChecagem */
   --entrelinha-detalhe: 1.35;        /* a linha de 12 embaixo do nome, numa linha de lista: a causa da reprovada e a descrição do elo da cadeia · LinhaChecagem, Cadeia */
@@ -225,8 +225,8 @@
   --ls-n-tambor: -0.6px;             /* o espaçamento do dígito do tambor · Tambor */
   --tambor-celula: 52px;             /* a altura da célula de cada rodinha do tambor (T07, G29) · Tambor */
   --tambor-unidade: 32px;            /* a largura da unidade (km) ao lado das células do tambor · Tambor */
-  --n-cartao-secao: 18px;            /* o valor do cartão de meia largura da seção aberta · CartaoValor */
-  --n-unidade-cartao: 10px;          /* a unidade junto do valor de 18 (V, sat, de 4) · CartaoValor */
+  --n-cartao-secao: 18px;            /* o valor do cartão de meia largura da seção aberta · CartaoValor · sem uso desde a entrega do checklist: os cartões de valor saíram, e a seção aberta tem os itens de linha */
+  --n-unidade-cartao: 10px;          /* a unidade junto do valor de 18 (V, sat, de 4) · CartaoValor · sem uso desde a entrega do checklist: os cartões de valor saíram */
   --n-mostrador: 17px;               /* o valor do sinal que respondeu · Mostrador */
   --n-mostrador-vazio: 22px;         /* o traço do sinal apagado · Mostrador */
   --n-prova-cadeia: 20px;            /* a versão gravada e relida (T09) · Prova */
@@ -246,8 +246,8 @@
   --risco-placar: 6px;               /* o risco comum no placar da homologação · Escala */
   --risco-placar-forte: 9px;         /* o risco do meio no placar da homologação · Escala */
   --marcador-leitura: 4px;           /* o marcador do valor na leitura de largura inteira e no prazo do evento · Escala */
-  --marcador-pequeno: 3px;           /* o marcador do valor numa barra baixa: a leitura de meia largura, o placar, a barra do cartão, o agora do prazo da conta · Escala, CartaoValor, PrazoDaConta */
-  --barra-cartao: 9px;               /* a barra do cartão da seção aberta, e o lugar do traço quando não há faixa · CartaoValor */
+  --marcador-pequeno: 3px;           /* o marcador do valor numa barra baixa: a leitura de meia largura, o placar, a barra do cartão, o agora do prazo da conta · Escala, PrazoDaConta (o CartaoValor saiu com a entrega do checklist) */
+  --barra-cartao: 9px;               /* a barra do cartão da seção aberta, e o lugar do traço quando não há faixa · CartaoValor · sem uso desde a entrega do checklist: os cartões de valor saíram */
 
   /* ── a cadeia, o encerramento e o segmentado ────────────────── */
   --traco-trilho: 2px;               /* o trilho que liga um poço ao próximo, na cadeia e no encerramento · Trilho */
@@ -263,10 +263,10 @@
   --glifo-confere: 15px;             /* o check solto do "confere" na régua da diferença (T10/01, Lei 4 · exceção) · Calibracao */
   --glifo-cartao-acao: 22px;         /* o glifo solto ao lado do rótulo do cartão que pede ação (T15) · CartaoAcao */
   --ferramenta-traco-sem-rede: 9px;  /* o traço no poço do cartão que espera a rede (T04 · Últimas instalações); o da espera é --e-10 · CartaoFerramenta */
-  --visor-foto: 46px;                /* o visor do cartão de foto · CartaoFoto */
-  --traco-visor: 13px;               /* o traço do visor que ainda espera a foto · CartaoFoto */
-  --miniatura-foto: 44px;            /* a miniatura da foto da prova (T10) · FotoProva */
-  --icone-foto: 22px;                /* o ícone dentro da miniatura da foto · FotoProva */
+  --visor-foto: 46px;                /* o visor do cartão de foto · CartaoFoto · sem uso desde a entrega do checklist: os cartões de foto saíram, e a foto a tirar é o item de tocar com a câmera */
+  --traco-visor: 13px;               /* o traço do visor que ainda espera a foto · CartaoFoto · sem uso desde a entrega do checklist: os cartões de foto saíram */
+  --miniatura-foto: 44px;            /* a miniatura da foto da prova (T10) · FotoProva · sem uso (medido no fechamento da entrega do checklist): a foto da prova leva o poço de 44 (--poco-44), sem miniatura */
+  --icone-foto: 22px;                /* o ícone dentro da miniatura da foto · FotoProva · sem uso (medido no fechamento da entrega do checklist): o ícone da foto da prova tem 20, no poço de 44 */
 
   /* ── movimento ──────────────────────────────────────────────── */
   --escala-dialogo: 0.98;            /* o diálogo nasce de 98% e cresce a 100% (movimento.md, por cima da tela) · Dialogo */
@@ -288,7 +288,7 @@
   --linha-modulo-fim: 56px;         /* a última linha da lista dos outros módulos por perto, com a folga do pé do cartão (T05/00, 04) · LinhaModulo (fim) */
   --linha-modulo-escolha-fim: 76px; /* a última linha da lista de escolha de módulos, com a folga do pé do cartão (T05/01) · LinhaModulo (escolha, fim) */
   --linha-precheck-fim: 43px;       /* a última linha da pré-checagem inteira aprovada, com a folga do pé do cartão (T05/05) · LinhaChecagem (folgaFim 'pre-checagem') */
-  --linha-onibus-fim: 78px;         /* a última linha de ônibus da lista, com a folga do pé do cartão: 6 a mais que as de 72 (T06/00) · LinhaOnibus (fim), como o --linha-modulo-escolha-fim da T05 */
+  --linha-onibus-fim: 78px;         /* a última linha de ônibus da lista, com a folga do pé do cartão: 6 a mais que as de 72 (T06/00) · LinhaOnibus (fim), como o --linha-modulo-escolha-fim da T05 · sem uso desde a entrega do checklist: a última linha tem os 72 das outras, só sem a divisória */
   --escolhido-justo-respiro: 22px;  /* o recheio de cima e de baixo do bloco escolhido que não cresce, em cima da prova do vínculo (T06/01, 03) · BlocoEscolhido (justo) */
   --escolhido-apagado-respiro: 18px;/* o mesmo recheio quando o escolhido apaga, porque o chassi lido desmente o cadastro (T06/02) · BlocoEscolhido (justo, apagado) */
   --linha-acao: 50px;               /* a linha de ação solta, em cartão próprio: o que se pede e o que acompanha (T06/02, T13/07) · LinhaTocavel (acao) */
@@ -318,10 +318,10 @@
   --olho-corte: 4.6;          /* a borda do risco do olho riscado, na cor do poço, que corta o contorno do olho (T01/10, folha 6; em unidades do desenho de 24) */
 
   /* ── C10 · C11 · o que as telas T11, T13, T15 e T16 pediram (cada um com o papel e quem usa) ── */
-  --linha-conferencia-fim: 72px; /* a última linha da lista de conferência, com a folga do pé do cartão: 22 a mais que as de 50 (T11/00–02) · LinhaChecagem (folgaFim 'conferencia') */
+  --linha-conferencia-fim: 72px; /* a última linha da lista de conferência, com a folga do pé do cartão: 22 a mais que as de 50 (T11/00–02, até o C11) · sem uso desde a entrega do checklist: a Conexão tem os 50 das outras */
   --escala-item: 22px;          /* a barra do instrumento do item reprovado, no nível do item (T13/09) · Escala (tam item) */
   --risco-item-forte: 12px;     /* o risco forte (os limites da faixa) na barra do item reprovado (T13/09) · Escala (tam item) */
-  --ls-colunas-mapa: 1.2px;     /* a letra do cabeçalho das colunas SEÇÃO / RESOLVIDO sobre o mapa do checklist (T13/00, 11) · T13 */
+  --ls-colunas-mapa: 1.2px;     /* a letra do cabeçalho das colunas SEÇÃO / RESOLVIDO sobre o mapa do checklist (T13/00, 11) · T13 · sem uso desde a entrega do checklist: o mapa e o cabeçalho das colunas saíram */
   --entrelinha-titulo-item: 1.2; /* o título de 28 do nível do item do checklist, que quebra em duas linhas (T13/07 a 09) · T13 */
   --icone-visor: 46px;          /* a câmera no visor da câmera do app: a do painel (T10/06, e a riscada da 11) e a do item manual (T13/07, 08) · VisorCamera */
   --botao-secundario-compacto: 46px;    /* o botão secundário dentro do cartão com mais de um erro (T15/02); o toque de 48 cresce por fora (G14) · BotaoSecundario (compacto) */
@@ -337,6 +337,15 @@
 
   /* ── a entrega do mundo real · o que os estados do celular pediram (cada um com o papel e quem usa) ── */
   --visor-explicacao: 260px; /* a largura máxima da explicação embaixo da frase, no visor da câmera do app sem a permissão (T10/11: Sem a foto, a calibração não semeia.) · VisorCamera (semPermissao) */
+
+  /* ── a entrega do checklist · o que as telas novas pediram (cada um com o papel e quem usa) ── */
+  --conferencia-par-folga: 3px; /* entre o nome do bloco e as duas linhas do par, no bloco que não bate (T11/00: no módulo · no cadastro) · LinhaChecagem (par) */
+  --secao-checklist: 58px;  /* o cartão de seção do checklist fechado, e a cabeça dele aberto; também o veredito do homologado (T13/00 a 14, folhas 4 e 7) · SecaoDoChecklist, VereditoDoChecklist */
+  --barra-checklist: 6px;   /* a barra fina embaixo do título do checklist: o que já passou; o número fica no título (T13/00 a 14, folha 5) · BarraDoChecklist */
+  --lima-barra-checklist: rgba(170, 239, 0, 0.55); /* o lima do que já passou, na barra do checklist (T13/00 a 14, folha 5) · BarraDoChecklist */
+
+  /* ── a otimização do design · o que o login de quem abre o app pediu (cada um com o papel e quem usa) ── */
+  --traco-limpar: 2; /* o traço do xis de limpar do usuário lembrado, de 18 (T01/16, folha 6: stroke-width 2) — fora das classes da lei 14 · Icone (limpar), Campo (lembrado) */
 }
 
 @media (prefers-reduced-motion: reduce) {

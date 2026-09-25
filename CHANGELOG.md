@@ -1,5 +1,74 @@
 # Registro de mudanças
 
+## 2026-09-25 · a otimização do design, construída · o login de quem abre o app e o ENCERRAR nos processos
+
+- **T01 · o login de quem abre o app:** o primeiro acesso (15) e o usuário lembrado (16), cada um pelo seu caso, em **0%** · o *Entrar* diz o que falta, na ordem dos campos (*Digite o usuário* → *Digite a senha* → *Entrar*), apagado e desabilitado enquanto falta · o xis do usuário lembrado limpa o campo e esquece o usuário, e a caixa fica como estava · o usuário lembrado mora no estado único: sair da conta com *Lembrar* marcado abre a 16; sem ele, a 15
+  - **o revisor achou e corrigiu:** saindo da conta sem *Lembrar*, o login voltava com a senha preenchida, como se o celular guardasse a senha (HU-T01-3)
+- **a assinatura da marca** nas seis telas do login: os fios do CONFIGURADOR com a largura da marca, medidos de 82 a 278 · **o campo lembrado** como variante do campo, com o espécime novo da folha 6 em 0%
+- **o ENCERRAR nos processos faz o mesmo que o voltar** (a lei 17, *desabilitado é tinta apagada*): apagado e desabilitado na releitura da T08, na recuperação da T09 e no semear da T10 · as referências novas da T08/01 e da T09/03 batem com ele
+- **a régua:** 13 roteiros e **1.518 passos** aprovando, com o roteiro novo do login lembrado (63 passos) · 1 token novo (**280**) · `checar` e `build` aprovam
+- **desvios nomeados:** o xis fica a 14 px do lugar do olho da senha, como a folha 6 e a T01/16 desenham (a entrega dizia *no mesmo lugar*); o texto do usuário começa 2 px mais à direita no campo lembrado, como as referências — os dois vão ao arquiteto
+- **falta construir da otimização:** o *Sincronizar* das seis garagens que ganharam pacote, o *Procurar de novo* da T05 e o endereço das duas buscas que escondem a escolha (T02/04, T06/09)
+
+## 2026-09-25 · a entrega do checklist, fechada · a T10, a T11, os consertos e a régua inteira
+
+- **o caminho do herói pelo fluxo novo**, só tocando: login → garagem → menu → conectar → ônibus → CAN → cadeia → calibração com a prova, e a calibração completa com *Fazer o ciclo dinâmico* → o ciclo → *Voltar ao checklist* → o checklist na estrutura nova, em 24 de 31 → as quatro fotos → *Finalizar instalação* → o homologado → ENCERRAR → o menu sem sessão (201 passos) · **os 13 roteiros aprovam, 1.518 passos**, e nenhuma frente desfez a outra
+- **T10 · o semear não para** (a decisão do diretor de 25/09): nos 2 s de *Gravando no módulo…* e *Relendo…*, o `Voltar ao menu` e o `ENCERRAR` ficam apagados e não respondem, e o voltar do Android não faz nada · lei 17, *desabilitado é tinta apagada*: o link desabilitado ganhou o desenho apagado
+- **T11 · a conferência mostra o que não bate:** cada bloco divergente com o par *no módulo · no cadastro*, o poço de 32, a Conexão com a altura das outras · **o veredito espera a última linha** e entra esmaecendo no lugar; até lá, o leitor de tela também não o lê
+- **os consertos:** a faixa com os 52 e a linha em toda tela com sessão, também no menu, e a falha com a linha vermelha no mesmo lugar · o poço na linha na fila (T15) e no pedido registrado (T06) · a última linha de ônibus com a altura das outras · o Pátio Caruaru só com a causa · a busca da T02 e da T06 que esconde a escolha apaga o primário, e ele volta com ela (o `busca.mjs` agora prova com três ônibus na tela)
+- **a bancada inteira:** 133 referências, 38 em 0% contra o HTML · contra a base do C11, só a T13/10 piorou (1,12 → 1,74%), pelo checklist novo atrás do véu, que a referência desenha vazio; 27 melhoraram, com o G13 da faixa sumido · as duas referências novas da otimização (T02/04, T06/09) esperam a construção dela · **base nova, pro C12:** `app/prints/linha-de-base-checklist.json`
+- **os espécimes:** 127 · nas folhas 2, 4, 5 e 7, os novos de 0 a 0,5% (o glifo e a câmera do Lucide, G5), e saíram os 9 do checklist antigo · fora delas, só o que a otimização trocou (a marca, a senha visível, o usuário lembrado) · **o palco:** nenhuma peça piorou · **o botão aceso:** 79 lugares, nenhum aceso que não faz nada, fora os dois com nota
+- **o design system no protótipo:** a subseção das peças que saíram deixou o `componentes.md`; as duas seções que a folha 4 ainda desenha ficam como peça do protótipo, e as variantes das peças novas entraram · **131 peças** · 3 tokens a mais marcados sem uso · **280 tokens** · `checar` e `build` aprovam
+- **desvios nomeados:**
+  - no semear da calibração, o *Voltar ao menu* e o ENCERRAR ficam apagados, e nenhuma referência desenha esse quadro;
+  - na conferência, o rodapé já responde enquanto o veredito espera a última linha: a decisão do diretor fala só do veredito;
+  - a conferência começa a ler quando a tela abre; a pausa da troca de tela entra com o movimento, no C12;
+  - no conteúdo não reconhecido da conferência, o valor dos blocos que conferem fica aceso, como a referência desenha;
+  - a última linha da fila, a mais alta, leva o poço um pouco menor, como as referências desenham: a lei não mede essa altura;
+  - a faixa sem sessão do menu tem a linha embaixo, como nas outras telas, e a referência antiga desenha as duas linhas em cima; fora do menu, a faixa sem sessão segue sem a linha, como as referências dela;
+  - com os dez ônibus do mock, a última linha que aparece na primeira tela da escolha do ativo ganha a divisória, porque a lista continua;
+  - as duas seções do checklist que a folha 4 ainda desenha contam como peças do protótipo até o arquiteto decidir se saem da folha
+- **pro arquiteto:** `diferencas-para-o-arquiteto.md` · *O que o fechamento da entrega achou*
+
+## 2026-09-25 · o login de quem abre o app, e o ENCERRAR nos processos
+
+- **dois estados novos na T01**: o primeiro acesso, com os dois campos vazios, e o usuário lembrado, com o xis de limpar · casos `primeiro-acesso` e `usuario-lembrado` · a T01/00 continua a tela base
+- **a assinatura da marca**: os fios do *CONFIGURADOR* agora têm a largura exata da marca, e o rótulo está centrado no olho · nas seis telas do login e na folha 6
+- **o campo do usuário lembrado** entra no design system, na folha 6, do lado da senha visível: o xis no lugar do olho · agora são **119 peças**
+- o `Entrar` **diz o que falta** enquanto o técnico apaga e digita: *Digite o usuário* → *Digite a senha* → `Entrar`
+- **nos processos, o ENCERRAR faz o mesmo que o voltar do Android**: apagado na releitura da CAN, na pré-checagem correndo, no semear e na recuperação da T09; na cadeia, abre a recuperação · lei 17: *desabilitado é tinta apagada*
+- agora são **133 referências** — 58 momentos e 59 estados — e **42 casos**
+
+## 2026-09-25 · alinhado com o protótipo
+
+O que o diretor decidiu e o protótipo já construiu, agora no design:
+
+- **a busca que esconde a escolha** apaga o primário, na T02 e na T06 · duas referências novas
+- as seis garagens a mais da lista longa ganharam **pacote** no caso, e o *Sincronizar* funciona em todas
+- o **Procurar de novo** da T05 volta pra busca da T05/00
+- o **ENCERRAR** fica desabilitado e **em tinta apagada** na recuperação da T09 · lei nova: *desabilitado é tinta apagada*
+- **nos processos, o ENCERRAR faz o mesmo que o voltar do Android**: apagado na releitura da CAN, na pré-checagem correndo e no semear; na cadeia da T09, abre a recuperação
+- o **semear não para**: o voltar não faz nada durante a gravação e a releitura
+- na T11, **o veredito espera a última linha** e entra esmaecendo no lugar
+- agora são **131 referências** — 58 momentos e 57 estados
+
+## 2026-09-25 · a entrega do checklist, construída · T13
+
+- **a T13 numa estrutura só** (decisão 34): o título com a contagem, a barra fina e os seis cartões de seção de 58, a 8, cada um dizendo quem age · tocar num cartão faz ele crescer no lugar, com a seta pra cima; as de baixo descem por transform e os itens esmaecem (200 ms), e a lista rola · nascer aberta não anima · **as 15 referências de 0,03 a 0,05% contra o HTML**, fora a 07 e a 08 (0,14%, a câmera do Lucide, G5), a 09 (0,66%, o caso do mock, G9) e a 10 (1,74%, o checklist atrás do véu, G25) · o G13 sumiu: a faixa é igual nas referências e no app · os textos conferem em 13 das 15 (a 09 e a 10 com o par do caso, G9, como antes)
+- **tem seta, toca; sem seta, é leitura:** a foto por fazer abre a câmera do app (07) · o automático que falta leva à tela que resolve, pelo `origem` do mock (conectar → T05 · ativo → T06 · can → T08 · configurar → T09 · calibração → T10) · o que reprovou abre o nível do item (09) · na E, uma ação só, *Fazer o ciclo dinâmico* → T14 · o Painel vem feito, *fotografado na calibração, às 14:30* · a ressalva aparece com o check e *com ressalva · a causa* (12) · o homologado com o veredito e o relatório no topo, que esmaece no toque do *Finalizar*, e *o relatório vai sem localização* no caso `localizacao-negada` (14, pela coluna)
+- **os números do mock:** 19 de 31 e `Faltam 9 itens` na semente, 24 de 31 depois do ciclo (13), 20 de 31 com a ressalva (12) · o firmware 2.3.5, a cerca G07, a tradução *urbano v3*, *intervalo 30 s*, o modem *sinal bom*, sem o dBm · o contador do menu continua lendo `etapas.checklist.pendentes`
+- **as peças:** a seção fechada e aberta (`SecaoDoChecklist`, com a `SecoesDoChecklist` que faz as de baixo descerem), o item nos quatro tipos e a ação da seção (`ItemDoChecklist`), o veredito (`VereditoDoChecklist`) e a barra do checklist (`BarraDoChecklist`) · o ícone do ciclo (o route do Lucide) · saíram do código o placar, a linha de seção do mapa, a cabeça da seção, a seção do acordeão e os cartões de valor e de foto; a grade dos cartões fica, numa peça própria, porque a T08 põe nela os mostradores · 3 tokens novos (**279**): a altura do cartão de seção, a da barra e o lima dela · na revisão: os 8 tokens que só as peças que saíram usavam (a linha do mapa e a com legenda, o valor, a unidade e a barra do cartão de valor, o visor e o traço do cartão de foto, a letra das colunas do mapa) ficam no `tokens.css` com o papel dizendo *sem uso desde a entrega do checklist*, como o `--linha-conferencia-fim`, e as linhas que ainda citavam o `CartaoValor` e o `CartaoFoto` como quem usa foram acertadas
+- **a bancada:** os 10 espécimes novos da folha 7, os 2 da folha 4 e a barra da folha 5 de 0 a 0,23% (o glifo e a câmera do Lucide, G5) · a câmera do app entrou na bancada (0,5%, a câmera do Lucide) · a foto tirada volta a 0,01% com a hora nova da folha (14:30) · fora das folhas 2, 4, 5 e 7, nada mudou contra o C2 e as entregas
+- **as réguas:** o caminho do herói passa pela estrutura nova — 24 de 31 na volta do ciclo, a E aberta e fechada, a B que cresce com o movimento conferido, as quatro fotos, o *5 fotos tiradas*, o homologado com o veredito (201 passos, com a frente da T10 junto) · o `voltar.mjs` ganhou a 13, a 11 e o 14 parado · um roteiro novo, `checklist.mjs` (49 passos): a seção que cresce e fecha, a troca de uma aberta pra outra, o reduzir, os quadros 11, 12 e 13 pela URL, a câmera e a ação da E · os 12 roteiros aprovam · a régua do botão aceso, nos 12 lugares da T13: nenhum aceso que não faz nada · `checar` e `build` aprovam
+- **achado e corrigido na construção:** o cartão que ainda descia pro lugar novo aumentava o que o miolo rola, e o Chrome só desfazia isso no toque seguinte — a lista pulava debaixo do dedo e o toque caía no vizinho (trocar de uma seção aberta pra outra e tocar de novo). A lista das seções agora recorta o que se move dentro dela · durante os 200 ms, a seção aberta fica por cima das que descem, e o toque num item dela nunca cai na que passa
+- **desvios nomeados:**
+  - o que a entrega não desenha ficou com peças dela (G25, pro arquiteto): o automático que falta, com o ícone da ferramenta e *a fazer*; o reprovado, com o X, a leitura e a seta; a foto tirada no checklist, só com o nome; a F aberta depois de homologar, com os valores do C10 (`12 subiram`, `31 de 31`, `na fila`); a seção aberta no homologado, sem momento na URL;
+  - com 1 foto por fazer, ou 1 tirada, o cartão da B fica sem quem age: o plural do `textos.md` não existe, como no `Faltam`;
+  - a causa da ressalva é a primeira oração da justificativa, com a minúscula (*suporte trincado*);
+  - o rótulo do nível do item segue as referências: o título longo na B (*INSTALAÇÃO FÍSICA*) e o nome curto na C (*HARDWARE*);
+  - a 09 continua com o caso do mock (o QJF-2C61, 10,9 V, o primeiro item da C), e a referência desenha o herói, 10,2 V e o segundo (G9); a 10, com o par do `pronto-para-fechar` e o checklist atrás do véu (G9, G25);
+  - o homologado sem localização só abre pela coluna: nada no mock nega a localização no fluxo, como os outros estados do celular
+
 ## 2026-09-25 · o checklist numa estrutura só, e a faixa igual em toda tela
 
 - **o checklist numa estrutura só**: o título com a contagem, a barra fina e seis cartões de seção; abrir uma seção faz o cartão crescer no lugar · **tem seta, toca; sem seta, é leitura** · a E com uma ação só, a F esperando o servidor, o Painel dizendo de onde veio, o modem sem dBm · os números do mock: 19 de 31 · decisão 34

@@ -1,6 +1,8 @@
 // A entrega de 25/09 · a busca sem resultado, na T02 e na T06 (tela.md das duas):
 // o vazio declarado diz o termo digitado no título, e o primário espera. A URL
 // diz o momento enquanto a busca não acha nada; a busca que volta a achar o tira.
+// A decisão do diretor de 25/09 (b): a busca que acha outros e esconde a escolha
+// feita também faz o primário esperar, e ele acende de novo quando ela volta.
 export default [
   // ── T02 · o 03 abre pelo endereço, no mundo do caso lista-longa-garagens ──
   { abre: '?tela=T02&momento=03-momento-busca-sem-resultado' },
@@ -31,6 +33,18 @@ export default [
   { fica: 'T02', ms: 400 },
   { chega: 'T02', momento: null },
   { ve: 'Sincronizar Garagem Várzea' },
+  // a busca que acha outra garagem esconde a escolha: o primário espera (decisão do diretor, 25/09, b)
+  { digita: 'Olinda', em: 'Buscar garagem ou cidade' },
+  { ve: 'Garagem Olinda' },
+  { naoVe: 'Garagem Várzea' },
+  { chega: 'T02', momento: null },
+  { desligado: 'Escolha uma garagem' },
+  { naoVe: 'Sincronizar' },
+  // a busca que devolve a escolha: ele acende de novo, com o nome dela
+  { digita: 'Recife', em: 'Buscar garagem ou cidade' },
+  { ve: 'Garagem Boa Viagem' },
+  { ve: 'Sincronizar Garagem Várzea' },
+  { naoVe: 'Escolha uma garagem' },
   // a busca sem resultado esconde a escolha, e o primário espera; a que volta a achar a devolve
   { digita: 'Recreio', em: 'Buscar garagem ou cidade' },
   { chega: 'T02', momento: '03-momento-busca-sem-resultado' },
@@ -45,6 +59,25 @@ export default [
   { abre: '?tela=T06' },
   { chega: 'T06', momento: null },
   { ve: 'Escolha o veículo que está na sua frente.' },
+  { marca: 'RKT-8H42' },
+  { fica: 'T06', ms: 400 },
+  // a busca que acha outro ônibus esconde o marcado: o primário espera (decisão do diretor, 25/09, b)
+  { digita: '1006', em: 'Buscar placa, frota ou módulo' },
+  { ve: 'QJF-2C61' },
+  { naoVe: 'RKT-8H42' },
+  { chega: 'T06', momento: null },
+  { desligado: 'Usar este ativo' },
+  // a busca que devolve o marcado, junto com outros (as frotas 1003, 1006 e 1009): ele acende
+  // de novo, e leva à confirmação do marcado, e não de um dos outros
+  { digita: '100', em: 'Buscar placa, frota ou módulo' },
+  { ve: 'QJF-2C61' },
+  { ve: 'PCX-9A17' },
+  { ve: 'RKT-8H42' },
+  { toca: 'Usar este ativo' },
+  { chega: 'T06', momento: '01-momento-confirmar-o-veiculo' },
+  { ve: 'RKT-8H42' },
+  { toca: 'Escolher outro' },
+  { chega: 'T06', momento: null },
   { marca: 'RKT-8H42' },
   { fica: 'T06', ms: 400 },
   { digita: 'ABC-1234', em: 'Buscar placa, frota ou módulo' },

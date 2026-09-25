@@ -1,0 +1,25 @@
+/* O item da seção aberta do checklist (folha 7): a leitura de 44 com o poço
+ * de 30; o de tocar, o feito e o com ressalva, de 50 com o poço de 32. O
+ * traço de baixo é a divisória, e a última da seção fica sem ele. */
+.ds-item-ck {
+  display: flex; align-items: center; gap: var(--e-10); flex-shrink: 0;
+  border-bottom: var(--traco-borda) solid var(--divisoria);
+}
+.ds-item-ck.ds-item-ck-sem-divisoria { border-bottom: 0; }
+.ds-item-ck-leitura { height: var(--linha-padrao); }
+.ds-item-ck-dupla { height: var(--linha-dupla); }
+.ds-tocavel.ds-item-ck-tocar { padding: 0; }
+
+/* a leitura: o nome em --tinta-forte, o valor à direita em 700 */
+.ds-item-ck-nome { flex-grow: 1; min-width: 0; font-size: var(--t-corpo); font-weight: 600; color: var(--tinta-forte); }
+.ds-item-ck-valor { flex-shrink: 0; font-size: var(--t-corpo); font-weight: 700; color: var(--tinta); }
+.ds-item-ck-valor.ds-item-ck-valor-apagado { color: var(--tinta-apagada); }
+
+/* o de tocar e o feito: o nome e a legenda empilhados, a 2 */
+.ds-item-ck-texto { flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--e-2); }
+.ds-item-ck-titulo { font-size: var(--t-corpo); font-weight: 600; color: var(--tinta); }
+.ds-item-ck-legenda { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-secundaria); }
+
+/* o glifo pelo dado: o que o técnico resolve em --tinta-secundaria, o que espera o servidor em --marca-limite */
+.ds-item-ck .ds-glifo.ds-item-ck-glifo-pendente { color: var(--tinta-secundaria); }
+.ds-item-ck .ds-glifo.ds-item-ck-glifo-aguarda { color: var(--marca-limite); }

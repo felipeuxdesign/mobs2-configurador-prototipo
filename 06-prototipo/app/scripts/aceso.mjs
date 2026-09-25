@@ -37,13 +37,13 @@ const raiz = resolve(app, '../..')
 const BASE = process.env.BASE || 'http://localhost:5173/'
 const so = process.argv[2] ? process.argv[2].split(',') : null
 
-// o que já se sabe, lugar a lugar: "<tela>/<nn>|<nome do tocável>" → o porquê. Os três tocáveis acesos que
-// não fazem nada, conhecidos, cada um com o tela.md mandando e a pergunta no decisoes-do-diretor.md
-// (logica.md · Nenhum botão aceso que não faz nada): o ENCERRAR da recuperação da T09 (T09/03), o
-// Sincronizar das seis garagens sem pacote da lista longa (T02/03, depois de uma busca que acha) e o
-// Procurar de novo da lista sem nada escolhido da T05 (01), que busca de novo e acha a mesma lista, na hora
+// o que já se sabe, lugar a lugar: "<tela>/<nn>|<nome do tocável>" → o porquê. Os dois tocáveis acesos que
+// não fazem nada, conhecidos, cada um com o tela.md mandando e a resposta da otimização do design esperando
+// a construção dela (logica.md · Nenhum botão aceso que não faz nada): o Sincronizar das seis garagens sem
+// pacote da lista longa (T02/03, depois de uma busca que acha) e o Procurar de novo da lista sem nada
+// escolhido da T05 (01), que busca de novo e acha a mesma lista, na hora. O ENCERRAR da recuperação da T09
+// (T09/03) já fica desabilitado de verdade (a lei 17), e a régua não o conta
 const NOTAS = {
-  'T09/03|ENCERRAR': 'G23: na recuperação, o ENCERRAR não faz nada (tela.md da T09; pergunta no decisoes-do-diretor.md)',
   'T02/03|Sincronizar Garagem Olinda': 'a garagem sem pacote no mock (tela.md da T02; pergunta no decisoes-do-diretor.md)',
   'T05/01|Procurar de novo': 'a busca de novo acha a mesma lista, na hora, sem nada escolhido (tela.md da T05; pergunta no decisoes-do-diretor.md)',
 }

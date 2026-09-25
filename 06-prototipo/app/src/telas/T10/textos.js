@@ -64,6 +64,7 @@ export const T = {
   relendo: 'Relendo…',
   semearDeNovo: 'Semear de novo',
   calibrar: { horimetro: 'Calibrar o horímetro' },
-  concluir: 'Concluir a calibração',
+  // a calibração completa aponta o ciclo (T10/09, a entrega do checklist · decisão 35)
+  cicloDinamico: 'Fazer o ciclo dinâmico',
   voltar: 'Voltar ao menu',
 }

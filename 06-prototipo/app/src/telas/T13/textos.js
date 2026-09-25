@@ -2,34 +2,54 @@
 // Onde o texto traz um dado (a contagem, a hora, o nome, o número, a placa),
 // a moldura é daqui e o dado vem do mock ou do estado único, na hora de
 // montar. Os nomes das seções ('A · Identificação') saem de M.checklist.secoes;
-// os dos cartões, dos itens (em caixa alta); os títulos do nível do item, das
-// perguntas; o título longo do nível do item, de secoes[].titulo (AC-11).
+// os dos itens, de M.checklist.itens (o rótulo); os títulos do nível do item,
+// das perguntas; o rótulo de topo do nível do item, da seção (AC-11).
 export const T = {
   encerrar: 'ENCERRAR',
   titulo: 'Checklist',
   de: (total) => `de ${total}`,
-  contagem: (feitos, total) => `${feitos} de ${total}`,
-
-  // o placar
-  homologacao: 'HOMOLOGAÇÃO',
-  homologada: 'HOMOLOGADA',
-  conferidos: (feitos, total) => `${feitos} DE ${total} CONFERIDOS`,
-  evidencias: (n, hora) => `${n} evidências · ${hora}`,
-
-  // o mapa
-  colunaSecao: 'SEÇÃO',
-  colunaResolvido: 'RESOLVIDO',
-  naoBloqueia: 'não bloqueia',
   secao: (id, nome) => `${id} · ${nome}`,
 
-  // os valores dos cartões que são palavra (textos.md)
+  // quem age, embaixo do nome da seção (a entrega do checklist, decisão 34)
+  appConfere: 'o app confere sozinho',
+  appConferiu: 'o app conferiu',
+  voceFotografa: (n) => `você fotografa ${n} itens`,
+  fotosTiradas: (n) => `${n} fotos tiradas`,
+  voceFazCiclo: 'você faz o ciclo em movimento',
+  cicloPassou: 'o ciclo passou',
+  esperaServidor: 'espera o servidor · não bloqueia',
+  servidorConfirmou: 'o servidor confirmou',
+
+  // o veredito do homologado
+  homologadaAs: (hora) => `Instalação homologada às ${hora}`,
+  relatorioLeva: (n) => `o relatório leva ${n} evidências, o local e o seu nome`,
+  semLocalizacao: 'o relatório vai sem localização',
+
+  // os valores dos itens que são palavra (textos.md)
   confere: 'confere',
+  conforme: 'conforme',
+  sinalBom: 'sinal bom',
+  satelites: (n) => `${n} satélites`,
   feita: 'feita',
-  semCerca: 'sem cerca',
+  gravados: 'gravados',
+  gravado: 'gravado',
+  atual: 'atual',
+  intervalo: (seg) => `intervalo ${seg} s`,
+  aFazer: 'a fazer',
+  esperaEnvio: 'espera o envio',
   vazio: '—',
-  subiram: 'subiram',
-  sat: 'sat',
-  dbm: 'dBm',
+  // B: a foto por fazer, a herdada da calibração e a ressalva com a causa
+  fotoATirar: 'foto a tirar',
+  fotografadoNaCalibracao: (hora) => `fotografado na calibração, às ${hora}`,
+  comRessalva: (causa) => `com ressalva · ${causa}`,
+  // E: a ação da seção, a única
+  fazerCiclo: 'Fazer o ciclo dinâmico',
+  osPassos: (n) => `os ${n} passos, com o ônibus em movimento`,
+  // F depois de homologar: nenhuma referência da entrega desenha a F aberta
+  // com o servidor confirmado; ficam as palavras do C10 (T13/06 de antes: 12
+  // subiram · 31 de 31 · na fila), com o número do mock (G25, pro arquiteto)
+  subiram: (n) => `${n} subiram`,
+  semCerca: 'sem cerca',
 
   // o rodapé
   faltam: (n) => `Faltam ${n} itens`,

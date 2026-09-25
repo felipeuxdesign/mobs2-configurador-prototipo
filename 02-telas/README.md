@@ -14,12 +14,12 @@ Uma pasta por tela. Dentro de cada uma, sempre os mesmos cinco itens:
 
 | Tela | Pasta | Momentos | Estados |
 |---|---|---|---|
-| T01 · Login | `T01-login/` | 10 | 4 |
-| T02 · Selecionar contexto | `T02-selecionar-contexto/` | 2 | 1 |
+| T01 · Login | `T01-login/` | 10 | 6 |
+| T02 · Selecionar contexto | `T02-selecionar-contexto/` | 3 | 1 |
 | T03 · Sincronizar | `T03-sincronizar/` | 1 | 3 |
 | T04 · Menu | `T04-menu/` | 7 | 5 |
 | T05 · Conectar módulo | `T05-conectar-modulo/` | 4 | 13 |
-| T06 · Selecionar ativo | `T06-selecionar-ativo/` | 3 | 5 |
+| T06 · Selecionar ativo | `T06-selecionar-ativo/` | 4 | 5 |
 | T07 · Dados da CAN | `T07-dados-da-can/` | 0 | 3 |
 | T08 · Refazer leitura da CAN | `T08-refazer-leitura/` | 2 | 0 |
 | T09 · Configurar módulo | `T09-configurar-modulo/` | 1 | 3 |
@@ -31,6 +31,6 @@ Uma pasta por tela. Dentro de cada uma, sempre os mesmos cinco itens:
 | T15 · Fila de saída | `T15-fila-de-saida/` | 0 | 4 |
 | T16 · Sessão | `T16-sessao/` | 4 | 2 |
 
-`indice.json` lista as 129 referências com tela, tipo, nome, título, como se chega, caso do mock e os caminhos do HTML e do PNG. **É o que o palco lê pra montar a coluna.**
+`indice.json` lista as 133 referências com tela, tipo, nome, título, como se chega, caso do mock e os caminhos do HTML e do PNG. **É o que o palco lê pra montar a coluna.**
 
 **As referências são gabarito, nunca peça do app.** O HTML existe pra você ler um valor exato e pra comparar o seu print com o PNG. O app se constrói com os componentes do design system.

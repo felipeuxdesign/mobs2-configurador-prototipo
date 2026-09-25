@@ -3,7 +3,7 @@
 // posiciona pela conta.
 import {
   Leitura, LeituraPequena, GradeLeituras, LeituraTambor, Sinais, Declarado,
-  Cadeia, Encerramento, Segmentado, Precondicao, Prazo, Placar,
+  Cadeia, Encerramento, Segmentado, Precondicao, Prazo, BarraDoChecklist,
 } from '../../ds/instrumentos/index.js'
 
 const bateria = { rotulo: 'TENSÃO DA BATERIA', unidade: 'V' }
@@ -110,7 +110,7 @@ export const especimes = [
       ]} />
     ) },
 
-  // tempo e placar
+  // tempo e a barra do checklist
   { id: 'f5-cronometro', folha: 5, rotulo: 'cronômetro', legenda: 'o prazo drena',
     render: () => <Prazo rotulo="PRAZO DO EVENTO" nota="FILA DRENADA" tempo="1:36" restante={96} limite={120} legendas={{ inicio: '0:00', fim: 'limite 2:00' }} /> },
   { id: 'f5-prazo-cheio', folha: 5, rotulo: 'prazo cheio', legenda: 'antes do disparo · a fila drenando',
@@ -118,6 +118,7 @@ export const especimes = [
       <Prazo rotulo="PRAZO DO EVENTO" nota="FILA DRENANDO" tempo="2:00" restante={120} limite={120} legendas={{ inicio: '0:00', fim: 'limite 2:00' }}
         detalhe="6 mensagens e 2 de diagnóstico saindo do módulo" />
     ) },
-  { id: 'f5-placar-homologacao', folha: 5, rotulo: 'placar da homologação', legenda: 'a única barra que enche',
-    render: () => <Placar rotulo="HOMOLOGAÇÃO" feitos={21} total={31} legendas={{ inicio: '0', meio: '21 DE 31 CONFERIDOS', fim: '31' }} /> },
+  // a entrega do checklist (decisão 34): a barra fina no lugar do placar, que repetia o número do título
+  { id: 'f5-barra-checklist', folha: 5, rotulo: 'a barra do checklist', legenda: 'o que já passou, em lima · o número fica no título',
+    render: () => <BarraDoChecklist feitos={19} total={31} /> },
 ]

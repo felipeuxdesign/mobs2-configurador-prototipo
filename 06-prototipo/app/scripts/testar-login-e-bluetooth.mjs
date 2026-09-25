@@ -2,7 +2,8 @@
 // O estado aberto pela coluna fica parado e sem toque, e nenhum gatilho do mock
 // tira a internet do login nem desliga o Bluetooth no fluxo: o que o botão de
 // cada estado faz se prova aqui, no node, nas mesmas funções que a tela usa —
-// T01/regras.js (depoisDoEntrar) e T05/celular.js.
+// T01/regras.js (depoisDoEntrar; e, da otimização do design, o que o Entrar diz
+// que falta e o xis do usuário lembrado, 15 e 16) e T05/celular.js.
 // Uso: node scripts/testar-login-e-bluetooth.mjs → exit 0 aprovado / 1 reprovado.
 import { readFileSync, readdirSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
@@ -38,6 +39,30 @@ const curta = T01.depoisDoEntrar({ ...semRede, senha: M.credenciais.senha.slice(
 chk('T01 · com a conexão de volta e a senha curta, o erro da 01 no lugar do aviso, a senha apagada', curta !== 'T02' && curta.erroEntrada && !curta.semConexao && curta.senha === '' && curta.usuario === entrada.usuario)
 chk('T01 · o fluxo do herói, com rede, entra como antes', T01.depoisDoEntrar(entrada, M.situacao.rede) === 'T02', M.situacao.rede)
 chk('T01/14 · os textos do aviso são os do textos.md', naSecao('T01', '14-estado-login-sem-conexao', TX01.semConexao, TX01.semConexaoFrase, TX01.entrar))
+
+// ── T01 · o login de quem abre o app (a otimização do design): o Entrar diz o que
+// falta, e o usuário lembrado (15 e 16, que abrem pela coluna, parados e sem toque) ──
+const falta = (usuario, senha) => T01.oQueFalta({ usuario, senha })
+chk('T01 · o Entrar diz o que falta, na ordem da tela: o usuário, depois a senha', falta('', '') === 'usuario' && falta('', 'x') === 'usuario' && falta('r.vieira', '') === 'senha' && falta('r.vieira', 'x') === null)
+chk('T01 · só espaço no usuário conta como vazio', falta('  ', 'x') === 'usuario')
+chk('T01 · enquanto falta, o Entrar fica apagado; com os dois, aceso', T01.entrarApagado({ usuario: '', senha: 'x' }) && T01.entrarApagado({ usuario: 'r.vieira', senha: '' }) && !T01.entrarApagado({ usuario: 'r.vieira', senha: 'x' }))
+const e15 = T01.entradaDoLembrado(entrada, T01.lembradoDoCaso(T01.CASO_PRIMEIRO_ACESSO))
+chk('T01/15 · nada lembrado: os dois campos vazios, sem o xis, a caixa desmarcada, o foco no usuário', e15.usuario === '' && e15.senha === '' && !e15.lembrado && !e15.lembrar && e15.foco === 'usuario')
+const e16 = T01.entradaDoLembrado(entrada, T01.lembradoDoCaso(T01.CASO_LEMBRADO))
+chk('T01/16 · o usuário do caso, com o xis e a caixa marcada; a senha vazia e o foco nela', e16.usuario === M.casos[T01.CASO_LEMBRADO].usuarioLembrado && e16.senha === '' && e16.lembrado && e16.lembrar && e16.foco === 'senha', e16.usuario)
+chk('T01/15 e 16 · o que o Entrar diz é a letra do textos.md', naSecao('T01', '15-estado-primeiro-acesso', TX01.digiteUsuario) && naSecao('T01', '16-estado-usuario-lembrado', TX01.digiteSenha) && T01.oQueFalta(e15) === 'usuario' && T01.oQueFalta(e16) === 'senha')
+const xis = T01.depoisDoXis(e16)
+chk('T01/16 · o xis limpa o campo e esquece o usuário lembrado; o foco vai pro usuário, e o Entrar diz Digite o usuário', xis.usuario === '' && !xis.lembrado && xis.foco === 'usuario' && T01.oQueFalta(xis) === 'usuario')
+chk('T01/16 · depois do xis, a caixa fica como o técnico deixou', xis.lembrar === true && T01.depoisDoXis({ ...e16, lembrar: false }).lembrar === false)
+chk('T01 · o Entrar que entra guarda só o identificador, com a caixa marcada; sem ela, nada', T01.lembradoDepoisDoEntrar({ usuario: ' r.vieira ', lembrar: true }) === 'r.vieira' && T01.lembradoDepoisDoEntrar({ usuario: 'r.vieira', lembrar: false }) === null)
+// a entrada do fluxo (entradaDoFluxo, com a situacao do estado único): o começo do
+// palco é a 00; depois do primeiro Entrar, só o que o celular lembra — a 16 ou a 15
+const comeco = T01.entradaDoFluxo(entrada, { usuarioLembrado: null, jaEntrou: false })
+chk('T01 · o palco começa sem usuário lembrado: a T01/00, com os dois campos preenchidos', comeco === entrada && M.situacao.usuarioLembrado === undefined)
+const semLembrar = T01.entradaDoFluxo(entrada, { usuarioLembrado: null, jaEntrou: true })
+chk('T01 · saindo da conta sem Lembrar: o quadro da 15, os dois campos vazios — a senha nunca fica', semLembrar.usuario === '' && semLembrar.senha === '' && !semLembrar.lembrado && !semLembrar.lembrar && semLembrar.foco === 'usuario' && T01.oQueFalta(semLembrar) === 'usuario')
+const comLembrar = T01.entradaDoFluxo(entrada, { usuarioLembrado: 'r.vieira', jaEntrou: true })
+chk('T01 · saindo da conta com Lembrar: o quadro da 16, o usuário com o xis, a senha vazia', comLembrar.usuario === 'r.vieira' && comLembrar.senha === '' && comLembrar.lembrado && comLembrar.lembrar && comLembrar.foco === 'senha')
 
 // ── T05 · o Bluetooth desligado (16) e sem permissão (17) ──
 chk('T05 · sem os casos do celular, nenhum quadro do celular', C.quadroDoCelular([]) === null && C.quadroDoCelular(['busca-vazia']) === null)

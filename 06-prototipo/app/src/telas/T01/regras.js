@@ -36,9 +36,42 @@ export function depoisDoEntrar(s, rede) {
   if (entra(s.senha)) return 'T02'
   return { ...s, senha: '', erroEntrada: true, semConexao: false, foco: 'senha', mostrar: false }
 }
-// no erro, o Entrar fica apagado, dizendo Digite a senha, até a senha ter um
-// caractere (a entrega de 25/09); sem conexão, nunca: a senha está lá
-export const entrarApagado = (s) => s.erroEntrada && !s.senha
+// O Entrar diz o que falta enquanto o técnico apaga e digita (tela.md, a otimização
+// do design): Digite o usuário → Digite a senha → Entrar. O que falta é o primeiro
+// campo vazio, na ordem da tela; enquanto falta, o Entrar fica apagado e
+// desabilitado de verdade (a lei 17, desabilitado é tinta apagada), no erro e fora
+// dele. Sem conexão, nunca: os dois estão lá, e o toque tenta de novo (a 14)
+export const oQueFalta = (s) => (!s.usuario?.trim() ? 'usuario' : !s.senha ? 'senha' : null)
+export const entrarApagado = (s) => oQueFalta(s) !== null
+
+// O usuário lembrado (HU-T01-3, os estados 15 e 16): o celular guarda só o
+// identificador, nunca a senha. Os dois estados abrem pela coluna, montados
+// pelo caso (usuarioLembrado); no fluxo, o lembrado é o que o Entrar guardou
+// (situacao.usuarioLembrado, no estado único) — o palco começa sem nenhum, na
+// T01/00, com os dois campos preenchidos pra andar num toque (entradaDoFluxo).
+export const CASO_PRIMEIRO_ACESSO = 'primeiro-acesso'
+export const CASO_LEMBRADO = 'usuario-lembrado'
+export const lembradoDoCaso = (caso) => M.casos[caso].usuarioLembrado ?? null
+// a entrada de quem abre o app: nada lembrado, os dois campos vazios (a 15);
+// lembrado, o usuário com o xis, a caixa marcada e a senha vazia (a 16). O foco
+// fica no primeiro campo vazio
+export function entradaDoLembrado(s, lembrado) {
+  const e = lembrado
+    ? { ...s, usuario: lembrado, senha: '', lembrado: true, lembrar: true }
+    : { ...s, usuario: '', senha: '', lembrado: false, lembrar: false }
+  return { ...e, foco: oQueFalta(e) ?? 'senha' }
+}
+// a entrada do fluxo: o palco começa — e cada pulo do palco recomeça — na T01/00,
+// com os dois campos preenchidos pra andar num toque. Depois do primeiro Entrar
+// que entra (situacao.jaEntrou), o login só traz o que o celular lembra: o usuário
+// lembrado, o quadro da 16; ninguém lembrado — o técnico não marcou Lembrar —, o
+// da 15, com os dois campos vazios (estados.md). A senha nunca fica (HU-T01-3)
+export const entradaDoFluxo = (s, situacao) => (situacao?.jaEntrou ? entradaDoLembrado(s, situacao.usuarioLembrado ?? null) : s)
+// o xis limpa o campo e esquece o usuário lembrado; a caixa fica como o técnico
+// deixou, e o foco vai pro usuário, agora o primeiro campo vazio
+export const depoisDoXis = (s) => ({ ...s, usuario: '', lembrado: false, foco: 'usuario' })
+// o que o Entrar que entra guarda: com a caixa marcada, o identificador; sem ela, nada
+export const lembradoDepoisDoEntrar = (s) => (s.lembrar ? s.usuario.trim() : null)
 
 // o contato, mascarado em todo o recuperar acesso (decisão 31): o telefone pela
 // máscara do DDI dele (HU-T01-6), o e-mail pela primeira letra e o domínio.

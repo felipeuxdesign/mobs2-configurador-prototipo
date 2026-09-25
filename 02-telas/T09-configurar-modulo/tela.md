@@ -16,7 +16,7 @@ Gravar os blocos no módulo, um de cada vez, cada um relido antes do próximo.
 - bloco recusado: `Tentar de novo`, do bloco recusado
 - queda: `Reconectar e seguir`, do mesmo bloco
 - cadeia concluída: `Voltar ao menu` → T04, de onde a Calibração segue. A 04 não desenha um `Calibrar`, e texto novo não entra (C9 · T09-A3, G1, G25)
-- tentar sair no meio — o `ENCERRAR`, ou o `Voltar ao menu` com a cadeia parada — → a recuperação, até a Conexão gravar; nela, o `ENCERRAR` não faz nada, e `Continuar a gravação` retoma do mesmo bloco (G23). Depois da Conexão, o `ENCERRAR` é o de toda tela com sessão
+- tentar sair no meio — o `ENCERRAR`, ou o `Voltar ao menu` com a cadeia parada — → a recuperação, até a Conexão gravar; nela, o `ENCERRAR` fica **desabilitado e em tinta apagada**, como o voltar do Android, que ali não faz nada (a lei 17, decisão do diretor de 25/09 — no lugar do aceso que não fazia nada, G23), e `Continuar a gravação` retoma do mesmo bloco. Depois da Conexão, o `ENCERRAR` é o de toda tela com sessão
 - o voltar do sistema (no computador, o Esc) é o mesmo tentar sair: antes de a Conexão gravar, abre a recuperação; na recuperação, não faz nada; na cadeia concluída, faz o `Voltar ao menu` (`06-prototipo/logica.md` · O voltar do Android)
 
 ## Peças do design system que esta tela usa

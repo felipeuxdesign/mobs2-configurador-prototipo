@@ -8,6 +8,10 @@
 .ds-link-toque[data-texto]::before { content: attr(data-texto); }
 .ds-link:active .ds-link-toque, .ds-link.ds-forca-toque .ds-link-toque { opacity: 1; transition: none; }
 .ds-link.ds-forca-toque .ds-link-texto { opacity: 0; }
+/* a lei 17 (diretor, 25/09): o link que não pode agir agora fica em tinta apagada, desabilitado de
+ * verdade e sem o pressionado — o Voltar ao menu enquanto o semear corre (T10); o motivo está no primário */
+.ds-link:disabled .ds-link-texto { color: var(--tinta-apagada); }
+.ds-link:disabled .ds-link-toque { display: none; }
 /* C10 · T14/06 (G11): o link registrado — o mesmo lugar de 48, sem toque: o glifo
  * de 14 e o que ficou feito, em --tinta-apagada, a 8. Na troca, só o conteúdo esmaece */
 .ds-link.ds-link-registro { display: flex; align-items: center; justify-content: center; gap: var(--e-8); color: var(--tinta-apagada); }

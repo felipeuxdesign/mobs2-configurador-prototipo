@@ -78,6 +78,19 @@ export default [
   { chega: 'T01', momento: null },
   { naoVe: 'Senha alterada' },
   { ve: 'Esqueci a senha' },
+  // o Entrar diz o que falta enquanto o técnico apaga e digita, apagado e desabilitado
+  // enquanto falta (a otimização do design): a senha vazia, Digite a senha; o usuário
+  // apagado, Digite o usuário, com a senha ou sem ela; os dois, Entrar
+  { desligado: 'Digite a senha' },
+  { digita: 'r', em: 'USUÁRIO' },
+  { tecla: 'Backspace' },
+  { desligado: 'Digite o usuário' },
+  { naoVe: 'Digite a senha' },
+  { digita: 'Ibura', em: 'SENHA' },
+  { desligado: 'Digite o usuário' },
+  { digita: 'r.vieira', em: 'USUÁRIO' },
+  { naoVe: 'Digite o usuário' },
+  { naoVe: 'Digite a senha' },
   // com menos de 8, o erro: a senha apagada, o usuário fica (tela.md)
   { digita: 'Ibura27', em: 'SENHA' },
   { toca: 'Entrar' },

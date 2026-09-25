@@ -460,6 +460,12 @@
   /* ── Casos — cada estado de bloqueio/tela aponta para dado CONCRETO da
      obra. Nenhum é opcional: tela sem o seu caso morre sem dado. ── */
   var CASOS = {
+    /* T01 · o login de quem abre o app. O herói entra com os dois campos
+       preenchidos, pra o palco andar num toque. Os dois casos abaixo são o
+       que o técnico vê de verdade: nada lembrado, ou só o usuário lembrado
+       (HU-T01-3 · a senha nunca fica guardada). */
+    "primeiro-acesso": { tela: "T01", usuarioLembrado: null },
+    "usuario-lembrado": { tela: "T01", usuarioLembrado: "r.vieira" },
     /* T13 · a localização negada (HU-T13-7). Nada trava: o checklist
        homologa igual, e o relatório vai sem a geolocalização — o veredito
        diz "o relatório vai sem localização". */
@@ -491,6 +497,14 @@
        "pacote de ontem", n → "pacote de n dias"; acima do limite de 7,
        só a causa: "pacote vencido há n dias". */
     "lista-longa-garagens": { limiteSemBusca: 6,
+      /* as garagens a mais do caso têm pacote, pra o Sincronizar funcionar em todas */
+      pacotes: [
+        { id: "pac-uo-11", uoId: "uo-11", diasAtras: 1, hora: "06:40", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 14 } },
+        { id: "pac-uo-12", uoId: "uo-12", diasAtras: 0, hora: "06:15", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 12 } },
+        { id: "pac-uo-13", uoId: "uo-13", diasAtras: 1, hora: "07:30", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 9 } },
+        { id: "pac-uo-14", uoId: "uo-14", diasAtras: 2, hora: "07:05", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 7 } },
+        { id: "pac-uo-15", uoId: "uo-15", diasAtras: 1, hora: "06:50", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 5 } },
+        { id: "pac-uo-16", uoId: "uo-16", diasAtras: 1, hora: "07:20", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 4 } } ],
       ucs: [ { id: "uc-01", nome: "RMR – Recife" }, { id: "uc-03", nome: "Zona da Mata – Vitória" }, { id: "uc-02", nome: "Agreste – Caruaru" } ],
       uos: [
         { id: "uo-01", ucId: "uc-01", nome: "Garagem Várzea",     cidade: "Recife",                  pacoteIdadeDias: 1, pacoteHora: "07:10", ativos: 10 },

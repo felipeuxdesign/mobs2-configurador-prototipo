@@ -16,7 +16,9 @@ import './LinhaTocavel.css'
 //
 // registrado (T06/07, G11): a linha de ação depois do toque vira o registro do
 // pedido, no mesmo cartão de 50 — não é mais tocável (nem botão pro leitor de
-// tela): o glifo `estado` no poço de 24 e, empilhados, o que ficou feito
+// tela): o glifo `estado`, de 14, no poço de 32 (o poço na linha: o cartão de 50
+// que age como linha leva o de 32 · a entrega do checklist; era o de 24) e,
+// empilhados, o que ficou feito
 // (titulo, 15/600) e o que acontece agora (valor, 12 secundário). Quando a
 // linha vira o registro na frente de quem olha, o conteúdo novo esmaece em
 // 150ms (T06 animacao.md); aberta já registrada (a URL, o print), aparece parada.
@@ -29,7 +31,7 @@ export function LinhaTocavel({ titulo, valor, estado = 'espera', nomeGlifo, aoTo
   if (acao && registrado) {
     return (
       <div role="status" className={`ds-linha-tocavel ds-linha-tocavel-acao ds-linha-tocavel-registro ${trocou ? 'ds-linha-tocavel-registro-entra' : ''} ${className}`}>
-        <Poco tam={24}><Glifo estado={estado} poco={24} nome={nomeGlifo} /></Poco>
+        <Poco tam={32}><Glifo estado={estado} poco={24} nome={nomeGlifo} /></Poco>
         <span className="ds-linha-tocavel-registro-texto">
           <span className="ds-linha-tocavel-registro-titulo">{titulo}</span>
           {valor != null && <span className="ds-linha-tocavel-registro-valor">{valor}</span>}

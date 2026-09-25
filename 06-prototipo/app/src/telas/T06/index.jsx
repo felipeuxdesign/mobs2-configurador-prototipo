@@ -11,7 +11,8 @@
 //     'Solicitar correção de cadastro' vira o registro no mesmo cartão (07)
 // O ônibus que não é caso abre a 01 com o lido igual ao cadastro (T06·2 a).
 // A busca que não acha nenhum ônibus do pacote mostra o vazio declarado, com o
-// termo no título (08, a entrega de 25/09, que muda a T06·5).
+// termo no título (08, a entrega de 25/09, que muda a T06·5). Enquanto a busca
+// esconde o ônibus marcado, o primário espera (decisão do diretor, 25/09, b).
 // 'Usar este ativo' grava o ativo na sessão e segue pra T07.
 import { useEffect, useState } from 'react'
 import {
@@ -78,6 +79,9 @@ export default function T06({ momento, estado: est }) {
   // ônibus marcado fica guardado e volta com a lista
   const lista = ativo ? [] : filtrar(doPacote(uoId), busca)
   const semResultado = !ativo && busca.trim() !== '' && lista.length === 0
+  // a busca que acha outros ônibus e esconde o marcado: o primário espera, e
+  // acende de novo quando o marcado volta à lista (decisão do diretor, 25/09, b)
+  const marcadoAVista = marcado != null && lista.some((a) => a.id === marcado)
   // a URL diz o 08 enquanto a busca não acha nada; a que volta a achar o tira.
   // Num estado da coluna, nada anda
   useEffect(() => {
@@ -133,14 +137,14 @@ export default function T06({ momento, estado: est }) {
             <Lista className="t06-lista">
               {lista.map((a, i) => (
                 <LinhaOnibus key={a.id} placa={a.placa} modelo={modeloDe(a).nome} rotuloFrota="FROTA" frota={a.frota}
-                  divisoria={i < lista.length - 1} fim={i === lista.length - 1} escolhido={a.id === marcado} aoTocar={() => setMarcado(a.id)} />
+                  divisoria={i < lista.length - 1} escolhido={a.id === marcado} aoTocar={() => setMarcado(a.id)} />
               ))}
             </Lista>
           </>
         )}
       </>
     )
-    rodape = <Rodape primario="Usar este ativo" primarioDesabilitado={!marcado || semResultado} aoPrimario={() => escolher(marcado)} link="Voltar ao menu" aoLink={voltarAoMenu} />
+    rodape = <Rodape primario="Usar este ativo" primarioDesabilitado={!marcadoAVista} aoPrimario={() => escolher(marcado)} link="Voltar ao menu" aoLink={voltarAoMenu} />
   } else {
     const modelo = modeloDe(ativo)
     const detalhe = `frota ${ativo.frota} · ${modelo.nome}`

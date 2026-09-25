@@ -1,7 +1,6 @@
 // A família linhas (folhas 1, 3 e 4): a linha de checagem e as linhas de lista.
 export { Lista } from './Lista.jsx'
 export { LinhaChecagem } from './LinhaChecagem.jsx'
-export { CabecaSecao } from './CabecaSecao.jsx'
 export { LinhaHistorico } from './LinhaHistorico.jsx'
 export { LinhaFila } from './LinhaFila.jsx'
 export { LinhaFilaEsperando } from './LinhaFilaEsperando.jsx'

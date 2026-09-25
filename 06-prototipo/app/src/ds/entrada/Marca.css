@@ -1,5 +1,12 @@
 .ds-marca { display: flex; flex-direction: column; align-items: center; gap: var(--marca-folga); }
 .ds-marca-logo { display: block; width: var(--marca-largura); height: auto; aspect-ratio: var(--marca-proporcao); }
-.ds-marca-nome { display: flex; align-items: center; gap: var(--e-10); }
-.ds-marca-traco { display: block; width: var(--marca-traco); height: var(--traco-borda); background: var(--borda-poco); }
-.ds-marca-texto { font-size: var(--t-legenda); font-weight: 700; letter-spacing: var(--ls-marca); color: var(--tinta-secundaria); }
+/* a assinatura (a otimização do design): o nome tem a largura exata da logo, e os
+ * dois fios crescem até as bordas dela */
+.ds-marca-nome { display: flex; align-items: center; gap: var(--e-10); width: var(--marca-largura); }
+.ds-marca-traco { display: block; flex-grow: 1; height: var(--traco-borda); background: var(--borda-poco); }
+/* o espaço que o letter-spacing deixa depois do último R sai, e o rótulo fica no
+ * centro do olho, entre os dois fios iguais */
+.ds-marca-texto {
+  font-size: var(--t-legenda); font-weight: 700; letter-spacing: var(--ls-marca); color: var(--tinta-secundaria);
+  margin-right: calc(-1 * var(--ls-marca));
+}

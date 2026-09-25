@@ -11,6 +11,7 @@ sessao       nenhuma | { modulo, ativo, aberta às 14:30, etapa }
 etapas       o que já foi feito: pré-checagem, a CAN (lida · refeita), cadeia, calibração, ciclo, checklist
 fila         os itens esperando envio · e os que o técnico reenviou na T15 (reenviados)
 aviso        o aviso do acesso vencendo, já fechado no Entendi ou não (avisoDoAcessoVisto)
+situacao     o que é do celular: a rede, a sessão de acesso, o usuário que ele lembra (usuarioLembrado) e se o Entrar já entrou (jaEntrou)
 tela         onde o app está · momento ou estado aberto
 ```
 
@@ -18,7 +19,9 @@ tela         onde o app está · momento ou estado aberto
 
 ## O começo
 
-O protótipo abre no **login, às 14:30, com o Rafael Vieira**. O usuário vem preenchido; qualquer senha com 8 caracteres ou mais entra. Com menos, aparece o erro.
+O protótipo abre no **login, às 14:30, com o Rafael Vieira**, na T01/00: o usuário e a senha vêm preenchidos, pro palco andar num toque; qualquer senha com 8 caracteres ou mais entra. Com menos, aparece o erro. O `Entrar` diz o que falta enquanto o técnico apaga e digita — *Digite o usuário* → *Digite a senha* → `Entrar` —, apagado e desabilitado de verdade enquanto falta (a lei 17), e o foco vai pro primeiro campo vazio.
+
+**O usuário lembrado** (HU-T01-3, a otimização do design): o celular guarda só o identificador, nunca a senha — no estado único, `situacao.usuarioLembrado`, que o palco começa sem nenhum. O `Entrar` que entra com *Lembrar meu usuário* marcado guarda o usuário; desmarcado, não guarda nada. E, dali em diante (`situacao.jaEntrou`), o login só traz o que o celular lembra — a T01/00, com os dois campos preenchidos, é só o começo do palco, e cada pulo do palco recomeça nela. Saindo da conta (T04), o login volta com ele lembrado: o xis dentro do campo, a caixa marcada, a senha vazia e o foco nela, e o `Entrar` dizendo *Digite a senha* — o quadro da T01/16; sem ninguém lembrado — o técnico não marcou Lembrar —, o quadro da T01/15: os dois campos vazios, a caixa desmarcada, o foco no usuário e *Digite o usuário*. A senha nunca fica. O xis limpa o campo e esquece o usuário lembrado, o cursor vai pro usuário, e a caixa fica como o técnico deixou: marcada, entrar de novo lembra de novo. As duas referências de quem abre o app — nada lembrado (15, o caso `primeiro-acesso`) e o usuário lembrado (16, o `usuario-lembrado`) — abrem pela coluna, montadas pelo caso, paradas e sem toque. As regras são funções puras em `app/src/telas/T01/regras.js` (`oQueFalta`, `entradaDoLembrado`, `entradaDoFluxo`, `depoisDoXis`, `lembradoDepoisDoEntrar`), provadas no node (`node scripts/testar-login-e-bluetooth.mjs`); o toque, no roteiro `lembrar.mjs`: marcar, entrar, sair, o xis, entrar de novo lembrado, desmarcar, e o login seguinte sem ninguém lembrado
 
 ## O caminho do herói
 
@@ -29,7 +32,7 @@ login → garagem Várzea → sincroniza o pacote → menu, com o aviso do acess
 → o ciclo dinâmico: os cinco passos sozinhos, o evento chega → o checklist fecha → ENCERRAR → a faixa sobe → menu sem sessão
 ```
 
-O roteiro `app/scripts/caminhos/heroi.mjs` prova o caminho só por toque, do login ao menu sem sessão, sem pulo do palco (`node scripts/caminho.mjs heroi`, 189 passos). Na primeira chegada ao menu, o roteiro vê o aviso do acesso nascer parado, com o menu atrás sem toque, e toca `Entendi`; na volta ao menu sem sessão, no fim, o aviso não aparece de novo. Na calibração, o roteiro digita o número do painel do mock, fotografa e semeia — o botão dizendo o que falta, e o *Gravando no módulo…* e o *Relendo…* no ritmo —, no hodômetro e no horímetro, e o `Concluir a calibração` volta ao menu; o caminho segue pelo `Finalizar com checklist`: o menu não tem cartão do ciclo, e é o cartão da Seção E que falta que abre a T14 (T13·4); o `Voltar ao checklist` do ciclo concluído leva de volta, e o checklist fecha com as quatro fotos de B (o Painel vem herdado da calibração) e o `Finalizar instalação`.
+O roteiro `app/scripts/caminhos/heroi.mjs` prova o caminho só por toque, do login ao menu sem sessão, sem pulo do palco (`node scripts/caminho.mjs heroi`, 201 passos). Na primeira chegada ao menu, o roteiro vê o aviso do acesso nascer parado, com o menu atrás sem toque, e toca `Entendi`; na volta ao menu sem sessão, no fim, o aviso não aparece de novo. Na calibração, o roteiro digita o número do painel do mock, fotografa e semeia — o botão dizendo o que falta, e o *Gravando no módulo…* e o *Relendo…* no ritmo —, no hodômetro e no horímetro, com o `Voltar ao menu` e o `ENCERRAR` desabilitados enquanto o semear corre; a calibração completa aponta o ciclo, e o `Fazer o ciclo dinâmico` abre a T14 (decisão 35: calibra, ciclo, checklist, em linha); o `Voltar ao checklist` do ciclo concluído leva ao checklist, em 24 de 31 e com a E resolvida (a E aberta, o 13, e fechada de novo), e o checklist fecha com as quatro fotos de B — a B cresce no lugar, e o Painel vem herdado da calibração — e o `Finalizar instalação`, com o veredito e o relatório no topo.
 
 ## As sementes
 
@@ -66,6 +69,7 @@ O roteiro `app/scripts/caminhos/portas.mjs` prova as portas e a R-14 nas três l
 
 - **depois de homologar:** os passos do encerramento, o corte de alimentação que o técnico faz quando o driver não reinicia por comando, e o autoteste (T16·1). O passo que corre diz o que faz, na legenda embaixo do nome (as 8 do `tela.md` da T16); o passo 2 só leva a dele no corte, porque ela manda desligar a alimentação (T16·7). O herói é um VL06, que reinicia por comando; o corte aparece na sessão do KNB-5H39 · M2C-0371, que se abre pelo endereço do momento. Ao fechar o sétimo passo, a sessão sai do estado único e a tela passa pra *Sessão encerrada*, onde as oito assertivas acendem uma a uma; a prova e o `Voltar ao menu` entram com a última (T16·4)
 - **antes de homologar:** a sessão abortada — **4 passos, sem confirmação**. Quem tocou no ENCERRAR da faixa já decidiu. Do ENCERRAR, os 4 passos terminam na *Sessão encerrada* sem homologar; dos diálogos do menu (`Encerrar a sessão e sair`, `Encerrar a sessão e trocar`), o destino fica gravado no estado único e, depois dos 4 passos, o app segue pra ele — o login com a fila preservada, ou a sincronização da garagem nova (G23)
+- **nos processos, o ENCERRAR faz o mesmo que o voltar do Android.** Onde o voltar não faz nada — a pré-checagem correndo, a releitura da CAN, o semear da T10 —, o ENCERRAR fica desabilitado e em tinta apagada (lei 17). Na cadeia da T09, antes de a Conexão gravar, ele abre a recuperação, como o voltar. No encerramento da T16, a faixa já não mostra o ENCERRAR
 - **a sessão interrompida (T16/06):** `Retomar` reabre a cadeia da T09 no bloco que parou, com os blocos já confirmados; `Descartar` volta ao menu sem sessão e não cria item de fila; o voltar não faz nada (T16·5, T16·6)
 - **a exceção da T09 (G23, HU-T09-9):** enquanto a Conexão não gravou, o ENCERRAR e o `Voltar ao menu` com a cadeia parada levam à recuperação (T09/03), onde o ENCERRAR não faz nada e `Continuar a gravação` retoma do mesmo bloco. Com a cadeia concluída, o ENCERRAR volta a ser o de cima
 
@@ -93,6 +97,7 @@ O roteiro `app/scripts/caminhos/fila.mjs` prova o reenvio, a ordem da lista e o 
 - **o que fica gravado:** `Usar este ativo` põe o ativo na sessão e anota em `etapas.ativo` como o vínculo foi provado — `chassi` ou `confirmacao` do técnico — e a hora, 14:30. `Usar leitor sem fio` passa a sessão a sem fio, e o conflito some (T06·4)
 - **os casos não se consomem:** a divergência do chassi e o ônibus de outra garagem são fato do cadastro, e valem toda vez que o ônibus é tocado
 - **a busca sem resultado (08, a entrega de 25/09, que muda a T06·5):** o vazio declarado fica no lugar da instrução e da lista, com o termo no título, e o `Usar este ativo` espera; o ônibus marcado volta com a lista. A URL diz o `08` enquanto a busca não acha nada. Na T02, o mesmo, no `03`, que só existe no mundo do caso `lista-longa-garagens` (a busca aparece com mais de 6 garagens)
+- **a busca que acha e esconde a escolha (decisão do diretor, 25/09, b):** enquanto a busca esconde o ônibus marcado (T06) ou a garagem escolhida (T02) — sem resultado, ou achando outros —, o primário espera; a escolha fica guardada e, quando a busca a mostra de novo, ela volta marcada e o primário acende. Na T06, o `Usar este ativo` apagado; na T02, o `Escolha uma garagem` apagado, como a `03` desenha, e o `Sincronizar Garagem X` volta com ela. O roteiro `busca.mjs` prova as duas
 
 ## A releitura da CAN (T08·1, T08·2, T08·3)
 
@@ -111,12 +116,12 @@ O roteiro `app/scripts/caminhos/fila.mjs` prova o reenvio, a ordem da lista e o 
 
 ## A conferência (T11·1, T11·2)
 
-- **o que diverge:** só o par do caso `diff-divergente` (M2C-0438 + ONK-8Q90, a semente do painel), e ele abre na 00 com os cinco blocos não batendo. A T11 aberta pelo menu com a sessão do herói (o par do caso `conferencia-confere`) não acha divergência e vai pro **02, tudo confere** (T11·1). O endereço do 02 monta esse par, com a garagem dele
+- **o que diverge:** só o par do caso `diff-divergente` (M2C-0438 + ONK-8Q90, a semente do painel), e ele abre na 00 com os cinco blocos não batendo — cada um com o par: *no módulo*, o `noModulo` do caso, e *no cadastro*, o `noCadastro`. A T11 aberta pelo menu com a sessão do herói (o par do caso `conferencia-confere`) não acha divergência e vai pro **02, tudo confere** (T11·1). O endereço do 02 monta esse par, com a garagem dele
 - **depois de regravar:** `Regravar os cinco blocos` leva à T09; com a cadeia concluída, `etapas.cadeia` registra os seis blocos relidos, e a T11 reaberta com a mesma sessão abre em tudo confere (T11·2)
 - **o valor de cada linha:** o que o cadastro manda — o do caso, no par do `diff-divergente`; nos outros, o cadastro do próprio par: a tradução do modelo, as regiões do ativo, o meio da sessão, o intervalo do preset de eventos (G9)
-- **a leitura:** ao abrir, as cinco linhas acendem em ordem, uma a cada 400 ms, sobre o desenho do quadro a que ela chega — a 00 quando diverge, o 02 quando confere (G27); num estado da coluna, ela nasce lida
+- **a leitura:** ao abrir, sobre o desenho do quadro a que ela chega — a 00 quando diverge, o 02 quando confere (G27) —, cada bloco entra com o relógio no poço e vira check ou xis, um a cada 400 ms; o que o módulo tem espera a leitura chegar no bloco. **O veredito espera a última linha** (a decisão do diretor de 25/09, C12·35 b): o cabeçalho com a contagem e, no 02, o *igual à do cadastro* ficam no lugar e entram esmaecendo quando a quinta linha acende. Num estado da coluna, e no print, ela nasce lida
 - **o voltar:** faz a saída do rodapé — na 00 e na 01, o `Só registrar o diagnóstico`; no 02, o `Voltar ao menu`
-- **o conteúdo que o app não reconhece** (o 01) abre só pela coluna: o par da semente é o mesmo dos dois casos, e a semente abre na 00
+- **o conteúdo que o app não reconhece** (o 01) abre só pela coluna, com o caso `indice-nao-classificado`: os cinco blocos conferem, e o cabeçalho diz *NÃO BATE COM O CADASTRO · 1 a mais* — um conteúdo fora de todos os blocos, a posição que o caso traz. O par da semente é o mesmo dos dois casos, e a semente abre na 00
 - **o que fica gravado:** `Só registrar o diagnóstico` põe em `etapas.conferencia` os blocos que não bateram e a hora, 14:30, e volta ao menu; nenhum item entra na fila (G25)
 
 ## O ciclo dinâmico (T14·1 a T14·4)
@@ -129,12 +134,20 @@ O roteiro `app/scripts/caminhos/fila.mjs` prova o reenvio, a ordem da lista e o 
 
 ## O checklist (T13·1 a T13·6)
 
+- **uma estrutura só (a entrega do checklist, decisão 34):** o título com a contagem, a barra fina — o lima é o que já passou; o número fica no título — e os seis cartões de seção de 58, a 8, cada um com o veredito no poço, o nome, quem age, a contagem e a seta. Uma seção aberta por vez: tocar num cartão faz ele crescer no lugar, com a seta pra cima, e os itens entram embaixo da cabeça; tocar em outro troca, e tocar no aberto fecha. As seções de baixo descem por transform e os itens esmaecem, em 200 ms; nada mais se mexe, e a rolagem fica onde está (a 06 desenha a F aberta cortada no pé, na rolagem 0). Nascer aberta (a URL, a coluna, o print) não anima (`SecoesDoChecklist`, `SecaoDoChecklist`)
+- **quem age, embaixo do nome:** A, C e D, *o app confere sozinho*, e *o app conferiu* no homologado · B, *você fotografa N itens* (as fotos por fazer) e, sem nenhuma por fazer, *N fotos tiradas* (as tiradas aqui e a herdada da calibração) · E, *você faz o ciclo em movimento*, e *o ciclo passou* com os cinco passos · F, *espera o servidor · não bloqueia*, e *o servidor confirmou* com os três. Com 1, o plural do `textos.md` não existe, e o cartão fica só com o nome (G25, como o `Faltam`)
+- **tem seta, toca; sem seta, é leitura (Lei 16):** a foto por fazer, com a câmera e *foto a tirar*, abre a câmera do app (07) · o automático que falta leva à tela que resolve, pelo `origem` do mock — conectar → T05 · ativo → T06 · can → T08 · configurar → T09 · calibração → T10 —, com o ícone da ferramenta e *a fazer* (nenhuma referência desenha esse item: no caminho do herói nada falta em A, C e D) · o que reprovou com a leitura (a bateria) abre o nível do item (09) · na E, uma ação só, *Fazer o ciclo dinâmico* · *os 5 passos, com o ônibus em movimento* → T14, enquanto falta passo. Sem seta: as leituras de A, C e D, o feito, a ressalva, os passos da E e a F, que não tem ação
+- **o que cada item diz:** A, o serial, o firmware, a placa e o chassi *confere* · B, o Painel *fotografado na calibração, às 14:30* (a hora da foto da T10, o relógio parado), a ressalva *com ressalva · a causa* (a primeira oração da justificativa, com a minúscula: *suporte trincado*), e a foto tirada aqui só com o nome — nenhum texto aprovado diz de onde ela veio (G25) · C, o lido da CAN (*13,8 V*, *9 satélites*), *conforme* nas entradas e *sinal bom* no modem, sem o dBm · D, *feita*, a tradução do modelo (*urbano v3*), a cerca (*G07*), *gravados*, o intervalo do preset de eventos do modelo (*intervalo 30 s*), *atual*, *gravado*, a versão gravada inteira e o painel semeado (*482.317 km*, *9.640 h*) · E, *confere* ou *a fazer* · F, *espera o envio*
 - **cada item lê a etapa que o produziu:** A, a sessão, `etapas.preChecagem` e `etapas.ativo` · B, as fotos e ressalvas do próprio checklist e a foto de `etapas.calibracao` · C, `etapas.can` (o lido do caso do ativo, se não foi consumido, ou o nominal) e a leitura nominal do módulo (`leituraNominalModulo`, AC-13) · D, `etapas.cadeia` e `etapas.calibracao` · E, `etapas.ciclo` · F, a fila desta sessão
-- **a semente:** pular pro checklist pelo palco semeia só a sessão; sem a pré-checagem gravada, o checklist lê o que as telas T05 a T10 gravariam no caminho do herói — a pré-checagem aprovada, o chassi pela CAN, a CAN lida, os seis blocos relidos e o hodômetro semeado com a foto. A, C e D resolvidas, o Painel herdado, B e E por fazer, F esperando: 19 de 31, `Faltam 9 itens` (G9 contra o 21 e o 10 das referências, que não contam o Painel nem a regra da Seção F)
-- **a Seção F (G22):** conta só os itens da fila do ativo criados depois da abertura da sessão, pelos tipos da fila (AC-14). O que o herói subiu às 09:14 e 09:15 é da instalação de antes, e não conta. Antes do Finalizar, nada desta sessão está na fila, e ela espera. O `Finalizar instalação` gera o relatório (HU-T13-7) — as evidências e o checklist — na fila, às 14:30, e a Seção F conta ele: `12 subiram`, `31 de 31`, o ID na plataforma `na fila`. Ela falha quando o servidor diz que não: o evento de teste que não chegou (T14/02), um item desta sessão recusado, ou o ativo do `pronto-para-fechar`, sem resposta
-- **o Finalizar (T13·3):** acende quando A a E estão resolvidas; o toque grava `etapas.checklist.homologada` e a hora, gera o relatório e mostra o homologado (11). Com a Seção F falhando, o toque abre o diálogo da ciência (10); marcado o `Estou ciente`, o Finalizar do diálogo homologa, e a ciência fica gravada com o nome e a hora
+- **a semente:** pular pro checklist pelo palco semeia só a sessão; sem a pré-checagem gravada, o checklist lê o que as telas T05 a T10 gravariam no caminho do herói — a pré-checagem aprovada, o chassi pela CAN, a CAN lida, os seis blocos relidos e o hodômetro semeado com a foto. A, C e D resolvidas, o Painel herdado, B e E por fazer, F esperando: 19 de 31, `Faltam 9 itens`, como a entrega de 25/09 desenha. No caminho do herói, o checklist abre depois do ciclo: 24 de 31, `Faltam 4 itens` (13)
+- **a Seção F (G22):** conta só os itens da fila do ativo criados depois da abertura da sessão, pelos tipos da fila (AC-14). O que o herói subiu às 09:14 e 09:15 é da instalação de antes, e não conta. Antes do Finalizar, nada desta sessão está na fila, e ela espera. O `Finalizar instalação` gera o relatório (HU-T13-7) — as evidências e o checklist — na fila, às 14:30, e a Seção F conta ele: 3 de 3, *o servidor confirmou*. Aberta assim, nenhuma referência a desenha, e os itens ficam com os valores do C10, do mock: `12 subiram`, `31 de 31`, o ID na plataforma `na fila` (G25). Ela falha quando o servidor diz que não: o evento de teste que não chegou (T14/02), um item desta sessão recusado, ou o ativo do `pronto-para-fechar`, sem resposta — o X na seção e nos três itens
+- **o Finalizar (T13·3):** acende quando A a E estão resolvidas; o toque grava `etapas.checklist.homologada` e a hora, gera o relatório e mostra o homologado (11): o veredito no topo, embaixo da barra — *Instalação homologada às 14:30* e *o relatório leva 12 evidências, o local e o seu nome* (`checklist.evidencias`) —, que esmaece no lugar em 150 ms, e o `Encerrar sessão` no rodapé. Com a localização negada (14, o caso `localizacao-negada`), o relatório diz *o relatório vai sem localização*; nada no mock nega a localização no fluxo, e o 14 só abre pela coluna, parado. Com a Seção F falhando, o toque abre o diálogo da ciência (10); marcado o `Estou ciente`, o Finalizar do diálogo homologa, e a ciência fica gravada com o nome e a hora
 - **o que fica gravado:** `etapas.checklist` guarda o ativo, que foi aberto, as fotos tiradas e as ressalvas (a justificativa e a hora), a conta do menu (`pendentes`), se homologou e quando, e a ciência. Voltar ao checklist no mesmo ativo reabre o que foi resolvido; homologado, ele abre no 11
-- **os caminhos:** o cartão reprovado leva ao nível do item (09), e `Refazer a leitura da CAN` à T08 (T13·2) · o cartão de E que falta abre a T14 (T13·4), e a Seção E é a mesma se a T14 saiu por `Encerrar o ciclo` ou por `Ir para o checklist` (T14·2): os pendentes ficam pendentes, e o aprovado diz `confere` · `Tirar foto` e `Salvar com ressalva` seguem pro próximo item por fazer; sem próximo, voltam à Seção B · o voltar faz o `Voltar ao menu` no mapa e na seção aberta (T13·6), e o `Voltar ao checklist` no nível do item
+- **a URL de cada quadro:** as seções fechadas, a tela (00), ou o 11 no homologado · a seção aberta, o momento dela (01 a 06), a B com ressalva no 12 e a E resolvida no 13; homologado, a seção aberta não tem referência, e a URL sai do momento. Aberto pela URL, o quadro é o fluxo depois dos toques que levam lá (G20), e grava o que eles gravariam: o 11, as fotos de B, o ciclo e o Finalizar; o 12, o primeiro item de B salvo com a ressalva de exemplo (`checklist.exemploJustificativa`); o 13, o ciclo que a T14 fecha (`etapas.ciclo` concluído)
+- **o nível do item:** o rótulo de topo é o título longo da seção que o técnico faz (*B · INSTALAÇÃO FÍSICA*, 07 e 08) e o nome curto da que o app confere (*C · HARDWARE*, 09) — é o que as referências da entrega desenham, e vai pro arquiteto
+- **os caminhos:** o item reprovado leva ao nível do item (09), e `Refazer a leitura da CAN` à T08 (T13·2) · a ação da E abre a T14 (T13·4), e a Seção E é a mesma se a T14 saiu por `Encerrar o ciclo` ou por `Ir para o checklist` (T14·2): os pendentes ficam *a fazer*, o aprovado diz `confere`, e a ação continua · `Tirar foto` e `Salvar com ressalva` seguem pro próximo item por fazer; sem próximo, voltam à Seção B aberta · o voltar faz o `Voltar ao menu` nas seções e no homologado (T13·6), e o `Voltar ao checklist` no nível do item
+
+O roteiro `app/scripts/caminhos/checklist.mjs` prova a estrutura por toque (`node scripts/caminho.mjs checklist`): nascer aberta sem animar, a seção que cresce e fecha com o movimento conferido, a troca de uma aberta pra outra, o reduzir movimento, os quadros 11, 12 e 13 pela URL, a foto por fazer que abre a câmera, e a ação da E que abre a T14.
 
 ## O voltar do Android
 
@@ -149,14 +162,17 @@ Nos processos que não podem parar, ele **não sai**:
 - **na cadeia da T09**, antes de a Conexão gravar, ele abre a recuperação; na recuperação, que só oferece `Continuar a gravação`, não faz nada
 - **na pré-checagem correndo, na atualização do firmware, no encerramento e no autoteste**, ele não faz nada — o processo termina sozinho em segundos. Terminado o processo, vale a saída do rodapé: a pré-checagem aprovada tem o `Voltar ao menu`, e a reprovada ou parada no caso, o `Procurar outro módulo`. Na *Sessão encerrada*, com o autoteste terminado, ele faz o `Voltar ao menu`, a saída que ela tem (T16)
 - **na baixa do pacote (T03) e na releitura da CAN (T08)**, que dizem *não saia da tela* e não têm saída, ele não faz nada
+- **no semear da calibração (T10)**, nos 2 s de *Gravando no módulo…* e *Relendo…*, ele não faz nada: o semear grava no módulo, e parar no meio deixaria o valor pela metade (a decisão do diretor de 25/09). O `Voltar ao menu` fica no lugar, desabilitado de verdade e em `--tinta-apagada` (Nenhum botão aceso que não faz nada, regra 12, e a lei 17), e o `ENCERRAR` também, como na releitura da T08 (logo abaixo). Terminado o semear, valem o `Voltar ao menu` e o `ENCERRAR` de novo
 - **na sessão interrompida (T16/06)**, ele não faz nada: `Retomar` e `Descartar` são atos, e o voltar não escolhe no lugar do técnico (T16·6)
 - **numa folha ou num diálogo**, ele fecha a folha ou o diálogo, como o X ou o Cancelar. O diálogo sem X nem Cancelar — o *Senha alterada* (T01/09, HU-T01-10) — não fecha, e o voltar não faz nada. O aviso do acesso (T04/12), que também não tem Cancelar, fecha: o `Entendi` só fecha, não é ato, e é a única saída
+
+**O `ENCERRAR` da faixa faz o mesmo que o voltar** (a lei 17, decisão do diretor de 25/09): antes de a Conexão gravar, na cadeia da T09, ele abre a recuperação; onde o voltar não faz nada — a releitura da CAN (T08/01), o semear da calibração (T10) e a própria recuperação da T09 (T09/03) —, ele fica desabilitado de verdade, em `--tinta-apagada`, sem o pressionado, e o motivo já está escrito na tela (a peça: `Faixa`, `acaoDesabilitada`). Na pré-checagem correndo a faixa ainda não existe (ela desce quando a sessão nasce), e no encerramento da T16 ela não mostra o `ENCERRAR`: ali nada muda.
 
 **Onde ele não escuta:** no print (`?print=1`) e num estado aberto pela coluna do palco, que fica parado e sem toque. Com o painel do palco aberto, o Esc fecha só o painel, que o pega antes (na captura).
 
 | Tela | O que o voltar faz |
 |---|---|
-| T01 | na entrada (00, 01, 10, 14), nada · no canal, no código e na senha nova (02, 03, 05 a 08, 12, 13), o `Voltar ao login` · na folha *Não recebi o código* (04, 11), fecha, como o X · no diálogo *Senha alterada* (09), nada |
+| T01 | na entrada (00, 01, 10, 14, 15, 16, e a entrada depois de sair da conta, com o usuário lembrado ou sem ele, no fluxo), nada · no canal, no código e na senha nova (02, 03, 05 a 08, 12, 13), o `Voltar ao login` · na folha *Não recebi o código* (04, 11), fecha, como o X · no diálogo *Senha alterada* (09), nada |
 | T02 | nada (00 a 03) |
 | T03 | baixando (00), nada · na falha (01), o `Voltar ao contexto` → T02 · baixado (02), o `Ir para o menu` → T04 · no de 4 dias (03), o `Continuar com este pacote` → T04 · no vencido (04), o `Trocar de garagem` → T02 |
 | T04 | no menu (00 a 04), nada · numa folha (05, 07, 08, 10, 11), fecha, como o X · no diálogo de sair (06), o `Cancelar`, que volta à folha Conta · no de trocar (09), o `Cancelar` · no aviso do acesso (12, no fluxo), o `Entendi` |
@@ -165,10 +181,10 @@ Nos processos que não podem parar, ele **não sai**:
 | T07 | tudo aprovado (00), o `Voltar ao menu` · com um sinal reprovado (01, 02), nada |
 | T08 | antes e depois da releitura (00, 02), o `Voltar ao menu` · relendo (01), nada |
 | T09 | correndo (00), recusado (01) e pausado (02), a recuperação (03) · na recuperação, nada · concluída (04), o `Voltar ao menu` |
-| T10 | o `Voltar ao menu`, em todo passo (00 a 05, 07, 08, 10) · no meio do semear (*Gravando no módulo…*, *Relendo…*), o `Voltar ao menu` também, e o semear para ali: nada vai pro módulo, e a volta cai no passo com o número e a foto (07), com o `Semear` aceso · na câmera (06, e a mesma câmera sem a permissão, a 11, que no fluxo não tem endereço), o `Voltar à calibração`, sem foto · na calibração completa (09), sem link, o `Concluir a calibração` → T04 |
+| T10 | o `Voltar ao menu`, em todo passo (00 a 05, 07, 08, 10) e na calibração completa (09), embaixo do `Fazer o ciclo dinâmico` · no meio do semear (*Gravando no módulo…*, *Relendo…*), nada: o semear não para, e o `Voltar ao menu` fica desabilitado (a decisão do diretor de 25/09) · na câmera (06, e a mesma câmera sem a permissão, a 11, que no fluxo não tem endereço), o `Voltar à calibração`, sem foto |
 | T11 | o que diverge (00, 01), o `Só registrar o diagnóstico` · tudo confere (02), o `Voltar ao menu` |
 | T12 | na lista (00, 02, 03), o `Voltar ao menu` · no detalhe (01), o `Voltar às instalações` |
-| T13 | no mapa, numa seção aberta e no homologado (00 a 06, 11), o `Voltar ao menu` · no nível do item (07 a 09, e o item com a câmera sem a permissão, que não tem endereço), o `Voltar ao checklist` · no diálogo da ciência (10), o `Cancelar` |
+| T13 | nas seções, fechadas ou com uma aberta, e no homologado (00 a 06, 11 a 13), o `Voltar ao menu` · no nível do item (07 a 09, e o item com a câmera sem a permissão, que não tem endereço), o `Voltar ao checklist` · no diálogo da ciência (10), o `Cancelar` · o homologado sem localização (14) abre só pela coluna, parado |
 | T14 | com o ciclo aberto (00 a 03), o `Ir para o checklist` · no ciclo concluído (05), o `Voltar ao menu` · com o caso de identificador correndo (04, 06), nada |
 | T15 | o `Voltar ao menu` (00 a 04) |
 | T16 | no encerramento (00, 01), no autoteste e na sessão abortando (03), nada · encerrada (02, 04, 05), o `Voltar ao menu` · interrompida (06), nada |
@@ -187,7 +203,7 @@ Com a sessão aberta, **o módulo e o ativo não trocam** — é a HU-T16-2. Toc
 
 Na T10, o botão principal só acende com **o número digitado e a foto tirada**, e sempre diz o que falta: *Digite o que o painel mostra* → *Fotografe o painel* → *Semear o hodômetro*. A foto é da **câmera do próprio app** — sem galeria, com a hora, o técnico, o ativo e o módulo carimbados —, e foto tirada fica tirada. Se a releitura passar da tolerância, a tela diz *não confere* e pede `Semear de novo`; a foto continua valendo, porque ela prova o painel. No protótipo, a câmera é simulada: o quadro mostra uma imagem parada e o `Tirar foto` só registra.
 
-No estado único, `etapas.calibracao` guarda, de cada grandeza, o número digitado (`painel`), a foto com o carimbo (`fotos`: a hora, o técnico, o ativo e o módulo) e o semeado com o relido (`semeadas`); `foto` diz que o painel já foi fotografado, e é o que o checklist lê pro Painel da Seção B (HU-T10-4). O semear corre em 1 s gravando e 1 s relendo (`ritmos.js`). A hora da foto e da releitura é a do relógio parado, 14:30 (G9): as referências dizem 14:31 a 14:33.
+No estado único, `etapas.calibracao` guarda, de cada grandeza, o número digitado (`painel`), a foto com o carimbo (`fotos`: a hora, o técnico, o ativo e o módulo) e o semeado com o relido (`semeadas`); `foto` diz que o painel já foi fotografado, e é o que o checklist lê pro Painel da Seção B (HU-T10-4). O semear corre em 1 s gravando e 1 s relendo (`ritmos.js`), e não para: nesses 2 s, o `Voltar ao menu` e o voltar do sistema não fazem nada (O voltar do Android). A hora da foto e da releitura é a do relógio parado, 14:30, como as referências da entrega do checklist desenham.
 
 ## O aviso do acesso
 
@@ -217,7 +233,7 @@ Quatro estados que vêm do celular, e não do módulo nem do ativo. Nenhum trava
 
 A **localização negada** não tem tela: nada trava, e o relatório do checklist sai sem a geolocalização, com a linha dizendo *sem localização*.
 
-- **no protótipo**, nada lê a localização, então nada trava. O relatório é o que o `Finalizar instalação` põe na fila (as evidências e o checklist, HU-T13-7), e nenhuma referência desenha o que vai dentro dele; o mock não tem a localização da sessão, nem um caso que a negue, e nenhum `textos.md` tem o *sem localização*. A linha espera o quadro e o texto, que vão pro arquiteto · a entrega de 25/09 trouxe os dois (o caso `localizacao-negada` e a T13/14), e a linha entra com a T13 nova
+- **no protótipo**, nada no fluxo lê a localização, então nada trava. O relatório é o que o `Finalizar instalação` põe na fila (as evidências e o checklist, HU-T13-7). O caso `localizacao-negada` (a entrega do checklist) monta o homologado sem localização (T13/14): o veredito diz *o relatório vai sem localização*, no lugar de *o relatório leva 12 evidências, o local e o seu nome*. Ele abre só pela coluna, parado e sem toque: nada no mock nega a localização no fluxo, como nos outros estados do celular (o checklist · o Finalizar)
 
 ## O teclado (regra 10)
 
@@ -239,8 +255,8 @@ O app não gira. No modo estreito com a janela mais larga que alta — o celular
 
 - **a permissão negada tem saída:** o Bluetooth desligado, a permissão do Bluetooth e a da câmera (T05/16 e 17, T10/11 e a câmera do checklist) têm sempre um primário que leva adiante: o Android liga o Bluetooth ou pergunta de novo, ou `Abrir as configurações`, que volta com a permissão dada — na câmera, e no Bluetooth quando o Android não deixa perguntar mais (O mundo real; `app/src/estado/camera.js`, `app/src/telas/T05/celular.js`). O login sem conexão tenta de novo
 - **o que não faz nada é desabilitado de verdade**, como os cartões em espera: o toque não faz nada, o leitor ouve desabilitado, e o desenho é o da referência — o primário apagado que diz o que falta, a tira da T04 com a folha ou o diálogo por cima, a faixa da T13 com o diálogo da Seção F
-- **a régua:** `app/scripts/aceso.mjs` toca cada tocável aceso de cada tela e momento do fluxo, um por vez, e confere se alguma coisa mudou — o endereço, o desenho ou o foco levado a outro lugar (o foco que o botão ganha do próprio toque não conta). Os lugares que nascem de um toque depois da entrada entram com esse toque: o menu sem o aviso do acesso (T04/00, 01 e 02), a busca que acha na T02 e a recuperação da T09. O cronômetro do código da T01 se mede sem os números, e a conferência da T11 e o encerramento sem homologar, depois de acabar. São 75 lugares; os 4 que não se medem — a releitura da CAN (T08/01), a cadeia (T09/00) e o autoteste (T16/00 e 01) — acabam em outro lugar, que se mede sozinho (`node scripts/aceso.mjs`, `prints/aceso.json`). O encerramento sem homologar (T16/03) também acaba em outro lugar, a 04: conforme o tempo da máquina, a régua o mede depois de acabar ou o deixa sem medir, e a 04 se mede nos dois casos (no fechamento do mundo real, a rodada inteira deixou 5 sem medir)
-- **os três que ficam**, cada um com o padrão que o `tela.md` manda, a nota na régua e a pergunta no `decisoes-do-diretor.md`: o `ENCERRAR` da recuperação da T09 (T09/03, G23: nela, ele não faz nada), o `Sincronizar` das seis garagens sem pacote da lista longa (T02/03, depois de uma busca que acha) e o `Procurar de novo` da lista sem nada escolhido (T05/01): a busca de novo acha a mesma lista na hora, e nada muda
+- **a régua:** `app/scripts/aceso.mjs` toca cada tocável aceso de cada tela e momento do fluxo, um por vez, e confere se alguma coisa mudou — o endereço, o desenho ou o foco levado a outro lugar (o foco que o botão ganha do próprio toque não conta). Os lugares que nascem de um toque depois da entrada entram com esse toque: o menu sem o aviso do acesso (T04/00, 01 e 02), a busca que acha na T02 e a recuperação da T09. O cronômetro do código da T01 se mede sem os números, e a conferência da T11 e o encerramento sem homologar, depois de acabar. São 79 lugares; os 4 que não se medem — a releitura da CAN (T08/01), a cadeia (T09/00) e o autoteste (T16/00 e 01) — acabam em outro lugar, que se mede sozinho (`node scripts/aceso.mjs`, `prints/aceso.json`). O encerramento sem homologar (T16/03) também acaba em outro lugar, a 04: conforme o tempo da máquina, a régua o mede depois de acabar ou o deixa sem medir, e a 04 se mede nos dois casos (no fechamento do mundo real e no da entrega do checklist, a rodada inteira deixou 5 sem medir)
+- **os dois que ficam**, cada um com o padrão que o `tela.md` manda, a nota na régua e a pergunta no `decisoes-do-diretor.md`: o `Sincronizar` das seis garagens sem pacote da lista longa (T02/03, depois de uma busca que acha) e o `Procurar de novo` da lista sem nada escolhido (T05/01): a busca de novo acha a mesma lista na hora, e nada muda. A entrega da otimização do design respondeu os dois — o pacote das seis garagens no mock, e o `Procurar de novo` que volta à busca da T05/00 — e eles esperam a construção dela · o terceiro, o `ENCERRAR` da recuperação da T09 (T09/03), já fica desabilitado de verdade e em tinta apagada, como a referência nova desenha (a lei 17; O voltar do Android)
 
 ## O checklist
 
@@ -254,6 +270,14 @@ Uma estrutura só em todas as telas da T13: o título com a contagem, a barra fi
 ## O próximo passo depois da calibração
 
 A calibração completa leva direto ao ciclo dinâmico: *Fazer o ciclo dinâmico* é o botão principal, e *Voltar ao menu* fica embaixo. O caminho feliz anda em linha — calibra, ciclo, checklist.
+
+- **no protótipo**, os dois gravam a calibração concluída na etapa (`etapas.calibracao.concluida`): o `Fazer o ciclo dinâmico` abre a T14, e o `Voltar ao menu` leva ao menu; o voltar do sistema faz o `Voltar ao menu`. Voltar à calibração depois abre a 09, com as mesmas duas saídas
+
+## A busca que esconde a escolha
+
+Na T02 e na T06, se a busca esconde o que já foi escolhido, o primário apaga — ele não confirma o que não está na tela. Quando a escolha reaparece, ele acende de novo. A escolha não se perde.
+
+- **no protótipo**, construído pela decisão do diretor de 25/09 (A escolha do ativo, e o `busca.mjs` prova). As duas referências que a otimização do design trouxe pra isso, a T02/04 e a T06/09, esperam a construção dela: a URL fica no quadro de antes — a T02 no 01, a T06 no 00, e o 03 e o 08 quando a busca não acha nada —, e o endereço delas abre a tela
 
 ## A URL
 
@@ -279,6 +303,7 @@ Pendências que não são de desenho seguem um padrão até o PM decidir — a l
 | `T01/13-momento-codigo-no-e-mail` | tocar em *Mandar para o e-mail* |
 | `T02/01-momento-escolhida` | tocar numa garagem |
 | `T02/03-momento-busca-sem-resultado` | digitar na busca um nome que não existe |
+| `T02/04-momento-busca-esconde-a-escolha` | com uma garagem escolhida, digitar uma busca que esconde ela |
 | `T03/02-momento-concluido` | o download termina |
 | `T04/01-momento-sem-modulo` | o menu antes de conectar |
 | `T04/02-momento-modulo-sem-ativo` | módulo conectado, ônibus ainda não escolhido |
@@ -294,6 +319,7 @@ Pendências que não são de desenho seguem um padrão até o PM decidir — a l
 | `T06/01-momento-confirmar-o-veiculo` | tocar num ônibus |
 | `T06/07-momento-correcao-solicitada` | tocar em `Solicitar correção de cadastro` no chassi divergente |
 | `T06/08-momento-busca-sem-resultado` | digitar na busca uma placa que não existe |
+| `T06/09-momento-busca-esconde-a-escolha` | com um ativo escolhido, digitar uma busca que esconde ele |
 | `T08/01-momento-relendo` | `Refazer a leitura` |
 | `T08/02-momento-concluida` | a releitura termina |
 | `T09/04-momento-cadeia-concluida` | o último bloco relido |
@@ -314,8 +340,8 @@ Pendências que não são de desenho seguem um padrão até o PM decidir — a l
 | `T13/07-momento-responder-item` | tocar num item manual |
 | `T13/08-momento-nao-conforme-com-justificativa` | marcar não conforme |
 | `T13/11-momento-homologado` | tocar em `Finalizar instalação`, com A a E resolvidas (T13·3) |
-| `T13/12-momento-b-com-ressalva` | salvar um item como não conforme, com a justificativa |
-| `T13/13-momento-e-resolvida` | voltar do ciclo dinâmico com os cinco passos feitos |
+| `T13/12-momento-b-com-ressalva` | salvar um item como não conforme, com a justificativa, e voltar à Seção B |
+| `T13/13-momento-e-resolvida` | voltar do ciclo dinâmico com os cinco passos feitos, e tocar na Seção E |
 | `T14/01-momento-antes-do-disparo` | a fila do módulo ainda drenando |
 | `T14/05-momento-ciclo-concluido` | os cinco passos e o evento |
 | `T14/06-momento-correcao-solicitada` | tocar em `Solicitar correção de cadastro` no identificador divergente |
@@ -334,6 +360,8 @@ Pendências que não são de desenho seguem um padrão até o PM decidir — a l
 | `T01/06-estado-codigo-expirado` | o código passa de 10 minutos | `recuperacao.limites.validadeMin` |
 | `T01/07-estado-tentativas-esgotadas` | o terceiro código errado | `recuperacao.limites.tentativas` |
 | `T01/14-estado-login-sem-conexao` | `Entrar` sem internet | `sem-conexao-no-login` |
+| `T01/15-estado-primeiro-acesso` | nenhum usuário lembrado — o app acabou de ser instalado, ou o técnico não marcou Lembrar | `primeiro-acesso` |
+| `T01/16-estado-usuario-lembrado` | o técnico marcou Lembrar meu usuário num login anterior | `usuario-lembrado` |
 | `T02/02-estado-lista-longa-com-busca` | a empresa tem mais de 6 garagens — a busca aparece, e a lista rola por baixo do rodapé | `lista-longa-garagens` |
 | `T03/01-estado-falha-de-rede` | a rede cai no meio do download | `sync-falha-rede` |
 | `T03/03-estado-pacote-de-4-dias` | o pacote tem entre 3 e 7 dias | `pacotes · pac-uo-02` |

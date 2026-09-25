@@ -54,10 +54,14 @@ export default function T02({ momento, estado }) {
 
   const grupos = comBusca ? filtrar(mundo, busca) : mundo
   // a busca que não acha nada: o vazio declarado no lugar da lista (03). A escolha
-  // que ela esconde fica guardada, e volta com a lista; enquanto nada aparece, o
-  // primário espera, como a 03 desenha
+  // que a busca esconde — sem resultado, ou achando outras garagens — fica
+  // guardada, e volta com a lista; enquanto ela não aparece, o primário espera,
+  // como a 03 desenha (decisão do diretor, 25/09, b: a busca que acha e esconde
+  // a escolha também espera), e acende de novo quando ela volta a aparecer
   const semResultado = comBusca && grupos.length === 0
-  const escolhida = semResultado ? null : doCaso ? escolhaDoCaso : momento === ESCOLHIDA ? (escolhaFluxo ?? M.contextoAtivo.uoId) : null
+  const guardada = doCaso ? escolhaDoCaso : momento === ESCOLHIDA ? (escolhaFluxo ?? M.contextoAtivo.uoId) : null
+  const aVista = grupos.some((g) => g.linhas.some((l) => l.uo.id === guardada))
+  const escolhida = aVista ? guardada : null
   const uo = escolhida ? mundo.flatMap((g) => g.linhas).find((l) => l.uo.id === escolhida)?.uo ?? null : null
 
   // a URL diz o 03 enquanto a busca não acha nada; a que volta a achar o tira.

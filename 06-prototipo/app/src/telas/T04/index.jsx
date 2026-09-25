@@ -156,7 +156,7 @@ export default function T04({ momento, estado: est }) {
   const faixa = !sessao
     ? <Faixa lugar="menu" estado="sem-sessao" fato="Sem sessão de configuração" />
     : sessao.saude === 'falha'
-      ? <Faixa lugar="menu" estado="falha" fato="Módulo com falha" acao="ENCERRAR" tracoSobreposto aoEncerrar={encerrar} />
+      ? <Faixa lugar="menu" estado="falha" fato="Módulo com falha" acao="ENCERRAR" aoEncerrar={encerrar} />
       : <Faixa lugar="menu" serial={sessao.moduloSerial} placa={completa ? placaDe(sessao.ativoId) : 'sem ativo'} semAtivo={!completa}
           acao="ENCERRAR" aoEncerrar={encerrar} />
 
@@ -227,7 +227,6 @@ export default function T04({ momento, estado: est }) {
             return (
               <LinhaGaragem key={g.id} nome={g.nome} estado={estadoLinha}
                 pacote={estadoLinha === 'espera' ? 'espera o envio terminar' : g.pacote}
-                aviso={g.vencida && !atual ? 'Sincronize no menu para liberar' : undefined}
                 nomeGlifo="ainda não" rotuloContagem="ATIVOS" contagem={g.ativos}
                 aoTocar={estadoLinha === 'disponivel' ? () => escolher(g.id) : undefined}
                 divisoria={i < lista.length - 1} />

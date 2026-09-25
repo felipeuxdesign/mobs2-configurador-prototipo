@@ -20,13 +20,18 @@ import './Rodape.css'
 // pedido, no mesmo lugar (Link registrado) — o `link` passa a ser o que ficou feito.
 // `legendaJunta` (C10 · T13, G11): a legenda a 6 do botão, só o vão do rodapé,
 // como as referências da T13 desenham (T13-A19); sem ela, a 12 da folha 2.
-export function Rodape({ primario, aoPrimario, primarioDesabilitado = false, primarioInerte = false, rotuloPrimario, link, aoLink, rotuloLink, linkRegistrado = false, legenda, legendaJunta = false, explicacao, lugar = 'tela', pe }) {
+// `linkDesabilitado` (a entrega do checklist · T10, a decisão do diretor de
+// 25/09): o link que não faz nada enquanto um processo que não pode parar
+// corre — o semear da calibração — fica no lugar, desabilitado de verdade e em
+// --tinta-apagada (a lei 17, Link): o toque não faz nada, e o leitor ouve
+// desabilitado (a regra 12).
+export function Rodape({ primario, aoPrimario, primarioDesabilitado = false, primarioInerte = false, rotuloPrimario, link, aoLink, rotuloLink, linkRegistrado = false, linkDesabilitado = false, legenda, legendaJunta = false, explicacao, lugar = 'tela', pe }) {
   const fechaNoBotao = pe ? pe === 'botao' : !link && !explicacao
   return (
     <div className={`ds-rodape ${fechaNoBotao ? 'ds-rodape-fecha-botao' : ''} ${lugar === 'login' ? 'ds-rodape-login' : ''}`}>
       {legenda && <span className={`ds-rodape-legenda ${legendaJunta ? 'ds-rodape-legenda-junta' : ''}`}>{legenda}</span>}
       <Primario desabilitado={primarioDesabilitado} inerte={primarioInerte} aoTocar={aoPrimario} rotulo={rotuloPrimario}>{primario}</Primario>
-      {link && <Link className="ds-rodape-link" aoTocar={aoLink} rotulo={rotuloLink} registrado={linkRegistrado}>{link}</Link>}
+      {link && <Link className="ds-rodape-link" aoTocar={aoLink} rotulo={rotuloLink} registrado={linkRegistrado} desabilitado={linkDesabilitado}>{link}</Link>}
       {explicacao && <span className="ds-rodape-explicacao">{explicacao}</span>}
     </div>
   )

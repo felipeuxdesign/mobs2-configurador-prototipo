@@ -1,11 +1,13 @@
 // Os ícones que não são glifo de estado: as 10 ferramentas do menu e os de
 // ação (fechar, chevron, olho, lupa, câmera…). Lucide, com o traço por classe
-// (Lei 14): ferramenta e ação 1,8 · fechar e chevron 2,2 · check mini 2,6.
+// (Lei 14): ferramenta e ação 1,8 · fechar e chevron 2,2 · check mini 2,6 · e o
+// xis de limpar do usuário lembrado, 2, que a T01/16 e a folha 6 desenham fora
+// das classes da lei (desvio nomeado, pro arquiteto).
 // No menu, os nomes da G5: settings, wrench, activity, list-checks, truck.
 import {
   Radio, Truck, Activity, Settings, RefreshCcw, Gauge, Wrench, ListChecks, Upload, History,
   X, ChevronRight, ChevronDown, ChevronUp, RotateCw, Mail, UserRound, Search, Camera, Image, Check, ArrowUp,
-  BluetoothOff, CameraOff,
+  BluetoothOff, CameraOff, Route,
 } from 'lucide-react'
 import './Icone.css'
 
@@ -52,6 +54,12 @@ export const ICONES = {
   // o mundo real · T10/11: a câmera riscada, no visor da câmera do app sem a
   // permissão — a da T10 e a do item manual da T13 (VisorCamera)
   'camera-negada': [CameraOff, 'acao'],
+  // a entrega do checklist · T13/05: o ciclo dinâmico, no poço de 32 da ação
+  // da Seção E (Fazer o ciclo dinâmico) — o route do Lucide, traço 1,8
+  ciclo: [Route, 'acao'],
+  // a otimização do design · T01/16 e a folha 6: o xis de limpar do usuário
+  // lembrado, de 18, com o traço 2 da referência (--traco-limpar)
+  limpar: [X, 'limpar'],
 }
 
 // tam: o lado do ícone, por token (--icone-*)

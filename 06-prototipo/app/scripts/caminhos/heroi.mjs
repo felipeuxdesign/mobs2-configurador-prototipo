@@ -75,12 +75,13 @@ export default [
   { toca: 'Voltar ao menu' },
   { chega: 'T04' },
   // a calibração só semeia com a prova (decisão 33): o número do painel digitado e a foto
-  // da câmera do app; o botão diz o que falta. O hodômetro, e depois o horímetro, até Concluir
+  // da câmera do app; o botão diz o que falta. O hodômetro, e depois o horímetro, até a
+  // calibração completa, que aponta o ciclo dinâmico (decisão 35)
   { toca: 'Calibração' },
   { chega: 'T10', momento: null },
   { ve: 'O MÓDULO CONTA' },
   { ve: '184.320' },
-  { ve: 'lido do módulo às 14:30' },   // os 14:31 a 14:33 das referências são o desvio nomeado G9 (o relógio parado)
+  { ve: 'lido do módulo às 14:30' },   // o relógio parado, como as referências (a entrega do checklist)
   { desligado: 'Digite o que o painel mostra' },
   { digita: '482317', em: 'O PAINEL MOSTRA' },   // calibracao.painel · a-01 · hodômetro
   { chega: 'T10', momento: '05-momento-hodometro-digitado' },
@@ -97,7 +98,9 @@ export default [
   { naoToca: 'Painel fotografado' },   // foto tirada fica tirada: o registro não se toca
   { toca: 'Semear o hodômetro' },
   { desligado: 'Gravando no módulo…' },
-  { desligado: 'Relendo…', entre: [700, 1500] },
+  { desligado: 'Voltar ao menu' },   // o semear não para (a decisão do diretor de 25/09)
+  { desligado: 'ENCERRAR' },   // e o ENCERRAR faz o mesmo que o voltar: apagado (a lei 17)
+  { desligado: 'Relendo…', entre: [500, 1500] },
   { chega: 'T10', momento: '01-momento-hodometro-semeado', entre: [700, 1500] },
   { ve: 'O MÓDULO CONTA AGORA' },
   { ve: 'relido às 14:30 · confere com o painel' },
@@ -119,16 +122,9 @@ export default [
   { chega: 'T10', momento: '09-momento-calibracao-completa', entre: [1400, 3000] },
   { ve: 'Calibração completa' },
   { ve: '9.640' },
-  { naoToca: 'Voltar ao menu' },   // a calibração completa só sai pelo Concluir
-  { toca: 'Concluir a calibração' },
-  { chega: 'T04' },
-  // o checklist: a Seção E abre o ciclo dinâmico
-  { toca: 'Finalizar com checklist' },
-  { chega: 'T13' },
-  { ve: 'Faltam 9 itens' },
-  { toca: 'E · Teste dinâmico' },
-  { chega: 'T13', momento: '05-momento-e-teste-dinamico-aberta' },
-  { toca: 'Ignição ligada' },
+  // a calibração aponta o ciclo (decisão 35): o caminho anda em linha — calibra, ciclo, checklist
+  { ve: 'Voltar ao menu' },
+  { toca: 'Fazer o ciclo dinâmico' },
   // o ciclo dinâmico: a fila do módulo drena em 3 s, e o disparo acende
   { chega: 'T14' },
   { ve: 'FILA DRENANDO' },
@@ -146,12 +142,28 @@ export default [
   { chega: 'T14', momento: '05-momento-ciclo-concluido', entre: [2400, 3600] },
   { ve: '5 de 5 passos' },
   { ve: '14:30:24' },
-  // o checklist fecha: as fotos da Seção B, o Finalizar, o homologado
+  // o checklist numa estrutura só (decisão 34): o título com a contagem, a barra e os seis cartões.
+  // Depois do ciclo, 24 de 31: a E resolvida, e as quatro fotos de B por fazer (o Painel vem da calibração)
   { toca: 'Voltar ao checklist' },
-  { chega: 'T13' },
+  { chega: 'T13', momento: null },
+  { ve: 'de 31' },
+  { ve: 'o ciclo passou' },
+  { ve: 'você fotografa 4 itens' },
   { ve: 'Faltam 4 itens' },
-  { toca: 'B · Montagem' },
+  { desligado: 'Finalizar instalação' },
+  // a E aberta: os cinco passos dizem confere, e não há ação (13); tocar de novo fecha
+  { toca: 'E · Teste dinâmico' },
+  { chega: 'T13', momento: '13-momento-e-resolvida' },
+  { ve: 'confere' },
+  { naoToca: 'Fazer o ciclo dinâmico' },
+  { naoToca: 'Ignição ligada' },   // sem seta, é leitura (Lei 16)
+  { toca: 'E · Teste dinâmico' },
+  { chega: 'T13', momento: null },
+  // a B cresce no lugar: os itens esmaecem, e as seções de baixo descem (transform)
+  { toca: 'B · Montagem', anima: [{ prop: 'opacity', ms: 200, em: 'ds-secao-ck-corpo' }, { prop: 'transform', ms: 200, em: 'ds-secao-ck' }] },
   { chega: 'T13', momento: '02-momento-b-montagem-aberta' },
+  { ve: 'fotografado na calibração, às 14:30' },
+  { naoToca: 'Painel' },   // o Painel herdado não se fotografa de novo
   { toca: 'Módulo' },
   { chega: 'T13', momento: '07-momento-responder-item' },
   { ve: 'B · INSTALAÇÃO FÍSICA' },
@@ -164,15 +176,20 @@ export default [
   { toca: 'Tirar foto' },
   { ve: 'Leitor posicionado' },
   { toca: 'Tirar foto' },
-  // sem próximo por fazer, volta à Seção B aberta: 5 de 5
+  // sem próximo por fazer, volta à Seção B aberta: 5 de 5, e as fotos tiradas
   { chega: 'T13', momento: '02-momento-b-montagem-aberta' },
   { ve: 'B · Montagem' },
   { ve: '5 de 5' },
+  { ve: '5 fotos tiradas' },
+  { naoToca: 'Módulo' },   // a foto tirada fica tirada: sem seta, não se toca
   { naoVe: 'Faltam' },
   { toca: 'Finalizar instalação' },
+  // o homologado: o veredito e o relatório no topo, e o servidor confirmou
   { chega: 'T13', momento: '11-momento-homologado' },
-  { ve: 'HOMOLOGADA' },
-  { ve: '31 DE 31 CONFERIDOS' },
+  { ve: 'Instalação homologada às 14:30' },
+  { ve: 'o relatório leva 12 evidências, o local e o seu nome' },
+  { ve: 'o app conferiu' },
+  { ve: 'o servidor confirmou' },
   { ve: 'RKT-8H42' },
   // ENCERRAR, depois de homologar: os sete passos, um a cada 600 ms, e o autoteste
   { toca: 'ENCERRAR' },

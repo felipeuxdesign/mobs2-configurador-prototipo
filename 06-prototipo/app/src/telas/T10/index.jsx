@@ -24,8 +24,13 @@
 //   rola até o relido e a tela vira o semeado (01), ou, com a releitura acima
 //   da tolerância, o não confere (10), que pede Semear de novo — a foto
 //   continua valendo. O movimento fino (o tambor, a régua encolhendo) é do C12.
-// · O horímetro (08): o mesmo fluxo, com o número dele, até Concluir a
-//   calibração (09) → o menu.
+//   O semear grava no módulo e não para (a decisão do diretor de 25/09): nos
+//   2 s, o Voltar ao menu fica no lugar, desabilitado de verdade e em tinta
+//   apagada, e o voltar do sistema não faz nada, como a releitura da T08. O
+//   ENCERRAR faz o mesmo que o voltar: apagado, e não faz nada (a lei 17).
+// · O horímetro (08): o mesmo fluxo, com o número dele, até a calibração
+//   completa (09), que aponta o ciclo (a entrega do checklist, decisão 35):
+//   Fazer o ciclo dinâmico → T14, e Voltar ao menu → T04, embaixo.
 // · A calibração vai pro estado único (etapas.calibracao: o digitado, a foto e
 //   o semeado de cada grandeza) e volta de onde parou; a URL diz o quadro da
 //   referência em que o passo está (calibracao.js, quadroDe).
@@ -203,9 +208,10 @@ export default function T10({ momento, estado: est }) {
     }, RITMOS.semearGravandoMs))
   }
   const proximo = () => setFluxo((f) => ({ ...f, atual: f.atual + 1, focado: false }))
-  function concluir() {
+  // a calibração completa (09): grava a etapa concluída e segue — pro ciclo dinâmico ou pro menu
+  function concluir(tela) {
     const f = { ...fluxo, concluida: true }
-    setFluxo(f); gravar(f); ir('T04')
+    setFluxo(f); gravar(f); ir(tela)
   }
 
   // ── o segmentado: um segmento por passo; o gravado fica lima apagado e alto ──
@@ -260,25 +266,28 @@ export default function T10({ momento, estado: est }) {
   else if (p.fase === 'gravando') primario = { rotulo: T.gravando, desabilitado: true }
   else if (p.fase === 'relendo') primario = { rotulo: T.relendo, desabilitado: true }
   else if (naoConfere) primario = { rotulo: T.semearDeNovo, aoTocar: semear }
-  else if (semeada && !seguinte) primario = { rotulo: T.concluir, aoTocar: concluir }
+  else if (semeada && !seguinte) primario = { rotulo: T.cicloDinamico, aoTocar: () => concluir('T14') } // decisão 35
   else if (semeada && T.calibrar[seguinte]) primario = { rotulo: T.calibrar[seguinte], aoTocar: proximo }
   else if (semeada) primario = { rotulo: T.semear[g], desabilitado: true } // G25: o passo seguinte sem texto
   else if (digitado == null) primario = { rotulo: T.digite, desabilitado: true }
   else if (!p.foto) primario = { rotulo: T.fotografe, desabilitado: true }
   else primario = { rotulo: T.semear[g], aoTocar: semear }
+  // o semear não para (a decisão do diretor de 25/09): o link fica, desabilitado de verdade
+  // e em tinta apagada, e o ENCERRAR faz o mesmo que o voltar: apagado (a lei 17)
+  const semeando = p.fase === 'gravando' || p.fase === 'relendo'
   let link = { rotulo: T.voltar, aoTocar: () => ir('T04') }
   if (fluxo.camera) link = { rotulo: T.voltarCalibracao, aoTocar: fecharCamera }
-  else if (semeada && !seguinte) link = null // a calibração completa só sai pelo Concluir (09)
+  else if (semeando) link = { rotulo: T.voltar, desabilitado: true }
+  else if (semeada && !seguinte) link = { rotulo: T.voltar, aoTocar: () => concluir('T04') } // a calibração completa (09)
   // O voltar do Android (logica.md): o link de saída do rodapé — em todo passo, o
   // Voltar ao menu, e a calibração volta de onde parou; na câmera, o Voltar à
-  // calibração, sem foto. Na calibração completa, sem link, o Concluir, que é a
-  // única saída e leva ao menu
-  useVoltar(link ? link.aoTocar : primario.aoTocar)
+  // calibração, sem foto; na calibração completa, o Voltar ao menu. No semear, nada
+  useVoltar(link.desabilitado ? null : link.aoTocar)
 
   return (
     <div className="t10">
       <BarraDoSistema hora={HORA} fundo="faixa" />
-      <Faixa serial={moduloSerial} placa={ativoDe(ativoId)?.placa} acao={T.encerrar} aoEncerrar={encerrar} />
+      <Faixa serial={moduloSerial} placa={ativoDe(ativoId)?.placa} acao={T.encerrar} aoEncerrar={encerrar} acaoDesabilitada={semeando && !fluxo.camera} />
       <div className="tela-miolo t10-miolo">
         <Segmentado rotulo={T.rotulo} contagem={String(fluxo.atual + 1)} total={T.deTotal(ordem.length)} segmentos={segmentos} legenda={legenda} />
         {fluxo.camera ? (
@@ -308,7 +317,7 @@ export default function T10({ momento, estado: est }) {
         )}
       </div>
       <Rodape primario={primario.rotulo} aoPrimario={primario.aoTocar} primarioDesabilitado={!!primario.desabilitado}
-        link={link?.rotulo} aoLink={link?.aoTocar} />
+        link={link.rotulo} aoLink={link.aoTocar} linkDesabilitado={!!link.desabilitado} />
     </div>
   )
 }

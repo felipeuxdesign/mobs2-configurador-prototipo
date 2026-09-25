@@ -43,6 +43,20 @@ export default [
   esc,
   { fica: 'T01', ms: 500 },
   { chega: 'T01', estado: '14-estado-login-sem-conexao' },
+  // a otimização do design · quem abre o app, pela coluna: parados e sem toque — o
+  // que o Entrar diz e o xis se provam no node, e o xis também no roteiro lembrar.mjs
+  { abre: '?tela=T01&estado=15-estado-primeiro-acesso' },
+  { ve: 'Digite o usuário' },
+  { naoToca: 'Digite o usuário' },
+  esc,
+  { fica: 'T01', ms: 500 },
+  { chega: 'T01', estado: '15-estado-primeiro-acesso' },
+  { abre: '?tela=T01&estado=16-estado-usuario-lembrado' },
+  { ve: 'Digite a senha' },
+  { naoToca: 'Limpar o usuário' },
+  esc,
+  { fica: 'T01', ms: 500 },
+  { chega: 'T01', estado: '16-estado-usuario-lembrado' },
 
   // ── T02 · a escolha da garagem não tem saída desenhada: nada ──
   { abre: '?tela=T02' },
@@ -229,7 +243,8 @@ export default [
   { chega: 'T04' },
 
   // ── T10 · o Voltar ao menu, em todo passo; na câmera, o Voltar à calibração, sem foto;
-  //    na calibração completa, sem link, o Concluir a calibração → o menu (decisão 33) ──
+  //    no semear, nada (a decisão do diretor de 25/09: o semear não para); na calibração
+  //    completa, o Voltar ao menu, embaixo do Fazer o ciclo dinâmico (decisão 35) ──
   { abre: '?tela=T10' },
   esc,
   { chega: 'T04' },
@@ -250,6 +265,24 @@ export default [
   { abre: '?tela=T10&momento=07-momento-painel-fotografado' },
   esc,
   { chega: 'T04' },
+  // o semear grava no módulo e não para: nos 2 s, o Voltar ao menu desabilitado e o Esc, nada;
+  // o ENCERRAR faz o mesmo que o voltar, apagado (a lei 17)
+  { abre: '?tela=T10&momento=07-momento-painel-fotografado' },
+  { toca: 'Semear o hodômetro' },
+  { desligado: 'Gravando no módulo…' },
+  { desligado: 'Voltar ao menu' },
+  { desligado: 'ENCERRAR' },
+  esc,
+  { fica: 'T10', ms: 300 },
+  { desligado: 'Relendo…', entre: [300, 1500] },
+  { desligado: 'Voltar ao menu' },
+  { desligado: 'ENCERRAR' },
+  esc,
+  { fica: 'T10', ms: 300 },
+  { chega: 'T10', momento: '01-momento-hodometro-semeado', entre: [0, 1500] },
+  { ve: 'O MÓDULO CONTA AGORA' },   // o semear chegou ao fim: nada o parou
+  esc,
+  { chega: 'T04' },
   { abre: '?tela=T10&momento=01-momento-hodometro-semeado' },
   esc,
   { chega: 'T04' },
@@ -257,8 +290,12 @@ export default [
   esc,
   { chega: 'T04' },
   { abre: '?tela=T10&momento=09-momento-calibracao-completa' },
-  { ve: 'Concluir a calibração' },
+  { ve: 'Fazer o ciclo dinâmico' },
   esc,
+  { chega: 'T04' },
+  // a calibração completa aponta o ciclo: o Voltar ao menu, embaixo, também leva ao menu
+  { abre: '?tela=T10&momento=09-momento-calibracao-completa' },
+  { toca: 'Voltar ao menu' },
   { chega: 'T04' },
   // o mundo real · a câmera sem a permissão, pela coluna: parada e sem toque — o
   // Abrir as configurações se prova no node (scripts/testar-camera.mjs)
@@ -288,7 +325,7 @@ export default [
   esc,
   { chega: 'T04' },
 
-  // ── T13 · no mapa e na seção, o Voltar ao menu; no item, o Voltar ao checklist ──
+  // ── T13 · nas seções e no homologado, o Voltar ao menu; no item, o Voltar ao checklist ──
   { abre: '?tela=T13' },
   esc,
   { chega: 'T04' },
@@ -300,6 +337,17 @@ export default [
   { chega: 'T13', momento: '02-momento-b-montagem-aberta' },
   esc,
   { chega: 'T04' },
+  // a estrutura nova (decisão 34): a E resolvida e o homologado fazem o Voltar ao menu; o homologado sem localização é da coluna, parado
+  { abre: '?tela=T13&momento=13-momento-e-resolvida' },
+  esc,
+  { chega: 'T04' },
+  { abre: '?tela=T13&momento=11-momento-homologado' },
+  esc,
+  { chega: 'T04' },
+  { abre: '?tela=T13&estado=14-estado-homologado-sem-localizacao' },
+  esc,
+  { fica: 'T13', ms: 500 },
+  { chega: 'T13', estado: '14-estado-homologado-sem-localizacao' },
 
   // ── T14 · o Ir para o checklist; no ciclo concluído, o Voltar ao menu ──
   { abre: '?tela=T14' },

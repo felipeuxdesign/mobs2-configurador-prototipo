@@ -1,66 +1,59 @@
 // Folha 7 · checklist, evidência e processo. Os textos são os da folha.
-// Os três mostradores são uma peça com três estados; a foto, uma peça com
-// dois. Os cartões de valor, com barra, de configuração e de foto são a
-// família de cartão da seção aberta — que se compõe com eles.
-// As peças de outra família entram compostas: a Lista e a cabeça da seção
-// (linhas, folha 4) e o cartão de ferramenta com o contador (cartões, folha 4).
+// O checklist numa estrutura só (a entrega do checklist, decisão 34): a seção
+// é uma peça, fechada e aberta — de leitura ou de tocar —, os quatro tipos de
+// item, o veredito e a ação da seção. Os três mostradores são uma peça com
+// três estados; a foto, uma peça com dois; a câmera do app, uma peça só.
+// As peças de outra família entram compostas: a Lista (linhas, folha 4) e o
+// cartão de ferramenta com o contador (cartões, folha 4).
 import {
-  LinhaSecaoMapa, SecaoChecklist, CartaoValor, GradeCartoes, CartaoFoto, FotoProva, VisorCamera,
+  SecaoDoChecklist, ItemDoChecklist, VereditoDoChecklist, FotoProva, VisorCamera,
   Mostrador, BlocoEvento, LinhaFila, LinhaRechecagem, Prova,
 } from '../../ds/checklist/index.js'
 import { Lista } from '../../ds/linhas/index.js'
 import { CartaoFerramenta, GradeFerramentas } from '../../ds/cartoes/index.js'
 
-// a moldura de meia largura da folha: as duas colunas do menu, com a folga de 12
-const meia = { display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 'var(--e-12)' }
-
-const identificacao = () => (
-  <GradeCartoes colunas={2}>
-    <CartaoValor nome="SERIAL DO MÓDULO" valor="M2C-0417" medida="traco" />
-    <CartaoValor nome="FIRMWARE" valor="v4.2.1" medida="traco" />
-    <CartaoValor nome="ATIVO VINCULADO" valor="RKT-8H42" medida="traco" />
-    <CartaoValor nome="CHASSI" valor="confere" />
-  </GradeCartoes>
+// as seções como a folha desenha: a A aberta, de leitura; a B fechada e aberta, de tocar
+const leituraDaA = [['Serial do módulo', 'M2C-0417'], ['Firmware', '2.3.5'], ['Ativo vinculado', 'RKT-8H42'], ['Chassi', 'confere']]
+export const secaoALeitura = () => (
+  <SecaoDoChecklist estado="aprovada" titulo="A · Identificação" quemAge="o app confere sozinho" feitos={4} de="de 4" aberta>
+    {leituraDaA.map(([nome, valor], i) => <ItemDoChecklist key={nome} nome={nome} valor={valor} divisoria={i < leituraDaA.length - 1} />)}
+  </SecaoDoChecklist>
+)
+export const secaoBFechada = () => <SecaoDoChecklist estado="pendente" titulo="B · Montagem" quemAge="você fotografa 4 itens" feitos={1} de="de 5" />
+const secaoBTocar = () => (
+  <SecaoDoChecklist estado="pendente" titulo="B · Montagem" quemAge="você fotografa 4 itens" feitos={1} de="de 5" aberta>
+    {['Módulo', 'Antena GPS', 'Chicote', 'Leitor'].map((nome) => <ItemDoChecklist key={nome} tipo="tocar" icone="camera" nome={nome} legenda="foto a tirar" aoTocar={() => {}} />)}
+    <ItemDoChecklist tipo="feito" nome="Painel" legenda="fotografado na calibração, às 14:30" divisoria={false} />
+  </SecaoDoChecklist>
 )
 
 export const especimes = [
   // ── o checklist
-  { id: 'f7-linha-secao-mapa', folha: 7, rotulo: 'linha de seção do mapa', legenda: 'o veredito · a contagem · o chevron',
-    render: () => <Lista><LinhaSecaoMapa estado="aprovada" titulo="A · Identificação" contagem="4 de 4" /></Lista> },
-  { id: 'f7-cartoes-valor', folha: 7, rotulo: 'cartões de valor', legenda: 'o valor que veio de outra tela', render: identificacao },
-  { id: 'f7-cartao-barra', folha: 7, rotulo: 'cartão com barra', legenda: 'o instrumento em meia largura',
-    render: () => (
-      <div style={meia}>
-        <CartaoValor nome="ALIMENTAÇÃO" valor="13,8" unidade="V" medida={{ min: 10, max: 16, faixa: [12, 15], valor: 13.8 }} />
-      </div>
-    ) },
-  { id: 'f7-cartao-configuracao', folha: 7, rotulo: 'cartão de configuração', legenda: 'Seção D · o valor que veio da cadeia',
-    render: () => <div style={meia}><CartaoValor nome="LIMPEZA" valor="feita" /></div> },
-  { id: 'f7-cartoes-foto', folha: 7, rotulo: 'cartões de foto', legenda: 'visor de 46 · o nome embaixo',
-    render: () => (
-      <GradeCartoes colunas={3}>
-        <CartaoFoto nome="Módulo" />
-        <CartaoFoto nome="Antena GPS" />
-        <CartaoFoto nome="Chicote" />
-        <CartaoFoto nome="Leitor" />
-        <CartaoFoto nome="Painel" tirada />
-      </GradeCartoes>
-    ) },
-  { id: 'f7-secao-aberta', folha: 7, rotulo: 'a seção aberta inteira', legenda: 'a cabeça e os cartões, como abrem no acordeão',
-    render: () => <SecaoChecklist estado="aprovada" titulo="A · Identificação" contagem="4 de 4" aberta>{identificacao()}</SecaoChecklist> },
+  { id: 'f7-secao-fechada', folha: 7, rotulo: 'seção fechada', legenda: 'quem age · a contagem · a seta', render: secaoBFechada },
+  { id: 'f7-secao-aberta-leitura', folha: 7, rotulo: 'seção aberta · de leitura', legenda: 'o cartão cresce no lugar · as leituras sem seta', render: secaoALeitura },
+  { id: 'f7-secao-aberta-tocar', folha: 7, rotulo: 'seção aberta · de tocar', legenda: 'cada item com a câmera e a seta', render: secaoBTocar },
+  { id: 'f7-item-leitura', folha: 7, rotulo: 'item de leitura', legenda: 'sem seta · não toca',
+    render: () => <Lista><ItemDoChecklist nome="Firmware" valor="2.3.5" /></Lista> },
+  { id: 'f7-item-tocar', folha: 7, rotulo: 'item de tocar', legenda: 'a câmera e a seta · abre a foto',
+    render: () => <Lista><ItemDoChecklist tipo="tocar" icone="camera" nome="Chicote" legenda="foto a tirar" aoTocar={() => {}} /></Lista> },
+  { id: 'f7-item-feito', folha: 7, rotulo: 'item feito', legenda: 'o check e de onde veio · sem seta',
+    render: () => <Lista><ItemDoChecklist tipo="feito" nome="Painel" legenda="fotografado na calibração, às 14:30" divisoria={false} /></Lista> },
+  { id: 'f7-item-ressalva', folha: 7, rotulo: 'item com ressalva', legenda: 'passou, mas diz a ressalva embaixo',
+    render: () => <Lista><ItemDoChecklist tipo="ressalva" estado="ressalva" nome="Módulo" legenda="com ressalva · suporte trincado" /></Lista> },
+  { id: 'f7-veredito', folha: 7, rotulo: 'o veredito', legenda: 'o topo do checklist homologado · o relatório embaixo',
+    render: () => <VereditoDoChecklist titulo="Instalação homologada às 14:30" relatorio="o relatório leva 12 evidências, o local e o seu nome" /> },
 
   // ── evidência
   // a entrega de 25/09 (decisão 33): a que se tira é o cartão tocável, com a câmera e a seta; a tirada, o registro no lugar
   { id: 'f7-foto-a-tirar', folha: 7, rotulo: 'foto · a tirar', legenda: 'tocável, com a câmera · a legenda diz pra que ela serve',
     render: () => <FotoProva titulo="Fotografar o painel" legenda="é a prova do número — vale no checklist" aoTocar={() => {}} /> },
   { id: 'f7-foto-tirada', folha: 7, rotulo: 'foto · tirada', legenda: 'vira o registro no lugar, e deixa de ser tocável · diz onde mais ela vale',
-    render: () => <FotoProva tirada titulo="Painel fotografado às 14:31" legenda="vale também no checklist, na Seção B" /> },
-  // o mundo real · a câmera do app (T10/06 e 11, T13/07 e 08): nenhuma folha a
-  // desenha (o design system ainda não a lista), então fica fora da bancada
-  // (semBancada) — as telas medem a da T10 e a da T13 contra as referências. A
-  // câmera do item sem a permissão não tem referência nem estado na coluna: é
+    render: () => <FotoProva tirada titulo="Painel fotografado às 14:30" legenda="vale também no checklist, na Seção B" /> },
+  // a câmera do app (T10/06 e 11, T13/07 e 08): a entrega do checklist a pôs na
+  // folha 7, e ela entra na bancada. As duas sem a permissão seguem fora da
+  // folha (semBancada): a do item não tem referência nem estado na coluna, e é
   // aqui que ela se vê
-  { id: 'f7-visor-camera', folha: 7, rotulo: 'a câmera do app', semBancada: true, legenda: 'fora da folha · o quadro parado da câmera, com a frase de enquadrar (T10/06, T13/07)',
+  { id: 'f7-visor-camera', folha: 7, rotulo: 'a câmera do app', legenda: 'a mesma na calibração e no checklist · o quadro diz o que enquadrar',
     render: () => <VisorCamera frase="Enquadre o hodômetro do painel" /> },
   { id: 'f7-visor-sem-permissao', folha: 7, rotulo: 'a câmera do app · sem a permissão', semBancada: true, legenda: 'fora da folha · a câmera riscada, o que falta e a explicação apagada (T10/11)',
     render: () => <VisorCamera semPermissao frase="O app precisa da câmera pra fotografar o painel" explicacao="Sem a foto, a calibração não semeia." /> },
@@ -72,16 +65,8 @@ export const especimes = [
     render: () => <Mostrador estado="relendo" valor="ligada" nome="Ignição" /> },
   { id: 'f7-mostrador-aceso', folha: 7, rotulo: 'mostrador · aceso', legenda: 'o nome com altura de duas linhas',
     render: () => <Mostrador estado="aceso" valor="ligada" nome="Ignição" /> },
-  { id: 'f7-cartoes-esperam-ciclo', folha: 7, rotulo: 'cartões que esperam o ciclo', legenda: 'Seção E · o traço até o veículo andar',
-    render: () => (
-      <GradeCartoes colunas={2}>
-        <CartaoValor aguarda nome="IGNIÇÃO LIGADA" valor="—" medida="traco" />
-        <CartaoValor aguarda nome="MOVIMENTO" valor="—" medida="traco" />
-        <CartaoValor aguarda nome="RÉ ACIONADA" valor="—" medida="traco" />
-        <CartaoValor aguarda nome="PORTA ABERTA" valor="—" medida="traco" />
-        <CartaoValor aguarda nome="IGNIÇÃO DESLIGADA" valor="—" medida="traco" />
-      </GradeCartoes>
-    ) },
+  { id: 'f7-acao-secao', folha: 7, rotulo: 'a ação da seção', legenda: 'uma linha só com seta · o resto da seção é leitura',
+    render: () => <Lista><ItemDoChecklist tipo="tocar" icone="ciclo" nome="Fazer o ciclo dinâmico" legenda="os 5 passos, com o ônibus em movimento" aoTocar={() => {}} /></Lista> },
 
   // ── processo e prova
   { id: 'f7-bloco-evento', folha: 7, rotulo: 'bloco do evento', legenda: 'o que foi disparado e recebido',

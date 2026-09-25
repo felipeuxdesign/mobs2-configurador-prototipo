@@ -66,9 +66,12 @@ export default [
   { chega: 'T04', momento: '06-momento-folha-conta-sair-com-sessao-aberta' },
   { toca: 'Encerrar a sessão e sair' },
   ...OS_QUATRO_PASSOS,
-  // fechado o 4º passo, o login, sem a sessão
+  // fechado o 4º passo, o login, sem a sessão: sem Lembrar meu usuário, o celular não
+  // lembra ninguém — o quadro da 15, os dois campos vazios (T01 · entradaDoFluxo)
   { chega: 'T01', momento: null, entre: [1500, 3500] },
   { ve: 'Esqueci a senha' },
+  { desligado: 'Digite o usuário' },
+  { digita: 'r.vieira', em: 'USUÁRIO' },
   ...LOGIN_ATE_O_MENU,
   { naoVe: 'ENCERRAR' },
   { ve: 'Sem sessão de configuração' },

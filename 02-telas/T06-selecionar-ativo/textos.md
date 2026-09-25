@@ -37,3 +37,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `08-momento-busca-sem-resultado`
 
 `14:30` · `M2C-0417` · `sem ativo` · `ENCERRAR` · `Selecionar ativo` · `5` · `no pacote` · `ABC-1234` · `Nada com “ABC-1234”` · `Confira a placa, ou busque pela frota.` · `Usar este ativo` · `Voltar ao menu`
+
+## `09-momento-busca-esconde-a-escolha`
+
+`14:30` · `M2C-0417` · `sem ativo` · `ENCERRAR` · `Selecionar ativo` · `5` · `no pacote` · `PCX` · `PCX-9A17` · `Ônibus urbano OF-1621` · `FROTA` · `1009` · `Usar este ativo` · `Voltar ao menu`

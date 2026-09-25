@@ -18,6 +18,11 @@ O diretor respondeu mais algumas perguntas que estavam abertas, e várias mudam 
 4. **T10 · o semear não para.** No meio do *Gravando no módulo…* e do *Relendo…* (2 s), o *Voltar ao menu* e o voltar do Android não fazem nada, como na releitura da T08. É uma gravação no módulo, e parar no meio deixaria o valor pela metade. Nem a decisão 33 nem o `tela.md` diziam isso: **coloque no `tela.md` da T10 e no `logica.md`**, na lista dos processos que não podem parar.
 5. **O celular deitado** (regra 11, o app não gira). No palco, com a janela mais larga que alta, o celular de 360 × 800 fica no centro, sem girar. É o que já está construído, e fica.
 
+## A lei 17, já aplicada
+
+6. **O ENCERRAR nos processos:** apliquei a sua regra. Na T08 relendo e na recuperação da T09, ele fica desabilitado e em `--tinta-apagada`; na cadeia antes de a Conexão gravar, abre a recuperação; no semear da T10 também, construído com a entrega do checklist — e ali o *Voltar ao menu*, que não faz nada nos 2 s (item 4), fica desabilitado e em `--tinta-apagada` pela mesma lei. Esse quadro (o *Gravando no módulo…* e o *Relendo…*) não tem referência: se quiser, desenhe-o. Na pré-checagem correndo a faixa ainda não existe (ela desce quando a sessão nasce), então ali nada muda. Até as duas referências novas chegarem (a T08/01 e a T09/03), elas dão 0,09% e 0,15% só no ENCERRAR. **Com isso, o item 1 da T09 acima já está resolvido.**
+7. **O Entrar do login sem usuário ou sem senha:** também pela lei 17, ele fica apagado. Sem a senha, diz *Digite a senha* (o texto que já existe). **Preciso de:** o quadro do login com os campos vazios, e o texto do botão quando falta o usuário (hoje fica *Entrar*, apagado, porque não há texto aprovado pra isso).
+
 ## Pra próxima entrega
 
 - **Uma entrega só com tudo isso** é o mais rápido pra mim: organizo, construo e comparo com os PNGs novos de uma vez.

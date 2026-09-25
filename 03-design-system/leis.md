@@ -24,6 +24,7 @@ Cada lei tem o porquê. Uma lei sem motivo vira gosto, e gosto se discute; lei c
 | 14 ◆ | **Ícone vem do Lucide**, com o traço dos tokens por classe: glifo de estado 2,2 em todo tamanho · ferramenta e ícone de ação 1,8 · fechar e chevron 2,2 · check abaixo de 14px 2,6 · **exceção: o olho da senha**, desenhado no app, com a amêndoa baixa — e o riscado é o mesmo olho, inteiro, com um risco que corta o contorno onde passa | ícone de sistema tem forma canônica — o wi-fi tem o ponto · o eye-off do Lucide tem outro desenho e parece um olho quebrado ao lado do nosso |
 | 15 | **A marca usa o `--lima`.** A logo foi alinhada ao `#AAEF00`, o lima de produto da Mobs2 — o mesmo do Vídeo Telemetria, ao lado do roxo institucional `#402070` | o arquivo antigo tinha `#B8F23D`: quase igual ao sistema, e quase igual parece erro |
 | 16 | **Tem seta, toca; sem seta, é leitura.** Todo tocável de lista tem a seta; leitura, feito e espera não têm | no checklist, o que se tocava e o que só se lia tinham a mesma cara |
+| 17 | **Desabilitado é tinta apagada.** Cartão, botão ou ação da faixa que não pode agir agora fica em `--tinta-apagada` (#867E9A), desabilitado de verdade, e o motivo está escrito na tela · nos processos, o `ENCERRAR` da faixa faz o mesmo que o voltar do Android: onde o voltar não faz nada, ele fica apagado | um tocável aceso que não responde parece defeito · decisão do diretor, 25/09 |
 
 ## Leis de medida
 

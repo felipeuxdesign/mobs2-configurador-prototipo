@@ -8,9 +8,11 @@ Dizer em que garagem o técnico está hoje — o pacote de dados que o app vai u
 | **Chrome** | sem faixa |
 | **Semente no protótipo** | Viação Atlântico Sul · três garagens · Várzea com pacote de ontem |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 2 · 1 — ver `estados.md` |
+| **Momentos · estados** | 3 · 1 — ver `estados.md` |
 
 ## O que se toca
+
+- a busca que esconde a escolha feita apaga o primário, que volta quando ela reaparece · a escolha não se perde (a `04`; a decisão do diretor de 25/09)
 
 - a busca sem resultado diz *Nada com “Recreio”* e sugere buscar pela cidade — o termo digitado aparece no título
 - tocar numa garagem → ela fica escolhida
@@ -21,7 +23,7 @@ Dizer em que garagem o técnico está hoje — o pacote de dados que o app vai u
 
 No protótipo (entrega do design de 24/09): o 6 é o `limiteSemBusca` do caso `lista-longa-garagens`, e a busca aparece em qualquer mundo com mais garagens que ele — o do herói, com 3, não a tem; o estado 02 é o mundo do caso, com 9. A busca olha o nome da garagem e o campo `cidade` do caso, sem acento e sem caixa; o nome da região saiu da busca (muda o T02·7). A frase da idade sai de `idadeNaLinhaDaGaragem`, em `app/src/dados/formato.js` (muda o T02·6); a garagem que só o caso tem lê o limiar de 7 que os pacotes do mock declaram.
 
-No protótipo (entrega do design de 25/09, que resolve o vazio sem frase do T02·7): a busca que não acha nenhuma garagem mostra o vazio declarado no lugar da lista, com o termo digitado no título, e o campo com o traço lima do campo focado: ele acende no foco, como o campo focado, e fica aceso enquanto a busca não acha nada, como a `03` desenha. A URL diz o `03` enquanto a busca não acha nada; a busca que volta a achar o tira. O `03` abre pelo endereço no mundo do caso `lista-longa-garagens`, com *Recreio* digitado, e a tela fica nesse mundo enquanto está aberta: a escolha ali não vai pra URL, porque o `01` é o quadro do mundo do herói. A escolha que a busca sem resultado esconde fica guardada e volta com a lista; enquanto nada aparece, o primário espera, como a `03` desenha. No mundo do caso aberto pelo `03`, só sincroniza a garagem que o mundo do herói também tem (Várzea, Ibura e Pátio Caruaru): as outras seis não têm pacote no mock, e o `Sincronizar` delas fica sem destino (pendência).
+No protótipo (entrega do design de 25/09, que resolve o vazio sem frase do T02·7): a busca que não acha nenhuma garagem mostra o vazio declarado no lugar da lista, com o termo digitado no título, e o campo com o traço lima do campo focado: ele acende no foco, como o campo focado, e fica aceso enquanto a busca não acha nada, como a `03` desenha. A URL diz o `03` enquanto a busca não acha nada; a busca que volta a achar o tira. O `03` abre pelo endereço no mundo do caso `lista-longa-garagens`, com *Recreio* digitado, e a tela fica nesse mundo enquanto está aberta: a escolha ali não vai pra URL, porque o `01` é o quadro do mundo do herói. A escolha que a busca sem resultado esconde fica guardada e volta com a lista; enquanto nada aparece, o primário espera, como a `03` desenha. A busca que acha outras garagens e esconde a escolhida faz o mesmo (decisão do diretor de 25/09, b): o primário volta a *Escolha uma garagem*, apagado, e acende de novo, com o nome dela, quando a busca a mostra outra vez — a escolha volta marcada (o roteiro `busca.mjs` prova). No mundo do caso aberto pelo `03`, só sincroniza a garagem que o mundo do herói também tem (Várzea, Ibura e Pátio Caruaru): as outras seis ganharam pacote no mock com a otimização do design, mas o protótipo ainda só lê os pacotes do mundo do herói, e o `Sincronizar` delas fica sem destino até a construção dela (pendência; `decisoes-do-diretor.md`).
 
 ## Peças do design system que esta tela usa
 

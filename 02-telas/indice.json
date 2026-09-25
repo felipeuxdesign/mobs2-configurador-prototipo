@@ -1,6 +1,6 @@
 {
  "telas": 16,
- "referencias": 129,
+ "referencias": 133,
  "itens": [
   {
    "id": "T01/00-tela",
@@ -191,6 +191,34 @@
    "rotuloOrigem": "proposto"
   },
   {
+   "id": "T01/15-estado-primeiro-acesso",
+   "tela": "T01",
+   "pasta": "T01-login",
+   "tipo": "estado",
+   "nome": "15-estado-primeiro-acesso",
+   "titulo": "T01 · primeiro acesso · os dois campos vazios",
+   "como": "nenhum usuário lembrado — o app acabou de ser instalado, ou o técnico não marcou Lembrar",
+   "caso": "primeiro-acesso",
+   "html": "02-telas/T01-login/referencias/html/15-estado-primeiro-acesso.html",
+   "png": "02-telas/T01-login/referencias/png/15-estado-primeiro-acesso.png",
+   "rotulo": "Primeiro acesso",
+   "rotuloOrigem": "proposto"
+  },
+  {
+   "id": "T01/16-estado-usuario-lembrado",
+   "tela": "T01",
+   "pasta": "T01-login",
+   "tipo": "estado",
+   "nome": "16-estado-usuario-lembrado",
+   "titulo": "T01 · usuario lembrado",
+   "como": "o técnico marcou Lembrar meu usuário num login anterior",
+   "caso": "usuario-lembrado",
+   "html": "02-telas/T01-login/referencias/html/16-estado-usuario-lembrado.html",
+   "png": "02-telas/T01-login/referencias/png/16-estado-usuario-lembrado.png",
+   "rotulo": "Usuário lembrado",
+   "rotuloOrigem": "proposto"
+  },
+  {
    "id": "T02/00-tela",
    "tela": "T02",
    "pasta": "T02-selecionar-contexto",
@@ -239,6 +267,18 @@
    "caso": "lista-longa-garagens",
    "html": "02-telas/T02-selecionar-contexto/referencias/html/03-momento-busca-sem-resultado.html",
    "png": "02-telas/T02-selecionar-contexto/referencias/png/03-momento-busca-sem-resultado.png"
+  },
+  {
+   "id": "T02/04-momento-busca-esconde-a-escolha",
+   "tela": "T02",
+   "pasta": "T02-selecionar-contexto",
+   "tipo": "momento",
+   "nome": "04-momento-busca-esconde-a-escolha",
+   "titulo": "T02 · a busca esconde a escolha",
+   "como": "com uma garagem escolhida, digitar uma busca que esconde ela",
+   "caso": "lista-longa-garagens",
+   "html": "02-telas/T02-selecionar-contexto/referencias/html/04-momento-busca-esconde-a-escolha.html",
+   "png": "02-telas/T02-selecionar-contexto/referencias/png/04-momento-busca-esconde-a-escolha.png"
   },
   {
    "id": "T03/00-tela",
@@ -844,6 +884,18 @@
    "caso": "",
    "html": "02-telas/T06-selecionar-ativo/referencias/html/08-momento-busca-sem-resultado.html",
    "png": "02-telas/T06-selecionar-ativo/referencias/png/08-momento-busca-sem-resultado.png"
+  },
+  {
+   "id": "T06/09-momento-busca-esconde-a-escolha",
+   "tela": "T06",
+   "pasta": "T06-selecionar-ativo",
+   "tipo": "momento",
+   "nome": "09-momento-busca-esconde-a-escolha",
+   "titulo": "T06 · a busca esconde a escolha",
+   "como": "com um ativo escolhido, digitar uma busca que esconde ele",
+   "caso": "",
+   "html": "02-telas/T06-selecionar-ativo/referencias/html/09-momento-busca-esconde-a-escolha.html",
+   "png": "02-telas/T06-selecionar-ativo/referencias/png/09-momento-busca-esconde-a-escolha.png"
   },
   {
    "id": "T07/00-tela",

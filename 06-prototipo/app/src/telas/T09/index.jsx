@@ -174,7 +174,8 @@ export default function T09({ momento, estado: est }) {
   return (
     <div className="t09">
       <BarraDoSistema hora={M.HORA_NOMINAL} fundo="faixa" />
-      <Faixa serial={par.moduloSerial} placa={placaDe(par.ativoId)} acao={T.encerrar} aoEncerrar={encerrar} />
+      {/* o ENCERRAR faz o mesmo que o voltar: antes de a Conexão gravar, abre a recuperação; na recuperação, fica apagado (a lei 17, diretor, 25/09) */}
+      <Faixa serial={par.moduloSerial} placa={placaDe(par.ativoId)} acao={T.encerrar} aoEncerrar={encerrar} acaoDesabilitada={fase === 'recuperacao'} />
       <div className={`tela-miolo t09-miolo ${parada ? 't09-miolo-justo' : ''}`}>
         {cabeca}
         {fase !== 'recusado' && pinos}

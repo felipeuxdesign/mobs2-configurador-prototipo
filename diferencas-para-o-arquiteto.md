@@ -111,6 +111,47 @@ Aplicada depois da do mundo real, sem misturar. Os 178 arquivos entraram. O gate
 - **o `indice.json`:** as 129, com os campos do palco; o estado novo ganhou o rótulo *Homologado sem localização*
 - **os números:** o `CLAUDE.md`, o README do design system e o `ciclos.md` · 275 tokens, 25 cores
 
+### O que a construção da T13 achou
+
+A T13 nova está em 0,03 a 0,05% contra o HTML nas 11 referências das seções e do homologado, e o resto é o glifo do Lucide (G5). O que a entrega não desenha, ou desenha de dois jeitos, o protótipo resolveu com as peças dela, e espera o seu desenho:
+
+- **o automático que falta** (no caminho do herói, nada falta em A, C e D): o item de tocar com o ícone da ferramenta da tela que resolve e *a fazer*, e a seta pro `origem` do mock
+- **o automático que reprovou** fora do nível do item: o item de tocar com o X no poço, a leitura embaixo e a seta pro 09
+- **a foto tirada no checklist:** o item feito só com o nome — nenhum texto diz de onde ela veio (o Painel diz *fotografado na calibração, às 14:30*). **Proposta:** *fotografado às 14:30*
+- **quem age com 1:** *você fotografa 1 itens* e *1 fotos tiradas* não existem; o cartão fica sem a linha, como o `Faltam`. **Proposta:** o singular, *você fotografa 1 item* e *1 foto tirada*
+- **a F aberta depois de homologar:** *o servidor confirmou* no cartão, e os itens sem desenho; ficam os valores do C10 (`12 subiram`, `31 de 31`, `na fila`). O `na fila` do ID na plataforma não combina com *o servidor confirmou*
+- **a F falhando:** o X na seção e nos itens, com o traço no valor; nenhuma referência desenha a F aberta assim
+- **a seção aberta no homologado:** sem referência, e a URL fica sem momento
+- **o rótulo do nível do item:** a 07 e a 08 dizem *B · INSTALAÇÃO FÍSICA* (o `titulo` do mock) e a 09 diz *C · HARDWARE* (o `rotulo`, e não *SAÚDE DO HARDWARE*). O protótipo segue as duas: o título longo na seção que o técnico faz, o nome curto na que o app confere. **Proposta:** uma regra só
+- **a 09** continua com o herói (M2C-0417, RKT-8H42), *2 de 4*, 10,2 V e *1,8 V abaixo do mínimo*; o caso do mock é o QJF-2C61 do `can-estatico-isolado`, com 10,9 V, e a bateria é o primeiro item da C (G9)
+- **a 10** desenha o véu sobre a página vazia; no app, atrás do véu fica o checklist do `pronto-para-fechar`, com 28 de 31 (G25, como o menu atrás do véu da T04)
+- **a `animacao.md` da T13** ainda tem a linha do placar e *o placar completa* no veredito; o protótipo anima a barra (scaleX, 300 ms) e o veredito esmaece (150 ms) · e a linha da *miniatura da foto* (*surge no lugar do visor*) ficou sem peça: na estrutura nova, o `Tirar foto` segue pro próximo item por fazer, e a foto tirada é o item feito, sem miniatura — nada no protótipo a desenha
+- **o `tela.md` da T13:** o elemento-assinatura ainda diz *o placar por seção*, e a lista de peças do design tem 12 que nenhuma referência desenha (faixa · sem ação, processo correndo, diálogo, diálogo sem saída, assertiva da sessão, linha de conferência, encerrando, pede o corte, sem homologar, com contador de falha, linha da fila e linha da re-checagem)
+- **o `componentes.md`:** a subseção *Saíram do design* pode sair — o código não usa mais nenhuma daquelas peças; a grade dos cartões, que a T08 usa pros mostradores, virou peça interna (`GradeCartoes`) · mas duas linhas dela, *seção aberta do checklist* e *seção recolhida*, a folha 4 nova ainda desenha, no desenho novo (o cartão de 58 aberto e o fechado), e a tabela da folha 4 não tem as duas: o protótipo as monta com a peça nova (`SecaoDoChecklist`, espécimes `f4-secao-aberta` e `f4-secao-recolhida`), e o `tela.md` da T13 ainda as lista · **pra decidir:** saem da folha 4, ou voltam pra tabela dela
+- **os tokens das peças que saíram:** 8 ficaram sem uso no código — `--linha-secao-mapa`, `--linha-secao-mapa-legenda`, `--n-cartao-secao`, `--n-unidade-cartao`, `--barra-cartao`, `--visor-foto`, `--traco-visor` e `--ls-colunas-mapa` — e o `tokens.css` diz isso no papel de cada um (*sem uso desde a entrega do checklist*), como o `--linha-conferencia-fim`; saem na próxima entrega, se você quiser · e o lima da barra do checklist (`rgba(170, 239, 0, 0.55)`, o que as 15 referências e a folha 5 desenham) é uma transparência nova, `--lima-barra-checklist`: o README do design system conta 6, e agora são 7
+
+### O que o fechamento da entrega achou
+
+As três frentes (a T13, a T10 e a T11, e os consertos) fecharam juntas, e a régua inteira aprova: os 13 roteiros; das 133 referências, a única que piorou contra a base do C11 é a T13/10, pelo checklist novo atrás do véu (embaixo); nenhuma peça do palco piorou; e os espécimes só mudaram nas folhas 2, 4, 5 e 7 e nos que a otimização trocou. O que fica pra você:
+
+- **o `componentes.md`, a seção do protótipo:** a subseção *Saíram do design* saiu. As duas linhas que a folha 4 nova ainda desenha, *seção aberta do checklist* e *seção recolhida*, ficam na folha 4 como peça nova no protótipo, com a T13, até você decidir se saem da folha ou voltam pra tabela: **131 peças no protótipo** (as 119 do design, as 10 de antes e essas duas)
+- **o poço na linha:** a lei mede 38, 44 e 50. A última linha da fila, de 62 (T15/00 a 02), leva o poço de 30, como as referências desenham · **pra decidir:** acrescentar 62 → 30 à lei
+- **a faixa é uma peça só:** a lei diz *52 com a linha de baixo, em toda tela*. A faixa sem sessão fora do menu (T12/02, T15/03 e 04, T16) segue sem a linha de baixo, como as referências dela desenham, e bate em 0% · **pra decidir:** a lei vale pra faixa sem sessão? · e a T04/01, que não mudou, desenha a faixa sem sessão do menu com as duas linhas em cima; o protótipo põe a linha embaixo, como nas outras telas (0,08% dos 0,5%)
+- **o semear da calibração** (T10, *Gravando no módulo…* e *Relendo…*): o `Voltar ao menu` e o `ENCERRAR` ficam apagados, pela lei 17, e nenhuma referência desenha esse quadro (o `para-o-arquiteto-alinhamento.md`, item 6)
+- **o `mocks.js`:** o comentário do caso `diff-divergente` diz que o `noModulo` *fica declarado, sem leitor*, e a T11/00 agora o lê, no par *no módulo · no cadastro*
+- **os tokens sem uso:** além dos 8 do checklist antigo e do `--linha-conferencia-fim`, mais três ficaram sem leitor — `--linha-onibus-fim` (a última linha de ônibus de 78, que saiu), `--miniatura-foto` e `--icone-foto` (a foto da prova usa o poço de 44 e o ícone de 20) — e o `tokens.css` diz isso no papel de cada um · o protótipo tem **280 tokens**
+- **a T13/10** continua desenhando a página vazia atrás do véu; no protótipo, atrás dele fica o checklist do `pronto-para-fechar`, com 28 de 31, na estrutura nova (1,74% contra o HTML; era 1,12% com o checklist antigo)
+
+## A otimização (`otimizacao100000000/`), do jeito que pedimos
+
+Obrigado pelo formato: as referências por cima e os textos como trechos. Entrou sem conflito nenhum. O gate aprova, e o censo confere: **133 referências** — 16 telas, 58 momentos e 59 estados —, 119 peças no design (129 no protótipo), e **49 casos no mock** (os seus 42 e os nossos 7).
+
+- **as 11 referências:** as 4 novas (T01/15 e 16, T02/04, T06/09) e as 7 que trocam (T01/00, 01, 10 e 14, T08/01, T09/03 e a folha 6)
+- **os trechos:** todos aplicados, mantendo as nossas anotações. Os marcados com ✓ **não estavam escritos** na nossa documentação ainda (as regras estavam decididas, o texto não) — entraram também. O pacote das seis garagens (o trecho 2 do mock) **não estava construído**: entrou agora e é construído com o resto
+- **onde o nosso texto já dizia o mesmo**, ficou o nosso: a lei 17 nas leis (com a regra do ENCERRAR), o ENCERRAR na T08 e na T09, e a lista dos processos que não podem parar no `logica.md`
+- **o que corrigi no nosso texto:** a T01 dizia que o botão sem o usuário ficava *Entrar* por falta de texto; agora diz *Digite o usuário*
+- **pra olhar:** o trecho da T05 diz que o ENCERRAR fica apagado *enquanto a pré-checagem corre*, mas a faixa só desce quando a pré-checagem aprova — é aí que a sessão nasce. Construí a regra na faixa, e ela vale se a faixa aparecer; no caminho do herói, ela ainda não existe ali
+
 ## O que as referências pedem ao design · medido no C10, no C11 e nas entregas 4 e 5
 
 Nenhuma referência foi mexida: o protótipo mede e propõe, e a correção é na fonte. Cada item diz o que muda e, quando medido, quanto a diferença cai.
@@ -121,7 +162,7 @@ Nenhuma referência foi mexida: o protótipo mede e propõe, e a correção é n
   - a 12 e a 13 desenham o Confirmar aceso com as células vazias; no protótipo ele fica apagado até o sexto dígito (T01·6). É 5,9%, só no botão;
   - o teto da hora (o último reenvio usado) não tem desenho nem texto;
   - no canal e-mail, as duas linhas da folha mostram o mesmo destino, e não há texto pra *mandar pro telefone*
-- **T13:** os números da referência contra o mock: 19 de 31, 61% no placar, B em 1 de 5, F esperando com *0 de 3*, *Faltam 9*, o firmware 2.3.5, a cerca G07, a versão inteira em duas colunas, o GPS com a faixa em 33% e o 9 em 75%, e o item reprovado do QJF-2C61 com 10,9 V
+- **T13:** a entrega do checklist trouxe os números do mock (19 de 31, *Faltam 9*, o firmware 2.3.5, a cerca G07); fica o item reprovado (09), que desenha o herói com 10,2 V no segundo item, e o caso é o QJF-2C61 com 10,9 V no primeiro
 - **T14/05:** o evento chega aos 24 s do mock. **Proposta:** 0:24, a barra em 80% e 14:30:24. A 05 cai de 0,87% pra 0,04%, e os textos passam a conferir
 - **T15:** a evidência do RSW-9L02 é de 2 dias, e não *ontem 10:05*. A 01 desenha outro recorte da fila, com 4 itens e o contador 5. A 02 cruza garagens pra dar o 4. O *14:02* da 03 e da 04 não existe no mock
 - **T16:** o círculo com traço do *não se aplica* só aparece na 02 e na 05; o subtítulo é montado de dois jeitos (2 px entre a 03 e a 06); o miolo tem vão de 14 numa metade e 12 na outra; a nota NÃO RODARAM mistura duas peças; os glifos são desenhados à mão

@@ -1,36 +1,43 @@
 // T13 · Checklist (02-telas/T13-checklist): fechar a homologação — o que o app
 // já provou sozinho, e o que o técnico ainda precisa provar.
-// · O mapa (00, 11): o placar, as seis seções com o veredito de cada uma e o
-//   rodapé. Tocar numa seção abre o acordeão (01 a 06): uma aberta por vez;
-//   tocar na aberta fecha, e o mapa volta.
+// · Uma estrutura só (a entrega do checklist, decisão 34): o título com a
+//   contagem, a barra fina e os seis cartões de seção, cada um dizendo quem
+//   age. Tocar num cartão faz ele crescer no lugar, com a seta pra cima; as
+//   seções de baixo descem e a lista rola; nada mais se mexe. Uma aberta por
+//   vez: tocar em outra troca, e tocar na aberta fecha.
+// · Tem seta, toca; sem seta, é leitura (Lei 16). A foto por fazer abre a
+//   câmera do app (07); o automático que falta leva à tela que resolve, pelo
+//   `origem` do mock (conectar → T05, ativo → T06, can → T08, configurar →
+//   T09, calibração → T10); o que reprovou abre o nível do item (09). Na E,
+//   uma ação só, Fazer o ciclo dinâmico → T14. A F não tem ação.
 // · Cada item lê a etapa que o produziu no estado único (checklist.js). Pular
 //   pelo palco semeia só a sessão: o que as telas T05 a T10 gravariam no
 //   caminho vem da semente da T13 — o herói depois da calibração, antes do
 //   ciclo e da fila (G21).
-// · B, o item manual: tocar num cartão de foto abre o nível do item (07);
-//   Não conforme abre a justificativa (08). Tirar foto e Salvar com ressalva
-//   resolvem o item e seguem pro próximo por fazer; sem próximo, voltam à B.
+// · B, o item manual: Não conforme abre a justificativa (08). Tirar foto e
+//   Salvar com ressalva resolvem o item e seguem pro próximo por fazer; sem
+//   próximo, voltam à B aberta. A ressalva aparece com o check e a causa (12).
 // · A câmera do item sem a permissão (o mundo real, igual à T10/11 · estado/
 //   camera.js): o visor com a câmera riscada e o Tirar foto vira Abrir as
 //   configurações; permitida lá, a câmera abre na volta. O Não conforme
 //   continua: a ressalva não precisa da câmera (o primário sai de
 //   primarioDaCamera). Nenhuma referência desenha este quadro e o visor fica
 //   sem frase (G25), e a URL sai do momento; nenhum estado da coluna chega nele.
-// · O automático reprovado leva ao nível do item (09), que mostra o motivo e
-//   o caminho: Refazer a leitura da CAN → T08 (T13·2). Nada se marca à mão.
-// · E não se responde aqui: o passo que falta abre a T14 (T13·4, HU-T13-8).
+// · O automático reprovado: o nível do item (09) mostra o motivo e o caminho,
+//   Refazer a leitura da CAN → T08 (T13·2). Nada se marca à mão.
 // · Finalizar instalação acende quando o que bloqueia fecha (A a E); o toque
-//   gera o relatório na fila (HU-T13-7) e o homologado aparece depois (T13·3).
-//   Com a Seção F falhando, pede a ciência antes (10).
+//   gera o relatório na fila (HU-T13-7) e o homologado aparece depois (T13·3):
+//   o veredito e o relatório no topo — com a localização negada, o relatório
+//   vai sem ela (14). Com a Seção F falhando, pede a ciência antes (10).
 // · O que a tela resolve vai pro estado único em etapas.checklist — é dele que
 //   o contador do menu conta (T04·2, logica.md).
 // · O voltar do Android (logica.md) é o Esc: no diálogo, o Cancelar; no nível
-//   do item, o Voltar ao checklist; no mapa e na seção aberta, o Voltar ao
+//   do item, o Voltar ao checklist; nas seções e no homologado, o Voltar ao
 //   menu (T13·6). ENCERRAR antes de homologar é a sessão abortada (G23).
 import { useEffect, useRef, useState } from 'react'
 import {
-  BarraDoSistema, Faixa, CabecalhoConteudo, Placar, LinhaSecaoMapa, Lista, SecaoChecklist, GradeCartoes,
-  CartaoValor, CartaoFoto, Segmentado, LinhaTocavel, Justificativa, Nota, Rodape, Veu, Dialogo, Frase, VisorCamera,
+  BarraDoSistema, Faixa, CabecalhoConteudo, BarraDoChecklist, SecoesDoChecklist, SecaoDoChecklist, ItemDoChecklist, VereditoDoChecklist,
+  Segmentado, LinhaTocavel, Justificativa, Nota, Rodape, Veu, Dialogo, Frase, VisorCamera,
 } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
@@ -39,8 +46,8 @@ import { RECEITAS } from '../../estado/receitas.js'
 import { SEMENTES } from '../../estado/sementes.js'
 import { M } from '../../dados/mock.js'
 import {
-  REF, SECAO_DO_MOMENTO, MOMENTO_DA_SECAO, mundoDe, checklist, nivelDoItem, primeiroPendente, proximoPendente,
-  instrumentoDoItem, filaDoFinalizar, nomeDaSecao, rotuloDoNivel, itemDe, ativoDe,
+  REF, SECAO_DO_MOMENTO, mundoDe, checklist, nivelDoItem, primeiroPendente, proximoPendente, momentoDaSecao,
+  instrumentoDoItem, filaDoFinalizar, nomeDaSecao, rotuloDoNivel, itemDe, ativoDe, registroDoQuadro, cicloConcluido,
 } from './checklist.js'
 import { InstrumentoDoItem } from './pecas.jsx'
 import { T } from './textos.js'
@@ -49,8 +56,8 @@ import './t13.css'
 const ENCERRAR_SEM_HOMOLOGAR = '03-momento-encerrando-sem-homologar' // G23: a sessão abortada (T16/03)
 const HORA = M.HORA_NOMINAL
 // o nome do glifo pro leitor, pelo estado do dado (G15, as legendas da folha 3)
-const NOME_DO_ESTADO = { aprovada: 'aprovado', pendente: 'ainda não', aguarda: 'ainda não', reprovada: 'falha' }
-const NOME_DO_ITEM = { ok: 'aprovado', ressalva: T.naoConforme, nsa: 'não se aplica', pendente: 'ainda não', aguarda: 'ainda não', reprovado: 'falha' }
+const NOME_DA_SECAO = { aprovada: 'aprovado', pendente: 'ainda não', aguarda: 'ainda não', reprovada: 'falha' }
+const NOME_DO_ITEM = { ok: 'aprovado', ressalva: 'aprovado', nsa: 'não se aplica', pendente: 'ainda não', aguarda: 'ainda não', reprovado: 'falha' }
 // o que o nível do item reprovado explica, por item (textos.md · 09)
 const NOTA_DO_REPROVADO = { 'c-alimentacao': T.confiraAlimentacao }
 
@@ -63,18 +70,13 @@ function comRegistro(base, registro) {
   return faltam.length ? { ...mundo, fila: [...base.fila, ...faltam] } : mundo
 }
 
-// O registro em que a tela abre: o guardado no estado único, ou o do quadro
-// que a URL pede. O 11 é o fluxo depois dos toques que levam lá (G20): as
-// fotos de B tiradas, o ciclo feito na T14, o Finalizar tocado.
-function registroInicial(momento, base) {
-  const r = base.registro
-  if (momento !== REF.homologado || r.homologada) return r
-  const fotos = { ...r.fotos }
-  for (const c of checklist(base).porSecao.B) if (c.estado === 'pendente') fotos[c.id] = HORA
-  return { ...r, fotos, homologada: true, homologadaAs: HORA }
+// o 13 pela URL é o fluxo depois do ciclo que a T14 fechou (G20): o mundo com ele
+function comQuadro(base, momento) {
+  if (momento !== REF.eResolvida || base.etapas.ciclo?.concluido) return base
+  return { ...base, etapas: { ...base.etapas, ciclo: cicloConcluido(base.sessao.ativoId, base.sessao.moduloSerial) } }
 }
 
-// O quadro em que a tela abre: o mapa, a seção aberta, o item, o diálogo
+// O quadro em que a tela abre: as seções (uma aberta, ou nenhuma), o item, o diálogo
 function quadroInicial({ momento, est, ck }) {
   const q = { aberta: null, item: null, naoConforme: false, texto: '', dialogo: false, ciente: false }
   if (est === REF.reprovado) return { ...q, item: ck.porSecao.C.find((c) => c.estado === 'reprovado')?.id ?? null }
@@ -87,8 +89,8 @@ function quadroInicial({ momento, est, ck }) {
 
 export default function T13({ momento, estado: est }) {
   const { estado: unico, despachar } = useEstado()
-  const base = mundoDe({ unico, est, semente: SEMENTES.T13 })
-  const [registro, setRegistro] = useState(() => registroInicial(momento, base))
+  const base = comQuadro(mundoDe({ unico, est, semente: SEMENTES.T13 }), est ? null : momento)
+  const [registro, setRegistro] = useState(() => registroDoQuadro(momento, base, checklist(base)))
   const mundo = comRegistro(base, registro)
   const ck = checklist(mundo)
   const [q, setQ] = useState(() => quadroInicial({ momento, est, ck }))
@@ -97,21 +99,26 @@ export default function T13({ momento, estado: est }) {
   const vivo = useRef(unico)
   vivo.current = unico
   const homologada = registro.homologada
+  // o veredito que nasce do toque no Finalizar esmaece; o que abre homologado, não (animacao.md)
+  const [homologouAgora, setHomologouAgora] = useState(false)
 
   // o que a tela resolve vai pro estado único (etapas.checklist), e o relatório,
   // pra fila (M.filaSaida + estado.fila) — só no fluxo
   function gravar(novo) {
     if (est) return
     const e = vivo.current
-    const m = comRegistro(mundoDe({ unico: e, est: null, semente: SEMENTES.T13 }), novo)
-    const parcial = { etapas: { ...e.etapas, checklist: { ...novo, pendentes: checklist(m).pendentesDoMenu } } }
+    const m = comRegistro(comQuadro(mundoDe({ unico: e, est: null, semente: SEMENTES.T13 }), momento), novo)
+    const etapas = { ...e.etapas, checklist: { ...novo, pendentes: checklist(m).pendentesDoMenu } }
+    // o 13 pela URL grava o ciclo que a T14 teria gravado (G20)
+    if (momento === REF.eResolvida && !e.etapas.ciclo?.concluido) etapas.ciclo = m.etapas.ciclo
+    const parcial = { etapas }
     if (novo.homologada) {
       const faltam = filaDoFinalizar(m).filter((f) => !e.fila.some((x) => x.id === f.id))
       if (faltam.length) parcial.fila = [...e.fila, ...faltam]
     }
     despachar({ tipo: 'mesclar', parcial })
   }
-  // abrir o checklist uma vez já conta pro menu (T04·2); o 11 pela URL grava o que os toques gravariam
+  // abrir o checklist uma vez já conta pro menu (T04·2); o 11, o 12 e o 13 pela URL gravam o que os toques gravariam
   useEffect(() => { gravar(registro) }, []) // eslint-disable-line react-hooks/exhaustive-deps
   // a volta ao checklist homologado reabre no quadro dele: a URL segue (G20)
   useEffect(() => {
@@ -124,22 +131,20 @@ export default function T13({ momento, estado: est }) {
   // o nível do item manual (07, 08): sem a permissão da câmera, o quadro não tem
   // referência, e a URL sai do momento (como a câmera da T10 e o item reprovado)
   const irItem = (m, p = permissao) => irQuadro(p === NEGADA ? null : m)
-  const mapa = () => (homologada ? REF.homologado : null)
+  const quadroDasSecoes = (aberta, c = ck) => (aberta ? momentoDaSecao(aberta, c, homologada) : homologada ? REF.homologado : null)
   const encerrar = () => (homologada ? ir('T16') : ir('T16', { momento: ENCERRAR_SEM_HOMOLOGAR }))
   const voltarAoMenu = () => ir('T04')
 
   function abrirSecao(s) {
     const aberta = q.aberta === s ? null : s
     setQ({ ...q, aberta, item: null })
-    irQuadro(aberta ? MOMENTO_DA_SECAO[aberta] : mapa())
+    irQuadro(quadroDasSecoes(aberta))
   }
-  function abrirItem(id) {
-    setQ({ ...q, item: id, naoConforme: false, texto: '' })
-    irItem(REF.responder)
-  }
-  function abrirReprovado(id) {
-    setQ({ ...q, item: id })
-    irQuadro(null) // o 09 é estado da coluna: no fluxo, a URL fica na tela
+  // o toque num item com seta: a câmera do app, o nível do item reprovado, ou a tela que resolve
+  function tocarItem(c) {
+    if (c.destino === 'item') { setQ({ ...q, item: c.id, naoConforme: false, texto: '' }); irItem(REF.responder); return }
+    if (c.destino === 'reprovado') { setQ({ ...q, item: c.id }); irQuadro(null); return } // o 09 é estado da coluna: no fluxo, a URL fica na tela
+    if (c.destino?.tela) ir(c.destino.tela)
   }
   function marcarNaoConforme(marcado) {
     setQ((x) => ({ ...x, naoConforme: marcado, texto: marcado ? (x.texto || M.checklist.exemploJustificativa) : x.texto }))
@@ -148,7 +153,7 @@ export default function T13({ momento, estado: est }) {
   function voltarAoChecklist() {
     const s = itemDe(q.item).secao
     setQ({ ...q, item: null, naoConforme: false, aberta: s })
-    irQuadro(MOMENTO_DA_SECAO[s])
+    irQuadro(quadroDasSecoes(s))
   }
   // Tirar foto e Salvar com ressalva: o item resolvido, e o próximo por fazer
   function responder(como) {
@@ -158,15 +163,18 @@ export default function T13({ momento, estado: est }) {
     const novo = { ...registro, fotos, ressalvas }
     setRegistro(novo)
     gravar(novo)
-    const seguinte = proximoPendente(checklist(comRegistro(base, novo)), id)
+    const depois = checklist(comRegistro(base, novo))
+    const seguinte = proximoPendente(depois, id)
     if (seguinte) { setQ({ ...q, item: seguinte, naoConforme: false, texto: '' }); irItem(REF.responder) } else {
-      setQ({ ...q, item: null, naoConforme: false, texto: '', aberta: itemDe(id).secao })
-      irQuadro(MOMENTO_DA_SECAO[itemDe(id).secao])
+      const s = itemDe(id).secao
+      setQ({ ...q, item: null, naoConforme: false, texto: '', aberta: s })
+      irQuadro(quadroDasSecoes(s, depois))
     }
   }
   function homologar(ciencia) {
     const novo = { ...registro, homologada: true, homologadaAs: HORA, ciencia }
     setRegistro(novo)
+    setHomologouAgora(true)
     gravar(novo)
     setQ({ ...q, dialogo: false, ciente: false, aberta: null, item: null })
     irQuadro(REF.homologado)
@@ -179,39 +187,22 @@ export default function T13({ momento, estado: est }) {
 
   // ── o que se mostra ──
   const { sessao } = mundo
-  const legendaDa = (s) => (s.bloqueia ? undefined : T.naoBloqueia)
-  const contagemDa = (s) => T.contagem(s.feitos, s.total)
 
-  function cartoesDa(s) {
-    if (s.id === 'B') {
+  // os itens da seção aberta: a ação da seção primeiro (a E), e a última sem o traço de baixo
+  function itensDa(s) {
+    const linhas = []
+    if (s.acao) linhas.push({ acao: true, ...s.acao })
+    for (const c of s.itens) linhas.push(c)
+    return linhas.map((c, i) => {
+      const divisoria = i < linhas.length - 1
+      if (c.acao) {
+        return <ItemDoChecklist key="acao" tipo="tocar" icone={c.icone} nome={c.nome} legenda={c.legenda} divisoria={divisoria} aoTocar={() => ir(c.destino.tela)} />
+      }
       return (
-        <GradeCartoes colunas={3}>
-          {s.itens.map((c) => {
-            const nome = itemDe(c.id).rotulo
-            return (
-              // só o que falta se responde: a foto tirada fica tirada (pendencias.md), e o
-              // Painel herdado da calibração não se fotografa de novo (HU-T10-4)
-              <CartaoFoto key={c.id} nome={nome} tirada={c.estado === 'ok' || c.estado === 'ressalva'}
-                desabilitado={c.estado !== 'pendente'} aoTocar={() => abrirItem(c.id)} rotulo={`${nome}, ${NOME_DO_ITEM[c.estado]}`} />
-            )
-          })}
-        </GradeCartoes>
+        <ItemDoChecklist key={c.id} tipo={c.tipo} estado={c.estado} icone={c.icone} nome={c.nome} valor={c.valor} legenda={c.legenda} apagado={!!c.apagado}
+          divisoria={divisoria} nomeGlifo={NOME_DO_ITEM[c.estado]} aoTocar={c.tipo === 'tocar' ? () => tocarItem(c) : undefined} />
       )
-    }
-    return (
-      <GradeCartoes colunas={2}>
-        {s.itens.map((c) => {
-          let aoTocar
-          if (c.estado === 'reprovado' && c.leitura) aoTocar = () => abrirReprovado(c.id)
-          else if (c.naT14) aoTocar = () => ir('T14')
-          return (
-            <CartaoValor key={c.id} nome={c.nome} valor={c.valor} unidade={c.unidade} unidadeTexto={!!c.unidadeTexto} medida={c.medida}
-              aguarda={!!c.aguarda} larga={!!c.larga} aoTocar={aoTocar}
-              rotulo={aoTocar ? `${itemDe(c.id).rotulo}, ${NOME_DO_ITEM[c.estado]}` : undefined} />
-          )
-        })}
-      </GradeCartoes>
-    )
+    })
   }
 
   let miolo
@@ -261,36 +252,23 @@ export default function T13({ momento, estado: est }) {
     )
     rodape = <Rodape primario={T.refazerCan} aoPrimario={() => ir('T08')} link={T.voltarChecklist} aoLink={voltarAoChecklist} />
   } else {
-    // o mapa (00, 11) e o acordeão (01 a 06)
-    const n = ck.secoes.length
+    // as seções: o título com a contagem, a barra, o veredito (homologado) e os seis cartões
     miolo = (
       <>
         <CabecalhoConteudo titulo={T.titulo} contagem={String(ck.feitos)} unidade={T.de(ck.total)} />
-        {!q.aberta && (
-          <>
-            <Placar rotulo={homologada ? T.homologada : T.homologacao} veredito={homologada}
-              meta={homologada ? T.evidencias(M.checklist.evidencias, registro.homologadaAs) : undefined}
-              feitos={ck.feitos} total={ck.total} legendas={{ inicio: '0', meio: T.conferidos(ck.feitos, ck.total), fim: String(ck.total) }} />
-            <div className="t13-colunas"><span>{T.colunaSecao}</span><span>{T.colunaResolvido}</span></div>
-            <div className="t13-mapa">
-              {ck.secoes.map((s, i) => (
-                <LinhaSecaoMapa key={s.id} estado={s.estado} titulo={nomeDaSecao(s)} legenda={legendaDa(s)} contagem={contagemDa(s)}
-                  divisoria={i < n - 1} nomeGlifo={NOME_DO_ESTADO[s.estado]} recolhida aoTocar={() => abrirSecao(s.id)} />
-              ))}
-            </div>
-          </>
+        <BarraDoChecklist feitos={ck.feitos} total={ck.total} className="t13-barra" />
+        {homologada && (
+          <VereditoDoChecklist titulo={T.homologadaAs(registro.homologadaAs ?? HORA)} surge={homologouAgora}
+            relatorio={mundo.semLocalizacao ? T.semLocalizacao : T.relatorioLeva(M.checklist.evidencias)} />
         )}
-        {q.aberta && (
-          <Lista className="t13-acordeao">
-            {/* a última seção fica sem o traço de baixo, fora quando é ela a aberta (T13/06 desenha o traço) */}
-            {ck.secoes.map((s, i) => (
-              <SecaoChecklist key={s.id} estado={s.estado} titulo={nomeDaSecao(s)} legenda={legendaDa(s)} contagem={contagemDa(s)}
-                aberta={q.aberta === s.id} divisoria={i < n - 1 || q.aberta === s.id} nomeGlifo={NOME_DO_ESTADO[s.estado]} aoTocar={() => abrirSecao(s.id)}>
-                {cartoesDa(s)}
-              </SecaoChecklist>
-            ))}
-          </Lista>
-        )}
+        <SecoesDoChecklist aberta={q.aberta}>
+          {ck.secoes.map((s) => (
+            <SecaoDoChecklist key={s.id} estado={s.estado} titulo={nomeDaSecao(s)} quemAge={s.quemAge ?? undefined} feitos={s.feitos} de={T.de(s.total)}
+              aberta={q.aberta === s.id} nomeGlifo={NOME_DA_SECAO[s.estado]} aoTocar={() => abrirSecao(s.id)}>
+              {itensDa(s)}
+            </SecaoDoChecklist>
+          ))}
+        </SecoesDoChecklist>
       </>
     )
     rodape = homologada

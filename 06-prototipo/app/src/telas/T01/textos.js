@@ -2,7 +2,7 @@
 // redigitados. Onde o texto traz um dado (o telefone, os minutos, o que resta),
 // a função monta com o valor do mock que a tela passa; o resto é a letra da
 // referência. Os nomes pro leitor de tela que só o HTML tem (o h1 escondido
-// 'Entrar', 'Mostrar a senha', 'Fechar', o alt 'Mobs2') vêm das referências.
+// 'Entrar', 'Mostrar a senha', 'Limpar o usuário', 'Fechar', o alt 'Mobs2') vêm das referências.
 export const TX = {
   // o login · 00 e 01
   entrar: 'Entrar',
@@ -16,8 +16,11 @@ export const TX = {
   esqueci: 'Esqueci a senha',
   erroTitulo: 'USUÁRIO OU SENHA INCORRETOS',
   erroFrase: 'Confira os dois e entre de novo.',
-  // o Entrar apagado no erro, até a senha ter um caractere (01, a entrega de 25/09)
+  // o Entrar apagado diz o que falta: o usuário (15) e a senha (01 e 16)
+  digiteUsuario: 'Digite o usuário',
   digiteSenha: 'Digite a senha',
+  // 16 · o xis do usuário lembrado (o nome do botão vem da referência)
+  limparUsuario: 'Limpar o usuário',
   // 14 · o login sem conexão (o mundo real): o aviso cinza, e os campos ficam
   semConexao: 'SEM CONEXÃO',
   semConexaoFrase: 'O login precisa de internet.',

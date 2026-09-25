@@ -2,7 +2,7 @@
 // interface além do que o textos.md traz com o dado dentro. Nenhum número
 // digitado: toda contagem sai de M (G8, G9).
 import { M } from '../../dados/mock.js'
-import { caixaAlta, pacotePassouDoBloqueio } from '../../dados/formato.js'
+import { caixaAlta, pacotePassouDoBloqueio, idadeNaLinhaDaGaragem } from '../../dados/formato.js'
 import { filaDoMundo } from '../../estado/fila.js'
 
 // os nomes das referências (02-telas/T04-menu/referencias)
@@ -99,13 +99,15 @@ export function avisoDoAcesso(acesso) {
 
 // as garagens da folha, cada uma com o pacote dela (M.pacotes): a idade, se
 // passou do limite e quantos ativos ele traz. A idade deriva na tela, pelos
-// limiares do próprio pacote (mocks.js · pacote de sincronização).
+// limiares do próprio pacote (mocks.js · pacote de sincronização). A vencida
+// diz só a causa, como na T02 e pela mesma função: "pacote vencido há 8 dias",
+// sem o limite e sem a ação (a entrega do checklist, T04/07 e 08)
 export function garagens() {
   return M.uos.map((uo) => {
     const p = M.pacotes.find((x) => x.uoId === uo.id)
-    const limite = p.limiares.bloqueioDias
     const idade = p.diasAtras === 1 ? `carregado ontem, ${p.hora}` : `carregado há ${p.diasAtras} dias`
     const vencida = pacotePassouDoBloqueio(p) // a mesma regra da T02 (C4 · T02·6)
-    return { id: uo.id, nome: uo.nome, ativos: p.contem.ativos, vencida, pacote: vencida ? `${idade} · o limite é ${limite}` : idade }
+    return { id: uo.id, nome: uo.nome, ativos: p.contem.ativos, vencida,
+      pacote: vencida ? idadeNaLinhaDaGaragem(p.diasAtras, p.hora, p.limiares.bloqueioDias) : idade }
   })
 }

@@ -17,7 +17,11 @@ export function estadoVazio() {
     },
     fila: [],                                         // os itens que a sessão cria, além de M.filaSaida
     reenviados: [],                                   // os ids que o Ressincronizar e reenviar devolveu à fila (T15 · estado/fila.js)
-    situacao: { rede: M.situacao.rede, sessaoAcesso: M.situacao.sessaoAcesso },
+    // usuarioLembrado: o que o celular lembra do login (HU-T01-3, só o identificador) —
+    // nenhum no começo; o Entrar com a caixa marcada guarda, o xis esquece (T01/regras.js).
+    // jaEntrou: o Entrar já entrou uma vez desde o começo do palco — dali em diante, o
+    // login só traz o que o celular lembra: a 16 com o usuário lembrado, a 15 sem ele
+    situacao: { rede: M.situacao.rede, sessaoAcesso: M.situacao.sessaoAcesso, usuarioLembrado: null, jaEntrou: false },
     casosConsumidos: [],                              // cada caso vale uma vez por sessão (G21)
     avisoDoAcessoVisto: false,                        // o aviso do acesso vencendo já foi fechado no Entendi (logica.md · O aviso do acesso)
     tela: { id: 'T01', momento: null, estado: null, folha: null },

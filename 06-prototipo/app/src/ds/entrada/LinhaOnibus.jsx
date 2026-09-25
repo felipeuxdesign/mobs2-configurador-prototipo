@@ -5,13 +5,12 @@
 import { Tocavel, Poco, Quadrado } from '../index.js'
 import './LinhaOnibus.css'
 
-// `fim` (C8 · T06/00, G11): a última linha da lista, com a folga que a
-// referência desenha no pé do cartão — 78 em vez de 72 (como o `fim` da
-// LinhaModulo). A divisória sai pelo `divisoria`, como nas outras linhas.
-export function LinhaOnibus({ placa, modelo, rotuloFrota, frota, escolhido = false, aoTocar, rotulo, divisoria = true, fim = false }) {
+// A última linha da lista tem 72, como as outras, só sem a divisória (a entrega
+// do checklist, T06/00: saiu o `fim` de 78 do C8). A divisória sai pelo `divisoria`.
+export function LinhaOnibus({ placa, modelo, rotuloFrota, frota, escolhido = false, aoTocar, rotulo, divisoria = true }) {
   return (
     <Tocavel
-      className={`ds-linha-onibus ${divisoria ? '' : 'ds-sem-divisoria'} ${fim ? 'ds-linha-onibus-fim' : ''}`}
+      className={`ds-linha-onibus ${divisoria ? '' : 'ds-sem-divisoria'}`}
       rotulo={rotulo}
       aoTocar={aoTocar}
       role="radio"

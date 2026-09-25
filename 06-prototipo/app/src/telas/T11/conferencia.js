@@ -24,15 +24,18 @@ export const VERSAO_DO_CADASTRO = BLOCOS.map((b) => versoes[b]).join('.')
 export const parDoCaso = (casoId) => ({ ativoId: M.casos[casoId].ativoId, moduloSerial: M.casos[casoId].moduloSerial })
 
 // Num estado da coluna, o mundo é o da receita (receitas.js, G21): os casos que
-// ela diz, o primeiro por baixo. O 01 é o diff-divergente com o índice que o app
-// não classifica por cima, no par dos dois. Fora de estado, null.
+// ela diz, o primeiro por baixo. O 01 é o índice que o app não classifica, no
+// par dele (o mesmo do diff-divergente): os cinco blocos conferem, e o que sobra
+// é o conteúdo fora de todos eles (a entrega do checklist). Fora de estado, null.
+// `naoReconhecidos`: quantos conteúdos fora dos blocos — um por caso do índice
+// não classificado, com a posição dele na memória (o 1 do 'a mais', T11/01).
 export function mundoDoEstado(est) {
   const casos = est != null ? RECEITAS[`T11/${est}`]?.casos : null
   if (!casos?.length) return null
   return {
     par: parDoCaso(casos[0]),
     divergem: casos.flatMap((c) => M.casos[c]?.divergencias?.map((d) => d.bloco) ?? []),
-    naoReconhece: casos.includes(CASO_INDICE) && Boolean(M.casos[CASO_INDICE]),
+    naoReconhecidos: casos.filter((c) => c === CASO_INDICE && M.casos[c]?.posicao != null).length,
   }
 }
 const mesmoPar = (a, b) => a.ativoId === b.ativoId && a.moduloSerial === b.moduloSerial
@@ -48,6 +51,14 @@ export function divergenciasDo(par, etapas) {
   if (cadeiaConcluida(etapas)) return []
   const caso = M.casos[CASO_DIFF]
   return mesmoPar(par, parDoCaso(CASO_DIFF)) ? caso.divergencias.map((d) => d.bloco) : []
+}
+
+// O que o módulo tem, bloco a bloco, no par que diverge: o noModulo do caso
+// diff-divergente, a linha de cima do par (a entrega do checklist, T11/00). Nos
+// outros pares, nada: o que o módulo tem é o que o cadastro manda.
+export function moduloDo(par) {
+  if (!mesmoPar(par, parDoCaso(CASO_DIFF))) return {}
+  return Object.fromEntries(M.casos[CASO_DIFF].divergencias.map((d) => [d.bloco, d.noModulo]))
 }
 
 // O que o cadastro manda, bloco a bloco. No par de um caso, o que o caso

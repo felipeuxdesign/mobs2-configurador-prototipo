@@ -31,10 +31,10 @@
 }
 
 /* por cima do menu, o véu cobre tudo abaixo da tira, que fica acesa, com a
- * linha de baixo dela: o separador do topo do menu (--separador), que as
- * referências 05 a 09 desenham logo embaixo da tira. No menu real, nesse
- * ponto está a borda de cima da faixa (--borda-rodape); a linha do topo
- * passa por cima dela, e o véu começa depois. O menu fica atrás do véu (G25). */
+ * linha de baixo dela: o --separador que as referências 05 a 09 desenham
+ * logo embaixo da tira. No menu real, nesse ponto está a borda de cima da
+ * faixa (--borda-rodape); a linha do véu passa por cima dela, e o véu começa
+ * depois. O menu fica atrás do véu (G25). */
 .t04-sobre {
   position: absolute; left: 0; right: 0; bottom: 0;
   top: calc(var(--barra-sistema) + var(--tira-contexto));
@@ -43,11 +43,11 @@
 }
 
 /* nas folhas do módulo e do ativo (T04/10, 11), o véu começa embaixo da faixa:
- * a tira e a faixa ficam acesas em cima dele. A linha de cima é a mesma de
- * baixo do topo do menu (--separador), no mesmo pixel. */
-.t04-sobre-faixa { top: calc(var(--barra-sistema) + var(--tira-contexto) + var(--faixa-sessao-menu)); }
+ * a tira e a faixa ficam acesas em cima dele, com a linha de baixo da faixa
+ * (os 52 da faixa, a entrega do checklist), e o véu não traz a linha dele. */
+.t04-sobre-faixa { top: calc(var(--barra-sistema) + var(--tira-contexto) + var(--faixa-sessao)); border-top: 0; }
 
 /* no aviso do acesso vencendo (T04/12), o véu começa embaixo da barra do
  * sistema: a tira e a faixa ficam atrás dele, com o menu, sem a linha de cima
- * (a de baixo do topo do menu fica sob o véu, como a referência desenha). */
+ * (a de baixo da faixa fica sob o véu, como a referência desenha). */
 .t04-sobre-tudo { top: var(--barra-sistema); border-top: 0; }

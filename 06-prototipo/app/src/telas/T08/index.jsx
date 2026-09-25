@@ -120,7 +120,8 @@ export default function T08({ momento }) {
   return (
     <div className="t08">
       <BarraDoSistema hora={M.HORA_NOMINAL} />
-      <Faixa serial={sessao?.moduloSerial} placa={ativo?.placa} acao="ENCERRAR" aoEncerrar={encerrar} />
+      {/* o ENCERRAR faz o mesmo que o voltar: relendo, os dois não fazem nada, e ele fica apagado (a lei 17, diretor, 25/09) */}
+      <Faixa serial={sessao?.moduloSerial} placa={ativo?.placa} acao="ENCERRAR" aoEncerrar={encerrar} acaoDesabilitada={fase === 'relendo'} />
       <div className="tela-miolo">
         <div className="t08-cabeca">
           <h1 className="t08-titulo">{cabeca.titulo}</h1>

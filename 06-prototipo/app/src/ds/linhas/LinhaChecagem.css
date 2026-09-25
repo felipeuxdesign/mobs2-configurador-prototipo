@@ -56,12 +56,24 @@
 .ds-checagem.ds-checagem-fim-pre-checagem-parada { height: var(--linha-precheck-fim-parada); }
 /* C7 · T05/15 · o 'parou aqui' neutro, que não é erro: o valor sai do vermelho */
 .ds-checagem-parou.ds-checagem-tom-neutro .ds-checagem-valor { color: var(--tinta-secundaria); }
-/* C11 · T11/00 e 01 · o bloco que não bate: o traço no poço, e o que o cadastro manda em --tinta */
-.ds-checagem-conferencia.ds-checagem-diverge .ds-checagem-valor { color: var(--tinta); }
-/* C11 · T11 · a última da lista de conferência, com a folga do pé do cartão (72) */
-.ds-checagem.ds-checagem-fim-conferencia { height: var(--linha-conferencia-fim); }
-/* C11 · T11 · a leitura ainda não chegou nesta linha: o poço fica vazio */
+/* a entrega do checklist · T11/00 · o bloco que não bate: o xis no poço e o par embaixo do nome —
+ * o que o módulo tem em vermelho, o que o cadastro manda em --tinta-secundaria, a 3; a linha
+ * cresce com 10 em cima e embaixo, e o corpo deixa a coluna de 74 do nome */
+.ds-checagem.ds-checagem-com-par { height: auto; padding: var(--e-10) 0; }
+.ds-checagem-com-par .ds-checagem-corpo { flex: 0 1 auto; width: auto; gap: var(--conferencia-par-folga); }
+.ds-checagem-par { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-secundaria); }
+.ds-checagem-par-modulo { color: var(--vermelho); }
+/* a entrega do checklist · T11/01 · o bloco que confere, com o valor em --tinta */
+.ds-checagem-conferencia.ds-checagem-valor-aceso .ds-checagem-valor { color: var(--tinta); }
+/* C11 · T11 · a leitura ainda não chegou nesta linha: o poço fica vazio (a T16) */
 .ds-checagem-lendo .ds-poco > * { opacity: 0; }
+/* a entrega do checklist · T11 · na conferência, o bloco entra com o relógio no poço, e o que o
+ * módulo tem espera a leitura chegar */
+.ds-checagem-lendo.ds-checagem-lendo-relogio .ds-poco > * { opacity: 1; }
+.ds-checagem-lendo .ds-checagem-par-modulo { opacity: 0; }
+/* a leitura chega na frente de quem olha: o check ou o xis, e a linha do módulo, esmaecem (150, desacelera) */
+.ds-checagem-acende .ds-poco > *, .ds-checagem-acende .ds-checagem-par-modulo { animation: ds-checagem-esmaece var(--mov-rapido) var(--mov-curva); }
+@keyframes ds-checagem-esmaece { from { opacity: 0; } to { opacity: 1; } }
 /* C10 · T14 (G11) · o passo do ciclo com a causa: a causa na entrelinha do texto,
  * e o recheio da referência — 8 no passo reprovado (T14/03, a linha de 50) e 4 no
  * teste do cartão, a última (T14/04) */

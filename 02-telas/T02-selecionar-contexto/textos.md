@@ -17,3 +17,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `03-momento-busca-sem-resultado`
 
 `14:30` · `VIAÇÃO ATLÂNTICO SUL` · `Onde você está hoje?` · `Recreio` · `Nada com “Recreio”` · `Confira o nome, ou busque pela cidade.` · `Escolha uma garagem`
+
+## `04-momento-busca-esconde-a-escolha`
+
+`14:30` · `VIAÇÃO ATLÂNTICO SUL` · `Onde você está hoje?` · `Olin` · `RMR – RECIFE` · `Garagem Olinda` · `pacote de hoje, 06:15` · `12 ativos` · `Escolha uma garagem`

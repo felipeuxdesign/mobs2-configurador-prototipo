@@ -15,6 +15,10 @@ import './Link.css'
 // relógio, de 14) e o que ficou feito, os dois em --tinta-apagada, a 8 um do
 // outro. Como a linha de ação registrada da T06: quando vira na frente de quem
 // olha, o conteúdo esmaece em 150ms; aberto já registrado, aparece parado.
+//
+// A lei 17 (diretor, 25/09): `desabilitado` — o link que não pode agir agora
+// fica no lugar, em --tinta-apagada e sem o pressionado, desabilitado de
+// verdade (o Voltar ao menu enquanto o semear da T10 corre).
 export function Link({ children, aoTocar, rotulo, desabilitado = false, registrado = false, estado = 'relogio', nomeGlifo, className = '' }) {
   // o que o link era na última vez: só a troca pro registro esmaece, nunca a abertura
   const [antes, setAntes] = useState(registrado)

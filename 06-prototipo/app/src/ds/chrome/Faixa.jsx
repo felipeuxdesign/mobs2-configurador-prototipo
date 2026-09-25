@@ -5,21 +5,25 @@
 //   sem-sessao · LED apagado e só o fato, sem borda
 //   falha      · o serial sai, LED e fato em vermelho, traço vermelho de 2 embaixo
 // Sem `acao`, é a faixa sem ação (a do encerramento, T16): a mesma casca de
-// 52, com a borda (DS-D5). No menu (lugar 'menu') ela tem 50 (--faixa-sessao-menu)
-// e borda de cima --borda-rodape, embaixo da tira. 'sem ativo' na placa fica em
+// 52, com a borda (DS-D5). No menu (lugar 'menu') ela tem os mesmos 52, com a
+// linha de baixo e a borda de cima --borda-rodape, embaixo da tira; em falha, a
+// linha vermelha de 2 nos mesmos 52 (a entrega do checklist: a faixa é uma peça
+// só; saiu o traço sobreposto do C5). Sem sessão, no menu, fica a do T04/01, 50
+// com a borda de cima e a linha embaixo. 'sem ativo' na placa fica em
 // --tinta-apagada (G13).
-// `tracoSobreposto` (no menu): o traço vermelho da falha é desenhado por cima
-// dos 2 de baixo, sem roubar altura — o conteúdo fica onde está na faixa
-// aberta (G24, T04/03). Sem ele, o traço é a borda, como a folha 2 desenha.
 import { Led } from '../primitivos/Marcador.jsx'
 import { Camadas } from './Camadas.jsx'
 import './Faixa.css'
 
 const LED = { aberta: 'viva', 'sem-sessao': 'sem-sessao', falha: 'falha' }
 
-export function Faixa({ estado = 'aberta', lugar = 'tela', serial, placa, semAtivo = false, fato, acao, aoEncerrar, rotuloAcao, forcaToque = false, tracoSobreposto = false }) {
+// `acaoDesabilitada` (G11, a lei 17, *desabilitado é tinta apagada*, diretor 25/09): nos processos, o ENCERRAR
+// faz o mesmo que o voltar do Android; onde o voltar não faz nada (a pré-checagem correndo, a atualização do
+// firmware, a releitura da CAN, o semear, a recuperação da T09), ele fica desabilitado de verdade e em
+// --tinta-apagada, sem o pressionado; o motivo já está escrito na tela
+export function Faixa({ estado = 'aberta', lugar = 'tela', serial, placa, semAtivo = false, fato, acao, aoEncerrar, rotuloAcao, forcaToque = false, acaoDesabilitada = false }) {
   return (
-    <div className={`ds-faixa ds-faixa-${estado} ${lugar === 'menu' ? 'ds-faixa-menu' : ''} ${tracoSobreposto ? 'ds-faixa-traco-sobreposto' : ''}`}>
+    <div className={`ds-faixa ds-faixa-${estado} ${lugar === 'menu' ? 'ds-faixa-menu' : ''}`}>
       <div className="ds-faixa-id">
         <Led estado={LED[estado]} />
         {estado === 'aberta' ? (
@@ -33,7 +37,8 @@ export function Faixa({ estado = 'aberta', lugar = 'tela', serial, placa, semAti
         )}
       </div>
       {acao && (
-        <button type="button" className={`ds-faixa-acao ds-com-camadas ${forcaToque ? 'ds-forca-toque' : ''}`} aria-label={rotuloAcao} onClick={aoEncerrar}>
+        <button type="button" className={`ds-faixa-acao ds-com-camadas ${forcaToque ? 'ds-forca-toque' : ''} ${acaoDesabilitada ? 'ds-faixa-acao-desabilitada' : ''}`}
+          aria-label={rotuloAcao} onClick={acaoDesabilitada ? undefined : aoEncerrar} disabled={acaoDesabilitada || undefined}>
           <Camadas>{acao}</Camadas>
         </button>
       )}

@@ -32,7 +32,7 @@ Cada caso de `mocks.js` → a tela e o estado que ele produz. **O estado se mont
 | `indice-nao-classificado` | `T11/01-estado-conteudo-que-o-app-nao-reconhece` |
 | `instalacoes-sem-rede` | `T12/03-estado-sem-rede` |
 | `link-perdido` | `T04/03-estado-faixa-modulo-com-falha` · `T05/14-estado-pre-checagem-link-perdido-na-6a` |
-| `lista-longa-garagens` | `T02/02-estado-lista-longa-com-busca` · `T02/03-momento-busca-sem-resultado` |
+| `lista-longa-garagens` | `T02/02-estado-lista-longa-com-busca` · `T02/03-momento-busca-sem-resultado` · `T02/04-momento-busca-esconde-a-escolha` |
 | `localizacao-negada` | `T13/14-estado-homologado-sem-localizacao` |
 | `ma-02` | `T06/03-estado-sem-chassi-na-can` · `T10/02-estado-rotacao-caminhao-coletor` |
 | `modelo-sem-driver` | `T05/07-estado-pre-checagem-modelo-sem-driver` |
@@ -41,11 +41,13 @@ Cada caso de `mocks.js` → a tela e o estado que ele produz. **O estado se mont
 | `pac-uo-02` | `T03/03-estado-pacote-de-4-dias` |
 | `pac-uo-03` | `T03/04-estado-pacote-vencido` |
 | `pool-esgotado` | `T05/12-estado-pre-checagem-pool-de-cercas-esgotado` |
+| `primeiro-acesso` | `T01/15-estado-primeiro-acesso` |
 | `queda-na-cadeia` | `T09/02-estado-queda-na-cadeia` |
 | `releitura-nao-confere` | `T10/10-estado-releitura-nao-confere` |
 | `sem-conexao-no-login` | `T01/14-estado-login-sem-conexao` |
 | `serial-nao-cadastrado` | `T05/06-estado-pre-checagem-serial-nao-cadastrado` |
 | `sessao-interrompida` | `T16/06-estado-sessao-interrompida` |
 | `sync-falha-rede` | `T03/01-estado-falha-de-rede` |
+| `usuario-lembrado` | `T01/16-estado-usuario-lembrado` |
 
 Os estados sem caso próprio nascem de um dado do mock — por exemplo, o caminhão KNB-5H39 sem chassi vem de `modelosAtivo` ma-02 com `chassiPelaCan: false`. O `estados.md` de cada tela diz de onde vem cada um.

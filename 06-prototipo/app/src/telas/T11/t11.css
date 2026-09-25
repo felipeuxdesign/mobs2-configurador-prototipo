@@ -14,3 +14,10 @@
 /* a legenda solta embaixo da lista (00, 01): não é a 'com legenda' do rodapé,
  * que fica a 12 do botão e centrada (T11-A14) — é o texto de 12 do conteúdo */
 .t11-legenda { font-size: var(--t-legenda); font-weight: 500; line-height: var(--entrelinha-legenda); color: var(--tinta-apagada); }
+
+/* o veredito espera a última linha (a decisão do diretor de 25/09, C12·35 b): o com
+ * contagem, e no 02 o 'igual à do cadastro' da prova, ficam no lugar, sem desenho, e
+ * entram esmaecendo em 150 (desacelera); com reduzir, direto. Nascida lida, a tela
+ * não os esconde, e nada anima */
+.t11-veredito, .t11-prova .ds-prova-legenda { transition: opacity var(--mov-rapido) var(--mov-curva); }
+.t11-veredito.t11-espera, .t11-prova.t11-espera .ds-prova-legenda { opacity: 0; }

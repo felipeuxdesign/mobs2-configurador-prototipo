@@ -3,6 +3,8 @@
 // o intervalo —, ele é montado do mock na hora e confere com o textos.md (G1, G8).
 // O motivo escrito no caso indice-nao-classificado não é lido: a frase é a do
 // textos.md, e a posição 7 é vocabulário que o técnico não lê (T11-V7, G9).
+// O noModulo do diff-divergente passa a ser lido (a entrega do checklist): o
+// par do bloco que não bate diz o que o módulo tem.
 import { porExtenso } from '../../dados/formato.js'
 
 export const T = {
@@ -12,6 +14,11 @@ export const T = {
   naoBate: 'NÃO BATE COM O CADASTRO',
   confere: 'CONFERE COM O CADASTRO',
   deTotal: (total) => `de ${total}`,
+  // o 01: quantos conteúdos o app não reconhece, a mais que os blocos
+  aMais: 'a mais',
+  // o par do bloco que não bate (a entrega do checklist, T11/00): o valor é do caso
+  noModulo: (valor) => `no módulo · ${valor}`,
+  noCadastro: (valor) => `no cadastro · ${valor}`,
   // o que o cadastro manda, bloco a bloco, no par que não tem caso: a frase é
   // daqui, o valor é do cadastro do par (a tradução do modelo, as regiões do
   // ativo, o preset de eventos); o leitor sem fio é o meio da sessão
