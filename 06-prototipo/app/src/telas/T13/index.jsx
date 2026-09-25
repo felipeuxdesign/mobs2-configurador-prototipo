@@ -10,6 +10,12 @@
 // · B, o item manual: tocar num cartão de foto abre o nível do item (07);
 //   Não conforme abre a justificativa (08). Tirar foto e Salvar com ressalva
 //   resolvem o item e seguem pro próximo por fazer; sem próximo, voltam à B.
+// · A câmera do item sem a permissão (o mundo real, igual à T10/11 · estado/
+//   camera.js): o visor com a câmera riscada e o Tirar foto vira Abrir as
+//   configurações; permitida lá, a câmera abre na volta. O Não conforme
+//   continua: a ressalva não precisa da câmera (o primário sai de
+//   primarioDaCamera). Nenhuma referência desenha este quadro e o visor fica
+//   sem frase (G25), e a URL sai do momento; nenhum estado da coluna chega nele.
 // · O automático reprovado leva ao nível do item (09), que mostra o motivo e
 //   o caminho: Refazer a leitura da CAN → T08 (T13·2). Nada se marca à mão.
 // · E não se responde aqui: o passo que falta abre a T14 (T13·4, HU-T13-8).
@@ -24,17 +30,19 @@
 import { useEffect, useRef, useState } from 'react'
 import {
   BarraDoSistema, Faixa, CabecalhoConteudo, Placar, LinhaSecaoMapa, Lista, SecaoChecklist, GradeCartoes,
-  CartaoValor, CartaoFoto, Segmentado, LinhaTocavel, Justificativa, Nota, Rodape, Veu, Dialogo, Frase,
+  CartaoValor, CartaoFoto, Segmentado, LinhaTocavel, Justificativa, Nota, Rodape, Veu, Dialogo, Frase, VisorCamera,
 } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
+import { NEGADA, permissaoDoEstado, camera as cameraDa, primarioDaCamera, voltaDasConfiguracoes } from '../../estado/camera.js'
+import { RECEITAS } from '../../estado/receitas.js'
 import { SEMENTES } from '../../estado/sementes.js'
 import { M } from '../../dados/mock.js'
 import {
   REF, SECAO_DO_MOMENTO, MOMENTO_DA_SECAO, mundoDe, checklist, nivelDoItem, primeiroPendente, proximoPendente,
   instrumentoDoItem, filaDoFinalizar, nomeDaSecao, rotuloDoNivel, itemDe, ativoDe,
 } from './checklist.js'
-import { VisorCamera, InstrumentoDoItem } from './pecas.jsx'
+import { InstrumentoDoItem } from './pecas.jsx'
 import { T } from './textos.js'
 import './t13.css'
 
@@ -84,6 +92,8 @@ export default function T13({ momento, estado: est }) {
   const mundo = comRegistro(base, registro)
   const ck = checklist(mundo)
   const [q, setQ] = useState(() => quadroInicial({ momento, est, ck }))
+  // a permissão da câmera do item: a do caso do estado da coluna; no fluxo, concedida
+  const [permissao, setPermissao] = useState(() => permissaoDoEstado(est ? RECEITAS[`T13/${est}`] : null, M.casos))
   const vivo = useRef(unico)
   vivo.current = unico
   const homologada = registro.homologada
@@ -111,6 +121,9 @@ export default function T13({ momento, estado: est }) {
   // ── os toques ──
   const ir = (tela, extra = {}) => despachar({ tipo: 'ir', tela, ...extra })
   const irQuadro = (m) => ir('T13', m ? { momento: m } : {})
+  // o nível do item manual (07, 08): sem a permissão da câmera, o quadro não tem
+  // referência, e a URL sai do momento (como a câmera da T10 e o item reprovado)
+  const irItem = (m, p = permissao) => irQuadro(p === NEGADA ? null : m)
   const mapa = () => (homologada ? REF.homologado : null)
   const encerrar = () => (homologada ? ir('T16') : ir('T16', { momento: ENCERRAR_SEM_HOMOLOGAR }))
   const voltarAoMenu = () => ir('T04')
@@ -122,7 +135,7 @@ export default function T13({ momento, estado: est }) {
   }
   function abrirItem(id) {
     setQ({ ...q, item: id, naoConforme: false, texto: '' })
-    irQuadro(REF.responder)
+    irItem(REF.responder)
   }
   function abrirReprovado(id) {
     setQ({ ...q, item: id })
@@ -130,7 +143,7 @@ export default function T13({ momento, estado: est }) {
   }
   function marcarNaoConforme(marcado) {
     setQ((x) => ({ ...x, naoConforme: marcado, texto: marcado ? (x.texto || M.checklist.exemploJustificativa) : x.texto }))
-    irQuadro(marcado ? REF.naoConforme : REF.responder)
+    irItem(marcado ? REF.naoConforme : REF.responder)
   }
   function voltarAoChecklist() {
     const s = itemDe(q.item).secao
@@ -146,7 +159,7 @@ export default function T13({ momento, estado: est }) {
     setRegistro(novo)
     gravar(novo)
     const seguinte = proximoPendente(checklist(comRegistro(base, novo)), id)
-    if (seguinte) { setQ({ ...q, item: seguinte, naoConforme: false, texto: '' }); irQuadro(REF.responder) } else {
+    if (seguinte) { setQ({ ...q, item: seguinte, naoConforme: false, texto: '' }); irItem(REF.responder) } else {
       setQ({ ...q, item: null, naoConforme: false, texto: '', aberta: itemDe(id).secao })
       irQuadro(MOMENTO_DA_SECAO[itemDe(id).secao])
     }
@@ -205,13 +218,15 @@ export default function T13({ momento, estado: est }) {
   let rodape
   const nivel = q.item ? nivelDoItem(ck, q.item) : null
   if (nivel && nivel.item.secao === 'B') {
-    // o nível do item manual (07, 08)
+    // o nível do item manual (07, 08). Sem a permissão da câmera, a câmera
+    // riscada e o Abrir as configurações no lugar do Tirar foto (estado/camera.js)
+    const cam = cameraDa(permissao)
     miolo = (
       <>
         <Segmentado rotulo={rotuloDoNivel(nivel.secao)} contagem={String(nivel.posicao)} total={T.de(nivel.total)} segmentos={nivel.segmentos}
           legenda={nivel.depois ? T.depois(nivel.depois) : undefined} />
         <h1 className="t13-titulo-item">{nivel.item.pergunta}</h1>
-        <VisorCamera dica={nivel.item.instrucao} />
+        {cam.abre ? <VisorCamera frase={nivel.item.instrucao} /> : <VisorCamera semPermissao />}
         {q.naoConforme
           ? <Justificativa opcao={T.naoConforme} marcado aoMarcar={marcarNaoConforme} rotulo={T.justificativa} valor={q.texto}
               aoEscrever={(texto) => setQ((x) => ({ ...x, texto }))} focado />
@@ -219,8 +234,17 @@ export default function T13({ momento, estado: est }) {
               rotulo={`${T.naoConforme}, ${T.pedeJustificativa}`} aoTocar={() => marcarNaoConforme(true)} />}
       </>
     )
+    // o primário é o que estado/camera.js diz (provado no node, scripts/testar-camera.mjs):
+    // o Não conforme marcado ganha da câmera, com ou sem a permissão
+    const PRIMARIO = {
+      'tirar-foto': { rotulo: T.tirarFoto, aoTocar: () => responder('foto') },
+      'salvar-com-ressalva': { rotulo: T.salvarComRessalva, aoTocar: () => responder('ressalva') },
+      // de volta das configurações com a permissão, a câmera abre, e a URL volta ao 07
+      'abrir-configuracoes': { rotulo: T.abrirConfiguracoes, aoTocar: () => { const p = voltaDasConfiguracoes(); setPermissao(p); irItem(REF.responder, p) } },
+    }
+    const primario = PRIMARIO[primarioDaCamera(permissao, { ressalva: q.naoConforme })]
     rodape = (
-      <Rodape primario={q.naoConforme ? T.salvarComRessalva : T.tirarFoto} aoPrimario={() => responder(q.naoConforme ? 'ressalva' : 'foto')}
+      <Rodape primario={primario.rotulo} aoPrimario={primario.aoTocar}
         primarioDesabilitado={q.naoConforme && !q.texto.trim()} link={T.voltarChecklist} aoLink={voltarAoChecklist} />
     )
   } else if (nivel) {

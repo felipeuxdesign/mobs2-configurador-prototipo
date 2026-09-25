@@ -16,3 +16,5 @@
 .ds-aviso-bloqueio .ds-aviso-texto { gap: var(--e-6); }
 .ds-aviso-bloqueio .ds-aviso-titulo { font-size: var(--t-rotulo-topo); letter-spacing: var(--ls-rotulo-topo); }
 .ds-aviso-bloqueio .ds-aviso-frase { color: var(--tinta-secundaria); line-height: var(--entrelinha-frase-caixa); }
+/* o mundo real · T01/14 · o neutro com o traço cinza embaixo: o SEM CONEXÃO do login (G11) */
+.ds-aviso.ds-aviso-traco { border-bottom: var(--traco-destaque) solid var(--tinta-secundaria); }

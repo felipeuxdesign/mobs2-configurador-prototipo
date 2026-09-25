@@ -119,4 +119,19 @@ export const TX = {
   acordeDa: { 9: 'Acorde para seguir da nona.' },
   emRepouso: 'em repouso',
   acordarModulo: 'Acordar módulo',
+
+  // ── o mundo real · o que o celular impede antes da busca (celular.js) ──
+  // 16 · o Bluetooth desligado (bluetooth-desligado)
+  semBluetooth: 'sem Bluetooth',
+  bluetoothDesligado: 'O Bluetooth está desligado',
+  semEle: 'Sem ele, o app não acha o módulo. Ligue, e a busca começa sozinha.',
+  ligarBluetooth: 'Ligar o Bluetooth',
+  // 17 · a permissão negada (bluetooth-sem-permissao)
+  semPermissao: 'sem permissão',
+  faltaPermissao: 'Falta a permissão do Bluetooth',
+  oAppUsa: 'O app usa só pra achar os módulos por perto. Sem ela, a busca não começa.',
+  permitir: 'Permitir',
+  // o Android não deixa perguntar de novo: o primário vira a saída (tela.md; a
+  // letra é a da T10/11 e da lei de construir, 12 — nenhuma referência da T05 a desenha)
+  abrirConfiguracoes: 'Abrir as configurações',
 }

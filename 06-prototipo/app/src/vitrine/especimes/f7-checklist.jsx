@@ -5,7 +5,7 @@
 // As peças de outra família entram compostas: a Lista e a cabeça da seção
 // (linhas, folha 4) e o cartão de ferramenta com o contador (cartões, folha 4).
 import {
-  LinhaSecaoMapa, SecaoChecklist, CartaoValor, GradeCartoes, CartaoFoto, FotoProva,
+  LinhaSecaoMapa, SecaoChecklist, CartaoValor, GradeCartoes, CartaoFoto, FotoProva, VisorCamera,
   Mostrador, BlocoEvento, LinhaFila, LinhaRechecagem, Prova,
 } from '../../ds/checklist/index.js'
 import { Lista } from '../../ds/linhas/index.js'
@@ -55,6 +55,17 @@ export const especimes = [
     render: () => <FotoProva titulo="Fotografar o painel" legenda="é a prova do número — vale no checklist" aoTocar={() => {}} /> },
   { id: 'f7-foto-tirada', folha: 7, rotulo: 'foto · tirada', legenda: 'vira o registro no lugar, e deixa de ser tocável · diz onde mais ela vale',
     render: () => <FotoProva tirada titulo="Painel fotografado às 14:31" legenda="vale também no checklist, na Seção B" /> },
+  // o mundo real · a câmera do app (T10/06 e 11, T13/07 e 08): nenhuma folha a
+  // desenha (o design system ainda não a lista), então fica fora da bancada
+  // (semBancada) — as telas medem a da T10 e a da T13 contra as referências. A
+  // câmera do item sem a permissão não tem referência nem estado na coluna: é
+  // aqui que ela se vê
+  { id: 'f7-visor-camera', folha: 7, rotulo: 'a câmera do app', semBancada: true, legenda: 'fora da folha · o quadro parado da câmera, com a frase de enquadrar (T10/06, T13/07)',
+    render: () => <VisorCamera frase="Enquadre o hodômetro do painel" /> },
+  { id: 'f7-visor-sem-permissao', folha: 7, rotulo: 'a câmera do app · sem a permissão', semBancada: true, legenda: 'fora da folha · a câmera riscada, o que falta e a explicação apagada (T10/11)',
+    render: () => <VisorCamera semPermissao frase="O app precisa da câmera pra fotografar o painel" explicacao="Sem a foto, a calibração não semeia." /> },
+  { id: 'f7-visor-sem-permissao-item', folha: 7, rotulo: 'a câmera do item · sem a permissão', semBancada: true, legenda: 'fora da folha · no checklist, sem texto aprovado: só a câmera riscada (G25)',
+    render: () => <VisorCamera semPermissao /> },
   { id: 'f7-mostrador-apagado', folha: 7, rotulo: 'mostrador · apagado', legenda: 'tracejado · o traço no lugar do valor',
     render: () => <Mostrador estado="apagado" valor="—" nome="Ignição" /> },
   { id: 'f7-mostrador-relendo', folha: 7, rotulo: 'mostrador · relendo', legenda: 'acende quando o sinal responde',

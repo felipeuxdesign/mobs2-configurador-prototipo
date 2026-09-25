@@ -1,0 +1,16 @@
+/* A câmera do app (T10/06 e 11, T13/07 e 08): o poço que cresce no que sobra,
+ * a câmera e a frase no meio; sem a permissão, a explicação embaixo (T10/11). */
+.ds-visor {
+  flex-grow: 1; flex-shrink: 1; min-height: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: var(--e-14); padding: var(--e-16);
+}
+.ds-visor .ds-icone.ds-visor-camera { width: var(--icone-visor); height: var(--icone-visor); }
+.ds-visor-frase {
+  font-size: var(--t-corpo); font-weight: 600; color: var(--tinta-secundaria);
+  text-align: center; line-height: var(--entrelinha-texto);
+}
+.ds-visor-explicacao {
+  font-size: var(--t-secundario); font-weight: 500; color: var(--tinta-apagada);
+  text-align: center; line-height: var(--entrelinha-texto); max-width: var(--visor-explicacao);
+}

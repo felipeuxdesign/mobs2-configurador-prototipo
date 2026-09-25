@@ -709,7 +709,8 @@
    "html": "02-telas/T05-conectar-modulo/referencias/html/16-estado-bluetooth-desligado.html",
    "png": "02-telas/T05-conectar-modulo/referencias/png/16-estado-bluetooth-desligado.png",
    "rotulo": "Bluetooth desligado",
-   "rotuloOrigem": "proposto"
+   "rotuloOrigem": "proposto",
+   "grupo": "achar"
   },
   {
    "id": "T05/17-estado-bluetooth-sem-permissao",
@@ -723,7 +724,8 @@
    "html": "02-telas/T05-conectar-modulo/referencias/html/17-estado-bluetooth-sem-permissao.html",
    "png": "02-telas/T05-conectar-modulo/referencias/png/17-estado-bluetooth-sem-permissao.png",
    "rotulo": "Bluetooth sem permissão",
-   "rotuloOrigem": "proposto"
+   "rotuloOrigem": "proposto",
+   "grupo": "achar"
   },
   {
    "id": "T06/00-tela",

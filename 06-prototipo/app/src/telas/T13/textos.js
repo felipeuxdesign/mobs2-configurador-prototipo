@@ -45,6 +45,12 @@ export const T = {
   justificativa: 'JUSTIFICATIVA',
   tirarFoto: 'Tirar foto',
   salvarComRessalva: 'Salvar com ressalva',
+  // a câmera sem a permissão: nenhuma referência da T13 a desenha; o primário é
+  // o da câmera da T10 (T10/11, textos.md), que vale igual pro checklist
+  // (logica.md · O mundo real, e a regra 12 da lei de construir). A frase do
+  // que falta não tem texto pro item do checklist: o visor fica só com a câmera
+  // riscada (G25)
+  abrirConfiguracoes: 'Abrir as configurações',
 
   // o item reprovado (09)
   lidoNaCan: 'LIDO NA CAN',

@@ -28,6 +28,27 @@ try {
   chk('sementes e receitas', /TESTE APROVADO/.test(saida), n + ' estados, todo id no mock')
 } catch (e) { chk('sementes e receitas', false, 'reprovou'); console.log(e.stdout) }
 
+// 2c · as regras do mundo real no node: a conta do teclado e o retrato do palco (06-prototipo/CLAUDE.md, 10 e 11)
+try {
+  const saida = execFileSync('node', [resolve(app, 'scripts/testar-regras.mjs')], { encoding: 'utf8' })
+  const n = saida.split('\n').filter((l) => l.startsWith('OK')).length
+  chk('o teclado e o retrato', /TESTE APROVADO/.test(saida), n + ' contas')
+} catch (e) { chk('o teclado e o retrato', false, 'reprovou'); console.log(e.stdout) }
+
+// 2d · os toques do mundo real que só abrem pela coluna: o login sem conexão (T01/14) e o Bluetooth (T05/16, 17)
+try {
+  const saida = execFileSync('node', [resolve(app, 'scripts/testar-login-e-bluetooth.mjs')], { encoding: 'utf8' })
+  const n = saida.split('\n').filter((l) => l.startsWith('OK')).length
+  chk('o login sem conexão e o Bluetooth', /TESTE APROVADO/.test(saida), n + ' toques')
+} catch (e) { chk('o login sem conexão e o Bluetooth', false, 'reprovou'); console.log(e.stdout) }
+
+// 2e · a câmera sem a permissão (T10/11 e a câmera do checklist), que só abre pela coluna: o Abrir as configurações
+try {
+  const saida = execFileSync('node', [resolve(app, 'scripts/testar-camera.mjs')], { encoding: 'utf8' })
+  const n = saida.split('\n').filter((l) => l.startsWith('OK')).length
+  chk('a câmera sem a permissão', /TESTE APROVADO/.test(saida), n + ' conferências')
+} catch (e) { chk('a câmera sem a permissão', false, 'reprovou'); console.log(e.stdout) }
+
 // 3 · higiene de app/src: relógio, acaso, locale, valor solto
 function arquivos(d) {
   return readdirSync(d).flatMap(n => { const p = join(d, n); return statSync(p).isDirectory() ? arquivos(p) : [p] })

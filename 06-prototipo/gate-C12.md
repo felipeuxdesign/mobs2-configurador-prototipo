@@ -401,6 +401,7 @@ Cada decisão traz o padrão que adoto. As marcadas **já decidida** repetem uma
   - (a) Manter as duas coisas: só os glifos acendem, e o primeiro vem 400 ms depois de a tela montar, com a troca de 150 ms já acabada.
   - (b) O veredito espera a quinta linha, e o relógio só liga depois da troca (o primeiro glifo aos 550 ms).
   - **Padrão (a):** foi decidido no C11 e não inventa quadro.
+  - **Decidido pelo diretor (25/09): (b).** O veredito espera a última linha.
 
 ### O checklist, o ciclo e a sessão (T13, T14 e T16)
 

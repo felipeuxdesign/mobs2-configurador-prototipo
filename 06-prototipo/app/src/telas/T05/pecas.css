@@ -16,3 +16,6 @@
 .t05-vazio-marca::after { content: ''; display: block; width: var(--e-14); height: var(--traco-borda); background: var(--borda-poco); }
 .t05-vazio-titulo { font-size: var(--t-titulo-bloco); font-weight: 700; line-height: var(--entrelinha-cartao); color: var(--tinta); }
 .t05-vazio-frase { font-size: var(--t-corpo); font-weight: 500; line-height: var(--entrelinha-frase-busca); color: var(--tinta-secundaria); }
+/* o mundo real · T05/16 e 17 · no lugar da marca, o poço de 44 com o Bluetooth
+ * cortado de 22, no traço das ações (o ícone no poço de 44, como o da T04) */
+.t05-vazio-icone.ds-icone { width: var(--icone-poco-44); height: var(--icone-poco-44); }

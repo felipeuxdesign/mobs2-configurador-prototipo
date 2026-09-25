@@ -15,6 +15,7 @@ Fechar a homologação: o que o app já provou sozinho, e o que o técnico ainda
 - tocar numa seção → ela aberta
 - item automático reprovado → a tela que corrige
 - item manual → responder: foto, ou não conforme com justificativa
+- item manual sem a permissão da câmera → igual à câmera da T10 (T10/11): o visor com a câmera riscada e o `Tirar foto` vira `Abrir as configurações` — permitida lá, a câmera abre na volta · o `Não conforme` continua, porque a ressalva não precisa da câmera · nenhuma referência desenha este quadro e o `textos.md` não tem a frase do que falta pro item, então o visor fica só com a câmera riscada (G25), e a URL sai do momento (sem a referência, o 07 e o 08 não o desenham); no protótipo, nenhum estado da coluna chega nele, e ele se vê na vitrine (`f7-visor-sem-permissao-item`). O primário, nos três casos (o `Tirar foto`, o `Abrir as configurações` e o `Salvar com ressalva`), sai de uma função só, provada no node (`app/src/estado/camera.js` · `primarioDaCamera`, `app/scripts/testar-camera.mjs`)
 - `Finalizar instalação` → homologado; com a Seção F falhando, pede a ciência
 
 ## As regras (C10, decididas no C0 e escritas aqui — G1)
@@ -77,7 +78,7 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 
 Anotação de construção, medida no código e nas referências. A lista de cima é a do design; esta é a que o protótipo usa, e a diferença entre as duas vai pro arquiteto.
 
-Medido nas referências e no código do C10 (G10): toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe. O visor da câmera e o instrumento do item reprovado são peças só desta tela (`app/src/telas/T13/pecas.jsx`), montadas com os primitivos.
+Medido nas referências e no código do C10 (G10): toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe. O instrumento do item reprovado é peça só desta tela (`app/src/telas/T13/pecas.jsx`), montada com os primitivos. O visor da câmera do item manual é o mesmo desenho da câmera da T10, e as duas são uma peça só, `VisorCamera`, em `app/src/ds/checklist/` (a entrega do mundo real), que o design system ainda não lista.
 
 - primário · normal
 - primário · pressionado

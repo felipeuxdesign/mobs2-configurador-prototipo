@@ -59,10 +59,10 @@ const NOTAS = {
   'coluna': MARCADOR,
   '02-num-estado/coluna': MARCADOR + '; e o Undo2 do Lucide no Voltar ao fluxo (G5)',
   '01-no-fluxo/coluna': 'o quadro lista 2 dos 5 estados da T04; a coluna lista todos (PALCO-A4, PALCO-D3); e ' + MARCADOR,
-  '03-tela-com-muitos-estados/coluna': 'o quadro põe o momento "Um encontrado" no grupo Achar; a coluna lista só os 11 estados (G19, PALCO-A7); o nome do grupo na tinta e na letra do rótulo de 10 (lei 11, PALCO-A15, PALCO-V4); e ' + MARCADOR,
+  '03-tela-com-muitos-estados/coluna': 'o quadro põe o momento "Um encontrado" no grupo Achar; a coluna lista só os 13 estados, com o Bluetooth desligado e sem permissão no Achar (o mundo real, T05/16 e 17) (G19, PALCO-A7); o nome do grupo na tinta e na letra do rótulo de 10 (lei 11, PALCO-A15, PALCO-V4); e ' + MARCADOR,
   'coluna-no-fluxo': MARCADOR,
   'coluna-num-estado': MARCADOR + '; e o Undo2 do Lucide no Voltar ao fluxo (G5)',
-  'coluna-T05': 'a lista dos grupos: a folha tem 10 estados, sem "Firmware fora · sem rede", e a coluna tem os 11 (PALCO-A7); o nome do grupo na tinta e na letra do rótulo de 10, e não em --marca-limite e 1,4 (lei 11, PALCO-A15, PALCO-V4); e ' + MARCADOR,
+  'coluna-T05': 'a lista dos grupos: a folha tem 10 estados, sem "Firmware fora · sem rede", e a coluna tem os 13, com o Bluetooth desligado e sem permissão no Achar (o mundo real, T05/16 e 17) (PALCO-A7); o nome do grupo na tinta e na letra do rótulo de 10, e não em --marca-limite e 1,4 (lei 11, PALCO-A15, PALCO-V4); e ' + MARCADOR,
 }
 const notaDe = (nome, nomePeca) => NOTAS[`${nome}/${nomePeca}`] ?? NOTAS[nomePeca]
 const NOTAS_TEXTO = {

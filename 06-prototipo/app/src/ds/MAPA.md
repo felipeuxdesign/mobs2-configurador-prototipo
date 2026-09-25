@@ -45,7 +45,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 |---|---|
 | escolha numa lista | src/ds/linhas/LinhaEscolha.jsx (poço de 30 com o Quadrado · decisão 29; escolhivel: a vencida também se escolhe, T02·1 · C4) |
 | os glifos de estado | src/ds/primitivos/Glifo.jsx (ESTADOS; fora da folha, fora de ESTADOS: traco-circulo, o não se aplica da assertiva da sessão · C11, T16/02 e 05) |
-| os ícones de ferramenta | src/ds/primitivos/Icone.jsx (ICONES; subindo: a seta do SUBINDO AGORA, com o traço 2,2 do glifo · C11, T15/01; xis-mini: o xis solto de 14 do não confere, traço 2,6 · a entrega de 25/09, T10/10) |
+| os ícones de ferramenta | src/ds/primitivos/Icone.jsx (ICONES; subindo: a seta do SUBINDO AGORA, com o traço 2,2 do glifo · C11, T15/01; xis-mini: o xis solto de 14 do não confere, traço 2,6 · a entrega de 25/09, T10/10; bluetooth-desligado: o Bluetooth cortado de 22 no poço de 44, traço 1,8 · o mundo real, T05/16 e 17; camera-negada: a câmera riscada de 46 no visor da câmera sem a permissão, traço 1,8 · o mundo real, T10/11) |
 | os poços | src/ds/primitivos/Poco.jsx |
 | os marcadores | src/ds/primitivos/Marcador.jsx (Quadrado: o marcador de escolha, um só, vazado ou lima de 11 · decisão 29; Led) |
 
@@ -73,7 +73,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | espera | src/ds/cartoes/CartaoFerramenta.jsx (estado espera; sem folga entre o poço e o nome, como a folha 4 desenha; largo, o ativo que espera o módulo · C5) |
 | espera a rede | src/ds/cartoes/CartaoFerramenta.jsx (estado sem-rede) |
 | falha | src/ds/cartoes/Aviso.jsx (tom falha; mudo, o glifo calado pro leitor, G15 · C4, T03/01 e 03; bloqueio, sem poço, 14 em volta, o rótulo de topo e a frase de duas orações, A HOMOLOGAÇÃO FICA BLOQUEADA, Lei 7 · exceção · C11, T16/05) |
-| aviso | src/ds/cartoes/Aviso.jsx (tom neutro; semPoco no da folha de garagem, Lei 7 · C5, T04/08) |
+| aviso | src/ds/cartoes/Aviso.jsx (tom neutro; semPoco no da folha de garagem, Lei 7 · C5, T04/08; traco, o traço cinza embaixo, na cor do rótulo, do SEM CONEXÃO do login · o mundo real, T01/14) |
 | processo parado | src/ds/cartoes/Aviso.jsx (glifo xis) |
 | com contagem | src/ds/cartoes/Aviso.jsx (numero, unidade; tom veredito, o que confere em lima, sem poço, 12 · 14 · C11, T11/02) |
 | vazio declarado | src/ds/cartoes/Vazio.jsx (também a busca sem resultado, com o termo no título — T02/03, T06/08 · entrega de 25/09) |
@@ -183,3 +183,4 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 - entrada/CampoTexto.jsx, o campo longo da justificativa; entrada/Requisito.jsx · Requisitos, a lista
 - instrumentos/Escala.jsx (semLados: a barra do download da T03, o placar sem as bordas dos lados · C4; vazia: o poço do sinal que não chegou, só o traço no meio · C8, T07/02; tam envio: a barra de 16 do item que sobe, com os riscos e o marcador da barra pequena · C11, T15/01; tam item: a barra de 22 do instrumento do item reprovado · C10, T13/09), Trilho.jsx, Tambor.jsx, RodaDigito.jsx (G29) e LeituraPequena.jsx · GradeLeituras
 - checklist/CartaoValor.jsx · GradeCartoes
+- checklist/VisorCamera.jsx, a câmera do app: o quadro parado da câmera do painel (T10/06) e do item manual (T13/07, 08), que eram duas cópias do mesmo desenho, uma em cada tela; semPermissao, a câmera riscada, a frase do que falta e a explicação apagada (T10/11; na T13, só a câmera riscada, G25) · o mundo real. O design system ainda não a lista: sem linha no `componentes.md`, vai pro arquiteto; os espécimes estão na vitrine, fora da bancada (f7-visor-*)

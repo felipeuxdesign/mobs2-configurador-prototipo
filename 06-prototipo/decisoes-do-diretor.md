@@ -2,6 +2,16 @@
 
 As perguntas que os ciclos deixaram, cada uma com o padrão que o protótipo adotou enquanto a resposta não vem. Nenhuma trava o protótipo: ele roda com o padrão, e a resposta muda o que está escrito aqui e no código. As perguntas de produto, pro PM, ficam em `08-produto-real/pendencias.md`; as do desenho, pro arquiteto, em `diferencas-para-o-arquiteto.md`, na raiz.
 
+## Respondidas pelo diretor (25/09)
+
+- **T11 · o veredito antes da prova (C12·35): (b).** O *CONFERE COM O CADASTRO · 5 de 5* e o *igual à do cadastro* esperam a última linha acender, e entram esmaecendo no lugar
+- **os botões acesos que não fazem nada (regra 12): (b).** O *Sincronizar* das garagens sem pacote na lista longa da T02, o *Procurar de novo* da T05/01 que acha a mesma lista e o *ENCERRAR* na recuperação da T09 ficam desabilitados de verdade. Vai ao arquiteto, pra ele desenhar o desabilitado nas referências e ficar alinhado
+- **T02 e T06 · a busca que esconde a escolha feita: (b).** Enquanto a busca esconde o item escolhido, o primário espera; ele acende de novo quando o item volta a aparecer
+- **T10 · o voltar no meio do semear: (b).** O semear grava no módulo e não para: nos 2 s de *Gravando no módulo…* e *Relendo…*, o *Voltar ao menu* e o voltar do Android não fazem nada, como a releitura da T08
+- **o celular deitado (regra 11): (a).** O celular de 360 × 800 no centro, sem girar
+- **o zoom do celular no palco:** depois de o protótipo subir na Vercel
+- **as outras perguntas** ficam no padrão (a), até o diretor dizer outra coisa · o que muda desenho vai ao arquiteto (para-o-arquiteto-alinhamento.md, na raiz)
+
 ## Publicar
 
 - **O C14 põe o protótipo no ar,** na Vercel, a partir de um repositório no GitHub. É publicação: precisa da sua conta e do seu ok. O build e a prévia local ficam prontos antes.
@@ -9,6 +19,7 @@ As perguntas que os ciclos deixaram, cada uma com o padrão que o protótipo ado
 ## O palco
 
 - **O zoom do celular:** hoje o celular fica em 360 × 800, e cresce só até caber na janela. Você quis rever isso no fim (C13 ou C14).
+- **O celular deitado (regra 11, o app não gira):** no modo estreito com a janela mais larga que alta, o palco põe o celular de 360 × 800 no centro, com a moldura e em escala pra caber, como no palco largo. Num celular deitado ele fica pequeno (a escala dá uns 0,4), mas o desenho é o das referências e o toque funciona. A alternativa é o app com 360 de largura e a altura da janela, rolando: maior pro dedo, com o miolo apertado entre a barra e o rodapé. Fica o celular em escala, que é o mais simples e não mexe no desenho.
 
 ## As telas
 
@@ -18,8 +29,11 @@ As perguntas que os ciclos deixaram, cada uma com o padrão que o protótipo ado
 | T01 | o teto da hora (o último reenvio usado) não tem desenho nem texto | a folha desce até 0:00 e as duas saídas ficam desabilitadas |
 | T02 | a garagem tocada se perde quando se abre o estado da coluna e se volta ao fluxo | fica como está (a Várzea do mock); as propostas são gravar a escolha no toque, ou o palco guardar o instante |
 | T02 · T06 | o mesmo com o termo da busca sem resultado (a entrega de 25/09): digitado outro termo, abrir o estado da coluna e voltar ao fluxo reabre o `03` com *Recreio* e o `08` com *ABC-1234*, os termos da referência; e o mundo da lista longa, com uma busca que acha, volta ao do herói | fica como está (o quadro da referência); as mesmas duas propostas |
-| T02 | no mundo do caso `lista-longa-garagens`, aberto pelo `03`, seis das nove garagens não têm pacote no mock (`M.pacotes`), e a T03 não teria o que baixar | o `Sincronizar` delas fica aceso e não faz nada; as propostas são o mock dar pacote a elas, ou o primário esperar nelas |
+| T02 | no mundo do caso `lista-longa-garagens`, aberto pelo `03`, seis das nove garagens não têm pacote no mock (`M.pacotes`), e a T03 não teria o que baixar. É um botão aceso que não faz nada, contra a regra 12 da lei de construir (a entrega do mundo real) | o `Sincronizar` delas fica aceso e não faz nada; as propostas são o mock dar pacote a elas, ou o primário esperar nelas |
 | T02 · T06 | a busca que acha alguma coisa, mas esconde a escolha feita antes: o primário fica aceso. Na T02 ele diz o nome (*Sincronizar Garagem Olinda*); na T06, *Usar este ativo* confirma um ônibus que não está na lista | fica como está (só a busca sem resultado espera, como a `03` e a `08` desenham); a proposta é o primário esperar enquanto a escolha não aparece |
+| T05 | na lista sem nada escolhido (T05/01), o `Procurar de novo` busca de novo, como o `tela.md` manda, e a busca acha a mesma lista na hora: nada muda na tela. É um tocável aceso que não faz nada à vista, contra a regra 12 da lei de construir (achado pela régua `aceso.mjs`, a entrega do mundo real) | fica como está, como o `tela.md` manda; a proposta é a busca de novo mostrar a busca correndo por um instante, o quadro que a T05 ainda não desenha (vai pro arquiteto), ou ele ficar desabilitado de verdade na 01, com o mesmo desenho, como a proposta do `ENCERRAR` da T09 |
+| T05 | o caso `bluetooth-sem-permissao` traz a resposta *negada* (a entrega do mundo real), e nem o comentário do caso nem o `tela.md` dizem se é a primeira recusa ou a que marcou *não perguntar de novo* | é a que marcou: o `Permitir` pergunta de novo, a resposta é *negada*, o Android não deixa perguntar mais, e o botão vira `Abrir as configurações` no mesmo quadro — como o Android faz a partir da versão 11, e como a câmera (T10/11). A alternativa é ler a *negada* como a primeira recusa: o `Permitir` pergunta de novo, e o botão só vira quando o Android responder com o *não perguntar de novo*, que o mock não traz — o caso ganharia um campo pra isso |
+| T09 | na recuperação (T09/03), o `ENCERRAR` da faixa fica aceso, como a referência desenha, e não faz nada (G23, o `tela.md` da T09). É um botão aceso que não faz nada, contra a regra 12 da lei de construir (a entrega do mundo real) | fica como está, como o `tela.md` manda; a proposta é ele ficar desabilitado de verdade, com o mesmo desenho, como a tira da T04 com a folha por cima e a faixa da T13 com o diálogo da Seção F: o toque não faz nada, e o leitor ouve desabilitado |
 | T10 | o `Voltar ao menu` e o voltar do sistema no meio do semear (*Gravando no módulo…*, *Relendo…*, a entrega de 25/09): nem a decisão 33 nem o `tela.md` dizem o que acontece nesses dois quadros | o semear para ali: nada vai pro módulo, e a volta cai no passo com o número e a foto (07), com o `Semear` aceso; a proposta alternativa é o semear ser um processo que não pode parar, como a releitura da T08, e o voltar não fazer nada nele |
 | T12 | o corte dos grupos por idade (*este mês até N dias*) | 17, o menor que reproduz a referência |
 | T12 | os vereditos sem referência (*aprovada após reprocessamento*, *reprovada*) e o *quando* do detalhe de outro dia | construídos com o nome do estado; o *quando* repete a linha da lista |

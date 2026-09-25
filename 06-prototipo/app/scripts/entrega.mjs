@@ -13,7 +13,8 @@
 //   node 06-prototipo/app/scripts/entrega.mjs tela <pasta> <02-telas/Tnn-…/tela.md> [base] [saida]
 //       junta o tela.md: a seção de peças é a do design, a nossa lista medida vai pra
 //       "No protótipo · as peças que o código usa", e o resto é 3-way contra a base
-//       (o commit do C0, ou `deles` quando o arquivo já é a cópia do design)
+//       (o commit do C0, `deles` quando o arquivo já é a cópia do design, ou o caminho da
+//       cópia anterior do design — a melhor base: a diferença dela pra nova é o que ele mudou agora)
 // A base de tudo é o commit do C0 (6466d8f): as cópias do design partem dele.
 import { execFileSync } from 'node:child_process'
 import { existsSync, readFileSync, writeFileSync, readdirSync, statSync, mkdtempSync } from 'node:fs'
@@ -64,7 +65,9 @@ if (cmd === 'classifica') {
 } else if (cmd === 'tela') {
   const [p, f, baseRef = BASE, saida] = args
   const TIT = '## Peças do design system que esta tela usa', NOVO = '## No protótipo · as peças que o código usa'
-  const deles = le(join(p, f)), nosso = le(f), base = baseRef === 'deles' ? deles : daBase(f, baseRef)
+  const deles = le(join(p, f)), nosso = le(f)
+  // a base: um commit, `deles` (o arquivo já é a cópia do design), ou o caminho da cópia anterior do design
+  const base = baseRef === 'deles' ? deles : existsSync(baseRef) ? readFileSync(baseRef, 'utf8') : daBase(f, baseRef)
   const secao = (s) => { const i = s.indexOf(TIT); if (i < 0) throw new Error('sem a seção de peças: ' + f); const j = s.indexOf('\n## ', i + TIT.length); return [i, j < 0 ? s.length : j + 1] }
   const [di, dj] = secao(deles), [ni, nj] = secao(nosso), [bi, bj] = secao(base)
   const pecasDeles = deles.slice(di, dj), pecasNossas = nosso.slice(ni, nj)

@@ -11,20 +11,30 @@ import { Coluna } from './Coluna.jsx'
 import { Painel } from './Painel.jsx'
 import { lerUrl, escreverUrl } from './rotas.js'
 import { estadosDa } from './telas.js'
+import { deitado, alturaDoPalco } from './retrato.js'
+import { abreTeclado } from '../estado/teclado-conta.js'
 import { VERSAO } from './versao.js'
 
 // a largura que o palco pede antes de encolher o celular: celular + distância + coluna + margens
 // o corte do modo estreito mora no palco-tokens.css (--palco-estreito)
 const larguraEstreita = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--palco-estreito'))
 
-function medirEscala(temColuna) {
+// a janela, e se ela está deitada (regra 11, retrato.js): o teclado aberto num campo do app não deita nada
+const campoDoApp = () => { const e = document.activeElement; return abreTeclado(e) && !!e.closest('.celular-tela') }
+// e a altura em que o celular em escala cabe: o teclado aberto não o encolhe (retrato.js, alturaDoPalco)
+const medirJanela = (antes) => {
+  const agora = { w: window.innerWidth, h: window.innerHeight }, campo = campoDoApp()
+  return { ...agora, deitado: deitado(antes, agora, campo), alto: alturaDoPalco(antes, agora, campo) }
+}
+
+function medirEscala(temColuna, alto) {
   const css = getComputedStyle(document.documentElement)
   const px = (v) => parseFloat(css.getPropertyValue(v))
   const alturaCel = px('--tela-altura') + 2 * px('--e-8')
   const larguraCel = px('--tela-largura') + 2 * px('--e-8')
   const lado = temColuna ? px('--palco-coluna-distancia') + px('--palco-coluna') : 0
   const margem = 2 * px('--e-24')
-  return Math.min(1, (window.innerHeight - margem) / alturaCel, (window.innerWidth - margem - 2 * lado) / larguraCel)
+  return Math.min(1, (alto - margem) / alturaCel, (window.innerWidth - margem - 2 * lado) / larguraCel)
 }
 
 // Pra régua dos textos (scripts/textos.mjs): no print com &textos=1, escreve
@@ -85,14 +95,14 @@ function PalcoApp() {
   const { estado, despachar } = useEstado()
   const [painel, setPainel] = useState(new URLSearchParams(window.location.search).get('painel') === '1')
   const [pisca, setPisca] = useState(0)
-  const [janela, setJanela] = useState({ w: window.innerWidth, h: window.innerHeight })
+  const [janela, setJanela] = useState(() => medirJanela(null))
   const { id: tela, estado: est, momento } = estado.tela
   const print = lerUrl().print
   const medir = new URLSearchParams(window.location.search).get('medir') === '1'
 
   // no print não há painel: o endereço do print fica só com a tela, o estado e o momento
   useEffect(() => { escreverUrl({ tela, estado: est, momento, painel: painel && !print }) }, [tela, est, momento, painel, print])
-  useEffect(() => { const r = () => setJanela({ w: window.innerWidth, h: window.innerHeight }); window.addEventListener('resize', r); return () => window.removeEventListener('resize', r) }, [])
+  useEffect(() => { const r = () => setJanela(medirJanela); window.addEventListener('resize', r); return () => window.removeEventListener('resize', r) }, [])
 
   // o painel só fecha no X, tocando fora ou com Esc — escolher uma tela não fecha (diretor, 24/09)
   const ir = useCallback((id) => despachar({ tipo: 'pular', tela: id }), [despachar])
@@ -103,17 +113,19 @@ function PalcoApp() {
   if (print) return <main className="palco palco-print"><div className="celular-tela"><App /></div>{lerUrl().textos && <Textos />}</main>
 
   const estreito = janela.w < larguraEstreita()
+  // o celular deitado (regra 11): o app não gira — o celular de 360 × 800 no centro, em escala, como no palco largo, sem a coluna
+  const deitada = estreito && janela.deitado
   const temColuna = !estreito && estadosDa(tela).length > 0
-  const escala = estreito ? 1 : medirEscala(temColuna)
+  const escala = estreito && !deitada ? 1 : medirEscala(temColuna, janela.alto)
   const numEstado = !!est
 
   return (
-    <main className={`palco ${estreito ? 'palco-estreito' : ''}`}>
+    <main className={`palco ${estreito ? 'palco-estreito' : ''} ${deitada ? 'palco-deitado' : ''}`}>
       <button type="button" key={estreito ? pisca : 0} className={`palco-quadrado ${estreito && pisca ? 'palco-pisca' : ''}`} aria-label="Telas do protótipo" onClick={() => setPainel(true)}>
         <LayoutGrid aria-hidden="true" className="palco-icone-18" />
       </button>
       <div className="palco-cena">
-        <div className={`celular ${numEstado ? 'celular-estado' : ''}`} style={estreito ? undefined : { transform: `scale(${escala})` }}
+        <div className={`celular ${numEstado ? 'celular-estado' : ''}`} style={estreito && !deitada ? undefined : { transform: `scale(${escala})` }}
           onClickCapture={numEstado ? (e) => { e.stopPropagation(); e.preventDefault(); setPisca((n) => n + 1) } : undefined}>
           <div className="celular-tela" inert={numEstado ? '' : undefined}><App /></div>
         </div>

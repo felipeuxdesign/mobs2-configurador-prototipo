@@ -9,7 +9,7 @@ As listas de peças e as referências são do design, como o pacote pede. A anot
 | | o design diz | o protótipo mede | por quê |
 |---|---|---|---|
 | referências | 113 | 113 | igual · 16 telas, 47 momentos, 50 estados |
-| tokens | 95 | **274** | o `tokens.css` tem também os tokens das peças, que o C2 e os ciclos de tela pediram (G3) |
+| tokens | 95 | **275** | o `tokens.css` tem também os tokens das peças, que o C2 e os ciclos de tela pediram (G3) |
 | peças | 116 | **126** | as 116 do design, e mais 10 linhas que as folhas desenham e o design ainda não lista: o primário nos três estados, o link, a linha tocável, os glifos, os ícones de ferramenta, os poços, os marcadores e os botões só de ícone |
 | cores | 23 | **25** | medido no C1 |
 | casos no mock | 34 | **41** | os 7 acréscimos dos ciclos, só aditivos: `conferencia-confere`, `firmware-fora-sem-rede`, `can-estatico-hodometro-a22`, `instalacoes-vazia`, `fila-sem-erro`, `fila-dois-erros` e `fila-vazia` |
@@ -80,6 +80,19 @@ Aplicada depois de a da calibração terminar, sem misturar as duas. Os 28 arqui
   - **os números:** o `ciclos.md` e o README do design system com as 126 · as cores continuam 25, medidas no C1
 - **o `indice.json`:** as 126, com os campos do palco. Os 4 estados novos ganharam o rótulo da coluna, proposto: *Login sem conexão*, *Bluetooth desligado*, *Bluetooth sem permissão* e *Câmera sem permissão*
 - **os números do protótipo:** 56 estados, 274 tokens, 127 peças e **46 casos** (os seus 39 e os nossos 7)
+
+### O que a construção do mundo real achou
+
+As 4 referências novas dão 0% contra o HTML. O que falta no design pra elas ficarem inteiras:
+
+- **o `indice.json`** trouxe a T05/16 e 17 sem o `grupo`, que a coluna da T05 exige: sem ele, os dois não apareciam no palco. O protótipo pôs os dois no *achar* (é a busca que não começa). Nas próximas entregas, todo estado novo da T05 precisa vir com o grupo
+- **T05/17 com o botão virado:** o `Permitir`, negado de novo, vira `Abrir as configurações`, como a regra 12 manda. Nenhuma referência da T05 desenha esse quadro, e o texto não está no `textos.md` da T05 (o protótipo usa o da T10/11). Falta também dizer o que o app mostra na volta das configurações: o protótipo começa a busca
+- **a câmera do checklist sem permissão:** falta a frase do que falta pro item (o análogo de *O app precisa da câmera pra fotografar o painel*) e o quadro inteiro da T13 nesse caso. O protótipo mostra só a câmera riscada
+- **a localização negada:** nenhuma referência desenha o relatório do checklist (HU-T13-7), nenhum `textos.md` tem o *sem localização*, e o mock não tem a localização do celular nem um caso que a negue (o GPS do mock é o do módulo)
+- **o aviso com o traço:** a T01/14 desenha o traço cinza embaixo do aviso neutro, e o `componentes.md` diz que o aviso não tem traço. O protótipo construiu uma variante nomeada
+- **as peças sem linha no `componentes.md`:** a câmera do app (a mesma na T10 e na T13, com a variante sem permissão), a câmera riscada e o Bluetooth cortado
+- **o `Esqueci a senha` sem internet:** a T01/14 não diz o que ele faz. No protótipo, segue como antes
+- **os números:** um token entrou, a largura da explicação da câmera sem permissão (274 → **275**)
 
 ## O que as referências pedem ao design · medido no C10, no C11 e nas entregas 4 e 5
 

@@ -23,8 +23,9 @@ import {
 } from '../../ds/index.js'
 import { TX } from './textos.js'
 import {
-  REC, LIM, PASSOS, segmentosDo, entra, TELEFONE, EMAIL, contatoDo,
+  REC, LIM, PASSOS, segmentosDo, TELEFONE, EMAIL, contatoDo,
   PRAZO_CHEIO, REENVIO_CHEIO, PRAZO_NO_REENVIO_LIBERADO, restamEnvios, requisitosDa, senhaSalvavel,
+  redeDoCaso, depoisDoEntrar, entrarApagado,
 } from './regras.js'
 import { CartaoCanal, CartaoDoCodigo, LinhaConferido, CampoSenhaNova } from './pecas.jsx'
 import { usePresenca } from './presenca.js'
@@ -46,6 +47,7 @@ export const REF = {
   liberado: '11-momento-nao-recebi-reenvio-liberado', // a folha quando os 60 s do reenvio zeram
   reenviado: '12-momento-codigo-reenviado',           // Conferir e reenviar: outro código, pro mesmo contato
   noEmail: '13-momento-codigo-no-e-mail',             // Mandar para o e-mail: o código vai pro e-mail
+  semConexao: '14-estado-login-sem-conexao',           // Entrar sem internet: o aviso, e os campos ficam (o mundo real)
 }
 
 // um código novo, com o prazo e o reenvio cheios. O primeiro envio chega com o
@@ -57,7 +59,7 @@ const codigoNovo = (digitos = REC.codigo) => ({ digitos, erros: 0, erroVisivel: 
 export function inicial(momento, estado, usuario) {
   const base = {
     quadro: 'entrada',
-    usuario, senha: M.credenciais.senha, mostrar: false, lembrar: false, foco: 'senha', erroEntrada: false,
+    usuario, senha: M.credenciais.senha, mostrar: false, lembrar: false, foco: 'senha', erroEntrada: false, semConexao: false,
     canal: 'telefone', envios: REC.reenviosNaHora,
     // outro: o último envio foi pro mesmo contato ("Mandamos outro para", a 12);
     // momentoCodigo: o momento do quadro do código, pra onde a folha volta
@@ -67,6 +69,8 @@ export function inicial(momento, estado, usuario) {
   }
   switch (estado ?? momento) {
     case REF.incorretos: return { ...base, senha: '', erroEntrada: true }
+    // o Entrar sem internet: o aviso, com os campos como estavam, de onde o caso diz (a 14)
+    case REF.semConexao: { const d = depoisDoEntrar(base, redeDoCaso()); return d === 'T02' ? base : d }
     case REF.canal: return { ...base, quadro: 'canal' }
     case REF.codigo: return { ...base, quadro: 'codigo' }
     case REF.naoRecebi: return { ...base, quadro: 'codigo', folha: true }
@@ -134,10 +138,14 @@ export function Login({ momento, estado, irMomento }) {
 
   // ── os toques ──
   const aoLogin = () => { muda({ quadro: 'entrada', folha: false, dialogo: false }); irMomento(null) }
+  // o Entrar (regras.js · depoisDoEntrar): sem internet, o aviso SEM CONEXÃO e os
+  // campos ficam, e tocar de novo tenta de novo; com ela, a regra da senha. A rede
+  // é a do aparelho, no estado único (logica.md · O mundo real)
   const entrar = () => {
-    if (entra(s.senha)) { despachar({ tipo: 'ir', tela: 'T02' }); return }
-    muda({ senha: '', erroEntrada: true, foco: 'senha', mostrar: false })
-    setTimeout(() => document.getElementById(idSenha)?.focus(), 0)
+    const depois = depoisDoEntrar(s, unico.situacao.rede)
+    if (depois === 'T02') { despachar({ tipo: 'ir', tela: 'T02' }); return }
+    setS(depois)
+    if (depois.erroEntrada) setTimeout(() => document.getElementById(idSenha)?.focus(), 0)
   }
   const esqueci = () => { muda({ quadro: 'canal', canal: 'telefone' }); irMomento(REF.canal) }
   // o primeiro envio não conta no teto; só o reenvio conta (T01·2)
@@ -165,7 +173,7 @@ export function Login({ momento, estado, irMomento }) {
   const fecharFolha = () => { muda({ folha: false }); irMomento(errado || esgotado ? REF.errado : s.momentoCodigo) }
   const salvar = () => { muda({ dialogo: true }); irMomento(REF.alterada) }
   // de volta à entrada, com o usuário e a senha vazia (T01·7 b)
-  const entrarComNova = () => { muda({ quadro: 'entrada', dialogo: false, senha: '', erroEntrada: false, foco: 'senha', mostrar: false }); irMomento(null) }
+  const entrarComNova = () => { muda({ quadro: 'entrada', dialogo: false, senha: '', erroEntrada: false, semConexao: false, foco: 'senha', mostrar: false }); irMomento(null) }
 
   // ── os quadros ──
   const cabecaDoPasso = (passo, legenda) => (
@@ -176,16 +184,21 @@ export function Login({ momento, estado, irMomento }) {
   function Entrada() {
     // no erro, o Entrar fica apagado, dizendo Digite a senha, até a senha ter um
     // caractere (tela.md, a entrega de 25/09). Na entrada sem erro, com a senha
-    // vazia, fica aceso: nenhuma referência desenha o apagado ali (pendência)
-    const esperaSenha = s.erroEntrada && !s.senha
+    // vazia, fica aceso: nenhuma referência desenha o apagado ali (pendência).
+    // Sem conexão, aceso: a senha está lá, e o toque tenta de novo (a 14)
+    const esperaSenha = entrarApagado(s)
     return (
       <>
         <h1 className="t01-titulo-oculto">{TX.entrar}</h1>
         <div className="tela-miolo t01-miolo t01-miolo-entrada">
           <div className="t01-marca"><Marca nome={TX.configurador} rotuloLogo={TX.logo} /></div>
           <div className="t01-campos">
+            {/* o aviso mora no mesmo lugar: o erro da senha (01) ou a falta de internet (14) */}
             {s.erroEntrada && (
               <div className="t01-aviso"><Aviso tom="falha" glifo="xis" poco={26} titulo={TX.erroTitulo} frase={TX.erroFrase} /></div>
+            )}
+            {!s.erroEntrada && s.semConexao && (
+              <div className="t01-aviso"><Aviso tom="neutro" traco glifo="sem-sinal-neutro" poco={26} titulo={TX.semConexao} frase={TX.semConexaoFrase} /></div>
             )}
             <Campo rotulo={TX.usuario} valor={s.usuario} aoMudar={(v) => muda({ usuario: v })} focado={s.foco === 'usuario'}
               onFocus={() => muda({ foco: 'usuario' })} autoComplete="username" autoCapitalize="none" spellCheck={false} />

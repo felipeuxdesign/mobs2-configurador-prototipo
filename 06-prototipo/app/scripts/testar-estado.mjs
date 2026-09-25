@@ -13,6 +13,11 @@ let falhas = 0; const chk = (n, ok, d) => { console.log((ok ? 'OK     ' : 'FALHA
 const estados = indice.filter((r) => r.tipo === 'estado').map((r) => r.id)
 const sem = estados.filter((id) => !RECEITAS[id])
 chk(`os ${estados.length} estados do indice.json têm receita`, estados.length > 0 && !sem.length, sem.join(', '))
+// a coluna da T05 agrupa os estados (palco.md · A coluna, src/palco/telas.js · GRUPOS_T05): o estado
+// sem um desses grupos não aparece nela, e só abriria pelo endereço (o mundo real: a 16 e a 17)
+const gruposT05 = [...(readFileSync(resolve(app, 'src/palco/telas.js'), 'utf8').match(/GRUPOS_T05 = \[(.*)\]/)?.[1] ?? '').matchAll(/\['([a-z]+)'/g)].map((m) => m[1])
+const foraDaColuna = indice.filter((r) => r.tela === 'T05' && r.tipo === 'estado' && !gruposT05.includes(r.grupo)).map((r) => r.id)
+chk(`todo estado da T05 está num grupo da coluna (${gruposT05.join(', ')})`, gruposT05.length > 0 && !foraDaColuna.length, foraDaColuna.join(', '))
 const cam = (p) => p.split('.').reduce((o, k) => (o == null ? undefined : o[k]), M)
 const quebrados = []
 for (const [id, r] of Object.entries(RECEITAS)) {

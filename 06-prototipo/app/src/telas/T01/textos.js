@@ -18,6 +18,9 @@ export const TX = {
   erroFrase: 'Confira os dois e entre de novo.',
   // o Entrar apagado no erro, até a senha ter um caractere (01, a entrega de 25/09)
   digiteSenha: 'Digite a senha',
+  // 14 · o login sem conexão (o mundo real): o aviso cinza, e os campos ficam
+  semConexao: 'SEM CONEXÃO',
+  semConexaoFrase: 'O login precisa de internet.',
 
   // a recuperação · o cabeçalho do passo
   recuperar: 'RECUPERAR ACESSO',

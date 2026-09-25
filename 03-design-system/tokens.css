@@ -311,7 +311,7 @@
   --cadeia-elo-pausada: 68px;   /* o elo quando a cadeia pausou e divide a tela com o contador e o aviso (T09/02 e 03 · a cadeia pausada) · Cadeia (altura 'pausada') */
 
   /* ── a atualização do design · o que as folhas novas da T04 pediram ── */
-  --icone-poco-44: 22px;   /* o ícone de ferramenta no poço de 44: o módulo e o ativo que a sessão prendeu, no cartão da folha (T04/10, 11) · T04 (pecas.jsx, CartaoPreso) */
+  --icone-poco-44: 22px;   /* o ícone no poço de 44: o módulo e o ativo que a sessão prendeu, no cartão da folha (T04/10, 11), e o Bluetooth cortado do bloco da busca que não começa (T05/16, 17 · o mundo real) · T04 (pecas.jsx, CartaoPreso), T05 (pecas.jsx, VazioDaBusca) */
   --t-preso: 18px;         /* a identidade do que a sessão prendeu, o serial ou a placa, no cartão da folha (T04/10, 11) · T04 (pecas.jsx, CartaoPreso) */
 
   /* ── a entrega do design de 24/09 · o olho riscado ── */
@@ -323,7 +323,7 @@
   --risco-item-forte: 12px;     /* o risco forte (os limites da faixa) na barra do item reprovado (T13/09) · Escala (tam item) */
   --ls-colunas-mapa: 1.2px;     /* a letra do cabeçalho das colunas SEÇÃO / RESOLVIDO sobre o mapa do checklist (T13/00, 11) · T13 */
   --entrelinha-titulo-item: 1.2; /* o título de 28 do nível do item do checklist, que quebra em duas linhas (T13/07 a 09) · T13 */
-  --icone-visor: 46px;          /* a câmera no visor do item manual (T13/07, 08) · T13 (pecas.jsx, VisorCamera) */
+  --icone-visor: 46px;          /* a câmera no visor da câmera do app: a do painel (T10/06, e a riscada da 11) e a do item manual (T13/07, 08) · VisorCamera */
   --botao-secundario-compacto: 46px;    /* o botão secundário dentro do cartão com mais de um erro (T15/02); o toque de 48 cresce por fora (G14) · BotaoSecundario (compacto) */
   --cartao-acao-recheio-compacto: 18px; /* o recheio de cima e de baixo do cartão que pede ação com mais de um erro (T15/02) · CartaoAcao (compacto) */
   --escala-envio: 16px;                 /* a barra do envio da fila, o item que sobe agora (T15/01) · Escala (tam envio) */
@@ -334,6 +334,9 @@
 
   /* ── a entrega do design de 24/09 · a espera do reenvio da T01 ── */
   --n-espera: 15px; /* a contagem do reenvio no lugar da seta, na linha de opção que espera (T01/04: 0:44, tabular, 700) · LinhaDeOpcao (espera) */
+
+  /* ── a entrega do mundo real · o que os estados do celular pediram (cada um com o papel e quem usa) ── */
+  --visor-explicacao: 260px; /* a largura máxima da explicação embaixo da frase, no visor da câmera do app sem a permissão (T10/11: Sem a foto, a calibração não semeia.) · VisorCamera (semPermissao) */
 }
 
 @media (prefers-reduced-motion: reduce) {

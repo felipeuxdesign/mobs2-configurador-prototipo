@@ -18,6 +18,28 @@ export const segmentosDo = (passo) => PASSOS.map((p, i) => {
 // Entrar: qualquer senha com o mínimo do mock entra (tela.md, logica.md:20)
 export const entra = (senha) => senha.length >= CRED.minimoEntrar
 
+// O login sem conexão (logica.md · O mundo real, o caso sem-conexao-no-login):
+// o login precisa de internet. A rede é a do aparelho, a do estado único
+// (situacao.rede: 'conectada' ou 'sem-conexao'); o estado 14 a tira do caso.
+export const CASO_SEM_CONEXAO = 'sem-conexao-no-login'
+export const redeDoCaso = () => (M.casos[CASO_SEM_CONEXAO].rede ? 'conectada' : 'sem-conexao')
+
+// O toque do Entrar, puro: o quadro de depois (os campos, o aviso), ou 'T02'.
+// · sem internet, o aviso SEM CONEXÃO, e os campos ficam como estão — a senha
+//   não estava errada — e o Entrar segue aceso: tocar de novo tenta de novo
+// · com ela, a regra da senha: com o mínimo, entra; com menos, o erro, com a
+//   senha apagada e o cursor nela, e o usuário fica
+// Testado no node (scripts/testar-login-e-bluetooth.mjs): o estado 14 abre pela
+// coluna, parado e sem toque, e nenhum gatilho do mock tira a rede no fluxo.
+export function depoisDoEntrar(s, rede) {
+  if (rede !== 'conectada') return { ...s, semConexao: true, erroEntrada: false }
+  if (entra(s.senha)) return 'T02'
+  return { ...s, senha: '', erroEntrada: true, semConexao: false, foco: 'senha', mostrar: false }
+}
+// no erro, o Entrar fica apagado, dizendo Digite a senha, até a senha ter um
+// caractere (a entrega de 25/09); sem conexão, nunca: a senha está lá
+export const entrarApagado = (s) => s.erroEntrada && !s.senha
+
 // o contato, mascarado em todo o recuperar acesso (decisão 31): o telefone pela
 // máscara do DDI dele (HU-T01-6), o e-mail pela primeira letra e o domínio.
 // Derivados do contato do mock, nunca digitados (formato.js)

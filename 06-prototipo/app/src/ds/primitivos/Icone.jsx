@@ -5,6 +5,7 @@
 import {
   Radio, Truck, Activity, Settings, RefreshCcw, Gauge, Wrench, ListChecks, Upload, History,
   X, ChevronRight, ChevronDown, ChevronUp, RotateCw, Mail, UserRound, Search, Camera, Image, Check, ArrowUp,
+  BluetoothOff, CameraOff,
 } from 'lucide-react'
 import './Icone.css'
 
@@ -45,6 +46,12 @@ export const ICONES = {
   // a entrega de 25/09 · T10/10: o xis solto do "não confere", na régua da
   // diferença — o vermelho da falha, de 14, com o traço 2,6 da referência
   'xis-mini': [X, 'mini'],
+  // o mundo real · T05/16 e 17: o Bluetooth cortado, no poço de 44 do bloco da
+  // busca que não começa — o desligado e o sem permissão, o mesmo desenho
+  'bluetooth-desligado': [BluetoothOff, 'acao'],
+  // o mundo real · T10/11: a câmera riscada, no visor da câmera do app sem a
+  // permissão — a da T10 e a do item manual da T13 (VisorCamera)
+  'camera-negada': [CameraOff, 'acao'],
 }
 
 // tam: o lado do ícone, por token (--icone-*)

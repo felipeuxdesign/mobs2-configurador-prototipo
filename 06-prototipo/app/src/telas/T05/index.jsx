@@ -34,12 +34,20 @@
 //   (R-14). O M2C-0999 não se toca, como a referência desenha
 // · o bloco do nenhum encontrado (03) é peça desta tela (pecas.jsx)
 // · cada caso que acontece uma vez vale uma vez por sessão (G21, casosConsumidos)
+//
+// O mundo real (logica.md): o que o celular impede antes da busca — o
+// Bluetooth desligado (16) e a permissão negada (17), no bloco da busca, com o
+// Bluetooth cortado. O quadro e o toque do primário são de celular.js: Ligar o
+// Bluetooth e Abrir as configurações levam à busca (a 01); Permitir, com a
+// resposta negada do caso, vira Abrir as configurações. Os dois abrem só pela
+// coluna, parados: o toque se prova no node (scripts/testar-login-e-bluetooth.mjs)
 import { useEffect, useRef, useState } from 'react'
 import {
   BarraDoSistema, Faixa, Rodape, CabecalhoConteudo, BlocoEscolhido, Lista, LinhaModulo,
   LinhaChecagem, TiraLeituras, Nota, Aviso, ESTADOS,
 } from '../../ds/index.js'
 import { VazioDaBusca } from './pecas.jsx'
+import { quadroDoCelular, textosDoCelular, depoisDoPedido } from './celular.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
 import { EM_QUADRO } from '../../estado/quadro.js'
@@ -85,6 +93,8 @@ function quadroDoEstado(est) {
   const r = est ? RECEITAS[`T05/${est}`] : null
   if (!r) return null
   const casos = [...(r.casos ?? []), ...(r.aditivo ? [r.aditivo] : [])]
+  const celular = quadroDoCelular(casos)
+  if (celular) return celular
   if (casos.includes(CASO_BUSCA_VAZIA)) return vazia()
   if (casos.includes(CASO_CONEXAO)) return busca(pertoComFalha(), serialDaFalha(), true)
   const parada = paradaDe(casos)
@@ -198,14 +208,22 @@ export default function T05({ momento, estado: est }) {
     ir('T05', { momento: M10 })
   }
   const voltar = () => ir('T04')
+  // 16 · 17 · o primário do celular: o Android responde, e a tela vai pra busca
+  // (a 01, como o Procurar de novo) ou pro quadro de depois (celular.js)
+  function pedirAoAndroid() {
+    const depois = depoisDoPedido(q)
+    if (depois === 'busca') procurar()
+    else setFluxo(depois)
+  }
 
   // O voltar do Android (logica.md): o link de saída do rodapé. Na busca (00,
   // 01, 02, 04), o link é o Procurar de novo, que não sai da tela: não faz nada
   // (pendencias.md). Na pré-checagem correndo e na atualização do firmware, não
   // faz nada — o processo termina sozinho. Aprovada, e no vazio (03), o Voltar
-  // ao menu; reprovada ou parada no caso, o Procurar outro módulo, que volta à lista
+  // ao menu; reprovada ou parada no caso, o Procurar outro módulo, que volta à lista.
+  // Sem Bluetooth ou sem a permissão (16, 17), o Voltar ao menu do rodapé
   const preParada = q.fase === 'pre' && q.atualizando == null && (concluida || parou)
-  useVoltar(q.fase === 'vazia' || aprovada ? voltar : preParada ? procurar : null)
+  useVoltar(q.fase === 'vazia' || q.fase === 'celular' || aprovada ? voltar : preParada ? procurar : null)
 
   // ── o topo: a barra na cor do que vem embaixo, e a faixa quando a sessão nasce ──
   const comFaixa = aprovada
@@ -215,7 +233,17 @@ export default function T05({ momento, estado: est }) {
   )
 
   let miolo, rodape
-  if (q.fase === 'vazia') {
+  if (q.fase === 'celular') {
+    // ── 16 · 17 · o celular impede a busca: o bloco da busca, com o Bluetooth cortado ──
+    const t = textosDoCelular(q)
+    miolo = (
+      <>
+        <CabecalhoConteudo titulo={TX.titulo} unidade={t.unidade} />
+        <VazioDaBusca icone="bluetooth-desligado" titulo={t.titulo} frase={t.frase} />
+      </>
+    )
+    rodape = <Rodape primario={t.primario} aoPrimario={pedirAoAndroid} link={TX.voltarAoMenu} aoLink={voltar} />
+  } else if (q.fase === 'vazia') {
     // ── 03 · nenhum módulo respondeu: o vazio no lugar da lista ──
     const bv = buscaVazia()
     const legenda = TX.buscaDurou(bv.duracaoSeg, bv.tentativa)
@@ -329,7 +357,7 @@ export default function T05({ momento, estado: est }) {
     <div className="t05">
       <BarraDoSistema hora={M.HORA_NOMINAL} fundo={comFaixa ? 'faixa' : 'pagina'} />
       {faixa}
-      <div className={`tela-miolo ${q.fase === 'pre' ? 't05-miolo-pre' : 't05-miolo-busca'}`}>{miolo}</div>
+      <div className={`tela-miolo ${q.fase === 'pre' ? 't05-miolo-pre' : 't05-miolo-busca'} ${q.fase === 'celular' ? 't05-miolo-celular' : ''}`}>{miolo}</div>
       {rodape}
     </div>
   )

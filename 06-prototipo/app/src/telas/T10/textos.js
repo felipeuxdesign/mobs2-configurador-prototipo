@@ -46,6 +46,10 @@ export const T = {
   enquadre: (nome) => `Enquadre o ${nome} do painel`,
   tirarFoto: 'Tirar foto',
   voltarCalibracao: 'Voltar à calibração',
+  // a câmera sem a permissão (T10/11, o mundo real): o quadro diz o que falta
+  precisaDaCamera: 'O app precisa da câmera pra fotografar o painel',
+  semAFoto: 'Sem a foto, a calibração não semeia.',
+  abrirConfiguracoes: 'Abrir as configurações',
 
   // o que não se aplica (T10·5)
   naoSeAplicamModelo: 'NÃO SE APLICAM NESTE MODELO',

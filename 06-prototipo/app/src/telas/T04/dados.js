@@ -80,6 +80,8 @@ export const enviando = (fila) => fila.filter((f) => f.estado === 'enviando').le
 // ou no veículo (as seções manuais e a dinâmica — B e E, a conta da T13/00)
 export function checklistPendentes(etapa) {
   if (etapa?.homologada) return 0
+  // a T13 grava a conta a cada item resolvido (etapas.checklist.pendentes); sem ela, os itens de B e E
+  if (etapa?.pendentes != null) return etapa.pendentes
   const secoes = new Set(M.checklist.secoes.filter((s) => s.natureza === 'manual' || s.natureza === 'dinamico').map((s) => s.id))
   return M.checklist.itens.filter((i) => secoes.has(i.secao)).length
 }

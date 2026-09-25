@@ -2,6 +2,7 @@
 // Mostra a tela do estado único; num estado do palco, a tela montada pelo caso.
 import { useRef } from 'react'
 import { useEstado } from './estado/estado.jsx'
+import { useTeclado } from './estado/teclado.js'
 import { Rolagem } from './ds/index.js'
 import { telaDe } from './telas/index.jsx'
 
@@ -10,6 +11,8 @@ export function App() {
   const { id, momento, estado: est } = estado.tela
   const Tela = telaDe(id)
   const raiz = useRef(null)
+  // o teclado nunca esconde o que importa (regra 10): o app encolhe até o que sobra acima dele
+  useTeclado(raiz)
   // a chave muda de tela em tela e a cada pulo do palco (a geração): a tela remonta
   // do zero, e o estado próprio dela não vaza de um pulo pro outro
   return (

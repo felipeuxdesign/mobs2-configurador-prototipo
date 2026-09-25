@@ -34,3 +34,7 @@
 
 /* C7 · T05/03 · a legenda solta embaixo do vazio da busca: quanto durou e qual tentativa */
 .t05-legenda { flex-shrink: 0; font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-apagada); }
+
+/* o mundo real · T05/16 e 17 · sem a legenda embaixo, o bloco desce até o rodapé:
+ * o miolo não tem a folga de baixo, como as referências desenham */
+.t05 .t05-miolo-celular { padding-bottom: 0; }

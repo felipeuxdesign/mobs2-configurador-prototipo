@@ -107,10 +107,13 @@ body { background: var(--poco-fundo); overflow: hidden; }
 .palco-print { background: var(--fundo-pagina); }
 .palco-print .celular-tela { border-radius: 0; }
 
-/* janela estreita (<900): o app em tela cheia, sem moldura nem coluna; o quadrado flutua */
-.palco-estreito .palco-cena { align-items: stretch; justify-content: stretch; }
-.palco-estreito .celular { width: 100%; height: 100%; padding: 0; border: 0; border-radius: 0; }
-.palco-estreito .celular-tela { width: 100%; height: 100%; border-radius: 0; overflow-y: auto; }
+/* janela estreita (<900): o app em tela cheia, sem moldura nem coluna; o quadrado flutua.
+   Deitada — mais larga que alta, o celular de lado (regra 11) —, o app não gira: o celular
+   volta a ser o do palco, 360 × 800 com a moldura, no centro e em escala (Palco.jsx), e o
+   resto do estreito fica (o quadrado, o painel com o Voltar ao fluxo e a etiqueta) */
+.palco-estreito:not(.palco-deitado) .palco-cena { align-items: stretch; justify-content: stretch; }
+.palco-estreito:not(.palco-deitado) .celular { width: 100%; height: 100%; padding: 0; border: 0; border-radius: 0; }
+.palco-estreito:not(.palco-deitado) .celular-tela { width: 100%; height: 100%; border-radius: 0; overflow-y: auto; }
 .palco-estreito .palco-etiqueta { display: none; }
 /* no estreito, o painel leva o Voltar ao fluxo e a etiqueta (G19); o toque no
    app parado pisca o quadrado, que é a porta do Voltar */

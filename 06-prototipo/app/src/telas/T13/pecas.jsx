@@ -1,20 +1,11 @@
-// T13 · as duas peças que só o nível do item desenha e que não têm linha no
-// componentes.md (gate C0, T13 · 2): o visor da câmera do item manual e o
-// instrumento do item automático reprovado. Montadas com os primitivos do DS
-// (Icone, Escala, a caixa de poço) — nada redesenhado.
-import { Icone, Escala } from '../../ds/index.js'
+// T13 · a peça que só o nível do item desenha e que não tem linha no
+// componentes.md (gate C0, T13 · 2): o instrumento do item automático
+// reprovado. Montada com os primitivos do DS (Escala, a caixa de poço) — nada
+// redesenhado. O visor da câmera do item manual, que era daqui, é o mesmo
+// desenho da câmera da T10: virou uma peça só, ds/checklist/VisorCamera (o
+// mundo real).
+import { Escala } from '../../ds/index.js'
 import './pecas.css'
-
-// O visor da câmera (T13/07, 08): o poço que cresce até o que vem embaixo, a
-// câmera e a dica de enquadramento. Sem dica aprovada, só a câmera (G25).
-export function VisorCamera({ dica }) {
-  return (
-    <div className="t13-visor ds-caixa-poco">
-      <Icone nome="camera" cor="marca" className="t13-visor-camera" />
-      {dica && <span className="t13-visor-dica">{dica}</span>}
-    </div>
-  )
-}
 
 // O instrumento do item reprovado (T13/09): o poço com o traço de baixo
 // vermelho (a falha mora no elemento, Lei 2), o rótulo em vermelho, o número

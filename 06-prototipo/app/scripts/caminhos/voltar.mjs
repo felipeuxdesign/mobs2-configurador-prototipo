@@ -35,6 +35,14 @@ export default [
   esc,
   { fica: 'T01', ms: 500 },
   { chega: 'T01', estado: '06-estado-codigo-expirado' },
+  // o mundo real · o login sem conexão, pela coluna: parado e sem toque — o Entrar
+  // que tenta de novo se prova no node (scripts/testar-login-e-bluetooth.mjs)
+  { abre: '?tela=T01&estado=14-estado-login-sem-conexao' },
+  { ve: 'SEM CONEXÃO' },
+  { naoToca: 'Entrar' },
+  esc,
+  { fica: 'T01', ms: 500 },
+  { chega: 'T01', estado: '14-estado-login-sem-conexao' },
 
   // ── T02 · a escolha da garagem não tem saída desenhada: nada ──
   { abre: '?tela=T02' },
@@ -136,6 +144,20 @@ export default [
   { ve: 'Acordar módulo' },
   esc,
   { chega: 'T05', momento: '01-momento-nenhum-escolhido' },
+  // o mundo real · o Bluetooth desligado e sem permissão, pela coluna: parados e sem
+  // toque — o primário de cada um se prova no node (scripts/testar-login-e-bluetooth.mjs)
+  { abre: '?tela=T05&estado=16-estado-bluetooth-desligado' },
+  { ve: 'O Bluetooth está desligado' },
+  { naoToca: 'Ligar o Bluetooth' },
+  esc,
+  { fica: 'T05', ms: 500 },
+  { chega: 'T05', estado: '16-estado-bluetooth-desligado' },
+  { abre: '?tela=T05&estado=17-estado-bluetooth-sem-permissao' },
+  { ve: 'Falta a permissão do Bluetooth' },
+  { naoToca: 'Permitir' },
+  esc,
+  { fica: 'T05', ms: 500 },
+  { chega: 'T05', estado: '17-estado-bluetooth-sem-permissao' },
 
   // ── T06 · na lista, o Voltar ao menu; na confirmação, o Escolher outro ──
   { abre: '?tela=T06' },
@@ -238,6 +260,15 @@ export default [
   { ve: 'Concluir a calibração' },
   esc,
   { chega: 'T04' },
+  // o mundo real · a câmera sem a permissão, pela coluna: parada e sem toque — o
+  // Abrir as configurações se prova no node (scripts/testar-camera.mjs)
+  { abre: '?tela=T10&estado=11-estado-camera-sem-permissao' },
+  { ve: 'O app precisa da câmera pra fotografar o painel' },
+  { naoToca: 'Abrir as configurações' },
+  { naoToca: 'Voltar à calibração' },
+  esc,
+  { fica: 'T10', ms: 500 },
+  { chega: 'T10', estado: '11-estado-camera-sem-permissao' },
 
   // ── T11 · o que diverge, o Só registrar o diagnóstico; tudo confere, o Voltar ao menu ──
   { abre: '?tela=T11' },

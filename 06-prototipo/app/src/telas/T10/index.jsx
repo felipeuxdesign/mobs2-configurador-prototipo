@@ -10,11 +10,16 @@
 //   sempre diz o que falta: Digite o que o painel mostra → Fotografe o painel →
 //   Semear o hodômetro.
 // · Fotografar o painel (o cartão inteiro) → a câmera do próprio app (06, o
-//   quadro parado feito em código, pecas.jsx) → Tirar foto → volta com o
+//   quadro parado feito em código, ds/checklist/VisorCamera) → Tirar foto → volta com o
 //   registro no lugar do cartão, sem toque: foto tirada fica tirada. A foto
 //   leva a hora, o técnico, o ativo e o módulo carimbados, e vale também no
 //   item da Seção B do checklist (etapas.calibracao, HU-T10-4). Voltar à
 //   calibração (e o voltar do sistema) sai da câmera sem foto.
+// · A câmera sem a permissão (11, o mundo real · estado/camera.js): o visor diz
+//   o que falta, com a câmera riscada, e o primário vira Abrir as configurações
+//   — o Android abre a página do app; permitida lá, a câmera abre na volta, com
+//   o Tirar foto. O Voltar à calibração continua. Só o estado da coluna chega
+//   nela (o caso camera-sem-permissao): o protótipo não tem o pedido do Android.
 // · Semear → Gravando no módulo… → Relendo… (1 s + 1 s, ritmos.js) → o tambor
 //   rola até o relido e a tela vira o semeado (01), ou, com a releitura acima
 //   da tolerância, o não confere (10), que pede Semear de novo — a foto
@@ -25,25 +30,26 @@
 //   o semeado de cada grandeza) e volta de onde parou; a URL diz o quadro da
 //   referência em que o passo está (calibracao.js, quadroDe).
 // · Os estados da coluna, parados, pelo dado da receita (calibracao.js): o 02
-//   e o 03 no a-09, o 04 no a-22 (G21), o 10 no caso releitura-nao-confere.
+//   e o 03 no a-09, o 04 no a-22 (G21), o 10 no caso releitura-nao-confere, o
+//   11 na sessão da semente, com a câmera aberta e a permissão negada.
 // · ENCERRAR, antes de homologar, é a sessão abortada da T16 (G23); depois, o
 //   encerramento. Voltar ao menu → T04.
 import { useEffect, useRef, useState } from 'react'
 import {
-  BarraDoSistema, Faixa, Segmentado, ValorEmPoco, ReguaDiferenca, ValorAlvo, FotoProva, Declarado, Rodape,
+  BarraDoSistema, Faixa, Segmentado, ValorEmPoco, ReguaDiferenca, ValorAlvo, FotoProva, VisorCamera, Declarado, Rodape,
 } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
 import { EM_QUADRO } from '../../estado/quadro.js'
+import { camera as cameraDa, primarioDaCamera, voltaDasConfiguracoes } from '../../estado/camera.js'
 import { RITMOS } from '../../estado/ritmos.js'
 import { SEMENTES } from '../../estado/sementes.js'
 import { M } from '../../dados/mock.js'
 import { milhar } from '../../dados/formato.js'
 import {
   REF, grandezaDe, ativoDe, grandezasDoPar, moduloConta, painelMostra, semeadoHa, releitura, secaoDaFoto, mundoDoEstado,
-  digitos, quadroDe,
+  digitos, quadroDe, permissaoDaCamera,
 } from './calibracao.js'
-import { VisorCamera } from './pecas.jsx'
 import { T } from './textos.js'
 import './t10.css'
 
@@ -86,8 +92,11 @@ function etapaDe(fluxo, ordem, ativoId, moduloSerial) {
 // que levam a ele (o número digitado é o do mock).
 function inicio({ momento, est, mundo, ordem, etapa, ativoId, carimbo }) {
   const passos = Object.fromEntries(ordem.map((g) => [g, passoVazio()]))
-  const f = { atual: 0, passos, camera: false, focado: false, concluida: false }
+  // a permissão da câmera é do celular, e não da calibração: não vai pra etapa
+  const f = { atual: 0, passos, camera: false, focado: false, concluida: false, permissao: permissaoDaCamera(est) }
   if (est) {
+    // o 11: a câmera do 1º passo aberta, e o Android sem a permissão (o caso)
+    if (est === REF.semPermissao) f.camera = true
     const c = est === REF.naoConfere ? mundo?.caso : null
     if (c && passos[c.grandeza]) {
       const painel = painelMostra(ativoId, c.grandeza)
@@ -128,7 +137,7 @@ function inicio({ momento, est, mundo, ordem, etapa, ativoId, carimbo }) {
 
 export default function T10({ momento, estado: est }) {
   const { estado: unico, despachar } = useEstado()
-  const mundo = est ? mundoDoEstado(est, SEMENTES.T10.contexto.uoId) : null
+  const mundo = est ? mundoDoEstado(est, SEMENTES.T10.contexto.uoId, SEMENTES.T10.sessao) : null
   const sessao = mundo
     ? { ...SEMENTES.T10.sessao, ativoId: mundo.ativoId, moduloSerial: mundo.moduloSerial }
     : (unico.sessao?.ativoId ? unico.sessao : SEMENTES.T10.sessao)
@@ -178,6 +187,9 @@ export default function T10({ momento, estado: est }) {
   const abrirCamera = () => setFluxo((f) => ({ ...f, camera: true, focado: false }))
   const fecharCamera = () => setFluxo((f) => ({ ...f, camera: false }))
   const tirarFoto = () => setFluxo((f) => ({ ...f, camera: false, passos: { ...f.passos, [g]: { ...f.passos[g], foto: carimbo } } }))
+  // sem a permissão: o Android abre a página do app nas configurações; o técnico
+  // permite a câmera lá, e na volta o app confere de novo e a câmera abre (estado/camera.js)
+  const abrirConfiguracoes = () => setFluxo((f) => ({ ...f, permissao: voltaDasConfiguracoes() }))
   const focar = (v) => setFluxo((f) => (f.focado === v ? f : { ...f, focado: v }))
   function semear() {
     const passo = g; const painel = Number(p.digitado)
@@ -239,8 +251,11 @@ export default function T10({ momento, estado: est }) {
 
   // ── o rodapé: o primário diz o que falta ──
   const seguinte = ordem[fluxo.atual + 1]
+  const cam = cameraDa(fluxo.permissao)
   let primario
-  if (fluxo.camera) primario = { rotulo: T.tirarFoto, aoTocar: tirarFoto }
+  // na câmera, o primário é o que estado/camera.js diz (provado no node, scripts/testar-camera.mjs)
+  const DA_CAMERA = { 'tirar-foto': { rotulo: T.tirarFoto, aoTocar: tirarFoto }, 'abrir-configuracoes': { rotulo: T.abrirConfiguracoes, aoTocar: abrirConfiguracoes } }
+  if (fluxo.camera) primario = DA_CAMERA[primarioDaCamera(fluxo.permissao)]
   else if (ajuste) primario = { rotulo: T.ligue, desabilitado: true } // o módulo ainda não lê: o motor desligado (HU-T10-2)
   else if (p.fase === 'gravando') primario = { rotulo: T.gravando, desabilitado: true }
   else if (p.fase === 'relendo') primario = { rotulo: T.relendo, desabilitado: true }
@@ -269,7 +284,9 @@ export default function T10({ momento, estado: est }) {
         {fluxo.camera ? (
           <>
             <h1 className="t10-titulo">{T.fotoDoPainel}</h1>
-            <VisorCamera dica={T.enquadre(gr.rotulo.toLowerCase())} />
+            {cam.abre
+              ? <VisorCamera frase={T.enquadre(gr.rotulo.toLowerCase())} />
+              : <VisorCamera semPermissao frase={T.precisaDaCamera} explicacao={T.semAFoto} />}
           </>
         ) : (
           <>

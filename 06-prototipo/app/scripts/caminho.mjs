@@ -20,6 +20,20 @@
 //   { desligado: 'Conectar' }              espera o tocável com esse nome existir desabilitado (o primário apagado, o cartão em espera)
 //   { naoToca: 'M2C-0999' }                confere que nenhum tocável tem esse nome (o que a referência desenha sem toque)
 //   { dorme: 500 }
+// As regras do mundo real (06-prototipo/CLAUDE.md, 10 e 11):
+//   { janela: [360, 480] }                 a janela desse tamanho (Emulation.setDeviceMetricsOverride): o teclado que abre
+//                                          encolhe a altura, como no Chrome do Android (o interactive-widget do index.html);
+//                                          [800, 360] é o celular deitado. Espera o palco e o app se ajustarem
+//   { foca: 'Senha' }                      põe o foco no campo com esse rótulo, sem escrever (o toque que abre o teclado);
+//   { foca: 'X', teclado: 'numerico' }     e confere o teclado que ele abre, pelo inputMode ('numerico' ou 'texto')
+//   { sobreposto: 320 }                    o teclado de 320 por cima da página, sem encolhê-la, como no Safari do iPhone:
+//   { sobreposto: 320, rolou: 120 }        só a janela que se vê (visualViewport) encolhe — e desce 120, se o navegador
+//                                          rolou a página pra mostrar o campo. { sobreposto: 0 } fecha. O roteiro que usa
+//                                          ganha um visualViewport de mentira desde o primeiro abre (só a régua o vê)
+//   { aVista: 'Entrar' }                   o tocável — ou o campo, com o rótulo — inteiro no que se vê da janela, sem nada
+//                                          que o corte (o miolo que rola, o celular) nem o cubra
+//   { app: [360, 480] }                    o app, no layout, tem esse tamanho, e cabe inteiro na janela;
+//   { app: [360, 800], centrado: true }    e está no meio dela (o celular deitado, em retrato)
 // Todo passo que espera aceita `ms` (padrão 15000): os processos correm no ritmo de ritmos.js,
 // e `entre: [min, max]`: quanto tempo a espera pode levar, em ms (o ritmo de um processo) — no toca,
 // a espera é a do tocável aparecer ligado (o Voltar ao menu que entra com a última assertiva).
@@ -86,7 +100,8 @@ const NA_PAGINA = `(() => {
     || (e.getAttribute('aria-labelledby') || '').split(' ').map((i) => document.getElementById(i)?.innerText).join(' ')
     || (e.labels && e.labels[0] && e.labels[0].innerText) || e.innerText || e.value || e.getAttribute('title'))
   const inerte = (e) => !!e.closest('[inert]') || e.closest('[aria-hidden="true"]')
-  const desligado = (e) => e.disabled || e.getAttribute('aria-disabled') === 'true'
+  // o botão num fieldset desabilitado também (a tira da T04 e a faixa da T13 com a folha ou o diálogo por cima)
+  const desligado = (e) => e.disabled || !!e.matches?.(':disabled') || e.getAttribute('aria-disabled') === 'true'
   const tocaveis = () => [...raiz.querySelectorAll('button, a[href], [role=button], [role=link], [role=radio], [role=checkbox], [role=option], [role=switch], [role=tab], input[type=checkbox], input[type=radio], label')]
     .filter((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && !inerte(e) })
   const acha = (alvo) => { const t = tocaveis(); return t.find((e) => nome(e) === alvo) || t.find((e) => nome(e).startsWith(alvo)) || t.find((e) => nome(e).includes(alvo)) }
@@ -97,7 +112,27 @@ const NA_PAGINA = `(() => {
     return { em: (typeof alvo.className === 'string' ? alvo.className : alvo.tagName).trim().split(/\\s+/).slice(0, 3).join(' '), nome: a.animationName || a.transitionProperty || '', props,
       ms: Math.round(Number(t.duration) || 0), atraso: Math.round(t.delay || 0), curva: t.easing === 'linear' && a.transitionProperty ? getComputedStyle(alvo).transitionTimingFunction : (t.easing === 'linear' && a.animationName ? getComputedStyle(alvo).animationTimingFunction : t.easing), vezes: t.iterations }
   })
-  return { raiz, nome, desligado, tocaveis, acha, limpa, anims }
+  // o campo pelo rótulo (o do digita e do foca), e se ele se vê inteiro (o aVista)
+  const campo = (alvo) => [...raiz.querySelectorAll('input, textarea')].find((e) => nome(e).startsWith(alvo) || (e.labels?.[0] && limpa(e.labels[0].innerText).startsWith(alvo)))
+  // o campo se vê pela caixa dele, como a peça do teclado a mostra (src/estado/teclado.js): o menor bloco com o
+  // campo e o rótulo — o poço inteiro, com o traço de baixo —; sem rótulo, o bloco do campo
+  const caixaDoCampo = (e) => { const r = [...(e.labels ?? [])]; let c = e.parentElement ?? e; while (r.some((x) => !c.contains(x)) && c.parentElement) c = c.parentElement; return c }
+  const inteiro = (e) => {
+    const partes = [/^(INPUT|TEXTAREA)$/.test(e.tagName) ? caixaDoCampo(e) : e].map((x) => x.getBoundingClientRect()).filter((r) => r.height > 0)
+    if (!partes.length) return 'não tem tamanho'
+    const r = { top: Math.min(...partes.map((x) => x.top)), bottom: Math.max(...partes.map((x) => x.bottom)), left: Math.min(...partes.map((x) => x.left)), right: Math.max(...partes.map((x) => x.right)) }
+    const f = (x) => Math.round(x.top) + '…' + Math.round(x.bottom)
+    const v = window.visualViewport, vt = v ? v.offsetTop : 0, vb = v ? v.offsetTop + v.height : innerHeight
+    if (r.top < vt - 0.5 || r.bottom > vb + 0.5 || r.left < -0.5 || r.right > innerWidth + 0.5) return 'fora do que se vê: ' + f(r) + ' em ' + Math.round(vt) + '…' + Math.round(vb)
+    for (let a = e.parentElement; a && a !== document.body; a = a.parentElement) {
+      const cs = getComputedStyle(a); if (!/hidden|auto|scroll|clip/.test(cs.overflowY)) continue
+      const c = a.getBoundingClientRect(); if (r.top < c.top - 0.5 || r.bottom > c.bottom + 0.5) return 'cortado por ' + (a.className || a.tagName) + ': ' + f(r) + ' em ' + f(c)
+    }
+    const b = e.getBoundingClientRect(), em = document.elementFromPoint(b.left + b.width / 2, b.top + b.height / 2)
+    if (!em || !(e.contains(em) || em.contains(e) || em.control === e || e.control === em)) return 'coberto por ' + (em ? em.className || em.tagName : 'nada')
+    return true
+  }
+  return { raiz, nome, desligado, tocaveis, acha, limpa, anims, campo, inteiro }
 })()`
 const na = async (s, corpo) => {
   const r = await cdp('Runtime.evaluate', { expression: `(() => { const P = ${NA_PAGINA}; ${corpo} })()`, returnByValue: true, awaitPromise: true }, s)
@@ -190,6 +225,35 @@ async function passo(s, p) {
     await cdp('Input.insertText', { text: p.digita }, s)
     return
   }
+  if (p.janela !== undefined) {
+    const [width, height] = p.janela
+    await cdp('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile: false }, s)
+    // o resize chega, o palco desenha de novo e a peça do teclado ajusta no quadro seguinte
+    return espera(() => na(s, `return new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(() => r(innerWidth === ${width} && innerHeight === ${height} || 'a janela está em ' + innerWidth + ' × ' + innerHeight), 50))))`), ms, `janela ${width} × ${height}`)
+  }
+  if (p.sobreposto !== undefined) {
+    return espera(() => na(s, `if (!window.__m2cfTeclado) return 'sem o visualViewport de mentira'; window.__m2cfTeclado(${p.sobreposto}, ${p.rolou ?? 0})
+      return new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(() => r(true), 50))))`), ms, `sobreposto ${p.sobreposto}`)
+  }
+  if (p.foca !== undefined) {
+    await espera(() => na(s, `const i = P.campo(${JSON.stringify(p.foca)}); if (!i) return 'não achei o campo'; i.focus(); return document.activeElement === i || 'o foco não ficou'`), ms, `foca "${p.foca}"`)
+    if (p.teclado) {
+      const modo = await na(s, `return document.activeElement.inputMode || ''`)
+      const quer = { numerico: 'numeric', texto: '' }[p.teclado]
+      if (quer === undefined) throw new Error(`foca: teclado "${p.teclado}" não existe (numerico ou texto)`)
+      if ((quer === '' ? !['', 'text'].includes(modo) : modo !== quer)) throw new Error(`foca "${p.foca}": o teclado é o ${modo || 'de texto'}, e o roteiro pede o ${p.teclado}`)
+    }
+    return
+  }
+  if (p.aVista !== undefined) return espera(() => na(s, `const e = P.campo(${JSON.stringify(p.aVista)}) || P.acha(${JSON.stringify(p.aVista)}); return e ? P.inteiro(e) : 'não achei'`), ms, `à vista "${p.aVista}"`)
+  if (p.app !== undefined) {
+    const [w, h] = p.app
+    return espera(() => na(s, `const a = P.raiz, r = a.getBoundingClientRect(), c = (x) => Math.round(x * 10) / 10
+      if (Math.abs(a.offsetWidth - ${w}) > 0.5 || Math.abs(a.offsetHeight - ${h}) > 0.5) return 'o app tem ' + a.offsetWidth + ' × ' + a.offsetHeight
+      if (r.top < -0.5 || r.left < -0.5 || r.bottom > innerHeight + 0.5 || r.right > innerWidth + 0.5) return 'o app sai da janela: ' + [r.left, r.top, r.right, r.bottom].map(c).join(', ')
+      if (${!!p.centrado} && (Math.abs(r.left + r.right - innerWidth) > 1 || Math.abs(r.top + r.bottom - innerHeight) > 1)) return 'o app não está no meio: ' + [r.left, r.top, r.right, r.bottom].map(c).join(', ')
+      return true`), ms, `app ${w} × ${h}`)
+  }
   if (p.tecla !== undefined) {
     const k = { key: p.tecla, code: p.tecla, windowsVirtualKeyCode: { Escape: 27, Enter: 13, Tab: 9, Backspace: 8 }[p.tecla] }
     await cdp('Input.dispatchKeyEvent', { type: 'keyDown', ...k }, s); await cdp('Input.dispatchKeyEvent', { type: 'keyUp', ...k }, s)
@@ -215,6 +279,14 @@ async function passo(s, p) {
   throw new Error('passo desconhecido: ' + JSON.stringify(p))
 }
 
+const VV_DE_MENTIRA = `(() => {
+  const vv = new EventTarget(); let teclado = 0, rolou = 0
+  Object.defineProperties(vv, { offsetTop: { get: () => rolou }, offsetLeft: { get: () => 0 }, pageTop: { get: () => rolou }, pageLeft: { get: () => 0 },
+    width: { get: () => innerWidth }, height: { get: () => innerHeight - teclado }, scale: { get: () => 1 } })
+  window.__m2cfTeclado = (px, sobe) => { teclado = px; rolou = sobe; vv.dispatchEvent(new Event('resize')); vv.dispatchEvent(new Event('scroll')) }
+  Object.defineProperty(window, 'visualViewport', { get: () => vv, configurable: true })
+})()`
+
 const rotulo = (p) => Object.entries(p).filter(([k]) => !['ms', 'anima', 'entre'].includes(k)).map(([k, v]) => `${k} ${typeof v === 'string' ? v : JSON.stringify(v)}`).join(' · ')
 
 async function roda(nome) {
@@ -224,6 +296,9 @@ async function roda(nome) {
   await cdp('Page.enable', {}, s); await cdp('Runtime.enable', {}, s)
   await cdp('Emulation.setFocusEmulationEnabled', { enabled: true }, s)
   await cdp('Emulation.setDeviceMetricsOverride', { width: W, height: H, deviceScaleFactor: 1, mobile: false }, s)
+  // o teclado por cima da página (o Safari do iPhone): um visualViewport de mentira, que acompanha a janela
+  // e encolhe no { sobreposto } — o Chrome não tem como emular isso
+  if (passos.some((p) => p.sobreposto !== undefined)) await cdp('Page.addScriptToEvaluateOnNewDocument', { source: VV_DE_MENTIRA }, s)
   const t0 = performance.now(); let falhou = null; registro = []
   // a página que recarrega sem o roteiro mandar (o dev server trocou um arquivo que outro
   // agente editou) volta o estado único ao começo: a régua diz isso, em vez de só "não chegou"

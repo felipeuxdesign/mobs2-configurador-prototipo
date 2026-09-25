@@ -18,11 +18,14 @@ import './Aviso.css'
 // bloqueado, sem poço — o rótulo de topo, 14 em volta, 6 entre o rótulo e a
 // frase, e a frase de duas orações em --tinta-secundaria (A HOMOLOGAÇÃO FICA
 // BLOQUEADA). Com o tom 'falha', o traço vermelho embaixo é o de sempre.
-export function Aviso({ tom = 'falha', glifo = 'xis', poco = 26, nomeGlifo, titulo, frase, numero, unidade, semPoco = false, bloqueio = false, mudo = true }) {
+// `traco` (o mundo real · T01/14, G11): o aviso neutro com o traço embaixo, em
+// cinza — o que falta é do mundo, não um erro do técnico (SEM CONEXÃO, no
+// login). O desenho é o do aviso; só o traço de baixo acende, na cor do rótulo.
+export function Aviso({ tom = 'falha', glifo = 'xis', poco = 26, nomeGlifo, titulo, frase, numero, unidade, semPoco = false, bloqueio = false, traco = false, mudo = true }) {
   const falha = tom === 'falha'
   const veredito = tom === 'veredito'
   return (
-    <div className={`ds-aviso ds-caixa-poco ${falha ? 'ds-caixa-falha ds-aviso-falha' : ''} ${semPoco ? 'ds-aviso-sem-poco' : ''} ${veredito ? 'ds-aviso-veredito' : ''} ${bloqueio ? 'ds-aviso-bloqueio' : ''}`}>
+    <div className={`ds-aviso ds-caixa-poco ${falha ? 'ds-caixa-falha ds-aviso-falha' : ''} ${semPoco ? 'ds-aviso-sem-poco' : ''} ${veredito ? 'ds-aviso-veredito' : ''} ${bloqueio ? 'ds-aviso-bloqueio' : ''} ${traco && !falha ? 'ds-aviso-traco' : ''}`}>
       {!semPoco && !veredito && !bloqueio && <Poco tam={poco} aria-hidden={mudo ? 'true' : undefined}><Glifo estado={glifo} poco={poco} nome={nomeGlifo} /></Poco>}
       <span className="ds-aviso-texto">
         <span className="ds-aviso-titulo">{titulo}</span>
