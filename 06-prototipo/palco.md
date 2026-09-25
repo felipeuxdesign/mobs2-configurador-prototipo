@@ -13,7 +13,7 @@ A moldura de apresentação em volta do app. **Três peças e mais nada**, no fu
 
 ## O painel · em duas partes
 
-- **O caminho** — as telas na ordem do fluxo: T01 a T10, depois T14, T13 e T16
+- **O caminho** — as telas na ordem do fluxo: T01 a T07, T09 e T10, depois T14, T13 e T16
 - **As consultas** — T15, T11, T12 e T08, que o técnico abre a qualquer hora pelo menu
 - no pé, **`Recomeçar do login`** — zera o estado único e volta ao começo
 

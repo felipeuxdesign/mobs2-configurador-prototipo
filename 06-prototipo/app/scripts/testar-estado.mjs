@@ -1,5 +1,5 @@
-// O teste das sementes e das receitas (G21): todo id resolve no mock, e os 50
-// estados do indice.json têm receita. Roda no node, sem o navegador.
+// O teste das sementes e das receitas (G21): todo id resolve no mock, e todo
+// estado do indice.json tem receita. Roda no node, sem o navegador.
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { dirname, resolve } from 'node:path'
@@ -12,7 +12,7 @@ const indice = JSON.parse(readFileSync(resolve(raiz, '02-telas/indice.json'), 'u
 let falhas = 0; const chk = (n, ok, d) => { console.log((ok ? 'OK     ' : 'FALHA  ') + n + (d ? ' — ' + d : '')); if (!ok) falhas++ }
 const estados = indice.filter((r) => r.tipo === 'estado').map((r) => r.id)
 const sem = estados.filter((id) => !RECEITAS[id])
-chk('os 50 estados têm receita', estados.length === 50 && !sem.length, sem.join(', '))
+chk(`os ${estados.length} estados do indice.json têm receita`, estados.length > 0 && !sem.length, sem.join(', '))
 const cam = (p) => p.split('.').reduce((o, k) => (o == null ? undefined : o[k]), M)
 const quebrados = []
 for (const [id, r] of Object.entries(RECEITAS)) {
@@ -20,7 +20,7 @@ for (const [id, r] of Object.entries(RECEITAS)) {
   for (const d of r.dados ?? []) if (cam(d) === undefined) quebrados.push(`${id}: dado ${d}`)
 }
 chk('todo caso e todo dado das receitas existe no mock', !quebrados.length, quebrados.join(' · '))
-const aditivos = Object.entries(RECEITAS).filter(([, r]) => r.aditivo).map(([id, r]) => `${id} → ${r.aditivo}`)
+const aditivos = Object.entries(RECEITAS).filter(([, r]) => r.aditivo && !M.casos[r.aditivo]).map(([id, r]) => `${id} → ${r.aditivo}`)
 console.log(`\n${aditivos.length} estados esperam um caso aditivo no ciclo da tela:\n  ` + aditivos.join('\n  '))
 // as sementes: o import usa o mock pela ponte do navegador, então aqui só se conferem os ids
 const sem2 = readFileSync(resolve(app, 'src/estado/sementes.js'), 'utf8')

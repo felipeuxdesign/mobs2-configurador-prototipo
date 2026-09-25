@@ -22,9 +22,9 @@ O protótipo abre no **login, às 14:30, com o Rafael Vieira**. O usuário vem p
 ## O caminho do herói
 
 ```
-login → garagem Várzea → sincroniza o pacote → menu
+login → garagem Várzea → sincroniza o pacote → menu, com o aviso do acesso na primeira chegada (Entendi)
 → conectar: acha cinco módulos (o do herói e mais quatro), escolhe o M2C-0417, conecta, a pré-checagem acende as onze linhas → a faixa desce
-→ o ônibus RKT-8H42 → os chassis batem → a CAN lida → a cadeia grava e relê os blocos → calibra o hodômetro
+→ o ônibus RKT-8H42 → os chassis batem → a CAN lida → a cadeia grava e relê os blocos → calibra o hodômetro e o horímetro, com a prova: o número do painel e a foto
 → o ciclo dinâmico: os cinco passos sozinhos, o evento chega → o checklist fecha → ENCERRAR → a faixa sobe → menu sem sessão
 ```
 
@@ -173,6 +173,14 @@ A ferramenta que espera módulo ou ônibus é **desabilitada de verdade**: o toq
 
 Com a sessão aberta, **o módulo e o ativo não trocam** — é a HU-T16-2. Tocar no cartão de qualquer um dos dois, no menu, abre a folha dele: o que está conectado, *Travado na sessão*, e `Encerrar a sessão`, que segue a mesma regra do ENCERRAR da faixa.
 
+## A calibração só semeia com a prova
+
+Na T10, o botão principal só acende com **o número digitado e a foto tirada**, e sempre diz o que falta: *Digite o que o painel mostra* → *Fotografe o painel* → *Semear o hodômetro*. A foto é da **câmera do próprio app** — sem galeria, com a hora, o técnico, o ativo e o módulo carimbados —, e foto tirada fica tirada. Se a releitura passar da tolerância, a tela diz *não confere* e pede `Semear de novo`; a foto continua valendo, porque ela prova o painel. No protótipo, a câmera é simulada: o quadro mostra uma imagem parada e o `Tirar foto` só registra.
+
+## O aviso do acesso
+
+No 5º dia da sessão de acesso — `situacao.sessaoAcesso` —, o diálogo *Seu acesso vence em 2 dias* aparece na primeira chegada ao menu, uma vez por dia. O herói está nesse dia, então **ele aparece no caminho feliz**, uma vez; `Recomeçar do login` mostra de novo.
+
 ## A URL
 
 Todo lugar do protótipo tem endereço: `?tela=T07` abre a tela · `?tela=T07&estado=01-estado-fora-da-faixa` abre o estado. Um link mandado pra alguém abre exatamente o que se quis mostrar.
@@ -196,6 +204,7 @@ Pendências que não são de desenho seguem um padrão até o PM decidir — a l
 | `T01/12-momento-codigo-reenviado` | tocar em *Conferir e reenviar* |
 | `T01/13-momento-codigo-no-e-mail` | tocar em *Mandar para o e-mail* |
 | `T02/01-momento-escolhida` | tocar numa garagem |
+| `T02/03-momento-busca-sem-resultado` | digitar na busca um nome que não existe |
 | `T03/02-momento-concluido` | o download termina |
 | `T04/01-momento-sem-modulo` | o menu antes de conectar |
 | `T04/02-momento-modulo-sem-ativo` | módulo conectado, ônibus ainda não escolhido |
@@ -210,10 +219,16 @@ Pendências que não são de desenho seguem um padrão até o PM decidir — a l
 | `T05/10-momento-atualizando-o-firmware` | `Atualizar firmware` |
 | `T06/01-momento-confirmar-o-veiculo` | tocar num ônibus |
 | `T06/07-momento-correcao-solicitada` | tocar em `Solicitar correção de cadastro` no chassi divergente |
+| `T06/08-momento-busca-sem-resultado` | digitar na busca uma placa que não existe |
 | `T08/01-momento-relendo` | `Refazer a leitura` |
 | `T08/02-momento-concluida` | a releitura termina |
 | `T09/04-momento-cadeia-concluida` | o último bloco relido |
 | `T10/01-momento-hodometro-semeado` | `Semear o hodômetro` |
+| `T10/05-momento-hodometro-digitado` | digitar o valor do painel |
+| `T10/06-momento-camera-do-painel` | tocar em `Fotografar o painel` |
+| `T10/07-momento-painel-fotografado` | `Tirar foto` |
+| `T10/08-momento-horimetro` | `Calibrar o horímetro` |
+| `T10/09-momento-calibracao-completa` | `Semear o horímetro`, com a releitura conferindo |
 | `T11/02-momento-tudo-confere` | nada diverge: pelo menu, com a sessão do herói, ou depois de regravar pela T09 (T11·1, T11·2) |
 | `T12/01-momento-detalhe-da-instalacao` | tocar numa instalação |
 | `T13/01-momento-a-identificacao-aberta` | tocar na seção |
@@ -239,7 +254,7 @@ Pendências que não são de desenho seguem um padrão até o PM decidir — a l
 
 | Referência | O que causa | Caso do mock |
 |---|---|---|
-| `T01/01-estado-usuario-ou-senha-incorretos` | Entrar com senha de menos de 8 caracteres | `credenciais` |
+| `T01/01-estado-usuario-ou-senha-incorretos` | Entrar com senha de menos de 8 caracteres · a senha é apagada e o cursor vai pra ela; o usuário fica | `credenciais` |
 | `T01/06-estado-codigo-expirado` | o código passa de 10 minutos | `recuperacao.limites.validadeMin` |
 | `T01/07-estado-tentativas-esgotadas` | o terceiro código errado | `recuperacao.limites.tentativas` |
 | `T02/02-estado-lista-longa-com-busca` | a empresa tem mais de 6 garagens — a busca aparece, e a lista rola por baixo do rodapé | `lista-longa-garagens` |
@@ -250,6 +265,7 @@ Pendências que não são de desenho seguem um padrão até o PM decidir — a l
 | `T04/04-estado-checklist-pendente` | o checklist tem itens abertos | `checklist` |
 | `T04/08-estado-folha-trocar-de-garagem-envio-em-andamento` | trocar com evidência subindo | `filaSaida` |
 | `T04/09-estado-folha-trocar-de-garagem-com-modulo-conectado` | trocar com a sessão aberta | derivado do fluxo |
+| `T04/12-estado-acesso-vencendo` | a sessão de acesso chega ao 5º dia: o diálogo aparece uma vez por dia, na primeira chegada ao menu | `situacao.sessaoAcesso` |
 | `T05/03-estado-nenhum-encontrado` | nenhum módulo responde | `busca-vazia` |
 | `T05/04-estado-conexao-falhou` | o módulo não responde ao conectar | `conexao-falha` |
 | `T05/06-estado-pre-checagem-serial-nao-cadastrado` | o serial não está no cadastro | `serial-nao-cadastrado` |
@@ -275,6 +291,7 @@ Pendências que não são de desenho seguem um padrão até o PM decidir — a l
 | `T10/02-estado-rotacao-caminhao-coletor` | o modelo calibra rotação e velocidade | `calibracao.porModelo · ma-02 · KNB-5H39` |
 | `T10/03-estado-ja-semeado` | o hodômetro já foi semeado antes | `calibracao` |
 | `T10/04-estado-modulo-sem-pulsos` | o módulo não recebe pulsos | `grandeza-indisponivel` |
+| `T10/10-estado-releitura-nao-confere` | a releitura passa da tolerância: 500 m a menos, e o limite é 120 m | `releitura-nao-confere` |
 | `T11/01-estado-conteudo-que-o-app-nao-reconhece` | índice que o app não classifica | `indice-nao-classificado` |
 | `T12/02-estado-nenhuma-instalacao` | a garagem não tem instalações | `instalacoes` + `instalacoes-vazia` (a consulta da garagem que volta vazia, sem sessão, C11) |
 | `T12/03-estado-sem-rede` | a consulta sem rede | `instalacoes-sem-rede` |

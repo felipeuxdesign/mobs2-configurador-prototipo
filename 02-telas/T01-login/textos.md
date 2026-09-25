@@ -8,7 +8,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `01-estado-usuario-ou-senha-incorretos`
 
-`14:30` · `Entrar` · `CONFIGURADOR` · `USUÁRIO OU SENHA INCORRETOS` · `Confira os dois e entre de novo.` · `USUÁRIO` · `SENHA` · `Lembrar meu usuário` · `Entrar` · `Esqueci a senha`
+`14:30` · `Entrar` · `CONFIGURADOR` · `USUÁRIO OU SENHA INCORRETOS` · `Confira os dois e entre de novo.` · `USUÁRIO` · `SENHA` · `Lembrar meu usuário` · `Digite a senha` · `Esqueci a senha`
 
 ## `02-momento-recuperar-escolher-canal`
 

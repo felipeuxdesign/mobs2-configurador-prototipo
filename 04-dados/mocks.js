@@ -460,6 +460,12 @@
   /* ── Casos — cada estado de bloqueio/tela aponta para dado CONCRETO da
      obra. Nenhum é opcional: tela sem o seu caso morre sem dado. ── */
   var CASOS = {
+    /* T10 · a releitura que não confere (HU-T10-5). O técnico semeou
+       482.317 km, e o módulo releu 482.316,5 km: 500 m a menos. A tolerância
+       do hodômetro é calibracao.tolerancia.hodometro.desvio = 120 m — então
+       não confere, e a tela pede "Semear de novo". A foto continua valendo:
+       ela prova o painel, não o módulo. relidoBruto em metros, como bruto. */
+    "releitura-nao-confere": { ativoId: "a-01", grandeza: "hodometro", relidoBruto: 482316500 },
     /* T02 · a lista longa. A empresa do herói tem 3 garagens (o gate trava
        isso), e a busca só aparece com MAIS DE 6 — então a lista longa vive
        num caso: a mesma empresa, num mundo com 9 garagens em 3 regiões.

@@ -35,6 +35,27 @@ As listas de peças e as referências são do design, como o pacote pede. A anot
 
 O `_changelog-para-colar.md` da `atualizacao33/` traz, embaixo da senha visível, as linhas da primeira entrega (a logo no lima, o *Lembrar meu usuário*, o checkbox marcado), que já estavam no registro. Entraram uma vez só. A `atualizacao98/` repete os itens 1 a 4 e o 7 da quarta entrega, que o protótipo já estava construindo.
 
+## A entrega de 25/09 · a calibração com prova (`atualizacao180/`)
+
+Os 67 arquivos entraram. O gate aprova, e o censo confere: **122 referências no `indice.json`** — 16 telas, 54 momentos e 52 estados. O que mudou em cada arquivo:
+
+- **entraram como vieram** (o nosso era igual à sua cópia anterior): o `02-telas/README.md`, o `textos.md` da T01, o `estados.md` e o `textos.md` da T02, da T04 e da T06, a `animacao.md`, o `textos.md` e o `estados.md` da T10, o `PROMPT-DE-ABERTURA.md`, o `LEIA-PRIMEIRO.md`, o README das decisões e a decisão 33
+  - no `estados.md` da T10 ficou, embaixo, a nota do C9 sobre o rótulo da caixa do que não se aplica (T10·5)
+- **as 36 referências:** as 14 que substituem (a T01/01, as cinco da T10, as folhas 7 e 8, e o painel do palco) e as 22 novas
+- **os `tela.md`, juntados** (a lista de peças é a sua; a medida fica na seção do protótipo):
+  - **T01:** entrou o `Entrar` apagado dizendo *Digite a senha*;
+  - **T02 e T06:** a busca sem resultado. Na T06, a nossa linha dizia *sem resultado, o cartão fica vazio e sem texto* (a T06·5), e agora diz o seu texto;
+  - **T04:** o aviso do acesso e os números (7 momentos, 5 estados). O resto do *O que se toca* é o nosso, que já tinha o seu;
+  - **T10:** o fluxo novo da decisão 33 vale. Saíram as linhas do C9 que ele desmente: a foto e o semear independentes (T10·3), o cartão da foto tocável e o horímetro sem referência. Ficaram a ordem das grandezas pelo cadastro (T10·1, T10·2), a volta de onde parou e o voltar;
+  - **T15:** o `Ressincronizar e reenviar` passa a fazer o que você escreveu (os itens voltam pra fila e o envio recomeça), no lugar do *só o pressionado* do C11, e entrou a notificação da fila parada;
+  - **T16:** as 8 legendas do encerramento, em cima das nossas linhas
+- **o `componentes.md`:** a sua tabela inteira, com as 117 peças. Na seção do protótipo saiu a variante *tocável* da foto, que agora é o seu desenho · **127 peças no protótipo** (as suas 117 e as 10 que as folhas desenham e a tabela ainda não lista)
+- **o `indice.json`:** as 122, com os campos do palco. Os dois estados novos ganharam o rótulo da coluna, proposto: *Acesso vencendo* e *Releitura não confere*
+- **o `mocks.js`:** o caso `releitura-nao-confere` entrou por cima dos nossos 7 acréscimos · **42 casos** (os seus 35 e os 7)
+- **o `logica.md`:** entraram as duas seções novas (a calibração com prova, o aviso do acesso), as linhas das referências novas nas duas tabelas, e o caminho do herói com o aviso e a calibração com a prova. Ficaram as nossas seções e o voltar do Android do C11, que é mais completo que o da sua cópia
+- **o `palco.md`:** entrou só o grupo do caminho sem a T08. O resto da sua cópia desfazia três decisões do diretor (a coluna centralizada, o painel que não fecha ao escolher, a moldura igual no estado), e fica o nosso
+- **os números:** o `CLAUDE.md`, os READMEs, o `ciclos.md` e o `pendencias.md` (a notificação de 30 min) · os tokens continuam **274**
+
 ## O que as referências pedem ao design · medido no C10, no C11 e nas entregas 4 e 5
 
 Nenhuma referência foi mexida: o protótipo mede e propõe, e a correção é na fonte. Cada item diz o que muda e, quando medido, quanto a diferença cai.

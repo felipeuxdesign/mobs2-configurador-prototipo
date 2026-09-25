@@ -26,6 +26,7 @@ Perguntas que **não são de desenho** e estão com quem decide. Enquanto não v
 | T06 | `Solicitar correção de cadastro` manda o pedido pra quem, e o técnico vê o quê depois? | só o pressionado; nada é criado (G25) |
 | T01 | o celular e o e-mail do técnico aparecem mascarados antes do login? | mascarados: `(81) •••••-8675` e `r•••••@atlsul.com.br` |
 | T01 | a espera de 60 s do reenvio vale também pra trocar de canal? | vale: qualquer envio novo espera |
+| T15 | depois de quanto tempo a fila parada vira notificação? | 30 min |
 | T06 | a frase da trava de fora do pacote é `Pertence a {garagem}.`: com a garagem do mock sai `Pertence a Pátio Caruaru.`, e a da referência já vinha sem crase (`a Garagem Ibura`, T06-N4). A frase leva o artigo da garagem (`à Garagem`, `ao Pátio`)? | o texto como está, com o nome da garagem do mock |
 
 ## Validar no aparelho

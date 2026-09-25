@@ -33,4 +33,4 @@ Você está num projeto cujo design já foi decidido, medido e aprovado. **Seu t
 
 ## Os números desta versão
 
-16 telas · 47 momentos · 50 estados · 107 histórias de usuário · 274 tokens · 126 peças no design system · 41 casos no mock.
+16 telas · 54 momentos · 52 estados · 107 histórias de usuário · 274 tokens · 127 peças no design system · 42 casos no mock.

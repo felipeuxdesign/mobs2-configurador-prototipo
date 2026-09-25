@@ -8,7 +8,7 @@ Escolher o ônibus que está na frente do técnico e provar que é ele.
 | **Chrome** | faixa de sessão |
 | **Semente no protótipo** | sessão M2C-0417 · dez ônibus no pacote |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 2 · 5 — ver `estados.md` |
+| **Momentos · estados** | 3 · 5 — ver `estados.md` |
 
 ## O que se toca
 
@@ -17,7 +17,7 @@ Escolher o ônibus que está na frente do técnico e provar que é ele.
 - a confirmação checa nesta ordem: o pacote, os pinos e o chassi (T06·3). O ônibus que não é caso abre com o chassi lido igual ao do cadastro (T06·2)
 - `Usar este ativo` → o ativo entra na sessão, com o vínculo anotado (o chassi lido ou a confirmação do técnico, às 14:30), e segue pra T07
 - `Escolher outro` e `Escolher outro veículo` → a lista, com a busca como estava · `Voltar ao menu` → T04 · `ENCERRAR` → a sessão abortada (T16/03, G23)
-- a busca filtra ao digitar por placa, frota, módulo esperado e chassi, sem caixa, sem acento e sem o hífen da placa; a placa de um ônibus de outro pacote abre a trava de fora do pacote; sem resultado, o cartão fica vazio e sem texto (T06·5)
+- a busca filtra ao digitar por placa, frota, módulo esperado e chassi, sem caixa, sem acento e sem o hífen da placa; a placa de um ônibus de outro pacote abre a trava de fora do pacote; sem resultado, o cartão diz *Nada com “ABC-1234”* e sugere buscar pela frota — o momento `08` (a entrega do design de 25/09, que muda a T06·5)
 - sem chassi na CAN: marcar a confirmação libera o `Usar este ativo`; a legenda fica onde está, porque nenhuma referência desenha o quadro marcado e tirá-la moveria o rodapé (G25)
 - chassi divergente: `Solicitar correção de cadastro` → o cartão vira o registro, *Correção solicitada às 14:30*, e deixa de ser tocável — é o momento `07`, no mesmo lugar e do mesmo tamanho: o relógio no poço de 24 e, embaixo do feito, *o gestor recebe os dois chassis*; a hora é a do protótipo (`M.HORA_NOMINAL`), e o conteúdo novo esmaece em 150ms (`animacao.md`). O `07` é do caso `divergencia-chassi`, como o `02`: abre pelo endereço com o RDF-3R14, e no fluxo pela porta natural do `02` — o ônibus do caso no pacote da garagem (na Ibura, R-11). Enquanto a T06 está aberta, o pedido fica feito: escolher o mesmo ônibus de novo abre o `07`, e não o pedido outra vez. Pro leitor de tela, o registro é um aviso de status, não um botão
 - conflito de pinos com saída: `Usar leitor sem fio` resolve no lugar — a sessão passa a sem fio e o mesmo ônibus segue pra confirmação (T06·4). O conflito vale quando o módulo da faixa, o ônibus e o meio da sessão são os do caso (G28)
@@ -35,6 +35,7 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - com legenda
 - seção aberta do checklist
 - seção recolhida
+- vazio declarado
 - nota com rótulo
 - o par comparado
 - linha do histórico

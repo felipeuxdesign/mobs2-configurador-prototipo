@@ -8,10 +8,11 @@ O painel das ferramentas: o que está pronto pra usar, o que espera o quê.
 | **Chrome** | tira de contexto (garagem) + faixa de sessão · sem sessão, a faixa diz só o fato (01) |
 | **Semente no protótipo** | sessão M2C-0417 + RKT-8H42 · fila com 2 itens |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 7 · 4 — ver `estados.md` |
+| **Momentos · estados** | 7 · 5 — ver `estados.md` |
 
 ## O que se toca
 
+- no 5º dia da sessão de acesso, o diálogo *Seu acesso vence em 2 dias* aparece na primeira chegada ao menu · `Entendi` fecha, e ele volta no dia seguinte até o técnico entrar de novo com rede
 - `Conectar módulo` → T05
 - `Ativo selecionado` → T06, com o módulo conectado e o ônibus ainda não escolhido
 - cada ferramenta liberada → a tela dela

@@ -16,5 +16,6 @@
 | `09-estado-folha-trocar-de-garagem-com-modulo-conectado` | estado | trocar com a sessão aberta | derivado do fluxo |
 | `10-momento-folha-modulo-conectado` | momento | tocar no cartão do módulo com a sessão aberta | `modulos · M2C-0417` |
 | `11-momento-folha-ativo-da-sessao` | momento | tocar no cartão do ativo com a sessão aberta | `ativos · a-01` |
+| `12-estado-acesso-vencendo` | estado | a sessão de acesso chega ao 5º dia: o diálogo aparece uma vez por dia, na primeira chegada ao menu | `situacao.sessaoAcesso` |
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.

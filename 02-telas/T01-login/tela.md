@@ -12,6 +12,7 @@ Entrar no app com usuário e senha, e recuperar o acesso sem ligar pra ninguém.
 
 ## O que se toca
 
+- no erro, o `Entrar` fica apagado, dizendo *Digite a senha*, até a senha ter um caractere
 - `Entrar` → T02 se a senha tiver 8 caracteres ou mais; com menos, o erro de usuário ou senha
 - `Esqueci a senha` → recuperar: escolher o canal
 - canal escolhido → digitar o código (482913 no mock) → nova senha → senha alterada → login

@@ -49,3 +49,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `11-momento-folha-ativo-da-sessao`
 
 `14:30` · `GARAGEM VÁRZEA` · `RV` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Ativo da sessão` · `RKT-8H42` · `frota 1003 · Ônibus urbano OF-1621` · `chassi 9BM384067GB120401` · `TRAVADO NA SESSÃO` · `Enquanto a sessão estiver aberta, o ativo não troca. Pra trocar de ativo, encerre a sessão.` · `Encerrar a sessão`
+
+## `12-estado-acesso-vencendo`
+
+`14:30` · `GARAGEM VÁRZEA` · `RV` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Menu` · `CONECTAR MÓDULO` · `M2C-0417` · `ATIVO SELECIONADO` · `RKT-8H42` · `Dados da CAN` · `Configurar módulo` · `Refazer leitura` · `Calibração` · `Conferir configuração` · `Finalizar com checklist` · `Últimas instalações` · `sem conexão` · `2` · `Fila de saída` · `Seu acesso vence em 2 dias` · `Depois disso, ele pede a senha de novo — e pra isso precisa de rede.` · `Entendi`

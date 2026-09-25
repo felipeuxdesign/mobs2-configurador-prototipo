@@ -12,5 +12,6 @@
 | `05-estado-conflito-de-pinos-resolvivel` | estado | pinos ocupados, com saída | `conflito-pinos-resolvivel` |
 | `06-estado-conflito-de-pinos-sem-saida` | estado | pinos ocupados, sem saída | `conflito-pinos-sem-saida` |
 | `07-momento-correcao-solicitada` | momento | tocar em `Solicitar correção de cadastro` no chassi divergente | `divergencia-chassi` |
+| `08-momento-busca-sem-resultado` | momento | digitar na busca uma placa que não existe | derivado do fluxo |
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.

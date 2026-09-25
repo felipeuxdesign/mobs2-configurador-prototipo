@@ -9,6 +9,12 @@
 | `02-estado-rotacao-caminhao-coletor` | estado | o modelo calibra rotação e velocidade | `calibracao.porModelo · ma-02 · KNB-5H39` |
 | `03-estado-ja-semeado` | estado | o hodômetro já foi semeado antes | `calibracao` |
 | `04-estado-modulo-sem-pulsos` | estado | o módulo não recebe pulsos | `grandeza-indisponivel` |
+| `05-momento-hodometro-digitado` | momento | digitar o valor do painel | `calibracao.painel · a-01` |
+| `06-momento-camera-do-painel` | momento | tocar em `Fotografar o painel` | derivado do fluxo |
+| `07-momento-painel-fotografado` | momento | `Tirar foto` | derivado do fluxo |
+| `08-momento-horimetro` | momento | `Calibrar o horímetro` | `calibracao.painel · a-01 · horimetro` |
+| `09-momento-calibracao-completa` | momento | `Semear o horímetro`, com a releitura conferindo | derivado do fluxo |
+| `10-estado-releitura-nao-confere` | estado | a releitura passa da tolerância: 500 m a menos, e o limite é 120 m | `releitura-nao-confere` |
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.
 

@@ -136,8 +136,8 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 | cartão de configuração | Seção D · o valor que veio da cadeia | T07 T13 |
 | cartões de foto | visor de 46 · o nome embaixo | T08 T13 |
 | a seção aberta inteira | a cabeça e os cartões, como abrem no acordeão | T13 |
-| foto · aguarda | a legenda diz pra que ela serve | T10 |
-| foto · tirada | e onde mais ela vale | T10 |
+| foto · a tirar | tocável, com a câmera · a legenda diz pra que ela serve | T10 |
+| foto · tirada | vira o registro no lugar, e deixa de ser tocável · diz onde mais ela vale | T10 |
 | mostrador · apagado | tracejado · o traço no lugar do valor | T08 |
 | mostrador · relendo | acende quando o sinal responde | T08 |
 | mostrador · aceso | o nome com altura de duas linhas | T08 |
@@ -156,13 +156,14 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 | valor em poço | o que o módulo conta hoje | T10 |
 | régua da diferença | a distância entre os dois · vira "confere" depois | T10 |
 | o valor alvo | o número do painel, o que vai pro módulo | T10 |
+| o painel · vazio | antes de digitar · o traço em tinta apagada, sem o lima | T10 |
 | o que não se aplica | fato declarado, sem vermelho | T10 |
 
 ## No protótipo · o que o código mediu
 
 Anotação de construção. A tabela de cima é a do design; esta diz, só nas linhas em que o protótipo mediu diferente, o que o código usa — a regra com as variantes nomeadas (G11) e as telas que usam, corrigidas pelo medido no ciclo de cada tela (G10). A diferença vai pro arquiteto.
 
-Cada linha é um espécime de moldura das folhas (122), e a folha 3 soma quatro linhas pros seus 35 átomos: com as de cima, **126 peças**. O mapa de cada linha pro componente que a constrói está em `06-prototipo/app/src/ds/MAPA.md`.
+Cada linha é um espécime de moldura das folhas (123), e a folha 3 soma quatro linhas pros seus 35 átomos: com as de cima, **127 peças**. O mapa de cada linha pro componente que a constrói está em `06-prototipo/app/src/ds/MAPA.md`.
 
 - **peça nova no protótipo:** a folha desenha, e o design ainda não tem linha
 - **em outra folha:** o espécime está desenhado nesta folha, e não na que o design diz
@@ -281,7 +282,6 @@ Cada linha é um espécime de moldura das folhas (122), e a folha 3 soma quatro 
 | cartão de configuração | Seção D · o valor que veio da cadeia | T13 |
 | cartões de foto | visor de 46 · o nome embaixo · variante: desabilitado, o item já resolvido ou herdado da calibração, o mesmo desenho, sem toque e desabilitado pro leitor (T13) | T13 |
 | a seção aberta inteira | a cabeça e os cartões, como abrem no acordeão · variante: sem divisória, a última do acordeão sem o traço de baixo (T13) · a legenda e o nome do glifo passam pra cabeça, como na seção aberta do checklist | T13 |
-| foto · aguarda | a legenda diz pra que ela serve · variante: tocável, o cartão inteiro fotografa, com o nome da ação pro leitor de tela, e tirada para de responder (T10) | T10 |
 | mostrador · relendo | acende quando o sinal responde · variante: a unidade junto do valor, menor e apagada (T08) | T08 |
 | mostrador · aceso | o nome com altura de duas linhas · variante: a unidade junto do valor, menor e apagada (T08) | T08 |
 | bloco do evento | o que foi disparado e recebido · variante: o nome do relógio segue o dado, ainda não antes do disparo, e na linha feita o relógio fica no lugar, mudo (T14) | T14 |

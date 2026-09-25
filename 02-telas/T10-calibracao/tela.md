@@ -8,18 +8,21 @@ Fazer o módulo contar igual ao painel do ônibus — com a foto do painel como 
 | **Chrome** | faixa de sessão |
 | **Semente no protótipo** | sessão M2C-0417 + RKT-8H42 · hodômetro 184.320 no módulo, 482.317 no painel |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 1 · 3 — ver `estados.md` |
+| **Momentos · estados** | 6 · 4 — ver `estados.md` |
 
 ## O que se toca
 
-- `Fotografar o painel` → a foto entra e vale também na Seção B. O toque é no cartão da foto inteiro, que a referência desenha sem botão (G14); a foto fica gravada na calibração da sessão e o checklist a lê no item do painel (HU-T10-4). Tirada a foto, o cartão fica como está e não responde mais
-- `Semear o hodômetro` → semeado (a 01), em sequência (T10·4): o número do módulo troca pelo do painel, depois a releitura confere e a régua vira `confere`; enquanto isso o botão fica parado, com o mesmo texto, e no fim troca pra `Calibrar o horímetro`. Foto e semear não dependem uma da outra: dá pra semear com a foto aguardando (T10·3)
+- o campo do painel → tocar e digitar o que o painel mostra, com o teclado numérico
+- `Fotografar o painel` → a câmera do próprio app, com o quadro e *Enquadre o hodômetro do painel* → `Tirar foto` → volta com o registro no lugar do cartão · sem galeria, e foto tirada fica tirada
+- o botão só acende com o número digitado **e** a foto tirada, e sempre diz o que falta: *Digite o que o painel mostra* → *Fotografe o painel* → *Semear o hodômetro*
+- `Semear o hodômetro` → grava e relê → semeado · se a releitura passar da tolerância, *não confere* e `Semear de novo` — a foto continua valendo
+- `Calibrar o horímetro` → o 2 de 2, no mesmo fluxo do hodômetro — o digitado e o fotografado do horímetro são iguais aos do hodômetro, só muda o número → `Concluir a calibração` → o menu
+- na rotação, o botão diz *Ligue o motor* até o módulo ler; depois, *Digite o que o conta-giros mostra*
 - passo seguinte: o horímetro, ou a rotação e a velocidade no caminhão coletor. As grandezas e a ordem são as do cadastro do modelo do ativo, menos as que o módulo não mede (T10·1); o `Depois:` mostra só a próxima (T10·2)
-- o passo do horímetro não tem referência nem o texto do semear: monta-se com as peças e os textos que existem, com o botão desabilitado e o mesmo rótulo, `Calibrar o horímetro` (G25). A rotação do caminhão coletor (a 02) fica igual: `Calibrar a rotação` desabilitado, porque o módulo só lê com o motor ligado (HU-T10-2). Semeado o último passo (o hodômetro do ônibus de um passo só), nada está desenhado depois: o botão fica desabilitado, com o mesmo rótulo (G25)
 - `Voltar ao menu` → T04, e a calibração volta de onde parou (no hodômetro semeado, o endereço volta a ser o da 01) · `ENCERRAR`, antes de homologar: a sessão abortada da T16 (G23); depois, o encerramento
 - o voltar do sistema (no computador, o Esc) faz o `Voltar ao menu`, em todo passo (`06-prototipo/logica.md` · O voltar do Android)
 
-Corrigido no C9 pelas referências e pelas decisões do C0 (G1): o toque do cartão da foto, a sequência do semear e o passo sem referência. O tambor troca o valor; o movimento dele rolando é do C12 (C9·2).
+Na entrega do design de 25/09 (decisão 33), a calibração passou a semear só com a prova: o número digitado e a foto tirada. Sai o que o C9 construiu antes dela — a foto e o semear independentes (T10·3), o cartão da foto tocável e o horímetro sem referência. Continuam a ordem das grandezas pelo cadastro (T10·1 e T10·2), a volta de onde parou e o voltar.
 
 ## Peças do design system que esta tela usa
 
@@ -29,14 +32,16 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - faixa · sessão aberta
 - faixa · sem ação
 - duas ações
+- uma ação
 - processo correndo
 - com legenda
 - segmentado
-- foto · aguarda
+- foto · a tirar
 - foto · tirada
 - valor em poço
 - régua da diferença
 - o valor alvo
+- o painel · vazio
 - o que não se aplica
 
 ## No protótipo · as peças que o código usa

@@ -12,7 +12,8 @@ Ver o que ainda vai subir pro servidor, e o que precisa do técnico.
 
 ## O que se toca
 
-- `Ressincronizar e reenviar` no item com erro → dá o pressionado e não muda o quadro: nenhuma referência desenha o que vem depois, e o mock não ganha item (G25). O resultado vai ao PM
+- `Ressincronizar e reenviar` no item com erro → os itens com erro voltam pra fila, e o envio recomeça (a entrega do design de 25/09; antes era só o pressionado, G25)
+- a notificação local da fila parada diz *Envio parado · 3 itens esperando há 30 min* — os 30 min são padrão até o PM definir o limite
 - `Voltar ao menu` → T04. O voltar do Android (o Esc, no computador) faz o mesmo (`logica.md`)
 - `ENCERRAR` → antes de homologar, a sessão abortada (T16/03, G23); depois, os passos do encerramento (T16)
 - nada anda sozinho: o envio da fila não tem ritmo declarado (G4), e o `01` é estado, parado. A barra que enche e o item que esmaece são do C12

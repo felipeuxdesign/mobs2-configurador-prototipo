@@ -8,10 +8,11 @@ Dizer em que garagem o técnico está hoje — o pacote de dados que o app vai u
 | **Chrome** | sem faixa |
 | **Semente no protótipo** | Viação Atlântico Sul · três garagens · Várzea com pacote de ontem |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 1 · 1 — ver `estados.md` |
+| **Momentos · estados** | 2 · 1 — ver `estados.md` |
 
 ## O que se toca
 
+- a busca sem resultado diz *Nada com “Recreio”* e sugere buscar pela cidade — o termo digitado aparece no título
 - tocar numa garagem → ela fica escolhida
 - `Sincronizar Garagem X` → T03
 - com **mais de 6 garagens**, o campo de busca aparece em cima e filtra por nome ou cidade · a lista rola por baixo do rodapé, que fica parado
@@ -29,6 +30,7 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - escolha numa lista
 - seção aberta do checklist
 - seção recolhida
+- vazio declarado
 - linha do histórico
 - a lista de garagens
 - campo de busca

@@ -33,3 +33,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `07-momento-correcao-solicitada`
 
 `14:30` · `M2C-0417` · `sem ativo` · `ENCERRAR` · `Confirmar o veículo` · `ESCOLHIDO` · `RDF-3R14` · `frota 1051 · Ônibus urbano OF-1621` · `CHASSI LIDO DO VEÍCULO` · `9BM384067GB1204` · `71` · `NO CADASTRO` · `9BM384067GB1204` · `17` · `Os dois últimos dígitos estão trocados de lugar — erro de digitação no cadastro.` · `Correção solicitada às 14:30` · `o gestor recebe os dois chassis` · `Escolher outro veículo` · `Voltar ao menu`
+
+## `08-momento-busca-sem-resultado`
+
+`14:30` · `M2C-0417` · `sem ativo` · `ENCERRAR` · `Selecionar ativo` · `5` · `no pacote` · `ABC-1234` · `Nada com “ABC-1234”` · `Confira a placa, ou busque pela frota.` · `Usar este ativo` · `Voltar ao menu`

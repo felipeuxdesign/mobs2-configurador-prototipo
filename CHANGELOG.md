@@ -1,5 +1,14 @@
 # Registro de mudanças
 
+## 2026-09-24 · a calibração com prova, e os outros buracos
+
+- **a calibração só semeia com a prova**: o campo do painel pra digitar, a câmera do próprio app, o botão dizendo o que falta, a releitura que não confere, e o horímetro até *Concluir a calibração* · decisão 33 e o caso `releitura-nao-confere`
+- **o aviso do acesso vencendo**, no 5º dia, como diálogo sobre o menu · a HU-T01-11 pedia e não existia
+- **a busca sem resultado**, na T02 e na T06 · e o `Entrar` apagado com a senha vazia
+- **o painel do palco em duas partes**, como o palco.md mandava: o caminho e as consultas, com o *Recomeçar do login* no pé
+- escritas na pasta: as **8 legendas do encerramento** e os **toques da fila de saída**
+- agora são **122 referências** — 54 momentos e 52 estados —, **117 peças** e **35 casos**
+
 ## 2026-09-25 · C11 · fechamento: o caminho do herói e o voltar do Android
 
 - **o caminho do herói, de ponta a ponta, só por toque:** do login às 14:30 ao menu sem sessão, passando pela garagem, a sincronização, o módulo, a pré-checagem, o ônibus, a CAN, a cadeia, a calibração, o ciclo, o checklist e o encerramento · 141 passos, em 44 s, sem nenhum pulo do palco
