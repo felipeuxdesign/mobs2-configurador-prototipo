@@ -191,9 +191,11 @@ export default [
   { ve: 'o app conferiu' },
   { ve: 'o servidor confirmou' },
   { ve: 'RKT-8H42' },
-  // ENCERRAR, depois de homologar: os sete passos, um a cada 600 ms, e o autoteste
+  // ENCERRAR, depois de homologar: direto, sem o diálogo (decisão 36) — os sete passos,
+  // um a cada 600 ms, e o autoteste
   { toca: 'ENCERRAR' },
-  { chega: 'T16' },
+  { chega: 'T16', momento: null },
+  { naoVe: 'Encerrar sem homologar?' },
   { ve: 'Encerrar sessão' },
   { ve: 'Encerrando · não desconecte' },
   { ve: 'Contadores e estado' },

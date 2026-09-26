@@ -66,7 +66,7 @@ const GLIFO_DO_POCO = { conferencia: 26 }
 // ou 'justo' (4, o teste do cartão, a última linha, T14/04). Sem ele, os 6 de sempre.
 // C11 · T12 (G11, G25): `valorQuebra` — o título não quebra, e o valor longo quebra
 // em duas linhas, alinhado à direita, dentro da mesma altura: o recebimento de
-// outra garagem, sem referência ('confirmado após reprocessamento', T12·2). O que
+// outra unidade, sem referência ('confirmado após reprocessamento', T12·2). O que
 // cabe numa linha fica igual.
 export function LinhaChecagem({
   estado = 'aprovada', variante = 'compacta', titulo, causa, nota, valor, tom,

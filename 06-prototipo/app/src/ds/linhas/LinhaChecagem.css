@@ -90,7 +90,7 @@
 /* C11 · T16 · a última do cartão das assertivas, com a folga do pé do cartão (54) */
 .ds-checagem.ds-checagem-fim-assertiva { height: calc(var(--linha-dupla) + var(--e-4)); }
 /* C11 · T12 (G11, G25) · o valor que quebra: o título fica numa linha, e o valor longo
- * quebra em duas, alinhado à direita, na mesma altura (o recebimento de outra garagem) */
+ * quebra em duas, alinhado à direita, na mesma altura (o recebimento de outra unidade) */
 .ds-checagem-valor-quebra .ds-checagem-titulo { white-space: nowrap; }
 .ds-checagem-valor-quebra .ds-checagem-valor { flex-shrink: 1; text-align: right; }
 /* o corpo do título não encolhe: sem isso ele cedia 10 do título ao valor, e o

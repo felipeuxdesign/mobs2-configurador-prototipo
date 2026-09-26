@@ -12,6 +12,7 @@ Fazer o módulo contar igual ao painel do ônibus — com a foto do painel como 
 
 ## O que se toca
 
+- o semear não para: durante o *Gravando no módulo…* e o *Relendo…*, o `Voltar ao menu` e o voltar do Android não fazem nada — parar no meio deixaria o valor pela metade
 - durante o semear, o ENCERRAR da faixa fica desabilitado e em tinta apagada (a lei 17)
 
 - sem a permissão da câmera, o quadro diz *O app precisa da câmera pra fotografar o painel* e o botão vira `Abrir as configurações` · vale pra câmera do checklist também
@@ -39,7 +40,6 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - faixa · sem ação
 - o topo do menu inteiro
 - duas ações
-- processo correndo
 - com legenda
 - segmentado
 - foto · a tirar

@@ -1,17 +1,19 @@
 // T04 · Menu (02-telas/T04-menu): a grade de dez cartões em que cada
 // ferramenta diz, no próprio cartão, o que falta pra ela funcionar. Em cima, a
 // tira de contexto e a faixa da sessão; por cima, as folhas da conta, da
-// garagem, do módulo e do ativo da sessão, os dois diálogos e o aviso do
-// acesso vencendo (12). Tudo lê do estado único e do mock: o estado muda o que
-// os blocos dizem, nunca onde eles ficam (Lei 3).
+// unidade, do módulo e do ativo da sessão, os diálogos de sair e de trocar, o
+// do ENCERRAR antes de homologar (13, decisão 36) e o aviso do acesso vencendo
+// (12). Tudo lê do estado único e do mock: o estado muda o que os blocos
+// dizem, nunca onde eles ficam (Lei 3).
 import { useEffect, useRef, useState } from 'react'
 import {
   BarraDoSistema, TopoDoMenu, TiraDeContexto, Faixa, GradeFerramentas, CartaoFerramenta,
   Veu, Folha, CartaoDaConta, PrazoDaConta, BotaoDaFolha, Dialogo, Frase, Destaque,
-  Aviso, Nota, Lista, LinhaGaragem,
+  Aviso, Nota, Lista, LinhaGaragem, Link,
 } from '../../ds/index.js'
 import { useEstado, estadoVazio } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
+import { useEncerrar, ENCERRAR_SEM_HOMOLOGAR } from '../../estado/encerrar.jsx'
 import { EM_QUADRO } from '../../estado/quadro.js'
 import { SEMENTES } from '../../estado/sementes.js'
 import { M } from '../../dados/mock.js'
@@ -21,7 +23,8 @@ import { usePresenca } from '../T01/presenca.js'
 import { CartaoPreso } from './pecas.jsx'
 import {
   REF, SOBRE, MOMENTO_DA_FOLHA, FOLHAS, SOB_A_FAIXA, placaDe, uoDe, iniciais, filaToda, pendentesDaGaragem, naFila,
-  enviando, checklistPendentes, prazoDoAcesso, avisoDoAcesso, garagens, moduloPreso, ativoPreso,
+  enviando, checklistPendentes, prazoDoAcesso, avisoDoAcesso, garagens, moduloPreso, ativoPreso, temVariasEmpresas,
+  TROCA_DE_EMPRESA, destinoDaTroca, depoisDoTrocar,
 } from './dados.js'
 import './t04.css'
 
@@ -35,7 +38,6 @@ const FERRAMENTAS = [
   { icone: 'checklist', titulo: 'Finalizar com checklist', tela: 'T13', contaChecklist: true },
 ]
 const HEROI = SEMENTES.T04.sessao
-const ENCERRAR_SEM_HOMOLOGAR = '03-momento-encerrando-sem-homologar' // G23: a sessão abortada (T16/03)
 
 // O palco abre o momento com a semente da T04 (a sessão do herói). O 01 e o 02
 // pedem outro mundo: sem sessão, e com o módulo sem o ativo. A tela ajusta o
@@ -58,7 +60,8 @@ export default function T04({ momento, estado: est }) {
   const { estado: unico, despachar } = useEstado()
   const [ajuste] = useState(() => ajusteDoMomento(momento, unico))
   const [aplicado, setAplicado] = useState(!ajuste)
-  const [trocarPara, setTrocarPara] = useState(null) // o diálogo de trocar (o 09), no fluxo
+  // o diálogo de trocar (o 09), no fluxo: pra qual unidade ({ uoId }), ou de empresa ({ empresa: true })
+  const [trocarPara, setTrocarPara] = useState(null)
   useEffect(() => {
     if (ajuste) { despachar({ tipo: 'mesclar', parcial: ajuste }); setAplicado(true) }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
@@ -79,10 +82,22 @@ export default function T04({ momento, estado: est }) {
   const sobre = est ? (SOBRE[est] ?? null) : (trocarPara ? 'trocar' : (SOBRE[momento] ?? null))
   const base = !sessao ? REF.semModulo : !completa ? REF.semAtivo : null
 
+  const ir = (tela, extra = {}) => despachar({ tipo: 'ir', tela, ...extra })
+  const abrir = (qual) => { setTrocarPara(null); ir('T04', { momento: MOMENTO_DA_FOLHA[qual] }) }
+  const fechar = () => { setTrocarPara(null); ir('T04', { momento: base ?? undefined }) }
+  const vazio = estadoVazio()
+
+  // O ENCERRAR da faixa e o Encerrar a sessão das folhas do módulo e do ativo
+  // (decisão 36, src/estado/encerrar.jsx): antes de homologar, o diálogo
+  // Encerrar sem homologar? por cima do menu — o momento 13, que tem endereço:
+  // a URL abre e fecha (G20), e o Continuar a instalação volta ao quadro do
+  // menu. Depois de homologar, direto, pros passos do encerramento.
+  const enc = useEncerrar({ aberto: sobre === 'encerrar', aoAbrir: () => abrir('encerrar'), aoFechar: fechar })
+
   // A folha sobe do pé em 200 e desce em 150 (movimento.md, animacao.md): ao
   // fechar, a que estava aberta continua na tela até terminar de descer. Se um
-  // diálogo toma o lugar dela (o Sair da conta, o trocar), ela sai na hora, sem
-  // dois véus. Aberta pela URL ou no print, nasce aberta, sem movimento.
+  // diálogo toma o lugar dela (o Sair da conta, o trocar, o do ENCERRAR), ela
+  // sai na hora, sem dois véus. Aberta pela URL ou no print, nasce aberta, sem movimento.
   const folhaPedida = FOLHAS.includes(sobre) ? sobre : null
   const ultimaFolha = useRef(folhaPedida)
   if (folhaPedida) ultimaFolha.current = folhaPedida
@@ -99,11 +114,13 @@ export default function T04({ momento, estado: est }) {
   // só no 12; no print, também só no 12, o quadro que a referência desenha.
   // Os dias saem do mock (M.situacao.sessaoAcesso). Nasce aberto, com o menu;
   // fecha pelo movimento da peça (o diálogo e o véu esmaecem em 150). Se ele
-  // esperava uma folha (o endereço da folha), só é pedido depois de ela
-  // terminar de descer: entra pela presença da peça, sem o véu dele aparecer
-  // de uma vez em cima do da folha que some, e o voltar nesse meio não o fecha.
+  // esperava uma folha ou o diálogo do ENCERRAR (o endereço deles), só é pedido
+  // depois de ela terminar de descer, ou de ele esmaecer: entra pela presença da
+  // peça, sem o véu dele aparecer de uma vez em cima do que some, e o voltar
+  // nesse meio não o fecha.
   const prazoDoAviso = avisoDoAcesso(mundo.situacao.sessaoAcesso)
-  const avisoPedido = prazoDoAviso != null && (est ? est === REF.acesso : !EM_QUADRO && !sobre && !presenca.montado && !mundo.avisoDoAcessoVisto)
+  const avisoPedido = prazoDoAviso != null && (est ? est === REF.acesso
+    : !EM_QUADRO && !sobre && !presenca.montado && !enc.montado && !mundo.avisoDoAcessoVisto)
   const presencaDoAviso = usePresenca(avisoPedido)
 
   // a URL segue o quadro do menu (G20): sem sessão é o 01, sem ativo é o 02
@@ -112,17 +129,11 @@ export default function T04({ momento, estado: est }) {
     if ((momento ?? null) !== base) despachar({ tipo: 'ir', tela: 'T04', momento: base ?? undefined })
   }, [est, aplicado, momento, base, despachar])
 
-  const ir = (tela, extra = {}) => despachar({ tipo: 'ir', tela, ...extra })
-  const abrir = (qual) => { setTrocarPara(null); ir('T04', { momento: MOMENTO_DA_FOLHA[qual] }) }
-  const fechar = () => { setTrocarPara(null); ir('T04', { momento: base ?? undefined }) }
-  const vazio = estadoVazio()
-  // o ENCERRAR da faixa e o Encerrar a sessão das folhas do módulo e do ativo: o mesmo destino
-  const encerrar = () => ir('T16', { momento: ENCERRAR_SEM_HOMOLOGAR })
-
   // C11 · G23: os primários dos diálogos de sair e de trocar encerram a sessão
-  // pelos 4 passos da sessão abortada da T16 (03), sem confirmação, e seguem
-  // pro destino depois deles: o destino fica gravado no estado único
-  // (etapas.encerramento.destino), e a T16 o aplica ao fechar o 4º passo.
+  // pelos 4 passos da sessão abortada da T16 (03) e seguem pro destino depois
+  // deles: o destino fica gravado no estado único (etapas.encerramento.destino),
+  // e a T16 o aplica ao fechar o 4º passo. Os dois diálogos já são a confirmação
+  // deles, e dizem *sem homologar*: nenhum caminho pergunta duas vezes (decisão 36).
   const encerrarE = (destino) => {
     despachar({ tipo: 'mesclar', parcial: { etapas: { ...mundo.etapas, encerramento: { destino } } } })
     ir('T16', { momento: ENCERRAR_SEM_HOMOLOGAR })
@@ -137,15 +148,21 @@ export default function T04({ momento, estado: est }) {
   }
   const pedirSaida = () => (sessao || itensNaFila > 0 ? abrir('sair') : sairDeVez())
   const sairEncerrando = () => (sessao ? encerrarE({ tela: 'T01', contexto: vazio.contexto }) : sairDeVez())
-  // Trocar de garagem (T04·4 a): com a sessão aberta, o diálogo; sem ela, direto.
-  // No diálogo, o primário passa pelo encerramento sem homologar da T16 e segue
-  // pra T03 da garagem nova (G23).
-  const trocarEncerrando = (id) => encerrarE({ tela: 'T03', contexto: { uoId: id, pacote: null } })
-  const trocarDeVez = (id) => {
-    despachar({ tipo: 'mesclar', parcial: { sessao: null, etapas: vazio.etapas, contexto: { uoId: id, pacote: null } } })
-    ir('T03')
+  // Trocar de unidade (T04·4 a) e de empresa (T04/14, decisão 37): com a sessão
+  // aberta, o diálogo de trocar; sem ela, direto (dados.js · depoisDoTrocar). No
+  // diálogo, o primário passa pelo encerramento sem homologar da T16 e segue pro
+  // destino (G23): a T03 da unidade nova, ou a T02, na lista das empresas.
+  const trocarEncerrando = (alvo) => encerrarE(destinoDaTroca(alvo))
+  const trocar = (alvo) => {
+    const { confirma, vai } = depoisDoTrocar(sessao, alvo)
+    if (confirma) { setTrocarPara(confirma); return }
+    despachar({ tipo: 'mesclar', parcial: { sessao: null, etapas: vazio.etapas, contexto: vai.contexto } })
+    ir(vai.tela)
   }
-  const escolher = (id) => (sessao ? setTrocarPara(id) : trocarDeVez(id))
+  const escolher = (id) => trocar({ uoId: id })
+  // com mais de uma empresa, o Trocar de empresa no fim da folha (14)
+  const variasEmpresas = temVariasEmpresas(mundo, est)
+  const trocarDeEmpresa = () => trocar(TROCA_DE_EMPRESA)
 
   const tecnico = mundo.tecnico.nome
   const sigla = iniciais(tecnico)
@@ -156,9 +173,9 @@ export default function T04({ momento, estado: est }) {
   const faixa = !sessao
     ? <Faixa lugar="menu" estado="sem-sessao" fato="Sem sessão de configuração" />
     : sessao.saude === 'falha'
-      ? <Faixa lugar="menu" estado="falha" fato="Módulo com falha" acao="ENCERRAR" aoEncerrar={encerrar} />
+      ? <Faixa lugar="menu" estado="falha" fato="Módulo com falha" acao="ENCERRAR" aoEncerrar={enc.encerrar} />
       : <Faixa lugar="menu" serial={sessao.moduloSerial} placa={completa ? placaDe(sessao.ativoId) : 'sem ativo'} semAtivo={!completa}
-          acao="ENCERRAR" aoEncerrar={encerrar} />
+          acao="ENCERRAR" aoEncerrar={enc.encerrar} />
 
   // ── os dois cartões largos: o módulo e o ativo. Com a sessão aberta, os dois
   // não trocam (HU-T16-2): o toque abre a folha do que ela prendeu (10, 11) ──
@@ -192,7 +209,8 @@ export default function T04({ momento, estado: est }) {
     )
   } else if (folha === 'modulo' || folha === 'ativo') {
     // 10 · 11 · o que a sessão prendeu, travado nela (HU-T16-2); o Encerrar
-    // a sessão é o ENCERRAR da faixa (logica.md · módulo e ativo travados)
+    // a sessão é o ENCERRAR da faixa (logica.md · módulo e ativo travados):
+    // antes de homologar, a folha sai e o diálogo abre por cima do menu (o 13)
     const doModulo = folha === 'modulo'
     const preso = doModulo ? moduloPreso(sessao?.moduloSerial) : ativoPreso(sessao?.ativoId)
     porCima = veuDaFolha(
@@ -201,7 +219,7 @@ export default function T04({ momento, estado: est }) {
         <Nota tom="fato" titulo="TRAVADO NA SESSÃO" frase={doModulo
           ? 'Enquanto a sessão estiver aberta, o módulo não troca. Pra trocar de módulo, encerre a sessão.'
           : 'Enquanto a sessão estiver aberta, o ativo não troca. Pra trocar de ativo, encerre a sessão.'} />
-        <BotaoDaFolha aoTocar={encerrar}>Encerrar a sessão</BotaoDaFolha>
+        <BotaoDaFolha aoTocar={enc.encerrar}>Encerrar a sessão</BotaoDaFolha>
       </Folha>,
     )
   } else if (sobre === 'sair') {
@@ -210,17 +228,19 @@ export default function T04({ momento, estado: est }) {
         <Dialogo titulo="Sair da conta" primario="Encerrar a sessão e sair" aoPrimario={sairEncerrando}
           saida="Cancelar" aoSair={() => abrir('conta')} saidaDe44 margem={20}>
           {itensNaFila > 0 && <Frase><Destaque>{itensNaFila}</Destaque> itens continuam na fila e sobem no próximo login.</Frase>}
-          {sessao && <Frase>A sessão de configuração do <Destaque>{sessao.moduloSerial}</Destaque> é encerrada antes.</Frase>}
+          {sessao && <Frase>A sessão de configuração do <Destaque>{sessao.moduloSerial}</Destaque> é encerrada antes, sem homologar.</Frase>}
         </Dialogo>
       </Veu>
     )
   } else if (folha === 'garagem') {
+    // 07 · 08 · 14 · a folha de trocar de unidade; com mais de uma empresa, o
+    // Trocar de empresa no fim (14, decisão 37)
     const lista = garagens()
     porCima = veuDaFolha(
-      <Folha titulo="Trocar de garagem" rotuloFechar="Fechar" folga={12} aoFechar={fechar} aberta={presenca.visivel}
-        subtitulo={subindo ? undefined : 'Trocar recarrega os ativos e o pacote desta garagem.'}>
-        {subindo === 1 && <Aviso tom="neutro" semPoco titulo="UMA EVIDÊNCIA ESTÁ SUBINDO" frase="Troque de garagem quando a fila terminar." />}
-        <Lista role="radiogroup" aria-label="Trocar de garagem">
+      <Folha titulo="Trocar de unidade" rotuloFechar="Fechar" folga={12} aoFechar={fechar} aberta={presenca.visivel}
+        subtitulo={subindo ? undefined : 'Trocar recarrega os ativos e o pacote desta unidade.'}>
+        {subindo === 1 && <Aviso tom="neutro" semPoco titulo="UMA EVIDÊNCIA ESTÁ SUBINDO" frase="Troque de unidade quando a fila terminar." />}
+        <Lista role="radiogroup" aria-label="Trocar de unidade">
           {lista.map((g, i) => {
             const atual = g.id === uoId
             const estadoLinha = atual ? 'atual' : g.vencida ? 'vencida' : subindo ? 'espera' : 'disponivel'
@@ -233,20 +253,33 @@ export default function T04({ momento, estado: est }) {
             )
           })}
         </Lista>
+        {variasEmpresas && (
+          <div className="t04-folha-empresa">
+            <Link aoTocar={trocarDeEmpresa}>Trocar de empresa</Link>
+          </div>
+        )}
       </Folha>,
     )
   } else if (sobre === 'trocar') {
-    const alvo = trocarPara ?? garagens().find((g) => g.id !== uoId && !g.vencida)?.id
+    // 09 · trocar com a sessão aberta: de unidade, ou de empresa (a mesma
+    // confirmação, com a empresa no lugar da unidade · logica.md · A empresa e a unidade)
+    const alvo = trocarPara ?? { uoId: garagens().find((g) => g.id !== uoId && !g.vencida)?.id }
+    const deEmpresa = Boolean(alvo.empresa)
     porCima = (
       <Veu de="dialogo">
-        <Dialogo titulo="Trocar de garagem" primario="Encerrar a sessão e trocar" aoPrimario={() => trocarEncerrando(alvo)}
+        <Dialogo titulo={deEmpresa ? 'Trocar de empresa' : 'Trocar de unidade'} primario="Encerrar a sessão e trocar"
+          aoPrimario={() => trocarEncerrando(alvo)}
           saida="Cancelar" aoSair={() => setTrocarPara(null)} margem={20}>
-          <Frase>A sessão de configuração do <Destaque>{sessao?.moduloSerial}</Destaque> é encerrada antes da troca.</Frase>
+          <Frase>A sessão de configuração do <Destaque>{sessao?.moduloSerial}</Destaque> é encerrada antes da troca, sem homologar.</Frase>
           <Frase>O que já foi gravado fica no módulo.</Frase>
         </Dialogo>
       </Veu>
     )
   }
+  // 13 · o ENCERRAR antes de homologar (decisão 36): o véu cobre também a tira
+  // e a faixa, como no aviso do acesso — o menu inteiro fica atrás dele
+  const doEncerrar = !porCima && enc.montado
+  if (doEncerrar) porCima = enc.dialogo
   // o aviso do acesso: o véu cobre também a tira e a faixa (T04/12), e o
   // Entendi é o único jeito de fechar
   const entendi = () => despachar({ tipo: 'mesclar', parcial: { avisoDoAcessoVisto: true } })
@@ -264,7 +297,9 @@ export default function T04({ momento, estado: est }) {
 
   // o voltar do Android (logica.md): o X da folha, o Cancelar do diálogo; no
   // aviso do acesso, o Entendi, que só fecha e é a única saída; no menu, que
-  // não tem saída desenhada, nada. Num estado da coluna, a peça não escuta
+  // não tem saída desenhada, nada. No diálogo do ENCERRAR (13), o Continuar a
+  // instalação, pela peça dele, que vale por cima (useEncerrar). Num estado da
+  // coluna, a peça não escuta
   const voltar = folhaPedida ? fechar
     : sobre === 'sair' ? () => abrir('conta')
       : sobre === 'trocar' ? () => setTrocarPara(null)
@@ -279,15 +314,18 @@ export default function T04({ momento, estado: est }) {
   // aberto, a tira não se toca): a tira, com toda folha e diálogo (05 a 11), e
   // a faixa também nas folhas do módulo e do ativo, em que o véu começa
   // embaixo dela (10, 11). Nas outras, a faixa fica atrás do véu, inerte. No
-  // aviso do acesso, o véu cobre a tira também (12): o topo inteiro fica inerte.
+  // aviso do acesso e no diálogo do ENCERRAR, o véu cobre a tira também (12,
+  // 13): o topo inteiro fica inerte.
   const atras = porCima ? '' : undefined
+  const sobreTudo = aviso || doEncerrar
   return (
     <div className="t04">
       <BarraDoSistema hora={M.HORA_NOMINAL} fundo="tira" />
       <div className="t04-fundo">
-        <fieldset className="t04-topo" role="presentation" disabled={Boolean(porCima)} inert={aviso ? '' : undefined}>
+        <fieldset className="t04-topo" role="presentation" disabled={Boolean(porCima)} inert={sobreTudo ? '' : undefined}>
           <TopoDoMenu>
             <TiraDeContexto garagem={caixaAlta(uoDe(uoId).nome)} aoTrocarGaragem={() => abrir('garagem')}
+              rotuloGaragem={`Trocar de unidade — ${uoDe(uoId).nome}`}
               iniciais={sigla} rotuloConta={`Conta — ${tecnico}`} aoAbrirConta={() => abrir('conta')} />
             <div inert={sobFaixa ? undefined : atras}>{faixa}</div>
           </TopoDoMenu>
@@ -309,7 +347,7 @@ export default function T04({ momento, estado: est }) {
           </GradeFerramentas>
         </div>
       </div>
-      {porCima && <div className={`t04-sobre ${sobFaixa ? 't04-sobre-faixa' : ''} ${aviso ? 't04-sobre-tudo' : ''}`}>{porCima}</div>}
+      {porCima && <div className={`t04-sobre ${sobFaixa ? 't04-sobre-faixa' : ''} ${sobreTudo ? 't04-sobre-tudo' : ''}`}>{porCima}</div>}
     </div>
   )
 }

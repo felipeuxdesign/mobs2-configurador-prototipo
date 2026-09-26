@@ -12,7 +12,7 @@
 /* C11 · T12 (G11, G12) · a linha de baixo em 12 quando diz há quantos dias (T12/00 e 03, as três últimas) */
 .ds-historico-detalhe-legenda .ds-historico-detalhe { font-size: var(--t-legenda); }
 /* C11 · T12 (G25) · a placa e a linha de baixo nunca quebram; o veredito longo, sem
- * referência ('aprovada após reprocessamento', de outra garagem), quebra em duas
+ * referência ('aprovada após reprocessamento', de outra unidade), quebra em duas
  * linhas, alinhado à direita. O que cabe numa linha fica como a folha desenha. */
 .ds-historico-corpo { white-space: nowrap; }
 .ds-historico-veredito { flex-shrink: 1; text-align: right; }

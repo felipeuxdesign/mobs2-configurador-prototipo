@@ -460,6 +460,13 @@
   /* ── Casos — cada estado de bloqueio/tela aponta para dado CONCRETO da
      obra. Nenhum é opcional: tela sem o seu caso morre sem dado. ── */
   var CASOS = {
+    /* T02 · o técnico com mais de uma empresa (HU-T02-1). Terceirizado atende
+       várias: a lista das empresas vem antes das unidades, e a troca fica no
+       rodapé. Com uma empresa só, o passo não aparece. */
+    "varias-empresas": { tela: "T02", empresas: [
+      { id: "emp-01", nome: "Viação Atlântico Sul", unidades: 3 },
+      { id: "emp-02", nome: "Transportes Capibaribe", unidades: 4 },
+      { id: "emp-03", nome: "Expresso Caruaruense", unidades: 2 } ] },
     /* T01 · o login de quem abre o app. O herói entra com os dois campos
        preenchidos, pra o palco andar num toque. Os dois casos abaixo são o
        que o técnico vê de verdade: nada lembrado, ou só o usuário lembrado
@@ -490,9 +497,9 @@
        não confere, e a tela pede "Semear de novo". A foto continua valendo:
        ela prova o painel, não o módulo. relidoBruto em metros, como bruto. */
     "releitura-nao-confere": { ativoId: "a-01", grandeza: "hodometro", relidoBruto: 482316500 },
-    /* T02 · a lista longa. A empresa do herói tem 3 garagens (o gate trava
+    /* T02 · a lista longa. A empresa do herói tem 3 unidades (o gate trava
        isso), e a busca só aparece com MAIS DE 6 — então a lista longa vive
-       num caso: a mesma empresa, num mundo com 9 garagens em 3 regiões.
+       num caso: a mesma empresa, num mundo com 9 unidades em 3 regiões.
        O texto da linha deriva do dado: idade 0 → "pacote de hoje", 1 →
        "pacote de ontem", n → "pacote de n dias"; acima do limite de 7,
        só a causa: "pacote vencido há n dias". */
@@ -1330,7 +1337,7 @@
       contato: { email: "r.vieira@atlsul.com.br", telefone: { ddi: "+55", numero: "81987158675" } },
       recuperacao: {
         codigo: "482913",
-        novaSenha: "Garagem!Ibura27",
+        novaSenha: "Unidade!Ibura27",
         limites: { validadeMin: 10, tentativas: 3, reenvioSeg: 60, tetoPorHora: 3 },
         reenviosNaHora: 2,
         /* protótipo C4 (AC-01) · o código que a T01/05 e a T01/07 mostram

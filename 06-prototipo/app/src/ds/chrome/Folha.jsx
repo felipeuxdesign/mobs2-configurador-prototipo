@@ -6,8 +6,8 @@
 // 200ms e fecha em 150ms (movimento.md); dentro do Veu (de 'folha').
 // Pro leitor (G15): é um diálogo modal, e o nome é o título que já se vê.
 // `folga`: o espaço entre os blocos — 14 na da conta, 12 na de trocar de
-// garagem (T04/07, G11). `subtitulo`: a frase de 13 embaixo do título, que só
-// a de trocar de garagem tem (T04/07).
+// unidade (T04/07, G11). `subtitulo`: a frase de 13 embaixo do título, que só
+// a de trocar de unidade tem (T04/07).
 import { useId } from 'react'
 import { SoIcone } from '../primitivos/SoIcone.jsx'
 import './Folha.css'

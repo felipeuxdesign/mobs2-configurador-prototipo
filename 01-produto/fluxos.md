@@ -17,7 +17,7 @@ flowchart TD
   T04 -.-> T08[T08 Refazer leitura da CAN]
 ```
 
-**Em palavras:** entrar, dizer a garagem, baixar o pacote, conectar o módulo — é na pré-checagem aprovada que **a sessão nasce** e a faixa desce —, escolher e provar o ônibus, ler a CAN, gravar a cadeia, calibrar, andar com o ônibus, fechar o checklist e **encerrar a sessão**, provando que a configuração sobreviveu ao desligar. A fila, a conferência e as últimas instalações são **consultas**: abrem a qualquer hora pelo menu.
+**Em palavras:** entrar, dizer a unidade, baixar o pacote, conectar o módulo — é na pré-checagem aprovada que **a sessão nasce** e a faixa desce —, escolher e provar o ônibus, ler a CAN, gravar a cadeia, calibrar, andar com o ônibus, fechar o checklist e **encerrar a sessão**, provando que a configuração sobreviveu ao desligar. A fila, a conferência e as últimas instalações são **consultas**: abrem a qualquer hora pelo menu.
 
 ## Os desvios, por etapa
 

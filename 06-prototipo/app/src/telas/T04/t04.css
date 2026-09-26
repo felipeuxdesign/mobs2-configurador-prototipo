@@ -51,3 +51,9 @@
  * sistema: a tira e a faixa ficam atrás dele, com o menu, sem a linha de cima
  * (a de baixo da faixa fica sob o véu, como a referência desenha). */
 .t04-sobre-tudo { top: var(--barra-sistema); border-top: 0; }
+
+/* o Trocar de empresa no fim da folha de trocar de unidade (T04/14, decisão
+ * 37): o link de 48 a 6 da lista, comendo 4 em cima e embaixo, como a
+ * referência desenha — o toque fica a 14 do cartão das unidades */
+.t04-folha-empresa { flex-shrink: 0; padding-top: var(--e-6); }
+.t04-folha-empresa .ds-link { margin: calc(var(--e-4) * -1) 0; }

@@ -662,6 +662,18 @@ chk("design · T02 lista longa: as garagens do herói aparecem com o mesmo pacot
   return M.uos.every(function (u) { var l = c.uos.find(function (x) { return x.id === u.id; }); var p = M.pacotes.find(function (x) { return x.uoId === u.id; });
     return l && p && l.pacoteIdadeDias === p.diasAtras && l.pacoteHora === p.hora && l.ativos === p.contem.ativos; }); })());
 
+/* ── design · a otimização do design: a empresa antes da unidade (T02/05, T02/06, T04/14 · decisão 37) ── */
+var ve = M.casos["varias-empresas"] || null;
+var veEmpresas = ve && ve.empresas ? ve.empresas : [];
+chk("design · T02 várias empresas: 3 empresas, cada uma com nome e contagem de unidades, sem id repetido",
+  veEmpresas.length === 3 &&
+  veEmpresas.every(function (e, ix) { return !!e.id && !!e.nome && e.unidades > 0 && veEmpresas.findIndex(function (x) { return x.id === e.id; }) === ix; }),
+  veEmpresas.map(function (e) { return e.nome + " · " + e.unidades; }).join(" / "));
+var veHeroi = veEmpresas.filter(function (e) { return e.id === M.empresa.id; });
+chk("design · T02 várias empresas: a empresa do herói está entre elas, com o mesmo nome, e conta as unidades do mundo dele",
+  veHeroi.length === 1 && veHeroi[0].nome === M.empresa.nome && veHeroi[0].unidades === M.uos.length,
+  veHeroi.length ? veHeroi[0].nome + ": " + veHeroi[0].unidades + " no caso, " + M.uos.length + " em M.uos" : "sem a empresa do herói");
+
 /* ── Higiene ── */
 var fonte = null;
 try { fonte = require("fs").readFileSync(require("path").join(__dirname, "mocks.js"), "utf8"); } catch (e) {}

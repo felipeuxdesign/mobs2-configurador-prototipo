@@ -1,6 +1,6 @@
 {
  "telas": 16,
- "referencias": 133,
+ "referencias": 137,
  "itens": [
   {
    "id": "T01/00-tela",
@@ -237,7 +237,7 @@
    "tipo": "momento",
    "nome": "01-momento-escolhida",
    "titulo": "T02 · escolhida",
-   "como": "tocar numa garagem",
+   "como": "tocar numa unidade",
    "caso": "ucs · uos",
    "html": "02-telas/T02-selecionar-contexto/referencias/html/01-momento-escolhida.html",
    "png": "02-telas/T02-selecionar-contexto/referencias/png/01-momento-escolhida.png"
@@ -249,7 +249,7 @@
    "tipo": "estado",
    "nome": "02-estado-lista-longa-com-busca",
    "titulo": "T02 · lista longa com busca",
-   "como": "a empresa tem mais de 6 garagens — a busca aparece, e a lista rola por baixo do rodapé",
+   "como": "a empresa tem mais de 6 unidades — a busca aparece, e a lista rola por baixo do rodapé",
    "caso": "lista-longa-garagens",
    "html": "02-telas/T02-selecionar-contexto/referencias/html/02-estado-lista-longa-com-busca.html",
    "png": "02-telas/T02-selecionar-contexto/referencias/png/02-estado-lista-longa-com-busca.png",
@@ -275,10 +275,34 @@
    "tipo": "momento",
    "nome": "04-momento-busca-esconde-a-escolha",
    "titulo": "T02 · a busca esconde a escolha",
-   "como": "com uma garagem escolhida, digitar uma busca que esconde ela",
+   "como": "com uma unidade escolhida, digitar uma busca que esconde ela",
    "caso": "lista-longa-garagens",
    "html": "02-telas/T02-selecionar-contexto/referencias/html/04-momento-busca-esconde-a-escolha.html",
    "png": "02-telas/T02-selecionar-contexto/referencias/png/04-momento-busca-esconde-a-escolha.png"
+  },
+  {
+   "id": "T02/05-estado-escolher-a-empresa",
+   "tela": "T02",
+   "pasta": "T02-selecionar-contexto",
+   "tipo": "estado",
+   "nome": "05-estado-escolher-a-empresa",
+   "titulo": "T02 · escolher a empresa",
+   "como": "o técnico tem mais de uma empresa — a lista delas vem antes das unidades",
+   "caso": "varias-empresas",
+   "html": "02-telas/T02-selecionar-contexto/referencias/html/05-estado-escolher-a-empresa.html",
+   "png": "02-telas/T02-selecionar-contexto/referencias/png/05-estado-escolher-a-empresa.png"
+  },
+  {
+   "id": "T02/06-estado-unidades-com-trocar-empresa",
+   "tela": "T02",
+   "pasta": "T02-selecionar-contexto",
+   "tipo": "estado",
+   "nome": "06-estado-unidades-com-trocar-empresa",
+   "titulo": "T02 · unidades · com trocar de empresa",
+   "como": "as unidades de um técnico com mais de uma empresa",
+   "caso": "varias-empresas",
+   "html": "02-telas/T02-selecionar-contexto/referencias/html/06-estado-unidades-com-trocar-empresa.html",
+   "png": "02-telas/T02-selecionar-contexto/referencias/png/06-estado-unidades-com-trocar-empresa.png"
   },
   {
    "id": "T03/00-tela",
@@ -440,8 +464,8 @@
    "pasta": "T04-menu",
    "tipo": "momento",
    "nome": "07-momento-folha-trocar-de-garagem",
-   "titulo": "FOLHA · Trocar de garagem",
-   "como": "tocar no nome da garagem",
+   "titulo": "FOLHA · Trocar de unidade",
+   "como": "tocar no nome da unidade",
    "caso": "uos · pacotes",
    "html": "02-telas/T04-menu/referencias/html/07-momento-folha-trocar-de-garagem.html",
    "png": "02-telas/T04-menu/referencias/png/07-momento-folha-trocar-de-garagem.png"
@@ -452,7 +476,7 @@
    "pasta": "T04-menu",
    "tipo": "estado",
    "nome": "08-estado-folha-trocar-de-garagem-envio-em-andamento",
-   "titulo": "FOLHA · Trocar de garagem · envio em andamento",
+   "titulo": "FOLHA · Trocar de unidade · envio em andamento",
    "como": "trocar com evidência subindo",
    "caso": "filaSaida",
    "html": "02-telas/T04-menu/referencias/html/08-estado-folha-trocar-de-garagem-envio-em-andamento.html",
@@ -466,7 +490,7 @@
    "pasta": "T04-menu",
    "tipo": "estado",
    "nome": "09-estado-folha-trocar-de-garagem-com-modulo-conectado",
-   "titulo": "FOLHA · Trocar de garagem · com modulo conectado",
+   "titulo": "FOLHA · Trocar de unidade · com modulo conectado",
    "como": "trocar com a sessão aberta",
    "caso": "",
    "html": "02-telas/T04-menu/referencias/html/09-estado-folha-trocar-de-garagem-com-modulo-conectado.html",
@@ -511,6 +535,30 @@
    "png": "02-telas/T04-menu/referencias/png/12-estado-acesso-vencendo.png",
    "rotulo": "Acesso vencendo",
    "rotuloOrigem": "proposto"
+  },
+  {
+   "id": "T04/13-momento-encerrar-antes-de-homologar",
+   "tela": "T04",
+   "pasta": "T04-menu",
+   "tipo": "momento",
+   "nome": "13-momento-encerrar-antes-de-homologar",
+   "titulo": "T04 · encerrar antes de homologar",
+   "como": "tocar no ENCERRAR antes de homologar",
+   "caso": "",
+   "html": "02-telas/T04-menu/referencias/html/13-momento-encerrar-antes-de-homologar.html",
+   "png": "02-telas/T04-menu/referencias/png/13-momento-encerrar-antes-de-homologar.png"
+  },
+  {
+   "id": "T04/14-estado-folha-trocar-de-unidade-com-empresa",
+   "tela": "T04",
+   "pasta": "T04-menu",
+   "tipo": "estado",
+   "nome": "14-estado-folha-trocar-de-unidade-com-empresa",
+   "titulo": "FOLHA · Trocar de unidade · com trocar de empresa",
+   "como": "a folha de trocar de unidade, pra quem tem mais de uma empresa",
+   "caso": "varias-empresas",
+   "html": "02-telas/T04-menu/referencias/html/14-estado-folha-trocar-de-unidade-com-empresa.html",
+   "png": "02-telas/T04-menu/referencias/png/14-estado-folha-trocar-de-unidade-com-empresa.png"
   },
   {
    "id": "T05/00-tela",
@@ -1276,7 +1324,7 @@
    "tipo": "estado",
    "nome": "02-estado-nenhuma-instalacao",
    "titulo": "T12 · nenhuma instalacao",
-   "como": "a garagem não tem instalações",
+   "como": "a unidade não tem instalações",
    "caso": "instalacoes",
    "html": "02-telas/T12-ultimas-instalacoes/referencias/html/02-estado-nenhuma-instalacao.html",
    "png": "02-telas/T12-ultimas-instalacoes/referencias/png/02-estado-nenhuma-instalacao.png",

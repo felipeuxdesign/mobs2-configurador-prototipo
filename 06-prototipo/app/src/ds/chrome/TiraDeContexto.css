@@ -17,15 +17,13 @@
   touch-action: manipulation; user-select: none;
   transition: opacity var(--mov-solta) var(--mov-curva);
 }
-/* nada encosta, na área de toque (leis.md): a área de 48 do avatar fica a 8 do ENCERRAR,
-   que está logo embaixo (e cuja área também sobe um pouco), e cresce pra cima e pro lado —
-   o desenho de 44 não muda. Embaixo ela recua 5 pra dentro do avatar, e em cima cresce 9:
-   44 + 9 − 5 = 48 */
-/* o toque é só da área (o ::before); a caixa do avatar não conta, senão encostaria no ENCERRAR */
-.ds-tira-contexto-conta { pointer-events: none; }
+/* nada encosta, na área de toque (leis.md): a área de 48 do avatar cresce só pra cima e pro lado,
+   o lado livre — o desenho de 44 não muda. Com o ENCERRAR de 44 logo embaixo (decisão 38), a caixa
+   do avatar já fica a 8 dele (4 do pé da tira, 1 da borda e 3 da faixa do menu): saiu o recuo de 5
+   pra dentro do avatar, que o ENCERRAR de 48 pedia, e a caixa volta a contar no toque */
 .ds-tira-contexto-conta::before {
-  content: ''; position: absolute; pointer-events: auto;
-  top: calc(var(--e-8) * -1 - var(--traco-borda)); bottom: calc(var(--e-4) + var(--traco-borda));
+  content: ''; position: absolute;
+  top: calc(var(--poco-44) - var(--alvo-min)); bottom: 0;
   left: calc((var(--poco-44) - var(--alvo-min)) / 2); right: calc((var(--poco-44) - var(--alvo-min)) / 2);
 }
 .ds-tira-contexto-conta:active, .ds-tira-contexto-conta.ds-forca-toque { opacity: var(--toque-apagado); transition: none; }

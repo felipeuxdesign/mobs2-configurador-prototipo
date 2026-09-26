@@ -53,7 +53,7 @@ const DEPOIS_DE_UM_TOQUE = [
   { id: 'T04/00-tela · sem o aviso', q: '?tela=T04', antes: [{ toca: 'Entendi' }] },
   { id: 'T04/01-momento-sem-modulo · sem o aviso', q: '?tela=T04&momento=01-momento-sem-modulo', antes: [{ toca: 'Entendi' }] },
   { id: 'T04/02-momento-modulo-sem-ativo · sem o aviso', q: '?tela=T04&momento=02-momento-modulo-sem-ativo', antes: [{ toca: 'Entendi' }] },
-  { id: 'T02/03 · a busca que acha', q: '?tela=T02&momento=03-momento-busca-sem-resultado', antes: [{ digita: 'Olinda', em: 'Buscar garagem ou cidade' }, { toca: 'Garagem Olinda' }] },
+  { id: 'T02/03 · a busca que acha', q: '?tela=T02&momento=03-momento-busca-sem-resultado', antes: [{ digita: 'Olinda', em: 'Buscar unidade ou cidade' }, { toca: 'Garagem Olinda' }] },
   { id: 'T09/03 · a recuperação pelo ENCERRAR', q: '?tela=T09', antes: [{ toca: 'ENCERRAR' }] },
 ]
 

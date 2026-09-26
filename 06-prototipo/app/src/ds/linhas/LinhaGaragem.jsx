@@ -1,4 +1,5 @@
-// A linha de garagem (folha 4): na folha de trocar de garagem (T04) —
+// A linha de unidade (folha 4, que ainda a rotula 'linha de garagem'; o nome
+// interno fica, decisão 37): na folha de trocar de unidade (T04) —
 // o pacote de cada uma e quantos ativos ele traz. A atual leva o quadrado
 // lima de 11 (Lei 1: escolhido); a vencida leva o traço e diz só a causa, no
 // lugar do pacote ('pacote vencido há 8 dias', a folha 4 da entrega do

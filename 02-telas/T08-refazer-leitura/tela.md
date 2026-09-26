@@ -12,6 +12,7 @@ Apagar só os valores lidos e ler de novo, do zero.
 
 ## O que se toca
 
+- enquanto a releitura corre, o ENCERRAR da faixa fica desabilitado e em tinta apagada
 - `Refazer a leitura` → relendo → concluída. Um sinal responde a cada 600ms, na ordem da grade (`movimento.md`)
 - `Ver os dados da CAN` → T07 com a leitura nova, que abre já lida (G27)
 - `Voltar ao menu` → T04
@@ -29,7 +30,6 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - faixa · sem ação
 - duas ações
 - uma ação
-- processo correndo
 - com legenda
 - mostrador · apagado
 - mostrador · relendo

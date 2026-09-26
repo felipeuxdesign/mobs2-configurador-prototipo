@@ -24,6 +24,7 @@ import {
 } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
+import { useEncerrar } from '../../estado/encerrar.jsx'
 import { SEMENTES } from '../../estado/sementes.js'
 import { M } from '../../dados/mock.js'
 import { caixaAlta } from '../../dados/formato.js'
@@ -33,7 +34,6 @@ import {
 } from './dados.js'
 import './t06.css'
 
-const ENCERRAR_SEM_HOMOLOGAR = '03-momento-encerrando-sem-homologar' // G23: a sessão abortada (T16/03)
 // os termos que as referências 08 e 09 desenham digitados (textos.md): o endereço do momento abre com eles
 const TERMO_DA_08 = 'ABC-1234'
 const TERMO_DA_09 = 'PCX'
@@ -70,7 +70,9 @@ export default function T06({ momento, estado: est }) {
   const escolher = (id) => { setEscolhido(id); setConfirmado(false); ir('T06', { momento: pedidos.includes(id) ? REF.corrigida : REF.confirmar }) }
   const escolherOutro = () => { setEscolhido(null); setMarcado(null); setConfirmado(false); ir('T06') }
   const voltarAoMenu = () => ir('T04')
-  const encerrar = () => ir('T16', { momento: ENCERRAR_SEM_HOMOLOGAR })
+  // o ENCERRAR (decisão 36, src/estado/encerrar.jsx): antes de homologar, o diálogo
+  // Encerrar sem homologar? por cima desta tela; depois de homologar, direto, pra T16
+  const enc = useEncerrar()
 
   // a busca filtra ao digitar; a placa de um ônibus de outro pacote abre a trava dele (T06·5 a)
   const buscar = (texto) => {
@@ -130,7 +132,7 @@ export default function T06({ momento, estado: est }) {
   }
 
   const faixa = (
-    <Faixa serial={sessao.moduloSerial} placa="sem ativo" semAtivo acao="ENCERRAR" aoEncerrar={encerrar} />
+    <Faixa serial={sessao.moduloSerial} placa="sem ativo" semAtivo acao="ENCERRAR" aoEncerrar={enc.encerrar} />
   )
 
   let miolo, rodape
@@ -228,6 +230,7 @@ export default function T06({ momento, estado: est }) {
       {faixa}
       <div className="tela-miolo t06-miolo">{miolo}</div>
       {rodape}
+      {enc.sobre}
     </div>
   )
 }

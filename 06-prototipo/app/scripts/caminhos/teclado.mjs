@@ -56,10 +56,10 @@ export default [
 
   // ── T02 · a busca, no mundo da lista longa ──
   { abre: '?tela=T02&momento=03-momento-busca-sem-resultado' },
-  { foca: 'Buscar garagem ou cidade', teclado: 'texto' },
+  { foca: 'Buscar unidade ou cidade', teclado: 'texto' },
   ...abre(),
-  { aVista: 'Buscar garagem ou cidade' },
-  { aVista: 'Escolha uma garagem' },
+  { aVista: 'Buscar unidade ou cidade' },
+  { aVista: 'Escolha uma unidade' },
   ...fecha,
 
   // ── T06 · a busca do pacote, com o Usar este ativo e o Voltar ao menu ──

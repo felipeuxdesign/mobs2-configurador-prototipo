@@ -1,6 +1,8 @@
 // O link (folha 1): 48 de toque, 15/500 em --tinta-secundaria; no toque, vira
 // --tinta. A cor não anima (só transform e opacity): são duas camadas, e a do
-// toque entra por opacity e solta em 100ms (G14, G26).
+// toque entra por opacity e solta em 100ms (G14, G26). No rodapé e no diálogo
+// (decisão 38), quem usa dá o desenho de 44, a 8 do primário, e o toque de 48
+// cresce só pra baixo (Rodape.css, Dialogo.css).
 import { useState } from 'react'
 import { Glifo } from './Glifo.jsx'
 import './Link.css'

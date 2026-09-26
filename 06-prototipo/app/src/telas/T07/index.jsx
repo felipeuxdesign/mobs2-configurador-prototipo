@@ -11,7 +11,8 @@
 // · No fluxo, a tela abre já lida (G27, C8·2): o ritmo da leitura e o
 //   movimento (o marcador que corre, o tambor que rola) são do C12.
 // · Os toques: Configurar módulo → T09 · Voltar ao menu → T04 · Ler
-//   novamente relê no lugar (T07·5 a) · ENCERRAR, antes de homologar, é a
+//   novamente relê no lugar (T07·5 a) · ENCERRAR, antes de homologar, abre o
+//   diálogo Encerrar sem homologar? por cima da tela (decisão 36), que leva à
 //   sessão abortada da T16 (G23); depois de homologar (a T07 continua no
 //   menu), são os passos do encerramento, a T16 (logica.md, como a T08).
 import { useEffect } from 'react'
@@ -21,6 +22,7 @@ import {
 } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
+import { useEncerrar } from '../../estado/encerrar.jsx'
 import { SEMENTES } from '../../estado/sementes.js'
 import { M } from '../../dados/mock.js'
 import { caixaAlta } from '../../dados/formato.js'
@@ -31,7 +33,6 @@ import {
 import { T } from './textos.js'
 import './t07.css'
 
-const ENCERRAR_SEM_HOMOLOGAR = '03-momento-encerrando-sem-homologar' // G23: a sessão abortada (T16/03)
 
 // a sessão do estado da coluna: o par módulo × ativo do caso, do cadastro
 function sessaoDoCaso(casoId) {
@@ -66,7 +67,9 @@ function DadosDaCan({ est }) {
 
   const ir = (tela, extra = {}) => despachar({ tipo: 'ir', tela, ...extra })
   // G23: antes de homologar, a sessão abortada (T16/03); depois, o encerramento (T16)
-  const encerrar = () => (unico.etapas.checklist?.homologada ? ir('T16') : ir('T16', { momento: ENCERRAR_SEM_HOMOLOGAR }))
+  // o ENCERRAR (decisão 36, src/estado/encerrar.jsx): antes de homologar, o diálogo
+  // Encerrar sem homologar? por cima desta tela; depois de homologar, direto, pra T16
+  const enc = useEncerrar()
   // T07·5 (a): relê no lugar. O caso vale uma vez por sessão (G21): relida, a
   // falha dá lugar ao nominal do sinal
   const lerNovamente = () => {
@@ -86,7 +89,7 @@ function DadosDaCan({ est }) {
     <div className="t07">
       <BarraDoSistema hora={M.HORA_NOMINAL} fundo="faixa" />
       <Faixa serial={sessao.moduloSerial} placa={leitura.ativo.placa} acao={T.encerrar}
-        aoEncerrar={encerrar} />
+        aoEncerrar={enc.encerrar} />
       <div className="tela-miolo t07-miolo">
         {falhou
           ? <CabecalhoConteudo titulo={T.titulo} contagem={leitura.reprovados} unidade={T.reprovado} tom="falha" />
@@ -101,6 +104,7 @@ function DadosDaCan({ est }) {
           texto={leitura.dinamicos.map((s) => s.rotuloCurto ?? s.rotulo).join(T.entreSinais)} />
       </div>
       {rodape}
+      {enc.sobre}
     </div>
   )
 }

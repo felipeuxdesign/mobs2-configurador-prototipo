@@ -4,7 +4,7 @@
 // A decisão do diretor de 25/09 (b): a busca que acha outros e esconde a escolha
 // feita também faz o primário esperar, e ele acende de novo quando ela volta.
 // A otimização do design: a URL diz esse quadro também (o 04 da T02, o 09 da T06),
-// e o endereço dele abre a tela nele; o Sincronizar das garagens que só o caso da
+// e o endereço dele abre a tela nele; o Sincronizar das unidades que só o caso da
 // lista longa tem baixa o pacote dele; e o Procurar de novo da T05 mostra o quadro
 // da busca da T05/00 antes de a lista voltar.
 const ESCONDE_T02 = '04-momento-busca-esconde-a-escolha'
@@ -15,49 +15,49 @@ export default [
   { chega: 'T02', momento: '03-momento-busca-sem-resultado' },
   { ve: 'Nada com “Recreio”' },
   { ve: 'Confira o nome, ou busque pela cidade.' },
-  { desligado: 'Escolha uma garagem' },
+  { desligado: 'Escolha uma unidade' },
   { naoVe: 'Garagem Boa Viagem' },
   // o voltar do sistema não faz nada: a tela não tem saída desenhada (logica.md)
   { tecla: 'Escape' },
   { fica: 'T02', ms: 500 },
   { chega: 'T02', momento: '03-momento-busca-sem-resultado' },
-  // a busca que acha: as garagens do caso, e o 03 sai da URL
-  { digita: 'Recife', em: 'Buscar garagem ou cidade' },
+  // a busca que acha: as unidades do caso, e o 03 sai da URL
+  { digita: 'Recife', em: 'Buscar unidade ou cidade' },
   { chega: 'T02', momento: null },
   { naoVe: 'Nada com' },
   { ve: 'Garagem Boa Viagem' },
   { naoVe: 'Pátio Caruaru' },
   // outro nome que não existe: o vazio diz o termo novo
-  { digita: 'Paulista', em: 'Buscar garagem ou cidade' },
+  { digita: 'Paulista', em: 'Buscar unidade ou cidade' },
   { chega: 'T02', momento: '03-momento-busca-sem-resultado' },
   { ve: 'Nada com “Paulista”' },
-  { desligado: 'Escolha uma garagem' },
+  { desligado: 'Escolha uma unidade' },
   // a escolha e o primário (R-14): a Várzea, que o mundo do herói também tem, sincroniza
-  { digita: 'Várzea', em: 'Buscar garagem ou cidade' },
+  { digita: 'Várzea', em: 'Buscar unidade ou cidade' },
   { chega: 'T02', momento: null },
   { marca: 'Garagem Várzea' },
   { fica: 'T02', ms: 400 },
   { chega: 'T02', momento: null },
   { ve: 'Sincronizar Garagem Várzea' },
-  // a busca que acha outra garagem esconde a escolha: o primário espera (decisão do diretor, 25/09, b),
+  // a busca que acha outra unidade esconde a escolha: o primário espera (decisão do diretor, 25/09, b),
   // e a URL diz o 04 (a otimização do design)
-  { digita: 'Olinda', em: 'Buscar garagem ou cidade' },
+  { digita: 'Olinda', em: 'Buscar unidade ou cidade' },
   { ve: 'Garagem Olinda' },
   { naoVe: 'Garagem Várzea' },
   { chega: 'T02', momento: ESCONDE_T02 },
-  { desligado: 'Escolha uma garagem' },
+  { desligado: 'Escolha uma unidade' },
   { naoVe: 'Sincronizar' },
   // a busca que devolve a escolha: ele acende de novo, com o nome dela, e o 04 sai da URL
-  { digita: 'Recife', em: 'Buscar garagem ou cidade' },
+  { digita: 'Recife', em: 'Buscar unidade ou cidade' },
   { ve: 'Garagem Boa Viagem' },
   { ve: 'Sincronizar Garagem Várzea' },
-  { naoVe: 'Escolha uma garagem' },
+  { naoVe: 'Escolha uma unidade' },
   { chega: 'T02', momento: null },
   // a busca sem resultado esconde a escolha, e o primário espera; a que volta a achar a devolve
-  { digita: 'Recreio', em: 'Buscar garagem ou cidade' },
+  { digita: 'Recreio', em: 'Buscar unidade ou cidade' },
   { chega: 'T02', momento: '03-momento-busca-sem-resultado' },
-  { desligado: 'Escolha uma garagem' },
-  { digita: 'varzea', em: 'Buscar garagem ou cidade' },
+  { desligado: 'Escolha uma unidade' },
+  { digita: 'varzea', em: 'Buscar unidade ou cidade' },
   { chega: 'T02', momento: null },
   { ve: 'Sincronizar Garagem Várzea' },
   { toca: 'Sincronizar Garagem Várzea' },
@@ -70,14 +70,14 @@ export default [
   { ve: 'pacote de hoje, 06:15' },
   { ve: '12 ativos' },
   { naoVe: 'Garagem Várzea' },
-  { desligado: 'Escolha uma garagem' },
+  { desligado: 'Escolha uma unidade' },
   // a busca que devolve a Várzea: ela volta marcada, e o 04 sai da URL
-  { digita: 'Recife', em: 'Buscar garagem ou cidade' },
+  { digita: 'Recife', em: 'Buscar unidade ou cidade' },
   { chega: 'T02', momento: null },
   { ve: 'Sincronizar Garagem Várzea' },
-  { digita: 'Olin', em: 'Buscar garagem ou cidade' },
+  { digita: 'Olin', em: 'Buscar unidade ou cidade' },
   { chega: 'T02', momento: ESCONDE_T02 },
-  // ── T02 → T03 · a garagem que só o caso tem sincroniza o pacote dele (pac-uo-12) ──
+  // ── T02 → T03 · a unidade que só o caso tem sincroniza o pacote dele (pac-uo-12) ──
   { marca: 'Garagem Olinda' },
   { chega: 'T02', momento: null },
   { ve: 'Sincronizar Garagem Olinda' },

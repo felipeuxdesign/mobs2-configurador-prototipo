@@ -31,13 +31,15 @@
 // · Os toques: Regravar os cinco blocos → T09 · Só registrar o diagnóstico →
 //   registra no estado único (etapas.conferencia) e volta ao menu, sem item na
 //   fila, porque o mock não tem onde (G25, T11-V4) · Voltar ao menu → T04 ·
-//   ENCERRAR → a T16, sem homologar antes do checklist (G23). O voltar do
+//   ENCERRAR → antes do checklist, o diálogo Encerrar sem homologar? (decisão
+//   36), e a T16 sem homologar (G23). O voltar do
 //   Android (o Esc) faz o mesmo que o link de saída do rodapé (logica.md): no
 //   00, registra e volta; no 02, volta.
 import { useEffect, useState } from 'react'
 import { BarraDoSistema, Faixa, CabecalhoConteudo, Aviso, Lista, LinhaChecagem, Nota, Prova, Rodape, ESTADOS } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
+import { useEncerrar } from '../../estado/encerrar.jsx'
 import { SEMENTES } from '../../estado/sementes.js'
 import { EM_QUADRO } from '../../estado/quadro.js'
 import { RITMOS } from '../../estado/ritmos.js'
@@ -49,7 +51,6 @@ import {
 import { T } from './textos.js'
 import './t11.css'
 
-const ENCERRAR_SEM_HOMOLOGAR = '03-momento-encerrando-sem-homologar' // G23: a sessão abortada (T16/03)
 // o nome do xis pro leitor segue o dado (G15): o bloco que não bate falhou na conferência
 const NOME_DIVERGE = ESTADOS.xis.nome
 const SEMENTE = SEMENTES.T11.sessao
@@ -114,7 +115,9 @@ export default function T11({ momento, estado: est }) {
     ir('T04')
   }
   const voltar = () => ir('T04')
-  const encerrar = () => ir('T16', unico.etapas.checklist?.homologada ? {} : { momento: ENCERRAR_SEM_HOMOLOGAR })
+  // o ENCERRAR (decisão 36, src/estado/encerrar.jsx): antes de homologar, o diálogo
+  // Encerrar sem homologar? por cima desta tela; depois de homologar, direto, pra T16
+  const enc = useEncerrar()
 
   // O voltar do Android (logica.md): no computador, o Esc — o mesmo que o link
   // de saída do rodapé. Num estado da coluna, a peça não escuta.
@@ -130,7 +133,7 @@ export default function T11({ momento, estado: est }) {
   return (
     <div className="t11">
       <BarraDoSistema hora={M.HORA_NOMINAL} fundo="faixa" />
-      <Faixa serial={par.moduloSerial} placa={ativoDe(par.ativoId)?.placa} acao={T.encerrar} aoEncerrar={encerrar} />
+      <Faixa serial={par.moduloSerial} placa={ativoDe(par.ativoId)?.placa} acao={T.encerrar} aoEncerrar={enc.encerrar} />
       <div className="tela-miolo t11-miolo">
         <CabecalhoConteudo titulo={T.titulo} />
         <div className={`t11-veredito${espera}`} aria-hidden={lendo ? 'true' : undefined}>{cabeca}</div>
@@ -153,6 +156,7 @@ export default function T11({ momento, estado: est }) {
       {bate
         ? <Rodape primario={T.voltar} aoPrimario={voltar} />
         : <Rodape primario={T.regravar(total)} aoPrimario={regravar} link={T.soRegistrar} aoLink={registrar} />}
+      {enc.sobre}
     </div>
   )
 }

@@ -1,6 +1,8 @@
 // C11 · os diálogos do menu com a sessão aberta (G23, logica.md · ENCERRAR): o
 // primário passa pelos 4 passos da sessão abortada da T16 e segue pro destino
-// gravado — o login com a fila preservada, ou a sincronização da garagem nova.
+// gravado — o login com a fila preservada, ou a sincronização da unidade nova.
+// Os dois já são a confirmação deles, e dizem *sem homologar* (decisão 36): o
+// Encerrar sem homologar? não aparece no caminho — nenhum pergunta duas vezes.
 const LOGIN_ATE_O_MENU = [
   { chega: 'T01', momento: null },
   { digita: 'Varzea26', em: 'SENHA' },
@@ -37,9 +39,10 @@ const SESSAO_ABERTA = [
   { ve: 'RKT-8H42' },
   { ve: 'ENCERRAR' },
 ]
-// os 4 passos, sem confirmação, e o app segue sozinho pro destino
+// os 4 passos, sem outra confirmação, e o app segue sozinho pro destino
 const OS_QUATRO_PASSOS = [
   { chega: 'T16', momento: '03-momento-encerrando-sem-homologar', ms: 1000 },
+  { naoVe: 'Encerrar sem homologar?', ms: 300 },
   { ve: 'Sem homologar · só o que deixa o módulo seguro' },
   { ve: 'Encerrando · não desconecte' },
 ]
@@ -58,7 +61,7 @@ export default [
   { chega: 'T04', momento: '06-momento-folha-conta-sair-com-sessao-aberta' },
   { ve: 'itens continuam na fila e sobem no próximo login.' },
   { ve: '3 itens' },
-  { ve: 'A sessão de configuração do M2C-0417 é encerrada antes.' },
+  { ve: 'A sessão de configuração do M2C-0417 é encerrada antes, sem homologar.' },
   // o Cancelar volta à folha de onde o diálogo nasceu (T04·8)
   { toca: 'Cancelar' },
   { chega: 'T04', momento: '05-momento-folha-conta' },
@@ -76,7 +79,7 @@ export default [
   { naoVe: 'ENCERRAR' },
   { ve: 'Sem sessão de configuração' },
   { naoVe: 'Seu acesso vence em 2 dias' },   // sair e entrar de novo não zera o aviso: ele é uma vez por dia
-  // a fila preservada: a mesma conta no cartão (a garagem ativa) e no diálogo (todas)
+  // a fila preservada: a mesma conta no cartão (a unidade ativa) e no diálogo (todas)
   { toca: 'Conta — Rafael Vieira' },
   { chega: 'T04', momento: '05-momento-folha-conta' },
   { toca: 'Sair da conta' },
@@ -87,21 +90,23 @@ export default [
   { chega: 'T04', momento: '05-momento-folha-conta' },
   { tecla: 'Escape' },   // a folha fecha pelo voltar
   { chega: 'T04', momento: '01-momento-sem-modulo' },
-  // 2ª passada: trocar de garagem com a sessão aberta
+  // 2ª passada: trocar de unidade com a sessão aberta — a tira diz pro leitor o que ela faz e qual é a unidade
   ...SESSAO_ABERTA,
-  { toca: 'GARAGEM VÁRZEA' },
+  { toca: 'Trocar de unidade — Garagem Várzea' },
   { chega: 'T04', momento: '07-momento-folha-trocar-de-garagem' },
-  { ve: 'Trocar recarrega os ativos e o pacote desta garagem.' },
+  { ve: 'Trocar de unidade' },
+  { ve: 'Trocar recarrega os ativos e o pacote desta unidade.' },
+  { naoToca: 'Trocar de empresa' },   // o herói tem uma empresa só (decisão 37)
   { toca: 'Garagem Ibura' },
-  { ve: 'A sessão de configuração do M2C-0417 é encerrada antes da troca.' },
+  { ve: 'A sessão de configuração do M2C-0417 é encerrada antes da troca, sem homologar.' },
   { ve: 'O que já foi gravado fica no módulo.' },
   { toca: 'Cancelar' },
-  { naoVe: 'é encerrada antes da troca.' },
-  { ve: 'Trocar recarrega os ativos e o pacote desta garagem.' },
+  { naoVe: 'é encerrada antes da troca, sem homologar.' },
+  { ve: 'Trocar recarrega os ativos e o pacote desta unidade.' },
   { toca: 'Garagem Ibura' },
   { toca: 'Encerrar a sessão e trocar' },
   ...OS_QUATRO_PASSOS,
-  // fechado o 4º passo, a sincronização da garagem nova
+  // fechado o 4º passo, a sincronização da unidade nova
   { chega: 'T03', entre: [1500, 3500] },
   { ve: 'GARAGEM IBURA' },
   { ve: 'Baixando o pacote' },

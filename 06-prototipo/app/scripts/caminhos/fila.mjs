@@ -24,7 +24,7 @@ export default [
   // a ordem da lista: na fila, do mais novo pro mais velho (14:12, depois 12:05), e depois a recebida
   { ve: 'RSW-9L02 · na fila\nhá 18 min\nEvidências\nKJC-7N23 · na fila\nhá 145 min\nEvidências\nRSW-9L02 · recebida' },
   // o contador conta os mostrados: continua 3
-  { ve: '3 nesta garagem' },
+  { ve: '3 nesta unidade' },   // a lei 18, a palavra é unidade (decisão 37)
   // nenhum vira o SUBINDO AGORA: o progresso e o tamanho só existem no f-04 do mock
   { naoVe: 'SUBINDO AGORA' },
   { fica: 'T15', ms: 600 },

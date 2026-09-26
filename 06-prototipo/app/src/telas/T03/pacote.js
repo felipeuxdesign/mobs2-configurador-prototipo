@@ -1,6 +1,6 @@
 // A conta do pacote da T03, lida do mock na hora de montar (G7). Nenhum
 // número mora aqui: a ordem da baixa, o ritmo, a estimativa, a versão e a
-// idade saem de M.pacotes, M.uos, M.casos e de ritmos.js. A garagem que só o
+// idade saem de M.pacotes, M.uos, M.casos e de ritmos.js. A unidade que só o
 // caso lista-longa-garagens tem (a otimização do design) baixa o pacote que o
 // caso declara pra ela: os ativos, a idade, a hora e a versão são os dele
 // (src/dados/garagens.js, com o que ele não declara).

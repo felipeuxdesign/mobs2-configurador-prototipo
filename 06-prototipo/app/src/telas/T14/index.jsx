@@ -23,7 +23,8 @@
 // · 'Encerrar o ciclo' fecha a captura, e os pendentes ficam pendentes na
 //   Seção E; 'Ir para o checklist' sai com o ciclo aberto — os dois → T13
 //   (T14·2). 'Voltar ao checklist' → T13 · 'Voltar ao menu' → T04 (T14·4).
-//   ENCERRAR → a sessão abortada antes de homologar (G23). O voltar do Android
+//   ENCERRAR → antes de homologar, o diálogo Encerrar sem homologar? por cima
+//   da tela (decisão 36), e a sessão abortada (G23). O voltar do Android
 //   (o Esc) faz o mesmo que o link de saída do rodapé (logica.md).
 // · 'Solicitar correção de cadastro' (04) → o link vira o registro no mesmo
 //   lugar, 'Correção solicitada às 14:30', e deixa de ser tocável (06).
@@ -34,6 +35,7 @@ import { useEffect, useRef, useState } from 'react'
 import { BarraDoSistema, Faixa, CabecalhoConteudo, Prazo, BlocoEvento, Lista, LinhaChecagem, Rodape, ESTADOS } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
+import { useEncerrar } from '../../estado/encerrar.jsx'
 import { EM_QUADRO } from '../../estado/quadro.js'
 import { RITMOS } from '../../estado/ritmos.js'
 import { M } from '../../dados/mock.js'
@@ -46,7 +48,6 @@ import {
 import { T } from './textos.js'
 import './t14.css'
 
-const ENCERRAR_SEM_HOMOLOGAR = '03-momento-encerrando-sem-homologar' // G23: a sessão abortada (T16/03)
 
 // o quadro em que a tela abre. fase: 'drenando' (a fila sai do módulo) ·
 // 'drenada' (o disparo acende) · 'correndo' (o prazo drena) · 'estourado' (o
@@ -174,7 +175,9 @@ export default function T14({ momento, estado: est }) {
     setFluxo((f) => ({ ...f, correcao: true }))
     ir('T14', { momento: REF.corrigida })
   }
-  const encerrar = () => ir('T16', unico.etapas.checklist?.homologada ? {} : { momento: ENCERRAR_SEM_HOMOLOGAR })
+  // o ENCERRAR (decisão 36, src/estado/encerrar.jsx): antes de homologar, o diálogo
+  // Encerrar sem homologar? por cima desta tela; depois de homologar, direto, pra T16
+  const enc = useEncerrar()
 
   // ── o quadro ──
   const { par, casos, fase, tique, passos, correcao } = fluxo
@@ -260,7 +263,7 @@ export default function T14({ momento, estado: est }) {
   return (
     <div className="t14">
       <BarraDoSistema hora={M.HORA_NOMINAL} fundo="faixa" />
-      <Faixa serial={par.moduloSerial} placa={ativoDe(par.ativoId).placa} acao={T.encerrar} aoEncerrar={encerrar} />
+      <Faixa serial={par.moduloSerial} placa={ativoDe(par.ativoId).placa} acao={T.encerrar} aoEncerrar={enc.encerrar} />
       <div className="tela-miolo t14-miolo">
         <CabecalhoConteudo titulo={T.titulo} contagem={aprovados} unidade={T.dePassos(total)} />
         {prazo}
@@ -268,6 +271,7 @@ export default function T14({ momento, estado: est }) {
         {lista}
       </div>
       {rodape}
+      {enc.sobre}
     </div>
   )
 }

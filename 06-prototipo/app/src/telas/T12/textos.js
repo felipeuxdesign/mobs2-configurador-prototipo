@@ -6,7 +6,7 @@ export const TX = {
   semSessao: 'Sem sessão de configuração',
   semAtivo: 'sem ativo', // a faixa com o módulo e sem o ônibus: o texto da T06 e da T04 (não há referência da T12 sem ativo, G25)
   titulo: 'Últimas instalações',
-  nestaGaragem: 'nesta garagem',
+  nestaGaragem: 'nesta unidade', // a lei 18, a palavra é unidade (decisão 37); o nome interno fica
   grupos: { hoje: 'HOJE', ontem: 'ONTEM', esteMes: 'ESTE MÊS', maisDeUmMes: 'MAIS DE UM MÊS' },
   entre: ' · ',
   haDias: (n) => `há ${n} dias`,
@@ -23,8 +23,8 @@ export const TX = {
 
   semConexao: 'SEM CONEXÃO',
   consultaDas: (hora) => `Esta é a consulta das ${hora}.`,
-  vazioTitulo: 'Nenhuma instalação nesta garagem',
-  vazioFrase: 'O que foi instalado em outra garagem aparece ao trocar de contexto.',
+  vazioTitulo: 'Nenhuma instalação nesta unidade',
+  vazioFrase: 'O que foi instalado em outra unidade aparece ao trocar de contexto.',
   voltarAoMenu: 'Voltar ao menu',
 
   // o detalhe (01)

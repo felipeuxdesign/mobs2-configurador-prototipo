@@ -10,12 +10,14 @@
 //   (etapas.can, T08·3). Ver os dados da CAN → T07, que abre já lida (G27).
 // · "doze" e "de 12" saem de sinaisCan.length, por extenso (T08·2).
 // · No print (EM_QUADRO), a 01 para no quadro que a referência desenha.
-// · ENCERRAR, antes de homologar, é a sessão abortada (G23): cancela a
-//   releitura e segue pra T16. O processo para sozinho quando a tela sai.
+// · ENCERRAR, antes de homologar, abre o diálogo Encerrar sem homologar? por
+//   cima da tela (decisão 36), que leva à sessão abortada (G23). Relendo, ele
+//   fica apagado, como o voltar (a lei 17). O processo para sozinho quando a tela sai.
 import { useEffect, useRef, useState } from 'react'
 import { BarraDoSistema, Faixa, GradeCartoes, Mostrador, Rodape } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
+import { useEncerrar } from '../../estado/encerrar.jsx'
 import { EM_QUADRO } from '../../estado/quadro.js'
 import { RITMOS } from '../../estado/ritmos.js'
 import { M } from '../../dados/mock.js'
@@ -26,7 +28,6 @@ import './t08.css'
 
 const M01 = '01-momento-relendo'
 const M02 = '02-momento-concluida'
-const ENCERRAR_SEM_HOMOLOGAR = '03-momento-encerrando-sem-homologar' // G23: a sessão abortada (T16/03)
 
 // o quadro que a 01 desenha: cinco sinais já responderam (5 de 12)
 const QUADRO_01 = 5
@@ -82,9 +83,9 @@ export default function T08({ momento }) {
   }
   const verDados = () => despachar({ tipo: 'ir', tela: 'T07' })
   const voltar = () => despachar({ tipo: 'ir', tela: 'T04' })
-  const encerrar = () => despachar(estado.etapas.checklist?.homologada
-    ? { tipo: 'ir', tela: 'T16' }
-    : { tipo: 'ir', tela: 'T16', momento: ENCERRAR_SEM_HOMOLOGAR })
+  // o ENCERRAR (decisão 36, src/estado/encerrar.jsx): antes de homologar, o diálogo
+  // Encerrar sem homologar? por cima desta tela; depois de homologar, direto, pra T16
+  const enc = useEncerrar()
 
   const { fase, lidos } = fluxo
   // O voltar do Android (logica.md): antes e depois da releitura, o Voltar ao
@@ -121,7 +122,7 @@ export default function T08({ momento }) {
     <div className="t08">
       <BarraDoSistema hora={M.HORA_NOMINAL} />
       {/* o ENCERRAR faz o mesmo que o voltar: relendo, os dois não fazem nada, e ele fica apagado (a lei 17, diretor, 25/09) */}
-      <Faixa serial={sessao?.moduloSerial} placa={ativo?.placa} acao="ENCERRAR" aoEncerrar={encerrar} acaoDesabilitada={fase === 'relendo'} />
+      <Faixa serial={sessao?.moduloSerial} placa={ativo?.placa} acao="ENCERRAR" aoEncerrar={enc.encerrar} acaoDesabilitada={fase === 'relendo'} />
       <div className="tela-miolo">
         <div className="t08-cabeca">
           <h1 className="t08-titulo">{cabeca.titulo}</h1>
@@ -131,6 +132,7 @@ export default function T08({ momento }) {
         {caixa}
       </div>
       {rodape}
+      {enc.sobre}
     </div>
   )
 }

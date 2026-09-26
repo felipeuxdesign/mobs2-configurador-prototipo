@@ -25,6 +25,7 @@ Cada lei tem o porquê. Uma lei sem motivo vira gosto, e gosto se discute; lei c
 | 15 | **A marca usa o `--lima`.** A logo foi alinhada ao `#AAEF00`, o lima de produto da Mobs2 — o mesmo do Vídeo Telemetria, ao lado do roxo institucional `#402070` | o arquivo antigo tinha `#B8F23D`: quase igual ao sistema, e quase igual parece erro |
 | 16 | **Tem seta, toca; sem seta, é leitura.** Todo tocável de lista tem a seta; leitura, feito e espera não têm | no checklist, o que se tocava e o que só se lia tinham a mesma cara |
 | 17 | **Desabilitado é tinta apagada.** Cartão, botão ou ação da faixa que não pode agir agora fica em `--tinta-apagada` (#867E9A), desabilitado de verdade, e o motivo está escrito na tela · nos processos, o `ENCERRAR` da faixa faz o mesmo que o voltar do Android: onde o voltar não faz nada, ele fica apagado | um tocável aceso que não responde parece defeito · decisão do diretor, 25/09 |
+| 18 | **A palavra é unidade.** O contexto é empresa e unidade, como o domínio diz · *garagem* só aparece quando é o nome da unidade | o app chamava toda unidade de garagem, e o domínio nunca usa essa palavra |
 
 ## Leis de medida
 
@@ -34,7 +35,7 @@ Cada lei tem o porquê. Uma lei sem motivo vira gosto, e gosto se discute; lei c
 | **Toda medida é por dentro** | `box-sizing: border-box` em tudo | o número escrito é o tamanho que aparece |
 | **Nada visível a menos de 32px do pé** | rodapé que termina em link fecha com 24; em botão, com 32 | a barra de gestos do Android, e o polegar |
 | **Toque de 48** ◆ | todo tocável tem 48 de toque, e o primário 56. O desenho pode ser menor (o olho, o X, o link de 44): a área de toque cresce por fora, sem mudar o desenho | luva, sol e o polegar |
-| **Nada encosta** ◆ | todo tocável — botão, checkbox, rádio, campo — a 8px de qualquer vizinho · poço a 6px da divisória · texto a 6px da borda · caixa a 6px da caixa vizinha · **área de toque a 8px de qualquer outra**: quando o desenho não deixa esse espaço, a área cresce só pro lado livre — o link do rodapé, pra baixo; o avatar da conta, pra cima — e o que se vê não muda | peça encostada lê como uma peça só, e toque encostado cai no vizinho |
+| **Nada encosta** ◆ | todo tocável — botão, checkbox, rádio, campo — a 8px de qualquer vizinho · poço a 6px da divisória · texto a 6px da borda · caixa a 6px da caixa vizinha · **área de toque a 8px de qualquer outra**: quando o desenho não deixa esse espaço, a área cresce só pro lado livre — o link do rodapé, pra baixo, com 44px e a 8px do botão; o avatar da conta, pra cima, e o ENCERRAR da faixa com 44px — e o que se vê não muda | peça encostada lê como uma peça só, e toque encostado cai no vizinho |
 | **Poço na linha** ◆ | linha de 38 leva poço de 24 · 44 leva 30 · 50 leva 32 — sempre no centro | o poço é da linha, não da divisória · vale pra linha de lista e pro cartão que age como linha; **não vale pro aviso**, que tem o poço dele |
 | **A barra do sistema sangra no primeiro andar** | a cor dela é a do que está logo embaixo; sob o véu, escurece junto | a tela começa na borda, não embaixo de uma faixa |
 | **Folga até o rodapé** | 16px no mínimo, em toda tela | o conteúdo não pode encostar nas ações |

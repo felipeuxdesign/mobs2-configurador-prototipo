@@ -39,3 +39,6 @@ Cada decisão com o contexto, a escolha, o que foi descartado e a consequência.
 | [33](33-calibracao-so-com-a-prova.md) | A calibração só semeia com a prova |
 | [34](34-checklist-numa-estrutura-so.md) | O checklist numa estrutura só |
 | [35](35-calibracao-aponta-o-ciclo.md) | A calibração aponta o ciclo dinâmico |
+| [36](36-encerrar-pede-confirmacao.md) | O ENCERRAR pede confirmação antes de homologar |
+| [37](37-empresa-e-unidade.md) | O contexto é empresa e unidade |
+| [38](38-o-toque-do-rodape.md) | O botão e o link do rodapé ficam a 8px |

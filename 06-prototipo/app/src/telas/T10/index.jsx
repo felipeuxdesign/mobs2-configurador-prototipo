@@ -37,14 +37,16 @@
 // · Os estados da coluna, parados, pelo dado da receita (calibracao.js): o 02
 //   e o 03 no a-09, o 04 no a-22 (G21), o 10 no caso releitura-nao-confere, o
 //   11 na sessão da semente, com a câmera aberta e a permissão negada.
-// · ENCERRAR, antes de homologar, é a sessão abortada da T16 (G23); depois, o
-//   encerramento. Voltar ao menu → T04.
+// · ENCERRAR, antes de homologar, abre o diálogo Encerrar sem homologar? por
+//   cima da tela (decisão 36), que leva à sessão abortada da T16 (G23); depois,
+//   o encerramento. Voltar ao menu → T04.
 import { useEffect, useRef, useState } from 'react'
 import {
   BarraDoSistema, Faixa, Segmentado, ValorEmPoco, ReguaDiferenca, ValorAlvo, FotoProva, VisorCamera, Declarado, Rodape,
 } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
+import { useEncerrar } from '../../estado/encerrar.jsx'
 import { EM_QUADRO } from '../../estado/quadro.js'
 import { camera as cameraDa, primarioDaCamera, voltaDasConfiguracoes } from '../../estado/camera.js'
 import { RITMOS } from '../../estado/ritmos.js'
@@ -58,7 +60,6 @@ import {
 import { T } from './textos.js'
 import './t10.css'
 
-const ENCERRAR_SEM_HOMOLOGAR = '03-momento-encerrando-sem-homologar' // G23: a sessão abortada (T16/03)
 const HORA = M.HORA_NOMINAL
 // o módulo foi gravado: o segmento do passo acende (01 e 10), alto como o atual (08 e 09)
 const GRAVADO = ['semeada', 'nao-confere']
@@ -188,7 +189,9 @@ export default function T10({ momento, estado: est }) {
 
   // ── os toques ──
   const mudaPasso = (x, mudanca) => setFluxo((f) => ({ ...f, passos: { ...f.passos, [x]: { ...f.passos[x], ...mudanca } } }))
-  const encerrar = () => (unico.etapas.checklist?.homologada ? ir('T16') : ir('T16', { momento: ENCERRAR_SEM_HOMOLOGAR }))
+  // o ENCERRAR (decisão 36, src/estado/encerrar.jsx): antes de homologar, o diálogo
+  // Encerrar sem homologar? por cima desta tela; depois de homologar, direto, pra T16
+  const enc = useEncerrar()
   const abrirCamera = () => setFluxo((f) => ({ ...f, camera: true, focado: false }))
   const fecharCamera = () => setFluxo((f) => ({ ...f, camera: false }))
   const tirarFoto = () => setFluxo((f) => ({ ...f, camera: false, passos: { ...f.passos, [g]: { ...f.passos[g], foto: carimbo } } }))
@@ -287,7 +290,7 @@ export default function T10({ momento, estado: est }) {
   return (
     <div className="t10">
       <BarraDoSistema hora={HORA} fundo="faixa" />
-      <Faixa serial={moduloSerial} placa={ativoDe(ativoId)?.placa} acao={T.encerrar} aoEncerrar={encerrar} acaoDesabilitada={semeando && !fluxo.camera} />
+      <Faixa serial={moduloSerial} placa={ativoDe(ativoId)?.placa} acao={T.encerrar} aoEncerrar={enc.encerrar} acaoDesabilitada={semeando && !fluxo.camera} />
       <div className="tela-miolo t10-miolo">
         <Segmentado rotulo={T.rotulo} contagem={String(fluxo.atual + 1)} total={T.deTotal(ordem.length)} segmentos={segmentos} legenda={legenda} />
         {fluxo.camera ? (
@@ -318,6 +321,7 @@ export default function T10({ momento, estado: est }) {
       </div>
       <Rodape primario={primario.rotulo} aoPrimario={primario.aoTocar} primarioDesabilitado={!!primario.desabilitado}
         link={link.rotulo} aoLink={link.aoTocar} linkDesabilitado={!!link.desabilitado} />
+      {enc.sobre}
     </div>
   )
 }

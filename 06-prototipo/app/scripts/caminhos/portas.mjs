@@ -10,9 +10,12 @@ const A_LISTA = [
   { ve: 'não está no cadastro desta empresa' },
   { naoToca: 'M2C-0999' },   // o não cadastrado não se toca, como a referência desenha
 ]
-// a sessão que a porta abriu: ENCERRAR, os 4 passos, e o menu sem sessão
+// a sessão que a porta abriu: ENCERRAR, o Encerrar sem homologar do diálogo (decisão 36),
+// os 4 passos, e o menu sem sessão
 const ENCERRA = [
   { toca: 'ENCERRAR' },
+  { ve: 'Encerrar sem homologar?' },
+  { toca: 'Encerrar sem homologar' },
   { chega: 'T16', momento: '03-momento-encerrando-sem-homologar', ms: 1000 },
   { chega: 'T16', momento: '04-momento-encerrada-sem-homologar', ms: 5000 },
   { toca: 'Voltar ao menu' },
@@ -24,9 +27,9 @@ export default [
   { chega: 'T01', momento: null },
   { digita: 'Varzea26', em: 'SENHA' },
   { toca: 'Entrar' },
-  // T02 · R-14: a garagem marca, o primário diz qual, e só ele sincroniza
+  // T02 · R-14: a unidade marca, o primário diz qual, e só ele sincroniza
   { chega: 'T02', momento: null },
-  { desligado: 'Escolha uma garagem' },
+  { desligado: 'Escolha uma unidade' },
   { marca: 'Garagem Ibura' },
   { chega: 'T02', momento: '01-momento-escolhida' },
   { fica: 'T02', ms: 600 },

@@ -10,7 +10,9 @@
 // linha vermelha de 2 nos mesmos 52 (a entrega do checklist: a faixa é uma peça
 // só; saiu o traço sobreposto do C5). Sem sessão, no menu, fica a do T04/01, 50
 // com a borda de cima e a linha embaixo. 'sem ativo' na placa fica em
-// --tinta-apagada (G13).
+// --tinta-apagada (G13). O ENCERRAR tem o desenho de 44 (decisão 38): no
+// menu, a 8 da conta; o toque de 48 cresce só pra baixo, dentro da faixa, e na
+// faixa do menu em falha ele desce 1, pro mesmo lugar da sem falha (T04/03).
 import { Led } from '../primitivos/Marcador.jsx'
 import { Camadas } from './Camadas.jsx'
 import './Faixa.css'

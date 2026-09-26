@@ -33,7 +33,8 @@
 //   o contador do menu conta (T04·2, logica.md).
 // · O voltar do Android (logica.md) é o Esc: no diálogo, o Cancelar; no nível
 //   do item, o Voltar ao checklist; nas seções e no homologado, o Voltar ao
-//   menu (T13·6). ENCERRAR antes de homologar é a sessão abortada (G23).
+//   menu (T13·6). ENCERRAR antes de homologar abre o diálogo Encerrar sem
+//   homologar? por cima da tela (decisão 36), e a sessão abortada (G23).
 import { useEffect, useRef, useState } from 'react'
 import {
   BarraDoSistema, Faixa, CabecalhoConteudo, BarraDoChecklist, SecoesDoChecklist, SecaoDoChecklist, ItemDoChecklist, VereditoDoChecklist,
@@ -41,6 +42,7 @@ import {
 } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
+import { useEncerrar } from '../../estado/encerrar.jsx'
 import { NEGADA, permissaoDoEstado, camera as cameraDa, primarioDaCamera, voltaDasConfiguracoes } from '../../estado/camera.js'
 import { RECEITAS } from '../../estado/receitas.js'
 import { SEMENTES } from '../../estado/sementes.js'
@@ -53,7 +55,6 @@ import { InstrumentoDoItem } from './pecas.jsx'
 import { T } from './textos.js'
 import './t13.css'
 
-const ENCERRAR_SEM_HOMOLOGAR = '03-momento-encerrando-sem-homologar' // G23: a sessão abortada (T16/03)
 const HORA = M.HORA_NOMINAL
 // o nome do glifo pro leitor, pelo estado do dado (G15, as legendas da folha 3)
 const NOME_DA_SECAO = { aprovada: 'aprovado', pendente: 'ainda não', aguarda: 'ainda não', reprovada: 'falha' }
@@ -132,7 +133,9 @@ export default function T13({ momento, estado: est }) {
   // referência, e a URL sai do momento (como a câmera da T10 e o item reprovado)
   const irItem = (m, p = permissao) => irQuadro(p === NEGADA ? null : m)
   const quadroDasSecoes = (aberta, c = ck) => (aberta ? momentoDaSecao(aberta, c, homologada) : homologada ? REF.homologado : null)
-  const encerrar = () => (homologada ? ir('T16') : ir('T16', { momento: ENCERRAR_SEM_HOMOLOGAR }))
+  // o ENCERRAR (decisão 36, src/estado/encerrar.jsx): antes de homologar, o diálogo
+  // Encerrar sem homologar? por cima desta tela; depois de homologar, direto, pra T16
+  const enc = useEncerrar({ homologada })
   const voltarAoMenu = () => ir('T04')
 
   function abrirSecao(s) {
@@ -286,7 +289,7 @@ export default function T13({ momento, estado: est }) {
     <div className="t13">
       <BarraDoSistema hora={HORA} fundo="faixa" />
       <fieldset className="t13-topo" role="presentation" disabled={q.dialogo}>
-        <Faixa serial={sessao.moduloSerial} placa={ativoDe(sessao.ativoId)?.placa} acao={T.encerrar} aoEncerrar={encerrar} />
+        <Faixa serial={sessao.moduloSerial} placa={ativoDe(sessao.ativoId)?.placa} acao={T.encerrar} aoEncerrar={enc.encerrar} />
       </fieldset>
       <div className="t13-corpo">
         <div className="t13-conteudo" inert={q.dialogo ? '' : undefined}>
@@ -305,6 +308,7 @@ export default function T13({ momento, estado: est }) {
           </div>
         )}
       </div>
+      {enc.sobre}
     </div>
   )
 }

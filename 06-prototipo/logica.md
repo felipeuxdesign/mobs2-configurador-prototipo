@@ -6,7 +6,7 @@ Um objeto só guarda tudo o que o app sabe, e **toda tela lê dele**:
 
 ```
 tecnico      Rafael Vieira · r.vieira
-contexto     empresa · garagem · pacote e a idade dele
+contexto     empresa · unidade · pacote e a idade dele
 sessao       nenhuma | { modulo, ativo, aberta às 14:30, etapa }
 etapas       o que já foi feito: pré-checagem, a CAN (lida · refeita), cadeia, calibração, ciclo, checklist
 fila         os itens esperando envio · e os que o técnico reenviou na T15 (reenviados)
@@ -26,7 +26,7 @@ O protótipo abre no **login, às 14:30, com o Rafael Vieira**, na T01/00: o usu
 ## O caminho do herói
 
 ```
-login → garagem Várzea → sincroniza o pacote → menu, com o aviso do acesso na primeira chegada (Entendi)
+login → unidade Várzea → sincroniza o pacote → menu, com o aviso do acesso na primeira chegada (Entendi)
 → conectar: acha cinco módulos (o do herói e mais quatro), escolhe o M2C-0417, conecta, a pré-checagem acende as onze linhas → a faixa desce
 → o ônibus RKT-8H42 → os chassis batem → a CAN lida → a cadeia grava e relê os blocos → calibra o hodômetro e o horímetro, com a prova: o número do painel e a foto
 → o ciclo dinâmico: os cinco passos sozinhos, o evento chega → o checklist fecha → ENCERRAR → a faixa sobe → menu sem sessão
@@ -41,8 +41,8 @@ Pular direto pra uma tela pelo painel monta o estado mínimo que ela precisa pra
 | Tela | Semente |
 |---|---|
 | T01 · Login | nenhuma sessão · usuário r.vieira preenchido |
-| T02 · Selecionar contexto | Viação Atlântico Sul · três garagens · Várzea com pacote de ontem |
-| T03 · Sincronizar | garagem Várzea · pacote pac-uo-01 |
+| T02 · Selecionar contexto | Viação Atlântico Sul · três unidades · Várzea com pacote de ontem |
+| T03 · Sincronizar | unidade Várzea · pacote pac-uo-01 |
 | T04 · Menu | sessão M2C-0417 + RKT-8H42 · fila com 2 itens |
 | T05 · Conectar módulo | cinco módulos por perto (situacao.porPerto) · M2C-0417 é o do herói · pelo menu, a tela abre na lista sem nada escolhido (01) |
 | T06 · Selecionar ativo | sessão M2C-0417 · dez ônibus no pacote |
@@ -51,7 +51,7 @@ Pular direto pra uma tela pelo painel monta o estado mínimo que ela precisa pra
 | T09 · Configurar módulo | sessão M2C-0417 + RKT-8H42 · os blocos do mock |
 | T10 · Calibração | sessão M2C-0417 + RKT-8H42 · hodômetro 184.320 no módulo, 482.317 no painel |
 | T11 · Conferir configuração | M2C-0438 + ONK-8Q90 · caso diff-divergente · garagem Ibura, a do ONK-8Q90, com o pacote dela (G21) |
-| T12 · Últimas instalações | sessão M2C-0417 + RKT-8H42 · garagem Várzea · cinco instalações (a 00 desenha a sessão aberta, G21) |
+| T12 · Últimas instalações | sessão M2C-0417 + RKT-8H42 · unidade Várzea · cinco instalações (a 00 desenha a sessão aberta, G21) |
 | T13 · Checklist | sessão M2C-0417 + RKT-8H42 · 31 itens |
 | T14 · Ciclo dinâmico | sessão M2C-0417 + RKT-8H42 · fila com 6 mensagens e 2 de diagnóstico |
 | T15 · Fila de saída | fila com dois itens · um com erro |
@@ -68,12 +68,20 @@ O roteiro `app/scripts/caminhos/portas.mjs` prova as portas e a R-14 nas três l
 ## ENCERRAR
 
 - **depois de homologar:** os passos do encerramento, o corte de alimentação que o técnico faz quando o driver não reinicia por comando, e o autoteste (T16·1). O passo que corre diz o que faz, na legenda embaixo do nome (as 8 do `tela.md` da T16); o passo 2 só leva a dele no corte, porque ela manda desligar a alimentação (T16·7). O herói é um VL06, que reinicia por comando; o corte aparece na sessão do KNB-5H39 · M2C-0371, que se abre pelo endereço do momento. Ao fechar o sétimo passo, a sessão sai do estado único e a tela passa pra *Sessão encerrada*, onde as oito assertivas acendem uma a uma; a prova e o `Voltar ao menu` entram com a última (T16·4)
-- **antes de homologar:** a sessão abortada — **4 passos, sem confirmação**. Quem tocou no ENCERRAR da faixa já decidiu. Do ENCERRAR, os 4 passos terminam na *Sessão encerrada* sem homologar; dos diálogos do menu (`Encerrar a sessão e sair`, `Encerrar a sessão e trocar`), o destino fica gravado no estado único e, depois dos 4 passos, o app segue pra ele — o login com a fila preservada, ou a sincronização da garagem nova (G23)
+- **antes de homologar:** o ENCERRAR abre o diálogo *Encerrar sem homologar?* — `Continuar a instalação` é o principal, e fecha · `Encerrar sem homologar` roda a sessão abortada, 4 passos. Um toque sem querer, de luva, não perde a instalação (decisão 36). Depois do `Encerrar sem homologar`, os 4 passos terminam na *Sessão encerrada* sem homologar; dos diálogos do menu (`Encerrar a sessão e sair`, `Encerrar a sessão e trocar`), o destino fica gravado no estado único e, depois dos 4 passos, o app segue pra ele — o login com a fila preservada, ou a sincronização da unidade nova (G23)
+- **todo caminho que encerra a sessão antes de homologar avisa que a instalação não é homologada**: o ENCERRAR da faixa e o `Encerrar a sessão` das folhas do módulo e do ativo abrem o diálogo · as folhas de sair da conta e de trocar de unidade já são a confirmação delas, e dizem *é encerrada antes, sem homologar* — nenhum caminho pergunta duas vezes
 - **nos processos, o ENCERRAR faz o mesmo que o voltar do Android.** Onde o voltar não faz nada — a pré-checagem correndo, a releitura da CAN, o semear da T10 —, o ENCERRAR fica desabilitado e em tinta apagada (lei 17). Na cadeia da T09, antes de a Conexão gravar, ele abre a recuperação, como o voltar. No encerramento da T16, a faixa já não mostra o ENCERRAR
 - **a sessão interrompida (T16/06):** `Retomar` reabre a cadeia da T09 no bloco que parou, com os blocos já confirmados; `Descartar` volta ao menu sem sessão e não cria item de fila; o voltar não faz nada (T16·5, T16·6)
 - **a exceção da T09 (G23, HU-T09-9):** enquanto a Conexão não gravou, o ENCERRAR e o `Voltar ao menu` com a cadeia parada levam à recuperação (T09/03), onde o ENCERRAR não faz nada e `Continuar a gravação` retoma do mesmo bloco. Com a cadeia concluída, o ENCERRAR volta a ser o de cima
+- **no protótipo** (decisão 36, construída): o ENCERRAR é uma peça só pras doze telas com a faixa, da T04 à T15 — `app/src/estado/encerrar.jsx` (`useEncerrar`) —, que decide pelo estado único: com o checklist homologado (`etapas.checklist.homologada`; na T13, o registro dela), direto pros passos do encerramento (T16/00); antes, o diálogo, com os textos da T04/13. O menu, que ia pra sessão abortada mesmo homologado, agora vai direto também
+  - **no menu**, o diálogo é o momento `13` da T04, com endereço: a URL abre e fecha (G20), e o `Continuar a instalação` volta ao quadro do menu (00, 01 ou 02). O véu cobre a tira e a faixa, como no aviso do acesso, e a caixa tem o ar de 24 que a `13` desenha. Aberto pelo endereço, o aviso do acesso espera o diálogo fechar, como espera a folha
+  - **nas outras telas**, o diálogo abre por cima da própria tela onde o ENCERRAR foi tocado, sem endereço — a referência só desenha o do menu (a decisão padrão deste ciclo, pro arquiteto): o véu começa embaixo da barra do sistema e cobre a faixa, a caixa é a mesma, e o `Continuar a instalação` deixa o técnico ali, no mesmo quadro. O que fica atrás do véu é inerte (G25): nem o toque nem o leitor chegam lá. O que corre sozinho embaixo — a conferência da T11, o ciclo da T14 — continua correndo: o técnico ainda não decidiu nada
+  - **o `Encerrar a sessão` das folhas do módulo e do ativo** (T04/10, 11) fecha a folha na hora, sem dois véus, e abre o `13` por cima do menu; o `Continuar a instalação` volta ao menu, sem a folha
+  - **o voltar do Android** com o diálogo aberto faz o `Continuar a instalação`, antes da saída da tela (O voltar do Android · numa folha ou num diálogo; `useVoltar` · `porCima`, em `app/src/estado/voltar.js`)
+  - **o movimento** é o dos diálogos (movimento.md): o véu e a caixa esmaecem, e a caixa cresce de 98% a 100%, em 150ms, na entrada e na saída; pelo endereço ou no print, nasce aberto, parado
+  - **onde o ENCERRAR está desabilitado** (a releitura da T08, o semear da T10, a recuperação da T09) nada muda, e na cadeia da T09 antes de a Conexão gravar ele continua abrindo a recuperação. Os diálogos de sair e de trocar não passam pelo *Encerrar sem homologar?*: já são a confirmação, e dizem *é encerrada antes, sem homologar* e *é encerrada antes da troca, sem homologar.*
 
-Os roteiros provam: `heroi.mjs`, o depois de homologar · `sessao.mjs`, o corte de alimentação pelo endereço do momento, com a legenda de cada passo que corre · `abortada.mjs`, o antes — o ENCERRAR da faixa na pré-checagem, na CAN e no menu, e o `Encerrar a sessão` da folha do módulo, com a legenda de cada um dos 4 passos · `sair.mjs`, os dois diálogos do menu e os destinos deles.
+Os roteiros provam: `heroi.mjs`, o depois de homologar, direto, sem o diálogo · `sessao.mjs`, o corte de alimentação pelo endereço do momento, com a legenda de cada passo que corre · `abortada.mjs`, o antes — o diálogo por cima da T06 e da T07, da própria pré-checagem (T05), do menu (o `13`, pelo ENCERRAR da faixa e pelo `Encerrar a sessão` das folhas do módulo e do ativo) e do checklist (T13); o `Continuar a instalação` fecha e o técnico fica, o voltar também, e o `Encerrar sem homologar` roda os 4 passos, com a legenda de cada um · `sair.mjs`, os dois diálogos do menu, com o *sem homologar*, e os destinos deles, sem outra pergunta no caminho · `portas.mjs`, o diálogo no fim de cada porta · `voltar.mjs`, o voltar com o diálogo aberto no menu e na T07.
 
 ## Os contadores do menu (T04·1, T04·2)
 
@@ -166,6 +174,7 @@ Nos processos que não podem parar, ele **não sai**:
 - **no semear da calibração (T10)**, nos 2 s de *Gravando no módulo…* e *Relendo…*, ele não faz nada: o semear grava no módulo, e parar no meio deixaria o valor pela metade (a decisão do diretor de 25/09). O `Voltar ao menu` fica no lugar, desabilitado de verdade e em `--tinta-apagada` (Nenhum botão aceso que não faz nada, regra 12, e a lei 17), e o `ENCERRAR` também, como na releitura da T08 (logo abaixo). Terminado o semear, valem o `Voltar ao menu` e o `ENCERRAR` de novo
 - **na sessão interrompida (T16/06)**, ele não faz nada: `Retomar` e `Descartar` são atos, e o voltar não escolhe no lugar do técnico (T16·6)
 - **numa folha ou num diálogo**, ele fecha a folha ou o diálogo, como o X ou o Cancelar. O diálogo sem X nem Cancelar — o *Senha alterada* (T01/09, HU-T01-10) — não fecha, e o voltar não faz nada. O aviso do acesso (T04/12), que também não tem Cancelar, fecha: o `Entendi` só fecha, não é ato, e é a única saída
+  - no protótipo (decisão 36): o diálogo *Encerrar sem homologar?*, em qualquer tela com a faixa, fecha pelo voltar como pelo `Continuar a instalação`, e o voltar da tela embaixo espera — enquanto ele está aberto, o Esc é dele (`useVoltar(acao, { porCima: true })`: o de cima responde, e o Esc que ele atendeu não chega a mais ninguém)
 
 **O `ENCERRAR` da faixa faz o mesmo que o voltar** (a lei 17, decisão do diretor de 25/09): antes de a Conexão gravar, na cadeia da T09, ele abre a recuperação; onde o voltar não faz nada — a releitura da CAN (T08/01), o semear da calibração (T10) e a própria recuperação da T09 (T09/03) —, ele fica desabilitado de verdade, em `--tinta-apagada`, sem o pressionado, e o motivo já está escrito na tela (a peça: `Faixa`, `acaoDesabilitada`). Na pré-checagem correndo a faixa ainda não existe (ela desce quando a sessão nasce), e no encerramento da T16 ela não mostra o `ENCERRAR`: ali nada muda.
 
@@ -174,9 +183,9 @@ Nos processos que não podem parar, ele **não sai**:
 | Tela | O que o voltar faz |
 |---|---|
 | T01 | na entrada (00, 01, 10, 14, 15, 16, e a entrada depois de sair da conta, com o usuário lembrado ou sem ele, no fluxo), nada · no canal, no código e na senha nova (02, 03, 05 a 08, 12, 13), o `Voltar ao login` · na folha *Não recebi o código* (04, 11), fecha, como o X · no diálogo *Senha alterada* (09), nada |
-| T02 | nada (00 a 03) |
-| T03 | baixando (00), nada · na falha (01), o `Voltar ao contexto` → T02 · baixado (02), o `Ir para o menu` → T04 · no de 4 dias (03), o `Continuar com este pacote` → T04 · no vencido (04), o `Trocar de garagem` → T02 |
-| T04 | no menu (00 a 04), nada · numa folha (05, 07, 08, 10, 11), fecha, como o X · no diálogo de sair (06), o `Cancelar`, que volta à folha Conta · no de trocar (09), o `Cancelar` · no aviso do acesso (12, no fluxo), o `Entendi` |
+| T02 | nada (00 a 04) · pra quem tem mais de uma empresa, nas empresas (05), nada, e nas unidades (06), o `Trocar de empresa` → o 05 — os dois abrem só parados, e isso se prova no node (A empresa e a unidade) |
+| T03 | baixando (00), nada · na falha (01), o `Voltar ao contexto` → T02 · baixado (02), o `Ir para o menu` → T04 · no de 4 dias (03), o `Continuar com este pacote` → T04 · no vencido (04), o `Trocar de unidade` → T02 |
+| T04 | no menu (00 a 04), nada · numa folha (05, 07, 08, 10, 11), fecha, como o X · no diálogo de sair (06), o `Cancelar`, que volta à folha Conta · no de trocar (09), o `Cancelar` · no aviso do acesso (12, no fluxo), o `Entendi` · no diálogo do ENCERRAR (13), o `Continuar a instalação` · a folha com o Trocar de empresa (14) abre só pela coluna, parada |
 | T05 | na busca (00, 01, 02, 04), nada · no vazio (03), o `Voltar ao menu` · na pré-checagem correndo (05) e na atualização (10), nada · aprovada (05, 13), o `Voltar ao menu` · reprovada ou parada no caso (06 a 09, 11, 12, 14, 15), o `Procurar outro módulo` → a busca de novo, o quadro da 00 e a lista (01) · sem Bluetooth ou sem a permissão (16, 17), o `Voltar ao menu` |
 | T06 | na lista (00), na busca sem resultado (08), no chassi divergente (02) e na correção pedida (07), o `Voltar ao menu` · na confirmação (01, 03) e no conflito com saída (05), o `Escolher outro` → a lista · nas travas sem link (04, 06), o `Escolher outro` do primário → a lista, com a busca como estava (a placa de outro pacote dá o 08) |
 | T07 | tudo aprovado (00), o `Voltar ao menu` · com um sinal reprovado (01, 02), nada |
@@ -190,7 +199,7 @@ Nos processos que não podem parar, ele **não sai**:
 | T15 | o `Voltar ao menu` (00 a 04) |
 | T16 | no encerramento (00, 01), no autoteste e na sessão abortando (03), nada · encerrada (02, 04, 05), o `Voltar ao menu` · interrompida (06), nada |
 
-O roteiro `app/scripts/caminhos/voltar.mjs` prova a tabela: cada tela pelo endereço e pelos momentos com saída própria, o Esc e o destino (`node scripts/caminho.mjs voltar`).
+O roteiro `app/scripts/caminhos/voltar.mjs` prova a tabela: cada tela pelo endereço e pelos momentos com saída própria, o Esc e o destino (`node scripts/caminho.mjs voltar`) — e o diálogo do ENCERRAR, no `13` do menu e por cima da T07, onde o Esc fecha só o diálogo e a T07 fica.
 
 ## Os cartões em espera
 
@@ -256,7 +265,7 @@ O app não gira. No modo estreito com a janela mais larga que alta — o celular
 
 - **a permissão negada tem saída:** o Bluetooth desligado, a permissão do Bluetooth e a da câmera (T05/16 e 17, T10/11 e a câmera do checklist) têm sempre um primário que leva adiante: o Android liga o Bluetooth ou pergunta de novo, ou `Abrir as configurações`, que volta com a permissão dada — na câmera, e no Bluetooth quando o Android não deixa perguntar mais (O mundo real; `app/src/estado/camera.js`, `app/src/telas/T05/celular.js`). O login sem conexão tenta de novo
 - **o que não faz nada é desabilitado de verdade**, como os cartões em espera: o toque não faz nada, o leitor ouve desabilitado, e o desenho é o da referência — o primário apagado que diz o que falta, a tira da T04 com a folha ou o diálogo por cima, a faixa da T13 com o diálogo da Seção F
-- **a régua:** `app/scripts/aceso.mjs` toca cada tocável aceso de cada tela e momento do fluxo, um por vez, e confere se alguma coisa mudou — o endereço, o desenho ou o foco levado a outro lugar (o foco que o botão ganha do próprio toque não conta). Os lugares que nascem de um toque depois da entrada entram com esse toque: o menu sem o aviso do acesso (T04/00, 01 e 02), a busca que acha na T02 e a recuperação da T09. O cronômetro do código da T01 se mede sem os números, e a conferência da T11 e o encerramento sem homologar, depois de acabar. São 79 lugares; os 4 que não se medem — a releitura da CAN (T08/01), a cadeia (T09/00) e o autoteste (T16/00 e 01) — acabam em outro lugar, que se mede sozinho (`node scripts/aceso.mjs`, `prints/aceso.json`). O encerramento sem homologar (T16/03) também acaba em outro lugar, a 04: conforme o tempo da máquina, a régua o mede depois de acabar ou o deixa sem medir, e a 04 se mede nos dois casos (no fechamento do mundo real e no da entrega do checklist, a rodada inteira deixou 5 sem medir)
+- **a régua:** `app/scripts/aceso.mjs` toca cada tocável aceso de cada tela e momento do fluxo, um por vez, e confere se alguma coisa mudou — o endereço, o desenho ou o foco levado a outro lugar (o foco que o botão ganha do próprio toque não conta). Os lugares que nascem de um toque depois da entrada entram com esse toque: o menu sem o aviso do acesso (T04/00, 01 e 02), a busca que acha na T02 e a recuperação da T09. O cronômetro do código da T01 se mede sem os números, e a conferência da T11 e o encerramento sem homologar, depois de acabar. São 80 lugares — com o `13` da T04, o diálogo do ENCERRAR antes de homologar, cujos dois tocáveis fazem alguma coisa (a otimização do design) —; os 4 que não se medem — a releitura da CAN (T08/01), a cadeia (T09/00) e o autoteste (T16/00 e 01) — acabam em outro lugar, que se mede sozinho (`node scripts/aceso.mjs`, `prints/aceso.json`). O encerramento sem homologar (T16/03) também acaba em outro lugar, a 04: conforme o tempo da máquina, a régua o mede depois de acabar ou o deixa sem medir, e a 04 se mede nos dois casos (no fechamento do mundo real e no da entrega do checklist, a rodada inteira deixou 5 sem medir)
 - **nenhum fica, desde a construção da otimização do design:** o `Sincronizar` das seis garagens que só a lista longa tem (T02/03, depois de uma busca que acha) baixa o pacote que o caso `lista-longa-garagens` declara pra cada uma, e o `Procurar de novo` da lista sem nada escolhido (T05/01) mostra o quadro da busca da T05/00, no ritmo proposto de 400 ms (`ritmos.js` · `buscaMs`, proposta no `movimento.md`), antes de a lista voltar · o `ENCERRAR` da recuperação da T09 (T09/03) fica desabilitado de verdade e em tinta apagada, como a referência nova desenha (a lei 17; O voltar do Android) · a régua olha a janela inteira do toque, de 100 em 100 ms até 800: o que muda e volta — o quadro da busca que passa — também mudou
 
 ## O checklist
@@ -280,6 +289,18 @@ Na T02 e na T06, se a busca esconde o que já foi escolhido, o primário apaga �
 
 - **no protótipo**, construído pela decisão do diretor de 25/09 e pela otimização do design (A escolha do ativo, e o `busca.mjs` prova). A URL segue o quadro: o `04` da T02 e o `09` da T06 enquanto a busca acha outros e esconde a escolha, o `03` e o `08` quando ela não acha nada, e nenhum momento quando a escolha volta — na T02, no mundo do caso, a escolha não vai pra URL, porque o `01` é o quadro do mundo do herói. O endereço de cada um abre a tela nele: o `04` no mundo do caso `lista-longa-garagens`, com a Várzea escolhida e *Olin* digitado; o `09` com o RKT-8H42 marcado e *PCX* digitado. Enquanto a busca esconde a escolha, o campo fica com o traço lima do campo focado, como as duas desenham
 
+## A empresa e a unidade
+
+O contexto é **empresa → unidade**, como o domínio diz (Empresa, UC e UO). A interface chama a UO de **unidade**; *Garagem Várzea* e *Pátio Caruaru* são nomes de unidade, e ficam como estão.
+
+- **a ordem**: com mais de uma empresa, `T02/05` escolher a empresa → `T02/06` as unidades → `T02/01` a escolhida · com uma empresa só, `T02/00` → `T02/01`
+- **com uma empresa só**, o passo da empresa não existe: o nome dela aparece em cima das unidades — é o caso do herói
+- **com mais de uma** (caso `varias-empresas`), a lista das empresas vem antes, *Pra qual empresa hoje?* · na lista das unidades, `Trocar de empresa` fica no rodapé · na folha de trocar de unidade, também
+- **com módulo conectado**, trocar de empresa pede a mesma confirmação de trocar de unidade: a sessão de configuração encerra antes (HU-T02-3) — a mesma folha, com a empresa no lugar da unidade
+- **no protótipo** (a otimização do design, construída na T02): o `T02/05` e o `T02/06` são estados — abrem pela coluna e pelo endereço, montados pelo caso `varias-empresas` (a receita deles), parados e sem toque, como todo estado (`palco.md`). O herói tem uma empresa só, e nada no mock lhe dá outra no fluxo: o caminho de quem tem mais de uma não se anda por toque, e se prova no node, nas funções que a tela usa (`app/src/telas/T02/empresas.js`, `node scripts/testar-empresa.mjs`), como o login sem conexão e o Bluetooth (O mundo real). A prova: o `05` com as três empresas do caso, cada uma com *N unidades*, e o primário apagado, *Escolha uma empresa*, até escolher · escolhida, *Ver as unidades* → o `06`, as unidades dela, com o nome em cima e o `Trocar de empresa` no rodapé · escolhida a unidade, *Sincronizar* e o nome dela → T03, que baixa o pacote dela · o `Trocar de empresa` volta ao `05` sem nada escolhido, como a referência desenha · o voltar do Android, no `06`, faz o `Trocar de empresa`, a saída desenhada, e no `05` não faz nada, como no `00`. O roteiro `empresa.mjs` confere no app os dois quadros parados, com a URL de cada um, e o herói sem mudança
+- **no protótipo, o dado**: as unidades da Viação Atlântico Sul — a empresa do herói, `M.empresa` — são as do mundo dele (`M.ucs`, `M.uos`), e o gate confere que a contagem do caso é a de `M.uos`; a Transportes Capibaribe e a Expresso Caruaruense trazem só a contagem. As três linhas se escolhem, e, com uma das duas, o primário espera — *Ver as unidades*, desabilitado de verdade e em tinta apagada (a lei 17), sem fazer nada, como na busca que esconde a escolha —, porque não há o que mostrar sem inventar dado (pro arquiteto) · com a unidade escolhida, o rodapé segue com o `Trocar de empresa`: nenhuma referência desenha a escolhida de quem tem mais de uma empresa, e o estado muda o conteúdo, nunca o desenho
+- **no protótipo, a folha de trocar de unidade** (T04/14, construída na T04): o `14` também é estado — pela coluna e pelo endereço, montado pelo caso, parado e sem toque —, e o `Trocar de empresa` no fim da folha só aparece ali: no fluxo, o herói tem uma empresa só, e a folha dele não o tem. O que o toque faz se prova no node, nas funções que a tela usa (`app/src/telas/T04/dados.js` · `depoisDoTrocar`, `destinoDaTroca`; `node scripts/testar-trocar-empresa.mjs`): sem a sessão, a T02, sem unidade no contexto — que, com mais de uma empresa, abre na lista delas (`05`); com a sessão aberta, a confirmação de trocar de unidade com a empresa no lugar — *Trocar de empresa* no título, *é encerrada antes da troca, sem homologar.* e `Encerrar a sessão e trocar` —, os 4 passos da T16, e depois a T02. O link é o de 48, a 6 do cartão das unidades, comendo 4 em cima e embaixo, como a `14` desenha (o toque fica a 14 do cartão)
+
 ## A URL
 
 Todo lugar do protótipo tem endereço: `?tela=T07` abre a tela · `?tela=T07&estado=01-estado-fora-da-faixa` abre o estado. Um link mandado pra alguém abre exatamente o que se quis mostrar.
@@ -302,17 +323,18 @@ Pendências que não são de desenho seguem um padrão até o PM decidir — a l
 | `T01/11-momento-nao-recebi-reenvio-liberado` | os 60 s do reenvio zeram |
 | `T01/12-momento-codigo-reenviado` | tocar em *Conferir e reenviar* |
 | `T01/13-momento-codigo-no-e-mail` | tocar em *Mandar para o e-mail* |
-| `T02/01-momento-escolhida` | tocar numa garagem |
+| `T02/01-momento-escolhida` | tocar numa unidade |
 | `T02/03-momento-busca-sem-resultado` | digitar na busca um nome que não existe |
-| `T02/04-momento-busca-esconde-a-escolha` | com uma garagem escolhida, digitar uma busca que esconde ela |
+| `T02/04-momento-busca-esconde-a-escolha` | com uma unidade escolhida, digitar uma busca que esconde ela |
 | `T03/02-momento-concluido` | o download termina |
 | `T04/01-momento-sem-modulo` | o menu antes de conectar |
 | `T04/02-momento-modulo-sem-ativo` | módulo conectado, ônibus ainda não escolhido |
 | `T04/05-momento-folha-conta` | tocar nas iniciais |
 | `T04/06-momento-folha-conta-sair-com-sessao-aberta` | `Sair da conta` com sessão ou fila |
-| `T04/07-momento-folha-trocar-de-garagem` | tocar no nome da garagem |
+| `T04/07-momento-folha-trocar-de-garagem` | tocar no nome da unidade |
 | `T04/10-momento-folha-modulo-conectado` | tocar no cartão do módulo com a sessão aberta |
 | `T04/11-momento-folha-ativo-da-sessao` | tocar no cartão do ativo com a sessão aberta |
+| `T04/13-momento-encerrar-antes-de-homologar` | tocar no ENCERRAR antes de homologar |
 | `T05/01-momento-nenhum-escolhido` | a busca achou, nada tocado ainda |
 | `T05/02-momento-um-encontrado` | só um módulo por perto |
 | `T05/05-momento-pre-checagem` | conectado |
@@ -363,7 +385,9 @@ Pendências que não são de desenho seguem um padrão até o PM decidir — a l
 | `T01/14-estado-login-sem-conexao` | `Entrar` sem internet | `sem-conexao-no-login` |
 | `T01/15-estado-primeiro-acesso` | nenhum usuário lembrado — o app acabou de ser instalado, ou o técnico não marcou Lembrar | `primeiro-acesso` |
 | `T01/16-estado-usuario-lembrado` | o técnico marcou Lembrar meu usuário num login anterior | `usuario-lembrado` |
-| `T02/02-estado-lista-longa-com-busca` | a empresa tem mais de 6 garagens — a busca aparece, e a lista rola por baixo do rodapé | `lista-longa-garagens` |
+| `T02/02-estado-lista-longa-com-busca` | a empresa tem mais de 6 unidades — a busca aparece, e a lista rola por baixo do rodapé | `lista-longa-garagens` |
+| `T02/05-estado-escolher-a-empresa` | o técnico tem mais de uma empresa — a lista delas vem antes das unidades | `varias-empresas` |
+| `T02/06-estado-unidades-com-trocar-empresa` | as unidades de um técnico com mais de uma empresa | `varias-empresas` |
 | `T03/01-estado-falha-de-rede` | a rede cai no meio do download | `sync-falha-rede` |
 | `T03/03-estado-pacote-de-4-dias` | o pacote tem entre 3 e 7 dias | `pacotes · pac-uo-02` |
 | `T03/04-estado-pacote-vencido` | o pacote passou de 7 dias | `pacotes · pac-uo-03` |
@@ -372,6 +396,7 @@ Pendências que não são de desenho seguem um padrão até o PM decidir — a l
 | `T04/08-estado-folha-trocar-de-garagem-envio-em-andamento` | trocar com evidência subindo | `filaSaida` |
 | `T04/09-estado-folha-trocar-de-garagem-com-modulo-conectado` | trocar com a sessão aberta | derivado do fluxo |
 | `T04/12-estado-acesso-vencendo` | a sessão de acesso chega ao 5º dia: o diálogo aparece uma vez por dia, na primeira chegada ao menu | `situacao.sessaoAcesso` |
+| `T04/14-estado-folha-trocar-de-unidade-com-empresa` | a folha de trocar de unidade, pra quem tem mais de uma empresa | `varias-empresas` |
 | `T05/03-estado-nenhum-encontrado` | nenhum módulo responde | `busca-vazia` |
 | `T05/04-estado-conexao-falhou` | o módulo não responde ao conectar | `conexao-falha` |
 | `T05/06-estado-pre-checagem-serial-nao-cadastrado` | o serial não está no cadastro | `serial-nao-cadastrado` |
@@ -402,7 +427,7 @@ Pendências que não são de desenho seguem um padrão até o PM decidir — a l
 | `T10/10-estado-releitura-nao-confere` | a releitura passa da tolerância: 500 m a menos, e o limite é a granularidade mais o decorrido do mock, 100 + 40 = 140 m (HU-T10-5; o comentário do caso diz 120 m, e os dois dão *não confere*: vai pro arquiteto) | `releitura-nao-confere` |
 | `T10/11-estado-camera-sem-permissao` | o técnico negou a permissão da câmera | `camera-sem-permissao` |
 | `T11/01-estado-conteudo-que-o-app-nao-reconhece` | índice que o app não classifica | `indice-nao-classificado` |
-| `T12/02-estado-nenhuma-instalacao` | a garagem não tem instalações | `instalacoes` + `instalacoes-vazia` (a consulta da garagem que volta vazia, sem sessão, C11) |
+| `T12/02-estado-nenhuma-instalacao` | a unidade não tem instalações | `instalacoes` + `instalacoes-vazia` (a consulta da unidade que volta vazia, sem sessão, C11) |
 | `T12/03-estado-sem-rede` | a consulta sem rede | `instalacoes-sem-rede` |
 | `T13/09-estado-item-reprovado` | um item automático reprova — a bateria abaixo do mínimo, na CAN | `can-estatico-isolado` (T13-A1) |
 | `T13/10-estado-finalizar-com-a-secao-f-falhando` | `Finalizar` com a Seção F falhando — o servidor não respondeu | `pronto-para-fechar` (T13-A2) |

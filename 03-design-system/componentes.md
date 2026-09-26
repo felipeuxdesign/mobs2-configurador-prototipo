@@ -19,7 +19,7 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 | faixa · sem sessão | LED apagado · só o fato | T12 T15 T16 |
 | faixa · módulo com falha | o serial sai · LED vermelho | T04 |
 | faixa · sem ação | na tela que ela abriu — o encerramento | T04 T05 T06 T07 T08 T09 T10 T11 T12 T13 T14 T15 T16 |
-| tira de contexto | só no menu · a garagem e a conta | T04 |
+| tira de contexto | só no menu · a unidade e a conta | T04 |
 | faixa no menu | 50 em vez de 52 · embaixo da tira | T04 |
 | o topo do menu inteiro | tira e faixa juntas | T04 |
 | duas ações | primário 56 · link com 48 de toque | T03 T05 T06 T07 T08 T09 T10 T11 T13 T14 T16 |
@@ -69,9 +69,9 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 | o par comparado | lido × cadastro | T06 T15 |
 | linha do histórico | placa, módulo e hora · o veredito à direita | T01 T02 T03 T04 T05 T06 T11 T12 T13 T15 T16 |
 | linha da fila · esperando | o que ainda não subiu | T15 |
-| linha de garagem | na folha · o pacote e a contagem | T01 T04 |
-| linha de garagem · a atual | o marcador lima de 11px | T01 T04 |
-| a lista de garagens | na folha, com as três | T01 T02 T03 T04 T05 T06 T11 T12 T13 T15 T16 |
+| linha de unidade | na folha · o pacote e a contagem | T01 T04 |
+| linha de unidade · a atual | o marcador lima de 11px | T01 T04 |
+| a lista de unidades | na folha, com as três | T01 T02 T03 T04 T05 T06 T11 T12 T13 T15 T16 |
 
 ## Folha 5 · instrumentos cadeia processo · `referencias/png/folha-5-instrumentos-cadeia-processo.png`
 
@@ -177,7 +177,7 @@ Cada linha é um espécime de moldura das folhas, e a folha 3 soma quatro linhas
 | primário · normal | roxo com o texto lima · 56 · **peça nova no protótipo** | T01 T02 T03 T04 T05 T06 T07 T08 T09 T10 T11 T12 T13 T14 T15 T16 |
 | primário · pressionado | o roxo clareia e afunda 2% · **peça nova no protótipo** | T01 T02 T03 T04 T05 T06 T07 T08 T09 T10 T11 T12 T13 T14 T15 T16 · no toque |
 | primário · desabilitado | sem roxo · diz o que está acontecendo · **peça nova no protótipo** | T01 T02 T03 T05 T06 T08 T09 T10 T13 T14 T16 |
-| link · normal e pressionado | o cinza vira branco no toque · 48 de toque · variante: registrado, depois do toque o pedido feito no mesmo lugar de 48, sem toque, o relógio de 14 e o texto em --tinta-apagada, a 8 um do outro (T14) · variante: desabilitado, no mesmo lugar, em --tinta-apagada e sem o pressionado, o `Voltar ao menu` enquanto o semear corre (T10, a lei 17) · **peça nova no protótipo** | T01 T03 T04 T05 T06 T07 T08 T09 T10 T11 T13 T14 T16 |
+| link · normal e pressionado | o cinza vira branco no toque · 48 de toque · no rodapé e no diálogo, o desenho de 44, a 8 do primário, e o toque de 48 cresce só pra baixo (decisão 38; ver *duas ações* e *diálogo*, na folha 2) · variante: registrado, depois do toque o pedido feito no mesmo lugar de 48, sem toque, o relógio de 14 e o texto em --tinta-apagada, a 8 um do outro (T14) · variante: desabilitado, no mesmo lugar, em --tinta-apagada e sem o pressionado, o `Voltar ao menu` enquanto o semear corre (T10, a lei 17) · **peça nova no protótipo** | T01 T03 T04 T05 T06 T07 T08 T09 T10 T11 T13 T14 T16 |
 | linha tocável · normal e pressionada | a base de toda linha que se toca · o pressionado acende o fundo · variante: a linha de ação, de 50 e sem poço, o que se pede e, à direita, o que acompanha (T06) · variante: registrada, depois do toque o pedido feito no mesmo cartão de 50, sem toque, o glifo de 14 no poço de 32 (o poço na linha) e o que acontece agora (T06) · **peça nova no protótipo** | T01 T02 T04 T05 T06 T10 T12 T13 |
 
 ### Folha 2 · chrome rodape folha dialogo
@@ -185,17 +185,18 @@ Cada linha é um espécime de moldura das folhas, e a folha 3 soma quatro linhas
 | Peça | Regra, medida | Telas que usam, medido |
 |---|---|---|
 | barra do sistema sem sessão | a cor da página — ela sangra no que vem embaixo | T01 T02 T03 T05 |
-| faixa · sessão aberta | LED lima, serial, placa e o ENCERRAR · 52 com a linha embaixo, em toda tela (a faixa é uma peça só) · variante: sem ativo, a placa apagada até o ônibus entrar na sessão (T05 e T06) · variante: o ENCERRAR apagado, desabilitado de verdade, em --tinta-apagada e sem o pressionado, onde o voltar do Android não faz nada — a releitura (T08/01), a recuperação (T09/03) e o semear (T10), a lei 17 | T05 T06 T07 T08 T09 T10 T11 T12 T13 T14 T15 |
+| faixa · sessão aberta | LED lima, serial, placa e o ENCERRAR · 52 com a linha embaixo, em toda tela (a faixa é uma peça só) · o ENCERRAR com o desenho de 44, e não 48: no menu, a caixa fica a 8 da conta; o toque de 48 cresce só pra baixo, dentro da faixa (decisão 38) · variante: sem ativo, a placa apagada até o ônibus entrar na sessão (T05 e T06) · variante: o ENCERRAR apagado, desabilitado de verdade, em --tinta-apagada e sem o pressionado, onde o voltar do Android não faz nada — a releitura (T08/01), a recuperação (T09/03) e o semear (T10), a lei 17 | T05 T06 T07 T08 T09 T10 T11 T12 T13 T14 T15 |
 | faixa · sem sessão | LED apagado · só o fato | T04 T12 T15 T16 |
-| faixa · módulo com falha | o serial sai · LED vermelho · a linha vermelha de 2 embaixo, nos mesmos 52 da faixa, também no menu, com a borda de cima (T04/03 · a entrega do checklist: saiu o traço por cima do C5) | T04 |
+| faixa · módulo com falha | o serial sai · LED vermelho · a linha vermelha de 2 embaixo, nos mesmos 52 da faixa, também no menu, com a borda de cima (T04/03 · a entrega do checklist: saiu o traço por cima do C5) · no menu, o ENCERRAR de 44 desce 1, a diferença entre a linha de 2 e a de 1, e fica no mesmo lugar da faixa sem falha (T04/03, folha 2 · decisão 38) | T04 |
+| tira de contexto | só no menu · a unidade e a conta · a área de 48 da conta cresce só pra cima e pro lado: com o ENCERRAR de 44 logo embaixo, a caixa dela já fica a 8 dele, e saiu o recuo de 5 pra dentro do avatar, que o ENCERRAR de 48 pedia (decisão 38) | T04 |
 | faixa no menu | os 52 de toda tela, e não 50: embaixo da tira, com a borda de cima e a linha embaixo (a faixa é uma peça só, T04/00, 02 a 12) · variante: sem sessão, os 50 da T04/01, com a linha embaixo, como nas outras telas — a referência, que não mudou, desenha as duas linhas em cima (G13) | T04 |
 | faixa · sem ação | na tela que ela abriu — o encerramento | T16 |
-| duas ações | primário 56 · link com 48 de toque · variante: o rodapé do login, sem o traço em cima, 20 dos lados e 28 no pé (T01) · variante: o link registrado, o pedido feito no lugar do link, sem toque (T14) · variante: o link desabilitado, no lugar e em --tinta-apagada, enquanto o semear corre (T10) | T01 T03 T05 T06 T07 T08 T09 T10 T11 T13 T14 T16 |
-| uma ação | quando só existe um caminho | T02 T03 T05 T06 T09 T10 T11 T12 T15 T16 |
+| duas ações | primário 56 · o link a 8 dele, com o desenho de 44 que come 5 embaixo, e o toque de 48 crescendo só pra baixo, pro lado livre · o alto do rodapé 13 e o vão 8: 13 + 56 + 8 + 44 − 5 + 24, a altura de antes (decisão 38) · variante: o rodapé do login, sem o traço em cima, 13 em cima, 20 dos lados e 28 no pé (T01) · variante: o link registrado, o pedido feito no lugar do link, sem toque — com o desenho de antes, o alto de 14, o vão de 6 e os 48 que comem 4 de cada lado, como a T14/06 desenha (T14) · variante: o link desabilitado, no lugar e em --tinta-apagada, enquanto o semear corre (T10) | T01 T02 T03 T05 T06 T07 T08 T09 T10 T11 T13 T14 T16 |
+| uma ação | quando só existe um caminho · sem o link, o rodapé segue com o alto de 14 e o vão de 6 (a decisão 38 não o mudou) | T02 T03 T05 T06 T09 T10 T11 T12 T15 T16 |
 | processo correndo | o primário diz o que acontece · variante: o pé de 32 com a explicação embaixo, a atualização do firmware (T05) · variante: sem a explicação, o primário sozinho fecha em 32, a releitura (T08) · o semear da calibração, *Gravando no módulo…* e *Relendo…* no primário desabilitado, com o link desabilitado ao lado, em --tinta-apagada (T10) | T03 T05 T08 T09 T10 T16 |
-| com legenda | uma linha que explica a ação, a 12px do botão · variante: junta, a legenda a 6 do botão, só com o vão do rodapé (T13) | T05 T06 T13 T14 |
-| folha | sobe do rodapé · puxador · X · variante: folga 12 e uma frase embaixo do título, a de trocar de garagem (T04) · variante: o toque no véu, fora da folha, fecha a folha como o X (T04) | T01 T04 |
-| diálogo | só pra ação que encerra trabalho | T04 |
+| com legenda | uma linha que explica a ação, a 6 + 8 = 14 do botão, e não a 12: o vão do rodapé com o link passou a 8 (decisão 38; T05/01, 09, T06/03, T14/01) · variante: junta, a legenda só com o vão do rodapé, a 8 do botão (T13) | T05 T06 T13 T14 |
+| folha | sobe do rodapé · puxador · X · variante: folga 12 e uma frase embaixo do título, a de trocar de unidade (T04) · variante: o toque no véu, fora da folha, fecha a folha como o X (T04) | T01 T04 |
+| diálogo | só pra ação que encerra trabalho · a saída a 8 do primário, com o desenho de 44 e o toque de 48 crescendo só pra baixo (decisão 38): a de sempre é o link do rodapé, que come 5 embaixo (T04/09, 13, T13/10), e a de 44 come 4, com as ações a 6 do texto (T04/06) | T04 |
 | diálogo sem saída | quando o que aconteceu já está feito · uma ação só · variante: margem 24, o ar em volta da caixa, com o véu embaixo da barra do sistema, cobrindo a tira e a faixa: o aviso do acesso sobre o menu inteiro (T04) | T01 T04 |
 | diálogo com ciência | o técnico assina a decisão · o primário espera o check | T13 |
 
@@ -203,7 +204,7 @@ Cada linha é um espécime de moldura das folhas, e a folha 3 soma quatro linhas
 
 | Peça | Regra, medida | Telas que usam, medido |
 |---|---|---|
-| escolha numa lista | o marcador de escolha no poço de 30: o vazado de 11, e o quadrado lima cheio de 11 é o escolhido · variante: escolhível, a garagem vencida também se escolhe (T02) | T02 |
+| escolha numa lista | o marcador de escolha no poço de 30: o vazado de 11, e o quadrado lima cheio de 11 é o escolhido · variante: escolhível, a unidade vencida também se escolhe (T02) · variante: sem o valor à direita, a linha da empresa — o nome e a contagem de unidades (T02/05) | T02 |
 | os glifos de estado | doze, um por natureza · com o nome pro leitor de tela · variante: o círculo com o traço, fora da folha e fora dos doze, o não se aplica da assertiva da sessão, apagado e com o nome 'não se aplica' (T16) · **peça nova no protótipo** | todas, dentro das peças · sem uso nas 105: ok cinza |
 | os ícones de ferramenta | dez, do Lucide, no traço dos tokens · variante: subindo, fora das dez, a seta do SUBINDO AGORA, com o traço 2,2 do glifo (T15) · variante: xis-mini, o xis solto de 14 do não confere, com traço 2,6 (T10) · variante: ciclo, fora das dez, o route do Lucide no poço de 32 da ação da Seção E, traço 1,8 (T13/05) · no checklist, o automático que falta leva o ícone da ferramenta da tela que resolve (T13) · **peça nova no protótipo** | T04 T10 T13 T15 e as telas das ferramentas · sem uso nas 105: o ativo de Últimas instalações |
 | os poços | oito tamanhos, de 22 a 44 · **peça nova no protótipo** | todas, dentro das peças · sem uso nas 105: 22, 28 e 44 · o de 44 entrou na T04 (10 e 11) e na T10 (a foto) |
@@ -228,16 +229,16 @@ Cada linha é um espécime de moldura das folhas, e a folha 3 soma quatro linhas
 | decide agora | borda lima · o próximo passo · variante: poço 30 com a sessão aberta (T04) | T04 |
 | espera | tracejado · a causa no lugar da ação · variante: o cartão largo, o ativo que espera o módulo (T04) · **em outra folha: o design a põe na Folha 3** | T04 |
 | falha | traço vermelho embaixo · variante: o glifo calado pro leitor de tela, o rótulo e a frase já dizem (T03) · variante: bloqueio, sem poço, 14 em volta, o rótulo de topo e a frase de duas orações em --tinta-secundaria, A HOMOLOGAÇÃO FICA BLOQUEADA (T16) · **em outra folha: o design a põe na Folha 1** | T01 T03 T05 T16 |
-| aviso | o mesmo desenho, cinza, sem traço · variante: sem poço, só o rótulo e a frase, na folha de trocar de garagem (T04) | T03 T04 T05 T09 T12 T16 |
+| aviso | o mesmo desenho, cinza, sem traço · variante: sem poço, só o rótulo e a frase, na folha de trocar de unidade (T04) | T03 T04 T05 T09 T12 T16 |
 | processo parado | o veredito de uma cadeia ou de um download | T09 |
 | com contagem | quantos não bateram, à direita · o glifo de 16 no poço de 32 (T11/00 e 01) · variante: veredito, o que confere, sem poço, 12 · 14 em volta, o rótulo de topo em lima e o traço lima de 2 embaixo (T11/02) · o cabeçalho espera a última linha da conferência e entra esmaecendo no lugar (a decisão do diretor de 25/09) | T11 |
 | nota tracejada | o que falta explicar, sem ser aviso · variante: a frase em 13, mais aberta, a que diz o bloqueio do pacote (T03) · variante: a frase de 13 em 400, na entrelinha da caixa apagada, a do item que não se marca à mão (T13) · variante: pulado, a frase de 13 em 500 e --tinta-secundaria embaixo do rótulo apagado, NÃO RODARAM (T16) | T03 T05 T13 T16 |
 | nota com rótulo | o fato declarado, com o nome dele em cima · variante: achado, o que a leitura achou e não classifica, com a borda do poço, 10 · 12 em volta, e o rótulo e a frase em --tinta-secundaria (T11) | T04 T06 T11 |
 | o par comparado | lido × cadastro · variante: o veredito, quando os dois batem o rótulo do cadastro acende em lima e a frase fica em 600 (T06) | T06 |
 | linha do histórico | placa, módulo e hora · o veredito à direita · variante: o tom do veredito pela natureza do estado, o que espera em --tinta e a falha em --vermelho (T12) · variante: a linha de baixo em 12, quando diz há quantos dias (T12) · variante: o veredito longo quebra em duas linhas, à direita, e a placa e a linha de baixo não quebram (T12) | T12 |
-| linha de garagem | na folha · o pacote e a contagem · a vencida diz só a causa, no lugar do pacote, sem o que fazer embaixo (T04/07 e 08) · variante: em espera, não se escolhe até o envio terminar, o traço e o que ela espera no lugar do pacote (T04) | T04 |
-| linha de garagem · a atual | o marcador lima de 11px | T04 |
-| a lista de garagens | na folha, com as três | T04 |
+| linha de unidade | na folha · o pacote e a contagem · a folha 4 ainda rotula *linha de garagem*, e o espécime da vitrine segue o rótulo dela pra bancada, com o nome daqui (a lei 18) · a vencida diz só a causa, no lugar do pacote, sem o que fazer embaixo (T04/07 e 08) · variante: em espera, não se escolhe até o envio terminar, o traço e o que ela espera no lugar do pacote (T04) | T04 |
+| linha de unidade · a atual | o marcador lima de 11px | T04 |
+| a lista de unidades | na folha, com as três | T04 |
 
 ### Folha 5 · instrumentos cadeia processo
 

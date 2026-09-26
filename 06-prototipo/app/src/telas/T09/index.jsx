@@ -14,7 +14,8 @@
 // · Tentar sair no meio (ENCERRAR, ou o Voltar ao menu com a cadeia parada) →
 //   a recuperação, até a Conexão gravar; nela, o ENCERRAR não faz nada (G23).
 //   Continuar a gravação retoma do mesmo bloco. Depois da Conexão, o ENCERRAR
-//   é o de sempre: a sessão abortada antes de homologar, o encerramento depois.
+//   é o de sempre: antes de homologar, o diálogo Encerrar sem homologar? por
+//   cima da tela (decisão 36), e a sessão abortada; depois, o encerramento.
 // · Os estados da coluna, parados, pela receita: o 01 pelo caso bloco-recusado,
 //   o 02 e o 03 pelo queda-na-cadeia (G21), cada um na sessão do caso. No
 //   fluxo, o caso para a cadeia uma vez, quando o par da faixa é o dele (G28).
@@ -25,6 +26,7 @@ import { useEffect, useRef, useState } from 'react'
 import { BarraDoSistema, Faixa, CabecalhoConteudo, Precondicao, Aviso, Cadeia, Prova, Rodape } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
+import { useEncerrar } from '../../estado/encerrar.jsx'
 import { SEMENTES } from '../../estado/sementes.js'
 import { EM_QUADRO } from '../../estado/quadro.js'
 import { RITMOS } from '../../estado/ritmos.js'
@@ -36,7 +38,6 @@ import {
 import { T } from './textos.js'
 import './t09.css'
 
-const ENCERRAR_SEM_HOMOLOGAR = '03-momento-encerrando-sem-homologar' // G23: a sessão abortada (T16/03)
 
 // o par módulo × ativo da sessão; sem sessão, o da semente
 const parDaSessao = (s) => (s?.ativoId ? { ativoId: s.ativoId, moduloSerial: s.moduloSerial } : { ativoId: SEMENTES.T09.sessao.ativoId, moduloSerial: SEMENTES.T09.sessao.moduloSerial })
@@ -133,12 +134,15 @@ export default function T09({ momento, estado: est }) {
     paraOFluxo()
     setFluxo((f) => ({ ...f, fase: 'recuperacao', parou: f.parou ?? 'pedido' }))
   }
+  // o ENCERRAR de sempre (decisão 36, src/estado/encerrar.jsx): antes de homologar,
+  // o diálogo Encerrar sem homologar? por cima desta tela; depois, direto, pra T16
+  const enc = useEncerrar()
   function encerrar() {
     const { fase } = vivo.current.fluxo
     if (fase === 'recuperacao') return // G23: na recuperação, o ENCERRAR não faz nada
     if (fase !== 'concluida') { recuperar(); return }
-    // a Conexão gravou: antes de homologar, a sessão abortada; depois, o encerramento
-    ir('T16', unico.etapas.checklist?.homologada ? {} : { momento: ENCERRAR_SEM_HOMOLOGAR })
+    // a Conexão gravou: o ENCERRAR volta a ser o de cima
+    enc.encerrar()
   }
 
   const { par, confirmados: k, fase } = fluxo
@@ -186,6 +190,7 @@ export default function T09({ momento, estado: est }) {
       {/* no 01, a linha dos pinos fica no pé, fora do miolo, como a referência desenha (G11, T09-D2) */}
       {fase === 'recusado' && pinos}
       {rodape}
+      {enc.sobre}
     </div>
   )
 }

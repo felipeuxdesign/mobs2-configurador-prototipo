@@ -37,7 +37,6 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - o topo do menu inteiro
 - duas ações
 - uma ação
-- processo correndo
 - com legenda
 - vazio declarado
 - nota com rótulo

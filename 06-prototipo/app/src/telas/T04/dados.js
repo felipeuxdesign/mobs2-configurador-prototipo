@@ -20,17 +20,20 @@ export const REF = {
   modulo: '10-momento-folha-modulo-conectado',
   ativo: '11-momento-folha-ativo-da-sessao',
   acesso: '12-estado-acesso-vencendo',
+  encerrar: '13-momento-encerrar-antes-de-homologar',
+  empresa: '14-estado-folha-trocar-de-unidade-com-empresa',
 }
 
 // o que está por cima do menu em cada referência: a folha da conta, o
-// diálogo de sair, a folha da garagem, o diálogo de trocar, e as folhas do
-// módulo e do ativo que a sessão prendeu (HU-T16-2)
+// diálogo de sair, a folha da unidade (também a com o Trocar de empresa, 14),
+// o diálogo de trocar, as folhas do módulo e do ativo que a sessão prendeu
+// (HU-T16-2) e o diálogo do ENCERRAR antes de homologar (13, decisão 36)
 export const SOBRE = {
   [REF.conta]: 'conta', [REF.sair]: 'sair', [REF.garagem]: 'garagem',
-  [REF.envio]: 'garagem', [REF.trocar]: 'trocar',
-  [REF.modulo]: 'modulo', [REF.ativo]: 'ativo',
+  [REF.envio]: 'garagem', [REF.trocar]: 'trocar', [REF.empresa]: 'garagem',
+  [REF.modulo]: 'modulo', [REF.ativo]: 'ativo', [REF.encerrar]: 'encerrar',
 }
-export const MOMENTO_DA_FOLHA = { conta: REF.conta, sair: REF.sair, garagem: REF.garagem, modulo: REF.modulo, ativo: REF.ativo }
+export const MOMENTO_DA_FOLHA = { conta: REF.conta, sair: REF.sair, garagem: REF.garagem, modulo: REF.modulo, ativo: REF.ativo, encerrar: REF.encerrar }
 // as folhas sobem do pé (os diálogos, não); as do módulo e do ativo abrem
 // embaixo da faixa, que fica acesa em cima do véu (T04/10, 11)
 export const FOLHAS = ['conta', 'garagem', 'modulo', 'ativo']
@@ -114,3 +117,31 @@ export function garagens() {
       pacote: vencida ? idadeNaLinhaDaGaragem(p.diasAtras, p.hora, p.limiares.bloqueioDias) : idade }
   })
 }
+
+// A empresa antes da unidade (decisão 37, logica.md · A empresa e a unidade):
+// com mais de uma empresa (o caso varias-empresas), a folha de trocar de
+// unidade tem o Trocar de empresa no fim (T04/14). O mundo do caso só existe
+// no estado da coluna: nada no mock dá ao herói mais de uma empresa no fluxo
+// (como na T02, T02/empresas.js), e o 14 abre pela coluna e pelo endereço,
+// parado e sem toque. O que o toque faz se prova no node, nestas funções, as
+// mesmas que a tela usa (scripts/testar-trocar-empresa.mjs).
+export const CASO_EMPRESAS = 'varias-empresas'
+export function temVariasEmpresas(unico, est) {
+  const doCaso = Boolean(M.casos[CASO_EMPRESAS]?.empresas?.length > 1)
+  return est ? est === REF.empresa && doCaso : false
+}
+
+// Trocar, de unidade ou de empresa: o alvo do diálogo de trocar (o 09) é
+// { uoId } ou { empresa: true }. Com a sessão aberta, a mesma confirmação (a
+// sessão encerra antes, sem homologar · HU-T02-3); sem ela, direto pro destino.
+//   de unidade · a sincronização da unidade nova (T03)
+//   de empresa · a T02, que com mais de uma empresa abre na lista delas (T02/05,
+//                a ordem: 05 → 06 → 01), sem unidade no contexto
+export const TROCA_DE_EMPRESA = { empresa: true }
+export function destinoDaTroca(alvo) {
+  return alvo.empresa
+    ? { tela: 'T02', contexto: { uoId: null, pacote: null } }
+    : { tela: 'T03', contexto: { uoId: alvo.uoId, pacote: null } }
+}
+// o toque: com a sessão aberta, o diálogo (confirma); sem ela, o destino (vai)
+export const depoisDoTrocar = (sessao, alvo) => (sessao ? { confirma: alvo } : { vai: destinoDaTroca(alvo) })

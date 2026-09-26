@@ -1,8 +1,9 @@
 /* T02 · Selecionar contexto — só tokens. A tela sem faixa: a barra do sistema
  * na cor da página, o miolo (que rola entre a barra e o rodapé quando passa
- * de 800, G16) e o rodapé de uma ação. O miolo rola sem a barra de rolagem
+ * de 800, G16) e o rodapé de uma ação (de duas no 06, com o Trocar de
+ * empresa). O miolo rola sem a barra de rolagem
  * do navegador do computador, que nenhuma referência desenha (como na T03).
- * A lista longa (o estado 02, 9 garagens) rola por baixo do rodapé, que fica
+ * A lista longa (o estado 02, 9 unidades) rola por baixo do rodapé, que fica
  * parado: a foto sai na rolagem 0, com a lista cortada no traço do rodapé. */
 .t02 { height: 100%; display: flex; flex-direction: column; background: var(--fundo-pagina); }
 
@@ -17,6 +18,7 @@
 .t02-empresa { font-size: var(--t-rotulo-topo); font-weight: 700; letter-spacing: var(--ls-rotulo-topo); color: var(--tinta-secundaria); }
 .t02-titulo { margin: 0; font-size: var(--t-titulo-proc); font-weight: 700; letter-spacing: var(--ls-titulo-proc); color: var(--tinta); }
 
-/* o grupo da UC: o rótulo do bloco a 6 do cartão com as garagens */
+/* o grupo da UC: o rótulo do bloco a 6 do cartão com as unidades; no 05, o
+ * cartão das empresas sozinho no grupo, sem rótulo, como a referência desenha */
 .t02-grupo { flex-shrink: 0; display: flex; flex-direction: column; gap: var(--e-6); }
 .t02-grupo-rotulo { font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--tinta-apagada); }

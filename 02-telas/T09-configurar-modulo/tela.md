@@ -12,6 +12,8 @@ Gravar os blocos no módulo, um de cada vez, cada um relido antes do próximo.
 
 ## O que se toca
 
+- durante a cadeia, antes de a Conexão gravar, o ENCERRAR da faixa abre a recuperação — o mesmo que o voltar do Android
+- na recuperação, o ENCERRAR da faixa fica desabilitado de verdade e em tinta apagada — não se encerra antes de a Conexão gravar
 - a cadeia corre sozinha, um bloco por segundo: o próximo começa no instante em que o anterior confirma (T09·1). A tela entra no quadro da `00` — três relidos, o Leitor gravando — e anda Leitor → Eventos → Conexão; nada conta de zero ao abrir (C9 · G27)
 - bloco recusado: `Tentar de novo`, do bloco recusado
 - queda: `Reconectar e seguir`, do mesmo bloco

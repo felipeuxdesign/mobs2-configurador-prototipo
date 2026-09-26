@@ -1,11 +1,11 @@
-// T03 · Sincronizar (02-telas/T03-sincronizar): baixa o pacote da garagem
+// T03 · Sincronizar (02-telas/T03-sincronizar): baixa o pacote da unidade
 // escolhida e diz se dá pra trabalhar com ele.
 // · No fluxo, a sincronização sempre corre (G27): um item por tick, na ordem
 //   Modelos → Ativos → Cartões, 4 s no total (T03·1). O poço acompanha os
 //   ativos (T03·5). A primeira baixa do pacote do caso sync-falha-rede cai no
 //   item do caso (G21), e Reconectar segue de onde parou. Ao terminar, o
 //   pacote novo vai pro estado único (T03·7) e a URL passa a dizer 02. A
-//   garagem que só o caso lista-longa-garagens tem baixa o pacote que o caso
+//   unidade que só o caso lista-longa-garagens tem baixa o pacote que o caso
 //   declara pra ela (pacote.js · src/dados/garagens.js).
 // · Os estados da coluna, parados: a 01 pelo caso, a 03 e a 04 pela idade do
 //   pacote (receitas.js · pacotes). O estado muda o conteúdo; onde a
@@ -30,7 +30,7 @@ const E01 = '01-estado-falha-de-rede'
 const E03 = '03-estado-pacote-de-4-dias'
 const E04 = '04-estado-pacote-vencido'
 const MENU = { tipo: 'ir', tela: 'T04', momento: '01-momento-sem-modulo' } // T03·6: o menu antes de conectar
-const CONTEXTO = { tipo: 'ir', tela: 'T02' }                                  // T03·6: Voltar ao contexto, Trocar de garagem
+const CONTEXTO = { tipo: 'ir', tela: 'T02' }                                  // T03·6: Voltar ao contexto, Trocar de unidade
 
 // o quadro que a 00 desenha (gate C4, achado 5): Várzea no 9º item de 16
 const QUADRO_00 = 9
@@ -38,7 +38,7 @@ const QUADRO_00 = 9
 const NOMES = { ativos: 'Ativos', modelosAtivo: 'Modelos de ativo', cartoes: 'Cartões' }
 const TITULOS = { baixando: 'Baixando o pacote', falha: 'Baixando o pacote', concluido: 'Pacote de hoje', idade: 'Sincronizar' }
 
-// o pacote que o aparelho tem da garagem, na forma do estado único (sementes.js)
+// o pacote que o aparelho tem da unidade, na forma do estado único (sementes.js)
 const pacoteAtual = (p) => ({ id: p.id, diasAtras: p.diasAtras, hora: p.hora })
 
 // o estado da coluna, montado pela receita: a 01 pelo caso (G9: o pacote e o
@@ -78,7 +78,7 @@ export default function T03({ momento, estado: est }) {
     if (deFora) setFluxo(inicio(momento, uoContexto))
   }, [estado.tela]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // a garagem do contexto mudou com a tela montada: a baixa recomeça nela
+  // a unidade do contexto mudou com a tela montada: a baixa recomeça nela
   useEffect(() => {
     if (uoContexto !== vivo.current.fluxo.uoId) setFluxo(inicio(momento, uoContexto))
   }, [uoContexto]) // eslint-disable-line react-hooks/exhaustive-deps
@@ -116,7 +116,7 @@ export default function T03({ momento, estado: est }) {
   const { bloqueioDias } = p.limiares
 
   // os toques (T03·6). Num estado da coluna o celular não toca; se tocasse,
-  // o quadro vira fluxo, na garagem dele.
+  // o quadro vira fluxo, na unidade dele.
   function baixar(uoId, baixados) {
     const e = vivo.current.estado
     if (est != null || e.contexto.uoId !== uoId) {
@@ -136,7 +136,7 @@ export default function T03({ momento, estado: est }) {
   }
 
   // O voltar do Android (logica.md): o link de saída do rodapé — na falha, o
-  // Voltar ao contexto; no vencido, o Trocar de garagem; no de 4 dias, o
+  // Voltar ao contexto; no vencido, o Trocar de unidade; no de 4 dias, o
   // Continuar com este pacote. No concluído, o Ir para o menu, a saída que ele
   // tem (como a Sessão encerrada da T16). Baixando, a tela não tem saída (não
   // saia da tela): não faz nada
@@ -162,7 +162,7 @@ export default function T03({ momento, estado: est }) {
   // o bloco do meio: o que o pacote traz, ou o que a idade diz
   let conteudo = null
   if (q.fase === 'idade') {
-    if (bloqueia(p)) conteudo = <Nota tom="explica" corpo="secundario" titulo="ENQUANTO NÃO SINCRONIZAR" frase={`Os ${p.contem.ativos} ativos desta garagem ficam indisponíveis. Nenhuma instalação pode começar.`} />
+    if (bloqueia(p)) conteudo = <Nota tom="explica" corpo="secundario" titulo="ENQUANTO NÃO SINCRONIZAR" frase={`Os ${p.contem.ativos} ativos desta unidade ficam indisponíveis. Nenhuma instalação pode começar.`} />
     else if (avisa(p)) conteudo = <Aviso tom="neutro" glifo="pausa" mudo titulo={`PACOTE DE ${p.diasAtras} DIAS`} frase={`Dá pra trabalhar. Com ${bloqueioDias} ele bloqueia — sincronize quando tiver rede.`} />
   } else {
     conteudo = (
@@ -190,7 +190,7 @@ export default function T03({ momento, estado: est }) {
   if (q.fase === 'baixando') rodape = <Rodape primario="Baixando · não saia da tela" primarioDesabilitado />
   else if (q.fase === 'falha') rodape = <Rodape primario="Reconectar" aoPrimario={reconectar} link="Voltar ao contexto" aoLink={() => despachar(CONTEXTO)} />
   else if (q.fase === 'concluido') rodape = <Rodape primario="Ir para o menu" aoPrimario={() => despachar(MENU)} />
-  else if (bloqueia(p)) rodape = <Rodape primario="Sincronizar agora" aoPrimario={() => baixar(q.uoId, 0)} link="Trocar de garagem" aoLink={() => despachar(CONTEXTO)} />
+  else if (bloqueia(p)) rodape = <Rodape primario="Sincronizar agora" aoPrimario={() => baixar(q.uoId, 0)} link="Trocar de unidade" aoLink={() => despachar(CONTEXTO)} />
   else rodape = <Rodape primario="Sincronizar agora" aoPrimario={() => baixar(q.uoId, 0)} link="Continuar com este pacote" aoLink={continuar} />
 
   return (

@@ -1,4 +1,4 @@
-// As garagens da T02, lidas do mock na hora de montar (G7). Nenhum número nem
+// As unidades da T02, lidas do mock na hora de montar (G7). Nenhum número nem
 // nome mora aqui. São dois mundos da mesma empresa:
 //  · o do herói: M.ucs, M.uos e o pacote de cada UO em M.pacotes — 3 garagens,
 //    a idade e a hora do pacote (T02·6) e os ativos que ele traz (T02·5);
@@ -12,6 +12,7 @@
 import { M } from '../../dados/mock.js'
 import { chaveDeBusca, idadeNaLinhaDaGaragem, passouDoBloqueio } from '../../dados/formato.js'
 import { pacoteDaGaragem, mundoDaListaLonga } from '../../dados/garagens.js'
+import { TX } from './textos.js'
 
 export const LISTA_LONGA = '02-estado-lista-longa-com-busca'
 // a busca sem resultado (a entrega de 25/09): um momento do mesmo caso, que abre pelo endereço
@@ -26,7 +27,7 @@ function linha({ id, nome, cidade = '' }) {
   return {
     uo: { id, nome, cidade },
     detalhe: idadeNaLinhaDaGaragem(p.diasAtras, p.hora, p.limiares.bloqueioDias),
-    valor: `${p.contem.ativos} ativos`,
+    valor: TX.ativos(p.contem.ativos),
     vencida: passouDoBloqueio(p.diasAtras, p.limiares.bloqueioDias),
   }
 }

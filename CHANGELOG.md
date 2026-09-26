@@ -1,5 +1,13 @@
 # Registro de mudanças
 
+## 2026-09-25 · a empresa e a unidade, o ENCERRAR com confirmação, e o toque do rodapé
+
+- **o contexto é empresa e unidade**: a interface diz *unidade* onde dizia *garagem* — 16 telas e os documentos que instruem · *Garagem Várzea* segue como nome · lei nova: *a palavra é unidade* · decisão 37
+- **a empresa antes da unidade**: *Pra qual empresa hoje?*, as unidades com *Trocar de empresa* no rodapé, e a folha de trocar com a troca de empresa · caso `varias-empresas`
+- **o ENCERRAR pede confirmação antes de homologar**: *Encerrar sem homologar?*, com *Continuar a instalação* de principal · decisão 36 · o mesmo diálogo no *Encerrar a sessão* das folhas do módulo e do ativo, e o aviso *sem homologar* nas folhas de sair e de trocar
+- **o toque do rodapé**: o botão e o link a 8px, o link com 44px crescendo só pra baixo, o ENCERRAR com 44px — em 106 telas, sem mudar a altura do rodapé · de 80 conflitos de toque reais, sobraram zero · decisão 38
+- agora são **137 referências** — 59 momentos e 62 estados —, **43 casos** e **38 decisões**
+
 ## 2026-09-25 · a otimização do design, fechada · o Sincronizar das seis garagens, o Procurar de novo e o endereço das buscas que escondem a escolha
 
 - **T02 · o Sincronizar das seis garagens:** toda garagem da lista longa tem pacote — as três do herói com o de `pacotes`, as seis que só o caso `lista-longa-garagens` tem com o que ele declara (pac-uo-11 a pac-uo-16) · a linha diz a idade e a hora do pacote dela e os ativos que ele traz: a Garagem Olinda, *pacote de hoje, 06:15* e *12 ativos*, como a T02/04 desenha · o `Sincronizar` leva à T03, que baixa o pacote do caso: *GARAGEM OLINDA*, *de 12*, *pacote pct-uo12-2026-03-12 · 12/03 06:15*, e no concluído *12/03 14:30*; o menu depois diz *GARAGEM OLINDA* · as garagens e os pacotes dos dois mundos num lugar só, `app/src/dados/garagens.js`, que a T02, a T03, a T04 e o contador da T06 leem

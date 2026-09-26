@@ -3,7 +3,7 @@
 // o traço vermelho embaixo e o rótulo em vermelho (Lei 2); o aviso neutro é o
 // mesmo desenho, cinza, sem traço. Com contagem, o número vai à direita, com a
 // unidade junto (Lei 10). O glifo é o de estado da folha 3, pelo nome.
-// `semPoco`: a exceção da Lei 7 — o aviso da folha de trocar de garagem
+// `semPoco`: a exceção da Lei 7 — o aviso da folha de trocar de unidade
 // (T04/08) é só o rótulo e a frase, com 12 em volta e a frase a 1,4 (G11).
 import { Poco, Glifo } from '../index.js'
 import './caixas.css'

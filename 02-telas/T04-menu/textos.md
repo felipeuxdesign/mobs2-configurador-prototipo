@@ -28,19 +28,19 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `06-momento-folha-conta-sair-com-sessao-aberta`
 
-`14:30` · `GARAGEM VÁRZEA` · `RV` · `Menu` · `Sair da conta` · `3` · `itens continuam na fila e sobem no próximo login.` · `A sessão de configuração do` · `M2C-0417` · `é encerrada antes.` · `Encerrar a sessão e sair` · `Cancelar`
+`14:30` · `GARAGEM VÁRZEA` · `RV` · `Menu` · `Sair da conta` · `3` · `itens continuam na fila e sobem no próximo login.` · `A sessão de configuração do` · `M2C-0417` · `é encerrada antes, sem homologar.` · `Encerrar a sessão e sair` · `Cancelar`
 
 ## `07-momento-folha-trocar-de-garagem`
 
-`14:30` · `GARAGEM VÁRZEA` · `RV` · `Trocar de garagem` · `Trocar recarrega os ativos e o pacote desta garagem.` · `Garagem Várzea` · `carregado ontem, 07:10` · `ATIVOS` · `10` · `Garagem Ibura` · `carregado há 4 dias` · `ATIVOS` · `8` · `Pátio Caruaru` · `pacote vencido há 8 dias` · `ATIVOS` · `6`
+`14:30` · `GARAGEM VÁRZEA` · `RV` · `Trocar de unidade` · `Trocar recarrega os ativos e o pacote desta unidade.` · `Garagem Várzea` · `carregado ontem, 07:10` · `ATIVOS` · `10` · `Garagem Ibura` · `carregado há 4 dias` · `ATIVOS` · `8` · `Pátio Caruaru` · `pacote vencido há 8 dias` · `ATIVOS` · `6`
 
 ## `08-estado-folha-trocar-de-garagem-envio-em-andamento`
 
-`14:30` · `GARAGEM VÁRZEA` · `RV` · `Trocar de garagem` · `UMA EVIDÊNCIA ESTÁ SUBINDO` · `Troque de garagem quando a fila terminar.` · `Garagem Várzea` · `carregado ontem, 07:10` · `ATIVOS` · `10` · `Garagem Ibura` · `espera o envio terminar` · `ATIVOS` · `8` · `Pátio Caruaru` · `pacote vencido há 8 dias` · `ATIVOS` · `6`
+`14:30` · `GARAGEM VÁRZEA` · `RV` · `Trocar de unidade` · `UMA EVIDÊNCIA ESTÁ SUBINDO` · `Troque de unidade quando a fila terminar.` · `Garagem Várzea` · `carregado ontem, 07:10` · `ATIVOS` · `10` · `Garagem Ibura` · `espera o envio terminar` · `ATIVOS` · `8` · `Pátio Caruaru` · `pacote vencido há 8 dias` · `ATIVOS` · `6`
 
 ## `09-estado-folha-trocar-de-garagem-com-modulo-conectado`
 
-`14:30` · `GARAGEM VÁRZEA` · `RV` · `Menu` · `Trocar de garagem` · `A sessão de configuração do` · `M2C-0417` · `é encerrada antes da troca.` · `O que já foi gravado fica no módulo.` · `Encerrar a sessão e trocar` · `Cancelar`
+`14:30` · `GARAGEM VÁRZEA` · `RV` · `Menu` · `Trocar de unidade` · `A sessão de configuração do` · `M2C-0417` · `é encerrada antes da troca, sem homologar.` · `O que já foi gravado fica no módulo.` · `Encerrar a sessão e trocar` · `Cancelar`
 
 ## `10-momento-folha-modulo-conectado`
 
@@ -53,3 +53,11 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `12-estado-acesso-vencendo`
 
 `14:30` · `GARAGEM VÁRZEA` · `RV` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Menu` · `CONECTAR MÓDULO` · `M2C-0417` · `ATIVO SELECIONADO` · `RKT-8H42` · `Dados da CAN` · `Configurar módulo` · `Refazer leitura` · `Calibração` · `Conferir configuração` · `Finalizar com checklist` · `Últimas instalações` · `sem conexão` · `2` · `Fila de saída` · `Seu acesso vence em 2 dias` · `Depois disso, ele pede a senha de novo — e pra isso precisa de rede.` · `Entendi`
+
+## `13-momento-encerrar-antes-de-homologar`
+
+`14:30` · `GARAGEM VÁRZEA` · `RV` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Menu` · `CONECTAR MÓDULO` · `M2C-0417` · `ATIVO SELECIONADO` · `RKT-8H42` · `Dados da CAN` · `Configurar módulo` · `Refazer leitura` · `Calibração` · `Conferir configuração` · `Finalizar com checklist` · `Últimas instalações` · `sem conexão` · `2` · `Fila de saída` · `Encerrar sem homologar?` · `A instalação ainda não foi homologada. O módulo fica seguro, e o que já foi gravado fica nele.` · `Continuar a instalação` · `Encerrar sem homologar`
+
+## `14-estado-folha-trocar-de-unidade-com-empresa`
+
+`14:30` · `GARAGEM VÁRZEA` · `RV` · `Trocar de unidade` · `Trocar recarrega os ativos e o pacote desta unidade.` · `Garagem Várzea` · `carregado ontem, 07:10` · `ATIVOS` · `10` · `Garagem Ibura` · `carregado há 4 dias` · `ATIVOS` · `8` · `Pátio Caruaru` · `pacote vencido há 8 dias` · `ATIVOS` · `6` · `Trocar de empresa`

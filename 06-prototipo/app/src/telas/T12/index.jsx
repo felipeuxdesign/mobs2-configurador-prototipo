@@ -15,13 +15,13 @@ import { useState } from 'react'
 import { BarraDoSistema, Faixa, CabecalhoConteudo, Aviso, Vazio, Lista, LinhaHistorico, LinhaChecagem, Rodape } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
+import { useEncerrar } from '../../estado/encerrar.jsx'
 import { M } from '../../dados/mock.js'
 import { TX } from './textos.js'
 import { REF, ativoDe, instalacaoDe, agrupar, vereditoDe, detalheDaLinha, linhaDoDetalhe, linhasDoDetalhe, mundoDe } from './dados.js'
 import { Grupo } from './pecas.jsx'
 import './t12.css'
 
-const ENCERRAR_SEM_HOMOLOGAR = '03-momento-encerrando-sem-homologar' // G23: a sessão abortada (T16/03)
 
 export default function T12({ momento, estado: est }) {
   const { estado: unico, despachar } = useEstado()
@@ -36,7 +36,9 @@ export default function T12({ momento, estado: est }) {
   const abrir = (id) => { setAberta(id); ir('T12', { momento: REF.detalhe }) }
   const voltarAsInstalacoes = () => ir('T12')
   const voltarAoMenu = () => ir('T04')
-  const encerrar = () => (unico.etapas.checklist?.homologada ? ir('T16') : ir('T16', { momento: ENCERRAR_SEM_HOMOLOGAR }))
+  // o ENCERRAR (decisão 36, src/estado/encerrar.jsx): antes de homologar, o diálogo
+  // Encerrar sem homologar? por cima desta tela; depois de homologar, direto, pra T16
+  const enc = useEncerrar()
 
   // o voltar do Android: o Esc faz o que a saída do rodapé faz; num estado da coluna, a peça não escuta
   useVoltar(detalhe ? voltarAsInstalacoes : voltarAoMenu)
@@ -44,7 +46,7 @@ export default function T12({ momento, estado: est }) {
   // ── o topo: a barra na cor da faixa, e a faixa da sessão ou sem sessão ──
   const faixa = sessao
     ? <Faixa serial={sessao.moduloSerial} placa={sessao.ativoId ? ativoDe(sessao.ativoId).placa : TX.semAtivo} semAtivo={!sessao.ativoId}
-        acao={TX.encerrar} aoEncerrar={encerrar} />
+        acao={TX.encerrar} aoEncerrar={enc.encerrar} />
     : <Faixa estado="sem-sessao" fato={TX.semSessao} />
 
   let miolo, rodape
@@ -99,6 +101,7 @@ export default function T12({ momento, estado: est }) {
       {faixa}
       {miolo}
       {rodape}
+      {enc.sobre}
     </div>
   )
 }

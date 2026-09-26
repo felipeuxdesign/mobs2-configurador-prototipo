@@ -346,6 +346,11 @@
 
   /* ── a otimização do design · o que o login de quem abre o app pediu (cada um com o papel e quem usa) ── */
   --traco-limpar: 2; /* o traço do xis de limpar do usuário lembrado, de 18 (T01/16, folha 6: stroke-width 2) — fora das classes da lei 14 · Icone (limpar), Campo (lembrado) */
+
+  /* ── a otimização do design · o toque do rodapé (decisão 38: o botão e o link a 8, o link com 44 crescendo só pra baixo; cada um com o papel e quem usa) ── */
+  --toque-desenho: 44px;        /* o desenho do tocável de texto que não é o primário: o link do rodapé e do diálogo, a saída de 44 do diálogo e o ENCERRAR da faixa — o mínimo da lei; o toque de 48 (--alvo-min) cresce por fora, só pro lado livre, embaixo (decisão 38, folha 2) · Rodape, Dialogo, Faixa */
+  --rodape-alto-com-link: 13px; /* o alto do rodapé que tem o link embaixo do primário, no lugar dos 14: com o vão de 8 e o link de 44, o rodapé fica com a altura de antes (decisão 38, folha 2) · Rodape (e o do login, T01) */
+  --link-recuo: 5px;            /* o link de 44 do rodapé e do diálogo come 5 embaixo (margin 0 0 −5 0), pro lado livre: fecha a conta do rodapé com o alto de 13 e o vão de 8 (decisão 38, folha 2) · Rodape, Dialogo */
 }
 
 @media (prefers-reduced-motion: reduce) {

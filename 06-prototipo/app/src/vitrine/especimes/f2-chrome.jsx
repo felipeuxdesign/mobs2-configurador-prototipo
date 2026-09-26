@@ -33,7 +33,7 @@ export const especimes = [
   // a folha desenha a sem ação sem a casca; a peça é uma só (G13), com a casca da T16 (DS-D5)
   { id: 'f2-faixa-sem-acao', folha: 2, chrome: true, rotulo: 'faixa · sem ação', legenda: 'na tela que ela abriu — o encerramento',
     render: () => <Faixa {...faixaAberta} /> },
-  { id: 'f2-tira', folha: 2, chrome: true, rotulo: 'tira de contexto', legenda: 'só no menu · a garagem e a conta',
+  { id: 'f2-tira', folha: 2, chrome: true, rotulo: 'tira de contexto', legenda: 'só no menu · a unidade e a conta',
     render: () => tira },
   { id: 'f2-faixa-menu', folha: 2, chrome: true, rotulo: 'faixa no menu', legenda: '50 em vez de 52 · embaixo da tira',
     render: () => <Faixa {...faixaAberta} lugar="menu" acao="ENCERRAR" /> },

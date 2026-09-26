@@ -7,7 +7,7 @@
 - **Nenhum número inventado.** Se uma tela precisa de um valor que o mock não tem, isso é um achado do gate — nunca um número digitado no componente
 - **Mesma entrada, mesma saída.** Zero `Math.random`, zero `Date.now`, zero `new Date()`. O dia é `DIA_NOMINAL` e a hora é `HORA_NOMINAL`, 14:30
 - **Nenhuma cor no dado.** Cor é do design system
-- **O herói do protótipo:** Rafael Vieira · garagem Várzea · módulo M2C-0417 · ônibus RKT-8H42
+- **O herói do protótipo:** Rafael Vieira · unidade Várzea · módulo M2C-0417 · ônibus RKT-8H42
 
 ## O gate
 

@@ -45,15 +45,17 @@ export const especimes = [
     ) },
 
   // ── vazio, comparação e histórico ──
+  // as três de unidade (a lei 18, decisão 37): a folha 4 ainda rotula 'linha de garagem', e o `rotulo`
+  // segue o dela, pra bancada achar a moldura; a vitrine mostra o `nome` que o componentes.md dá hoje
   { id: 'f4-historico', folha: 4, rotulo: 'linha do histórico', legenda: 'placa, módulo e hora · o veredito à direita',
     render: () => <Lista><LinhaHistorico placa="RKT-8H42" detalhe="M2C-0417 · 11:47" veredito="aprovada" divisoria={false} /></Lista> },
   { id: 'f4-fila-esperando', folha: 4, rotulo: 'linha da fila · esperando', legenda: 'o que ainda não subiu',
     render: () => <LinhaFilaEsperando titulo="Calibração" detalhe="RSW-9L02 · na fila" quando="há 18 min" /> },
-  { id: 'f4-garagem', folha: 4, rotulo: 'linha de garagem', legenda: 'na folha · o pacote e a contagem',
+  { id: 'f4-garagem', folha: 4, rotulo: 'linha de garagem', nome: 'linha de unidade', legenda: 'na folha · o pacote e a contagem',
     render: () => <LinhaGaragem nome="Garagem Ibura" pacote="carregado há 4 dias" rotuloContagem="ATIVOS" contagem={8} /> },
-  { id: 'f4-garagem-atual', folha: 4, rotulo: 'linha de garagem · a atual', legenda: 'o marcador lima de 11px',
+  { id: 'f4-garagem-atual', folha: 4, rotulo: 'linha de garagem · a atual', nome: 'linha de unidade · a atual', legenda: 'o marcador lima de 11px',
     render: () => <LinhaGaragem estado="atual" nome="Garagem Várzea" pacote="carregado ontem, 07:10" rotuloContagem="ATIVOS" contagem={10} /> },
-  { id: 'f4-lista-garagens', folha: 4, rotulo: 'a lista de garagens', legenda: 'na folha, com as três',
+  { id: 'f4-lista-garagens', folha: 4, rotulo: 'a lista de garagens', nome: 'a lista de unidades', legenda: 'na folha, com as três',
     render: () => (
       <Lista>
         <LinhaGaragem estado="atual" nome="Garagem Várzea" pacote="carregado ontem, 07:10" rotuloContagem="ATIVOS" contagem={10} />

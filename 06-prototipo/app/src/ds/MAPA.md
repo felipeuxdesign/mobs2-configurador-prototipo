@@ -21,19 +21,19 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | barra do sistema | src/ds/chrome/BarraDoSistema.jsx |
 | barra do sistema no menu | src/ds/chrome/BarraDoSistema.jsx (fundo tira) |
 | barra do sistema sem sessão | src/ds/chrome/BarraDoSistema.jsx (fundo pagina) |
-| faixa · sessão aberta | src/ds/chrome/Faixa.jsx; semAtivo, a placa em --tinta-apagada ("sem ativo") · C6, C8 · acaoDesabilitada, o ENCERRAR desabilitado e em --tinta-apagada, sem o pressionado, onde o voltar não faz nada (a lei 17, diretor, 25/09: T08 relendo, T09 recuperação, T10 semear) |
+| faixa · sessão aberta | src/ds/chrome/Faixa.jsx (o ENCERRAR com o desenho de 44, --toque-desenho, e o toque de 48 crescendo só pra baixo, pelo ::after · decisão 38); semAtivo, a placa em --tinta-apagada ("sem ativo") · C6, C8 · acaoDesabilitada, o ENCERRAR desabilitado e em --tinta-apagada, sem o pressionado, onde o voltar não faz nada (a lei 17, diretor, 25/09: T08 relendo, T09 recuperação, T10 semear) |
 | faixa · sem sessão | src/ds/chrome/Faixa.jsx (estado sem-sessao) |
-| faixa · módulo com falha | src/ds/chrome/Faixa.jsx (estado falha: a linha vermelha de 2 nos mesmos 52, também no menu, com a borda de cima · a entrega do checklist, T04/03; saiu o tracoSobreposto do C5, G24) |
+| faixa · módulo com falha | src/ds/chrome/Faixa.jsx (estado falha: a linha vermelha de 2 nos mesmos 52, também no menu, com a borda de cima · a entrega do checklist, T04/03; saiu o tracoSobreposto do C5, G24; no menu, o ENCERRAR desce 1, a diferença entre a linha de 2 e a de 1 · decisão 38) |
 | faixa · sem ação | src/ds/chrome/Faixa.jsx (sem acao, casca da T16 · DS-D5) |
-| tira de contexto | src/ds/chrome/TiraDeContexto.jsx (+ Avatar.jsx, Camadas.jsx) |
+| tira de contexto | src/ds/chrome/TiraDeContexto.jsx (+ Avatar.jsx, Camadas.jsx; a área de 48 da conta cresce só pra cima, e a caixa dela conta no toque: fica a 8 do ENCERRAR de 44 · decisão 38) |
 | faixa no menu | src/ds/chrome/Faixa.jsx (lugar menu: os 52 de toda tela, com a borda de cima --borda-rodape e a linha de baixo · a entrega do checklist, T04/00; sem sessão, a do T04/01, 50 e a linha embaixo) |
 | o topo do menu inteiro | src/ds/chrome/TopoDoMenu.jsx (sem linha embaixo: a linha é a de baixo da faixa · a entrega do checklist) |
-| duas ações | src/ds/chrome/Rodape.jsx (lugar login: o rodapé da T01, sem traço, 20 · 28; linkRegistrado: o link vira o registro, Link registrado — T14/06 · C10; linkDesabilitado: o link no lugar, desabilitado de verdade e em --tinta-apagada, sem o pressionado, enquanto o semear corre — T10, a decisão do diretor de 25/09 e a lei 17) |
+| duas ações | src/ds/chrome/Rodape.jsx (com o link, ds-rodape-com-link: o alto de 13 (--rodape-alto-com-link) e o vão de 8, o link de 44 (--toque-desenho) que come 5 embaixo (--link-recuo), e o toque de 48 crescendo só pra baixo, pelo ::after · decisão 38; lugar login: o rodapé da T01, sem traço, 13 · 20 · 28; linkRegistrado: o link vira o registro, Link registrado — T14/06 · C10, com o desenho de antes, 14, o vão de 6 e os 48 que comem 4, como a referência desenha; linkDesabilitado: o link no lugar, desabilitado de verdade e em --tinta-apagada, sem o pressionado, enquanto o semear corre — T10, a decisão do diretor de 25/09 e a lei 17) |
 | uma ação | src/ds/chrome/Rodape.jsx |
 | processo correndo | src/ds/chrome/Rodape.jsx (primarioDesabilitado + explicacao; pe 'botao', o pé de 32 com a explicação da T05/10 · C6) |
-| com legenda | src/ds/chrome/Rodape.jsx (legenda; legendaJunta, a legenda a 6 do botão — T13 · C10) |
-| folha | src/ds/chrome/Folha.jsx + Veu.jsx (conteúdo: CartaoDaConta, PrazoDaConta, BotaoDaFolha; folga 12 e subtitulo na de trocar de garagem · C5, T04/07; aoTocarFora no Veu, o toque no véu fecha a folha, T04 · o cartão do que a sessão prendeu é peça da T04, pecas.jsx) |
-| diálogo | src/ds/chrome/Dialogo.jsx (+ Frase, Destaque) |
+| com legenda | src/ds/chrome/Rodape.jsx (legenda, a 6 + 8 do botão; legendaJunta, a legenda só com o vão, a 8 do botão — T13 · C10, decisão 38) |
+| folha | src/ds/chrome/Folha.jsx + Veu.jsx (conteúdo: CartaoDaConta, PrazoDaConta, BotaoDaFolha; folga 12 e subtitulo na de trocar de unidade · C5, T04/07; aoTocarFora no Veu, o toque no véu fecha a folha, T04 · o cartão do que a sessão prendeu é peça da T04, pecas.jsx) |
+| diálogo | src/ds/chrome/Dialogo.jsx (+ Frase, Destaque; a saída a 8 do primário, com o desenho de 44 e o toque de 48 crescendo só pra baixo: a de sempre come 5 embaixo, T04/09, 13, T13/10, e a saidaDe44 come 4, T04/06 · decisão 38) |
 | diálogo sem saída | src/ds/chrome/Dialogo.jsx (sem saida; margem 24, o aviso do acesso sobre o menu inteiro — T04/12, entrega de 25/09) |
 | diálogo com ciência | src/ds/chrome/Dialogo.jsx (ciencia → primitivos/Checkbox.jsx) |
 | folha com opções | src/ds/chrome/Folha.jsx + LinhaDeOpcao.jsx (CartaoDeOpcoes) |
@@ -43,7 +43,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 
 | Peça | Componente |
 |---|---|
-| escolha numa lista | src/ds/linhas/LinhaEscolha.jsx (poço de 30 com o Quadrado · decisão 29; escolhivel: a vencida também se escolhe, T02·1 · C4) |
+| escolha numa lista | src/ds/linhas/LinhaEscolha.jsx (poço de 30 com o Quadrado · decisão 29; escolhivel: a vencida também se escolhe, T02·1 · C4; sem o `valor`, nada à direita: a linha da empresa, o nome e a contagem de unidades — T02/05, a otimização do design) |
 | os glifos de estado | src/ds/primitivos/Glifo.jsx (ESTADOS; fora da folha, fora de ESTADOS: traco-circulo, o não se aplica da assertiva da sessão · C11, T16/02 e 05) |
 | os ícones de ferramenta | src/ds/primitivos/Icone.jsx (ICONES; subindo: a seta do SUBINDO AGORA, com o traço 2,2 do glifo · C11, T15/01; xis-mini: o xis solto de 14 do não confere, traço 2,6 · a entrega de 25/09, T10/10; bluetooth-desligado: o Bluetooth cortado de 22 no poço de 44, traço 1,8 · o mundo real, T05/16 e 17; camera-negada: a câmera riscada de 46 no visor da câmera sem a permissão, traço 1,8 · o mundo real, T10/11) |
 | os poços | src/ds/primitivos/Poco.jsx |
@@ -73,7 +73,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | espera | src/ds/cartoes/CartaoFerramenta.jsx (estado espera; sem folga entre o poço e o nome, como a folha 4 desenha; largo, o ativo que espera o módulo · C5) |
 | espera a rede | src/ds/cartoes/CartaoFerramenta.jsx (estado sem-rede) |
 | falha | src/ds/cartoes/Aviso.jsx (tom falha; mudo, o glifo calado pro leitor, G15 · C4, T03/01 e 03; bloqueio, sem poço, 14 em volta, o rótulo de topo e a frase de duas orações, A HOMOLOGAÇÃO FICA BLOQUEADA, Lei 7 · exceção · C11, T16/05) |
-| aviso | src/ds/cartoes/Aviso.jsx (tom neutro; semPoco no da folha de garagem, Lei 7 · C5, T04/08; traco, o traço cinza embaixo, na cor do rótulo, do SEM CONEXÃO do login · o mundo real, T01/14) |
+| aviso | src/ds/cartoes/Aviso.jsx (tom neutro; semPoco no da folha de trocar de unidade, Lei 7 · C5, T04/08; traco, o traço cinza embaixo, na cor do rótulo, do SEM CONEXÃO do login · o mundo real, T01/14) |
 | processo parado | src/ds/cartoes/Aviso.jsx (glifo xis) |
 | com contagem | src/ds/cartoes/Aviso.jsx (numero, unidade: o poço de 32 com o glifo de 16, a folha 4 nova · a entrega do checklist, T11/00 e 01; tom veredito, o que confere em lima, sem poço, 12 · 14 · C11, T11/02) |
 | vazio declarado | src/ds/cartoes/Vazio.jsx (também a busca sem resultado, com o termo no título — T02/03, T06/08 · entrega de 25/09) |
@@ -82,9 +82,9 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | o par comparado | src/ds/cartoes/ParComparado.jsx (veredito: quando batem, NO CADASTRO em lima e a frase em 600 · C8, T06/01) |
 | linha do histórico | src/ds/linhas/LinhaHistorico.jsx (tom do veredito: espera em --tinta, falha em --vermelho; detalheTam legenda, a linha de baixo em 12 quando diz há quantos dias; o veredito longo quebra em duas linhas · C11, T12) |
 | linha da fila · esperando | src/ds/linhas/LinhaFilaEsperando.jsx (→ LinhaFila.jsx estado espera: 50, com o poço de 32 · o poço na linha, a entrega do checklist) |
-| linha de garagem | src/ds/linhas/LinhaGaragem.jsx (estado espera: a troca espera o envio · C5, T04/08; a vencida diz só a causa, no lugar do pacote, e saiu o `aviso`, o que fazer embaixo · a entrega do checklist, T04/07 e 08, folha 4) |
-| linha de garagem · a atual | src/ds/linhas/LinhaGaragem.jsx (estado atual) |
-| a lista de garagens | src/ds/linhas/Lista.jsx + LinhaGaragem.jsx |
+| linha de unidade | src/ds/linhas/LinhaGaragem.jsx (o nome interno fica, decisão 37; o espécime f4-garagem, com o rótulo da folha 4, *linha de garagem*; estado espera: a troca espera o envio · C5, T04/08; a vencida diz só a causa, no lugar do pacote, e saiu o `aviso`, o que fazer embaixo · a entrega do checklist, T04/07 e 08, folha 4) |
+| linha de unidade · a atual | src/ds/linhas/LinhaGaragem.jsx (estado atual) |
+| a lista de unidades | src/ds/linhas/Lista.jsx + LinhaGaragem.jsx |
 
 ## Folha 5 · instrumentos cadeia processo
 

@@ -6,7 +6,7 @@ O que vale pra toda peça em `src/ds/`. Vem das leis (`03-design-system/leis.md`
 
 - **Primitivos** em `src/ds/primitivos/`: `Poco`, `Glifo`, `Icone`, `Quadrado` e `Led` (marcadores), `Tocavel`, `Primario`, `SoIcone`, `Link`, `Checkbox`. Importe de `src/ds/index.js`.
 - **Cada família** em `src/ds/<familia>/`: um `.jsx` e um `.css` por peça, e um `index.js` da família. Classes com prefixo `ds-`.
-- **Os espécimes da vitrine** em `src/vitrine/especimes/f<folha>-<familia>.jsx`, exportando `especimes = [{ id, folha, rotulo, legenda, chrome?, render }]`. O `rotulo` é o texto exato do rótulo do espécime na folha. `chrome: true` quando a moldura da folha tem recheio 0.
+- **Os espécimes da vitrine** em `src/vitrine/especimes/f<folha>-<familia>.jsx`, exportando `especimes = [{ id, folha, rotulo, legenda, chrome?, render }]`. O `rotulo` é o texto exato do rótulo do espécime na folha. `chrome: true` quando a moldura da folha tem recheio 0. `nome`, opcional: o nome que a vitrine mostra no lugar do `rotulo`, quando o `componentes.md` já renomeou a peça e a folha ainda não (a *linha de unidade* da folha 4, que ainda rotula *linha de garagem* · a lei 18, decisão 37); a bancada segue achando a moldura pelo `rotulo`.
 
 ## O CSS
 

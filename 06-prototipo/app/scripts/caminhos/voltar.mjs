@@ -3,6 +3,8 @@
 // têm saída própria; o Esc faz o mesmo que o link de saída do rodapé (chega), ou
 // não faz nada (fica): a tela sem saída desenhada, os processos que não podem
 // parar, o diálogo sem X nem Cancelar e o estado aberto pela coluna do palco.
+// O diálogo Encerrar sem homologar? (decisão 36), no menu e por cima de outra
+// tela, fecha pelo voltar, como o Continuar a instalação — antes da saída da tela.
 const esc = { tecla: 'Escape' }
 export default [
   // ── T01 · na entrada, nada; em cada passo do recuperar, o Voltar ao login; na folha, o X ──
@@ -126,6 +128,30 @@ export default [
   { fica: 'T04', ms: 500 },
   { chega: 'T04', estado: '12-estado-acesso-vencendo' },
   { ve: 'Seu acesso vence em 2 dias' },
+  // o diálogo do ENCERRAR antes de homologar (13): o voltar faz o Continuar a instalação,
+  // e o aviso do acesso, que esperava o menu ficar sem nada por cima, entra depois
+  { abre: '?tela=T04&momento=13-momento-encerrar-antes-de-homologar' },
+  { ve: 'Encerrar sem homologar?' },
+  { naoVe: 'Seu acesso vence em 2 dias' },
+  esc,
+  { chega: 'T04', momento: null },
+  { naoVe: 'Encerrar sem homologar?' },
+  { ve: 'Seu acesso vence em 2 dias' },
+  esc,
+  { naoVe: 'Seu acesso vence em 2 dias' },
+  { toca: 'ENCERRAR' },
+  { chega: 'T04', momento: '13-momento-encerrar-antes-de-homologar' },
+  esc,
+  { chega: 'T04', momento: null },
+  // a folha com o Trocar de empresa (14), pela coluna: parada e sem toque — o que o
+  // toque faz se prova no node (scripts/testar-trocar-empresa.mjs)
+  { abre: '?tela=T04&estado=14-estado-folha-trocar-de-unidade-com-empresa' },
+  { ve: 'Trocar de unidade' },
+  { ve: 'Trocar de empresa' },
+  { naoToca: 'Trocar de empresa' },
+  esc,
+  { fica: 'T04', ms: 500 },
+  { chega: 'T04', estado: '14-estado-folha-trocar-de-unidade-com-empresa' },
 
   // ── T05 · na busca, nada; a pré-checagem correndo, nada; aprovada, o Voltar ao menu;
   //    reprovada ou parada, o Procurar outro módulo, que volta à lista ──
@@ -202,6 +228,15 @@ export default [
 
   // ── T07 · tudo aprovado, o Voltar ao menu; com um sinal reprovado, nada ──
   { abre: '?tela=T07' },
+  esc,
+  { chega: 'T04' },
+  // com o diálogo do ENCERRAR por cima, o voltar fecha só o diálogo, e a T07 fica
+  { abre: '?tela=T07' },
+  { toca: 'ENCERRAR' },
+  { ve: 'Encerrar sem homologar?' },
+  esc,
+  { naoVe: 'Encerrar sem homologar?' },
+  { fica: 'T07', ms: 500 },
   esc,
   { chega: 'T04' },
   { abre: '?tela=T06' },

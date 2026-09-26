@@ -1,12 +1,12 @@
 # T03 · Sincronizar
 
-Baixar o pacote da garagem e dizer se dá pra trabalhar com ele.
+Baixar o pacote da unidade e dizer se dá pra trabalhar com ele.
 
 | | |
 |---|---|
 | **Elemento-assinatura** | a barra de idade do pacote com o limite de 7 dias marcado — o pacote velho bloqueia pela régua, não por texto |
 | **Chrome** | sem faixa |
-| **Semente no protótipo** | garagem Várzea · pacote pac-uo-01 |
+| **Semente no protótipo** | unidade Várzea · pacote pac-uo-01 |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
 | **Momentos · estados** | 1 · 3 — ver `estados.md` |
 
@@ -14,9 +14,9 @@ Baixar o pacote da garagem e dizer se dá pra trabalhar com ele.
 
 - a sincronização corre sozinha → concluído → `Ir para o menu` → T04
 - na falha de rede: `Reconectar` (segue de onde parou) ou `Voltar ao contexto` → T02
-- pacote vencido: `Sincronizar agora` ou `Trocar de garagem` → T02
+- pacote vencido: `Sincronizar agora` ou `Trocar de unidade` → T02
 - pacote de 4 dias: `Sincronizar agora` ou `Continuar com este pacote` → T04, o menu antes de conectar, com o pacote de Ibura
-- o voltar do sistema (no computador, o Esc) faz o mesmo que o link do rodapé — `Voltar ao contexto`, `Trocar de garagem`, `Continuar com este pacote` —, e no concluído o `Ir para o menu`, a saída que ele tem. Baixando, a tela diz *não saia da tela* e não tem saída: ele não faz nada (`06-prototipo/logica.md` · O voltar do Android)
+- o voltar do sistema (no computador, o Esc) faz o mesmo que o link do rodapé — `Voltar ao contexto`, `Trocar de unidade`, `Continuar com este pacote` —, e no concluído o `Ir para o menu`, a saída que ele tem. Baixando, a tela diz *não saia da tela* e não tem saída: ele não faz nada (`06-prototipo/logica.md` · O voltar do Android)
 
 No protótipo, a sincronização corre um item por vez — Modelos, Ativos, Cartões —, em 4 s no total, e o poço acompanha os ativos (T03·1, T03·5). A primeira baixa do Pátio Caruaru cai no quarto item (o caso `sync-falha-rede`), uma vez por sessão. Ao terminar, o pacote novo fica no estado único (T03·7).
 
@@ -30,7 +30,6 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - o topo do menu inteiro
 - duas ações
 - uma ação
-- processo correndo
 - com legenda
 - falha
 - aviso

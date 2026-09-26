@@ -1,4 +1,4 @@
-// As duas camadas do texto tocável do chrome (o ENCERRAR da faixa, a garagem
+// As duas camadas do texto tocável do chrome (o ENCERRAR da faixa, a unidade
 // da tira): a cor não anima (só transform e opacity), então o texto vem duas
 // vezes, e a camada do toque, em --tinta, entra por opacity e solta em 100ms —
 // o mesmo desenho do Link (G14, G26). O botão que usa leva a classe

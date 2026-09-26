@@ -20,4 +20,4 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `04-estado-pacote-vencido`
 
-`14:30` · `PÁTIO CARUARU` · `Sincronizar` · `CARREGADO HÁ` · `8` · `dias` · `0` · `O LIMITE É 7 DIAS` · `8` · `ENQUANTO NÃO SINCRONIZAR` · `Os 6 ativos desta garagem ficam indisponíveis. Nenhuma instalação pode começar.` · `pacote pct-uo03-2026-03-04 · 04/03 07:30` · `Sincronizar agora` · `Trocar de garagem`
+`14:30` · `PÁTIO CARUARU` · `Sincronizar` · `CARREGADO HÁ` · `8` · `dias` · `0` · `O LIMITE É 7 DIAS` · `8` · `ENQUANTO NÃO SINCRONIZAR` · `Os 6 ativos desta unidade ficam indisponíveis. Nenhuma instalação pode começar.` · `pacote pct-uo03-2026-03-04 · 04/03 07:30` · `Sincronizar agora` · `Trocar de unidade`

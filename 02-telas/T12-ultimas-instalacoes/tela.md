@@ -1,12 +1,12 @@
 # T12 · Últimas instalações
 
-Ver o que foi instalado nesta garagem e o que cada instalação provou.
+Ver o que foi instalado nesta unidade e o que cada instalação provou.
 
 | | |
 |---|---|
 | **Elemento-assinatura** | a trilha de evidência de cada instalação, etapa por etapa |
 | **Chrome** | faixa quando há sessão |
-| **Semente no protótipo** | garagem Várzea · cinco instalações · sessão M2C-0417 + RKT-8H42 (a 00 desenha a sessão aberta, G21) |
+| **Semente no protótipo** | unidade Várzea · cinco instalações · sessão M2C-0417 + RKT-8H42 (a 00 desenha a sessão aberta, G21) |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
 | **Momentos · estados** | 1 · 2 — ver `estados.md` |
 

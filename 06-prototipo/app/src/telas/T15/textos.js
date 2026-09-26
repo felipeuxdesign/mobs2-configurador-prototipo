@@ -4,7 +4,7 @@
 // na hora de montar.
 export const T = {
   titulo: 'Fila de saída',
-  nestaGaragem: 'nesta garagem',
+  nestaGaragem: 'nesta unidade', // a lei 18, a palavra é unidade (decisão 37); o nome interno fica
   encerrar: 'ENCERRAR',
   semSessao: 'Sem sessão de configuração',
   semAtivo: 'sem ativo',                                     // a faixa com o módulo e sem o ônibus (T05, T06)

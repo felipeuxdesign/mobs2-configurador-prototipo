@@ -39,7 +39,6 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - faixa · sessão aberta
 - faixa · sem ação
 - duas ações
-- processo correndo
 - com legenda
 - leitura na faixa
 - fora da faixa

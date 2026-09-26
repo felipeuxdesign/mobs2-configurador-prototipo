@@ -80,7 +80,7 @@ export function Vitrine() {
           <div className="vitrine-grade">
             {TODOS.filter((e) => e.folha === f).map((e) => (
               <div key={e.id} className="vitrine-especime">
-                <span className="vitrine-rotulo">{e.rotulo}</span>
+                <span className="vitrine-rotulo">{e.nome ?? e.rotulo}</span>
                 <Moldura e={e} />
                 {e.legenda && <span className="vitrine-legenda">{e.legenda}</span>}
               </div>

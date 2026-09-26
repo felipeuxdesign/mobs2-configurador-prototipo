@@ -54,6 +54,7 @@ import { VazioDaBusca } from './pecas.jsx'
 import { quadroDoCelular, textosDoCelular, depoisDoPedido } from './celular.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
+import { useEncerrar } from '../../estado/encerrar.jsx'
 import { EM_QUADRO } from '../../estado/quadro.js'
 import { RITMOS } from '../../estado/ritmos.js'
 import { RECEITAS } from '../../estado/receitas.js'
@@ -71,7 +72,6 @@ const M01 = '01-momento-nenhum-escolhido'
 const M02 = '02-momento-um-encontrado'
 const M05 = '05-momento-pre-checagem'
 const M10 = '10-momento-atualizando-o-firmware'
-const ENCERRAR_SEM_HOMOLOGAR = '03-momento-encerrando-sem-homologar' // G23: a sessão abortada (T16/03)
 
 // o quadro da busca: os módulos por perto, o escolhido (ou nenhum) e, se a
 // conexão com ele falhou, a trava no escolhido (04)
@@ -238,12 +238,15 @@ export default function T05({ momento, estado: est }) {
   // Sem Bluetooth ou sem a permissão (16, 17), o Voltar ao menu do rodapé
   const preParada = q.fase === 'pre' && q.atualizando == null && (concluida || parou)
   useVoltar(q.fase === 'vazia' || q.fase === 'celular' || aprovada ? voltar : preParada ? procurar : null)
+  // o ENCERRAR (decisão 36, src/estado/encerrar.jsx): a sessão acabou de nascer, e
+  // antes de homologar ele abre o diálogo Encerrar sem homologar? por cima desta tela
+  const enc = useEncerrar()
 
   // ── o topo: a barra na cor do que vem embaixo, e a faixa quando a sessão nasce ──
   const comFaixa = aprovada
   const faixa = comFaixa && (
     <Faixa serial={q.serial} placa={TX.semAtivo} semAtivo acao={TX.encerrar}
-      aoEncerrar={() => ir('T16', { momento: ENCERRAR_SEM_HOMOLOGAR })} />
+      aoEncerrar={enc.encerrar} />
   )
 
   let miolo, rodape
@@ -373,6 +376,7 @@ export default function T05({ momento, estado: est }) {
       {faixa}
       <div className={`tela-miolo ${q.fase === 'pre' ? 't05-miolo-pre' : 't05-miolo-busca'} ${q.fase === 'celular' ? 't05-miolo-celular' : ''}`}>{miolo}</div>
       {rodape}
+      {enc.sobre}
     </div>
   )
 }

@@ -12,9 +12,11 @@
 //   RITMOS.autotesteAssertivaMs, e a prova e o Voltar ao menu entram quando
 //   chega a última (T16·4). A falha de uma assertiva fecha a sessão do mesmo
 //   jeito e bloqueia a homologação (05, HU-T16-5).
-// · Antes de homologar (ENCERRAR → 03, G23): os 4 passos da sessão abortada,
-//   sem confirmação, e depois a encerrada sem homologar (04). Quando quem
-//   pediu foi um diálogo do menu (sair da conta, trocar de garagem), o destino
+// · Antes de homologar (ENCERRAR → 03, G23): os 4 passos da sessão abortada —
+//   quem pediu já confirmou, no diálogo Encerrar sem homologar? (decisão 36) ou
+//   num dos do menu —, e depois a encerrada sem homologar (04). Quando quem
+//   pediu foi um diálogo do menu (sair da conta, trocar de unidade ou de
+//   empresa), o destino
 //   está no estado único (etapas.encerramento.destino) e a tela segue pra ele
 //   depois dos 4 passos.
 // · A sessão interrompida (06), pela receita: Retomar reabre a T09 no bloco
