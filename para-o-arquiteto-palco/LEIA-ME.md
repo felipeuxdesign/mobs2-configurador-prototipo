@@ -15,7 +15,7 @@ Comparei cada arquivo do pacote com o nosso de antes da junção.
 - **o `indice.json`:** os mesmos 145 itens, sem nenhuma diferença nos seus campos. Ficaram o `rotulo` e o `rotuloOrigem`, como você decidiu. **Achei também o `grupo`**, que é nosso: é o agrupamento dos estados da T05 na coluna (*achar*, *conectar*, *conferir*), nos 13 estados dela. Ficou pelo mesmo motivo: o palco lê. Sem ele, a coluna da T05 fica sem os seus 13 estados.
 - **as 8 folhas:** a 1 e a 2 diferiam, como você disse. Da 3 à 8, idênticas byte a byte, html e png.
 - **as referências:** dos 316 arquivos (as 145 telas, os 5 quadros do palco e as 8 folhas, html e png), 304 mudaram e 12 eram idênticos — as folhas 3 a 8. Depois de copiados, os 319 arquivos que não são documento gerado estão iguais aos seus, byte a byte.
-- **o `palco.md`:** a linha *num estado* é a sua. **O README do design system:** *os 287 valores*, e que o seu `tokens.json` conta 96.
+- **o `palco.md`:** a linha *num estado* é a sua. **O README do design system:** diz os valores medidos, e que o seu `tokens.json` conta 96. Na junção eram 287; com a barra, **294** (a seção 7 diz por quê).
 - **o `tokens.json`:** o nosso é gerado do `tokens.css` e não leva `$description`. A sua descrição do `--fonte-sistema` ficou no comentário da linha dele no `tokens.css`, palavra por palavra. O gerador passou a dar o tipo `fontFamily` ao `--fonte-sistema`, como já dava à `--fonte`.
 - **o gate:** aprova, com 194 checagens. **O censo: 145 referências no índice, 145 HTML e 145 PNG** — 16 telas, 62 momentos e 67 estados.
 
@@ -152,10 +152,10 @@ O protótipo seguiu o padrão entre parênteses. Se o padrão estiver certo, bas
 ## 7. O que ficou pendente
 
 - **seu:** as 19 decisões da seção 5 e a linha da T10 que saiu · a tabela da folha 00, o fio de dentro no `palco.md` e a frase das telas sem coluna · o quadro 04 · a referência da T07/03 · as confirmações da seção 6.
-- **do diretor:**
-  - o censo dos tokens. Hoje são **294**: os 287 da junção e sete da barra. O README do design system e o `CLAUDE.md` seguem dizendo 287, como você decidiu, até ele escolher: 294, ou 292 tirando os dois sem uso;
-  - se o `tokens.json` passa a levar a descrição de cada token. Mudaria os 294 de uma vez;
-  - subir a entrega (nada foi enviado ainda).
-- **nosso:** o `05-recursos/README.md` e o `06-prototipo/CLAUDE.md` ainda falam só da Barlow, e o comentário do topo do `tokens.css` ainda diz que a Barlow vem de um pacote. Fica pro próximo ciclo, com o *vai* do diretor.
+- **decidido pelo diretor (26/09), já no ar:**
+  - o censo dos tokens: ficam os **294** — os 287 da junção e sete da barra —, com os dois tokens velhos da barra marcados como sem uso, como o projeto faz com os outros; o `CLAUDE.md` e o README do design system dizem 294;
+  - a entrega subiu (commit `363db13`);
+  - o `05-recursos/README.md`, o `06-prototipo/CLAUDE.md` e o comentário do topo do `tokens.css` agora falam também da Google Sans, recortada, só na hora da barra.
+- **em aberto, só se você quiser:** o `tokens.json` passar a levar a descrição de cada token, como o seu — mudaria os 294 de uma vez.
 
 Obrigado.
