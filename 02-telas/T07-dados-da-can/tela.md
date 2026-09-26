@@ -12,8 +12,10 @@ Ver os sinais que o ônibus manda parado — e saber o que só fecha andando.
 
 ## O que se toca
 
-- com tudo aprovado (00): `Configurar módulo` → T09 · `Voltar ao menu` → T04
-- com um sinal reprovado (fora da faixa ou sem leitura, 01 e 02): `Ler novamente` relê no lugar (T07·5 a) · `Configurar módulo` → T09
+- `Configurar módulo` → T09
+  - no protótipo · a nossa versão desta linha, antes desta entrega: com tudo aprovado (00): `Configurar módulo` → T09 · `Voltar ao menu` → T04
+- no fora da faixa: `Ler novamente`
+  - no protótipo · a nossa versão desta linha, antes desta entrega: com um sinal reprovado (fora da faixa ou sem leitura, 01 e 02): `Ler novamente` relê no lugar (T07·5 a) · `Configurar módulo` → T09
 - `ENCERRAR`, antes de homologar: a sessão abortada da T16 (G23) · depois de homologar (a tela segue aberta pelo menu): os passos do encerramento, a T16 (`logica.md`, como a T08)
   - **no protótipo** (decisão 36): antes de homologar, o ENCERRAR abre o diálogo *Encerrar sem homologar?* por cima desta tela, e o `Continuar a instalação` deixa o técnico nela — a resposta do arquiteto de 26/09 · o `Encerrar sem homologar` roda os 4 passos da T16; depois de homologar, ele vai direto, sem diálogo
 - o voltar do sistema (no computador, o Esc): com tudo aprovado, o `Voltar ao menu`. Com um sinal reprovado, o link do rodapé é o `Configurar módulo`, que avança pra gravação e não é saída: ele não faz nada (`06-prototipo/logica.md` · O voltar do Android; a pergunta está em `08-produto-real/pendencias.md`)

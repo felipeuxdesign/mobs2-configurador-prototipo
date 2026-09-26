@@ -6,8 +6,10 @@ Vale o `03-design-system/movimento.md`. Entre telas, só o conteúdo esmaece em 
 |---|---|---|---|---|---|
 | faixa de sessão | a sessão abre (fim da pré-checagem) | desce de cima (translateY -100%→0) e o conteúdo desce junto | 200ms | desacelera | aparece |
 | contador da fila e do checklist | o número muda | troca no lugar, sem pular | — | — | igual |
-| folhas | tocar na unidade ou nas iniciais · com a sessão aberta, no cartão do módulo ou do ativo | o painel sobe de baixo e o véu esmaece; fechar desce | 200ms · fecha em 150ms | desacelera | aparece |
+| folhas | tocar na unidade ou nas iniciais | o painel sobe de baixo e o véu esmaece; fechar desce | 200ms · fecha em 150ms | desacelera | aparece |
 | cartão liberado | o módulo conecta | o poço ganha cor e o texto de espera some | 150ms | esmaece | troca direta |
+
+- no protótipo · a nossa versão da linha *folhas*, antes desta entrega: | folhas | tocar na unidade ou nas iniciais · com a sessão aberta, no cartão do módulo ou do ativo | o painel sobe de baixo e o véu esmaece; fechar desce | 200ms · fecha em 150ms | desacelera | aparece |
 
 No protótipo: o diálogo *Encerrar sem homologar?* (13) se move como todo diálogo (`movimento.md`): a caixa esmaece e cresce de 98% a 100% em 150ms, o véu esmaece junto, e fecha do mesmo jeito; com reduzir movimento, aparece. Aberto pelo endereço, nasce aberto, parado. É a mesma peça em toda tela com a faixa.
 

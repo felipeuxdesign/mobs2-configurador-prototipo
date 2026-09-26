@@ -4,11 +4,21 @@
 
 | Referência | Tipo | Como se chega · o que causa | Caso do mock |
 |---|---|---|---|
-| `00-tela` | tela | a entrada da tela | a seleção f-10, f-02, f-08 da semente (G21): dois itens esperando, um com erro, e uma recebida |
-| `01-estado-sem-erro` | estado | a fila sem erros | `filaSaida` · o recorte `fila-sem-erro`: a fila inteira da Várzea (f-04 subindo, f-01 na fila, f-05, f-06 e f-07 recebidas) |
-| `02-estado-dois-erros` | estado | dois itens recusados | `filaSaida` · o recorte `fila-dois-erros`: f-10, f-09, f-02, f-08 |
-| `03-estado-fila-vazia` | estado | nada esperando envio | `filaSaida` · o caso `fila-vazia`: nenhum item, o último envio às 14:02, sem sessão |
-| `04-estado-secao-f-em-re-checagem` | estado | a Seção F esperando o servidor | `secaoF · RVM-1E54`, sobre a fila vazia do `03` · a janela `criteriosRegra.recheckHoras` |
+| `00-tela` | tela | a entrada da tela | fila com dois itens · um com erro |
+| `01-estado-sem-erro` | estado | a fila sem erros | `filaSaida` |
+| `02-estado-dois-erros` | estado | dois itens recusados | `filaSaida` |
+| `03-estado-fila-vazia` | estado | nada esperando envio | `filaSaida` |
+| `04-estado-secao-f-em-re-checagem` | estado | a Seção F esperando o servidor | `secaoF · RVM-1E54` |
+
+- no protótipo · a nossa versão da linha *04-estado-secao-f-em-re-checagem*, antes desta entrega: | `04-estado-secao-f-em-re-checagem` | estado | a Seção F esperando o servidor | `secaoF · RVM-1E54`, sobre a fila vazia do `03` · a janela `criteriosRegra.recheckHoras` |
+
+- no protótipo · a nossa versão da linha *03-estado-fila-vazia*, antes desta entrega: | `03-estado-fila-vazia` | estado | nada esperando envio | `filaSaida` · o caso `fila-vazia`: nenhum item, o último envio às 14:02, sem sessão |
+
+- no protótipo · a nossa versão da linha *02-estado-dois-erros*, antes desta entrega: | `02-estado-dois-erros` | estado | dois itens recusados | `filaSaida` · o recorte `fila-dois-erros`: f-10, f-09, f-02, f-08 |
+
+- no protótipo · a nossa versão da linha *01-estado-sem-erro*, antes desta entrega: | `01-estado-sem-erro` | estado | a fila sem erros | `filaSaida` · o recorte `fila-sem-erro`: a fila inteira da Várzea (f-04 subindo, f-01 na fila, f-05, f-06 e f-07 recebidas) |
+
+- no protótipo · a nossa versão da linha *00-tela*, antes desta entrega: | `00-tela` | tela | a entrada da tela | a seleção f-10, f-02, f-08 da semente (G21): dois itens esperando, um com erro, e uma recebida |
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.
 

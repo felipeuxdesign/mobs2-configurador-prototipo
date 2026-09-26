@@ -33,4 +33,3 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `07-momento-empresa-escolhida`
 
 `14:30` · `3 EMPRESAS` · `Pra qual empresa hoje?` · `Viação Atlântico Sul` · `3 unidades` · `Transportes Capibaribe` · `4 unidades` · `Expresso Caruaruense` · `2 unidades` · `Ver as unidades`
-

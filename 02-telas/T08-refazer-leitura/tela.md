@@ -6,9 +6,11 @@ Apagar só os valores lidos e ler de novo, do zero.
 |---|---|
 | **Elemento-assinatura** | a lista do que apaga ao lado do que fica — o técnico sabe o que perde antes de tocar |
 | **Chrome** | faixa de sessão |
-| **Semente no protótipo** | sessão M2C-0417 + RKT-8H42 com a leitura feita |
+| **Semente no protótipo** | sessão com leitura feita |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
 | **Momentos · estados** | 2 · 0 — ver `estados.md` |
+
+- no protótipo · a nossa versão da linha *Semente no protótipo*, antes desta entrega: | **Semente no protótipo** | sessão M2C-0417 + RKT-8H42 com a leitura feita |
 
 ## O que se toca
 

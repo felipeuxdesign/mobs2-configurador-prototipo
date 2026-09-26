@@ -233,7 +233,7 @@ Cada linha é um espécime de moldura das folhas, e a folha 3 soma quatro linhas
 | aviso | o mesmo desenho, cinza, sem traço · variante: sem poço, só o rótulo e a frase, na folha de trocar de unidade (T04) | T03 T04 T05 T09 T12 T16 |
 | processo parado | o veredito de uma cadeia ou de um download | T09 |
 | com contagem | quantos não bateram, à direita · o glifo de 16 no poço de 32 (T11/00 e 01) · variante: veredito, o que confere, sem poço, 12 · 14 em volta, o rótulo de topo em lima e o traço lima de 2 embaixo (T11/02) · o cabeçalho espera a última linha da conferência e entra esmaecendo no lugar (a decisão do diretor de 25/09) | T11 |
-| nota tracejada | o que falta explicar, sem ser aviso · variante: a frase em 13, mais aberta, a que diz o bloqueio do pacote (T03) · variante: a frase de 13 em 400, na entrelinha da caixa apagada, a do item que não se marca à mão (T13) · variante: pulado, a frase de 13 em 500 e --tinta-secundaria embaixo do rótulo apagado — sem uso nas telas desde a resposta de 26/09: o NÃO RODARAM da T16 é a nota padrão, uma peça só (seguir a T16/02), e a peça guarda a variante | T03 T05 T13 T16 |
+| nota tracejada | o que falta explicar, sem ser aviso · variante: a frase em 13, mais aberta, a que diz o bloqueio do pacote (T03) · variante: a frase de 13 em 400, na entrelinha da caixa apagada, a do item que não se marca à mão (T13) · variante: pulado, o que não rodou (T16/04), uma peça só desde a otimizacao300000000 — a frase de 13 em 500 e --tinta-secundaria, sem o rótulo, e as duas linhas equilibradas pelo balance na caixa | T03 T05 T13 T16 |
 | nota com rótulo | o fato declarado, com o nome dele em cima · variante: achado, o que a leitura achou e não classifica, com a borda do poço, 10 · 12 em volta, e o rótulo e a frase em --tinta-secundaria (T11) | T04 T06 T11 |
 | o par comparado | lido × cadastro · variante: o veredito, quando os dois batem o rótulo do cadastro acende em lima e a frase fica em 600 (T06) | T06 |
 | linha do histórico | placa, módulo e hora · o veredito à direita · variante: o tom do veredito pela natureza do estado, o que espera em --tinta e a falha em --vermelho (T12) · variante: a linha de baixo em 12, quando diz há quantos dias (T12) · variante: o veredito longo quebra em duas linhas, à direita, e a placa e a linha de baixo não quebram (T12) | T12 |
@@ -253,7 +253,7 @@ Cada linha é um espécime de moldura das folhas, e a folha 3 soma quatro linhas
 | segmentado | um segmento por passo · variante: folga 8, a da recuperação do acesso (T01) · variante: o passo atual já feito, alto como o atual e lima apagado (T10) · variante: o atual com falha, o passo atual reprovado, alto como o atual e em vermelho (T13) | T01 T10 T13 |
 | encerrando | a legenda só no passo que corre · variante: pausa, o bloco em que a sessão interrompida parou, a pausa no poço, o nome e o 'parou aqui' em --tinta, e o trilho de baixo na divisória (T16) | T16 |
 | pede o corte | é com você · o único passo em que ele age | T16 |
-| sem homologar | só os quatro que deixam o módulo seguro · os pulados com traço, o desenho da folha 5 (o espécime f5-sem-homologar) · na T16, desde a resposta de 26/09 (seguir a T16/02), o passo que não roda leva o círculo com o traço, o não se aplica da assertiva, com o texto *pulado* — a folha 5 e a T16/03 desenham o traço solto (pro arquiteto) | T16 |
+| sem homologar | só os quatro que deixam o módulo seguro · os pulados com traço, o desenho da folha 5 (o espécime f5-sem-homologar e a T16/03) · o *pulado* é o passo que o encerrar sem homologar pula, e não o *não se aplica*, que é só da assertiva do autoteste (T16/02 e 05), nem o traço *—* do passo que ainda não chegou (T16/00 e 01) — otimizacao300000000 · pro leitor de tela, o traço do pulado fica mudo (`aria-hidden`, como na T16/03, que não dá nome a ele), e a situação ao lado diz *pulado* | T16 |
 | cronômetro | o prazo drena · variante: estourado, o número em vermelho, e sem o que resta a escala fica sem o preenchido, com o marcador no zero (T14) · variante: o detalhe em lista, as frases do estado uma por linha, na entrelinha da legenda (T14) | T14 |
 | a barra do checklist | o que já passou, em lima · o número fica no título · 6 de altura, o lima em 55% (`--lima-barra-checklist`, a 7ª transparência com nome), calada pro leitor de tela, que lê o título · quando um item passa, o lima avança por transform em 300 (T13) | T13 |
 
@@ -261,7 +261,7 @@ Cada linha é um espécime de moldura das folhas, e a folha 3 soma quatro linhas
 
 | Peça | Regra, medida | Telas que usam, medido |
 |---|---|---|
-| com contador neutro | o contador conta o que passou · variante: o veredito, a contagem que fecha em lima, na pré-checagem aprovada (T05) · variante: só a palavra, a unidade sem a contagem, quando a busca não acha nada (T05) · variante: forte, o contador em 700, o veredito de uma coisa só, como o aprovada em lima do detalhe (T12) · variante: com subtítulo, a linha de 12 em --tinta-apagada embaixo do título, a 4 dele (T16/03 e 06, montado de um jeito só desde a resposta de 26/09; a folga de 6 da T16/03 ficou sem uso) | T05 T06 T07 T09 T11 T12 T13 T14 T15 T16 |
+| com contador neutro | o contador conta o que passou · variante: o veredito, a contagem que fecha em lima, na pré-checagem aprovada (T05) · variante: só a palavra, a unidade sem a contagem, quando a busca não acha nada (T05) · variante: forte, o contador em 700, o veredito de uma coisa só, como o aprovada em lima do detalhe (T12) · variante: com subtítulo, a linha de 12 em --tinta-apagada embaixo do título, no bloco dele, a 4 (T16/03 e 06, como as duas referências desenham desde a otimizacao300000000; a folga de 6 da T16/03 ficou sem uso) | T05 T06 T07 T09 T11 T12 T13 T14 T15 T16 |
 | com contador de falha | quantos reprovaram, em vermelho | T07 T12 |
 | a marca no login | o logo e CONFIGURADOR entre dois traços | T01 |
 | campo | rótulo em cima · poço de 48 | T01 |
@@ -310,3 +310,21 @@ Cada linha é um espécime de moldura das folhas, e a folha 3 soma quatro linhas
 | o valor alvo | o número do painel, o que vai pro módulo · variante: cumprido, o número fora do foco ou semeado, sem o traço lima e com o rótulo apagado (T10/01, 07, 09, 10) · variante: foco, o lima de volta por cima (T10/05) · variante: campo, o input numérico invisível por cima do poço, com o rótulo como nome (T10) | T10 |
 | o painel · vazio | antes de digitar · o traço e o rótulo em --marca-limite, sem o lima · a folha 8 escreve *tinta apagada* e desenha --marca-limite: o código segue o desenho | T10 |
 | o que não se aplica | fato declarado, sem vermelho · variante: a divisória também embaixo da última linha, no passo da rotação (T10) | T10 |
+
+## A barra de status
+
+É **do sistema, não do app** — desenhada como a de um Android atual, pra separar o celular do que é nosso. A barra tem **30px**, em todas as telas; nada do que vem embaixo depende dela.
+
+| Parte | Como é |
+|---|---|
+| a hora | **Google Sans**, 13px, peso 500 · o recorte `05-recursos/fontes/GoogleSans-hora.woff` tem só os números e os dois-pontos, e vai embutido em cada tela |
+| o sinal | 4 cápsulas de 2,1 de largura, a cada 4,2 · alturas 4,3 · 6,1 · 8,5 · 9,7, alinhadas embaixo |
+| o Wi-Fi | 12,8 de largura · dois arcos de traço 2,3 com ponta redonda, e um ponto de 2,4 embaixo |
+| a bateria | corpo de 18,3 × 10,4 com canto de 3,1 · o pininho de 1,3 × 4,2 separado · **cheia e branca**, sem porcentagem |
+| os espaços | 5 entre o sinal e o Wi-Fi · 5,5 entre o Wi-Fi e a bateria |
+| o lugar | recuo de **26 à esquerda e 32 à direita** · os glifos **3px abaixo do centro** da barra (`padding-top: 6px`) |
+| a cor | `--tinta` (`#F2F0F7`), a do texto principal |
+
+Nunca na fonte do app, e nunca com ícone de notificação, operadora ou porcentagem — cada detalhe a mais é um que envelhece.
+
+**No protótipo** · `06-prototipo/app/src/ds/chrome/BarraDoSistema.jsx`, a mesma peça nos três fundos (a faixa, a tira do menu e a página) e sob o véu · a hora em `var(--fonte-sistema)`, `var(--t-secundario)`, peso 500 e `var(--tinta)` · a fonte não vai embutida em cada tela: o `@font-face` do `BarraDoSistema.css` lê o `05-recursos/fontes/GoogleSans-hora.woff`, como a Barlow, e o build empacota o arquivo (com 3,7KB, ele entra no próprio CSS), com o aviso da licença nos metadados dele · a geometria de dentro dos três ícones fica no SVG (as cápsulas, os arcos, o corpo e o pininho), na cor `currentColor`; o resto é token, com a decisão 43: `--barra-sistema-recuo` 26, `--barra-sistema-recuo-direita` 32, `--barra-sistema-desce` 6, `--barra-sistema-espaco-wifi` 5 e `--barra-sistema-espaco-bateria` 5,5 · o tamanho de cada ícone, o do próprio desenho, também: `--barra-sinal` 14,7 × `--barra-sinal-altura` 9,7, `--barra-wifi` 12,8 e `--barra-bateria` 20,4, os dois com `--barra-icone` 10,4 de altura, e o traço dos arcos, `--barra-wifi-traco` 2,3 (os três da barra velha com valor novo, e três novos) · medido nas 68 referências da T01, T04, T05 e T13 e numa de cada uma das outras 12: a barra sai igual ao HTML, byte a byte, a 2×, e nada abaixo de y=30 mudou · no celular de verdade, a barra desenhada sai (`06-prototipo/palco.md`)

@@ -23,16 +23,20 @@ body { background: var(--poco-fundo); overflow: hidden; }
 }
 .palco-quadrado:active { background: var(--elevado); }
 
-/* a cena · o celular centrado nos dois eixos; a coluna a 40 dele, alinhada ao topo */
+/* a cena · o celular no centro da janela nos dois eixos, com a mesma folga em cima e embaixo; a coluna a 40 dele,
+   com a altura dele. O painel passa por cima: o celular e a coluna não se mexem quando ele abre */
 .palco-cena { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+/* a moldura (decisão 43): o metal na borda, o aro preto no recheio, e os dois fios por sombra — o de fora do metal e o
+   de dentro dele —, que não somam no tamanho: 386 × 826 por fora, o canto de 57 por fora e 44 na tela, concêntricos */
 .celular {
   position: relative; flex-shrink: 0;
   width: var(--palco-celular-largura); height: var(--palco-celular-altura);
-  padding: calc(var(--palco-moldura) - var(--traco-borda));
-  border: var(--traco-borda) solid var(--borda); border-radius: var(--palco-raio-fora); background: var(--poco);
+  padding: var(--palco-aro);
+  border: var(--palco-metal) solid var(--palco-metal-cor); border-radius: var(--palco-raio-fora); background: var(--palco-aro-cor);
+  box-shadow: 0 0 0 var(--palco-fio) var(--palco-fio-fora), inset 0 0 0 var(--palco-fio) var(--palco-fio-dentro);
   transform-origin: center center;
 }
-/* num estado, a moldura fica igual à do fluxo: o estado se lê na coluna (diretor, 24/09) */
+/* uma moldura só: num estado, ela é a mesma do fluxo — o que avisa que o app está parado é o Voltar ao fluxo, que pisca (decisão 43) */
 .celular-tela { width: var(--tela-largura); height: var(--tela-altura); border-radius: var(--palco-raio-tela); overflow: hidden; background: var(--fundo-pagina); position: relative; cursor: default; }
 .celular-tela * { cursor: default; }
 
@@ -112,7 +116,7 @@ body { background: var(--poco-fundo); overflow: hidden; }
    volta a ser o do palco, 360 × 800 com a moldura, no centro e em escala (Palco.jsx), e o
    resto do estreito fica (o quadrado, o painel com o Voltar ao fluxo e a etiqueta) */
 .palco-estreito:not(.palco-deitado) .palco-cena { align-items: stretch; justify-content: stretch; }
-.palco-estreito:not(.palco-deitado) .celular { width: 100%; height: 100%; padding: 0; border: 0; border-radius: 0; }
+.palco-estreito:not(.palco-deitado) .celular { width: 100%; height: 100%; padding: 0; border: 0; border-radius: 0; box-shadow: none; }
 .palco-estreito:not(.palco-deitado) .celular-tela { width: 100%; height: 100%; border-radius: 0; overflow-y: auto; }
 .palco-estreito .palco-etiqueta { display: none; }
 /* no celular de verdade, com o app na tela inteira, a barra desenhada sai (diretor, 25/09): a altura dela vira

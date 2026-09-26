@@ -4,12 +4,16 @@
 
 | Referência | Tipo | Como se chega · o que causa | Caso do mock |
 |---|---|---|---|
-| `00-tela` | tela | a entrada da tela | unidade Várzea · cinco instalações · sessão M2C-0417 + RKT-8H42 (G21) |
+| `00-tela` | tela | a entrada da tela | unidade Várzea · cinco instalações |
 | `01-momento-detalhe-da-instalacao` | momento | tocar numa instalação | `instalacoes · i-01` |
-| `02-estado-nenhuma-instalacao` | estado | a unidade não tem instalações — a consulta volta vazia, e sem sessão | `instalacoes` + `instalacoes-vazia` (AC-21, C11) |
+| `02-estado-nenhuma-instalacao` | estado | a unidade não tem instalações | `instalacoes` |
 | `03-estado-sem-rede` | estado | a consulta sem rede | `instalacoes-sem-rede` |
 | `04-estado-criterio-indisponivel` | estado | o pacote não declara o parâmetro do critério — aqui, o modo de fila do módulo | `criterio-indisponivel` |
 | `05-estado-criterio-pendente` | estado | o servidor não respondeu à consulta | `criterio-pendente` |
+
+- no protótipo · a nossa versão da linha *02-estado-nenhuma-instalacao*, antes desta entrega: | `02-estado-nenhuma-instalacao` | estado | a unidade não tem instalações — a consulta volta vazia, e sem sessão | `instalacoes` + `instalacoes-vazia` (AC-21, C11) |
+
+- no protótipo · a nossa versão da linha *00-tela*, antes desta entrega: | `00-tela` | tela | a entrada da tela | unidade Várzea · cinco instalações · sessão M2C-0417 + RKT-8H42 (G21) |
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.
 

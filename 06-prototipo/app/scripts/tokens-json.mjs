@@ -22,7 +22,7 @@ function tipo(nome, valor) {
   if (/^#|^rgba?\(/.test(valor)) return 'color'
   if (/^cubic-bezier/.test(valor)) return 'cubicBezier'
   if (/ms$/.test(valor)) return 'duration'
-  if (nome === 'fonte') return 'fontFamily'
+  if (nome === 'fonte' || nome === 'fonte-sistema') return 'fontFamily'  // a do app e a do sistema (a hora da barra de status, decisão 43)
   if (/px$/.test(valor)) return 'dimension'
   if (/^-?[\d.]+$/.test(valor)) return 'number'
   return 'string'

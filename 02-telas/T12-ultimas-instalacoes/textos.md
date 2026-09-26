@@ -25,4 +25,3 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `05-estado-criterio-pendente`
 
 `14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `PCX-9A17` · `aguardando validação` · `M2C-0312 · ontem, 16:05 · Rafael Vieira` · `O QUE O SERVIDOR RECEBEU` · `Posicionamento` · `sem resposta · confere por 24 h` · `pendente` · `Eventos` · `o teste chegou em 52 s` · `conforme` · `Viagens` · `1 viagem fechada · 1,1 km` · `completa` · `A INSTALAÇÃO` · `Pré-checagem` · `12 de 12` · `Configuração` · `6 blocos relidos` · `Calibração` · `hodômetro · com foto` · `Ciclo dinâmico` · `5 de 5` · `Checklist` · `10 de 10` · `Autoteste` · `8 de 8` · `Voltar às instalações`
-

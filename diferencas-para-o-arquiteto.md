@@ -35,6 +35,309 @@ As listas de peças e as referências são do design, como o pacote pede. A anot
 
 O `_changelog-para-colar.md` da `atualizacao33/` traz, embaixo da senha visível, as linhas da primeira entrega (a logo no lima, o *Lembrar meu usuário*, o checkbox marcado), que já estavam no registro. Entraram uma vez só. A `atualizacao98/` repete os itens 1 a 4 e o 7 da quarta entrega, que o protótipo já estava construindo.
 
+## A moldura e a barra (`otimizacao300000000/`), juntada e construída
+
+A entrega entrou inteira — as 145 referências refeitas com a barra nova, os 5 quadros do palco, as 8 folhas, a fonte da hora com a licença, a decisão 43, a lei 22, os trechos do `MUDANCAS.md` e os 66 documentos gerados das telas —, com as suas decisões da junção (26/09). Está construída, medida, revisada e fechada: a barra sai igual ao seu HTML, byte a byte, em 144 das 145 (a T07/03 não se constrói), e nada abaixo de y = 30 mudou; a T16 foi a 0,02–0,06% do HTML novo; a moldura bate nos 38 números da régua do palco; e nenhuma referência piorou contra a base. Os quatro modos do palco, lado a lado com os seus quadros, estão em `para-o-arquiteto-palco/`, com um `LEIA-ME.md` pra você.
+
+### O que a comparação achou
+
+Antes de copiar, cada arquivo do pacote foi comparado com o nosso de antes da junção (o `3599e22`):
+
+- **os 66 documentos gerados:** 26 iguais e 40 diferentes. Nos 40: em 32 o nosso tinha as anotações do protótipo · 6 `textos.md` (T01, T02, T11, T12, T13 e T15) só diferiam em linha em branco, e ficou o seu · o `textos.md` da T16 trazia a sua frase nova do NÃO RODARAM, e entrou · o `indice.json` tinha os três campos nossos (abaixo). Pelas suas decisões: entrou tudo o seu, exatamente, e as nossas anotações ficaram no lugar
+- **o `indice.json`:** os mesmos 145 itens, sem nenhuma diferença nos seus campos · ficaram o `rotulo` (67) e o `rotuloOrigem` (67), como você decidiu, e também o `grupo` (13), que é nosso — o agrupamento dos estados da T05 na coluna (*achar*, *conectar*, *conferir*) —, pelo mesmo motivo: o palco lê os três. Sem o `rotulo`, a linha da coluna fica em branco; sem o `grupo`, a coluna da T05 fica sem os seus 13 estados
+- **as 8 folhas:** a 1 e a 2 diferiam, como você disse · da 3 à 8, idênticas byte a byte, html e png
+- **as referências:** dos 316 arquivos de referência (as 145 telas, os 5 quadros e as 8 folhas, html e png), 304 mudaram e 12 eram idênticos — as folhas 3 a 8 · depois de juntados, os 319 arquivos do pacote que não são documento gerado (as referências, a fonte, a licença e a decisão 43) estão iguais aos seus, byte a byte · o gate aprova, com **145 referências** no índice, 145 HTML e 145 PNG
+- **o `palco.md`:** a linha *num estado* é a sua, exata · **o README do design system:** *os 287 valores*, e que o seu `tokens.json` conta 96, como você decidiu
+- **o `tokens.json`:** o nosso é gerado do `tokens.css` (`npm run tokens`) e não leva `$description`, e o `checar` reprova qualquer diferença do gerado. O `--fonte-sistema` entrou com o `$type` `fontFamily` — o gerador passou a dar esse tipo a ele, como à `--fonte`. **Padrão:** a sua descrição fica no comentário do `--fonte-sistema` no `tokens.css`, palavra por palavra · **alternativa:** o gerador levar o comentário de cada token como `$description` — muda os 294 de uma vez, e é decisão do diretor
+- **o censo dos tokens:** 287 na junção (os 286 e o `--fonte-sistema`) e **294** depois da barra, com sete tokens dela: `--barra-sistema-recuo-direita`, `--barra-sistema-desce`, `--barra-sistema-espaco-wifi`, `--barra-sistema-espaco-bateria`, `--barra-sinal-altura`, `--barra-wifi` e `--barra-wifi-traco`. Dos cinco da barra velha, três voltaram a ser usados, com valor novo, e dois ficaram sem uso (`--ls-barra` e `--barra-bateria-casca`). O README do design system e o `CLAUDE.md` seguem com 287 até o diretor escolher: 294, ou 292 sem os dois
+- **na junção, e já consertado:** 19 linhas suas tinham ficado em dobro, em 9 documentos, a nova e a velha (ficou uma) · na lista de peças do design da T11 e da T13, a sua linha nova tinha levado a nossa emenda (voltou exata, e a emenda fica na nossa lista) · as linhas suas que voltaram ao lado das nossas reescritas, e três linhas de tabela que tinham saído sem nota, ganharam a nota e entraram no *pra ver*
+- **as perguntas da T16 da entrega anterior** (o *não se aplica* no passo que não roda, o subtítulo, o NÃO RODARAM e as referências a 1,93–3,68%, na seção *T16 · o padrão da T16/02*, mais abaixo) estão respondidas por esta entrega: a seção fica como histórico
+
+### Pra ver · onde a nossa anotação contradiz ou reescreve uma linha nova sua
+
+São **55 pares**, cada um com as duas versões lado a lado. Como ficou no arquivo: **a sua exata** — na tabela, ou na lista — e **a nossa numa nota logo embaixo**, marcada *no protótipo · a nossa versão desta linha, antes desta entrega*. Nada foi resolvido: **a decisão é sua**, par a par. Em 19 a nossa contradiz a sua, 1 é uma linha sua que saiu do pacote, e em 35 a nossa só diz mais. Onde a nossa contradiz, ela é o que o protótipo faz hoje, e o que ele faz está do lado de cada uma. A lista inteira também está em `06-prototipo/app/prints/tmp/relatorios/palco-juncao.json` (o campo `pra_ver`), e a classe de cada par em `palco-fechamento.json`, na mesma pasta.
+
+**Onde a nossa contradiz a sua** — decida qual vale (19)
+
+- **T03 · `tela.md`** (par 1) — o seu `textos.md` (linha 11) e a referência 01 dizem `Reconectar` e `Voltar ao contexto`; nenhum HTML da T03 tem *Tentar de novo*
+  - a sua: na falha de rede: `Tentar de novo`
+  - a nossa: na falha de rede: `Reconectar` (segue de onde parou) ou `Voltar ao contexto` → T02
+  - ficou: a sua exata na lista, a nossa numa sub-nota logo embaixo
+- **T04 · `tela.md`** (par 3) — a T04/01 desenha a faixa sem sessão, *Sem sessão de configuração* — toda referência tem faixa
+  - a sua: | **Chrome** | tira de contexto (unidade) + faixa de sessão quando há sessão |
+  - a nossa: | **Chrome** | tira de contexto (unidade) + faixa de sessão · sem sessão, a faixa diz só o fato (01) |
+  - ficou: a sua na tabela, a nossa numa nota logo depois dela
+- **T05 · `estados.md`** (par 6) — a contagem: o seu `textos.md` e a referência 00 dizem *5 encontrados* — o do herói e *OUTROS QUATRO POR PERTO*; se o *quatro* é dos outros, as duas dizem o mesmo
+  - a sua: | `00-tela` | tela | a entrada da tela | quatro módulos por perto · M2C-0417 é o do herói |
+  - a nossa: | `00-tela` | tela | a entrada da tela | cinco módulos por perto (`situacao.porPerto`: o do herói e outros quatro) · M2C-0417 é o do herói |
+  - ficou: a sua na tabela, a nossa numa nota logo depois dela
+- **T05 · `tela.md`** (par 13) — a contagem, como a linha 00 do `estados.md`: a 00 diz *5 encontrados*
+  - a sua: | **Semente no protótipo** | quatro módulos por perto · M2C-0417 é o do herói |
+  - a nossa: | **Semente no protótipo** | cinco módulos por perto (`situacao.porPerto` do mock: o do herói e outros quatro) · M2C-0417, o do herói, vem escolhido |
+  - ficou: a sua na tabela, a nossa numa nota logo depois dela
+- **T05 · `tela.md`** (par 14) — a R-14 e a decisão do diretor de 24/09 — o toque só marca, e é o primário que conecta
+  - a sua: tocar num módulo → escolhido → `Conectar ao M2C-0417`
+  - a nossa: tocar num módulo da lista **só o marca** (o quadrado lima surge no poço) e acende `Conectar ao M2C-0417`, com o serial do marcado; tocar em outro troca a marca · é o primário que conecta (R-14, decisão do diretor, 24/09) · o não cadastrado não se toca · na 00, o ESCOLHIDO é a marca: tocar num dos outros por perto troca o escolhido no lugar, e o primário passa a dizer o serial dele — também não conecta
+  - ficou: a sua exata na lista, a nossa numa sub-nota logo embaixo
+- **T06 · `tela.md`** (par 17) — a decisão do diretor de 24/09 (a T06·1 em b, a R-14) — o toque só marca, e o `Usar este ativo` leva à confirmação
+  - a sua: tocar num ônibus → confirmar o veículo
+  - a nossa: tocar num ônibus → ele fica **marcado** (o quadrado lima no poço) e o `Usar este ativo` acende; o `Usar este ativo` → confirmar o veículo. Tocar em outro ônibus troca a marca (decisão do diretor, 24/09: a T06·1 passa pra (b), o T06-N3). A lista com um ônibus marcado não tem referência: monta-se com as peças que existem (G25)
+  - ficou: a sua exata na lista, a nossa numa sub-nota logo embaixo
+- **T09 · `tela.md`** (par 24) — nenhum dos cinco HTML da T09 tem *Calibrar* — a 04 desenha `Voltar ao menu` (C9 · T09-A3)
+  - a sua: cadeia concluída: `Calibrar` → T10
+  - a nossa: cadeia concluída: `Voltar ao menu` → T04, de onde a Calibração segue. A 04 não desenha um `Calibrar`, e texto novo não entra (C9 · T09-A3, G1, G25)
+  - ficou: a sua exata na lista, a nossa numa sub-nota logo embaixo
+- **T11 · `animacao.md`** (par 30) — o `movimento.md` diz, em *Reduzir movimento*, que os processos continuam no mesmo ritmo e a prova nasce em ordem; a sua diz *aparecem juntas*
+  - a sua: | linhas de conferência | a leitura corre | acendem em ordem, 400ms cada | 150ms | desacelera | aparecem juntas |
+  - a nossa: | linhas de conferência | a leitura corre | acendem em ordem, 400ms cada | 150ms | desacelera | acendem em ordem, no mesmo ritmo, sem o esmaecer (movimento.md · G26) |
+  - ficou: a sua na tabela, a nossa numa nota logo depois dela
+- **T11 · `tela.md`** (par 31) — as linhas 15 e 16 do mesmo `tela.md`, o seu `textos.md` e a decisão 40 dizem `Reenviar os 5 blocos`; nenhum HTML nem o `textos.md` tem *Regravar*
+  - a sua: `Regravar os cinco blocos` → T09
+  - a nossa: `Corrigir as N divergências` e `Reenviar os 5 blocos` → T09 (a última entrega; antes, `Regravar os cinco blocos`)
+  - ficou: a sua exata na lista, a nossa numa sub-nota logo embaixo
+- **T11 · `tela.md`** (par 32) — a decisão 40 e o seu `textos.md` dizem `Apenas registrar o diagnóstico`; nenhum HTML nem o `textos.md` tem *Só registrar*
+  - a sua: `Só registrar o diagnóstico` → registra e volta ao menu
+  - a nossa: `Apenas registrar o diagnóstico` (antes, `Só registrar o diagnóstico`) → registra o diagnóstico na sessão e volta ao menu; nenhum item entra na fila, porque o mock não tem onde (C11 · G25)
+  - ficou: a sua exata na lista, a nossa numa sub-nota logo embaixo
+- **T13 · `animacao.md`** (par 36) — pela T13·3, o veredito vem do toque em `Finalizar instalação`, com o que bloqueia resolvido — a sua diz que vem quando o último item passa
+  - a sua: | veredito | o último item passa | o placar completa e o veredito aparece | 150ms | esmaece | aparece |
+  - a nossa: | veredito | o toque em `Finalizar instalação`, com o que bloqueia resolvido (T13·3) | o placar completa e o veredito aparece | 150ms | esmaece | aparece |
+  - ficou: a sua na tabela, a nossa numa nota logo depois dela
+- **T13 · `estados.md`** (par 37) — o caso: a 09 desenha a bateria de 10,9 V (a sua resposta de 26/09), que é o `can-estatico-isolado`; o `can-fora-esperado` é a velocidade 0 km/h, sinal dinâmico, que o mock reserva à T14 (`mocks.js`:724) · o seu `casos.md` também liga o `can-fora-esperado` à T13/09
+  - a sua: | `09-estado-item-reprovado` | estado | um item automático reprova | `can-fora-esperado` |
+  - a nossa: | `09-estado-item-reprovado` | estado | um item automático reprova — a bateria abaixo do mínimo, na CAN | `can-estatico-isolado` (C10, T13-A1) |
+  - ficou: a sua na tabela, a nossa numa nota logo depois dela
+- **T13 · `estados.md`** (par 39) — pela T13·3, como o veredito da `animacao.md`, o homologado vem do toque em `Finalizar instalação`, e não de tudo passar
+  - a sua: | `11-momento-homologado` | momento | tudo passa | `checklist` |
+  - a nossa: | `11-momento-homologado` | momento | tocar em `Finalizar instalação`, com o que bloqueia resolvido (T13·3) | `checklist` |
+  - ficou: a sua na tabela, a nossa numa nota logo depois dela
+- **T14 · `estados.md`** (par 40) — qual é a entrada: pela G27 (C10), a T14 entra no 01, com a fila drenando, e o 00 é 6 s depois do disparo — a sua diz que o 00 é a entrada
+  - a sua: | `00-tela` | tela | a entrada da tela | sessão M2C-0417 + RKT-8H42 · fila com 6 mensagens e 2 de diagnóstico |
+  - a nossa: | `00-tela` | tela | 6 s depois do disparo: o prazo em 1:36, o instante antes de o evento chegar (C10 · G27: a entrada é a `01`) | sessão M2C-0417 + RKT-8H42 · fila com 6 mensagens e 2 de diagnóstico |
+  - ficou: a sua na tabela, a nossa numa nota logo depois dela
+- **T14 · `estados.md`** (par 41) — o par da linha 00: a nossa diz que o 01 é a entrada da tela
+  - a sua: | `01-momento-antes-do-disparo` | momento | a fila do módulo ainda drenando | `ciclo.mensagensGuardadas` |
+  - a nossa: | `01-momento-antes-do-disparo` | momento | a entrada da tela: a fila do módulo ainda drenando (G27) | `ciclo.mensagensGuardadas` |
+  - ficou: a sua na tabela, a nossa numa nota logo depois dela
+- **T15 · `tela.md`** (par 50) — como o chrome da T04: a T15/03 e a 04 desenham a faixa *Sem sessão de configuração*
+  - a sua: | **Chrome** | sem faixa ou com, conforme a sessão |
+  - a nossa: | **Chrome** | a faixa da sessão aberta ou a faixa sem sessão, conforme a sessão — toda referência tem faixa (T15-A16) |
+  - ficou: a sua na tabela, a nossa numa nota logo depois dela
+- **T16 · `estados.md`** (par 53) — o caso: o 01 é o passo do corte, pedido porque o driver vl08 não reinicia por comando (T16·1) — a sua diz `autotesteEncerramento`, que é a lista que a 02 desenha; com a 02 dizendo `autotesteAssertivas`, parece a coluna do caso deslocada uma linha
+  - a sua: | `01-momento-pede-o-corte-de-alimentacao` | momento | o passo do corte | `autotesteEncerramento` |
+  - a nossa: | `01-momento-pede-o-corte-de-alimentacao` | momento | o passo do corte, na sessão do KNB-5H39 · M2C-0371, pelo endereço (T16·1) | `modelos · vl08 · reinicioPorComando: false` |
+  - ficou: a sua na tabela, a nossa numa nota logo depois dela
+- **T16 · `estados.md`** (par 54) — a 02 desenha as 8 assertivas do `autotesteEncerramento`; o `autotesteAssertivas` é a lista da bancada (o mock mantém as duas)
+  - a sua: | `02-momento-sessao-encerrada` | momento | o autoteste passa | `autotesteAssertivas` |
+  - a nossa: | `02-momento-sessao-encerrada` | momento | o autoteste passa | `autotesteEncerramento` |
+  - ficou: a sua na tabela, a nossa numa nota logo depois dela
+- **T16 · `tela.md`** (par 55) — em parte: pela T16·1, o corte só é pedido quando o driver não reinicia por comando — no herói, o passo corre sem pedir o corte
+  - a sua: no passo do corte: o técnico desliga e religa a alimentação
+  - a nossa: no passo do corte, só quando o driver não reinicia por comando (T16·1): o técnico desliga e religa a alimentação; no protótipo, o módulo volta sozinho no ritmo do passo
+  - ficou: a sua exata na lista, a nossa numa sub-nota logo embaixo
+
+**Uma linha sua que saiu do pacote** (1)
+
+- **T10 · `tela.md`** (par 27) — a sua linha *passo seguinte: o horímetro, ou a rotação e a velocidade no caminhão coletor* saiu do `tela.md` desta entrega, e a nossa emenda dela ficou numa nota — confirme se saiu de propósito
+  - a sua: passo seguinte: o horímetro, ou a rotação e a velocidade no caminhão coletor
+  - a nossa: passo seguinte: o horímetro, ou a rotação e a velocidade no caminhão coletor. As grandezas e a ordem são as do cadastro do modelo do ativo, menos as que o módulo não mede (T10·1); o `Depois:` mostra só a próxima (T10·2)
+  - ficou: a sua saiu do pacote; a nossa emenda ficou numa sub-nota, na lista de toques
+
+**Onde a nossa só diz mais** — a sua vale; confira se a nossa pode subir pro seu documento (35)
+
+- **T04 · `animacao.md`** (par 2) — a nossa diz também que as folhas abrem no cartão do módulo ou do ativo, com a sessão aberta
+  - a sua: | folhas | tocar na unidade ou nas iniciais | o painel sobe de baixo e o véu esmaece; fechar desce | 200ms · fecha em 150ms | desacelera | aparece |
+  - a nossa: | folhas | tocar na unidade ou nas iniciais · com a sessão aberta, no cartão do módulo ou do ativo | o painel sobe de baixo e o véu esmaece; fechar desce | 200ms · fecha em 150ms | desacelera | aparece |
+  - ficou: a sua na tabela, a nossa numa nota logo depois dela
+- **T04 · `tela.md`** (par 4) — a nossa dá os momentos (10, 11) e o HU-T16-2
+  - a sua: com a sessão aberta, o cartão do módulo → folha Módulo conectado · o do ativo → folha Ativo da sessão · os dois ficam travados: a folha diz isso e oferece `Encerrar a sessão`
+  - a nossa: com a sessão aberta, o cartão do módulo → folha Módulo conectado (10) · o do ativo → folha Ativo da sessão (11) · os dois ficam travados (HU-T16-2): a folha diz isso e oferece `Encerrar a sessão`, que leva ao mesmo destino do `ENCERRAR` da faixa. Com o módulo sem ativo (02), o cartão do módulo já abre a folha dele. Substitui a T04·7 do C0, em que os dois cartões não se tocavam
+  - ficou: a sua exata na lista, a nossa numa sub-nota logo embaixo
+- **T04 · `tela.md`** (par 5) — a nossa diz que o leitor de tela ouve desabilitado
+  - a sua: cartão de ferramenta em espera é desabilitado de verdade: o toque não faz nada, e o motivo já está escrito nele
+  - a nossa: cartão de ferramenta em espera é desabilitado de verdade: o toque não faz nada, o motivo já está escrito nele, e pro leitor de tela ele é desabilitado (`logica.md` · Os cartões em espera)
+  - ficou: a sua exata na lista, a nossa numa sub-nota logo embaixo
+- **T05 · `estados.md`** (par 7) — a nossa diz que o 02 só abre pelo endereço, e a fonte da lista (`situacao.porPerto`)
+  - a sua: | `02-momento-um-encontrado` | momento | só um módulo por perto | `modulos` |
+  - a nossa: | `02-momento-um-encontrado` | momento | só um módulo por perto · no protótipo, só pelo endereço | `situacao.porPerto` (só o do herói) · `modulos` |
+  - ficou: a sua na tabela, a nossa numa nota logo depois dela
+- **T05 · `estados.md`** (par 8) — a nossa dá a duração da busca (AC-18)
+  - a sua: | `03-estado-nenhum-encontrado` | estado | nenhum módulo responde | `busca-vazia` |
+  - a nossa: | `03-estado-nenhum-encontrado` | estado | nenhum módulo responde | `busca-vazia` (com a duração, AC-18) |
+  - ficou: a sua na tabela, a nossa numa nota logo depois dela
+- **T05 · `estados.md`** (par 9) — a nossa dá o quadro de 62% (`.atualizacao`)
+  - a sua: | `10-momento-atualizando-o-firmware` | momento | `Atualizar firmware` | `firmware-fora-matriz` |
+  - a nossa: | `10-momento-atualizando-o-firmware` | momento | `Atualizar firmware` | `firmware-fora-matriz` (`.atualizacao`, o quadro de 62%) |
+  - ficou: a sua na tabela, a nossa numa nota logo depois dela
+- **T05 · `estados.md`** (par 10) — a nossa soma o `modulo-com-pendencias`, as mensagens da tira
+  - a sua: | `13-estado-pre-checagem-canal-aberto-e-pendencias` | estado | o módulo tem canal de sessão anterior — o app fecha antes de começar | `canal-aberto` |
+  - a nossa: | `13-estado-pre-checagem-canal-aberto-e-pendencias` | estado | o módulo tem canal de sessão anterior — o app fecha antes de começar | `canal-aberto` + `modulo-com-pendencias` (as mensagens da tira) |
+  - ficou: a sua na tabela, a nossa numa nota logo depois dela
+- **T05 · `estados.md`** (par 11) — a nossa dá a fonte da lista, `situacao.porPerto` (C6)
+  - a sua: | `01-momento-nenhum-escolhido` | momento | a busca achou, nada tocado ainda | `modulos` |
+  - a nossa: | `01-momento-nenhum-escolhido` | momento | a busca achou, nada tocado ainda | `situacao.porPerto` · `modulos` |
+  - ficou: a sua na tabela, a nossa numa nota logo depois dela
+- **T05 · `estados.md`** (par 12) — a nossa dá o caso que existe no mock, `firmware-fora-sem-rede` (mocks.js:713, AC-20, C7); o *modem sem rede* dele não é um caso
+  - a sua: | `09-estado-firmware-fora-sem-rede-no-modulo` | estado | firmware fora e o módulo sem rede | `firmware-fora-matriz + modem sem rede` |
+  - a nossa: | `09-estado-firmware-fora-sem-rede-no-modulo` | estado | firmware fora e o módulo sem rede | `firmware-fora-matriz` + `firmware-fora-sem-rede` (o modem sem rede, AC-20) |
+  - ficou: a sua na tabela, a nossa numa nota logo depois dela
+- **T05 · `tela.md`** (par 15) — a nossa dá as duas saídas (`Selecionar ativo` → T06, `Voltar ao menu` → T04)
+  - a sua: pré-checagem aprovada → a faixa de sessão desce → T06
+  - a nossa: pré-checagem aprovada → a sessão nasce, com o meio em que a busca achou o módulo, e a faixa de sessão desce → `Selecionar ativo` (T06) · `Voltar ao menu` (T04)
+  - ficou: a sua exata na lista, a nossa numa sub-nota logo embaixo
+- **T05 · `tela.md`** (par 16) — a nossa dá cada ação e aonde ela leva, em sub-itens
+  - a sua: numa falha: a ação do aviso (`Procurar outro módulo`, `Atualizar firmware`, `Reconectar`...)
+  - a nossa: numa falha: a ação do aviso (C7)
+  - ficou: a sua exata na lista, a nossa numa sub-nota logo embaixo
+- **T06 · `tela.md`** (par 18) — a nossa diz o que o toque grava (o vínculo anotado)
+  - a sua: `Usar este ativo` → T07
+  - a nossa: `Usar este ativo` → o ativo entra na sessão, com o vínculo anotado (o chassi lido ou a confirmação do técnico, às 14:30), e segue pra T07
+  - ficou: a sua exata na lista, a nossa numa sub-nota logo embaixo
+- **T06 · `tela.md`** (par 19) — a nossa junta as duas saídas e o ENCERRAR
+  - a sua: `Escolher outro` → a lista
+  - a nossa: `Escolher outro` e `Escolher outro veículo` → a lista, com a busca como estava · `Voltar ao menu` → T04 · `ENCERRAR` → a sessão abortada (T16/03, G23)
+  - ficou: a sua exata na lista, a nossa numa sub-nota logo embaixo
+- **T06 · `tela.md`** (par 20) — a nossa filtra também pelo chassi, sem caixa, acento e hífen, e diz a trava de fora do pacote
+  - a sua: a busca filtra por placa, frota ou módulo
+  - a nossa: a busca filtra ao digitar por placa, frota, módulo esperado e chassi, sem caixa, sem acento e sem o hífen da placa; a placa de um ônibus de outro pacote abre a trava de fora do pacote; sem resultado, o cartão diz *Nada com “ABC-1234”* e sugere buscar pela frota — o momento `08` (a entrega do design de 25/09, que muda a T06·5)
+  - ficou: a sua exata na lista, a nossa numa sub-nota logo embaixo
+- **T07 · `tela.md`** (par 21) — a nossa dá também o `Voltar ao menu` da 00
+  - a sua: `Configurar módulo` → T09
+  - a nossa: com tudo aprovado (00): `Configurar módulo` → T09 · `Voltar ao menu` → T04
+  - ficou: a sua exata na lista, a nossa numa sub-nota logo embaixo
+- **T07 · `tela.md`** (par 22) — o `Ler novamente` também no sem leitura (02), corrigido no C8 pelas referências (T07-A13)
+  - a sua: no fora da faixa: `Ler novamente`
+  - a nossa: com um sinal reprovado (fora da faixa ou sem leitura, 01 e 02): `Ler novamente` relê no lugar (T07·5 a) · `Configurar módulo` → T09
+  - ficou: a sua exata na lista, a nossa numa sub-nota logo embaixo
+- **T08 · `tela.md`** (par 23) — a nossa dá a sessão do herói, M2C-0417 + RKT-8H42
+  - a sua: | **Semente no protótipo** | sessão com leitura feita |
+  - a nossa: | **Semente no protótipo** | sessão M2C-0417 + RKT-8H42 com a leitura feita |
+  - ficou: a sua na tabela, a nossa numa nota logo depois dela
+- **T09 · `tela.md`** (par 25) — a nossa diz o que é tentar sair e o ENCERRAR apagado na recuperação
+  - a sua: tentar sair no meio → a recuperação, até a Conexão gravar
+  - a nossa: tentar sair no meio — o `ENCERRAR`, ou o `Voltar ao menu` com a cadeia parada — → a recuperação, até a Conexão gravar; nela, o `ENCERRAR` fica **desabilitado e em tinta apagada**, como o voltar do Android, que ali não faz nada (a lei 17, decisão do diretor de 25/09 — no lugar do aceso que não fazia nada, G23), e `Continuar a gravação` retoma do mesmo bloco. Depois da Conexão, o `ENCERRAR` é o de toda tela com sessão
+  - ficou: a sua exata na lista, a nossa numa sub-nota logo embaixo
+- **T10 · `tela.md`** (par 26) — a nossa cita a lei 17
+  - a sua: durante o semear, o ENCERRAR da faixa fica desabilitado e em tinta apagada
+  - a nossa: durante o semear, o ENCERRAR da faixa fica desabilitado e em tinta apagada (a lei 17)
+  - ficou: a sua exata na lista, a nossa emenda numa sub-nota logo embaixo
+- **T10 · `tela.md`** (par 28) — a nossa dá o *Gravando no módulo…* e o *Relendo…* e o semear que não para
+  - a sua: `Semear o hodômetro` → grava e relê → semeado · se a releitura passar da tolerância, *não confere* e `Semear de novo` — a foto continua valendo
+  - a nossa: `Semear o hodômetro` → grava e relê → semeado · o botão diz *Gravando no módulo…* e depois *Relendo…* (1 s cada, `animacao.md`), e aí o módulo mostra o relido · se a releitura passar da tolerância, *não confere* e `Semear de novo` — a foto continua valendo · semeado o passo, o número não se digita mais
+  - ficou: a sua exata na lista, a nossa numa sub-nota logo embaixo
+- **T10 · `tela.md`** (par 29) — a nossa dá o texto da câmera e a calibração completa (decisão 35)
+  - a sua: `Calibrar o horímetro` → o 2 de 2, no mesmo fluxo do hodômetro — o digitado e o fotografado do horímetro são iguais aos do hodômetro, só muda o número → `Fazer o ciclo dinâmico` → T14, com `Voltar ao menu` embaixo
+  - a nossa: `Calibrar o horímetro` → o 2 de 2, no mesmo fluxo do hodômetro — o digitado e o fotografado do horímetro são iguais aos do hodômetro, só muda o número; a câmera diz *Enquadre o horímetro do painel* → `Semear o horímetro` → a calibração completa: `Fazer o ciclo dinâmico` → T14, com `Voltar ao menu` embaixo (a entrega de 25/09, decisão 35: o caminho feliz anda em linha — calibra, ciclo, checklist)
+  - ficou: a sua exata na lista, a nossa numa sub-nota logo embaixo
+- **T12 · `estados.md`** (par 33) — a nossa dá a sessão aberta que a 00 desenha (G21)
+  - a sua: | `00-tela` | tela | a entrada da tela | unidade Várzea · cinco instalações |
+  - a nossa: | `00-tela` | tela | a entrada da tela | unidade Várzea · cinco instalações · sessão M2C-0417 + RKT-8H42 (G21) |
+  - ficou: a sua na tabela, a nossa numa nota logo depois dela
+- **T12 · `estados.md`** (par 34) — a nossa soma o `instalacoes-vazia` e diz que é sem sessão (AC-21)
+  - a sua: | `02-estado-nenhuma-instalacao` | estado | a unidade não tem instalações | `instalacoes` |
+  - a nossa: | `02-estado-nenhuma-instalacao` | estado | a unidade não tem instalações — a consulta volta vazia, e sem sessão | `instalacoes` + `instalacoes-vazia` (AC-21, C11) |
+  - ficou: a sua na tabela, a nossa numa nota logo depois dela
+- **T12 · `tela.md`** (par 35) — a nossa dá a sessão aberta que a 00 desenha (G21)
+  - a sua: | **Semente no protótipo** | unidade Várzea · cinco instalações |
+  - a nossa: | **Semente no protótipo** | unidade Várzea · cinco instalações · sessão M2C-0417 + RKT-8H42 (a 00 desenha a sessão aberta, G21) |
+  - ficou: a sua na tabela, a nossa numa nota logo depois dela
+- **T13 · `estados.md`** (par 38) — a nossa dá o caso que monta a 10, `pronto-para-fechar`, e o servidor que não respondeu
+  - a sua: | `10-estado-finalizar-com-a-secao-f-falhando` | estado | `Finalizar` com a Seção F falhando | `secaoF` |
+  - a nossa: | `10-estado-finalizar-com-a-secao-f-falhando` | estado | `Finalizar` com a Seção F falhando — o servidor não respondeu | `pronto-para-fechar` (C10, T13-A2) |
+  - ficou: a sua na tabela, a nossa numa nota logo depois dela
+- **T14 · `tela.md`** (par 42) — a nossa diz que o registro fica no mesmo lugar e tamanho do link, e o que o leitor de tela lê
+  - a sua: identificador divergente: `Solicitar correção de cadastro` → o link vira o registro, *Correção solicitada às 14:30*, e deixa de ser tocável
+  - a nossa: identificador divergente: `Solicitar correção de cadastro` → o link vira o registro no mesmo lugar e do mesmo tamanho, com o relógio, *Correção solicitada às 14:30* (a hora do protótipo), e deixa de ser tocável — é o momento `06`, do caso `identificador-divergente`. Pro leitor de tela, o registro é um aviso de status, não um botão
+  - ficou: a sua exata na lista, a nossa emenda numa sub-nota logo embaixo
+- **T14 · `tela.md`** (par 43) — a nossa dá a entrada no quadro 01 e os 3 s da fila (G27)
+  - a sua: a fila do módulo drena → `Disparar evento de teste` acende
+  - a nossa: a tela entra no quadro `01`: a fila do módulo drenando, o prazo cheio e o disparo indisponível com o motivo (G27). A fila drena em 3 s (`movimento.md`), e o `Disparar evento de teste` acende; esse quadro não tem referência e junta as peças que existem (G25)
+  - ficou: a sua exata na lista, a nossa numa sub-nota logo embaixo
+- **T14 · `tela.md`** (par 44) — a nossa dá o caso e a segunda tentativa que confirma
+  - a sua: prazo estourado: `Disparar outro evento` — os passos continuam valendo
+  - a nossa: prazo estourado (`evento-sem-resposta`, uma vez por sessão): `Disparar outro evento` — os passos continuam valendo, e a segunda tentativa confirma
+  - ficou: a sua exata na lista, a nossa numa sub-nota logo embaixo
+- **T15 · `estados.md`** (par 45) — a nossa dá a seleção da semente, f-10, f-02 e f-08 (G21)
+  - a sua: | `00-tela` | tela | a entrada da tela | fila com dois itens · um com erro |
+  - a nossa: | `00-tela` | tela | a entrada da tela | a seleção f-10, f-02, f-08 da semente (G21): dois itens esperando, um com erro, e uma recebida |
+  - ficou: a sua na tabela, a nossa numa nota logo depois dela
+- **T15 · `estados.md`** (par 46) — a nossa dá o recorte `fila-sem-erro`
+  - a sua: | `01-estado-sem-erro` | estado | a fila sem erros | `filaSaida` |
+  - a nossa: | `01-estado-sem-erro` | estado | a fila sem erros | `filaSaida` · o recorte `fila-sem-erro`: a fila inteira da Várzea (f-04 subindo, f-01 na fila, f-05, f-06 e f-07 recebidas) |
+  - ficou: a sua na tabela, a nossa numa nota logo depois dela
+- **T15 · `estados.md`** (par 47) — a nossa dá o recorte `fila-dois-erros`
+  - a sua: | `02-estado-dois-erros` | estado | dois itens recusados | `filaSaida` |
+  - a nossa: | `02-estado-dois-erros` | estado | dois itens recusados | `filaSaida` · o recorte `fila-dois-erros`: f-10, f-09, f-02, f-08 |
+  - ficou: a sua na tabela, a nossa numa nota logo depois dela
+- **T15 · `estados.md`** (par 48) — a nossa dá o caso `fila-vazia`, com o 14:02
+  - a sua: | `03-estado-fila-vazia` | estado | nada esperando envio | `filaSaida` |
+  - a nossa: | `03-estado-fila-vazia` | estado | nada esperando envio | `filaSaida` · o caso `fila-vazia`: nenhum item, o último envio às 14:02, sem sessão |
+  - ficou: a sua na tabela, a nossa numa nota logo depois dela
+- **T15 · `estados.md`** (par 49) — a nossa dá a janela `criteriosRegra.recheckHoras`, sobre a fila vazia do 03
+  - a sua: | `04-estado-secao-f-em-re-checagem` | estado | a Seção F esperando o servidor | `secaoF · RVM-1E54` |
+  - a nossa: | `04-estado-secao-f-em-re-checagem` | estado | a Seção F esperando o servidor | `secaoF · RVM-1E54`, sobre a fila vazia do `03` · a janela `criteriosRegra.recheckHoras` |
+  - ficou: a sua na tabela, a nossa numa nota logo depois dela
+- **T15 · `tela.md`** (par 51) — a nossa dá a seleção da semente (G21) e a faixa do herói (T15-A2)
+  - a sua: | **Semente no protótipo** | fila com dois itens · um com erro |
+  - a nossa: | **Semente no protótipo** | a seleção f-10, f-02 e f-08 (G21): dois itens esperando envio, um deles com erro, e uma recebida — a fila inteira da Ibura, com a faixa da sessão do herói (T15-A2) |
+  - ficou: a sua na tabela, a nossa numa nota logo depois dela
+- **T15 · `tela.md`** (par 52) — o pacote diz o Ressincronizar duas vezes, uma com o efeito e outra com o lugar (no item com erro)
+  - a sua: `Ressincronizar e reenviar` → os itens com erro voltam pra fila, e o envio recomeça
+  - a nossa: `Ressincronizar e reenviar` no item com erro → os itens com erro voltam pra fila, e o envio recomeça (a entrega do design de 25/09; antes era só o pressionado, G25)
+  - ficou: as duas linhas são suas; a nossa é a emenda da segunda, no lugar
+
+### O que a construção e a revisão acharam · as perguntas
+
+Cada uma com o padrão que o protótipo adotou e a alternativa.
+
+**A barra de status**
+
+- **o tamanho dos ícones.** **Padrão:** a geometria de dentro (as cápsulas, os arcos, o corpo e o pininho) fica no SVG, na medida da ficha; o tamanho de cada ícone, o do próprio desenho, e o traço de 2,3 do Wi-Fi são token (`--barra-sinal`, `--barra-sinal-altura`, `--barra-wifi`, `--barra-bateria`, `--barra-icone` e `--barra-wifi-traco`) · os espaços de 5 e 5,5 são margem do Wi-Fi e da bateria, no lugar dos `span` vazios do seu HTML — o mesmo x, medido byte a byte · **alternativa:** os números no SVG, e menos seis tokens
+- **os dois tokens sem uso.** **Padrão:** ficam, marcados *sem uso desde a decisão 43*, como os outros 13 sem uso do `tokens.css` · **alternativa:** tirá-los, e o censo fica em 292
+- **a T07/03** não tem a barra: não se constrói (T07·1 a), e é a única das 145 em que a barra não bate com o HTML · **pedido de antes:** uma referência nova do 03 pro ma-02
+
+**O palco**
+
+- **o painel aberto empurra o conjunto?** O quadro 04 desenha o celular e a coluna 90 à direita (636 contra 546), e o `MUDANCAS.md` diz *anda junto, como hoje*; o quadro 00 diz *não se mexe quando o painel abre*, e o `palco.md`, *por cima de tudo*. **Padrão:** o painel passa por cima, e o celular e a coluna não se mexem — a régua confere · **alternativa:** o conjunto anda os 90 com o painel aberto
+- **o fio de dentro.** **Padrão:** entra, `rgba(255,255,255,0.04)` por dentro do metal, como o `MUDANCAS.md` e os quadros desenham · a linha do celular no `palco.md` só diz o de fora · **pra corrigir na fonte**
+- **as cores da moldura** ficam em `rgb()` no `palco-tokens.css`, com o hex no comentário, porque o `checar` reprova hex em `app/src` · **alternativa:** isentar o `palco-tokens.css` dessa regra, e as três em hex, como no `palco.md`
+- **o quadro 00** ainda traz, na tabela das medidas, a linha velha do CELULAR (*moldura de 8px, 376 × 816 por fora · raio 34 por fora, 26 por dentro*) e a do ESTADO (*moldura #3A3350*), que a decisão 43 e o espécime O CELULAR da mesma folha desmentem · **pra corrigir na fonte** · o espécime O CELULAR (150 × 321) tem metal 1,5, aro 4 e fio 0,5, que não são o celular em escala (1,2 · 3,9 · 0,4): fica em 1,6%
+- **a piscada do app parado.** Com uma moldura só, ela é o único aviso de que o app está parado. **Padrão:** só o toque pisca — abrir, trocar ou fechar um estado e mudar a largura da janela não piscam, e a peça que nasce, nasce quieta · **alternativa:** a peça que nasce depois de um toque já nascer piscando, como fazia até o conserto
+- **o quadrado pressionado e com foco** (folha 00). A folha acende o ícone (`#C9C3DA`) e, no pressionado, a borda (`#3A3350`); o palco sobe o fundo pra `--elevado` no pressionado e põe só o anel no foco, com o ícone apagado nos dois — medido nas fotos `app/prints/provas-palco/00-quadrado-*.png`. **Padrão:** o do palco, como está · **alternativa:** o ícone acender, como a folha
+- **a linha do painel pressionada** (folha 00). A folha desenha o fundo `--fundo-cartao` (`#1A1726`); o palco usa o `--elevado` (`#1E1A29`), o degrau do pressionado do `movimento.md` — o C0 já tinha apontado o `--fundo-cartao` como pressionado · **Padrão:** o `--elevado`
+- **as telas sem coluna** (folha 00). A folha diz *T01, T02 e T08 não mostram coluna*; a T01 tem 8 estados e a T02, 3, e o palco mostra a coluna das duas — o `palco.md` diz que só a tela sem estados fica sem coluna. Só a T08 fica sem · **pra corrigir na fonte**
+
+**A T16, a T06 e a T12**
+
+- **o nome do passo pulado pro leitor de tela.** A referência 03 não dá nome ao traço, e nenhuma legenda da folha 3 o nomeia. **Padrão:** o traço fica mudo, e a situação ao lado diz *pulado* · **alternativa:** o traço com o nome *pulado*
+- **a nota do que não rodou.** **Padrão:** reproduz a montagem do seu HTML — a caixa em bloco e a frase em linha —, e o `text-wrap: balance` mora na variante *pulado* da peça, que só a T16/04 usa · **alternativa:** um token de entrelinha pra frase (20,2, número sem nome no design), e uma propriedade *equilibrada* na nota, pra qualquer tela
+- **a folga dupla da T06.** **Padrão:** sai só a margem da linha da correção de cadastro (02 e 07); o par que bate (01) e a trava (04 a 06), que também são os últimos antes do rodapé, ficam com os 16, porque as suas referências novas das quatro ainda os desenham · **confira** se os quatro também perdem a margem
+
+**O que a revisão achou, e já está consertado**
+
+- **o passo pulado da T16/03 dizia *não se aplica* pro leitor de tela** — o nome do traço de outro estado. O traço ficou mudo, e a situação ao lado diz *pulado*; o `abortada.mjs` confere (325 passos)
+- **o contador da piscada nunca voltava a 0:** depois da primeira piscada, todo estado aberto a partir do fluxo já nascia piscando, sem toque — um aviso falso, agora que a moldura é uma só —, e um toque na janela larga, com a janela estreita e larga de novo, também fazia piscar. Zera agora ao abrir ou fechar um estado e ao mudar a largura; o `pisca.mjs`, novo, prova (62 passos)
+
+**O que o fechamento achou**
+
+- **o *pra ver* contava 8 pares em que a nossa contradiz a sua; são 19.** Dos 30 pares que a junção listou, 11 também contradizem — o chrome da T04 e da T15, a contagem da T05 (duas linhas), o reduzir movimento da T11, o veredito e o homologado da T13, o caso da T13/09, a entrada da T14 (duas linhas) e o caso da T16/01 — e uma é uma linha sua que saiu do pacote (T10). Estão na lista acima, com as duas versões
+- **a régua inteira, depois de todos os consertos, aprova** — as 145 referências, os textos, os 127 espécimes, os 19 roteiros, o aceso e o palco (os números estão no `CHANGELOG.md`) · no `tela.mjs todas`, três fotos paralelas saíram pretas (T01/04, T04/06 e T05/04, de 97 a 99%): refeitas sozinhas, deram a base, e o relatório leva a nota
+- **as bases novas:** `app/prints/linha-de-base-palco-e-barra.json` (as 145, contra as referências desta entrega) e a do palco, `app/prints/linha-de-base-palco.json`, regravada com a moldura nova
+
+### O censo
+
+| | agora |
+|---|---|
+| referências | **145** — 16 telas, 62 momentos e 67 estados · 145 HTML e 145 PNG · o palco com 5 quadros · o design system com 8 folhas |
+| peças | 119 no design · **131** no protótipo |
+| tokens | **294** no `tokens.css` e no `tokens.json` · 96 no seu `tokens.json` · o README e o `CLAUDE.md` com 287, até o diretor |
+| fontes | a Barlow do app e a Google Sans só da hora (o recorte de 3,7KB, com a licença OFL ao lado) |
+| casos no mock | **55** — os seus 49 e os nossos 6 |
+| decisões · leis | 43 · 22 |
+| histórias de usuário | 107 |
+| o gate do mock | 194 checagens |
+| a régua | 145 referências, 44 em 0% do HTML · 127 espécimes · 19 roteiros, 2.610 passos · 83 lugares no aceso · 38 números da moldura |
+
 ## A empresa e a unidade (`otimizacao100000000/`), juntada e construída
 
 A entrega entrou inteira — as 120 referências, os 112 trechos e o gate aprovando, com 137 referências, 59 momentos e 62 estados — e foi construída e publicada no `70f97e1`. A medição completa e a revisão vieram junto com a última entrega: nenhuma referência desta piorou (T02/05 e 06 em 0%, T04/13 em 0,32%, T04/14 em 0,75%, e as outras da T01 à T04 na base). As suas respostas de 26/09 estão marcadas em cada item.

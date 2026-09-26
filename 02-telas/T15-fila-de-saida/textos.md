@@ -21,4 +21,3 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `04-estado-secao-f-em-re-checagem`
 
 `14:30` · `Sem sessão de configuração` · `Fila de saída` · `0` · `neste aparelho` · `Nada esperando envio` · `O último item subiu às 14:02.` · `EM RE-CHECAGEM · SEÇÃO F` · `RVM-1E54` · `recebimento pendente` · `confere em 24 h` · `Voltar ao menu`
-

@@ -1,8 +1,16 @@
+/* a Google Sans da hora (decisão 43): o recorte com só os números e os dois-pontos, no peso 500,
+   lido de 05-recursos/fontes e empacotado no build, como a Barlow — nunca baixado da internet. Só a
+   hora usa. A licença (OFL-GoogleSans.txt) fica ao lado do arquivo, e o próprio arquivo leva o aviso
+   dela nos metadados, que vão junto no build */
+@font-face { font-family: 'Google Sans'; font-style: normal; font-weight: 500; font-display: block; src: url('../../../../../05-recursos/fontes/GoogleSans-hora.woff') format('woff'); }
+
+/* os 30 de sempre (nada embaixo se move): o recuo de 26 e 32, das curvas da tela, e os glifos
+   3px abaixo do centro — o recheio de 6 em cima, com a medida por dentro */
 .ds-barra-sistema {
   position: relative; isolation: isolate;
   height: var(--barra-sistema); flex-shrink: 0;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 0 var(--e-14) 0 var(--barra-sistema-recuo);
+  padding: var(--barra-sistema-desce) var(--barra-sistema-recuo-direita) 0 var(--barra-sistema-recuo);
   background: var(--fundo-faixa);
 }
 .ds-barra-sistema-tira { background: var(--poco); }
@@ -17,9 +25,11 @@
 .ds-barra-sistema-veu-folha::before { opacity: 1; transition-duration: var(--mov-padrao); }
 .ds-barra-sistema-veu-dialogo::before { opacity: 1; }
 
-.ds-barra-sistema-hora { font-size: var(--t-corpo); font-weight: 500; letter-spacing: var(--ls-barra); color: var(--tinta); }
-.ds-barra-sistema-icones { display: flex; align-items: center; gap: var(--e-6); color: var(--tinta); }
-.ds-barra-sistema-icones svg { display: block; height: var(--barra-icone); }
-.ds-barra-sistema-sinal { width: var(--barra-sinal); }
-.ds-barra-sistema-bateria { width: var(--barra-bateria); margin-left: var(--e-2); }
-.ds-barra-sistema-casca { stroke-opacity: var(--barra-bateria-casca); }
+/* a hora: a fonte do sistema, nunca a do app (lei 22) · 13 é o --t-secundario */
+.ds-barra-sistema-hora { font-family: var(--fonte-sistema); font-size: var(--t-secundario); font-weight: 500; letter-spacing: 0; color: var(--tinta); }
+/* os ícones na cor do texto principal, cada um no tamanho do desenho (o do viewBox, por token), com 5 e 5,5 entre eles */
+.ds-barra-sistema-icones { display: flex; align-items: center; color: var(--tinta); }
+.ds-barra-sistema-icones svg { display: block; overflow: visible; }
+.ds-barra-sistema-sinal { width: var(--barra-sinal); height: var(--barra-sinal-altura); }
+.ds-barra-sistema-wifi { width: var(--barra-wifi); height: var(--barra-icone); stroke-width: var(--barra-wifi-traco); margin-left: var(--barra-sistema-espaco-wifi); }
+.ds-barra-sistema-bateria { width: var(--barra-bateria); height: var(--barra-icone); margin-left: var(--barra-sistema-espaco-bateria); }

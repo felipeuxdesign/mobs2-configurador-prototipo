@@ -21,4 +21,3 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `04-estado-versao-ilegivel`
 
 `14:30` · `M2C-0438` · `ONK-8Q90` · `ENCERRAR` · `Conferir configuração` · `a versão não pôde ser lida · conferido pelo conteúdo` · `NÃO BATE COM O CADASTRO` · `2` · `de 5` · `Ativo` · `tradução frota v2` · `Cercas` · `no módulo · 3 regiões` · `no cadastro · 4 regiões` · `Leitor` · `leitor sem fio` · `Eventos` · `no módulo · intervalo 60 s` · `no cadastro · intervalo 30 s` · `Conexão` · `rede do módulo atual` · `Corrigir as Cercas leva o Leitor e os Eventos junto.` · `Corrigir as 2 divergências` · `Outras ações`
-

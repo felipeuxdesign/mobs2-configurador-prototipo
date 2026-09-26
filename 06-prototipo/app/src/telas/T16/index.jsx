@@ -24,12 +24,13 @@
 //   fila (T16·5); o voltar não faz nada (T16·6).
 // · No print (EM_QUADRO), cada momento fica parado no quadro da referência;
 //   num estado da coluna, o quadro final, parado, sem relógio.
-// · O padrão da T16/02 (a resposta do arquiteto de 26/09), que afasta a tela das
-//   referências atuais até a auditoria redesenhá-las (desvio nomeado): o passo
-//   que não roda leva o 'não se aplica' da 02 (dados.js, passosAbortando); o
-//   subtítulo do cabeçalho é montado de um jeito só, a 4 do título, como a 06;
-//   o miolo tem o vão de 14 nas duas metades (t16.css); e a nota NÃO RODARAM é
-//   uma peça só, a nota tracejada da folha 4, com a frase de 12.
+// · O padrão da T16/02, como as referências da otimizacao300000000 desenham: o
+//   miolo tem o vão de 14 nas sete (t16.css); o subtítulo entra no bloco do
+//   título, a 4 dele, na 03 como na 06; a nota do que não rodou (04) é uma peça
+//   só, a nota tracejada com uma frase de 13 e sem o rótulo, equilibrada nas
+//   duas linhas; e o passo pulado da 03 leva o traço da folha 5 — o 'não se
+//   aplica' é só das assertivas do autoteste (02, 05), e o '—', do passo que
+//   ainda não chegou (00, 01).
 import { useEffect, useRef, useState } from 'react'
 import {
   BarraDoSistema, Faixa, CabecalhoConteudo, Encerramento, Lista, LinhaChecagem, Prova, Aviso, Nota, Rodape,
@@ -254,7 +255,7 @@ export default function T16({ momento, estado: est }) {
               divisoria={i < ultima} folgaFim={i === ultima ? 'assertiva' : false} />
           ))}
         </Lista>
-        <Nota tom="explica" titulo={T.naoRodaram} frase={T.oQueNaoRodou} />
+        <Nota tom="explica" corpo="pulado" frase={T.naoRodaram} />
       </>
     )
     rodape = <Rodape primario={T.voltarAoMenu} aoPrimario={voltarAoMenu} />

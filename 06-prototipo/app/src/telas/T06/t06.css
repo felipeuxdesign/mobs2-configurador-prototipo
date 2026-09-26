@@ -13,13 +13,12 @@
 /* a frase que diz o que fazer, embaixo da busca */
 .t06-instrucao { flex-shrink: 0; font-size: var(--t-link); font-weight: 500; line-height: var(--entrelinha-texto); color: var(--tinta-secundaria); }
 
-/* a lista do pacote não encolhe: o miolo rola. Os 16 até o rodapé são o recheio
- * do miolo (--respiro): a margem do último grupo saiu (a última entrega, a
- * proposta do protótipo que o arquiteto aceitou) — ela somava folga dupla, 32,
- * no fim da rolagem, e na rolagem 0 não muda nenhum pixel */
+/* a lista do pacote não encolhe: o miolo rola. O último grupo antes do rodapé
+ * não tem margem: os 16 até ele são o recheio do miolo (--respiro) — a margem
+ * somava folga dupla, 32, no fim da rolagem (MUDANCAS §4 da otimizacao300000000:
+ * T06/00, 02 e 07). A linha da correção de cadastro (02, 07) também vai sem ela */
 .t06-lista { flex-shrink: 0; }
 
-/* na confirmação, que não rola, o último bloco guarda 16 até o rodapé, como as
- * referências desenham: o par comparado cresce até ali (não é a folga dupla, e
- * tirar mudaria o desenho — medido) */
+/* na confirmação, o bloco que cresce até o rodapé e é o último (o par que bate,
+ * 01, e a trava, 04 a 06) guarda 16 até ele, como as referências desenham */
 .t06-antes-do-rodape { margin-bottom: var(--respiro); }

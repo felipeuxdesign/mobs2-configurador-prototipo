@@ -1,7 +1,7 @@
 /* tokens.css — a fonte única de todo valor visual do App Configurador.
  * Derivado do design system (referencias/design-system/). Valor solto fora deste
  * arquivo é dívida: a auditoria procura hex, px e rgba fora daqui.
- * Dark-only. Barlow empacotada no app (@fontsource), nunca do Google. */
+ * Dark-only. Barlow empacotada no app (os woff2 de 05-recursos/fontes), e a Google Sans recortada só na hora da barra de status (decisão 43) — nunca baixadas da internet. */
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -33,7 +33,7 @@
   --marca-limite:      #6E6683;   /* traço dos limites da faixa (3:1) */
   --marca:             #4E475E;   /* traço, poço vazio, ícone apagado */
   --marca-vazia:       #4A4166;   /* marcador de escolha vazio */
-  --borda-neutra:      #3A3350;   /* caixa neutra, moldura de estado estático */
+  --borda-neutra:      #3A3350;   /* caixa neutra */
 
   /* ── ação e veredito ────────────────────────────────── */
   --lima:              #AAEF00;   /* veredito, escolhido, texto do primário — nunca enfeite */
@@ -51,6 +51,7 @@
 
   /* ── tipo · Barlow 400 · 500 · 600 · 700 ────────────── */
   --fonte: 'Barlow', system-ui, sans-serif;
+  --fonte-sistema: 'Google Sans', sans-serif;  /* só a hora da barra de status, que é do Android · o recorte vai empacotado em 05-recursos/fontes, nunca baixado */
   --t-rotulo-bloco:    10px;  /* caixa alta · letra 1.5px */
   --t-rotulo-topo:     11px;  /* caixa alta · letra 1.4px */
   --t-legenda:         12px;  /* o piso de texto que informa */
@@ -132,7 +133,7 @@
   --ls-n-progresso:   -1px;
   --ls-n-destaque:    -1.6px;
   --ls-n-cronometro:  -2px;
-  --ls-barra:          0.1px;  /* a hora da barra do sistema */
+  --ls-barra:          0.1px;  /* a hora da barra do sistema · sem uso desde a decisão 43: a hora na Google Sans não tem letra a mais (0 nas 145) */
   --ls-identidade:     0.3px;  /* serial e placa na faixa de sessão */
   --ls-encerrar:       0.6px;  /* o ENCERRAR da faixa */
   --ls-marca:          1.2px;  /* o CONFIGURADOR do login */
@@ -185,12 +186,19 @@
   --marca-traco: 22px;               /* o comprimento de cada traço em volta do CONFIGURADOR, até a T01 de 25/09 · sem uso desde a otimização do design: os fios crescem até as bordas da marca (--marca-largura) */
   --marca-proporcao: 271 / 57;       /* a proporção do logo-mobs2.svg: a altura fica reservada antes do arquivo carregar · Marca */
 
-  /* ── a barra do sistema (o desenho do Android) ──────────────── */
-  --barra-sistema-recuo: 18px;       /* a hora da barra do Android, a 18 da borda esquerda (a direita é --e-14) · BarraDoSistema */
-  --barra-icone: 11px;               /* a altura dos três ícones do Android na barra: sinal, wi-fi e bateria · BarraDoSistema */
-  --barra-sinal: 15px;               /* a largura do sinal e do wi-fi na barra · BarraDoSistema */
-  --barra-bateria: 23px;             /* a largura da bateria na barra · BarraDoSistema */
-  --barra-bateria-casca: 0.45;       /* a opacidade do contorno e do polo da bateria, mais apagados que a carga · BarraDoSistema */
+  /* ── a barra do sistema (o desenho do Android atual · lei 22, decisão 43: a hora na --fonte-sistema, 13 do --t-secundario; a geometria de dentro dos ícones fica no SVG, e o tamanho de cada um e o traço do Wi-Fi são token) ── */
+  --barra-sistema-recuo: 26px;       /* a hora, a 26 da borda esquerda, recuada da curva da tela (decisão 43; era 18) · BarraDoSistema */
+  --barra-sistema-recuo-direita: 32px; /* a bateria, a 32 da borda direita, recuada da curva da tela (decisão 43; era o --e-14) · BarraDoSistema */
+  --barra-sistema-desce: 6px;        /* o recheio de cima que põe a hora e os ícones 3px abaixo do centro da barra, com os 30 mantidos (decisão 43) · BarraDoSistema */
+  --barra-sistema-espaco-wifi: 5px;  /* entre o sinal e o Wi-Fi (decisão 43) · BarraDoSistema */
+  --barra-sistema-espaco-bateria: 5.5px; /* entre o Wi-Fi e a bateria (decisão 43) · BarraDoSistema */
+  --barra-icone: 10.4px;             /* a altura do Wi-Fi e da bateria na barra (decisão 43; era 11, a dos três ícones da barra velha) · BarraDoSistema */
+  --barra-sinal: 14.7px;             /* a largura do sinal, as quatro cápsulas de 2,1 a cada 4,2 (decisão 43; era 15, a do sinal e do wi-fi velhos) · BarraDoSistema */
+  --barra-sinal-altura: 9.7px;       /* a altura do sinal, a da cápsula mais alta (decisão 43) · BarraDoSistema */
+  --barra-wifi: 12.8px;              /* a largura do Wi-Fi (decisão 43) · BarraDoSistema */
+  --barra-wifi-traco: 2.3;           /* o traço dos dois arcos do Wi-Fi, em unidades do desenho (decisão 43) · BarraDoSistema */
+  --barra-bateria: 20.4px;           /* a largura da bateria: o corpo de 18,3 e o pininho, separado (decisão 43; era 23) · BarraDoSistema */
+  --barra-bateria-casca: 0.45;       /* a opacidade do contorno e do polo da bateria, mais apagados que a carga · BarraDoSistema · sem uso desde a decisão 43: a bateria é cheia e branca */
 
   /* ── a conta ────────────────────────────────────────────────── */
   --avatar-tira: 32px;               /* o avatar da conta na tira de contexto · Avatar */

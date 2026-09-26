@@ -5,13 +5,18 @@ O painel das ferramentas: o que está pronto pra usar, o que espera o quê.
 | | |
 |---|---|
 | **Elemento-assinatura** | a grade de dez cartões em que cada ferramenta diz, no próprio cartão, o que falta pra ela funcionar |
-| **Chrome** | tira de contexto (unidade) + faixa de sessão · sem sessão, a faixa diz só o fato (01) |
+| **Chrome** | tira de contexto (unidade) + faixa de sessão quando há sessão |
 | **Semente no protótipo** | sessão M2C-0417 + RKT-8H42 · fila com 2 itens |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
 | **Momentos · estados** | 8 · 6 — ver `estados.md` |
 
+- no protótipo · a nossa versão da linha *Chrome*, antes desta entrega: | **Chrome** | tira de contexto (unidade) + faixa de sessão · sem sessão, a faixa diz só o fato (01) |
+
 ## O que se toca
 
+- o título *Menu* existe escondido em todas as telas do menu, pra leitura de tela
+  - no protótipo (a última entrega): o h1 *Menu* escondido não fica mais inerte atrás do véu — existe pro leitor com a folha ou o diálogo por cima ou não. Ele não se toca, e o que é tocável atrás do véu continua inerte. As referências das folhas (`05`, `07`, `08`, `10`, `11`, `14`) e os `textos.md` delas ainda não trazem o *Menu*, e a régua dos textos acusa *sobra* nas seis: desvio nomeado, pro arquiteto (a resposta de 26/09 diz que ele vale em todas); nos diálogos (`06`, `09`), que já o traziam, a régua agora confere
+- o diálogo do ENCERRAR, fora do menu, abre sobre a própria tela, e o `Continuar a instalação` deixa o técnico nela
 - o ENCERRAR antes de homologar abre o diálogo *Encerrar sem homologar?* · `Continuar a instalação` fecha e volta pra tela · `Encerrar sem homologar` → o encerramento sem homologar da T16 · depois de homologar, o ENCERRAR vai direto, sem diálogo
   - no protótipo (decisão 36, construída): o diálogo é o momento `13`, com endereço — a URL abre e fecha, e o `Continuar a instalação` volta ao quadro do menu (00, 01 ou 02). O véu cobre a tira e a faixa, como no aviso do acesso, e a caixa tem o ar de 24 que a `13` desenha; o menu inteiro fica atrás dele, inerte. O voltar faz o `Continuar a instalação`. Aberto pelo endereço, o aviso do acesso espera o diálogo fechar, como espera a folha. Depois de homologar, o ENCERRAR do menu vai direto pros passos do encerramento — antes, ele ia pra sessão abortada mesmo com o checklist homologado. A peça é uma só pra toda tela com a faixa (`app/src/estado/encerrar.jsx`, `06-prototipo/logica.md` · ENCERRAR): nas outras telas, o mesmo diálogo abre por cima da própria tela, sem endereço
 - o `Encerrar a sessão` das folhas do módulo e do ativo abre o mesmo diálogo, antes de homologar · as folhas de sair da conta e de trocar de unidade já são a confirmação delas, e avisam: *é encerrada antes, sem homologar* — nenhum caminho pergunta duas vezes
@@ -33,17 +38,16 @@ O painel das ferramentas: o que está pronto pra usar, o que espera o quê.
 - outra unidade na folha → com a sessão aberta, o diálogo de trocar (T04·4); sem ela, a sincronização da unidade escolhida. O Pátio Caruaru, com o pacote vencido, não se toca (T04·6), e diz só a causa, *pacote vencido há 8 dias*, como na T02 (a entrega do checklist)
 - as iniciais RV → folha Conta
 - `Sair da conta` → diálogo, se houver sessão ou fila; sem as duas, direto pro login, e o diálogo mostra só a frase que vale (T04·5)
+- com a sessão aberta, o cartão do módulo → folha Módulo conectado · o do ativo → folha Ativo da sessão · os dois ficam travados: a folha diz isso e oferece `Encerrar a sessão`
+  - no protótipo · a nossa versão desta linha, antes desta entrega: com a sessão aberta, o cartão do módulo → folha Módulo conectado (10) · o do ativo → folha Ativo da sessão (11) · os dois ficam travados (HU-T16-2): a folha diz isso e oferece `Encerrar a sessão`, que leva ao mesmo destino do `ENCERRAR` da faixa. Com o módulo sem ativo (02), o cartão do módulo já abre a folha dele. Substitui a T04·7 do C0, em que os dois cartões não se tocavam
+- cartão de ferramenta em espera é desabilitado de verdade: o toque não faz nada, e o motivo já está escrito nele
+  - no protótipo · a nossa versão desta linha, antes desta entrega: cartão de ferramenta em espera é desabilitado de verdade: o toque não faz nada, o motivo já está escrito nele, e pro leitor de tela ele é desabilitado (`logica.md` · Os cartões em espera)
 - o `Cancelar` dos dois diálogos volta à folha de onde ele nasceu (T04·8)
 - `Encerrar a sessão e sair` → login, com a fila preservada · `Encerrar a sessão e trocar` → a sincronização da unidade nova. Os dois passam pelo encerramento sem homologar da T16 quando ele existir (C11); até lá, seguem direto (G23)
   - **no protótipo** (desde o C11, e a decisão 36): a T16 existe, e o *até lá* ficou pra trás — os dois rodam os 4 passos da sessão abortada e só depois seguem pro destino (`06-prototipo/logica.md` · ENCERRAR). Eles já são a confirmação: não passam pelo *Encerrar sem homologar?*, e nenhum caminho pergunta duas vezes
 - com a folha ou o diálogo aberto, o menu não se toca — nem o que fica atrás do véu, nem a tira, que fica acesa em cima dele. Nas folhas do módulo e do ativo, o véu começa embaixo da faixa, e a faixa também fica acesa, sem se tocar. No aviso do acesso, o véu começa embaixo da barra do sistema, e a tira e a faixa ficam atrás dele (12)
 - a folha fecha pelo X, tocando no véu, fora dela, e pelo voltar do sistema (no computador, o Esc); o diálogo, pelo `Cancelar` e pelo voltar, que faz o mesmo que ele (`logica.md` · O voltar do Android); o aviso do acesso, pelo `Entendi` e pelo voltar. No menu, sem folha nem diálogo, o voltar não faz nada: ele não tem saída desenhada (`08-produto-real/pendencias.md`)
   - no protótipo (lei 20, a última entrega): toda folha do menu também fecha arrastando pra baixo — o painel acompanha o dedo e, soltando depois de 56, fecha; antes, volta. O arraste que começa numa linha tocável não toca nela: a unidade não troca, o `Encerrar a sessão` não encerra, o `Sair da conta` não abre o diálogo. O toque fora agora é da peça, e o diálogo não fecha no toque fora (`06-prototipo/logica.md` · A folha que fecha)
-- com a sessão aberta, o cartão do módulo → folha Módulo conectado (10) · o do ativo → folha Ativo da sessão (11) · os dois ficam travados (HU-T16-2): a folha diz isso e oferece `Encerrar a sessão`, que leva ao mesmo destino do `ENCERRAR` da faixa. Com o módulo sem ativo (02), o cartão do módulo já abre a folha dele. Substitui a T04·7 do C0, em que os dois cartões não se tocavam
-- cartão de ferramenta em espera é desabilitado de verdade: o toque não faz nada, o motivo já está escrito nele, e pro leitor de tela ele é desabilitado (`logica.md` · Os cartões em espera)
-- o título *Menu* existe escondido em todas as telas do menu, pra leitura de tela
-  - no protótipo (a última entrega): o h1 *Menu* escondido não fica mais inerte atrás do véu — existe pro leitor com a folha ou o diálogo por cima ou não. Ele não se toca, e o que é tocável atrás do véu continua inerte. As referências das folhas (`05`, `07`, `08`, `10`, `11`, `14`) e os `textos.md` delas ainda não trazem o *Menu*, e a régua dos textos acusa *sobra* nas seis: desvio nomeado, pro arquiteto (a resposta de 26/09 diz que ele vale em todas); nos diálogos (`06`, `09`), que já o traziam, a régua agora confere
-- o diálogo do ENCERRAR, fora do menu, abre sobre a própria tela, e o `Continuar a instalação` deixa o técnico nela
 
 ## Peças do design system que esta tela usa
 

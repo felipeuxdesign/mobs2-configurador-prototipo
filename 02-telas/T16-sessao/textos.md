@@ -20,7 +20,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `04-momento-encerrada-sem-homologar`
 
-`14:30` · `Sem sessão de configuração` · `Sessão encerrada` · `SEM HOMOLOGAR` · `A instalação continua aberta. O que foi gravado fica no módulo.` · `Repouso do módulo` · `restaurado` · `Canal de programação` · `fechado` · `Registro da sessão` · `na fila` · `Desconexão` · `feita` · `NÃO RODARAM` · `Contadores, reinício, releitura e o autoteste.` · `Voltar ao menu`
+`14:30` · `Sem sessão de configuração` · `Sessão encerrada` · `SEM HOMOLOGAR` · `A instalação continua aberta. O que foi gravado fica no módulo.` · `Repouso do módulo` · `restaurado` · `Canal de programação` · `fechado` · `Registro da sessão` · `na fila` · `Desconexão` · `feita` · `Não rodaram: contadores, reinício, releitura e o autoteste.` · `Voltar ao menu`
 
 ## `05-estado-assertiva-falhando`
 

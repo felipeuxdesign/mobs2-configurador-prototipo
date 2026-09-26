@@ -2,11 +2,20 @@
  * (08-produto-real/norma-e-ilustracao.md): os tokens do app não mudam por ele.
  * Apoiados nos tokens do app sempre que o valor já existe lá. */
 :root {
-  --palco-moldura: var(--e-8);                                 /* 8 de moldura, com a borda: 376 × 816 */
+  /* a moldura é um celular atual, sem marca (decisão 43, palco.md), em tamanho real: o metal em volta do aro preto,
+     os dois fios de 1 por sombra (não somam no tamanho), e nada mais — sem câmera, botão, sombra nem reflexo */
+  --palco-metal: 3px;                                          /* o metal, em volta do aro */
+  --palco-aro: var(--e-10);                                    /* o aro preto, igual nos quatro lados */
+  --palco-moldura: calc(var(--palco-metal) + var(--palco-aro)); /* 13 de cada lado: 386 × 826 por fora */
   --palco-celular-largura: calc(var(--tela-largura) + 2 * var(--palco-moldura));
   --palco-celular-altura: calc(var(--tela-altura) + 2 * var(--palco-moldura));
-  --palco-raio-fora: 34px;
-  --palco-raio-tela: 26px;
+  --palco-raio-fora: 57px;                                     /* o canto por fora do metal */
+  --palco-raio-tela: calc(var(--palco-raio-fora) - var(--palco-moldura)); /* 44 na tela: concêntrico com o de fora */
+  --palco-metal-cor: rgb(60 60 67);                            /* #3C3C43 */
+  --palco-aro-cor: rgb(5 5 7);                                 /* #050507 */
+  --palco-fio: var(--traco-borda);                             /* os dois fios têm 1 */
+  --palco-fio-fora: rgb(23 23 27);                             /* #17171B, por fora do metal */
+  --palco-fio-dentro: rgb(255 255 255 / 0.04);                 /* por dentro do metal, sobre o aro */
   --palco-quadrado: var(--poco-44);                             /* 44 × 44 (palco.md) */
   --palco-coluna: 230px;
   --palco-coluna-distancia: var(--e-40);
@@ -25,6 +34,6 @@
   --palco-estreito: 900px;                                     /* abaixo disso, o modo estreito */
   --palco-rolagem: 6px;                                        /* a barra de rolagem do palco (o painel e a coluna): fina, nas cores do palco (diretor, 24/09) */
   --palco-rolagem-cor: var(--borda-neutra);                    /* a cor dela, sem trilho claro */
-  --palco-topo-coluna: var(--poco-34);
-  --palco-barra-no-celular: 0px;                               /* no celular de verdade, a barra do Android desenhada some: a do aparelho já está lá (diretor, 25/09) */                         /* o lugar fixo do topo da coluna: a frase do fluxo ou o Voltar ao fluxo (decisão 30) */
+  --palco-topo-coluna: var(--poco-34);                         /* o lugar fixo do topo da coluna: a frase do fluxo ou o Voltar ao fluxo (decisão 30) */
+  --palco-barra-no-celular: 0px;                               /* no celular de verdade, a barra do Android desenhada some: a do aparelho já está lá (diretor, 25/09) */
 }

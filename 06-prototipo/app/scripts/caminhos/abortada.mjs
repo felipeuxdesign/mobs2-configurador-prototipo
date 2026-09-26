@@ -60,6 +60,10 @@ const OS_QUATRO_PASSOS = [
   { ve: 'Encerrando · não desconecte' },
   { ve: 'A saída volta quando o módulo desconectar' },
   { ve: 'pulado' },
+  // o pulado não é o não se aplica (otimizacao300000000 · MUDANCAS §3, decisão 5 da junção): o traço dele
+  // fica mudo pro leitor, e a situação ao lado diz 'pulado'; os outros glifos continuam com nome
+  { naoOuve: 'não se aplica' },
+  { ouve: 'o passo que corre' },
   // o segundo dos quatro, com a legenda dele
   { ve: 'Fecha o canal que o app abriu no módulo. Ele fecha sempre, mesmo sem homologar.', entre: [0, 1000] },
   { fica: 'T16', ms: 300 },
@@ -76,8 +80,9 @@ const OS_QUATRO_PASSOS = [
   { ve: 'fechado' },
   { ve: 'na fila' },
   { ve: 'feita' },
-  { ve: 'NÃO RODARAM' },
-  { ve: 'Contadores, reinício, releitura e o autoteste.' },
+  // o que não rodou é uma frase só, sem o rótulo em caixa alta (otimizacao300000000 · T16/04)
+  { ve: 'Não rodaram: contadores, reinício, releitura e o autoteste.' },
+  { naoVe: 'NÃO RODARAM' },
   { toca: 'Voltar ao menu' },
   { chega: 'T04', momento: '01-momento-sem-modulo' },
   { ve: 'Sem sessão de configuração' },

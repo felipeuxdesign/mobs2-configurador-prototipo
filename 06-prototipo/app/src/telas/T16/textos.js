@@ -86,8 +86,8 @@ export const T = {
   // a sessão encerrada sem homologar
   semHomologarRotulo: 'SEM HOMOLOGAR',
   continuaAberta: 'A instalação continua aberta. O que foi gravado fica no módulo.',
-  naoRodaram: 'NÃO RODARAM',
-  oQueNaoRodou: 'Contadores, reinício, releitura e o autoteste.',
+  // a nota do que não rodou é uma frase só, sem o rótulo em caixa alta (otimizacao300000000 · T16/04)
+  naoRodaram: 'Não rodaram: contadores, reinício, releitura e o autoteste.',
 
   // a sessão interrompida
   iniciada: (placa, serial, quando, hora) => `${placa} · ${serial} · iniciada ${quando} às ${hora}`,

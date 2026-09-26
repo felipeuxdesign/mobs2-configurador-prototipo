@@ -12,6 +12,14 @@ Entrar no app com usuário e senha, e recuperar o acesso sem ligar pra ninguém.
 
 ## O que se toca
 
+- depois dos 3 envios da hora, a linha do reenvio diz *Os 3 envios desta hora acabaram · libera às 15:12* · o código já enviado segue valendo
+  - no protótipo (a última entrega, construída): o 3 é o teto da hora (`limites.tetoPorHora`) e o 15:12, a hora em que libera do caso `teto-de-envios` — o relógio do produto está congelado em 14:30, e o fluxo não tem outra hora de onde ler: a do caso vale também no fluxo (padrão, pro arquiteto). No fluxo, o teto chega pelo reenvio da 12 ou da 13 — o terceiro envio da hora: quando os 60 s do *este foi o último envio desta hora* zeram, a linha passa a dizer o teto. E pedir o código de novo no teto — `Voltar ao login` → `Esqueci a senha` → `Enviar o código` — não envia nada: volta o código que já foi, que segue valendo, com os dígitos do mock, como a 17 desenha, o prazo de onde estava, pro contato a que ele foi, e *Mandamos para* (`regras.js` · `depoisDoEnviar`). No canal, sem envio na hora, o lado do *resta N envio* fica vazio, como antes (G25). O mesmo teto na linha vale no código expirado e nas tentativas esgotadas, onde o `Enviar outro código` fica apagado (padrão, pro arquiteto: nenhuma referência desenha os dois no teto). A folha, no teto, segue com a contagem em 0:00 e as saídas em espera, sem texto pro teto (G25). A 17 abre pela coluna com os envios do caso, parada: o prazo em 10:00 (o relógio), contra o 9:41 da referência, a foto de um instante — 0,51% contra o HTML, só o número, como a 03
+- no canal e-mail, a folha *Não recebi o código* inverte: conferir o e-mail, e trocar pro celular
+  - no protótipo (a última entrega): a primeira linha é o `Conferir e reenviar` com o e-mail, e reenvia pro e-mail (*Mandamos outro para r•••••@atlsul.com.br*). A segunda — trocar pro celular — não tem texto no `textos.md` (nenhuma referência desenha a folha do e-mail), e fica fora até ele chegar: o cartão tem uma linha só no canal e-mail (pendência, pro arquiteto: o título da linha, que seria o par de *Mandar para o e-mail*)
+- entrar com outro usuário abre o diálogo *Outra sessão neste aparelho* sobre as unidades: a sessão do anterior foi encerrada, e a fila dele continua subindo
+  - no protótipo (a última entrega, construída): a sessão anterior é a do último `Entrar` que entrou neste aparelho desde o começo do palco (`situacao.jaEntrou` e o técnico do estado único) — o palco começa sem nenhuma, e o primeiro `Entrar` nunca abre o diálogo. O login deixa entrar com o m.souza pela regra de sempre — qualquer senha com 8 ou mais (`minimoEntrar`) —, sem credencial nova: o roteiro digita a mesma senha dos outros roteiros. Saindo da conta com o r.vieira e entrando com o m.souza, a T02 abre com o diálogo: *A sessão de r.vieira foi encerrada. A fila dele continua subindo: 3 itens.* — os itens da fila que esperam, a mesma conta do diálogo de sair do menu (T04/06), que é a do caso (3). O `Entendi` fecha, e o voltar do sistema também, como no aviso do acesso. Quem entrou passa a ser o técnico: o m.souza é *Marcos Souza*, o nome do caso, na folha Conta do menu; o mesmo usuário de novo não abre o diálogo; e o r.vieira, de volta, vê o diálogo com o m.souza. O mock só conhece os dois: outro identificador entra com o nome do herói, como o protótipo sempre fez (padrão, pro arquiteto — a alternativa é o login recusar o usuário que o mock não conhece, com a mesma mensagem da 01). No singular, *1 item* (a resposta do arquiteto de 26/09). O diálogo mora na T02 (`02-telas/T02-selecionar-contexto/tela.md`); a 18 abre pela coluna, com a T02 montada pelo caso `outro-usuario`, parada e sem toque — 0% contra o HTML. Provado no node (`testar-login.mjs`) e no roteiro `outro-usuario.mjs`
+- os tempos das referências da recuperação — 9:41, 0:44, 9:28 — são fotos de um instante: o protótipo segue o relógio
+  - no protótipo: o 03, o 04, o 05 e a 17 abrem com o prazo e o reenvio cheios (10:00, 60 s), e a diferença contra o HTML é só o número (a 03 e a 17 em 0,51%, a régua dos textos acusa o número nas quatro) — o arquiteto confirmou que vale o relógio
 - o `Entrar` diz o que falta enquanto o técnico apaga e digita: *Digite o usuário* → *Digite a senha* → `Entrar` · o foco vai pro primeiro campo vazio
 - o usuário lembrado tem o xis dentro do campo · tocar nele limpa o campo e esquece o usuário lembrado; a caixa fica como o técnico deixou
 
@@ -42,25 +50,20 @@ Entrar no app com usuário e senha, e recuperar o acesso sem ligar pra ninguém.
 - `Confirmar` fica desabilitado enquanto o código não tem os seis dígitos (T01·6) — também na 12 e na 13, que o desenham aceso
   - no protótipo (a última entrega): a 12 e a 13 agora o desenham apagado, com as células vazias, dizendo *Digite o código* — o primário diz o que falta, como o `Entrar`. Com o código incompleto, *Digite o código*, apagado e desabilitado de verdade (a lei 17); com os seis dígitos, `Confirmar`. A 12 e a 13 foram de 0,15% a 0% contra o HTML novo
 - **o login sem conexão** (a entrega do mundo real): a rede é a do aparelho, a `situacao.rede` do estado único, que o mock abre conectada — no fluxo, o `Entrar` segue a regra da senha, como antes. A 14 abre pela coluna, montada pelo caso `sem-conexao-no-login` (`rede: false`), parada e sem toque: o toque do `Entrar` ali — o aviso, os campos que ficam, o tentar de novo e a entrada com a rede de volta — é `depoisDoEntrar`, em `06-prototipo/app/src/telas/T01/regras.js`, provado no node por `app/scripts/testar-login-e-bluetooth.mjs`. Nenhum gatilho do mock tira a rede no fluxo (pendência). O aviso é o neutro com o traço cinza embaixo, no lugar do erro da 01
-- depois dos 3 envios da hora, a linha do reenvio diz *Os 3 envios desta hora acabaram · libera às 15:12* · o código já enviado segue valendo
-  - no protótipo (a última entrega, construída): o 3 é o teto da hora (`limites.tetoPorHora`) e o 15:12, a hora em que libera do caso `teto-de-envios` — o relógio do produto está congelado em 14:30, e o fluxo não tem outra hora de onde ler: a do caso vale também no fluxo (padrão, pro arquiteto). No fluxo, o teto chega pelo reenvio da 12 ou da 13 — o terceiro envio da hora: quando os 60 s do *este foi o último envio desta hora* zeram, a linha passa a dizer o teto. E pedir o código de novo no teto — `Voltar ao login` → `Esqueci a senha` → `Enviar o código` — não envia nada: volta o código que já foi, que segue valendo, com os dígitos do mock, como a 17 desenha, o prazo de onde estava, pro contato a que ele foi, e *Mandamos para* (`regras.js` · `depoisDoEnviar`). No canal, sem envio na hora, o lado do *resta N envio* fica vazio, como antes (G25). O mesmo teto na linha vale no código expirado e nas tentativas esgotadas, onde o `Enviar outro código` fica apagado (padrão, pro arquiteto: nenhuma referência desenha os dois no teto). A folha, no teto, segue com a contagem em 0:00 e as saídas em espera, sem texto pro teto (G25). A 17 abre pela coluna com os envios do caso, parada: o prazo em 10:00 (o relógio), contra o 9:41 da referência, a foto de um instante — 0,51% contra o HTML, só o número, como a 03
-- no canal e-mail, a folha *Não recebi o código* inverte: conferir o e-mail, e trocar pro celular
-  - no protótipo (a última entrega): a primeira linha é o `Conferir e reenviar` com o e-mail, e reenvia pro e-mail (*Mandamos outro para r•••••@atlsul.com.br*). A segunda — trocar pro celular — não tem texto no `textos.md` (nenhuma referência desenha a folha do e-mail), e fica fora até ele chegar: o cartão tem uma linha só no canal e-mail (pendência, pro arquiteto: o título da linha, que seria o par de *Mandar para o e-mail*)
-- entrar com outro usuário abre o diálogo *Outra sessão neste aparelho* sobre as unidades: a sessão do anterior foi encerrada, e a fila dele continua subindo
-  - no protótipo (a última entrega, construída): a sessão anterior é a do último `Entrar` que entrou neste aparelho desde o começo do palco (`situacao.jaEntrou` e o técnico do estado único) — o palco começa sem nenhuma, e o primeiro `Entrar` nunca abre o diálogo. O login deixa entrar com o m.souza pela regra de sempre — qualquer senha com 8 ou mais (`minimoEntrar`) —, sem credencial nova: o roteiro digita a mesma senha dos outros roteiros. Saindo da conta com o r.vieira e entrando com o m.souza, a T02 abre com o diálogo: *A sessão de r.vieira foi encerrada. A fila dele continua subindo: 3 itens.* — os itens da fila que esperam, a mesma conta do diálogo de sair do menu (T04/06), que é a do caso (3). O `Entendi` fecha, e o voltar do sistema também, como no aviso do acesso. Quem entrou passa a ser o técnico: o m.souza é *Marcos Souza*, o nome do caso, na folha Conta do menu; o mesmo usuário de novo não abre o diálogo; e o r.vieira, de volta, vê o diálogo com o m.souza. O mock só conhece os dois: outro identificador entra com o nome do herói, como o protótipo sempre fez (padrão, pro arquiteto — a alternativa é o login recusar o usuário que o mock não conhece, com a mesma mensagem da 01). No singular, *1 item* (a resposta do arquiteto de 26/09). O diálogo mora na T02 (`02-telas/T02-selecionar-contexto/tela.md`); a 18 abre pela coluna, com a T02 montada pelo caso `outro-usuario`, parada e sem toque — 0% contra o HTML. Provado no node (`testar-login.mjs`) e no roteiro `outro-usuario.mjs`
-- os tempos das referências da recuperação — 9:41, 0:44, 9:28 — são fotos de um instante: o protótipo segue o relógio
-  - no protótipo: o 03, o 04, o 05 e a 17 abrem com o prazo e o reenvio cheios (10:00, 60 s), e a diferença contra o HTML é só o número (a 03 e a 17 em 0,51%, a régua dos textos acusa o número nas quatro) — o arquiteto confirmou que vale o relógio
 
 ## Peças do design system que esta tela usa
 
 Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe.
 
+- barra do sistema sem sessão
+- uma ação
 - folha
 - diálogo
 - diálogo sem saída
 - diálogo com ciência
 - folha com opções
 - barra do sistema sob o véu
+- escolha numa lista
 - linha do histórico
 - linha de garagem
 - linha de garagem · a atual
@@ -70,6 +73,7 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - campo
 - campo focado
 - senha visível
+- usuário lembrado
 - requisitos da senha
 - código · seis células
 - código errado

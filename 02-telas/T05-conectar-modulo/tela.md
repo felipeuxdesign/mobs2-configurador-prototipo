@@ -6,9 +6,11 @@ Achar o módulo, conectar e conferir, antes de qualquer gravação, se ele pode 
 |---|---|
 | **Elemento-assinatura** | a pré-checagem acendendo as onze linhas em ordem — é aqui que a sessão nasce, e a faixa desce |
 | **Chrome** | sem faixa até a pré-checagem aprovar |
-| **Semente no protótipo** | cinco módulos por perto (`situacao.porPerto` do mock: o do herói e outros quatro) · M2C-0417, o do herói, vem escolhido |
+| **Semente no protótipo** | quatro módulos por perto · M2C-0417 é o do herói |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
 | **Momentos · estados** | 4 · 13 — ver `estados.md` |
+
+- no protótipo · a nossa versão da linha *Semente no protótipo*, antes desta entrega: | **Semente no protótipo** | cinco módulos por perto (`situacao.porPerto` do mock: o do herói e outros quatro) · M2C-0417, o do herói, vem escolhido |
 
 ## O que se toca
 
@@ -22,16 +24,19 @@ Achar o módulo, conectar e conferir, antes de qualquer gravação, se ele pode 
 - no protótipo, a resposta do Android vem do caso (a entrega do mundo real): o `bluetooth-desligado` não traz recusa, e o `Ligar o Bluetooth` leva à busca de novo — o quadro da 00 e a lista sem nada escolhido (01), como o `Procurar de novo`. No `bluetooth-sem-permissao`, a resposta é *negada*: negada de novo, o Android não deixa o app perguntar mais, e o primário vira `Abrir as configurações`, no mesmo bloco (a letra é a da T10/11; nenhuma referência da T05 desenha o botão virado). `Abrir as configurações` leva às configurações do Android, que o protótipo não desenha: o técnico volta com a permissão dada, e a busca começa (01) · nunca um botão que não faz nada (a lei de construir, 12)
 - a 16 e a 17 abrem pela coluna, paradas e sem toque: nenhum gatilho do mock desliga o Bluetooth ou nega a permissão no fluxo (pendência). O toque do primário de cada uma é o de `06-prototipo/app/src/telas/T05/celular.js`, provado no node por `app/scripts/testar-login-e-bluetooth.mjs` · o bloco é o do nenhum encontrado (03), com o poço de 44 e o Bluetooth riscado — o ícone inteiro, com o risco por cima e o fio escuro (lei 21, a última entrega) — no lugar da marca tracejada, e sem a legenda embaixo: ele desce até o rodapé
 - a busca corre sozinha → a lista de módulos por perto. No protótipo, ao abrir, ela acha na hora; a busca de novo mostra o quadro da 00 por 1,2 s, o ritmo do arquiteto (acima)
+- tocar num módulo → escolhido → `Conectar ao M2C-0417`
+  - no protótipo · a nossa versão desta linha, antes desta entrega: tocar num módulo da lista **só o marca** (o quadrado lima surge no poço) e acende `Conectar ao M2C-0417`, com o serial do marcado; tocar em outro troca a marca · é o primário que conecta (R-14, decisão do diretor, 24/09) · o não cadastrado não se toca · na 00, o ESCOLHIDO é a marca: tocar num dos outros por perto troca o escolhido no lugar, e o primário passa a dizer o serial dele — também não conecta
 - pelo menu, a tela abre na lista sem nada escolhido (01), com o primário apagado · `Procurar de novo` → a busca de novo: o quadro da 00, e a lista sem nada escolhido (01) · a 00, com o do herói escolhido, abre pelo endereço, como o quadro da referência
-- tocar num módulo da lista **só o marca** (o quadrado lima surge no poço) e acende `Conectar ao M2C-0417`, com o serial do marcado; tocar em outro troca a marca · é o primário que conecta (R-14, decisão do diretor, 24/09) · o não cadastrado não se toca · na 00, o ESCOLHIDO é a marca: tocar num dos outros por perto troca o escolhido no lugar, e o primário passa a dizer o serial dele — também não conecta
 - conectado → a pré-checagem corre sozinha, uma linha a cada 600ms. O cadastro decide o que reprova: o serial fora do cadastro, o modelo sem driver, o firmware fora da matriz, a variante sem CAN, o conteúdo que não cabe
-- pré-checagem aprovada → a sessão nasce, com o meio em que a busca achou o módulo, e a faixa de sessão desce → `Selecionar ativo` (T06) · `Voltar ao menu` (T04)
-- numa falha: a ação do aviso (C7)
-  - `Procurar outro módulo` (06, 07, 08, 09, 11, 12, 14, 15) → a busca de novo: o quadro da 00, e a lista sem nada escolhido (01)
-  - `Atualizar firmware` (08) → a atualização (10)
-  - `Gravar a conexão` (09) → com a conexão gravada, o módulo tem rede, e a saída passa a ser a da 08, `Atualizar firmware`. O quadro de gravando não tem referência: a troca é direta
-  - `Reconectar` (14) e `Acordar módulo` (15) → a pré-checagem segue da checagem em que parou, com as de antes preservadas (HU-T05-9)
-  - `Tentar de novo` (04) → conecta de novo, e a pré-checagem corre · `Procurar de novo` (03, 04) → a busca de novo (01) · `Voltar ao menu` (03) → T04
+- pré-checagem aprovada → a faixa de sessão desce → T06
+  - no protótipo · a nossa versão desta linha, antes desta entrega: pré-checagem aprovada → a sessão nasce, com o meio em que a busca achou o módulo, e a faixa de sessão desce → `Selecionar ativo` (T06) · `Voltar ao menu` (T04)
+- numa falha: a ação do aviso (`Procurar outro módulo`, `Atualizar firmware`, `Reconectar`...)
+  - no protótipo · a nossa versão desta linha, antes desta entrega: numa falha: a ação do aviso (C7)
+    - `Procurar outro módulo` (06, 07, 08, 09, 11, 12, 14, 15) → a busca de novo: o quadro da 00, e a lista sem nada escolhido (01)
+    - `Atualizar firmware` (08) → a atualização (10)
+    - `Gravar a conexão` (09) → com a conexão gravada, o módulo tem rede, e a saída passa a ser a da 08, `Atualizar firmware`. O quadro de gravando não tem referência: a troca é direta
+    - `Reconectar` (14) e `Acordar módulo` (15) → a pré-checagem segue da checagem em que parou, com as de antes preservadas (HU-T05-9)
+    - `Tentar de novo` (04) → conecta de novo, e a pré-checagem corre · `Procurar de novo` (03, 04) → a busca de novo (01) · `Voltar ao menu` (03) → T04
 - as portas naturais (G28, R-11): marcar na lista um módulo que é caso do mock e tocar em `Conectar ao …` leva a pré-checagem ao estado dele. O M2C-0362 fecha o canal da sessão anterior e mostra as pendências (13), o M2C-0394 não comporta o conteúdo (11), e o M2C-0335 dorme na nona (15). O M2C-0999 não se toca, como a referência desenha. Os estados sem linha tocável na lista (03, 04, 06, 07, 08, 09, 12, 14) abrem pela coluna do palco
 - o que acontece uma vez vale uma vez por sessão (G21): a falha ao conectar, o link que cai, o módulo que dorme, o canal antigo que o app fecha e o módulo sem rede até a conexão gravar. O que é fato do cadastro vale toda vez
 - `Atualizar firmware` → a linha do firmware corre com a porcentagem gravada, e as seguintes esperam; ao terminar, a pré-checagem recomeça. No protótipo, a atualização fica no quadro da referência (62%) até o ritmo dela ser declarado

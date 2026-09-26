@@ -29,6 +29,7 @@ Cada lei tem o porquê. Uma lei sem motivo vira gosto, e gosto se discute; lei c
 | 19 | **Rodapé: um botão e um link.** Ação a mais vai pra uma folha | três ações empilhadas quebram a gramática de todas as outras telas |
 | 20 | **Folha de opções fecha no xis; folha de confirmação, no Cancelar.** Toda folha também fecha tocando fora, arrastando pra baixo e no voltar do Android | numa confirmação, o *não* fica junto do *sim*, embaixo do polegar — é o padrão do Material |
 | 21 | **Ícone riscado é o ícone inteiro, com o risco por cima** e um fio escuro separando — nunca a versão *-off* da biblioteca | a versão da biblioteca redesenha o ícone em pedaços, e o técnico precisa reconhecer um desenho novo |
+| 22 | **A barra de status é do sistema.** A hora na Google Sans e os ícones segmentados do Android atual, recuados das curvas · nunca na fonte do app | com a hora na fonte do app, a barra parecia parte da tela, e o celular não se separava do app |
 
 ## Leis de medida
 

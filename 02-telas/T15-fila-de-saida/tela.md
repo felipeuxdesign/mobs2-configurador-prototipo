@@ -5,25 +5,30 @@ Ver o que ainda vai subir pro servidor, e o que precisa do técnico.
 | | |
 |---|---|
 | **Elemento-assinatura** | cada item com causa e ação — nada fica tentando sozinho em silêncio |
-| **Chrome** | a faixa da sessão aberta ou a faixa sem sessão, conforme a sessão — toda referência tem faixa (T15-A16) |
-| **Semente no protótipo** | a seleção f-10, f-02 e f-08 (G21): dois itens esperando envio, um deles com erro, e uma recebida — a fila inteira da Ibura, com a faixa da sessão do herói (T15-A2) |
+| **Chrome** | sem faixa ou com, conforme a sessão |
+| **Semente no protótipo** | fila com dois itens · um com erro |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
 | **Momentos · estados** | 0 · 4 — ver `estados.md` |
 
+- no protótipo · a nossa versão da linha *Semente no protótipo*, antes desta entrega: | **Semente no protótipo** | a seleção f-10, f-02 e f-08 (G21): dois itens esperando envio, um deles com erro, e uma recebida — a fila inteira da Ibura, com a faixa da sessão do herói (T15-A2) |
+
+- no protótipo · a nossa versão da linha *Chrome*, antes desta entrega: | **Chrome** | a faixa da sessão aberta ou a faixa sem sessão, conforme a sessão — toda referência tem faixa (T15-A16) |
+
 ## O que se toca
 
-- `Ressincronizar e reenviar` no item com erro → os itens com erro voltam pra fila, e o envio recomeça (a entrega do design de 25/09; antes era só o pressionado, G25)
-  - **no protótipo**, só o que as referências e o mock sustentam (G25): o cartão que pede ação sai, porque nada mais precisa do técnico, e os itens entram na lista como *na fila*, com a espera de `criadoAs` às 14:30 — na semente, *Evidências · KJC-7N23 · na fila · há 145 min*, embaixo de *NA FILA E RECEBIDAS*, com a lista logo abaixo do cabeçalho. Nenhum vira o *SUBINDO AGORA*: o progresso e o tamanho só existem no f-04 do mock. O contador não muda (conta os mostrados). No menu, o diálogo *Sair da conta* passa a contar o item na fila, de 3 pra 4; o cartão da Fila de saída não muda, porque o erro já contava como pendente (T04·1, `estado/fila.js`). Sair da tela não desfaz (HU-T15-2); o C12 dá o movimento
-- a notificação local da fila parada diz *Envio parado · 3 itens esperando há 30 min* — os 30 min são padrão até o PM definir o limite
-  - **no protótipo, não se constrói:** nenhuma referência desenha a notificação (é do sistema, fora da tela), e o texto não está no `textos.md` (G25). Fica com o arquiteto: onde ela aparece e como se desenha
-- `Voltar ao menu` → T04. O voltar do Android (o Esc, no computador) faz o mesmo (`logica.md`)
-- `ENCERRAR` → antes de homologar, a sessão abortada (T16/03, G23); depois, os passos do encerramento (T16)
-  - **no protótipo** (decisão 36): antes de homologar, o ENCERRAR abre o diálogo *Encerrar sem homologar?* por cima desta tela, e o `Continuar a instalação` deixa o técnico nela — a resposta do arquiteto de 26/09 · o `Encerrar sem homologar` roda os 4 passos da T16
-- nada anda sozinho: o envio da fila não tem ritmo declarado (G4), e o `01` é estado, parado. A barra que enche e o item que esmaece são do C12
 - a fila é **do aparelho**, não da unidade — a HU-T01-4 diz que a fila de outro usuário continua subindo: o rótulo é *neste aparelho* · as referências mostram o topo da lista; o protótipo mostra a fila do mock inteira
   - **no protótipo** (a última entrega, decisão 42): o rótulo é *neste aparelho* nas cinco. No fluxo, a fila é a seleção da semente mais **tudo** o que a sessão criou, de qualquer unidade — o filtro pela unidade ativa saiu. Em cada estado, o recorte do caso aparece inteiro: no `01`, os cinco itens de `fila-sem-erro`, com a *Calibração · PCX-9A17 · recebida · ontem 16:40* embaixo da *Evidências · RKT-8H42*, onde a referência corta; o cartão do topo continua crescendo até o espaço livre, e fica 50 mais baixo que o da referência (desvio nomeado, 4,83% do HTML)
   - **a fila do mock inteira no fluxo** — os dez de `filaSaida` no lugar da seleção da semente — não se constrói: com o f-09 e o f-10 juntos, o cartão do topo vira o das *DUAS COM ERRO*, e nenhuma referência desenha onde fica o f-04, que sobe enquanto os dois erros esperam; a `00` deixaria de valer inteira (o contador 10 contra 3). Padrão do protótipo, pro arquiteto: *a fila do mock inteira* é o recorte inteiro de cada quadro
   - **a data do RSW-9L02** (a resposta do arquiteto de 26/09): o recebido de mais de um dia diz o dia e a hora, do `data` do mock — *10/03, 10:05*, o f-08, de 2 dias. A `02` ainda diz *ontem 10:05* pro mesmo f-08, no `textos.md` e no desenho: desvio nomeado (0,06% do HTML), até a referência seguir a `00`
+- `Ressincronizar e reenviar` → os itens com erro voltam pra fila, e o envio recomeça
+- a notificação local da fila parada diz *Envio parado · 3 itens esperando há 30 min* — os 30 min são padrão até o PM definir o limite
+  - **no protótipo, não se constrói:** nenhuma referência desenha a notificação (é do sistema, fora da tela), e o texto não está no `textos.md` (G25). Fica com o arquiteto: onde ela aparece e como se desenha
+- `Ressincronizar e reenviar` no item com erro → os itens com erro voltam pra fila, e o envio recomeça (a entrega do design de 25/09; antes era só o pressionado, G25)
+  - **no protótipo**, só o que as referências e o mock sustentam (G25): o cartão que pede ação sai, porque nada mais precisa do técnico, e os itens entram na lista como *na fila*, com a espera de `criadoAs` às 14:30 — na semente, *Evidências · KJC-7N23 · na fila · há 145 min*, embaixo de *NA FILA E RECEBIDAS*, com a lista logo abaixo do cabeçalho. Nenhum vira o *SUBINDO AGORA*: o progresso e o tamanho só existem no f-04 do mock. O contador não muda (conta os mostrados). No menu, o diálogo *Sair da conta* passa a contar o item na fila, de 3 pra 4; o cartão da Fila de saída não muda, porque o erro já contava como pendente (T04·1, `estado/fila.js`). Sair da tela não desfaz (HU-T15-2); o C12 dá o movimento
+- `Voltar ao menu` → T04. O voltar do Android (o Esc, no computador) faz o mesmo (`logica.md`)
+- `ENCERRAR` → antes de homologar, a sessão abortada (T16/03, G23); depois, os passos do encerramento (T16)
+  - **no protótipo** (decisão 36): antes de homologar, o ENCERRAR abre o diálogo *Encerrar sem homologar?* por cima desta tela, e o `Continuar a instalação` deixa o técnico nela — a resposta do arquiteto de 26/09 · o `Encerrar sem homologar` roda os 4 passos da T16
+- nada anda sozinho: o envio da fila não tem ritmo declarado (G4), e o `01` é estado, parado. A barra que enche e o item que esmaece são do C12
 
 ## A fila que a tela mostra
 

@@ -17,11 +17,13 @@
 // sai: embaixo do campo fica o que a busca achou, a lista ou o vazio, como a 08
 // e a 09 desenham.
 // 'Usar este ativo' grava o ativo na sessão e segue pra T07.
-// A lista do pacote, o último grupo do miolo que rola, não tem margem embaixo (a
-// última entrega, a proposta do protótipo que o arquiteto aceitou): os 16 até o
-// rodapé são o recheio do miolo. Na confirmação, que não rola, o último bloco
-// segue com os 16 dele (t06-antes-do-rodape): o par comparado cresce até ali, e
-// tirar a margem moveria o desenho (medido: de 0 a 3,5% nas referências).
+// O último grupo antes do rodapé não tem margem: a folga é só a da coluna, os 16
+// do recheio do miolo (a proposta do protótipo que o arquiteto aceitou, e as
+// referências da otimizacao300000000 desenham — MUDANCAS §4). Assim a lista do
+// pacote (00), que rola, e a linha da correção de cadastro (02, 07), embaixo do
+// par comparado, que cresce até ela. Onde o último bloco é o que cresce (o par
+// que bate, 01, e a trava, 04 a 06), ele segue com os 16 dele
+// (t06-antes-do-rodape), como as referências ainda desenham.
 import { useEffect, useState } from 'react'
 import {
   BarraDoSistema, Faixa, CabecalhoConteudo, Busca, Lista, LinhaOnibus, BlocoEscolhido,
@@ -218,9 +220,9 @@ export default function T06({ momento, estado: est }) {
             explicacao={explicacao} />
           {/* 02 → 07: o pedido de correção, e depois do toque o registro no mesmo cartão (a hora é a do protótipo) */}
           {!bate && (pedidos.includes(ativo.id)
-            ? <LinhaTocavel variante="acao" registrado estado="relogio" className="t06-antes-do-rodape"
+            ? <LinhaTocavel variante="acao" registrado estado="relogio"
                 titulo={`Correção solicitada às ${M.HORA_NOMINAL}`} valor="o gestor recebe os dois chassis" />
-            : <LinhaTocavel variante="acao" className="t06-antes-do-rodape" titulo="Solicitar correção de cadastro" valor="anexa os dois" aoTocar={solicitarCorrecao} />)}
+            : <LinhaTocavel variante="acao" titulo="Solicitar correção de cadastro" valor="anexa os dois" aoTocar={solicitarCorrecao} />)}
         </>
       )
       rodape = bate

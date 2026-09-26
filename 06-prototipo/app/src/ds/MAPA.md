@@ -18,7 +18,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 
 | Peça | Componente |
 |---|---|
-| barra do sistema | src/ds/chrome/BarraDoSistema.jsx |
+| barra do sistema | src/ds/chrome/BarraDoSistema.jsx (a do Android atual, lei 22 e decisão 43: a hora em --fonte-sistema, a Google Sans do @font-face do BarraDoSistema.css, lida de 05-recursos/fontes/GoogleSans-hora.woff e empacotada no build; o sinal em quatro cápsulas, o Wi-Fi em dois arcos e um ponto, a bateria cheia, com a geometria da ficha no SVG; o tamanho de cada ícone e o traço do Wi-Fi nos tokens --barra-sinal, --barra-sinal-altura, --barra-wifi, --barra-bateria, --barra-icone e --barra-wifi-traco; o recuo de 26 e 32 e os glifos 3px abaixo do centro, nos tokens --barra-sistema-*) |
 | barra do sistema no menu | src/ds/chrome/BarraDoSistema.jsx (fundo tira) |
 | barra do sistema sem sessão | src/ds/chrome/BarraDoSistema.jsx (fundo pagina) |
 | faixa · sessão aberta | src/ds/chrome/Faixa.jsx (o ENCERRAR com o desenho de 44, --toque-desenho, e o toque de 48 crescendo só pra baixo, pelo ::after · decisão 38); semAtivo, a placa em --tinta-apagada ("sem ativo") · C6, C8 · acaoDesabilitada, o ENCERRAR desabilitado e em --tinta-apagada, sem o pressionado, onde o voltar não faz nada (a lei 17, diretor, 25/09: T08 relendo, T09 recuperação, T10 semear) |
@@ -77,7 +77,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | processo parado | src/ds/cartoes/Aviso.jsx (glifo xis) |
 | com contagem | src/ds/cartoes/Aviso.jsx (numero, unidade: o poço de 32 com o glifo de 16, a folha 4 nova · a entrega do checklist, T11/00 e 01; tom veredito, o que confere em lima, sem poço, 12 · 14 · C11, T11/02) |
 | vazio declarado | src/ds/cartoes/Vazio.jsx (também a busca sem resultado, com o termo no título — T02/03, T06/08 · entrega de 25/09) |
-| nota tracejada | src/ds/cartoes/Nota.jsx (tom explica; corpo secundario, a frase de 13 da T03/04 · C4; corpo pulado, a frase de 13 em --tinta-secundaria · C11, T16/04 — sem uso nas telas desde a resposta de 26/09, o NÃO RODARAM é a nota padrão; corpo item, a frase de 13 em 400 do ISTO NÃO SE MARCA À MÃO · C10, T13/09) |
+| nota tracejada | src/ds/cartoes/Nota.jsx (tom explica; corpo secundario, a frase de 13 da T03/04 · C4; corpo pulado, a frase de 13 em --tinta-secundaria · C11, T16/04 — desde a otimizacao300000000, uma peça só: a caixa em bloco com a frase em linha, sem o rótulo, e o text-wrap: balance na caixa; corpo item, a frase de 13 em 400 do ISTO NÃO SE MARCA À MÃO · C10, T13/09) |
 | nota com rótulo | src/ds/cartoes/Nota.jsx (tom fato; tom achado, o que a leitura achou e não classifica, com a borda do poço, 10 · 12 · C11, T11/01) |
 | o par comparado | src/ds/cartoes/ParComparado.jsx (veredito: quando batem, NO CADASTRO em lima e a frase em 600 · C8, T06/01) |
 | linha do histórico | src/ds/linhas/LinhaHistorico.jsx (tom do veredito: espera em --tinta, falha em --vermelho; detalheTam legenda, a linha de baixo em 12 quando diz há quantos dias; o veredito longo quebra em duas linhas · C11, T12) |
@@ -103,7 +103,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | a pré-condição dos pinos | src/ds/instrumentos/Precondicao.jsx (estado info: a linha de condição da conferência, a versão que não se lê — o i no círculo, cinza e mudo · a última entrega, T11/04) |
 | encerrando | src/ds/instrumentos/Encerramento.jsx (+ Trilho.jsx; estado pausa, o bloco em que a sessão interrompida parou, com o nome e o 'parou aqui' em --tinta e o trilho na divisória · C11, T16/06) |
 | pede o corte | src/ds/instrumentos/Encerramento.jsx (justo, energia) |
-| sem homologar | src/ds/instrumentos/Encerramento.jsx (pulado, o traço solto da folha 5 · só no espécime f5-sem-homologar; na T16, desde a resposta de 26/09, o passo que não roda é o traco-circulo do Glifo, T16/dados.js · GLIFO_DO_QUE_NAO_RODA) |
+| sem homologar | src/ds/instrumentos/Encerramento.jsx (pulado, o traço solto da folha 5 · no espécime f5-sem-homologar e na T16/03, o passo que o encerrar sem homologar pula — o 'não se aplica' é só da assertiva do autoteste, otimizacao300000000 · o traço do pulado é mudo pro leitor, aria-hidden, e a situação diz 'pulado') |
 | cronômetro | src/ds/instrumentos/Prazo.jsx (falha: o prazo estourado, o número em vermelho e a escala sem o preenchido; detalhe em lista: as frases do estado, uma por linha, na entrelinha da legenda — T14/02 · C10) |
 | prazo cheio | src/ds/instrumentos/Prazo.jsx (detalhe) |
 | a barra do checklist | src/ds/instrumentos/BarraDoChecklist.jsx (o lima do que passou por scaleX, e o número fica no título; no lugar do placar da homologação, que saiu com a entrega do checklist — T13/00 a 14) |

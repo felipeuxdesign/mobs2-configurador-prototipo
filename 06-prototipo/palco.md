@@ -7,9 +7,11 @@ A moldura de apresentação em volta do app. **Três peças e mais nada**, no fu
 | Peça | Como é |
 |---|---|
 | **o quadrado** | 44 × 44, no canto de cima à esquerda, a 16px das bordas · abre o painel |
-| **o celular** | no centro, **o app em tamanho real, 360 × 800**, com moldura de 8px — 376 × 816 por fora · raio 34 por fora, 26 na tela · escala inteiro pra caber na janela, **nunca maior que o real** |
+| **o celular** | no centro, **o app em tamanho real, 360 × 800** · a moldura é um celular sem marca: **metal de 3px** em volta e **aro preto de 10px** — 386 × 826 por fora · **canto de 57 por fora e 44 na tela**, concêntricos · metal `#3C3C43`, aro `#050507`, um fio de 1px `#17171B` por fora · sem câmera, sem botão, sem sombra · escala inteiro pra caber na janela, **nunca maior que o real** |
 | **a coluna** | 230 de largura, 40 à direita do celular, **centralizada na altura dele** — a caixa tem a altura do celular e o conteúdo fica no meio · os estados da tela aberta, linhas de 32 |
 | **o painel** | 280 de largura, desliza da esquerda por cima de tudo · fecha no X ou tocando fora · escolher uma tela não fecha o painel |
+
+- **no protótipo** (decisão 43) · a moldura é o metal na borda e o aro no recheio, e os dois fios são sombra, que não soma no tamanho: o de `#17171B` por fora do metal e o de `rgba(255,255,255,0.04)` por dentro dele, que o `MUDANCAS.md` da entrega e os quadros desenham · os valores moram em `app/src/palco/palco-tokens.css` (`--palco-metal`, `--palco-aro`, `--palco-raio-fora`, e o `--palco-raio-tela`, que sai dele menos a moldura: concêntrico por construção) · o celular fica no centro da janela nos dois eixos, com a mesma folga em cima e embaixo, e a coluna a 40 dele, com a altura dele (826 em tamanho real, a altura do celular na escala) · a escala é a menor entre 1, (altura − 48) / 826 e (largura − 48 − 2 × 270) / 386 — a 1440 × 900, o tamanho real, com 37 em cima e embaixo · o painel passa por cima, e o celular e a coluna não se mexem quando ele abre (o quadro 00: *não se mexe quando o painel abre*); o quadro 04 desenha os dois 90 à direita, juntos · a régua do palco (`app/scripts/palco.mjs`) confere a moldura em tamanho real, número a número, e o anel dela contra o do quadro, com o palco numa janela de 792, onde a escala põe o celular na altura do quadro (744)
 
 ## O painel · em duas partes
 
@@ -31,8 +33,10 @@ A tela aberta aparece marcada. As folhas não entram no painel: são momentos da
 
 | | |
 |---|---|
-| **no fluxo** | o app interativo · moldura `--borda` |
-| **num estado** | **o próprio app, montado pelo caso do mock, parado e sem toque** · a moldura é a mesma do fluxo, `--borda`: o estado se lê na coluna · tocar nele faz o `Voltar ao fluxo` piscar uma vez |
+| **no fluxo** | o app interativo · a moldura do celular |
+| **num estado** | **o próprio app, montado pelo caso do mock, parado e sem toque** · **a mesma moldura** — o que avisa que está parado é o `Voltar ao fluxo`, que pisca uma vez quando se toca no app |
+
+- **no protótipo** · a piscada é só do toque: cada toque no app parado pisca uma vez o `Voltar ao fluxo` (no estreito, o quadrado), e nada mais pisca — abrir um estado, trocar de estado pela coluna, voltar ao fluxo e passar a janela de larga a estreita, ou de volta, não piscam: a peça que nasce, nasce quieta: o contador da piscada volta a 0 quando um estado abre ou fecha e quando a janela passa de larga a estreita, ou de volta (`app/src/palco/Palco.jsx`; o roteiro `app/scripts/caminhos/pisca.mjs` prova, 62 passos, `node scripts/caminho.mjs pisca`) · até o conserto de 26/09, o contador da piscada nunca voltava a 0, e depois da primeira piscada todo estado aberto a partir do fluxo já nascia piscando — um aviso falso, agora que a moldura é uma só; e, até a segunda passada do conserto, um toque na larga, a janela estreita e de volta à larga, sem tocar no meio, ainda fazia o `Voltar ao fluxo` piscar sozinho
 
 ## As regras
 

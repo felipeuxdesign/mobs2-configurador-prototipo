@@ -16,6 +16,15 @@
 //   { tecla: 'Escape' }                    aperta a tecla (o Esc é o voltar do Android, logica.md)
 //   { chega: 'T03' } · { chega: 'T01', momento: '02-…' } · { chega: 'T05', estado: null }   espera a URL dizer isso
 //   { ve: 'texto' } · { naoVe: 'texto' }  espera o texto aparecer, ou sumir, no celular
+//   { ouve: 'texto' } · { naoOuve: 'texto' }  espera um nome pro leitor de tela no celular (o aria-label, fora do que é
+//                                          aria-hidden) dizer isso, ou nenhum dizer (o glifo que não fala o que não é)
+// O palco, fora do celular (palco.md):
+//   { palco: 'Voltar ao fluxo' }           toca na peça do palco com esse nome: uma linha da coluna, o Voltar ao fluxo,
+//                                          o quadrado (Telas do protótipo), uma linha do painel
+//   { tocaNoApp: true }                    toca no meio do celular (num estado, o app parado: o toque faz o aviso piscar)
+//   { pisca: true } · { pisca: false }     o aviso do app parado (o Voltar ao fluxo, ou o quadrado no estreito) pisca
+//                                          agora, ou não pisca: o false confere uma vez, dois quadros depois do passo de
+//                                          antes, sem esperar (esperando, a piscada acabaria e ele passaria)
 //   { fica: 'T13', ms: 1500 }              confere que o app continua nessa tela depois de ms (o voltar que não faz nada)
 //   { desligado: 'Conectar' }              espera o tocável com esse nome existir desabilitado (o primário apagado, o cartão em espera)
 //   { naoToca: 'M2C-0999' }                confere que nenhum tocável tem esse nome (o que a referência desenha sem toque)
@@ -140,7 +149,11 @@ const NA_PAGINA = `(() => {
     if (!em || !(e.contains(em) || em.contains(e) || em.control === e || e.control === em)) return 'coberto por ' + (em ? em.className || em.tagName : 'nada')
     return true
   }
-  return { raiz, nome, desligado, tocaveis, acha, limpa, anims, campo, inteiro }
+  // as peças do palco, fora do celular (a coluna, o quadrado, o painel aberto)
+  const noPalco = (alvo) => { const t = [...document.querySelectorAll('.palco button, .palco [role=radio]')].filter((e) => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && !e.closest('.celular') && !e.closest('[inert]') })
+    return t.find((e) => nome(e) === alvo) || t.find((e) => nome(e).startsWith(alvo)) }
+  const piscando = () => document.getAnimations().filter((a) => a.animationName === 'palco-pisca' && a.playState === 'running').map((a) => nome(a.effect.target) || a.effect.target.className)
+  return { raiz, nome, desligado, tocaveis, acha, limpa, anims, campo, inteiro, noPalco, piscando }
 })()`
 const na = async (s, corpo) => {
   const r = await cdp('Runtime.evaluate', { expression: `(() => { const P = ${NA_PAGINA}; ${corpo} })()`, returnByValue: true, awaitPromise: true }, s)
@@ -320,6 +333,26 @@ async function passo(s, p) {
   if (p.desligado !== undefined) return espera(() => na(s, `const e = P.acha(${JSON.stringify(p.desligado)}); return !!e && P.desligado(e) || (e ? 'está ligado' : 'não achei')`), ms, `desligado "${p.desligado}"`, p.entre)
   if (p.ve !== undefined) return espera(() => na(s, `return P.raiz.innerText.includes(${JSON.stringify(p.ve)})`), ms, `vê "${p.ve}"`, p.entre)
   if (p.naoVe !== undefined) return espera(() => na(s, `return !P.raiz.innerText.includes(${JSON.stringify(p.naoVe)})`), ms, `não vê "${p.naoVe}"`, p.entre)
+  if (p.palco !== undefined || p.tocaNoApp !== undefined) {
+    const alvo = p.palco !== undefined ? `P.noPalco(${JSON.stringify(p.palco)})` : `document.querySelector('.celular')`
+    const onde = p.palco !== undefined ? `palco "${p.palco}"` : 'toca no app'
+    await espera(() => na(s, `return !!${alvo} || 'não achei'`), ms, onde)
+    const c = await na(s, `const r = ${alvo}.getBoundingClientRect(); return { x: r.left + r.width / 2, y: r.top + r.height / 2 }`)
+    for (const type of ['mouseMoved', 'mousePressed', 'mouseReleased']) await cdp('Input.dispatchMouseEvent', { type, x: c.x, y: c.y, button: 'left', clickCount: 1 }, s)
+    await na(s, `return new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(() => r(true))))`)
+    return
+  }
+  if (p.pisca !== undefined) {
+    if (p.pisca) return espera(() => na(s, `return P.piscando().length > 0 || 'nada pisca'`), ms, 'pisca', p.entre)
+    const v = await na(s, `return P.piscando()`)
+    if (v.length) throw new Error(`não pisca: pisca ${v.join(', ')}, sem toque no app`)
+    return
+  }
+  if (p.ouve !== undefined || p.naoOuve !== undefined) {
+    const nomes = `[...P.raiz.querySelectorAll('[aria-label]')].filter((e) => !e.closest('[aria-hidden=true]')).map((e) => e.getAttribute('aria-label'))`
+    if (p.ouve !== undefined) return espera(() => na(s, `return ${nomes}.some((n) => n.includes(${JSON.stringify(p.ouve)}))`), ms, `ouve "${p.ouve}"`, p.entre)
+    return espera(() => na(s, `const n = ${nomes}.filter((n) => n.includes(${JSON.stringify(p.naoOuve)})); return !n.length || n.length + ' nome(s) dizem isso'`), ms, `não ouve "${p.naoOuve}"`, p.entre)
+  }
   if (p.dorme !== undefined) return dorme(p.dorme)
   throw new Error('passo desconhecido: ' + JSON.stringify(p))
 }

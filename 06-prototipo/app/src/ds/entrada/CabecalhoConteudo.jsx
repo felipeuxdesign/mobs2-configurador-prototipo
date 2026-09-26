@@ -14,7 +14,8 @@ import './CabecalhoConteudo.css'
 // (o encerrando sem homologar, T16/03), como cada referência desenha. Sem ele,
 // o cabeçalho é o de sempre, sem a caixa em volta. Desde a resposta de 26/09
 // (seguir a T16/02, o subtítulo montado de um jeito só) as duas usam o 4, e o 6
-// ficou sem uso nas telas.
+// ficou sem uso nas telas — as referências da otimizacao300000000 desenham o 4
+// nas duas, o subtítulo no bloco do título.
 export function CabecalhoConteudo({ titulo, contagem, unidade, tom = 'neutro', forte = false, subtitulo, folgaSubtitulo = 4, className = '' }) {
   if (subtitulo != null) {
     return (

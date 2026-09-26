@@ -4,10 +4,9 @@
 .t16 { height: 100%; display: flex; flex-direction: column; background: var(--fundo-pagina); color: var(--tinta); }
 
 /* o miolo: entre a faixa e o rodapé, rola quando passa de 800 (G16). A folga de
- * 16 até o rodapé é o recheio dele. 14 entre os blocos em toda a tela — o padrão
- * da T16/02 (a resposta do arquiteto de 26/09, T16-V6): as referências da sessão
- * encerrada (02, 04, 05) ainda desenham 12, e isso é desvio nomeado até a
- * auditoria redesenhá-las. */
+ * 16 até o rodapé é o recheio dele. 14 entre os blocos nas sete, como as
+ * referências desenham desde a otimizacao300000000 (MUDANCAS §3, T16-V6): a
+ * 02, a 04 e a 05 usavam 12. */
 .t16 .tela-miolo {
   flex-grow: 1; min-height: 0; overflow-y: auto;
   display: flex; flex-direction: column; gap: var(--e-14);

@@ -46,3 +46,4 @@ Cada decisão com o contexto, a escolha, o que foi descartado e a consequência.
 | [40](40-as-acoes-da-conferencia.md) | As três ações da conferência cabem num rodapé de duas |
 | [41](41-o-que-o-servidor-recebeu.md) | A T12 mostra o que o servidor recebeu |
 | [42](42-a-fila-e-do-aparelho.md) | A fila de saída é do aparelho |
+| [43](43-a-moldura-e-a-barra-de-status.md) | A moldura do palco é um celular atual, sem marca |

@@ -3,13 +3,19 @@
 // 1440 × 900, e o 00 (a folha das peças) em 1440 × 1760.
 //
 // O palco não é igual ao quadro inteiro, e isso é decidido (G19): o quadro desenha
-// o celular a 90% (340 × 736, no topo a 50) com o PNG da referência dentro, e o
-// palco põe o app em tamanho real, rodando, no centro; o quadrado fica a 16, e não
-// a 24; e a etiqueta, que nenhum quadro desenha, fica no canto (PALCO-A14). Por isso
-// a bancada compara **peça por peça**, cada uma no lugar onde caiu nos dois — o
-// quadrado, a coluna (o conteúdo, que fica no meio da altura do celular), o painel —,
-// e dá o quadro inteiro só de informação. O celular não entra: a tela dele é da
+// o celular a 90% (348 × 744, no centro: no topo a 78) com o PNG da referência dentro,
+// e o palco põe o app em tamanho real, rodando, no centro (386 × 826, no topo a 37); o
+// quadrado fica a 16, e não a 24; e a etiqueta, que nenhum quadro desenha, fica no canto
+// (PALCO-A14). Por isso a bancada compara **peça por peça**, cada uma no lugar onde caiu
+// nos dois — o quadrado, a coluna (o conteúdo, que fica no meio da altura do celular), o
+// painel —, e dá o quadro inteiro só de informação. A tela do celular não entra: ela é da
 // régua das telas (scripts/tela.mjs), a 360 × 800.
+// A moldura (decisão 43) entra de dois jeitos: medida em tamanho real, contra os números
+// do palco.md (386 × 826, o metal de 3, o aro de 10, o canto de 57 e 44, as cores, os
+// dois fios, o centro da janela e a coluna a 40 com a altura dele) — a conferência da
+// moldura, que falha se um número não bate —, e desenhada: o anel da moldura, sem a tela,
+// com o palco numa janela de 792 de altura, onde a escala (744/826) põe o celular na
+// altura do quadro, contra o anel do quadro (a peça `moldura`).
 // No 00, cada espécime da folha contra a mesma peça numa das fotos do palco.
 // E os textos do painel e da coluna, na ordem, contra os do quadro (o palco não tem
 // textos.md: o texto dele é o que o quadro escreve, G19).
@@ -38,6 +44,11 @@ const REF = resolve(raiz, '06-prototipo/palco/referencias')
 const OUT = resolve(app, 'prints/palco'); mkdirSync(OUT, { recursive: true })
 const DEV = process.env.DEV || 'http://localhost:5173'
 const W = 1440, H = 900, H00 = 1760
+// a janela em que o palco escala o celular pra altura do quadro: (792 − 48) / 826 = 744 / 826
+const H_MOLDURA = 792
+// a moldura em tamanho real (palco.md, decisão 43; MUDANCAS §1 da otimizacao300000000): a norma da conferência
+const MOLDURA = { tela: [360, 800], metal: 3, aro: 10, fora: [386, 826], raioFora: 57, raioTela: 44,
+  metalCor: 'rgb(60, 60, 67)', aroCor: 'rgb(5, 5, 7)', fios: 'rgb(23, 23, 27) 0px 0px 0px 1px, rgba(255, 255, 255, 0.04) 0px 0px 0px 1px inset', coluna: 40 }
 
 // os quadros e o lugar do palco que cada um desenha
 const QUADROS = [
@@ -53,7 +64,10 @@ const AUX = { ref: 'painel-noutra-tela', url: '?tela=T04&painel=1' }
 // A chave é "<quadro>/<peça>"; sem ela, vale a da peça. O texto só leva nota quando o quadro diz outra coisa.
 const MARCADOR = 'o quadrado vazado de 11 por dentro (lei do marcador, decisão 15); o quadro desenha 11 mais a borda, 13'
 const NOTAS = {
-  'inteiro': 'o quadro inteiro só informa: o celular a 90% com o PNG dentro, o quadrado a 24 e sem etiqueta, contra o palco.md (G19, PALCO-A11, PALCO-A14)',
+  'inteiro': 'o quadro inteiro só informa: o celular a 90% com o PNG dentro (348 × 744, no topo a 78), o quadrado a 24 e sem etiqueta, contra o palco.md: o celular em tamanho real, rodando (386 × 826, no topo a 37) (G19, PALCO-A11, PALCO-A14)',
+  '04-painel-aberto/inteiro': 'o quadro inteiro só informa: o celular a 90% com o PNG dentro (348 × 744, no topo a 78), o quadrado a 24 e sem etiqueta, contra o palco.md: o celular em tamanho real, rodando (386 × 826, no topo a 37) (G19, PALCO-A11, PALCO-A14); e o quadro põe o celular e a coluna 90 à direita com o painel aberto, e o palco não os mexe: o painel passa por cima (palco.md, o 00: "não se mexe quando o painel abre", PALCO-A10)',
+  'moldura': 'o palco em escala (744/826) contra o quadro a 90% desenhado à mão: o metal de 3 inteiro no quadro (2,7 no palco em escala), o canto de 52 (51,3) e a caixa de 348 (347,7) — a moldura em tamanho real é da conferência da moldura',
+  '00-componentes/moldura': 'a miniatura da folha contra o palco na escala dela (321/826): a folha desenha o metal de 1,5, o aro de 4, o canto de 22 e 16,5 e o fio de fora de 0,5, e o palco em escala dá 1,2 · 3,9 · 22,2 e 17,1 · 0,4 — a moldura em tamanho real é da conferência da moldura',
   'quadrado': 'o LayoutGrid do Lucide contra os quatro quadrados desenhados à mão (G5)',
   'painel': 'o X e o RotateCcw do Lucide, no traço 1,8, contra os desenhados à mão no traço 2 (G5)',
   'coluna': MARCADOR,
@@ -83,9 +97,14 @@ const SCRIPT = `<script>(()=>{new Promise(ok=>document.readyState==='complete'?o
     m.quadrados=spans.filter(e=>e.style.width==='44px'&&e.style.height==='44px').map(inteiro).map(cx);
     m.linhas=divs.filter(e=>e.style.width==='280px'&&e.style.height==='34px').map(inteiro).map(cx);
     const cols=divs.filter(e=>/dashed/.test(e.style.border)&&e.children.length>1).map(inteiro);m.colunas=cols.map(conteudo);m.listas=cols.map(e=>cx(e.lastElementChild));
+    // O CELULAR: a moldura em miniatura, com a tela vazia dentro (decisão 43)
+    const ce=divs.find(e=>e.children.length===1&&e.style.borderRadius==='22px'&&e.firstElementChild.style.borderRadius);
+    if(ce){inteiro(ce);const s=getComputedStyle(ce);m.celular={celular:cx(ce),tela:cx(ce.firstElementChild),moldura:{metal:s.borderTopWidth,aro:s.paddingTop,raioFora:s.borderTopLeftRadius,raioTela:getComputedStyle(ce.firstElementChild).borderTopLeftRadius}}}
   }else{
     m.quadrado=cx(document.querySelector('a[aria-label="Telas do protótipo"]'));
-    m.celular=cx(divs.find(e=>e.style.borderRadius==='34px'));
+    // o celular: a caixa da moldura, com a imagem da tela dentro (decisão 43: o metal na borda, o aro no recheio)
+    const fr=divs.find(e=>e.children.length===1&&e.firstElementChild.tagName==='IMG');m.celular=cx(fr);m.tela=fr?cx(fr.firstElementChild):null;
+    if(fr){const s=getComputedStyle(fr);m.moldura={metal:s.borderTopWidth,metalCor:s.borderTopColor,aro:[s.paddingTop,s.paddingRight,s.paddingBottom,s.paddingLeft],aroCor:s.backgroundColor,raioFora:s.borderTopLeftRadius,fios:s.boxShadow,raioTela:getComputedStyle(fr.firstElementChild).borderTopLeftRadius}}
     const p=divs.find(e=>e.style.width==='280px'&&e.style.left==='0px');m.painel=cx(p);
     m.linhas=p?Object.fromEntries([...p.querySelectorAll('a[href^="#T"]')].map(a=>[a.firstElementChild.textContent.trim(),cx(a)])):{};
     const c=divs.find(e=>e.style.width==='230px'&&e.style.justifyContent==='center');m.coluna=cx(c);m.conteudo=c?conteudo(c):null;
@@ -110,12 +129,12 @@ function quadro(nome, h) {
     return { medida, png: PNG.sync.read(readFileSync(resolve(OUT, nome + '-html.png'))) }
   } finally { rmSync(tmp, { force: true }) }
 }
-// o palco, no mesmo lugar
-function palco({ ref, url }) {
+// o palco, no mesmo lugar (h: a altura da janela; a peça da moldura usa a de 792, e grava com o sufixo)
+function palco({ ref, url }, h = H, sufixo = '') {
   const u = `${DEV}/${url}&medir=1`
-  const medida = lerPre(dom(u, { w: W, h: H }))
-  foto(u, resolve(OUT, ref + '-app.png'), { w: W, h: H, escala: 1 })
-  return { medida, png: PNG.sync.read(readFileSync(resolve(OUT, ref + '-app.png'))) }
+  const medida = lerPre(dom(u, { w: W, h }))
+  foto(u, resolve(OUT, ref + sufixo + '-app.png'), { w: W, h, escala: 1 })
+  return { medida, png: PNG.sync.read(readFileSync(resolve(OUT, ref + sufixo + '-app.png'))) }
 }
 
 function recorta(png, x, y, w, h) {
@@ -148,6 +167,62 @@ function peca(nome, nomePeca, A, ca, B, cb, folga = 8) {
   return r
 }
 
+// a moldura desenhada: o anel da moldura dos dois, com a tela apagada — o retângulo de cantos redondos da tela do
+// quadro, 1 pra dentro do aro, some nos dois —, a caixa do quadro contra a do palco, com 4 de folga pro fio de fora
+function anel(nome, A, ca, B, cb, folga = 4) {
+  if (!ca?.celular || !cb?.celular) return { quadro: nome, peca: 'moldura', erro: `${!ca?.celular ? 'o quadro' : 'o palco'} não tem o celular` }
+  const qa = ca.celular, qb = cb.celular
+  const w = Math.round(Math.max(qa.w, qb.w)) + 2 * folga, h = Math.round(Math.max(qa.h, qb.h)) + 2 * folga
+  const a = recorta(A, Math.round(qa.x) - folga, Math.round(qa.y) - folga, w, h)
+  const b = recorta(B, Math.round(qb.x) - folga, Math.round(qb.y) - folga, w, h)
+  // a tela do quadro, relativa à caixa: o lado da moldura e o canto dela
+  const t = ca.tela.x - qa.x - 1, r = parseFloat(ca.moldura.raioTela) + 1
+  const x0 = folga + t, y0 = folga + t, x1 = folga + qa.w - t, y1 = folga + qa.h - t
+  const dentro = (x, y) => {
+    if (x < x0 || x >= x1 || y < y0 || y >= y1) return false
+    const cx = x < x0 + r ? x0 + r : x >= x1 - r ? x1 - r : x, cy = y < y0 + r ? y0 + r : y >= y1 - r ? y1 - r : y
+    return (x + 0.5 - cx) ** 2 + (y + 0.5 - cy) ** 2 <= r * r
+  }
+  let apagados = 0
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (dentro(x, y)) { apagados++; const i = (y * w + x) * 4; for (const p of [a, b]) p.data.fill(0, i, i + 4) }
+  const base = resolve(OUT, `${nome}-moldura`)
+  writeFileSync(base + '-html.png', PNG.sync.write(a)); writeFileSync(base + '-app.png', PNG.sync.write(b))
+  const d = difere(a, b, base + '-diff.png'), anelPx = w * h - apagados
+  // a porcentagem é do anel, não da caixa: a tela apagada é igual nos dois e não conta
+  const noAnel = (v) => +(v * w * h / anelPx).toFixed(2)
+  const r2 = { quadro: nome, peca: 'moldura', fino: noAnel(d.fino), estrutural: noAnel(d.estrutural),
+    quadroEm: [qa.x, qa.y, qa.w, qa.h].map((v) => +v.toFixed(2)), palcoEm: [qb.x, qb.y, qb.w, qb.h].map((v) => +v.toFixed(2)) }
+  if (r2.fino > 0) r2.nota = notaDe(nome, 'moldura')
+  return r2
+}
+
+// a conferência da moldura, em tamanho real: cada número do palco.md contra o que o palco desenhou (1440 × 900)
+const moldura = []
+const confere = (quadro, o, esperado, tem) => moldura.push({ quadro, o, ok: JSON.stringify(esperado) === JSON.stringify(tem), esperado, tem })
+const perto = (a, b) => Math.abs(a - b) <= 0.5
+function confereMoldura(nome, m) {
+  const c = m.celular, f = m.moldura, co = m.coluna, px = (v) => parseFloat(v)
+  if (!c || !f) return confere(nome, 'o celular', 'medido', 'sem o celular')
+  confere(nome, 'o tamanho por fora', MOLDURA.fora, [c.w, c.h])
+  confere(nome, 'a tela', MOLDURA.tela, [f.tela.w, f.tela.h])
+  confere(nome, 'o metal, nos quatro lados', Array(4).fill(MOLDURA.metal).concat(Array(4).fill(MOLDURA.metalCor)), f.lados.map((v, i) => i < 4 ? px(v) : v))
+  confere(nome, 'o aro preto, nos quatro lados', Array(4).fill(MOLDURA.aro).concat(MOLDURA.aroCor), f.aro.map(px).concat(f.aroCor))
+  confere(nome, 'a tela dentro do aro', [c.x + MOLDURA.metal + MOLDURA.aro, c.y + MOLDURA.metal + MOLDURA.aro], [f.tela.x, f.tela.y])
+  confere(nome, 'o canto: por fora e na tela', [Array(4).fill(MOLDURA.raioFora), MOLDURA.raioTela], [f.raios.map(px), px(f.raioTela)])
+  confere(nome, 'os fios: o de fora do metal e o de dentro', MOLDURA.fios, f.fios)
+  confere(nome, 'no centro da janela: a mesma folga dos dois lados', [true, true], [perto(c.x, m.W - c.x - c.w), perto(c.y, m.H - c.y - c.h)])
+  if (co) confere(nome, 'a coluna a 40, com a altura do celular', [c.x + c.w + MOLDURA.coluna, c.y, c.h], [co.x, co.y, co.h])
+}
+// o quadro, a 90%: as mesmas relações, só de informação (a norma é o tamanho real)
+const doQuadro = []
+function informaQuadro(nome, m) {
+  const c = m.celular, co = m.coluna; if (!c) return
+  const r = { quadro: nome, caixa: [c.x, c.y, c.w, c.h], folgas: { esquerda: c.x, direita: m.W - c.x - c.w, cima: c.y, baixo: m.H - c.y - c.h },
+    metal: m.moldura.metal, aro: m.moldura.aro[0], raios: [m.moldura.raioFora, m.moldura.raioTela], coluna: co ? { distancia: co.x - c.x - c.w, altura: co.h, topo: co.y } : null }
+  r.noCentro = perto(r.folgas.esquerda, r.folgas.direita) && perto(r.folgas.cima, r.folgas.baixo)
+  doQuadro.push(r)
+}
+
 // os textos da peça, na ordem, contra os do quadro (o palco não tem textos.md: o texto dele é o do quadro, G19)
 const textos = []
 function confereTextos(nome, nomePeca, norma, tem) {
@@ -162,6 +237,9 @@ const res = []
 const fotos = {}
 for (const q of QUADROS) {
   const R = quadro(q.ref, H), P = palco(q); fotos[q.ref] = P
+  confereMoldura(q.ref, P.medida); informaQuadro(q.ref, R.medida)
+  // a moldura desenhada: no fluxo e num estado (uma moldura só), com o palco na altura do quadro
+  if (!q.url.includes('painel=1') && q.ref !== '03-tela-com-muitos-estados') { const M = palco(q, H_MOLDURA, '-escala'); res.push(anel(q.ref, R.png, R.medida, M.png, M.medida)) }
   confereTextos(q.ref, 'coluna', R.medida.textos.coluna, P.medida.textos.coluna)
   if (q.url.includes('painel=1')) confereTextos(q.ref, 'painel', R.medida.textos.painel, P.medida.textos.painel)
   res.push({ quadro: q.ref, peca: 'inteiro', ...difere(R.png, P.png, resolve(OUT, q.ref + '-diff.png')), nota: NOTAS.inteiro })
@@ -183,6 +261,15 @@ for (const q of QUADROS) {
   res.push(peca('00-componentes', 'coluna-num-estado', R.png, m.colunas[1], f('02-num-estado').png, f('02-num-estado').medida.conteudo))
   // a da T05, pela lista: a folha não desenha o lugar fixo do topo (decisão 30), e a lista dos grupos fica comparável
   res.push(peca('00-componentes', 'coluna-T05', R.png, m.listas[2], f('03-tela-com-muitos-estados').png, f('03-tela-com-muitos-estados').medida.lista))
+  // O CELULAR: a miniatura contra o palco numa janela em que a escala dá a altura dela ((369 − 48) / 826 = 321 / 826)
+  if (m.celular) { const M = palco({ ref: '00-componentes', url: '?tela=T04' }, Math.round(m.celular.celular.h) + 48, '-escala'); res.push(anel('00-componentes', R.png, m.celular, M.png, { ...M.medida, tela: M.medida.moldura?.tela })) }
+  else res.push({ quadro: '00-componentes', peca: 'moldura', erro: 'a folha não tem O CELULAR' })
+}
+// uma moldura só (decisão 43): num estado, a mesma do fluxo; e o painel aberto não mexe o celular nem a coluna
+{
+  const m = (ref) => fotos[ref].medida
+  confere('02-num-estado', 'a mesma moldura do fluxo', m('01-no-fluxo').moldura && { ...m('01-no-fluxo').moldura, tela: null }, m('02-num-estado').moldura && { ...m('02-num-estado').moldura, tela: null })
+  confere('04-painel-aberto', 'o celular e a coluna no lugar de sem o painel', [m('02-num-estado').celular, m('02-num-estado').coluna], [m('04-painel-aberto').celular, m('04-painel-aberto').coluna])
 }
 
 for (const r of res) console.log(`${r.quadro} · ${r.peca} · ${r.erro ? 'ERRO ' + r.erro : `${r.fino}% (estrutural ${r.estrutural}%)`}${r.nota ? ' · ' + r.nota : ''}`)
@@ -191,13 +278,19 @@ for (const t of textos) {
   console.log(t.ok ? `OK     textos · ${t.quadro} · ${t.peca}` : `FALHA  textos · ${t.quadro} · ${t.peca}${t.ordem ? ' — os textos batem, a ordem não' : ''}${t.nota ? ' · ' + t.nota : ''}`
     + (t.falta?.length ? '\n         falta: ' + t.falta.map((x) => '`' + x + '`').join(' · ') : '') + (t.sobra?.length ? '\n         sobra: ' + t.sobra.map((x) => '`' + x + '`').join(' · ') : ''))
 }
+console.log('')
+for (const c of moldura) console.log(`${c.ok ? 'OK    ' : 'FALHA '} moldura · ${c.quadro} · ${c.o}${c.ok ? '' : ` — pede ${JSON.stringify(c.esperado)}, tem ${JSON.stringify(c.tem)}`}`)
+for (const q of doQuadro) console.log(`       o quadro · ${q.quadro} · a 90%: ${q.caixa.slice(2).join(' × ')} em ${q.caixa.slice(0, 2).join(', ')} · ${q.noCentro ? 'no centro' : `fora do centro (folgas ${Object.values(q.folgas).join(' · ')})`} · metal ${q.metal}, aro ${q.aro}, canto ${q.raios.join(' e ')}${q.coluna ? ` · a coluna a ${q.coluna.distancia}, com ${q.coluna.altura} de altura` : ''}`)
 writeFileSync(resolve(OUT, 'relatorio.json'), JSON.stringify(res, null, 1))
 writeFileSync(resolve(OUT, 'textos.json'), JSON.stringify(textos, null, 1))
+writeFileSync(resolve(OUT, 'moldura.json'), JSON.stringify({ conferencias: moldura, quadros: doQuadro }, null, 1))
 const erros = res.filter((r) => r.erro)
 // o texto que difere sem nota é falha; com nota, é a diferença explicada
 const textoRuim = textos.filter((t) => !t.ok && !t.nota)
+const molduraRuim = moldura.filter((c) => !c.ok)
 console.log(`\n${res.length} peças · ${res.filter((r) => r.fino === 0).length} em 0% · ${erros.length} com erro · prints/palco/relatorio.json`)
 console.log(`${textos.length} textos · ${textos.filter((t) => t.ok).length} conferem · ${textos.filter((t) => !t.ok && t.nota).length} com a diferença explicada · ${textoRuim.length} falham`)
+console.log(`${moldura.length} conferências da moldura · ${moldura.length - molduraRuim.length} batem · ${molduraRuim.length} falham · prints/palco/moldura.json`)
 const [baseArq] = process.argv.slice(2)
 if (baseArq) {
   const base = JSON.parse(readFileSync(resolve(process.cwd(), baseArq), 'utf8'))
@@ -208,5 +301,5 @@ if (baseArq) {
   for (const r of pior) console.log(`PIOROU   ${chave(r)} · ${antes.get(chave(r))}% → ${r.fino ?? r.erro}%`)
   for (const r of melhor) console.log(`MELHOROU ${chave(r)} · ${antes.get(chave(r))}% → ${r.fino}%`)
   console.log(pior.length ? `${pior.length} peça(s) pioraram contra a base` : 'nenhuma peça piorou contra a base')
-  process.exitCode = pior.length || erros.length || textoRuim.length ? 1 : 0
-} else process.exitCode = erros.length || textoRuim.length ? 1 : 0
+  process.exitCode = pior.length || erros.length || textoRuim.length || molduraRuim.length ? 1 : 0
+} else process.exitCode = erros.length || textoRuim.length || molduraRuim.length ? 1 : 0

@@ -30,11 +30,13 @@ const medirJanela = (antes) => {
   return { ...agora, toque, deitado: deitado(antes, agora, campo), alto: alturaDoPalco(antes, agora, campo) }
 }
 
+// o celular é a tela e a moldura (o metal e o aro, palco-tokens.css): 386 × 826 por fora; os fios são sombra e não somam
 function medirEscala(temColuna, alto) {
   const css = getComputedStyle(document.documentElement)
   const px = (v) => parseFloat(css.getPropertyValue(v))
-  const alturaCel = px('--tela-altura') + 2 * px('--e-8')
-  const larguraCel = px('--tela-largura') + 2 * px('--e-8')
+  const moldura = px('--palco-metal') + px('--palco-aro')
+  const alturaCel = px('--tela-altura') + 2 * moldura
+  const larguraCel = px('--tela-largura') + 2 * moldura
   const lado = temColuna ? px('--palco-coluna-distancia') + px('--palco-coluna') : 0
   const margem = 2 * px('--e-24')
   return Math.min(1, (alto - margem) / alturaCel, (window.innerWidth - margem - 2 * lado) / larguraCel)
@@ -79,8 +81,14 @@ function Medida() {
         for (let n = w.nextNode(); n; n = w.nextNode()) { const t = n.textContent.replace(/\s+/g, ' ').trim(); if (!t) continue; if (n.previousSibling?.nodeType === 3 && l.length) l[l.length - 1] = `${l[l.length - 1]} ${t}`; else l.push(t) }
         return l
       }
+      // a moldura como o navegador a desenhou (decisão 43): o metal, o aro, os cantos, as cores e os fios, e a tela dentro
+      const cel = document.querySelector('.celular'), cs = cel && getComputedStyle(cel), ts = cel && getComputedStyle(cel.querySelector('.celular-tela'))
+      const moldura = cel && { metal: cs.borderTopWidth, metalCor: cs.borderTopColor, lados: [cs.borderTopWidth, cs.borderRightWidth, cs.borderBottomWidth, cs.borderLeftWidth, cs.borderTopColor, cs.borderRightColor, cs.borderBottomColor, cs.borderLeftColor],
+        aro: [cs.paddingTop, cs.paddingRight, cs.paddingBottom, cs.paddingLeft], aroCor: cs.backgroundColor, raioFora: cs.borderTopLeftRadius,
+        raios: [cs.borderTopLeftRadius, cs.borderTopRightRadius, cs.borderBottomRightRadius, cs.borderBottomLeftRadius], fios: cs.boxShadow,
+        raioTela: ts.borderTopLeftRadius, largura: cel.offsetWidth, altura: cel.offsetHeight, tela: caixa(cel.querySelector('.celular-tela')) }
       const out = document.createElement('pre'); out.id = 'm2cf-out'; out.style.display = 'none'
-      out.textContent = JSON.stringify({ W: innerWidth, H: innerHeight, quadrado: um('.palco-quadrado'), celular: um('.celular'), painel: um('.painel'),
+      out.textContent = JSON.stringify({ W: innerWidth, H: innerHeight, quadrado: um('.palco-quadrado'), celular: um('.celular'), moldura, painel: um('.painel'),
         painelAberto: !!document.querySelector('.painel-aberto'), linhas, coluna: um('.coluna'), conteudo, lista: um('.coluna-lista'), etiqueta: um('.palco-etiqueta'),
         textos: { painel: textos(document.querySelector('.painel-aberto')), coluna: textos(document.querySelector('.coluna')) } })
       document.body.appendChild(out)
@@ -100,7 +108,13 @@ export function Palco() {
 function PalcoApp() {
   const { estado, despachar } = useEstado()
   const [painel, setPainel] = useState(new URLSearchParams(window.location.search).get('painel') === '1')
-  const [pisca, setPisca] = useState(0)
+  // o aviso do app parado (palco.md, decisão 43): num estado, cada toque no app faz piscar uma vez o Voltar ao
+  // fluxo da coluna, ou o quadrado no estreito. `em` guarda qual dos dois o toque fez piscar, e o contador volta a 0
+  // quando um estado abre ou fecha: a peça que nasce (o Voltar ao fluxo do estado seguinte, o quadrado que aparece
+  // quando a janela estreita) nasce quieta, e só um toque a faz piscar (o conserto de 26/09: antes, o contador nunca
+  // voltava a 0, e a peça que nascia depois de uma piscada já nascia piscando)
+  const [pisca, setPisca] = useState({ n: 0, em: null })
+  const semPisca = () => setPisca({ n: 0, em: null })
   const [janela, setJanela] = useState(() => medirJanela(null))
   const { id: tela, estado: est, momento } = estado.tela
   const print = lerUrl().print
@@ -110,15 +124,22 @@ function PalcoApp() {
   // cima do app, e o endereço não acompanha a navegação — recarregar volta ao que foi aberto (o login, no link
   // principal), e o link direto de uma tela ou estado continua abrindo certo. O painel ainda abre pelo &painel=1
   const celular = janela.w < larguraEstreita() && janela.toque
+  // a janela que passa de larga a estreita, ou de volta, também zera a piscada: a coluna e o quadrado que voltam
+  // nascem quietos (a sobra do conserto de 26/09: um toque na larga, a janela estreita e de volta à larga, e a
+  // coluna remontava com o contador do toque de antes e piscava sozinha). Zerado na própria renderização, antes
+  // de a peça nascer, e não num efeito, que a deixaria nascer piscando por um quadro
+  const estreitoAgora = janela.w < larguraEstreita()
+  const [estreitoDoPisca, setEstreitoDoPisca] = useState(estreitoAgora)
+  if (estreitoAgora !== estreitoDoPisca) { setEstreitoDoPisca(estreitoAgora); semPisca() }
   // no print não há painel: o endereço do print fica só com a tela, o estado e o momento
   useEffect(() => { if (!celular) escreverUrl({ tela, estado: est, momento, painel: painel && !print }) }, [tela, est, momento, painel, print, celular])
   useEffect(() => { const r = () => setJanela(medirJanela); window.addEventListener('resize', r); return () => window.removeEventListener('resize', r) }, [])
 
   // o painel só fecha no X, tocando fora ou com Esc — escolher uma tela não fecha (diretor, 24/09)
-  const ir = useCallback((id) => despachar({ tipo: 'pular', tela: id }), [despachar])
-  const abrirEstado = (nome) => despachar({ tipo: 'abrir-estado', estado: nome })
-  const voltarAoFluxo = () => despachar({ tipo: 'voltar-ao-fluxo' })
-  const recomecar = () => despachar({ tipo: 'recomecar' })
+  const ir = useCallback((id) => { semPisca(); despachar({ tipo: 'pular', tela: id }) }, [despachar])
+  const abrirEstado = (nome) => { semPisca(); despachar({ tipo: 'abrir-estado', estado: nome }) }
+  const voltarAoFluxo = () => { semPisca(); despachar({ tipo: 'voltar-ao-fluxo' }) }
+  const recomecar = () => { semPisca(); despachar({ tipo: 'recomecar' }) }
 
   if (print) return <main className="palco palco-print"><div className="celular-tela"><App /></div>{lerUrl().textos && <Textos />}</main>
 
@@ -128,20 +149,23 @@ function PalcoApp() {
   const temColuna = !estreito && estadosDa(tela).length > 0
   const escala = estreito && !deitada ? 1 : medirEscala(temColuna, janela.alto)
   const numEstado = !!est
+  const piscaQuadrado = pisca.em === 'quadrado' ? pisca.n : 0
+  const piscaColuna = pisca.em === 'coluna' ? pisca.n : 0
+  const tocouParado = (e) => { e.stopPropagation(); e.preventDefault(); const em = estreito ? 'quadrado' : 'coluna'; setPisca((p) => ({ n: (p.em === em ? p.n : 0) + 1, em })) }
 
   return (
     <main className={`palco ${estreito ? 'palco-estreito' : ''} ${deitada ? 'palco-deitado' : ''} ${celular ? 'palco-celular' : ''}`}>
       {!celular && (
-        <button type="button" key={estreito ? pisca : 0} className={`palco-quadrado ${estreito && pisca ? 'palco-pisca' : ''}`} aria-label="Telas do protótipo" onClick={() => setPainel(true)}>
+        <button type="button" key={piscaQuadrado} className={`palco-quadrado ${piscaQuadrado ? 'palco-pisca' : ''}`} aria-label="Telas do protótipo" onClick={() => setPainel(true)}>
           <LayoutGrid aria-hidden="true" className="palco-icone-18" />
         </button>
       )}
       <div className="palco-cena">
         <div className={`celular ${numEstado ? 'celular-estado' : ''}`} style={estreito && !deitada ? undefined : { transform: `scale(${escala})` }}
-          onClickCapture={numEstado ? (e) => { e.stopPropagation(); e.preventDefault(); setPisca((n) => n + 1) } : undefined}>
+          onClickCapture={numEstado ? tocouParado : undefined}>
           <div className="celular-tela" inert={numEstado ? '' : undefined}><App /></div>
         </div>
-        {temColuna && <Coluna tela={tela} estado={est} aoAbrir={abrirEstado} aoVoltar={voltarAoFluxo} pisca={pisca} escala={escala} />}
+        {temColuna && <Coluna tela={tela} estado={est} aoAbrir={abrirEstado} aoVoltar={voltarAoFluxo} pisca={piscaColuna} escala={escala} />}
       </div>
       <span className="palco-etiqueta">{VERSAO.ciclo} · {VERSAO.data}</span>
       <Painel aberto={painel} tela={tela} aoIr={ir} aoFechar={() => setPainel(false)} aoRecomecar={recomecar}

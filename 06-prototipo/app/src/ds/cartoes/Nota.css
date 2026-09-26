@@ -10,7 +10,12 @@
 .ds-nota-achado .ds-nota-frase { font-size: var(--t-secundario); line-height: var(--entrelinha-texto); color: var(--tinta-secundaria); }
 /* C4 · T03 (G11): a frase de 13, em 400, da nota que diz o bloqueio (T03/04) */
 .ds-nota-corpo-secundario .ds-nota-frase { font-size: var(--t-secundario); font-weight: 400; line-height: var(--entrelinha-nota-secundaria); }
-/* C11 · T16/04 (G11): a frase de 13, em 500 e --tinta-secundaria, do que não rodou */
-.ds-nota-corpo-pulado .ds-nota-frase { font-size: var(--t-secundario); line-height: var(--entrelinha-frase-caixa); color: var(--tinta-secundaria); }
+/* C11 · T16/04 (G11): a frase de 13, em 500 e --tinta-secundaria, do que não rodou · uma peça só, sem o
+ * rótulo, e as duas linhas equilibradas: o balance na caixa, não na frase (otimizacao300000000). Como a
+ * T16/04 monta, a caixa é um bloco e a frase corre dentro dela, em linha: cada linha tem a altura da
+ * linha da caixa (o texto do app, que ela herda) e não só a entrelinha da frase — sem isso, a frase subia
+ * 1,5 e a caixa encolhia 3 (medido contra o HTML) */
+.ds-nota.ds-nota-corpo-pulado { display: block; text-wrap: balance; }
+.ds-nota-corpo-pulado .ds-nota-frase { display: inline; font-size: var(--t-secundario); line-height: var(--entrelinha-frase-caixa); color: var(--tinta-secundaria); }
 /* C10 · T13/09 (G11): a frase de 13, em 400, na entrelinha da frase da caixa apagada (o item que não se marca à mão) */
 .ds-nota-corpo-item .ds-nota-frase { font-size: var(--t-secundario); font-weight: 400; line-height: var(--entrelinha-frase); }

@@ -65,4 +65,3 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `15-momento-problema-fotografado`
 
 `14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `B · INSTALAÇÃO FÍSICA` · `1` · `de 5` · `Depois: Antena GPS posicionada e livre` · `Módulo fixado e posicionado` · `Problema fotografado às 14:30` · `vai junto com a ressalva, pro gestor` · `Não está conforme` · `conte embaixo o que aconteceu` · `O QUE ACONTECEU` · `Suporte trincado; fixei com abraçadeira até a troca.` · `Salvar com ressalva` · `Voltar ao checklist`
-

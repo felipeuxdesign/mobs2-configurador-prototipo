@@ -77,4 +77,3 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `18-estado-outro-usuario-no-aparelho`
 
 `14:30` · `VIAÇÃO ATLÂNTICO SUL` · `Onde você está hoje?` · `RMR – RECIFE` · `Garagem Várzea` · `pacote de ontem, 07:10` · `10 ativos` · `Garagem Ibura` · `pacote de 4 dias, 06:55` · `8 ativos` · `AGRESTE – CARUARU` · `Pátio Caruaru` · `pacote vencido há 8 dias` · `6 ativos` · `Escolha uma unidade` · `Outra sessão neste aparelho` · `A sessão de r.vieira foi encerrada. A fila dele continua subindo: 3 itens.` · `Entendi`
-

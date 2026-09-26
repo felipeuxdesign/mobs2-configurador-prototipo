@@ -10,7 +10,7 @@ Vale junto com o `CLAUDE.md` da raiz. Esta lei é só do protótipo navegável.
 
 - **Vite + React 18, em JavaScript**
 - CSS com as variáveis de `03-design-system/tokens.css` — nenhum valor solto
-- a Barlow dos woff2 de `05-recursos/fontes/` pra fonte, os mesmos das referências · `lucide-react` pros ícones
+- a Barlow dos woff2 de `05-recursos/fontes/` pra fonte, os mesmos das referências, e a Google Sans recortada (`GoogleSans-hora.woff`) só na hora da barra de status, que é do sistema (decisão 43, lei 22) · `lucide-react` pros ícones
 - nada de biblioteca de componentes de fora: **os componentes são os do design system**, construídos aqui
 
 ## A estrutura em `app/`
