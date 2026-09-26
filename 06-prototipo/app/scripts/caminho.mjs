@@ -20,6 +20,14 @@
 //   { desligado: 'Conectar' }              espera o tocável com esse nome existir desabilitado (o primário apagado, o cartão em espera)
 //   { naoToca: 'M2C-0999' }                confere que nenhum tocável tem esse nome (o que a referência desenha sem toque)
 //   { dorme: 500 }
+// A folha que fecha (lei 20, a última entrega):
+//   { arrasta: 'Conta', dy: 120 }          arrasta a folha com esse título dy pra baixo, pelo puxador, com o botão
+//                                          apertado, e solta; no fim do arraste, antes de soltar, confere que o painel
+//                                          andou o mesmo que o dedo (só por transform). `anima` confere o que começou ao
+//                                          soltar (o painel voltando, 200, ou descendo, 150)
+//   { arrasta: 'Trocar de unidade', de: 'Garagem Ibura', dy: 30 }   o arraste começa em cima do tocável com esse nome
+//   { tocaFora: 'Conta' }                  toca no véu, 40 acima da folha com esse título
+//   Os dois esperam a folha parar (a que ainda sobe não está no lugar dela) antes de medir.
 // As regras do mundo real (06-prototipo/CLAUDE.md, 10 e 11):
 //   { janela: [360, 480] }                 a janela desse tamanho (Emulation.setDeviceMetricsOverride): o teclado que abre
 //                                          encolhe a altura, como no Chrome do Android (o interactive-widget do index.html);
@@ -206,6 +214,43 @@ async function passo(s, p) {
     const vistas = await na(s, `return new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(() => r(P.anims()))))`)
     registro.push({ passo: `toca ${alvo}`, anims: vistas })
     if (p.anima) confere(p.anima, vistas, `toca "${alvo}"`); else avisaLei(vistas, `toca "${alvo}"`)
+    return
+  }
+  if (p.arrasta !== undefined) {
+    const achaFolha = `const f = [...P.raiz.querySelectorAll('[role=dialog]')].find((e) => P.nome(e) === ${JSON.stringify(p.arrasta)})`
+    // a folha parada: a que ainda sobe não está no lugar dela (o dedo mede de onde ela para)
+    await espera(() => na(s, `${achaFolha}; return !f ? 'não achei a folha' : f.getAnimations().length ? 'a folha ainda anda' : true`), ms, `arrasta "${p.arrasta}"`)
+    const c = await na(s, `${achaFolha}; const r = f.getBoundingClientRect()
+      const de = ${JSON.stringify(p.de ?? null)}; const e = de ? P.acha(de) : f.querySelector('.ds-folha-puxador')
+      if (!e || !f.contains(e)) return { erro: de ? 'não achei ' + de + ' na folha' : 'a folha não tem o puxador' }
+      const q = e.getBoundingClientRect(); return { x: q.left + q.width / 2, y: q.top + q.height / 2, topo: r.top }`)
+    if (c.erro) throw new Error(`arrasta "${p.arrasta}": ${c.erro}`)
+    const dy = p.dy, passos = Math.max(2, Math.ceil(dy / 10))
+    await cdp('Input.dispatchMouseEvent', { type: 'mouseMoved', x: c.x, y: c.y }, s)
+    await cdp('Input.dispatchMouseEvent', { type: 'mousePressed', x: c.x, y: c.y, button: 'left', buttons: 1, clickCount: 1 }, s)
+    for (let i = 1; i <= passos; i++) await cdp('Input.dispatchMouseEvent', { type: 'mouseMoved', x: c.x, y: c.y + (dy * i) / passos, button: 'left', buttons: 1 }, s)
+    // no fim do arraste, com o dedo ainda embaixo: o painel andou o que o dedo andou (a folga só decide quando começa)
+    const andou = await na(s, `${achaFolha}; return new Promise((r) => requestAnimationFrame(() => r({ top: f.getBoundingClientRect().top, t: getComputedStyle(f).transform })))`)
+    await cdp('Input.dispatchMouseEvent', { type: 'mouseReleased', x: c.x, y: c.y + dy, button: 'left', buttons: 0, clickCount: 1 }, s)
+    const vistas = await na(s, `return new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(() => r(P.anims()))))`)
+    registro.push({ passo: `arrasta ${p.arrasta} ${dy}`, anims: vistas })
+    const folga = await na(s, `return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--folha-arraste-folga')) || 0`)
+    const esperado = dy >= folga ? dy : 0
+    if (Math.abs(andou.top - c.topo - esperado) > 1) throw new Error(`arrasta "${p.arrasta}": o dedo andou ${dy} e o painel ${Math.round(andou.top - c.topo)} (${andou.t})`)
+    if (p.anima) confere(p.anima, vistas, `arrasta "${p.arrasta}"`); else avisaLei(vistas, `arrasta "${p.arrasta}"`)
+    return
+  }
+  if (p.tocaFora !== undefined) {
+    const c = await espera(() => na(s, `const f = [...P.raiz.querySelectorAll('[role=dialog]')].find((e) => P.nome(e) === ${JSON.stringify(p.tocaFora)})
+      return !f ? 'não achei a folha' : f.getAnimations().length ? 'a folha ainda anda' : true`), ms, `toca fora de "${p.tocaFora}"`)
+      .then(() => na(s, `const f = [...P.raiz.querySelectorAll('[role=dialog]')].find((e) => P.nome(e) === ${JSON.stringify(p.tocaFora)})
+      const r = f.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top - 40, em = document.elementFromPoint(x, y)
+      return { x, y, veu: !!em && em.classList.contains('ds-veu') && em.contains(f), em: em ? em.className || em.tagName : 'nada' }`))
+    if (!c.veu) throw new Error(`toca fora de "${p.tocaFora}": 40 acima da folha está ${c.em}, e não o véu dela`)
+    for (const type of ['mouseMoved', 'mousePressed', 'mouseReleased']) await cdp('Input.dispatchMouseEvent', { type, x: c.x, y: c.y, button: 'left', clickCount: 1 }, s)
+    const vistas = await na(s, `return new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(() => r(P.anims()))))`)
+    registro.push({ passo: `toca fora ${p.tocaFora}`, anims: vistas })
+    if (p.anima) confere(p.anima, vistas, `toca fora de "${p.tocaFora}"`); else avisaLei(vistas, `toca fora de "${p.tocaFora}"`)
     return
   }
   if (p.anima !== undefined) { const vistas = await na(s, `return P.anims()`); registro.push({ passo: 'anima', anims: vistas }); return confere(p.anima, vistas, 'anima') }

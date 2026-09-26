@@ -11,9 +11,12 @@
 | `04-momento-busca-esconde-a-escolha` | momento | com uma unidade escolhida, digitar uma busca que esconde ela | `lista-longa-garagens` |
 | `05-estado-escolher-a-empresa` | estado | o técnico tem mais de uma empresa — a lista delas vem antes das unidades | `varias-empresas` |
 | `06-estado-unidades-com-trocar-empresa` | estado | as unidades de um técnico com mais de uma empresa | `varias-empresas` |
+| `07-momento-empresa-escolhida` | momento | tocar numa empresa da lista — ou voltar pelo Trocar de empresa, com a atual marcada | `varias-empresas` |
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.
 
 No protótipo (a otimização do design, construída): o `05` e o `06` abrem pela coluna do palco e pelo endereço, montados pelo caso `varias-empresas` — a receita deles em `app/src/estado/receitas.js` —, parados e sem toque, como todo estado. O `05` com as três empresas do caso e nada escolhido; o `06` com as unidades da Viação Atlântico Sul, a empresa do herói, e nada escolhido — as duas referências. Nada no mock dá ao herói mais de uma empresa no fluxo, então o toque de cada um (escolher a empresa, `Ver as unidades`, escolher a unidade, `Sincronizar`, `Trocar de empresa`, o voltar) se prova no node, nas funções que a tela usa (`app/src/telas/T02/empresas.js`, `node app/scripts/testar-empresa.mjs`), e o roteiro `empresa.mjs` confere os dois quadros parados, com a URL de cada um. Os padrões, onde o design não diz, estão no `tela.md` · O que se toca.
+
+No protótipo (a última entrega, construída): o `07` é um momento, e aberto pelo endereço é o app vivo no mundo do caso `varias-empresas`, com a Viação Atlântico Sul marcada — dali o técnico anda até a T03 e o menu, e o `Trocar de empresa`, da tela e da folha do menu, volta a ele com a atual marcada (MUDA o padrão b, que voltava ao `05` sem nada escolhido). O `05` e o `06` seguem estados: pela coluna e pelo endereço, parados; o quadro do `06` também aparece no mundo vivo, depois do `Ver as unidades`, sem momento na URL. Com as outras duas empresas escolhidas, o `Ver as unidades` espera (confirmado pelo arquiteto em 26/09). O detalhe está no `tela.md` · O que se toca.
 
 No protótipo (a otimização do design): a linha do `04` com *garagem*, que ficou repetida no fim da tabela quando a entrega foi juntada, saiu — a do `04` com *unidade* é a mesma referência (a lei 18).

@@ -53,11 +53,15 @@ export const TX = {
   reenviarEm: (seg, n) => `Reenviar em ${seg} s · resta ${n} envio nesta hora`,
   reenviarEmUltimo: (seg) => `Reenviar em ${seg} s · este foi o último envio desta hora`,
   reenvioLiberado: (n) => `Reenvio liberado · resta ${n} envio nesta hora`,
+  // 17 · o teto: os 3 envios da hora acabaram, e a hora em que libera (o caso teto-de-envios)
+  acabaram: (n, hora) => `Os ${n} envios desta hora acabaram · libera às ${hora}`,
   aindaVale: (tempo) => `Ainda vale por ${tempo}`,
   aindaValeEReenvio: (tempo, seg) => `Ainda vale por ${tempo} · reenviar em ${seg} s`,
   pecaNovo: (n) => `Peça um código novo · resta ${n} envio nesta hora`,
   naoRecebi: 'Não recebi o código',
   confirmar: 'Confirmar',
+  // 12 · 13 · o Confirmar apagado diz o que falta, com as células vazias (a última entrega)
+  digiteCodigo: 'Digite o código',
   tentarDeNovo: 'Tentar de novo',
   enviarOutro: 'Enviar outro código',
 

@@ -342,10 +342,20 @@ export default [
   { fica: 'T10', ms: 500 },
   { chega: 'T10', estado: '11-estado-camera-sem-permissao' },
 
-  // ── T11 · o que diverge, o Só registrar o diagnóstico; tudo confere, o Voltar ao menu ──
+  // ── T11 · o que diverge, nada: o link é o Outras ações, que não sai da tela (a última
+  //    entrega, decisão 40); na folha Outras ações, fecha; tudo confere, o Voltar ao menu ──
   { abre: '?tela=T11' },
   esc,
-  { chega: 'T04' },
+  { fica: 'T11', ms: 500 },
+  { chega: 'T11', momento: null },
+  { abre: '?tela=T11&momento=03-momento-outras-acoes' },
+  { ve: 'Apenas registrar o diagnóstico' },
+  esc,
+  { chega: 'T11', momento: null },
+  { naoVe: 'Apenas registrar o diagnóstico' },
+  esc,
+  { fica: 'T11', ms: 500 },
+  { chega: 'T11', momento: null },
   { abre: '?tela=T11&momento=02-momento-tudo-confere' },
   esc,
   { chega: 'T04' },
@@ -368,6 +378,12 @@ export default [
   esc,
   { chega: 'T04' },
   { abre: '?tela=T13&momento=07-momento-responder-item' },
+  esc,
+  { chega: 'T13', momento: '02-momento-b-montagem-aberta' },
+  esc,
+  { chega: 'T04' },
+  // o problema fotografado (15, decisão 39) também é o nível do item: o Voltar ao checklist
+  { abre: '?tela=T13&momento=15-momento-problema-fotografado' },
   esc,
   { chega: 'T13', momento: '02-momento-b-montagem-aberta' },
   esc,

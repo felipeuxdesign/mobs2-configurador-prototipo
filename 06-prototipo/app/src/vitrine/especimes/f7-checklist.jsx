@@ -78,7 +78,7 @@ export const especimes = [
       ]} />
     ) },
   { id: 'f7-linha-fila', folha: 7, rotulo: 'linha da fila', legenda: 'o que sobe e quando',
-    render: () => <LinhaFila estado="ok" titulo="Evidências" legenda="RSW-9L02 · recebida" quando="ontem 10:05" /> },
+    render: () => <LinhaFila estado="ok" titulo="Evidências" legenda="RSW-9L02 · recebida" quando="10/03, 10:05" /> },
   { id: 'f7-linha-rechecagem', folha: 7, rotulo: 'linha da re-checagem', legenda: 'a Seção F esperando o servidor',
     render: () => <LinhaRechecagem titulo="RVM-1E54" legenda="recebimento pendente" prazo="confere em 24 h" /> },
   // na T09 a prova é o último bloco antes do rodapé: a folga de 16 vem junto (folha 7)

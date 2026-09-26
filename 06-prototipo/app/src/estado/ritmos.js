@@ -18,10 +18,8 @@ export const RITMOS = {
   releituraSinalMs: 600,      // releitura da CAN (T08) · cada sinal que responde (G4, T08-D5 · C8)
   semearGravandoMs: 1000,     // semear da calibração (T10) · Gravando no módulo… (T10 animacao.md, a entrega de 25/09)
   semearRelendoMs: 1000,      // semear da calibração (T10) · Relendo…, e aí o tambor rola e a tela vira o semeado ou o não confere
-  // busca da T05 · o quadro da busca da T05/00 fica na tela, e a lista volta (o Procurar de novo, a
-  // otimização do design). PROPOSTA do protótipo, na tabela do movimento.md como proposta: o
-  // diretor não deu o ritmo da busca (G4, C12·14). 400 ms é o menor passo que a tabela dos
-  // processos já dá pra alguém acompanhar (a conferência da T11 e o autoteste) — o número vai ao
-  // diretor e ao arquiteto
-  buscaMs: 400,
+  // busca da T05 · a busca de novo (o Procurar de novo, a otimização do design): o quadro da busca da
+  // T05/00 fica na tela 1,2 s, e a lista volta. O número é do arquiteto (a última entrega, o
+  // animacao.md da T05 e o movimento.md): 400 ms passaria sem o técnico ver que buscou
+  buscaMs: 1200,
 }

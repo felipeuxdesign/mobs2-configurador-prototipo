@@ -1,10 +1,10 @@
 // A prova da empresa antes da unidade (logica.md · A empresa e a unidade; a
-// otimização do design, T02/05 e T02/06). Os dois estados abrem pela coluna e
-// pelo endereço, parados e sem toque (palco.md), e nada no mock dá ao herói mais
-// de uma empresa no fluxo: o que cada toque faz se prova aqui, no node, nas
-// mesmas funções que a tela usa — src/telas/T02/empresas.js —, com os textos do
-// textos.md da T02. O roteiro scripts/caminhos/empresa.mjs confere os quadros no
-// app e o herói sem mudança.
+// otimização do design, T02/05 e T02/06, e a última entrega, T02/07). Os dois
+// estados abrem pela coluna e pelo endereço, parados e sem toque (palco.md); o
+// momento 07 é o app vivo no mundo do caso. O que cada toque faz se prova aqui,
+// no node, nas mesmas funções que a tela usa — src/telas/T02/empresas.js —, com
+// os textos do textos.md da T02; o roteiro scripts/caminhos/empresa.mjs anda o
+// mundo no app, do 07 ao menu e de volta, e confere o herói sem mudança.
 // Uso: node scripts/testar-empresa.mjs → exit 0 aprovado / 1 reprovado.
 import { readFileSync, readdirSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
@@ -67,7 +67,7 @@ chk('06 · as unidades da Viação são as do mundo do herói (M.ucs, M.uos), co
 chk('06 · a contagem da linha da Viação no 05 é a das unidades que o 06 mostra', viacao.unidades === nomesDas(unidades).length)
 chk('06 · o primário apagado até escolher, e o Trocar de empresa no rodapé, como o textos.md', naSecao(E.UNIDADES_DA_EMPRESA, TX.escolhaUnidade, TX.trocarEmpresa))
 chk('06 · o voltar do Android faz o Trocar de empresa, a saída desenhada (padrão c)', E.voltarNoCaso(q06) === E.trocarDeEmpresa)
-chk('06 · o voltar leva ao 05, nada escolhido', igual(E.voltarNoCaso(q06)(), q05))
+chk('06 · o voltar leva às empresas, com a atual marcada (o 07)', igual(E.voltarNoCaso(q06)(q06), qViacao) && E.momentoDoCaso(E.voltarNoCaso(q06)(q06)) === E.EMPRESA_ESCOLHIDA)
 
 // ── escolher a Várzea → a escolhida → Sincronizar → T03 ──
 const varzea = M.uos.find((u) => u.id === M.contextoAtivo.uoId)
@@ -77,9 +77,26 @@ chk('a escolhida: o primário diz Sincronizar Garagem Várzea, como o 01', TX.si
 chk('Sincronizar → T03: a Várzea tem pacote, e a T03 baixa ele', !!pacoteDaGaragem(varzea.id), pacoteDaGaragem(varzea.id)?.id)
 chk('com a escolhida, o Trocar de empresa segue no rodapé, e o voltar também faz ele', E.voltarNoCaso(qVarzea) === E.trocarDeEmpresa)
 
-// ── Trocar de empresa volta ao 05 (padrão b) ──
-chk('Trocar de empresa → o 05, como a referência desenha: nada escolhido', igual(E.trocarDeEmpresa(), q05))
-chk('Trocar de empresa com a Várzea escolhida: a escolha da unidade não fica', E.trocarDeEmpresa(qVarzea).uoId == null && E.trocarDeEmpresa(qVarzea).empresaId == null)
+// ── Trocar de empresa volta ao 07, com a atual marcada (a resposta do arquiteto de 26/09: MUDA o padrão b) ──
+chk('Trocar de empresa → as empresas com a atual marcada: o quadro do 07', igual(E.trocarDeEmpresa(q06), qViacao) && E.momentoDoCaso(E.trocarDeEmpresa(q06)) === E.EMPRESA_ESCOLHIDA)
+chk('Trocar de empresa com a Várzea escolhida: a escolha da unidade não fica, a empresa fica marcada', E.trocarDeEmpresa(qVarzea).uoId == null && E.trocarDeEmpresa(qVarzea).empresaId === viacao.id)
+chk('o 07 no textos.md: as três empresas e o primário Ver as unidades', naSecao(E.EMPRESA_ESCOLHIDA, E.rotuloDasEmpresas(), TX.tituloEmpresas, TX.verUnidades, ...linhas05.flatMap((l) => [l.nome, l.detalhe])))
+
+// ── o 07 · o momento vivo (a última entrega): o endereço, a URL de cada quadro, e o mundo no contexto ──
+chk('07 · pelo endereço, o app vivo no mundo do caso; num estado da coluna, nunca', E.vivoNasEmpresas(null, E.EMPRESA_ESCOLHIDA, {}) && !E.vivoNasEmpresas(E.ESCOLHER_EMPRESA, null, {}) && !E.vivoNasEmpresas(E.UNIDADES_DA_EMPRESA, null, {}))
+chk('07 · o herói (00, 01, a lista longa) não está no mundo vivo', !E.vivoNasEmpresas(null, null, { uoId: null }) && !E.vivoNasEmpresas(null, E.UNIDADE_ESCOLHIDA, { uoId: 'uo-01' }) && !E.vivoNasEmpresas(null, '03-momento-busca-sem-resultado', {}))
+const q07 = E.inicioDoCaso(null, E.EMPRESA_ESCOLHIDA, {})
+chk('07 · pelo endereço, as empresas com a Viação marcada, como a referência', igual(q07, qViacao))
+chk('07 · o primário aceso: Ver as unidades', !E.primarioDasEmpresas(q07).desabilitado && E.primarioDasEmpresas(q07).texto === TX.verUnidades)
+chk('07 · o voltar do Android não faz nada, como no 05 (padrão c, confirmado)', E.voltarNoCaso(q07) === null)
+chk('a URL do mundo vivo: o 07 nas empresas, nada nas unidades sem escolha, o 01 com a escolhida',
+  E.momentoDoCaso(q07) === E.EMPRESA_ESCOLHIDA && E.momentoDoCaso(E.verAsUnidades(q07)) === null && E.momentoDoCaso(E.escolherUnidade(E.verAsUnidades(q07), varzea.id)) === E.UNIDADE_ESCOLHIDA)
+const ctx = E.contextoDoCaso(qVarzea, { uoId: null, pacote: null, empresas: null }, varzea.id)
+chk('Sincronizar no mundo: a unidade no contexto, e o mundo junto, com a atual', ctx.uoId === varzea.id && ctx.pacote === null && E.temVariasEmpresas(ctx) && ctx.empresas.atual === viacao.id, JSON.stringify(ctx))
+chk('no fluxo, com o mundo no contexto, a T02 abre viva', E.vivoNasEmpresas(null, null, ctx) && !E.vivoNasEmpresas(null, null, { uoId: varzea.id, pacote: null, empresas: null }))
+chk('a T03 voltando ao contexto (com a unidade): as unidades da atual, sem nada escolhido (o quadro do 06)', igual(E.inicioDoCaso(null, null, ctx), q06))
+const doMenu = { ...ctx, uoId: null }
+chk('o Trocar de empresa do menu (sem a unidade): as empresas com a atual marcada (o 07)', igual(E.inicioDoCaso(null, null, doMenu), qViacao) && igual(E.inicioDoCaso(null, E.EMPRESA_ESCOLHIDA, doMenu), qViacao))
 
 // ── as outras duas empresas: o mock só traz a contagem, e o primário espera (padrão a) ──
 for (const e of E.empresas().filter((x) => x.id !== M.empresa.id)) {

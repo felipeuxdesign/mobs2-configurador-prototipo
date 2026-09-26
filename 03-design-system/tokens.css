@@ -311,11 +311,11 @@
   --cadeia-elo-pausada: 68px;   /* o elo quando a cadeia pausou e divide a tela com o contador e o aviso (T09/02 e 03 · a cadeia pausada) · Cadeia (altura 'pausada') */
 
   /* ── a atualização do design · o que as folhas novas da T04 pediram ── */
-  --icone-poco-44: 22px;   /* o ícone no poço de 44: o módulo e o ativo que a sessão prendeu, no cartão da folha (T04/10, 11), e o Bluetooth cortado do bloco da busca que não começa (T05/16, 17 · o mundo real) · T04 (pecas.jsx, CartaoPreso), T05 (pecas.jsx, VazioDaBusca) */
+  --icone-poco-44: 22px;   /* o ícone no poço de 44: o módulo e o ativo que a sessão prendeu, no cartão da folha (T04/10, 11), e o Bluetooth riscado do bloco da busca que não começa (T05/16, 17 · o mundo real; riscado pela lei 21) · T04 (pecas.jsx, CartaoPreso), T05 (pecas.jsx, VazioDaBusca) */
   --t-preso: 18px;         /* a identidade do que a sessão prendeu, o serial ou a placa, no cartão da folha (T04/10, 11) · T04 (pecas.jsx, CartaoPreso) */
 
-  /* ── a entrega do design de 24/09 · o olho riscado ── */
-  --olho-corte: 4.6;          /* a borda do risco do olho riscado, na cor do poço, que corta o contorno do olho (T01/10, folha 6; em unidades do desenho de 24) */
+  /* ── a entrega do design de 24/09 · o olho riscado · e a última entrega (lei 21): todo ícone riscado ── */
+  --risco-corte: 4.6;         /* o corte por baixo do risco do ícone riscado, na cor do poço, que abre o fio escuro no desenho onde o risco passa: o olho da senha (T01/10, folha 6), o Wi-Fi do login sem conexão (T01/14), o Bluetooth da busca que não começa (T05/16, 17) e a câmera sem a permissão (T10/11) — em unidades do desenho de 24 (lei 21; era --olho-corte, só do olho) · Riscado */
 
   /* ── C10 · C11 · o que as telas T11, T13, T15 e T16 pediram (cada um com o papel e quem usa) ── */
   --linha-conferencia-fim: 72px; /* a última linha da lista de conferência, com a folga do pé do cartão: 22 a mais que as de 50 (T11/00–02, até o C11) · sem uso desde a entrega do checklist: a Conexão tem os 50 das outras */
@@ -351,6 +351,11 @@
   --toque-desenho: 44px;        /* o desenho do tocável de texto que não é o primário: o link do rodapé e do diálogo, a saída de 44 do diálogo e o ENCERRAR da faixa — o mínimo da lei; o toque de 48 (--alvo-min) cresce por fora, só pro lado livre, embaixo (decisão 38, folha 2) · Rodape, Dialogo, Faixa */
   --rodape-alto-com-link: 13px; /* o alto do rodapé que tem o link embaixo do primário, no lugar dos 14: com o vão de 8 e o link de 44, o rodapé fica com a altura de antes (decisão 38, folha 2) · Rodape (e o do login, T01) */
   --link-recuo: 5px;            /* o link de 44 do rodapé e do diálogo come 5 embaixo (margin 0 0 −5 0), pro lado livre: fecha a conta do rodapé com o alto de 13 e o vão de 8 (decisão 38, folha 2) · Rodape, Dialogo */
+
+  /* ── a última entrega (otimizacao200000000) · o que as peças novas pediram (cada um com o papel e quem usa; o corte do ícone riscado, --risco-corte, fica com o do olho, em cima) ── */
+  --folha-arraste-folga: 8px;   /* o quanto o dedo anda pra baixo na folha antes de o toque virar arraste — antes disso é toque, e a linha embaixo do dedo responde (o touch slop do Android, 8dp · proposta do protótipo, lei 20) · Folha */
+  --folha-arraste-limite: 56px; /* o arraste que fecha a folha: soltando mais de 56 abaixo do lugar dela, ela fecha; antes disso, volta (o limiar de posição do ModalBottomSheet do Material 3, 56dp · proposta do protótipo, lei 20) · Folha */
+  --linha-com-porque: 58px;     /* a linha de lista com a segunda linha de 12 embaixo do título — o porquê do critério ou o efeito da ação —, 8 em cima e embaixo e o poço de 32: o que o servidor recebeu (T12/01, 04, 05) e as ações da folha Outras ações (T11/03) · LinhaChecagem (recebimento), LinhaDeOpcao (efeito) */
 }
 
 @media (prefers-reduced-motion: reduce) {

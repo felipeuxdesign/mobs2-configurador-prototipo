@@ -25,7 +25,7 @@ chk('tokens.json = tokens.css', readFileSync(resolve(raiz, '03-design-system/tok
 try {
   const saida = execFileSync('node', [resolve(app, 'scripts/testar-estado.mjs')], { encoding: 'utf8' })
   const n = saida.match(/os (\d+) estados do indice\.json/)?.[1] ?? '?'
-  chk('sementes e receitas', /TESTE APROVADO/.test(saida), n + ' estados, todo id no mock')
+  chk('sementes e receitas', /TESTE APROVADO/.test(saida), n + ' estados, todo id no mock, todo estado com rótulo na coluna')
 } catch (e) { chk('sementes e receitas', false, 'reprovou'); console.log(e.stdout) }
 
 // 2c · as regras do mundo real no node: a conta do teclado e o retrato do palco (06-prototipo/CLAUDE.md, 10 e 11)
@@ -48,6 +48,27 @@ try {
   const n = saida.split('\n').filter((l) => l.startsWith('OK')).length
   chk('a câmera sem a permissão', /TESTE APROVADO/.test(saida), n + ' conferências')
 } catch (e) { chk('a câmera sem a permissão', false, 'reprovou'); console.log(e.stdout) }
+
+// 2f · a empresa antes da unidade (T02/05, 06 e 07, decisão 37): o que cada toque faz, nas funções da T02
+try {
+  const saida = execFileSync('node', [resolve(app, 'scripts/testar-empresa.mjs')], { encoding: 'utf8' })
+  const n = saida.split('\n').filter((l) => l.startsWith('OK')).length
+  chk('a empresa antes da unidade', /TESTE APROVADO/.test(saida), n + ' toques')
+} catch (e) { chk('a empresa antes da unidade', false, 'reprovou'); console.log(e.stdout) }
+
+// 2g · o Trocar de empresa da folha do menu (T04/14): com e sem sessão, até a T02/07, nas funções da T04
+try {
+  const saida = execFileSync('node', [resolve(app, 'scripts/testar-trocar-empresa.mjs')], { encoding: 'utf8' })
+  const n = saida.split('\n').filter((l) => l.startsWith('OK')).length
+  chk('o Trocar de empresa', /TESTE APROVADO/.test(saida), n + ' conferências')
+} catch (e) { chk('o Trocar de empresa', false, 'reprovou'); console.log(e.stdout) }
+
+// 2h · o login da última entrega (T01/12, 13, 17 e 18): o teto de envios, o Digite o código, a folha do e-mail, outro usuário
+try {
+  const saida = execFileSync('node', [resolve(app, 'scripts/testar-login.mjs')], { encoding: 'utf8' })
+  const n = saida.split('\n').filter((l) => l.startsWith('OK')).length
+  chk('o teto de envios e outro usuário', /TESTE APROVADO/.test(saida), n + ' conferências')
+} catch (e) { chk('o teto de envios e outro usuário', false, 'reprovou'); console.log(e.stdout) }
 
 // 3 · higiene de app/src: relógio, acaso, locale, valor solto
 function arquivos(d) {

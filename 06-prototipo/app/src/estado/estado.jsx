@@ -9,7 +9,9 @@ import { SEMENTES } from './sementes.js'
 export function estadoVazio() {
   return {
     tecnico: { nome: M.tecnico.nome, usuario: M.credenciais.usuario },
-    contexto: { uoId: null, pacote: null },           // pacote: { id, diasAtras, hora, versao }
+    // pacote: { id, diasAtras, hora, versao } · empresas: o técnico com mais de uma empresa,
+    // { caso, atual } — nasce no Sincronizar da T02/07 e vai até o menu (T02/empresas.js)
+    contexto: { uoId: null, pacote: null, empresas: null },
     sessao: null,                                     // { moduloSerial, ativoId, saude, abertaAs, meio }
     etapas: {
       preChecagem: null, ativo: null, can: null, cadeia: null, conferencia: null,
@@ -20,8 +22,10 @@ export function estadoVazio() {
     // usuarioLembrado: o que o celular lembra do login (HU-T01-3, só o identificador) —
     // nenhum no começo; o Entrar com a caixa marcada guarda, o xis esquece (T01/regras.js).
     // jaEntrou: o Entrar já entrou uma vez desde o começo do palco — dali em diante, o
-    // login só traz o que o celular lembra: a 16 com o usuário lembrado, a 15 sem ele
-    situacao: { rede: M.situacao.rede, sessaoAcesso: M.situacao.sessaoAcesso, usuarioLembrado: null, jaEntrou: false },
+    // login só traz o que o celular lembra: a 16 com o usuário lembrado, a 15 sem ele.
+    // outraSessao: o Entrar com outro usuário depois de uma sessão neste aparelho — o
+    // usuário anterior e os itens da fila dele —, que a T02 mostra no diálogo até o Entendi (T01/18)
+    situacao: { rede: M.situacao.rede, sessaoAcesso: M.situacao.sessaoAcesso, usuarioLembrado: null, jaEntrou: false, outraSessao: null },
     casosConsumidos: [],                              // cada caso vale uma vez por sessão (G21)
     avisoDoAcessoVisto: false,                        // o aviso do acesso vencendo já foi fechado no Entendi (logica.md · O aviso do acesso)
     tela: { id: 'T01', momento: null, estado: null, folha: null },

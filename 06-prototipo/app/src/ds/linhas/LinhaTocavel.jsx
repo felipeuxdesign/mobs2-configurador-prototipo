@@ -12,7 +12,8 @@ import './LinhaTocavel.css'
 
 // variante (C8 · T06/02, G11): 'padrao' (a folha 1) ou 'acao' — a linha de
 // ação solta, de 50 e sem poço: o que se pede em 14/600 e, à direita, o que
-// acompanha em 12 apagado (T06/02 'anexa os dois', T13/07 'pede justificativa')
+// acompanha em 12 apagado (T06/02 'anexa os dois'; a T13/07 deixou de usá-la
+// com a decisão 39: o não conforme é a caixa da Justificativa)
 //
 // registrado (T06/07, G11): a linha de ação depois do toque vira o registro do
 // pedido, no mesmo cartão de 50 — não é mais tocável (nem botão pro leitor de

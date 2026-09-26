@@ -1,5 +1,98 @@
 # Registro de mudanças
 
+## 2026-09-26 · a última entrega do design, construída · o que o servidor recebeu, as ações da conferência, a foto do problema e a fila do aparelho
+
+A `otimizacao200000000`, com as respostas do arquiteto de 26/09: juntada, construída, medida e revisada. A junção entrou limpa, pelo formato por seção com a linha inteira — as 27 referências com o PNG de todas, as folhas 2, 4, 6 e 7, as decisões 39 a 42 e as 18 seções do `MUDANCAS.md`.
+
+- **T12 · o que o servidor recebeu** (decisão 41): a seção *O QUE O SERVIDOR RECEBEU* antes de *A INSTALAÇÃO*, com posicionamento, eventos e viagens de `instalacoes[].recebimento` — na i-01, *3 posições em 1 min 12 s*, *o teste chegou em 24 s* e *1 viagem fechada · 3 km* · a 04 com o traço e o motivo, a 05 com o relógio e *confere por 24 h*, e com um dos dois o status geral é *aguardando validação* · o recebimento saiu das etapas da instalação · a T12/01 foi de 3,62% a 0,07% do HTML
+- **T11 · as ações da conferência** (decisão 40, lei 19): o rodapé `Corrigir as N divergências` e o link `Outras ações` · a folha 03 com `Reenviar os 5 blocos` e `Apenas registrar o diagnóstico`, cada uma com o efeito embaixo · sem divergência (01), o `Reenviar` é o principal · a 04, a versão ilegível, com a linha de condição, *2 de 5* e a legenda do arraste · a 02 diz *urbano v3* · a T11 foi de 0,54 · 0,67 · 0,10 · 10,26 · 4,10% a 0,03 · 0,03 · 0,03 · 2,14 · 0,04%, e os textos das cinco conferem
+- **T13 · o não conforme com a foto do problema** (decisão 39): a caixa *Não está conforme* nas duas telas do item, *Enquadre o problema* e o `Fotografar o problema`, o registro no lugar do visor, o `Conte o que aconteceu` apagado e o `Salvar com ressalva`, na ordem que o técnico quiser · a 15 em 0%, a 07 e a 08 em 0,14% (a câmera do Lucide, G5) · a 09 com o QJF-2C61, o M2C-0301 e 10,9 V · o singular: *você fotografa 1 item*, *1 foto tirada* e *Falta 1 item*
+- **T15 · a fila é do aparelho** (decisão 42): *neste aparelho* nas cinco, a fila do fluxo sem o filtro da unidade, *10/03, 10:05* no RSW-9L02 e o *14:02* do caso `fila-vazia` · a 00 foi de 0,16% a 0,02%, a 03 a 0% e a 04 a 0,01%
+- **T01 · o teto e outro usuário:** a 17, *Os 3 envios desta hora acabaram · libera às 15:12*, com o código que já foi valendo (0,51%, só o 9:41 da foto contra o 10:00 do relógio) · a 18, *Outra sessão neste aparelho* sobre as unidades, no fluxo e pela coluna (0%) · o primário diz *Digite o código* enquanto falta dígito (a 12 e a 13 em 0%, eram 5,9%) · a folha do *Não recebi*, no canal e-mail, confere o e-mail
+- **T02/07 · a empresa escolhida:** aberta pelo endereço, é o app vivo no mundo do caso `varias-empresas` — *Ver as unidades* → a unidade → *Sincronizar* → T03 → menu —, e o *Trocar de empresa* do menu volta a ela com a atual marcada, com e sem sessão (0,17%)
+- **as peças** (leis 20 e 21): o ícone riscado numa peça só (`Riscado`) — o Wi-Fi do login, o Bluetooth da T05/16 e 17 e a câmera da T10/11 a 0 px do HTML · toda folha fecha no xis, tocando fora, arrastando pra baixo e no voltar (o `folhas.mjs` prova as cinco) · a caixa do não conforme, a linha do recebimento e a linha de opção com o efeito · a lei 19 varrida nas 145: nenhum rodapé com mais de um botão e um link · **286 tokens** (`--folha-arraste-folga`, `--folha-arraste-limite` e `--linha-com-porque` novos; `--olho-corte` virou `--risco-corte`)
+- **as respostas do arquiteto, construídas:** a busca de novo da T05 em **1,2 s** (era 400 ms, proposta nossa) · a T14/05 com 0:24, 14:30:24 e a barra em 80% (0,87% → 0,09%) · o h1 *Menu* em todas as telas do menu · a folga dupla da T12 e da T06 saiu, sem mudar a rolagem 0 · a T16 no padrão da T16/02: o *não se aplica* no passo que não roda, o subtítulo a 4, o vão de 14 e o NÃO RODARAM numa peça só · a lista longa lê os modelos e os cartões do pacote de cada unidade · vale o relógio, e não os tempos das fotos de um instante
+- **a junção achou:** o caso `fila-vazia` dele tem o nome de um dos nossos sete, e o nosso virou extensão do dele — **6 nossos, 55 casos** · os três campos que saíram das unidades da lista longa eram lidos por duas checagens do gate: as duas leem do pacote agora, e entrou uma que confere o pacote de cada unidade (**194**) · o *Procurando…* do `animacao.md` da T05 não tem referência nem texto: fica o quadro da T05/00 por 1,2 s · a faixa conferida nos HTML: 83 das 91 com 52 e a linha; a T04/01 ainda tem 50, e as 7 sem sessão fora do menu seguem sem a linha
+- **a revisão achou e corrigiu:**
+  - o *sem sinal* dos doze glifos usava o `WifiOff` do Lucide, a versão *-off* que a lei 21 proíbe, e o app tinha dois desenhos pro mesmo *sem conexão*: agora é o Wi-Fi riscado do login (a T03/01 fica em 0,18%, a T05/14 em 0,09%, a T09/02 em 0,04%, a T09/03 em 0,06% e a T12/03 em 0,04% do HTML)
+  - o detalhe da i-01 escrevia como autor quem estava logado: com o m.souza no aparelho, a RKT-8H42 dizia *Marcos Souza*. Agora o autor sai do dado, *Rafael Vieira*, e o `outro-usuario.mjs` prova (101 passos)
+  - seis estados apareciam na coluna do palco como linhas em branco, sem nome pro leitor de tela (T01/17 e 18, T02/05 e 06, T04/14, T11/04): ganharam o nome da referência, como proposta, como a T12/04 e a 05 já tinham ganhado na construção, e o `testar-estado.mjs`, dentro do `checar`, reprova o estado sem nome
+  - o voltar da T13/15 não estava na tabela do voltar nem no roteiro que a prova: agora está nos dois (o `voltar.mjs`, 371 passos)
+  - a senha nova do mock tinha virado *Unidade!Ibura27* na nossa troca de termo: voltou a *Garagem!Ibura27*, que é nome (lei 18), e a T01/08 voltou a 0,02%
+  - a documentação que tinha ficado pra trás: o censo de cinco `tela.md`, o `logica.md` (83 lugares do aceso, a janela de 1,6 s, os 202 passos do herói, o 15 da T13 no voltar, a ressalva da decisão 39), as linhas da T16 e da T12 no `componentes.md` e no `MAPA.md`, o C3 do `ciclos.md`, a regra do *quando* da T15, o comentário da `Faixa` e o `o-que-o-prototipo-simula.md`
+- **a régua final** (26/09, uma de cada vez, depois dos consertos): `checar` e `build` aprovam, e o gate tem **194** checagens · **145 referências, 44 em 0%** do HTML, 0 com erro · contra a base do checklist, 6 pioraram, todas nomeadas — a T12/01 (0,06 → 0,07%) e a T15/01 (4,64 → 4,83%), com a referência trocada, e a T16/02 a 05, pelo padrão da T16/02 —, e 9 melhoraram · os textos: 31 referências com diferença, todas nomeadas; T02, T05, T09, T10, T11, T14 e T16 conferem inteiras · 127 espécimes: acima de 0,5%, só os dois de sempre (a faixa sem ação, 6,64%, e a marca, 11,97%); o aviso, o aviso com falha e o *parou aqui* da folha 4 subiram 0,02 a 0,06 ponto, com o *sem sinal* novo · **18 roteiros, 2.540 passos** · o aceso: 83 lugares, 78 medidos, e **nenhum botão aceso que não faz nada** · o palco: 18 peças, 0 com erro, 0 textos falham; a coluna da T04 no quadro 01 foi de 2,27% a 2,75% (e o quadro inteiro de 3,05% a 3,08%), porque a linha que era branca agora tem nome — a base do palco fica como está · **a base nova, contra as 145:** `app/prints/linha-de-base-entregas.json`
+- **padrões adotados** (cada um com a alternativa, no `diferencas-para-o-arquiteto.md`):
+  1. T12 · a instalação sem `recebimento` leva o veredito da regra do mock, sem o porquê; o reprovado é o xis vermelho, que nenhuma referência desenha
+  2. T12 · o status geral é *aguardando validação* com um critério indisponível ou pendente
+  3. T12 · quem instalou é o herói do mock, com qualquer usuário no aparelho · *1 viagem fechada* tem o 1 no texto
+  4. T11 · o `Corrigir` e o `Reenviar` levam à mesma cadeia da T09, que regrava os seis · o `Apenas registrar o diagnóstico` não põe item na fila · o voltar na 00 e na 04 não faz nada
+  5. T13 · sem a câmera, com a caixa marcada, o primário é `Abrir as configurações` · desmarcar guarda a foto do problema até sair do item
+  6. T13 · *Falta 1 item*, e as fotos tiradas contam a da ressalva
+  7. T15 · *a fila do mock inteira* é o recorte inteiro de cada quadro — no 01, os cinco
+  8. T01 · o *15:12* do caso vale no fluxo · pedir o código no teto volta o que já foi · o expirado e as tentativas esgotadas no teto levam a mesma linha
+  9. T01/18 · o palco começa sem sessão anterior, e o primeiro Entrar nunca abre o diálogo · o m.souza entra com qualquer senha de 8 ou mais
+  10. T02/07 · o mundo das empresas mora no estado único, do *Sincronizar* até sair da conta, e a URL diz o 07 e o 01
+  11. T03 · a estimativa por item da lista longa sai dos três pacotes do herói
+  12. as folhas · o arraste fecha com 8 de folga e 56 de limite, pela posição · o diálogo de confirmação não fecha no toque do véu
+  13. o *sem sinal* · o risco com o fio escuro, a lei 21 inteira
+  14. o palco · os oito estados sem nome na coluna levam o nome da referência
+- **desvios nomeados:**
+  - o *sem sinal* leva o fio escuro, e as referências dele (T03/01, T05/14, T09/02 e 03, T12/03, folhas 3 e 4) desenham o risco sem o fio;
+  - T02/07: o nome da empresa escolhida sobe pra `--tinta`, como a peça faz em toda escolha, e a referência o desenha em `--tinta-forte` (0,17%);
+  - T11/03: o véu cobre a conferência, e a referência o desenha sobre o vazio (2,14%) · a folha *Outras ações* fica sem o puxador, como a T11/03 desenha;
+  - T12/04 e 05: sem as seis etapas e o *Rafael Vieira* que a i-02 do mock não tem (1,27% e 1,28%); a correção é de dado;
+  - T13/09: *1 de 4*, a ordem do mock, contra o *2 de 4* da referência (0,45%) · T13/15: o registro do problema entra sem esmaecer, como a foto da T10, até o ciclo do movimento;
+  - T14/05: o marcador da escala no fim do preenchido (80%), e a referência o deixa em 60%;
+  - T15/01: o recorte inteiro, com a quinta linha, onde a referência mostra o topo (4,83%) · T15/02: *10/03, 10:05*, e a referência diz *ontem 10:05* (0,06%);
+  - T16/02 a 05: o padrão da T16/02 afasta a tela das referências de hoje (1,93% a 3,68%, quase tudo deslocamento de 2 a 6 px), até elas serem redesenhadas;
+  - o h1 *Menu* sobra na régua dos textos nas seis folhas da T04, cujas referências e `textos.md` não o trazem;
+  - o *Procurando…* da busca de novo e a segunda linha da folha do e-mail ficam de fora: nenhum `textos.md` os tem
+- **pro arquiteto:** `diferencas-para-o-arquiteto.md` · *A última entrega (otimizacao200000000), juntada e construída*
+- **falta:** a `otimizacao300000000` — a moldura do palco, a barra de status nas 145, a T16, a T06 e a T12 redesenhadas, a decisão 43 e a lei 22 —, que chegou depois da medida e ainda não foi juntada · o `CLAUDE.md` da raiz ainda diz *283 tokens*, e são 286: a linha é do diretor
+
+## 2026-09-26 · a empresa e a unidade, construída · o ENCERRAR com confirmação e o toque do rodapé
+
+A `otimizacao100000000` da empresa e da unidade (a entrada do design de 25/09), juntada e construída — as 120 referências e os 112 trechos — e publicada no `70f97e1`. A medição completa, a revisão e o fechamento vieram nesta rodada, junto com a última entrega, e as respostas do arquiteto de 26/09 mudaram dois padrões.
+
+- **a palavra é unidade** (decisão 37, lei 18): *Escolha uma unidade*, *Buscar unidade ou cidade*, *Trocar de unidade*, *nesta unidade* — nas 16 telas, nos nomes pro leitor de tela, nos roteiros e nas nossas anotações · *Garagem Várzea* segue como nome, e *Garagem!Ibura27*, a senha nova do mock, também
+- **a empresa antes da unidade:** a T02/05 e a 06, pelo caso `varias-empresas`, a 0% do HTML · a T04/14, a folha de trocar com o *Trocar de empresa* (0,75%: o menu atrás do véu, como na T04/07) · o gate com duas checagens do caso (191 → 193)
+- **o ENCERRAR pede confirmação antes de homologar** (decisão 36): uma peça só, `useEncerrar`, da T04 à T15 · o 13 no menu, com endereço (0,32%), e sobre a própria tela nas outras, com o *Continuar a instalação* deixando o técnico onde estava · o *Encerrar a sessão* das folhas do módulo e do ativo fecha a folha e abre o 13 · o voltar fecha o diálogo antes da tela · os diálogos de sair e de trocar dizem *sem homologar* e vão direto aos 4 passos · depois de homologar, o ENCERRAR vai direto à T16/00, também no menu
+- **o toque do rodapé** (decisão 38): o rodapé com link com 13 em cima, o vão de 8 e o link de 44 que come 5, com o toque de 48 crescendo pra baixo — a mesma altura de antes · o ENCERRAR de 44, com o toque crescendo pra baixo, dentro da faixa · o diálogo com as ações a 8 · **283 tokens** (`--toque-desenho`, `--rodape-alto-com-link` e `--link-recuo` novos) · as 51 referências da T01, da T05, da T07 e da T10 voltaram à base
+- **a régua:** na publicação, o gate com 193 checagens, 14 roteiros e 1.840 passos, `checar` e `build` aprovando · a medida inteira é a da última entrega, logo acima: nenhuma referência desta piorou — a T02/05 e a 06 em 0%, a T04/13 em 0,32%, a T04/14 em 0,75%, e as outras da T01 à T04 na base, com a T01/08 de volta a 0,02% depois da senha do mock
+- **padrões adotados, com as respostas do arquiteto (26/09):**
+  1. as outras duas empresas do caso trazem só a contagem: escolhida uma delas, o `Ver as unidades` espera, apagado · **confirmado:** só a do herói anda
+  2. o *Trocar de empresa* da T02/06 voltava à T02/05 sem nada escolhido · **mudou:** volta à T02/07, a empresa escolhida, com a atual marcada — construído, também o do menu, com e sem sessão
+  3. o voltar do Android na T02: no 06, o mesmo que o *Trocar de empresa*; no 05, nada · **confirmado**, e a 07 faz o mesmo que o 05
+  4. trocar de empresa com o módulo conectado: *Trocar de empresa*, *…é encerrada antes da troca, sem homologar.* e *Encerrar a sessão e trocar* · **confirmados os textos**, e o destino **mudou** da T02/05 pra T02/07
+  5. o *Ver as unidades* sem quadro · **respondido:** o quadro é a T02/07, nova — construída
+  6. o *Encerrar sem homologar?* fora do menu abre sobre a própria tela e deixa o técnico nela · **confirmado**
+  7. o das folhas do módulo e do ativo fecha a folha e abre o 13 sobre o menu · **confirmado**
+  8. a T02/05, a 06 e a T04/14 são estados, parados pelo palco, e o toque se provava no node (`testar-empresa.mjs`, `testar-trocar-empresa.mjs`) · **resolvido pela T02/07**, um momento: o mundo do caso anda a partir dela, até o menu e de volta
+  9. a unidade escolhida de quem tem mais de uma empresa mantém o `Trocar de empresa` no rodapé, e o primário diz `Sincronizar` com o nome · sem resposta, segue
+  10. o ENCERRAR de 44 com o toque de 48 crescendo pra baixo, a 8 da conta no menu, e 1 abaixo no menu com falha · sem resposta, segue
+  11. o que corre embaixo do diálogo (a conferência da T11, o ciclo da T14) continua correndo · sem resposta, segue
+  12. a tira de contexto diz pro leitor *Trocar de unidade — Garagem Várzea* · sem resposta, segue
+- **desvios nomeados:**
+  - o link registrado da T14/06 segue a referência, com o rodapé de antes (14 em cima, o vão de 6 e os 48): no toque do *Solicitar correção de cadastro*, o primário desce 1 e o texto sobe 3 (lei 3);
+  - o link *Trocar de empresa* da folha (T04/14) tem o desenho de 48 de antes, como a referência, e não o de 44 da decisão 38;
+  - a T04/14 segue estado, parada pela coluna; o quadro dela se alcança por toque a partir da T02/07;
+  - a tabela do design no `componentes.md` e a folha 2 dizem *link com 48 de toque* e *a 12px do botão*; medido, é o desenho de 44 com o toque de 48, e a legenda a 14 — anotado na seção do protótipo
+- **a junção achou** (já respondido pelo arquiteto): o *como se chega* da T04/07, 08 e 09 veio como "—" (a troca do termo renomeou a chave interna; voltou) · o `leis.md` repetia a lei 17 (fica a nossa) · vários *depois* repetiam linhas que já tínhamos (entraram sem duplicar) · o trecho 5 do ENCERRAR, no `logica.md`, tinha só o começo da nossa linha como *antes* · 14 HTML sem PNG (o desenho delas não tinha mudado) · a junção usa o `entrega.mjs trechos`
+- **pro arquiteto:** `diferencas-para-o-arquiteto.md` · *A empresa e a unidade (otimizacao100000000), juntada e construída*
+
+## 2026-09-26 · o que as HUs pediam e faltava, e a resposta ao executor
+
+- **a T12 mostra o que o servidor recebeu**: posicionamento, eventos e viagens, com o critério indisponível e o pendente de 24 h · decisão 41
+- **as ações da conferência**: `Corrigir as N divergências` e a folha *Outras ações* com as outras duas · a versão ilegível · decisão 40
+- **o não conforme com a foto do problema**: a caixa do *Não está conforme*, *O QUE ACONTECEU*, e o momento *problema fotografado* · decisão 39
+- **a T01**: o teto de 3 envios na hora, e outro usuário no aparelho · **a T02**: a empresa escolhida, com *Ver as unidades*
+- **a fila é do aparelho**: *neste aparelho*, e a fila sem erro com os itens do mock · decisão 42
+- **os ícones riscados** são o ícone inteiro com o risco: a câmera, o Bluetooth e o Wi-Fi
+- **correções pelo mock**: o item reprovado com o QJF-2C61 e 10,9 V · o evento em 0:24 · *urbano v3* na conferência · o `Confirmar` apagado com as células vazias · a data do RSW-9L02
+- **o como se chega da T04/07, 08 e 09** voltou — a troca do termo tinha renomeado a chave interna
+- leis novas: o rodapé com um botão e um link · o xis e o Cancelar das folhas · o ícone riscado
+- agora são **145 referências** — 62 momentos e 67 estados —, **49 casos**, **42 decisões** e **21 leis**
+
 ## 2026-09-25 · a empresa e a unidade, o ENCERRAR com confirmação, e o toque do rodapé
 
 - **o contexto é empresa e unidade**: a interface diz *unidade* onde dizia *garagem* — 16 telas e os documentos que instruem · *Garagem Várzea* segue como nome · lei nova: *a palavra é unidade* · decisão 37

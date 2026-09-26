@@ -21,8 +21,11 @@
 // A busca de novo (`Procurar de novo`, `Procurar outro módulo`, o Bluetooth que
 // liga): a busca da T05/00 corre de novo, e a lista volta (a otimização do
 // design) — o quadro da 00 fica na tela RITMOS.buscaMs, com a URL dizendo a 00,
-// e a lista volta sem nada escolhido (01). O ritmo é proposta do protótipo: o
-// diretor não o deu (G4, C12·14). Tocar no quadro da 00 enquanto ele está na
+// e a lista volta sem nada escolhido (01). O ritmo é o do arquiteto, 1,2 s (a
+// última entrega, animacao.md). O animacao.md diz que a lista some e
+// *Procurando…* fica na tela, mas esse texto não está em referência nem no
+// textos.md: fica o quadro da 00, que ele aprovou antes, sem texto novo (a
+// pergunta vai ao arquiteto). Tocar no quadro da 00 enquanto ele está na
 // tela vale como na 00: o toque fica, e a lista não volta por cima dele.
 //
 // Os onze estados (C7), pela receita (receitas.js) e pelo caso do mock:
@@ -41,7 +44,7 @@
 //
 // O mundo real (logica.md): o que o celular impede antes da busca — o
 // Bluetooth desligado (16) e a permissão negada (17), no bloco da busca, com o
-// Bluetooth cortado. O quadro e o toque do primário são de celular.js: Ligar o
+// Bluetooth riscado (lei 21). O quadro e o toque do primário são de celular.js: Ligar o
 // Bluetooth e Abrir as configurações levam à busca (a 01); Permitir, com a
 // resposta negada do caso, vira Abrir as configurações. Os dois abrem só pela
 // coluna, parados: o toque se prova no node (scripts/testar-login-e-bluetooth.mjs)
@@ -251,7 +254,7 @@ export default function T05({ momento, estado: est }) {
 
   let miolo, rodape
   if (q.fase === 'celular') {
-    // ── 16 · 17 · o celular impede a busca: o bloco da busca, com o Bluetooth cortado ──
+    // ── 16 · 17 · o celular impede a busca: o bloco da busca, com o Bluetooth riscado (lei 21) ──
     const t = textosDoCelular(q)
     miolo = (
       <>

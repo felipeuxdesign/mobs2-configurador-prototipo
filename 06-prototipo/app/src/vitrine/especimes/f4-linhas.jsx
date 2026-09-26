@@ -5,6 +5,8 @@ import { Lista, LinhaChecagem, LinhaHistorico, LinhaFilaEsperando, LinhaGaragem,
 import { secaoALeitura, secaoBFechada } from './f7-checklist.jsx'
 
 const pilha = { display: 'flex', flexDirection: 'column', gap: 'var(--e-10)' }
+// o cartão com a largura da tela, 16 de cada lado: a moldura de recheio 0 tem a borda de 1
+const naTela = { padding: '0 calc(var(--e-16) - var(--traco-borda))' }
 
 export const especimes = [
   // ── a linha de checagem · cinco estados ──
@@ -29,7 +31,7 @@ export const especimes = [
   { id: 'f4-assertiva', folha: 4, rotulo: 'assertiva da sessão', legenda: 'dupla · 50',
     render: () => <Lista><LinhaChecagem variante="dupla" titulo="Configuração" valor="confere" /></Lista> },
   { id: 'f4-conferencia', folha: 4, rotulo: 'linha de conferência', legenda: 'dupla · 50',
-    render: () => <Lista><LinhaChecagem variante="conferencia" titulo="Ativo" valor="tradução frota v2" /></Lista> },
+    render: () => <Lista><LinhaChecagem variante="conferencia" titulo="Ativo" valor="urbano v3" /></Lista> },
   // a entrega do checklist (decisão 34): a folha 4 desenha as duas com a seção nova, a mesma peça da folha 7
   { id: 'f4-secao-aberta', folha: 4, rotulo: 'seção aberta do checklist', legenda: 'o cartão cresce no lugar · a seta vira pra cima', render: secaoALeitura },
   { id: 'f4-secao-recolhida', folha: 4, rotulo: 'seção recolhida', legenda: 'um cartão por seção · quem age, a contagem e a seta', render: secaoBFechada },
@@ -42,6 +44,31 @@ export const especimes = [
         <LinhaChecagem variante="passo" titulo="Porta aberta" />
         <LinhaChecagem variante="passo" titulo="Ignição desligada" divisoria={false} folgaFim />
       </Lista>
+    ) },
+
+  // a última entrega · o que o servidor recebeu (T12/01, 04 e 05, decisão 41): a variante recebimento, fora
+  // da folha 4 (semBancada), com os textos das referências; o cartão tem os 328 da tela
+  { id: 'f4-recebimento', folha: 4, chrome: true, semBancada: true, rotulo: 'o que o servidor recebeu',
+    legenda: 'fora da folha · o porquê embaixo, o veredito à direita · o traço é o indisponível (T12/04)',
+    render: () => (
+      <div style={naTela}>
+        <Lista>
+          <LinhaChecagem variante="recebimento" titulo="Posicionamento" porque="3 posições em 1 min 12 s" valor="conforme" />
+          <LinhaChecagem variante="recebimento" estado="indisponivel" titulo="Eventos" porque="o pacote não declara a fila" valor="indisponível" />
+          <LinhaChecagem variante="recebimento" titulo="Viagens" porque="1 viagem fechada · 1,1 km" valor="completa" divisoria={false} />
+        </Lista>
+      </div>
+    ) },
+  { id: 'f4-recebimento-pendente', folha: 4, chrome: true, semBancada: true, rotulo: 'o que o servidor recebeu · pendente',
+    legenda: 'fora da folha · o relógio é o pendente: confere de novo por 24 h (T12/05)',
+    render: () => (
+      <div style={naTela}>
+        <Lista>
+          <LinhaChecagem variante="recebimento" estado="pendente" titulo="Posicionamento" porque="sem resposta · confere por 24 h" valor="pendente" />
+          <LinhaChecagem variante="recebimento" titulo="Eventos" porque="o teste chegou em 52 s" valor="conforme" />
+          <LinhaChecagem variante="recebimento" titulo="Viagens" porque="1 viagem fechada · 1,1 km" valor="completa" divisoria={false} />
+        </Lista>
+      </div>
     ) },
 
   // ── vazio, comparação e histórico ──

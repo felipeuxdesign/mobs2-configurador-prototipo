@@ -20,3 +20,5 @@ A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos fic
 - **a sessão:** no `01` e no `02`, a sessão que o fluxo tem aberta, com ativo; sem ela, a do herói, como as referências desenham; no `03` e no `04`, nenhuma — a faixa sem sessão (T15-V1)
 - **a Seção F** aparece só no `04`, em seção à parte, com a janela da re-checagem (`confere em 24 h`). No fluxo e nos outros estados, nenhuma referência a desenha. A i-06, há 9 dias em re-checagem, contra a janela de 24 h, está com o PM (T15-A5)
 
+**No protótipo · a última entrega** (decisão 42): a fila é do aparelho, e o recorte de cada estado cruza unidades sem contradição — o `01` deixou de ser *a fila inteira da Várzea* e o `02` de *cruzar unidades*: são o que o aparelho tem. O recorte aparece inteiro, e não só o topo que a referência desenha: no `01`, a quinta linha, a *Calibração · PCX-9A17 · recebida · ontem 16:40*, entra embaixo. O `03` e o `04` leem o caso `fila-vazia`, que agora é do design (o *14:02*); o protótipo só acrescenta a fila vazia e a sessão. O recebido de mais de um dia diz o dia: *10/03, 10:05* no `00` e no `02` (a referência do `02` ainda diz *ontem 10:05*).
+

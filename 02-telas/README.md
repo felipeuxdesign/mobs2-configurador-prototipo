@@ -14,8 +14,8 @@ Uma pasta por tela. Dentro de cada uma, sempre os mesmos cinco itens:
 
 | Tela | Pasta | Momentos | Estados |
 |---|---|---|---|
-| T01 · Login | `T01-login/` | 10 | 6 |
-| T02 · Selecionar contexto | `T02-selecionar-contexto/` | 3 | 3 |
+| T01 · Login | `T01-login/` | 10 | 8 |
+| T02 · Selecionar contexto | `T02-selecionar-contexto/` | 4 | 3 |
 | T03 · Sincronizar | `T03-sincronizar/` | 1 | 3 |
 | T04 · Menu | `T04-menu/` | 8 | 6 |
 | T05 · Conectar módulo | `T05-conectar-modulo/` | 4 | 13 |
@@ -24,13 +24,13 @@ Uma pasta por tela. Dentro de cada uma, sempre os mesmos cinco itens:
 | T08 · Refazer leitura da CAN | `T08-refazer-leitura/` | 2 | 0 |
 | T09 · Configurar módulo | `T09-configurar-modulo/` | 1 | 3 |
 | T10 · Calibração | `T10-calibracao/` | 6 | 5 |
-| T11 · Conferir configuração | `T11-conferir-configuracao/` | 1 | 1 |
-| T12 · Últimas instalações | `T12-ultimas-instalacoes/` | 1 | 2 |
-| T13 · Checklist | `T13-checklist/` | 11 | 3 |
+| T11 · Conferir configuração | `T11-conferir-configuracao/` | 2 | 2 |
+| T12 · Últimas instalações | `T12-ultimas-instalacoes/` | 1 | 4 |
+| T13 · Checklist | `T13-checklist/` | 12 | 3 |
 | T14 · Ciclo dinâmico | `T14-ciclo-dinamico/` | 3 | 3 |
 | T15 · Fila de saída | `T15-fila-de-saida/` | 0 | 4 |
 | T16 · Sessão | `T16-sessao/` | 4 | 2 |
 
-`indice.json` lista as 137 referências com tela, tipo, nome, título, como se chega, caso do mock e os caminhos do HTML e do PNG. **É o que o palco lê pra montar a coluna.**
+`indice.json` lista as 145 referências com tela, tipo, nome, título, como se chega, caso do mock e os caminhos do HTML e do PNG. **É o que o palco lê pra montar a coluna.**
 
 **As referências são gabarito, nunca peça do app.** O HTML existe pra você ler um valor exato e pra comparar o seu print com o PNG. O app se constrói com os componentes do design system.

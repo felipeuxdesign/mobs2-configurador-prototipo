@@ -17,8 +17,14 @@ export const TX = {
   tituloEmpresas: 'Pra qual empresa hoje?',
   unidades: (n) => `${n} unidades`,
   escolhaEmpresa: 'Escolha uma empresa',
-  // o primário com a empresa escolhida: o tela.md diz, e nenhuma referência desenha
+  // 07 · o primário com a empresa escolhida (a última entrega desenha, na T02/07)
   verUnidades: 'Ver as unidades',
   // 06 · o link do rodapé das unidades, pra quem tem mais de uma empresa
   trocarEmpresa: 'Trocar de empresa',
+  // o diálogo de quem entra depois de outro usuário, sobre as unidades — a T01/18
+  // (02-telas/T01-login/textos.md). O usuário anterior e os itens da fila dele são o
+  // dado; no singular, *1 item* (o singular vale, a resposta do arquiteto de 26/09)
+  outraSessao: 'Outra sessão neste aparelho',
+  sessaoEncerrada: (usuario, n) => `A sessão de ${usuario} foi encerrada. A fila dele continua subindo: ${n} ${n === 1 ? 'item' : 'itens'}.`,
+  entendi: 'Entendi',
 }

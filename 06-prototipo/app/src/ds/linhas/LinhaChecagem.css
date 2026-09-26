@@ -96,3 +96,15 @@
 /* o corpo do título não encolhe: sem isso ele cedia 10 do título ao valor, e o
  * 'Recebimento' passava da própria caixa até a borda do valor (revisão C11 · T12) */
 .ds-checagem-valor-quebra .ds-checagem-corpo { flex-shrink: 0; }
+/* a última entrega · T12/01, 04, 05 (decisão 41, G11) · o que o servidor recebeu: 58 no mínimo, 8 em cima e
+ * embaixo, o poço de 32, o título em 14/600 e o porquê embaixo, a 2, em 12; o veredito em 13/700, com a tinta
+ * do estado — conforme em --tinta, indisponível em --tinta-apagada, pendente em --tinta-secundaria, reprovado
+ * em vermelho — e o traço do indisponível em --marca-limite */
+.ds-checagem.ds-checagem-recebimento { gap: var(--e-10); height: auto; min-height: var(--linha-com-porque); padding: var(--e-8) 0; }
+.ds-checagem-recebimento .ds-checagem-titulo { font-weight: 600; color: var(--tinta); }
+.ds-checagem-porque { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-secundaria); }
+.ds-checagem-recebimento .ds-checagem-valor { color: var(--tinta); }
+.ds-checagem-recebimento.ds-checagem-indisponivel .ds-checagem-valor { color: var(--tinta-apagada); }
+.ds-checagem-recebimento.ds-checagem-pendente .ds-checagem-valor { color: var(--tinta-secundaria); }
+.ds-checagem-recebimento.ds-checagem-reprovada .ds-checagem-valor { color: var(--vermelho); }
+.ds-checagem-recebimento .ds-glifo-traco { background: var(--marca-limite); }

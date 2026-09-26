@@ -152,6 +152,11 @@ export default [
   { chega: 'T06', momento: '08-momento-busca-sem-resultado' },
   { ve: 'Nada com “ABC-1234”' },
   { desligado: 'Usar este ativo' },
+  // a instrução sai com qualquer termo na busca (a última entrega): também na que acha, sem nada marcado
+  { digita: 'QJF', em: 'Buscar placa, frota ou módulo' },
+  { chega: 'T06', momento: null },
+  { ve: 'QJF-2C61' },
+  { naoVe: 'Escolha o veículo que está na sua frente.' },
   { toca: 'Voltar ao menu' },
   { chega: 'T04' },
 
@@ -175,11 +180,15 @@ export default [
   { chega: 'T05', momento: '01-momento-nenhum-escolhido' },
   { ve: 'Escolha o que está na sua mão.' },
   { toca: 'Procurar de novo' },
-  // o quadro da busca da 00, com a URL dizendo a 00, no ritmo da busca (ritmos.js · buscaMs)
+  // o quadro da busca da 00, com a URL dizendo a 00, no ritmo da busca (ritmos.js · buscaMs):
+  // 1,2 s, o número do arquiteto (a última entrega) — 600 ms depois, o quadro ainda está na tela
   { chega: 'T05', momento: null },
   { ve: 'ESCOLHIDO' },
   { naoVe: 'Escolha o que está na sua mão.' },
-  { chega: 'T05', momento: '01-momento-nenhum-escolhido', entre: [100, 1200] },
+  { dorme: 600 },
+  { chega: 'T05', momento: null },
+  { ve: 'ESCOLHIDO' },
+  { chega: 'T05', momento: '01-momento-nenhum-escolhido', entre: [50, 1000] },
   { ve: 'Escolha o que está na sua mão.' },
   { naoVe: 'ESCOLHIDO' },
   { desligado: 'Conectar' },

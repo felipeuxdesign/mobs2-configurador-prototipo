@@ -14,15 +14,21 @@
 //   pelo palco semeia só a sessão: o que as telas T05 a T10 gravariam no
 //   caminho vem da semente da T13 — o herói depois da calibração, antes do
 //   ciclo e da fila (G21).
-// · B, o item manual: Não conforme abre a justificativa (08). Tirar foto e
-//   Salvar com ressalva resolvem o item e seguem pro próximo por fazer; sem
-//   próximo, voltam à B aberta. A ressalva aparece com o check e a causa (12).
+// · B, o item manual: a caixa Não está conforme nas duas telas do item (07 e
+//   08). O não conforme exige a foto do problema (decisão 39): marcada a caixa,
+//   o quadro diz Enquadre o problema e o botão é o disparador, Fotografar o
+//   problema (08); fotografado, o quadro vira o registro e o botão, Salvar com
+//   ressalva (15); sem o texto, Conte o que aconteceu, apagado. A ordem entre
+//   escrever e fotografar é livre. Tirar foto e Salvar com ressalva resolvem o
+//   item e seguem pro próximo por fazer; sem próximo, voltam à B aberta. A
+//   ressalva aparece com o check e a causa (12).
 // · A câmera do item sem a permissão (o mundo real, igual à T10/11 · estado/
 //   camera.js): o visor com a câmera riscada e o Tirar foto vira Abrir as
-//   configurações; permitida lá, a câmera abre na volta. O Não conforme
-//   continua: a ressalva não precisa da câmera (o primário sai de
-//   primarioDaCamera). Nenhuma referência desenha este quadro e o visor fica
-//   sem frase (G25), e a URL sai do momento; nenhum estado da coluna chega nele.
+//   configurações; permitida lá, a câmera abre na volta. Com o Não está
+//   conforme marcado, também: a foto do problema precisa da câmera (decisão
+//   39; o primário sai de primarioDaCamera). Nenhuma referência desenha este
+//   quadro e o visor fica sem frase (G25), e a URL sai do momento; nenhum
+//   estado da coluna chega nele.
 // · O automático reprovado: o nível do item (09) mostra o motivo e o caminho,
 //   Refazer a leitura da CAN → T08 (T13·2). Nada se marca à mão.
 // · Finalizar instalação acende quando o que bloqueia fecha (A a E); o toque
@@ -38,12 +44,12 @@
 import { useEffect, useRef, useState } from 'react'
 import {
   BarraDoSistema, Faixa, CabecalhoConteudo, BarraDoChecklist, SecoesDoChecklist, SecaoDoChecklist, ItemDoChecklist, VereditoDoChecklist,
-  Segmentado, LinhaTocavel, Justificativa, Nota, Rodape, Veu, Dialogo, Frase, VisorCamera,
+  Segmentado, Justificativa, Nota, Rodape, Veu, Dialogo, Frase, VisorCamera, FotoProva,
 } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
 import { useEncerrar } from '../../estado/encerrar.jsx'
-import { NEGADA, permissaoDoEstado, camera as cameraDa, primarioDaCamera, voltaDasConfiguracoes } from '../../estado/camera.js'
+import { NEGADA, APAGADO, permissaoDoEstado, camera as cameraDa, primarioDaCamera, voltaDasConfiguracoes } from '../../estado/camera.js'
 import { RECEITAS } from '../../estado/receitas.js'
 import { SEMENTES } from '../../estado/sementes.js'
 import { M } from '../../dados/mock.js'
@@ -77,14 +83,17 @@ function comQuadro(base, momento) {
   return { ...base, etapas: { ...base.etapas, ciclo: cicloConcluido(base.sessao.ativoId, base.sessao.moduloSerial) } }
 }
 
-// O quadro em que a tela abre: as seções (uma aberta, ou nenhuma), o item, o diálogo
+// O quadro em que a tela abre: as seções (uma aberta, ou nenhuma), o item, o
+// diálogo. No item manual: a caixa do não conforme, o que aconteceu e a hora
+// da foto do problema (decisão 39)
 function quadroInicial({ momento, est, ck }) {
-  const q = { aberta: null, item: null, naoConforme: false, texto: '', dialogo: false, ciente: false }
+  const q = { aberta: null, item: null, naoConforme: false, texto: '', fotoProblema: null, dialogo: false, ciente: false }
   if (est === REF.reprovado) return { ...q, item: ck.porSecao.C.find((c) => c.estado === 'reprovado')?.id ?? null }
   if (est === REF.secaoF) return { ...q, dialogo: true }
   if (SECAO_DO_MOMENTO[momento]) return { ...q, aberta: SECAO_DO_MOMENTO[momento] }
   if (momento === REF.responder) return { ...q, item: primeiroPendente(ck) }
   if (momento === REF.naoConforme) return { ...q, item: primeiroPendente(ck), naoConforme: true, texto: M.checklist.exemploJustificativa }
+  if (momento === REF.problemaFotografado) return { ...q, item: primeiroPendente(ck), naoConforme: true, texto: M.checklist.exemploJustificativa, fotoProblema: HORA }
   return q
 }
 
@@ -145,32 +154,40 @@ export default function T13({ momento, estado: est }) {
   }
   // o toque num item com seta: a câmera do app, o nível do item reprovado, ou a tela que resolve
   function tocarItem(c) {
-    if (c.destino === 'item') { setQ({ ...q, item: c.id, naoConforme: false, texto: '' }); irItem(REF.responder); return }
+    if (c.destino === 'item') { setQ({ ...q, item: c.id, naoConforme: false, texto: '', fotoProblema: null }); irItem(REF.responder); return }
     if (c.destino === 'reprovado') { setQ({ ...q, item: c.id }); irQuadro(null); return } // o 09 é estado da coluna: no fluxo, a URL fica na tela
     if (c.destino?.tela) ir(c.destino.tela)
   }
+  // a caixa do não conforme: marcada, o 08 (ou o 15, se o problema já foi
+  // fotografado); desmarcada, o 07. O que aconteceu e a foto do problema ficam
+  // guardados enquanto o técnico está no item, e marcar de novo os devolve
   function marcarNaoConforme(marcado) {
     setQ((x) => ({ ...x, naoConforme: marcado, texto: marcado ? (x.texto || M.checklist.exemploJustificativa) : x.texto }))
-    irItem(marcado ? REF.naoConforme : REF.responder)
+    irItem(marcado ? (q.fotoProblema ? REF.problemaFotografado : REF.naoConforme) : REF.responder)
+  }
+  // Fotografar o problema: o quadro vira o registro (15), com a hora do relógio parado
+  function fotografarProblema() {
+    setQ((x) => ({ ...x, fotoProblema: HORA }))
+    irItem(REF.problemaFotografado)
   }
   function voltarAoChecklist() {
     const s = itemDe(q.item).secao
-    setQ({ ...q, item: null, naoConforme: false, aberta: s })
+    setQ({ ...q, item: null, naoConforme: false, fotoProblema: null, aberta: s })
     irQuadro(quadroDasSecoes(s))
   }
   // Tirar foto e Salvar com ressalva: o item resolvido, e o próximo por fazer
   function responder(como) {
     const id = q.item
     const fotos = { ...registro.fotos }; const ressalvas = { ...registro.ressalvas }
-    if (como === 'foto') { fotos[id] = HORA; delete ressalvas[id] } else { ressalvas[id] = { justificativa: q.texto.trim(), as: HORA }; delete fotos[id] }
+    if (como === 'foto') { fotos[id] = HORA; delete ressalvas[id] } else { ressalvas[id] = { justificativa: q.texto.trim(), as: HORA, foto: q.fotoProblema }; delete fotos[id] }
     const novo = { ...registro, fotos, ressalvas }
     setRegistro(novo)
     gravar(novo)
     const depois = checklist(comRegistro(base, novo))
     const seguinte = proximoPendente(depois, id)
-    if (seguinte) { setQ({ ...q, item: seguinte, naoConforme: false, texto: '' }); irItem(REF.responder) } else {
+    if (seguinte) { setQ({ ...q, item: seguinte, naoConforme: false, texto: '', fotoProblema: null }); irItem(REF.responder) } else {
       const s = itemDe(id).secao
-      setQ({ ...q, item: null, naoConforme: false, texto: '', aberta: s })
+      setQ({ ...q, item: null, naoConforme: false, texto: '', fotoProblema: null, aberta: s })
       irQuadro(quadroDasSecoes(s, depois))
     }
   }
@@ -212,34 +229,46 @@ export default function T13({ momento, estado: est }) {
   let rodape
   const nivel = q.item ? nivelDoItem(ck, q.item) : null
   if (nivel && nivel.item.secao === 'B') {
-    // o nível do item manual (07, 08). Sem a permissão da câmera, a câmera
-    // riscada e o Abrir as configurações no lugar do Tirar foto (estado/camera.js)
+    // o nível do item manual (07, 08, 15). Sem a permissão da câmera, a câmera
+    // riscada e o Abrir as configurações no lugar do Tirar foto (estado/camera.js).
+    // O quadro: a câmera do item; marcado o não conforme, a do problema
+    // (Enquadre o problema, 08); fotografado o problema, o registro no lugar
+    // dela (15) — a foto que prova, tirada, a peça da T10
     const cam = cameraDa(permissao)
+    const fotografado = q.naoConforme && q.fotoProblema != null
+    const frase = q.naoConforme ? T.enquadreProblema : nivel.item.instrucao
     miolo = (
       <>
         <Segmentado rotulo={rotuloDoNivel(nivel.secao)} contagem={String(nivel.posicao)} total={T.de(nivel.total)} segmentos={nivel.segmentos}
           legenda={nivel.depois ? T.depois(nivel.depois) : undefined} />
         <h1 className="t13-titulo-item">{nivel.item.pergunta}</h1>
-        {cam.abre ? <VisorCamera frase={nivel.item.instrucao} /> : <VisorCamera semPermissao />}
-        {q.naoConforme
-          ? <Justificativa opcao={T.naoConforme} marcado aoMarcar={marcarNaoConforme} rotulo={T.justificativa} valor={q.texto}
-              aoEscrever={(texto) => setQ((x) => ({ ...x, texto }))} focado />
-          : <LinhaTocavel variante="acao" titulo={T.naoConforme} valor={T.pedeJustificativa} className="t13-nao-conforme"
-              rotulo={`${T.naoConforme}, ${T.pedeJustificativa}`} aoTocar={() => marcarNaoConforme(true)} />}
+        {fotografado
+          ? <FotoProva tirada titulo={T.problemaFotografado(q.fotoProblema)} legenda={T.vaiComARessalva} />
+          : cam.abre ? <VisorCamera frase={frase} /> : <VisorCamera semPermissao />}
+        {/* a caixa do não conforme (decisão 39): desmarcada, a 16 do fim do miolo (T13/07) */}
+        <div className={q.naoConforme ? 't13-nao-conforme' : 't13-nao-conforme t13-nao-conforme-desmarcada'}>
+          {q.naoConforme
+            ? <Justificativa opcao={T.naoConforme} legenda={T.conteEmbaixo} marcado aoMarcar={marcarNaoConforme} rotulo={T.oQueAconteceu} valor={q.texto}
+                aoEscrever={(texto) => setQ((x) => ({ ...x, texto }))} focado />
+            : <Justificativa opcao={T.naoConforme} legenda={T.marqueEConte} aoMarcar={marcarNaoConforme} />}
+        </div>
       </>
     )
     // o primário é o que estado/camera.js diz (provado no node, scripts/testar-camera.mjs):
-    // o Não conforme marcado ganha da câmera, com ou sem a permissão
+    // desmarcado, o da câmera; marcado, o que falta pra ressalva (decisão 39)
     const PRIMARIO = {
       'tirar-foto': { rotulo: T.tirarFoto, aoTocar: () => responder('foto') },
+      'fotografar-problema': { rotulo: T.fotografarProblema, aoTocar: fotografarProblema },
+      // sem o texto, apagado e desabilitado (lei 17): diz o que falta, e não faz nada
+      [APAGADO]: { rotulo: T.conteOQueAconteceu, desabilitado: true },
       'salvar-com-ressalva': { rotulo: T.salvarComRessalva, aoTocar: () => responder('ressalva') },
-      // de volta das configurações com a permissão, a câmera abre, e a URL volta ao 07
-      'abrir-configuracoes': { rotulo: T.abrirConfiguracoes, aoTocar: () => { const p = voltaDasConfiguracoes(); setPermissao(p); irItem(REF.responder, p) } },
+      // de volta das configurações com a permissão, a câmera abre, e a URL volta ao quadro do item (07 ou 08)
+      'abrir-configuracoes': { rotulo: T.abrirConfiguracoes, aoTocar: () => { const p = voltaDasConfiguracoes(); setPermissao(p); irItem(q.naoConforme ? REF.naoConforme : REF.responder, p) } },
     }
-    const primario = PRIMARIO[primarioDaCamera(permissao, { ressalva: q.naoConforme })]
+    const primario = PRIMARIO[primarioDaCamera(permissao, { naoConforme: q.naoConforme, fotografado, contou: !!q.texto.trim() })]
     rodape = (
       <Rodape primario={primario.rotulo} aoPrimario={primario.aoTocar}
-        primarioDesabilitado={q.naoConforme && !q.texto.trim()} link={T.voltarChecklist} aoLink={voltarAoChecklist} />
+        primarioDesabilitado={!!primario.desabilitado} link={T.voltarChecklist} aoLink={voltarAoChecklist} />
     )
   } else if (nivel) {
     // o nível do item automático reprovado (09): o motivo e o caminho; nada se marca à mão
@@ -277,8 +306,8 @@ export default function T13({ momento, estado: est }) {
     rodape = homologada
       ? <Rodape primario={T.encerrarSessao} aoPrimario={() => ir('T16')} link={T.voltarMenu} aoLink={voltarAoMenu} />
       : (
-        // 'Faltam N itens' explica o primário apagado; com 1, o texto não existe (G25)
-        <Rodape legenda={ck.faltam > 1 ? T.faltam(ck.faltam) : undefined} legendaJunta primario={T.finalizar} primarioDesabilitado={ck.faltam > 0}
+        // 'Faltam N itens' explica o primário apagado; com 1, no singular (Falta 1 item, proposta)
+        <Rodape legenda={ck.faltam > 0 ? T.faltam(ck.faltam) : undefined} legendaJunta primario={T.finalizar} primarioDesabilitado={ck.faltam > 0}
           aoPrimario={finalizar} link={T.voltarMenu} aoLink={voltarAoMenu} />
       )
   }

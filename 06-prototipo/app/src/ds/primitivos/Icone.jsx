@@ -7,14 +7,15 @@
 import {
   Radio, Truck, Activity, Settings, RefreshCcw, Gauge, Wrench, ListChecks, Upload, History,
   X, ChevronRight, ChevronDown, ChevronUp, RotateCw, Mail, UserRound, Search, Camera, Image, Check, ArrowUp,
-  BluetoothOff, CameraOff, Route,
+  Bluetooth, Route, FileText,
 } from 'lucide-react'
+import { Risco, riscado } from './Riscado.jsx'
 import './Icone.css'
 
 // A exceção da Lei 14: o olho da senha não é o do Lucide. É desenhado no app — a
-// amêndoa baixa e a pupila inteiras — e o riscado é o MESMO olho, com um risco
-// diagonal por cima, que tem uma borda da cor do fundo do campo (o poço) pra
-// cortar o contorno onde passa. O desenho é o do SVG da referência (T01/00 e 10)
+// amêndoa baixa e a pupila inteiras — e o riscado é o MESMO olho, com o Risco
+// por cima (lei 21, Riscado.jsx: o corte da cor do poço abre o fio escuro no
+// contorno onde o risco passa). O desenho é o do SVG da referência (T01/00 e 10)
 // e o da folha 6. O traço é o das ações, pela classe (1,8).
 function OlhoSenha() {
   return (
@@ -27,7 +28,7 @@ function OlhoSenhaRiscado() {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
       <path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6-10-6-10-6z" /><circle cx="12" cy="12" r="3" />
-      <line className="ds-olho-corte" x1="3.5" y1="3.5" x2="20.5" y2="20.5" /><line x1="3.5" y1="3.5" x2="20.5" y2="20.5" />
+      <Risco />
     </svg>
   )
 }
@@ -48,12 +49,20 @@ export const ICONES = {
   // a entrega de 25/09 · T10/10: o xis solto do "não confere", na régua da
   // diferença — o vermelho da falha, de 14, com o traço 2,6 da referência
   'xis-mini': [X, 'mini'],
-  // o mundo real · T05/16 e 17: o Bluetooth cortado, no poço de 44 do bloco da
-  // busca que não começa — o desligado e o sem permissão, o mesmo desenho
-  'bluetooth-desligado': [BluetoothOff, 'acao'],
+  // o mundo real · T05/16 e 17: o Bluetooth riscado, no poço de 44 do bloco da
+  // busca que não começa — o desligado e o sem permissão, o mesmo desenho. A
+  // última entrega (lei 21): o Bluetooth inteiro com o Risco, e não mais o
+  // BluetoothOff do Lucide
+  'bluetooth-desligado': [riscado(Bluetooth), 'acao'],
   // o mundo real · T10/11: a câmera riscada, no visor da câmera do app sem a
-  // permissão — a da T10 e a do item manual da T13 (VisorCamera)
-  'camera-negada': [CameraOff, 'acao'],
+  // permissão — a da T10 e a do item manual da T13 (VisorCamera). A última
+  // entrega (lei 21): a câmera inteira, a mesma do `camera`, com o Risco, e
+  // não mais o CameraOff do Lucide
+  'camera-negada': [riscado(Camera), 'acao'],
+  // a última entrega · T11/03: o registrar o diagnóstico, na folha Outras
+  // ações, no poço de 32 da linha de opção com o efeito — o file-text do
+  // Lucide, traço 1,8 (o Reenviar os 5 blocos usa o `reenviar`)
+  diagnostico: [FileText, 'acao'],
   // a entrega do checklist · T13/05: o ciclo dinâmico, no poço de 32 da ação
   // da Seção E (Fazer o ciclo dinâmico) — o route do Lucide, traço 1,8
   ciclo: [Route, 'acao'],

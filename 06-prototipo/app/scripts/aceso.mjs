@@ -6,7 +6,9 @@
 // que não faz nada: vai pra lista, com a nota do porquê, se já se sabe. O que
 // muda e volta dentro da janela do toque (o quadro da busca da T05, que fica
 // RITMOS.buscaMs e dá lugar à lista) conta como mudou: a régua olha a janela
-// inteira, de 100 em 100 ms, e não só o fim dela.
+// inteira, de 100 em 100 ms, e não só o fim dela. A janela cobre a busca de novo
+// (JANELA_MS): na T05/00, o quadro da busca é o da própria 00, e o que muda é a
+// lista que volta, depois de RITMOS.buscaMs.
 //
 // Uso: node scripts/aceso.mjs            (todas as telas e momentos)
 //      node scripts/aceso.mjs T02,T09    (só os que começam assim)
@@ -34,6 +36,7 @@ import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node
 import { fileURLToPath } from 'node:url'
 import { dirname, resolve } from 'node:path'
 import { CHROME } from './cromo.mjs'
+import { RITMOS } from '../src/estado/ritmos.js'
 
 const app = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const raiz = resolve(app, '../..')
@@ -163,6 +166,11 @@ async function parado() {
   return null
 }
 
+// a janela do toque: 800 ms, ou o ritmo da busca de novo da T05 e mais um pouco, o que for maior. Na
+// T05/00, o quadro da busca é a própria 00 (o M2C-0417 escolhido): nada muda na tela até a lista voltar,
+// sem nada escolhido, depois de RITMOS.buscaMs (1,2 s, o número do arquiteto na última entrega)
+const JANELA_MS = Math.max(800, RITMOS.buscaMs + 400)
+
 const saida = []; let mortos = 0, naoMedidos = 0
 const t0 = performance.now()
 for (const l of lugares) {
@@ -183,7 +191,7 @@ for (const l of lugares) {
       await toque(c)
       // a janela do toque inteira: o que muda e volta (o quadro que passa) também mudou
       let depois = antes
-      for (let t = 100; t <= 800 && depois === antes; t += 100) { await dorme(100); depois = await na(s, `return P.foto(${sem})`).catch(() => null) }
+      for (let t = 100; t <= JANELA_MS && depois === antes; t += 100) { await dorme(100); depois = await na(s, `return P.foto(${sem})`).catch(() => null) }
       if (depois === antes) { const nota = NOTAS[`${l.id.slice(0, 6)}|${c.n}`]; r.nada.push(nota ? { nome: c.n, nota } : { nome: c.n }); if (!nota) mortos++ }
     }
   } catch (e) { naoMedidos++; r = { id: l.id, medido: false, erro: e.message, tocaveis: [], nada: [] }; console.log(`  ~ ${l.id}: ${e.message}`); saida.push(r); continue }

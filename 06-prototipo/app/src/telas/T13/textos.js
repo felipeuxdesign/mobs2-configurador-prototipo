@@ -13,8 +13,9 @@ export const T = {
   // quem age, embaixo do nome da seção (a entrega do checklist, decisão 34)
   appConfere: 'o app confere sozinho',
   appConferiu: 'o app conferiu',
-  voceFotografa: (n) => `você fotografa ${n} itens`,
-  fotosTiradas: (n) => `${n} fotos tiradas`,
+  // no singular, com 1 (a resposta do arquiteto de 26/09: *1 item*, *1 foto tirada*)
+  voceFotografa: (n) => (n === 1 ? 'você fotografa 1 item' : `você fotografa ${n} itens`),
+  fotosTiradas: (n) => (n === 1 ? '1 foto tirada' : `${n} fotos tiradas`),
   voceFazCiclo: 'você faz o ciclo em movimento',
   cicloPassou: 'o ciclo passou',
   esperaServidor: 'espera o servidor · não bloqueia',
@@ -52,7 +53,8 @@ export const T = {
   semCerca: 'sem cerca',
 
   // o rodapé
-  faltam: (n) => `Faltam ${n} itens`,
+  // no singular, *1 item*, com o verbo junto (o singular do `Faltam N itens`: proposta do protótipo, pro arquiteto)
+  faltam: (n) => (n === 1 ? 'Falta 1 item' : `Faltam ${n} itens`),
   finalizar: 'Finalizar instalação',
   encerrarSessao: 'Encerrar sessão',
   voltarMenu: 'Voltar ao menu',
@@ -60,10 +62,19 @@ export const T = {
 
   // o nível do item
   depois: (pergunta) => `Depois: ${pergunta}`,
-  naoConforme: 'Não conforme',
-  pedeJustificativa: 'pede justificativa',
-  justificativa: 'JUSTIFICATIVA',
+  // a caixa do não conforme, nas duas telas do item (decisão 39, T13/07, 08 e 15)
+  naoConforme: 'Não está conforme',
+  marqueEConte: 'marque e conte o que aconteceu',
+  conteEmbaixo: 'conte embaixo o que aconteceu',
+  oQueAconteceu: 'O QUE ACONTECEU',
   tirarFoto: 'Tirar foto',
+  // o não conforme exige a foto do problema (decisão 39): o quadro, o registro e o botão que diz o que falta
+  enquadreProblema: 'Enquadre o problema',
+  fotografarProblema: 'Fotografar o problema',
+  problemaFotografado: (hora) => `Problema fotografado às ${hora}`,
+  vaiComARessalva: 'vai junto com a ressalva, pro gestor',
+  // sem o texto, apagado: nenhuma referência o desenha, e o texto é o do tela.md e do logica.md (decisão 39)
+  conteOQueAconteceu: 'Conte o que aconteceu',
   salvarComRessalva: 'Salvar com ressalva',
   // a câmera sem a permissão: nenhuma referência da T13 a desenha; o primário é
   // o da câmera da T10 (T10/11, textos.md), que vale igual pro checklist

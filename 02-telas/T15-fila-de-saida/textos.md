@@ -4,20 +4,21 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `00-tela`
 
-`14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Fila de saída` · `3` · `nesta unidade` · `UM PRECISA DE VOCÊ` · `Evidências · KJC-7N23` · `instalação encerrada por outro usuário` · `Ressincronizar e reenviar` · `O RESTO ANDA SOZINHO` · `Calibração` · `RSW-9L02 · na fila` · `há 18 min` · `Evidências` · `RSW-9L02 · recebida` · `ontem 10:05` · `Voltar ao menu`
+`14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Fila de saída` · `3` · `neste aparelho` · `UM PRECISA DE VOCÊ` · `Evidências · KJC-7N23` · `instalação encerrada por outro usuário` · `Ressincronizar e reenviar` · `O RESTO ANDA SOZINHO` · `Calibração` · `RSW-9L02 · na fila` · `há 18 min` · `Evidências` · `RSW-9L02 · recebida` · `10/03, 10:05` · `Voltar ao menu`
 
 ## `01-estado-sem-erro`
 
-`14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Fila de saída` · `5` · `nesta unidade` · `SUBINDO AGORA` · `Evidências · RKT-8H42` · `62` · `%` · `de 8,4 MB` · `Nada aqui precisa de você.` · `NA FILA E RECEBIDAS` · `Checklist` · `PCX-9A17 · na fila` · `há 4 min` · `Evidências` · `RKT-8H42 · recebida` · `14:02` · `Calibração` · `RKT-8H42 · recebida` · `13:48` · `Voltar ao menu`
+`14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Fila de saída` · `5` · `neste aparelho` · `SUBINDO AGORA` · `Evidências · KNB-5H39` · `62` · `%` · `de 8,4 MB` · `Nada aqui precisa de você.` · `NA FILA E RECEBIDAS` · `Evidências` · `PCX-9A17 · na fila` · `há 2 min` · `Checklist` · `RKT-8H42 · recebida` · `09:15` · `Evidências` · `RKT-8H42 · recebida` · `09:14` · `Voltar ao menu`
 
 ## `02-estado-dois-erros`
 
-`14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Fila de saída` · `4` · `nesta unidade` · `DUAS COM ERRO` · `Evidências · KJC-7N23` · `o servidor recusou · instalação encerrada por outro usuário` · `Ressincronizar e reenviar` · `Evidências · KWX-2T36` · `sem rede · 3 tentativas feitas, próxima às 14:32` · `Só a primeira precisa de você. A segunda reenvia sozinha.` · `O RESTO ANDA SOZINHO` · `Calibração` · `RSW-9L02 · na fila` · `há 18 min` · `Evidências` · `RSW-9L02 · recebida` · `ontem 10:05` · `Voltar ao menu`
+`14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Fila de saída` · `4` · `neste aparelho` · `DUAS COM ERRO` · `Evidências · KJC-7N23` · `o servidor recusou · instalação encerrada por outro usuário` · `Ressincronizar e reenviar` · `Evidências · KWX-2T36` · `sem rede · 3 tentativas feitas, próxima às 14:32` · `Só a primeira precisa de você. A segunda reenvia sozinha.` · `O RESTO ANDA SOZINHO` · `Calibração` · `RSW-9L02 · na fila` · `há 18 min` · `Evidências` · `RSW-9L02 · recebida` · `ontem 10:05` · `Voltar ao menu`
 
 ## `03-estado-fila-vazia`
 
-`14:30` · `Sem sessão de configuração` · `Fila de saída` · `0` · `nesta unidade` · `Nada esperando envio` · `O último item subiu às 14:02.` · `Voltar ao menu`
+`14:30` · `Sem sessão de configuração` · `Fila de saída` · `0` · `neste aparelho` · `Nada esperando envio` · `O último item subiu às 14:02.` · `Voltar ao menu`
 
 ## `04-estado-secao-f-em-re-checagem`
 
-`14:30` · `Sem sessão de configuração` · `Fila de saída` · `0` · `nesta unidade` · `Nada esperando envio` · `O último item subiu às 14:02.` · `EM RE-CHECAGEM · SEÇÃO F` · `RVM-1E54` · `recebimento pendente` · `confere em 24 h` · `Voltar ao menu`
+`14:30` · `Sem sessão de configuração` · `Fila de saída` · `0` · `neste aparelho` · `Nada esperando envio` · `O último item subiu às 14:02.` · `EM RE-CHECAGEM · SEÇÃO F` · `RVM-1E54` · `recebimento pendente` · `confere em 24 h` · `Voltar ao menu`
+

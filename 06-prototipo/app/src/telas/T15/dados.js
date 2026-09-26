@@ -15,11 +15,12 @@ export const REF = {
   secaoF: '04-estado-secao-f-em-re-checagem',
 }
 
-// G21 · a semente da 00: a seleção [f-10, f-02, f-08] — a fila inteira da
-// Ibura, com a recusa do servidor. Mora aqui porque o sementes.js não é deste
-// ciclo de tela; o gate confere que ela é a fila da uo-02 (P·C11 · T15). A
-// faixa e o contexto são os da semente (a Várzea do herói): a mistura é o
-// T15-A2, com o diretor.
+// G21 · a semente da 00: a seleção [f-10, f-02, f-08] — a fila do aparelho na
+// semente, com a recusa do servidor. A fila é do aparelho, e não da unidade
+// (decisão 42, HU-T01-4): os itens podem ser de qualquer unidade, e a faixa e o
+// contexto são os da semente (a Várzea do herói) sem contradição — o T15-A2
+// fechou. Mora aqui porque o sementes.js não é deste ciclo de tela; o gate
+// confere que ela é a fila da uo-02 (P·C11 · T15), que é de onde os três vêm.
 export const SELECAO_DA_SEMENTE = ['f-10', 'f-02', 'f-08']
 
 const itemDoMock = (id) => M.filaSaida.find((f) => f.id === id)
@@ -29,15 +30,16 @@ export const placaDe = (id) => ativo(id)?.placa
 export const rotuloCurto = (tipo) => M.tiposFila?.find((t) => t.tipo === tipo)?.rotuloCurto ?? tipo
 
 // O quadro de cada estado da coluna, pela receita (receitas.js): o recorte do
-// caso aditivo (fila-sem-erro, fila-dois-erros, fila-vazia) e, quando a
-// receita traz a secaoF, a Seção F em re-checagem. O 04 é a tela do 03 mais a
-// Seção F (T15/04: 'Nada esperando envio' e a re-checagem): a receita dele diz
-// só `secaoF`, e a fila é a vazia do 03.
+// caso (o aditivo fila-sem-erro e fila-dois-erros; o fila-vazia, do design desde
+// a última entrega, com o 14:02) e, quando a receita traz a secaoF, a Seção F em
+// re-checagem. O 04 é a tela do 03 mais a Seção F (T15/04: 'Nada esperando
+// envio' e a re-checagem). O recorte aparece inteiro, e não só o topo que a
+// referência mostra (decisão 42): no 01, os cinco itens.
 export function quadroDoEstado(est) {
   const r = RECEITAS[`T15/${est}`]
   if (!r) return null
   const comSecaoF = (r.dados ?? []).includes('secaoF')
-  const caso = M.casos[r.aditivo ?? (comSecaoF ? 'fila-vazia' : null)]
+  const caso = M.casos[r.aditivo ?? r.casos?.[0]]
   if (!caso) return null
   return {
     itens: caso.itens.map(itemDoMock),
@@ -47,14 +49,13 @@ export function quadroDoEstado(est) {
   }
 }
 
-// No fluxo, a fila que a tela mostra: a seleção da semente mais o que a sessão
-// criou (estado único, `fila`) na garagem ativa, cada item como está — o erro
-// que o técnico reenviou volta pra fila (estado/fila.js, `reenviados`). A
-// Seção F não aparece: a 00 não a desenha, e ela entra pela coluna (04).
+// No fluxo, a fila que a tela mostra: a do aparelho (decisão 42) — a seleção da
+// semente mais tudo o que a sessão criou (estado único, `fila`), de qualquer
+// unidade, cada item como está: o erro que o técnico reenviou volta pra fila
+// (estado/fila.js, `reenviados`). A Seção F não aparece: a 00 não a desenha, e
+// ela entra pela coluna (04).
 export function quadroDoFluxo(unico) {
-  const uo = unico.contexto.uoId ?? M.contextoAtivo.uoId
-  const daSessao = (unico.fila ?? []).filter((f) => ativo(f.ativoId)?.uoId === uo)
-  const itens = [...SELECAO_DA_SEMENTE.map(itemDoMock), ...daSessao].map((f) => comoEsta(f, unico.reenviados))
+  const itens = [...SELECAO_DA_SEMENTE.map(itemDoMock), ...(unico.fila ?? [])].map((f) => comoEsta(f, unico.reenviados))
   return { itens, ultimoEnvioAs: null, semSessao: false, secaoF: null }
 }
 
@@ -91,12 +92,17 @@ export const causaDaRede = (f) => T.semRede(f.tentativas, f.proximaTentativaAs)
 // o item que sobe agora: o progresso e o tamanho, com a vírgula sem Intl
 export const tamanhoDoEnvio = (f) => T.deTamanho(decimal(f.tamanhoMb, 1))
 
-// a linha da lista: o que é, de quem e em que pé está, e quando
+// o dia do item de mais de um dia, do `data` do mock (AAAA-MM-DD), sem Date:
+// o f-08, de 2 dias, é '10/03' (a resposta do arquiteto de 26/09)
+const diaMes = (data) => { const [, mes, dia] = data.split('-'); return { dia, mes } }
+// a linha da lista: o que é, de quem e em que pé está, e quando — recebido
+// hoje, a hora; ontem, 'ontem' com a hora; antes, o dia e a hora ('10/03, 10:05')
 export function linhaDaLista(f) {
   const placa = placaDe(f.ativoId)
   if (f.estado === 'recebida') {
     const dias = diasDe(f)
-    const quando = dias === 0 ? confirmadoDe(f) : dias === 1 ? T.ontem(confirmadoDe(f)) : T.haDias(dias)
+    const quando = dias === 0 ? confirmadoDe(f) : dias === 1 ? T.ontem(confirmadoDe(f))
+      : f.data ? T.naData(diaMes(f.data), confirmadoDe(f)) : T.haDias(dias)
     return { estado: 'ok', nomeGlifo: 'feito', titulo: rotuloCurto(f.tipo), legenda: T.recebida(placa), quando }
   }
   // na fila: há quanto tempo está parado, de criadoAs até as 14:30 (mocks.js · fila de saída)

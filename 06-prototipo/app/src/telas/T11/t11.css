@@ -2,6 +2,25 @@
  * A barra do sistema na cor da faixa, a faixa da sessão, o miolo e o rodapé. */
 .t11 { height: 100%; display: flex; flex-direction: column; background: var(--fundo-pagina); color: var(--tinta); }
 
+/* a faixa mora num fieldset, que a desabilita de uma vez quando a folha Outras
+ * ações abre (T11/03, como a T04/10): ela fica acesa em cima do véu, sem o papel
+ * do fieldset (role presentation) e sem o desenho dele. Desabilitada, nenhum
+ * toque chega nela, e o leitor ouve o ENCERRAR desabilitado. */
+.t11-topo { flex-shrink: 0; min-width: 0; margin: 0; padding: 0; border: 0; }
+.t11-topo:disabled { pointer-events: none; }
+
+/* o corpo: o miolo e o rodapé, numa caixa só, que fica inerte atrás do véu da
+ * folha (G25). Tem o lugar que o miolo e o rodapé tinham, sem mudar nada. */
+.t11-corpo { flex-grow: 1; min-height: 0; display: flex; flex-direction: column; }
+
+/* por cima da tela, a folha Outras ações (T11/03): o véu começa embaixo da faixa,
+ * que fica acesa com a linha de baixo dela (os 52 da faixa), como nas folhas do
+ * módulo e do ativo do menu (T04/10, 11). O app (.app) é a caixa de posição. */
+.t11-sobre {
+  position: absolute; top: calc(var(--barra-sistema) + var(--faixa-sessao)); right: 0; bottom: 0; left: 0; z-index: 1;
+  display: flex; flex-direction: column;
+}
+
 /* o miolo: entre a faixa e o rodapé, rola quando passa de 800 (G16). A folga de
  * 16 até o rodapé é o recheio dele; os blocos ficam a 12, como as três referências. */
 .t11 .tela-miolo {
@@ -11,7 +30,7 @@
 }
 .t11 .tela-miolo > * { flex-shrink: 0; }
 
-/* a legenda solta embaixo da lista (00, 01): não é a 'com legenda' do rodapé,
+/* a legenda solta embaixo da lista (01: o que o Reenviar preserva; 04: o que o Corrigir arrasta): não é a 'com legenda' do rodapé,
  * que fica a 12 do botão e centrada (T11-A14) — é o texto de 12 do conteúdo */
 .t11-legenda { font-size: var(--t-legenda); font-weight: 500; line-height: var(--entrelinha-legenda); color: var(--tinta-apagada); }
 

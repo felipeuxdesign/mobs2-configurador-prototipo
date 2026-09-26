@@ -6,6 +6,13 @@
   transition: transform var(--mov-padrao) var(--mov-curva);
 }
 .ds-folha-fechada { transform: translateY(100%); transition-duration: var(--mov-rapido); }
+/* a lei 20 (a última entrega): o painel se arrasta pra baixo, com o dedo (Folha.jsx). O navegador
+ * não rola nem seleciona nada na folha: o dedo que desce nela é da folha. Enquanto o dedo arrasta,
+ * o pressionado do que estava embaixo dele some — o toque virou arraste, e não chega em nada */
+.ds-folha { touch-action: none; user-select: none; }
+.ds-folha[data-arrastando] .ds-tocavel:active::after { opacity: 0; }
+.ds-folha[data-arrastando] .ds-so-icone:active { opacity: 1; }
+.ds-folha[data-arrastando] .ds-link:active .ds-link-toque { opacity: 0; }
 .ds-folha-minima { min-height: var(--folha-minima); }
 .ds-folha-folga-12 { gap: var(--e-12); }
 .ds-folha-subtitulo { font-size: var(--t-secundario); font-weight: 500; line-height: var(--entrelinha-legenda); color: var(--tinta-secundaria); }

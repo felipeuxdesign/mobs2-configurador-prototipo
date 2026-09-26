@@ -3,9 +3,17 @@
 // dizê-lo, e a tela não remonta. Remonta só quando o pedido vem de fora — um
 // estado aberto pela coluna, a volta ao fluxo, o painel pulando pra T01, o
 // Recomeçar —, e abre no quadro que o pedido diz.
+//
+// O estado 18 (outro usuário no aparelho, a última entrega) não é um quadro do
+// login: é o que vem depois do Entrar — as unidades da T02, com o diálogo *Outra
+// sessão neste aparelho* por cima. Aberto pela coluna, a T01 monta a T02 com o
+// que o caso outro-usuario diz, parada e sem toque, como todo estado; no fluxo, o
+// diálogo nasce do Entrar (Login.jsx · entrar) e mora na própria T02.
 import { useCallback, useRef } from 'react'
 import { useEstado } from '../../estado/estado.jsx'
-import { Login } from './Login.jsx'
+import { Login, REF } from './Login.jsx'
+import { outraSessaoDoCaso } from './regras.js'
+import T02 from '../T02/index.jsx'
 
 export default function T01({ momento, estado }) {
   const { estado: unico, despachar } = useEstado()
@@ -21,5 +29,6 @@ export default function T01({ momento, estado }) {
     pediu.current = true
     despachar({ tipo: 'ir', tela: 'T01', momento: m ?? null })
   }, [despachar])
+  if (estado === REF.outroUsuario) return <T02 estado={estado} outraSessao={outraSessaoDoCaso()} />
   return <Login key={`${estado ?? 'fluxo'}·${geracao.current}`} momento={momento} estado={estado} irMomento={irMomento} />
 }

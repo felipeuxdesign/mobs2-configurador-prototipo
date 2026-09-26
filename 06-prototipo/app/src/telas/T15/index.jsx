@@ -8,6 +8,10 @@
 // · Tudo sai do mock (dados.js): a fila pela seleção da semente (00, G21) ou
 //   pelo recorte do caso de cada estado (01 a 04, receitas.js), o rótulo curto
 //   pelo tiposFila (AC-14), a janela da re-checagem pelo criteriosRegra (AC-15).
+// · A fila é do aparelho, e não da unidade (decisão 42, HU-T01-4): o rótulo é
+//   'neste aparelho', e no fluxo entra tudo o que a sessão criou, de qualquer
+//   unidade. As referências mostram o topo da lista; a tela mostra o recorte
+//   inteiro (no 01, os cinco itens), e o miolo rola quando passa.
 // · O estado muda o conteúdo: os blocos ficam onde as referências desenham, e
 //   onde elas mudam de desenho (o cartão compacto da 02, a Seção F da 04), a
 //   tela é construída fiel (G24).
@@ -109,7 +113,7 @@ export default function T15({ estado: est }) {
       <BarraDoSistema hora={M.HORA_NOMINAL} fundo="faixa" />
       {faixa}
       <div className="tela-miolo">
-        <CabecalhoConteudo titulo={T.titulo} contagem={total} unidade={T.nestaGaragem} />
+        <CabecalhoConteudo titulo={T.titulo} contagem={total} unidade={T.nesteAparelho} />
         {total === 0 && <Vazio titulo={T.vazio} frase={quadro.ultimoEnvioAs ? T.ultimoSubiu(quadro.ultimoEnvioAs) : undefined} />}
         {cartao}
         {linhas.length > 0 && (

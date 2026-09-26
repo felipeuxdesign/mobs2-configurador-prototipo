@@ -20,6 +20,6 @@
 | `13-momento-encerrar-antes-de-homologar` | momento | tocar no ENCERRAR antes de homologar | derivado do fluxo |
 | `14-estado-folha-trocar-de-unidade-com-empresa` | estado | a folha de trocar de unidade, pra quem tem mais de uma empresa | `varias-empresas` |
 
-No protótipo: o `13` abre pelo toque no ENCERRAR, antes de homologar — no menu, e pelo `Encerrar a sessão` das folhas do módulo e do ativo —, e pelo endereço, como os outros momentos · o `14` abre pela coluna e pelo endereço, montado pelo caso `varias-empresas`, parado e sem toque: no fluxo, o herói tem uma empresa só (`06-prototipo/logica.md` · A empresa e a unidade).
+No protótipo: o `13` abre pelo toque no ENCERRAR, antes de homologar — no menu, e pelo `Encerrar a sessão` das folhas do módulo e do ativo —, e pelo endereço, como os outros momentos · o `14` abre pela coluna e pelo endereço, montado pelo caso `varias-empresas`, parado e sem toque: no fluxo, o herói tem uma empresa só (`06-prototipo/logica.md` · A empresa e a unidade). Desde a última entrega, o quadro do `14` também se alcança por toque, no mundo das empresas: da T02/07 ao menu, a folha do `07` tem o `Trocar de empresa`, e ele leva à T02/07 com a atual marcada.
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.

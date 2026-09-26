@@ -120,28 +120,35 @@ export function garagens() {
 
 // A empresa antes da unidade (decisão 37, logica.md · A empresa e a unidade):
 // com mais de uma empresa (o caso varias-empresas), a folha de trocar de
-// unidade tem o Trocar de empresa no fim (T04/14). O mundo do caso só existe
-// no estado da coluna: nada no mock dá ao herói mais de uma empresa no fluxo
-// (como na T02, T02/empresas.js), e o 14 abre pela coluna e pelo endereço,
-// parado e sem toque. O que o toque faz se prova no node, nestas funções, as
-// mesmas que a tela usa (scripts/testar-trocar-empresa.mjs).
+// unidade tem o Trocar de empresa no fim (T04/14). O 14 abre pela coluna e pelo
+// endereço, parado e sem toque; no fluxo, a folha o tem quando o técnico veio do
+// mundo das empresas — a T02/07, o momento que anda (a última entrega) —, que
+// fica no estado único junto da unidade (contexto.empresas, T02/empresas.js). O
+// que o toque faz se prova no node, nestas funções, as mesmas que a tela usa
+// (scripts/testar-trocar-empresa.mjs), e se anda no roteiro empresa.mjs.
 export const CASO_EMPRESAS = 'varias-empresas'
+export const EMPRESA_ESCOLHIDA = '07-momento-empresa-escolhida'
 export function temVariasEmpresas(unico, est) {
   const doCaso = Boolean(M.casos[CASO_EMPRESAS]?.empresas?.length > 1)
-  return est ? est === REF.empresa && doCaso : false
+  if (est) return est === REF.empresa && doCaso
+  return doCaso && unico?.contexto?.empresas?.caso === CASO_EMPRESAS
 }
 
 // Trocar, de unidade ou de empresa: o alvo do diálogo de trocar (o 09) é
 // { uoId } ou { empresa: true }. Com a sessão aberta, a mesma confirmação (a
 // sessão encerra antes, sem homologar · HU-T02-3); sem ela, direto pro destino.
 //   de unidade · a sincronização da unidade nova (T03)
-//   de empresa · a T02, que com mais de uma empresa abre na lista delas (T02/05,
-//                a ordem: 05 → 06 → 01), sem unidade no contexto
+//   de empresa · a T02/07, a lista das empresas com a atual marcada (a resposta
+//                do arquiteto de 26/09: MUDA — ia ao 05, sem nada escolhido), sem
+//                unidade no contexto. Com a sessão, a T16 segue pra T02 depois dos
+//                4 passos, e a T02, com o mundo no contexto, abre no 07 e diz o 07
+// O contexto de antes vai junto (o mundo das empresas, contexto.empresas); aberto
+// pela coluna (o 14), o mundo é o do caso, com a empresa do herói como a atual
 export const TROCA_DE_EMPRESA = { empresa: true }
-export function destinoDaTroca(alvo) {
-  return alvo.empresa
-    ? { tela: 'T02', contexto: { uoId: null, pacote: null } }
-    : { tela: 'T03', contexto: { uoId: alvo.uoId, pacote: null } }
+export function destinoDaTroca(alvo, contexto = {}) {
+  if (!alvo.empresa) return { tela: 'T03', contexto: { ...contexto, uoId: alvo.uoId, pacote: null } }
+  const empresas = contexto.empresas ?? { caso: CASO_EMPRESAS, atual: M.empresa.id }
+  return { tela: 'T02', momento: EMPRESA_ESCOLHIDA, contexto: { ...contexto, uoId: null, pacote: null, empresas } }
 }
 // o toque: com a sessão aberta, o diálogo (confirma); sem ela, o destino (vai)
-export const depoisDoTrocar = (sessao, alvo) => (sessao ? { confirma: alvo } : { vai: destinoDaTroca(alvo) })
+export const depoisDoTrocar = (sessao, alvo, contexto) => (sessao ? { confirma: alvo } : { vai: destinoDaTroca(alvo, contexto) })

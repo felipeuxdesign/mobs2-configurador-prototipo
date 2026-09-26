@@ -27,16 +27,25 @@ export function CartaoDeOpcoes({ children }) {
 // camada apagada do texto é uma cópia vazia, fora do leitor (aria-hidden), que
 // o CSS preenche (data-texto), como no Link: o documento e o leitor ficam com
 // um texto só. Aberta já esperando ou já liberada, nada anima.
-export function LinhaDeOpcao({ icone, titulo, detalhe, aoTocar, rotulo, forcaToque = false, espera }) {
+//
+// variante 'efeito' (a última entrega · a folha Outras ações, T11/03, decisão 40,
+// G11): a linha da ação que tem o efeito escrito embaixo — 58 no mínimo
+// (--linha-com-porque), com 8 em cima e embaixo e 10 entre as partes, o ícone
+// de 16 no poço de 32 (o poço na linha), o que ela faz em 15/600 e o efeito em
+// 12 ('a cadeia inteira, preservando a conexão'), e a seta em
+// --tinta-secundaria, como a T11/03 desenha. O `detalhe` é o efeito. Sem ela, a
+// linha de 72 das folhas 2 e 6.
+export function LinhaDeOpcao({ icone, titulo, detalhe, aoTocar, rotulo, forcaToque = false, espera, variante }) {
   if (espera === undefined) {
+    const efeito = variante === 'efeito'
     return (
-      <Tocavel className={`ds-linha-opcao ${forcaToque ? 'ds-forca-toque' : ''}`} rotulo={rotulo} aoTocar={aoTocar}>
-        <Poco tam={30}><Icone nome={icone} tam={18} cor="secundaria" /></Poco>
+      <Tocavel className={`ds-linha-opcao ${efeito ? 'ds-linha-opcao-efeito' : ''} ${forcaToque ? 'ds-forca-toque' : ''}`} rotulo={rotulo} aoTocar={aoTocar}>
+        <Poco tam={efeito ? 32 : 30}><Icone nome={icone} tam={efeito ? 16 : 18} cor="secundaria" /></Poco>
         <span className="ds-linha-opcao-textos">
           <span className="ds-linha-opcao-titulo">{titulo}</span>
           <span className="ds-linha-opcao-detalhe">{detalhe}</span>
         </span>
-        <Icone nome="avancar" tam={16} cor="apagada" />
+        <Icone nome="avancar" tam={16} cor={efeito ? 'secundaria' : 'apagada'} />
       </Tocavel>
     )
   }

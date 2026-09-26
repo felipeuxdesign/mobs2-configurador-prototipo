@@ -35,6 +35,149 @@ As listas de peças e as referências são do design, como o pacote pede. A anot
 
 O `_changelog-para-colar.md` da `atualizacao33/` traz, embaixo da senha visível, as linhas da primeira entrega (a logo no lima, o *Lembrar meu usuário*, o checkbox marcado), que já estavam no registro. Entraram uma vez só. A `atualizacao98/` repete os itens 1 a 4 e o 7 da quarta entrega, que o protótipo já estava construindo.
 
+## A empresa e a unidade (`otimizacao100000000/`), juntada e construída
+
+A entrega entrou inteira — as 120 referências, os 112 trechos e o gate aprovando, com 137 referências, 59 momentos e 62 estados — e foi construída e publicada no `70f97e1`. A medição completa e a revisão vieram junto com a última entrega: nenhuma referência desta piorou (T02/05 e 06 em 0%, T04/13 em 0,32%, T04/14 em 0,75%, e as outras da T01 à T04 na base). As suas respostas de 26/09 estão marcadas em cada item.
+
+### O que a junção achou
+
+- **o *como se chega* da T04/07, 08 e 09 veio como "—"**, no `estados.md` da T04, nas tabelas do `logica.md` e no `indice.json`, que veio também com o caso vazio. Ficou o nosso, com a palavra unidade · **você respondeu (26/09):** foi a troca do termo, que renomeou a chave interna — voltou na última entrega
+- **o trecho do `leis.md` acrescentava a lei 17 de novo**, e a nossa já existia, mais longa: ficou a nossa, com a 18 logo depois · **respondido:** fica a nossa
+- **vários *depois* repetiam linhas que o nosso já tinha** — os casos do login no `mocks.js`, a T05, a T10, o 04 no `textos.md` da T02, o `casos.md`, a seção da busca e as linhas T01/15 e 16 no `logica.md` —: entraram sem duplicar
+- **o trecho 5 do ENCERRAR, no `logica.md`, tinha como *antes* só o começo da nossa linha**, e o resto dela sobraria depois do *depois*: a linha foi conferida à mão e ficou inteira. A última entrega já veio com a linha inteira em cada trecho
+- **14 HTML vieram sem o PNG novo** (T04/00, 02, 03, 04, 10, 11 e 12 · T09/00 e 04 · T14/06 · T11/02 · T06/04 e 06 · T12/01) · **respondido:** o desenho delas não tinha mudado, e a última entrega trouxe o PNG de toda referência que mudou
+- **o gate não conferia o caso `varias-empresas`**: entraram duas checagens (191 → 193) · **respondido:** a nossa checagem continua valendo
+- **a ferramenta:** `app/scripts/entrega.mjs trechos <pasta>/MUDANCAS.md [--aplica]` aplica cada trecho no nosso arquivo, mantendo as nossas anotações, e separa o que já estava (JA), o que é nosso e diz outra coisa (CONFERIR) e o que não bate (FALHOU), pra juntar à mão
+
+### O que a construção achou
+
+- **as outras duas empresas** (T02/05): a Transportes Capibaribe e a Expresso Caruaruense trazem só a contagem. Escolhida uma delas, o `Ver as unidades` espera, apagado · **respondido (26/09):** só a do herói anda, como o protótipo propôs
+- **trocar de empresa com o módulo conectado**: *Trocar de empresa*, *…é encerrada antes da troca, sem homologar.* e *Encerrar a sessão e trocar* · **respondido:** os textos valem; depois dos 4 passos, a T02/07 — construído
+- **o *Ver as unidades* sem quadro** · **respondido:** o quadro é a T02/07, nova — construída, e o mundo do caso anda a partir dela, até o menu e de volta
+- **o *Encerrar sem homologar?* fora do menu**: sobre a própria tela, e o *Continuar a instalação* deixa o técnico nela · **respondido:** isso; o das folhas do módulo e do ativo, sobre o menu, como o protótipo fez
+- **o *Trocar de empresa* da T02/06**: o protótipo voltava à T02/05 sem nada escolhido, como a referência · **respondido, e mudou:** volta com a atual marcada, a T02/07 — construído, também o do menu, com e sem sessão
+- **o voltar do Android na T02**: no 06, o mesmo que o *Trocar de empresa*; no 05, nada · **respondido:** o que o protótipo propôs · a T02/07 faz o mesmo que o 05
+- **a T02/05, a 06 e a T04/14 são estados**, e o palco congela todo estado: o toque só se provava no node · **resolvido pela T02/07**, que é um momento: o quadro da 14 agora se alcança por toque, vindo dela
+- **a unidade escolhida de quem tem mais de uma empresa** (T02/06): nenhuma referência desenha. **Padrão:** o rodapé mantém o `Trocar de empresa`, e o primário diz `Sincronizar` com o nome da unidade, como no 01 · **alternativa:** o rodapé de uma ação do 01 · sem resposta
+- **o singular *1 unidade*** não existe no `textos.md` nem no mock. **Padrão:** não foi escrito; nenhum caso chega nele · sem resposta
+- **o link registrado da T14/06** ficou com o rodapé de antes (14 em cima, o vão de 6 e os 48), porque o registro é um `span` e a troca da decisão 38 pegou só os links. No toque do *Solicitar correção de cadastro*, o primário desce 1 e o texto sobe 3 — contra a lei 3. **Padrão:** como a referência · **proposta:** o registro seguir o rodapé com link (13 · 8 · 44 −5), e nada se mexe no toque · sem resposta
+- **o link *Trocar de empresa* da folha** (T04/14) tem o desenho de 48 com −4, depois de 6, como a referência, e não o de 44 da decisão 38: o toque fica a 14 do cartão das unidades. **Padrão:** como a referência · **alternativa:** o desenho do rodapé com link · sem resposta
+- **o ENCERRAR de 44**: a decisão 38 fala do desenho, e a lei do toque de 48 manda crescer pro lado livre. **Padrão:** o toque cresce só pra baixo, dentro da faixa, a 8 da conta no menu; no menu com falha, a caixa desce 1 e fica no lugar da faixa sem falha · sem resposta
+- **a tabela do design no `componentes.md` e a folha 2** dizem *link com 48 de toque* e *a 12px do botão*; medido, o link tem o desenho de 44 com o toque de 48, e a legenda fica a 14. Está anotado na seção do protótipo · pra corrigir na fonte
+- **o que corre embaixo do diálogo** (a conferência da T11, o ciclo da T14). **Padrão:** continua correndo, porque o técnico ainda não decidiu nada · **alternativa:** pausar enquanto o diálogo está aberto · sem resposta
+- **o nome da tira de contexto pro leitor de tela.** **Padrão:** *Trocar de unidade — Garagem Várzea*, no molde de *Conta — Rafael Vieira* · **alternativa:** só *Trocar de unidade*, ou o nome visível *GARAGEM VÁRZEA* · sem resposta
+- **a senha nova do mock** (T01/08): a nossa troca de termo tinha levado *Garagem!Ibura27* a *Unidade!Ibura27*. Voltou, porque *Garagem Ibura* é nome, e a lei 18 guarda o nome · a T01/08 voltou a 0,02%, a base
+- **o *sem confirmação* da decisão 26**: a T16 e o `fluxos.md` ainda dizem *a sessão abortada, sem confirmação*. Ganharam a anotação da decisão 36 embaixo, sem apagar · **proposta:** marcar a 26 como substituída pela 36. A 15 e a 29 também dizem *linha de garagem* e *folha de garagem*
+
+## A última entrega (`otimizacao200000000/`), juntada e construída
+
+Obrigado pelo formato por seção, com a linha inteira em cada trecho: entrou limpo pelo script de junção — as 27 referências com o PNG de todas, as folhas 2, 4, 6 e 7, as decisões 39 a 42 e as 18 seções do `MUDANCAS.md`, cada linha aplicada uma vez só. Está construída, medida e revisada: 145 referências, 44 em 0% contra o HTML, nenhuma regressão, e todas as suas respostas de 26/09 estão no código.
+
+### O que a junção achou
+
+- **o caso `fila-vazia`** tem o mesmo nome de um dos nossos sete. O nosso virou extensão do seu: a fila vazia e a sessão, por cima do seu `ultimoEnvioAs: "14:02"`. Agora são **6 nossos e 55 casos no total**
+- **os três campos das unidades da lista longa saíram**, como você mandou, e duas checagens do gate liam esses campos: as duas passaram a ler do pacote de cada unidade, e entrou uma terceira, *toda unidade do caso tem um pacote, com ativos, modelos e cartões*. O gate foi de 193 a **194** · **confira**
+- **o *Procurando…*** que o `animacao.md` da T05 põe na tela não está em referência nem em `textos.md` nenhum. O protótipo mantém o quadro da T05/00 por 1,2 s, sem texto novo. **Pergunta:** na própria T05/00, o técnico não vê nada mudar por 1,2 s, até a lista voltar sem escolha. Manda o texto e o quadro do *Procurando…*, ou fica o quadro da 00?
+- **a faixa, conferida nos HTML** (a sua resposta: *todas as 145 estão com 52px e a linha*): as 145 têm 91 faixas, e 83 delas têm 52 com a linha — uma com a linha vermelha de 2, a T04/03. **Fora disso:** a T04/01, o menu sem sessão, ainda tem 50 e nenhuma linha embaixo (o protótipo desenha 52 com a linha, G13); e as 7 sem sessão fora do menu (T12/02, T15/03 e 04, T16/02, 04, 05 e 06) têm 52 sem a linha, que é o que o protótipo faz. **Pra decidir:** a T04/01 com os 52 e a linha, e as sem sessão com ou sem ela
+
+### O que a construção e a revisão acharam · as perguntas
+
+Cada uma com o padrão que o protótipo adotou e a alternativa.
+
+**As peças e as leis**
+
+- **o *sem sinal* dos doze glifos leva o fio escuro?** O protótipo usava o `WifiOff` do Lucide, a versão *-off* que a lei 21 proíbe. **Padrão:** o Wi-Fi riscado do login, com o fio escuro, a lei 21 inteira. As referências dele (T03/01, T05/14, T09/02 e 03, T12/03, folhas 3 e 4) desenham o risco sem o fio · **alternativa:** o risco sem o fio, como elas desenham hoje. Nos dois casos, a versão *-off* não volta
+- **quanto a folha anda antes de fechar no arraste?** A lei 20 não dá o número. **Padrão:** 8 de folga antes de o toque virar arraste e 56 de limite pra fechar, só pela posição, nunca pela velocidade (mesma entrada, mesma saída), arrastando de qualquer ponto da folha · **alternativa:** o limite como fração da altura da folha, ou arrastar só pelo puxador
+- **o diálogo de confirmação fecha no toque do véu?** **Padrão:** não — a lei 20 fala de folha, e a confirmação fecha no `Cancelar` e no voltar · **alternativa:** o véu faz o mesmo que o `Cancelar`, como o diálogo do Material
+- **a folha *Outras ações* ganha o puxador?** A T11/03 é a única das dez folhas das referências sem ele. **Padrão:** sem, como ela desenha; o painel arrasta igual · **alternativa:** com o puxador, como as outras nove e a folha 2
+- **as variantes novas entram nas folhas?** A caixa do não conforme desmarcada, as linhas do recebimento, a linha de opção com o efeito, a folha *Outras ações* e os riscados não estão desenhados em nenhuma folha. **Padrão:** ficam fora da bancada, medidas contra o recorte da referência de tela (de 0 a 0,23%) · **alternativa:** as folhas 2, 3, 4 e 6 ganham os espécimes
+- **as variantes que ficaram sem uso saem?** O valor que quebra da assertiva, o corpo *pulado* da nota e a folga 6 do subtítulo não aparecem mais em tela nenhuma desde a T12 e a T16 desta entrega. **Padrão:** ficam nas peças, marcadas *sem uso nas telas* · **alternativa:** tirá-las
+- **pra corrigir na fonte, sem pergunta:** a legenda da tira na folha 2 ainda diz *a garagem e a conta*; a folha 4 rotula *linha de garagem*, *linha de garagem · a atual* e *a lista de garagens*; e a seção de peças do design em 10 `tela.md` (T01, T02, T03, T04, T05, T06, T11, T12, T15 e T16) também. Pela sua resposta, vale a nossa lista, que já diz unidade
+
+**T01 · o teto e outro usuário**
+
+- **a que horas o teto libera, no fluxo?** O relógio está parado em 14:30, e o fluxo não sabe a hora do primeiro envio da hora. **Padrão:** o *15:12* do caso `teto-de-envios` vale também no fluxo, e o *3* é o `limites.tetoPorHora` · **alternativa:** a linha sem a hora, *Os 3 envios desta hora acabaram*, que pede um texto novo
+- **pedir o código no teto faz o quê?** **Padrão:** nada é enviado: volta o código que já foi, que segue valendo, com o prazo de onde estava e *Mandamos para* o contato a que ele foi · **alternativa:** o `Enviar o código` apagado no canal, com o teto escrito na legenda — um texto que não cabe ao lado do *Vale por 10 minutos*
+- **o código expirado e as tentativas esgotadas, no teto?** Nenhuma referência desenha os dois. **Padrão:** a mesma linha do teto, com o `Enviar outro código` apagado · **alternativa:** a linha vazia, como antes
+- **a folha do *Não recebi* no teto?** **Padrão:** não muda — a contagem para em 0:00 e as saídas não liberam · **alternativa:** o texto do teto no lugar da contagem
+- **a segunda linha da folha do e-mail.** Você respondeu que ela troca pro celular, mas o título dela não está em `textos.md` nenhum. **Padrão:** o cartão fica só com o *Conferir e reenviar* · **preciso de:** o título, o par do *Mandar para o e-mail*
+- **o login confere o usuário?** O mock conhece só dois técnicos. **Padrão:** entra com qualquer senha de 8 ou mais, como o `tela.md` manda; o m.souza vira *Marcos Souza*, e outro identificador entra com o nome do herói · **alternativa:** recusar o usuário que o mock não conhece, com a mesma mensagem da T01/01
+- **quem é a sessão anterior, na T01/18?** **Padrão:** a do último Entrar neste aparelho, desde o começo do palco; o palco começa sem nenhuma, e o primeiro Entrar nunca abre o diálogo · **alternativa:** o palco começar com a sessão do r.vieira, e o m.souza já ver o diálogo no primeiro Entrar
+
+**T02, T03 e T04 · a empresa e o menu**
+
+- **o nome da empresa escolhida sobe de tinta?** **Padrão:** sim, pra `--tinta`, como a peça faz em toda escolha (a T02/01 e a folha 3); a T02/07 o desenha em `--tinta-forte` e sobram 0,17% · **alternativa:** a peça ganha uma variante que não sobe, e a 07 vai a 0%
+- **a URL no mundo das empresas.** **Padrão:** o 07 nas empresas, nada nas unidades sem escolha (o 06 é estado) e o 01 com a unidade escolhida; o mundo mora no estado único, do *Sincronizar* até sair da conta · **alternativa:** a escolha fora da URL, como na lista longa, ou o índice ganhar um momento das unidades com o *Trocar de empresa*
+- **a estimativa por item da lista longa.** Os modelos e os cartões agora vêm do pacote do caso, e o *faltam ~N s* ainda não. **Padrão:** os 6 s saem dos três pacotes do herói, que os declaram iguais · **alternativa:** o caso declarar o `segPorItem` nos seis pacotes
+- **a folha de trocar de unidade, numa unidade da lista longa**, lista as três do herói, sem nenhuma atual: nenhuma referência desenha a folha com as nove, que passaria da altura da tela. **Padrão:** como está · **alternativa:** a folha da lista longa, com busca, desenhada
+- **o h1 *Menu*** existe em toda tela do menu, como você respondeu, mas não está no HTML nem no `textos.md` das seis folhas (T04/05, 07, 08, 10, 11 e 14): a régua dos textos acusa a sobra · **preciso de:** o *Menu* nas seis
+- **o que conta o cartão *Fila de saída* do menu, agora que a fila é do aparelho?** O `logica.md` diz *os pendentes da unidade ativa* (2 na Várzea, como as referências da T04). **Padrão:** como está, 2 · **alternativa:** (a) os pendentes da fila do mock inteira, 6; (b) os pendentes da mesma fila que a T15 mostra, que também dá 2
+
+**T05 · a pré-checagem**
+
+- **a linha do ENCERRAR apagado na pré-checagem**, que você disse que foi escrita errada, ficou no `tela.md` da T05 com a anotação embaixo · **pra tirar na fonte**
+
+**T11 · a conferência**
+
+- **o `Corrigir` corrige só o que diverge?** A T09 não tem desenho de uma cadeia só dos divergentes. **Padrão:** o `Corrigir` e o `Reenviar` levam à mesma cadeia da T09, que regrava os seis, e depois a conferência confere · **alternativa:** a T09 ganha a cadeia parcial — os divergentes e o que eles arrastam, na ordem —, com referência
+- **o *Apenas registrar o diagnóstico* sobe como?** O efeito diz *só o diagnóstico sobe*. **Padrão:** grava na etapa da conferência e volta ao menu, sem item na fila · **alternativa:** um item *Diagnóstico* na fila, que o mock já tem como tipo, e o contador do menu sobe 1
+- **o voltar na 00 e na 04.** **Padrão:** não faz nada — o link do rodapé é o `Outras ações`, que não sai da tela · **alternativa:** faz o *Apenas registrar o diagnóstico*, a saída que era do rodapé
+- **o que fica atrás do véu da T11/03?** **Padrão:** a conferência da 00, e a referência desenha o véu sobre o vazio (2,14%, como a T13/10) · **alternativa:** a 03 redesenhada com a 00 atrás
+- **a faixa com a folha aberta.** **Padrão:** acesa e desabilitada, como a T04/10: o ENCERRAR não responde · **alternativa:** o ENCERRAR responde, e o diálogo abre por cima da folha
+- **a linha *Ativo*:** a 02 diz *urbano v3*, sem *tradução*, e as outras dizem *tradução frota v2*, a frase do caso. **Pra decidir:** a 02 volta a *tradução urbano v3*, ou o caso perde o *tradução*
+- **o singular do *Corrigir*:** com uma divergência, seria *Corrigir as 1 divergências*. Nenhum caso chega nele · **preciso de:** o texto, se algum dia houver o caso
+- **o caso da T11/02:** a tabela do `estados.md` e o `casos.md` ainda ligam a 02 ao *diff-divergente, invertido*, e a referência nova é o par do herói, o caso `conferencia-confere` · **pra trocar na fonte**
+
+**T12 · o que o servidor recebeu**
+
+- **a instalação sem `recebimento`** — as outras doze do mock, abertas pela lista. **Padrão:** a seção aparece com o veredito da regra dos três critérios do mock e sem o porquê, que o mock não tem; *ausente*, *fora do parâmetro* e *incompleta* levam o xis vermelho, que nenhuma referência desenha · **alternativa:** (a) sem `recebimento`, a seção não aparece; (b) o mock dá `recebimento` às treze
+- **o status geral.** **Padrão:** *aguardando validação* com um critério indisponível ou pendente; senão, o estado da instalação · **alternativa:** o critério reprovado também mandar no status, que o design não diz
+- **a linha *Recebimento* do resumo saiu** de toda instalação, porque o status e a seção de cima dizem o mesmo · **alternativa:** mantê-la nas que não têm `recebimento`
+- ***1 viagem fechada*:** o *1* está no texto, porque o mock dá os km e não a contagem · **alternativa:** o mock ganha `viagens.fechadas`
+- **quem instalou.** Antes, com o m.souza no aparelho, o detalhe da i-01 dizia *Marcos Souza*. **Padrão:** o autor sai do dado, o herói do mock, *Rafael Vieira*, com qualquer usuário no aparelho · **alternativa:** o mock ganha quem instalou em cada instalação, com a checagem no gate
+- **a T12/04 e a 05 desenham a PCX-9A17 com as seis etapas e *Rafael Vieira***, e a i-02 do mock só tem o resumo. O protótipo mostra o que o mock sustenta: as três linhas e *M2C-0312 · ontem, 16:05* (1,27% e 1,28%) · **a correção é de dado:** a i-02 ganhar as `etapas`, e as seis e o nome aparecem sem mudar código
+
+**T13 · o não conforme com a foto**
+
+- **sem a câmera, com a caixa marcada?** Nenhuma referência desenha o quadro. **Padrão:** o primário é `Abrir as configurações`, porque a foto do problema precisa da câmera · **alternativa:** a ressalva sem foto, só com o texto — que a decisão 39 descarta
+- **desmarcar a caixa descarta a foto do problema?** **Padrão:** não — ela e o que aconteceu ficam guardados enquanto o técnico está no item, e voltam se ele marcar de novo; sair do item ou salvar os descarta · **alternativa:** desmarcar descarta a foto
+- **o singular do *Faltam N itens*.** **Padrão:** *Falta 1 item*, com o verbo junto · **alternativa:** com 1, a legenda some, como antes
+- **as fotos tiradas da Seção B contam a foto do problema?** **Padrão:** contam — com uma ressalva, o homologado diz *5 fotos tiradas*; por isso *1 foto tirada* não se alcança no fluxo do mock · **alternativa:** contar só as fotos do item
+- **a posição do item reprovado** (T13/09): a referência diz *2 de 4*, com o segundo segmento vermelho, e o mock (e a T13/03) põem a Alimentação em primeiro na Seção C. **Padrão:** *1 de 4*, a ordem do mock (0,45%) · **proposta:** a referência com *1 de 4* e o primeiro segmento vermelho
+- **o registro do problema entra esmaecendo?** O `animacao.md` diz *150ms*. **Padrão:** entra sem esmaecer, como a foto da T10, até o ciclo do movimento
+
+**T14/05 · o ciclo concluído**
+
+- **o marcador da escala.** A peça o põe no fim do preenchido, em 80%, e a referência nova o deixa em 60%, o lugar dos 0:48 · **proposta:** o marcador da 05 em 80%
+
+**T15 · a fila do aparelho**
+
+- **o que é *a fila do mock inteira*?** **Padrão:** o recorte inteiro de cada quadro — no 01, os cinco, onde a referência mostra o topo (4,83%) —, e no fluxo a seleção da semente mais o que a sessão criou, de qualquer unidade. Os dez de `filaSaida` no fluxo não se constroem sem inventar desenho: dois erros viram o cartão *DUAS COM ERRO*, e nenhuma referência diz onde fica o que sobe junto com eles · **alternativa:** (a) o cartão do topo com a altura da referência, e a lista passando por baixo do rodapé; (b) a 01 redesenhada com o recorte inteiro
+- **a T15/02** ainda diz *ontem 10:05* pro f-08, que é de 2 dias e na 00 já diz *10/03, 10:05*, como você respondeu (0,06%) · **pra trocar na fonte**
+
+**T16 · o padrão da T16/02**
+
+- **o *não se aplica* no passo que não roda** vai pelo estado do passo, o círculo com o traço, sem mexer na peça; a folha 5 desenha o *pulado* com o traço solto · **alternativa:** o *pulado* da peça vira o círculo com o traço, e a folha 5 é redesenhada
+- **o subtítulo de um jeito só** é o da 06, a 4 do título, a folga padrão da peça · **alternativa:** o da 03, a 6, que desceria a 06 em 2
+- **o NÃO RODARAM numa peça só** é a nota tracejada, a do rótulo e da frase de 12 em `--tinta-apagada` · **alternativa:** a nota com rótulo, a frase de 13 em `--tinta-forte`
+- **as referências da T16/02 a 05** ficam de 1,93% a 3,68% até serem redesenhadas — quase tudo deslocamento de 2 a 6 px, medido fator por fator
+
+**O palco**
+
+- **os nomes da coluna.** Oito estados novos vieram sem nome na coluna e apareciam como linhas em branco, sem nome pro leitor de tela. **Padrão:** o nome da referência, como proposta — *Teto de envios*, *Outro usuário no aparelho*, *Escolher a empresa*, *Unidades, com trocar de empresa*, *Trocar com mais de uma empresa*, *Versão ilegível*, *Critério indisponível* e *Critério pendente* —, e a régua agora reprova estado sem nome · **alternativa:** os nomes que você der. Se o pacote trouxer o `indice.json`, que traga os `rotulo`, `rotuloOrigem` e `grupo`: sem eles, a coluna fica em branco
+
+### O censo
+
+| | agora |
+|---|---|
+| referências | **145** — 16 telas, 62 momentos e 67 estados · 145 PNG |
+| peças | 119 no design · **131** no protótipo (as 119, as 10 que só o protótipo tem e as duas seções do checklist da folha 4) |
+| tokens | **286** no `tokens.css` e no `tokens.json` |
+| casos no mock | **55** — os seus 49 e os nossos 6 |
+| decisões · leis | 42 · 21 |
+| histórias de usuário | 107 |
+| o gate do mock | 194 checagens |
+
 ## A entrega de 25/09 · a calibração com prova (`atualizacao180/`)
 
 Os 67 arquivos entraram. O gate aprova, e o censo confere: **122 referências no `indice.json`** — 16 telas, 54 momentos e 52 estados. O que mudou em cada arquivo:

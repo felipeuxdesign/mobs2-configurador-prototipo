@@ -27,6 +27,7 @@ Fazer o módulo contar igual ao painel do ônibus — com a foto do painel como 
 - na rotação, o botão diz *Ligue o motor* até o módulo ler; depois, *Digite o que o conta-giros mostra*
 - passo seguinte: o horímetro, ou a rotação e a velocidade no caminhão coletor. As grandezas e a ordem são as do cadastro do modelo do ativo, menos as que o módulo não mede (T10·1); o `Depois:` mostra só a próxima (T10·2)
 - `Voltar ao menu` → T04, em todo passo, também embaixo do `Fazer o ciclo dinâmico` na calibração completa, e a calibração volta de onde parou: o número digitado, a foto e o semeado de cada grandeza ficam na etapa (o endereço volta a ser o da referência do passo: 05, 07, 01, 08 ou 09) · `ENCERRAR`, antes de homologar: a sessão abortada da T16 (G23); depois, o encerramento; no semear, apagado (a lei 17)
+  - **no protótipo** (decisão 36): fora do semear, antes de homologar, o ENCERRAR abre o diálogo *Encerrar sem homologar?* por cima desta tela, e o `Continuar a instalação` deixa o técnico nela — a resposta do arquiteto de 26/09 · o `Encerrar sem homologar` roda os 4 passos da T16 · no semear, ele segue apagado, e o diálogo não abre
 - o voltar do sistema (no computador, o Esc) faz o `Voltar ao menu`, em todo passo, e na calibração completa também; na câmera, o `Voltar à calibração`; no semear, nada (`06-prototipo/logica.md` · O voltar do Android)
 
 Na entrega do design de 25/09 (decisão 33), a calibração passou a semear só com a prova: o número digitado e a foto tirada. Sai o que o C9 construiu antes dela — a foto e o semear independentes (T10·3), o cartão da foto tocável e o horímetro sem referência. Continuam a ordem das grandezas pelo cadastro (T10·1 e T10·2), a volta de onde parou e o voltar.
@@ -53,7 +54,7 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 
 ## No protótipo · as peças que o código usa
 
-Anotação de construção, medida no código e nas referências. A lista de cima é a do design; esta é a que o protótipo usa, e a diferença entre as duas vai pro arquiteto.
+Anotação de construção, medida no código e nas referências. A lista de cima é a do design; esta é a que o protótipo usa, e a diferença entre as duas vai pro arquiteto. **Respondida pelo arquiteto (26/09):** vale esta, a medida.
 
 Medido nas 12 referências da entrega do checklist (as da entrega de 25/09, decisão 33, com as horas no relógio parado, 14:30, e a 09 apontando o ciclo, decisão 35) e no código: as peças que a tela usa de fato. Construa com o componente — nunca redesenhe.
 

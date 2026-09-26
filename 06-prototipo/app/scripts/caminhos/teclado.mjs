@@ -83,15 +83,16 @@ export default [
   { aVista: 'Voltar ao menu' },
   ...fecha,
 
-  // ── T13 · a justificativa do não conforme, e o Salvar com ressalva ──
+  // ── T13 · o que aconteceu no não conforme, e o primário acima do teclado (a decisão 39, a
+  //    última entrega: o campo é O QUE ACONTECEU, e na 08 o primário é o Fotografar o problema) ──
   { abre: '?tela=T13&momento=08-momento-nao-conforme-com-justificativa' },
-  { foca: 'JUSTIFICATIVA', teclado: 'texto' },
+  { foca: 'O QUE ACONTECEU', teclado: 'texto' },
   ...abre(),
-  { aVista: 'JUSTIFICATIVA' },
-  { aVista: 'Salvar com ressalva' },
-  { digita: 'Suporte trincado; fixei com abraçadeira até a troca.', em: 'JUSTIFICATIVA' },   // checklist.exemploJustificativa (AC-12)
-  { aVista: 'JUSTIFICATIVA' },
-  { aVista: 'Salvar com ressalva' },
+  { aVista: 'O QUE ACONTECEU' },
+  { aVista: 'Fotografar o problema' },
+  { digita: 'Suporte trincado; fixei com abraçadeira até a troca.', em: 'O QUE ACONTECEU' },   // checklist.exemploJustificativa (AC-12)
+  { aVista: 'O QUE ACONTECEU' },
+  { aVista: 'Fotografar o problema' },
   { aVista: 'Voltar ao checklist' },
   ...fecha,
 
@@ -120,11 +121,11 @@ export default [
   // no palco largo (um tablet), o teclado cobre o pé do celular: o app encolhe até o que sobra, dentro da moldura
   { janela: [1440, 900] },
   { abre: '?tela=T13&momento=08-momento-nao-conforme-com-justificativa' },
-  { foca: 'JUSTIFICATIVA' },
+  { foca: 'O QUE ACONTECEU' },
   { sobreposto: 400 },
   { app: [360, 450] },
-  { aVista: 'JUSTIFICATIVA' },
-  { aVista: 'Salvar com ressalva' },
+  { aVista: 'O QUE ACONTECEU' },
+  { aVista: 'Fotografar o problema' },
   { sobreposto: 0 },
   { app: [360, 800] },
   // o Chrome de um tablet Android: o teclado encolhe a página, e o celular não encolhe junto (retrato.js,
@@ -132,11 +133,11 @@ export default [
   // Na escala de 1280 × 800 (0,92), os 450 que sobram são 488 do app
   { janela: [1280, 800] },
   { abre: '?tela=T13&momento=08-momento-nao-conforme-com-justificativa' },
-  { foca: 'JUSTIFICATIVA' },
+  { foca: 'O QUE ACONTECEU' },
   { janela: [1280, 450] },
   { app: [360, 488] },
-  { aVista: 'JUSTIFICATIVA' },
-  { aVista: 'Salvar com ressalva' },
+  { aVista: 'O QUE ACONTECEU' },
+  { aVista: 'Fotografar o problema' },
   { janela: [1280, 800] },
   { app: [360, 800], centrado: true },
   // o celular deitado, com o teclado: o app segue em pé, na escala de antes (0,38), e não encolhe pra caber

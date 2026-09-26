@@ -11,11 +11,12 @@ import { M } from './mock.js'
 export const CASO_LISTA_LONGA = 'lista-longa-garagens'
 const caso = M.casos[CASO_LISTA_LONGA]
 
-// O que o pacote do caso não declara — os modelos de ativo e os cartões que ele
-// traz, e a estimativa do servidor por item — sai do que os três pacotes do mock
-// declaram iguais (3, 3 e 6 s), como o limiar do vencido saía antes de o caso ter
-// pacote. Se um dia eles divergirem, não há de onde ler: a tela para, em vez de
-// inventar (desvio nomeado, pro arquiteto).
+// O que o pacote do caso não declara. Os modelos de ativo e os cartões ele declara
+// agora, no contem, como o do herói (a resposta do arquiteto de 26/09: os seis
+// pacotes ganham modelos e cartões) — a T03 lê dali. Só a estimativa do servidor
+// por item (a do "faltam ~N s") segue sem vir no pacote do caso: sai do que os
+// três pacotes do mock declaram iguais (6 s). Se um dia eles divergirem, não há de
+// onde ler: a tela para, em vez de inventar (desvio nomeado, pro arquiteto).
 function igualNosPacotes(ler, nome) {
   const valores = [...new Set(M.pacotes.map(ler))]
   if (valores.length !== 1) throw new Error(`os pacotes do mock não declaram ${nome} iguais, e o pacote do caso ${CASO_LISTA_LONGA} não o declara`)
@@ -23,16 +24,11 @@ function igualNosPacotes(ler, nome) {
 }
 
 // o pacote do caso, na forma dos de M.pacotes: com a data (o `comData` do mock,
-// pelos diasAtras) e o que ele não declara
+// pelos diasAtras) e a estimativa por item, que ele não declara
 const doCaso = (p) => ({
   ...p,
   data: M.diasAntes(p.diasAtras),
   segPorItem: p.segPorItem ?? igualNosPacotes((x) => x.segPorItem, 'a estimativa por item'),
-  contem: {
-    modelosAtivo: igualNosPacotes((x) => x.contem.modelosAtivo, 'os modelos de ativo'),
-    cartoes: igualNosPacotes((x) => x.contem.cartoes, 'os cartões'),
-    ...p.contem,
-  },
 })
 const PACOTES_DO_CASO = (caso.pacotes ?? []).map(doCaso)
 

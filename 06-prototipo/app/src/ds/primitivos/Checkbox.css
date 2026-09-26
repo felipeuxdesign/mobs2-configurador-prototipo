@@ -1,3 +1,8 @@
 /* o poço de 24 e o marcador são os primitivos (Poco, Quadrado); aqui, só a linha e o texto */
 .ds-checkbox { min-height: var(--alvo-min); display: flex; align-items: center; gap: var(--e-12); touch-action: manipulation; user-select: none; }
 .ds-checkbox-texto { font-size: var(--t-corpo); font-weight: 500; color: var(--tinta-forte); line-height: var(--entrelinha-texto); }
+/* a última entrega · a caixa do não conforme (decisão 39, folha 6, T13/07, 08, 15): o título em
+ * 14/600 --tinta e, embaixo, a 2, a linha do que marcar pede, em 12 --tinta-secundaria */
+.ds-checkbox-textos { display: flex; flex-direction: column; gap: var(--e-2); }
+.ds-checkbox-titulo { font-size: var(--t-corpo); font-weight: 600; color: var(--tinta); }
+.ds-checkbox-legenda { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-secundaria); }

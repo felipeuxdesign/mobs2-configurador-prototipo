@@ -42,3 +42,7 @@ Cada decisão com o contexto, a escolha, o que foi descartado e a consequência.
 | [36](36-encerrar-pede-confirmacao.md) | O ENCERRAR pede confirmação antes de homologar |
 | [37](37-empresa-e-unidade.md) | O contexto é empresa e unidade |
 | [38](38-o-toque-do-rodape.md) | O botão e o link do rodapé ficam a 8px |
+| [39](39-nao-conforme-com-foto.md) | O não conforme exige a foto do problema |
+| [40](40-as-acoes-da-conferencia.md) | As três ações da conferência cabem num rodapé de duas |
+| [41](41-o-que-o-servidor-recebeu.md) | A T12 mostra o que o servidor recebeu |
+| [42](42-a-fila-e-do-aparelho.md) | A fila de saída é do aparelho |

@@ -20,7 +20,8 @@ Baixar o pacote da unidade e dizer se dá pra trabalhar com ele.
 
 No protótipo, a sincronização corre um item por vez — Modelos, Ativos, Cartões —, em 4 s no total, e o poço acompanha os ativos (T03·1, T03·5). A primeira baixa do Pátio Caruaru cai no quarto item (o caso `sync-falha-rede`), uma vez por sessão. Ao terminar, o pacote novo fica no estado único (T03·7).
 
-No protótipo (a otimização do design, construída): a garagem que só o caso `lista-longa-garagens` tem baixa o pacote que o caso declara pra ela (pac-uo-11 a pac-uo-16) — o nome da garagem, os ativos, a idade, a hora e a versão são os dele: na Garagem Olinda, *de 12* e *pacote pct-uo12-2026-03-12 · 12/03 06:15*, e no concluído *pacote pct-uo12-2026-03-12 · 12/03 14:30*. O que o pacote do caso não declara — os modelos de ativo e os cartões que ele traz, e a estimativa do servidor por item, que dá o *faltam ~N s* — sai do que os três pacotes de `pacotes` declaram iguais (3, 3 e 6 s): desvio nomeado, pro arquiteto (`app/src/dados/garagens.js`). O `Ir para o menu` leva ao menu dessa garagem.
+No protótipo (a otimização do design, construída): a unidade que só o caso `lista-longa-garagens` tem baixa o pacote que o caso declara pra ela (pac-uo-11 a pac-uo-16) — o nome da unidade, os ativos, a idade, a hora e a versão são os dele: na Garagem Olinda, *de 12* e *pacote pct-uo12-2026-03-12 · 12/03 06:15*, e no concluído *pacote pct-uo12-2026-03-12 · 12/03 14:30*. O que o pacote do caso não declara — os modelos de ativo e os cartões que ele traz, e a estimativa do servidor por item, que dá o *faltam ~N s* — sai do que os três pacotes de `pacotes` declaram iguais (3, 3 e 6 s): desvio nomeado, pro arquiteto (`app/src/dados/garagens.js`). O `Ir para o menu` leva ao menu dessa unidade.
+  - no protótipo (a última entrega, a resposta do arquiteto de 26/09): a fonte da idade, da hora e dos ativos de cada unidade é o pacote — os três campos saíram das unidades do caso —, e os seis pacotes declaram os modelos e os cartões no `contem` (3 e 3), como o do herói: a T03 lê dali, e a inferência dos modelos e dos cartões saiu. Só a estimativa por item (6 s) segue saindo dos três pacotes de `pacotes`, porque o pacote do caso ainda não a declara — desvio nomeado, pro arquiteto. O mundo das seis unidades vai até o menu, sem os ônibus (a T06 não tem ativo delas), e as medidas não mudam: os números do caso são os que a inferência dava
 
 ## Peças do design system que esta tela usa
 
@@ -41,7 +42,7 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 
 ## No protótipo · as peças que o código usa
 
-Anotação de construção, medida no código e nas referências. A lista de cima é a do design; esta é a que o protótipo usa, e a diferença entre as duas vai pro arquiteto.
+Anotação de construção, medida no código e nas referências. A lista de cima é a do design; esta é a que o protótipo usa, e a diferença entre as duas vai pro arquiteto. **Respondida pelo arquiteto (26/09):** vale esta, a medida.
 
 - primário · normal
 - primário · pressionado
@@ -58,7 +59,7 @@ Anotação de construção, medida no código e nas referências. A lista de cim
 - nota tracejada
 - lista com contagem
 
-Corrigida no C4 pelas referências (G1, T03-A3): saíram as 13 peças que nenhuma das cinco desenha e entrou a nota tracejada da 04. Os três instrumentos no poço (o download, o concluído e a idade do pacote), o cabeçalho com a garagem em cima e a linha do pacote não têm linha no `componentes.md` (T03-A11): são peças desta tela, em `06-prototipo/app/src/telas/T03/`. A barra do download é o desenho do placar sem as bordas dos lados. No acerto do design system pelo medido (G10), entraram as peças de toque da folha 1 (o primário nos três estados e o link) e os glifos e os poços da folha 3, que a tela usa.
+Corrigida no C4 pelas referências (G1, T03-A3): saíram as 13 peças que nenhuma das cinco desenha e entrou a nota tracejada da 04. Os três instrumentos no poço (o download, o concluído e a idade do pacote), o cabeçalho com a unidade em cima e a linha do pacote não têm linha no `componentes.md` (T03-A11): são peças desta tela, em `06-prototipo/app/src/telas/T03/`. A barra do download é o desenho do placar sem as bordas dos lados. No acerto do design system pelo medido (G10), entraram as peças de toque da folha 1 (o primário nos três estados e o link) e os glifos e os poços da folha 3, que a tela usa.
 
 ## Histórias de usuário
 

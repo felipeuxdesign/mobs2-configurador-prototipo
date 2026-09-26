@@ -313,6 +313,7 @@
   var INSTALACOES = comData([
     { id: "i-01", ativoId: "a-01", moduloSerial: "M2C-0417", diasAtras: 0,  hora: "11:47",
       estado: "aprovada", ressalva: null,
+      recebimento: { posicionamento: { estado: "conforme", posicoes: 3, emSeg: 72 }, eventos: { estado: "conforme", recebidoAosSeg: 24 }, viagens: { estado: "completa", km: 3 } },
       etapas: { /* história completa do herói */
         /* ⚠ C23 (sweep) · `preChecagem` FICA DECLARADO, sem leitor. Mesma
            natureza de `blocos 6/6`, `checklist 10/10` e `autoteste 8/8`, que
@@ -460,6 +461,32 @@
   /* ── Casos — cada estado de bloqueio/tela aponta para dado CONCRETO da
      obra. Nenhum é opcional: tela sem o seu caso morre sem dado. ── */
   var CASOS = {
+    /* T12 · o que o servidor recebeu da PCX-9A17 (HU-T12-4): o pacote não
+       declara o modo de fila do módulo, e o critério de eventos fica
+       indisponível, com o motivo. O status geral espera. */
+    "criterio-indisponivel": { tela: "T12", ativoId: "a-03", recebimento: {
+      posicionamento: { estado: "conforme", posicoes: 3, emSeg: 72 },
+      eventos: { estado: "indisponivel", motivo: "o pacote não declara a fila" },
+      viagens: { estado: "completa", km: 1.1 } } },
+    /* T12 · a falha de rede vira pendência (HU-T12-6): o servidor não
+       respondeu, e o app confere de novo por 24 h — não reprova. */
+    "criterio-pendente": { tela: "T12", ativoId: "a-03", recebimento: {
+      posicionamento: { estado: "pendente", motivo: "sem resposta", confereDeNovoPorHoras: 24 },
+      eventos: { estado: "conforme", recebidoAosSeg: 52 },
+      viagens: { estado: "completa", km: 1.1 } } },
+    /* T11 · a versão do módulo não se lê (HU-T11-1): ausente, truncada ou em
+       formato desconhecido. O diff roda por conteúdo, bloco a bloco, e acha
+       2 divergências. Corrigir as Cercas arrasta o Leitor e os Eventos. */
+    "versao-ilegivel": { tela: "T11", versaoLida: null, divergentes: ["cercas", "eventos"] },
+    /* T01 · os 3 envios da hora acabaram (HU-T01-7): o primeiro foi às
+       14:12, e o reenvio libera às 15:12. O código enviado segue valendo. */
+    "teto-de-envios": { tela: "T01", enviosNaHora: 3, primeiroEnvioAs: "14:12", liberaAs: "15:12" },
+    /* T01 · outro usuário entra no aparelho (HU-T01-4): a sessão do anterior
+       é encerrada, e a fila dele continua subindo. */
+    "outro-usuario": { tela: "T01", usuario: "m.souza", nome: "Marcos Souza",
+      anterior: { usuario: "r.vieira", itensNaFila: 3 } },
+    /* T15 · a fila vazia: o último item subiu às 14:02. */
+    "fila-vazia": { tela: "T15", ultimoEnvioAs: "14:02" },
     /* T02 · o técnico com mais de uma empresa (HU-T02-1). Terceirizado atende
        várias: a lista das empresas vem antes das unidades, e a troca fica no
        rodapé. Com uma empresa só, o passo não aparece. */
@@ -506,23 +533,23 @@
     "lista-longa-garagens": { limiteSemBusca: 6,
       /* as garagens a mais do caso têm pacote, pra o Sincronizar funcionar em todas */
       pacotes: [
-        { id: "pac-uo-11", uoId: "uo-11", diasAtras: 1, hora: "06:40", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 14 } },
-        { id: "pac-uo-12", uoId: "uo-12", diasAtras: 0, hora: "06:15", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 12 } },
-        { id: "pac-uo-13", uoId: "uo-13", diasAtras: 1, hora: "07:30", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 9 } },
-        { id: "pac-uo-14", uoId: "uo-14", diasAtras: 2, hora: "07:05", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 7 } },
-        { id: "pac-uo-15", uoId: "uo-15", diasAtras: 1, hora: "06:50", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 5 } },
-        { id: "pac-uo-16", uoId: "uo-16", diasAtras: 1, hora: "07:20", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 4 } } ],
+        { id: "pac-uo-11", uoId: "uo-11", diasAtras: 1, hora: "06:40", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 14, modelosAtivo: 3, cartoes: 3 } },
+        { id: "pac-uo-12", uoId: "uo-12", diasAtras: 0, hora: "06:15", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 12, modelosAtivo: 3, cartoes: 3 } },
+        { id: "pac-uo-13", uoId: "uo-13", diasAtras: 1, hora: "07:30", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 9, modelosAtivo: 3, cartoes: 3 } },
+        { id: "pac-uo-14", uoId: "uo-14", diasAtras: 2, hora: "07:05", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 7, modelosAtivo: 3, cartoes: 3 } },
+        { id: "pac-uo-15", uoId: "uo-15", diasAtras: 1, hora: "06:50", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 5, modelosAtivo: 3, cartoes: 3 } },
+        { id: "pac-uo-16", uoId: "uo-16", diasAtras: 1, hora: "07:20", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 4, modelosAtivo: 3, cartoes: 3 } } ],
       ucs: [ { id: "uc-01", nome: "RMR – Recife" }, { id: "uc-03", nome: "Zona da Mata – Vitória" }, { id: "uc-02", nome: "Agreste – Caruaru" } ],
       uos: [
-        { id: "uo-01", ucId: "uc-01", nome: "Garagem Várzea",     cidade: "Recife",                  pacoteIdadeDias: 1, pacoteHora: "07:10", ativos: 10 },
-        { id: "uo-02", ucId: "uc-01", nome: "Garagem Ibura",      cidade: "Recife",                  pacoteIdadeDias: 4, pacoteHora: "06:55", ativos: 8 },
-        { id: "uo-11", ucId: "uc-01", nome: "Garagem Boa Viagem", cidade: "Recife",                  pacoteIdadeDias: 1, pacoteHora: "06:40", ativos: 14 },
-        { id: "uo-12", ucId: "uc-01", nome: "Garagem Olinda",     cidade: "Olinda",                  pacoteIdadeDias: 0, pacoteHora: "06:15", ativos: 12 },
-        { id: "uo-13", ucId: "uc-01", nome: "Garagem Camaragibe", cidade: "Camaragibe",              pacoteIdadeDias: 1, pacoteHora: "07:30", ativos: 9 },
-        { id: "uo-14", ucId: "uc-03", nome: "Garagem Vitória",    cidade: "Vitória de Santo Antão",  pacoteIdadeDias: 2, pacoteHora: "07:05", ativos: 7 },
-        { id: "uo-15", ucId: "uc-03", nome: "Garagem Carpina",    cidade: "Carpina",                 pacoteIdadeDias: 1, pacoteHora: "06:50", ativos: 5 },
-        { id: "uo-03", ucId: "uc-02", nome: "Pátio Caruaru",      cidade: "Caruaru",                 pacoteIdadeDias: 8, pacoteHora: "07:30", ativos: 6 },
-        { id: "uo-16", ucId: "uc-02", nome: "Garagem Gravatá",    cidade: "Gravatá",                 pacoteIdadeDias: 1, pacoteHora: "07:20", ativos: 4 } ] },
+        { id: "uo-01", ucId: "uc-01", nome: "Garagem Várzea",     cidade: "Recife" },
+        { id: "uo-02", ucId: "uc-01", nome: "Garagem Ibura",      cidade: "Recife" },
+        { id: "uo-11", ucId: "uc-01", nome: "Garagem Boa Viagem", cidade: "Recife" },
+        { id: "uo-12", ucId: "uc-01", nome: "Garagem Olinda",     cidade: "Olinda" },
+        { id: "uo-13", ucId: "uc-01", nome: "Garagem Camaragibe", cidade: "Camaragibe" },
+        { id: "uo-14", ucId: "uc-03", nome: "Garagem Vitória",    cidade: "Vitória de Santo Antão" },
+        { id: "uo-15", ucId: "uc-03", nome: "Garagem Carpina",    cidade: "Carpina" },
+        { id: "uo-03", ucId: "uc-02", nome: "Pátio Caruaru",      cidade: "Caruaru" },
+        { id: "uo-16", ucId: "uc-02", nome: "Garagem Gravatá",    cidade: "Gravatá" } ] },
     "serial-nao-cadastrado": { serial: "M2C-0999" },
     /* C22 · T12 — a CONSULTA ANTERIOR, declarada: `consultado hoje às 11:47`
        é valor da obra, não derivado de i-01. O offline se alcança por AÇÃO
@@ -1208,7 +1235,8 @@
          confirmadoAs é 09:15 (T15-A4). */
   CASOS["fila-sem-erro"] = { itens: ["f-04", "f-01", "f-05", "f-06", "f-07"] };
   CASOS["fila-dois-erros"] = { itens: ["f-10", "f-09", "f-02", "f-08"] };
-  CASOS["fila-vazia"] = { itens: [], ultimoEnvioAs: "14:02", sessao: null };
+  /* o caso fila-vazia agora é do design (a entrega de 26/09, ultimoEnvioAs); o protótipo só acrescenta a fila vazia e a sessão */
+  Object.assign(CASOS["fila-vazia"], { itens: [], sessao: null });
 
   /* protótipo C10 (T13) · AC-11 — os títulos longos das seções e o que o
      nível do item diz. ADITIVO: o `rotulo` (o nome curto do mapa e do
@@ -1337,7 +1365,7 @@
       contato: { email: "r.vieira@atlsul.com.br", telefone: { ddi: "+55", numero: "81987158675" } },
       recuperacao: {
         codigo: "482913",
-        novaSenha: "Unidade!Ibura27",
+        novaSenha: "Garagem!Ibura27",
         limites: { validadeMin: 10, tentativas: 3, reenvioSeg: 60, tetoPorHora: 3 },
         reenviosNaHora: 2,
         /* protótipo C4 (AC-01) · o código que a T01/05 e a T01/07 mostram

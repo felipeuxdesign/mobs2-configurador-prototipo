@@ -14,7 +14,8 @@ import './Nota.css'
 // (C10 · T13/09, G11) é a de 13, em 400, na entrelinha da frase da caixa
 // apagada, da nota do item que não se marca à mão
 // C11 · T16/04 (G11): 'pulado' é a de 13, em 500 e --tinta-secundaria, da nota
-// que diz o que não rodou (NÃO RODARAM), embaixo do rótulo apagado do tom explica
+// que diz o que não rodou (NÃO RODARAM), embaixo do rótulo apagado do tom explica.
+// Sem uso nas telas desde a resposta de 26/09: o NÃO RODARAM é a nota padrão.
 export function Nota({ tom = 'explica', titulo, frase, antesDoRodape = false, corpo = 'legenda' }) {
   return (
     <div className={`ds-nota ds-caixa-apagada ds-nota-${tom} ${antesDoRodape ? 'ds-nota-antes-do-rodape' : ''} ${corpo === 'secundario' ? 'ds-nota-corpo-secundario' : ''} ${corpo === 'item' ? 'ds-nota-corpo-item' : ''} ${corpo === 'pulado' ? 'ds-nota-corpo-pulado' : ''}`}>

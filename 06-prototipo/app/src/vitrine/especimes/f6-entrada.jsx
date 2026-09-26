@@ -54,9 +54,13 @@ export const especimes = [
     render: () => <Busca dica="Buscar placa, frota ou módulo" /> },
   { id: 'f6-justificativa', folha: 6, rotulo: 'justificativa', legenda: 'o não conforme com o porquê',
     render: () => (
-      <Justificativa opcao="Não conforme" marcado rotulo="JUSTIFICATIVA" focado
+      <Justificativa opcao="Não está conforme" legenda="conte embaixo o que aconteceu" marcado rotulo="O QUE ACONTECEU" focado
         valor="Suporte trincado; fixei com abraçadeira até a troca." />
     ) },
+  // a última entrega (decisão 39): a caixa antes de marcar, fora da folha 6 (semBancada), com o texto da T13/07
+  { id: 'f6-justificativa-desmarcada', folha: 6, rotulo: 'justificativa · desmarcada', semBancada: true,
+    legenda: 'fora da folha · a caixa antes de marcar, com o que marcar pede (T13/07)',
+    render: () => <Justificativa opcao="Não está conforme" legenda="marque e conte o que aconteceu" /> },
   { id: 'f6-so-icone', folha: 6, rotulo: 'botões só de ícone', legenda: 'fechar e mostrar a senha · com nome pro leitor de tela',
     render: () => (
       <div style={fileira}>

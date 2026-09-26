@@ -18,6 +18,11 @@ chk(`os ${estados.length} estados do indice.json têm receita`, estados.length >
 const gruposT05 = [...(readFileSync(resolve(app, 'src/palco/telas.js'), 'utf8').match(/GRUPOS_T05 = \[(.*)\]/)?.[1] ?? '').matchAll(/\['([a-z]+)'/g)].map((m) => m[1])
 const foraDaColuna = indice.filter((r) => r.tela === 'T05' && r.tipo === 'estado' && !gruposT05.includes(r.grupo)).map((r) => r.id)
 chk(`todo estado da T05 está num grupo da coluna (${gruposT05.join(', ')})`, gruposT05.length > 0 && !foraDaColuna.length, foraDaColuna.join(', '))
+// a coluna escreve o `rotulo` de cada estado (src/palco/Coluna.jsx): sem ele, a linha fica em branco e o
+// radio fica sem nome pro leitor de tela (a revisão de 26/09) — todo estado tem rótulo e a origem dele
+// (gate-C3, achado 3: 'quadro' ou 'proposto')
+const semRotulo = indice.filter((r) => r.tipo === 'estado' && !(r.rotulo?.trim() && ['quadro', 'proposto'].includes(r.rotuloOrigem))).map((r) => r.id)
+chk('todo estado tem rótulo na coluna, com a origem', !semRotulo.length, semRotulo.join(', '))
 const cam = (p) => p.split('.').reduce((o, k) => (o == null ? undefined : o[k]), M)
 const quebrados = []
 for (const [id, r] of Object.entries(RECEITAS)) {

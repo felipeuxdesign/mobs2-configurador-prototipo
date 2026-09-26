@@ -20,6 +20,7 @@ Só **o conteúdo** esmaece, em 150ms. **A barra do sistema e a faixa da sessão
 | O quê | Como |
 |---|---|
 | **folha** | o painel sobe de baixo (translateY 100% → 0) em 200ms e o véu esmaece junto · fecha em 150ms |
+| **folha · o arraste** | **proposta do protótipo, espera o arquiteto** (lei 20): o painel acompanha o dedo pra baixo, só por transform, depois de 8 (`--folha-arraste-folga`) · soltando depois de 56 (`--folha-arraste-limite`), desce de onde parou e fecha em 150ms, e o véu esmaece junto · soltando antes, volta ao lugar em 200ms · só a posição decide, nunca a velocidade |
 | **diálogo** | esmaece e cresce de 98% a 100% em 150ms · o véu esmaece junto |
 | **pressionado** | no toque — no computador, no clique. O primário vai pra `--roxo-pressionado` e afunda 2%; a linha tocável sobe pra `--elevado`; o link vai pra `--tinta`. Solta em 100ms |
 
@@ -41,7 +42,7 @@ Mudam **no lugar**. O ritmo do protótipo é de apresentação: rápido o bastan
 | cronômetro do código (T01) | 1s real vale 1s · o prazo e o reenvio abrem cheios, como o mock diz (T01·1) |
 | releitura da CAN (T08) · cada sinal que responde | 600ms · na ordem da grade (T08·1) |
 | semear da calibração (T10) · gravando e relendo | 1s + 1s · o botão diz *Gravando no módulo…* e depois *Relendo…*; aí o tambor e a régua (a `animacao.md` da T10) |
-| busca da T05 · a busca de novo | **proposta do protótipo, espera o diretor e o arquiteto:** 400ms · o quadro da busca da T05/00 fica na tela, e a lista volta sem nada escolhido (a T05/01). É o menor passo que esta tabela já dá pra alguém acompanhar (a conferência da T11, o autoteste) |
+| busca da T05 · a busca de novo | 1,2s · o número do arquiteto (a última entrega, o `animacao.md` da T05): 400ms passaria sem o técnico ver que buscou · no protótipo, o quadro da busca da T05/00 fica na tela, e a lista volta sem nada escolhido (a T05/01) — o *Procurando…* do `animacao.md` não está em referência nem em `textos.md`, e fica de fora (pergunta ao arquiteto) |
 
 ## Só isto se move
 

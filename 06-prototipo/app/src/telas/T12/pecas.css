@@ -1,5 +1,7 @@
-/* T12 · o grupo por idade: o rótulo de 10/700 em caixa alta, a 4 do cartão
- * (00-tela.html:39). O último guarda 16 até o fim do miolo (00-tela.html:85). */
+/* T12 · o grupo: o rótulo de 10/700 em caixa alta em cima do cartão — a 4 na
+ * lista (00-tela.html:39), a 6 nas seções do detalhe (01, 04 e 05). O último da
+ * lista não guarda mais os 16 do 00-tela.html:85: era folga dupla com o recheio
+ * do miolo (a resposta do arquiteto de 26/09). */
 .t12-grupo { flex-shrink: 0; display: flex; flex-direction: column; gap: var(--e-4); }
-.t12-grupo-ultimo { margin-bottom: var(--respiro); }
+.t12-grupo-secao { gap: var(--e-6); }
 .t12-grupo-rotulo { font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--tinta-apagada); }

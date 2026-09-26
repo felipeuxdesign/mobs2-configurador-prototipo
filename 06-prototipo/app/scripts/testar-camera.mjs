@@ -11,7 +11,7 @@ import { createRequire } from 'node:module'
 const app = resolve(dirname(fileURLToPath(import.meta.url)), '..'); const raiz = resolve(app, '../..')
 globalThis.window = {}; createRequire(import.meta.url)(resolve(raiz, '04-dados/mocks.js')); const M = window.M2CF_MOCKS
 const { RECEITAS } = await import(resolve(app, 'src/estado/receitas.js'))
-const { CONCEDIDA, NEGADA, permissaoDoEstado, camera, primarioDaCamera, voltaDasConfiguracoes } = await import(resolve(app, 'src/estado/camera.js'))
+const { CONCEDIDA, NEGADA, APAGADO, permissaoDoEstado, camera, primarioDaCamera, voltaDasConfiguracoes } = await import(resolve(app, 'src/estado/camera.js'))
 const { T: T10 } = await import(resolve(app, 'src/telas/T10/textos.js'))
 const { T: T13 } = await import(resolve(app, 'src/telas/T13/textos.js'))
 const indice = JSON.parse(readFileSync(resolve(raiz, '02-telas/indice.json'), 'utf8')).itens
@@ -41,11 +41,21 @@ const volta = voltaDasConfiguracoes()
 chk('Abrir as configurações → o técnico permite lá e volta → a câmera abre com o Tirar foto', volta === CONCEDIDA && camera(volta).primario === 'tirar-foto')
 chk('se ele volta sem permitir, a câmera continua sem ela, e o primário continua com saída', camera(voltaDasConfiguracoes(false)).primario === 'abrir-configuracoes')
 
-// 2b · o primário que as telas tocam (primarioDaCamera): o da câmera, e no item manual o Não conforme ganha dela
+// 2b · o primário que as telas tocam (primarioDaCamera): o da câmera, e no item manual, com o Não está
+// conforme marcado, o que falta pra ressalva — o não conforme exige a foto do problema (decisão 39)
 chk('T10 · na câmera, o primário é o da permissão: Tirar foto, ou Abrir as configurações', primarioDaCamera(CONCEDIDA) === 'tirar-foto' && primarioDaCamera(NEGADA) === 'abrir-configuracoes')
-chk('T13 · o Não conforme marcado, com ou sem a permissão: Salvar com ressalva (a ressalva não precisa da câmera)',
-  primarioDaCamera(NEGADA, { ressalva: true }) === 'salvar-com-ressalva' && primarioDaCamera(CONCEDIDA, { ressalva: true }) === 'salvar-com-ressalva')
-chk('T13 · desmarcado sem a permissão, volta o Abrir as configurações', primarioDaCamera(NEGADA, { ressalva: false }) === 'abrir-configuracoes')
+chk('T13 · desmarcado, o da câmera: Tirar foto, e sem a permissão o Abrir as configurações',
+  primarioDaCamera(CONCEDIDA, { naoConforme: false }) === 'tirar-foto' && primarioDaCamera(NEGADA, { naoConforme: false }) === 'abrir-configuracoes')
+chk('T13 · marcado, sem a foto do problema: o disparador Fotografar o problema, com ou sem o texto (a ordem é livre)',
+  primarioDaCamera(CONCEDIDA, { naoConforme: true, fotografado: false, contou: true }) === 'fotografar-problema'
+  && primarioDaCamera(CONCEDIDA, { naoConforme: true, fotografado: false, contou: false }) === 'fotografar-problema')
+chk('T13 · marcado, sem a foto e sem a permissão: o Abrir as configurações (a foto do problema precisa da câmera, regra 12)',
+  primarioDaCamera(NEGADA, { naoConforme: true, fotografado: false, contou: true }) === 'abrir-configuracoes')
+chk('T13 · fotografado, sem o texto: Conte o que aconteceu, o apagado', primarioDaCamera(CONCEDIDA, { naoConforme: true, fotografado: true, contou: false }) === APAGADO)
+chk('T13 · fotografado e contado: Salvar com ressalva', primarioDaCamera(CONCEDIDA, { naoConforme: true, fotografado: true, contou: true }) === 'salvar-com-ressalva')
+// o Salvar com ressalva só existe com a foto do problema e o texto: nenhuma combinação o dá sem os dois
+const combina = [CONCEDIDA, NEGADA].flatMap((p) => [false, true].flatMap((f) => [false, true].map((c) => ({ p, f, c }))))
+chk('T13 · nenhum Salvar com ressalva sem a foto do problema e o texto', combina.every(({ p, f, c }) => primarioDaCamera(p, { naoConforme: true, fotografado: f, contou: c }) !== 'salvar-com-ressalva' || (f && c)))
 // as duas telas tocam o que a função diz, e não uma decisão delas: senão o teste provaria outra coisa
 const leem = ['T10', 'T13'].filter((t) => /primarioDaCamera\(/.test(readFileSync(resolve(app, `src/telas/${t}/index.jsx`), 'utf8')))
 chk('a T10 e a T13 tiram o primário da câmera de primarioDaCamera', leem.length === 2, leem.join(', '))
@@ -56,7 +66,16 @@ for (const [nome, texto] of [['precisaDaCamera', T10.precisaDaCamera], ['semAFot
   chk(`T10 · ${nome} está no textos.md da 11`, md.includes(texto), texto)
 }
 chk('T13 · o primário sem a permissão é o Abrir as configurações da T10', T13.abrirConfiguracoes === T10.abrirConfiguracoes, T13.abrirConfiguracoes)
+const md07 = textosDaRef('T13', '07-momento-responder-item')
 const md08 = textosDaRef('T13', '08-momento-nao-conforme-com-justificativa')
-chk('T13 · o Salvar com ressalva está no textos.md da 08', md08.includes(T13.salvarComRessalva), T13.salvarComRessalva)
+const md15 = textosDaRef('T13', '15-momento-problema-fotografado')
+chk('T13 · o Tirar foto e a caixa desmarcada estão no textos.md da 07', [T13.tirarFoto, T13.naoConforme, T13.marqueEConte].every((t) => md07.includes(t)))
+chk('T13 · o Fotografar o problema, o Enquadre o problema e a caixa marcada estão no textos.md da 08',
+  [T13.fotografarProblema, T13.enquadreProblema, T13.naoConforme, T13.conteEmbaixo, T13.oQueAconteceu].every((t) => md08.includes(t)))
+chk('T13 · o Salvar com ressalva e o registro do problema estão no textos.md da 15',
+  [T13.salvarComRessalva, T13.problemaFotografado('14:30'), T13.vaiComARessalva, T13.oQueAconteceu].every((t) => md15.includes(t)))
+// o apagado não tem referência: o texto é o do tela.md da T13 e o do logica.md (decisão 39)
+const telaMd = readFileSync(resolve(raiz, '02-telas/T13-checklist/tela.md'), 'utf8'); const logicaMd = readFileSync(resolve(raiz, '06-prototipo/logica.md'), 'utf8')
+chk('T13 · o Conte o que aconteceu está no tela.md da T13 e no logica.md', telaMd.includes(T13.conteOQueAconteceu) && logicaMd.includes(T13.conteOQueAconteceu), T13.conteOQueAconteceu)
 
 console.log(falhas ? `\nTESTE REPROVADO — ${falhas}` : '\nTESTE APROVADO'); process.exitCode = falhas ? 1 : 0

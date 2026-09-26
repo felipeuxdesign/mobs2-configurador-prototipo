@@ -23,10 +23,14 @@ import './LinhaChecagem.css'
 //        manda) em --tinta, como a T11/00 e 01 desenham. O nome pro leitor
 //        segue o dado (G15): quem monta passa o nomeGlifo.
 // A entrega do checklist (T11/00): o bloco que não bate leva o xis vermelho, e não mais o traço.
-const GLIFO = { aprovada: 'ok', reprovada: 'xis', 'nao-se-aplica': 'traco', parou: 'sem-sinal', 'ainda-nao': 'espera', agora: 'agora', diverge: 'xis' }
-const POCO = { compacta: 24, passo: 24, dupla: 32, conferencia: 32 }
+// A última entrega · T12 (decisão 41): +estado 'indisponivel' (o traço) e 'pendente' (o relógio), no que o servidor recebeu
+const GLIFO = { aprovada: 'ok', reprovada: 'xis', 'nao-se-aplica': 'traco', parou: 'sem-sinal', 'ainda-nao': 'espera', agora: 'agora', diverge: 'xis',
+  indisponivel: 'traco', pendente: 'relogio' }
+const POCO = { compacta: 24, passo: 24, dupla: 32, conferencia: 32, recebimento: 32 }
 // o glifo pelo poço (--glifo-<poço>); onde a folha desenha outro, o poço cujo glifo ela usa
 const GLIFO_DO_POCO = { conferencia: 26 }
+// no recebimento, o check é o do poço de 32 (19), e o relógio do pendente, o de 16 (o do poço de 26), como a T12/05 desenha
+const glifoDoPoco = (variante, estado, tam) => (variante === 'recebimento' && estado === 'pendente' ? 26 : GLIFO_DO_POCO[variante] ?? tam)
 
 // C7 · T05 (G11), três propriedades nomeadas; sem elas, a linha é a de sempre:
 // · `nota` — a linha de 12 embaixo do título, como a causa, mas em
@@ -67,9 +71,25 @@ const GLIFO_DO_POCO = { conferencia: 26 }
 // C11 · T12 (G11, G25): `valorQuebra` — o título não quebra, e o valor longo quebra
 // em duas linhas, alinhado à direita, dentro da mesma altura: o recebimento de
 // outra unidade, sem referência ('confirmado após reprocessamento', T12·2). O que
-// cabe numa linha fica igual.
+// cabe numa linha fica igual. Sem uso nas telas desde a última entrega: o
+// detalhe da T12 passou à variante 'recebimento'.
+// A última entrega · T12/01, 04 e 05 (decisão 41, G11) · a variante 'recebimento' —
+//   o que o servidor recebeu, um critério por linha (posicionamento, eventos,
+//   viagens): o glifo no poço de 32, o título em 14/600 e, embaixo, a 2, o
+//   porquê numa linha (`porque`, 12 em --tinta-secundaria: '3 posições em 1 min
+//   12 s', 'o pacote não declara a fila', 'sem resposta · confere por 24 h'), e
+//   o veredito à direita (`valor`), em 13/700. A linha tem 58 no mínimo
+//   (--linha-com-porque), com 8 em cima e embaixo. O estado muda o glifo e a
+//   tinta do veredito, nunca o desenho (Lei 3):
+//   · 'aprovada' — conforme, completa: o check lima, o veredito em --tinta
+//   · 'indisponivel' — o pacote não declara o parâmetro: o traço, em
+//     --marca-limite, e o veredito em --tinta-apagada
+//   · 'pendente' — o servidor não respondeu: o relógio de 16, e o veredito em
+//     --tinta-secundaria
+//   · 'reprovada' — o xis, e o veredito em vermelho (nenhuma referência desenha)
+//   O veredito está escrito à direita: o glifo fica mudo pro leitor (G15).
 export function LinhaChecagem({
-  estado = 'aprovada', variante = 'compacta', titulo, causa, nota, valor, tom,
+  estado = 'aprovada', variante = 'compacta', titulo, causa, nota, porque, valor, tom,
   glifo, nomeGlifo, divisoria = true, folgaFim = false, lendo = false, recheioCausa, valorQuebra = false,
   par, valorAceso = false, acende = false, className = '',
 }) {
@@ -87,11 +107,12 @@ export function LinhaChecagem({
   ].filter(Boolean).join(' ')
   return (
     <div className={classes}>
-      <Poco tam={tam} aria-hidden={lendo && !relogio ? 'true' : undefined}>
-        <Glifo estado={relogio ? 'relogio' : glifo ?? (neutro ? 'lua' : GLIFO[estado])} poco={GLIFO_DO_POCO[variante] ?? tam} nome={relogio ? undefined : nomeGlifo} />
+      <Poco tam={tam} aria-hidden={(lendo && !relogio) || variante === 'recebimento' ? 'true' : undefined}>
+        <Glifo estado={relogio ? 'relogio' : glifo ?? (neutro ? 'lua' : GLIFO[estado])} poco={glifoDoPoco(variante, estado, tam)} nome={relogio ? undefined : nomeGlifo} />
       </Poco>
       <span className="ds-checagem-corpo">
         <span className="ds-checagem-titulo">{titulo}</span>
+        {porque != null && <span className="ds-checagem-porque">{porque}</span>}
         {causa && <span className="ds-checagem-causa">{causa}</span>}
         {nota && <span className="ds-checagem-causa ds-checagem-nota">{nota}</span>}
         {par && <span className="ds-checagem-par ds-checagem-par-modulo" aria-hidden={lendo ? 'true' : undefined}>{par.modulo}</span>}

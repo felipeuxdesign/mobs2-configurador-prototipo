@@ -65,11 +65,18 @@ export function passosEncerrando(k, corte) {
   })
 }
 // Sem homologar: só os quatro seguros correm (`feitos` é quantos já fecharam),
-// cada um com a legenda dele enquanto corre; os outros ficam pulados, com o traço.
+// cada um com a legenda dele enquanto corre; os outros ficam pulados.
+// O padrão da T16/02 (a resposta do arquiteto de 26/09): o passo que não roda
+// leva o desenho do 'não se aplica' da 02 — o círculo com o traço, apagado
+// (o glifo 'traco-circulo', o mesmo das assertivas Faixa de contadores e Pontos
+// de cerca) —, e não mais o traço solto da folha 5. O texto continua 'pulado'
+// (textos.md). A referência 03 ainda desenha o traço: desvio nomeado até a
+// auditoria redesenhar.
+export const GLIFO_DO_QUE_NAO_RODA = 'traco-circulo'
 export function passosAbortando(feitos) {
   return PASSOS.map((p) => {
     const j = SEGUROS.indexOf(p)
-    if (j < 0) return { estado: 'pulado', nome: p.nome, situacao: T.pulado }
+    if (j < 0) return { estado: GLIFO_DO_QUE_NAO_RODA, nome: p.nome, situacao: T.pulado }
     if (j < feitos) return { estado: 'ok', nome: p.nome, situacao: p.feito }
     if (j === feitos) return { estado: 'agora', nome: p.nome, situacao: p.corre ?? '', legenda: p.legenda }
     return { estado: 'espera', nome: p.nome, situacao: T.aindaNao }

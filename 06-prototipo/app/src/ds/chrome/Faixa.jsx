@@ -20,9 +20,10 @@ import './Faixa.css'
 const LED = { aberta: 'viva', 'sem-sessao': 'sem-sessao', falha: 'falha' }
 
 // `acaoDesabilitada` (G11, a lei 17, *desabilitado é tinta apagada*, diretor 25/09): nos processos, o ENCERRAR
-// faz o mesmo que o voltar do Android; onde o voltar não faz nada (a pré-checagem correndo, a atualização do
-// firmware, a releitura da CAN, o semear, a recuperação da T09), ele fica desabilitado de verdade e em
-// --tinta-apagada, sem o pressionado; o motivo já está escrito na tela
+// faz o mesmo que o voltar do Android; onde o voltar não faz nada (a releitura da CAN, o semear, a
+// recuperação da T09 — T08, T10 e T09), ele fica desabilitado de verdade e em --tinta-apagada, sem o
+// pressionado; o motivo já está escrito na tela. Na pré-checagem correndo a faixa ainda não existe: ela só
+// aparece depois que a pré-checagem aprova (a resposta do arquiteto de 26/09; logica.md, O voltar do Android)
 export function Faixa({ estado = 'aberta', lugar = 'tela', serial, placa, semAtivo = false, fato, acao, aoEncerrar, rotuloAcao, forcaToque = false, acaoDesabilitada = false }) {
   return (
     <div className={`ds-faixa ds-faixa-${estado} ${lugar === 'menu' ? 'ds-faixa-menu' : ''}`}>

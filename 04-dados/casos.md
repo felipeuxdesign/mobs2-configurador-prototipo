@@ -21,6 +21,8 @@ Cada caso de `mocks.js` → a tela e o estado que ele produz. **O estado se mont
 | `conflito-pinos-resolvivel` | `T06/05-estado-conflito-de-pinos-resolvivel` |
 | `conflito-pinos-sem-saida` | `T06/06-estado-conflito-de-pinos-sem-saida` |
 | `conteudo-nao-cabe` | `T05/11-estado-pre-checagem-conteudo-nao-cabe` |
+| `criterio-indisponivel` | `T12/04-estado-criterio-indisponivel` |
+| `criterio-pendente` | `T12/05-estado-criterio-pendente` |
 | `diff-divergente` | `T11/02-momento-tudo-confere` |
 | `divergencia-chassi` | `T06/02-estado-chassi-divergente` · `T06/07-momento-correcao-solicitada` |
 | `evento-sem-resposta` | `T14/02-estado-prazo-estourado` |
@@ -38,6 +40,7 @@ Cada caso de `mocks.js` → a tela e o estado que ele produz. **O estado se mont
 | `modelo-sem-driver` | `T05/07-estado-pre-checagem-modelo-sem-driver` |
 | `modulo-com-pendencias` | `T05/13-estado-pre-checagem-canal-aberto-e-pendencias` (por cima do `canal-aberto`, o mesmo módulo) |
 | `modulo-em-repouso` | `T05/15-estado-pre-checagem-modulo-em-repouso-na-9a` |
+| `outro-usuario` | `T01/18-estado-outro-usuario-no-aparelho` |
 | `pac-uo-02` | `T03/03-estado-pacote-de-4-dias` |
 | `pac-uo-03` | `T03/04-estado-pacote-vencido` |
 | `pool-esgotado` | `T05/12-estado-pre-checagem-pool-de-cercas-esgotado` |
@@ -48,7 +51,9 @@ Cada caso de `mocks.js` → a tela e o estado que ele produz. **O estado se mont
 | `serial-nao-cadastrado` | `T05/06-estado-pre-checagem-serial-nao-cadastrado` |
 | `sessao-interrompida` | `T16/06-estado-sessao-interrompida` |
 | `sync-falha-rede` | `T03/01-estado-falha-de-rede` |
+| `teto-de-envios` | `T01/17-estado-teto-de-envios` |
 | `usuario-lembrado` | `T01/16-estado-usuario-lembrado` |
 | `varias-empresas` | `T02/05-estado-escolher-a-empresa` · `T02/06-estado-unidades-com-trocar-empresa` · `T04/14-estado-folha-trocar-de-unidade-com-empresa` |
+| `versao-ilegivel` | `T11/04-estado-versao-ilegivel` |
 
-Os estados sem caso próprio nascem de um dado do mock — por exemplo, o caminhão KNB-5H39 sem chassi vem de `modelosAtivo` ma-02 com `chassiPelaCan: false`. O `estados.md` de cada tela diz de onde vem cada um.
+Os estados sem caso próprio nascem de um dado do mock — por exemplo, o caminhão KNB-5H39 sem chassi vem de `modelosAtivo` ma-02 com `chassiPelaCan: false`. O `estados.md` de cada tela diz de onde vem cada um. O caso `fila-vazia` dá a hora do último envio da fila vazia (T15/03 e T15/04).

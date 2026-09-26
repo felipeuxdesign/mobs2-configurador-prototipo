@@ -9,7 +9,7 @@ import './pecas.css'
 // traço, muda pro leitor), o título e a frase. Não é o vazio declarado do
 // componentes.md (tracejado, sem ícone): é peça desta tela.
 // 16 · 17 (o mundo real): o mesmo bloco, com o poço de 44 e o ícone no lugar
-// da marca — o Bluetooth cortado, do desligado e do sem permissão (`icone`)
+// da marca — o Bluetooth riscado (lei 21), do desligado e do sem permissão (`icone`)
 export function VazioDaBusca({ titulo, frase, icone }) {
   return (
     <div className="t05-vazio ds-caixa-poco">

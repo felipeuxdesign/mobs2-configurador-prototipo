@@ -4,7 +4,7 @@
 // na hora de montar.
 export const T = {
   titulo: 'Fila de saída',
-  nestaGaragem: 'nesta unidade', // a lei 18, a palavra é unidade (decisão 37); o nome interno fica
+  nesteAparelho: 'neste aparelho', // a fila é do aparelho, e não da unidade (decisão 42, HU-T01-4)
   encerrar: 'ENCERRAR',
   semSessao: 'Sem sessão de configuração',
   semAtivo: 'sem ativo',                                     // a faixa com o módulo e sem o ônibus (T05, T06)
@@ -28,7 +28,10 @@ export const T = {
   recebida: (placa) => `${placa} · recebida`,
   haMin: (n) => `há ${n} min`,
   ontem: (hora) => `ontem ${hora}`,
-  haDias: (n) => `há ${n} dias`,                             // G9: o f-08 é de 2 dias atrás; a forma é a da T12 ('há 9 dias')
+  // o recebido de mais de um dia: o dia e a hora (a 00, '10/03, 10:05' — a resposta
+  // do arquiteto de 26/09). A 02 ainda diz 'ontem 10:05' pro mesmo f-08: desvio nomeado
+  naData: ({ dia, mes }, hora) => `${dia}/${mes}, ${hora}`,
+  haDias: (n) => `há ${n} dias`,                             // o item na fila de outro dia (nenhum no mock) e o recebido sem data
   // a fila vazia (03, 04)
   vazio: 'Nada esperando envio',
   ultimoSubiu: (hora) => `O último item subiu às ${hora}.`,

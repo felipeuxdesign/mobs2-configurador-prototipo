@@ -1,6 +1,6 @@
 {
  "telas": 16,
- "referencias": 137,
+ "referencias": 145,
  "itens": [
   {
    "id": "T01/00-tela",
@@ -219,6 +219,34 @@
    "rotuloOrigem": "proposto"
   },
   {
+   "id": "T01/17-estado-teto-de-envios",
+   "tela": "T01",
+   "pasta": "T01-login",
+   "tipo": "estado",
+   "nome": "17-estado-teto-de-envios",
+   "titulo": "T01 recuperar · os 3 envios da hora acabaram",
+   "como": "pedir um código depois dos 3 envios da hora",
+   "caso": "teto-de-envios",
+   "html": "02-telas/T01-login/referencias/html/17-estado-teto-de-envios.html",
+   "png": "02-telas/T01-login/referencias/png/17-estado-teto-de-envios.png",
+   "rotulo": "Teto de envios",
+   "rotuloOrigem": "proposto"
+  },
+  {
+   "id": "T01/18-estado-outro-usuario-no-aparelho",
+   "tela": "T01",
+   "pasta": "T01-login",
+   "tipo": "estado",
+   "nome": "18-estado-outro-usuario-no-aparelho",
+   "titulo": "T01 · outro usuário no aparelho",
+   "como": "entrar com um usuário diferente do da sessão anterior",
+   "caso": "outro-usuario",
+   "html": "02-telas/T01-login/referencias/html/18-estado-outro-usuario-no-aparelho.html",
+   "png": "02-telas/T01-login/referencias/png/18-estado-outro-usuario-no-aparelho.png",
+   "rotulo": "Outro usuário no aparelho",
+   "rotuloOrigem": "proposto"
+  },
+  {
    "id": "T02/00-tela",
    "tela": "T02",
    "pasta": "T02-selecionar-contexto",
@@ -290,7 +318,9 @@
    "como": "o técnico tem mais de uma empresa — a lista delas vem antes das unidades",
    "caso": "varias-empresas",
    "html": "02-telas/T02-selecionar-contexto/referencias/html/05-estado-escolher-a-empresa.html",
-   "png": "02-telas/T02-selecionar-contexto/referencias/png/05-estado-escolher-a-empresa.png"
+   "png": "02-telas/T02-selecionar-contexto/referencias/png/05-estado-escolher-a-empresa.png",
+   "rotulo": "Escolher a empresa",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T02/06-estado-unidades-com-trocar-empresa",
@@ -302,7 +332,21 @@
    "como": "as unidades de um técnico com mais de uma empresa",
    "caso": "varias-empresas",
    "html": "02-telas/T02-selecionar-contexto/referencias/html/06-estado-unidades-com-trocar-empresa.html",
-   "png": "02-telas/T02-selecionar-contexto/referencias/png/06-estado-unidades-com-trocar-empresa.png"
+   "png": "02-telas/T02-selecionar-contexto/referencias/png/06-estado-unidades-com-trocar-empresa.png",
+   "rotulo": "Unidades, com trocar de empresa",
+   "rotuloOrigem": "proposto"
+  },
+  {
+   "id": "T02/07-momento-empresa-escolhida",
+   "tela": "T02",
+   "pasta": "T02-selecionar-contexto",
+   "tipo": "momento",
+   "nome": "07-momento-empresa-escolhida",
+   "titulo": "T02 · empresa escolhida",
+   "como": "tocar numa empresa da lista — ou voltar pelo Trocar de empresa, com a atual marcada",
+   "caso": "varias-empresas",
+   "html": "02-telas/T02-selecionar-contexto/referencias/html/07-momento-empresa-escolhida.html",
+   "png": "02-telas/T02-selecionar-contexto/referencias/png/07-momento-empresa-escolhida.png"
   },
   {
    "id": "T03/00-tela",
@@ -558,7 +602,9 @@
    "como": "a folha de trocar de unidade, pra quem tem mais de uma empresa",
    "caso": "varias-empresas",
    "html": "02-telas/T04-menu/referencias/html/14-estado-folha-trocar-de-unidade-com-empresa.html",
-   "png": "02-telas/T04-menu/referencias/png/14-estado-folha-trocar-de-unidade-com-empresa.png"
+   "png": "02-telas/T04-menu/referencias/png/14-estado-folha-trocar-de-unidade-com-empresa.png",
+   "rotulo": "Trocar com mais de uma empresa",
+   "rotuloOrigem": "proposto"
   },
   {
    "id": "T05/00-tela",
@@ -1294,6 +1340,32 @@
    "png": "02-telas/T11-conferir-configuracao/referencias/png/02-momento-tudo-confere.png"
   },
   {
+   "id": "T11/03-momento-outras-acoes",
+   "tela": "T11",
+   "pasta": "T11-conferir-configuracao",
+   "tipo": "momento",
+   "nome": "03-momento-outras-acoes",
+   "titulo": "T11 · outras ações",
+   "como": "tocar em Outras ações, no rodapé da conferência",
+   "caso": "",
+   "html": "02-telas/T11-conferir-configuracao/referencias/html/03-momento-outras-acoes.html",
+   "png": "02-telas/T11-conferir-configuracao/referencias/png/03-momento-outras-acoes.png"
+  },
+  {
+   "id": "T11/04-estado-versao-ilegivel",
+   "tela": "T11",
+   "pasta": "T11-conferir-configuracao",
+   "tipo": "estado",
+   "nome": "04-estado-versao-ilegivel",
+   "titulo": "T11 · a versão que não se lê",
+   "como": "a versão do módulo está ausente, truncada ou num formato desconhecido",
+   "caso": "versao-ilegivel",
+   "html": "02-telas/T11-conferir-configuracao/referencias/html/04-estado-versao-ilegivel.html",
+   "png": "02-telas/T11-conferir-configuracao/referencias/png/04-estado-versao-ilegivel.png",
+   "rotulo": "Versão ilegível",
+   "rotuloOrigem": "proposto"
+  },
+  {
    "id": "T12/00-tela",
    "tela": "T12",
    "pasta": "T12-ultimas-instalacoes",
@@ -1343,6 +1415,34 @@
    "html": "02-telas/T12-ultimas-instalacoes/referencias/html/03-estado-sem-rede.html",
    "png": "02-telas/T12-ultimas-instalacoes/referencias/png/03-estado-sem-rede.png",
    "rotulo": "Sem rede",
+   "rotuloOrigem": "proposto"
+  },
+  {
+   "id": "T12/04-estado-criterio-indisponivel",
+   "tela": "T12",
+   "pasta": "T12-ultimas-instalacoes",
+   "tipo": "estado",
+   "nome": "04-estado-criterio-indisponivel",
+   "titulo": "T12 · critério indisponível",
+   "como": "o pacote não declara o parâmetro do critério — aqui, o modo de fila do módulo",
+   "caso": "criterio-indisponivel",
+   "html": "02-telas/T12-ultimas-instalacoes/referencias/html/04-estado-criterio-indisponivel.html",
+   "png": "02-telas/T12-ultimas-instalacoes/referencias/png/04-estado-criterio-indisponivel.png",
+   "rotulo": "Critério indisponível",
+   "rotuloOrigem": "proposto"
+  },
+  {
+   "id": "T12/05-estado-criterio-pendente",
+   "tela": "T12",
+   "pasta": "T12-ultimas-instalacoes",
+   "tipo": "estado",
+   "nome": "05-estado-criterio-pendente",
+   "titulo": "T12 · critério pendente, confere por 24 h",
+   "como": "o servidor não respondeu à consulta",
+   "caso": "criterio-pendente",
+   "html": "02-telas/T12-ultimas-instalacoes/referencias/html/05-estado-criterio-pendente.html",
+   "png": "02-telas/T12-ultimas-instalacoes/referencias/png/05-estado-criterio-pendente.png",
+   "rotulo": "Critério pendente",
    "rotuloOrigem": "proposto"
   },
   {
@@ -1530,6 +1630,18 @@
    "png": "02-telas/T13-checklist/referencias/png/14-estado-homologado-sem-localizacao.png",
    "rotulo": "Homologado sem localização",
    "rotuloOrigem": "proposto"
+  },
+  {
+   "id": "T13/15-momento-problema-fotografado",
+   "tela": "T13",
+   "pasta": "T13-checklist",
+   "tipo": "momento",
+   "nome": "15-momento-problema-fotografado",
+   "titulo": "T13 · não conforme · problema fotografado",
+   "como": "fotografar o problema depois de marcar Não está conforme",
+   "caso": "",
+   "html": "02-telas/T13-checklist/referencias/html/15-momento-problema-fotografado.html",
+   "png": "02-telas/T13-checklist/referencias/png/15-momento-problema-fotografado.png"
   },
   {
    "id": "T14/00-tela",

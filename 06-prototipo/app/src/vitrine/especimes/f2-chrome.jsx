@@ -7,6 +7,8 @@ import {
 } from '../../ds/chrome/index.js'
 
 const faixaAberta = { serial: 'M2C-0417', placa: 'RKT-8H42' }
+// o cartão com a largura da tela, 16 de cada lado: a moldura de recheio 0 tem a borda de 1
+const naTela = { padding: '0 calc(var(--e-16) - var(--traco-borda))' }
 
 const tira = <TiraDeContexto garagem="GARAGEM VÁRZEA" iniciais="RV" rotuloConta="Conta — Rafael Vieira" />
 
@@ -65,7 +67,7 @@ export const especimes = [
     render: () => (
       <Dialogo titulo="Sair da conta" primario="Encerrar a sessão e sair" saida="Cancelar" saidaDe44 margem={20}>
         <Frase><Destaque>3</Destaque> itens continuam na fila e sobem no próximo login.</Frase>
-        <Frase>A sessão de configuração do <Destaque>M2C-0417</Destaque> é encerrada antes.</Frase>
+        <Frase>A sessão de configuração do <Destaque>M2C-0417</Destaque> é encerrada antes, sem homologar.</Frase>
       </Dialogo>
     ) },
   { id: 'f2-dialogo-sem-saida', folha: 2, chrome: true, rotulo: 'diálogo sem saída', legenda: 'quando o que aconteceu já está feito · uma ação só',
@@ -86,10 +88,37 @@ export const especimes = [
         <CartaoDeOpcoes>{opcoes}</CartaoDeOpcoes>
       </Folha>
     ) },
+  // a última entrega · a folha Outras ações (T11/03, decisão 40): a folha de opções sem o puxador, como a T11/03
+  // desenha, com a linha de opção com o efeito. Fora da folha 2 (semBancada); a folha tem os 360 da tela — a
+  // moldura de recheio 0 corta a borda de 1 de cada lado, e a conta é a da T11/03
+  { id: 'f2-folha-outras-acoes', folha: 2, chrome: true, semBancada: true, rotulo: 'folha com opções · sem o puxador',
+    legenda: 'fora da folha · a folha Outras ações, com o efeito embaixo de cada ação (T11/03)',
+    render: () => (
+      <div style={{ margin: '0 calc(var(--traco-borda) * -1)' }}>
+        <Folha titulo="Outras ações" rotuloFechar="Fechar" puxador={false}>
+          <CartaoDeOpcoes>
+            <LinhaDeOpcao variante="efeito" icone="reenviar" titulo="Reenviar os 5 blocos" detalhe="a cadeia inteira, preservando a conexão" />
+            <LinhaDeOpcao variante="efeito" icone="diagnostico" titulo="Apenas registrar o diagnóstico" detalhe="nada é gravado · só o diagnóstico sobe" />
+          </CartaoDeOpcoes>
+        </Folha>
+      </div>
+    ) },
   { id: 'f2-barra-veu', folha: 2, chrome: true, rotulo: 'barra do sistema sob o véu', legenda: 'escurece junto quando não há tira',
     render: () => <BarraDoSistema hora="14:30" fundo="pagina" veu="folha" /> },
 
   // folha 6 · a linha de opção — a folha desenha o cartão duas vezes, um dentro do outro
   { id: 'f6-linha-opcao', folha: 6, chrome: true, rotulo: 'linha de opção', legenda: 'o ícone, o que faz, e pra onde',
     render: () => <CartaoDeOpcoes><CartaoDeOpcoes>{opcoes}</CartaoDeOpcoes></CartaoDeOpcoes> },
+  // a última entrega · a folha Outras ações (T11/03, decisão 40): a linha de opção com o efeito embaixo. Fora
+  // da folha 6 (semBancada), com os textos da T11/03; o cartão tem os 328 da tela (16 de cada lado da moldura)
+  { id: 'f6-linha-opcao-efeito', folha: 6, chrome: true, semBancada: true, rotulo: 'linha de opção · com o efeito',
+    legenda: 'fora da folha · o poço de 32, o que faz, o efeito embaixo e a seta (T11/03)',
+    render: () => (
+      <div style={naTela}>
+        <CartaoDeOpcoes>
+          <LinhaDeOpcao variante="efeito" icone="reenviar" titulo="Reenviar os 5 blocos" detalhe="a cadeia inteira, preservando a conexão" />
+          <LinhaDeOpcao variante="efeito" icone="diagnostico" titulo="Apenas registrar o diagnóstico" detalhe="nada é gravado · só o diagnóstico sobe" />
+        </CartaoDeOpcoes>
+      </div>
+    ) },
 ]

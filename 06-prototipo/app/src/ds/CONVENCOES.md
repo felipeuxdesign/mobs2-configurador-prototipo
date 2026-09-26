@@ -4,7 +4,7 @@ O que vale pra toda peça em `src/ds/`. Vem das leis (`03-design-system/leis.md`
 
 ## Onde mora
 
-- **Primitivos** em `src/ds/primitivos/`: `Poco`, `Glifo`, `Icone`, `Quadrado` e `Led` (marcadores), `Tocavel`, `Primario`, `SoIcone`, `Link`, `Checkbox`. Importe de `src/ds/index.js`.
+- **Primitivos** em `src/ds/primitivos/`: `Poco`, `Glifo`, `Icone`, `Riscado` (o `Risco` e o `riscado()` · lei 21), `Quadrado` e `Led` (marcadores), `Tocavel`, `Primario`, `SoIcone`, `Link`, `Checkbox`. Importe de `src/ds/index.js`.
 - **Cada família** em `src/ds/<familia>/`: um `.jsx` e um `.css` por peça, e um `index.js` da família. Classes com prefixo `ds-`.
 - **Os espécimes da vitrine** em `src/vitrine/especimes/f<folha>-<familia>.jsx`, exportando `especimes = [{ id, folha, rotulo, legenda, chrome?, render }]`. O `rotulo` é o texto exato do rótulo do espécime na folha. `chrome: true` quando a moldura da folha tem recheio 0. `nome`, opcional: o nome que a vitrine mostra no lugar do `rotulo`, quando o `componentes.md` já renomeou a peça e a folha ainda não (a *linha de unidade* da folha 4, que ainda rotula *linha de garagem* · a lei 18, decisão 37); a bancada segue achando a moldura pelo `rotulo`.
 
@@ -16,6 +16,8 @@ O que vale pra toda peça em `src/ds/`. Vem das leis (`03-design-system/leis.md`
 - **Só transform e opacity se movem.** Cor não anima: duas camadas, e a de cima entra por opacity. Tempos: `--mov-rapido` 150 · `--mov-padrao` 200 · `--mov-lento` 300 · `--mov-solta` 100, curva `--mov-curva`. O reduzir movimento zera os tempos sozinho.
 - **O marcador de escolha é um só, o `Quadrado`** (decisão 29): vazado de 11 no desmarcado, lima de 11 no marcado, que surge por opacidade e escala. Quem escolhe — o `Checkbox`, as linhas de escolha, a coluna do palco — põe o `Quadrado` num `Poco`: 24 no checkbox e na coluna, 30 na linha de lista. Nenhum poço de escolha fica vazio.
 - **Glifo sempre pelo `Glifo`** (Lucide, com o nome pro leitor de tela), dentro de um `Poco` do tamanho da linha: 38 → 24, 44 → 30, 50 → 32. **Ícone pelo `Icone`**.
+- **Ícone riscado pelo `Riscado`** (lei 21): `riscado(IconeDoLucide)` pro `Icone` e pro `Glifo`, e o `Risco` dentro de um desenho do app — o ícone inteiro, com o risco por cima e o corte da cor do poço por baixo (`--risco-corte`). Nunca a versão *-off* do Lucide.
+- **Folha fecha dos quatro jeitos** (lei 20): o X, o toque fora e o arraste moram na `Folha` e chamam o `aoFechar` dela, que tem de fechar a folha; o voltar do Android é da tela que a abriu (`useVoltar`, com o mesmo fechar).
 
 ## A peça
 

@@ -1,7 +1,10 @@
 // C11 · o recuperar acesso da T01 pela entrega de 24/09 (tela.md, decisões 31 e 32):
 // o canal, o código, a folha "Não recebi o código" com a espera de 60 s, o reenvio
 // com o prazo cheio de novo; noutra passada, o e-mail, o código certo, a senha nova,
-// a senha alterada e o login.
+// a senha alterada e o login. Da última entrega: o primário diz Digite o código com
+// as células vazias (12, 13); o teto de 3 envios na hora (17) — a espera do último
+// envio zera e a linha diz até quando, e pedir o código de novo traz o que já foi,
+// que segue valendo —; e a folha do canal e-mail, que confere o e-mail.
 const ATE_O_CODIGO = [
   { abre: '' },
   { chega: 'T01', momento: null },
@@ -47,8 +50,29 @@ export default [
   { ve: 'Reenviar em 60 s · este foi o último envio desta hora' },
   { ve: 'Reenviar em 59 s · este foi o último envio desta hora', entre: [500, 1600] },
   { naoVe: 'Conferir e reenviar' },
-  // o reenvio chega com as células vazias: o Confirmar espera os seis dígitos (T01·6)
-  { desligado: 'Confirmar' },
+  // o reenvio chega com as células vazias: o Confirmar espera os seis dígitos (T01·6),
+  // dizendo o que falta (a última entrega, 12 e 13)
+  { desligado: 'Digite o código' },
+  { naoVe: 'Confirmar' },
+  // o teto (a 17): a espera do último envio da hora zera, e a linha diz até quando
+  { ve: 'Os 3 envios desta hora acabaram · libera às 15:12', ms: 70000, entre: [55000, 63000] },
+  { naoVe: 'este foi o último envio desta hora' },
+  // pedir um código depois dos 3 envios da hora: nada é enviado, e o código que já
+  // foi segue valendo — os dígitos do mock, o prazo de onde estava, e o Confirmar
+  { toca: 'Voltar ao login' },
+  { chega: 'T01', momento: null },
+  { toca: 'Esqueci a senha' },
+  { chega: 'T01', momento: '02-momento-recuperar-escolher-canal' },
+  { naoVe: 'resta 1 envio nesta hora' },
+  { toca: 'Enviar o código' },
+  { chega: 'T01', momento: '03-momento-recuperar-digitar-codigo' },
+  { ve: 'Mandamos para (81) •••••-8675' },
+  { naoVe: 'Mandamos outro' },
+  { ve: 'Os 3 envios desta hora acabaram · libera às 15:12' },
+  { naoVe: '10:00' },
+  { toca: 'Confirmar' },
+  { chega: 'T01', momento: '08-momento-recuperar-nova-senha' },
+  { ve: 'Crie a nova senha' },
   // 2ª passada: Mandar para o e-mail → o código certo → a senha nova → senha alterada → o login
   ...ATE_O_CODIGO,
   { toca: 'Mandar para o e-mail' },
@@ -56,10 +80,19 @@ export default [
   { ve: 'Mandamos para r•••••@atlsul.com.br' },
   { ve: '10:00' },
   { ve: 'Reenviar em 60 s · este foi o último envio desta hora' },
-  { desligado: 'Confirmar' },
+  { desligado: 'Digite o código' },
+  // no canal e-mail, a folha confere o e-mail (a última entrega); a segunda linha,
+  // trocar pro celular, ainda não tem texto, e fica fora
+  { toca: 'Não recebi o código' },
+  { chega: 'T01', momento: '04-momento-nao-recebi-o-codigo' },
+  { ve: 'Conferir e reenviar' },
+  { naoVe: 'Mandar para o e-mail' },
+  { toca: 'Fechar' },
+  { chega: 'T01', momento: '13-momento-codigo-no-e-mail' },
   { digita: '48291', em: 'Digite o código' },
-  { desligado: 'Confirmar' },
+  { desligado: 'Digite o código' },
   { digita: '482913', em: 'Digite o código' },
+  { ve: 'Confirmar' },
   { toca: 'Confirmar' },
   { chega: 'T01', momento: '08-momento-recuperar-nova-senha' },
   { ve: '3 de 3' },
@@ -111,4 +144,25 @@ export default [
   { toca: 'Mostrar a senha' },
   { toca: 'Entrar' },
   { chega: 'T02' },
+
+  // 3ª passada: o e-mail escolhido no canal, com envio na hora — a folha confere o
+  // e-mail, e as linhas esperam os 60 s, como no telefone
+  { abre: '' },
+  { chega: 'T01', momento: null },
+  { toca: 'Esqueci a senha' },
+  { chega: 'T01', momento: '02-momento-recuperar-escolher-canal' },
+  { marca: 'E-MAIL' },
+  { toca: 'Enviar o código' },
+  { chega: 'T01', momento: '03-momento-recuperar-digitar-codigo' },
+  { ve: 'Mandamos para r•••••@atlsul.com.br' },
+  { ve: 'resta 1 envio nesta hora' },
+  { ve: 'Confirmar' },
+  { toca: 'Não recebi o código' },
+  { chega: 'T01', momento: '04-momento-nao-recebi-o-codigo' },
+  { ve: 'Conferir e reenviar' },
+  { ve: '0:5' },
+  { naoVe: 'Mandar para o e-mail' },
+  { naoVe: '(81) •••••-8675' },
+  { toca: 'Fechar' },
+  { chega: 'T01', momento: '03-momento-recuperar-digitar-codigo' },
 ]

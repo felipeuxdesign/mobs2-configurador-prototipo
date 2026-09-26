@@ -24,6 +24,12 @@
 //   fila (T16·5); o voltar não faz nada (T16·6).
 // · No print (EM_QUADRO), cada momento fica parado no quadro da referência;
 //   num estado da coluna, o quadro final, parado, sem relógio.
+// · O padrão da T16/02 (a resposta do arquiteto de 26/09), que afasta a tela das
+//   referências atuais até a auditoria redesenhá-las (desvio nomeado): o passo
+//   que não roda leva o 'não se aplica' da 02 (dados.js, passosAbortando); o
+//   subtítulo do cabeçalho é montado de um jeito só, a 4 do título, como a 06;
+//   o miolo tem o vão de 14 nas duas metades (t16.css); e a nota NÃO RODARAM é
+//   uma peça só, a nota tracejada da folha 4, com a frase de 12.
 import { useEffect, useRef, useState } from 'react'
 import {
   BarraDoSistema, Faixa, CabecalhoConteudo, Encerramento, Lista, LinhaChecagem, Prova, Aviso, Nota, Rodape,
@@ -189,7 +195,6 @@ export default function T16({ momento, estado: est }) {
 
   let miolo
   let rodape
-  let encerrada = false
   if (fase === 'encerrando') {
     const corte = pedeOCorte(par.moduloSerial) && fluxo.k === REINICIO
     miolo = (
@@ -202,14 +207,13 @@ export default function T16({ momento, estado: est }) {
   } else if (fase === 'abortando') {
     miolo = (
       <>
-        <CabecalhoConteudo titulo={T.encerrar} contagem={fluxo.feitos} unidade={T.deTotal(SEGUROS.length)} subtitulo={T.semHomologar} folgaSubtitulo={6} />
+        <CabecalhoConteudo titulo={T.encerrar} contagem={fluxo.feitos} unidade={T.deTotal(SEGUROS.length)} subtitulo={T.semHomologar} />
         <Encerramento justo passos={passosAbortando(fluxo.feitos)} />
       </>
     )
     rodape = <Rodape primario={T.encerrandoNaoDesconecte} primarioDesabilitado explicacao={T.saidaDesconectar} />
   } else if (fase === 'autoteste' || fase === 'encerrada') {
     // as 8 assertivas, cada uma com o valor lido; a falha mora na assertiva (Lei 2)
-    encerrada = true
     const lista = assertivas(par.ativoId)
     const acesas = fase === 'encerrada' ? lista.length : fluxo.acesas
     const pronta = fase === 'encerrada'
@@ -239,7 +243,6 @@ export default function T16({ momento, estado: est }) {
     rodape = <Vez porVir={!pronta}><Rodape primario={T.voltarAoMenu} aoPrimario={voltarAoMenu} /></Vez>
   } else if (fase === 'abortada') {
     // os 4 que deixam o módulo seguro, feitos, e o que não rodou
-    encerrada = true
     const ultima = SEGUROS.length - 1
     miolo = (
       <>
@@ -251,7 +254,7 @@ export default function T16({ momento, estado: est }) {
               divisoria={i < ultima} folgaFim={i === ultima ? 'assertiva' : false} />
           ))}
         </Lista>
-        <Nota tom="explica" corpo="pulado" titulo={T.naoRodaram} frase={T.oQueNaoRodou} />
+        <Nota tom="explica" titulo={T.naoRodaram} frase={T.oQueNaoRodou} />
       </>
     )
     rodape = <Rodape primario={T.voltarAoMenu} aoPrimario={voltarAoMenu} />
@@ -260,7 +263,7 @@ export default function T16({ momento, estado: est }) {
     const s = interrompida()
     miolo = (
       <>
-        <CabecalhoConteudo titulo={T.interrompida} contagem={s.confirmados} unidade={T.deTotal(s.total)} subtitulo={s.subtitulo} folgaSubtitulo={4} />
+        <CabecalhoConteudo titulo={T.interrompida} contagem={s.confirmados} unidade={T.deTotal(s.total)} subtitulo={s.subtitulo} />
         <Encerramento justo passos={s.blocos} />
       </>
     )
@@ -271,7 +274,7 @@ export default function T16({ momento, estado: est }) {
     <div className="t16">
       <BarraDoSistema hora={M.HORA_NOMINAL} fundo="faixa" />
       {faixa}
-      <div className={`tela-miolo ${encerrada ? 't16-miolo-encerrada' : ''}`}>{miolo}</div>
+      <div className="tela-miolo">{miolo}</div>
       {rodape}
     </div>
   )

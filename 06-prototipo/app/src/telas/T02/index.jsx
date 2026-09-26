@@ -25,21 +25,33 @@
 // 05-estado-escolher-a-empresa (Pra qual empresa hoje?, as empresas com a
 // contagem das unidades, o primário apagado até escolher, e Ver as unidades) e
 // o 06-estado-unidades-com-trocar-empresa (as unidades da empresa, com a
-// empresa em cima e o Trocar de empresa no rodapé, que volta ao 05). Os dois
-// abrem pela coluna e pelo endereço, parados e sem toque, e o toque de cada
-// um se prova no node (scripts/testar-empresa.mjs), nas funções de empresas.js
-// que a tela usa. Com uma empresa só, o herói, nada muda: 00 → 01.
-import { useEffect, useState } from 'react'
-import { BarraDoSistema, Busca, Lista, LinhaEscolha, Rodape, Vazio } from '../../ds/index.js'
+// empresa em cima e o Trocar de empresa no rodapé). Os dois abrem pela coluna e
+// pelo endereço, parados e sem toque. O 07-momento-empresa-escolhida (a última
+// entrega) é o app vivo no mundo do caso: aberto pelo endereço, a Viação marcada,
+// e dali o técnico anda — Ver as unidades → as unidades (o quadro do 06) → a
+// escolhida (01) → Sincronizar → T03, e o Trocar de empresa volta ao 07 com a
+// atual marcada. O mundo vai junto no estado único (contexto.empresas) até o menu,
+// e a T02 aberta no fluxo com ele no contexto abre nele (empresas.js). Com uma
+// empresa só, o herói, nada muda: 00 → 01.
+//
+// Outro usuário no aparelho (a T01/18, a última entrega): o Entrar com outro
+// usuário depois de uma sessão neste aparelho abre esta tela com o diálogo *Outra
+// sessão neste aparelho* por cima (situacao.outraSessao), que nasce aberto, com a
+// tela, e fecha no Entendi. Pela coluna, a T01 monta esta tela com o caso.
+import { useEffect, useRef, useState } from 'react'
+import { BarraDoSistema, Busca, Lista, LinhaEscolha, Rodape, Vazio, Veu, Dialogo, Frase } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
 import { M } from '../../dados/mock.js'
 import { caixaAlta } from '../../dados/formato.js'
 import { filtrar, gruposDo, temBusca, LISTA_LONGA, SEM_RESULTADO, ESCONDE } from './garagens.js'
 import {
-  doCasoEmpresas, inicioDoCaso, unidadesDa, rotuloDasEmpresas, linhasDasEmpresas, primarioDasEmpresas,
-  escolherEmpresa, verAsUnidades, rotuloDaEmpresa, escolherUnidade, trocarDeEmpresa, voltarNoCaso,
+  doCasoEmpresas, vivoNasEmpresas, inicioDoCaso, momentoDoCaso, unidadesDa, rotuloDasEmpresas, linhasDasEmpresas,
+  primarioDasEmpresas, escolherEmpresa, verAsUnidades, rotuloDaEmpresa, escolherUnidade, trocarDeEmpresa,
+  contextoDoCaso, voltarNoCaso,
 } from './empresas.js'
+// a presença do diálogo (entra fechado e abre; sai fechando antes de desmontar) é a da T01
+import { usePresenca } from '../T01/presenca.js'
 import { TX } from './textos.js'
 import './T02.css'
 
@@ -50,17 +62,20 @@ const TERMO_DA_04 = 'Olin'
 // os dois quadros da busca, que abrem pelo endereço no mundo do caso, e a URL que diz cada um
 const DA_BUSCA = [SEM_RESULTADO, ESCONDE]
 
-export default function T02({ momento, estado }) {
+export default function T02({ momento, estado, outraSessao }) {
   const { estado: app, despachar } = useEstado()
   // o mundo do caso lista-longa-garagens: o estado 02, pela coluna, e os momentos
   // 03 e 04, pelo endereço. Aberta pelo 03 ou pelo 04, a tela fica no mundo do caso
   // enquanto está montada: a busca que volta a achar mostra as unidades dele, e não as do herói
   const [peloMomento] = useState(DA_BUSCA.includes(momento))
   const doCaso = estado === LISTA_LONGA || peloMomento
-  // o mundo de quem tem mais de uma empresa (o caso varias-empresas, os estados 05 e 06):
-  // o passo (as empresas ou as unidades), a empresa e a unidade escolhidas (empresas.js)
-  const comEmpresas = doCasoEmpresas(estado)
-  const [caso, setCaso] = useState(() => inicioDoCaso(estado))
+  // o mundo de quem tem mais de uma empresa (o caso varias-empresas): parado nos estados
+  // 05 e 06; vivo no momento 07, ou no fluxo com o mundo no contexto. O passo (as
+  // empresas ou as unidades), a empresa e a unidade escolhidas (empresas.js). Aberta
+  // viva, a tela fica no mundo enquanto está montada
+  const [vivo] = useState(() => vivoNasEmpresas(estado, momento, app.contexto))
+  const comEmpresas = doCasoEmpresas(estado) || vivo
+  const [caso, setCaso] = useState(() => inicioDoCaso(estado, momento, app.contexto))
   const naEmpresa = comEmpresas && caso.passo === 'empresas'
   const mundo = comEmpresas ? unidadesDa(caso.empresaId) ?? [] : gruposDo(doCaso)
   const comBusca = temBusca(mundo)
@@ -79,7 +94,7 @@ export default function T02({ momento, estado }) {
   const [escolhaDoCaso, setEscolhaDoCaso] = useState(momento === ESCONDE ? M.contextoAtivo.uoId : null)
   const [busca, setBusca] = useState(momento === SEM_RESULTADO ? TERMO_DA_03 : momento === ESCONDE ? TERMO_DA_04 : '')
   const [estadoAberto, setEstadoAberto] = useState(estado)
-  if (estado !== estadoAberto) { setEstadoAberto(estado); setEscolhaDoCaso(null); setBusca(''); setCaso(inicioDoCaso(estado)) }
+  if (estado !== estadoAberto) { setEstadoAberto(estado); setEscolhaDoCaso(null); setBusca(''); setCaso(inicioDoCaso(estado, momento, app.contexto)) }
 
   const grupos = comBusca ? filtrar(mundo, busca) : mundo
   // a busca que não acha nada: o vazio declarado no lugar da lista (03). A escolha
@@ -101,10 +116,17 @@ export default function T02({ momento, estado }) {
   // Num estado da coluna, nada anda
   const quadroDaBusca = semResultado ? SEM_RESULTADO : esconde ? ESCONDE : null
   useEffect(() => {
-    if (estado) return
+    if (estado || vivo) return
     if (quadroDaBusca && momento !== quadroDaBusca) despachar({ tipo: 'ir', tela: 'T02', momento: quadroDaBusca })
     else if (!quadroDaBusca && DA_BUSCA.includes(momento)) despachar({ tipo: 'ir', tela: 'T02', momento: null })
-  }, [estado, quadroDaBusca, momento, despachar])
+  }, [estado, vivo, quadroDaBusca, momento, despachar])
+  // no mundo vivo das empresas, a URL segue o quadro (empresas.js · momentoDoCaso):
+  // o 07 nas empresas, nada nas unidades sem escolha, o 01 com a unidade escolhida
+  const doMundo = vivo ? momentoDoCaso(caso) : null
+  useEffect(() => {
+    if (!vivo) return
+    if ((momento ?? null) !== doMundo) despachar({ tipo: 'ir', tela: 'T02', momento: doMundo ?? undefined })
+  }, [vivo, doMundo, momento, despachar])
 
   function escolher(uoId) {
     if (comEmpresas) { setCaso((q) => escolherUnidade(q, uoId)); return }
@@ -116,18 +138,43 @@ export default function T02({ momento, estado }) {
   // num estado da coluna o app está parado (o palco o deixa inerte) e nada se
   // grava. No mundo do caso, qualquer unidade sincroniza: as seis que só o caso
   // tem trazem o pacote dele (a otimização do design), e a T03 baixa esse pacote
+  // No mundo das empresas, o mundo vai junto, com a empresa da unidade (contexto.empresas)
   function sincronizar() {
     if (estado) return
-    despachar({ tipo: 'mesclar', parcial: { contexto: { ...app.contexto, uoId: uo.id, pacote: null } } })
+    const contexto = comEmpresas ? contextoDoCaso(caso, app.contexto, uo.id) : { ...app.contexto, uoId: uo.id, pacote: null }
+    despachar({ tipo: 'mesclar', parcial: { contexto } })
     despachar({ tipo: 'ir', tela: 'T03' })
   }
+
+  // O diálogo de outro usuário no aparelho (a T01/18): o que o Entrar gravou na
+  // situação do celular, ou, pela coluna, o que o caso diz. Nasce aberto, com a
+  // tela (nenhuma tela anima a entrada), e o Entendi fecha: o véu e a caixa
+  // esmaecem em 150 (movimento.md) e a tela fica, sem nada escolhido
+  const outra = outraSessao ?? (estado ? null : app.situacao.outraSessao ?? null)
+  const ultimaOutra = useRef(outra)
+  if (outra) ultimaOutra.current = outra
+  const aviso = usePresenca(Boolean(outra))
+  const entendi = () => despachar({ tipo: 'mesclar', parcial: { situacao: { ...app.situacao, outraSessao: null } } })
+  const dialogo = aviso.montado && (
+    <div className="t02-sobre">
+      <Veu de="dialogo" visivel={aviso.visivel}>
+        <Dialogo titulo={TX.outraSessao} primario={TX.entendi} aoPrimario={entendi} margem={24} aberto={aviso.visivel}>
+          <Frase>{TX.sessaoEncerrada(ultimaOutra.current.usuario, ultimaOutra.current.itensNaFila)}</Frase>
+        </Dialogo>
+      </Veu>
+    </div>
+  )
+  // o que fica atrás do véu é inerte (G25): nem o toque nem o leitor chegam nele
+  const atras = aviso.montado ? '' : undefined
 
   // O voltar do Android (logica.md): a escolha da unidade não tem saída
   // desenhada — o primário é o ato, não a saída —, e ele não faz nada
   // (pendencias.md). Nas unidades de quem tem mais de uma empresa (06), faz o
-  // Trocar de empresa, o link de saída do rodapé; nas empresas (05), nada
+  // Trocar de empresa, o link de saída do rodapé; nas empresas (05, 07), nada.
+  // Com o diálogo de outro usuário, o Entendi, que só fecha e é a única saída,
+  // como o aviso do acesso (T04/12)
   const voltar = comEmpresas ? voltarNoCaso(caso) : null
-  useVoltar(voltar ? () => setCaso(voltar()) : null)
+  useVoltar(aviso.montado ? (outra ? entendi : null) : voltar ? () => setCaso(voltar) : null)
 
   if (naEmpresa) {
     const primario = primarioDasEmpresas(caso)
@@ -162,6 +209,7 @@ export default function T02({ momento, estado }) {
   return (
     <div className="t02">
       <BarraDoSistema hora={M.HORA_NOMINAL} fundo="pagina" />
+      <div className="t02-fundo" inert={atras}>
       <div className="tela-miolo t02-miolo">
         <div className="t02-cabeca">
           <span className="t02-empresa">{caixaAlta(comEmpresas ? rotuloDaEmpresa(caso) : M.empresa.nome)}</span>
@@ -191,8 +239,10 @@ export default function T02({ momento, estado }) {
         primarioDesabilitado={!uo}
         aoPrimario={sincronizar}
         link={comEmpresas ? TX.trocarEmpresa : undefined}
-        aoLink={comEmpresas ? () => setCaso(trocarDeEmpresa()) : undefined}
+        aoLink={comEmpresas ? () => setCaso(trocarDeEmpresa) : undefined}
       />
+      </div>
+      {dialogo}
     </div>
   )
 }

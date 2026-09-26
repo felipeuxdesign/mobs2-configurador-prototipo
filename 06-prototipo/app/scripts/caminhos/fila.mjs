@@ -5,12 +5,17 @@
 // do mais novo pro mais velho; o contador continua 3. Sair da tela não desfaz
 // (HU-T15-2): pelo menu, o cartão da Fila de saída fica igual (2), a fila volta
 // igual, e o diálogo Sair da conta conta o item na fila (3 → 4). Da semente da T15.
+// A fila é do aparelho (decisão 42): o rótulo é 'neste aparelho', e a recebida de
+// 2 dias diz o dia, '10/03, 10:05' (a resposta do arquiteto de 26/09).
 export default [
   { abre: '?tela=T15' },
   { chega: 'T15', estado: null },
   { ve: 'UM PRECISA DE VOCÊ' },
   { ve: 'instalação encerrada por outro usuário' },
   { ve: 'O RESTO ANDA SOZINHO' },
+  { ve: '3 neste aparelho' },
+  { ve: 'RSW-9L02 · recebida\n10/03, 10:05' },
+  { naoVe: 'há 2 dias' },
   { toca: 'Ressincronizar e reenviar' },
   // nada mais precisa do técnico: o cartão sai, e o que era erro está na fila
   { naoVe: 'UM PRECISA DE VOCÊ' },
@@ -24,7 +29,7 @@ export default [
   // a ordem da lista: na fila, do mais novo pro mais velho (14:12, depois 12:05), e depois a recebida
   { ve: 'RSW-9L02 · na fila\nhá 18 min\nEvidências\nKJC-7N23 · na fila\nhá 145 min\nEvidências\nRSW-9L02 · recebida' },
   // o contador conta os mostrados: continua 3
-  { ve: '3 nesta unidade' },   // a lei 18, a palavra é unidade (decisão 37)
+  { ve: '3 neste aparelho' },   // a fila é do aparelho (decisão 42)
   // nenhum vira o SUBINDO AGORA: o progresso e o tamanho só existem no f-04 do mock
   { naoVe: 'SUBINDO AGORA' },
   { fica: 'T15', ms: 600 },

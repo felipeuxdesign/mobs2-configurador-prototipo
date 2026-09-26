@@ -17,6 +17,7 @@ Apagar só os valores lidos e ler de novo, do zero.
 - `Ver os dados da CAN` → T07 com a leitura nova, que abre já lida (G27)
 - `Voltar ao menu` → T04
 - `ENCERRAR`, antes de homologar → a sessão abortada (G23) · **relendo, ele fica apagado e não faz nada**, como o voltar do Android (a lei 17, decisão do diretor de 25/09): a releitura não para no meio
+  - **no protótipo** (decisão 36): fora da releitura, antes de homologar, o ENCERRAR abre o diálogo *Encerrar sem homologar?* por cima desta tela, e o `Continuar a instalação` deixa o técnico nela — a resposta do arquiteto de 26/09 · o `Encerrar sem homologar` roda os 4 passos da T16 · relendo, ele segue apagado, e o diálogo não abre
 - o voltar do sistema (no computador, o Esc) faz o `Voltar ao menu` antes e depois da releitura; relendo, a tela diz *não saia da tela* e não tem saída, e ele não faz nada (`06-prototipo/logica.md` · O voltar do Android)
 
 A grade monta os sinais do modelo do ativo da sessão, na ordem dos domínios e, dentro do domínio, o estático antes do dinâmico (T08·1). "doze" e "de 12" são o número de sinais, por extenso no texto (T08·2). O valor que volta é o do mock, o mesmo que a T07 mostra depois: o caso do ônibus, quando ele tem um, com a falha dando lugar ao nominal, porque a releitura é leitura nova (G21). Ao terminar, a leitura refeita fica gravada no estado único (T08·3). As regras estão no `06-prototipo/logica.md`.
@@ -37,7 +38,7 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 
 ## No protótipo · as peças que o código usa
 
-Anotação de construção, medida no código e nas referências. A lista de cima é a do design; esta é a que o protótipo usa, e a diferença entre as duas vai pro arquiteto.
+Anotação de construção, medida no código e nas referências. A lista de cima é a do design; esta é a que o protótipo usa, e a diferença entre as duas vai pro arquiteto. **Respondida pelo arquiteto (26/09):** vale esta, a medida.
 
 Medido nas referências no C8 (a lista do C0 trazia seis peças que não aparecem, T08-A4). Construa com o componente — nunca redesenhe.
 

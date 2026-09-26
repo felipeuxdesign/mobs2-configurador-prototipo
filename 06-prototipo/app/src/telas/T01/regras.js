@@ -86,6 +86,61 @@ export const PRAZO_CHEIO = LIM.validadeMin * 60
 export const REENVIO_CHEIO = LIM.reenvioSeg
 // o que resta de envio na hora: só o reenvio conta (T01·2)
 export const restamEnvios = (envios) => Math.max(0, LIM.tetoPorHora - envios)
+
+// O teto de envios (HU-T01-7, a última entrega · T01/17, o caso teto-de-envios):
+// depois dos 3 envios da hora, a linha do reenvio diz *Os 3 envios desta hora
+// acabaram · libera às 15:12*, e o código já enviado segue valendo. A hora em que
+// libera é a do caso — o primeiro envio foi às 14:12, e o relógio do produto é
+// 14:30, congelado: o fluxo não tem outra hora de onde ler (padrão, pro arquiteto).
+// O estado 17 abre pela coluna com os envios do caso (3), o código do mock
+// preenchido e o reenvio já zerado; no fluxo, chega-se ao teto pelo reenvio da 12
+// ou da 13 (o terceiro envio da hora), quando os 60 s zeram.
+export const CASO_TETO = 'teto-de-envios'
+const casoTeto = () => M.casos[CASO_TETO]
+export const enviosDoTeto = () => casoTeto().enviosNaHora
+export const liberaAs = () => casoTeto().liberaAs
+// o código ainda vale: nem morto pelas tentativas, nem expirado
+export const codigoVivo = (s) => s.erros < LIM.tentativas && s.prazo > 0
+// o Enviar o código do canal. Com envio na hora, um código novo — o primeiro envio
+// não conta no teto (T01·2) — pro canal escolhido; sem envio na hora (o teto, a 17:
+// *pedir um código depois dos 3 envios da hora*), nada é enviado: volta o código
+// que já foi, que segue valendo, com os dígitos do mock (D-21, como a 17 desenha),
+// o prazo e o reenvio de onde estavam. Pro mesmo contato ("Mandamos para"); o canal
+// fica o que o código já tinha. O código que já morreu volta morto, com o teto na linha
+export function depoisDoEnviar(s, novo) {
+  if (restamEnvios(s.envios) > 0) return { ...s, quadro: 'codigo', ...novo, outro: false }
+  return { ...s, quadro: 'codigo', folha: false, outro: false, canal: s.canalDoCodigo ?? s.canal, ...(codigoVivo(s) ? { digitos: REC.codigo, erroVisivel: false } : {}) }
+}
+
+// Outro usuário no aparelho (HU-T01-4, a última entrega · T01/18, o caso
+// outro-usuario): entrar com um usuário diferente do da sessão anterior encerra a
+// sessão dele, e a fila dele continua subindo — a fila é do aparelho (decisão 42).
+// O diálogo *Outra sessão neste aparelho* abre sobre as unidades da T02 e diz o
+// usuário anterior e os itens da fila. A sessão anterior é a do último Entrar que
+// entrou neste aparelho desde o começo do palco (situacao.jaEntrou): o palco começa
+// sem nenhuma, e o primeiro Entrar nunca abre o diálogo. Os itens são os que estão
+// na fila (na-fila), a mesma conta do diálogo de sair do menu (T04/06: 3).
+export const CASO_OUTRO_USUARIO = 'outro-usuario'
+const casoOutro = () => M.casos[CASO_OUTRO_USUARIO]
+// o que o diálogo diz, no estado 18: o usuário anterior e a fila dele, do caso
+export const outraSessaoDoCaso = () => ({ ...casoOutro().anterior })
+// o Entrar que entra: com outro usuário depois de uma sessão neste aparelho, o que o
+// diálogo diz; com o mesmo, ou no primeiro Entrar, nada (null)
+export function outraSessaoAoEntrar(situacao, anterior, usuario, itensNaFila) {
+  const u = (usuario ?? '').trim()
+  if (!situacao?.jaEntrou || !anterior || u === anterior) return null
+  return { usuario: anterior, itensNaFila }
+}
+// o técnico que entra, pelo identificador: o mock conhece dois — o r.vieira
+// (M.tecnico) e o m.souza (o caso outro-usuario, Marcos Souza). Outro identificador
+// entra com o nome do herói, como o protótipo sempre fez: o mock não traz outro nome
+// (padrão, pro arquiteto — a alternativa é o login recusar o usuário que o mock não
+// conhece, com a mesma mensagem da 01, que não distingue usuário de senha, HU-T01-1)
+export function tecnicoDo(usuario) {
+  const u = (usuario ?? '').trim()
+  if (u === casoOutro().usuario) return { nome: casoOutro().nome, usuario: u }
+  return { nome: M.tecnico.nome, usuario: u || CRED.usuario }
+}
 // o quadro em que o reenvio zera (T01/11): os 60 s do reenvio passaram, e o
 // prazo andou o mesmo tanto — 10:00 − 60 s = 9:00, atrás do véu
 export const PRAZO_NO_REENVIO_LIBERADO = PRAZO_CHEIO - REENVIO_CHEIO

@@ -17,6 +17,11 @@
 // sai: embaixo do campo fica o que a busca achou, a lista ou o vazio, como a 08
 // e a 09 desenham.
 // 'Usar este ativo' grava o ativo na sessão e segue pra T07.
+// A lista do pacote, o último grupo do miolo que rola, não tem margem embaixo (a
+// última entrega, a proposta do protótipo que o arquiteto aceitou): os 16 até o
+// rodapé são o recheio do miolo. Na confirmação, que não rola, o último bloco
+// segue com os 16 dele (t06-antes-do-rodape): o par comparado cresce até ali, e
+// tirar a margem moveria o desenho (medido: de 0 a 3,5% nas referências).
 import { useEffect, useState } from 'react'
 import {
   BarraDoSistema, Faixa, CabecalhoConteudo, Busca, Lista, LinhaOnibus, BlocoEscolhido,

@@ -32,15 +32,15 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `07-momento-responder-item`
 
-`14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `B · INSTALAÇÃO FÍSICA` · `1` · `de 5` · `Depois: Antena GPS posicionada e livre` · `Módulo fixado e posicionado` · `Enquadre o módulo e o ponto de fixação` · `Não conforme` · `pede justificativa` · `Tirar foto` · `Voltar ao checklist`
+`14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `B · INSTALAÇÃO FÍSICA` · `1` · `de 5` · `Depois: Antena GPS posicionada e livre` · `Módulo fixado e posicionado` · `Enquadre o módulo e o ponto de fixação` · `Não está conforme` · `marque e conte o que aconteceu` · `Tirar foto` · `Voltar ao checklist`
 
 ## `08-momento-nao-conforme-com-justificativa`
 
-`14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `B · INSTALAÇÃO FÍSICA` · `1` · `de 5` · `Depois: Antena GPS posicionada e livre` · `Módulo fixado e posicionado` · `Enquadre o módulo e o ponto de fixação` · `Não conforme` · `JUSTIFICATIVA` · `Suporte trincado; fixei com abraçadeira até a troca.` · `Salvar com ressalva` · `Voltar ao checklist`
+`14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `B · INSTALAÇÃO FÍSICA` · `1` · `de 5` · `Depois: Antena GPS posicionada e livre` · `Módulo fixado e posicionado` · `Enquadre o problema` · `Não está conforme` · `conte embaixo o que aconteceu` · `O QUE ACONTECEU` · `Suporte trincado; fixei com abraçadeira até a troca.` · `Fotografar o problema` · `Voltar ao checklist`
 
 ## `09-estado-item-reprovado`
 
-`14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `C · HARDWARE` · `2` · `de 4` · `Tensão da bateria na faixa` · `LIDO NA CAN` · `10,2` · `V` · `10,0` · `12,0 — 15,0` · `16,0` · `1,8 V abaixo do mínimo` · `ISTO NÃO SE MARCA À MÃO` · `Confira a alimentação e refaça a leitura da CAN.` · `Refazer a leitura da CAN` · `Voltar ao checklist`
+`14:30` · `M2C-0301` · `QJF-2C61` · `ENCERRAR` · `C · HARDWARE` · `2` · `de 4` · `Tensão da bateria na faixa` · `LIDO NA CAN` · `10,9` · `V` · `10,0` · `12,0 — 15,0` · `16,0` · `1,1 V abaixo do mínimo` · `ISTO NÃO SE MARCA À MÃO` · `Confira a alimentação e refaça a leitura da CAN.` · `Refazer a leitura da CAN` · `Voltar ao checklist`
 
 ## `10-estado-finalizar-com-a-secao-f-falhando`
 
@@ -61,3 +61,8 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `14-estado-homologado-sem-localizacao`
 
 `14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `31` · `de 31` · `Instalação homologada às 14:30` · `o relatório vai sem localização` · `A · Identificação` · `o app conferiu` · `4` · `de 4` · `B · Montagem` · `5 fotos tiradas` · `5` · `de 5` · `C · Hardware` · `o app conferiu` · `4` · `de 4` · `D · Configuração` · `o app conferiu` · `10` · `de 10` · `E · Teste dinâmico` · `o ciclo passou` · `5` · `de 5` · `F · Servidor` · `o servidor confirmou` · `3` · `de 3` · `Encerrar sessão` · `Voltar ao menu`
+
+## `15-momento-problema-fotografado`
+
+`14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `B · INSTALAÇÃO FÍSICA` · `1` · `de 5` · `Depois: Antena GPS posicionada e livre` · `Módulo fixado e posicionado` · `Problema fotografado às 14:30` · `vai junto com a ressalva, pro gestor` · `Não está conforme` · `conte embaixo o que aconteceu` · `O QUE ACONTECEU` · `Suporte trincado; fixei com abraçadeira até a troca.` · `Salvar com ressalva` · `Voltar ao checklist`
+

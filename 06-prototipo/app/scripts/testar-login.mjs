@@ -1,0 +1,94 @@
+// A prova da T01 da última entrega (a otimizacao200000000), nas mesmas funções
+// que a tela usa (src/telas/T01/regras.js) e com os textos do textos.md da T01:
+// o teto de 3 envios na hora (T01/17, o caso teto-de-envios), o Confirmar que diz
+// o que falta com as células vazias (T01/12 e 13), a folha do Não recebi no canal
+// e-mail, e outro usuário no aparelho (T01/18, o caso outro-usuario). Os dois
+// estados abrem pela coluna, parados e sem toque; no fluxo, o teto se alcança pelo
+// reenvio da 12 ou da 13 (o roteiro recuperar.mjs), e outro usuário, saindo da
+// conta e entrando com o m.souza (o roteiro outro-usuario.mjs).
+// Uso: node scripts/testar-login.mjs → exit 0 aprovado / 1 reprovado.
+import { readFileSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
+import { dirname, resolve } from 'node:path'
+
+const app = resolve(dirname(fileURLToPath(import.meta.url)), '..')
+const raiz = resolve(app, '../..')
+const md = readFileSync(resolve(raiz, '02-telas/T01-login/textos.md'), 'utf8')
+const secao = (ref) => { const i = md.indexOf('## `' + ref + '`'); if (i < 0) return []; const f = md.indexOf('\n## ', i + 1); return [...md.slice(i, f < 0 ? undefined : f).matchAll(/`([^`]*)`/g)].map((m) => m[1]).slice(1) }
+const naSecao = (ref, ...lista) => { const s = secao(ref); return lista.every((x) => s.includes(x)) }
+globalThis.window = {}   // o mock escreve window.M2CF_MOCKS (a ponte de src/dados/mock.js)
+const { M } = await import(resolve(app, 'src/dados/mock.js'))
+const R = await import(resolve(app, 'src/telas/T01/regras.js'))
+const { TX } = await import(resolve(app, 'src/telas/T01/textos.js'))
+const { TX: TX02 } = await import(resolve(app, 'src/telas/T02/textos.js'))
+const { RECEITAS } = await import(resolve(app, 'src/estado/receitas.js'))
+const { naFila } = await import(resolve(app, 'src/telas/T04/dados.js'))
+const { filaDoMundo } = await import(resolve(app, 'src/estado/fila.js'))
+const login = readFileSync(resolve(app, 'src/telas/T01/Login.jsx'), 'utf8')
+
+let falhas = 0
+const chk = (n, ok, d) => { console.log((ok ? 'OK     ' : 'FALHA  ') + n + (d ? ' — ' + d : '')); if (!ok) falhas++ }
+const TETO = '17-estado-teto-de-envios'
+const OUTRO = '18-estado-outro-usuario-no-aparelho'
+
+// ── o teto de 3 envios na hora (T01/17) ──
+chk('17 · a receita é o caso teto-de-envios', RECEITAS[`T01/${TETO}`]?.casos?.includes(R.CASO_TETO))
+chk('17 · os envios do caso esgotam o teto da hora (3 de 3)', R.restamEnvios(R.enviosDoTeto()) === 0 && R.enviosDoTeto() === R.LIM.tetoPorHora, `${R.enviosDoTeto()} de ${R.LIM.tetoPorHora}`)
+const teto = TX.acabaram(R.LIM.tetoPorHora, R.liberaAs())
+chk('17 · a linha do reenvio diz os 3 envios e a hora do caso, como o textos.md', teto === 'Os 3 envios desta hora acabaram · libera às 15:12' && naSecao(TETO, teto), teto)
+chk('17 · o resto do quadro é o do 03: Mandamos para o telefone, o código do mock e o Confirmar',
+  naSecao(TETO, TX.mandamos(R.TELEFONE), TX.digite, TX.valePor, TX.naoRecebi, TX.confirmar, TX.voltarLogin, ...R.REC.codigo.split('')))
+chk('12 e 13 · depois do último envio da hora, a espera ainda corre: Reenviar em 60 s · este foi o último envio desta hora',
+  naSecao('12-momento-codigo-reenviado', TX.reenviarEmUltimo(R.REENVIO_CHEIO)) && naSecao('13-momento-codigo-no-e-mail', TX.reenviarEmUltimo(R.REENVIO_CHEIO)) && R.restamEnvios(R.REC.reenviosNaHora + 1) === 0)
+chk('a tela escreve o teto quando a espera zera sem envio na hora — também no expirado e nas tentativas esgotadas',
+  (login.match(/: teto\b/g) ?? []).length === 3 && login.includes('TX.acabaram(LIM.tetoPorHora, liberaAs())'))
+
+// o Enviar o código do canal: com envio, um código novo; no teto, o que já foi, que segue valendo
+const base = { quadro: 'canal', canal: 'telefone', canalDoCodigo: 'telefone', envios: R.REC.reenviosNaHora, digitos: '', erros: 0, erroVisivel: false, prazo: 300, reenvio: 0, folha: false, outro: true }
+const novo = { digitos: R.REC.codigo, erros: 0, erroVisivel: false, prazo: R.PRAZO_CHEIO, reenvio: R.REENVIO_CHEIO, folha: false, canalDoCodigo: 'telefone' }
+const comEnvio = R.depoisDoEnviar(base, novo)
+chk('Enviar o código com envio na hora: um código novo, o prazo e o reenvio cheios, Mandamos para', comEnvio.quadro === 'codigo' && comEnvio.prazo === R.PRAZO_CHEIO && comEnvio.reenvio === R.REENVIO_CHEIO && !comEnvio.outro && comEnvio.envios === base.envios)
+const noTeto = R.depoisDoEnviar({ ...base, envios: R.enviosDoTeto(), canal: 'email' }, { ...novo, canalDoCodigo: 'email' })
+chk('Enviar o código no teto: nenhum envio, o código que já foi segue valendo — o prazo de onde estava e os dígitos do mock (a 17)',
+  noTeto.quadro === 'codigo' && noTeto.prazo === base.prazo && noTeto.reenvio === 0 && noTeto.envios === R.enviosDoTeto() && noTeto.digitos === R.REC.codigo && !noTeto.outro)
+chk('no teto, o destino é o do código que já foi, e não o cartão tocado agora', noTeto.canal === 'telefone')
+const morto = R.depoisDoEnviar({ ...base, envios: R.enviosDoTeto(), prazo: 0, digitos: '' }, novo)
+chk('no teto, o código que já morreu volta morto, com o teto na linha', morto.prazo === 0 && morto.digitos === '' && !R.codigoVivo(morto))
+
+// ── o Confirmar apagado com as células vazias (T01/12 e 13) ──
+chk('12 e 13 · o primário com as células vazias diz Digite o código, como o textos.md',
+  TX.digiteCodigo === 'Digite o código' && ['12-momento-codigo-reenviado', '13-momento-codigo-no-e-mail'].every((r) => secao(r).at(-2) === TX.digiteCodigo))
+chk('a tela: incompleto, Digite o código, apagado e desabilitado; os seis dígitos, Confirmar',
+  login.includes('primario = incompleto ? TX.digiteCodigo : TX.confirmar') && login.includes('primarioDesabilitado = incompleto'))
+
+// ── a folha do Não recebi no canal e-mail ──
+chk('no canal e-mail, a folha confere o e-mail: Conferir e reenviar, com o e-mail',
+  login.includes("const noEmail = s.canal === 'email'") && login.includes('detalhe={contatoDo(s.canal)}') && R.contatoDo('email') === R.EMAIL)
+chk('a segunda linha (trocar pro celular) não tem texto no textos.md, e fica fora: nenhum texto inventado',
+  login.includes('{!noEmail && <LinhaDeOpcao icone="email"') && !/celular/i.test(md.split('## `')[0] + secao('04-momento-nao-recebi-o-codigo').join(' ') + secao('11-momento-nao-recebi-reenvio-liberado').join(' ')))
+
+// ── outro usuário no aparelho (T01/18) ──
+const caso = M.casos[R.CASO_OUTRO_USUARIO]
+chk('18 · a receita é o caso outro-usuario', RECEITAS[`T01/${OUTRO}`]?.casos?.includes(R.CASO_OUTRO_USUARIO))
+const doCaso = R.outraSessaoDoCaso()
+chk('18 · o diálogo diz o usuário anterior e a fila dele, do caso, como o textos.md',
+  naSecao(OUTRO, TX02.outraSessao, TX02.sessaoEncerrada(doCaso.usuario, doCaso.itensNaFila), TX02.entendi), TX02.sessaoEncerrada(doCaso.usuario, doCaso.itensNaFila))
+const md02 = readFileSync(resolve(raiz, '02-telas/T02-selecionar-contexto/textos.md'), 'utf8')
+const t02 = (() => { const i = md02.indexOf('## `00-tela`'); const f = md02.indexOf('\n## ', i + 1); return [...md02.slice(i, f).matchAll(/`([^`]*)`/g)].map((m) => m[1]).slice(1) })()
+chk('18 · atrás do diálogo, as unidades da T02, o quadro da T02/00', JSON.stringify(secao(OUTRO).slice(0, t02.length)) === JSON.stringify(t02))
+const fila = naFila(filaDoMundo({ fila: [], reenviados: [] }))
+chk('no fluxo, os itens são os da fila do aparelho que esperam — a mesma conta do diálogo de sair (3), a do caso', fila === caso.anterior.itensNaFila, String(fila))
+const primeira = { jaEntrou: false }
+const depois = { jaEntrou: true }
+chk('o primeiro Entrar do palco nunca abre o diálogo: não há sessão anterior neste aparelho', R.outraSessaoAoEntrar(primeira, 'r.vieira', caso.usuario, fila) === null)
+chk('o mesmo usuário de novo: nada', R.outraSessaoAoEntrar(depois, 'r.vieira', ' r.vieira ', fila) === null)
+const outra = R.outraSessaoAoEntrar(depois, 'r.vieira', caso.usuario, fila)
+chk('outro usuário depois de uma sessão: o diálogo, com o r.vieira e os 3 itens — o que o caso diz', JSON.stringify(outra) === JSON.stringify(caso.anterior), JSON.stringify(outra))
+chk('o m.souza entra como Marcos Souza, o nome do caso', JSON.stringify(R.tecnicoDo(caso.usuario)) === JSON.stringify({ nome: caso.nome, usuario: caso.usuario }))
+chk('o r.vieira entra como Rafael Vieira, o técnico do mock', JSON.stringify(R.tecnicoDo(M.credenciais.usuario)) === JSON.stringify({ nome: M.tecnico.nome, usuario: M.credenciais.usuario }))
+chk('de volta com o r.vieira depois do m.souza: o diálogo diz o m.souza', R.outraSessaoAoEntrar(depois, caso.usuario, M.credenciais.usuario, fila)?.usuario === caso.usuario)
+chk('o m.souza entra pela regra do login: qualquer senha com o mínimo do mock (tela.md), sem credencial inventada',
+  R.depoisDoEntrar({ usuario: caso.usuario, senha: M.credenciais.senha }, 'conectada') === 'T02' && R.entra(M.credenciais.senha))
+chk('no singular, 1 item (a resposta do arquiteto de 26/09)', TX02.sessaoEncerrada('r.vieira', 1).endsWith('1 item.') && TX02.sessaoEncerrada('r.vieira', 3).endsWith('3 itens.'))
+
+console.log(falhas ? `\nTESTE REPROVADO — ${falhas}` : '\nTESTE APROVADO'); process.exitCode = falhas ? 1 : 0

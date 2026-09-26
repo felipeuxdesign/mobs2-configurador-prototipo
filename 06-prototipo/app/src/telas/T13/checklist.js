@@ -41,6 +41,7 @@ export const REF = {
   comRessalva: '12-momento-b-com-ressalva',
   eResolvida: '13-momento-e-resolvida',
   semLocalizacao: '14-estado-homologado-sem-localizacao',
+  problemaFotografado: '15-momento-problema-fotografado',
 }
 export const SECAO_DO_MOMENTO = {
   [REF.A]: 'A', [REF.B]: 'B', [REF.C]: 'C', [REF.D]: 'D', [REF.E]: 'E', [REF.F]: 'F', [REF.comRessalva]: 'B', [REF.eResolvida]: 'E',
@@ -159,7 +160,8 @@ export function registroVazio(ativoId) {
 
 // o quadro que a URL pede (G20): o fluxo depois dos toques que levam lá — o 11,
 // as fotos de B tiradas, o ciclo feito e o Finalizar tocado; o 12, o Módulo
-// salvo com a ressalva de exemplo; o 13, o ciclo que a T14 fechou
+// salvo com a ressalva de exemplo e a foto do problema (decisão 39); o 13, o
+// ciclo que a T14 fechou
 export function registroDoQuadro(momento, base, ck) {
   const r = base.registro
   if (momento === REF.homologado && !r.homologada) {
@@ -169,7 +171,7 @@ export function registroDoQuadro(momento, base, ck) {
   }
   if (momento === REF.comRessalva && !Object.keys(r.ressalvas).length) {
     const id = ck.porSecao.B.find((c) => c.estado === 'pendente')?.id
-    if (id) return { ...r, ressalvas: { ...r.ressalvas, [id]: { justificativa: CK.exemploJustificativa, as: HORA } } }
+    if (id) return { ...r, ressalvas: { ...r.ressalvas, [id]: { justificativa: CK.exemploJustificativa, as: HORA, foto: HORA } } }
   }
   return r
 }
@@ -378,15 +380,18 @@ function itemF(mundo, item, total, feitosSemF) {
 
 // quem age, embaixo do nome da seção (a entrega do checklist, decisão 34): o
 // que o app confere, o que o técnico fotografa, o ciclo, o servidor. Com 1, o
-// plural do textos.md não existe, e a linha fica sem ela (G25, como o 'Faltam')
+// singular (a resposta do arquiteto de 26/09: *você fotografa 1 item*, *1 foto
+// tirada*). As fotos tiradas contam o item fotografado aqui, o herdado da
+// calibração e o salvo com a ressalva, que tem a foto do problema (decisão 39);
+// sem nenhuma, a linha fica sem ela (G25)
 function quemAgeDa(s, itens, homologada) {
   const feitos = itens.filter(resolvido).length
   if (s.natureza === 'automatico') return homologada ? T.appConferiu : T.appConfere
   if (s.natureza === 'manual') {
     const aTirar = itens.filter((c) => c.estado === 'pendente').length
-    if (aTirar) return aTirar > 1 ? T.voceFotografa(aTirar) : null
-    const fotos = itens.filter((c) => c.estado === 'ok').length
-    return fotos > 1 ? T.fotosTiradas(fotos) : null
+    if (aTirar) return T.voceFotografa(aTirar)
+    const fotos = itens.filter((c) => c.estado === 'ok' || c.estado === 'ressalva').length
+    return fotos ? T.fotosTiradas(fotos) : null
   }
   if (s.natureza === 'dinamico') return feitos === itens.length ? T.cicloPassou : T.voceFazCiclo
   return feitos === itens.length ? T.servidorConfirmou : T.esperaServidor

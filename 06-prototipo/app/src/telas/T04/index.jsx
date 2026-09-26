@@ -151,16 +151,18 @@ export default function T04({ momento, estado: est }) {
   // Trocar de unidade (T04·4 a) e de empresa (T04/14, decisão 37): com a sessão
   // aberta, o diálogo de trocar; sem ela, direto (dados.js · depoisDoTrocar). No
   // diálogo, o primário passa pelo encerramento sem homologar da T16 e segue pro
-  // destino (G23): a T03 da unidade nova, ou a T02, na lista das empresas.
-  const trocarEncerrando = (alvo) => encerrarE(destinoDaTroca(alvo))
+  // destino (G23): a T03 da unidade nova, ou a T02/07, a lista das empresas com a
+  // atual marcada (a resposta do arquiteto de 26/09). O mundo das empresas vai junto
+  // no contexto (contexto.empresas), e a unidade de antes sai dele.
+  const trocarEncerrando = (alvo) => encerrarE(destinoDaTroca(alvo, mundo.contexto))
   const trocar = (alvo) => {
-    const { confirma, vai } = depoisDoTrocar(sessao, alvo)
+    const { confirma, vai } = depoisDoTrocar(sessao, alvo, mundo.contexto)
     if (confirma) { setTrocarPara(confirma); return }
     despachar({ tipo: 'mesclar', parcial: { sessao: null, etapas: vazio.etapas, contexto: vai.contexto } })
-    ir(vai.tela)
+    ir(vai.tela, vai.momento ? { momento: vai.momento } : {})
   }
   const escolher = (id) => trocar({ uoId: id })
-  // com mais de uma empresa, o Trocar de empresa no fim da folha (14)
+  // com mais de uma empresa, o Trocar de empresa no fim da folha (14; no fluxo, vindo da T02/07)
   const variasEmpresas = temVariasEmpresas(mundo, est)
   const trocarDeEmpresa = () => trocar(TROCA_DE_EMPRESA)
 
@@ -330,7 +332,10 @@ export default function T04({ momento, estado: est }) {
             <div inert={sobFaixa ? undefined : atras}>{faixa}</div>
           </TopoDoMenu>
         </fieldset>
-        <h1 className="t04-titulo" inert={atras}>Menu</h1>
+        {/* o título Menu, escondido, existe em todas as telas do menu, com folha ou
+            diálogo por cima ou não (a resposta do arquiteto de 26/09): não se toca, e
+            fica fora do inert do que está atrás do véu, pro leitor de tela */}
+        <h1 className="t04-titulo">Menu</h1>
         <div className="tela-miolo t04-miolo" inert={atras}>
           <GradeFerramentas folga={10}>
             {conectar}

@@ -402,6 +402,11 @@ Cada decisão traz o padrão que adoto. As marcadas **já decidida** repetem uma
   - (b) O veredito espera a quinta linha, e o relógio só liga depois da troca (o primeiro glifo aos 550 ms).
   - **Padrão (a):** foi decidido no C11 e não inventa quadro.
   - **Decidido pelo diretor (25/09): (b).** O veredito espera a última linha.
+  - **Retorno do diretor (26/09), visto no protótipo:** do jeito que ficou, a lista aparece normal, e o lugar do veredito fica reservado e vazio até a quinta linha — um vão cortado em cima, sem nada, enquanto os xis acendem nos itens. *Isso não pode acontecer.* O veredito continua esperando a prova, mas o lugar dele não pode ser um buraco. **Entra no C12**, depois das entregas do arquiteto. Os caminhos pra levar ao gate:
+    - (a) a caixa do veredito já está no lugar desde o começo, com a moldura, o poço e a contagem acompanhando as linhas (*1 de 5* … *5 de 5*) em tinta neutra; a palavra do veredito (*NÃO BATE COM O CADASTRO* / *CONFERE COM O CADASTRO*) e a cor entram quando a quinta linha acende
+    - (b) a caixa em estado de processo, como as outras telas que correm (a pré-checagem da T05), com um texto de processo — precisa do texto e do quadro do arquiteto, porque o `textos.md` não tem
+    - (c) sem reserva: o veredito entra empurrando a lista pra baixo — a lei proíbe mover o layout
+    - **Padrão a propor: (a)** — não inventa texto, não move nada e não deixa vão; a contagem só acompanha o processo, e só começa quando a primeira linha acende. Vale pra todo veredito que espera a prova
 
 ### O checklist, o ciclo e a sessão (T13, T14 e T16)
 

@@ -12,7 +12,9 @@ import './CabecalhoConteudo.css'
 // C11 · T16 (G11): `subtitulo` — a linha de 12 embaixo do título, em
 // --tinta-apagada, com `folgaSubtitulo` 4 (a sessão interrompida, T16/06) ou 6
 // (o encerrando sem homologar, T16/03), como cada referência desenha. Sem ele,
-// o cabeçalho é o de sempre, sem a caixa em volta.
+// o cabeçalho é o de sempre, sem a caixa em volta. Desde a resposta de 26/09
+// (seguir a T16/02, o subtítulo montado de um jeito só) as duas usam o 4, e o 6
+// ficou sem uso nas telas.
 export function CabecalhoConteudo({ titulo, contagem, unidade, tom = 'neutro', forte = false, subtitulo, folgaSubtitulo = 4, className = '' }) {
   if (subtitulo != null) {
     return (

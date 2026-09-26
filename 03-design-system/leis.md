@@ -14,7 +14,7 @@ Cada lei tem o porquê. Uma lei sem motivo vira gosto, e gosto se discute; lei c
 | 4 ◆ | **Todo glifo de estado vive num poço**, até dentro de cartão. Exceções declaradas: o check dos sinais liga-desliga (T07), dos requisitos da senha (T01) e do *confere* da calibração (T10), e os glifos do bloco do evento (T14), que vivem soltos ao lado do texto | o poço é o lugar onde se lê o veredito, sempre o mesmo lugar |
 | 5 ◆ | **Barra só onde há faixa esperada.** Exceções declaradas: o placar do checklist, o nível sem faixa (T07), o progresso da sincronização (T03) e o do envio da fila (T15) | barra sem faixa é decoração |
 | 6 ◆ | **Preenchido é o que resta:** o tempo drena, o placar enche. O que baixa ou sobe (sincronização, envio) enche com o que já foi; a idade do pacote (T03) enche com o tempo que passou, até o limite | a barra cheia de um prazo diria que sobra tempo |
-| 7 ◆ | **Aviso tem um formato só:** poço, rótulo, uma frase. Quatro usos — falha, aviso, processo parado, com contagem. Exceções declaradas: a falha do autoteste (T16), com rótulo de topo e duas orações, e o aviso da folha de garagem (T04), sem poço | um aviso de cada jeito ensina nada |
+| 7 ◆ | **Aviso tem um formato só:** poço, rótulo, uma frase. Quatro usos — falha, aviso, processo parado, com contagem. Exceções declaradas: a falha do autoteste (T16), com rótulo de topo e duas orações, e o aviso da folha de trocar de unidade (T04), sem poço | um aviso de cada jeito ensina nada |
 | 8 | **Um primário por tela.** Rodapé com no máximo duas ações | duas opções de igual peso são uma pergunta que o técnico não sabe responder |
 | 9 | **Dois portadores de urgência, no máximo** | três vermelhos são um só barulho |
 | 10 ◆ | **Texto informa a partir de 12px**; rótulo em caixa alta pode ter 10 ou 11, e a unidade ou a contagem junto de um número também (*km*, *%*, *de 4*) | sol, luva e pressa |
@@ -26,6 +26,9 @@ Cada lei tem o porquê. Uma lei sem motivo vira gosto, e gosto se discute; lei c
 | 16 | **Tem seta, toca; sem seta, é leitura.** Todo tocável de lista tem a seta; leitura, feito e espera não têm | no checklist, o que se tocava e o que só se lia tinham a mesma cara |
 | 17 | **Desabilitado é tinta apagada.** Cartão, botão ou ação da faixa que não pode agir agora fica em `--tinta-apagada` (#867E9A), desabilitado de verdade, e o motivo está escrito na tela · nos processos, o `ENCERRAR` da faixa faz o mesmo que o voltar do Android: onde o voltar não faz nada, ele fica apagado | um tocável aceso que não responde parece defeito · decisão do diretor, 25/09 |
 | 18 | **A palavra é unidade.** O contexto é empresa e unidade, como o domínio diz · *garagem* só aparece quando é o nome da unidade | o app chamava toda unidade de garagem, e o domínio nunca usa essa palavra |
+| 19 | **Rodapé: um botão e um link.** Ação a mais vai pra uma folha | três ações empilhadas quebram a gramática de todas as outras telas |
+| 20 | **Folha de opções fecha no xis; folha de confirmação, no Cancelar.** Toda folha também fecha tocando fora, arrastando pra baixo e no voltar do Android | numa confirmação, o *não* fica junto do *sim*, embaixo do polegar — é o padrão do Material |
+| 21 | **Ícone riscado é o ícone inteiro, com o risco por cima** e um fio escuro separando — nunca a versão *-off* da biblioteca | a versão da biblioteca redesenha o ícone em pedaços, e o técnico precisa reconhecer um desenho novo |
 
 ## Leis de medida
 

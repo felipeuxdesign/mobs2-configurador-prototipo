@@ -656,11 +656,18 @@ chk("design · T02 lista longa: 9 garagens em 3 regiões, mais que o limite sem 
   var c = M.casos["lista-longa-garagens"]; if (!c) return false;
   var ucs = c.ucs.map(function (u) { return u.id; });
   return c.uos.length === 9 && c.ucs.length === 3 && c.uos.length > c.limiteSemBusca &&
-    c.uos.every(function (u) { return ucs.indexOf(u.ucId) >= 0 && u.ativos > 0; }) && M.uos.length === 3; })());
+    c.uos.every(function (u) { return ucs.indexOf(u.ucId) >= 0; }) && M.uos.length === 3; })());
+/* a entrega de 26/09 (otimizacao200000000): a fonte da idade, da hora e dos ativos de cada unidade do caso é o
+   pacote dela — os três campos saíram das unidades. As duas checagens leem do pacote (protótipo, 26/09). */
+function pacoteDoCaso(c, uoId) { return (c.pacotes || []).find(function (x) { return x.uoId === uoId; }) || M.pacotes.find(function (x) { return x.uoId === uoId; }); }
+chk("design · T02 lista longa: toda unidade do caso tem um pacote (os seis do caso ou os três do herói), com ativos, modelos e cartões", (function () {
+  var c = M.casos["lista-longa-garagens"]; if (!c) return false;
+  return c.uos.every(function (u) { var p = pacoteDoCaso(c, u.id); return p && p.contem.ativos > 0 && p.contem.modelosAtivo > 0 && p.contem.cartoes > 0 &&
+    !("pacoteIdadeDias" in u) && !("pacoteHora" in u) && !("ativos" in u); }); })());
 chk("design · T02 lista longa: as garagens do herói aparecem com o mesmo pacote que o mundo dele", (function () {
   var c = M.casos["lista-longa-garagens"];
   return M.uos.every(function (u) { var l = c.uos.find(function (x) { return x.id === u.id; }); var p = M.pacotes.find(function (x) { return x.uoId === u.id; });
-    return l && p && l.pacoteIdadeDias === p.diasAtras && l.pacoteHora === p.hora && l.ativos === p.contem.ativos; }); })());
+    return l && p && pacoteDoCaso(c, u.id) === p && !(c.pacotes || []).some(function (x) { return x.uoId === u.id; }); }); })());
 
 /* ── design · a otimização do design: a empresa antes da unidade (T02/05, T02/06, T04/14 · decisão 37) ── */
 var ve = M.casos["varias-empresas"] || null;

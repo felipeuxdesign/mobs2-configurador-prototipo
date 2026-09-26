@@ -52,11 +52,11 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `12-momento-codigo-reenviado`
 
-`14:30` · `RECUPERAR ACESSO` · `2` · `de 3` · `Mandamos outro para (81) •••••-8675` · `Digite o código` · `VALE POR` · `10:00` · `Reenviar em 60 s · este foi o último envio desta hora` · `Não recebi o código` · `Confirmar` · `Voltar ao login`
+`14:30` · `RECUPERAR ACESSO` · `2` · `de 3` · `Mandamos outro para (81) •••••-8675` · `Digite o código` · `VALE POR` · `10:00` · `Reenviar em 60 s · este foi o último envio desta hora` · `Não recebi o código` · `Digite o código` · `Voltar ao login`
 
 ## `13-momento-codigo-no-e-mail`
 
-`14:30` · `RECUPERAR ACESSO` · `2` · `de 3` · `Mandamos para r•••••@atlsul.com.br` · `Digite o código` · `VALE POR` · `10:00` · `Reenviar em 60 s · este foi o último envio desta hora` · `Não recebi o código` · `Confirmar` · `Voltar ao login`
+`14:30` · `RECUPERAR ACESSO` · `2` · `de 3` · `Mandamos para r•••••@atlsul.com.br` · `Digite o código` · `VALE POR` · `10:00` · `Reenviar em 60 s · este foi o último envio desta hora` · `Não recebi o código` · `Digite o código` · `Voltar ao login`
 
 ## `14-estado-login-sem-conexao`
 
@@ -69,3 +69,12 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `16-estado-usuario-lembrado`
 
 `14:30` · `Entrar` · `CONFIGURADOR` · `USUÁRIO` · `SENHA` · `Lembrar meu usuário` · `Digite a senha` · `Esqueci a senha`
+
+## `17-estado-teto-de-envios`
+
+`14:30` · `RECUPERAR ACESSO` · `2` · `de 3` · `Mandamos para (81) •••••-8675` · `Digite o código` · `4` · `8` · `2` · `9` · `1` · `3` · `VALE POR` · `9:41` · `Os 3 envios desta hora acabaram · libera às 15:12` · `Não recebi o código` · `Confirmar` · `Voltar ao login`
+
+## `18-estado-outro-usuario-no-aparelho`
+
+`14:30` · `VIAÇÃO ATLÂNTICO SUL` · `Onde você está hoje?` · `RMR – RECIFE` · `Garagem Várzea` · `pacote de ontem, 07:10` · `10 ativos` · `Garagem Ibura` · `pacote de 4 dias, 06:55` · `8 ativos` · `AGRESTE – CARUARU` · `Pátio Caruaru` · `pacote vencido há 8 dias` · `6 ativos` · `Escolha uma unidade` · `Outra sessão neste aparelho` · `A sessão de r.vieira foi encerrada. A fila dele continua subindo: 3 itens.` · `Entendi`
+

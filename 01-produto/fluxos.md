@@ -39,4 +39,6 @@ flowchart TD
 | encerrar | ENCERRAR antes de homologar | a sessão abortada: 4 passos, sem confirmação |
 | encerrar | uma assertiva falha | a homologação bloqueia; o encerramento não |
 
+No protótipo (decisão 36): o *sem confirmação* do ENCERRAR antes de homologar é de antes da decisão 36 — agora o diálogo *Encerrar sem homologar?* vem antes: `Continuar a instalação` fecha e deixa o técnico na tela; `Encerrar sem homologar` roda os 4 passos da sessão abortada. Depois de homologar, o ENCERRAR vai direto (`06-prototipo/logica.md` · ENCERRAR).
+
 Cada desvio tem a sua referência: `02-telas/<tela>/estados.md`.
