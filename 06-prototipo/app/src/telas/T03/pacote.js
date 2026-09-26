@@ -1,11 +1,15 @@
 // A conta do pacote da T03, lida do mock na hora de montar (G7). Nenhum
 // número mora aqui: a ordem da baixa, o ritmo, a estimativa, a versão e a
-// idade saem de M.pacotes, M.uos, M.casos e de ritmos.js.
+// idade saem de M.pacotes, M.uos, M.casos e de ritmos.js. A garagem que só o
+// caso lista-longa-garagens tem (a otimização do design) baixa o pacote que o
+// caso declara pra ela: os ativos, a idade, a hora e a versão são os dele
+// (src/dados/garagens.js, com o que ele não declara).
 import { M } from '../../dados/mock.js'
 import { RITMOS } from '../../estado/ritmos.js'
+import { garagemDe, pacoteDaGaragem } from '../../dados/garagens.js'
 
-export const uoDe = (uoId) => M.uos.find((u) => u.id === uoId)
-export const pacoteDaUo = (uoId) => M.pacotes.find((p) => p.uoId === uoId)
+export const uoDe = garagemDe
+export const pacoteDaUo = pacoteDaGaragem
 export const pacotePorId = (id) => M.pacotes.find((p) => p.id === id)
 
 // O caso da falha de rede (G21): a primeira sincronização deste pacote cai

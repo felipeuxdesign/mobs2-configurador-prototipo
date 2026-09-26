@@ -4,7 +4,9 @@
 //   Modelos → Ativos → Cartões, 4 s no total (T03·1). O poço acompanha os
 //   ativos (T03·5). A primeira baixa do pacote do caso sync-falha-rede cai no
 //   item do caso (G21), e Reconectar segue de onde parou. Ao terminar, o
-//   pacote novo vai pro estado único (T03·7) e a URL passa a dizer 02.
+//   pacote novo vai pro estado único (T03·7) e a URL passa a dizer 02. A
+//   garagem que só o caso lista-longa-garagens tem baixa o pacote que o caso
+//   declara pra ela (pacote.js · src/dados/garagens.js).
 // · Os estados da coluna, parados: a 01 pelo caso, a 03 e a 04 pela idade do
 //   pacote (receitas.js · pacotes). O estado muda o conteúdo; onde a
 //   referência remonta, ela é construída fiel (G24).

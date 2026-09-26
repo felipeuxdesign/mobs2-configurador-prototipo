@@ -3,6 +3,12 @@
 // diz o momento enquanto a busca não acha nada; a busca que volta a achar o tira.
 // A decisão do diretor de 25/09 (b): a busca que acha outros e esconde a escolha
 // feita também faz o primário esperar, e ele acende de novo quando ela volta.
+// A otimização do design: a URL diz esse quadro também (o 04 da T02, o 09 da T06),
+// e o endereço dele abre a tela nele; o Sincronizar das garagens que só o caso da
+// lista longa tem baixa o pacote dele; e o Procurar de novo da T05 mostra o quadro
+// da busca da T05/00 antes de a lista voltar.
+const ESCONDE_T02 = '04-momento-busca-esconde-a-escolha'
+const ESCONDE_T06 = '09-momento-busca-esconde-a-escolha'
 export default [
   // ── T02 · o 03 abre pelo endereço, no mundo do caso lista-longa-garagens ──
   { abre: '?tela=T02&momento=03-momento-busca-sem-resultado' },
@@ -33,18 +39,20 @@ export default [
   { fica: 'T02', ms: 400 },
   { chega: 'T02', momento: null },
   { ve: 'Sincronizar Garagem Várzea' },
-  // a busca que acha outra garagem esconde a escolha: o primário espera (decisão do diretor, 25/09, b)
+  // a busca que acha outra garagem esconde a escolha: o primário espera (decisão do diretor, 25/09, b),
+  // e a URL diz o 04 (a otimização do design)
   { digita: 'Olinda', em: 'Buscar garagem ou cidade' },
   { ve: 'Garagem Olinda' },
   { naoVe: 'Garagem Várzea' },
-  { chega: 'T02', momento: null },
+  { chega: 'T02', momento: ESCONDE_T02 },
   { desligado: 'Escolha uma garagem' },
   { naoVe: 'Sincronizar' },
-  // a busca que devolve a escolha: ele acende de novo, com o nome dela
+  // a busca que devolve a escolha: ele acende de novo, com o nome dela, e o 04 sai da URL
   { digita: 'Recife', em: 'Buscar garagem ou cidade' },
   { ve: 'Garagem Boa Viagem' },
   { ve: 'Sincronizar Garagem Várzea' },
   { naoVe: 'Escolha uma garagem' },
+  { chega: 'T02', momento: null },
   // a busca sem resultado esconde a escolha, e o primário espera; a que volta a achar a devolve
   { digita: 'Recreio', em: 'Buscar garagem ou cidade' },
   { chega: 'T02', momento: '03-momento-busca-sem-resultado' },
@@ -55,6 +63,38 @@ export default [
   { toca: 'Sincronizar Garagem Várzea' },
   { chega: 'T03' },
 
+  // ── T02 · o 04 pelo endereço: a Várzea escolhida, e Olin digitado a esconde ──
+  { abre: `?tela=T02&momento=${ESCONDE_T02}` },
+  { chega: 'T02', momento: ESCONDE_T02 },
+  { ve: 'Garagem Olinda' },
+  { ve: 'pacote de hoje, 06:15' },
+  { ve: '12 ativos' },
+  { naoVe: 'Garagem Várzea' },
+  { desligado: 'Escolha uma garagem' },
+  // a busca que devolve a Várzea: ela volta marcada, e o 04 sai da URL
+  { digita: 'Recife', em: 'Buscar garagem ou cidade' },
+  { chega: 'T02', momento: null },
+  { ve: 'Sincronizar Garagem Várzea' },
+  { digita: 'Olin', em: 'Buscar garagem ou cidade' },
+  { chega: 'T02', momento: ESCONDE_T02 },
+  // ── T02 → T03 · a garagem que só o caso tem sincroniza o pacote dele (pac-uo-12) ──
+  { marca: 'Garagem Olinda' },
+  { chega: 'T02', momento: null },
+  { ve: 'Sincronizar Garagem Olinda' },
+  { toca: 'Sincronizar Garagem Olinda' },
+  { chega: 'T03' },
+  { ve: 'GARAGEM OLINDA' },
+  { ve: 'de 12' },
+  { ve: 'pacote pct-uo12-2026-03-12 · 12/03 06:15' },
+  { chega: 'T03', momento: '02-momento-concluido' },
+  { ve: 'Pacote de hoje' },
+  { ve: 'o pacote vale por 7 dias' },
+  { ve: 'pacote pct-uo12-2026-03-12 · 12/03 14:30' },
+  { toca: 'Ir para o menu' },
+  { chega: 'T04' },
+  { toca: 'Entendi' },
+  { ve: 'GARAGEM OLINDA' },
+
   // ── T06 · o 08 no fluxo: a placa que não existe no pacote ──
   { abre: '?tela=T06' },
   { chega: 'T06', momento: null },
@@ -62,17 +102,20 @@ export default [
   { marca: 'RKT-8H42' },
   { fica: 'T06', ms: 400 },
   // a busca que acha outro ônibus esconde o marcado: o primário espera (decisão do diretor, 25/09, b)
+  // e a URL diz o 09 (a otimização do design); com um termo na busca, a instrução sai, como a 09 desenha
   { digita: '1006', em: 'Buscar placa, frota ou módulo' },
   { ve: 'QJF-2C61' },
   { naoVe: 'RKT-8H42' },
-  { chega: 'T06', momento: null },
+  { chega: 'T06', momento: ESCONDE_T06 },
   { desligado: 'Usar este ativo' },
+  { naoVe: 'Escolha o veículo que está na sua frente.' },
   // a busca que devolve o marcado, junto com outros (as frotas 1003, 1006 e 1009): ele acende
-  // de novo, e leva à confirmação do marcado, e não de um dos outros
+  // de novo, o 09 sai da URL, e o primário leva à confirmação do marcado, e não de um dos outros
   { digita: '100', em: 'Buscar placa, frota ou módulo' },
   { ve: 'QJF-2C61' },
   { ve: 'PCX-9A17' },
   { ve: 'RKT-8H42' },
+  { chega: 'T06', momento: null },
   { toca: 'Usar este ativo' },
   { chega: 'T06', momento: '01-momento-confirmar-o-veiculo' },
   { ve: 'RKT-8H42' },
@@ -86,11 +129,12 @@ export default [
   { ve: 'Confira a placa, ou busque pela frota.' },
   { naoVe: 'Escolha o veículo que está na sua frente.' },
   { desligado: 'Usar este ativo' },
-  // a busca que acha: a lista volta com o ônibus marcado, e o 08 sai da URL
+  // a busca que acha: a lista volta com o ônibus marcado, e o 08 sai da URL; com o termo, sem a instrução
   { digita: 'rkt8h42', em: 'Buscar placa, frota ou módulo' },
   { chega: 'T06', momento: null },
   { naoVe: 'Nada com' },
-  { ve: 'Escolha o veículo que está na sua frente.' },
+  { ve: 'RKT-8H42' },
+  { naoVe: 'Escolha o veículo que está na sua frente.' },
   { toca: 'Usar este ativo' },
   { chega: 'T06', momento: '01-momento-confirmar-o-veiculo' },
   { ve: 'Os dois batem — é este veículo.' },
@@ -110,4 +154,47 @@ export default [
   { desligado: 'Usar este ativo' },
   { toca: 'Voltar ao menu' },
   { chega: 'T04' },
+
+  // ── T06 · o 09 pelo endereço: o RKT-8H42 marcado, e PCX digitado o esconde ──
+  { abre: `?tela=T06&momento=${ESCONDE_T06}` },
+  { chega: 'T06', momento: ESCONDE_T06 },
+  { ve: 'PCX-9A17' },
+  { naoVe: 'RKT-8H42' },
+  { naoVe: 'Escolha o veículo que está na sua frente.' },
+  { desligado: 'Usar este ativo' },
+  // a busca que devolve o marcado: ele acende de novo, e leva à confirmação dele
+  { digita: 'RKT', em: 'Buscar placa, frota ou módulo' },
+  { chega: 'T06', momento: null },
+  { toca: 'Usar este ativo' },
+  { chega: 'T06', momento: '01-momento-confirmar-o-veiculo' },
+  { ve: 'RKT-8H42' },
+  { ve: 'Os dois batem — é este veículo.' },
+
+  // ── T05 · o Procurar de novo: a busca da T05/00 corre de novo, e a lista volta ──
+  { abre: '?tela=T05&momento=01-momento-nenhum-escolhido' },
+  { chega: 'T05', momento: '01-momento-nenhum-escolhido' },
+  { ve: 'Escolha o que está na sua mão.' },
+  { toca: 'Procurar de novo' },
+  // o quadro da busca da 00, com a URL dizendo a 00, no ritmo da busca (ritmos.js · buscaMs)
+  { chega: 'T05', momento: null },
+  { ve: 'ESCOLHIDO' },
+  { naoVe: 'Escolha o que está na sua mão.' },
+  { chega: 'T05', momento: '01-momento-nenhum-escolhido', entre: [100, 1200] },
+  { ve: 'Escolha o que está na sua mão.' },
+  { naoVe: 'ESCOLHIDO' },
+  { desligado: 'Conectar' },
+  // da 00 também: o quadro da busca, e a lista sem nada escolhido
+  { abre: '?tela=T05' },
+  { ve: 'ESCOLHIDO' },
+  { toca: 'Procurar de novo' },
+  { chega: 'T05', momento: '01-momento-nenhum-escolhido' },
+  { desligado: 'Conectar' },
+  // o toque no quadro da busca vale como na 00: o escolhido troca, e a lista não volta por cima
+  { toca: 'Procurar de novo' },
+  { chega: 'T05', momento: null },
+  { toca: 'M2C-0362' },
+  { ve: 'Conectar ao M2C-0362' },
+  { fica: 'T05', ms: 1000 },
+  { chega: 'T05', momento: null },
+  { ve: 'Conectar ao M2C-0362' },
 ]

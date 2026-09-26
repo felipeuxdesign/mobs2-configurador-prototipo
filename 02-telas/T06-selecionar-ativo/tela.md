@@ -13,6 +13,7 @@ Escolher o ônibus que está na frente do técnico e provar que é ele.
 ## O que se toca
 
 - a busca que esconde o ativo escolhido apaga o `Usar este ativo`, que volta quando ele reaparece · a escolha não se perde (a `09`; a decisão do diretor de 25/09)
+  - no protótipo (a otimização do design, construída): a URL diz o `09` enquanto a busca acha outros ônibus e esconde o marcado, e a busca que o devolve o tira; aberto pelo endereço, o `09` vem com o RKT-8H42 marcado — o ônibus do módulo da sessão, como o `01` — e *PCX* digitado. O campo fica com o traço lima do campo focado enquanto a busca esconde o marcado, como a `09` desenha · **com um termo na busca, a instrução sai**: embaixo do campo fica o que a busca achou, a lista ou o vazio, como a `08` e a `09` desenham (nenhuma referência desenha a busca que acha sem esconder nada: ela segue as duas)
 
 - a lista são os ônibus do pacote da garagem do contexto, na ordem do mock — na Várzea, os 10 (G9); o conteúdo rola entre a faixa e o rodapé (G16)
 - tocar num ônibus → ele fica **marcado** (o quadrado lima no poço) e o `Usar este ativo` acende; o `Usar este ativo` → confirmar o veículo. Tocar em outro ônibus troca a marca (decisão do diretor, 24/09: a T06·1 passa pra (b), o T06-N3). A lista com um ônibus marcado não tem referência: monta-se com as peças que existem (G25)

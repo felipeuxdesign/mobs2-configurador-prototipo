@@ -3,48 +3,42 @@
 //  · o do herói: M.ucs, M.uos e o pacote de cada UO em M.pacotes — 3 garagens,
 //    a idade e a hora do pacote (T02·6) e os ativos que ele traz (T02·5);
 //  · o da lista longa: o caso `lista-longa-garagens` (a receita do estado 02),
-//    com 9 garagens em 3 regiões, e em cada uma a cidade, a idade e a hora do
-//    pacote e os ativos.
+//    com 9 garagens em 3 regiões, cada uma com a cidade. O pacote de cada uma é
+//    o de M.pacotes (as três que o herói também tem) ou o que o caso declara pra
+//    ela (as outras seis, a otimização do design) — src/dados/garagens.js. A linha
+//    diz a idade e a hora do pacote e os ativos que ele traz, como no herói.
 // A busca aparece quando o mundo tem mais garagens que o limiteSemBusca do caso
 // (6), e filtra por nome ou cidade (entrega do design de 24/09, que muda o T02·7).
 import { M } from '../../dados/mock.js'
-import { RECEITAS } from '../../estado/receitas.js'
 import { chaveDeBusca, idadeNaLinhaDaGaragem, passouDoBloqueio } from '../../dados/formato.js'
+import { pacoteDaGaragem, mundoDaListaLonga } from '../../dados/garagens.js'
 
 export const LISTA_LONGA = '02-estado-lista-longa-com-busca'
 // a busca sem resultado (a entrega de 25/09): um momento do mesmo caso, que abre pelo endereço
 export const SEM_RESULTADO = '03-momento-busca-sem-resultado'
-const casoDaListaLonga = () => M.casos[RECEITAS[`T02/${LISTA_LONGA}`].casos[0]]
+// a busca que acha outras garagens e esconde a escolhida (a otimização do design): o mesmo caso, pelo endereço
+export const ESCONDE = '04-momento-busca-esconde-a-escolha'
 
-// o limiar do vencido: o do pacote da UO no mock. A garagem que só o caso tem
-// não tem pacote em M.pacotes, e lê o limiar que os três pacotes do mock
-// declaram iguais (bloqueioDias 7, o "acima do limite de 7" do caso).
-const bloqueioDe = (uoId) => (M.pacotes.find((p) => p.uoId === uoId) ?? M.pacotes[0]).limiares.bloqueioDias
-
-function linha({ id, nome, cidade = '' }, dias, hora, ativos, bloqueioDias) {
+// a linha da garagem: a idade e a hora do pacote dela, e os ativos que ele traz;
+// vencida pelo limiar do próprio pacote (T02·6)
+function linha({ id, nome, cidade = '' }) {
+  const p = pacoteDaGaragem(id)
   return {
     uo: { id, nome, cidade },
-    detalhe: idadeNaLinhaDaGaragem(dias, hora, bloqueioDias),
-    valor: `${ativos} ativos`,
-    vencida: passouDoBloqueio(dias, bloqueioDias),
+    detalhe: idadeNaLinhaDaGaragem(p.diasAtras, p.hora, p.limiares.bloqueioDias),
+    valor: `${p.contem.ativos} ativos`,
+    vencida: passouDoBloqueio(p.diasAtras, p.limiares.bloqueioDias),
   }
 }
 
-const agrupar = (ucs, uos, daUo) => ucs.map((uc) => ({ uc, linhas: uos.filter((uo) => uo.ucId === uc.id).map(daUo) }))
+const agrupar = (ucs, uos) => ucs.map((uc) => ({ uc, linhas: uos.filter((uo) => uo.ucId === uc.id).map(linha) }))
 
-const HEROI = agrupar(M.ucs, M.uos, (uo) => {
-  const p = M.pacotes.find((x) => x.uoId === uo.id)
-  return linha(uo, p.diasAtras, p.hora, p.contem.ativos, p.limiares.bloqueioDias)
-})
+const HEROI = agrupar(M.ucs, M.uos)
+const caso = mundoDaListaLonga()
+const LONGA = agrupar(caso.ucs, caso.uos)
 
-const caso = casoDaListaLonga()
-const LONGA = agrupar(caso.ucs, caso.uos, (uo) => linha(uo, uo.pacoteIdadeDias, uo.pacoteHora, uo.ativos, bloqueioDe(uo.id)))
-
-/** os grupos do mundo que o quadro mostra: o do caso no estado 02 e no momento 03, o do herói no resto */
+/** os grupos do mundo que o quadro mostra: o do caso no estado 02 e nos momentos 03 e 04, o do herói no resto */
 export const gruposDo = (doCaso) => (doCaso ? LONGA : HEROI)
-
-/** as garagens que o mundo do herói também tem: só elas têm pacote na T03 (M.pacotes) */
-export const temPacote = (uoId) => M.pacotes.some((p) => p.uoId === uoId)
 
 /** a busca aparece com mais garagens que o limite sem busca do caso (mais de 6) */
 export const temBusca = (grupos) => grupos.reduce((n, g) => n + g.linhas.length, 0) > caso.limiteSemBusca

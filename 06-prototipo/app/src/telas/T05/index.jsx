@@ -5,7 +5,7 @@
 // · 00-tela — a busca achou os módulos por perto (M.situacao.porPerto, AC-06)
 //   e o do herói, o primeiro, vem escolhido: a semente (G21)
 // · 01-momento-nenhum-escolhido — a busca achou e nada foi tocado: é onde
-//   `Procurar de novo` leva, e onde o menu abre. Tocar num módulo só o marca
+//   a busca de novo termina, e onde o menu abre. Tocar num módulo só o marca
 //   (o quadrado lima) e acende `Conectar ao …`; é o botão que conecta (R-14)
 // · 02-momento-um-encontrado — só um por perto: a busca em que só o herói
 //   responde. Sem gatilho no mock, abre só pela URL (G20)
@@ -18,8 +18,12 @@
 //   firmware corre com a porcentagem do caso (AC-19), as seguintes esperam.
 //   O ritmo da atualização não está em movimento.md (G4): o quadro fica parado
 // No print (EM_QUADRO), cada quadro para no que a referência desenha.
-// A busca acha na hora: o ritmo dela também não está declarado (G4), e o
-// quadro da busca correndo não tem referência nem texto (G25).
+// A busca de novo (`Procurar de novo`, `Procurar outro módulo`, o Bluetooth que
+// liga): a busca da T05/00 corre de novo, e a lista volta (a otimização do
+// design) — o quadro da 00 fica na tela RITMOS.buscaMs, com a URL dizendo a 00,
+// e a lista volta sem nada escolhido (01). O ritmo é proposta do protótipo: o
+// diretor não o deu (G4, C12·14). Tocar no quadro da 00 enquanto ele está na
+// tela vale como na 00: o toque fica, e a lista não volta por cima dele.
 //
 // Os onze estados (C7), pela receita (receitas.js) e pelo caso do mock:
 // · a busca: 03 (busca-vazia, o vazio no lugar da lista) e 04 (conexao-falha,
@@ -72,6 +76,8 @@ const ENCERRAR_SEM_HOMOLOGAR = '03-momento-encerrando-sem-homologar' // G23: a s
 // o quadro da busca: os módulos por perto, o escolhido (ou nenhum) e, se a
 // conexão com ele falhou, a trava no escolhido (04)
 const busca = (perto, escolhido, trava = false) => ({ fase: 'busca', perto, escolhido, trava })
+// a busca que corre de novo: o quadro da busca da 00, até a lista voltar (01)
+const correndo = () => ({ ...busca(porPerto(), HEROI), correndo: true })
 // o da busca que não achou nada (03)
 const vazia = () => ({ fase: 'vazia' })
 // o da pré-checagem: o módulo, quantas linhas já terminaram, a porcentagem
@@ -161,14 +167,22 @@ export default function T05({ momento, estado: est }) {
   // ele que conecta (diretor, 24/09: escolher numa lista marca, quem avança é o botão)
   const [marcado, setMarcado] = useState(null)
   function escolher(serial) {
-    setFluxo((f) => ({ ...f, escolhido: serial }))
+    // no quadro da busca que corre, o toque vale como na 00, e a lista não volta por cima dele
+    setFluxo((f) => ({ ...f, escolhido: serial, correndo: false }))
     if (momento) ir('T05') // o escolhido é a 00, a tela: a URL segue
   }
+  // a busca de novo (tela.md: a busca da T05/00 corre de novo, e a lista volta):
+  // o quadro da 00, com a URL dizendo a 00, e depois de RITMOS.buscaMs a lista sem nada escolhido (01)
   function procurar() {
     setMarcado(null)
-    setFluxo(busca(porPerto(), null))
-    ir('T05', { momento: M01 })
+    setFluxo(correndo())
+    ir('T05')
   }
+  useEffect(() => {
+    if (est != null || !fluxo.correndo) return undefined
+    const relogio = setTimeout(() => { setFluxo(busca(porPerto(), null)); ir('T05', { momento: M01 }) }, RITMOS.buscaMs)
+    return () => clearTimeout(relogio)
+  }, [fluxo, est]) // eslint-disable-line react-hooks/exhaustive-deps
   // conectar: a primeira tentativa do módulo do caso não responde (04), uma
   // vez; senão, a pré-checagem corre com os casos que valem pra ele agora
   function conectar(serial = q.escolhido) {

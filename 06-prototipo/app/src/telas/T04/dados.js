@@ -4,6 +4,7 @@
 import { M } from '../../dados/mock.js'
 import { caixaAlta, pacotePassouDoBloqueio, idadeNaLinhaDaGaragem } from '../../dados/formato.js'
 import { filaDoMundo } from '../../estado/fila.js'
+import { garagemDe } from '../../dados/garagens.js'
 
 // os nomes das referências (02-telas/T04-menu/referencias)
 export const REF = {
@@ -37,7 +38,9 @@ export const SOB_A_FAIXA = ['modulo', 'ativo']
 
 const ativo = (id) => M.ativos.find((a) => a.id === id)
 export const placaDe = (id) => ativo(id)?.placa
-export const uoDe = (id) => M.uos.find((u) => u.id === id)
+// a garagem do contexto: também a que só o caso da lista longa tem, depois de o
+// técnico sincronizar o pacote dela (a T02 e a T03, a otimização do design)
+export const uoDe = garagemDe
 
 // O que a sessão prendeu, pro cartão da folha (T04/10, 11): a identidade e as
 // linhas do detalhe, do mock. As palavras em volta do dado (firmware, frota,

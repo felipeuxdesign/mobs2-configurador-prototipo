@@ -20,6 +20,8 @@ Baixar o pacote da garagem e dizer se dá pra trabalhar com ele.
 
 No protótipo, a sincronização corre um item por vez — Modelos, Ativos, Cartões —, em 4 s no total, e o poço acompanha os ativos (T03·1, T03·5). A primeira baixa do Pátio Caruaru cai no quarto item (o caso `sync-falha-rede`), uma vez por sessão. Ao terminar, o pacote novo fica no estado único (T03·7).
 
+No protótipo (a otimização do design, construída): a garagem que só o caso `lista-longa-garagens` tem baixa o pacote que o caso declara pra ela (pac-uo-11 a pac-uo-16) — o nome da garagem, os ativos, a idade, a hora e a versão são os dele: na Garagem Olinda, *de 12* e *pacote pct-uo12-2026-03-12 · 12/03 06:15*, e no concluído *pacote pct-uo12-2026-03-12 · 12/03 14:30*. O que o pacote do caso não declara — os modelos de ativo e os cartões que ele traz, e a estimativa do servidor por item, que dá o *faltam ~N s* — sai do que os três pacotes de `pacotes` declaram iguais (3, 3 e 6 s): desvio nomeado, pro arquiteto (`app/src/dados/garagens.js`). O `Ir para o menu` leva ao menu dessa garagem.
+
 ## Peças do design system que esta tela usa
 
 Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe.

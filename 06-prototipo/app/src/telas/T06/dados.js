@@ -3,6 +3,7 @@
 // com dado se montam com o texto do textos.md em volta do valor.
 import { M } from '../../dados/mock.js'
 import { chaveDeBusca } from '../../dados/formato.js'
+import { pacoteDaGaragem } from '../../dados/garagens.js'
 
 // os quadros da T06, pelo nome dos arquivos das referências
 export const REF = {
@@ -14,6 +15,7 @@ export const REF = {
   semSaida: '06-estado-conflito-de-pinos-sem-saida',
   corrigida: '07-momento-correcao-solicitada',
   semResultado: '08-momento-busca-sem-resultado', // a busca que não acha nenhum ônibus do pacote (a entrega de 25/09)
+  esconde: '09-momento-busca-esconde-a-escolha',  // a busca que acha outros ônibus e esconde o marcado (a otimização do design)
 }
 
 export const ativoDe = (id) => M.ativos.find((a) => a.id === id)
@@ -25,9 +27,11 @@ const pacoteDe = (id) => M.pacotes.find((p) => p.id === id)
 // o pacote da garagem do contexto: os ativos da UO, na ordem do mock (T06-A1, G9: são 10)
 export const doPacote = (uoId) => M.ativos.filter((a) => a.uoId === uoId)
 
-// o contador 'no pacote': o que o pacote da garagem diz que trouxe
+// o contador 'no pacote': o que o pacote da garagem diz que trouxe — também o
+// pacote que o caso lista-longa-garagens declara pra garagem que só ele tem
+// (src/dados/garagens.js, a otimização do design): sincronizada a Olinda, 12
 export function contagemDoPacote(contexto, uoId) {
-  const p = (contexto.pacote && pacoteDe(contexto.pacote.id)) ?? M.pacotes.find((x) => x.uoId === uoId)
+  const p = (contexto.pacote && pacoteDe(contexto.pacote.id)) ?? pacoteDaGaragem(uoId)
   return p?.contem.ativos
 }
 

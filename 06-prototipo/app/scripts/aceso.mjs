@@ -3,7 +3,10 @@
 // sem os estados, que abrem parados pela coluna), toca cada tocável aceso, um
 // por vez, com a página aberta de novo, e confere se alguma coisa mudou — o
 // endereço, o desenho do app ou o foco. O que não muda nada é o botão aceso
-// que não faz nada: vai pra lista, com a nota do porquê, se já se sabe.
+// que não faz nada: vai pra lista, com a nota do porquê, se já se sabe. O que
+// muda e volta dentro da janela do toque (o quadro da busca da T05, que fica
+// RITMOS.buscaMs e dá lugar à lista) conta como mudou: a régua olha a janela
+// inteira, de 100 em 100 ms, e não só o fim dela.
 //
 // Uso: node scripts/aceso.mjs            (todas as telas e momentos)
 //      node scripts/aceso.mjs T02,T09    (só os que começam assim)
@@ -37,16 +40,12 @@ const raiz = resolve(app, '../..')
 const BASE = process.env.BASE || 'http://localhost:5173/'
 const so = process.argv[2] ? process.argv[2].split(',') : null
 
-// o que já se sabe, lugar a lugar: "<tela>/<nn>|<nome do tocável>" → o porquê. Os dois tocáveis acesos que
-// não fazem nada, conhecidos, cada um com o tela.md mandando e a resposta da otimização do design esperando
-// a construção dela (logica.md · Nenhum botão aceso que não faz nada): o Sincronizar das seis garagens sem
-// pacote da lista longa (T02/03, depois de uma busca que acha) e o Procurar de novo da lista sem nada
-// escolhido da T05 (01), que busca de novo e acha a mesma lista, na hora. O ENCERRAR da recuperação da T09
-// (T09/03) já fica desabilitado de verdade (a lei 17), e a régua não o conta
-const NOTAS = {
-  'T02/03|Sincronizar Garagem Olinda': 'a garagem sem pacote no mock (tela.md da T02; pergunta no decisoes-do-diretor.md)',
-  'T05/01|Procurar de novo': 'a busca de novo acha a mesma lista, na hora, sem nada escolhido (tela.md da T05; pergunta no decisoes-do-diretor.md)',
-}
+// o que já se sabe, lugar a lugar: "<tela>/<nn>|<nome do tocável>" → o porquê. Nenhum, desde a construção da
+// otimização do design: o Sincronizar das seis garagens da lista longa baixa o pacote que o caso declara pra
+// elas (T02/03, depois de uma busca que acha), e o Procurar de novo da T05/01 mostra o quadro da busca da
+// T05/00 antes de a lista voltar (logica.md · Nenhum botão aceso que não faz nada). O ENCERRAR da recuperação
+// da T09 (T09/03) fica desabilitado de verdade (a lei 17), e a régua não o conta
+const NOTAS = {}
 // os lugares que só nascem de um toque depois da entrada: o endereço, e o que se faz antes de medir
 // (a cada vez que a página reabre). O menu na primeira chegada mostra o aviso do acesso por cima: o
 // lugar do endereço mede o Entendi, e o "sem o aviso" mede o menu
@@ -182,8 +181,9 @@ for (const l of lugares) {
       if (!c) continue
       const antes = await na(s, `return P.foto(${sem})`)
       await toque(c)
-      await dorme(800)
-      const depois = await na(s, `return P.foto(${sem})`).catch(() => null)
+      // a janela do toque inteira: o que muda e volta (o quadro que passa) também mudou
+      let depois = antes
+      for (let t = 100; t <= 800 && depois === antes; t += 100) { await dorme(100); depois = await na(s, `return P.foto(${sem})`).catch(() => null) }
       if (depois === antes) { const nota = NOTAS[`${l.id.slice(0, 6)}|${c.n}`]; r.nada.push(nota ? { nome: c.n, nota } : { nome: c.n }); if (!nota) mortos++ }
     }
   } catch (e) { naoMedidos++; r = { id: l.id, medido: false, erro: e.message, tocaveis: [], nada: [] }; console.log(`  ~ ${l.id}: ${e.message}`); saida.push(r); continue }
@@ -196,5 +196,6 @@ writeFileSync(resolve(app, 'prints/aceso.json'), JSON.stringify(saida, null, 1))
 ws.close(); fechar()
 const seg = ((performance.now() - t0) / 1000).toFixed(0)
 console.log(`\n${lugares.length} lugares · ${naoMedidos} com um processo andando, não medidos · ${seg} s · prints/aceso.json`)
-console.log(mortos ? `${mortos} tocáveis acesos que não fazem nada, sem nota` : 'NENHUM BOTÃO ACESO QUE NÃO FAZ NADA, fora os com nota')
+const comNota = saida.reduce((n, r) => n + r.nada.filter((x) => x.nota).length, 0)
+console.log(mortos ? `${mortos} tocáveis acesos que não fazem nada, sem nota` : `NENHUM BOTÃO ACESO QUE NÃO FAZ NADA${comNota ? `, fora os ${comNota} com nota` : ''}`)
 process.exit(mortos ? 1 : 0)

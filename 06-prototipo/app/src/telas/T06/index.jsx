@@ -12,7 +12,10 @@
 // O ônibus que não é caso abre a 01 com o lido igual ao cadastro (T06·2 a).
 // A busca que não acha nenhum ônibus do pacote mostra o vazio declarado, com o
 // termo no título (08, a entrega de 25/09, que muda a T06·5). Enquanto a busca
-// esconde o ônibus marcado, o primário espera (decisão do diretor, 25/09, b).
+// esconde o ônibus marcado, o primário espera (decisão do diretor, 25/09, b), e
+// a URL diz o 09 (a otimização do design). Com um termo na busca, a instrução
+// sai: embaixo do campo fica o que a busca achou, a lista ou o vazio, como a 08
+// e a 09 desenham.
 // 'Usar este ativo' grava o ativo na sessão e segue pra T07.
 import { useEffect, useState } from 'react'
 import {
@@ -31,8 +34,11 @@ import {
 import './t06.css'
 
 const ENCERRAR_SEM_HOMOLOGAR = '03-momento-encerrando-sem-homologar' // G23: a sessão abortada (T16/03)
-// o termo que a referência 08 desenha digitado (textos.md): o endereço do momento abre com ele
+// os termos que as referências 08 e 09 desenham digitados (textos.md): o endereço do momento abre com eles
 const TERMO_DA_08 = 'ABC-1234'
+const TERMO_DA_09 = 'PCX'
+// os dois quadros da busca, e a URL que diz cada um
+const DA_BUSCA = [REF.semResultado, REF.esconde]
 const nadaCom = (termo) => `Nada com “${termo}”`
 
 export default function T06({ momento, estado: est }) {
@@ -49,11 +55,13 @@ export default function T06({ momento, estado: est }) {
 
   // o ônibus escolhido: o do caso, o do módulo da sessão (a 01 aberta pela URL) ou nenhum (a lista)
   const [escolhido, setEscolhido] = useState(() => doEstado?.ativoId ?? (momento === REF.confirmar ? ativoDoModulo(uoFluxo, sessaoFluxo) : null))
-  const [busca, setBusca] = useState(momento === REF.semResultado ? TERMO_DA_08 : '')
+  const [busca, setBusca] = useState(momento === REF.semResultado ? TERMO_DA_08 : momento === REF.esconde ? TERMO_DA_09 : '')
   const [confirmado, setConfirmado] = useState(false)
   // na lista, tocar num ônibus o marca, e o 'Usar este ativo' leva à confirmação
-  // (decisão do diretor, 24/09: a T06·1 passa pra (b), o T06-N3)
-  const [marcado, setMarcado] = useState(null)
+  // (decisão do diretor, 24/09: a T06·1 passa pra (b), o T06-N3). Aberta pelo 09, o
+  // marcado é o ônibus do módulo da sessão (RKT-8H42), como o 01, e a busca da
+  // referência (PCX) o esconde
+  const [marcado, setMarcado] = useState(() => (momento === REF.esconde ? ativoDoModulo(uoFluxo, sessaoFluxo) : null))
   // os ônibus com a correção de cadastro já pedida, enquanto a T06 está aberta:
   // o pedido não volta a ser tocável — escolher o mesmo ônibus de novo abre o registro (07)
   const [pedidos, setPedidos] = useState(() => (momento === REF.corrigida && doEstado?.ativoId ? [doEstado.ativoId] : []))
@@ -82,13 +90,16 @@ export default function T06({ momento, estado: est }) {
   // a busca que acha outros ônibus e esconde o marcado: o primário espera, e
   // acende de novo quando o marcado volta à lista (decisão do diretor, 25/09, b)
   const marcadoAVista = marcado != null && lista.some((a) => a.id === marcado)
-  // a URL diz o 08 enquanto a busca não acha nada; a que volta a achar o tira.
-  // Num estado da coluna, nada anda
+  const esconde = !ativo && !semResultado && marcado != null && !marcadoAVista
+  // a URL diz o quadro da busca: o 08 enquanto ela não acha nada, o 09 enquanto
+  // ela acha outros e esconde o marcado; a que volta a achar, ou devolve o
+  // marcado, tira o momento. Num estado da coluna, nada anda
+  const quadroDaBusca = semResultado ? REF.semResultado : esconde ? REF.esconde : null
   useEffect(() => {
     if (est) return
-    if (semResultado && momento !== REF.semResultado) despachar({ tipo: 'ir', tela: 'T06', momento: REF.semResultado })
-    else if (!semResultado && momento === REF.semResultado) despachar({ tipo: 'ir', tela: 'T06', momento: null })
-  }, [est, semResultado, momento, despachar])
+    if (quadroDaBusca && momento !== quadroDaBusca) despachar({ tipo: 'ir', tela: 'T06', momento: quadroDaBusca })
+    else if (!quadroDaBusca && DA_BUSCA.includes(momento)) despachar({ tipo: 'ir', tela: 'T06', momento: null })
+  }, [est, quadroDaBusca, momento, despachar])
 
   // O voltar do Android (logica.md): o link de saída do rodapé — na lista, na
   // busca sem resultado, no chassi divergente e na correção pedida (00, 08, 02,
@@ -124,16 +135,18 @@ export default function T06({ momento, estado: est }) {
 
   let miolo, rodape
   if (!ativo) {
-    // ── 00 · a lista do pacote · 08 · a busca sem resultado ──
+    // ── 00 · a lista do pacote · 08 · a busca sem resultado · 09 · a busca que esconde o marcado ──
+    // com um termo na busca, a instrução sai, e embaixo do campo fica o que ela achou (a 08 e a 09)
+    const buscando = busca.trim() !== ''
     miolo = (
       <>
         <CabecalhoConteudo titulo="Selecionar ativo" contagem={contagemDoPacote(unico.contexto, uoId)} unidade="no pacote" />
-        <Busca dica="Buscar placa, frota ou módulo" valor={busca} aoMudar={buscar} focado={semResultado} />
+        <Busca dica="Buscar placa, frota ou módulo" valor={busca} aoMudar={buscar} focado={semResultado || esconde} />
         {semResultado ? (
           <Vazio titulo={nadaCom(busca.trim())} frase="Confira a placa, ou busque pela frota." />
         ) : (
           <>
-            <span className="t06-instrucao">Escolha o veículo que está na sua frente.</span>
+            {!buscando && <span className="t06-instrucao">Escolha o veículo que está na sua frente.</span>}
             <Lista className="t06-lista">
               {lista.map((a, i) => (
                 <LinhaOnibus key={a.id} placa={a.placa} modelo={modeloDe(a).nome} rotuloFrota="FROTA" frota={a.frota}
