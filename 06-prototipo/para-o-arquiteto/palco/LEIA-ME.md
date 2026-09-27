@@ -70,7 +70,7 @@ Nos documentos gerados, onde uma linha sua voltou ao lado de uma anotação noss
 - em **1**, uma linha sua saiu do pacote: na T10, *passo seguinte: o horímetro, ou a rotação e a velocidade no caminhão coletor*. A nossa emenda dela ficou numa nota. Saiu de propósito?
 - em **35**, a nossa só diz mais — o caso do mock, a semente, o que o leitor de tela ouve. A sua vale.
 
-Os 55, com as duas versões lado a lado, estão no `diferencas-para-o-arquiteto.md`, na raiz, na seção *A moldura e a barra*.
+Os 55, com as duas versões lado a lado, estão no `06-prototipo/para-o-arquiteto/diferencas.md`, na seção *A moldura e a barra*.
 
 Nas 19, a nossa é o que o protótipo faz hoje. **Preciso da sua decisão em cada uma: vale a sua, e o protótipo muda; ou vale a nossa, e o seu documento muda.**
 

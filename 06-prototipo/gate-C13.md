@@ -14,7 +14,7 @@
   - os espécimes: `app/prints/tmp/c12/especimes-depois.json` (127)
   - o palco: `app/prints/linha-de-base-palco.json` (21 peças)
   - os textos: os logs do fechamento do C12, `app/prints/tmp/c12/fecho/textos-T*.log`
-- **os documentos onde um desvio mora:** o `CHANGELOG.md`, o `diferencas-para-o-arquiteto.md`, a `tela.md` e a `estados.md` de cada tela (as anotações *no protótipo*), os gates (as G do C0, as C12·n do C12) e a `decisoes-do-diretor.md`
+- **os documentos onde um desvio mora:** o `CHANGELOG.md`, o `para-o-arquiteto/diferencas.md`, a `tela.md` e a `estados.md` de cada tela (as anotações *no protótipo*), os gates (as G do C0, as C12·n do C12) e a `decisoes-do-diretor.md`
 
 ## Como foi medido
 
@@ -295,7 +295,7 @@ Uma régua pesada de cada vez, com o dev server em :5173 e os dois fotógrafos n
 1. **a régua dos textos na T01/18, na T04/12 e na T04/13:** o `textos.md` lista a tela atrás do diálogo, e a régua não lê o que fica inerte atrás do véu · escrito na `tela.md` da T01 (junto do diálogo de outra sessão) e na da T04 (junto do h1 *Menu*) · pro arquiteto: os três `textos.md` no jeito dos outros diálogos, ou a régua ler o fundo nesses três
 2. **a pausa do Lucide** (T16/04, T16/06 e o espécime *parou aqui* da folha 4): o `Pause` são dois retângulos, e as referências desenham dois traços à mão · escrito na `tela.md` da T16 · pro arquiteto: aceitar a pausa do Lucide, ou a folha 3 nomear o ícone
 
-Os dois estão também no `CHANGELOG.md` (*2026-09-27 · C13, a auditoria de fidelidade*) e no `diferencas-para-o-arquiteto.md` (*O C13, a auditoria*).
+Os dois estão também no `CHANGELOG.md` (*2026-09-27 · C13, a auditoria de fidelidade*) e no `para-o-arquiteto/diferencas.md` (*O C13, a auditoria*).
 
 ## O que não faz sentido
 
@@ -305,7 +305,7 @@ Os dois estão também no `CHANGELOG.md` (*2026-09-27 · C13, a auditoria de fid
 ## O que fica sem resolver
 
 - **as respostas que já estavam com o arquiteto e com o diretor**, e que a auditoria mediu iguais: a tinta da escolhida (T02/07 e 08), o fundo das folhas e dos diálogos (G25), o menu com ou sem rede (G9, o diretor), a referência nova da T07/03, o marcador da T14/05, os dois segmentos da T10/02, as etapas da i-02 (T12/04 e 05), o *2 de 4* da T13/09, o recorte da T15/01, e o quadro aceso com o texto subindo meio pixel (C12·22)
-- **o `CLAUDE.md` da raiz diz 294 tokens**, e o `tokens.css` tem 295 desde o `--mov-fator` do C12: a linha é do diretor (anotado no `diferencas-para-o-arquiteto.md` · *A empresa sempre antes*)
+- **o `CLAUDE.md` da raiz diz 294 tokens**, e o `tokens.css` tem 295 desde o `--mov-fator` do C12: a linha é do diretor (anotado no `para-o-arquiteto/diferencas.md` · *A empresa sempre antes*)
 
 ## Está pronto quando
 
@@ -316,5 +316,5 @@ Os dois estão também no `CHANGELOG.md` (*2026-09-27 · C13, a auditoria de fid
 - [x] **Os 5 quadros fotografados, com o relatório.** **Feito:** 21 peças, nenhuma pior que a base, 38 de 38 na moldura, 5 textos sem falha, e o palco em sete janelas; `app/prints/tmp/c13/palco.log`, `provas-palco.log` e `larguras.log`
 - [x] **Os textos das 16 telas.** **Feito:** as mesmas 31 do C12, cada uma com o desvio e o lugar onde ele mora
 - [x] **Zero diferença sem desvio nomeado.** **Feito:** as 106 referências com diferença, as 31 dos textos, os 52 espécimes acima de 0 e as 17 peças do palco acima de 0 — cada uma com o nome e onde ele está escrito. Ganharam nome agora: as três dos textos atrás do diálogo e a pausa do Lucide
-- [x] **A documentação segue o código:** a `tela.md` da T01, da T04 e da T16, o `CHANGELOG.md`, o `diferencas-para-o-arquiteto.md` e este gate
+- [x] **A documentação segue o código:** a `tela.md` da T01, da T04 e da T16, o `CHANGELOG.md`, o `para-o-arquiteto/diferencas.md` e este gate
 - [x] **`npm run checar`, `npm run build` e o gate do mock aprovam**, no fim. O commit fica com o diretor (nenhum `git` nesta tarefa)

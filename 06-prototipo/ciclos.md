@@ -59,6 +59,7 @@ Em cada ciclo de tela entram também os acréscimos do mock que as telas dele le
 ### C14 · No ar
 - **entra:** o build de produção, a prévia local e a publicação na Vercel — **com o ok do diretor**, porque é publicação
 - **está pronto quando:** o link público abrindo no computador e no celular, com a etiqueta da versão
+- **no protótipo (27/09):** a publicação veio antes, em 25/09, com o ok do diretor, e cada ciclo desde então subiu com um push. O C14 ficou com o fecho: o `README.md` na raiz (o GIF do caminho do herói, o link sem senha, como rodar), o `LEIA-PRIMEIRO.md` apontando pra ele, os relatórios pro arquiteto juntos em `06-prototipo/para-o-arquiteto/`, e a `08-produto-real/` pelo critério combinado com o arquiteto (fica o que é útil ao dev e não está em outro lugar: os cinco arquivos, sem o jeito de pergunta pro PM) · `gate-C14.md`
 
 ## Ao fim de cada ciclo
 

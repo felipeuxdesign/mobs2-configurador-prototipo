@@ -85,6 +85,13 @@ const app = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const BASE = process.env.BASE || 'http://localhost:5173/'
 const SAIDA = resolve(app, 'prints/caminho'); mkdirSync(SAIDA, { recursive: true })
 const W = 360, H = 800
+// A gravação do README (C14): GRAVA=<pasta> grava a tela enquanto o roteiro anda (o
+// screencast do Chrome: um quadro a cada vez que a página muda, com a hora dele), e
+// GRAVA_JANELA=1280x900 abre o palco no computador, com a moldura. No fim, a pasta tem os
+// quadros e um indice.json (a hora de cada um e o retângulo do celular), que o
+// scripts/gif.py monta no GIF. Sem GRAVA, nada muda na régua.
+const GRAVA = process.env.GRAVA ? resolve(process.env.GRAVA) : null
+const [GW, GH] = (process.env.GRAVA_JANELA || '').split('x').map(Number)
 
 // o Chrome: o do fotógrafo, pelo arquivo que o Chrome escreve no perfil; senão, um próprio
 async function conectar() {
@@ -429,7 +436,21 @@ async function roda(nome) {
   const { sessionId: s } = await cdp('Target.attachToTarget', { targetId, flatten: true })
   await cdp('Page.enable', {}, s); await cdp('Runtime.enable', {}, s)
   await cdp('Emulation.setFocusEmulationEnabled', { enabled: true }, s)
-  await cdp('Emulation.setDeviceMetricsOverride', { width: W, height: H, deviceScaleFactor: 1, mobile: false }, s)
+  await cdp('Emulation.setDeviceMetricsOverride', { width: GW || W, height: GH || H, deviceScaleFactor: 1, mobile: false }, s)
+  const quadros = []
+  let grava = null
+  if (GRAVA) {
+    rmSync(GRAVA, { recursive: true, force: true }); mkdirSync(GRAVA, { recursive: true })
+    grava = (m) => {
+      if (m.sessionId !== s || m.method !== 'Page.screencastFrame') return
+      const n = quadros.length
+      writeFileSync(resolve(GRAVA, `q${String(n).padStart(5, '0')}.jpg`), Buffer.from(m.params.data, 'base64'))
+      quadros.push({ n, t: m.params.metadata.timestamp })
+      cdp('Page.screencastFrameAck', { sessionId: m.params.sessionId }, s).catch(() => {})
+    }
+    ouvintes.add(grava)
+    await cdp('Page.startScreencast', { format: 'jpeg', quality: 95, everyNthFrame: 1 }, s)
+  }
   // o teclado por cima da página (o Safari do iPhone): um visualViewport de mentira, que acompanha a janela
   // e encolhe no { sobreposto } — o Chrome não tem como emular isso
   if (passos.some((p) => p.sobreposto !== undefined)) await cdp('Page.addScriptToEvaluateOnNewDocument', { source: VV_DE_MENTIRA }, s)
@@ -452,7 +473,17 @@ async function roda(nome) {
         break
       }
     }
-  } finally { ouvintes.delete(ouve); await cdp('Target.closeTarget', { targetId }).catch(() => {}) }
+  } finally {
+    ouvintes.delete(ouve)
+    if (GRAVA) {
+      await dorme(600)
+      const celular = await cdp('Runtime.evaluate', { expression: `JSON.stringify((document.querySelector('.celular') || document.body).getBoundingClientRect())`, returnByValue: true }, s).catch(() => null)
+      await cdp('Page.stopScreencast', {}, s).catch(() => {}); ouvintes.delete(grava)
+      writeFileSync(resolve(GRAVA, 'indice.json'), JSON.stringify({ roteiro: nome, janela: [GW || W, GH || H], celular: celular ? JSON.parse(celular.result.value) : null, quadros }, null, 1))
+      console.log(`gravados ${quadros.length} quadros em ${GRAVA}`)
+    }
+    await cdp('Target.closeTarget', { targetId }).catch(() => {})
+  }
   writeFileSync(resolve(SAIDA, `${nome}-movimento.json`), JSON.stringify(registro, null, 1))
   const seg = ((performance.now() - t0) / 1000).toFixed(1)
   console.log(falhou ? `${nome}: PAROU no passo ${falhou.passo} de ${passos.length} (${seg} s)` : `${nome}: OK, ${passos.length} passos (${seg} s)`)

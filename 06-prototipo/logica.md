@@ -102,7 +102,7 @@ A fila é **do aparelho**, não da unidade: a HU-T01-4 diz que a fila de outro u
 
 - **a fila, num lugar só:** a do mock mais o que a sessão criou, cada item como está (`app/src/estado/fila.js`). A T15 e o menu leem dali, e o item conta igual nas duas
 - **`Ressincronizar e reenviar`:** os itens com erro do cartão voltam pra fila — o id entra em `reenviados`, no estado único, e o item passa a *na fila*; o mock fica intocado. O cartão que pede ação sai, porque nada mais precisa do técnico, e a lista sobe pra baixo do cabeçalho, com o item esperando desde o `criadoAs` (na semente, *KJC-7N23 · na fila · há 145 min*). Nenhum vira o *SUBINDO AGORA*: o progresso e o tamanho só existem no f-04 do mock (G25). O contador da T15 não muda; no menu, o diálogo *Sair da conta* vai de 3 pra 4 (T04·1). Sair da tela não desfaz (HU-T15-2), e o `Recomeçar do login` e o pulo do palco zeram
-- **a notificação da fila parada** (*Envio parado · 3 itens esperando há 30 min*, HU-T15-6) não se constrói: nenhuma referência a desenha, e ela é do sistema, fora da tela. Os 30 min são o padrão até o PM definir (`pendencias.md`)
+- **a notificação da fila parada** (*Envio parado · 3 itens esperando há 30 min*, HU-T15-6) não se constrói: nenhuma referência a desenha, e ela é do sistema, fora da tela. Os 30 min são o padrão adotado (`pendencias.md`)
 - **no protótipo, a fila do aparelho** (a última entrega, decisão 42): o rótulo *neste aparelho* nas cinco; no fluxo, a seleção da semente mais tudo o que a sessão criou, de qualquer unidade (o filtro pela unidade ativa saiu, `app/src/telas/T15/dados.js`); em cada estado, o recorte do caso inteiro — no `01`, os cinco, com a quinta linha embaixo de onde a referência corta. *A fila do mock inteira* é lida como o recorte inteiro de cada quadro: os dez de `filaSaida` juntos dariam dois erros e um envio correndo ao mesmo tempo, que nenhuma referência desenha (padrão, pro arquiteto). O recebido de mais de um dia diz o dia, do `data` do mock: *10/03, 10:05*. O `03` e o `04` leem o caso `fila-vazia`, do design, com o *14:02*
 - **o menu e a fila do aparelho:** o cartão *Fila de saída* do menu conta os pendentes da unidade ativa, e o diálogo *Sair da conta*, a fila do mock inteira (Os contadores do menu). Com a decisão 42, o *da unidade ativa* do cartão ficou sem razão — a regra é da T04, e não mudou aqui
 
@@ -366,7 +366,7 @@ Todo lugar do protótipo tem endereço: `?tela=T07` abre a tela · `?tela=T07&es
 
 ## O que é provisório
 
-Pendências que não são de desenho seguem um padrão até o PM decidir — a lista e o padrão de cada uma estão em `08-produto-real/pendencias.md`. Se o padrão mudar, é uma linha.
+O que não é de desenho e o produto ainda decide segue um padrão — a lista e o padrão de cada um estão em `08-produto-real/pendencias.md`. Se o padrão mudar, é uma linha.
 
 ## Como se chega em cada momento
 

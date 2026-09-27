@@ -1,6 +1,6 @@
 # A stack, a definir
 
-A stack do produto está sendo decidida com o PM. **Nada nesta pasta depende dela:**
+A stack do produto é do time que vai construí-lo. **Nada nesta pasta depende dela:**
 
 - os tokens estão em `tokens.css`, e o `tokens.json` é gerado dele, em formato neutro — qualquer stack lê
 - os textos estão em `textos.md`, prontos pra virar arquivo de tradução

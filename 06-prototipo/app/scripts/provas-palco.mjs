@@ -29,7 +29,7 @@
 //   node scripts/provas-palco.mjs fotos        → só as fotos e o lado a lado
 //   node scripts/provas-palco.mjs texto        → só reescreve o palco-provas.txt do json
 // Saída: prints/tmp/relatorios/palco-provas.json e palco-provas.txt, as fotos em
-// prints/provas-palco/ e o lado a lado em ../../para-o-arquiteto-palco/.
+// prints/provas-palco/ e o lado a lado em ../para-o-arquiteto/palco/.
 // Usa o Chrome do fotógrafo (o de escala 1, pra a foto sair a 1×), numa aba própria,
 // como o scripts/caminho.mjs; sem fotógrafo, abre um Chrome headless só pra isto.
 import { spawn, execFileSync } from 'node:child_process'
@@ -603,7 +603,7 @@ try {
   ws.close(); fechar()
 }
 
-// o lado a lado (Python, PIL): lê as fotos e as referências e grava em para-o-arquiteto-palco/
+// o lado a lado (Python, PIL): lê as fotos e as referências e grava em 06-prototipo/para-o-arquiteto/palco/
 if (modo === 'tudo' || modo === 'fotos') {
   writeFileSync(resolve(FOTOS, 'medidas.json'), JSON.stringify({ palco: resultado.palco, fotos: resultado.fotos, barra: resultado.barra?.resumo }, null, 1))
   try {

@@ -10,7 +10,7 @@ As perguntas que os ciclos deixaram, cada uma com o padrão que o protótipo ado
 - **T10 · o voltar no meio do semear: (b).** O semear grava no módulo e não para: nos 2 s de *Gravando no módulo…* e *Relendo…*, o *Voltar ao menu* e o voltar do Android não fazem nada, como a releitura da T08
 - **o celular deitado (regra 11): (a).** O celular de 360 × 800 no centro, sem girar
 - **o zoom do celular no palco:** depois de o protótipo subir na Vercel · **decidido pelo diretor (26/09): o zoom morre** — o celular fica no tamanho real e só diminui pra caber numa janela pequena, nunca cresce (ver *O palco*, abaixo)
-- **as outras perguntas** ficam no padrão (a), até o diretor dizer outra coisa · o que muda desenho vai ao arquiteto (para-o-arquiteto-alinhamento.md, na raiz)
+- **as outras perguntas** ficam no padrão (a), até o diretor dizer outra coisa · o que muda desenho vai ao arquiteto (06-prototipo/para-o-arquiteto/alinhamento.md)
 
 ## Publicar
 

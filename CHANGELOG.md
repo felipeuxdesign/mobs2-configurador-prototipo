@@ -1,5 +1,15 @@
 # Registro de mudanças
 
+## 2026-09-27 · C14, o fecho · o README, a raiz arrumada e as notas pro dev
+
+- **o `README.md` na raiz:** o GIF do caminho do herói no topo (do login à cadeia gravada, gravado do protótipo rodando, `05-recursos/readme/caminho-do-heroi.gif`), o link do protótipo sem senha, o que é o produto, o palco, os números, como foi feito, a pasta, como rodar no computador e o que é do dev
+- **a gravação pela régua:** o `caminho.mjs` grava a tela com `GRAVA=<pasta>` (e `GRAVA_JANELA`, o palco com a moldura), e o `scripts/gif.py` monta o GIF (os quadros do screencast num ritmo fixo, recortados no celular, com uma paleta só; começa no login desenhado) · o roteiro novo `readme.mjs` anda o começo do caminho do herói no ritmo de quem olha e aprova (56 passos)
+- **o `LEIA-PRIMEIRO.md` aponta pro README** (a regra do arquiteto); as pastas de 01 a 07 seguem a fonte
+- **a raiz arrumada:** os relatórios pro arquiteto foram pra `06-prototipo/para-o-arquiteto/` — o `diferencas-para-o-arquiteto.md` agora é `06-prototipo/para-o-arquiteto/diferencas.md`, e os `para-o-arquiteto-*` e a pasta do palco estão ao lado dele · as referências vivas acompanham; as das entradas de baixo ficam como estavam, o registro de quando foram escritas
+- **a `08-produto-real/`, pelo critério combinado** (fica o que é útil ao dev e não está em outro lugar): os cinco arquivos ficam, como notas pro dev · sai o jeito de pergunta pro PM (*as pendências* viram *o que o produto ainda decide*, com o padrão do protótipo; a stack *é do time que vai construí-lo*), e a `logica.md` acompanha
+- **a etiqueta do palco:** C14 · 2026-09-27
+- o gate: `06-prototipo/gate-C14.md`
+
 ## 2026-09-27 · C13, a auditoria de fidelidade
 
 A régua inteira, uma de cada vez, contra as bases do C12 e da empresa antes da unidade: as 147 referências, os textos das 16 telas, os 127 espécimes das 8 folhas e os 5 quadros do palco, com o palco em sete janelas. **Zero diferença sem desvio nomeado.** O gate está em `06-prototipo/gate-C13.md`, com a tabela das 147 e o lugar onde mora o nome de cada diferença; os logs, em `06-prototipo/app/prints/tmp/c13/`.

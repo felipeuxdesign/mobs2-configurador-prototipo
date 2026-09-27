@@ -1,8 +1,8 @@
 # As pendências
 
-Perguntas que **não são de desenho** e estão com quem decide. Enquanto não voltarem, o protótipo segue o padrão ao lado — e mudar é uma linha.
+O que **não é de desenho** e o produto ainda decide. O protótipo seguiu o padrão ao lado de cada linha, e mudar é uma linha.
 
-## Com o PM
+## O que o produto ainda decide
 
 | Onde | A pergunta | Enquanto isso |
 |---|---|---|
