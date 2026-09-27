@@ -16,6 +16,7 @@ export const RITMOS = {
   sincronizacaoTotalMs: 4000, // sincronização do pacote · 4 s no total
   cronometroCodigoMs: 1000,   // cronômetro do código (T01) · 1 s real vale 1 s de prazo e de reenvio (T01·1)
   releituraSinalMs: 600,      // releitura da CAN (T08) · cada sinal que responde (G4, T08-D5 · C8)
+  leituraCanSinalMs: 600,     // leitura da CAN (T07) · cada sinal que chega, na chegada da T06 e no Ler novamente, na ordem da tela (C12·30 a: o ritmo da releitura da T08)
   semearGravandoMs: 1000,     // semear da calibração (T10) · Gravando no módulo… (T10 animacao.md, a entrega de 25/09)
   semearRelendoMs: 1000,      // semear da calibração (T10) · Relendo…, e aí o tambor rola e a tela vira o semeado ou o não confere
   // busca da T05 · a busca de novo (o Procurar de novo, a otimização do design): o quadro da busca da

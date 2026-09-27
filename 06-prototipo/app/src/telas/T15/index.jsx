@@ -29,10 +29,11 @@
 // · A notificação local da fila parada (HU-T15-6, o tela.md de 25/09) não se
 //   constrói: nenhuma referência a desenha, e ela é do sistema, fora da tela.
 // · Sem processo que ande sozinho: o envio da fila não tem ritmo declarado
-//   (G4), e o 01 é estado, parado. O movimento (a barra que enche, o item que
-//   esmaece, o cartão que sai) é do C12.
+//   (G4), e o 01 é estado, parado. O cartão que sai no Ressincronizar se move
+//   (C12·10, abaixo); a barra que enche e o item enviado que esmaece esperam o
+//   ritmo do envio (C12·14).
 import {
-  BarraDoSistema, Faixa, CabecalhoConteudo, CartaoAcao, Lista, LinhaFila, LinhaRechecagem, Vazio, Rodape,
+  BarraDoSistema, Faixa, CabecalhoConteudo, CartaoAcao, Lista, LinhaFila, LinhaRechecagem, Vazio, Rodape, useReorganiza,
 } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
@@ -52,6 +53,12 @@ export default function T15({ estado: est }) {
   const { estado: unico, despachar } = useEstado()
   const quadro = (est && quadroDoEstado(est)) || quadroDoFluxo(unico)
   const { total, erros, enviando, lista } = grupos(quadro.itens)
+  // O Ressincronizar e reenviar muda o que está na tela, no lugar (C12·10 e C12·9, a direção de
+  // movimento de 27/09): o layout vai direto pro fim; o cartão que pede ação sai esmaecendo por
+  // cima, o rótulo e a lista sobem do lugar de antes ao novo, e os itens que voltam pra fila
+  // esmaecem no lugar deles (src/ds/linhas/Reorganiza.js). A chave é o que a fila mostra. O envio
+  // não anda (sem ritmo declarado, C12·14): nada mais muda sozinho
+  const lugar = useReorganiza(`${erros.map((f) => f.id).join()}|${lista.map((f) => `${f.id}:${f.estado}`).join()}`)
 
   // a sessão: no fluxo, a do estado único; no 01 e no 02, a do herói (as
   // referências desenham M2C-0417 · RKT-8H42); no 03 e no 04, nenhuma (o caso
@@ -112,7 +119,7 @@ export default function T15({ estado: est }) {
     <div className="t15">
       <BarraDoSistema hora={M.HORA_NOMINAL} fundo="faixa" />
       {faixa}
-      <div className="tela-miolo">
+      <div ref={lugar} className="tela-miolo">
         <CabecalhoConteudo titulo={T.titulo} contagem={total} unidade={T.nesteAparelho} />
         {total === 0 && <Vazio titulo={T.vazio} frase={quadro.ultimoEnvioAs ? T.ultimoSubiu(quadro.ultimoEnvioAs) : undefined} />}
         {cartao}

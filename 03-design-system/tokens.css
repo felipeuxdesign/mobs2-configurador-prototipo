@@ -308,7 +308,7 @@
   --rolagem-minimo: 32px;     /* a altura mínima do indicador, numa lista muito longa */
   --rolagem-cor: var(--tinta-apagada); /* a cor do indicador */
   --rolagem-espera: 900ms;    /* quanto o indicador fica depois que a rolagem para, antes de sumir (não é movimento: não zera no reduzir) */
-  --camada-sistema: 2;        /* o que é do sistema fica por cima do app: o indicador de rolagem */
+  --camada-sistema: 2;        /* o que é do sistema fica por cima do app: o indicador de rolagem, e a barra do sistema, que a faixa que desce e a que sobe passam por baixo (C12·24, C12·25) */
 
   /* ── C7 · C9 · o que a T05 (os estados) e a T09 pediram (cada um com o papel e quem usa) ── */
   --linha-precheck-fim-parada: 45px; /* a última linha da pré-checagem que terminou numa falha ou parou no caso, com a folga do pé do cartão (T05/06–09, 11, 12, 14, 15) · LinhaChecagem (folgaFim 'pre-checagem-parada') */
@@ -339,6 +339,7 @@
   --entrelinha-frase-caixa: 1.45; /* a frase de 13 embaixo do rótulo, nas caixas do fim da sessão: o que não rodou (NÃO RODARAM, T16/04) e o que ficou bloqueado (A HOMOLOGAÇÃO FICA BLOQUEADA, T16/05) · Nota (corpo pulado), Aviso (bloqueio) */
 
   /* ── C12 · o movimento fino (cada um com o papel e quem usa; o que zera no reduzir vai também no bloco do reduzir, embaixo) ── */
+  --mov-fator: 1; /* o fator do movimento que segue um processo: o trecho dura o passo do processo (o ritmo, de ritmos.js) vezes ele — 1, e 0 no reduzir: a barra salta pro valor de cada passo, e o processo segue no mesmo ritmo (C12·15, C12·40) · Escala (segue): a baixa da T03, o prazo da T14 (Prazo) e o envio da T15 */
 
   /* ── a entrega do design de 24/09 · a espera do reenvio da T01 ── */
   --n-espera: 15px; /* a contagem do reenvio no lugar da seta, na linha de opção que espera (T01/04: 0:44, tabular, 700) · LinhaDeOpcao (espera) */
@@ -367,7 +368,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  :root { --mov-rapido: 0ms; --mov-padrao: 0ms; --mov-lento: 0ms; --mov-solta: 0ms; --mov-escalonar-lista: 0ms; --mov-escalonar-tambor: 0ms; }
+  :root { --mov-rapido: 0ms; --mov-padrao: 0ms; --mov-lento: 0ms; --mov-solta: 0ms; --mov-escalonar-lista: 0ms; --mov-escalonar-tambor: 0ms; --mov-fator: 0; }
 }
 
 body {

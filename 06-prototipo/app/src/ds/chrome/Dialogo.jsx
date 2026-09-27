@@ -14,17 +14,21 @@
 // o Encerrar sem homologar?, T04/13 e por cima de cada tela com a faixa; outro
 // usuário no aparelho, T01/18, sobre a T02), dentro do Veu (de 'dialogo'). Nasce esmaecendo e crescendo de 98% a 100% em 150ms.
 // Pro leitor (G15): diálogo modal, com o nome no título que já se vê.
-import { useId } from 'react'
+import { useContext, useId } from 'react'
 import { Primario } from '../primitivos/Primario.jsx'
 import { Link } from '../primitivos/Link.jsx'
 import { Checkbox } from '../primitivos/Checkbox.jsx'
+import { PresencaPorCima } from './PorCima.jsx'
 import './Dialogo.css'
 
 export function Dialogo({
   titulo, children, primario, aoPrimario, primarioDesabilitado = false, rotuloPrimario,
   saida, aoSair, saidaDe44 = false, ciencia, ciente = false, aoMudarCiencia,
-  margem = 16, aberto = true,
+  margem = 16, aberto: abertoDaTela,
 }) {
+  // aberto: a tela diz, ou, sem ela, a presença em volta (PorCima.jsx); sem nenhuma das duas, aberto
+  const presenca = useContext(PresencaPorCima)
+  const aberto = abertoDaTela ?? presenca?.aberta ?? true
   const id = useId()
   const esperaCheck = Boolean(ciencia) && !ciente
   return (
@@ -34,13 +38,17 @@ export function Dialogo({
         {children}
         {ciencia && <Checkbox marcado={ciente} aoMudar={aoMudarCiencia}>{ciencia}</Checkbox>}
         <div className={`ds-dialogo-acoes ${saidaDe44 ? 'ds-dialogo-acoes-44' : ''}`}>
-          <Primario desabilitado={primarioDesabilitado || esperaCheck} aoTocar={aoPrimario} rotulo={rotuloPrimario}>{primario}</Primario>
+          {/* C12·8 · no diálogo com ciência, o primário que espera o check acende por uma camada quando ele é marcado */}
+          <Primario desabilitado={primarioDesabilitado || esperaCheck} aoTocar={aoPrimario} rotulo={rotuloPrimario} acende={Boolean(ciencia)}>{primario}</Primario>
           {saida && <Link aoTocar={aoSair}>{saida}</Link>}
         </div>
       </div>
     </div>
   )
 }
+
+// a peça que o PorCima reconhece: o diálogo nasce no meio (a folha sobe do pé)
+Dialogo.porCima = 'dialogo'
 
 // a frase do diálogo: 14/500 em --tinta-forte
 export function Frase({ children }) {

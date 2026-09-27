@@ -10,7 +10,9 @@
 //
 // Os passos:
 //   { abre: '?tela=T01' }                  abre o protótipo nesse endereço (fora do print: os processos correm)
-//   { toca: 'Entrar' }                     toca no tocável com esse nome (o exato; senão, o que começa por ele)
+//   { toca: 'Entrar' }                     toca no tocável com esse nome (o exato; senão, o que começa por ele);
+//                                          se ele ainda anda até o lugar (a faixa que desce, C12·24) e está
+//                                          coberto no caminho, o dedo espera ele chegar, até 1 s
 //   { marca: 'M2C-0417' }                  o mesmo que toca, pra ler melhor no roteiro de escolha (R-14)
 //   { digita: 'abc12345', em: 'Senha' }    escreve no campo com esse rótulo, no lugar do que tinha
 //   { tecla: 'Escape' }                    aperta a tecla (o Esc é o voltar do Android, logica.md)
@@ -61,10 +63,17 @@
 // em prints/caminho/<roteiro>-movimento.json, e acusa com ⚠ o que a lei proíbe (animar
 // outra coisa que transform e opacity, ou em loop).
 //   { toca: 'X', anima: [{ prop: 'opacity', ms: 150, curva?, atraso?, em? }] }   o toque tem de começar isso
-//   { anima: [...] }                        o que está animando agora (depois de um dorme, num processo)
+//   { toca: 'X', naoAnima: [{ prop: 'opacity', em: 'ds-primario-desabilitado' }] }   o toque NÃO pode começar isso
+//                                          (o roxo do pressionado que solta por cima do desabilitado, C12·18); o
+//                                          mesmo formato do anima, e junto com ele, se precisar
+//   { anima: [...] } · { naoAnima: [...] }  o que está animando agora (depois de um dorme, num processo), ou não
 //   { quieto: true }                        nada animando agora (a tela abre sem animar a entrada)
 //   { reduzir: true } · { reduzir: false }  liga e desliga o prefers-reduced-motion (com ele, toda duração é zero), e espera 400 ms
 //                                          pro que o toque anterior começou acabar
+//   { marcaLugar: true }                    guarda onde está cada texto do celular (cada trecho de texto e cada campo, pelo
+//                                          getBoundingClientRect): o estado muda o conteúdo, nunca o desenho (C12·22)
+//   { mesmoLugar: true }                    nada do que já estava no marcaLugar saiu do lugar (a 0,01 px) nem mudou de tamanho;
+//                                          o texto que é novo, ou que trocou, não conta (é o conteúdo que muda)
 // Fora do celular (a vitrine, ?vitrine=1), a régua procura na página inteira.
 import { spawn } from 'node:child_process'
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs'
@@ -198,6 +207,14 @@ function confere(esperado, vistas, onde) {
   }
 }
 
+// o que o roteiro diz que não pode animar (C12·18: o roxo por cima do desabilitado)
+function confereNao(proibido, vistas, onde) {
+  for (const e of proibido) {
+    const achou = vistas.find((a) => a.props.includes(e.prop) && (e.ms === undefined || Math.abs(a.ms - e.ms) <= 1) && (e.em === undefined || a.em.includes(e.em)))
+    if (achou) throw new Error(`${onde}: não podia animar ${JSON.stringify(e)}; animou ${achou.em} ${achou.props.join('+')} ${achou.ms}ms`)
+  }
+}
+
 async function passo(s, p) {
   const ms = p.ms ?? 15000
   if (p.abre !== undefined) {
@@ -229,15 +246,21 @@ async function passo(s, p) {
   if (p.toca !== undefined || p.marca !== undefined) {
     const alvo = p.toca ?? p.marca
     await espera(() => na(s, `const e = P.acha(${JSON.stringify(alvo)}); return !!e && !P.desligado(e) || (e ? 'está desligado' : 'não achei')`), ms, `toca "${alvo}"`, p.entre)
-    const c = await na(s, `const e = P.acha(${JSON.stringify(alvo)}); e.scrollIntoView({ block: 'center' }); const r = e.getBoundingClientRect();
+    const mira = () => na(s, `const e = P.acha(${JSON.stringify(alvo)}); e.scrollIntoView({ block: 'center' }); const r = e.getBoundingClientRect();
       const x = r.left + r.width / 2, y = r.top + r.height / 2, em = document.elementFromPoint(x, y);
-      return { x, y, cobre: em && !e.contains(em) && !em.contains(e) ? (em.className || em.tagName) + ' · ' + P.nome(em) : null }`)
+      let anda = false; for (let a = e; a && !anda; a = a.parentElement) anda = a.getAnimations().some((n) => n.playState === 'running')
+      return { x, y, anda, cobre: em && !e.contains(em) && !em.contains(e) ? (em.className || em.tagName) + ' · ' + P.nome(em) : null }`)
+    // o tocável que ainda anda até o lugar dele — o ENCERRAR da faixa que desce por baixo da barra (C12·24) —
+    // pode estar coberto no caminho: o dedo espera ele chegar (até 1 s) antes de dizer que está coberto
+    let c = await mira()
+    for (let i = 0; c.cobre && c.anda && i < 50; i++) { await dorme(20); c = await mira() }
     if (c.cobre) throw new Error(`toca "${alvo}": o centro dele está coberto por ${c.cobre}`)
     for (const type of ['mouseMoved', 'mousePressed', 'mouseReleased']) await cdp('Input.dispatchMouseEvent', { type, x: c.x, y: c.y, button: 'left', clickCount: 1 }, s)
     // o que o toque começou: dois quadros depois, pra o React desenhar e a transição nascer
     const vistas = await na(s, `return new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(() => r(P.anims()))))`)
     registro.push({ passo: `toca ${alvo}`, anims: vistas })
     if (p.anima) confere(p.anima, vistas, `toca "${alvo}"`); else avisaLei(vistas, `toca "${alvo}"`)
+    if (p.naoAnima) confereNao(p.naoAnima, vistas, `toca "${alvo}"`)
     return
   }
   if (p.arrasta !== undefined) {
@@ -277,7 +300,8 @@ async function passo(s, p) {
     if (p.anima) confere(p.anima, vistas, `toca fora de "${p.tocaFora}"`); else avisaLei(vistas, `toca fora de "${p.tocaFora}"`)
     return
   }
-  if (p.anima !== undefined) { const vistas = await na(s, `return P.anims()`); registro.push({ passo: 'anima', anims: vistas }); return confere(p.anima, vistas, 'anima') }
+  if (p.anima !== undefined) { const vistas = await na(s, `return P.anims()`); registro.push({ passo: 'anima', anims: vistas }); confere(p.anima, vistas, 'anima'); if (p.naoAnima) confereNao(p.naoAnima, vistas, 'anima'); return }
+  if (p.naoAnima !== undefined) { const vistas = await na(s, `return P.anims()`); registro.push({ passo: 'não anima', anims: vistas }); avisaLei(vistas, 'não anima'); return confereNao(p.naoAnima, vistas, 'não anima') }
   if (p.quieto !== undefined) {
     const vistas = await na(s, `return P.anims()`)
     if (vistas.length) throw new Error(`quieto: está animando ${vistas.map((a) => `${a.em} ${a.props.join('+')} ${a.ms}ms`).join(' · ')}`)
@@ -364,6 +388,27 @@ async function passo(s, p) {
     if (p.ouve !== undefined) return espera(() => na(s, `return ${nomes}.some((n) => n.includes(${JSON.stringify(p.ouve)}))`), ms, `ouve "${p.ouve}"`, p.entre)
     return espera(() => na(s, `const n = ${nomes}.filter((n) => n.includes(${JSON.stringify(p.naoOuve)})); return !n.length || n.length + ' nome(s) dizem isso'`), ms, `não ouve "${p.naoOuve}"`, p.entre)
   }
+  // o lugar de cada texto (C12·22: o foco, o escolhido e a falha trocam a cor, nunca o tamanho do poço):
+  // cada trecho de texto e cada campo que já estava no celular, guardado pelo nó; o que é novo não conta,
+  // e o que trocou de texto também não (o conteúdo muda; o desenho, não)
+  if (p.marcaLugar !== undefined || p.mesmoLugar !== undefined) {
+    const LUGAR = `const lugar = (n) => { let b; if (n.nodeType === 3) { const r = document.createRange(); r.selectNodeContents(n); b = r.getBoundingClientRect() } else b = n.getBoundingClientRect()
+        return { t: P.limpa(n.nodeType === 3 ? n.textContent : n.value ?? ''), b: [b.left, b.top, b.width, b.height].map((x) => Math.round(x * 100) / 100) } }`
+    if (p.marcaLugar !== undefined) {
+      await na(s, `${LUGAR}; const m = new Map(); const w = document.createTreeWalker(P.raiz, NodeFilter.SHOW_TEXT)
+        for (let n = w.nextNode(); n; n = w.nextNode()) if (n.textContent.trim() && !n.parentElement.closest('[aria-hidden="true"], [inert]')) m.set(n, lugar(n))
+        for (const i of P.raiz.querySelectorAll('input, textarea')) m.set(i, lugar(i))
+        window.__m2cfLugares = m; return m.size`)
+      return
+    }
+    const r = await na(s, `${LUGAR}; const m = window.__m2cfLugares; if (!m) return 'sem marcaLugar antes'
+      const saiu = []
+      for (const [n, u] of m) { if (!n.isConnected) continue; const v = lugar(n); if (u.t !== v.t) continue
+        if (u.b.some((x, k) => Math.abs(x - v.b[k]) > 0.01)) saiu.push((u.t || '[campo]').slice(0, 30) + ' ' + u.b.join(',') + ' → ' + v.b.join(',')) }
+      return saiu.length ? saiu.slice(0, 4).join(' · ') : true`)
+    if (r !== true) throw new Error('mesmo lugar: ' + r)
+    return
+  }
   if (p.dorme !== undefined) return dorme(p.dorme)
   throw new Error('passo desconhecido: ' + JSON.stringify(p))
 }
@@ -376,7 +421,7 @@ const VV_DE_MENTIRA = `(() => {
   Object.defineProperty(window, 'visualViewport', { get: () => vv, configurable: true })
 })()`
 
-const rotulo = (p) => Object.entries(p).filter(([k]) => !['ms', 'anima', 'entre'].includes(k)).map(([k, v]) => `${k} ${typeof v === 'string' ? v : JSON.stringify(v)}`).join(' · ')
+const rotulo = (p) => Object.entries(p).filter(([k]) => !['ms', 'anima', 'naoAnima', 'entre'].includes(k)).map(([k, v]) => `${k} ${typeof v === 'string' ? v : JSON.stringify(v)}`).join(' · ')
 
 async function roda(nome) {
   const passos = (await import(pathToFileURL(resolve(app, `scripts/caminhos/${nome}.mjs`)).href)).default

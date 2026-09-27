@@ -4,6 +4,7 @@
 // 'traco' e 'agora' não são ícones: são marcas (DS-V3).
 import { CircleCheck, CircleX, Circle, Wifi, Power, Pause, Clock, Moon, CircleMinus, Info } from 'lucide-react'
 import { riscado } from './Riscado.jsx'
+import { useVez } from './vez.js'
 import './Glifo.css'
 
 // C11 · T16 (G11): os glifos que as telas desenham e a folha 3 não tem. Ficam
@@ -43,15 +44,23 @@ export const ESTADOS = {
 }
 
 // o tamanho do glifo vem do poço: --glifo-<poço> (a linha de tamanhos da folha 3, G5)
-export function Glifo({ estado = 'ok', poco = 24, nome, className = '' }) {
+// C12 · o check que nasce no poço (C12·7, C12·12) · `esmaece`: o glifo que troca
+// depois de a peça montar nasce de novo e esmaece em --mov-rapido (o novo entra
+// por opacity; o de antes sai de uma vez). Ao abrir, parado. `chave`: o que conta
+// como troca, quando não é só o estado (o 'lendo' da linha, o veredito que espera);
+// sem ela, o estado. Quem liga: a LinhaChecagem, a LinhaContagem, o Trilho e o Aviso.
+export function Glifo({ estado = 'ok', poco = 24, nome, className = '', esmaece = false, chave }) {
+  const troca = useVez(chave ?? estado)
+  const nasce = esmaece && troca.vez > 0 ? ' ds-glifo-nasce' : ''
+  const vez = esmaece ? troca.vez : undefined
   const e = ESTADOS[estado] ?? FORA_DA_FOLHA[estado]
   const rotulo = nome ?? e.nome
-  if (e.marca) return <span role="img" aria-label={rotulo} className={`ds-glifo-marca ds-glifo-${e.marca} ${className}`} />
+  if (e.marca) return <span key={vez} role="img" aria-label={rotulo} className={`ds-glifo-marca ds-glifo-${e.marca} ${className}${nasce}`} />
   const { Icone } = e
   // o glifo sem nome é só desenho: mudo pro leitor (o 'info')
   const papel = rotulo == null ? { 'aria-hidden': 'true' } : { role: 'img', 'aria-label': rotulo }
   return (
-    <span {...papel} className={`ds-glifo ds-glifo-cor-${e.cor} ds-glifo-${poco} ${className}`}>
+    <span key={vez} {...papel} className={`ds-glifo ds-glifo-cor-${e.cor} ds-glifo-${poco} ${className}${nasce}`}>
       <Icone aria-hidden="true" absoluteStrokeWidth={false} />
     </span>
   )

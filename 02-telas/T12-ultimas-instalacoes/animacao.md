@@ -4,6 +4,6 @@ Vale o `03-design-system/movimento.md`. Entre telas, só o conteúdo esmaece em 
 
 | Elemento | Quando | O que muda | Tempo | Curva | Com reduzir movimento |
 |---|---|---|---|---|---|
-| tela | abrir o detalhe | só a transição de tela · nada mais se move | 150ms | esmaece | troca direta |
+| tela · troca de quadro (C12·4) | abrir o detalhe, e voltar às instalações (o `Voltar às instalações`, o voltar) | a lista e o detalhe são desenhos diferentes: o conteúdo esmaece, como entre telas — é o total, sem o 1→0→1 (C12·2); a barra e a faixa ficam paradas; o rodapé entra com o quadro · nada mais se move | 150ms | desacelera (C12·5) | troca direta |
 
 **Os quadros de começo e fim** de cada movimento são as referências desta pasta: o movimento vai de uma referência parada à outra. Só propriedades de transform e opacity — nada que mexa no layout.

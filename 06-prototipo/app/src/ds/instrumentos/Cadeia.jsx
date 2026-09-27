@@ -26,7 +26,8 @@ export function Cadeia({ elos, justa = false, altura }) {
         const ultimo = i === elos.length - 1
         return (
           <div key={e.nome} className={`ds-cadeia-elo ds-cadeia-elo-${TOM[e.estado] ?? 'resto'} ${ultimo ? 'ds-cadeia-elo-ultimo' : ''}`}>
-            <Trilho estado={e.estado} poco={34} ultimo={ultimo} nomeGlifo={e.nomeGlifo} />
+            {/* C12·32 · a cadeia liga o trilho que acende (o do elo relido, de cima pra baixo); o encerramento, não */}
+            <Trilho estado={e.estado} poco={34} ultimo={ultimo} nomeGlifo={e.nomeGlifo} acende />
             <div className="ds-cadeia-texto">
               <div className="ds-cadeia-linha">
                 <span className="ds-cadeia-nome">{e.nome}</span>

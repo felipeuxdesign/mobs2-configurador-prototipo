@@ -6,3 +6,6 @@
 }
 .ds-tocavel > * { position: relative; z-index: 1; }
 .ds-tocavel:active:not(.ds-tocavel-desabilitado)::after, .ds-tocavel.ds-forca-toque::after { opacity: 1; transition: none; }
+/* C12·18 · o desabilitado não tem pressionado: a linha que se desabilita no próprio toque (o
+   Conferir e reenviar da folha Não recebi o código, T01) solta a camada de uma vez, como o primário */
+.ds-tocavel-desabilitado::after { transition: none; }

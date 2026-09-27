@@ -14,3 +14,8 @@
 .ds-glifo-cor-marca { color: var(--marca); }
 .ds-glifo-traco { display: block; width: var(--e-10); height: var(--traco-borda); background: var(--borda-poco); }
 .ds-glifo-agora { display: block; width: var(--e-12); height: var(--e-12); background: var(--tinta); }
+/* C12 · o check que nasce no poço (C12·7, C12·12): o glifo que troca depois de a peça
+ * montar esmaece no lugar, em 150 (desacelera); o de antes já saiu. Ao abrir, parado.
+ * Sem preenchimento: acabou, não fica nada vivo (C12·19). Com reduzir, direto. */
+.ds-glifo-nasce { animation: ds-glifo-nasce var(--mov-rapido) var(--mov-curva); }
+@keyframes ds-glifo-nasce { from { opacity: 0; } }

@@ -5,7 +5,9 @@
 // unidade junto (Lei 10). O glifo é o de estado da folha 3, pelo nome.
 // `semPoco`: a exceção da Lei 7 — o aviso da folha de trocar de unidade
 // (T04/08) é só o rótulo e a frase, com 12 em volta e a frase a 1,4 (G11).
+import { useRef } from 'react'
 import { Poco, Glifo } from '../index.js'
+import { useVez } from '../primitivos/vez.js'
 import './caixas.css'
 import './Aviso.css'
 
@@ -25,21 +27,77 @@ import './Aviso.css'
 // 32, com o glifo de 16 (o tamanho do glifo do poço de 26) — o aviso tem o poço
 // dele, e a lei do poço na linha não vale pra ele.
 const CONTAGEM = { poco: 32, glifo: 26 }
-export function Aviso({ tom = 'falha', glifo = 'xis', poco = 26, nomeGlifo, titulo, frase, numero, unidade, semPoco = false, bloqueio = false, traco = false, mudo = true }) {
+
+// C12 · o movimento fino, três gestos (a tela diz quando; a peça diz como):
+// · `surge` (C12·9, achado 2.3): o aviso que aparece depois de a tela abrir — a
+//   senha errada, a parada, a recusa, a queda — esmaece no lugar, em --mov-rapido.
+//   Quem abre já no estado (a URL, o palco, a coluna, o print) não o passa: parado.
+//   O espaço abre direto (Lei 3).
+// · `aguarda` (C12·35 e C12·44, o retorno do diretor de 26/09): o veredito que
+//   espera a prova. A caixa já está no lugar desde o começo, com o desenho do
+//   quadro final — a moldura, o poço, a altura —, e nada muda de lugar nem de
+//   altura até o fim. Enquanto a prova corre, ela fica neutra: o traço de baixo no
+//   cinza do aviso neutro com traço (T01/14), o poço vazio, o rótulo e a frase
+//   guardando o lugar, sem texto. `aguarda` é quantas linhas já acenderam: de 1 em
+//   diante, a contagem acompanha no lugar do número (1 de 5 … 5 de 5, a unidade em
+//   `aguardaUnidade`, o texto da tela), em --tinta, com a unidade em
+//   --tinta-secundaria, como o número do aviso; no 0, o lugar fica vazio (nada
+//   conta de zero). Mudo pro leitor até o fim (o veredito só fala no fim).
+//   Quando a tela passa `aguarda` a null (a última linha acendeu), o veredito
+//   entra em 150: a palavra (e a frase) por opacity, já na cor dela; a cor do
+//   traço, por uma camada (o cinza sai por cima); o glifo no poço (o Glifo,
+//   esmaece). O número do veredito troca no lugar da contagem, direto; sem número
+//   no quadro final (o bloqueio da T16), a contagem sai no mesmo esmaecer. Nascida
+//   com a prova (sem `aguarda`), a caixa nasce com o veredito, parada.
+export function Aviso({
+  tom = 'falha', glifo = 'xis', poco = 26, nomeGlifo, titulo, frase, numero, unidade, semPoco = false, bloqueio = false, traco = false, mudo = true,
+  surge = false, aguarda, aguardaUnidade,
+}) {
   const falha = tom === 'falha'
   const veredito = tom === 'veredito'
   const contagem = numero != null
   const tamPoco = contagem ? CONTAGEM.poco : poco
   const tamGlifo = contagem ? CONTAGEM.glifo : poco
+  // o veredito que espera a prova, e a prova que chega depois de a caixa montar
+  const espera = aguarda != null
+  const prova = useVez(espera)
+  const chega = !espera && prova.vez > 0 && prova.antes === true
+  // a última contagem, pra sair esmaecendo quando o quadro final não tem número
+  const conta = useRef(null)
+  if (espera) conta.current = aguarda >= 1 ? aguarda : null
+  const mostraConta = espera ? aguarda >= 1 : chega && !contagem && conta.current != null
+  const classes = [
+    'ds-aviso ds-caixa-poco', falha ? 'ds-caixa-falha ds-aviso-falha' : '', semPoco ? 'ds-aviso-sem-poco' : '', veredito ? 'ds-aviso-veredito' : '',
+    bloqueio ? 'ds-aviso-bloqueio' : '', traco && !falha ? 'ds-aviso-traco' : '', surge ? 'ds-aviso-surge' : '',
+    espera ? 'ds-aviso-aguarda' : '', chega ? 'ds-aviso-chega' : '',
+  ].filter(Boolean).join(' ')
   return (
-    <div className={`ds-aviso ds-caixa-poco ${falha ? 'ds-caixa-falha ds-aviso-falha' : ''} ${semPoco ? 'ds-aviso-sem-poco' : ''} ${veredito ? 'ds-aviso-veredito' : ''} ${bloqueio ? 'ds-aviso-bloqueio' : ''} ${traco && !falha ? 'ds-aviso-traco' : ''}`}>
-      {!semPoco && !veredito && !bloqueio && <Poco tam={tamPoco} aria-hidden={mudo ? 'true' : undefined}><Glifo estado={glifo} poco={tamGlifo} nome={nomeGlifo} /></Poco>}
+    <div className={classes} aria-hidden={espera ? 'true' : undefined}>
+      {!semPoco && !veredito && !bloqueio && (
+        <Poco tam={tamPoco} aria-hidden={mudo ? 'true' : undefined}>
+          {/* o glifo do veredito entra com a prova (C12·12); fora do veredito que espera, o glifo troca direto, com o aviso */}
+          <Glifo estado={glifo} poco={tamGlifo} nome={nomeGlifo} esmaece={espera || chega} chave={espera ? '·aguarda' : glifo} />
+        </Poco>
+      )}
       <span className="ds-aviso-texto">
         <span className="ds-aviso-titulo">{titulo}</span>
         {frase != null && <span className="ds-aviso-frase">{frase}</span>}
       </span>
       {numero != null && (
         <span className="ds-aviso-numero">{numero} {unidade != null && <span className="ds-aviso-unidade">{unidade}</span>}</span>
+      )}
+      {mostraConta && espera && (
+        <span className="ds-aviso-conta" aria-hidden="true">
+          <span className="ds-aviso-numero">{aguarda} {aguardaUnidade != null && <span className="ds-aviso-unidade">{aguardaUnidade}</span>}</span>
+        </span>
+      )}
+      {/* o cinza do traço sai por uma camada, por cima da cor do veredito */}
+      {chega && (falha || veredito) && <span className="ds-aviso-capa" aria-hidden="true" />}
+      {/* a contagem que sai esmaecendo é só desenho (o texto no CSS, como o Link): o que já saiu não se lê */}
+      {mostraConta && !espera && (
+        <span className="ds-aviso-conta ds-aviso-conta-sai" aria-hidden="true">
+          <span className="ds-aviso-numero" data-texto={`${conta.current} `}>{aguardaUnidade != null && <span className="ds-aviso-unidade" data-texto={aguardaUnidade} />}</span>
+        </span>
       )}
     </div>
   )

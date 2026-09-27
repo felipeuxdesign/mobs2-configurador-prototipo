@@ -215,12 +215,14 @@ export default [
   { ve: 'Sem sessão de configuração' },
   { naoVe: 'ENCERRAR' },
   { ve: 'Sessão encerrada' },
-  // as oito assertivas acendem a 400 ms; a prova e o Voltar ao menu entram com a última
-  { ve: 'A CONFIGURAÇÃO SOBREVIVEU AO REINÍCIO' },
+  // as oito assertivas acendem a 400 ms; a prova e o Voltar ao menu já estão no lugar, neutros, e o
+  // veredito entra com a última: a palavra, a versão e a legenda, e o Voltar ao menu acende (C12·44)
+  { ve: 'O ID na plataforma confirma quando a evidência subir.' },
+  { desligado: 'Voltar ao menu' },
+  { ve: 'A CONFIGURAÇÃO SOBREVIVEU AO REINÍCIO', entre: [2000, 5000] },
   { ve: 'A12.G07.L02.E05.C03' },
   { ve: 'relido do módulo depois de desligar e ligar' },
-  { ve: 'O ID na plataforma confirma quando a evidência subir.' },
-  { toca: 'Voltar ao menu', entre: [2000, 5000] },
+  { toca: 'Voltar ao menu' },
   { chega: 'T04', momento: '01-momento-sem-modulo' },
   { ve: 'Sem sessão de configuração' },
   { naoVe: 'ENCERRAR' },

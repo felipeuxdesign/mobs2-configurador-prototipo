@@ -2,6 +2,8 @@
 // (o Quadrado, decisão 29) no poço de 24: o vazado de 11 no desmarcado e,
 // marcado, o lima de 11 surge por cima (opacidade e escala 80%→100%, 150ms);
 // desmarcar some igual (T01 e T13 animacao.md). Usado na T01, T06, T13.
+// O pressionado (C12·17, R-12, G14 a): a camada --elevado na área de 48, que
+// entra no toque e solta em 100, como na linha tocável (Checkbox.css).
 //
 // `legenda` (a última entrega · a caixa do não conforme, decisão 39, folha 6 e
 // T13/07, 08 e 15): o texto vira título e linha de baixo — o que se marca em

@@ -5,14 +5,63 @@
 // `legendaMuda` (a entrega do checklist · T11/02, a decisão do diretor de 25/09):
 // a legenda que espera a última linha da conferência fica muda pro leitor, como o
 // veredito; quem monta a esconde por CSS. Sem ela, nada muda.
+// C12 · o veredito que espera a prova (C12·35 e C12·44, o retorno do diretor de
+// 26/09) · `aguarda`: a prova no lugar desde o começo, com a moldura e a altura do
+// quadro final; nada muda de lugar nem de altura até o fim. Dois jeitos:
+// · 'legenda' (T11/02): o bloco inteiro já está no lugar, e só a legenda — o que
+//   compara com o cadastro — espera, guardando o lugar sem texto, muda pro leitor.
+// · um número (T16/02): a prova inteira espera. O traço de baixo fica no cinza
+//   neutro, o rótulo e a legenda guardam o lugar sem texto, e a contagem
+//   acompanha as linhas no lugar da versão (1 de 8 … 8 de 8, a unidade em
+//   `aguardaUnidade`, o texto da tela), com a tinta do número do aviso; no 0, o
+//   lugar fica vazio. Mudo pro leitor até o fim.
+// Quando a tela passa `aguarda` a null (a última linha acendeu), o que esperava
+// entra em 150, por opacity: o rótulo, a versão e a legenda (ou só a legenda); o
+// lima do traço, por uma camada (o cinza sai por cima); a contagem sai no mesmo
+// esmaecer. Nascida com a prova (sem `aguarda`), parada.
+// · `surge` (C12·9, o mesmo gesto do Aviso): a prova que aparece depois de a tela
+//   abrir, onde a referência não reserva o lugar dela — a cadeia que conclui na
+//   frente de quem olha (T09/00 → 04) — esmaece no lugar, inteira, em 150. O espaço
+//   abre direto (Lei 3). Quem abre já no quadro (a URL, o palco, a coluna, o print)
+//   não o passa: parada.
+import { useRef } from 'react'
+import { useVez } from '../primitivos/vez.js'
 import './Prova.css'
 
-export function Prova({ tipo = 'cadeia', rotulo, versao, legenda, legendaMuda = false, className = '', style }) {
+export function Prova({ tipo = 'cadeia', rotulo, versao, legenda, legendaMuda = false, className = '', style, aguarda, aguardaUnidade, surge = false }) {
+  const espera = aguarda != null
+  const tudo = espera && aguarda !== 'legenda'
+  const prova = useVez(espera ? (tudo ? 'tudo' : 'legenda') : null)
+  const chega = !espera && prova.vez > 0 ? prova.antes : null   // o que esperava: 'tudo' ou 'legenda'
+  const conta = useRef(null)
+  if (tudo) conta.current = aguarda >= 1 ? aguarda : null
+  const classes = [
+    'ds-prova', `ds-prova-${tipo}`, tudo ? 'ds-prova-aguarda' : '', espera && !tudo ? 'ds-prova-aguarda-legenda' : '',
+    chega ? `ds-prova-chega ds-prova-chega-${chega}` : '', surge ? 'ds-prova-surge' : '', className,
+  ].filter(Boolean).join(' ')
   return (
-    <div className={`ds-prova ds-prova-${tipo} ${className}`} style={style}>
+    <div className={classes} style={style} aria-hidden={tudo ? 'true' : undefined}>
       <span className="ds-prova-rotulo">{rotulo}</span>
-      <span className="ds-prova-versao">{versao}</span>
-      <span className="ds-prova-legenda" aria-hidden={legendaMuda ? 'true' : undefined}>{legenda}</span>
+      {tudo || chega === 'tudo' ? (
+        // a versão e a contagem no mesmo lugar (a mesma célula), a contagem por cima; o lugar tem o tamanho da versão
+        <span className="ds-prova-lugar">
+          <span className="ds-prova-versao">{versao}</span>
+          {tudo && aguarda >= 1 && (
+            <span className="ds-prova-conta" aria-hidden="true">
+              <span className="ds-prova-conta-numero">{aguarda} {aguardaUnidade != null && <span className="ds-prova-conta-unidade">{aguardaUnidade}</span>}</span>
+            </span>
+          )}
+          {/* a contagem que sai esmaecendo é só desenho (o texto no CSS): o que já saiu não se lê */}
+          {chega === 'tudo' && conta.current != null && (
+            <span className="ds-prova-conta ds-prova-conta-sai" aria-hidden="true">
+              <span className="ds-prova-conta-numero" data-texto={`${conta.current} `}>{aguardaUnidade != null && <span className="ds-prova-conta-unidade" data-texto={aguardaUnidade} />}</span>
+            </span>
+          )}
+        </span>
+      ) : <span className="ds-prova-versao">{versao}</span>}
+      <span className="ds-prova-legenda" aria-hidden={legendaMuda || espera ? 'true' : undefined}>{legenda}</span>
+      {/* o cinza do traço sai por uma camada, por cima do lima */}
+      {chega === 'tudo' && <span className="ds-prova-capa" aria-hidden="true" />}
     </div>
   )
 }

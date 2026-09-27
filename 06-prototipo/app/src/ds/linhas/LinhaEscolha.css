@@ -8,3 +8,10 @@
 .ds-escolha-valor { font-size: var(--t-secundario); font-weight: 700; color: var(--tinta-apagada); flex-shrink: 0; }
 .ds-escolha-escolhida .ds-escolha-nome { color: var(--tinta); }
 .ds-escolha-vencida .ds-escolha-nome { color: var(--tinta-apagada); }
+
+/* ── C12 · o movimento fino ── */
+/* a vencida que se escolhe (C12·20): o quadrado no meio do poço, fora do fluxo, por
+ * cima do traço, e sem a borda do vazado — só a camada lima dele surge no toque e
+ * some na volta (Marcador.css). O traço fica no fluxo, onde sempre esteve. */
+.ds-escolha-poco-sobre { position: relative; }
+.ds-escolha-poco-sobre .ds-quadrado { position: absolute; inset: 0; margin: auto; border-color: transparent; }

@@ -10,6 +10,8 @@ import './LeituraPequena.css'
 // cartão (Lei 2): a borda vermelha, o traço vermelho no lugar do número, o
 // poço vazio com o traço no meio e a causa em vermelho no lugar da legenda.
 // O desenho é o mesmo; muda o que ele diz (Lei 3).
+// `corre` (C12·30): a leitura que chega depois de montar leva o marcador de
+// onde estava até o valor, em --mov-lento (a Escala); montar não anima.
 export function LeituraPequena({ rotulo, valor, unidade, escala, legenda, corre = false, semLeitura = false }) {
   return (
     <div className={`ds-leitura-pequena ds-inst-cartao ${semLeitura ? 'ds-leitura-pequena-sem-leitura' : ''}`}>

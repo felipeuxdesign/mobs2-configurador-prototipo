@@ -33,14 +33,18 @@ import './Rodape.css'
 // corre — o semear da calibração — fica no lugar, desabilitado de verdade e em
 // --tinta-apagada (a lei 17, Link): o toque não faz nada, e o leitor ouve
 // desabilitado (a regra 12).
-export function Rodape({ primario, aoPrimario, primarioDesabilitado = false, primarioInerte = false, rotuloPrimario, link, aoLink, rotuloLink, linkRegistrado = false, linkDesabilitado = false, legenda, legendaJunta = false, explicacao, lugar = 'tela', pe }) {
+// `primarioAcende` e `primarioTrocaTexto` (C12 · o movimento fino): passam ao
+// Primario o acender por camada (C12·8) e o texto que esmaece no lugar (C12·23);
+// quem liga é a tela, onde a linha dela pede. Sem eles, o primário troca direto.
+export function Rodape({ primario, aoPrimario, primarioDesabilitado = false, primarioInerte = false, rotuloPrimario, primarioAcende = false, primarioTrocaTexto = false, link, aoLink, rotuloLink, linkRegistrado = false, linkDesabilitado = false, legenda, legendaJunta = false, explicacao, lugar = 'tela', pe }) {
   const fechaNoBotao = pe ? pe === 'botao' : !link && !explicacao
   // o link tocável (o desabilitado também: ele fica no lugar) leva o toque da decisão 38
   const comLink = Boolean(link) && !linkRegistrado
   return (
     <div className={`ds-rodape ${fechaNoBotao ? 'ds-rodape-fecha-botao' : ''} ${lugar === 'login' ? 'ds-rodape-login' : ''} ${comLink ? 'ds-rodape-com-link' : ''}`}>
       {legenda && <span className={`ds-rodape-legenda ${legendaJunta ? 'ds-rodape-legenda-junta' : ''}`}>{legenda}</span>}
-      <Primario desabilitado={primarioDesabilitado} inerte={primarioInerte} aoTocar={aoPrimario} rotulo={rotuloPrimario}>{primario}</Primario>
+      <Primario desabilitado={primarioDesabilitado} inerte={primarioInerte} aoTocar={aoPrimario} rotulo={rotuloPrimario}
+        acende={primarioAcende} trocaTexto={primarioTrocaTexto}>{primario}</Primario>
       {link && <Link className="ds-rodape-link" aoTocar={aoLink} rotulo={rotuloLink} registrado={linkRegistrado} desabilitado={linkDesabilitado}>{link}</Link>}
       {explicacao && <span className="ds-rodape-explicacao">{explicacao}</span>}
     </div>

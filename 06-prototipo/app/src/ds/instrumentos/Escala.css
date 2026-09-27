@@ -40,8 +40,8 @@
 }
 .ds-escala-risco-forte { height: var(--ds-risco-forte); background: var(--marca-limite); }
 
-/* o marcador: a agulha é a camada da largura da barra que corre (translateX
- * em % da própria largura = % da escala); parado, ela não tem transform */
+/* o marcador: a agulha é a camada da largura da barra que anda (translateX);
+ * parado, ela não tem transform */
 .ds-escala-agulha { position: absolute; inset: 0; }
 .ds-escala-marcador {
   position: absolute; top: 0; bottom: 0; width: var(--ds-marcador);
@@ -49,5 +49,22 @@
   background: var(--tinta);
 }
 .ds-escala-falha .ds-escala-marcador { background: var(--vermelho); }
-.ds-escala-corre { animation: ds-escala-corre var(--mov-lento) var(--mov-curva) both; }
-@keyframes ds-escala-corre { from { transform: translateX(calc(var(--pos) * -1%)); } to { transform: none; } }
+
+/* o movimento (C12): o valor que muda depois de montar. O layout já está no
+ * valor novo; o trecho parte de onde o olho via (--ds-escala-desde, em px, na
+ * agulha; --ds-escala-escala, a fração, no preenchido) e chega em transform
+ * nenhum. Sem preenchimento: acabou, não sobra animação viva (C12·19). Os
+ * nomes a e b se revezam pra o trecho seguinte recomeçar sem remontar.
+ * A leitura que chega (corre): --mov-lento, desacelerando. */
+.ds-escala-faixa { transform-origin: left center; }
+.ds-escala-anda-a { animation: ds-escala-anda-a var(--mov-lento) var(--mov-curva); }
+.ds-escala-anda-b { animation: ds-escala-anda-b var(--mov-lento) var(--mov-curva); }
+.ds-escala-enche-a { animation: ds-escala-enche-a var(--mov-lento) var(--mov-curva); }
+.ds-escala-enche-b { animation: ds-escala-enche-b var(--mov-lento) var(--mov-curva); }
+/* o processo que anda em passos (segue): linear, no tempo do passo (ritmos.js)
+ * vezes o --mov-fator — 0 no reduzir: salta pro valor do passo, no mesmo ritmo */
+.ds-escala-segue { animation-duration: calc(var(--ds-escala-passo) * var(--mov-fator)); animation-timing-function: linear; }
+@keyframes ds-escala-anda-a { from { transform: translateX(var(--ds-escala-desde)); } }
+@keyframes ds-escala-anda-b { from { transform: translateX(var(--ds-escala-desde)); } }
+@keyframes ds-escala-enche-a { from { transform: scaleX(var(--ds-escala-escala)); } }
+@keyframes ds-escala-enche-b { from { transform: scaleX(var(--ds-escala-escala)); } }

@@ -7,8 +7,12 @@
 import { useLayoutEffect, useRef } from 'react'
 import './SecaoDoChecklist.css'
 
-// onde cada cartão está, na ordem da lista: o topo dentro dela (o que rolou não conta)
-const lugares = (lista) => [...lista.children].map((c) => c.offsetTop)
+// onde cada cartão está, na ordem da lista: o topo dentro dela (o que rolou não conta).
+// Dentro dela de verdade (a revisão de 27/09, C12·9): o offsetTop conta do pai posicionado,
+// e o que abre espaço em cima da lista no mesmo toque — o veredito do Finalizar — fazia as
+// seis deslizarem; o espaço de fora abre direto, e só a seção que abre ou fecha move as de baixo
+const topoNa = (c, lista) => (c.offsetParent === lista ? c.offsetTop : c.offsetTop - lista.offsetTop)
+const lugares = (lista) => [...lista.children].map((c) => topoNa(c, lista))
 
 export function SecoesDoChecklist({ aberta = null, children }) {
   const ref = useRef(null)

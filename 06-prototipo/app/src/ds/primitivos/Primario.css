@@ -15,3 +15,24 @@
 .ds-primario-desabilitado {
   background: var(--fundo-cartao); border: var(--traco-borda) solid var(--borda); color: var(--tinta-apagada);
 }
+
+/* ── C12 · o movimento fino ── */
+/* C12·18 · o desabilitado não tem roxo: o pressionado sai de uma vez quando o toque o
+ * desabilita, e só o afundar solta (o transform, em --mov-solta) */
+.ds-primario-desabilitado::after { transition: none; }
+/* C12·23 · o texto novo esmaece no lugar, em 150 (desacelera); o de antes já saiu */
+.ds-primario-texto-nasce { animation: ds-primario-esmaece var(--mov-rapido) var(--mov-curva); }
+@keyframes ds-primario-esmaece { from { opacity: 0; } }
+/* C12·8 · o botão que acende com o mesmo texto, por uma camada: o rosto apagado de antes — o
+ * fundo, a borda e o texto na tinta apagada — fica por cima e esmaece em 150; acabou, fica
+ * em 0, sem desenho e sem nada vivo (C12·19). Com outro texto, não há camada: o texto esmaece
+ * (C12·23, o conserto de 27/09). Com reduzir, direto. */
+.ds-primario-antes {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--fundo-cartao); border: var(--traco-borda) solid var(--borda); border-radius: var(--raio);
+  color: var(--tinta-apagada); opacity: 0;
+  animation: ds-primario-apaga var(--mov-rapido) var(--mov-curva);
+}
+.ds-primario-antes::before { content: attr(data-texto); }
+@keyframes ds-primario-apaga { from { opacity: 1; } }

@@ -1,8 +1,9 @@
 // O campo (folha 6): o rótulo em cima e o poço de 54 (--campo) com o texto
 // digitado em 17/600. Em foco, o rótulo e o traço de baixo viram lima (Lei 1:
 // o campo em foco conta como escolhido) e o traço acende da esquerda pra
-// direita (TracoFoco.css). `focado` fotografa o foco parado; no toque, o foco
-// de verdade faz o mesmo. `oculto` é a senha escondida: os pontos com
+// direita (TracoFoco.css). `focado` é o foco que a tela diz; no toque, o foco
+// do próprio campo faz o mesmo — e só o dele: o olho dentro do poço não acende
+// o campo (um foco só, C12·21, foco.js). `oculto` é a senha escondida: os pontos com
 // --ls-senha; sem ele, a senha visível (folha 6): o texto por extenso, com o
 // espaçamento normal. Quando troca entre os dois, o texto esmaece no lugar, em
 // --mov-rapido (animacao.md da T01); ao abrir, nada anima. `acao` é o botão só
@@ -15,11 +16,13 @@
 // (a tela limpa o campo e esquece o usuário).
 import { useId, useRef } from 'react'
 import { SoIcone } from '../index.js'
+import { useFocoDoCampo } from './foco.js'
 import './TracoFoco.css'
 import './Campo.css'
 
-export function Campo({ rotulo, valor = '', aoMudar, focado = false, oculto = false, acao, lembrado = false, rotuloLimpar, aoLimpar, id, tipo = 'text', ...resto }) {
+export function Campo({ rotulo, valor = '', aoMudar, focado = false, oculto = false, acao, lembrado = false, rotuloLimpar, aoLimpar, id, tipo = 'text', onFocus, onBlur, ...resto }) {
   const gerado = useId()
+  const foco = useFocoDoCampo(focado, { onFocus, onBlur })
   const idCampo = id ?? gerado
   // a troca entre escondida e visível reinicia a animação trocando o nome dela (a e b),
   // sem remontar o campo — o foco e o cursor ficam onde estão
@@ -28,7 +31,7 @@ export function Campo({ rotulo, valor = '', aoMudar, focado = false, oculto = fa
   const troca = mudou.current ? (oculto ? 'ds-troca-a' : 'ds-troca-b') : ''
   const botao = lembrado ? <SoIcone icone="limpar" tam={18} rotulo={rotuloLimpar} aoTocar={aoLimpar} /> : acao
   return (
-    <div className={`ds-campo ${botao ? 'ds-campo-com-acao' : ''} ${lembrado ? 'ds-campo-lembrado' : ''} ${focado ? 'ds-foco' : ''}`}>
+    <div className={`ds-campo ${botao ? 'ds-campo-com-acao' : ''} ${lembrado ? 'ds-campo-lembrado' : ''} ${foco.aceso ? 'ds-foco' : ''}`}>
       <label htmlFor={idCampo} className="ds-campo-rotulo">{rotulo}</label>
       <div className="ds-campo-poco ds-traco-foco">
         <input
@@ -39,6 +42,8 @@ export function Campo({ rotulo, valor = '', aoMudar, focado = false, oculto = fa
           onChange={aoMudar ? (e) => aoMudar(e.target.value) : undefined}
           readOnly={!aoMudar}
           {...resto}
+          onFocus={foco.aoFocar}
+          onBlur={foco.aoSair}
         />
         {botao && <span className="ds-campo-acao">{botao}</span>}
       </div>

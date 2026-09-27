@@ -39,7 +39,7 @@
 // sessão neste aparelho* por cima (situacao.outraSessao), que nasce aberto, com a
 // tela, e fecha no Entendi. Pela coluna, a T01 monta esta tela com o caso.
 import { useEffect, useRef, useState } from 'react'
-import { BarraDoSistema, Busca, Lista, LinhaEscolha, Rodape, Vazio, Veu, Dialogo, Frase } from '../../ds/index.js'
+import { BarraDoSistema, Busca, Lista, LinhaEscolha, Rodape, Vazio, Veu, Dialogo, Frase, useReorganiza, useTrocaDeQuadro } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
 import { M } from '../../dados/mock.js'
@@ -50,8 +50,8 @@ import {
   primarioDasEmpresas, escolherEmpresa, verAsUnidades, rotuloDaEmpresa, escolherUnidade, trocarDeEmpresa,
   contextoDoCaso, voltarNoCaso,
 } from './empresas.js'
-// a presença do diálogo (entra fechado e abre; sai fechando antes de desmontar) é a da T01
-import { usePresenca } from '../T01/presenca.js'
+// a presença do diálogo (entra fechado e abre; sai fechando antes de desmontar) é a do que vem por cima
+import { usePresenca } from '../../ds/chrome/PorCima.jsx'
 import { TX } from './textos.js'
 import './T02.css'
 
@@ -176,8 +176,26 @@ export default function T02({ momento, estado, outraSessao }) {
   const voltar = comEmpresas ? voltarNoCaso(caso) : null
   useVoltar(aviso.montado ? (outra ? entendi : null) : voltar ? () => setCaso(voltar) : null)
 
+  // C12 · o movimento fino. As empresas e as unidades são dois quadros (o título, o miolo
+  // e o rodapé trocam inteiros): no Ver as unidades e no Trocar de empresa, o conteúdo
+  // esmaece em 150, como entre telas (C12·4 a); aberto pelo endereço ou no print, parado.
+  // A lista das unidades se reorganiza quando a busca filtra (C12·10 a, useReorganiza):
+  // o que fica desliza pro lugar novo, o que sai esmaece por cima e o que volta esmaece
+  // no lugar; nas empresas, a chave null diz que o quadro não é a lista. O texto do
+  // primário troca no lugar a cada escolha, e o roxo troca direto (C12·23 a)
+  useTrocaDeQuadro(naEmpresa ? 'empresas' : 'unidades')
+  const lugar = useReorganiza(naEmpresa ? null : busca)
+  // o primário das empresas: o texto que troca (Escolha uma empresa → Ver as unidades)
+  // esmaece no lugar, com o roxo direto (C12·23); com o mesmo texto, o Ver as unidades que
+  // volta a valer (da empresa sem unidades pra Viação) acende por uma camada, como todo
+  // primário que acende na frente de quem olha (C12·8, o gesto da T06, da T13 e da T16)
+  const primarioEmpresas = primarioDasEmpresas(caso)
+  const textoDasEmpresas = useRef(primarioEmpresas.texto)
+  const acendeNasEmpresas = textoDasEmpresas.current === primarioEmpresas.texto
+  useEffect(() => { textoDasEmpresas.current = primarioEmpresas.texto })
+
   if (naEmpresa) {
-    const primario = primarioDasEmpresas(caso)
+    const primario = primarioEmpresas
     const linhas = linhasDasEmpresas(caso)
     return (
       <div className="t02">
@@ -201,7 +219,8 @@ export default function T02({ momento, estado, outraSessao }) {
             </Lista>
           </div>
         </div>
-        <Rodape primario={primario.texto} primarioDesabilitado={primario.desabilitado} aoPrimario={() => setCaso(verAsUnidades)} />
+        <Rodape primario={primario.texto} primarioDesabilitado={primario.desabilitado} primarioTrocaTexto primarioAcende={acendeNasEmpresas}
+          aoPrimario={() => setCaso(verAsUnidades)} />
       </div>
     )
   }
@@ -210,7 +229,7 @@ export default function T02({ momento, estado, outraSessao }) {
     <div className="t02">
       <BarraDoSistema hora={M.HORA_NOMINAL} fundo="pagina" />
       <div className="t02-fundo" inert={atras}>
-      <div className="tela-miolo t02-miolo">
+      <div ref={lugar} className="tela-miolo t02-miolo">
         <div className="t02-cabeca">
           <span className="t02-empresa">{caixaAlta(comEmpresas ? rotuloDaEmpresa(caso) : M.empresa.nome)}</span>
           <h1 className="t02-titulo">{TX.titulo}</h1>
@@ -237,6 +256,7 @@ export default function T02({ momento, estado, outraSessao }) {
       <Rodape
         primario={uo ? TX.sincronizar(uo.nome) : TX.escolhaUnidade}
         primarioDesabilitado={!uo}
+        primarioTrocaTexto
         aoPrimario={sincronizar}
         link={comEmpresas ? TX.trocarEmpresa : undefined}
         aoLink={comEmpresas ? () => setCaso(trocarDeEmpresa) : undefined}

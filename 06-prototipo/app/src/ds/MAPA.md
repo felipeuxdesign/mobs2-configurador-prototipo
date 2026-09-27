@@ -8,7 +8,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 
 | Peça | Componente |
 |---|---|
-| primário · normal | src/ds/primitivos/Primario.jsx |
+| primário · normal | src/ds/primitivos/Primario.jsx (o que troca depois de montar, uma regra só: com o mesmo texto, acende por uma camada, `acende` · C12·8; com outro texto, o texto esmaece no lugar e o roxo troca direto, `trocaTexto` ou `acende` · C12·23, o conserto de 27/09) |
 | primário · pressionado | src/ds/primitivos/Primario.jsx (forcaToque na vitrine; :active no app) |
 | primário · desabilitado | src/ds/primitivos/Primario.jsx (desabilitado) |
 | link · normal e pressionado | src/ds/primitivos/Link.jsx (registrado: o link depois do toque vira o registro do pedido, no mesmo lugar de 48, sem toque, com o relógio de 14 e o feito em --tinta-apagada — T14/06 · C10; desabilitado: em --tinta-apagada, sem o pressionado — a lei 17, o semear da T10) |
@@ -43,7 +43,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 
 | Peça | Componente |
 |---|---|
-| escolha numa lista | src/ds/linhas/LinhaEscolha.jsx (poço de 30 com o Quadrado · decisão 29; escolhivel: a vencida também se escolhe, T02·1 · C4; sem o `valor`, nada à direita: a linha da empresa, o nome e a contagem de unidades — T02/05, a otimização do design) |
+| escolha numa lista | src/ds/linhas/LinhaEscolha.jsx (poço de 30 com o Quadrado · decisão 29; escolhivel: a vencida também se escolhe, T02·1 · C4; sem o `valor`, nada à direita: a linha da empresa, o nome e a contagem de unidades — T02/05, a otimização do design; a vencida que se escolhe guarda o quadrado no poço por cima do traço, e o lima surge no toque como em toda escolha, e some na volta — parada, a mesma linha · C12·20) |
 | os glifos de estado | src/ds/primitivos/Glifo.jsx (ESTADOS; fora da folha, fora de ESTADOS: traco-circulo, o não se aplica da assertiva da sessão · C11, T16/02 e 05; sem-conexao, o Wi-Fi inteiro com o risco, riscado(Wifi) de primitivos/Riscado.jsx, cinza, no SEM CONEXÃO do login · a última entrega, lei 21, T01/14 — o sem-sinal e o sem-sinal-neutro dos doze levam o mesmo riscado(Wifi) desde a revisão de 26/09 (lei 21, o WifiOff saiu; as referências deles desenham o risco sem o fio escuro, pro arquiteto); info, o Info do Lucide, cinza e sem nome — mudo pro leitor, aria-hidden —, na linha de condição da versão ilegível · a última entrega, T11/04) |
 | os ícones de ferramenta | src/ds/primitivos/Icone.jsx (ICONES; subindo: a seta do SUBINDO AGORA, com o traço 2,2 do glifo · C11, T15/01; xis-mini: o xis solto de 14 do não confere, traço 2,6 · a entrega de 25/09, T10/10; bluetooth-desligado: o Bluetooth riscado de 22 no poço de 44, traço 1,8 · o mundo real, T05/16 e 17; camera-negada: a câmera riscada de 46 no visor da câmera sem a permissão, traço 1,8 · o mundo real, T10/11 — os dois, desde a última entrega (lei 21), o ícone inteiro do Lucide com o Risco (primitivos/Riscado.jsx: riscado(Bluetooth), riscado(Camera)), e não mais o BluetoothOff e o CameraOff; o olho-riscado leva o mesmo Risco; diagnostico: o file-text do Lucide no poço de 32 da folha Outras ações · a última entrega, T11/03) |
 | os poços | src/ds/primitivos/Poco.jsx |
@@ -90,12 +90,12 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 
 | Peça | Componente |
 |---|---|
-| leitura na faixa | src/ds/instrumentos/Leitura.jsx (+ Escala.jsx) |
-| fora da faixa | src/ds/instrumentos/Leitura.jsx (fora) |
+| leitura na faixa | src/ds/instrumentos/Leitura.jsx (+ Escala.jsx; corre: a leitura que chega leva o marcador de onde estava até o valor, em --mov-lento, desacelerando — montar não anima · C12·30) |
+| fora da faixa | src/ds/instrumentos/Leitura.jsx (fora; a falha que chega depois de montar: a camada da borda vermelha e a causa esmaecem em --mov-rapido, e o lugar da causa abre direto, G24 · C12) |
 | leitura pequena | src/ds/instrumentos/LeituraPequena.jsx (+ GradeLeituras; folga 10 na T07 · sem faixa, o nível, sem a faixa na escala · semLeitura, o sinal que não chegou, T07/02 · C8) |
 | leitura com mínimo | src/ds/instrumentos/LeituraPequena.jsx (faixa aberta) |
-| tambor | src/ds/instrumentos/LeituraTambor.jsx (+ Tambor.jsx, RodaDigito.jsx) |
-| sinais liga-desliga | src/ds/instrumentos/Sinais.jsx |
+| tambor | src/ds/instrumentos/LeituraTambor.jsx (+ Tambor.jsx, RodaDigito.jsx; rola na troca de valor — a chegada da T07, das rodinhas na casa 0 até o lido —, nunca ao montar; `de`, só pra peça que nasce no meio do movimento · C12·30) |
+| sinais liga-desliga | src/ds/instrumentos/Sinais.jsx (o check do sinal que chega depois de montar esmaece em --mov-rapido · C12·30) |
 | instrumentos apagados | src/ds/instrumentos/Declarado.jsx (texto) |
 | cadeia concluída | src/ds/instrumentos/Cadeia.jsx (+ Trilho.jsx) |
 | cadeia recusada | src/ds/instrumentos/Cadeia.jsx (justa; altura correndo, a cadeia gravando com o quadrado de agora e os que esperam com a versão apagada, elo de 86, T09/00 · altura pausada, a cadeia parada com o contador e o aviso, o elo pausado e os pendentes em traço, elo de 68, T09/02 e 03 · C9) |
@@ -104,9 +104,9 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | encerrando | src/ds/instrumentos/Encerramento.jsx (+ Trilho.jsx; estado pausa, o bloco em que a sessão interrompida parou, com o nome e o 'parou aqui' em --tinta e o trilho na divisória · C11, T16/06) |
 | pede o corte | src/ds/instrumentos/Encerramento.jsx (justo, energia) |
 | sem homologar | src/ds/instrumentos/Encerramento.jsx (pulado, o traço solto da folha 5 · no espécime f5-sem-homologar e na T16/03, o passo que o encerrar sem homologar pula — o 'não se aplica' é só da assertiva do autoteste, otimizacao300000000 · o traço do pulado é mudo pro leitor, aria-hidden, e a situação diz 'pulado') |
-| cronômetro | src/ds/instrumentos/Prazo.jsx (falha: o prazo estourado, o número em vermelho e a escala sem o preenchido; detalhe em lista: as frases do estado, uma por linha, na entrelinha da legenda — T14/02 · C10) |
+| cronômetro | src/ds/instrumentos/Prazo.jsx (falha: o prazo estourado, o número em vermelho e a escala sem o preenchido; detalhe em lista: as frases do estado, uma por linha, na entrelinha da legenda — T14/02 · C10; segue: o tique do prazo, e a barra drena contínua, um trecho linear por tique — C12·40) |
 | prazo cheio | src/ds/instrumentos/Prazo.jsx (detalhe) |
-| a barra do checklist | src/ds/instrumentos/BarraDoChecklist.jsx (o lima do que passou por scaleX, e o número fica no título; no lugar do placar da homologação, que saiu com a entrega do checklist — T13/00 a 14) |
+| a barra do checklist | src/ds/instrumentos/BarraDoChecklist.jsx (o lima do que passou por scaleX, e o número fica no título; no lugar do placar da homologação, que saiu com a entrega do checklist — T13/00 a 14; de: a volta do nível do item, que nasce no que tinha e avança em --mov-lento — C12·36) |
 
 ## Folha 6 · entrada escolha cabecalho
 
@@ -124,9 +124,9 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | código errado | src/ds/entrada/Codigo.jsx (errado) |
 | link dentro do conteúdo | src/ds/entrada/LinkConteudo.jsx |
 | botões só de ícone | src/ds/primitivos/SoIcone.jsx |
-| checkbox | src/ds/primitivos/Checkbox.jsx (Poco de 24 com o Quadrado vazado · decisão 29; legenda: o título em 14/600 e a linha de baixo em 12 --tinta-secundaria, a 2 — o nome pro leitor é o título, e a linha é a descrição · a última entrega, a caixa do não conforme, decisão 39) |
+| checkbox | src/ds/primitivos/Checkbox.jsx (Poco de 24 com o Quadrado vazado · decisão 29; legenda: o título em 14/600 e a linha de baixo em 12 --tinta-secundaria, a 2 — o nome pro leitor é o título, e a linha é a descrição · a última entrega, a caixa do não conforme, decisão 39; o pressionado: a camada --elevado na área de 48, por baixo do poço e do texto, que solta em --mov-solta, como a linha tocável · C12·17, G14 a) |
 | checkbox marcado | src/ds/primitivos/Checkbox.jsx (marcado: o Quadrado lima de 11) |
-| campo de busca | src/ds/entrada/Busca.jsx (a dica é texto por cima do campo vazio, não placeholder · C4; focado: em foco, o traço de baixo vira 2 de lima e acende como o campo focado, TracoFoco.css, e o termo sai com os números tabulares — T02/03, T06/08 · entrega de 25/09) |
+| campo de busca | src/ds/entrada/Busca.jsx (a dica é texto por cima do campo vazio, não placeholder · C4; focado: em foco, o traço de baixo vira 2 de lima e acende como o campo focado, TracoFoco.css, e o termo sai com os números tabulares — T02/03, T06/08 · entrega de 25/09; a lista que ela filtra se reorganiza pelo useReorganiza, ao lado da Lista · C12·10) |
 | justificativa | src/ds/entrada/Justificativa.jsx (+ CampoTexto.jsx; a caixa do não conforme nas duas telas do item, com o título e a linha de baixo, `legenda`, que o Checkbox desenha, e o rótulo O QUE ACONTECEU, que vem da tela · a última entrega, decisão 39, folha 6, T13/07, 08 e 15 · o espécime da desmarcada, f6-justificativa-desmarcada, fora da bancada) |
 | linha de opção | src/ds/chrome/LinhaDeOpcao.jsx (+ CartaoDeOpcoes · variante 'efeito', a linha da ação com o efeito embaixo: 58 com 8 em cima e embaixo (--linha-com-porque), 10 entre as partes, o ícone de 16 no poço de 32, o que faz em 15 e o efeito em 12, a seta em --tinta-secundaria · a última entrega, a folha Outras ações, T11/03, decisão 40 · o espécime f6-linha-opcao-efeito, fora da bancada · o detalhe numa linha só, com reticências, pelas folhas 2 e 6 de 24/09 · `espera`, T01/04 e 11: a saída que espera o reenvio, apagada e desabilitada de verdade, com a contagem no lugar da seta — `--n-espera`, no tokens.css —; ao liberar, a seta entra e a linha acende, duas camadas trocando por opacity em --mov-rapido (a cópia apagada do texto é um span vazio com aria-hidden que o CSS preenche, como no Link: o leitor lê cada texto uma vez) · a `desabilitado` do C4 saiu, trocada pela `espera`) |
 | linha de módulo | src/ds/entrada/LinhaModulo.jsx (fim: a última de 56 da T05/00; escolha: o marcador de escolha e o firmware, 72 e a última de 76, da T05/01 · C6) |
@@ -152,7 +152,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | item com ressalva | src/ds/checklist/ItemDoChecklist.jsx (tipo ressalva: o desenho do feito, com a ressalva na legenda) |
 | o veredito | src/ds/checklist/VereditoDoChecklist.jsx (surge: o que nasce do toque no Finalizar esmaece em --mov-rapido — T13/11, 14) |
 | foto · a tirar | src/ds/checklist/FotoProva.jsx (o cartão tocável inteiro, com a câmera no poço de 44 e a seta · a entrega de 25/09, decisão 33) |
-| foto · tirada | src/ds/checklist/FotoProva.jsx (tirada: o registro no lugar do cartão, o check lima, sem seta e sem toque · na T13/15, o registro do problema no lugar da câmera do item, decisão 39) |
+| foto · tirada | src/ds/checklist/FotoProva.jsx (tirada: o registro no lugar do cartão, o check lima, sem seta e sem toque · na T13/15, o registro do problema no lugar da câmera do item, decisão 39; sem movimento próprio: o registro que nasce de um toque entra com o que esmaece em volta dele — na T10, a troca da volta da câmera; na T13/15, a lista que se reorganiza — e nada esmaece duas vezes · C12·42) |
 | mostrador · apagado | src/ds/checklist/Mostrador.jsx (apagado) |
 | mostrador · relendo | src/ds/checklist/Mostrador.jsx (relendo; unidade junto do valor · C8, T08/01) |
 | mostrador · aceso | src/ds/checklist/Mostrador.jsx (aceso; unidade junto do valor · C8, T08/02) |
@@ -161,7 +161,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | bloco do evento | src/ds/checklist/BlocoEvento.jsx (nome: o nome do relógio pro leitor, pelo dado — 'ainda não' antes do disparo; feito, o relógio fica no lugar e mudo — T14 · C10, G15) |
 | linha da fila | src/ds/linhas/LinhaFila.jsx (reexportada por checklist/LinhaFila.jsx; posicao: a altura pela posição na lista, 'meio' 50 e 'fim' 62, em qualquer estado · C11, T15/01, T15-V2; o poço pela altura, 32 na de 50 e 30 na de 62 · o poço na linha, a entrega do checklist) |
 | linha da re-checagem | src/ds/checklist/LinhaRechecagem.jsx |
-| prova da cadeia | src/ds/checklist/Prova.jsx (tipo cadeia; também a versão lida no módulo, T11/02 · C11; legendaMuda, a legenda que espera a última linha da conferência, muda pro leitor — T11/02, a decisão do diretor de 25/09) |
+| prova da cadeia | src/ds/checklist/Prova.jsx (tipo cadeia; também a versão lida no módulo, T11/02 · C11; legendaMuda, a legenda que espera a última linha da conferência, muda pro leitor — T11/02, a decisão do diretor de 25/09; surge: a prova que aparece depois de a tela abrir, sem lugar reservado, esmaece no lugar em --mov-rapido — a cadeia concluída ao vivo, T09 · C12·9) |
 | prova da sessão | src/ds/checklist/Prova.jsx (tipo sessao) |
 | contador no menu | src/ds/cartoes/Contador.jsx (+ CartaoFerramenta.jsx) |
 
@@ -170,7 +170,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | Peça | Componente |
 |---|---|
 | valor em poço | src/ds/instrumentos/Calibracao.jsx · ValorEmPoco (+ Tambor.jsx; tom falha: a releitura que não confere, o número em vermelho · T10/10) |
-| régua da diferença | src/ds/instrumentos/Calibracao.jsx · ReguaDiferenca (confere; falha: o xis solto e a frase em vermelho · T10/10) |
+| régua da diferença | src/ds/instrumentos/Calibracao.jsx · ReguaDiferenca (confere; falha: o xis solto e a frase em vermelho · T10/10; o veredito que chega depois de montar: a diferença encolhe e esmaece em --mov-lento, e o veredito entra em --mov-rapido · C12·34) |
 | o valor alvo | src/ds/instrumentos/Calibracao.jsx · ValorAlvo (o lima é o campo em foco, T10/05; cumprido: o número fora do foco, sem o lima, T10/01, 07, 09, 10; foco; campo: o input numérico por cima do poço, sem desenho) |
 | o painel · vazio | src/ds/instrumentos/Calibracao.jsx · ValorAlvo (vazio: o traço em --marca-limite, sem o lima · a entrega de 25/09) |
 | o que não se aplica | src/ds/instrumentos/Declarado.jsx (linhas) |
@@ -179,13 +179,19 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 
 - chrome/CartaoDaConta.jsx, PrazoDaConta.jsx e BotaoDaFolha.jsx, o conteúdo da 'folha' da conta, T04/05
 - chrome/Avatar.jsx, na tira e no cartão da conta
-- chrome/Veu.jsx, o véu da folha e do diálogo (FechaPeloVeu: a folha que mora nele se registra, e o toque no véu a fecha · lei 20)
+- chrome/Veu.jsx, o véu da folha e do diálogo (FechaPeloVeu: a folha que mora nele se registra, e o toque no véu a fecha · lei 20; troca e corte: na troca do PorCima, o véu fica aceso e parado, e onde ele cresce só o pedaço novo esmaece em --mov-rapido · C12·27, C12·43)
+- chrome/Troca.jsx, a troca, sem desenho próprio (C12): `RaizDaTroca` e `emToque` no App — entre telas, só o conteúdo (o miolo, o rodapé e o que está solto no fluxo) esmaece em --mov-rapido, e só num toque ou no voltar · C12·2, C12·3; `useTrocaDeQuadro(chave)` e `<TrocaDeQuadro chave>`, o mesmo esmaecer quando o quadro troca inteiro dentro da tela · C12·4; `useFimDaTroca()`, a espera do processo que só começa depois da troca (T07, T09, T11) · C12·35 · espécimes mov-troca e mov-troca-quadro
+- chrome/PorCima.jsx, a presença, sem desenho próprio (C12): `usePresenca` (uma coisa por cima: a folha ou o diálogo nascem fechados e abrem no mesmo quadro, e o que sai fica desenhado até acabar de sair) e `usePorCima` + `<PorCima>` (a folha e o diálogo que se revezam no mesmo véu, parado · C12·27, C12·43) — T01, T02, T04, T11, T13 e o Encerrar sem homologar? de toda tela (src/estado/encerrar.jsx) · o src/telas/T01/presenca.js saiu · espécime mov-porcima
+- chrome/Faixa.jsx · `ausente` (a faixa que ainda não nasceu: quando a pré-checagem aprova, desce em --mov-padrao por baixo da barra, e o que ela empurra acompanha por deslocamento · T05, C12·24) e `revela` (a sem sessão que chega no lugar da aberta, que sobe em --mov-padrao · T16, C12·25) · a barra do sistema fica por cima do app (--camada-sistema) e troca a cor direto · espécimes mov-faixa-nasce, mov-faixa-encerra e mov-faixa-encerrar
+- entrada/foco.js · `useFocoDoCampo`, um foco só: o que a tela diz, ou o do próprio campo, nunca o do que está dentro do poço (o olho, o xis) · o Campo, a Busca, o CampoTexto e o ValorAlvo · C12·21 · o traço de 2 por cima da borda de 1, a capa em scaleX (TracoFoco.css) · C12·22, C12·45
+- o movimento que as peças de linha já têm (C12): o `Glifo` esmaece o glifo que troca depois de montar (`esmaece`, `chave`), e quem liga é a LinhaChecagem, a LinhaContagem, o Trilho e o Aviso · C12·12; o `Aviso` ganhou `surge` (o aviso que aparece depois de a tela abrir) e `aguarda` + `aguardaUnidade` (o veredito que espera a prova, com a contagem · T11, T16/05 · C12·35, C12·44); a `Prova` ganhou `aguarda` ('legenda', ou a contagem no lugar da versão · T11/02, T16/02); a `Justificativa` esmaece o campo que abre e deixa o que fecha sair esmaecendo por cima · C12·47, C12·6; o `Encerramento` esmaece a legenda que passa ao passo que corre · C12·9; o `Tocavel` e o `Primario` não soltam o pressionado no que se desabilita no próprio toque · C12·18 · espécimes mov-check-* (mov-check.jsx)
 - primitivos/Riscado.jsx, o ícone riscado (lei 21): `riscado(IconeDoLucide)` e o `Risco` — o ícone inteiro, e por cima o risco de 3,5 a 20,5 com o corte da cor do poço por baixo (--risco-corte, que era --olho-corte) · o Wi-Fi (Glifo sem-conexao, T01/14), o Bluetooth (Icone bluetooth-desligado, T05/16 e 17), a câmera (Icone camera-negada, T10/11 e o item do checklist) e o olho da senha (Icone olho-riscado, T01/10) · o espécime f3-riscados, fora da bancada
 - chrome/Camadas.jsx, interna (a camada do toque repete a frase por CSS, como o Link · C5)
 - chrome/Dialogo.jsx · Frase, Destaque; chrome/LinhaDeOpcao.jsx · CartaoDeOpcoes
-- linhas/Lista.jsx, o cartão de lista de todas as linhas
+- linhas/Lista.jsx, o cartão de lista de todas as linhas (surge: a cascata da lista que a busca acha, uma linha a cada --mov-escalonar-lista, 150 cada — a T05/01 que volta da busca de novo, C12·28 e C12·41; ao abrir, parada)
+- linhas/Reorganiza.js · useReorganiza(chave), a lista que se reorganiza: o layout vai direto pro fim, o que fica desliza do lugar antigo ao novo por transform, o que sai esmaece por cima numa cópia muda, o que volta esmaece no lugar, em --mov-rapido; o cartão corta o que passa da borda e nenhuma altura anima — a busca da T02 e da T06, a fila da T15 · C12·10
 - cartoes/GradeFerramentas.jsx (folga 10 no menu da T04 · C5)
 - entrada/CampoTexto.jsx, o campo longo da justificativa; entrada/Requisito.jsx · Requisitos, a lista
-- instrumentos/Escala.jsx (semLados: a barra do download da T03, o desenho do placar do C10 sem as bordas dos lados · C4; vazia: o poço do sinal que não chegou, só o traço no meio · C8, T07/02; tam envio: a barra de 16 do item que sobe, com os riscos e o marcador da barra pequena · C11, T15/01; tam item: a barra de 22 do instrumento do item reprovado · C10, T13/09), Trilho.jsx, Tambor.jsx, RodaDigito.jsx (G29) e LeituraPequena.jsx · GradeLeituras
+- instrumentos/Escala.jsx (semLados: a barra do download da T03, o desenho do placar do C10 sem as bordas dos lados · C4; vazia: o poço do sinal que não chegou, só o traço no meio · C8, T07/02; tam envio: a barra de 16 do item que sobe, com os riscos e o marcador da barra pequena · C11, T15/01; tam item: a barra de 22 do instrumento do item reprovado · C10, T13/09; segue (ms): o processo em passos, o marcador e o preenchido lineares, um trecho por passo vezes o --mov-fator · C12·15; corre: a leitura que chega, em --mov-lento · C12·30 — montar nunca anima), Trilho.jsx, Tambor.jsx, RodaDigito.jsx (G29) e LeituraPequena.jsx · GradeLeituras
 - checklist/GradeCartoes.jsx, a grade de duas ou três colunas, a 8: era a dos cartões de valor e de foto do checklist do C10, que saíram com a entrega do checklist; fica pelos mostradores da T08
 - a câmera do app tem linha na folha 7 desde a entrega do checklist, e o espécime dela entrou na bancada (f7-visor-camera); os dois sem a permissão seguem na vitrine, fora da bancada (f7-visor-sem-permissao, f7-visor-sem-permissao-item)

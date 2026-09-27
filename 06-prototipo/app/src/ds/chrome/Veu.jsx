@@ -15,19 +15,31 @@ export const FechaPeloVeu = createContext(null)
 
 // de: 'folha' (no pé) · 'dialogo' (no meio)
 // `aoTocarFora` (T04/10 e 11, G11): o que o toque no véu faz, no lugar do fechar
-// da folha — a T04 passa o mesmo fechar do X. Na folha, sem ela, vale o fechar
-// que a Folha registrou (a lei 20). No diálogo, sem ela, o toque no véu não faz
-// nada: quem fecha a confirmação é o Cancelar (lei 20) ou a saída dele.
-export function Veu({ de = 'folha', visivel = true, aoTocarFora, children }) {
+// da folha. Na folha, sem ela, vale o fechar que a Folha registrou (a lei 20). No
+// diálogo, sem ela, o toque no véu não faz nada: quem fecha a confirmação é o
+// Cancelar (lei 20) ou a saída dele.
+// A troca no mesmo véu (C12·27 · PorCima.jsx): `troca` diz que uma coisa sai
+// enquanto outra entra — o véu vira a caixa do que sai, que fica fora do fluxo,
+// por baixo do que entra (.ds-veu-troca), e continua aceso, parado. `corte`: na
+// troca em que o véu cresce pra cima (a folha do módulo, sob a faixa, vira o
+// Encerrar sem homologar?, que cobre a faixa, T04/10 → 13), os px de cima que
+// ele ainda não cobria: o resto fica como estava, e só esse pedaço esmaece, no
+// tempo do diálogo. No fim da troca, o véu é um só de novo, igual.
+export function Veu({ de = 'folha', visivel = true, aoTocarFora, troca = false, corte = null, children }) {
   const daFolha = useRef(null)
   const fora = (e) => {
     if (e.target !== e.currentTarget) return
     const fecha = aoTocarFora ?? (de === 'folha' ? daFolha.current : null)
     fecha?.()
   }
+  const cresce = corte != null && corte > 0
   return (
     <FechaPeloVeu.Provider value={daFolha}>
-      <div className={`ds-veu ds-veu-${de} ${visivel ? '' : 'ds-veu-oculto'}`} onClick={fora}>{children}</div>
+      <div className={`ds-veu ds-veu-${de} ${visivel ? '' : 'ds-veu-oculto'} ${troca ? 'ds-veu-troca' : ''} ${cresce ? 'ds-veu-cresce' : ''}`}
+        style={cresce ? { '--veu-corte': `${corte}px` } : undefined} onClick={fora}>
+        {cresce && <span className="ds-veu-cresce-pedaco" aria-hidden="true" />}
+        {children}
+      </div>
     </FechaPeloVeu.Provider>
   )
 }

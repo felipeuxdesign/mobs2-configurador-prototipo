@@ -328,3 +328,32 @@ Cada linha é um espécime de moldura das folhas, e a folha 3 soma quatro linhas
 Nunca na fonte do app, e nunca com ícone de notificação, operadora ou porcentagem — cada detalhe a mais é um que envelhece.
 
 **No protótipo** · `06-prototipo/app/src/ds/chrome/BarraDoSistema.jsx`, a mesma peça nos três fundos (a faixa, a tira do menu e a página) e sob o véu · a hora em `var(--fonte-sistema)`, `var(--t-secundario)`, peso 500 e `var(--tinta)` · a fonte não vai embutida em cada tela: o `@font-face` do `BarraDoSistema.css` lê o `05-recursos/fontes/GoogleSans-hora.woff`, como a Barlow, e o build empacota o arquivo (com 3,7KB, ele entra no próprio CSS), com o aviso da licença nos metadados dele · a geometria de dentro dos três ícones fica no SVG (as cápsulas, os arcos, o corpo e o pininho), na cor `currentColor`; o resto é token, com a decisão 43: `--barra-sistema-recuo` 26, `--barra-sistema-recuo-direita` 32, `--barra-sistema-desce` 6, `--barra-sistema-espaco-wifi` 5 e `--barra-sistema-espaco-bateria` 5,5 · o tamanho de cada ícone, o do próprio desenho, também: `--barra-sinal` 14,7 × `--barra-sinal-altura` 9,7, `--barra-wifi` 12,8 e `--barra-bateria` 20,4, os dois com `--barra-icone` 10,4 de altura, e o traço dos arcos, `--barra-wifi-traco` 2,3 (os três da barra velha com valor novo, e três novos) · medido nas 68 referências da T01, T04, T05 e T13 e numa de cada uma das outras 12: a barra sai igual ao HTML, byte a byte, a 2×, e nada abaixo de y=30 mudou · no celular de verdade, a barra desenhada sai (`06-prototipo/palco.md`)
+
+## No protótipo · o movimento das peças (C12)
+
+Anotação de construção do C12. O movimento é da peça, e vale onde ela está: a tela só liga o gatilho. As regras do app inteiro estão no `movimento.md`; o mapa de cada peça pro arquivo está no `06-prototipo/app/src/ds/MAPA.md`. Nenhuma peça nova de desenho: as quatro de baixo sem desenho próprio moram no chrome e nas linhas.
+
+| Peça | O movimento | Telas que usam, medido |
+|---|---|---|
+| a troca (sem desenho, folha 2) | entre telas e entre quadros, só o conteúdo esmaece em 150ms, e só num toque ou no voltar · o processo que espera a troca (C12·2, C12·4, C12·35) | as 16 · o quadro que troca inteiro: T01 T02 T03 T05 T06 T08 T10 T12 T13 T14 T16 |
+| a presença (sem desenho, folha 2) | a folha e o diálogo nascem e somem sempre do mesmo jeito · no mesmo véu, a folha e o diálogo se revezam com o véu parado (C12·27, C12·43) | T01 T02 T04 T11 T13 e o *Encerrar sem homologar?* de toda tela |
+| a lista que se reorganiza (sem desenho, folha 4) | o que fica desliza em 150ms, o que sai esmaece por cima, o que volta esmaece no lugar, e nenhuma altura anima (C12·10) | T02 T06 T13 T15 |
+| o foco do campo (sem desenho, folha 6) | um foco só · o traço de 2 por cima da borda de 1, a capa em 150ms, e nada sai do lugar (C12·21, C12·22) | T01 T02 T06 T10 T13 |
+| primário | com o mesmo texto, acende por uma camada em 150ms · com outro texto, o texto esmaece no lugar e o roxo troca direto · o que se desabilita não mostra o roxo, e só o afundar solta (C12·8, C12·23, C12·18) | as 16 |
+| checkbox | **o pressionado:** a área de 48 sobe pra `--elevado`, por baixo do poço e do texto, e solta em 100ms, como a linha tocável · a folha desenha só o normal e o marcado (C12·17, G14) | T01 T06 T13 |
+| linha tocável | o que se desabilita no próprio toque solta a camada de uma vez (C12·18) | T01 e toda linha |
+| glifo · o check que nasce | o glifo que troca depois de montar esmaece no poço em 150ms, com o que chega junto (C12·12) | T03 T05 T07 T09 T11 T12 T14 T16 |
+| aviso | **surge:** o aviso que aparece depois de a tela abrir esmaece em 150ms · **aguarda:** o veredito que espera a prova, na caixa neutra com a contagem; na última linha, a palavra e a cor entram em 150ms (C12·9, C12·35, C12·44) | T01 T03 T05 T09 T11 T16 |
+| prova | **surge:** a prova sem lugar reservado esmaece em 150ms · **aguarda:** a legenda, ou a prova inteira com a contagem no lugar da versão (C12·9, C12·35, C12·44) | T09 T11 T16 |
+| faixa | **ausente:** a faixa que nasce desce em 200ms, e o que ela empurra acompanha · **revela:** a aberta sobe em 200ms e revela a sem sessão (C12·24, C12·25) | T05 T16 |
+| escala | **segue:** um trecho linear por passo do processo, vezes `--mov-fator` · **corre:** a leitura que chega leva o marcador de onde estava em 300ms · montar nunca anima (C12·15, C12·30, C12·40) | T03 T07 T13 T14 |
+| leitura | a falha que chega: a camada da borda vermelha e a causa esmaecem em 150ms, e o lugar da causa abre direto (C12·8) | T07 |
+| tambor | rola na troca de valor: 300ms por rodinha, 40ms entre elas, a unidade primeiro · nunca ao montar (G29) | T07 T10 |
+| trilho | **acende:** o trilho do elo relido acende de cima pra baixo em 300ms, só na cadeia (C12·32) | T09 |
+| barra do checklist | **de:** na volta do item, avança em 300ms do valor de quando o item abriu (C12·36) | T13 |
+| régua da diferença | o veredito que chega: a diferença encolhe e esmaece em 300ms, e o veredito entra em 150ms, depois do tambor (C12·34) | T10 |
+| lista · a cascata | só quando a busca acha: cada linha esmaece em 150ms, 80ms depois da anterior (C12·28) | T05 |
+| justificativa | o campo que abre esmaece em 150ms, e o que fecha sai esmaecendo por cima (C12·47, C12·6) | T13 |
+| encerramento | a legenda que passa ao passo que corre esmaece em 150ms; o espaço muda direto (C12·9) | T16 |
+
+Os espécimes de movimento, tocáveis, ficam na vitrine, fora da bancada: `mov-troca`, `mov-troca-quadro`, `mov-porcima`, `mov-registro-linha`, `mov-registro-link`, `mov-listas-*`, `mov-check-*`, `mov-faixa-*` e os dos instrumentos (`mov-escala-baixa`, `mov-prazo-drena`, `mov-leitura-chega`, `mov-leitura-fora`, `mov-mostrador`, `mov-semear`, `mov-barra-checklist`). O movimento que não tem porta no palco se prova neles (C12·13).

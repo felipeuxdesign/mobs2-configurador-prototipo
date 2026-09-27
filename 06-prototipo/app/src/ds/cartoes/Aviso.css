@@ -18,3 +18,33 @@
 .ds-aviso-bloqueio .ds-aviso-frase { color: var(--tinta-secundaria); line-height: var(--entrelinha-frase-caixa); }
 /* o mundo real · T01/14 · o neutro com o traço cinza embaixo: o SEM CONEXÃO do login (G11) */
 .ds-aviso.ds-aviso-traco { border-bottom: var(--traco-destaque) solid var(--tinta-secundaria); }
+
+/* ── C12 · o movimento fino ── */
+/* surge (C12·9): o aviso que aparece depois de a tela abrir esmaece no lugar, em 150 (desacelera) */
+.ds-aviso-surge { animation: ds-aviso-esmaece var(--mov-rapido) var(--mov-curva); }
+@keyframes ds-aviso-esmaece { from { opacity: 0; } }
+/* aguarda (C12·35, C12·44): o veredito que espera a prova. A caixa no desenho do quadro final;
+ * o traço de baixo no cinza do aviso neutro com traço (só a cor: a espessura é a do final), o poço
+ * vazio, o rótulo e a frase guardando o lugar sem texto, e o número do final guardado embaixo da
+ * contagem, que fica por cima, no mesmo lugar e na mesma tinta do número */
+.ds-aviso-aguarda, .ds-aviso-chega { position: relative; }
+.ds-aviso.ds-aviso-aguarda.ds-caixa-falha, .ds-aviso.ds-aviso-aguarda.ds-aviso-veredito { border-bottom-color: var(--tinta-secundaria); }
+.ds-aviso-aguarda .ds-poco > * { opacity: 0; }
+.ds-aviso-aguarda .ds-aviso-titulo, .ds-aviso-aguarda .ds-aviso-frase, .ds-aviso-aguarda > .ds-aviso-numero { visibility: hidden; }
+.ds-aviso-conta {
+  position: absolute; inset: 0; padding: inherit; pointer-events: none;
+  display: flex; align-items: center; justify-content: flex-end;
+}
+.ds-aviso-conta-sai [data-texto]::before { content: attr(data-texto); }
+/* a prova chega (a última linha acendeu): a palavra e a frase esmaecem, já na cor delas; o cinza
+ * do traço sai por uma camada por cima da cor do veredito; a contagem que não vira número sai no
+ * mesmo esmaecer. Tudo em 150, desacelerando; acabou, não fica nada vivo. Com reduzir, direto. */
+.ds-aviso-chega .ds-aviso-titulo, .ds-aviso-chega .ds-aviso-frase { animation: ds-aviso-esmaece var(--mov-rapido) var(--mov-curva); }
+.ds-aviso-capa {
+  position: absolute; pointer-events: none;
+  left: calc(-1 * var(--traco-borda)); right: calc(-1 * var(--traco-borda)); bottom: calc(-1 * var(--traco-destaque)); height: var(--traco-destaque);
+  background: var(--tinta-secundaria); opacity: 0;
+  animation: ds-aviso-sai var(--mov-rapido) var(--mov-curva);
+}
+.ds-aviso-conta-sai { opacity: 0; animation: ds-aviso-sai var(--mov-rapido) var(--mov-curva); }
+@keyframes ds-aviso-sai { from { opacity: 1; } }

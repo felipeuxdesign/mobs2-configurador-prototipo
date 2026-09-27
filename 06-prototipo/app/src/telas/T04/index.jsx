@@ -5,11 +5,11 @@
 // do ENCERRAR antes de homologar (13, decisão 36) e o aviso do acesso vencendo
 // (12). Tudo lê do estado único e do mock: o estado muda o que os blocos
 // dizem, nunca onde eles ficam (Lei 3).
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   BarraDoSistema, TopoDoMenu, TiraDeContexto, Faixa, GradeFerramentas, CartaoFerramenta,
-  Veu, Folha, CartaoDaConta, PrazoDaConta, BotaoDaFolha, Dialogo, Frase, Destaque,
-  Aviso, Nota, Lista, LinhaGaragem, Link,
+  Folha, CartaoDaConta, PrazoDaConta, BotaoDaFolha, Dialogo, Frase, Destaque,
+  Aviso, Nota, Lista, LinhaGaragem, Link, PorCima, usePorCima,
 } from '../../ds/index.js'
 import { useEstado, estadoVazio } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
@@ -18,8 +18,6 @@ import { EM_QUADRO } from '../../estado/quadro.js'
 import { SEMENTES } from '../../estado/sementes.js'
 import { M } from '../../dados/mock.js'
 import { caixaAlta } from '../../dados/formato.js'
-// a presença da folha (sobe em 200, desce em 150, movimento.md) é a mesma da T01
-import { usePresenca } from '../T01/presenca.js'
 import { CartaoPreso } from './pecas.jsx'
 import {
   REF, SOBRE, MOMENTO_DA_FOLHA, FOLHAS, SOB_A_FAIXA, placaDe, uoDe, iniciais, filaToda, pendentesDaGaragem, naFila,
@@ -94,17 +92,17 @@ export default function T04({ momento, estado: est }) {
   // menu. Depois de homologar, direto, pros passos do encerramento.
   const enc = useEncerrar({ aberto: sobre === 'encerrar', aoAbrir: () => abrir('encerrar'), aoFechar: fechar })
 
-  // A folha sobe do pé em 200 e desce em 150 (movimento.md, animacao.md): ao
-  // fechar, a que estava aberta continua na tela até terminar de descer. Se um
-  // diálogo toma o lugar dela (o Sair da conta, o trocar, o do ENCERRAR), ela
-  // sai na hora, sem dois véus. Aberta pela URL ou no print, nasce aberta, sem movimento.
+  // Por cima do menu, um véu só (src/ds/chrome/PorCima.jsx): as folhas, os diálogos de
+  // sair e de trocar e o do ENCERRAR se revezam nele. A folha sobe do pé em 200 e desce
+  // em 150, o diálogo nasce e some em 150 (movimento.md, animacao.md); ao fechar, o que
+  // estava aberto continua na tela até terminar de sair. Quando um diálogo toma o lugar
+  // da folha (o Sair da conta, o trocar, o do ENCERRAR), o véu fica aceso, parado: a
+  // folha desce enquanto o diálogo nasce, e no Cancelar o diálogo esmaece enquanto a
+  // folha sobe de novo (C12·27, C12·43). Aberto pela URL ou no print, nasce aberto, sem movimento.
   const folhaPedida = FOLHAS.includes(sobre) ? sobre : null
-  const ultimaFolha = useRef(folhaPedida)
-  if (folhaPedida) ultimaFolha.current = folhaPedida
-  const presenca = usePresenca(folhaPedida != null)
-  const folha = folhaPedida ?? (presenca.montado && !sobre ? ultimaFolha.current : null)
+  const camada = usePorCima(sobre)
   // as folhas do módulo e do ativo abrem embaixo da faixa, que fica acesa em cima do véu (T04/10, 11)
-  const sobFaixa = SOB_A_FAIXA.includes(folha)
+  const sobFaixa = SOB_A_FAIXA.includes(camada.topo)
 
   // O aviso do acesso vencendo (logica.md · O aviso do acesso, T04/12): no dia
   // do aviso, o diálogo aparece na primeira chegada ao menu — pelo fluxo ou pela
@@ -120,8 +118,8 @@ export default function T04({ momento, estado: est }) {
   // nesse meio não o fecha.
   const prazoDoAviso = avisoDoAcesso(mundo.situacao.sessaoAcesso)
   const avisoPedido = prazoDoAviso != null && (est ? est === REF.acesso
-    : !EM_QUADRO && !sobre && !presenca.montado && !enc.montado && !mundo.avisoDoAcessoVisto)
-  const presencaDoAviso = usePresenca(avisoPedido)
+    : !EM_QUADRO && !sobre && !camada.montado && !mundo.avisoDoAcessoVisto)
+  const presencaDoAviso = usePorCima(avisoPedido ? 'acesso' : null)
 
   // a URL segue o quadro do menu (G20): sem sessão é o 01, sem ativo é o 02
   useEffect(() => {
@@ -194,52 +192,48 @@ export default function T04({ momento, estado: est }) {
 
   // ── por cima: as folhas e os diálogos ──
   // A folha fecha pelo X, pelo toque no véu, fora dela, e pelo voltar do
-  // sistema (logica.md). Dentro, o conteúdo de cada uma.
-  const veuDaFolha = (conteudo) => (
-    <Veu de="folha" visivel={presenca.visivel} aoTocarFora={fechar}>{conteudo}</Veu>
-  )
+  // sistema (logica.md). Dentro, o conteúdo de cada uma; o véu, a presença e a
+  // troca entre elas são do PorCima (a folha diz a ele o fechar do toque fora).
   let porCima = null
-  if (folha === 'conta') {
+  if (sobre === 'conta') {
     const { restam, total } = prazoDoAcesso(mundo.situacao.sessaoAcesso)
-    porCima = veuDaFolha(
-      <Folha titulo="Conta" rotuloFechar="Fechar" minima aoFechar={fechar} aberta={presenca.visivel}>
+    porCima = (
+      <Folha titulo="Conta" rotuloFechar="Fechar" minima aoFechar={fechar}>
         <CartaoDaConta iniciais={sigla} nome={tecnico} detalhe={`${mundo.tecnico.usuario} · ${M.empresa.nome}`} />
         <PrazoDaConta rotulo="ACESSO VENCE EM" restam={restam} total={total} unidade="dias"
           resta={`RESTAM ${restam} DE ${total} DIAS`} legenda="Sincronize para renovar o acesso." />
         <BotaoDaFolha aoTocar={pedirSaida}>Sair da conta</BotaoDaFolha>
-      </Folha>,
+      </Folha>
     )
-  } else if (folha === 'modulo' || folha === 'ativo') {
+  } else if (sobre === 'modulo' || sobre === 'ativo') {
     // 10 · 11 · o que a sessão prendeu, travado nela (HU-T16-2); o Encerrar
     // a sessão é o ENCERRAR da faixa (logica.md · módulo e ativo travados):
-    // antes de homologar, a folha sai e o diálogo abre por cima do menu (o 13)
-    const doModulo = folha === 'modulo'
+    // antes de homologar, a folha desce e o diálogo nasce por cima do menu (o 13)
+    const doModulo = sobre === 'modulo'
     const preso = doModulo ? moduloPreso(sessao?.moduloSerial) : ativoPreso(sessao?.ativoId)
-    porCima = veuDaFolha(
-      <Folha titulo={doModulo ? 'Módulo conectado' : 'Ativo da sessão'} rotuloFechar="Fechar" aoFechar={fechar} aberta={presenca.visivel}>
+    porCima = (
+      <Folha titulo={doModulo ? 'Módulo conectado' : 'Ativo da sessão'} rotuloFechar="Fechar" aoFechar={fechar}>
         <CartaoPreso icone={doModulo ? 'conectar' : 'ativo'} identidade={preso.identidade} detalhes={preso.detalhes} />
         <Nota tom="fato" titulo="TRAVADO NA SESSÃO" frase={doModulo
           ? 'Enquanto a sessão estiver aberta, o módulo não troca. Pra trocar de módulo, encerre a sessão.'
           : 'Enquanto a sessão estiver aberta, o ativo não troca. Pra trocar de ativo, encerre a sessão.'} />
         <BotaoDaFolha aoTocar={enc.encerrar}>Encerrar a sessão</BotaoDaFolha>
-      </Folha>,
+      </Folha>
     )
   } else if (sobre === 'sair') {
     porCima = (
-      <Veu de="dialogo">
-        <Dialogo titulo="Sair da conta" primario="Encerrar a sessão e sair" aoPrimario={sairEncerrando}
-          saida="Cancelar" aoSair={() => abrir('conta')} saidaDe44 margem={20}>
-          {itensNaFila > 0 && <Frase><Destaque>{itensNaFila}</Destaque> itens continuam na fila e sobem no próximo login.</Frase>}
-          {sessao && <Frase>A sessão de configuração do <Destaque>{sessao.moduloSerial}</Destaque> é encerrada antes, sem homologar.</Frase>}
-        </Dialogo>
-      </Veu>
+      <Dialogo titulo="Sair da conta" primario="Encerrar a sessão e sair" aoPrimario={sairEncerrando}
+        saida="Cancelar" aoSair={() => abrir('conta')} saidaDe44 margem={20}>
+        {itensNaFila > 0 && <Frase><Destaque>{itensNaFila}</Destaque> itens continuam na fila e sobem no próximo login.</Frase>}
+        {sessao && <Frase>A sessão de configuração do <Destaque>{sessao.moduloSerial}</Destaque> é encerrada antes, sem homologar.</Frase>}
+      </Dialogo>
     )
-  } else if (folha === 'garagem') {
+  } else if (sobre === 'garagem') {
     // 07 · 08 · 14 · a folha de trocar de unidade; com mais de uma empresa, o
     // Trocar de empresa no fim (14, decisão 37)
     const lista = garagens()
-    porCima = veuDaFolha(
-      <Folha titulo="Trocar de unidade" rotuloFechar="Fechar" folga={12} aoFechar={fechar} aberta={presenca.visivel}
+    porCima = (
+      <Folha titulo="Trocar de unidade" rotuloFechar="Fechar" folga={12} aoFechar={fechar}
         subtitulo={subindo ? undefined : 'Trocar recarrega os ativos e o pacote desta unidade.'}>
         {subindo === 1 && <Aviso tom="neutro" semPoco titulo="UMA EVIDÊNCIA ESTÁ SUBINDO" frase="Troque de unidade quando a fila terminar." />}
         <Lista role="radiogroup" aria-label="Trocar de unidade">
@@ -260,7 +254,7 @@ export default function T04({ momento, estado: est }) {
             <Link aoTocar={trocarDeEmpresa}>Trocar de empresa</Link>
           </div>
         )}
-      </Folha>,
+      </Folha>
     )
   } else if (sobre === 'trocar') {
     // 09 · trocar com a sessão aberta: de unidade, ou de empresa (a mesma
@@ -268,34 +262,31 @@ export default function T04({ momento, estado: est }) {
     const alvo = trocarPara ?? { uoId: garagens().find((g) => g.id !== uoId && !g.vencida)?.id }
     const deEmpresa = Boolean(alvo.empresa)
     porCima = (
-      <Veu de="dialogo">
-        <Dialogo titulo={deEmpresa ? 'Trocar de empresa' : 'Trocar de unidade'} primario="Encerrar a sessão e trocar"
-          aoPrimario={() => trocarEncerrando(alvo)}
-          saida="Cancelar" aoSair={() => setTrocarPara(null)} margem={20}>
-          <Frase>A sessão de configuração do <Destaque>{sessao?.moduloSerial}</Destaque> é encerrada antes da troca, sem homologar.</Frase>
-          <Frase>O que já foi gravado fica no módulo.</Frase>
-        </Dialogo>
-      </Veu>
+      <Dialogo titulo={deEmpresa ? 'Trocar de empresa' : 'Trocar de unidade'} primario="Encerrar a sessão e trocar"
+        aoPrimario={() => trocarEncerrando(alvo)}
+        saida="Cancelar" aoSair={() => setTrocarPara(null)} margem={20}>
+        <Frase>A sessão de configuração do <Destaque>{sessao?.moduloSerial}</Destaque> é encerrada antes da troca, sem homologar.</Frase>
+        <Frase>O que já foi gravado fica no módulo.</Frase>
+      </Dialogo>
     )
+  } else if (sobre === 'encerrar') {
+    // 13 · o ENCERRAR antes de homologar (decisão 36): o véu cobre também a tira
+    // e a faixa, como no aviso do acesso — o menu inteiro fica atrás dele
+    porCima = enc.caixa
   }
-  // 13 · o ENCERRAR antes de homologar (decisão 36): o véu cobre também a tira
-  // e a faixa, como no aviso do acesso — o menu inteiro fica atrás dele
-  const doEncerrar = !porCima && enc.montado
-  if (doEncerrar) porCima = enc.dialogo
+  // onde o véu começa, de cada coisa: embaixo da tira (05 a 09), embaixo da faixa
+  // (as folhas do módulo e do ativo, 10 e 11) ou embaixo da barra (o 13)
+  const lugar = `t04-sobre ${SOB_A_FAIXA.includes(sobre) ? 't04-sobre-faixa' : ''} ${sobre === 'encerrar' ? 't04-sobre-tudo' : ''}`
   // o aviso do acesso: o véu cobre também a tira e a faixa (T04/12), e o
   // Entendi é o único jeito de fechar
   const entendi = () => despachar({ tipo: 'mesclar', parcial: { avisoDoAcessoVisto: true } })
-  const aviso = !porCima && presencaDoAviso.montado
-  if (aviso) {
-    porCima = (
-      <Veu de="dialogo" visivel={presencaDoAviso.visivel}>
-        <Dialogo titulo={`Seu acesso vence em ${prazoDoAviso.restam} dias`} primario="Entendi" aoPrimario={entendi}
-          margem={24} aberto={presencaDoAviso.visivel}>
-          <Frase>Depois disso, ele pede a senha de novo — e pra isso precisa de rede.</Frase>
-        </Dialogo>
-      </Veu>
-    )
-  }
+  const aviso = !camada.montado && presencaDoAviso.montado
+  const doAviso = (
+    <Dialogo titulo={`Seu acesso vence em ${prazoDoAviso?.restam} dias`} primario="Entendi" aoPrimario={entendi} margem={24}>
+      <Frase>Depois disso, ele pede a senha de novo — e pra isso precisa de rede.</Frase>
+    </Dialogo>
+  )
+  const doEncerrar = camada.topo === 'encerrar'
 
   // o voltar do Android (logica.md): o X da folha, o Cancelar do diálogo; no
   // aviso do acesso, o Entendi, que só fecha e é a única saída; no menu, que
@@ -318,13 +309,14 @@ export default function T04({ momento, estado: est }) {
   // embaixo dela (10, 11). Nas outras, a faixa fica atrás do véu, inerte. No
   // aviso do acesso e no diálogo do ENCERRAR, o véu cobre a tira também (12,
   // 13): o topo inteiro fica inerte.
-  const atras = porCima ? '' : undefined
+  const montado = camada.montado || aviso
+  const atras = montado ? '' : undefined
   const sobreTudo = aviso || doEncerrar
   return (
     <div className="t04">
       <BarraDoSistema hora={M.HORA_NOMINAL} fundo="tira" />
       <div className="t04-fundo">
-        <fieldset className="t04-topo" role="presentation" disabled={Boolean(porCima)} inert={sobreTudo ? '' : undefined}>
+        <fieldset className="t04-topo" role="presentation" disabled={montado} inert={sobreTudo ? '' : undefined}>
           <TopoDoMenu>
             <TiraDeContexto garagem={caixaAlta(uoDe(uoId).nome)} aoTrocarGaragem={() => abrir('garagem')}
               rotuloGaragem={`Trocar de unidade — ${uoDe(uoId).nome}`}
@@ -352,7 +344,9 @@ export default function T04({ momento, estado: est }) {
           </GradeFerramentas>
         </div>
       </div>
-      {porCima && <div className={`t04-sobre ${sobFaixa ? 't04-sobre-faixa' : ''} ${sobreTudo ? 't04-sobre-tudo' : ''}`}>{porCima}</div>}
+      {camada.montado
+        ? <PorCima key="menu" camada={camada} lugar={lugar}>{porCima}</PorCima>
+        : aviso && <PorCima key="aviso" camada={presencaDoAviso} lugar="t04-sobre t04-sobre-tudo">{doAviso}</PorCima>}
     </div>
   )
 }

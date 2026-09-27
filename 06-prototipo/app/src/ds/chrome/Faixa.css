@@ -35,6 +35,15 @@
 /* no menu, com a linha vermelha de 2 embaixo, o ENCERRAR desce 1 (a diferença entre a linha de 2 e a
  * de 1): fica no mesmo lugar da faixa do menu sem falha, 4 abaixo da borda de cima (T04/03, folha 2) */
 .ds-faixa-menu.ds-faixa-falha .ds-faixa-acao { margin-top: calc(var(--traco-destaque) - var(--traco-borda)); }
-/* a lei 17 (diretor, 25/09): o ENCERRAR que não pode agir agora fica em tinta apagada, sem o pressionado */
+/* a lei 17 (diretor, 25/09): o ENCERRAR que não pode agir agora fica em tinta apagada, sem o pressionado.
+ * Ele se apaga e volta sem piscar (o C12, a peça da faixa): a tinta troca direto (a cor não anima), e a camada do
+ * pressionado sai de uma vez — nada solta por cima da tinta apagada, e na volta ela nasce em 0 */
 .ds-faixa-acao-desabilitada { color: var(--tinta-apagada); cursor: default; }
 .ds-faixa-acao-desabilitada .ds-chrome-camadas-toque { display: none; }
+
+/* o movimento (C12·24, C12·25 · Faixa.jsx): só transform, e por baixo da barra do sistema, que fica por cima
+ * · a faixa que ainda não nasceu nesta tela (T05, antes de a pré-checagem aprovar): montada, sem caixa */
+.ds-faixa.ds-faixa-ausente { display: none; }
+/* · a faixa que encerra (T16): a aberta de antes fica por cima da sem sessão, no mesmo lugar, e sobe */
+.ds-faixa-revela { position: relative; }
+.ds-faixa-saindo { position: absolute; top: 0; right: 0; left: 0; }

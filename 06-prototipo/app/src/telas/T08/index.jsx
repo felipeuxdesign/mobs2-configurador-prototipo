@@ -13,8 +13,15 @@
 // · ENCERRAR, antes de homologar, abre o diálogo Encerrar sem homologar? por
 //   cima da tela (decisão 36), que leva à sessão abortada (G23). Relendo, ele
 //   fica apagado, como o voltar (a lei 17). O processo para sozinho quando a tela sai.
+// · O movimento (C12): a troca de quadro 00 → 01 → 02 (C12·4 a) — o título, a
+//   caixa e o rodapé trocam inteiros, e o conteúdo esmaece em 150, como entre
+//   telas, no toque e no fim da releitura; aberta pela URL, pelo palco ou no
+//   print, parada. Dentro da 01, cada mostrador que responde acende pela pele,
+//   por opacity em 150, e o valor troca no lugar (o Mostrador, C12·11 a); o
+//   placar troca o número no lugar. Os valores não viram traço (a linha saiu,
+//   C12·11 a): a 00 já está em traço.
 import { useEffect, useRef, useState } from 'react'
-import { BarraDoSistema, Faixa, GradeCartoes, Mostrador, Rodape } from '../../ds/index.js'
+import { BarraDoSistema, Faixa, GradeCartoes, Mostrador, Rodape, useTrocaDeQuadro } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
 import { useEncerrar } from '../../estado/encerrar.jsx'
@@ -88,6 +95,7 @@ export default function T08({ momento }) {
   const enc = useEncerrar()
 
   const { fase, lidos } = fluxo
+  useTrocaDeQuadro(fase)
   // O voltar do Android (logica.md): antes e depois da releitura, o Voltar ao
   // menu, o link de saída do rodapé. Relendo, a tela não tem saída (não saia da
   // tela): não faz nada — a releitura termina sozinha
@@ -100,12 +108,15 @@ export default function T08({ momento }) {
   else cabeca = { titulo: 'Leitura refeita', frase: `Os ${extenso} sinais responderam.` }
 
   // cada mostrador: apagado até o sinal responder; relendo enquanto a
-  // releitura corre; aceso quando ela termina
+  // releitura corre; aceso quando ela termina. A fase na chave: cada quadro
+  // nasce com os mostradores dele, e o último sinal, que chega junto com a
+  // troca 01 → 02, entra com ela, sem acender a pele uma segunda vez por
+  // dentro do esmaecer (a revisão de 27/09; dentro da 01, cada um acende)
   const mostradores = sinais.map((s, i) => {
     const respondeu = fase === 'concluida' || (fase === 'relendo' && i < lidos)
-    if (!respondeu) return <Mostrador key={s.id} estado="apagado" valor="—" nome={s.rotulo} />
+    if (!respondeu) return <Mostrador key={`${s.id}·${fase}`} estado="apagado" valor="—" nome={s.rotulo} />
     const { valor, unidade } = valorEUnidade(leituraDe(s, ativo?.id))
-    return <Mostrador key={s.id} estado={fase === 'concluida' ? 'aceso' : 'relendo'} valor={valor} unidade={unidade} nome={s.rotulo} />
+    return <Mostrador key={`${s.id}·${fase}`} estado={fase === 'concluida' ? 'aceso' : 'relendo'} valor={valor} unidade={unidade} nome={s.rotulo} />
   })
 
   let caixa

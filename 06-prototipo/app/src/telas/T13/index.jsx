@@ -41,10 +41,16 @@
 //   do item, o Voltar ao checklist; nas seções e no homologado, o Voltar ao
 //   menu (T13·6). ENCERRAR antes de homologar abre o diálogo Encerrar sem
 //   homologar? por cima da tela (decisão 36), e a sessão abortada (G23).
-import { useEffect, useRef, useState } from 'react'
+// · O movimento (C12): o item abre, passa ao próximo e volta pela troca de quadro
+//   (C12·4); na volta, a barra parte do que tinha quando o item abriu (C12·36); a
+//   caixa do não conforme desliza pro lugar novo e o registro do problema esmaece
+//   no lugar do visor (C12·47, C12·42); o texto do primário troca no lugar
+//   (C12·23); o diálogo da Seção F nasce e some com o véu. Nada anima ao abrir.
+import { Fragment, useEffect, useRef, useState } from 'react'
 import {
   BarraDoSistema, Faixa, CabecalhoConteudo, BarraDoChecklist, SecoesDoChecklist, SecaoDoChecklist, ItemDoChecklist, VereditoDoChecklist,
   Segmentado, Justificativa, Nota, Rodape, Veu, Dialogo, Frase, VisorCamera, FotoProva,
+  useTrocaDeQuadro, useReorganiza, usePresenca,
 } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
@@ -87,7 +93,8 @@ function comQuadro(base, momento) {
 // diálogo. No item manual: a caixa do não conforme, o que aconteceu e a hora
 // da foto do problema (decisão 39)
 function quadroInicial({ momento, est, ck }) {
-  const q = { aberta: null, item: null, naoConforme: false, texto: '', fotoProblema: null, dialogo: false, ciente: false }
+  // deFeitos: quantos estavam feitos quando o nível do item abriu (a barra parte dali na volta, C12·36)
+  const q = { aberta: null, item: null, naoConforme: false, texto: '', fotoProblema: null, dialogo: false, ciente: false, deFeitos: null }
   if (est === REF.reprovado) return { ...q, item: ck.porSecao.C.find((c) => c.estado === 'reprovado')?.id ?? null }
   if (est === REF.secaoF) return { ...q, dialogo: true }
   if (SECAO_DO_MOMENTO[momento]) return { ...q, aberta: SECAO_DO_MOMENTO[momento] }
@@ -149,13 +156,13 @@ export default function T13({ momento, estado: est }) {
 
   function abrirSecao(s) {
     const aberta = q.aberta === s ? null : s
-    setQ({ ...q, aberta, item: null })
+    setQ({ ...q, aberta, item: null, deFeitos: null })
     irQuadro(quadroDasSecoes(aberta))
   }
   // o toque num item com seta: a câmera do app, o nível do item reprovado, ou a tela que resolve
   function tocarItem(c) {
-    if (c.destino === 'item') { setQ({ ...q, item: c.id, naoConforme: false, texto: '', fotoProblema: null }); irItem(REF.responder); return }
-    if (c.destino === 'reprovado') { setQ({ ...q, item: c.id }); irQuadro(null); return } // o 09 é estado da coluna: no fluxo, a URL fica na tela
+    if (c.destino === 'item') { setQ({ ...q, item: c.id, naoConforme: false, texto: '', fotoProblema: null, deFeitos: ck.feitos }); irItem(REF.responder); return }
+    if (c.destino === 'reprovado') { setQ({ ...q, item: c.id, deFeitos: ck.feitos }); irQuadro(null); return } // o 09 é estado da coluna: no fluxo, a URL fica na tela
     if (c.destino?.tela) ir(c.destino.tela)
   }
   // a caixa do não conforme: marcada, o 08 (ou o 15, se o problema já foi
@@ -196,17 +203,37 @@ export default function T13({ momento, estado: est }) {
     setRegistro(novo)
     setHomologouAgora(true)
     gravar(novo)
-    setQ({ ...q, dialogo: false, ciente: false, aberta: null, item: null })
+    // o diálogo sai como estava, com a ciência marcada; o veredito surge embaixo dele
+    setQ({ ...q, dialogo: false, aberta: null, item: null, deFeitos: null })
     irQuadro(REF.homologado)
   }
   const finalizar = () => (ck.falhandoF ? setQ({ ...q, dialogo: true, ciente: false }) : homologar(null))
-  const cancelar = () => setQ({ ...q, dialogo: false, ciente: false })
+  // o diálogo sai como estava (a ciência marcada continua desenhada até sumir); o Finalizar abre sem ela
+  const cancelar = () => setQ({ ...q, dialogo: false })
 
   // o voltar do Android (logica.md, T13·6): num estado da coluna o app está parado, e a peça não escuta
   useVoltar(q.dialogo ? cancelar : q.item ? voltarAoChecklist : voltarAoMenu)
 
   // ── o que se mostra ──
   const { sessao } = mundo
+  const nivel = q.item ? nivelDoItem(ck, q.item) : null
+  const fotografado = q.naoConforme && q.fotoProblema != null
+
+  // ── o movimento (C12) ──
+  // O quadro que a tela desenha: as seções, ou o nível de um item. Abrir o item, passar ao
+  // próximo depois do Tirar foto e voltar às seções trocam o desenho inteiro: o conteúdo
+  // esmaece em 150, como entre telas (C12·4); abrir e fechar uma seção move só a seção.
+  const quadro = q.item ?? 'secoes'
+  useTrocaDeQuadro(quadro)
+  // No nível do item manual, a caixa do não conforme muda de lugar na mesma vista (07 ↔ 08 ↔
+  // 15): o layout vai direto pro fim, e ela desliza do lugar de antes ao novo, em 150; o
+  // registro do problema esmaece no lugar do visor, e o visor sai esmaecendo por cima
+  // (C12·47, C12·42, C12·10 · src/ds/linhas/Reorganiza.js). O campo que abre embaixo dela é
+  // da peça (Justificativa). Nas seções e no item reprovado, nada disso: a chave é null
+  const lugar = useReorganiza(nivel && nivel.item.secao === 'B' ? `${q.naoConforme}|${fotografado}` : null)
+  // o diálogo da Seção F: nasce e some em 150, com o véu (movimento.md, "Por cima da tela");
+  // aberto desde o começo (o 10, pela coluna), parado
+  const dialogo = usePresenca(q.dialogo)
 
   // os itens da seção aberta: a ação da seção primeiro (a E), e a última sem o traço de baixo
   function itensDa(s) {
@@ -227,7 +254,6 @@ export default function T13({ momento, estado: est }) {
 
   let miolo
   let rodape
-  const nivel = q.item ? nivelDoItem(ck, q.item) : null
   if (nivel && nivel.item.secao === 'B') {
     // o nível do item manual (07, 08, 15). Sem a permissão da câmera, a câmera
     // riscada e o Abrir as configurações no lugar do Tirar foto (estado/camera.js).
@@ -235,7 +261,6 @@ export default function T13({ momento, estado: est }) {
     // (Enquadre o problema, 08); fotografado o problema, o registro no lugar
     // dela (15) — a foto que prova, tirada, a peça da T10
     const cam = cameraDa(permissao)
-    const fotografado = q.naoConforme && q.fotoProblema != null
     const frase = q.naoConforme ? T.enquadreProblema : nivel.item.instrucao
     miolo = (
       <>
@@ -266,9 +291,10 @@ export default function T13({ momento, estado: est }) {
       'abrir-configuracoes': { rotulo: T.abrirConfiguracoes, aoTocar: () => { const p = voltaDasConfiguracoes(); setPermissao(p); irItem(q.naoConforme ? REF.naoConforme : REF.responder, p) } },
     }
     const primario = PRIMARIO[primarioDaCamera(permissao, { naoConforme: q.naoConforme, fotografado, contou: !!q.texto.trim() })]
+    // o botão diz o que falta: o texto novo esmaece no lugar, e o roxo troca direto (C12·23)
     rodape = (
       <Rodape primario={primario.rotulo} aoPrimario={primario.aoTocar}
-        primarioDesabilitado={!!primario.desabilitado} link={T.voltarChecklist} aoLink={voltarAoChecklist} />
+        primarioDesabilitado={!!primario.desabilitado} primarioTrocaTexto link={T.voltarChecklist} aoLink={voltarAoChecklist} />
     )
   } else if (nivel) {
     // o nível do item automático reprovado (09): o motivo e o caminho; nada se marca à mão
@@ -288,7 +314,8 @@ export default function T13({ momento, estado: est }) {
     miolo = (
       <>
         <CabecalhoConteudo titulo={T.titulo} contagem={String(ck.feitos)} unidade={T.de(ck.total)} />
-        <BarraDoChecklist feitos={ck.feitos} total={ck.total} className="t13-barra" />
+        {/* na volta do nível do item, a barra parte do que tinha quando o item abriu (C12·36) */}
+        <BarraDoChecklist feitos={ck.feitos} total={ck.total} de={q.deFeitos ?? undefined} className="t13-barra" />
         {homologada && (
           <VereditoDoChecklist titulo={T.homologadaAs(registro.homologadaAs ?? HORA)} surge={homologouAgora}
             relatorio={mundo.semLocalizacao ? T.semLocalizacao : T.relatorioLeva(M.checklist.evidencias)} />
@@ -303,12 +330,13 @@ export default function T13({ momento, estado: est }) {
         </SecoesDoChecklist>
       </>
     )
+    // no Finalizar, o texto do primário troca no lugar (C12·23): Encerrar a sessão
     rodape = homologada
-      ? <Rodape primario={T.encerrarSessao} aoPrimario={() => ir('T16')} link={T.voltarMenu} aoLink={voltarAoMenu} />
+      ? <Rodape primario={T.encerrarSessao} aoPrimario={() => ir('T16')} primarioTrocaTexto link={T.voltarMenu} aoLink={voltarAoMenu} />
       : (
         // 'Faltam N itens' explica o primário apagado; com 1, no singular (Falta 1 item, proposta)
         <Rodape legenda={ck.faltam > 0 ? T.faltam(ck.faltam) : undefined} legendaJunta primario={T.finalizar} primarioDesabilitado={ck.faltam > 0}
-          aoPrimario={finalizar} link={T.voltarMenu} aoLink={voltarAoMenu} />
+          primarioTrocaTexto aoPrimario={finalizar} link={T.voltarMenu} aoLink={voltarAoMenu} />
       )
   }
 
@@ -317,20 +345,21 @@ export default function T13({ momento, estado: est }) {
   return (
     <div className="t13">
       <BarraDoSistema hora={HORA} fundo="faixa" />
-      <fieldset className="t13-topo" role="presentation" disabled={q.dialogo}>
+      <fieldset className="t13-topo" role="presentation" disabled={dialogo.montado}>
         <Faixa serial={sessao.moduloSerial} placa={ativoDe(sessao.ativoId)?.placa} acao={T.encerrar} aoEncerrar={enc.encerrar} />
       </fieldset>
       <div className="t13-corpo">
-        <div className="t13-conteudo" inert={q.dialogo ? '' : undefined}>
-          <div className="tela-miolo t13-miolo">{miolo}</div>
-          {rodape}
+        <div className="t13-conteudo" inert={dialogo.montado ? '' : undefined}>
+          {/* o miolo e o rodapé nascem com o quadro: dentro da troca, nada esmaece de novo por dentro */}
+          <div key={`miolo:${quadro}`} ref={lugar} className="tela-miolo t13-miolo">{miolo}</div>
+          <Fragment key={`rodape:${quadro}`}>{rodape}</Fragment>
         </div>
-        {q.dialogo && (
+        {dialogo.montado && (
           <div className="t13-sobre">
-            <Veu de="dialogo">
+            <Veu de="dialogo" visivel={dialogo.visivel}>
               <Dialogo titulo={T.secaoFNaoPassou} primario={T.finalizar} aoPrimario={() => homologar({ nome: unico.tecnico.nome, as: HORA })}
                 saida={T.cancelar} aoSair={cancelar} ciencia={T.ciente(unico.tecnico.nome, HORA)} ciente={q.ciente}
-                aoMudarCiencia={(ciente) => setQ((x) => ({ ...x, ciente }))} margem={16}>
+                aoMudarCiencia={(ciente) => setQ((x) => ({ ...x, ciente }))} margem={16} aberto={dialogo.visivel}>
                 <Frase>{T.registradaFalhando}</Frase>
               </Dialogo>
             </Veu>

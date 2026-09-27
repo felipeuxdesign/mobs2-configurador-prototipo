@@ -5,9 +5,11 @@
 @font-face { font-family: 'Google Sans'; font-style: normal; font-weight: 500; font-display: block; src: url('../../../../../05-recursos/fontes/GoogleSans-hora.woff') format('woff'); }
 
 /* os 30 de sempre (nada embaixo se move): o recuo de 26 e 32, das curvas da tela, e os glifos
-   3px abaixo do centro — o recheio de 6 em cima, com a medida por dentro */
+   3px abaixo do centro — o recheio de 6 em cima, com a medida por dentro. É do aparelho, e fica por
+   cima de tudo o que o app desenha (--camada-sistema): a faixa que desce e a que sobe passam por baixo dela
+   (C12·24, C12·25), e ela não se move */
 .ds-barra-sistema {
-  position: relative; isolation: isolate;
+  position: relative; isolation: isolate; z-index: var(--camada-sistema);
   height: var(--barra-sistema); flex-shrink: 0;
   display: flex; align-items: center; justify-content: space-between;
   padding: var(--barra-sistema-desce) var(--barra-sistema-recuo-direita) 0 var(--barra-sistema-recuo);

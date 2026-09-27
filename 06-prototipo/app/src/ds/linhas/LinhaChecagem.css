@@ -71,9 +71,12 @@
  * módulo tem espera a leitura chegar */
 .ds-checagem-lendo.ds-checagem-lendo-relogio .ds-poco > * { opacity: 1; }
 .ds-checagem-lendo .ds-checagem-par-modulo { opacity: 0; }
-/* a leitura chega na frente de quem olha: o check ou o xis, e a linha do módulo, esmaecem (150, desacelera) */
-.ds-checagem-acende .ds-poco > *, .ds-checagem-acende .ds-checagem-par-modulo { animation: ds-checagem-esmaece var(--mov-rapido) var(--mov-curva); }
-@keyframes ds-checagem-esmaece { from { opacity: 0; } to { opacity: 1; } }
+/* C12 · a leitura chega na frente de quem olha (C12·7, C12·12, C12·29): o glifo novo esmaece
+ * pelo Glifo (esmaece), e o que chega com a leitura — o valor, a causa, a nota, o porquê e, na
+ * conferência, a linha do módulo — esmaece junto, no lugar, em 150 (desacelera). A peça percebe
+ * sozinha: aberta já lida, nada anima. Sem preenchimento (C12·19); com reduzir, direto. */
+.ds-checagem-nasce { animation: ds-checagem-esmaece var(--mov-rapido) var(--mov-curva); }
+@keyframes ds-checagem-esmaece { from { opacity: 0; } }
 /* C10 · T14 (G11) · o passo do ciclo com a causa: a causa na entrelinha do texto,
  * e o recheio da referência — 8 no passo reprovado (T14/03, a linha de 50) e 4 no
  * teste do cartão, a última (T14/04) */

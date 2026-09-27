@@ -5,7 +5,11 @@
 // fim o tambor volta a ser o número parado, igual à folha. Não rola ao abrir
 // (movimento.md): só na troca de valor — ou, com `de`, uma vez, do `de` até o
 // `valor`, pro momento que começa rolando (o semear da T10: de 184.320 até
-// 482.317). Com reduzir movimento, mostra o número. Duas peles: `texto` (o
+// 482.317). Na T07 (C12·30 e 31), a chegada do hodômetro é a troca de valor:
+// o quadro de começo tem as rodinhas na casa 0 (`000.000`, as casas do lido),
+// e a leitura que chega troca pro lido — nunca ao montar, e sem `de`, que é
+// só pra peça que nasce no meio do movimento. Com reduzir movimento, mostra o
+// número. Duas peles: `texto` (o
 // valor em poço da T10) e `celulas` (o hodômetro da T07: uma célula por roda,
 // a da unidade acesa, e a unidade).
 import { useLayoutEffect, useRef, useState } from 'react'

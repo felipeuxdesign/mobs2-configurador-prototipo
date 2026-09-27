@@ -16,6 +16,7 @@
 //        poço (10 no de 24) e o valor em --tinta (a T05/10: 'atualizando · 62%')
 import { Poco } from '../primitivos/Poco.jsx'
 import { Glifo } from '../primitivos/Glifo.jsx'
+import { useVez, useChega } from '../primitivos/vez.js'
 import './LinhaChecagem.css'
 
 // C11 · T11 (G11): +estado 'diverge' — o bloco que não bate com o cadastro, na
@@ -57,6 +58,7 @@ const glifoDoPoco = (variante, estado, tam) => (variante === 'recebimento' && es
 // · `acende` — a leitura chegou nesta linha na frente de quem olha: o glifo, e
 //   a linha do módulo, esmaecem em 150 ms (animacao.md; com reduzir, direto).
 //   Nascida lida (o print, a coluna), a linha não o recebe e fica parada.
+//   Desde o C12, a peça percebe sozinha (logo abaixo), e o `acende` fica sem efeito.
 // C11 · T16 (G11), na assertiva da sessão (dupla); sem elas, a linha é a de sempre:
 // · o nome fica aceso em todo estado — quem diz o veredito é o glifo e o valor:
 //   o 'não se aplica' leva o círculo com o traço (glifo 'traco-circulo') e o
@@ -88,6 +90,20 @@ const glifoDoPoco = (variante, estado, tam) => (variante === 'recebimento' && es
 //     --tinta-secundaria
 //   · 'reprovada' — o xis, e o veredito em vermelho (nenhuma referência desenha)
 //   O veredito está escrito à direita: o glifo fica mudo pro leitor (G15).
+// C12 · a linha que conclui (C12·7, C12·12, C12·29): o que chega com a leitura
+// esmaece no lugar, em --mov-rapido, só quando chega depois de a linha montar —
+// aberta já lida (a URL, o palco, a coluna, o print), parada. A peça percebe
+// sozinha; a tela não liga nada:
+// · o glifo que troca no poço (o quadrado de agora, o check, o xis, o relógio que
+//   vira check), e o que aparece quando o `lendo` acaba (a T16, a T11);
+// · o valor, a causa, a nota e o porquê que trocam junto com o estado (ou com o
+//   fim do `lendo`) — o que troca sozinho, como a porcentagem, troca no lugar;
+// · na conferência, a linha do módulo, quando a leitura chega no bloco.
+// O título e as cores trocam direto (C12·8), e a linha que cresce com a causa
+// cresce direto (Lei 3, C12·9). `acende` (da T11, C11) não é mais preciso: a
+// peça acende sozinha, e a propriedade fica aceita, sem efeito.
+const nasce = (c) => (c.nasce ? 'ds-checagem-nasce' : '')
+
 export function LinhaChecagem({
   estado = 'aprovada', variante = 'compacta', titulo, causa, nota, porque, valor, tom,
   glifo, nomeGlifo, divisoria = true, folgaFim = false, lendo = false, recheioCausa, valorQuebra = false,
@@ -97,28 +113,36 @@ export function LinhaChecagem({
   const neutro = tom === 'neutro' && estado === 'parou'
   // a conferência que ainda lê este bloco: o relógio no poço, à vista e com nome
   const relogio = lendo && variante === 'conferencia'
+  const estadoDoGlifo = relogio ? 'relogio' : glifo ?? (neutro ? 'lua' : GLIFO[estado])
+  // a leitura desta linha: o estado e o lendo — quando troca depois de montar, o que chega com ela esmaece
+  const leitura = useVez(`${estado}·${lendo}`)
+  const cValor = useChega(valor, leitura)
+  const cCausa = useChega(causa, leitura)
+  const cNota = useChega(nota, leitura)
+  const cPorque = useChega(porque, leitura)
+  const cModulo = useChega(lendo ? null : par?.modulo, leitura)
   const classes = [
     'ds-checagem', `ds-checagem-${variante}`, `ds-checagem-${estado}`, neutro ? 'ds-checagem-tom-neutro' : '',
     causa || nota ? 'ds-checagem-com-causa' : '', divisoria ? '' : 'ds-checagem-sem-divisoria',
     folgaFim === true ? 'ds-checagem-folga-fim' : folgaFim ? `ds-checagem-fim-${folgaFim}` : '', lendo ? 'ds-checagem-lendo' : '',
     relogio ? 'ds-checagem-lendo-relogio' : '', par ? 'ds-checagem-com-par' : '', valorAceso ? 'ds-checagem-valor-aceso' : '',
-    acende && !lendo ? 'ds-checagem-acende' : '',
     recheioCausa && (causa || nota) ? `ds-checagem-recheio-${recheioCausa}` : '', valorQuebra ? 'ds-checagem-valor-quebra' : '', className,
   ].filter(Boolean).join(' ')
   return (
     <div className={classes}>
       <Poco tam={tam} aria-hidden={(lendo && !relogio) || variante === 'recebimento' ? 'true' : undefined}>
-        <Glifo estado={relogio ? 'relogio' : glifo ?? (neutro ? 'lua' : GLIFO[estado])} poco={glifoDoPoco(variante, estado, tam)} nome={relogio ? undefined : nomeGlifo} />
+        <Glifo estado={estadoDoGlifo} poco={glifoDoPoco(variante, estado, tam)} nome={relogio ? undefined : nomeGlifo}
+          esmaece chave={lendo && !relogio ? 'lendo' : estadoDoGlifo} />
       </Poco>
       <span className="ds-checagem-corpo">
         <span className="ds-checagem-titulo">{titulo}</span>
-        {porque != null && <span className="ds-checagem-porque">{porque}</span>}
-        {causa && <span className="ds-checagem-causa">{causa}</span>}
-        {nota && <span className="ds-checagem-causa ds-checagem-nota">{nota}</span>}
-        {par && <span className="ds-checagem-par ds-checagem-par-modulo" aria-hidden={lendo ? 'true' : undefined}>{par.modulo}</span>}
+        {porque != null && <span key={cPorque.vez} className={`ds-checagem-porque ${nasce(cPorque)}`}>{porque}</span>}
+        {causa && <span key={cCausa.vez} className={`ds-checagem-causa ${nasce(cCausa)}`}>{causa}</span>}
+        {nota && <span key={cNota.vez} className={`ds-checagem-causa ds-checagem-nota ${nasce(cNota)}`}>{nota}</span>}
+        {par && <span key={cModulo.vez} className={`ds-checagem-par ds-checagem-par-modulo ${nasce(cModulo)}`} aria-hidden={lendo ? 'true' : undefined}>{par.modulo}</span>}
         {par && <span className="ds-checagem-par ds-checagem-par-cadastro">{par.cadastro}</span>}
       </span>
-      {valor != null && <span className="ds-checagem-valor">{valor}</span>}
+      {valor != null && <span key={cValor.vez} className={`ds-checagem-valor ${nasce(cValor)}`}>{valor}</span>}
     </div>
   )
 }

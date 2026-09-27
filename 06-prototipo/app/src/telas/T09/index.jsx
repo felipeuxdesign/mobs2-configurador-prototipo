@@ -22,8 +22,22 @@
 //   Tentar de novo e Reconectar e seguir retomam o mesmo bloco (HU-T09-5, 6).
 // · O estado muda o conteúdo; onde a referência remonta (a altura do elo, os
 //   pinos no pé do 01, o contador do 02 e do 03), ela é construída fiel (G24).
+// · O movimento (C12), o mesmo vocabulário das outras telas, e nada ao abrir:
+//   - a cadeia só corre depois da troca entre telas que trouxe a tela (G27): o
+//     primeiro bloco relê a 1 s do fim do esmaecer (logo, pelo endereço);
+//   - o elo relido: o check esmaece no poço, e o trilho acende de cima pra baixo
+//     (a Cadeia e o Trilho, C12·12 e C12·32);
+//   - o aviso que nasce ao vivo — a recuperação, e a recusa e a queda, que só a
+//     vitrine alcança (C12·13) — esmaece no lugar, em 150 (Aviso · surge, C12·9);
+//     o espaço, a altura dos elos e o contador trocam direto (G24);
+//   - a prova da cadeia concluída na frente de quem olha esmaece no lugar, em 150
+//     (Prova · surge, C12·9);
+//   - o primário que acende — a cadeia que conclui ou para, e a recuperação —
+//     acende com o texto da saída: o texto novo esmaece no lugar, e o roxo troca
+//     direto (C12·23, a peça · o conserto de 27/09); o que se apaga (retomar)
+//     perde o roxo de uma vez (C12·18), e o texto novo esmaece no lugar (C12·23).
 import { useEffect, useRef, useState } from 'react'
-import { BarraDoSistema, Faixa, CabecalhoConteudo, Precondicao, Aviso, Cadeia, Prova, Rodape } from '../../ds/index.js'
+import { BarraDoSistema, Faixa, CabecalhoConteudo, Precondicao, Aviso, Cadeia, Prova, Rodape, useFimDaTroca } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
 import { useEncerrar } from '../../estado/encerrar.jsx'
@@ -75,14 +89,20 @@ export default function T09({ momento, estado: est }) {
   const [fluxo, setFluxo] = useState(() => inicio(momento, est, unico))
   const vivo = useRef(null)
   vivo.current = { fluxo, unico, momento }
+  // o que nasce ao vivo (C12·9): no fluxo, a tela abre gravando ou concluída — o aviso e a
+  // prova que aparecem depois são da frente de quem olha; no print e na coluna, parados
+  const aoVivo = !EM_QUADRO && est == null
+  const [abriuConcluida] = useState(() => fluxo.fase === 'concluida')
 
   // a cadeia anda um bloco por batida; para no print, num estado da coluna e
   // fora da gravação. Quando o par da faixa é o de um caso, a cadeia para no
   // bloco dele, uma vez só (G21): a recusa ou a queda do link
   const correndo = !EM_QUADRO && est == null && fluxo.fase === 'gravando'
+  // a cadeia só corre depois da troca entre telas que trouxe a tela (G27); ao retomar, logo
+  const fimDaTroca = useFimDaTroca()
   useEffect(() => {
     if (!correndo) return undefined
-    const relogio = setInterval(() => {
+    const batida = () => {
       const { fluxo: f, unico: u } = vivo.current
       if (f.fase !== 'gravando') return
       const caso = casoDoPar(f.par, u.casosConsumidos)
@@ -94,9 +114,11 @@ export default function T09({ momento, estado: est }) {
       }
       const confirmados = f.confirmados + 1
       setFluxo({ ...f, confirmados, fase: confirmados >= TOTAL ? 'concluida' : 'gravando' })
-    }, RITMOS.cadeiaBlocoMs)
-    return () => clearInterval(relogio)
-  }, [correndo, despachar])
+    }
+    let ligada = true, relogio = null
+    fimDaTroca().then(() => { if (ligada) relogio = setInterval(batida, RITMOS.cadeiaBlocoMs) })
+    return () => { ligada = false; clearInterval(relogio) }
+  }, [correndo, despachar]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // cada bloco relido grava no estado único a versão composta até ali (HU-T09-8)
   useEffect(() => {
@@ -159,21 +181,25 @@ export default function T09({ momento, estado: est }) {
     ? <CabecalhoConteudo titulo={T.titulo} contagem={k} unidade={T.deTotal(TOTAL)} />
     : <CabecalhoConteudo titulo={T.titulo} />
 
+  // o aviso: cada um é um aviso novo (a chave é a fase), e o que nasce ao vivo esmaece no lugar (C12·9)
   let aviso = null
-  if (fase === 'recusado') aviso = <Aviso tom="falha" glifo="xis" titulo={T.parou} frase={T.recusou(rotuloDe(bloco), TOTAL - k - 1)} />
-  else if (fase === 'pausado') aviso = <Aviso tom="neutro" glifo="sem-sinal-neutro" titulo={T.pausou(rotuloDe(bloco))} frase={T.linkCaiu(k)} />
-  else if (fase === 'recuperacao') aviso = <Aviso tom="neutro" glifo="pausa" titulo={T.semConexao(rotuloDe(CONEXAO))} frase={T.semSinal} />
+  if (fase === 'recusado') aviso = <Aviso key={fase} surge={aoVivo} tom="falha" glifo="xis" titulo={T.parou} frase={T.recusou(rotuloDe(bloco), TOTAL - k - 1)} />
+  else if (fase === 'pausado') aviso = <Aviso key={fase} surge={aoVivo} tom="neutro" glifo="sem-sinal-neutro" titulo={T.pausou(rotuloDe(bloco))} frase={T.linkCaiu(k)} />
+  else if (fase === 'recuperacao') aviso = <Aviso key={fase} surge={aoVivo} tom="neutro" glifo="pausa" titulo={T.semConexao(rotuloDe(CONEXAO))} frase={T.semSinal} />
 
   // a altura do elo é a de cada quadro (G11, G24): correndo 86, recusada 70, pausada 68, concluída 72
   const altura = fase === 'gravando' ? 'correndo' : fase === 'pausado' || fase === 'recuperacao' ? 'pausada' : undefined
   const cadeia = <Cadeia elos={elosDo(fluxo)} justa={fase === 'recusado'} altura={altura} />
 
+  // o rodapé: o mesmo primário em toda fase — o texto que troca esmaece no lugar, e o roxo troca
+  // direto (C12·23); com o mesmo texto, acenderia por uma camada (C12·8, a peça)
+  const mov = { primarioAcende: true, primarioTrocaTexto: true }
   let rodape
-  if (fase === 'gravando') rodape = <Rodape primario={T.gravandoNaoInterrompa} primarioDesabilitado explicacao={T.saidaVolta} />
-  else if (fase === 'recusado') rodape = <Rodape primario={T.tentarDeNovo} aoPrimario={retomar} link={T.voltar} aoLink={recuperar} />
-  else if (fase === 'pausado') rodape = <Rodape primario={T.reconectar} aoPrimario={retomar} link={T.voltar} aoLink={recuperar} />
-  else if (fase === 'recuperacao') rodape = <Rodape primario={T.continuar} aoPrimario={retomar} />
-  else rodape = <Rodape primario={T.voltar} aoPrimario={() => ir('T04')} />
+  if (fase === 'gravando') rodape = <Rodape {...mov} primario={T.gravandoNaoInterrompa} primarioDesabilitado explicacao={T.saidaVolta} />
+  else if (fase === 'recusado') rodape = <Rodape {...mov} primario={T.tentarDeNovo} aoPrimario={retomar} link={T.voltar} aoLink={recuperar} />
+  else if (fase === 'pausado') rodape = <Rodape {...mov} primario={T.reconectar} aoPrimario={retomar} link={T.voltar} aoLink={recuperar} />
+  else if (fase === 'recuperacao') rodape = <Rodape {...mov} primario={T.continuar} aoPrimario={retomar} />
+  else rodape = <Rodape {...mov} primario={T.voltar} aoPrimario={() => ir('T04')} />
 
   return (
     <div className="t09">
@@ -185,7 +211,7 @@ export default function T09({ momento, estado: est }) {
         {fase !== 'recusado' && pinos}
         {aviso}
         {cadeia}
-        {fase === 'concluida' && <Prova rotulo={T.gravadoERelido} versao={versaoGravada(TOTAL)} legenda={T.devolveu(TOTAL)} />}
+        {fase === 'concluida' && <Prova surge={aoVivo && !abriuConcluida} rotulo={T.gravadoERelido} versao={versaoGravada(TOTAL)} legenda={T.devolveu(TOTAL)} />}
       </div>
       {/* no 01, a linha dos pinos fica no pé, fora do miolo, como a referência desenha (G11, T09-D2) */}
       {fase === 'recusado' && pinos}

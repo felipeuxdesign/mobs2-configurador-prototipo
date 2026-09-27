@@ -12,7 +12,7 @@
 //   referência remonta, ela é construída fiel (G24).
 // · No print (EM_QUADRO), a 00 para no quadro que a referência desenha.
 import { useEffect, useRef, useState } from 'react'
-import { BarraDoSistema, Rodape, Aviso, Nota, Lista, LinhaContagem } from '../../ds/index.js'
+import { BarraDoSistema, Rodape, Aviso, Nota, Lista, LinhaContagem, useTrocaDeQuadro } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
 import { EM_QUADRO } from '../../estado/quadro.js'
@@ -112,6 +112,13 @@ export default function T03({ momento, estado: est }) {
 
   const q = quadroDoEstado(est) ?? fluxo
   const uo = uoDe(q.uoId); const p = pacoteDaUo(q.uoId); const total = totalDe(p)
+
+  // C12 · o movimento fino. A fase é o quadro: a baixa que termina (00 → 02), a que para
+  // (00 → 01) e o Reconectar (01 → 00) trocam o título ou o rodapé inteiros, e o conteúdo
+  // esmaece em 150, como entre telas (C12·4 a, G26); aberta pelo endereço, pelo palco ou
+  // no print, parada. Dentro da baixa, a barra segue o passo (C12·15 a) e o check de cada
+  // conteúdo nasce no poço (a LinhaContagem, C12·12); a contagem troca no lugar
+  useTrocaDeQuadro(q.fase)
   const c = conteudos(p, q.baixados)
   const { bloqueioDias } = p.limiares
 
@@ -148,7 +155,7 @@ export default function T03({ momento, estado: est }) {
   // o bloco de cima: o instrumento da fase, ou a falha no lugar dele (G24)
   let instrumento
   if (q.fase === 'baixando') {
-    instrumento = <Download rotulo="ATIVOS" feito={c.ativos.feito} de={c.ativos.de} unidade={`de ${c.ativos.de}`}
+    instrumento = <Download rotulo="ATIVOS" feito={c.ativos.feito} de={c.ativos.de} unidade={`de ${c.ativos.de}`} segue={tickMs(p)}
       total={`${q.baixados} de ${total} no total`} faltam={`faltam ~${faltamSeg(p, q.baixados)} s`} />
   } else if (q.fase === 'falha') {
     instrumento = <Aviso tom="falha" glifo="sem-sinal" mudo titulo="A BAIXA PAROU ONDE ESTAVA" frase="Nada se perdeu. Ao reconectar, continua de onde parou." />

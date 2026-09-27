@@ -7,11 +7,12 @@
 //   módulo volta sozinho no mesmo ritmo. O passo que corre leva a legenda
 //   dele embaixo do nome (as 8 legendas do tela.md, a entrega de 25/09); o 2,
 //   só no corte (T16·7). Ao fechar o 7, a sessão sai do estado
-//   único e a faixa troca pra "sem sessão" (o subir dela é do C12); a tela
-//   passa pra "Sessão encerrada", onde as 8 assertivas acendem, uma a cada
-//   RITMOS.autotesteAssertivaMs, e a prova e o Voltar ao menu entram quando
-//   chega a última (T16·4). A falha de uma assertiva fecha a sessão do mesmo
-//   jeito e bloqueia a homologação (05, HU-T16-5).
+//   único, e a aberta sobe e revela a faixa "sem sessão" (C12·25, na peça); a tela
+//   passa pra "Sessão encerrada" (a troca de quadro, C12·4), onde as 8 assertivas
+//   acendem, uma a cada RITMOS.autotesteAssertivaMs. A prova (ou o bloqueio) e o
+//   Voltar ao menu já estão no lugar desde a primeira, neutros, com a contagem, e
+//   o veredito entra quando chega a última (T16·4, C12·44). A falha de uma
+//   assertiva fecha a sessão do mesmo jeito e bloqueia a homologação (05, HU-T16-5).
 // · Antes de homologar (ENCERRAR → 03, G23): os 4 passos da sessão abortada —
 //   quem pediu já confirmou, no diálogo Encerrar sem homologar? (decisão 36) ou
 //   num dos do menu —, e depois a encerrada sem homologar (04). Quando quem
@@ -31,9 +32,9 @@
 //   duas linhas; e o passo pulado da 03 leva o traço da folha 5 — o 'não se
 //   aplica' é só das assertivas do autoteste (02, 05), e o '—', do passo que
 //   ainda não chegou (00, 01).
-import { useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import {
-  BarraDoSistema, Faixa, CabecalhoConteudo, Encerramento, Lista, LinhaChecagem, Prova, Aviso, Nota, Rodape,
+  BarraDoSistema, Faixa, CabecalhoConteudo, Encerramento, Lista, LinhaChecagem, Prova, Aviso, Nota, Rodape, useTrocaDeQuadro,
 } from '../../ds/index.js'
 import { useEstado, estadoVazio } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
@@ -101,10 +102,12 @@ function proximo(f) {
 }
 const RITMO = { encerrando: RITMOS.encerramentoPassoMs, autoteste: RITMOS.autotesteAssertivaMs, abortando: RITMOS.encerramentoPassoMs }
 
-// o que entra quando chega a última assertiva: o lugar já existe, invisível e mudo
-function Vez({ porVir, children }) {
-  return <div className={`t16-vez ${porVir ? 't16-por-vir' : ''}`} aria-hidden={porVir || undefined} inert={porVir ? '' : undefined}>{children}</div>
-}
+// O desenho de cada fase (C12·4): o encerramento (00 e 01, o corte é um passo dele), a
+// sessão encerrada (o autoteste que corre e o fim, 02 e 05), os 4 passos sem homologar (03),
+// a encerrada sem homologar (04) e a interrompida (06). Quando um vira o outro, na frente de
+// quem olha, o conteúdo esmaece em 150, como entre telas (src/ds/chrome/Troca.jsx); o que
+// muda dentro de uma fase move só a peça.
+const QUADRO = { encerrando: 'encerrando', autoteste: 'encerrada', encerrada: 'encerrada', abortando: 'abortando', abortada: 'abortada', interrompida: 'interrompida' }
 
 export default function T16({ momento, estado: est }) {
   const { estado: unico, despachar } = useEstado()
@@ -182,6 +185,8 @@ export default function T16({ momento, estado: est }) {
   const descartar = voltarAoMenu
 
   const { fase, par } = fluxo
+  const quadro = QUADRO[fase]
+  useTrocaDeQuadro(quadro)
   const fechada = fase === 'encerrada' || fase === 'abortada'
   // O voltar do Android (logica.md): no encerramento e no autoteste ele não faz
   // nada; na sessão interrompida também não (T16·6). Na sessão encerrada, faz o
@@ -189,10 +194,12 @@ export default function T16({ momento, estado: est }) {
   useVoltar(fechada ? voltarAoMenu : null)
 
   // ── o topo: a faixa sem ação enquanto a sessão fecha; depois, sem sessão ──
+  // (C12·25: quando a sessão fecha na frente de quem olha, a aberta sobe por baixo da barra e
+  // revela a sem sessão, que já está no lugar — o movimento é da peça, src/ds/chrome/Faixa.jsx)
   const viva = fase === 'encerrando' || fase === 'abortando'
   const faixa = viva
     ? <Faixa serial={par.moduloSerial} placa={placaDe(par.ativoId)} />
-    : <Faixa estado="sem-sessao" fato={T.semSessao} />
+    : <Faixa estado="sem-sessao" fato={T.semSessao} revela />
 
   let miolo
   let rodape
@@ -204,7 +211,8 @@ export default function T16({ momento, estado: est }) {
         <Encerramento justo={corte} passos={passosEncerrando(fluxo.k, pedeOCorte(par.moduloSerial))} />
       </>
     )
-    rodape = <Rodape primario={corte ? T.aguardandoOModulo : T.encerrandoNaoDesconecte} primarioDesabilitado explicacao={T.saidaAutoteste} />
+    // o corte troca o texto do primário apagado no lugar (C12·23): Aguardando o módulo voltar, e de volta
+    rodape = <Rodape primario={corte ? T.aguardandoOModulo : T.encerrandoNaoDesconecte} primarioDesabilitado primarioTrocaTexto explicacao={T.saidaAutoteste} />
   } else if (fase === 'abortando') {
     miolo = (
       <>
@@ -223,11 +231,15 @@ export default function T16({ momento, estado: est }) {
     const ultima = lista.length - 1
     // T16·3 (a): o contador da falha é o total menos as reprovadas; na que passa não há contador (G24)
     const contador = falha && pronta ? { contagem: TOTAL_ASSERTIVAS - reprovadas.length, unidade: T.deTotal(TOTAL_ASSERTIVAS) } : {}
+    // O veredito que espera a prova (C12·44, o retorno do diretor de 26/09 sobre a C12·35): a
+    // prova, ou o bloqueio, fica no lugar desde a primeira assertiva, neutra, com a contagem das
+    // que já acenderam (1 de 8 …); na última, a palavra e a cor entram em 150 (a peça sabe)
+    const aguarda = pronta ? null : acesas
     miolo = (
       <>
         <CabecalhoConteudo titulo={T.encerrada} {...contador} />
         {!falha && (
-          <Vez porVir={!pronta}><Prova tipo="sessao" rotulo={T.sobreviveu} versao={fluxo.versao} legenda={T.relidoDoModulo} /></Vez>
+          <Prova tipo="sessao" rotulo={T.sobreviveu} versao={fluxo.versao} legenda={T.relidoDoModulo} aguarda={aguarda} aguardaUnidade={T.deTotal(TOTAL_ASSERTIVAS)} />
         )}
         <Lista>
           {lista.map((a, i) => (
@@ -237,11 +249,13 @@ export default function T16({ momento, estado: est }) {
           ))}
         </Lista>
         {falha
-          ? <Vez porVir={!pronta}><Aviso tom="falha" bloqueio titulo={T.bloqueada} frase={CAUSA[reprovadas[0].id]} /></Vez>
+          ? <Aviso tom="falha" bloqueio titulo={T.bloqueada} frase={CAUSA[reprovadas[0].id]} aguarda={aguarda} aguardaUnidade={T.deTotal(TOTAL_ASSERTIVAS)} />
           : <span className="t16-nota">{T.notaPlataforma}</span>}
       </>
     )
-    rodape = <Vez porVir={!pronta}><Rodape primario={T.voltarAoMenu} aoPrimario={voltarAoMenu} /></Vez>
+    // o Voltar ao menu fica no lugar, apagado e desabilitado, com o mesmo texto, e acende
+    // por uma camada quando chega a última (C12·44, C12·8)
+    rodape = <Rodape primario={T.voltarAoMenu} aoPrimario={voltarAoMenu} primarioDesabilitado={!pronta} primarioAcende />
   } else if (fase === 'abortada') {
     // os 4 que deixam o módulo seguro, feitos, e o que não rodou
     const ultima = SEGUROS.length - 1
@@ -276,7 +290,8 @@ export default function T16({ momento, estado: est }) {
       <BarraDoSistema hora={M.HORA_NOMINAL} fundo="faixa" />
       {faixa}
       <div className="tela-miolo">{miolo}</div>
-      {rodape}
+      {/* o rodapé nasce com o quadro: dentro da troca, o texto do primário não esmaece de novo */}
+      <Fragment key={quadro}>{rodape}</Fragment>
     </div>
   )
 }

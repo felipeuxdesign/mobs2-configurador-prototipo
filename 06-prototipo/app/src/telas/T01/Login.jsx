@@ -30,6 +30,7 @@ import { naFila } from '../T04/dados.js'
 import {
   BarraDoSistema, Rodape, Veu, Folha, Dialogo, Frase, LinhaDeOpcao, CartaoDeOpcoes,
   Marca, Campo, Codigo, Requisito, Requisitos, LinkConteudo, SoIcone, Checkbox, Segmentado, Aviso,
+  useTrocaDeQuadro,
 } from '../../ds/index.js'
 import { TX } from './textos.js'
 import {
@@ -40,7 +41,8 @@ import {
   entradaDoLembrado, entradaDoFluxo, depoisDoXis, lembradoDepoisDoEntrar,
 } from './regras.js'
 import { CartaoCanal, CartaoDoCodigo, LinhaConferido, CampoSenhaNova } from './pecas.jsx'
-import { usePresenca } from './presenca.js'
+// a presença da folha e do diálogo (entra fechado e abre; sai fechando antes de desmontar) é a do que vem por cima
+import { usePresenca } from '../../ds/chrome/PorCima.jsx'
 import './t01.css'
 
 // as referências da pasta: o momento aonde se chega tocando, o estado pela coluna
@@ -163,6 +165,14 @@ export function Login({ momento, estado, irMomento }) {
   const dialogo = usePresenca(s.dialogo && s.quadro === 'senha')
   const veu = folha.visivel ? 'folha' : dialogo.visivel ? 'dialogo' : null
 
+  // C12 · o movimento fino. Os quatro quadros (a entrada, o canal, o código, a senha)
+  // são páginas pro técnico: quando o quadro troca depois de a tela abrir, o conteúdo
+  // esmaece em 150, como entre telas (C12·4 a, src/ds/chrome/Troca.jsx); aberto pelo
+  // endereço, pelo palco ou no print, parado. Dentro do quadro, só a peça que muda se
+  // move: o aviso que nasce do Entrar (surge, C12·9), o texto do primário que diz o que
+  // falta (trocaTexto, C12·23) e o Salvar e entrar que acende (acende, C12·8)
+  useTrocaDeQuadro(s.quadro)
+
   // ── os toques ──
   const aoLogin = () => { muda({ quadro: 'entrada', folha: false, dialogo: false }); irMomento(null) }
   // o que o celular sabe do login, no estado único: o usuário que ele lembra
@@ -185,7 +195,8 @@ export function Login({ momento, estado, irMomento }) {
       noCelular({ usuarioLembrado: lembradoDepoisDoEntrar(s), jaEntrou: true, outraSessao: outra })
       despachar({ tipo: 'ir', tela: 'T02' }); return
     }
-    setS(depois)
+    // o aviso que o Entrar faz nascer esmaece no lugar (surge, C12·9); aberto no estado, parado
+    setS({ ...depois, avisoSurge: true })
     if (depois.erroEntrada) setTimeout(() => document.getElementById(idSenha)?.focus(), 0)
   }
   // o xis do usuário lembrado: limpa o campo e esquece o usuário; a caixa fica
@@ -194,7 +205,8 @@ export function Login({ momento, estado, irMomento }) {
     setS((x) => depoisDoXis(x)); noCelular({ usuarioLembrado: null })
     setTimeout(() => document.getElementById(idUsuario)?.focus(), 0)
   }
-  const esqueci = () => { muda({ quadro: 'canal', canal: 'telefone' }); irMomento(REF.canal) }
+  // saindo da entrada, o aviso que ficou volta com ela, na troca de quadro, e não esmaece de novo
+  const esqueci = () => { muda({ quadro: 'canal', canal: 'telefone', avisoSurge: false }); irMomento(REF.canal) }
   // o primeiro envio não conta no teto; só o reenvio conta (T01·2). Sem envio na
   // hora, nada vai: volta o código que já foi, com o teto na linha (regras.js · depoisDoEnviar, a 17)
   const enviarCodigo = () => { setS((x) => ({ ...depoisDoEnviar(x, { ...codigoNovo(), canalDoCodigo: x.canal }), momentoCodigo: REF.codigo })); irMomento(REF.codigo) }
@@ -244,10 +256,10 @@ export function Login({ momento, estado, irMomento }) {
           <div className="t01-campos">
             {/* o aviso mora no mesmo lugar: o erro da senha (01) ou a falta de internet (14) */}
             {s.erroEntrada && (
-              <div className="t01-aviso"><Aviso tom="falha" glifo="xis" poco={26} titulo={TX.erroTitulo} frase={TX.erroFrase} /></div>
+              <div className="t01-aviso"><Aviso tom="falha" glifo="xis" poco={26} titulo={TX.erroTitulo} frase={TX.erroFrase} surge={s.avisoSurge} /></div>
             )}
             {!s.erroEntrada && s.semConexao && (
-              <div className="t01-aviso"><Aviso tom="neutro" traco glifo="sem-conexao" poco={26} titulo={TX.semConexao} frase={TX.semConexaoFrase} /></div>
+              <div className="t01-aviso"><Aviso tom="neutro" traco glifo="sem-conexao" poco={26} titulo={TX.semConexao} frase={TX.semConexaoFrase} surge={s.avisoSurge} /></div>
             )}
             {/* o usuário lembrado tem o xis dentro do campo (a 16): a variante do campo */}
             <Campo rotulo={TX.usuario} valor={s.usuario} aoMudar={(v) => muda({ usuario: v })} focado={s.foco === 'usuario'}
@@ -262,7 +274,7 @@ export function Login({ momento, estado, irMomento }) {
             <Checkbox marcado={s.lembrar} aoMudar={(v) => muda({ lembrar: v })}>{TX.lembrar}</Checkbox>
           </div>
         </div>
-        <Rodape lugar="login" primario={primario} primarioDesabilitado={falta !== null}
+        <Rodape lugar="login" primario={primario} primarioDesabilitado={falta !== null} primarioTrocaTexto
           aoPrimario={entrar} link={TX.esqueci} aoLink={esqueci} />
       </>
     )
@@ -330,7 +342,7 @@ export function Login({ momento, estado, irMomento }) {
           <span className="t01-legenda">{legenda}</span>
           <LinkConteudo aoTocar={abrirFolha}>{TX.naoRecebi}</LinkConteudo>
         </div>
-        <Rodape lugar="login" primario={primario} aoPrimario={aoPrimario} primarioDesabilitado={primarioDesabilitado}
+        <Rodape lugar="login" primario={primario} aoPrimario={aoPrimario} primarioDesabilitado={primarioDesabilitado} primarioTrocaTexto
           link={TX.voltarLogin} aoLink={aoLogin} />
       </>
     )
@@ -380,7 +392,7 @@ export function Login({ momento, estado, irMomento }) {
             </Requisitos>
           </div>
         </div>
-        <Rodape lugar="login" primario={TX.salvarEntrar} aoPrimario={salvar} primarioDesabilitado={!senhaSalvavel(lista)}
+        <Rodape lugar="login" primario={TX.salvarEntrar} aoPrimario={salvar} primarioDesabilitado={!senhaSalvavel(lista)} primarioAcende
           link={TX.voltarLogin} aoLink={aoLogin} />
       </>
     )

@@ -16,8 +16,15 @@
 //   'aguardando validação', que sai dos critérios.
 // · O voltar do Android (logica.md), no computador o Esc, faz o mesmo que a
 //   saída do rodapé: no detalhe, volta às instalações; na lista, ao menu.
+// · O movimento (C12·2, C12·4): a lista e o detalhe são desenhos diferentes — o
+//   título, o miolo e o rodapé trocam inteiros —, e quando um vira o outro, no
+//   toque numa instalação, no Voltar às instalações ou no voltar, o conteúdo
+//   esmaece em 150, como entre telas (a peça da troca, useTrocaDeQuadro); a barra
+//   e a faixa ficam paradas. Nada mais se move: o que o servidor recebeu nasce
+//   com o detalhe (a linha do recebimento fica parada). Pelo endereço, no print e
+//   num estado da coluna, parado.
 import { useState } from 'react'
-import { BarraDoSistema, Faixa, CabecalhoConteudo, Aviso, Vazio, Lista, LinhaHistorico, LinhaChecagem, Rodape } from '../../ds/index.js'
+import { BarraDoSistema, Faixa, CabecalhoConteudo, Aviso, Vazio, Lista, LinhaHistorico, LinhaChecagem, Rodape, useTrocaDeQuadro } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
 import { useEncerrar } from '../../estado/encerrar.jsx'
@@ -41,6 +48,8 @@ export default function T12({ momento, estado: est }) {
   const [aberta, setAberta] = useState(() => (momento === REF.detalhe ? lista[0]?.id ?? null : null))
   const doCaso = est ? detalheDoCaso(est) : null
   const detalhe = doCaso?.instalacao ?? (!est && momento === REF.detalhe && aberta ? instalacaoDe(aberta) : null)
+  // a troca de quadro (C12·4): a chave é o quadro desenhado — a lista, ou o detalhe de uma instalação
+  useTrocaDeQuadro(detalhe ? `detalhe·${detalhe.id}` : 'lista')
 
   const ir = (tela, extra = {}) => despachar({ tipo: 'ir', tela, ...extra })
   const abrir = (id) => { setAberta(id); ir('T12', { momento: REF.detalhe }) }
@@ -90,7 +99,8 @@ export default function T12({ momento, estado: est }) {
         </Grupo>
       </div>
     )
-    rodape = <Rodape primario={TX.voltarAsInstalacoes} aoPrimario={voltarAsInstalacoes} />
+    // o rodapé nasce com o quadro (C12·4): o pressionado do botão de antes não solta por cima do novo (C12·18)
+    rodape = <Rodape key="rodape-detalhe" primario={TX.voltarAsInstalacoes} aoPrimario={voltarAsInstalacoes} />
   } else {
     // ── 00 · a lista por idade (02: o vazio declarado no lugar dela · 03: o aviso em cima) ──
     const grupos = agrupar(lista)
@@ -114,7 +124,7 @@ export default function T12({ momento, estado: est }) {
         ))}
       </div>
     )
-    rodape = <Rodape primario={TX.voltarAoMenu} aoPrimario={voltarAoMenu} />
+    rodape = <Rodape key="rodape-lista" primario={TX.voltarAoMenu} aoPrimario={voltarAoMenu} />
   }
 
   return (

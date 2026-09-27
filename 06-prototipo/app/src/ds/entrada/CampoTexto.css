@@ -1,6 +1,6 @@
 .ds-campo-texto { display: flex; flex-direction: column; gap: var(--e-6); }
 .ds-campo-texto-rotulo { font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--tinta-secundaria); }
-.ds-foco .ds-campo-texto-rotulo, .ds-campo-texto:focus-within .ds-campo-texto-rotulo { color: var(--lima); }
+.ds-foco .ds-campo-texto-rotulo { color: var(--lima); }
 
 .ds-campo-texto-poco {
   min-height: var(--alvo-min);
@@ -11,7 +11,7 @@
   border-left: var(--traco-borda) solid var(--poco-lado);
   border-right: var(--traco-borda) solid var(--poco-lado);
 }
-.ds-foco .ds-campo-texto-poco, .ds-campo-texto-poco:focus-within { padding-bottom: var(--e-10); }
+/* o recheio de baixo é o mesmo no foco: o traço de 2 é desenhado por cima da borda de 1 (TracoFoco.css, C12·22) */
 .ds-campo-texto-entrada {
   display: block; width: 100%; field-sizing: content; min-height: 0; margin: 0; padding: 0;
   resize: none; overflow: hidden; background: transparent; border: 0; outline: none;

@@ -7,3 +7,17 @@
 .ds-veu-dialogo { justify-content: center; }
 .ds-veu-folha:not(.ds-veu-oculto) { transition-duration: var(--mov-padrao); }
 .ds-veu-oculto { opacity: 0; pointer-events: none; }
+
+/* A troca no mesmo véu (C12·27 · PorCima.jsx): o véu é a caixa do que sai, que fica fora do
+ * fluxo e por baixo do que entra (z-index -1, dentro dele) — e continua aceso, parado. */
+.ds-veu-troca { position: relative; isolation: isolate; }
+/* O véu que cresce pra cima na troca (T04/10 → 13): o que ele já cobria fica igual, e o pedaço
+ * novo de cima (--veu-corte, os px que faltavam) esmaece em --mov-rapido, junto com o diálogo.
+ * No fim, o véu é um só de novo, com o mesmo fundo. */
+.ds-veu-cresce { background: linear-gradient(to bottom, transparent var(--veu-corte), var(--veu) var(--veu-corte)); }
+.ds-veu-cresce-pedaco {
+  position: absolute; top: 0; left: 0; right: 0; height: var(--veu-corte); z-index: -1;
+  background: var(--veu); pointer-events: none;
+  animation: ds-veu-cresce var(--mov-rapido) var(--mov-curva);
+}
+@keyframes ds-veu-cresce { from { opacity: 0; } }

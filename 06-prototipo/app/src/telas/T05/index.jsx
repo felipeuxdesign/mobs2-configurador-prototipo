@@ -12,8 +12,8 @@
 // · 05-momento-pre-checagem — conectado: as onze linhas acendem uma a uma, no
 //   ritmo de RITMOS.preChecagemLinhaMs (G27: só quando o toque conecta; pela
 //   URL, a tela abre no fim, sem contar de zero). Aprovada, a sessão nasce no
-//   estado único, com o meio da busca, e a faixa aparece (C6·2; o movimento
-//   dela descendo é do C12)
+//   estado único, com o meio da busca, e a faixa desce de cima, com o miolo
+//   acompanhando (C6·2; o movimento é o da C12·24, na peça)
 // · 10-momento-atualizando-o-firmware — `Atualizar firmware`: a linha do
 //   firmware corre com a porcentagem do caso (AC-19), as seguintes esperam.
 //   O ritmo da atualização não está em movimento.md (G4): o quadro fica parado
@@ -27,6 +27,26 @@
 // textos.md: fica o quadro da 00, que ele aprovou antes, sem texto novo (a
 // pergunta vai ao arquiteto). Tocar no quadro da 00 enquanto ele está na
 // tela vale como na 00: o toque fica, e a lista não volta por cima dele.
+//
+// O movimento (C12, animacao.md). Aberta pela URL, pelo palco, num estado ou
+// no print, a tela fica parada; o que se move é só o que acontece depois:
+// · a troca de quadro (C12·4, C12·41): a lista (01), o quadro com o escolhido
+//   (00, 02, 04) e a pré-checagem são desenhos diferentes — o conteúdo esmaece
+//   em 150 quando um vira o outro (useTrocaDeQuadro, a chave é o quadro)
+// · a busca que acha (C12·28): a lista que volta da busca de novo surge em
+//   cascata, 150 cada, de 80 em 80 (Lista `surge`, pela marca `achou`)
+// · o marcador (C12·20) e o texto do primário que diz o serial marcado, que
+//   esmaece no lugar, com o roxo direto (C12·23, como a T02)
+// · a linha da pré-checagem (C12·12, C12·29): o glifo, o valor e a causa que
+//   chegam esmaecem (a LinhaChecagem); a parada: o aviso esmaece no topo
+//   (Aviso `surge`, só no fluxo)
+// · a faixa que nasce (C12·24): a peça (Faixa `ausente`); o Selecionar ativo,
+//   apagado com o texto dele enquanto a pré-checagem corre, acende por uma
+//   camada quando ela aprova (C12·8, como o primário que espera o processo da
+//   T16, C12·44) — e, quando ela reprova ou para no caso, o primário da saída
+//   acende com outro texto: o texto novo esmaece no lugar, e o roxo troca
+//   direto (C12·23, a peça · o conserto de 27/09)
+// · entre quadros, só a troca esmaece: o rodapé nasce de novo em cada quadro
 //
 // Os onze estados (C7), pela receita (receitas.js) e pelo caso do mock:
 // · a busca: 03 (busca-vazia, o vazio no lugar da lista) e 04 (conexao-falha,
@@ -48,10 +68,10 @@
 // Bluetooth e Abrir as configurações levam à busca (a 01); Permitir, com a
 // resposta negada do caso, vira Abrir as configurações. Os dois abrem só pela
 // coluna, parados: o toque se prova no node (scripts/testar-login-e-bluetooth.mjs)
-import { useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import {
   BarraDoSistema, Faixa, Rodape, CabecalhoConteudo, BlocoEscolhido, Lista, LinhaModulo,
-  LinhaChecagem, TiraLeituras, Nota, Aviso, ESTADOS,
+  LinhaChecagem, TiraLeituras, Nota, Aviso, ESTADOS, useTrocaDeQuadro,
 } from '../../ds/index.js'
 import { VazioDaBusca } from './pecas.jsx'
 import { quadroDoCelular, textosDoCelular, depoisDoPedido } from './celular.js'
@@ -117,6 +137,16 @@ export default function T05({ momento, estado: est }) {
   vivo.current = { estado }
   const q = quadroDoEstado(est) ?? fluxo
   const ir = (tela, extra = {}) => despachar({ tipo: 'ir', tela, ...extra })
+  // a troca de quadro (C12·4 a, C12·41): quando o título ou o rodapé trocam inteiros, o
+  // conteúdo esmaece em 150, como entre telas — a lista (01) e o quadro da busca com o
+  // escolhido (00, 02, 04) são desenhos diferentes; a pré-checagem é outra página. O que
+  // muda dentro do mesmo quadro (marcar, o escolhido que troca, a trava do 04, a linha
+  // que acende, a parada) move só a peça. Aberto pela URL, pelo palco, num estado ou no
+  // print, parado. O rodapé nasce de novo em cada quadro (a chave, lá embaixo): entre quadros, só a
+  // troca de quadro esmaece, e o texto do primário não esmaece uma segunda vez por dentro dela
+  // (C12·23, a nota da T01: dentro do quadro, o texto; entre quadros, a troca)
+  const quadro = q.fase === 'busca' ? (q.escolhido ? 'escolhido' : 'lista') : q.fase
+  useTrocaDeQuadro(quadro)
   // o caso que acontece agora fica consumido na sessão (G21); num estado da coluna, nada se grava
   const consumir = (...ids) => {
     const e = vivo.current.estado
@@ -183,7 +213,8 @@ export default function T05({ momento, estado: est }) {
   }
   useEffect(() => {
     if (est != null || !fluxo.correndo) return undefined
-    const relogio = setTimeout(() => { setFluxo(busca(porPerto(), null)); ir('T05', { momento: M01 }) }, RITMOS.buscaMs)
+    // a lista que volta leva a marca `achou`: é o *a busca acha*, e ela surge em cascata (C12·28, C12·41)
+    const relogio = setTimeout(() => { setFluxo({ ...busca(porPerto(), null), achou: true }); ir('T05', { momento: M01 }) }, RITMOS.buscaMs)
     return () => clearTimeout(relogio)
   }, [fluxo, est]) // eslint-disable-line react-hooks/exhaustive-deps
   // conectar: a primeira tentativa do módulo do caso não responde (04), uma
@@ -246,9 +277,11 @@ export default function T05({ momento, estado: est }) {
   const enc = useEncerrar()
 
   // ── o topo: a barra na cor do que vem embaixo, e a faixa quando a sessão nasce ──
+  // (C12·24: até lá a faixa fica ausente, no lugar dela; quando a pré-checagem aprova na frente
+  // de quem olha, ela desce, e o miolo acompanha — o movimento é da peça, src/ds/chrome/Faixa.jsx)
   const comFaixa = aprovada
-  const faixa = comFaixa && (
-    <Faixa serial={q.serial} placa={TX.semAtivo} semAtivo acao={TX.encerrar}
+  const faixa = (
+    <Faixa ausente={!comFaixa} serial={q.serial} placa={TX.semAtivo} semAtivo acao={TX.encerrar}
       aoEncerrar={enc.encerrar} />
   )
 
@@ -304,14 +337,14 @@ export default function T05({ momento, estado: est }) {
       )
       rodape = trava
         ? <Rodape primario={TX.tentarDeNovo} aoPrimario={tentarDeNovo} link={TX.procurarDeNovo} aoLink={procurar} />
-        : <Rodape primario={TX.conectarAo(escolhido)} aoPrimario={() => conectar()} link={TX.procurarDeNovo} aoLink={procurar} />
+        : <Rodape primario={TX.conectarAo(escolhido)} aoPrimario={() => conectar()} primarioTrocaTexto link={TX.procurarDeNovo} aoLink={procurar} />
     } else {
       const ultimo = perto.length - 1
       miolo = (
         <>
           {cabeca}
           <span id="t05-escolha" className="t05-frase">{TX.escolhaNaMao}</span>
-          <Lista className="t05-lista" role="radiogroup" aria-labelledby="t05-escolha">
+          <Lista className="t05-lista" surge={!!q.achou} role="radiogroup" aria-labelledby="t05-escolha">
             {perto.map((p, i) => (cadastrado(p.serial)
               ? <LinhaModulo key={p.serial} escolha serial={p.serial} variante={varianteNaLista(p.serial)}
                   rotuloValor={TX.rotuloFirmware} valor={firmwareDe(p.serial)} marcado={p.serial === marcado} aoTocar={() => setMarcado(p.serial)}
@@ -321,8 +354,8 @@ export default function T05({ momento, estado: est }) {
         </>
       )
       rodape = marcado
-        ? <Rodape primario={TX.conectarAo(marcado)} aoPrimario={() => conectar(marcado)} link={TX.procurarDeNovo} aoLink={procurar} />
-        : <Rodape legenda={TX.escolhaUm} primario={TX.conectar} primarioDesabilitado link={TX.procurarDeNovo} aoLink={procurar} />
+        ? <Rodape primario={TX.conectarAo(marcado)} aoPrimario={() => conectar(marcado)} primarioTrocaTexto link={TX.procurarDeNovo} aoLink={procurar} />
+        : <Rodape legenda={TX.escolhaUm} primario={TX.conectar} primarioDesabilitado primarioTrocaTexto link={TX.procurarDeNovo} aoLink={procurar} />
     }
   } else {
     // as linhas: as que terminaram dizem o resultado; a que corre mostra o
@@ -339,6 +372,9 @@ export default function T05({ momento, estado: est }) {
     // terminou numa falha ou parou no caso; correndo, a de 38
     const fim = aprovada ? 'pre-checagem' : concluida || parou ? 'pre-checagem-parada' : false
     const fora = !c.modulo
+    // a parada (C12·29 a, C12·9): no fluxo, ela só chega com a pré-checagem correndo, na frente de
+    // quem olha, e o aviso esmaece no topo; num estado da coluna e no print, ele nasce parado
+    const avisoSurge = est == null && !EM_QUADRO
     miolo = (
       <>
         <div className="t05-cabeca">
@@ -346,10 +382,10 @@ export default function T05({ momento, estado: est }) {
           <CabecalhoConteudo titulo={TX.preChecagem} contagem={aprovadas} unidade={TX.de(TOTAL)} tom={aprovada ? 'veredito' : 'neutro'} />
         </div>
         {parou && parada.tipo === 'link' && (
-          <Aviso tom="falha" glifo="sem-sinal" poco={24} titulo={TX.semRespostaDoModulo} frase={TX.reconecteDa[parada.n]} />
+          <Aviso tom="falha" glifo="sem-sinal" poco={24} titulo={TX.semRespostaDoModulo} frase={TX.reconecteDa[parada.n]} surge={avisoSurge} />
         )}
         {parou && parada.tipo === 'repouso' && (
-          <Aviso tom="neutro" glifo="lua" poco={24} titulo={TX.moduloEmRepouso} frase={TX.acordeDa[parada.n]} />
+          <Aviso tom="neutro" glifo="lua" poco={24} titulo={TX.moduloEmRepouso} frase={TX.acordeDa[parada.n]} surge={avisoSurge} />
         )}
         <Lista className="t05-lista">
           {linhas.map((l, i) => (
@@ -363,14 +399,19 @@ export default function T05({ momento, estado: est }) {
     )
     const f = faltas(c)
     if (q.atualizando != null) rodape = <Rodape primario={TX.atualizando} primarioDesabilitado explicacao={TX.recomeca} pe="botao" />
+    // o fim da pré-checagem, qualquer que seja o veredito — a parada no caso, a reprova, a aprovada —: o
+    // primário, apagado enquanto ela corre, acende (a peça: com o mesmo texto, por uma camada, C12·8; com
+    // o texto da saída, o texto esmaece e o roxo troca direto, C12·23 · o conserto de 27/09)
     else if (parou) {
-      rodape = <Rodape primario={parada.tipo === 'link' ? TX.reconectar : TX.acordarModulo} aoPrimario={seguir} link={TX.procurarOutro} aoLink={procurar} />
-    } else if (!concluida) rodape = <Rodape primario={TX.selecionarAtivo} primarioDesabilitado link={TX.voltarAoMenu} aoLink={voltar} />
-    else if (aprovada) rodape = <Rodape primario={TX.selecionarAtivo} aoPrimario={() => ir('T06')} link={TX.voltarAoMenu} aoLink={voltar} />
+      rodape = <Rodape primario={parada.tipo === 'link' ? TX.reconectar : TX.acordarModulo} aoPrimario={seguir} primarioAcende link={TX.procurarOutro} aoLink={procurar} />
+    } else if (!concluida) rodape = <Rodape primario={TX.selecionarAtivo} primarioDesabilitado primarioAcende link={TX.voltarAoMenu} aoLink={voltar} />
+    // aprovada: o Selecionar ativo, apagado com o mesmo texto enquanto a pré-checagem corre, acende por
+    // uma camada quando ela aprova (C12·8), como todo primário que espera o fim de um processo (C12·44)
+    else if (aprovada) rodape = <Rodape primario={TX.selecionarAtivo} aoPrimario={() => ir('T06')} primarioAcende link={TX.voltarAoMenu} aoLink={voltar} />
     else if (f.firmwareFora && casos.includes(CASO_SEM_REDE)) {
-      rodape = <Rodape legenda={TX.comConexaoGravada} primario={TX.gravarConexao} aoPrimario={gravarConexao} link={TX.procurarOutro} aoLink={procurar} />
-    } else if (f.firmwareFora) rodape = <Rodape primario={TX.atualizarFirmware} aoPrimario={atualizarFirmware} link={TX.procurarOutro} aoLink={procurar} />
-    else rodape = <Rodape primario={TX.procurarOutro} aoPrimario={procurar} />
+      rodape = <Rodape legenda={TX.comConexaoGravada} primario={TX.gravarConexao} aoPrimario={gravarConexao} primarioAcende link={TX.procurarOutro} aoLink={procurar} />
+    } else if (f.firmwareFora) rodape = <Rodape primario={TX.atualizarFirmware} aoPrimario={atualizarFirmware} primarioAcende link={TX.procurarOutro} aoLink={procurar} />
+    else rodape = <Rodape primario={TX.procurarOutro} aoPrimario={procurar} primarioAcende />
   }
 
   return (
@@ -378,7 +419,7 @@ export default function T05({ momento, estado: est }) {
       <BarraDoSistema hora={M.HORA_NOMINAL} fundo={comFaixa ? 'faixa' : 'pagina'} />
       {faixa}
       <div className={`tela-miolo ${q.fase === 'pre' ? 't05-miolo-pre' : 't05-miolo-busca'} ${q.fase === 'celular' ? 't05-miolo-celular' : ''}`}>{miolo}</div>
-      {rodape}
+      <Fragment key={quadro}>{rodape}</Fragment>
       {enc.sobre}
     </div>
   )

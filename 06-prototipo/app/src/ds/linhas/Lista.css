@@ -7,3 +7,20 @@
 }
 /* os passos do ciclo (T14): 2 em cima e embaixo */
 .ds-lista-passos { padding: var(--e-2) var(--e-12); flex-shrink: 0; }
+
+/* ── C12 · o movimento fino ── */
+/* a cascata (C12·28, C12·41): a lista que a busca acha surge uma linha depois da
+ * outra — cada uma esmaece em 150, desacelerando, e a seguinte começa 80 depois
+ * (--mov-escalonar-lista). Antes da vez dela, a linha espera invisível no lugar dela
+ * (backwards: só na espera); acabou, não fica nada vivo (C12·19). Com reduzir
+ * movimento, os dois tempos são 0: as linhas aparecem juntas. A cópia do que sai
+ * (useReorganiza) não entra na cascata. */
+.ds-lista-surge > :not(.ds-reorganiza-sai) { animation: ds-lista-surge var(--mov-rapido) var(--mov-curva) backwards; }
+.ds-lista-surge > :nth-child(2) { animation-delay: var(--mov-escalonar-lista); }
+.ds-lista-surge > :nth-child(3) { animation-delay: calc(var(--mov-escalonar-lista) * 2); }
+.ds-lista-surge > :nth-child(4) { animation-delay: calc(var(--mov-escalonar-lista) * 3); }
+.ds-lista-surge > :nth-child(5) { animation-delay: calc(var(--mov-escalonar-lista) * 4); }
+.ds-lista-surge > :nth-child(6) { animation-delay: calc(var(--mov-escalonar-lista) * 5); }
+.ds-lista-surge > :nth-child(7) { animation-delay: calc(var(--mov-escalonar-lista) * 6); }
+.ds-lista-surge > :nth-child(n+8) { animation-delay: calc(var(--mov-escalonar-lista) * 7); }
+@keyframes ds-lista-surge { from { opacity: 0; } }

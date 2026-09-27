@@ -9,10 +9,14 @@ import './LinhaContagem.css'
 
 // nomeGlifo (C4 · T03, G15): o nome pro leitor segue o estado do dado, não o
 // desenho — na baixa que parou, o quadrado de 'agora' diz 'parou'
+// C12 · o check que nasce no poço (C12·7, C12·12): o glifo que troca depois de a
+// linha montar — o quadrado de agora, o check do tipo que terminou — esmaece no
+// lugar, em 150 (o Glifo, esmaece); aberta já baixada, parada. A contagem troca no
+// lugar, direto (T03: o número troca no lugar), e a tinta troca direto (C12·8).
 export function LinhaContagem({ nome, contagem, estado = 'espera', divisoria = true, nomeGlifo }) {
   return (
     <div className={`ds-linha-contagem ds-linha-contagem-${estado} ${divisoria ? '' : 'ds-sem-divisoria'}`}>
-      <Poco tam={26}><Glifo estado={estado} poco={26} nome={nomeGlifo} /></Poco>
+      <Poco tam={26}><Glifo estado={estado} poco={26} nome={nomeGlifo} esmaece /></Poco>
       <span className="ds-linha-contagem-nome">{nome}</span>
       <span className="ds-linha-contagem-valor">{contagem}</span>
     </div>

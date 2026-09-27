@@ -6,15 +6,18 @@
 // pra ser texto da tela como na referência (a régua dos textos lê o texto, e
 // o placeholder não é texto). Muda pro leitor: o nome já vai no aria-label.
 // A entrega de 25/09 (T02/03, T06/08): em foco, o traço de baixo vira 2 de lima,
-// como o campo focado (TracoFoco.css) — no toque, o foco de verdade; `focado`
-// fotografa o foco parado, no quadro da busca sem resultado.
+// como o campo focado (TracoFoco.css) — no toque, o foco do próprio campo
+// (foco.js, C12·21); `focado` é o foco que a tela diz, no quadro da busca sem
+// resultado.
 import { Icone } from '../index.js'
+import { useFocoDoCampo } from './foco.js'
 import './TracoFoco.css'
 import './Busca.css'
 
 export function Busca({ dica, valor = '', aoMudar, rotulo, focado = false }) {
+  const foco = useFocoDoCampo(focado)
   return (
-    <label className={`ds-busca ds-traco-foco ${focado ? 'ds-foco' : ''}`}>
+    <label className={`ds-busca ds-traco-foco ${foco.aceso ? 'ds-foco' : ''}`}>
       <Icone nome="busca" tam={18} cor="apagada" />
       <span className="ds-busca-lugar">
         <input
@@ -25,6 +28,8 @@ export function Busca({ dica, valor = '', aoMudar, rotulo, focado = false }) {
           value={valor}
           onChange={aoMudar ? (e) => aoMudar(e.target.value) : undefined}
           readOnly={!aoMudar}
+          onFocus={foco.aoFocar}
+          onBlur={foco.aoSair}
         />
         {!valor && <span className="ds-busca-dica" aria-hidden="true">{dica}</span>}
       </span>

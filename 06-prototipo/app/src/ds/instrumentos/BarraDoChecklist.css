@@ -6,3 +6,7 @@
   transform-origin: left center; transform: scaleX(var(--ds-barra-ck-parte));
   transition: transform var(--mov-lento) var(--mov-curva);
 }
+/* a volta do nível do item (C12·36): nasce no que tinha e avança até o novo — sem
+ * preenchimento, acabou, não sobra animação viva */
+.ds-barra-ck-avanca { animation: ds-barra-ck-avanca var(--mov-lento) var(--mov-curva); }
+@keyframes ds-barra-ck-avanca { from { transform: scaleX(var(--ds-barra-ck-de)); } }

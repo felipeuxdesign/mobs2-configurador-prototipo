@@ -10,6 +10,17 @@
 // escolhivel (C4 · T02·1 a): a vencida também se escolhe — o toque põe o
 // quadrado lima no lugar do traço. O traço fica no lugar do marcador de
 // escolha, e por isso fica mudo (G15); o estado vai no aria-checked.
+//
+// C12 · o marcador da vencida que se escolhe (gate C12·20, o conserto da vencida):
+// como em toda escolha, o quadrado lima surge no poço no toque (opacidade e escala
+// de 80% a 100%, em 150) e, na que perde a marca, faz o mesmo ao contrário. Na
+// vencida, o poço guarda o quadrado desde o começo, invisível por cima do traço (sem
+// a borda do vazado, que a vencida não tem): no toque, o traço sai de uma vez e o
+// lima surge no lugar dele; na volta, o traço volta e o lima some. Antes, o traço e o
+// quadrado se trocavam no poço, e o lima nascia pronto, sem se mover. Parada, a linha
+// é a mesma de antes, pixel a pixel. A tela não liga nada: a peça lembra que a linha
+// é uma vencida, porque a tela escolhida a passa como 'escolhida'.
+import { useRef } from 'react'
 import { Tocavel } from '../primitivos/Tocavel.jsx'
 import { Poco } from '../primitivos/Poco.jsx'
 import { Glifo } from '../primitivos/Glifo.jsx'
@@ -19,13 +30,20 @@ import './LinhaEscolha.css'
 export function LinhaEscolha({ nome, detalhe, valor, estado = 'disponivel', aoTocar, rotulo, nomeGlifo, divisoria = true, escolhivel = false, className = '' }) {
   const vencida = estado === 'vencida'
   const escolhida = estado === 'escolhida'
+  // a vencida que se escolhe: o quadrado mora no poço por cima do traço, e a linha lembra disso
+  const foiVencida = useRef(false)
+  if (vencida && escolhivel) foiVencida.current = true
+  const sobre = escolhivel && foiVencida.current
   return (
     <Tocavel
       className={`ds-escolha ds-escolha-${estado} ${divisoria ? '' : 'ds-escolha-sem-divisoria'} ${className}`}
       role="radio" aria-checked={escolhida}
       rotulo={rotulo} aoTocar={aoTocar} desabilitado={vencida && !escolhivel}
     >
-      <Poco tam={30} aria-hidden={vencida && escolhivel ? true : undefined}>{vencida ? <Glifo estado="traco" nome={nomeGlifo} /> : <Quadrado escolhido={escolhida} />}</Poco>
+      <Poco tam={30} className={sobre ? 'ds-escolha-poco-sobre' : ''} aria-hidden={vencida && escolhivel ? true : undefined}>
+        {vencida && <Glifo key="traco" estado="traco" nome={nomeGlifo} />}
+        {(!vencida || sobre) && <Quadrado key="marca" escolhido={escolhida} />}
+      </Poco>
       <span className="ds-escolha-corpo">
         <span className="ds-escolha-nome">{nome}</span>
         <span className="ds-escolha-detalhe">{detalhe}</span>

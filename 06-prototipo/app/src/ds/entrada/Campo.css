@@ -1,6 +1,6 @@
 .ds-campo { display: flex; flex-direction: column; gap: var(--e-6); }
 .ds-campo-rotulo { font-size: var(--t-rotulo-topo); font-weight: 700; letter-spacing: var(--ls-rotulo-topo); color: var(--tinta-secundaria); }
-.ds-foco .ds-campo-rotulo, .ds-campo:focus-within .ds-campo-rotulo { color: var(--lima); }
+.ds-foco .ds-campo-rotulo { color: var(--lima); }
 
 .ds-campo-poco {
   height: var(--campo); display: flex; align-items: center;

@@ -13,6 +13,10 @@
   line-height: var(--entrelinha-legenda); padding-bottom: var(--e-12);
 }
 .ds-encerramento-situacao { flex-shrink: 0; font-size: var(--t-secundario); font-weight: 700; color: var(--tinta-secundaria); }
+/* a legenda que passa ao passo que corre, na frente de quem olha (C12·9): esmaece no
+ * lugar, sem preenchimento — acabou, nada fica animando */
+.ds-encerramento-legenda-surge { animation: ds-encerramento-legenda-esmaece var(--mov-rapido) var(--mov-curva); }
+@keyframes ds-encerramento-legenda-esmaece { from { opacity: 0; } }
 
 .ds-encerramento-corre .ds-encerramento-situacao { color: var(--tinta); }
 .ds-encerramento-falha .ds-encerramento-situacao { color: var(--vermelho); }

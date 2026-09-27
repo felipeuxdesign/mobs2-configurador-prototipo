@@ -6,8 +6,10 @@
 // · Tirada: o registro no lugar do cartão — o check lima no poço, o que ficou
 //   feito e onde mais ela vale —, sem a seta e sem toque: não é botão pro
 //   leitor de tela, é o que aconteceu (foto tirada fica tirada).
-// O movimento do registro entrando (o check esmaecendo no poço, 150ms · T10
-// animacao.md) é do C12.
+// C12·42 · o registro que nasce de um toque não tem movimento próprio: ele entra
+// com o que já esmaece em volta dele, nos mesmos 150, e nada esmaece duas vezes —
+// na T10, a troca de quadro da volta da câmera (C12·4); na T13/15, a lista que se
+// reorganiza, que esmaece o que é novo no miolo (C12·10). Aberto, parado.
 import { Icone, Poco, Tocavel } from '../index.js'
 import './FotoProva.css'
 

@@ -31,8 +31,13 @@
 // · O ciclo fica gravado em etapas.ciclo: os passos pelo id do item da Seção E,
 //   o evento, o cartão, a correção pedida e se a captura foi fechada. Voltar à
 //   T14 com o ciclo aberto retoma os passos que já valem; o evento se dispara de novo.
-import { useEffect, useRef, useState } from 'react'
-import { BarraDoSistema, Faixa, CabecalhoConteudo, Prazo, BlocoEvento, Lista, LinhaChecagem, Rodape, ESTADOS } from '../../ds/index.js'
+// · O movimento (C12): a fila que drena, o prazo que estoura e o ciclo que conclui
+//   trocam o desenho, e o conteúdo esmaece (C12·4); o disparo troca o texto do
+//   primário no lugar (C12·23); o prazo drena contínuo, um trecho linear por tique
+//   (C12·40); o check do passo e o horário do evento esmaecem (as peças). Nada
+//   anima ao abrir.
+import { Fragment, useEffect, useRef, useState } from 'react'
+import { BarraDoSistema, Faixa, CabecalhoConteudo, Prazo, BlocoEvento, Lista, LinhaChecagem, Rodape, ESTADOS, useTrocaDeQuadro } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
 import { useEncerrar } from '../../estado/encerrar.jsx'
@@ -181,6 +186,15 @@ export default function T14({ momento, estado: est }) {
 
   // ── o quadro ──
   const { par, casos, fase, tique, passos, correcao } = fluxo
+  // O desenho de cada fase (C12·4, G26 · T14 01 → 00): o antes do disparo (a fila saindo do
+  // módulo, com a frase dela no prazo e a espera no rodapé), o prazo (a fila drenada, o disparo
+  // e o prazo correndo), o prazo estourado (a frase da Seção F e o disparar outro) e o ciclo
+  // concluído (o rodapé troca inteiro). Quando um vira o outro — pelo processo (a fila que drena,
+  // o prazo que acaba, o último passo) ou pelo toque (Disparar outro evento) —, o conteúdo
+  // esmaece em 150, como entre telas; dentro de um, move só a peça: o disparo troca o texto do
+  // primário no lugar e o prazo drena (C12·23, C12·40)
+  const quadro = fase === 'drenando' ? 'antes' : fase === 'estourado' ? 'estourado' : fase === 'concluido' ? 'concluido' : 'prazo'
+  useTrocaDeQuadro(quadro)
   const estourado = fase === 'estourado'
   const disparado = fase === 'correndo' || estourado || fase === 'concluido'
   const chegou = recebido(fluxo)
@@ -195,7 +209,7 @@ export default function T14({ momento, estado: est }) {
       rotulo={chegou ? T.chegouEm : T.prazo}
       nota={fase === 'drenando' ? T.filaDrenando : T.filaDrenada}
       tempo={minSeg(chegou ? EVENTO.recebidoAosSeg : restante)}
-      restante={restante} limite={PRAZO}
+      restante={restante} limite={PRAZO} segue={TIQUE_MS}
       legendas={{ inicio: chegou ? T.disparadoAs(M.HORA_NOMINAL) : minSeg(0), fim: T.limite(PRAZO) }}
       detalhe={fase === 'drenando' ? T.filaSaindo(filaDoModulo(par.moduloSerial)) : estourado ? [T.secaoF, T.continuamValendo(PASSOS.length)] : null}
       falha={estourado}
@@ -246,31 +260,36 @@ export default function T14({ momento, estado: est }) {
   if (fase === 'drenando') {
     rodape = <Rodape legenda={T.esperaFila} primario={T.disparar} primarioDesabilitado link={T.irAoChecklist} aoLink={irAoChecklist} />
   } else if (fase === 'drenada') {
-    rodape = <Rodape primario={T.disparar} aoPrimario={disparar} link={T.irAoChecklist} aoLink={irAoChecklist} />
+    // o disparo troca o texto do primário no lugar (C12·23): Disparar evento de teste → Encerrar o ciclo
+    rodape = <Rodape primario={T.disparar} aoPrimario={disparar} primarioTrocaTexto link={T.irAoChecklist} aoLink={irAoChecklist} />
   } else if (estourado) {
     rodape = <Rodape primario={T.dispararOutro} aoPrimario={dispararOutro} link={T.irAoChecklist} aoLink={irAoChecklist} />
   } else if (fase === 'concluido') {
     rodape = <Rodape primario={T.voltarAoChecklist} aoPrimario={() => ir('T13')} link={T.voltarAoMenu} aoLink={() => ir('T04')} />
   } else if (casos.cartao) {
     rodape = (
-      <Rodape primario={T.encerrarCiclo} aoPrimario={encerrarCiclo}
+      <Rodape primario={T.encerrarCiclo} aoPrimario={encerrarCiclo} primarioTrocaTexto
         link={correcao ? T.solicitada(M.HORA_NOMINAL) : T.solicitar} aoLink={solicitarCorrecao} linkRegistrado={correcao} />
     )
   } else {
-    rodape = <Rodape primario={T.encerrarCiclo} aoPrimario={encerrarCiclo} link={T.irAoChecklist} aoLink={irAoChecklist} />
+    rodape = <Rodape primario={T.encerrarCiclo} aoPrimario={encerrarCiclo} primarioTrocaTexto link={T.irAoChecklist} aoLink={irAoChecklist} />
   }
 
   return (
     <div className="t14">
       <BarraDoSistema hora={M.HORA_NOMINAL} fundo="faixa" />
       <Faixa serial={par.moduloSerial} placa={ativoDe(par.ativoId).placa} acao={T.encerrar} aoEncerrar={enc.encerrar} />
+      {/* o miolo e o rodapé nascem com o quadro: dentro da troca, nada anda nem esmaece de novo por
+          dentro (o passo que fecha o ciclo, o prazo que acaba) */}
       <div className="tela-miolo t14-miolo">
-        <CabecalhoConteudo titulo={T.titulo} contagem={aprovados} unidade={T.dePassos(total)} />
-        {prazo}
-        {evento}
-        {lista}
+        <Fragment key={quadro}>
+          <CabecalhoConteudo titulo={T.titulo} contagem={aprovados} unidade={T.dePassos(total)} />
+          {prazo}
+          {evento}
+          {lista}
+        </Fragment>
       </div>
-      {rodape}
+      <Fragment key={quadro}>{rodape}</Fragment>
       {enc.sobre}
     </div>
   )

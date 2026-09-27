@@ -17,27 +17,35 @@
 .ds-regua-confere .ds-glifo { width: var(--glifo-confere); height: var(--glifo-confere); }
 /* o não confere (T10/10): o xis solto de 14 e a frase, em vermelho */
 .ds-regua-falha { display: flex; align-items: center; gap: var(--e-6); color: var(--vermelho); }
+/* o veredito que chega (C12·34): a diferença encolhe no centro e esmaece, ainda no
+ * lugar dela — o fim é o desenho dela parada, até sair, pra não voltar um quadro;
+ * depois o veredito entra e esmaece no lugar (sem preenchimento: acabou, não sobra
+ * animação viva) */
+.ds-regua-sai { transform: scale(0); opacity: 0; animation: ds-regua-sai var(--mov-lento) var(--mov-curva); }
+@keyframes ds-regua-sai { from { transform: none; opacity: 1; } }
+.ds-regua-entra { animation: ds-regua-entra var(--mov-rapido) var(--mov-curva); }
+@keyframes ds-regua-entra { from { opacity: 0; } }
 
-/* o valor alvo: o campo do painel em foco, com o lima (a folha 8) */
+/* o valor alvo: o campo do painel em foco, com o lima (a folha 8). O lima do traço de baixo é o
+ * traço de foco dos campos (TracoFoco.css, C12·45): a borda fica em 1 e o de 2 é desenhado por cima,
+ * com a capa que acende da esquerda pra direita. O número que não cabe não vaza do poço: o corte fica
+ * no poço, e a capa, que cobre a borda de baixo, passa 1 dele (overflow-clip-margin) */
 .ds-valor-alvo.ds-caixa-poco {
-  position: relative; flex-grow: 1; min-height: 0; overflow: hidden; /* o número que não cabe não vaza do poço */
+  position: relative; flex-grow: 1; min-height: 0; overflow: clip; overflow-clip-margin: var(--traco-borda);
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: var(--e-8); padding: var(--e-16);
-  border-bottom: var(--traco-destaque) solid var(--lima);
 }
 .ds-valor-alvo-rotulo { font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--lima); }
 .ds-valor-alvo-numero { font-size: var(--n-destaque); font-weight: 700; letter-spacing: var(--ls-n-destaque); line-height: var(--entrelinha-numero); white-space: nowrap; }
 .ds-valor-alvo-unidade { font-size: var(--n-unidade-g); font-weight: 500; color: var(--tinta-secundaria); padding-left: var(--e-4); }
 .ds-valor-alvo-legenda { font-size: var(--t-secundario); font-weight: 500; color: var(--tinta-apagada); }
 /* sem o lima: o painel vazio (folha 8) e o número fora do foco (o cumprido, T10/01, 07, 09, 10) —
-   a borda do poço e o rótulo apagado; no vazio, o traço no lugar do número em --marca-limite */
-.ds-valor-alvo.ds-caixa-poco.ds-valor-alvo-vazio,
-.ds-valor-alvo.ds-caixa-poco.ds-valor-alvo-cumprido { border-bottom: var(--traco-borda) solid var(--borda-poco); }
+   a borda do poço (a capa do traço de foco cobre o lima) e o rótulo apagado; no vazio, o traço no
+   lugar do número em --marca-limite */
 .ds-valor-alvo-vazio .ds-valor-alvo-rotulo,
 .ds-valor-alvo-cumprido .ds-valor-alvo-rotulo { color: var(--tinta-apagada); }
 .ds-valor-alvo-vazio .ds-valor-alvo-numero { color: var(--marca-limite); }
-/* o campo em foco: o lima de volta, por cima das duas (T10/05) */
-.ds-valor-alvo.ds-caixa-poco.ds-valor-alvo-foco { border-bottom: var(--traco-destaque) solid var(--lima); }
+/* o campo em foco: o lima de volta, por cima das duas (T10/05) — o traço, pelo ds-foco (TracoFoco.css) */
 .ds-valor-alvo-foco .ds-valor-alvo-rotulo { color: var(--lima); }
 /* o campo: por cima do poço inteiro, sem desenho — o que se vê é o número da peça */
 .ds-valor-alvo-campo {

@@ -6,13 +6,16 @@
 //   Encerrar sem homologar   a sessão abortada da T16, os 4 passos (T16/03)
 // O voltar do Android, com o diálogo aberto, fecha o diálogo, como o Continuar
 // (O voltar do Android · numa folha ou num diálogo): ele vale antes do da tela
-// (useVoltar · porCima). O movimento é o dos diálogos (movimento.md): o véu e a
-// caixa esmaecem, e a caixa cresce de 98% a 100%, em 150ms; aberto pela URL ou
-// no print, nasce aberto, parado.
+// (useVoltar · porCima). O movimento é o dos diálogos, pela presença de tudo o
+// que vem por cima (src/ds/chrome/PorCima.jsx, C12·43): o véu e a caixa esmaecem,
+// e a caixa cresce de 98% a 100%, em 150ms; aberto pela URL ou no print, nasce
+// aberto, parado.
 //
 // Onde ele abre: no menu, o momento 13 da T04, que tem endereço — a T04 passa
 // `aberto` e quem abre e fecha (a URL segue o quadro, G20), e põe o `dialogo` no
-// lugar dela por cima do menu, como o aviso do acesso. Nas outras telas, por
+// lugar dela por cima do menu, no mesmo véu das folhas (a `caixa`: o diálogo sem
+// o véu, que a T04 põe no PorCima dela, pra folha do módulo virar o diálogo sem o
+// véu piscar, C12·43). Nas outras telas, por
 // cima da própria tela, onde o ENCERRAR foi tocado, sem endereço (a referência
 // só desenha o do menu; a decisão padrão deste ciclo): o `sobre`, com o véu
 // embaixo da barra do sistema, cobrindo a faixa, como a T04/13 desenha, e o que
@@ -20,11 +23,9 @@
 //
 // Os textos são os da T04/13 (02-telas/T04-menu/textos.md), os mesmos em toda tela.
 import { useLayoutEffect, useRef, useState } from 'react'
-import { Veu, Dialogo, Frase } from '../ds/index.js'
+import { Dialogo, Frase, PorCima, usePorCima } from '../ds/index.js'
 import { useEstado } from './estado.jsx'
 import { useVoltar } from './voltar.js'
-// a presença do diálogo (entra fechado e abre; sai fechando antes de desmontar) é a da T01
-import { usePresenca } from '../telas/T01/presenca.js'
 import './encerrar.css'
 
 // a sessão abortada, os 4 passos (T16/03, G23)
@@ -58,7 +59,9 @@ export function useEncerrar({ aberto: pedido, aoAbrir, aoFechar, homologada } = 
   const [proprio, setProprio] = useState(false)
   const pelaUrl = pedido !== undefined
   const aberto = pelaUrl ? pedido : proprio
-  const presenca = usePresenca(aberto)
+  // por cima da própria tela: a presença do diálogo (entra fechado e abre; sai fechando
+  // antes de desmontar). No menu, a presença é a do véu dele (a T04 põe a `caixa`)
+  const camada = usePorCima(!pelaUrl && aberto ? 'encerrar' : null)
 
   const fechar = () => (pelaUrl ? aoFechar() : setProprio(false))
   const semHomologar = () => despachar({ tipo: 'ir', tela: 'T16', momento: ENCERRAR_SEM_HOMOLOGAR })
@@ -70,14 +73,13 @@ export function useEncerrar({ aberto: pedido, aoAbrir, aoFechar, homologada } = 
   }
   useVoltar(aberto ? fechar : null, { porCima: true })
 
-  const dialogo = presenca.montado ? (
-    <Veu de="dialogo" visivel={presenca.visivel}>
-      <Dialogo titulo={TX.titulo} primario={TX.continuar} aoPrimario={fechar}
-        saida={TX.semHomologar} aoSair={semHomologar} margem={24} aberto={presenca.visivel}>
-        <Frase>{TX.frase}</Frase>
-      </Dialogo>
-    </Veu>
-  ) : null
-  const sobre = dialogo && <PorCimaDaTela>{dialogo}</PorCimaDaTela>
-  return { encerrar, aberto, montado: presenca.montado, fechar, dialogo, sobre }
+  // o diálogo sem o véu: aberto ou não, quem diz é a presença em volta dele
+  const caixa = (
+    <Dialogo titulo={TX.titulo} primario={TX.continuar} aoPrimario={fechar}
+      saida={TX.semHomologar} aoSair={semHomologar} margem={24}>
+      <Frase>{TX.frase}</Frase>
+    </Dialogo>
+  )
+  const sobre = camada.montado ? <PorCimaDaTela><PorCima camada={camada}>{caixa}</PorCima></PorCimaDaTela> : null
+  return { encerrar, aberto, fechar, caixa, sobre }
 }

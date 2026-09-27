@@ -40,9 +40,30 @@
 // · ENCERRAR, antes de homologar, abre o diálogo Encerrar sem homologar? por
 //   cima da tela (decisão 36), que leva à sessão abortada da T16 (G23); depois,
 //   o encerramento. Voltar ao menu → T04.
-import { useEffect, useRef, useState } from 'react'
+// · O movimento (C12), o mesmo vocabulário das outras telas, e nada ao abrir:
+//   - a câmera e o passo seguinte são outro desenho — o título, o miolo e o
+//     rodapé trocam inteiros —: no Fotografar o painel, no Tirar foto, no Voltar
+//     à calibração (e no voltar, na câmera) e no Calibrar o …, o conteúdo esmaece
+//     em 150 (C12·4); o miolo e o rodapé nascem com o quadro, e nada esmaece de
+//     novo por dentro;
+//   - a foto que acabou de ser tirada: o registro está no lugar do cartão quando
+//     a câmera fecha, e entra com a troca da volta, nos mesmos 150 (C12·42);
+//   - o campo do painel: o traço de foco acende por cima da borda (C12·45, a peça);
+//   - o primário diz o que falta, e o texto novo esmaece no lugar (C12·23); o
+//     que se apaga no toque perde o roxo de uma vez (C12·18); o que acende no
+//     fim do semear acende com o texto do passo seguinte, que esmaece no lugar,
+//     com o roxo direto (C12·23, a peça · o conserto de 27/09);
+//   - o semear (C12·34), em sequência (T10·4 a): no fim do Relendo…, o tambor
+//     rola até o relido (C12·33, 500); quando ele para, a diferença encolhe e
+//     esmaece em 300 (a peça); o veredito assenta no fim dos 300 — o confere
+//     (ou o não confere) entra na régua, e no mesmo quadro o poço acende, o
+//     alvo diz que cumpriu, o segmento fica feito e o primário acende. Até lá,
+//     o processo não acabou: o Relendo…, o link e o ENCERRAR ficam como
+//     estavam. Com reduzir, tudo direto, no mesmo ritmo.
+import { Fragment, useEffect, useRef, useState } from 'react'
 import {
   BarraDoSistema, Faixa, Segmentado, ValorEmPoco, ReguaDiferenca, ValorAlvo, FotoProva, VisorCamera, Declarado, Rodape,
+  useTrocaDeQuadro,
 } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
@@ -64,6 +85,12 @@ const HORA = M.HORA_NOMINAL
 // o módulo foi gravado: o segmento do passo acende (01 e 10), alto como o atual (08 e 09)
 const GRAVADO = ['semeada', 'nao-confere']
 const passoVazio = () => ({ digitado: '', foto: null, fase: 'pronta', relido: null })
+// o tempo de um token de movimento, em ms (com reduzir movimento, 0)
+function duracao(token) {
+  const v = getComputedStyle(document.documentElement).getPropertyValue(token).trim()
+  const n = parseFloat(v)
+  return Number.isFinite(n) ? (/ms$/.test(v) ? n : n * 1000) : 0
+}
 
 // um passo como o estado único guardou — ou como a T13 o semeia, com o semeado e sem o digitado
 function passoDaEtapa(e, g) {
@@ -158,6 +185,8 @@ export default function T10({ momento, estado: est }) {
   const relogios = useRef([])
   useEffect(() => () => relogios.current.forEach(clearTimeout), [])
   const campo = useRef(null)
+  // as rodinhas do tambor que já pararam, no semear (C12·34: a régua espera o tambor)
+  const rodas = useRef(0)
 
   const ir = (tela, extra = {}) => despachar({ tipo: 'ir', tela, ...extra })
   // a calibração no estado único (etapas.calibracao) — só no fluxo, e só depois do primeiro passo dado
@@ -184,8 +213,15 @@ export default function T10({ momento, estado: est }) {
   const p = fluxo.passos[g] ?? passoVazio()
   const gr = grandezaDe(g) ?? { natureza: 'partida', unidade: '' }
   const ajuste = gr.natureza === 'ajuste'
-  const semeada = p.fase === 'semeada'
-  const naoConfere = p.fase === 'nao-confere'
+  // a releitura chegou (o tambor rola; quando ele para, a régua encolhe), e o veredito assentou no fim
+  // dos 300 da régua (C12·34): até lá, o poço, o alvo, o segmento e o rodapé ficam como estavam
+  const releu = p.fase === 'semeada' || p.fase === 'nao-confere'
+  const assentou = (x) => fluxo.passos[x]?.assentado !== false
+  const semeada = p.fase === 'semeada' && assentou(g)
+  const naoConfere = p.fase === 'nao-confere' && assentou(g)
+  // a troca de quadro (C12·4): a chave é o quadro desenhado — a câmera, ou o passo da grandeza
+  const quadroDaTela = fluxo.camera ? 'camera' : g
+  useTrocaDeQuadro(quadroDaTela)
 
   // ── os toques ──
   const mudaPasso = (x, mudanca) => setFluxo((f) => ({ ...f, passos: { ...f.passos, [x]: { ...f.passos[x], ...mudanca } } }))
@@ -206,11 +242,34 @@ export default function T10({ momento, estado: est }) {
       mudaPasso(passo, { fase: 'relendo' })
       relogios.current.push(setTimeout(() => {
         const r = releitura(passo, painel)
-        mudaPasso(passo, { fase: r?.confere ? 'semeada' : 'nao-confere', relido: r })
+        // em sequência (T10·4 a, C12·34 a): o tambor rola até o relido; quando ele para, a régua recebe o
+        // veredito e a diferença encolhe em 300; o veredito assenta quando entra na régua. Sem movimento
+        // (reduzir), tudo logo. O tambor não rola se o poço já mostra o relido; a régua não anda sem
+        // veredito escrito (o não confere a mais, só os traços) nem sem a diferença escrita antes
+        const lento = duracao('--mov-lento') > 0
+        const conta = moduloConta(ativoId, passo)
+        const rola = lento && r != null && milhar(r.valor) !== (conta != null ? milhar(conta) : T.vazio)
+        const veredito = r?.confere || (r?.desvio < 0 && !!T.naoConfere[passo])
+        const escrita = conta != null || semeadoHa(ativoId, passo) != null
+        const reguaAnda = lento && veredito && escrita
+        rodas.current = 0
+        mudaPasso(passo, { fase: r?.confere ? 'semeada' : 'nao-confere', relido: r, rolou: !rola, reguaAnda, assentado: !rola && !reguaAnda })
       }, RITMOS.semearRelendoMs))
     }, RITMOS.semearGravandoMs))
   }
   const proximo = () => setFluxo((f) => ({ ...f, atual: f.atual + 1, focado: false }))
+  // o semear em sequência (C12·34), sem relógio, pelo fim de cada movimento no miolo:
+  // · a última rodinha do tambor parou (uma por dígito do relido, como o Tambor conta): a régua recebe o veredito;
+  // · a diferença acabou de encolher, e a peça põe o veredito na régua: o resto assenta no mesmo quadro
+  const assentar = (e) => {
+    if (e.animationName === 'ds-roda-rola' && p.rolou === false) {
+      rodas.current += 1
+      if (rodas.current >= String(milhar(p.relido.valor)).replace(/\D/g, '').length) mudaPasso(g, { rolou: true, assentado: !p.reguaAnda })
+      return
+    }
+    if (e.animationName !== 'ds-regua-sai' || p.rolou === false || p.assentado !== false) return
+    mudaPasso(g, { assentado: true })
+  }
   // a calibração completa (09): grava a etapa concluída e segue — pro ciclo dinâmico ou pro menu
   function concluir(tela) {
     const f = { ...fluxo, concluida: true }
@@ -218,13 +277,13 @@ export default function T10({ momento, estado: est }) {
   }
 
   // ── o segmentado: um segmento por passo; o gravado fica lima apagado e alto ──
-  const gravado = (x) => GRAVADO.includes(fluxo.passos[x]?.fase)
+  const gravado = (x) => GRAVADO.includes(fluxo.passos[x]?.fase) && assentou(x)
   const segmentos = ordem.map((x, i) => {
     if (gravado(x)) return 'atual-feito'
     return i === fluxo.atual ? 'atual' : 'pendente'
   })
   const restantes = ordem.slice(fluxo.atual + 1).map((x) => grandezaDe(x).rotulo)
-  const todas = ordem.length > 0 && ordem.every((x) => fluxo.passos[x]?.fase === 'semeada')
+  const todas = ordem.length > 0 && ordem.every((x) => fluxo.passos[x]?.fase === 'semeada' && assentou(x))
   let legenda
   if (restantes.length) legenda = T.depois(est === REF.jaSemeado ? restantes : restantes.slice(0, 1))
   else if (todas) legenda = T.completa
@@ -236,13 +295,17 @@ export default function T10({ momento, estado: est }) {
   const digitado = p.digitado ? Number(p.digitado) : null
   let poco = { rotulo: T.moduloConta, valor: conta != null ? milhar(conta) : T.vazio, tom: 'apagado' }
   if (ajuste) poco = { rotulo: T.moduloLe, valor: T.vazio, tom: 'apagado' }
+  else if (releu && !assentou(g)) poco = { ...poco, valor: milhar(p.relido.valor) }   // o número rola; o poço acende no fim (C12·34)
   else if (semeada) poco = { rotulo: T.moduloAgora, valor: milhar(p.relido.valor), tom: 'ativo' }
   else if (naoConfere) poco = { rotulo: T.moduloReleu, valor: milhar(p.relido.valor), tom: 'falha' }
 
+  // a régua recebe o veredito quando o tambor para (C12·34): a diferença encolhe, e ele entra no fim (a
+  // peça); até lá, ela mostra o que mostrava
+  const rolou = p.rolou !== false
   let regua
   if (ajuste) regua = <ReguaDiferenca>{T.ligueMotor}</ReguaDiferenca>
-  else if (semeada) regua = <ReguaDiferenca confere>{T.relido(HORA)}</ReguaDiferenca>
-  else if (naoConfere) {
+  else if (p.fase === 'semeada' && rolou) regua = <ReguaDiferenca confere>{T.relido(HORA)}</ReguaDiferenca>
+  else if (p.fase === 'nao-confere' && rolou) {
     // só o que o módulo releu a menos tem texto (T10/10); o resto, só os traços (G25)
     const menos = p.relido.desvio < 0 && T.naoConfere[g]
     regua = menos ? <ReguaDiferenca falha>{T.naoConfere[g](milhar(Math.abs(Math.round(p.relido.desvio))))}</ReguaDiferenca> : <ReguaDiferenca />
@@ -267,7 +330,7 @@ export default function T10({ momento, estado: est }) {
   if (fluxo.camera) primario = DA_CAMERA[primarioDaCamera(fluxo.permissao)]
   else if (ajuste) primario = { rotulo: T.ligue, desabilitado: true } // o módulo ainda não lê: o motor desligado (HU-T10-2)
   else if (p.fase === 'gravando') primario = { rotulo: T.gravando, desabilitado: true }
-  else if (p.fase === 'relendo') primario = { rotulo: T.relendo, desabilitado: true }
+  else if (p.fase === 'relendo' || (releu && !assentou(g))) primario = { rotulo: T.relendo, desabilitado: true }
   else if (naoConfere) primario = { rotulo: T.semearDeNovo, aoTocar: semear }
   else if (semeada && !seguinte) primario = { rotulo: T.cicloDinamico, aoTocar: () => concluir('T14') } // decisão 35
   else if (semeada && T.calibrar[seguinte]) primario = { rotulo: T.calibrar[seguinte], aoTocar: proximo }
@@ -277,7 +340,7 @@ export default function T10({ momento, estado: est }) {
   else primario = { rotulo: T.semear[g], aoTocar: semear }
   // o semear não para (a decisão do diretor de 25/09): o link fica, desabilitado de verdade
   // e em tinta apagada, e o ENCERRAR faz o mesmo que o voltar: apagado (a lei 17)
-  const semeando = p.fase === 'gravando' || p.fase === 'relendo'
+  const semeando = p.fase === 'gravando' || p.fase === 'relendo' || (releu && !assentou(g))
   let link = { rotulo: T.voltar, aoTocar: () => ir('T04') }
   if (fluxo.camera) link = { rotulo: T.voltarCalibracao, aoTocar: fecharCamera }
   else if (semeando) link = { rotulo: T.voltar, desabilitado: true }
@@ -291,7 +354,7 @@ export default function T10({ momento, estado: est }) {
     <div className="t10">
       <BarraDoSistema hora={HORA} fundo="faixa" />
       <Faixa serial={moduloSerial} placa={ativoDe(ativoId)?.placa} acao={T.encerrar} aoEncerrar={enc.encerrar} acaoDesabilitada={semeando && !fluxo.camera} />
-      <div className="tela-miolo t10-miolo">
+      <div className="tela-miolo t10-miolo" onAnimationEnd={assentar}>
         <Segmentado rotulo={T.rotulo} contagem={String(fluxo.atual + 1)} total={T.deTotal(ordem.length)} segmentos={segmentos} legenda={legenda} />
         {fluxo.camera ? (
           <>
@@ -319,8 +382,12 @@ export default function T10({ momento, estado: est }) {
           </>
         )}
       </div>
-      <Rodape primario={primario.rotulo} aoPrimario={primario.aoTocar} primarioDesabilitado={!!primario.desabilitado}
-        link={link.rotulo} aoLink={link.aoTocar} linkDesabilitado={!!link.desabilitado} />
+      {/* o rodapé nasce com o quadro (C12·4): o texto que troca dentro dele esmaece no lugar (C12·23), também o
+          que acende no fim do semear, com o roxo direto (a peça: a camada é só com o mesmo texto, C12·8) */}
+      <Fragment key={quadroDaTela}>
+        <Rodape primario={primario.rotulo} aoPrimario={primario.aoTocar} primarioDesabilitado={!!primario.desabilitado}
+          primarioTrocaTexto primarioAcende link={link.rotulo} aoLink={link.aoTocar} linkDesabilitado={!!link.desabilitado} />
+      </Fragment>
       {enc.sobre}
     </div>
   )

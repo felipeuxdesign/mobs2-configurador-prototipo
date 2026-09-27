@@ -54,7 +54,11 @@
 .t01-canal.ds-tocavel {
   flex-grow: 1; flex-direction: column; align-items: center; justify-content: center; gap: var(--e-6); text-align: center;
 }
-.t01-canal.t01-canal-escolhido { border-bottom: var(--traco-destaque) solid var(--lima); }
+/* o escolhido: o traço de 2 desenhado por cima da borda de 1 (C12·22), sem mudar o tamanho do cartão */
+.t01-canal.t01-canal-escolhido {
+  border-bottom-color: var(--lima);
+  box-shadow: inset 0 calc(var(--traco-borda) - var(--traco-destaque)) 0 var(--lima);
+}
 .t01-canal-rotulo { font-size: var(--t-rotulo-topo); font-weight: 700; letter-spacing: var(--ls-rotulo-topo); color: var(--tinta-apagada); }
 .t01-canal-escolhido .t01-canal-rotulo { color: var(--lima); }
 .t01-canal-contato { max-width: 100%; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -69,6 +73,12 @@
 .t01-codigo-grupo { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; gap: var(--e-20); }
 .t01-cartao-codigo { display: flex; flex-direction: column; align-items: center; gap: var(--e-4); padding: var(--e-16); }
 .t01-cartao-codigo-rotulo { font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--tinta-apagada); }
+/* em falha (o código errado, na frente de quem olha): o traço de 2 desenhado por cima da borda de
+ * 1 (C12·22), no lugar do de 2 da caixa de poço em falha — o cartão não cresce, e nada sai do lugar */
+.t01-cartao-codigo.ds-caixa-poco.ds-caixa-falha {
+  border-bottom-width: var(--traco-borda);
+  box-shadow: inset 0 calc(var(--traco-borda) - var(--traco-destaque)) 0 var(--vermelho);
+}
 .t01-cartao-codigo-falha .t01-cartao-codigo-rotulo { color: var(--vermelho); }
 .t01-cartao-codigo-numero {
   font-size: var(--n-destaque); font-weight: 700; letter-spacing: var(--ls-n-destaque);

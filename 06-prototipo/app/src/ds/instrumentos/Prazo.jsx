@@ -12,7 +12,11 @@ import './Prazo.css'
 //   a escala fica sem o preenchido, com o marcador no zero.
 // · `detalhe` como lista — as frases do que o estado quer dizer, uma por linha,
 //   na entrelinha da legenda ('A Seção F reprova.' e 'Os cinco passos…', T14/02).
-export function Prazo({ rotulo, nota, tempo, restante, limite, legendas, detalhe, falha = false }) {
+// O movimento (C12·40): com `segue` (o tique do prazo, em ms), a barra drena
+// contínua — cada tique é um trecho linear da Escala, só por transform; o
+// número troca no lugar. Com reduzir, o número troca e a barra salta, no
+// mesmo ritmo. Sem `segue`, a barra fica no valor, parada.
+export function Prazo({ rotulo, nota, tempo, restante, limite, legendas, detalhe, falha = false, segue }) {
   return (
     <div className={`ds-prazo ds-inst-cartao ${falha ? 'ds-prazo-falha' : ''}`}>
       <div className="ds-inst-cabeca">
@@ -20,7 +24,7 @@ export function Prazo({ rotulo, nota, tempo, restante, limite, legendas, detalhe
         {nota != null && <span className="ds-inst-nota">{nota}</span>}
       </div>
       <div className="ds-prazo-numero"><span className="ds-prazo-tempo">{tempo}</span></div>
-      <Escala tam="prazo" min={0} max={limite} valor={restante} faixa={restante > 0 ? { de: 0, ate: restante } : null} divisoes={4} fortes={[limite / 2]} />
+      <Escala tam="prazo" min={0} max={limite} valor={restante} faixa={restante > 0 ? { de: 0, ate: restante } : null} divisoes={4} fortes={[limite / 2]} segue={segue} />
       <div className="ds-inst-legendas"><span>{legendas.inicio}</span><span>{legendas.fim}</span></div>
       {detalhe != null && (Array.isArray(detalhe)
         ? <span className="ds-prazo-detalhe ds-prazo-frases">{detalhe.map((f) => <span key={f}>{f}</span>)}</span>

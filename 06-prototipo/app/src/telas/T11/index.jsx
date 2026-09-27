@@ -13,9 +13,16 @@
 //   RITMOS.conferenciaLinhaMs (400 ms), no mesmo ritmo com reduzir movimento
 //   (movimento.md:47, G26); o que o módulo tem espera a leitura chegar no bloco,
 //   e o glifo e ele esmaecem em 150 ms (animacao.md; com reduzir, direto). O
-//   veredito espera a última linha (a decisão do diretor de 25/09, C12·35 b): o
-//   com contagem e, no 02, o 'igual à do cadastro' esperam no lugar, sem desenho
-//   e mudos pro leitor, e entram esmaecendo. No print (EM_QUADRO), num estado da
+//   relógio só liga depois da troca entre telas (C12·35 b): pelo menu, o
+//   primeiro bloco vira aos 550 ms (150 + 400); pelo endereço, aos 400. O
+//   veredito espera a última linha (C12·35, o retorno do diretor de 26/09, o
+//   padrão a): a caixa dele já está no lugar desde que a tela abre, com o
+//   desenho do quadro final, neutra — o traço no cinza, o poço vazio, o lugar
+//   da palavra guardado —, e a contagem acompanha as linhas no lugar do número
+//   (1 de 5 … 4 de 5); na quinta, a palavra e a cor entram em 150 (o Aviso,
+//   aguarda), e no 02 a legenda 'igual à do cadastro' da prova, no mesmo tique
+//   (a Prova, aguarda 'legenda'). Nada muda de lugar nem de altura, e o
+//   veredito só fala pro leitor no fim. No print (EM_QUADRO), num estado da
 //   coluna e na folha Outras ações aberta pelo endereço (03), nasce lida, parada:
 //   o quadro de cada referência é o do fim.
 // · O que diverge (T11·1, T11·2): a semente do painel (M2C-0438 + ONK-8Q90) é o
@@ -56,7 +63,7 @@
 import { useEffect, useState } from 'react'
 import {
   BarraDoSistema, Faixa, CabecalhoConteudo, Aviso, Lista, LinhaChecagem, Nota, Prova, Rodape,
-  Veu, Folha, CartaoDeOpcoes, LinhaDeOpcao, Precondicao, ESTADOS,
+  Veu, Folha, CartaoDeOpcoes, LinhaDeOpcao, Precondicao, ESTADOS, useFimDaTroca,
 } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
@@ -65,8 +72,8 @@ import { SEMENTES } from '../../estado/sementes.js'
 import { EM_QUADRO } from '../../estado/quadro.js'
 import { RITMOS } from '../../estado/ritmos.js'
 import { M } from '../../dados/mock.js'
-// a presença da folha (entra fechada e sobe; sai descendo antes de desmontar) é a da T01
-import { usePresenca } from '../T01/presenca.js'
+// a presença da folha (entra fechada e sobe; sai descendo antes de desmontar) é a do que vem por cima
+import { usePresenca } from '../../ds/chrome/PorCima.jsx'
 import {
   REF, BLOCOS, VERSAO_DO_CADASTRO, rotuloDe, ativoDe, mundoDoEstado,
   divergenciasDo, cadastroDo, moduloDo, mundoQueConfere, arrasteDe,
@@ -125,11 +132,17 @@ export default function T11({ momento, estado: est }) {
   const [nasceuLida] = useState(() => EM_QUADRO || est != null || outrasPedida)
   const [lidas, setLidas] = useState(() => (nasceuLida ? total : 0))
   const lendo = lidas < total
+  // o relógio só liga depois da troca entre telas que trouxe a tela (C12·35 b): pelo menu,
+  // o primeiro bloco aos 150 + 400; pelo endereço (nada esmaece), aos 400
+  const fimDaTroca = useFimDaTroca()
   useEffect(() => {
     if (!lendo) return undefined
-    const relogio = setInterval(() => setLidas((n) => Math.min(n + 1, total)), RITMOS.conferenciaLinhaMs)
-    return () => clearInterval(relogio)
-  }, [lendo, total])
+    let vivo = true, relogio = null
+    fimDaTroca().then(() => {
+      if (vivo) relogio = setInterval(() => setLidas((n) => Math.min(n + 1, total)), RITMOS.conferenciaLinhaMs)
+    })
+    return () => { vivo = false; clearInterval(relogio) }
+  }, [lendo, total]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // a URL segue o quadro (G20): nada diverge é o 02; o que diverge, a 00, ou o 03 com a folha aberta
   const quadro = bate ? REF.confere : outrasPedida ? REF.outras : null
@@ -160,12 +173,13 @@ export default function T11({ momento, estado: est }) {
   // é o Outras ações, que não sai da tela: não faz nada. Num estado da coluna, a peça não escuta.
   useVoltar(outrasPedida ? fecharOutras : bate ? voltar : soReenviar ? registrar : null)
 
-  // o veredito: quantos não batem de 5; no 01, quantos conteúdos a mais
-  let cabeca = <Aviso tom="veredito" titulo={T.confere} numero={total} unidade={T.deTotal(total)} />
-  if (divergem.length) cabeca = <Aviso glifo="xis" titulo={T.naoBate} numero={divergem.length} unidade={T.deTotal(total)} />
-  else if (!bate) cabeca = <Aviso glifo="xis" titulo={T.naoBate} numero={naoReconhecidos} unidade={T.aMais} />
-  // o que espera a última linha fica no lugar, sem desenho e mudo, e entra esmaecendo
-  const espera = lendo ? ' t11-espera' : ''
+  // o veredito: quantos não batem de 5; no 01, quantos conteúdos a mais. Enquanto lê, a
+  // caixa espera no lugar, neutra, com a contagem das linhas (C12·35 a, a peça: Aviso · aguarda)
+  const aguarda = lendo ? lidas : null
+  const conta = T.deTotal(total)
+  let cabeca = <Aviso tom="veredito" titulo={T.confere} numero={total} unidade={T.deTotal(total)} aguarda={aguarda} aguardaUnidade={conta} />
+  if (divergem.length) cabeca = <Aviso glifo="xis" titulo={T.naoBate} numero={divergem.length} unidade={T.deTotal(total)} aguarda={aguarda} aguardaUnidade={conta} />
+  else if (!bate) cabeca = <Aviso glifo="xis" titulo={T.naoBate} numero={naoReconhecidos} unidade={T.aMais} aguarda={aguarda} aguardaUnidade={conta} />
 
   // a legenda embaixo da lista: no 01, o que o Reenviar preserva; com o arraste (04), o que o Corrigir leva junto
   const legenda = soReenviar ? T.preservaConexao
@@ -190,7 +204,7 @@ export default function T11({ momento, estado: est }) {
         <div className="tela-miolo t11-miolo">
           <CabecalhoConteudo titulo={T.titulo} />
           {versaoIlegivel && <Precondicao estado="info">{T.versaoIlegivel}</Precondicao>}
-          <div className={`t11-veredito${espera}`} aria-hidden={lendo ? 'true' : undefined}>{cabeca}</div>
+          <div className="t11-veredito">{cabeca}</div>
           <Lista>
             {BLOCOS.map((b, i) => {
               const diverge = divergem.includes(b)
@@ -198,12 +212,13 @@ export default function T11({ momento, estado: est }) {
                 <LinhaChecagem key={b} variante="conferencia" estado={diverge ? 'diverge' : 'aprovada'} nomeGlifo={diverge ? NOME_DIVERGE : undefined}
                   titulo={rotuloDe(b)} valor={diverge ? undefined : cadastro[b]} valorAceso={soReenviar}
                   par={diverge ? { modulo: T.noModulo(modulo[b]), cadastro: T.noCadastro(cadastro[b]) } : undefined}
-                  divisoria={i < total - 1} lendo={i >= lidas} acende={!nasceuLida} />
+                  divisoria={i < total - 1} lendo={i >= lidas} />
               )
             })}
           </Lista>
           {naoReconhecidos > 0 && <Nota tom="achado" titulo={T.naoReconhece} frase={T.foraDosBlocos(total)} />}
-          {bate && <Prova tipo="cadeia" className={`t11-prova${espera}`} rotulo={T.versaoLida} versao={VERSAO_DO_CADASTRO} legenda={T.igualAoCadastro} legendaMuda={lendo} />}
+          {/* no 02, o bloco da prova já está inteiro no lugar, e só a legenda espera a quinta linha (C12·35 a) */}
+          {bate && <Prova tipo="cadeia" rotulo={T.versaoLida} versao={VERSAO_DO_CADASTRO} legenda={T.igualAoCadastro} aguarda={lendo ? 'legenda' : null} />}
           {legenda && <span className="t11-legenda">{legenda}</span>}
         </div>
         {rodape}

@@ -19,5 +19,6 @@
 .ds-linha-tocavel-registro-texto { display: flex; flex-direction: column; gap: var(--e-2); min-width: 0; }
 .ds-linha-tocavel-registro-titulo { font-size: var(--t-link); font-weight: 600; color: var(--tinta); }
 .ds-linha-tocavel-registro-valor { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-secundaria); }
-.ds-linha-tocavel-registro-entra > * { animation: ds-linha-tocavel-esmaece var(--mov-rapido) var(--mov-curva) both; }
+/* sem preenchimento (C12·19): sem atraso, o quadro é o mesmo, e a animação que acabou não fica viva */
+.ds-linha-tocavel-registro-entra > * { animation: ds-linha-tocavel-esmaece var(--mov-rapido) var(--mov-curva); }
 @keyframes ds-linha-tocavel-esmaece { from { opacity: 0; } to { opacity: 1; } }

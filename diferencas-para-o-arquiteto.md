@@ -35,6 +35,45 @@ As listas de peças e as referências são do design, como o pacote pede. A anot
 
 O `_changelog-para-colar.md` da `atualizacao33/` traz, embaixo da senha visível, as linhas da primeira entrega (a logo no lima, o *Lembrar meu usuário*, o checkbox marcado), que já estavam no registro. Entraram uma vez só. A `atualizacao98/` repete os itens 1 a 4 e o 7 da quarta entrega, que o protótipo já estava construindo.
 
+## O C12, o movimento
+
+O movimento das 16 telas está construído e fechado (27/09), com a direção de movimento que o diretor delegou (26/09). As referências, os `textos.md` e o mock não mudaram, e os quadros parados são os mesmos. O que vai pra você está aqui; o detalhe de cada decisão está no `06-prototipo/gate-C12.md`, e as regras, no `03-design-system/movimento.md`.
+
+### As linhas das `animacao.md` que mudaram por decisão
+
+**71 linhas nas 16 tabelas:** 38 reescritas, 30 novas e 3 que saíram, cada uma marcada *(C12·n)*. As 3 que saíram deixaram a nota com o porquê: os valores lidos da T08 (C12·11), a foto do painel da T10 (C12·42) e o placar da T13 (C12·36).
+
+- **o que elas dizem agora:** a coluna Curva, que dizia *esmaece* ou *acelera*, diz *desacelera*, a curva de tudo (C12·5, em 15 linhas) · o check que *se desenha* é a marca que ganha o check, esmaecendo (C12·7: os requisitos da T01, o check da T03) · a faixa e o cartão liberado da T04 dizem que nada se move no menu (C12·24, C12·26) · a linha que falha da T05 se parte na reprova e na parada (C12·29) · os valores novos da T08 são o mostrador que acende (C12·11) · o tambor da T10 em 500ms (C12·33) e a régua da diferença em sequência, depois dele (C12·34) · o veredito e o conferindo da T11 (C12·35) · o placar da T13 saiu, com a nota, e a barra do checklist e a miniatura dizem o que acontece na volta do item (C12·36, C12·37) · a barra do prazo da T14 contínua (C12·40) · as assertivas da T16 em ordem com reduzir (C12·38) · a troca de quadro em 8 telas (T05, T06, T08, T10, T12, T13, T14 e T16 · C12·4) · o botão primário em 9 (T02, T05, T06, T07, T09, T10, T13, T14 e T16 · C12·8, C12·23) · o marcador de escolha e o placar (T05, T06 e T08 · C12·20) · a folha que vira diálogo (T04 · C12·27, C12·43) · o aviso e a prova da cadeia (T09 · C12·9) · a caixa do não conforme e o registro do problema (T13 · C12·47, C12·42) · o cartão que pede ação (T15 · C12·10) · a legenda do passo que corre e a prova com o bloqueio (T16 · C12·9, C12·44)
+- **onde, por tela** (reescritas · novas): T01 3 · 0 · T02 2 · 0 · T03 2 · 0 · T04 2 · 1 · T05 3 · 4 · T06 3 · 4 · T07 3 · 3 · T08 1 · 2, e 1 que saiu · T09 1 · 3 · T10 4 · 2, e 1 que saiu · T11 2 · 0 · T12 1 · 0 · T13 5 · 4, e 1 que saiu · T14 3 · 2 · T15 0 · 1 · T16 3 · 4
+
+### O que faltou de desenho · quadros que não existem
+
+- **o quadro de espera do veredito** (C12·35, C12·44): a caixa neutra, com o traço cinza, o poço vazio e a contagem (*1 de 5* … na T11; *1 de 8* … na prova e no bloqueio da T16). O diretor escolheu a (a) e ele está construído com as peças que existem; **confirme o desenho** (G25)
+- **o botão da T11 enquanto a leitura corre:** o *Corrigir as 5 divergências* está aceso e diz o número desde o começo, enquanto a caixa ainda conta. Em toda outra tela, o botão que espera a prova fica apagado com o mesmo texto e acende no fim · **padrão que eu adotaria:** apagado até a quinta linha, e acende por uma camada · falta o quadro
+- **o quadro de começo da leitura da T07** (C12·31): o traço no lugar do valor, o marcador no começo da escala, as rodinhas em zero, e o cabeçalho e o rodapé dizendo só o que já chegou
+- **o quadro aceso com o traço de 2 por cima da borda de 1** (C12·22, C12·45): o campo em foco (T01), a busca em foco (T02/03 e 04, T06/08 e 09), a célula do código em foco e errada e o cartão em falha (T01/03, 05, 06, 07, 12, 13), o canal escolhido (T01/02), o campo do painel (T10/05) e o espécime do valor alvo da folha 8. As referências desenham o texto subindo meio pixel quando acende; a lei proíbe, e o protótipo não sobe
+- **o visor com a foto tirada da T13** (C12·37): o `Tirar foto` segue pro próximo item sem mostrar a foto
+- **o *Procurando…* da T05** (C12·41): a linha pede um texto que nem a referência nem o `textos.md` têm; fica o quadro da T05/00 por 1,2 s
+- **o pressionado do checkbox** (C12·17): a folha 6 desenha o normal e o marcado; o pressionado é a camada da linha tocável (G14) · confira
+
+### Pares pra ver · onde a linha e a lei não batem
+
+- **T11 · linhas de conferência · com reduzir movimento:** a sua linha diz *aparecem juntas*; o `movimento.md` manda o processo seguir no mesmo ritmo (G26), e o app acende em ordem · fica a nossa versão
+- **T13 · o veredito · o quando:** a sua linha diz *o último item passa*; o homologado é o toque em `Finalizar instalação` (T13·3) · fica a nossa versão
+- **a barra do sistema quando a faixa nasce** (C12·24): a decisão pedia a cor da barra entrando por uma camada de 200ms; a barra é do aparelho (decisão 43, lei 22) e troca a cor direto · confirme
+- **o quadrado do passo que começa** (T05·3, T09·1, T16·1): ele também esmaece em 150ms, e as linhas não dão tempo a ele
+
+### Pra ver · produto
+
+- **T13:** o último `Tirar foto` volta às seções com o `Finalizar instalação` aceso no mesmo lugar do dedo, e dois toques rápidos homologam
+
+### O censo
+
+| | agora |
+|---|---|
+| tokens | **295** no `tokens.css` e no `tokens.json` (entrou o `--mov-fator`) · 96 no seu `tokens.json` |
+| a régua | 145 referências, 40 em 0% do HTML, 132 iguais à base e 13 no quadro aceso · 127 espécimes, 126 iguais · 42 roteiros, 6.350 passos · 83 lugares no aceso · 38 números da moldura |
+
 ## A moldura e a barra (`otimizacao300000000/`), juntada e construída
 
 A entrega entrou inteira — as 145 referências refeitas com a barra nova, os 5 quadros do palco, as 8 folhas, a fonte da hora com a licença, a decisão 43, a lei 22, os trechos do `MUDANCAS.md` e os 66 documentos gerados das telas —, com as suas decisões da junção (26/09). Está construída, medida, revisada e fechada: a barra sai igual ao seu HTML, byte a byte, em 144 das 145 (a T07/03 não se constrói), e nada abaixo de y = 30 mudou; a T16 foi a 0,02–0,06% do HTML novo; a moldura bate nos 38 números da régua do palco; e nenhuma referência piorou contra a base. Os quatro modos do palco, lado a lado com os seus quadros, estão em `para-o-arquiteto-palco/`, com um `LEIA-ME.md` pra você.

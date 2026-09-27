@@ -4,3 +4,6 @@
 .ds-sinais-lido { display: flex; align-items: center; gap: var(--e-4); }
 .ds-sinais-valor { font-size: var(--t-corpo); font-weight: 600; }
 .ds-sinais-divisoria { display: block; height: var(--traco-borda); background: var(--borda); }
+/* o check do sinal que chega depois de montar: esmaece no lugar (sem preenchimento: acabou, não sobra) */
+.ds-sinais-nasce { animation: ds-sinais-nasce var(--mov-rapido) var(--mov-curva); }
+@keyframes ds-sinais-nasce { from { opacity: 0; } }

@@ -26,6 +26,8 @@
 // · o voltar do Android é da tela que abriu a folha (useVoltar, com o mesmo
 //   fechar do X): a T01 e a T04 passam.
 // Sem `aoFechar` (a vitrine), a folha fica parada: nem arrasta, nem fecha fora.
+// `aberta`: a tela diz, ou, sem ela, a presença em volta (PorCima.jsx, a folha que
+// se reveza com o diálogo no mesmo véu); sem nenhuma das duas, aberta.
 // `puxador` (a última entrega · T11/03, G11): false tira o puxador, como a folha
 // Outras ações desenha — a única das dez folhas das referências sem ele. O
 // painel arrasta igual, de qualquer ponto (a lei 20 vale pra toda folha); o
@@ -34,6 +36,7 @@
 import { useContext, useId, useLayoutEffect, useRef } from 'react'
 import { SoIcone } from '../primitivos/SoIcone.jsx'
 import { FechaPeloVeu } from './Veu.jsx'
+import { PresencaPorCima } from './PorCima.jsx'
 import './Folha.css'
 
 const medida = (el, token) => parseFloat(getComputedStyle(el).getPropertyValue(token)) || 0
@@ -45,18 +48,21 @@ function engoleOClique() {
   setTimeout(() => window.removeEventListener('click', engole, { capture: true }), 0)
 }
 
-export function Folha({ titulo, subtitulo, aoFechar, rotuloFechar, minima = false, folga = 14, aberta = true, puxador = true, children }) {
+export function Folha({ titulo, subtitulo, aoFechar, rotuloFechar, minima = false, folga = 14, aberta: abertaDaTela, puxador = true, children }) {
+  const presenca = useContext(PresencaPorCima)
+  const aberta = abertaDaTela ?? presenca?.aberta ?? true
   const id = useId()
   const painel = useRef(null)
   const arraste = useRef(null)      // o dedo que desceu na folha: { id, y0, escala, dy, vivo, folga, limite }
   const soltouAlem = useRef(false)  // passou do limite: o painel espera a tela fechar a folha, e desce dali
 
-  // o toque fora: o fechar da folha vale no véu enquanto ela está aberta
+  // o toque fora: o fechar da folha vale no véu enquanto ela está aberta (a que sai,
+  // na troca no mesmo véu, não apaga o fechar da que entra)
   const doVeu = useContext(FechaPeloVeu)
   useLayoutEffect(() => {
-    if (!doVeu) return undefined
-    doVeu.current = aberta && aoFechar ? aoFechar : null
-    return () => { doVeu.current = null }
+    if (!doVeu || !aberta || !aoFechar) return undefined
+    doVeu.current = aoFechar
+    return () => { if (doVeu.current === aoFechar) doVeu.current = null }
   })
 
   // a tela fechou a folha que passou do limite: o painel sai do dedo e o fechar
@@ -131,3 +137,6 @@ export function Folha({ titulo, subtitulo, aoFechar, rotuloFechar, minima = fals
     </div>
   )
 }
+
+// a peça que o PorCima reconhece: a folha sobe do pé (o diálogo nasce no meio)
+Folha.porCima = 'folha'

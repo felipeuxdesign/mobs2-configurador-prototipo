@@ -14,13 +14,16 @@ function Numero({ valor, unidade, unidadeP = false }) {
   )
 }
 
-// o download (00): o rótulo, o que baixou do conteúdo acompanhado, a barra e a legenda
-export function Download({ rotulo, feito, de, unidade, total, faltam }) {
+// o download (00): o rótulo, o que baixou do conteúdo acompanhado, a barra e a legenda.
+// `segue` (C12·15 a): o passo da baixa, em ms (ritmos.js) — a barra dos ativos enche
+// linear, um trecho por item, com o marcador junto (Escala · segue); com reduzir, cada
+// item salta pro valor dele, no mesmo ritmo. Montar nunca anima
+export function Download({ rotulo, feito, de, unidade, total, faltam, segue }) {
   return (
     <div className="t03-instrumento t03-instrumento-download ds-caixa-poco">
       <span className="t03-instrumento-rotulo">{rotulo}</span>
       <Numero valor={feito} unidade={unidade} />
-      <Escala tam="placar" semLados min={0} max={de} valor={feito}
+      <Escala tam="placar" semLados min={0} max={de} valor={feito} segue={segue}
         faixa={feito > 0 ? { de: 0, ate: feito } : undefined} divisoes={4} fortes={[de / 2]} />
       <div className="t03-legendas">
         <span>{total}</span><span>{faltam}</span>

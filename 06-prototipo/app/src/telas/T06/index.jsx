@@ -24,10 +24,10 @@
 // par comparado, que cresce até ela. Onde o último bloco é o que cresce (o par
 // que bate, 01, e a trava, 04 a 06), ele segue com os 16 dele
 // (t06-antes-do-rodape), como as referências ainda desenham.
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import {
   BarraDoSistema, Faixa, CabecalhoConteudo, Busca, Lista, LinhaOnibus, BlocoEscolhido,
-  ParComparado, Nota, Checkbox, LinhaTocavel, Rodape, Vazio,
+  ParComparado, Nota, Checkbox, LinhaTocavel, Rodape, Vazio, useTrocaDeQuadro, useReorganiza,
 } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
@@ -91,6 +91,21 @@ export default function T06({ momento, estado: est }) {
   const ativo = escolhido ? ativoDe(escolhido) : null
   const prova = ativo ? avaliar(ativo, { uoId, sessao }, doEstado?.desde) : null
 
+  // o movimento (C12). A troca de quadro (C12·4 a): a lista que vira *Confirmar o veículo*, e a
+  // volta, trocam o desenho inteiro, e o conteúdo esmaece em 150, como entre telas — o par de
+  // chassis chega com ele (C12·11 a). A trava que o leitor sem fio resolve (05 → 01) também é
+  // outro quadro: o rodapé e o bloco trocam. O pedido de correção (02 → 07) e a confirmação
+  // marcada (03) movem só a peça: o registro esmaece no lugar (C12·19), e o Usar este ativo
+  // acende por uma camada (C12·8, T06·3). A lista se reorganiza quando a busca filtra (C12·10 a): o
+  // que fica desliza, o que sai esmaece por cima, o que volta esmaece no lugar; na
+  // confirmação, a chave null diz que o quadro não é a lista (a placa de outro pacote abre a
+  // trava pela troca de quadro, sem a lista andar por cima). Aberto pela URL, pelo palco,
+  // num estado ou no print, parado. O rodapé nasce com o quadro (a chave, lá embaixo): entre quadros,
+  // só a troca esmaece, e a camada do primário que acendeu logo antes não segue por dentro dela
+  const quadro = ativo ? `${ativo.id}·${prova.passo}` : 'lista'
+  useTrocaDeQuadro(quadro)
+  const lugar = useReorganiza(ativo ? null : busca)
+
   // a lista do pacote, filtrada pela busca. Sem nenhum ônibus, o vazio declarado
   // no lugar da instrução e da lista, e o primário espera, como a 08 desenha; o
   // ônibus marcado fica guardado e volta com a lista
@@ -119,10 +134,12 @@ export default function T06({ momento, estado: est }) {
 
   // 'Usar este ativo': o ativo entra na sessão, e o vínculo fica anotado com
   // como foi provado — o chassi lido ou a confirmação do técnico, às 14:30
+  // O ativo confirmado começa sem a leitura da CAN: a T07 que abre em seguida lê na frente de
+  // quem olha, sinal a sinal (C12·30 a, a chegada da T06); pelo menu, a leitura feita fica
   const usar = () => {
     despachar({ tipo: 'mesclar', parcial: {
       sessao: { ...sessao, ativoId: ativo.id },
-      etapas: { ...unico.etapas, ativo: { ativoId: ativo.id, vinculo: prova.passo === 'sem-chassi' ? 'confirmacao' : 'chassi', as: M.HORA_NOMINAL } },
+      etapas: { ...unico.etapas, ativo: { ativoId: ativo.id, vinculo: prova.passo === 'sem-chassi' ? 'confirmacao' : 'chassi', as: M.HORA_NOMINAL }, can: null },
     } })
     ir('T07')
   }
@@ -166,7 +183,10 @@ export default function T06({ momento, estado: est }) {
         )}
       </>
     )
-    rodape = <Rodape primario="Usar este ativo" primarioDesabilitado={!marcadoAVista} aoPrimario={() => escolher(marcado)} link="Voltar ao menu" aoLink={voltarAoMenu} />
+    // o Usar este ativo acende por uma camada quando passa a valer com o mesmo texto — o ônibus que se
+    // marca, e o marcado que a busca devolve —, como o Ver as unidades da T02 e todo primário que acende
+    // na frente de quem olha (C12·8, a direção de movimento); o que a busca esconde apaga direto (C12·18)
+    rodape = <Rodape primario="Usar este ativo" primarioDesabilitado={!marcadoAVista} primarioAcende aoPrimario={() => escolher(marcado)} link="Voltar ao menu" aoLink={voltarAoMenu} />
   } else {
     const modelo = modeloDe(ativo)
     const detalhe = `frota ${ativo.frota} · ${modelo.nome}`
@@ -202,7 +222,7 @@ export default function T06({ momento, estado: est }) {
         </>
       )
       rodape = (
-        <Rodape legenda="Confirme o veículo para continuar" primario="Usar este ativo" primarioDesabilitado={!confirmado} aoPrimario={usar}
+        <Rodape legenda="Confirme o veículo para continuar" primario="Usar este ativo" primarioDesabilitado={!confirmado} primarioAcende aoPrimario={usar}
           link="Escolher outro" aoLink={escolherOutro} />
       )
     } else {
@@ -235,8 +255,8 @@ export default function T06({ momento, estado: est }) {
     <div className="t06">
       <BarraDoSistema hora={M.HORA_NOMINAL} />
       {faixa}
-      <div className="tela-miolo t06-miolo">{miolo}</div>
-      {rodape}
+      <div ref={lugar} className="tela-miolo t06-miolo">{miolo}</div>
+      <Fragment key={quadro}>{rodape}</Fragment>
       {enc.sobre}
     </div>
   )

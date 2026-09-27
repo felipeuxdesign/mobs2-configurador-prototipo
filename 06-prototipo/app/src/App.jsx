@@ -1,9 +1,10 @@
 // O app — o que o técnico usaria. Separado do palco (06-prototipo/CLAUDE.md).
 // Mostra a tela do estado único; num estado do palco, a tela montada pelo caso.
-import { useRef } from 'react'
+import { useLayoutEffect, useRef } from 'react'
 import { useEstado } from './estado/estado.jsx'
 import { useTeclado } from './estado/teclado.js'
-import { Rolagem } from './ds/index.js'
+import { EM_QUADRO } from './estado/quadro.js'
+import { Rolagem, RaizDaTroca, esmaecerConteudo, emToque } from './ds/index.js'
 import { telaDe } from './telas/index.jsx'
 
 export function App() {
@@ -13,12 +14,26 @@ export function App() {
   const raiz = useRef(null)
   // o teclado nunca esconde o que importa (regra 10): o app encolhe até o que sobra acima dele
   useTeclado(raiz)
+  // a troca entre telas (C12·2, C12·3 · src/ds/chrome/Troca.jsx): quando um toque leva a
+  // outra tela, só o conteúdo da nova esmaece, em --mov-rapido; a barra, a tira e a faixa
+  // trocam direto. O pulo do palco, o estado, a volta ao fluxo e o Recomeçar sobem a
+  // geração, e a tela abre parada; o `ir` que só acerta o endereço fica na mesma tela; o
+  // processo que leva sozinho a outra tela não é toque; no print, nada se move
+  const antes = useRef({ id, geracao: estado.geracao })
+  useLayoutEffect(() => {
+    const a = antes.current
+    antes.current = { id, geracao: estado.geracao }
+    if (EM_QUADRO || a.geracao !== estado.geracao || a.id === id || !emToque()) return
+    esmaecerConteudo(raiz.current)
+  }, [id, estado.geracao])
   // a chave muda de tela em tela e a cada pulo do palco (a geração): a tela remonta
   // do zero, e o estado próprio dela não vaza de um pulo pro outro
   return (
-    <div className="app" aria-label="App Configurador" ref={raiz}>
-      <Tela key={`${id}·${estado.geracao}`} momento={momento} estado={est} />
-      <Rolagem raiz={raiz} />
-    </div>
+    <RaizDaTroca raiz={raiz} parada={EM_QUADRO}>
+      <div className="app" aria-label="App Configurador" ref={raiz}>
+        <Tela key={`${id}·${estado.geracao}`} momento={momento} estado={est} />
+        <Rolagem raiz={raiz} />
+      </div>
+    </RaizDaTroca>
   )
 }

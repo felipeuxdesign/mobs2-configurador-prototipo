@@ -15,10 +15,8 @@
 .t16 .tela-miolo > * { flex-shrink: 0; }
 
 /* o que entra quando chega a última assertiva (T16·4): a prova, o bloqueio e o
- * Voltar ao menu já têm o lugar deles e esperam invisíveis e mudos — nada se
- * move quando entram (Lei 3). O esmaecer da entrada é do C12. */
-.t16-vez { flex-shrink: 0; }
-.t16-por-vir { opacity: 0; }
+ * Voltar ao menu ficam no lugar desde a primeira, neutros — a espera e a chegada
+ * são das peças (Prova e Aviso com `aguarda`, Primario com `acende`, C12·44) */
 
 /* a nota solta embaixo do cartão das assertivas (T16/02): a frase de 12, apagada */
 .t16-nota { font-size: var(--t-legenda); font-weight: 500; line-height: var(--entrelinha-legenda); color: var(--tinta-apagada); }
