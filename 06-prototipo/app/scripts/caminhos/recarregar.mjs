@@ -16,9 +16,11 @@ export default [
   // andando no app: o endereço acompanha, e o recarregar volta ao login
   { toca: 'Entrar' },
   { chega: 'T02' },
+  { ve: 'Pra qual empresa hoje?' },   // o herói, com a empresa antes da unidade (decisão 37, revista)
   { recarrega: true },
   { chega: 'T01' },
   // o mesmo endereço aberto de novo, como um link: abre a tela dele
   { abre: '?tela=T02' },
   { chega: 'T02' },
+  { ve: 'Onde você está hoje?' },     // a tela pelo endereço: a 00, de uma empresa só (a semente da T02)
 ]

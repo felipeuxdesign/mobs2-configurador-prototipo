@@ -2,8 +2,10 @@
 
 **O contexto.** O app chamava toda UO de *garagem* — porque as do herói se chamam *Garagem Várzea* e *Garagem Ibura* —, e o domínio nunca usa essa palavra: ele fala de Empresa, UC e UO. E o nível da empresa não existia desenhado, porque o mock tinha uma só, mas a HU-T02-1 diz *vejo empresas, UC e UO*. Técnico terceirizado atende várias.
 
-**A decisão.** A interface chama a UO de **unidade** — o termo completo, *unidade organizacional*, fica nos documentos. *Garagem* só aparece quando é o nome da unidade. Com mais de uma empresa, a lista delas vem antes das unidades, e *Trocar de empresa* fica no rodapé da lista das unidades e na folha de trocar.
+**A decisão.** A interface chama a UO de **unidade** — o termo completo, *unidade organizacional*, fica nos documentos. *Garagem* só aparece quando é o nome da unidade. **A empresa vem sempre antes da unidade, pra todo técnico.** Com uma empresa só, a lista aparece com ela já marcada e o *Ver as unidades* aceso — a ordem é a mesma, e o técnico só confirma. *Trocar de empresa* fica no rodapé da lista das unidades, quando há mais de uma, e na folha de trocar.
 
-**O que foi descartado.** *Unidade organizacional* por extenso nos botões e títulos: pesa, e *unidade* não confunde com nada no app. E mexer nos nomes internos, como o caso `lista-longa-garagens`: o técnico nunca vê, e o código do protótipo usa.
+**Revista em 26/09, pelo diretor.** Antes, com uma empresa só, o passo da empresa não existia, e o nome dela aparecia em cima das unidades. Agora a escolha aparece pra todo mundo, e o herói passa a ter três empresas — ele é o terceirizado do incidente.
 
-**A consequência.** 16 telas com o termo trocado, três estados novos, o caso `varias-empresas` e a lei *a palavra é unidade*.
+**O que foi descartado.** *Unidade organizacional* por extenso nos botões e títulos: pesa, e *unidade* não confunde com nada no app. Mexer nos nomes internos, como o caso `lista-longa-garagens` e os nomes dos arquivos da T02: o técnico nunca vê, e o código do protótipo usa. E, com uma empresa só, pedir que o técnico escolha entre uma opção: é um toque sem decisão, por isso ela vem marcada.
+
+**A consequência.** 16 telas com o termo trocado · o herói com três empresas no mock · o caso `uma-empresa` · duas telas novas, a `T02/08` com a empresa já marcada e a `T02/09` com a unidade escolhida sem perder o *Trocar de empresa* · e a lei *a palavra é unidade*.

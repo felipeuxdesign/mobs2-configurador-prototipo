@@ -31,6 +31,6 @@ Uma pasta por tela. Dentro de cada uma, sempre os mesmos cinco itens:
 | T15 · Fila de saída | `T15-fila-de-saida/` | 0 | 4 |
 | T16 · Sessão | `T16-sessao/` | 4 | 2 |
 
-`indice.json` lista as 145 referências com tela, tipo, nome, título, como se chega, caso do mock e os caminhos do HTML e do PNG. **É o que o palco lê pra montar a coluna.**
+`indice.json` lista as 147 referências com tela, tipo, nome, título, como se chega, caso do mock e os caminhos do HTML e do PNG. **É o que o palco lê pra montar a coluna.**
 
 **As referências são gabarito, nunca peça do app.** O HTML existe pra você ler um valor exato e pra comparar o seu print com o PNG. O app se constrói com os componentes do design system.

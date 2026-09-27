@@ -13,6 +13,10 @@ export default [
   { toca: 'Entrar' },
   { chega: 'T02' },
   { app: [360, 800], centrado: true },
+  // a empresa antes da unidade (decisão 37, revista): a Viação, e as unidades dela
+  { marca: 'Viação Atlântico Sul' },
+  { aVista: 'Ver as unidades' },
+  { toca: 'Ver as unidades' },
   { marca: 'Garagem Várzea' },
   { aVista: 'Sincronizar Garagem Várzea' },
   // um celular mais largo, deitado, e a janela estreita e baixa do computador: também em pé

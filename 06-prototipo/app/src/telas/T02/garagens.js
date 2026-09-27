@@ -1,7 +1,8 @@
 // As unidades da T02, lidas do mock na hora de montar (G7). Nenhum número nem
-// nome mora aqui. São dois mundos da mesma empresa:
+// nome mora aqui. São dois mundos da mesma empresa, a Viação Atlântico Sul:
 //  · o do herói: M.ucs, M.uos e o pacote de cada UO em M.pacotes — 3 garagens,
-//    a idade e a hora do pacote (T02·6) e os ativos que ele traz (T02·5);
+//    a idade e a hora do pacote (T02·6) e os ativos que ele traz (T02·5). São
+//    também as unidades do caso uma-empresa, a mesma empresa (empresas.js);
 //  · o da lista longa: o caso `lista-longa-garagens` (a receita do estado 02),
 //    com 9 garagens em 3 regiões, cada uma com a cidade. O pacote de cada uma é
 //    o de M.pacotes (as três que o herói também tem) ou o que o caso declara pra

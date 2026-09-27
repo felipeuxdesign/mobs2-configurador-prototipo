@@ -4,19 +4,21 @@
 
 | Referência | Tipo | Como se chega · o que causa | Caso do mock |
 |---|---|---|---|
-| `00-tela` | tela | a entrada da tela | Viação Atlântico Sul · três unidades · Várzea com pacote de ontem |
-| `01-momento-escolhida` | momento | tocar numa unidade | `ucs · uos` |
+| `00-tela` | tela | Ver as unidades, com uma empresa só — o nome dela fica em cima das unidades | `uma-empresa` |
+| `01-momento-escolhida` | momento | tocar numa unidade, com uma empresa só | `uma-empresa` |
 | `02-estado-lista-longa-com-busca` | estado | a empresa tem mais de 6 unidades — a busca aparece, e a lista rola por baixo do rodapé | `lista-longa-garagens` |
 | `03-momento-busca-sem-resultado` | momento | digitar na busca um nome que não existe | `lista-longa-garagens` |
 | `04-momento-busca-esconde-a-escolha` | momento | com uma unidade escolhida, digitar uma busca que esconde ela | `lista-longa-garagens` |
-| `05-estado-escolher-a-empresa` | estado | o técnico tem mais de uma empresa — a lista delas vem antes das unidades | `varias-empresas` |
-| `06-estado-unidades-com-trocar-empresa` | estado | as unidades de um técnico com mais de uma empresa | `varias-empresas` |
-| `07-momento-empresa-escolhida` | momento | tocar numa empresa da lista — ou voltar pelo Trocar de empresa, com a atual marcada | `varias-empresas` |
+| `05-estado-escolher-a-empresa` | estado | a entrada da tela, pra quem tem várias empresas — o herói | `empresas` |
+| `06-estado-unidades-com-trocar-empresa` | estado | Ver as unidades, pra quem tem várias empresas | `empresas · ucs · uos` |
+| `07-momento-empresa-escolhida` | momento | tocar numa empresa da lista — ou voltar pelo Trocar de empresa, com a atual marcada | `empresas` |
+| `08-estado-uma-empresa-ja-marcada` | estado | a entrada da tela, pra quem tem uma empresa só — ela já vem marcada | `uma-empresa` |
+| `09-momento-unidade-escolhida-com-trocar-empresa` | momento | tocar numa unidade, pra quem tem várias empresas | `empresas · ucs · uos` |
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.
 
-No protótipo (a otimização do design, construída): o `05` e o `06` abrem pela coluna do palco e pelo endereço, montados pelo caso `varias-empresas` — a receita deles em `app/src/estado/receitas.js` —, parados e sem toque, como todo estado. O `05` com as três empresas do caso e nada escolhido; o `06` com as unidades da Viação Atlântico Sul, a empresa do herói, e nada escolhido — as duas referências. Nada no mock dá ao herói mais de uma empresa no fluxo, então o toque de cada um (escolher a empresa, `Ver as unidades`, escolher a unidade, `Sincronizar`, `Trocar de empresa`, o voltar) se prova no node, nas funções que a tela usa (`app/src/telas/T02/empresas.js`, `node app/scripts/testar-empresa.mjs`), e o roteiro `empresa.mjs` confere os dois quadros parados, com a URL de cada um. Os padrões, onde o design não diz, estão no `tela.md` · O que se toca.
+No protótipo (a otimização do design, construída; o mundo do herói desde a otimização 400): o `05`, o `06` e o `08` abrem pela coluna do palco e pelo endereço, parados e sem toque, como todo estado — a receita deles em `app/src/estado/receitas.js`. O `05` e o `06` são o mundo do herói, `M.empresas`: o `05` com as três empresas e nada escolhido, o `06` com as unidades da Viação Atlântico Sul e nada escolhido. O `08` é o caso `uma-empresa`: a lista com ela já marcada, *1 EMPRESA* e o `Ver as unidades` aceso. As três referências.
 
-No protótipo (a última entrega, construída): o `07` é um momento, e aberto pelo endereço é o app vivo no mundo do caso `varias-empresas`, com a Viação Atlântico Sul marcada — dali o técnico anda até a T03 e o menu, e o `Trocar de empresa`, da tela e da folha do menu, volta a ele com a atual marcada (MUDA o padrão b, que voltava ao `05` sem nada escolhido). O `05` e o `06` seguem estados: pela coluna e pelo endereço, parados; o quadro do `06` também aparece no mundo vivo, depois do `Ver as unidades`, sem momento na URL. Com as outras duas empresas escolhidas, o `Ver as unidades` espera (confirmado pelo arquiteto em 26/09). O detalhe está no `tela.md` · O que se toca.
+No protótipo (a otimização 400, construída): **o Entrar da T01 leva o herói ao `05`**, e ele anda por toque — `05` → `07` → o quadro do `06` → `09` → `Sincronizar` → T03 → o menu. A URL diz o momento de cada quadro: o `07` e o `09`; o quadro do `05` e o do `06`, que são estados, ficam sem momento. O `07` e o `09` abertos pelo endereço são o app vivo no mundo do herói; o `Trocar de empresa`, da tela e da folha do menu, volta ao `07` com a atual marcada (MUDA o padrão b da última entrega, que voltava ao `05` sem nada escolhido). Com as outras duas empresas escolhidas, o `Ver as unidades` espera (confirmado pelo arquiteto em 26/09). De uma empresa só, a tela pelo endereço, e pelo pulo do palco, é a `00` — o app vivo no mundo do caso `uma-empresa`, a semente da T02 —, e o `01` pelo endereço também; o `08`, a entrada desse mundo, só abre parado. O mundo vai junto no estado único, com a unidade (`contexto.empresas`), e o `Ver as unidades` e o `Trocar de empresa` gravam o quadro ali também: o `Voltar ao fluxo` do palco devolve o quadro de antes, no mesmo mundo. O endereço copiado no quadro do `05` ou do `06` reabre a `00`, de uma empresa só (desvio nomeado, `06-prototipo/palco.md` · O link publicado). O detalhe está no `tela.md` · O que se toca.
 
 No protótipo (a otimização do design): a linha do `04` com *garagem*, que ficou repetida no fim da tabela quando a entrega foi juntada, saiu — a do `04` com *unidade* é a mesma referência (a lei 18).

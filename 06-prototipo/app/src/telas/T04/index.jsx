@@ -22,7 +22,7 @@ import { CartaoPreso } from './pecas.jsx'
 import {
   REF, SOBRE, MOMENTO_DA_FOLHA, FOLHAS, SOB_A_FAIXA, placaDe, uoDe, iniciais, filaToda, pendentesDaGaragem, naFila,
   enviando, checklistPendentes, prazoDoAcesso, avisoDoAcesso, garagens, moduloPreso, ativoPreso, temVariasEmpresas,
-  TROCA_DE_EMPRESA, destinoDaTroca, depoisDoTrocar,
+  mundoDoMenu, TROCA_DE_EMPRESA, destinoDaTroca, depoisDoTrocar,
 } from './dados.js'
 import './t04.css'
 
@@ -39,11 +39,17 @@ const HEROI = SEMENTES.T04.sessao
 
 // O palco abre o momento com a semente da T04 (a sessão do herói). O 01 e o 02
 // pedem outro mundo: sem sessão, e com o módulo sem o ativo. A tela ajusta o
-// estado único uma vez, ao montar.
-function ajusteDoMomento(momento, unico) {
-  if (momento === REF.semModulo && unico.sessao) return { sessao: null }
-  if (momento === REF.semAtivo && unico.sessao?.ativoId) return { sessao: { ...unico.sessao, ativoId: null } }
-  return null
+// estado único uma vez, ao montar. E o mundo das empresas fica escrito nele
+// (dados.js · mundoDoMenu): sem ele no contexto, o 07 aberto pelo endereço é o de
+// uma empresa só, e o resto, o do herói — a folha de trocar sabe se tem o Trocar
+// de empresa, e o Voltar ao fluxo a reabre igual. Num estado da coluna, nada.
+function ajusteDoMomento(momento, unico, est) {
+  const a = {}
+  if (momento === REF.semModulo && unico.sessao) a.sessao = null
+  if (momento === REF.semAtivo && unico.sessao?.ativoId) a.sessao = { ...unico.sessao, ativoId: null }
+  const empresas = est ? null : mundoDoMenu(momento, unico.contexto)
+  if (empresas) a.contexto = { ...unico.contexto, empresas }
+  return Object.keys(a).length ? a : null
 }
 
 // Num estado da coluna, o mundo é o do caso (receitas.js): a falha do 03 é só
@@ -56,7 +62,7 @@ function sessaoDoEstado(sessao, est) {
 
 export default function T04({ momento, estado: est }) {
   const { estado: unico, despachar } = useEstado()
-  const [ajuste] = useState(() => ajusteDoMomento(momento, unico))
+  const [ajuste] = useState(() => ajusteDoMomento(momento, unico, est))
   const [aplicado, setAplicado] = useState(!ajuste)
   // o diálogo de trocar (o 09), no fluxo: pra qual unidade ({ uoId }), ou de empresa ({ empresa: true })
   const [trocarPara, setTrocarPara] = useState(null)
@@ -160,7 +166,8 @@ export default function T04({ momento, estado: est }) {
     ir(vai.tela, vai.momento ? { momento: vai.momento } : {})
   }
   const escolher = (id) => trocar({ uoId: id })
-  // com mais de uma empresa, o Trocar de empresa no fim da folha (14; no fluxo, vindo da T02/07)
+  // com várias empresas — o herói —, o Trocar de empresa no fim da folha (o 14; no fluxo, a
+  // folha do herói); com uma só — o 07 pelo endereço, o caso uma-empresa, a lista longa —, não
   const variasEmpresas = temVariasEmpresas(mundo, est)
   const trocarDeEmpresa = () => trocar(TROCA_DE_EMPRESA)
 
@@ -229,8 +236,8 @@ export default function T04({ momento, estado: est }) {
       </Dialogo>
     )
   } else if (sobre === 'garagem') {
-    // 07 · 08 · 14 · a folha de trocar de unidade; com mais de uma empresa, o
-    // Trocar de empresa no fim (14, decisão 37)
+    // 07 · 08 · 14 · a folha de trocar de unidade; com várias empresas — o herói —, o
+    // Trocar de empresa no fim (14, decisão 37); no 08, bloqueada, não (o arquiteto, 26/09)
     const lista = garagens()
     porCima = (
       <Folha titulo="Trocar de unidade" rotuloFechar="Fechar" folga={12} aoFechar={fechar}

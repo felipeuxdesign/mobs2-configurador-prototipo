@@ -52,8 +52,8 @@ Cada caso de `mocks.js` → a tela e o estado que ele produz. **O estado se mont
 | `sessao-interrompida` | `T16/06-estado-sessao-interrompida` |
 | `sync-falha-rede` | `T03/01-estado-falha-de-rede` |
 | `teto-de-envios` | `T01/17-estado-teto-de-envios` |
+| `uma-empresa` | `T02/08-estado-uma-empresa-ja-marcada` · `T02/00-tela` · `T02/01-momento-escolhida` · `T04/07-momento-folha-trocar-de-garagem` |
 | `usuario-lembrado` | `T01/16-estado-usuario-lembrado` |
-| `varias-empresas` | `T02/05-estado-escolher-a-empresa` · `T02/06-estado-unidades-com-trocar-empresa` · `T04/14-estado-folha-trocar-de-unidade-com-empresa` |
 | `versao-ilegivel` | `T11/04-estado-versao-ilegivel` |
 
 Os estados sem caso próprio nascem de um dado do mock — por exemplo, o caminhão KNB-5H39 sem chassi vem de `modelosAtivo` ma-02 com `chassiPelaCan: false`. O `estados.md` de cada tela diz de onde vem cada um. O caso `fila-vazia` dá a hora do último envio da fila vazia (T15/03 e T15/04).

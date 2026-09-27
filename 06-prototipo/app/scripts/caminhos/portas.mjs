@@ -27,11 +27,20 @@ export default [
   { chega: 'T01', momento: null },
   { digita: 'Varzea26', em: 'SENHA' },
   { toca: 'Entrar' },
-  // T02 · R-14: a unidade marca, o primário diz qual, e só ele sincroniza
+  // T02 · R-14: a empresa marca, e o primário diz Ver as unidades (decisão 37, revista:
+  // a empresa vem sempre antes da unidade); a unidade marca, o primário diz qual, e só
+  // ele sincroniza
+  { chega: 'T02', momento: null },
+  { desligado: 'Escolha uma empresa' },
+  { marca: 'Viação Atlântico Sul' },
+  { chega: 'T02', momento: '07-momento-empresa-escolhida' },
+  { fica: 'T02', ms: 600 },
+  { ve: 'Ver as unidades' },
+  { toca: 'Ver as unidades' },
   { chega: 'T02', momento: null },
   { desligado: 'Escolha uma unidade' },
   { marca: 'Garagem Ibura' },
-  { chega: 'T02', momento: '01-momento-escolhida' },
+  { chega: 'T02', momento: '09-momento-unidade-escolhida-com-trocar-empresa' },
   { fica: 'T02', ms: 600 },
   { ve: 'Sincronizar Garagem Ibura' },
   { marca: 'Pátio Caruaru' },

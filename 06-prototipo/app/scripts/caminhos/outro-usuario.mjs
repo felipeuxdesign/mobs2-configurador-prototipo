@@ -1,8 +1,9 @@
 // A última entrega · outro usuário no aparelho (T01/18, HU-T01-4, o caso
 // outro-usuario): entrar com um usuário diferente do da sessão anterior encerra a
 // sessão dele, e a fila dele continua subindo — a fila é do aparelho (decisão 42).
-// O diálogo *Outra sessão neste aparelho* abre sobre as unidades da T02, e o
-// Entendi (ou o voltar) fecha. Só por toque: o r.vieira entra e sai da conta; o
+// O diálogo *Outra sessão neste aparelho* abre sobre a entrada da T02 — as
+// empresas, com a empresa antes da unidade (decisão 37, revista); pela coluna, a
+// 18, sobre as unidades, como a referência desenha —, e o Entendi (ou o voltar) fecha. Só por toque: o r.vieira entra e sai da conta; o
 // m.souza entra — o login deixa, pela regra do tela.md (qualquer senha com o
 // mínimo; o roteiro digita a mesma dos outros roteiros) — e o diálogo diz o
 // r.vieira e os 3 itens da fila; o m.souza é quem está no menu; ele sai e entra de
@@ -13,6 +14,9 @@
 // Rafael Vieira do mock — o autor sai do dado, nunca de quem está logado.
 const OUTRA = 'Outra sessão neste aparelho'
 const ATE_O_MENU = [
+  // a empresa antes da unidade (decisão 37, revista): a Viação, e as unidades dela
+  { marca: 'Viação Atlântico Sul' },
+  { toca: 'Ver as unidades' },
   { marca: 'Garagem Várzea' },
   { toca: 'Sincronizar Garagem Várzea' },
   { chega: 'T03', momento: '02-momento-concluido', ms: 8000 },
@@ -49,19 +53,20 @@ export default [
   { naoVe: 'Seu acesso vence em 2 dias' },
   ...sair('Rafael Vieira'),
 
-  // o m.souza entra: o diálogo sobre as unidades, com o r.vieira e a fila dele
+  // o m.souza entra: o diálogo sobre a entrada da T02 — com a empresa antes da unidade
+  // (decisão 37, revista), as empresas —, com o r.vieira e a fila dele
   ...entra('m.souza'),
   { ve: OUTRA },
   { ve: 'A sessão de r.vieira foi encerrada. A fila dele continua subindo: 3 itens.' },
-  { ve: 'Onde você está hoje?' },
-  { ve: 'Garagem Várzea' },
-  // as unidades ficam atrás do véu, sem toque; o Entendi é o único jeito de fechar
-  { naoToca: 'Garagem Várzea' },
-  { naoToca: 'Escolha uma unidade' },
+  { ve: 'Pra qual empresa hoje?' },
+  { ve: 'Viação Atlântico Sul' },
+  // as empresas ficam atrás do véu, sem toque; o Entendi é o único jeito de fechar
+  { naoToca: 'Viação Atlântico Sul' },
+  { naoToca: 'Escolha uma empresa' },
   { toca: 'Entendi' },
   { naoVe: OUTRA },
   { chega: 'T02', momento: null },
-  { desligado: 'Escolha uma unidade' },
+  { desligado: 'Escolha uma empresa' },
   // o m.souza é quem está no menu: Marcos Souza, m.souza
   ...ATE_O_MENU,
   { toca: 'Conta — Marcos Souza' },
@@ -97,8 +102,11 @@ export default [
   { naoVe: OUTRA },
   { fica: 'T02', ms: 400 },
   { chega: 'T02', momento: null },
+  { marca: 'Viação Atlântico Sul' },
+  { chega: 'T02', momento: '07-momento-empresa-escolhida' },
+  { toca: 'Ver as unidades' },
   { marca: 'Garagem Várzea' },
-  { chega: 'T02', momento: '01-momento-escolhida' },
+  { chega: 'T02', momento: '09-momento-unidade-escolhida-com-trocar-empresa' },
   { ve: 'Sincronizar Garagem Várzea' },
 
   // a 18 pela coluna: parada e sem toque, e o voltar não escuta

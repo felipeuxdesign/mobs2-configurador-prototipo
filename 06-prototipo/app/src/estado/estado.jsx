@@ -9,8 +9,12 @@ import { SEMENTES } from './sementes.js'
 export function estadoVazio() {
   return {
     tecnico: { nome: M.tecnico.nome, usuario: M.credenciais.usuario },
-    // pacote: { id, diasAtras, hora, versao } · empresas: o técnico com mais de uma empresa,
-    // { caso, atual } — nasce no Sincronizar da T02/07 e vai até o menu (T02/empresas.js)
+    // pacote: { id, diasAtras, hora, versao } · empresas: o mundo das empresas e a atual,
+    // { caso, atual } — o do herói, com três, o de uma empresa só ou o da lista longa —, que
+    // nasce no Sincronizar da T02 e vai até o menu; sem ele, o do herói (T02/empresas.js).
+    // Antes do Sincronizar, o Ver as unidades e o Trocar de empresa da T02 também o gravam —
+    // o Ver as unidades com o passo, { caso, atual, passo: 'unidades' } —, pro Voltar ao
+    // fluxo do palco devolver o quadro de antes
     contexto: { uoId: null, pacote: null, empresas: null },
     sessao: null,                                     // { moduloSerial, ativoId, saude, abertaAs, meio }
     etapas: {

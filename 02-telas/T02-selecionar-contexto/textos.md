@@ -33,3 +33,11 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `07-momento-empresa-escolhida`
 
 `14:30` · `3 EMPRESAS` · `Pra qual empresa hoje?` · `Viação Atlântico Sul` · `3 unidades` · `Transportes Capibaribe` · `4 unidades` · `Expresso Caruaruense` · `2 unidades` · `Ver as unidades`
+
+## `08-estado-uma-empresa-ja-marcada`
+
+`14:30` · `1 EMPRESA` · `Pra qual empresa hoje?` · `Viação Atlântico Sul` · `3 unidades` · `Ver as unidades`
+
+## `09-momento-unidade-escolhida-com-trocar-empresa`
+
+`14:30` · `VIAÇÃO ATLÂNTICO SUL` · `Onde você está hoje?` · `RMR – RECIFE` · `Garagem Várzea` · `pacote de ontem, 07:10` · `10 ativos` · `Garagem Ibura` · `pacote de 4 dias, 06:55` · `8 ativos` · `AGRESTE – CARUARU` · `Pátio Caruaru` · `pacote vencido há 8 dias` · `6 ativos` · `Sincronizar Garagem Várzea` · `Trocar de empresa`

@@ -669,17 +669,22 @@ chk("design · T02 lista longa: as garagens do herói aparecem com o mesmo pacot
   return M.uos.every(function (u) { var l = c.uos.find(function (x) { return x.id === u.id; }); var p = M.pacotes.find(function (x) { return x.uoId === u.id; });
     return l && p && pacoteDoCaso(c, u.id) === p && !(c.pacotes || []).some(function (x) { return x.uoId === u.id; }); }); })());
 
-/* ── design · a otimização do design: a empresa antes da unidade (T02/05, T02/06, T04/14 · decisão 37) ── */
-var ve = M.casos["varias-empresas"] || null;
-var veEmpresas = ve && ve.empresas ? ve.empresas : [];
-chk("design · T02 várias empresas: 3 empresas, cada uma com nome e contagem de unidades, sem id repetido",
-  veEmpresas.length === 3 &&
-  veEmpresas.every(function (e, ix) { return !!e.id && !!e.nome && e.unidades > 0 && veEmpresas.findIndex(function (x) { return x.id === e.id; }) === ix; }),
-  veEmpresas.map(function (e) { return e.nome + " · " + e.unidades; }).join(" / "));
-var veHeroi = veEmpresas.filter(function (e) { return e.id === M.empresa.id; });
-chk("design · T02 várias empresas: a empresa do herói está entre elas, com o mesmo nome, e conta as unidades do mundo dele",
-  veHeroi.length === 1 && veHeroi[0].nome === M.empresa.nome && veHeroi[0].unidades === M.uos.length,
-  veHeroi.length ? veHeroi[0].nome + ": " + veHeroi[0].unidades + " no caso, " + M.uos.length + " em M.uos" : "sem a empresa do herói");
+/* ── design · a empresa vem sempre antes da unidade (T02/05 a 09, T04/07 e 14 · decisão 37, revista) ── */
+var emps = M.empresas || [];
+chk("design · T02 as empresas do herói: 3 empresas, cada uma com nome e contagem de unidades, sem id repetido",
+  emps.length === 3 &&
+  emps.every(function (e, ix) { return !!e.id && !!e.nome && e.unidades > 0 && emps.findIndex(function (x) { return x.id === e.id; }) === ix; }),
+  emps.map(function (e) { return e.nome + " · " + e.unidades; }).join(" / "));
+var empHeroi = emps.filter(function (e) { return e.id === M.empresa.id; });
+chk("design · T02 as empresas do herói: a dele está entre elas, com o mesmo nome, e conta as unidades do mundo dele",
+  empHeroi.length === 1 && empHeroi[0].nome === M.empresa.nome && empHeroi[0].unidades === M.uos.length,
+  empHeroi.length ? empHeroi[0].nome + ": " + empHeroi[0].unidades + " em M.empresas, " + M.uos.length + " em M.uos" : "sem a empresa do herói");
+var ue = M.casos["uma-empresa"] || null;
+var ueEmpresas = ue && ue.empresas ? ue.empresas : [];
+chk("design · T02 uma empresa só: o caso uma-empresa traz uma empresa, a do herói, com o mesmo nome e as unidades do mundo dele",
+  ueEmpresas.length === 1 && ueEmpresas[0].id === M.empresa.id && ueEmpresas[0].nome === M.empresa.nome && ueEmpresas[0].unidades === M.uos.length,
+  ueEmpresas.map(function (e) { return e.nome + " · " + e.unidades; }).join(" / "));
+chk("design · T02 o caso varias-empresas saiu (as três empresas são do mundo do herói)", !M.casos["varias-empresas"]);
 
 /* ── Higiene ── */
 var fonte = null;

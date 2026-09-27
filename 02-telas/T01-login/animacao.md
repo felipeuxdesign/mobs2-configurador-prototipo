@@ -15,7 +15,7 @@ Vale o `03-design-system/movimento.md`. Entre telas, só o conteúdo esmaece em 
 | diálogo "senha alterada" | nova senha aceita | esmaece e cresce 98%→100% | 150ms | desacelera | aparece |
 | checkbox "Lembrar meu usuário" | tocar no checkbox | o quadrado lima surge no poço (opacidade e escala 80%→100%); desmarcar some igual | 150ms | desacelera | aparece |
 
-No protótipo (a última entrega): o diálogo *Outra sessão neste aparelho* (a 18) nasce aberto, junto com as unidades da T02 — nenhuma tela anima a entrada —, e sai como todo diálogo: o véu e a caixa esmaecem, e a caixa diminui de 100% a 98%, em 150ms. A linha do reenvio que vira o teto (a 17) troca o texto no lugar, sem movimento.
+No protótipo (a última entrega): o diálogo *Outra sessão neste aparelho* (a 18) nasce aberto, junto com a entrada da T02 — no fluxo, as empresas do herói, o quadro do `05` (a empresa antes da unidade, a otimização 400); pela coluna, as unidades, como a 18 desenha — nenhuma tela anima a entrada —, e sai como todo diálogo: o véu e a caixa esmaecem, e a caixa diminui de 100% a 98%, em 150ms. A linha do reenvio que vira o teto (a 17) troca o texto no lugar, sem movimento.
 
 No protótipo (lei 20, a última entrega): a folha *Não recebi o código* também se arrasta — o painel acompanha o dedo pra baixo, só por transform; soltando depois de 56, desce de onde parou e fecha em 150ms, e o véu esmaece junto; antes, volta ao lugar em 200ms. É o arraste de toda folha (`movimento.md` · folha · o arraste, proposta do protótipo); com reduzir movimento, o painel segue o dedo e a volta ou o fecho é direto.
 

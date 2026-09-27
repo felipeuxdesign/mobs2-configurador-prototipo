@@ -60,7 +60,9 @@ export default [
   { fica: 'T01', ms: 500 },
   { chega: 'T01', estado: '16-estado-usuario-lembrado' },
 
-  // ── T02 · a escolha da garagem não tem saída desenhada: nada ──
+  // ── T02 · a escolha da unidade não tem saída desenhada: nada — a 00 e o 01, de uma
+  //    empresa só. Nas empresas do herói (o 07), nada; nas unidades dele (o 09), o
+  //    Trocar de empresa, a saída desenhada do rodapé (padrão c, confirmado) ──
   { abre: '?tela=T02' },
   esc,
   { fica: 'T02', ms: 500 },
@@ -68,6 +70,14 @@ export default [
   esc,
   { fica: 'T02', ms: 500 },
   { chega: 'T02', momento: '01-momento-escolhida' },
+  { abre: '?tela=T02&momento=07-momento-empresa-escolhida' },
+  esc,
+  { fica: 'T02', ms: 500 },
+  { chega: 'T02', momento: '07-momento-empresa-escolhida' },
+  { abre: '?tela=T02&momento=09-momento-unidade-escolhida-com-trocar-empresa' },
+  esc,
+  { chega: 'T02', momento: '07-momento-empresa-escolhida' },
+  { ve: 'Pra qual empresa hoje?' },
   // a busca sem resultado (03, a entrega de 25/09), no mundo do caso da lista longa: nada
   { abre: '?tela=T02&momento=03-momento-busca-sem-resultado' },
   esc,
@@ -143,8 +153,8 @@ export default [
   { chega: 'T04', momento: '13-momento-encerrar-antes-de-homologar' },
   esc,
   { chega: 'T04', momento: null },
-  // a folha com o Trocar de empresa (14), pela coluna: parada e sem toque — o que o
-  // toque faz se prova no node (scripts/testar-trocar-empresa.mjs)
+  // a folha com o Trocar de empresa (14), pela coluna: parada e sem toque — o toque se
+  // anda na folha do herói, no fluxo (empresa.mjs), e se prova no node (testar-trocar-empresa.mjs)
   { abre: '?tela=T04&estado=14-estado-folha-trocar-de-unidade-com-empresa' },
   { ve: 'Trocar de unidade' },
   { ve: 'Trocar de empresa' },

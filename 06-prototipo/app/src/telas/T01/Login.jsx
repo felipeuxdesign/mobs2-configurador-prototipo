@@ -65,7 +65,7 @@ export const REF = {
   primeiroAcesso: '15-estado-primeiro-acesso',         // nada lembrado: os dois campos vazios, o foco no usuário (a otimização)
   lembrado: '16-estado-usuario-lembrado',              // o usuário lembrado, com o xis, a caixa marcada e o foco na senha
   teto: '17-estado-teto-de-envios',                    // os 3 envios da hora acabaram: o código enviado segue valendo (a última entrega)
-  outroUsuario: '18-estado-outro-usuario-no-aparelho', // outro usuário entrou: o diálogo sobre as unidades da T02 (index.jsx, a última entrega)
+  outroUsuario: '18-estado-outro-usuario-no-aparelho', // outro usuário entrou: o diálogo sobre as unidades da T02, como a 18 desenha (index.jsx, a última entrega)
 }
 
 // um código novo, com o prazo e o reenvio cheios. O primeiro envio chega com o
@@ -184,7 +184,7 @@ export function Login({ momento, estado, irMomento }) {
   // guarda o usuário lembrado: com a caixa marcada, o identificador; sem ela, nada.
   // Dali em diante, o login só traz o que o celular lembra (a 16, ou a 15)
   // Com outro usuário depois de uma sessão neste aparelho (HU-T01-4, a 18), a sessão
-  // dele é encerrada e a fila dele continua subindo: o diálogo abre sobre as unidades
+  // dele é encerrada e a fila dele continua subindo: o diálogo abre sobre a entrada
   // da T02, que o lê da situação do celular (situacao.outraSessao) e o fecha no Entendi.
   // O técnico passa a ser quem entrou (regras.js · tecnicoDo)
   const entrar = () => {

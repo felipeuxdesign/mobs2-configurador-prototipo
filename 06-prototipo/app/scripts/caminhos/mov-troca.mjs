@@ -24,6 +24,11 @@ export default [
   { toca: 'Entrar', anima: [MIOLO, RODAPE] },
   { chega: 'T02' },
   { dorme: 200 },   // o esmaecer acaba antes do próximo toque: o movimento.json de cada toque é só dele
+  // a empresa antes da unidade (decisão 37, revista): as empresas e as unidades são dois
+  // quadros da mesma tela, e o Ver as unidades troca de quadro (C12·4)
+  { marca: 'Viação Atlântico Sul' },
+  { toca: 'Ver as unidades', anima: [MIOLO, RODAPE] },
+  { dorme: 200 },
   { marca: 'Garagem Várzea' },
   { toca: 'Sincronizar Garagem Várzea', anima: [MIOLO, RODAPE] },
   { chega: 'T03' },

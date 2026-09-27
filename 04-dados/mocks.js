@@ -487,13 +487,12 @@
       anterior: { usuario: "r.vieira", itensNaFila: 3 } },
     /* T15 · a fila vazia: o último item subiu às 14:02. */
     "fila-vazia": { tela: "T15", ultimoEnvioAs: "14:02" },
-    /* T02 · o técnico com mais de uma empresa (HU-T02-1). Terceirizado atende
-       várias: a lista das empresas vem antes das unidades, e a troca fica no
-       rodapé. Com uma empresa só, o passo não aparece. */
-    "varias-empresas": { tela: "T02", empresas: [
-      { id: "emp-01", nome: "Viação Atlântico Sul", unidades: 3 },
-      { id: "emp-02", nome: "Transportes Capibaribe", unidades: 4 },
-      { id: "emp-03", nome: "Expresso Caruaruense", unidades: 2 } ] },
+    /* T02 · o técnico com uma empresa só (HU-T02-1). A empresa vem sempre
+       antes da unidade: com uma só, a lista aparece com ela já marcada e o
+       Ver as unidades aceso — o técnico só confirma. Nas unidades, o nome
+       dela fica em cima, e não há Trocar de empresa. */
+    "uma-empresa": { tela: "T02", empresas: [
+      { id: "emp-01", nome: "Viação Atlântico Sul", unidades: 3 } ] },
     /* T01 · o login de quem abre o app. O herói entra com os dois campos
        preenchidos, pra o palco andar num toque. Os dois casos abaixo são o
        que o técnico vê de verdade: nada lembrado, ou só o usuário lembrado
@@ -1279,6 +1278,14 @@
     diasAntes: diasAntes,
 
     empresa: { id: "emp-01", nome: "Viação Atlântico Sul" },
+    /* as empresas que o técnico atende — a empresa vem sempre antes da
+       unidade (decisão 37). O herói é terceirizado: três empresas, e só
+       a dele tem o mundo do protótipo. */
+    empresas: [
+      { id: "emp-01", nome: "Viação Atlântico Sul", unidades: 3 },
+      { id: "emp-02", nome: "Transportes Capibaribe", unidades: 4 },
+      { id: "emp-03", nome: "Expresso Caruaruense", unidades: 2 }
+    ],
     ucs: [
       { id: "uc-01", nome: "RMR – Recife" },
       { id: "uc-02", nome: "Agreste – Caruaru" }

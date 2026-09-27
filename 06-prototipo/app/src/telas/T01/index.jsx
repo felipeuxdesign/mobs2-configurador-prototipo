@@ -5,10 +5,11 @@
 // Recomeçar —, e abre no quadro que o pedido diz.
 //
 // O estado 18 (outro usuário no aparelho, a última entrega) não é um quadro do
-// login: é o que vem depois do Entrar — as unidades da T02, com o diálogo *Outra
-// sessão neste aparelho* por cima. Aberto pela coluna, a T01 monta a T02 com o
-// que o caso outro-usuario diz, parada e sem toque, como todo estado; no fluxo, o
-// diálogo nasce do Entrar (Login.jsx · entrar) e mora na própria T02.
+// login: é o que vem depois do Entrar — a T02, com o diálogo *Outra sessão neste
+// aparelho* por cima. Aberto pela coluna, a T01 monta a T02 com o que o caso
+// outro-usuario diz, nas unidades, como a 18 desenha, parada e sem toque, como todo
+// estado; no fluxo, o diálogo nasce do Entrar (Login.jsx · entrar) e mora na própria
+// T02, por cima da entrada dela — com a empresa antes da unidade, as empresas (o 05).
 import { useCallback, useRef } from 'react'
 import { useEstado } from '../../estado/estado.jsx'
 import { Login, REF } from './Login.jsx'

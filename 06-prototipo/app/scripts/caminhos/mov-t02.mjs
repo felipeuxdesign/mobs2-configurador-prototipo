@@ -53,6 +53,15 @@ export default [
   { quieto: true },
   { abre: '?tela=T02&momento=07-momento-empresa-escolhida&print=1' },
   { quieto: true },
+  // a otimização 400: o 08, a empresa já marcada, e o 09, a unidade escolhida com o Trocar de empresa
+  { abre: '?tela=T02&estado=08-estado-uma-empresa-ja-marcada' },
+  { ve: '1 EMPRESA' },
+  { quieto: true },
+  { abre: '?tela=T02&momento=09-momento-unidade-escolhida-com-trocar-empresa' },
+  { ve: 'Sincronizar Garagem Várzea' },
+  { quieto: true },
+  { abre: '?tela=T02&momento=09-momento-unidade-escolhida-com-trocar-empresa&print=1' },
+  { quieto: true },
 
   // ── T02·1 e T02·2 · o marcador e o texto do primário, a cada escolha ──
   { abre: '?tela=T02' },
@@ -135,17 +144,19 @@ export default [
   { toca: 'Viação Atlântico Sul', anima: [...MARCA, esmaece('ds-quadrado'), ACENDE], naoAnima: [TEXTO] },
   { dorme: 200 },
   { quieto: true },
-  // Ver as unidades: o quadro troca inteiro, e o conteúdo esmaece como entre telas
-  { toca: 'Ver as unidades', anima: [MIOLO, RODAPE] },
+  // Ver as unidades: o quadro troca inteiro, e o conteúdo esmaece como entre telas; o
+  // primário nasce com o quadro (a chave dele), e o texto dele não esmaece de novo por
+  // dentro, nem acende (movimento.md · o que nasce com o quadro)
+  { toca: 'Ver as unidades', anima: [MIOLO, RODAPE], naoAnima: [TEXTO, ACENDE] },
   { chega: 'T02', momento: null },
   { ve: 'Onde você está hoje?' },
   { dorme: 200 },
   { quieto: true },
   { toca: 'Garagem Várzea', anima: [...MARCA, TEXTO] },
-  { chega: 'T02', momento: '01-momento-escolhida' },
+  { chega: 'T02', momento: '09-momento-unidade-escolhida-com-trocar-empresa' },
   { dorme: 200 },
   // o Trocar de empresa volta às empresas, com a atual marcada: a troca de quadro de novo
-  { toca: 'Trocar de empresa', anima: [MIOLO, RODAPE] },
+  { toca: 'Trocar de empresa', anima: [MIOLO, RODAPE], naoAnima: [TEXTO, ACENDE] },
   { chega: 'T02', momento: '07-momento-empresa-escolhida' },
   { dorme: 200 },
   { quieto: true },
@@ -154,12 +165,26 @@ export default [
   { chega: 'T02', momento: null },
   { dorme: 200 },
   { tecla: 'Escape' },
-  { anima: [MIOLO, RODAPE] },
+  { anima: [MIOLO, RODAPE], naoAnima: [TEXTO, ACENDE] },
   { chega: 'T02', momento: '07-momento-empresa-escolhida' },
   { dorme: 200 },
-  // as empresas sem escolha (o mundo vivo começa com a Viação; a coluna do 05 é parada)
+  // as empresas sem escolha: a coluna do 05 é parada, e o Entrar abre o herói nelas
+  // (a otimização 400) — a primeira escolha troca o texto no lugar (Escolha uma empresa →
+  // Ver as unidades), e o roxo troca direto, sem a camada (C12·23)
   { abre: '?tela=T02&estado=05-estado-escolher-a-empresa' },
   { ve: 'Escolha uma empresa' },
+  { quieto: true },
+  { abre: '' },
+  { digita: 'Varzea26', em: 'SENHA' },
+  { toca: 'Entrar', anima: [MIOLO, RODAPE] },
+  { chega: 'T02', momento: null },
+  { ve: 'Escolha uma empresa' },
+  { dorme: 200 },
+  { quieto: true },
+  { toca: 'Viação Atlântico Sul', anima: [...MARCA, TEXTO], naoAnima: [ACENDE] },
+  { chega: 'T02', momento: '07-momento-empresa-escolhida' },
+  { ve: 'Ver as unidades' },
+  { dorme: 200 },
   { quieto: true },
 
   // ── com reduzir movimento: tudo direto ──

@@ -106,6 +106,9 @@ export default [
   { digita: 'Varzea26', em: 'SENHA' },
   { toca: 'Entrar' },
   { chega: 'T02' },
+  // a empresa antes da unidade (decisão 37, revista): a Viação, e as unidades dela
+  { marca: 'Viação Atlântico Sul' },
+  { toca: 'Ver as unidades' },
   { marca: 'Garagem Várzea' },
   { toca: 'Sincronizar Garagem Várzea' },
   { chega: 'T03', momento: '02-momento-concluido', ms: 8000 },

@@ -49,14 +49,14 @@ try {
   chk('a câmera sem a permissão', /TESTE APROVADO/.test(saida), n + ' conferências')
 } catch (e) { chk('a câmera sem a permissão', false, 'reprovou'); console.log(e.stdout) }
 
-// 2f · a empresa antes da unidade (T02/05, 06 e 07, decisão 37): o que cada toque faz, nas funções da T02
+// 2f · a empresa antes da unidade, pra todo técnico (T02/00, 01 e 05 a 09, decisão 37 revista): os três mundos e o que cada toque faz, nas funções da T02
 try {
   const saida = execFileSync('node', [resolve(app, 'scripts/testar-empresa.mjs')], { encoding: 'utf8' })
   const n = saida.split('\n').filter((l) => l.startsWith('OK')).length
   chk('a empresa antes da unidade', /TESTE APROVADO/.test(saida), n + ' toques')
 } catch (e) { chk('a empresa antes da unidade', false, 'reprovou'); console.log(e.stdout) }
 
-// 2g · o Trocar de empresa da folha do menu (T04/14): com e sem sessão, até a T02/07, nas funções da T04
+// 2g · o Trocar de empresa da folha do menu (T04/14, a do herói; a T04/07, sem ele): com e sem sessão, até a T02/07, nas funções da T04
 try {
   const saida = execFileSync('node', [resolve(app, 'scripts/testar-trocar-empresa.mjs')], { encoding: 'utf8' })
   const n = saida.split('\n').filter((l) => l.startsWith('OK')).length

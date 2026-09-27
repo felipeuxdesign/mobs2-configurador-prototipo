@@ -8,6 +8,9 @@ const LOGIN_ATE_O_MENU = [
   { digita: 'Varzea26', em: 'SENHA' },
   { toca: 'Entrar' },
   { chega: 'T02' },
+  // a empresa antes da unidade (decisão 37, revista): a Viação, e as unidades dela
+  { marca: 'Viação Atlântico Sul' },
+  { toca: 'Ver as unidades' },
   { marca: 'Garagem Várzea' },
   { toca: 'Sincronizar Garagem Várzea' },
   { chega: 'T03', momento: '02-momento-concluido', ms: 8000 },
@@ -96,7 +99,7 @@ export default [
   { chega: 'T04', momento: '07-momento-folha-trocar-de-garagem' },
   { ve: 'Trocar de unidade' },
   { ve: 'Trocar recarrega os ativos e o pacote desta unidade.' },
-  { naoToca: 'Trocar de empresa' },   // o herói tem uma empresa só (decisão 37)
+  { ve: 'Trocar de empresa' },   // o herói tem três empresas: a folha dele tem o Trocar de empresa (decisão 37, revista; o quadro da T04/14)
   { toca: 'Garagem Ibura' },
   { ve: 'A sessão de configuração do M2C-0417 é encerrada antes da troca, sem homologar.' },
   { ve: 'O que já foi gravado fica no módulo.' },

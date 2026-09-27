@@ -8,11 +8,13 @@ As listas de peças e as referências são do design, como o pacote pede. A anot
 
 | | o design diz | o protótipo mede | por quê |
 |---|---|---|---|
-| referências | 113 | 113 | igual · 16 telas, 47 momentos, 50 estados |
+| referências | 147 | 147 | igual · 16 telas, 63 momentos, 68 estados — a otimização 400, 27/09 (eram 113: 47 momentos, 50 estados) |
 | tokens | 95 | **275** | o `tokens.css` tem também os tokens das peças, que o C2 e os ciclos de tela pediram (G3) |
 | peças | 116 | **126** | as 116 do design, e mais 10 linhas que as folhas desenham e o design ainda não lista: o primário nos três estados, o link, a linha tocável, os glifos, os ícones de ferramenta, os poços, os marcadores e os botões só de ícone |
 | cores | 23 | **25** | medido no C1 |
 | casos no mock | 34 | **41** | os 7 acréscimos dos ciclos, só aditivos: `conferencia-confere`, `firmware-fora-sem-rede`, `can-estatico-hodometro-a22`, `instalacoes-vazia`, `fila-sem-erro`, `fila-dois-erros` e `fila-vazia` |
+
+A linha das referências segue a última entrega (a otimização 400, 27/09); as outras são as da organização das quatro pastas. Os números de hoje estão no `CLAUDE.md` (295 tokens, 131 peças, 55 casos no mock) e no censo de cada entrega, abaixo.
 
 ## Arquivo por arquivo
 
@@ -34,6 +36,52 @@ As listas de peças e as referências são do design, como o pacote pede. A anot
 ## O que o pacote repetia
 
 O `_changelog-para-colar.md` da `atualizacao33/` traz, embaixo da senha visível, as linhas da primeira entrega (a logo no lima, o *Lembrar meu usuário*, o checkbox marcado), que já estavam no registro. Entraram uma vez só. A `atualizacao98/` repete os itens 1 a 4 e o 7 da quarta entrega, que o protótipo já estava construindo.
+
+## A empresa sempre antes (`otimizacao400000000/`), juntada e construída
+
+A entrega entrou inteira — as duas referências novas da T02 (o `08` e o `09`, html e png), a decisão 37 revista, os cinco documentos gerados, os trechos do `MUDANCAS.md` (o mock, a `logica.md`, o `casos.md` e as contagens) e a entrada no topo do `CHANGELOG.md` — e o gate aprova, com o censo de **147 referências**, 63 momentos e 68 estados. Está construída, medida, revisada e fechada (27/09): o herói entra pelas três empresas dele (o `05`) e anda por toque até a T03 e o menu; quem tem uma empresa só a encontra já marcada (o `08`); o `08` saiu a 0,17% do HTML e o `09` a 0%; nenhuma das 145 de antes mudou em nenhum dos quatro números.
+
+### O que a junção achou
+
+- **nos cinco documentos gerados** (a `tela.md`, a `estados.md` e o `textos.md` da T02, a `estados.md` da T04 e o `indice.json`), entrou tudo o que é seu: 20 linhas novas suas (7 na `tela.md` da T02, 7 na `estados.md` dela, 4 no `textos.md` e 2 na `estados.md` da T04), **0 linhas do pacote faltando**, e saíram as 14 linhas antigas do design que você trocou (7 na `tela.md` da T02, 5 na `estados.md` dela e 2 na `estados.md` da T04) · as nossas anotações ficaram, e as 8 que falavam do caso que saiu (`varias-empresas`) foram reescritas na construção, pra dizer o que o código faz agora · o relatório: `06-prototipo/app/prints/tmp/relatorios/juncao-otimizacao400000000.json`
+- **no `indice.json`**, os 147 itens com os campos seus e os três nossos que o palco lê (`rotulo`, `rotuloOrigem` e `grupo`) · o `MUDANCAS.md` pede um rótulo pras duas entradas novas: o `T02/08`, estado, ganhou o da coluna, *Uma empresa só, já marcada* (`rotuloOrigem: proposto`, como os outros que propusemos); o `T02/09`, momento, ficou sem, como os outros 63 momentos — só os estados têm rótulo, porque a coluna do palco lista só os estados · **confira o rótulo**, e se o `09` precisa de um
+- **no seu índice, o caso do `T02/00` vem entre crases** (`` `uma-empresa` ``), e o de todos os outros itens vem sem · ficou como você mandou · **confira** se é de propósito
+- **o `CLAUDE.md` ficou com 295 tokens**, e não 294: o C12 somou o `--mov-fator` (o `tokens.css` tem 295 hoje) · o seu trecho das contagens tinha *95 tokens* como antes e *96* como depois, e o nosso já dizia 294, a conta da 300 · entraram os 63 momentos e os 68 estados, e o número dos tokens ficou o do `tokens.css`
+- **a checagem do gate que conferia o caso `varias-empresas`** agora confere as três empresas de `M.empresas` (a do herói entre elas, com a contagem das unidades do mundo dele) e o caso `uma-empresa` (uma empresa só, a do herói), e confere que o `varias-empresas` saiu · **196 checagens**, e o gate aprova
+
+### O que a construção achou
+
+- **a lista com a única empresa já marcada** (`T02/08`) a **0,17%** do HTML: o nome da Viação já marcada sai na tinta da escolha (`--tinta`), como em toda escolha numa lista (a peça da folha 3, e a `T02/01`), e o `08` o desenha na tinta das outras (`--tinta-forte`) · é o mesmo desvio do `07`, também 0,17% · **proposta:** o `07` e o `08` subirem o nome da escolhida, ou a peça ganhar a variante que não sobe
+- **a semente da T02:** a linha da `tela.md` e a da `logica.md` dizem *três empresas — a do herói…*, e o protótipo abre, no pulo do palco e no endereço da tela (`?tela=T02`), a `00`, as unidades de quem tem uma empresa só — porque a `00` é do caso `uma-empresa` (a sua `estados.md`), e o endereço dela é o da tela, que é o que se fotografa. O herói chega às três empresas dele pelo `Entrar` da T01 · **padrão:** a `00` · **alternativa:** a semente ser o herói (o `05`), e a `00` ter um endereço do mundo `uma-empresa` · anotado junto da linha, na `tela.md` da T02 e na `logica.md` · As sementes
+- **o diálogo de outro usuário no aparelho** (`T01/18`): com a empresa antes, no fluxo ele nasce por cima das empresas do herói (o `05`); a `18` desenha as unidades atrás dele, e é o que a coluna mostra · **pergunta:** a `18` passa a ter as empresas atrás, ou o diálogo fica sobre as unidades? · anotado na `tela.md` da T02, na `animacao.md` da T01 e na `logica.md`
+- **três quadros do caminho do herói sem endereço próprio:** as empresas depois do `Entrar` (o `05`) e as unidades da Viação com o `Trocar de empresa` (o `06`) ficam em `?tela=T02`, sem momento, porque são estados e estado parado não anda; e a folha de trocar de unidade do herói (o quadro do `T04/14`) fica no endereço da `T04/07`. O endereço copiado neles reabre o mundo de uma empresa só: a `T02/00` e a folha sem o `Trocar de empresa` · **pergunta:** dar endereço a esses três quadros no fluxo, ou aceitar · anotado no `palco.md` · O link publicado, e nas `estados.md` da T02 e da T04
+- **o `Voltar ao fluxo` devolve o quadro, mas não a escolha tocada nele:** o `Ver as unidades` e o `Trocar de empresa` guardam o quadro (as empresas ou as unidades, e a empresa), e o `Voltar ao fluxo` do palco devolve as unidades da Viação, ou a lista com a atual marcada, no mesmo mundo; a empresa ou a unidade tocada dentro do quadro não se guarda, e volta a do endereço — a Viação no `07`, a Várzea no `09` e no `01` · é a pergunta de 24/09, que está com o diretor (guardar a escolha no toque) · anotado no `palco.md` · A coluna
+- **a lista longa** é de uma empresa só (a sua `logica.md` e a `tela.md`): o mundo dela vai junto com a unidade até o menu, e a folha de trocar de unidade fica sem o `Trocar de empresa` · o `Voltar ao contexto` da T03 volta às nove unidades (antes, às três do herói)
+- **o m.souza** (o caso `outro-usuario`) entra no mundo do herói, com as três empresas: o padrão que já valia, de que outro identificador entra com o do herói
+- **o `09` pelo endereço** vem com a Várzea escolhida, a unidade do contexto do mock, como o `01` vinha
+- **o `08` só abre parado**, pela coluna e pelo endereço: o `Entrar` é o do herói, e nada no mock leva um técnico de uma empresa só ao fluxo · o `Ver as unidades` dele, até a `00`, se prova no node (`testar-empresa.mjs`)
+
+### O que a revisão achou e o fechamento consertou
+
+- **a troca entre as empresas e as unidades** esmaecia de novo, por dentro dela, o texto do botão principal (*Ver as unidades* → *Escolha uma unidade*, e de volta), contra o `movimento.md` (*o que nasce com o quadro não esmaece de novo por dentro dele*): os dois quadros ganharam a chave, e o botão nasce com o quadro, como na T05 · o `mov-t02` confere agora que o texto não esmaece no `Ver as unidades`, no `Trocar de empresa` e no voltar
+- **o `Voltar ao fluxo` a partir das unidades do herói** voltava às empresas (o `05` ou o `07`), ou, do `07` aberto pelo endereço, às unidades de uma empresa só — contra o `palco.md` (*devolve o instante de antes*): agora o `Ver as unidades` e o `Trocar de empresa` guardam o quadro no que o app lembra, e o `Voltar ao fluxo` o devolve, no mesmo mundo · o `empresa.mjs` prova os quatro caminhos, e o `testar-empresa.mjs` ganhou 7 conferências (69 → 76)
+- **a etiqueta do palco** dizia *C11 · 2026-09-26*: agora *C12 · 2026-09-27*
+- **duas anotações** ainda punham o diálogo de outro usuário por cima das unidades, no fluxo (a `animacao.md` da T01 e a `logica.md`): agora dizem as empresas do herói
+- **os desvios** ficaram nomeados onde a linha mora (a `tela.md` e a `estados.md` da T02, a `estados.md` da T04, a `logica.md` e o `palco.md`), no `CHANGELOG.md` e aqui
+
+### Pra ver · linhas suas que ficaram velhas
+
+- **o caminho do herói, na `logica.md`:** o bloco diz *login → unidade Várzea → sincroniza o pacote…*, sem a empresa · a nossa anotação logo embaixo diz que agora o `Entrar` abre as três empresas e o roteiro escolhe a Viação, `Ver as unidades` e a Várzea · **proposta:** *login → a empresa, Viação Atlântico Sul → a unidade, Várzea → …*
+- **o C3, na `ciclos.md`:** *a coluna com os 67 estados* e *os 67 estados e os 62 momentos abrem pela URL* · o `CLAUDE.md` e o `LEIA-PRIMEIRO.md` dizem 68 e 63, e o `checar` confere 68 estados · o `MUDANCAS.md` trocou o 145 → 147 da `ciclos.md` (C0 e C13), e não essas duas · **proposta:** 68 e 63, ou marcar as duas como o histórico do C3
+
+### O censo
+
+| | agora |
+|---|---|
+| referências | **147** · 16 telas, 63 momentos e 68 estados · 147 HTML e 147 PNG · 68 rótulos na coluna |
+| tokens | **295** no `tokens.css` e no `CLAUDE.md` |
+| o gate | **196** checagens |
+| a régua | 147 referências, 41 em 0% do HTML, 0 com erro, as 145 de antes iguais à base do C12 · textos: a T02 inteira, e a T04 com as 13 de antes · 127 espécimes iguais · 42 roteiros, 6.706 passos, nenhum ⚠ · 84 lugares no aceso, 78 medidos, nenhum botão aceso que não faz nada · 38 números da moldura, 21 peças do palco, nenhuma pior |
 
 ## O C12, o movimento
 

@@ -1,4 +1,4 @@
-// As receitas dos 50 estados (G21): de que caso ou dado do mock cada estado
+// As receitas dos estados (G21): de que caso ou dado do mock cada estado
 // nasce. `casos` são chaves de M.casos; `dados`, caminhos de M. Onde nada no
 // mock produz o estado, a receita diz `aditivo` — o caso entra no ciclo da
 // tela (G8). Cada ciclo de tela completa as receitas das suas telas.
@@ -12,8 +12,9 @@ export const RECEITAS = {
   'T01/17-estado-teto-de-envios': { casos: ['teto-de-envios'], dados: ['credenciais.recuperacao.limites.tetoPorHora'], obs: 'os 3 envios da hora acabaram: o código do mock enviado segue valendo, e a linha diz até quando, pela hora do caso (a última entrega, HU-T01-7)' },
   'T01/18-estado-outro-usuario-no-aparelho': { casos: ['outro-usuario'], dados: ['ucs', 'uos', 'pacotes'], obs: 'as unidades da T02 com o diálogo Outra sessão neste aparelho: a sessão do r.vieira encerrada, e a fila dele, 3 itens, continua subindo (a última entrega, HU-T01-4)' },
   'T02/02-estado-lista-longa-com-busca': { casos: ['lista-longa-garagens'], obs: 'a mesma empresa com 9 unidades em 3 regiões: mais de 6, a busca aparece (entrega do design de 24/09)' },
-  'T02/05-estado-escolher-a-empresa': { casos: ['varias-empresas'], obs: 'as três empresas do técnico, cada uma com a contagem das unidades, e nada escolhido: o primário espera (a otimização do design, 25/09)' },
-  'T02/06-estado-unidades-com-trocar-empresa': { casos: ['varias-empresas'], obs: 'as unidades da Viação Atlântico Sul, a empresa do herói — as do mundo dele —, com o Trocar de empresa no rodapé (a otimização do design, 25/09)' },
+  'T02/05-estado-escolher-a-empresa': { dados: ['empresas'], obs: 'a entrada do herói: as três empresas dele (M.empresas), cada uma com a contagem das unidades, e nada escolhido — o primário espera (a otimização do design, 25/09; o mundo do herói desde a otimização 400, 26/09)' },
+  'T02/06-estado-unidades-com-trocar-empresa': { dados: ['empresas', 'ucs', 'uos'], obs: 'as unidades da Viação Atlântico Sul, a empresa do herói — as do mundo dele —, com o Trocar de empresa no rodapé (a otimização do design, 25/09; o mundo do herói desde a otimização 400, 26/09)' },
+  'T02/08-estado-uma-empresa-ja-marcada': { casos: ['uma-empresa'], obs: 'a entrada de quem tem uma empresa só: a lista com ela já marcada e o Ver as unidades aceso — o técnico só confirma (a otimização 400, 26/09, decisão 37 revista)' },
   'T03/01-estado-falha-de-rede': { casos: ['sync-falha-rede'] },
   'T03/03-estado-pacote-de-4-dias': { dados: ['pacotes'] },
   'T03/04-estado-pacote-vencido': { dados: ['pacotes'] },
@@ -22,7 +23,7 @@ export const RECEITAS = {
   'T04/08-estado-folha-trocar-de-garagem-envio-em-andamento': { dados: ['filaSaida'] },
   'T04/09-estado-folha-trocar-de-garagem-com-modulo-conectado': { dados: ['situacao'] },
   'T04/12-estado-acesso-vencendo': { dados: ['situacao.sessaoAcesso'], obs: 'o 5º dia da sessão de acesso: o diálogo aparece na primeira chegada ao menu (entrega do design de 25/09)' },
-  'T04/14-estado-folha-trocar-de-unidade-com-empresa': { casos: ['varias-empresas'], dados: ['uos', 'pacotes'], obs: 'a folha de trocar de unidade de quem tem mais de uma empresa: as unidades da Viação Atlântico Sul, e o Trocar de empresa no fim (a otimização do design, 25/09, decisão 37)' },
+  'T04/14-estado-folha-trocar-de-unidade-com-empresa': { dados: ['empresas', 'uos', 'pacotes'], obs: 'a folha de trocar de unidade do herói, com as três empresas dele: as unidades da Viação Atlântico Sul, e o Trocar de empresa no fim (a otimização do design, 25/09, decisão 37; o mundo do herói desde a otimização 400, 26/09)' },
   'T05/03-estado-nenhum-encontrado': { casos: ['busca-vazia'] },
   'T05/04-estado-conexao-falhou': { casos: ['conexao-falha'] },
   'T05/06-estado-pre-checagem-serial-nao-cadastrado': { casos: ['serial-nao-cadastrado'] },

@@ -6,9 +6,17 @@ export default [
   { ve: '14:30' },
   { digita: 'Varzea26', em: 'SENHA' },
   { toca: 'Entrar' },
-  { chega: 'T02' },
+  // a empresa vem sempre antes da unidade (decisão 37, revista em 26/09): o herói tem
+  // três empresas, e escolhe a dele — o 05, o 07, as unidades (o quadro do 06) e o 09
+  { chega: 'T02', momento: null },
+  { ve: 'Pra qual empresa hoje?' },
+  { marca: 'Viação Atlântico Sul' },
+  { chega: 'T02', momento: '07-momento-empresa-escolhida' },
+  { toca: 'Ver as unidades' },
+  { chega: 'T02', momento: null },
   { ve: 'Onde você está hoje?' },
   { marca: 'Garagem Várzea' },
+  { chega: 'T02', momento: '09-momento-unidade-escolhida-com-trocar-empresa' },
   { fica: 'T02', ms: 600 },
   { toca: 'Sincronizar Garagem Várzea' },
   { chega: 'T03' },

@@ -115,7 +115,7 @@ export function depoisDoEnviar(s, novo) {
 // Outro usuário no aparelho (HU-T01-4, a última entrega · T01/18, o caso
 // outro-usuario): entrar com um usuário diferente do da sessão anterior encerra a
 // sessão dele, e a fila dele continua subindo — a fila é do aparelho (decisão 42).
-// O diálogo *Outra sessão neste aparelho* abre sobre as unidades da T02 e diz o
+// O diálogo *Outra sessão neste aparelho* abre sobre a entrada da T02 e diz o
 // usuário anterior e os itens da fila. A sessão anterior é a do último Entrar que
 // entrou neste aparelho desde o começo do palco (situacao.jaEntrou): o palco começa
 // sem nenhuma, e o primeiro Entrar nunca abre o diálogo. Os itens são os que estão
