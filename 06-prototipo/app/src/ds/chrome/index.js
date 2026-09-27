@@ -17,4 +17,4 @@ export { CartaoDaConta } from './CartaoDaConta.jsx'
 export { PrazoDaConta } from './PrazoDaConta.jsx'
 export { BotaoDaFolha } from './BotaoDaFolha.jsx'
 // a troca entre telas e entre quadros inteiros (C12·2, C12·3, C12·4): só o conteúdo esmaece
-export { RaizDaTroca, TrocaDeQuadro, useTrocaDeQuadro, useFimDaTroca, esmaecerConteudo, emToque } from './Troca.jsx'
+export { RaizDaTroca, TrocaDeQuadro, useTrocaDeQuadro, useFimDaTroca, esmaecerConteudo, emToque, respostaDoToque, consumirResposta } from './Troca.jsx'

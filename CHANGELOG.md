@@ -1,5 +1,13 @@
 # Registro de mudanças
 
+## 2026-09-27 · a espera do Entrar do login (decisão do diretor)
+
+- **o login não vai direto:** com internet, o `Entrar` espera a resposta do servidor — no protótipo, 1,2 s fixos (`ritmos.js` · `entrarEsperaMs`), sem relógio. Enquanto espera, o primário diz *Entrando…*, desabilitado de verdade e em tinta apagada, e o `Esqueci a senha` também — o padrão do *Gravando no módulo…* da T10 (a lei 17). Os campos, a caixa e o olho ficam onde estão, sem responder, e nada muda de lugar
+- **a escolha do diretor:** o texto no lugar da rodinha girando, pra seguir o padrão do app; a lei do loop fica sem exceção, e os tokens ficam 295
+- **a resposta:** a senha errada (a 01) chega depois da espera, com o aviso que esmaece; sem internet (a 14), na hora. A T02 chega com a troca entre telas: a resposta conta como o toque (`src/ds/chrome/Troca.jsx` · `respostaDoToque`, `src/App.jsx`)
+- **a régua:** o `mov-t01` confere o texto que troca no lugar, o botão e o link desligados, o lugar de tudo (marcaLugar/mesmoLugar) e a chegada entre 0,8 e 1,7 s; o `mov-t02` e o `mov-troca`, a T02 que chega com a troca. Aprovam o `mov-t01`, o `mov-t02`, o `mov-troca`, o `heroi`, o `recuperar`, o `outro-usuario`, o `lembrar` e o `teclado`
+- **desvio nomeado:** nenhuma referência desenha o quadro da espera; o texto *Entrando…* é do diretor (anotado no `textos.md`, na `tela.md` e na `animacao.md` da T01, no `movimento.md` e no `diferencas-para-o-arquiteto.md`)
+
 ## 2026-09-27 · a empresa sempre antes da unidade, construída · o herói entra pelas três empresas dele, e quem tem uma só a encontra já marcada
 
 A `otimizacao400000000`, juntada, construída, medida, revisada, consertada e fechada — as duas referências novas da T02 (o `08` e o `09`), a decisão 37 revista, os cinco documentos gerados, o mock com as três empresas no mundo do herói e o caso `uma-empresa`, e a regra nova do diretor (26/09): pra todo técnico, primeiro a empresa, depois a unidade dentro dela.

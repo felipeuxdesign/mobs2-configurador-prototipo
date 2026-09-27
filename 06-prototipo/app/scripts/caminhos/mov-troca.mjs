@@ -13,6 +13,7 @@
 const C = 'cubic-bezier(0.2, 0.8, 0.2, 1)'
 const MIOLO = { prop: 'opacity', ms: 150, curva: C, em: 'tela-miolo' }
 const RODAPE = { prop: 'opacity', ms: 150, curva: C, em: 'ds-rodape' }
+const TEXTO = { prop: 'opacity', ms: 150, curva: C, em: 'ds-primario-texto' }
 
 export default [
   // ── a primeira abertura: o login abre parado ──
@@ -21,8 +22,12 @@ export default [
   { quieto: true },
   // ── o toque que leva a outra tela: o login → as unidades → a sincronização, sem sessão (a barra da página fica) ──
   { digita: 'Varzea26', em: 'SENHA' },
-  { toca: 'Entrar', anima: [MIOLO, RODAPE] },
-  { chega: 'T02' },
+  // a espera do Entrar (decisão do diretor, 27/09): o primário diz Entrando…, desabilitado,
+  // e a T02 chega 1,2 s depois, com a troca entre telas — a resposta do toque
+  { toca: 'Entrar', anima: [TEXTO] },
+  { desligado: 'Entrando…' },
+  { chega: 'T02', entre: [800, 1700] },
+  { anima: [MIOLO, RODAPE] },
   { dorme: 200 },   // o esmaecer acaba antes do próximo toque: o movimento.json de cada toque é só dele
   // a empresa antes da unidade (decisão 37, revista): as empresas e as unidades são dois
   // quadros da mesma tela, e o Ver as unidades troca de quadro (C12·4)
@@ -110,8 +115,12 @@ export default [
   { dorme: 400 },
   // e na janela larga o toque segue igual: do login às unidades
   { digita: 'Varzea26', em: 'SENHA' },
-  { toca: 'Entrar', anima: [MIOLO, RODAPE] },
-  { chega: 'T02' },
+  // a espera do Entrar (decisão do diretor, 27/09): o primário diz Entrando…, desabilitado,
+  // e a T02 chega 1,2 s depois, com a troca entre telas — a resposta do toque
+  { toca: 'Entrar', anima: [TEXTO] },
+  { desligado: 'Entrando…' },
+  { chega: 'T02', entre: [800, 1700] },
+  { anima: [MIOLO, RODAPE] },
   // ── a vitrine: a troca de quadro por chave (C12·4), tocável ──
   { janela: [360, 800] },
   { abre: '?vitrine=1&especime=mov-troca-quadro' },

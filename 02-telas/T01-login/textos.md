@@ -6,6 +6,8 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 `14:30` · `Entrar` · `CONFIGURADOR` · `USUÁRIO` · `SENHA` · `Lembrar meu usuário` · `Entrar` · `Esqueci a senha`
 
+No protótipo (decisão do diretor, 27/09): na espera do *Entrar*, o primário diz *Entrando…* — sem referência; o texto é do diretor, no padrão do *Gravando no módulo…* da T10.
+
 ## `01-estado-usuario-ou-senha-incorretos`
 
 `14:30` · `Entrar` · `CONFIGURADOR` · `USUÁRIO OU SENHA INCORRETOS` · `Confira os dois e entre de novo.` · `USUÁRIO` · `SENHA` · `Lembrar meu usuário` · `Digite a senha` · `Esqueci a senha`

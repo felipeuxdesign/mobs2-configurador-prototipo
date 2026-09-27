@@ -37,6 +37,13 @@ A linha das referências segue a última entrega (a otimização 400, 27/09); as
 
 O `_changelog-para-colar.md` da `atualizacao33/` traz, embaixo da senha visível, as linhas da primeira entrega (a logo no lima, o *Lembrar meu usuário*, o checkbox marcado), que já estavam no registro. Entraram uma vez só. A `atualizacao98/` repete os itens 1 a 4 e o 7 da quarta entrega, que o protótipo já estava construindo.
 
+## A espera do Entrar (decisão do diretor, 27/09), construída sem referência
+
+- **o que falta desenhar:** nenhuma referência da T01 mostra o login esperando a resposta do servidor. O diretor pediu o quadro, e o protótipo o constrói no padrão que o app já tem: o primário diz *Entrando…*, desabilitado de verdade e em tinta apagada, como o *Gravando no módulo…* e o *Relendo…* da T10, e o `Esqueci a senha` também se desabilita. Nada gira: o diretor escolheu o texto no lugar da rodinha, pra seguir o padrão, e a lei do loop fica sem exceção
+- **o tempo:** no protótipo, 1,2 s fixos (`ritmos.js` · `entrarEsperaMs`), o mesmo da busca de novo da T05: abaixo de 1 s o texto só pisca. A senha errada (a 01) chega depois da espera; sem internet (a 14), o aviso vem na hora, porque o aparelho já sabe
+- **a troca entre telas:** a T02 chega 1,2 s depois do toque e entra com a troca entre telas, como resposta do toque (`Troca.jsx` · `respostaDoToque`)
+- **pra você:** se quiser, desenhe o quadro (html + png, um momento novo da T01) e o texto em `textos.md`; o protótipo já tem o lugar. A mesma espera caberia no `Confirmar` do código (03) e no `Salvar e entrar` (08), que o diretor deixou de fora: só o login
+
 ## A empresa sempre antes (`otimizacao400000000/`), juntada e construída
 
 A entrega entrou inteira — as duas referências novas da T02 (o `08` e o `09`, html e png), a decisão 37 revista, os cinco documentos gerados, os trechos do `MUDANCAS.md` (o mock, a `logica.md`, o `casos.md` e as contagens) e a entrada no topo do `CHANGELOG.md` — e o gate aprova, com o censo de **147 referências**, 63 momentos e 68 estados. Está construída, medida, revisada e fechada (27/09): o herói entra pelas três empresas dele (o `05`) e anda por toque até a T03 e o menu; quem tem uma empresa só a encontra já marcada (o `08`); o `08` saiu a 0,17% do HTML e o `09` a 0%; nenhuma das 145 de antes mudou em nenhum dos quatro números.

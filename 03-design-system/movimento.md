@@ -158,6 +158,7 @@ Mudam **no lugar**. O ritmo do protótipo é de apresentação: rápido o bastan
 | cronômetro do código (T01) | 1s real vale 1s · o prazo e o reenvio abrem cheios, como o mock diz (T01·1) |
 | releitura da CAN (T08) · cada sinal que responde | 600ms · na ordem da grade (T08·1) |
 | semear da calibração (T10) · gravando e relendo | 1s + 1s · o botão diz *Gravando no módulo…* e depois *Relendo…*; aí o tambor e a régua (a `animacao.md` da T10) |
+| espera do Entrar da T01 (C12 · decisão do diretor, 27/09) | 1,2s · no protótipo, a resposta do servidor ao `Entrar`: o primário diz *Entrando…*, desabilitado, sem indicador girando (o padrão do *Gravando no módulo…* da T10, e a lei do loop fica sem exceção); a T02 chega com a troca entre telas, como a resposta do toque (`Troca.jsx` · `respostaDoToque`) · no aparelho, o tempo é o do servidor |
 | busca da T05 · a busca de novo | 1,2s · o número do arquiteto (a última entrega, o `animacao.md` da T05): 400ms passaria sem o técnico ver que buscou · no protótipo, o quadro da busca da T05/00 fica na tela, e a lista volta sem nada escolhido (a T05/01) — o *Procurando…* do `animacao.md` não está em referência nem em `textos.md`, e fica de fora (pergunta ao arquiteto) |
 | leitura da CAN (T07) · cada sinal que chega **(C12·30)** | 600ms, o ritmo da releitura da T08 · na ordem da tela, 4,2s no total · corre na chegada da T06, depois da troca (o primeiro aos ~750ms do toque), e no `Ler novamente` · pelo menu, depois da T08, pelo endereço e no print, a tela nasce lida |
 

@@ -93,8 +93,16 @@ export default [
   // ── T01·3 · o aviso do erro: nasce do Entrar, esmaecendo no lugar; o Entrar apagado não fica com o roxo ──
   { digita: '123', em: 'SENHA' },
   { dorme: 200 },
-  { toca: 'Entrar', anima: [esmaece('ds-aviso'), TEXTO], naoAnima: ROXO },
-  { ve: 'USUÁRIO OU SENHA INCORRETOS' },
+  // a espera do Entrar (decisão do diretor, 27/09): o texto troca no lugar pra Entrando…, o
+  // botão se desabilita (o roxo sai direto, C12·18), o link também, e nada sai do lugar; a
+  // resposta chega 1,2 s depois — aqui, a senha errada, com o aviso que esmaece
+  { marcaLugar: true },
+  { toca: 'Entrar', anima: [TEXTO], naoAnima: ROXO },
+  { desligado: 'Entrando…' },
+  { desligado: 'Esqueci a senha' },
+  { mesmoLugar: true },
+  { ve: 'USUÁRIO OU SENHA INCORRETOS', entre: [800, 1700] },
+  { anima: [esmaece('ds-aviso'), TEXTO] },
   { desligado: 'Digite a senha' },
   { dorme: 200 },
   { quieto: true },
@@ -103,6 +111,9 @@ export default [
   { anima: [TEXTO], naoAnima: [{ prop: 'opacity', em: 'ds-aviso' }] },
   { dorme: 200 },
   { toca: 'Entrar', anima: [TEXTO], naoAnima: [{ prop: 'opacity', em: 'ds-aviso' }, ...ROXO] },
+  { desligado: 'Entrando…' },
+  { ve: 'Digite a senha', entre: [800, 1700] },
+  { naoAnima: [{ prop: 'opacity', em: 'ds-aviso' }] },
   { ve: 'USUÁRIO OU SENHA INCORRETOS' },
   { dorme: 200 },
 
@@ -231,8 +242,10 @@ export default [
   { digita: 'Varzea26', em: 'SENHA' },
   { anima: [TEXTO] },                                        // Digite a senha → Entrar
   { dorme: 200 },
-  { toca: 'Entrar', anima: [MIOLO, RODAPE] },
-  { chega: 'T02' },
+  { toca: 'Entrar', anima: [TEXTO] },
+  { desligado: 'Entrando…' },
+  { chega: 'T02', entre: [800, 1700] },
+  { anima: [MIOLO, RODAPE] },
 
   // ── com reduzir movimento: tudo direto, e o cronômetro no mesmo ritmo ──
   { reduzir: true },

@@ -98,6 +98,13 @@ let entrada = null
 let ouvintes = 0
 const anota = (e) => { entrada = e }
 export const emToque = () => entrada != null && entrada.eventPhase !== 0
+// A resposta a um toque que chega depois de uma espera (a espera do Entrar do login,
+// decisão do diretor de 27/09): o toque foi do técnico, e a tela nova que ele pede chega
+// quando o servidor responde. Quem espera marca antes de levar à outra tela, e a troca
+// entre telas a trata como o toque que ela é (o App consome a marca uma vez só)
+let resposta = false
+export const respostaDoToque = () => { resposta = true }
+export const consumirResposta = () => { const r = resposta; resposta = false; return r }
 function ouvir() {
   if (ouvintes++ === 0) for (const t of ENTRADAS) window.addEventListener(t, anota, true)
   return () => {

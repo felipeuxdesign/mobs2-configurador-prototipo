@@ -6,6 +6,7 @@
 export const TX = {
   // o login · 00 e 01
   entrar: 'Entrar',
+  entrando: 'Entrando…', // a espera do Entrar (decisão do diretor, 27/09): sem referência, o texto dele
   configurador: 'CONFIGURADOR',
   logo: 'Mobs2',
   usuario: 'USUÁRIO',

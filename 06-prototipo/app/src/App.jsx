@@ -4,7 +4,7 @@ import { useLayoutEffect, useRef } from 'react'
 import { useEstado } from './estado/estado.jsx'
 import { useTeclado } from './estado/teclado.js'
 import { EM_QUADRO } from './estado/quadro.js'
-import { Rolagem, RaizDaTroca, esmaecerConteudo, emToque } from './ds/index.js'
+import { Rolagem, RaizDaTroca, esmaecerConteudo, emToque, consumirResposta } from './ds/index.js'
 import { telaDe } from './telas/index.jsx'
 
 export function App() {
@@ -23,7 +23,9 @@ export function App() {
   useLayoutEffect(() => {
     const a = antes.current
     antes.current = { id, geracao: estado.geracao }
-    if (EM_QUADRO || a.geracao !== estado.geracao || a.id === id || !emToque()) return
+    // a resposta de um toque que esperou o servidor (o Entrar do login) conta como o toque
+    const doToque = consumirResposta() || emToque()
+    if (EM_QUADRO || a.geracao !== estado.geracao || a.id === id || !doToque) return
     esmaecerConteudo(raiz.current)
   }, [id, estado.geracao])
   // a chave muda de tela em tela e a cada pulo do palco (a geração): a tela remonta

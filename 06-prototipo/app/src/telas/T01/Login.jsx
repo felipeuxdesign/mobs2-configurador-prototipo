@@ -17,7 +17,7 @@
 // lembrado; o Entrar com a caixa marcada guarda o usuário no estado único, e o
 // login seguinte abre como a 16 — sem a caixa, como a 15, com os dois campos
 // vazios (regras.js · entradaDoFluxo). A 15 e a 16 abrem pela coluna, pelo caso.
-import { useEffect, useId, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
 import { EM_QUADRO } from '../../estado/quadro.js'
@@ -43,6 +43,7 @@ import {
 import { CartaoCanal, CartaoDoCodigo, LinhaConferido, CampoSenhaNova } from './pecas.jsx'
 // a presença da folha e do diálogo (entra fechado e abre; sai fechando antes de desmontar) é a do que vem por cima
 import { usePresenca } from '../../ds/chrome/PorCima.jsx'
+import { respostaDoToque } from '../../ds/chrome/Troca.jsx'
 import './t01.css'
 
 // as referências da pasta: o momento aonde se chega tocando, o estado pela coluna
@@ -187,8 +188,27 @@ export function Login({ momento, estado, irMomento }) {
   // dele é encerrada e a fila dele continua subindo: o diálogo abre sobre a entrada
   // da T02, que o lê da situação do celular (situacao.outraSessao) e o fecha no Entendi.
   // O técnico passa a ser quem entrou (regras.js · tecnicoDo)
+  // A espera do Entrar (decisão do diretor, 27/09): com internet, o servidor responde
+  // depois de um instante — no protótipo, um tempo fixo (RITMOS.entrarEsperaMs), sem
+  // relógio. Enquanto espera, o primário diz Entrando…, desabilitado de verdade e em
+  // tinta apagada, como o Gravando no módulo… da T10 (a lei 17), e o Esqueci a senha
+  // também; os campos, a caixa e o olho ficam onde estão, sem responder. A senha errada (a 01) chega depois da espera, como no aparelho. Sem
+  // internet, o aparelho já sabe: o aviso da 14 vem na hora, sem espera
+  const [entrando, setEntrando] = useState(false)
+  const esperaDoEntrar = useRef(null)
+  useEffect(() => () => clearTimeout(esperaDoEntrar.current), [])
   const entrar = () => {
+    if (entrando) return
     const depois = depoisDoEntrar(s, unico.situacao.rede)
+    if (depois !== 'T02' && depois.semConexao) { responder(depois); return }
+    setEntrando(true)
+    esperaDoEntrar.current = setTimeout(() => {
+      // a T02 chega com a troca entre telas: é a resposta do toque no Entrar, depois da espera
+      if (depois === 'T02') respostaDoToque()
+      setEntrando(false); responder(depois)
+    }, RITMOS.entrarEsperaMs)
+  }
+  const responder = (depois) => {
     if (depois === 'T02') {
       const outra = outraSessaoAoEntrar(unico.situacao, unico.tecnico.usuario, s.usuario, naFila(filaDoMundo(unico)))
       despachar({ tipo: 'mesclar', parcial: { tecnico: tecnicoDo(s.usuario) } })
@@ -247,7 +267,9 @@ export function Login({ momento, estado, irMomento }) {
     // desabilitado de verdade enquanto falta (a lei 17). Sem conexão, aceso: os
     // dois estão lá, e o toque tenta de novo (a 14)
     const falta = oQueFalta(s)
-    const primario = falta === 'usuario' ? TX.digiteUsuario : falta === 'senha' ? TX.digiteSenha : TX.entrar
+    const primario = entrando ? TX.entrando : falta === 'usuario' ? TX.digiteUsuario : falta === 'senha' ? TX.digiteSenha : TX.entrar
+    // na espera, os campos, a caixa e o olho não respondem, e não mudam de desenho
+    const vivo = (f) => (entrando ? () => {} : f)
     return (
       <>
         <h1 className="t01-titulo-oculto">{TX.entrar}</h1>
@@ -262,20 +284,20 @@ export function Login({ momento, estado, irMomento }) {
               <div className="t01-aviso"><Aviso tom="neutro" traco glifo="sem-conexao" poco={26} titulo={TX.semConexao} frase={TX.semConexaoFrase} surge={s.avisoSurge} /></div>
             )}
             {/* o usuário lembrado tem o xis dentro do campo (a 16): a variante do campo */}
-            <Campo rotulo={TX.usuario} valor={s.usuario} aoMudar={(v) => muda({ usuario: v })} focado={s.foco === 'usuario'}
+            <Campo rotulo={TX.usuario} valor={s.usuario} aoMudar={vivo((v) => muda({ usuario: v }))} readOnly={entrando} focado={s.foco === 'usuario'}
               onFocus={() => muda({ foco: 'usuario' })} autoComplete="username" autoCapitalize="none" spellCheck={false}
-              id={idUsuario} lembrado={s.lembrado} rotuloLimpar={TX.limparUsuario} aoLimpar={limpar} />
-            <Campo rotulo={TX.senha} valor={s.senha} aoMudar={(v) => muda({ senha: v })} oculto={!s.mostrar} focado={s.foco === 'senha'}
+              id={idUsuario} lembrado={s.lembrado} rotuloLimpar={TX.limparUsuario} aoLimpar={vivo(limpar)} />
+            <Campo rotulo={TX.senha} valor={s.senha} aoMudar={vivo((v) => muda({ senha: v }))} readOnly={entrando} oculto={!s.mostrar} focado={s.foco === 'senha'}
               onFocus={() => muda({ foco: 'senha' })} autoComplete="current-password" autoCapitalize="none" spellCheck={false}
               id={idSenha}
-              acao={<SoIcone icone={s.mostrar ? 'olho-riscado' : 'olho'} rotulo={s.mostrar ? TX.ocultarSenha : TX.mostrarSenha} cor="marca-limite" aoTocar={() => { muda({ mostrar: !s.mostrar }); irMomento(s.mostrar ? null : REF.senhaVisivel) }} />} />
+              acao={<SoIcone icone={s.mostrar ? 'olho-riscado' : 'olho'} rotulo={s.mostrar ? TX.ocultarSenha : TX.mostrarSenha} cor="marca-limite" aoTocar={vivo(() => { muda({ mostrar: !s.mostrar }); irMomento(s.mostrar ? null : REF.senhaVisivel) })} />} />
           </div>
           <div className="t01-lembrar">
-            <Checkbox marcado={s.lembrar} aoMudar={(v) => muda({ lembrar: v })}>{TX.lembrar}</Checkbox>
+            <Checkbox marcado={s.lembrar} aoMudar={vivo((v) => muda({ lembrar: v }))}>{TX.lembrar}</Checkbox>
           </div>
         </div>
-        <Rodape lugar="login" primario={primario} primarioDesabilitado={falta !== null} primarioTrocaTexto
-          aoPrimario={entrar} link={TX.esqueci} aoLink={esqueci} />
+        <Rodape lugar="login" primario={primario} primarioDesabilitado={entrando || falta !== null} primarioTrocaTexto
+          aoPrimario={entrar} link={TX.esqueci} aoLink={esqueci} linkDesabilitado={entrando} />
       </>
     )
   }

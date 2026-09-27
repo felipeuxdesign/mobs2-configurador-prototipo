@@ -23,4 +23,9 @@ export const RITMOS = {
   // T05/00 fica na tela 1,2 s, e a lista volta. O número é do arquiteto (a última entrega, o
   // animacao.md da T05 e o movimento.md): 400 ms passaria sem o técnico ver que buscou
   buscaMs: 1200,
+  // o Entrar do login · a espera da resposta do servidor (decisão do diretor, 27/09): no
+  // protótipo, um tempo fixo, sem relógio. O primário diz Entrando…, desabilitado, como o
+  // Gravando no módulo… da T10: abaixo de 1 s o texto só pisca; 1,2 s é o bastante pra
+  // ver que o login não vai direto
+  entrarEsperaMs: 1200,
 }
