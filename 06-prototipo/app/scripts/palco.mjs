@@ -72,7 +72,7 @@ const NOTAS = {
   'painel': 'o X e o RotateCcw do Lucide, no traço 1,8, contra os desenhados à mão no traço 2 (G5)',
   'coluna': MARCADOR,
   '02-num-estado/coluna': MARCADOR + '; e o Undo2 do Lucide no Voltar ao fluxo (G5)',
-  '01-no-fluxo/coluna': 'o quadro lista 2 dos 5 estados da T04; a coluna lista todos (PALCO-A4, PALCO-D3); e ' + MARCADOR,
+  '01-no-fluxo/coluna': 'o quadro lista 2 dos 6 estados da T04; a coluna lista todos (PALCO-A4, PALCO-D3); e ' + MARCADOR,
   '03-tela-com-muitos-estados/coluna': 'o quadro põe o momento "Um encontrado" no grupo Achar; a coluna lista só os 13 estados, com o Bluetooth desligado e sem permissão no Achar (o mundo real, T05/16 e 17) (G19, PALCO-A7); o nome do grupo na tinta e na letra do rótulo de 10 (lei 11, PALCO-A15, PALCO-V4); e ' + MARCADOR,
   'coluna-no-fluxo': MARCADOR,
   'coluna-num-estado': MARCADOR + '; e o Undo2 do Lucide no Voltar ao fluxo (G5)',

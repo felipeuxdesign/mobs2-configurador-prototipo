@@ -2,7 +2,7 @@
 // moldura do palco, a T16, a T06 e a T12), medidas no protótipo rodando, e os
 // quatro modos do palco (e a folha 00) fotografados no quadro das referências.
 //
-//   (a) nas 145 do 02-telas/indice.json, pelo endereço do print (como o tela.mjs
+//   (a) nas 147 do 02-telas/indice.json (as que o índice tiver), pelo endereço do print (como o tela.mjs
 //       abre): a barra de status com 30 de altura, no topo da tela do app, e o
 //       topo do primeiro elemento que vem embaixo dela em y = 30
 //   (b) a hora na Google Sans: o document.fonts com a família carregada, a família
@@ -148,7 +148,7 @@ const perto = (a, b, tol = 0.5) => Math.abs(a - b) <= tol
 const r2 = (v) => Math.round(v * 100) / 100
 const resultado = { entrega: 'otimizacao300000000', o_que: 'as provas do arquiteto, medidas no protótipo rodando (scripts/provas-palco.mjs)', chrome: `o do fotógrafo de escala ${escalaDoChrome}, numa aba própria`, norma: NORMA }
 
-// ─── (a) e (b): a barra de status nas 145 ─────────────────────────────────────
+// ─── (a) e (b): a barra de status nas 147 ─────────────────────────────────────
 const MEDE_BARRA = `(() => {
   const tela = document.querySelector('.celular-tela'); if (!tela) return { erro: 'sem a tela do app' }
   const T = tela.getBoundingClientRect()
@@ -584,7 +584,7 @@ const saidaJson = resolve(RELATORIOS, 'palco-provas.json')
 const anterior = existsSync(saidaJson) ? JSON.parse(readFileSync(saidaJson, 'utf8')) : {}
 try {
   if (modo === 'tudo' || modo === 'medidas') {
-    console.log('(a) (b) a barra de status nas 145…'); resultado.barra = await barraNas145()
+    console.log('(a) (b) a barra de status nas referências do índice…'); resultado.barra = await barraNas145()
     console.log(`    ${resultado.barra.resumo.passam} de ${resultado.barra.resumo.referencias} passam`)
     console.log('(c) (d) (e) a moldura, o centro e a coluna…'); resultado.palco = await palcoLargo()
     console.log('(f) a T16, a T06 e a T12…'); resultado.acabamento = await telasDoAcabamento()

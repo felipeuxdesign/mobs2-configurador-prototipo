@@ -37,6 +37,39 @@ A linha das referências segue a última entrega (a otimização 400, 27/09); as
 
 O `_changelog-para-colar.md` da `atualizacao33/` traz, embaixo da senha visível, as linhas da primeira entrega (a logo no lima, o *Lembrar meu usuário*, o checkbox marcado), que já estavam no registro. Entraram uma vez só. A `atualizacao98/` repete os itens 1 a 4 e o 7 da quarta entrega, que o protótipo já estava construindo.
 
+## O C13, a auditoria
+
+A régua inteira rodou contra as bases de hoje (27/09): as 147 referências, os textos das 16 telas, os 127 espécimes das 8 folhas e os 5 quadros do palco. **Nenhuma diferença ficou sem nome, e nenhuma é erro do protótipo**: as 147 saíram iguais à base, 41 em 0% do HTML, e as 106 com diferença levam o desvio nomeado, com o lugar onde ele mora — a tabela das 147 está no `06-prototipo/gate-C13.md`. O que vai pra você:
+
+### Pra ver · o que ganhou nome agora
+
+- **os `textos.md` que trazem a tela atrás do diálogo** (a T01/18, a T04/12 e a T04/13): a régua dos textos não lê o que fica inerte atrás do véu (G25), e esses três `textos.md` listam também o fundo — as unidades da T02 na 18, o menu na 12 e na 13. O diálogo confere nas três, e o quadro está a 0%, 0,34% e 0,32% do HTML: o que se vê é igual. Os outros diálogos (o de sair e o de trocar do menu, a T04/06 e a 09) trazem só a tira de cima, o *Menu* e o diálogo, e conferem · **pergunta:** os três `textos.md` no mesmo jeito dos outros diálogos, ou a régua passar a ler o fundo quando o `textos.md` o traz · anotado na `tela.md` da T01 e na da T04
+- **a pausa** (T16/04, T16/06, e o espécime *parou aqui* da folha 4): o protótipo usa o `Pause` do Lucide, dois retângulos de cantos redondos; as referências desenham dois traços finos, feitos à mão (`M9.5 7.5v9 M14.5 7.5v9`), que o Lucide não tem · é a regra dos ícones (G5, lei 14), e é quase tudo o que sobra na 04 (0,05%) e na 06 (0,06%) · **pergunta:** aceitar a pausa do Lucide, ou a folha 3 nomear o ícone do Lucide da pausa · anotado na `tela.md` da T16
+
+### Pra ver · o que já estava com você, e a auditoria mediu igual
+
+Nada mudou nessas; ficam aqui juntas, com o número de hoje, pra fechar de uma vez:
+
+- **a tinta da escolhida** (T02/07 e 08, 0,17% cada): o nome sobe pra `--tinta`, como em toda escolha numa lista, e as duas o desenham em `--tinta-forte`
+- **o fundo das folhas e dos diálogos** (G25): as referências desenham o véu sobre o vazio, e o app, sobre a tela de onde nasceu — a T01/04 (2,18%), a 09 (2,35%) e a 11 (2,05%), as oito folhas e diálogos do menu (de 0,71% a 1,24%), a T11/03 (2,14%) e a T13/10 (1,73%) · **proposta:** as referências com a tela atrás, escurecida
+- **o menu com rede** (G9, com o diretor): o Últimas instalações sai liberado, e as referências da T04 o desenham *sem conexão* — está em todas as 15 da T04 · e a fila com os 2 que faltam na 01 e na 02
+- **o valor do mock contra o da referência** (G9): a T03/01 (0,18%), a T06/00, 08 e 09 (*10 no pacote*), a T06/04 (0,57%), a T08/02 (0,15%), a T10/02 (os três segmentos, 0,16%), a T12/04 e 05 (a i-02 sem as etapas, 1,27% e 1,28%), a T13/09 (*2 de 4*, 0,45%) e a T15/01 e 02 (o recorte, 4,83%, e o *ontem 10:05*)
+- **o marcador da T14/05** (0,09%): a referência nova o deixou em 60%, e a barra está em 80%
+- **o texto que sobe meio pixel no quadro aceso** (C12·22 e C12·45): 10 referências, de 0,01% a 0,35%, e o *valor alvo* da folha 8 (1,5%)
+- **o relógio parado da T01** (T01·1): a 03, a 04, a 05, a 11 e a 17, com 10:00 e 60 s — você confirmou que vale o relógio; as referências seguem com o instante
+- **a T07/03**, que não se constrói até a referência do ma-02 (11,41%)
+- **as folhas:** a *faixa · sem ação* (6,64%, a peça é a casca inteira, e a folha desenha o miolo) e *a marca no login* (11,97%, o espécime sem a logo que a legenda pede)
+
+### O censo
+
+| | agora |
+|---|---|
+| a régua das telas | 147 referências, 41 em 0% do HTML, 0 com erro, as 147 iguais à base · 106 com diferença, 106 com o desvio nomeado (60 só G5) |
+| os textos | as mesmas 31 do C12, cada uma com o nome · 3 ganharam nome agora |
+| as folhas | 127 espécimes, iguais à base um por um, 75 em 0% |
+| o palco | 21 peças, nenhuma pior · 38 de 38 na moldura · 5 textos sem falha · sete janelas, de 390 a 1920 de largura |
+| o checar, o build e o gate | 13 de 13 · aprova · 196 checagens |
+
 ## A espera do Entrar (decisão do diretor, 27/09), construída sem referência
 
 - **o que falta desenhar:** nenhuma referência da T01 mostra o login esperando a resposta do servidor. O diretor pediu o quadro, e o protótipo o constrói no padrão que o app já tem: o primário diz *Entrando…*, desabilitado de verdade e em tinta apagada, como o *Gravando no módulo…* e o *Relendo…* da T10, e o `Esqueci a senha` também se desabilita. Nada gira: o diretor escolheu o texto no lugar da rodinha, pra seguir o padrão, e a lei do loop fica sem exceção

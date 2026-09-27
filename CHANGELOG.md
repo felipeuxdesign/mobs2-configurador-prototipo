@@ -1,5 +1,21 @@
 # Registro de mudanças
 
+## 2026-09-27 · C13, a auditoria de fidelidade
+
+A régua inteira, uma de cada vez, contra as bases do C12 e da empresa antes da unidade: as 147 referências, os textos das 16 telas, os 127 espécimes das 8 folhas e os 5 quadros do palco, com o palco em sete janelas. **Zero diferença sem desvio nomeado.** O gate está em `06-prototipo/gate-C13.md`, com a tabela das 147 e o lugar onde mora o nome de cada diferença; os logs, em `06-prototipo/app/prints/tmp/c13/`.
+
+- **as 147 referências:** 41 em 0% do HTML, 0 com erro, **as 147 iguais à base nos três números** (a soma contra o HTML segue em 46,74 pontos) · as 106 com diferença têm o desvio nomeado: 60 só com os glifos do Lucide (G5), e 46 com mais um — o valor do mock (G9, 28), o fundo das folhas e dos diálogos (G25, 13), o traço de 2 por cima da borda (C12·22 e C12·45, 10), o relógio parado da T01 (T01·1, 5), a tinta da escolhida (T02/07 e 08), o marcador da T14/05 e a T07/03, que não se constrói · onde o nome não era óbvio, a diferença foi olhada na imagem: 25 recortes, da T01 à T16
+- **os textos:** as mesmas 31 referências do C12, nenhuma nova; a T02/08 e a 09 conferem · T02, T05, T09, T10, T11, T14 e T16 conferem inteiras
+- **as folhas:** 127 espécimes, iguais à base do C12 um por um · 75 em 0% · acima de 0,5%, os três de sempre: a *faixa · sem ação* (6,64%, G13), *a marca no login* (11,97%) e *o valor alvo* (1,5%, C12·45); a câmera do app em 0,5% (G5); e os outros 48, de 0,01% a 0,27%, só na caixa do glifo (G5)
+- **o palco:** 21 peças, 4 em 0%, nenhuma pior que a base, cada uma com a nota · 5 textos, 3 conferem e 2 com a nota · 38 de 38 na moldura · as provas do palco batem a 1440 × 900 e a 1920 × 1080 · e mais cinco janelas medidas: a 1366 × 768, a 1280 × 720 e a 1024 × 768 com o celular em escala (0,872, 0,814 e 0,872), 24 em cima e embaixo, no centro e a coluna a 40; a 860 × 900 e a 390 × 844 no estreito, o app em tela cheia e o quadrado no canto, como o `palco.md` pede
+- **a régua final:** `checar` 13 de 13 · `build` aprova · o gate do mock aprova, com 196 checagens
+- **os consertos:** nenhum no app — nenhuma diferença é erro do protótipo, e nenhum arquivo de `src/` mudou · duas notas velhas das réguas: a do palco dizia que o quadro 01 lista *2 dos 5 estados da T04*, e são 6 desde a T04/14 (`app/scripts/palco.mjs`); e a das provas do palco dizia *nas 145*, e a régua mede as 147 do índice (`app/scripts/provas-palco.mjs`) · só o texto: nenhum número mudou
+- **desvios que ganharam nome agora:**
+  - **a régua dos textos na T01/18, na T04/12 e na T04/13:** o `textos.md` das três lista também a tela atrás do diálogo, e a régua não lê o que fica inerte atrás do véu (G25) · o diálogo confere nas três, e o quadro está a 0%, 0,34% e 0,32% do HTML · o fecho do C12 as contava como nomeadas, e nenhum documento dizia por quê · anotado na `tela.md` da T01 e na da T04
+  - **a pausa do Lucide** na T16/04 e na T16/06, e no espécime *parou aqui* da folha 4: o `Pause` são dois retângulos, e as referências desenham dois traços à mão · já estava dentro da G5; agora tem a linha dela, na `tela.md` da T16
+- **pro arquiteto:** `diferencas-para-o-arquiteto.md` · *O C13, a auditoria* — os dois nomes novos, e a lista do que já estava com ele e a auditoria mediu igual
+- **falta:** as respostas do arquiteto e do diretor listadas no gate · o commit e o push
+
 ## 2026-09-27 · a espera do Entrar do login (decisão do diretor)
 
 - **o login não vai direto:** com internet, o `Entrar` espera a resposta do servidor — no protótipo, 1,2 s fixos (`ritmos.js` · `entrarEsperaMs`), sem relógio. Enquanto espera, o primário diz *Entrando…*, desabilitado de verdade e em tinta apagada, e o `Esqueci a senha` também — o padrão do *Gravando no módulo…* da T10 (a lei 17). Os campos, a caixa e o olho ficam onde estão, sem responder, e nada muda de lugar
