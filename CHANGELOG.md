@@ -1,5 +1,11 @@
 # Registro de mudanças
 
+## 2026-09-26 · o palco sem senha, e o recarregar que volta ao login
+
+- **a senha do link publicado saiu** (diretor, 26/09): o palco abre direto. Ela não protegia de verdade — a senha ia no código que o navegador baixa — e atrapalhava quem abre o link muitas vezes. O site continua fora dos buscadores (`noindex`). Saíram o `Acesso.jsx` e o `acesso.css`
+- **recarregar a página recomeça do login, no computador também** (diretor, 26/09): o endereço continua acompanhando a navegação, pra copiar o link de uma tela, mas a página recarregada abre a T01 e o painel fechado; um link aberto de novo ainda abre a tela dele. Antes, só o celular de verdade voltava ao login
+- **o roteiro novo** `recarregar.mjs` (14 passos) prova as duas coisas, e o `caminho.mjs` ganhou o passo `recarrega` (o F5 do navegador)
+
 ## 2026-09-26 · a moldura do palco e a barra de status, construída · a barra nas 145, a moldura de um celular atual e o acabamento da T16, da T06 e da T12
 
 A `otimizacao300000000`, juntada, construída, medida, revisada, consertada e fechada — as 145 referências refeitas com a barra nova, os 5 quadros do palco, as 8 folhas, a fonte da hora com a licença, a decisão 43, a lei 22 e os 66 documentos gerados das telas —, com as decisões do arquiteto sobre a junção (26/09).

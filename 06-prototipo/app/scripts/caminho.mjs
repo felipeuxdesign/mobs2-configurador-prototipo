@@ -215,6 +215,17 @@ async function passo(s, p) {
       return
     } finally { abrindo = false }
   }
+  // o recarrega (diretor, 26/09): o F5 do navegador, na mesma página — o palco recomeça do login
+  if (p.recarrega) {
+    abrindo = true
+    try {
+      await na(s, `window.__m2cfVelha = true; return true`).catch(() => {})
+      await cdp('Page.reload', {}, s)
+      await espera(() => na(s, `return !window.__m2cfVelha && document.readyState === 'complete' && !!P.raiz && document.fonts.status === 'loaded'`).catch(() => false), ms, 'recarrega')
+      await na(s, `return new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(() => r(true), 50))))`)
+      return
+    } finally { abrindo = false }
+  }
   if (p.toca !== undefined || p.marca !== undefined) {
     const alvo = p.toca ?? p.marca
     await espera(() => na(s, `const e = P.acha(${JSON.stringify(alvo)}); return !!e && !P.desligado(e) || (e ? 'está desligado' : 'não achei')`), ms, `toca "${alvo}"`, p.entre)

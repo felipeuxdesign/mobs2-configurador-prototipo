@@ -9,12 +9,11 @@ import { Vitrine } from '../vitrine/Vitrine.jsx'
 import { useEstado } from '../estado/estado.jsx'
 import { Coluna } from './Coluna.jsx'
 import { Painel } from './Painel.jsx'
-import { lerUrl, escreverUrl } from './rotas.js'
+import { lerUrl, escreverUrl, recarregou } from './rotas.js'
 import { estadosDa } from './telas.js'
 import { deitado, alturaDoPalco } from './retrato.js'
 import { abreTeclado } from '../estado/teclado-conta.js'
 import { VERSAO } from './versao.js'
-import { Acesso, precisaDeSenha } from './Acesso.jsx'
 
 // a largura que o palco pede antes de encolher o celular: celular + distância + coluna + margens
 // o corte do modo estreito mora no palco-tokens.css (--palco-estreito)
@@ -98,16 +97,13 @@ function Medida() {
 }
 
 export function Palco() {
-  // a senha do protótipo publicado (Acesso.jsx): fora da máquina local, uma vez por navegador
-  const [aberto, setAberto] = useState(() => !precisaDeSenha())
-  if (!aberto) return <Acesso aoEntrar={() => setAberto(true)} />
   if (new URLSearchParams(window.location.search).get('vitrine') === '1') return <Vitrine />
   return <PalcoApp />
 }
 
 function PalcoApp() {
   const { estado, despachar } = useEstado()
-  const [painel, setPainel] = useState(new URLSearchParams(window.location.search).get('painel') === '1')
+  const [painel, setPainel] = useState(!recarregou() && new URLSearchParams(window.location.search).get('painel') === '1')
   // o aviso do app parado (palco.md, decisão 43): num estado, cada toque no app faz piscar uma vez o Voltar ao
   // fluxo da coluna, ou o quadrado no estreito. `em` guarda qual dos dois o toque fez piscar, e o contador volta a 0
   // quando um estado abre ou fecha: a peça que nasce (o Voltar ao fluxo do estado seguinte, o quadrado que aparece

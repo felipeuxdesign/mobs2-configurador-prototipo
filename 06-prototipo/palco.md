@@ -48,6 +48,9 @@ A tela aberta aparece marcada. As folhas não entram no painel: são momentos da
 - uma **etiqueta discreta com a data e o ciclo** no canto de baixo, pra quem comenta dizer qual versão viu
 - o palco nunca mostra comparação com a referência — isso é trabalho do ciclo
 
-## A senha do protótipo publicado
+## O link publicado
 
-No link publicado, antes do palco, uma porta simples pede a senha *configurador* (sem diferença de maiúscula), e o navegador lembra depois da primeira vez (diretor, 25/09). **Não é segurança:** a senha está no código que o navegador baixa; é só pra o link não abrir pra qualquer um. Na máquina local (o `localhost` do desenvolvimento, o print e as réguas) ela não existe. O site também pede pra não entrar em buscador (`noindex`). O código: `app/src/palco/Acesso.jsx`.
+O link publicado abre direto no palco, sem senha (diretor, 26/09: a porta da senha saiu — ela não protegia de verdade, porque a senha ia no código que o navegador baixa, e só atrapalhava quem abre o link muitas vezes). O site continua pedindo pra não entrar em buscador (`noindex`, no `index.html`). Quem tiver o link, abre.
+
+- **recarregar a página recomeça do login, no computador também** (diretor, 26/09): o endereço continua acompanhando a navegação — é ele que se copia pra mandar uma tela —, mas a página recarregada abre a T01, como o `Recomeçar do login`, e o painel fechado. Um link aberto de novo ainda abre a tela, o estado ou o painel dele. O print, a vitrine e as réguas abrem cada endereço de novo e nunca recarregam, então não mudam (`app/src/palco/rotas.js` · `recarregou`; o roteiro `app/scripts/caminhos/recarregar.mjs` prova)
+

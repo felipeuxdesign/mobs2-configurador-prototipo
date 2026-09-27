@@ -3,6 +3,14 @@
 // A troca usa replaceState: o voltar do navegador sai do protótipo (G20).
 import { NOMES, REFERENCIAS } from './telas.js'
 
+// recarregar a página recomeça do login, no computador também (diretor, 26/09): o endereço continua
+// acompanhando a navegação — é ele que se copia pra mandar uma tela —, mas a página recarregada abre o
+// login, como o Recomeçar do login. Um link aberto de novo ainda abre a tela dele; o print, a vitrine e
+// as réguas abrem cada endereço de novo, e nunca recarregam.
+export function recarregou() {
+  try { return performance.getEntriesByType('navigation')[0]?.type === 'reload' } catch { return false }
+}
+
 export function lerUrl() {
   const q = new URLSearchParams(window.location.search)
   const tela = NOMES[q.get('tela')] ? q.get('tela') : 'T01'
