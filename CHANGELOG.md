@@ -1,5 +1,12 @@
 # Registro de mudanças
 
+## 2026-09-28 · o GIF do README com as cores do app
+
+- **o GIF tinha perdido o lima, e não de propósito:** a paleta única saía de 12 quadros, pela contagem de pixels, e os fundos escuros levavam as 128 cores; o lima da marca, do texto do primário, dos vistos e da faixa saía cinza (21 mil pixels lima na gravação, zero no GIF), e o GIF parecia desbotado
+- **a paleta agora começa pelo `tokens.css`:** as 25 cores exatas (o lima, o roxo, o vermelho, os fundos e as tintas arroxeadas), e as outras 231 saem do filme inteiro, cada cor contando pela raiz cúbica de quantas vezes aparece · medido contra a gravação: o erro nos pixels de cor caiu de 36 pra 5, e no filme inteiro, de 5,7 pra 3,2 · `scripts/gif.py`
+- **gravado de novo:** o GIF era de antes do combustível e ainda mostrava *NÍVEL* na T07; devia ter sido regravado no pacote 500 (*grave de novo quando o caminho mudar*, `05-recursos/README.md`) · 123 quadros, 26 s, 0,9 MB
+- **o servidor de dev não olha mais `prints/`:** sem os fotógrafos no ar, o Chrome da régua grava o perfil em `prints/tmp/caminho-perfil/`, e cada `.html` do perfil recarregava o app no meio do caminho (13 recargas numa gravação, e o roteiro travava na T03) · `vite.config.js`, `server.watch.ignored`
+
 ## 2026-09-27 · o combustível, construído · o rótulo novo na T07 e na T08, e a lei 5 revisada
 
 - **a comparação, antes de sobrescrever:** os 7 html e os 2 `textos.md` são os nossos com *Nível* trocado por *Combustível*, e nada mais; nos 7 png, a diferença cabe no retângulo do rótulo; a folha 1 muda só a legenda da lei 5 · os quatro ANTES bateram uma vez cada (a primeira versão da lei 5 não batia: a cópia do design era de antes do C1, e a entrega veio refeita)

@@ -2,9 +2,14 @@
 # Os quadros do screencast chegam só quando a página muda, cada um com a hora dele: aqui
 # eles viram um filme de ritmo fixo (cada instante mostra o último quadro que chegou),
 # recortado no celular com a moldura, acelerado e com uma paleta só pro filme inteiro.
+# A paleta começa pelas cores do tokens.css, exatas (o lima, o roxo, o vermelho, os fundos
+# e as tintas arroxeadas), e o resto sai do filme, com cada cor contando pela raiz cúbica de
+# quantas vezes aparece: pela contagem pura, os fundos escuros levavam a paleta inteira, e o
+# lima do texto e do veredito, que ocupa pouco, saía cinza (medido contra a gravação: o erro
+# nos pixels de cor caiu de 36 pra 5, e no filme inteiro, de 5,7 pra 3,2).
 #
 # Uso (da pasta app): python3 scripts/gif.py <pasta-da-gravação> <saída.gif> [--fps 12] [--vel 1.5] [--larg 330] [--desde 1.6]
-import json, sys, os
+import json, sys, os, re
 from PIL import Image, ImageStat
 
 args = sys.argv[1:]
@@ -14,14 +19,14 @@ def opcao(nome, padrao):
 FPS = opcao('--fps', 12); VEL = opcao('--vel', 1.5); LARG = opcao('--larg', 330); FOLGA = opcao('--folga', 24); DESDE = opcao('--desde', 0.0)
 pasta, saida = args[0], args[1]
 ind = json.load(open(os.path.join(pasta, 'indice.json')))
-q = ind['quadros']; c = ind['celular']
+q = ind['quadros']; c = ind['celular']; ext = ind.get('formato', 'jpg')
 # o recorte: o celular com a moldura, e uma folga em volta, no fundo do palco
 caixa = (max(0, int(c['left']) - FOLGA), max(0, int(c['top']) - FOLGA),
          int(c['right']) + FOLGA, int(c['bottom']) + FOLGA)
 # o filme começa no primeiro quadro com o app desenhado: antes dele, o palco ainda sem o
 # celular (a capa do GIF no GitHub é o primeiro quadro, e ele tem de ser o login)
 def desenhado(n):
-    im = Image.open(os.path.join(pasta, f'q{n:05d}.jpg')).convert('L').crop(caixa)
+    im = Image.open(os.path.join(pasta, f'q{n:05d}.{ext}')).convert('L').crop(caixa)
     return ImageStat.Stat(im).stddev[0] > 15
 while len(q) > 1 and not desenhado(q[0]['n']): q = q[1:]
 # e, com --desde, alguns segundos depois: a fonte e a marca ainda carregando não entram
@@ -38,14 +43,27 @@ for n in quadros:
     if filme and filme[-1][0] == n: filme[-1][1] += 1
     else: filme.append([n, 1])
 def abre(n):
-    im = Image.open(os.path.join(pasta, f'q{n:05d}.jpg')).convert('RGB').crop(caixa)
+    im = Image.open(os.path.join(pasta, f'q{n:05d}.{ext}')).convert('RGB').crop(caixa)
     alt = round(im.height * LARG / im.width)
     return im.resize((LARG, alt), Image.LANCZOS)
 imgs = [abre(n) for n, _ in filme]
-# uma paleta só, tirada de uma amostra do filme inteiro: as cores do app não tremem de um quadro pro outro
-amostra = Image.new('RGB', (LARG, imgs[0].height * min(len(imgs), 12)))
-for i, im in enumerate(imgs[:: max(1, len(imgs) // 12)][:12]): amostra.paste(im, (0, i * imgs[0].height))
-paleta = amostra.quantize(colors=128, method=Image.MEDIANCUT)
+# uma paleta só pro filme inteiro: as cores do app não tremem de um quadro pro outro
+TOKENS = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../../03-design-system/tokens.css')
+fixas = list(dict.fromkeys(tuple(int(h[i:i + 2], 16) for i in (0, 2, 4))
+                           for h in re.findall(r'#([0-9A-Fa-f]{6})\b', open(TOKENS).read())))
+caixas = {}   # a cor de cada caixinha de 5 bits por canal: quantas vezes, e a soma, pra média
+for im in imgs:
+    for n, (r, g, b) in im.getcolors(im.width * im.height):
+        k = (r >> 3, g >> 3, b >> 3); v = caixas.get(k)
+        if v: v[0] += n; v[1] += r * n; v[2] += g * n; v[3] += b * n
+        else: caixas[k] = [n, r * n, g * n, b * n]
+pontos = []
+for n, r, g, b in caixas.values(): pontos += [(r // n, g // n, b // n)] * max(1, round(n ** (1 / 3)))
+amostra = Image.new('RGB', (len(pontos), 1)); amostra.putdata(pontos)
+livres = 256 - len(fixas)
+do_filme = amostra.quantize(colors=livres, method=Image.MEDIANCUT).getpalette()[:3 * livres]
+cores = fixas + [tuple(do_filme[i:i + 3]) for i in range(0, len(do_filme), 3)]
+paleta = Image.new('P', (1, 1)); paleta.putpalette([x for cor in cores for x in cor])
 pals = [im.quantize(palette=paleta, dither=Image.NONE) for im in imgs]
 dur = [round(1000 * v / FPS) for _, v in filme]
 dur[-1] += 1500   # o último quadro fica um pouco antes de o GIF recomeçar
