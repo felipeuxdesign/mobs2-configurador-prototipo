@@ -10,7 +10,7 @@
 //   contém o lido. As marcas a cada 0,5, ou a cada 1 quando 0,5 daria mais de
 //   10 divisões; as maiores nas bordas da faixa e no meio dela, quando o meio
 //   cai numa marca. Na leitura pequena, 4 divisões com a maior no meio; a
-//   escala é a própria faixa, ou a do mapa (satélites 0–12, nível 0–100).
+//   escala é a própria faixa, ou a do mapa (satélites 0–12, combustível 0–100).
 // · O veredito e a causa (C11.8, mocks.js): lido fora da faixa → 'veículo ou
 //   cadastro'; sem leitura, sozinho no domínio → 'ligação'.
 // · O caso (G21): no estado da coluna, o da receita; no fluxo, o do ativo da
@@ -35,7 +35,7 @@ export const MAPA = {
   hodometro: { peca: 'tambor' },
   temperatura: { peca: 'pequena' },
   satelites: { peca: 'pequena', escala: { min: 0, max: 12 } },   // T07·2: satélites 0–12
-  nivel: { peca: 'pequena', escala: { min: 0, max: 100 } },      // T07·2: nível 0–100
+  nivel: { peca: 'pequena', escala: { min: 0, max: 100 } },      // T07·2: o combustível, 0–100 (o nível do tanque; o id segue nivel)
   ignicao: { peca: 'sinais' },
   posicao: { peca: 'sinais' },
 }

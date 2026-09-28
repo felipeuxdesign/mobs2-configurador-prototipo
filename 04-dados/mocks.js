@@ -724,9 +724,12 @@
      pode reprovar em T07 — fica intacto, reservado ao ciclo dinâmico (T14). */
   /* C11.9 · o DOMÍNIO é a categoria, o SINAL é a grandeza: "Velocidade →
      Velocidade" e "Motor/Rotação → Rotação" repetiam (craft §2). Movimento e
-     Motor seguem o padrão que Combustível → Nível · Consumo já tinha. ⚠ A spec
+     Motor seguem o padrão que Combustível → Consumo já tinha. ⚠ A spec
      nomeia "Velocidade" e "Motor/Rotação" — desvio de COPY sinalizado; o
-     agrupamento é o mesmo. */
+     agrupamento é o mesmo.
+     A exceção é o nível do tanque, que se chama Combustível: nenhuma tela
+     mostra o nome do domínio (T07, T08), e "Nível" sozinho não dizia do quê.
+     O id continua "nivel". */
   var DOMINIOS_CAN = ["Geral", "Sistema elétrico", "Movimento", "GPS", "Motor", "Combustível"];
   var SINAIS_CAN = {
     "ma-01": [
@@ -740,7 +743,7 @@
       { id: "posicao",     dominio: "GPS",              rotulo: "Posição",              fase: "estatico", esperado: "fixa",              lido: "fixa" },
       { id: "rotacao",     dominio: "Motor",            rotulo: "Rotação",              fase: "dinamico", esperado: "600 a 2.500 rpm" },
       { id: "temperatura", dominio: "Motor",            rotulo: "Temperatura",          fase: "estatico", esperado: "−40 a 120 °C",      lido: "31 °C" },
-      { id: "nivel",       dominio: "Combustível",      rotulo: "Nível",                fase: "estatico", esperado: null,                lido: "62 %" },
+      { id: "nivel",       dominio: "Combustível",      rotulo: "Combustível",          fase: "estatico", esperado: null,                lido: "62 %" },
       { id: "consumo",     dominio: "Combustível",      rotulo: "Consumo",              fase: "dinamico", esperado: "acima de 0 L/h" }
     ],
     "ma-02": [
@@ -751,7 +754,7 @@
       { id: "rotacao",     dominio: "Motor",            rotulo: "Rotação",              fase: "dinamico", esperado: "600 a 2.200 rpm" },
       { id: "temperatura", dominio: "Motor",            rotulo: "Temperatura",          fase: "estatico", esperado: "−40 a 120 °C",      lido: "29 °C" },
       { id: "oleo",        dominio: "Motor",            rotulo: "Temperatura do óleo",  fase: "estatico", esperado: "−40 a 150 °C",      lido: "27 °C" },
-      { id: "nivel",       dominio: "Combustível",      rotulo: "Nível",                fase: "estatico", esperado: null,                lido: "48 %" }
+      { id: "nivel",       dominio: "Combustível",      rotulo: "Combustível",          fase: "estatico", esperado: null,                lido: "48 %" }
     ],
     "ma-03": [
       { id: "ignicao",     dominio: "Geral",            rotulo: "Ignição",              fase: "estatico", esperado: "ligada",            lido: "ligada" },

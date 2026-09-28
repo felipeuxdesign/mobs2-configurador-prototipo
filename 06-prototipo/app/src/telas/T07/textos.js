@@ -6,7 +6,7 @@ export const T = {
   deTotal: (total) => `de ${total}`,
   reprovado: 'reprovado',
   notaSemFaixa: 'SEM FAIXA',                        // o hodômetro, ao lado do rótulo
-  legendaSemFaixa: 'sem faixa',                     // a leitura pequena sem faixa (o nível)
+  legendaSemFaixa: 'sem faixa',                     // a leitura pequena sem faixa (o combustível)
   faixaDaLeitura: (de, ate) => `${de} — ${ate}`,    // a faixa esperada, em lima, na leitura grande
   faixaFechada: (de, ate) => `${de} a ${ate}`,      // a leitura pequena com a faixa inteira
   minimo: (min) => `mínimo ${min}`,                 // a leitura com mínimo

@@ -245,7 +245,7 @@ Cada linha é um espécime de moldura das folhas, e a folha 3 soma quatro linhas
 
 | Peça | Regra, medida | Telas que usam, medido |
 |---|---|---|
-| leitura pequena | meia largura · variante: sem faixa, o nível, a escala sem a faixa e a legenda 'sem faixa' (T07) · variante: sem leitura, o sinal que não chegou, com a borda vermelha, o traço no lugar do número, a escala vazia só com o traço no meio e a causa embaixo (T07) · variante: a grade com 10 entre os cartões (T07) | T07 |
+| leitura pequena | meia largura · variante: sem faixa, o combustível, a escala sem a faixa e a legenda 'sem faixa' (T07) · variante: sem leitura, o sinal que não chegou, com a borda vermelha, o traço no lugar do número, a escala vazia só com o traço no meio e a causa embaixo (T07) · variante: a grade com 10 entre os cartões (T07) | T07 |
 | leitura com mínimo | a faixa aberta pra cima | T07 |
 | cadeia concluída | trilho lima | T09 |
 | cadeia recusada | o elo que falhou acende · variante: correndo, a cadeia gravando, o quadrado de agora e os que esperam com a versão apagada, elo de 86 (T09) · variante: pausada, a cadeia parada com o contador e o aviso, o elo pausado aceso e os pendentes em traço, elo de 68 (T09) | T09 |

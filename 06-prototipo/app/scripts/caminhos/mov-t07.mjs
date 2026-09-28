@@ -89,7 +89,7 @@ export default [
   { ouve: '184.320 km', entre: SINAL },
   { anima: ROLA },
   { ve: '2 de 12' },
-  // a temperatura, os satélites e o nível: o marcador de cada uma corre
+  // a temperatura, os satélites e o combustível: o marcador de cada uma corre
   { ve: '3 de 12', entre: SINAL },
   { anima: [CORRE] },
   { ve: '4 de 12', entre: SINAL },

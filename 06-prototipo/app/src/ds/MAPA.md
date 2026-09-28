@@ -92,7 +92,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 |---|---|
 | leitura na faixa | src/ds/instrumentos/Leitura.jsx (+ Escala.jsx; corre: a leitura que chega leva o marcador de onde estava até o valor, em --mov-lento, desacelerando — montar não anima · C12·30) |
 | fora da faixa | src/ds/instrumentos/Leitura.jsx (fora; a falha que chega depois de montar: a camada da borda vermelha e a causa esmaecem em --mov-rapido, e o lugar da causa abre direto, G24 · C12) |
-| leitura pequena | src/ds/instrumentos/LeituraPequena.jsx (+ GradeLeituras; folga 10 na T07 · sem faixa, o nível, sem a faixa na escala · semLeitura, o sinal que não chegou, T07/02 · C8) |
+| leitura pequena | src/ds/instrumentos/LeituraPequena.jsx (+ GradeLeituras; folga 10 na T07 · sem faixa, o combustível, sem a faixa na escala · semLeitura, o sinal que não chegou, T07/02 · C8) |
 | leitura com mínimo | src/ds/instrumentos/LeituraPequena.jsx (faixa aberta) |
 | tambor | src/ds/instrumentos/LeituraTambor.jsx (+ Tambor.jsx, RodaDigito.jsx; rola na troca de valor — a chegada da T07, das rodinhas na casa 0 até o lido —, nunca ao montar; `de`, só pra peça que nasce no meio do movimento · C12·30) |
 | sinais liga-desliga | src/ds/instrumentos/Sinais.jsx (o check do sinal que chega depois de montar esmaece em --mov-rapido · C12·30) |

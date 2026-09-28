@@ -1,5 +1,18 @@
 # Registro de mudanças
 
+## 2026-09-27 · o combustível, construído · o rótulo novo na T07 e na T08, e a lei 5 revisada
+
+- **a comparação, antes de sobrescrever:** os 7 html e os 2 `textos.md` são os nossos com *Nível* trocado por *Combustível*, e nada mais; nos 7 png, a diferença cabe no retângulo do rótulo; a folha 1 muda só a legenda da lei 5 · os quatro ANTES bateram uma vez cada (a primeira versão da lei 5 não batia: a cópia do design era de antes do C1, e a entrega veio refeita)
+- **no código, nada a trocar além do mock:** a T07 lê o rótulo do sinal e o põe em caixa alta, a T08 lê como vem; nenhuma receita, teste, roteiro ou checagem escrevia *Nível*, e o id `nivel` fica · as nossas anotações que nomeavam o sinal viraram *o combustível* (a `tela.md` da T07, o `componentes.md`, o `MAPA.md`, os comentários da T07 e o `mov-t07`); a da lei 5 saiu com a lei nova
+- **a régua:** a T07/00, 01 e 02 e a T08/00 e 01 em **0% contra o HTML**, e a T08/02 em 0,15%, como antes (os valores do mock, G9) · a T07/03, que não se constrói, foi de 11,41 a 11,44% pelo rótulo maior na referência · as outras 140 iguais à base (cinco fotos erradas na primeira passada, refeitas uma a uma, voltaram ao número da base) · os textos da T07 e da T08 com as mesmas diferenças de antes, com a palavra nova · os 127 espécimes das 8 folhas iguais à base · o `mov-t07`, o `mov-t08` e o `heroi` aprovam · o gate com 196 checagens e o censo em **147 referências** (16 telas, 63 momentos, 68 estados)
+- **a lista dos ◆ que ficam** no `leis.md`, com o porquê de cada um, foi ao arquiteto: `06-prototipo/para-o-arquiteto/diferencas.md` · *O combustível* · os prints lado a lado da T07/00 e da T08/02 em `06-prototipo/para-o-arquiteto/combustivel/`
+
+## 2026-09-27 · o sinal do tanque se chama Combustível
+
+- **"Nível" vira "Combustível"** nas 7 telas que mostravam o sinal: T07/00 a 03 e T08/00 a 02 · nenhuma delas mostra o nome do domínio, e "Nível" sozinho não dizia do quê · o 62% do lado já diz que é o nível
+- no mock, o rótulo das duas definições do sinal · o id continua `nivel`
+- **a lei 5, revisada**: as quatro exceções — o placar do checklist, o combustível da T07, na escala do próprio tanque, e o progresso da sincronização (T03) e do envio da fila (T15) · o ◆ sai · no `leis.md` e na folha 1
+
 ## 2026-09-27 · C14, o fecho · o README, a raiz arrumada e as notas pro dev
 
 - **o `README.md` na raiz:** o GIF do caminho do herói no topo (do login à cadeia gravada, gravado do protótipo rodando, `05-recursos/readme/caminho-do-heroi.gif`), o link do protótipo sem senha, o que é o produto, o palco, os números, como foi feito, a pasta, como rodar no computador e o que é do dev

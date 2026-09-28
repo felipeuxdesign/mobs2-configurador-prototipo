@@ -37,6 +37,37 @@ A linha das referências segue a última entrega (a otimização 400, 27/09); as
 
 O `_changelog-para-colar.md` da `atualizacao33/` traz, embaixo da senha visível, as linhas da primeira entrega (a logo no lima, o *Lembrar meu usuário*, o checkbox marcado), que já estavam no registro. Entraram uma vez só. A `atualizacao98/` repete os itens 1 a 4 e o 7 da quarta entrega, que o protótipo já estava construindo.
 
+## O combustível (`otimizacao500000000/`), juntada e construída
+
+- **a comparação, antes de sobrescrever:** os 7 html e os 2 `textos.md` da T07 e da T08 são os nossos com *Nível* trocado por *Combustível* e mais nada; nos 7 png, a diferença cabe no retângulo do rótulo; a folha 1 muda só a legenda da lei 5 (*as exceções: o placar, o combustível na escala do tanque, e o progresso da sincronização e do envio*), e no png só essa região. Os quatro ANTES bateram uma vez cada. Nos dois `textos.md` não havia anotação nossa
+- **a primeira versão da lei 5 não batia** com o nosso `leis.md` (a cópia do design era de antes do C1, e o DEPOIS tirava a sincronização e o envio): paramos, e a entrega veio refeita com a nossa linha como ANTES e as quatro exceções, sem o ◆, como DEPOIS
+- **no código, o rótulo só estava escrito no mock:** a T07 lê o `rotulo` do sinal e o põe em caixa alta (`app/src/telas/T07/index.jsx`), a T08 lê como vem (`app/src/telas/T08/index.jsx`); nenhuma receita, teste, roteiro ou checagem do gate escrevia *Nível*. O id `nivel` fica (`app/src/telas/T07/leitura.js`, o mapa da peça e da escala)
+- **as nossas anotações:** onde nomeavam o sinal da tela, viraram *o combustível* — a `tela.md` da T07 (a peça de cada sinal, a escala da leitura pequena e a variante sem faixa), o `componentes.md` (a leitura pequena sem faixa), o `MAPA.md`, os comentários da `leitura.js` e da `textos.js` da T07 e o roteiro `mov-t07`; onde falam da medida, *o nível do tanque* ficou. A anotação da lei 5 saiu com a lei nova. O *nível do item* da T13 é outro sentido e não mudou
+
+- **a régua:** a T07/00, 01 e 02 e a T08/00 e 01 em 0% contra o HTML; a T08/02 em 0,15%, os valores do mock (G9: 1.180 rpm e 9,4 L/h, contra os 980 e 24,8 da referência); a T07/03 foi de 11,41 a 11,44%, porque ela não se constrói e o rótulo maior só está na referência · as outras 140 iguais à base · os 127 espécimes iguais · o gate em 147 · os prints lado a lado da T07/00 e da T08/02 em `combustivel/`, nesta pasta
+
+### As linhas com ◆ que ainda estão no `leis.md`
+
+São 14, todas do C1 (24/09) ou das decisões do diretor do mesmo dia: onde a lei e as referências aprovadas discordavam, as telas mandaram e a lei passou a descrever o que elas fazem (a decisão do diretor ao G12 e ao G24 do gate C0; o achado é o TX-1, *as referências quebram as leis que elas mesmas deveriam seguir*, medido em 15 das 16 telas). O parágrafo do topo do `leis.md` explica a marca. Fora do `leis.md`, o ◆ só aparece citado no `CHANGELOG.md` e aqui, como registro.
+
+| Linha | O que a lei dizia no C0 | O que o ◆ acrescentou | Por quê |
+|---|---|---|---|
+| **1** · o lima | veredito, escolhido e o texto do primário | contam como escolhido o campo em foco, o *decide agora* do menu, a faixa esperada de uma leitura e o rótulo de uma prova (*NO CADASTRO*, *O PAINEL MOSTRA*, *VERSÃO LIDA NO MÓDULO*, *NADA SE PERDE*); e a marca (lei 15) | as referências pintam lima nesses lugares (M15, T04-N1, T01-N1) |
+| **3** · o estado | *Nada se remonta*: o estado muda o conteúdo, não o desenho | o desenho só abre espaço pro que o estado acrescenta (um aviso, uma causa, uma busca, a linha que some por não se aplicar); título, faixa e rodapé ficam | 15 das 16 telas têm estado que move bloco; a T14/02, dada como *o exemplo*, move 41px |
+| **4** · o poço | todo glifo de estado vive num poço | as exceções: o check dos sinais liga-desliga (T07), dos requisitos da senha (T01), do *confere* da calibração (T10) e os glifos do bloco do evento (T14) | as referências e 4 espécimes das folhas desenham esses glifos soltos (DS-V5) |
+| **6** · o preenchido | o tempo drena, o placar enche | o que baixa ou sobe (sincronização, envio) enche com o que já foi; a idade do pacote (T03) enche com o tempo que passou, até o limite | as barras da T03 e da T15 enchem (T03-A9, A10, T15-A8, T14-N4) |
+| **7** · o aviso | um formato só: poço, rótulo, uma frase | as exceções: a falha do autoteste (T16), com rótulo de topo e duas orações, e o aviso da folha de trocar de unidade (T04), sem poço | T16-A6 e T04-A10 |
+| **10** · o texto | a partir de 12; rótulo em caixa alta pode ter 10 ou 11 | a unidade ou a contagem junto de um número também (*km*, *%*, *de 4*) | as referências põem as unidades em 10 e 11 (M8) |
+| **11** · a tinta | a mínima é o `--tinta-apagada` | o traço de vazio (—) não é texto e pode usar `--marca-limite` | as referências desenham o traço em `--marca-limite` (M9) |
+| **14** · o ícone | Lucide, com 2,2 nos glifos, 1,8 nas ferramentas e 2,6 abaixo de 14px | o traço por classe (glifo 2,2 em todo tamanho, ferramenta e ação 1,8, fechar e chevron 2,2, check abaixo de 14 2,6) — a exceção do olho da senha veio da sua entrega de 24/09 | as folhas desenham os ícones à mão, com traços de 2 e 2,4 (TX-4); o G5 do gate C0, opção (a), liberada pelo diretor, levou tudo ao Lucide com o traço dos tokens por classe |
+| **Toque de 48** | não existia como linha | todo tocável tem 48 de toque, e o primário 56; o desenho pode ser menor (o olho, o X, o link de 44), e a área cresce por fora | as referências desenham 44 nos botões de ícone, nos links e no Cancelar (M7): a lei de ergonomia fica, o desenho também |
+| **Nada encosta** | *botão* a 8px de qualquer vizinho | *todo tocável* — botão, checkbox, rádio, campo — a 8px (a área de toque a 8px de qualquer outra veio da sua entrega de 24/09) | você disse no C0 que a lei vale pra todo tocável (gate C1, achado 2) |
+| **Poço na linha** | 38 leva 24 · 44 leva 30 · 50 leva 32 | no C1, as exceções da T11 e da T15; a sua entrega de 25/09 as tirou e pôs o aviso fora da regra | o ◆ ficou de sobra: a linha de hoje é a sua |
+| **R-03** · o título | nunca vira a falha | a exceção: no código de recuperação (T01), o título diz *Código não confere* | T01/05 e T01/07 (T01-A1) |
+| **R-11** · o caso do mock | tocar num módulo ou ônibus que é caso do mock abre o estado dele | *escolher e seguir* abre o estado: com a R-14, o estado aparece no botão, não no toque da linha | a R-14, do diretor |
+| **R-14** · escolher marca | não existia | escolher numa lista marca; quem avança é o botão | decisão do diretor, 24/09 |
+| **R-15** · a rolagem | não existia | o celular não mostra a barra de rolagem do navegador; o que rola mostra o indicador do sistema | decisão do diretor, 24/09 |
+
 ## O C13, a auditoria
 
 A régua inteira rodou contra as bases de hoje (27/09): as 147 referências, os textos das 16 telas, os 127 espécimes das 8 folhas e os 5 quadros do palco. **Nenhuma diferença ficou sem nome, e nenhuma é erro do protótipo**: as 147 saíram iguais à base, 41 em 0% do HTML, e as 106 com diferença levam o desvio nomeado, com o lugar onde ele mora — a tabela das 147 está no `06-prototipo/gate-C13.md`. O que vai pra você:
