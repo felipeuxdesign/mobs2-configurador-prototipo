@@ -14,7 +14,7 @@ As listas de peças e as referências são do design, como o pacote pede. A anot
 | cores | 23 | **25** | medido no C1 |
 | casos no mock | 34 | **41** | os 7 acréscimos dos ciclos, só aditivos: `conferencia-confere`, `firmware-fora-sem-rede`, `can-estatico-hodometro-a22`, `instalacoes-vazia`, `fila-sem-erro`, `fila-dois-erros` e `fila-vazia` |
 
-A linha das referências segue a última entrega (a otimização 400, 27/09); as outras são as da organização das quatro pastas. Os números de hoje estão no `CLAUDE.md` (295 tokens, 131 peças, 55 casos no mock) e no censo de cada entrega, abaixo.
+A linha das referências segue a última entrega (a otimização 400, 27/09); as outras são as da organização das quatro pastas. Os números de hoje estão no `CLAUDE.md` (295 tokens, 132 peças, 55 casos no mock) e no censo de cada entrega, abaixo.
 
 ## Arquivo por arquivo
 
@@ -36,6 +36,16 @@ A linha das referências segue a última entrega (a otimização 400, 27/09); as
 ## O que o pacote repetia
 
 O `_changelog-para-colar.md` da `atualizacao33/` traz, embaixo da senha visível, as linhas da primeira entrega (a logo no lima, o *Lembrar meu usuário*, o checkbox marcado), que já estavam no registro. Entraram uma vez só. A `atualizacao98/` repete os itens 1 a 4 e o 7 da quarta entrega, que o protótipo já estava construindo.
+
+## A temperatura (`otimizacao600000000/`), juntada e construída
+
+- **a comparação, antes de sobrescrever:** os 3 html da T07 (00, 01 e 02) e o da folha 5 são os nossos com duas trocas e mais nada: a faixa da temperatura, de `right: 0` pra `width: 84.2%` com a `border-right` lima, e o marcador, de 44% pra 37,4%; nos 4 png, a diferença cabe no retângulo da barra. A conta bate: 160/190 = 84,2% e 71/190 = 37,4%
+- **o `componentes.md`:** a linha do pacote logo depois da 83 (a tabela da folha 5); na nossa seção do protótipo, a versão curta, logo depois da *leitura com mínimo* · com a peça nova, o design passa a **120 peças** e o protótipo a **132** (as 120, as 10 que só o protótipo tem e as duas seções do checklist): o `CLAUDE.md`, o `README.md`, o `README.md` do design system e o `componentes.md` dizem 132. Ela não tem espécime próprio na folha 5: o da leitura pequena, a temperatura, é ela
+- **no código:** a temperatura ganhou a escala de −40 a 150 no mapa das leituras (`app/src/telas/T07/leitura.js`), e a escala do mapa passa a valer antes da faixa (antes, a faixa fechada virava a escala); a faixa continua a do mock, −40 a 120, e a legenda também. O `Escala.jsx` não mudou no desenho: ele já põe a borda só do lado que fica dentro da escala, e a faixa que começa no começo da escala fica sem a da esquerda · **o arredondamento saiu de todas as leituras pequenas** (a decisão 3): a posição é a conta exata, e o `pctInteiro`, que só elas usavam, saiu do `Escala.jsx` · os espécimes da folha 5 e do movimento acompanham (a escala até 150, a marca maior no meio, o 55) · o `tela.md` da T07 (a escala da leitura pequena), o `MAPA.md` e os comentários acompanham
+- **os três marcadores, medidos** no DOM, contra o HTML da referência, na barra de 135 px de dentro: a temperatura em 50,44 px contra 50,48 (37,37% contra 37,4%, **−0,05 px**) · os satélites em 101,25 contra 101,25 (**0 px**) · o combustível em 83,69 contra 83,69 (**0 px**) · a borda da faixa da temperatura em 113,67 contra 113,66 (+0,02 px) · o que mexeu foi o começo da faixa dos satélites, 45,0 contra 44,5 px (33,3% contra 33%, **+0,45 px**)
+- **a régua:** a T07/02 segue em 0% contra o HTML; a T07/00 e a 01 foram de 0 a **0,01%**, e é o meio pixel do começo da faixa dos satélites (48 dos 58 pixels marcados; os outros já estavam lá, abaixo da régua) · contra o PNG, as três iguais à base · as outras 144 iguais à base, nos três números · os 127 espécimes das 8 folhas iguais à base, a leitura pequena da folha 5 em 0% · os textos da T07 como antes · o gate com 196 checagens e o censo em **147 referências** · os prints lado a lado da T07/00, 01 e 02 e o recorte da barra a 4× em `temperatura/`, nesta pasta
+- **pra você ver:** a leitura pequena não tem variante fora da faixa. A regra *a escala estica* é da leitura grande (`tela.md` da T07, a escala da leitura grande), e nenhum caso do mock põe uma leitura pequena fora. Com a escala nova, até 150 cabe; acima, o marcador para na borda, como o `Escala.jsx` faz com toda escala. Não construí a variante: fica pra você decidir se ela existe
+- **o GIF do README** passa pela T07 e mostra a barra antiga; o diretor combinou regravar uma vez só, depois dos ajustes do PM
 
 ## O combustível (`otimizacao500000000/`), juntada e construída
 

@@ -30,14 +30,14 @@ const perto = (a, b) => Math.abs(a - b) < 1e-9
 const emCurso = (el) => { const t = el ? getComputedStyle(el).transform : 'none'; return new DOMMatrixReadOnly(!t || t === 'none' ? undefined : t) }
 
 export function Escala({
-  min, max, valor, faixa, pctInteiro,
+  min, max, valor, faixa,
   divisoes, marcas, fortes = [],
   tam = 'leitura', falha = false, corre = false, segue,
   semLados = false, // C4 · T03 (G11): a barra do download, o desenho do placar sem as bordas dos lados
   vazia = false,    // C8 · T07 (G11): o poço vazio do sinal que não chegou — só o traço no meio (T07/02)
 }) {
-  // pctInteiro: a posição arredondada ao % inteiro, como a folha desenha o placar (21 de 31 → 68%)
-  const pct = (v) => { const p = (100 * (noIntervalo(v, min, max) - min)) / (max - min); return pctInteiro ? Math.round(p) : p }
+  // a posição é a conta exata do valor na escala, sem arredondar (otimização 600)
+  const pct = (v) => (100 * (noIntervalo(v, min, max) - min)) / (max - min)
   const de = faixa ? (faixa.de ?? min) : null
   const ate = faixa ? (faixa.ate ?? max) : null
   const pos = !vazia && valor != null ? pct(valor) : null

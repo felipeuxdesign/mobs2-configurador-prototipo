@@ -77,7 +77,7 @@ function PrazoDrena() {
 // anda na origem — o valor em traço, o marcador no começo, as rodinhas na casa 0
 const bateria = { rotulo: 'TENSÃO DA BATERIA', unidade: 'V', legendas: { min: '11,0', faixa: '12,0 — 15,0', max: '16,0' } }
 const escalaBateria = (valor) => ({ min: 11, max: 16, valor, faixa: { de: 12, ate: 15 }, divisoes: 10, fortes: [12, 13.5, 15] })
-const escalaTemperatura = (valor) => ({ min: -40, max: 120, valor, faixa: { de: -40, ate: 120 }, divisoes: 4, fortes: [40], pctInteiro: true })
+const escalaTemperatura = (valor) => ({ min: -40, max: 150, valor, faixa: { de: -40, ate: 120 }, divisoes: 4, fortes: [55] })
 function LeituraChega() {
   const [lida, setLida] = useState(false)
   const [vez, setVez] = useState(0)

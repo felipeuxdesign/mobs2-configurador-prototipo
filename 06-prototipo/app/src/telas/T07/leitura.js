@@ -10,7 +10,9 @@
 //   contém o lido. As marcas a cada 0,5, ou a cada 1 quando 0,5 daria mais de
 //   10 divisões; as maiores nas bordas da faixa e no meio dela, quando o meio
 //   cai numa marca. Na leitura pequena, 4 divisões com a maior no meio; a
-//   escala é a própria faixa, ou a do mapa (satélites 0–12, combustível 0–100).
+//   escala é a do mapa (a temperatura −40 a 150, a leitura com máximo, com a
+//   faixa fechando no 120; satélites 0–12; combustível 0–100), e a posição
+//   segue a conta exata, sem arredondar (otimização 600).
 // · O veredito e a causa (C11.8, mocks.js): lido fora da faixa → 'veículo ou
 //   cadastro'; sem leitura, sozinho no domínio → 'ligação'.
 // · O caso (G21): no estado da coluna, o da receita; no fluxo, o do ativo da
@@ -33,7 +35,7 @@ const DOMINIO_MUDO = 'can-estatico-dominio'
 export const MAPA = {
   bateria: { peca: 'leitura' },
   hodometro: { peca: 'tambor' },
-  temperatura: { peca: 'pequena' },
+  temperatura: { peca: 'pequena', escala: { min: -40, max: 150 } }, // a leitura com máximo: a escala passa do 120, onde a faixa fecha
   satelites: { peca: 'pequena', escala: { min: 0, max: 12 } },   // T07·2: satélites 0–12
   nivel: { peca: 'pequena', escala: { min: 0, max: 100 } },      // T07·2: o combustível, 0–100 (o nível do tanque; o id segue nivel)
   ignicao: { peca: 'sinais' },
@@ -135,14 +137,14 @@ export function leituraGrande(s, T) {
   }
 }
 
-// ── a leitura pequena: a faixa inteira, o mínimo ou sem faixa; ou sem leitura ──
+// ── a leitura pequena: a faixa com máximo, o mínimo ou sem faixa; ou sem leitura ──
 export function leituraPequena(s, T) {
   if (s.veredito === 'ausente') return { valor: T.vazio, semLeitura: true, legenda: s.sozinho ? T.semLeitura : undefined }
   const { texto, unidade, num } = partes(s.lido)
   const f = s.faixa
-  const de = f && f.max != null ? { min: f.min, max: f.max } : MAPA[s.id].escala
+  const de = MAPA[s.id].escala ?? { min: f.min, max: f.max } // o sinal sem escala no mapa: a própria faixa
   const escala = {
-    min: de.min, max: de.max, valor: num, pctInteiro: true,
+    min: de.min, max: de.max, valor: num,
     faixa: f ? { de: f.min, ate: f.max ?? undefined } : undefined,
     divisoes: DIVISOES_PEQUENA, fortes: [(de.min + de.max) / 2],
   }

@@ -40,7 +40,7 @@ export const especimes = [
     render: () => (
       <GradeLeituras>
         <LeituraPequena rotulo="TEMPERATURA" valor="31" unidade="°C" legenda="−40 a 120"
-          escala={{ min: -40, max: 120, valor: 31, faixa: { de: -40, ate: 120 }, divisoes: 4, fortes: [40] }} />
+          escala={{ min: -40, max: 150, valor: 31, faixa: { de: -40, ate: 120 }, divisoes: 4, fortes: [55] }} />
       </GradeLeituras>
     ) },
   { id: 'f5-leitura-com-minimo', folha: 5, rotulo: 'leitura com mínimo', legenda: 'a faixa aberta pra cima',

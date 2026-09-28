@@ -81,6 +81,7 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 | fora da faixa | borda vermelha · a escala estica | T07 |
 | leitura pequena | meia largura | T07 T13 |
 | leitura com mínimo | a faixa aberta pra cima | T07 T13 |
+| leitura com máximo | a faixa aberta pra baixo: começa no piso do sensor e fecha no máximo, com a borda marcada · a escala passa do máximo, e o trecho de cima fica escuro · a temperatura vai de −40 a 150, com a faixa fechando no 120 | T07 |
 | tambor | hodômetro é rolete | T07 |
 | sinais liga-desliga | o fato e o check, sem barra | T07 |
 | instrumentos apagados | o resumo do que só fecha andando | T07 |
@@ -165,7 +166,7 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 
 Anotação de construção. A tabela de cima é a do design; esta diz, só nas linhas em que o protótipo mediu diferente, o que o código usa — a regra com as variantes nomeadas (G11) e as telas que usam, corrigidas pelo medido no ciclo de cada tela (G10). A diferença vai pro arquiteto.
 
-Cada linha é um espécime de moldura das folhas, e a folha 3 soma quatro linhas pros seus 35 átomos: com as de cima, **131 peças** — as 119 do design, as 10 que só o protótipo tem e as duas seções do checklist que a folha 4 nova ainda desenha, e que a tabela dela não tem (a entrega do checklist). O mapa de cada linha pro componente que a constrói está em `06-prototipo/app/src/ds/MAPA.md`.
+Cada linha é um espécime de moldura das folhas, e a folha 3 soma quatro linhas pros seus 35 átomos: com as de cima, **132 peças** — as 120 do design, as 10 que só o protótipo tem e as duas seções do checklist que a folha 4 nova ainda desenha, e que a tabela dela não tem (a entrega do checklist). O mapa de cada linha pro componente que a constrói está em `06-prototipo/app/src/ds/MAPA.md`.
 
 - **peça nova no protótipo:** a folha desenha, e o design ainda não tem linha
 - **em outra folha:** o espécime está desenhado nesta folha, e não na que o design diz
@@ -247,6 +248,7 @@ Cada linha é um espécime de moldura das folhas, e a folha 3 soma quatro linhas
 |---|---|---|
 | leitura pequena | meia largura · variante: sem faixa, o combustível, a escala sem a faixa e a legenda 'sem faixa' (T07) · variante: sem leitura, o sinal que não chegou, com a borda vermelha, o traço no lugar do número, a escala vazia só com o traço no meio e a causa embaixo (T07) · variante: a grade com 10 entre os cartões (T07) | T07 |
 | leitura com mínimo | a faixa aberta pra cima | T07 |
+| leitura com máximo | a faixa aberta pra baixo | T07 |
 | cadeia concluída | trilho lima | T09 |
 | cadeia recusada | o elo que falhou acende · variante: correndo, a cadeia gravando, o quadrado de agora e os que esperam com a versão apagada, elo de 86 (T09) · variante: pausada, a cadeia parada com o contador e o aviso, o elo pausado aceso e os pendentes em traço, elo de 68 (T09) | T09 |
 | a pré-condição dos pinos | a primeira linha da configuração, embaixo do título · variante: a linha de condição da conferência, com o i no círculo cinza — a versão que não se lê, *conferido pelo conteúdo* (T11/04, a última entrega) | T09 T11 |

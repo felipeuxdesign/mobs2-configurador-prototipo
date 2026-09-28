@@ -23,7 +23,7 @@ No computador, o celular aparece na moldura, em tamanho real quando a janela cab
 
 | telas | momentos | estados | histórias de usuário | tokens | peças no design system | casos no mock |
 |---|---|---|---|---|---|---|
-| 16 | 63 | 68 | 107 | 295 | 131 | 55 |
+| 16 | 63 | 68 | 107 | 295 | 132 | 55 |
 
 As **147 referências** (16 telas, 63 momentos e 68 estados) têm, cada uma, um HTML e um PNG. O protótipo é medido contra elas, pixel a pixel. Toda diferença que sobra tem um desvio nomeado, com o porquê.
 

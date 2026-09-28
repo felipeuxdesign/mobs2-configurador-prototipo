@@ -1,6 +1,7 @@
 // A leitura pequena (folha 5): meia largura, o número de 22 no alto, à
-// direita do rótulo, a escala de 14 e uma linha embaixo — a faixa inteira
-// (−40 a 120) ou o mínimo, quando a faixa é aberta pra cima. Vive na
+// direita do rótulo, a escala de 14 e uma linha embaixo — a faixa com máximo
+// (−40 a 120, numa escala que vai a 150, a leitura com máximo) ou o mínimo,
+// quando a faixa é aberta pra cima. Vive na
 // GradeLeituras, de duas colunas.
 import { Escala } from './Escala.jsx'
 import './caixas.css'

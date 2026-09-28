@@ -1,5 +1,19 @@
 # Registro de mudanças
 
+## 2026-09-28 · a temperatura, construída · a leitura com máximo, e a posição pela conta exata
+
+- **a comparação, antes de sobrescrever:** os 4 html (a T07/00, 01 e 02 e a folha 5) são os nossos com a faixa da temperatura em 84,2%, com a borda da direita, e o marcador em 37,4%, e mais nada; nos 4 png, a diferença cabe na barra
+- **no código:** a temperatura ganhou a escala de −40 a 150 no mapa das leituras da T07, e a escala do mapa vale antes da faixa · a faixa e a legenda continuam as do mock, −40 a 120 · **a posição de toda leitura pequena segue a conta exata** (a decisão do arquiteto): o `pctInteiro` saiu do `Escala.jsx` · os espécimes da folha 5 e do movimento, o `tela.md` da T07, o `MAPA.md` e os comentários acompanham
+- **o `componentes.md`:** a linha do pacote depois da 83 e a versão curta na seção do protótipo · **132 peças** (120 no design): o `CLAUDE.md`, o `README.md` e o `README.md` do design system acompanham
+- **a régua:** os três marcadores medidos contra o HTML: a temperatura a −0,05 px, os satélites e o combustível a 0 · o começo da faixa dos satélites anda 0,45 px (33,3% em vez de 33%), e a T07/00 e a 01 vão de 0 a 0,01% contra o HTML; contra o PNG, iguais à base · as outras 144 iguais à base · os 127 espécimes iguais · o gate com 196 checagens e o censo em **147 referências** · os prints em `06-prototipo/para-o-arquiteto/temperatura/`
+- o GIF do README fica pra regravar depois dos ajustes do PM (o diretor, 28/09)
+
+## 2026-09-28 · a temperatura mostra onde deixa de ser esperada
+
+- **a escala da temperatura vai até 150**, e a faixa esperada fecha no 120, com a borda marcada · antes, a escala terminava no 120 e a barra ficava toda verde, como se qualquer valor servisse
+- é o espelho dos satélites: eles abrem a faixa pra cima a partir do 4; a temperatura abre pra baixo até o 120 · a peça nova se chama **leitura com máximo**
+- nas três telas da T07 que têm a barra: 00, 01 e 02 · a 03 não, porque o Motor está mudo · e na folha 5
+
 ## 2026-09-28 · o GIF do README com as cores do app
 
 - **o GIF tinha perdido o lima, e não de propósito:** a paleta única saía de 12 quadros, pela contagem de pixels, e os fundos escuros levavam as 128 cores; o lima da marca, do texto do primário, dos vistos e da faixa saía cinza (21 mil pixels lima na gravação, zero no GIF), e o GIF parecia desbotado
