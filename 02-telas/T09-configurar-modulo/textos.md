@@ -8,7 +8,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `01-estado-bloco-recusado`
 
-`14:30` · `M2C-0301` · `QJF-2C61` · `ENCERRAR` · `Configurar módulo` · `A CADEIA PAROU` · `Cercas foi recusado. Os três seguintes nem começaram.` · `Limpeza` · `feita` · `apaga a configuração anterior · preserva o serial e os contadores` · `Ativo` · `OF-1621` · `quem é o veículo e a tradução da CAN` · `Cercas` · `recusado` · `os pontos das áreas não voltaram` · `Leitor` · `não foi alcançado` · `Eventos` · `não foi alcançado` · `Conexão` · `não foi alcançado` · `ocupação de pinos confere` · `Tentar de novo` · `Voltar ao menu`
+`14:30` · `M2C-0301` · `QJF-2C61` · `ENCERRAR` · `Configurar módulo` · `A CADEIA PAROU` · `Cercas foi recusado. Os três seguintes nem começaram.` · `ocupação de pinos confere` · `Limpeza` · `feita` · `apaga a configuração anterior · preserva o serial e os contadores` · `Ativo` · `OF-1621` · `quem é o veículo e a tradução da CAN` · `Cercas` · `recusado` · `os pontos das regiões não voltaram` · `Leitor` · `não foi alcançado` · `Eventos` · `não foi alcançado` · `Conexão` · `não foi alcançado` · `Tentar de novo` · `Voltar ao menu`
 
 ## `02-estado-queda-na-cadeia`
 
@@ -28,11 +28,11 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `06-estado-a-configuracao-nao-cabe`
 
-`14:30` · `M2C-0394` · `OCT-2J85` · `ENCERRAR` · `Configurar módulo` · `NÃO CABE NO MÓDULO` · `Use um módulo com mais memória.` · `ocupação de pinos confere` · `não cabe · 128 registros, cabem 96` · `Limpeza` · `primeiro` · `apaga a configuração anterior · preserva o serial e os contadores` · `Ativo` · `OF-1621` · `quem é o veículo e a tradução da CAN` · `Cercas` · `nenhuma` · `as regiões geográficas` · `Leitor` · `no fio branco` · `como o cartão do motorista é lido` · `Eventos` · `intervalo 30 s` · `o que o módulo reporta e quando` · `Conexão` · `m2m.mobs2.br` · `para onde ele manda` · `Procurar outro módulo` · `Voltar ao menu`
+`14:30` · `M2C-0394` · `OCT-2J85` · `ENCERRAR` · `Configurar módulo` · `NÃO CABE NO MÓDULO` · `São 128 registros, e o módulo guarda 96.` · `ocupação de pinos confere` · `Limpeza` · `primeiro` · `apaga a configuração anterior · preserva o serial e os contadores` · `Ativo` · `OF-1621` · `quem é o veículo e a tradução da CAN` · `Cercas` · `nenhuma` · `as regiões geográficas` · `Leitor` · `no fio branco` · `como o cartão do motorista é lido` · `Eventos` · `intervalo 30 s` · `o que o módulo reporta e quando` · `Conexão` · `m2m.mobs2.br` · `para onde ele manda` · `Procurar outro módulo` · `Voltar ao menu`
 
 ## `07-estado-cercas-demais-pro-modulo`
 
-`14:30` · `M2C-0348` · `OYS-7D93` · `ENCERRAR` · `Configurar módulo` · `CERCAS DEMAIS PRO MÓDULO` · `Use um módulo que guarde mais cercas.` · `ocupação de pinos confere` · `cabe no módulo · 128 de 192 registros` · `Limpeza` · `primeiro` · `apaga a configuração anterior · preserva o serial e os contadores` · `Ativo` · `OF-1621` · `quem é o veículo e a tradução da CAN` · `Cercas` · `não cabe` · `5 regiões, cabem 4 · Terminal Cosme e Damião fica de fora` · `Leitor` · `sem fio` · `como o cartão do motorista é lido` · `Eventos` · `intervalo 30 s` · `o que o módulo reporta e quando` · `Conexão` · `m2m.mobs2.br` · `para onde ele manda` · `Procurar outro módulo` · `Voltar ao menu`
+`14:30` · `M2C-0348` · `OYS-7D93` · `ENCERRAR` · `Configurar módulo` · `CERCAS DEMAIS PRO MÓDULO` · `O Terminal Cosme e Damião ficaria de fora.` · `ocupação de pinos confere` · `cabe no módulo · 128 de 192 registros` · `Limpeza` · `primeiro` · `apaga a configuração anterior · preserva o serial e os contadores` · `Ativo` · `OF-1621` · `quem é o veículo e a tradução da CAN` · `Cercas` · `não cabe` · `5 regiões, cabem 4` · `Leitor` · `sem fio` · `como o cartão do motorista é lido` · `Eventos` · `intervalo 30 s` · `o que o módulo reporta e quando` · `Conexão` · `m2m.mobs2.br` · `para onde ele manda` · `Procurar outro módulo` · `Voltar ao menu`
 
 ## `08-momento-manutencao-escolher-o-bloco`
 

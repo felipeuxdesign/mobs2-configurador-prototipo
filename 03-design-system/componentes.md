@@ -29,7 +29,7 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 | folha | sobe do rodapé · puxador · X | T04 |
 | diálogo | só pra ação que encerra trabalho | T04 |
 | diálogo sem saída | quando o que aconteceu já está feito · uma ação só | T01 T04 |
-| diálogo com ciência | o técnico assina a decisão · o primário espera o check | T01 T07 T13 T14 |
+| diálogo com ciência | o técnico assina a decisão · o primário espera o check | T01 T13 T14 |
 | folha com opções | cada saída numa linha, com o que ela faz | T01 T04 |
 | barra do sistema sob o véu | escurece junto quando não há tira | T01 |
 
@@ -49,8 +49,7 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 | reprovada, com causa | X, título e valor em vermelho · a causa embaixo | T07 |
 | não se aplica | traço · a assertiva que não vale pra este ativo | T11 T12 T13 T16 |
 | só informa | i cinza · o valor à direita · a frase diz que dá pra seguir | T07 |
-| diagnóstico | compacta · 38 | T07 |
-| diagnóstico com sessão | a mesma 38 — a exceção acabou | T07 |
+| lista longa | média · 44 · a CAN e o checklist | T07 |
 | passo do ciclo | compacta · 38 | T14 |
 | assertiva da sessão | dupla · 50 | T11 T12 T13 T16 |
 | linha de conferência | dupla · 50 | T11 T12 T13 T16 |
@@ -61,13 +60,13 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 | com pendência | o contador no canto, igual ao da fila | T04 |
 | espera a rede | sem conexão · fundo apagado, borda sólida, traço no poço | T04 |
 | aviso | o mesmo desenho, cinza, sem traço | T03 T06 T09 T12 T16 |
-| processo parado | o veredito de uma cadeia ou de um download | T03 T09 |
+| processo parado | o veredito de uma cadeia ou de um download | T03 T07 T09 |
 | com contagem | quantos não bateram, à direita | T11 |
 | vazio declarado | tracejado · título e uma frase · sem ícone | T02 T06 T12 T15 |
 | nota tracejada | o que falta explicar, sem ser aviso | T05 |
 | nota com rótulo | o fato declarado, com o nome dele em cima | T07 T10 |
 | os dados do modelo | rótulo em cima, valor grande · o fabricante e o modelo | T06 |
-| linha do histórico | placa, módulo e hora · o veredito à direita | T11 T12 T15 T16 |
+| linha do histórico | placa, módulo e hora · o veredito à direita | T07 T11 T12 T15 T16 |
 | linha da fila · esperando | o que ainda não subiu | T15 |
 | linha de unidade | na folha · o pacote e a contagem | T01 T04 |
 | linha de unidade · a atual | o marcador lima de 11px | T01 T04 |
@@ -107,7 +106,7 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 | usuário lembrado | o xis no lugar do olho · limpa o campo e esquece o usuário | T01 |
 | campo de busca | lupa e dica · quando a lista é longa | T02 T06 |
 | justificativa | o não conforme com o porquê | T13 |
-| linha de opção | o ícone, o que faz, e pra onde | T01 T05 T06 T09 T15 |
+| linha de opção | o ícone, o que faz, e pra onde | T01 T05 T06 T07 T09 T15 |
 | linha de módulo | serial e variante · T05 | T05 |
 | linha de ônibus | placa, modelo e frota · T06 | T05 T06 |
 | bloco escolhido | traço lima embaixo = escolhido | T05 |
@@ -115,7 +114,7 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 | escolhido com trava · T06 | a placa com o motivo embaixo | T06 |
 | cartão que pede ação | o erro que precisa dele | T15 |
 | botão secundário | fundo --elevado · a ação da linha | T15 |
-| lista com contagem | o pacote baixando | T03 T09 T16 |
+| lista com contagem | o pacote baixando | T03 T07 T09 T16 |
 
 ## Folha 7 · checklist evidencia · `referencias/png/folha-7-checklist-evidencia.png`
 

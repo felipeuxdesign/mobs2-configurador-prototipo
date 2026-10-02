@@ -20,7 +20,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `04-estado-checklist-pendente`
 
-`14:30` · `GARAGEM VÁRZEA` · `RV` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Menu` · `CONECTAR MÓDULO` · `M2C-0417` · `ATIVO SELECIONADO` · `RKT-8H42` · `Diagnóstico do módulo` · `Configurar módulo` · `Calibração` · `Conferir configuração` · `10` · `Finalizar com checklist` · `Últimas instalações` · `2` · `Fila de saída`
+`14:30` · `GARAGEM VÁRZEA` · `RV` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Menu` · `CONECTAR MÓDULO` · `M2C-0417` · `ATIVO SELECIONADO` · `RKT-8H42` · `Diagnóstico do módulo` · `Configurar módulo` · `Calibração` · `Conferir configuração` · `11` · `Finalizar com checklist` · `Últimas instalações` · `2` · `Fila de saída`
 
 ## `05-momento-folha-conta`
 

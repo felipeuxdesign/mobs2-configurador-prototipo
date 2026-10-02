@@ -12,6 +12,7 @@ Ver o que o módulo informa e o que a CAN do modelo lê — logo depois da conex
 
 ## O que se toca
 
+- as linhas do módulo são a linha de conferência, de 50px; as da CAN, a lista longa, de 44 (lei 23) · nas travas sem saída escrita — o serial fora do cadastro e o modelo sem suporte —, **o aviso abre a tela com o porquê**, e o botão é a saída · o topo só identifica o módulo, sem repetir a trava
 - `Gravar a conexão` (firmware não homologado, módulo sem rede) → grava só a conexão, isolada, e o firmware atualiza por ela
   - no protótipo · o `Gravar a conexão` (05) consome o `firmware-sem-rede-no-modulo` — o modem ganha rede — e leva direto à 06, a atualização: o quadro de gravando a conexão não tem referência (G25), e nada se grava no estado além do caso consumido. A atualização (D4, construída): o quadro dos 62% (`CASOS["firmware-fora-matriz"].atualizacao.quadroPct`) fica `RITMOS.cadeiaBlocoMs` (1 s, o ritmo de uma gravação no módulo), e o diagnóstico recomeça das sete, com o firmware disponível do caso (`firmwareDisponivel`, 2.3.5, o caso consumido); passando, a faixa desce. Durante, o voltar não faz nada e não há ENCERRAR (a faixa não desceu). O 06 pela URL abre nos 62% e segue dali; no print, para. O `movimento.md` (Sem ritmo declarado, fica parado) e a `logica.md` (a atualização do firmware) ainda dizem que o quadro fica parado: a D4 aprovada os supera, e a frase espera quem cuida dos dois
 - `Procurar outro módulo` → T05/01, a lista sem nada escolhido
@@ -40,6 +41,7 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - barra do sistema sem sessão
 - faixa · sessão aberta
 - faixa · sem ação
+- o topo do menu inteiro
 - duas ações
 - uma ação
 - com legenda
@@ -47,17 +49,20 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - reprovada, com causa
 - só informa
 - ainda não
-- diagnóstico
-- diagnóstico com sessão
+- lista longa
+- processo parado
 - nota com rótulo
 - linha do histórico
 - a lista de garagens
+- encerrando
+- pede o corte
+- sem homologar
 - com contador
-- checkbox
-- checkbox marcado
-- justificativa
 - linha de opção
 - lista com contagem
+- item feito
+- linha da fila
+- linha da re-checagem
 
 ## Histórias de usuário
 

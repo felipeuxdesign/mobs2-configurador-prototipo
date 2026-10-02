@@ -30,6 +30,7 @@ Cada lei tem o porquê. Uma lei sem motivo vira gosto, e gosto se discute; lei c
 | 20 | **Folha de opções fecha no xis; folha de confirmação, no Cancelar.** Toda folha também fecha tocando fora, arrastando pra baixo e no voltar do Android | numa confirmação, o *não* fica junto do *sim*, embaixo do polegar — é o padrão do Material |
 | 21 | **Ícone riscado é o ícone inteiro, com o risco por cima** e um fio escuro separando — nunca a versão *-off* da biblioteca | a versão da biblioteca redesenha o ícone em pedaços, e o técnico precisa reconhecer um desenho novo |
 | 22 | **A barra de status é do sistema.** A hora na Google Sans e os ícones segmentados do Android atual, recuados das curvas · nunca na fonte do app · **ela segue o mundo, em duas coisas só**: o Bluetooth enquanto o módulo está conectado — da conexão ao fim da sessão —, e, sem internet, o sinal apagado e sem o Wi-Fi · o resto é cenário fixo | com a hora na fonte do app, a barra parecia parte da tela, e o celular não se separava do app |
+| 23 | **As listas têm três densidades.** **50px** pra conferência, um veredito por linha — a T07, a T11, a T12, a T16 · **44** pra lista longa — a CAN e o checklist · **38** só na leitura ao vivo do ciclo de testes, que enche a tela · o ícone é sempre 16; o rótulo, 15 | com uma linha só pra tudo, a T07 usava a de 38 com conteúdo de conferência, e sobrava um quarto da tela |
 
 ## Leis de medida
 

@@ -1,5 +1,17 @@
 # Registro de mudanças
 
+## 2026-10-02 · o pacote 3 — a T07 com o espaço do app
+
+- **a T07 usa as linhas do app** (lei 23, nova): as do módulo na linha de conferência, de 50px, a mesma da T11 e da T16; as leituras da CAN na lista longa, de 44, a do checklist · a letra é a mesma na T07 inteira — rótulo 15, valor 14 · a sobra cai de 117 a 213px pra 65 a 111
+- **as travas do serial e do modelo abrem com o aviso**: *Peça ao gestor pra cadastrar o M2C-0999* e *O app ainda não configura o VC07 STD* · o topo da T07/02 deixa de repetir a trava
+- **a T09/01**: a linha dos pinos volta pra dentro da coluna, logo depois do aviso · *"os pontos das regiões"*
+- **a T09/06 e a 07 não repetem a trava**: os números e quem fica de fora vão pro aviso; sai a linha vermelha da 06, e o elo das cercas da 07 cabe numa linha
+- **o design system diz a verdade sobre as linhas**: as peças de estado, recortadas da T07, passam a mostrar a linha de 50 · sai a *"diagnóstico com sessão"*, que virou cópia da linha de conferência · a *"diagnóstico · compacta · 38"* vira **a lista longa · 44** · o título da família das linhas diz *"sete contextos"*, que é o que ela tem · 106 peças · 23 leis
+- as cenas 02, 03 e 04 do palco, refotografadas
+- **o que o gate do pacote 2 achou**: o Bluetooth nas 9 telas com o módulo conectado que tinham ficado sem · o *11* no checklist da T04/04 · a barra do checklist pintando o mesmo número do título, em 9 telas · o Painel pendente na barra da Seção B · o *"você fotografa 5 itens"* da T13/12 · o item feito da folha 7 só com o nome, como na tela
+- no mock: o PCX-9A17 usa as 4 regiões do herói (`tambemAtivos`) e o QAH-1M67 ganha as 4 da garagem dele — o pacote da uo-02 passa a ter 4 cercas · o Extended ID do herói declarado no módulo · a Seção E se chama *Ciclo de testes* · saem a foto e o item da calibração, e as três viagens
+- no índice, o campo `coluna`: falso nas três folhas de trocar da T04
+
 ## 2026-10-02 · o pacote 2 e o complemento, construídos
 
 - **as telas:** a T10 sem foto, com o horímetro opcional e o `Pular o horímetro` · a T11 com as cinco linhas, o Extended ID só leitura, o Corrigir no primeiro bloco e o revisar em seguida (a D2 no fluxo; a T09 lê o bloco escolhido do estado, a mudança mínima) · a T13 com a A de 3, o Painel a tirar, a D nova e a E de 6 · a T14, o Ciclo de testes, com seis passos e a velocidade só com tacógrafo · a T12 sem a viagem · a barra do sistema com o Bluetooth e o sem rede, passados num lugar só · do complemento: o M2C-0999 tocável na T05/00 e na 04, e a cena 04 com os grupos

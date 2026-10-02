@@ -173,7 +173,7 @@
     { serial: "M2C-0394", modeloId: "vl06", variante: "ECO",    firmware: "2.2.0" },
     { serial: "M2C-0402", modeloId: "vl06", variante: "FULL",   firmware: "2.3.5" },
     { serial: "M2C-0411", modeloId: "vl06", variante: "CAN-BT", firmware: "2.3.5" },
-    { serial: "M2C-0417", modeloId: "vl06", variante: "CAN-BT", firmware: "2.3.5" }, /* herói */
+    { serial: "M2C-0417", modeloId: "vl06", variante: "CAN-BT", firmware: "2.3.5", extendedId: { cartoes: 3, ibuttons: 1 } }, /* herói · o Extended ID é só leitura: o que já está no módulo */
     { serial: "M2C-0423", modeloId: "vl06", variante: "FULL",   firmware: "2.2.0" },
     { serial: "M2C-0438", modeloId: "vl08", variante: "STD",    firmware: "3.1.0" },
     { serial: "M2C-0445", modeloId: "vl06", variante: "CAN",    firmware: "2.3.5" },
@@ -247,16 +247,27 @@
   ];
   var EVENTOS_EMBARCADOS = ["Ignição ligada", "Ignição desligada", "Excesso de velocidade", "Freada brusca", "Aceleração brusca", "Curva brusca",
     "Porta aberta em movimento", "Ré acionada", "Botão de pânico", "Bateria baixa", "Entrada em cerca", "Saída de cerca"];
+  /* As regiões são do ativo (ativoId). O tambemAtivos é a mesma cerca usada por outro ônibus da
+     mesma garagem: o PCX-9A17 (a-03, a queda da T09/02 e 03) usa as do herói. O pacote conta
+     REGIÕES, não ônibus — a uo-01 continua com 4, e o herói com os 31 itens (gate da errata).
+     As regiões de um ativo: as do ativoId dele mais as em que ele está no tambemAtivos. */
   var CERCAS = {
     areas: [
       { id: "ar-01", nome: "Garagem Várzea" },
-      { id: "ar-02", nome: "Terminal Joana Bezerra" }
+      { id: "ar-02", nome: "Terminal Joana Bezerra" },
+      { id: "ar-03", nome: "Garagem Ibura" },
+      { id: "ar-04", nome: "Terminal do Barro" }
     ],
     regioes: [
-      { id: "rg-01", areaId: "ar-01", nome: "Pátio interno",       ativoId: "a-01" },
-      { id: "rg-02", areaId: "ar-01", nome: "Portão de saída",     ativoId: "a-01" },
-      { id: "rg-03", areaId: "ar-02", nome: "Plataforma norte",    ativoId: "a-01" },
-      { id: "rg-04", areaId: "ar-02", nome: "Bolsão de recolhida", ativoId: "a-01" }
+      { id: "rg-01", areaId: "ar-01", nome: "Pátio interno",       ativoId: "a-01", tambemAtivos: ["a-03"] },
+      { id: "rg-02", areaId: "ar-01", nome: "Portão de saída",     ativoId: "a-01", tambemAtivos: ["a-03"] },
+      { id: "rg-03", areaId: "ar-02", nome: "Plataforma norte",    ativoId: "a-01", tambemAtivos: ["a-03"] },
+      { id: "rg-04", areaId: "ar-02", nome: "Bolsão de recolhida", ativoId: "a-01", tambemAtivos: ["a-03"] },
+      /* a garagem da uo-02 · o QAH-1M67 (a-13) é o ônibus da sessão interrompida (T16/06) */
+      { id: "rg-05", areaId: "ar-03", nome: "Pátio da Ibura",        ativoId: "a-13" },
+      { id: "rg-06", areaId: "ar-03", nome: "Portão da Ibura",       ativoId: "a-13" },
+      { id: "rg-07", areaId: "ar-04", nome: "Plataforma do Barro",   ativoId: "a-13" },
+      { id: "rg-08", areaId: "ar-04", nome: "Recolhida do Barro",    ativoId: "a-13" }
     ]
   };
 
@@ -334,8 +345,7 @@
      1 reprocessada · 1 reprovada · +2 ressalvadas (1 aprovada, 1 aguardando). */
   var INSTALACOES = comData([
     { id: "i-01", ativoId: "a-01", moduloSerial: "M2C-0417", diasAtras: 0,  hora: "11:47",
-      estado: "aprovada", ressalva: null,
-      recebimento: { posicionamento: { estado: "conforme", posicoes: 3, emSeg: 72 }, eventos: { estado: "conforme", recebidoAosSeg: 24 }, viagens: { estado: "completa", km: 3 } },
+      estado: "aprovada", recebimento: { posicionamento: { estado: "conforme", posicoes: 3, emSeg: 72 }, eventos: { estado: "conforme", recebidoAosSeg: 24 } }, ressalva: null,
       etapas: { /* história completa do herói */
         /* ⚠ C23 (sweep) · `preChecagem` FICA DECLARADO, sem leitor. Mesma
            natureza de `blocos 6/6`, `checklist 10/10` e `autoteste 8/8`, que
@@ -354,7 +364,7 @@
           { bloco: "eventos", hora: "10:21", readBack: "confirmado" },
           { bloco: "conexao", hora: "10:26", readBack: "confirmado" }
         ],
-        calibracao: { grandeza: "hodômetro", valorPainel: "482.317 km", foto: true },
+        calibracao: { semeadas: ["hodometro", "horimetro"], puladas: [], valorPainel: "482.317 km" },
         cicloDinamico: { completo: true, passos: ["Ignição ligada", "Rotação", "Ré acionada", "Porta aberta", "Cartão do motorista", "Ignição desligada"], confirmados: 6 },
         checklist: { itens: 31, concluidos: 31 },
         autoteste: { assertivas: 8, passaram: 8 },
@@ -468,7 +478,7 @@
     { id: "pac-uo-02", uoId: "uo-02", diasAtras: 4, hora: "06:55", segPorItem: 1.6,
       limiares: { avisoDias: 3, bloqueioDias: 7 },
       presetsEventoIds: ["pe-urbano", "pe-rodoviario"],
-      contem: { ativos: 8, conexoes: 2, modelosAtivo: 3, eventos: 12, cercas: 0 } },
+      contem: { ativos: 8, conexoes: 2, modelosAtivo: 3, eventos: 12, cercas: 4 } },
     { id: "pac-uo-03", uoId: "uo-03", diasAtras: 8, hora: "07:30", segPorItem: 1.6,
       limiares: { avisoDias: 3, bloqueioDias: 7 },
       presetsEventoIds: ["pe-urbano", "pe-rodoviario", "pe-maquina"],
@@ -511,14 +521,12 @@
        indisponível, com o motivo. O status geral espera. */
     "criterio-indisponivel": { tela: "T12", ativoId: "a-03", recebimento: {
       posicionamento: { estado: "conforme", posicoes: 3, emSeg: 72 },
-      eventos: { estado: "indisponivel", motivo: "o pacote não declara a fila" },
-      viagens: { estado: "completa", km: 1.1 } } },
+      eventos: { estado: "indisponivel", motivo: "o pacote não declara a fila" } } },
     /* T12 · a falha de rede vira pendência (HU-T12-6): o servidor não
        respondeu, e o app confere de novo por 24 h — não reprova. */
     "criterio-pendente": { tela: "T12", ativoId: "a-03", recebimento: {
       posicionamento: { estado: "pendente", motivo: "sem resposta", confereDeNovoPorHoras: 24 },
-      eventos: { estado: "conforme", recebidoAosSeg: 52 },
-      viagens: { estado: "completa", km: 1.1 } } },
+      eventos: { estado: "conforme", recebidoAosSeg: 52 } } },
     /* T11 · a versão do módulo não se lê (HU-T11-1): ausente, truncada ou em
        formato desconhecido. O diff roda por conteúdo, bloco a bloco, e acha
        2 divergências. Corrigir as Cercas arrasta o Leitor e os Eventos. */
@@ -990,11 +998,7 @@
       "a-01": { hodometro: 0 },
       "a-09": { velocidade: 12, hodometro: 27 },
       "a-22": { hodometro: 39 }
-    },
-    /* HU-T10-4 · uma foto, dois itens: o vínculo que T13 consome no C21 para
-       abrir a Seção B com o item já marcado, mostrando a origem na linha. */
-    itemChecklist: { id: "b-painel-legivel", secao: "B",
-      rotulo: "Painel do ativo com hodômetro e horímetro legíveis" }
+    }
   };
 
   /* C17 · T13 — O CHECKLIST DE HOMOLOGAÇÃO, tudo ADITIVO (âncoras do gate
@@ -1032,7 +1036,7 @@
       { id: "B", rotulo: "Montagem",       natureza: "manual",     bloqueia: true },
       { id: "C", rotulo: "Hardware",       natureza: "automatico", bloqueia: true },
       { id: "D", rotulo: "Configuração",   natureza: "automatico", bloqueia: true },
-      { id: "E", rotulo: "Teste dinâmico", natureza: "dinamico",   bloqueia: true },
+      { id: "E", rotulo: "Ciclo de testes", natureza: "dinamico",   bloqueia: true },
       /* ⚠ A ÚNICA que não bloqueia (HU-T13-6): depende do servidor, não do
          módulo na frente do técnico. Segurá-lo no pátio por isso seria
          prendê-lo por algo que ele não resolve — e é por isso que finalizar

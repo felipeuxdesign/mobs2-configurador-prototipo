@@ -79,7 +79,7 @@ chk("herói RKT-8H42 · VL06 CAN-BT · M2C-0417 · aprovado, história completa"
   heroiAtivo && heroiAtivo.placa === "RKT-8H42" && heroiAtivo.moduloSerial === "M2C-0417" &&
   heroi && heroi.estado === "aprovada" && heroi.etapas &&
   heroi.etapas.cadeia.length === 6 && heroi.etapas.autoteste.passaram === 8 &&
-  heroi.etapas.checklist.concluidos === heroi.etapas.checklist.itens && heroi.etapas.calibracao.foto === true);
+  heroi.etapas.checklist.concluidos === heroi.etapas.checklist.itens);
 
 /* ── Gate de cobertura temporal ── */
 var offsets = M.instalacoes.map(function (i) { return i.diasAtras; });
@@ -113,7 +113,7 @@ chk("tabela de arraste do contrato", JSON.stringify(M.cadeia.arraste) ===
   JSON.stringify({ ativo: ["eventos"], cercas: ["leitor", "eventos"], leitor: ["eventos"], eventos: [], conexao: [] }));
 
 /* ── Cercas ── */
-chk("cercas: 2 áreas × 2 = 4 regiões", M.cercas.areas.length === 2 && M.cercas.regioes.length === 4);
+chk("cercas: o herói tem 2 áreas × 2 = 4 regiões", (function () { var rs = M.cercas.regioes.filter(function (r) { return r.ativoId === "a-01"; }); var as_ = rs.map(function (r) { return r.areaId; }).filter(function (a, i, l) { return l.indexOf(a) === i; }); return rs.length === 4 && as_.length === 2 && as_.every(function (a) { return rs.filter(function (r) { return r.areaId === a; }).length === 2; }); })());
 chk("pool de índices esgotado nos DOIS limites", !!M.casos["pool-esgotado"] &&
   M.casos["pool-esgotado"].regioesUsadas === M.casos["pool-esgotado"].regioesMax &&
   M.casos["pool-esgotado"].posicoesUsadas === M.casos["pool-esgotado"].posicoesMax);
@@ -730,6 +730,13 @@ chk("r3: os casos novos existem, e os que saíram saíram", !!M.casos["cercas-re
 chk("r3: a fila sem foto de calibração", JSON.stringify(M.filaSaida || []).indexOf("Foto de calibração") < 0);
 
 chk("r3: o can-estatico-bateria monta a T13/09, e os acréscimos nomeados saíram", !!M.casos["can-estatico-bateria"] && M.modelosAtivo.every(function (m) { return !("chassiPelaCan" in m); }) && !M.cadeia.versoes);
+
+/* ── o gate do pacote 2 (pacote 3) ── */
+function regioesDo(id) { return M.cercas.regioes.filter(function (r) { return r.ativoId === id || (r.tambemAtivos || []).indexOf(id) >= 0; }).length; }
+chk("p3: as regiões de cada ativo das telas — o herói e o PCX-9A17 com 4, o QAH-1M67 com 4, o OCT-2J85 sem nenhuma", regioesDo("a-01") === 4 && regioesDo("a-03") === 4 && regioesDo("a-13") === 4 && regioesDo("a-10") === 0);
+chk("p3: o herói declara o Extended ID do módulo, só leitura", M.modulos.filter(function (m) { return m.serial === "M2C-0417" && m.extendedId && m.extendedId.cartoes === 3 && m.extendedId.ibuttons === 1; }).length === 1);
+chk("p3: sem as sobras da calibração e da viagem", JSON.stringify(M).indexOf('"itemChecklist"') < 0 && JSON.stringify(M).indexOf('"viagens"') < 0 && !("foto" in heroi.etapas.calibracao));
+chk("p3: a Seção E se chama Ciclo de testes", M.checklist.secoes.filter(function (x) { return x.id === "E" && x.rotulo === "Ciclo de testes"; }).length === 1);
 
 console.log(falhas ? "\nGATE REPROVADO — " + falhas + " falha(s)" : "\nGATE APROVADO — todas as âncoras recomputadas conferem");
 if (typeof process !== "undefined") process.exitCode = falhas ? 1 : 0;

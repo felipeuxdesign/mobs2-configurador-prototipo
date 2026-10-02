@@ -24,6 +24,7 @@ A tela aberta aparece marcada. As folhas não entram no painel: são momentos da
 ## A coluna
 
 - lista **só os estados** da tela aberta — momento é fluxo e não entra
+- **quem entra na coluna é o campo `coluna` do `indice.json`**: verdadeiro pros estados que nascem de uma condição do mundo, falso pros que abrem por um toque — hoje, as três folhas de trocar da T04 (08, 09 e 14). A coluna da T04 mostra 4 dos 7
 - com mais de seis estados **na coluna** — e a coluna só lista os estados que nascem de uma condição —, eles se agrupam pelo que o técnico estava fazendo — na T07: o módulo e a CAN
   - no protótipo (o pacote 1): o grupo é o `grupo` de cada estado no `02-telas/indice.json`, `modulo` ou `can`, que a coluna escreve *O módulo* e *A CAN* — o `scripts/testar-estado.mjs` (no `npm run checar`) confere que todo estado da T07 tem um. A coluna do protótipo lista os estados do `indice.json`: a da T01 tem 8 e a da T04 tem 7, e as duas ficam soltas, porque só a T07 tem grupo. O *T01 e T02 não mostram coluna* da cena 00 vai pro arquiteto
 - o marcador é **o mesmo do app**: poço de 24 com o quadrado vazado de 11, que vira lima de 11 no escolhido

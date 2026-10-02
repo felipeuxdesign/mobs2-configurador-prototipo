@@ -166,7 +166,7 @@
   --linha-contagem: 58px;            /* a linha da lista com contagem, o pacote baixando (T03) · LinhaContagem */
   --linha-declarada: 26px;           /* a linha do que não se aplica, no fato declarado (T10) · Declarado */
   --celula-codigo: 58px;             /* a altura de cada célula do código de recuperação (T01) · Codigo */
-  --conferencia-nome: 74px;          /* a coluna do nome na linha de conferência (T11, folha 4) · LinhaChecagem */
+  --conferencia-nome: 96px;          /* a coluna do nome na linha de conferência (T11, folha 4) · LinhaChecagem */
   --cartao-ferramenta-altura: 108px; /* a altura mínima do cartão de ferramenta de meia largura, no menu (T04) · CartaoFerramenta */
   --botao-secundario: 52px;          /* o botão que não é o primário: o secundário da linha (T15) e o Sair da conta na folha (T04/05) · BotaoSecundario, BotaoDaFolha */
   --tira-contexto: 52px;             /* a tira de contexto do menu: a garagem e a conta (T04) · TiraDeContexto */
