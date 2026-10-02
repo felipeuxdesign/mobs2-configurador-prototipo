@@ -3,3 +3,5 @@
   margin-top: calc(-1 * var(--e-6));
   font-size: var(--t-legenda); font-weight: 600; color: var(--tinta-secundaria);
 }
+/* pacote 1 · a que falha vai inteira em vermelho (T09/06) */
+.ds-precondicao-falha { color: var(--vermelho); }

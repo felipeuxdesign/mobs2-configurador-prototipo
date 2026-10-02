@@ -1,3 +1,3 @@
 // A etiqueta do palco: o ciclo e a data do CHANGELOG, escritos à mão no
 // commit de cada ciclo (G19). Nunca do relógio (CLAUDE.md: zero new Date()).
-export const VERSAO = { ciclo: 'C14', data: '2026-09-27' }
+export const VERSAO = { ciclo: 'pacote 1', data: '2026-10-02' }

@@ -1,11 +1,12 @@
 // T16 · o que a sessão lê do mock: o passo 2 (o driver reinicia por comando ou
 // pede o corte, T16·1), as 8 assertivas do encerramento com o valor lido
-// (M.autotesteEncerramento, HU-T16-4), a versão composta da cadeia, e os dois
-// casos dos estados (autoteste-falhando, sessao-interrompida). Nada de número
-// digitado: as contagens saem das listas do mock e da lista dos passos.
+// (M.autotesteEncerramento, HU-T16-4), os blocos da cadeia, e os dois casos dos
+// estados (autoteste-falhando, sessao-interrompida). Nada de número digitado: as
+// contagens saem das listas do mock e da lista dos passos.
 import { M } from '../../dados/mock.js'
 import { milhar } from '../../dados/formato.js'
 import { ESTADOS } from '../../ds/index.js'
+import { conteudoDo } from '../T09/cadeia.js'
 import { PASSOS, T } from './textos.js'
 
 export const REF = {
@@ -82,11 +83,13 @@ export function passosAbortando(feitos) {
   })
 }
 
-// ── a versão da cadeia: a string posicional dos blocos versionáveis, na ordem
-// canônica (HU-T09-8). É o que a releitura devolve e a prova mostra.
-const { ordem: ORDEM, rotulos: ROTULOS, versoes: VERSOES } = M.cadeia
-export const versaoAte = (confirmados) => ORDEM.slice(0, confirmados).filter((b) => VERSOES[b]).map((b) => VERSOES[b]).join('.')
-export const versaoCompleta = () => versaoAte(ORDEM.length)
+// ── os blocos da cadeia (decisão 49 · o módulo não guarda versão): a prova da
+// sessão encerrada conta os blocos relidos, da ordem canônica — '6 blocos'
+const { ordem: ORDEM, rotulos: ROTULOS } = M.cadeia
+export const blocosRelidos = () => T.blocos(ORDEM.length)
+// o espécime mov-check da vitrine ainda importa pelo nome de antes: ele passa a dizer os 6
+// blocos, e o nome sai quando a vitrine importar o blocosRelidos
+export const versaoCompleta = blocosRelidos
 
 // ── as 8 assertivas do encerramento (M.autotesteEncerramento), cada uma com o
 // valor lido — nunca um OK agregado (HU-T16-4) ──
@@ -140,7 +143,15 @@ export function assertivas(ativoId) {
       return lido ? { ...base, estado: 'aprovada', valor: lido } : { ...base, estado: 'ainda-nao', valor: T.aindaNao }
     }
     if (a.fonte === 'identificadores') {
-      return { ...base, estado: 'aprovada', valor: T.deTotalIdentificadores(M.identificadores.indicesAlocados.length, M.identificadores.cartoes.length) }
+      // a errata do pacote 1 (T16/02): a limpeza nunca apaga os identificadores (CADEIA.escopos, nos
+      // dois escopos), e o autoteste confere que eles continuam lá — 'Extended ID · preservado'. O
+      // rótulo do mock continua 'Identificadores' (o gate confere), e a T16/05, que a errata não
+      // refez, ainda desenha 'Identificadores · 3 de 3': a assertiva é uma só, e diz o mesmo nas
+      // duas (desvio nomeado, pro arquiteto). Se algum escopo apagasse, voltaria a contagem
+      const preservados = Object.values(M.cadeia.escopos).every((e) => e.mantem.includes('identificadores'))
+      return preservados
+        ? { ...base, titulo: T.extendedId, estado: 'aprovada', valor: T.preservado }
+        : { ...base, estado: 'aprovada', valor: T.deTotalIdentificadores(M.identificadores.indicesAlocados.length, M.identificadores.cartoes.length) }
     }
     return { ...base, estado: 'aprovada', valor: a.valor } // o fato é o próprio estado do módulo: fechado, restaurado
   })
@@ -150,12 +161,21 @@ export const CAUSA = { contadores: T.causaContadores }
 
 // ── a sessão interrompida (06): os seis blocos da T09 no desenho da cadeia do
 // encerramento; os confirmados feitos, o seguinte parado e o resto esperando ──
+// Os confirmados mostram o conteúdo do bloco no par do caso, o mesmo da T09
+// (decisão 49 · o do caso, nunca o do herói: o QAH-1M67 não tem região, e as
+// cercas dizem 'nenhuma'); a limpeza, 'feita'. A legenda do bloco que parou diz o
+// que já foi gravado, montada dos confirmados do caso, sem a limpeza: 'o ativo e
+// as cercas já estão gravados' (só o ativo e as cercas têm a forma com artigo no
+// textos.md; outro bloco, sem texto, fica de fora — G25)
+const LIMPEZA = ORDEM[0]
 export function interrompida() {
   const c = M.casos[CASO_INTERROMPIDA]
   const quando = c.diasAtras === 0 ? T.hoje : null // o caso é de hoje; outra idade não tem texto aprovado (G25)
+  const conteudo = conteudoDo({ ativoId: c.ativoId, moduloSerial: c.moduloSerial })
+  const gravados = ORDEM.slice(0, c.confirmados).filter((b) => b !== LIMPEZA && T.comArtigo[b]).map((b) => T.comArtigo[b])
   const blocos = ORDEM.map((b, i) => {
-    if (i < c.confirmados) return { estado: 'ok', nome: ROTULOS[b], situacao: VERSOES[b] ?? T.feita }
-    if (i === c.confirmados) return { estado: 'pausa', nome: ROTULOS[b], situacao: T.parouAqui, legenda: T.versaoAteAqui(c.versaoGravada) }
+    if (i < c.confirmados) return { estado: 'ok', nome: ROTULOS[b], situacao: b === LIMPEZA ? T.feita : conteudo[b] }
+    if (i === c.confirmados) return { estado: 'pausa', nome: ROTULOS[b], situacao: T.parouAqui, legenda: gravados.length > 1 ? T.jaGravados(gravados) : undefined }
     return { estado: 'espera', nome: ROTULOS[b], situacao: T.aindaNao }
   })
   return {

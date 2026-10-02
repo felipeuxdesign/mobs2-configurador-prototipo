@@ -63,7 +63,8 @@ export const TX = {
   min: (m) => `${m} min`,
 
   etapas: {
-    preChecagem: 'Pré-checagem',
+    // o pacote 1 (decisão 44): a pré-checagem virou o Diagnóstico do módulo, e o resumo diz as linhas dele
+    diagnostico: 'Diagnóstico',
     configuracao: 'Configuração',
     calibracao: 'Calibração',
     ciclo: 'Ciclo dinâmico',

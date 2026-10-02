@@ -1,34 +1,40 @@
 // T06 · o movimento de selecionar o ativo (02-telas/T06-selecionar-ativo/animacao.md; gate C12·4,
-// C12·8, C12·10, C12·11, C12·18, C12·19 e C12·20):
+// C12·8, C12·10, C12·18 e C12·20; o pacote 1, decisão 46):
 //   · o marcador de escolha: tocar num ônibus, o quadrado lima surge (opacidade e escala, 150);
 //     o que perde a marca faz o contrário (C12·20, a peça); o Usar este ativo, que passa a valer com
 //     o mesmo texto, acende por uma camada (C12·8, como o Ver as unidades da T02 — a revisão de 27/09);
 //   · a lista que a busca filtra: o que fica desliza pro lugar novo, o que sai esmaece por cima
 //     (a cópia), o que volta esmaece no lugar, em 150 (C12·10, useReorganiza);
-//   · a troca de quadro (C12·4): a lista que vira *Confirmar o veículo*, e a volta, e a trava que
+//   · a troca de quadro (C12·4): a lista que vira *Confirmar o vínculo*, e a volta, e a trava que
 //     o leitor sem fio resolve (05 → 01), e a placa de outro pacote que a busca acha (a trava 04): o
-//     conteúdo esmaece em 150, como entre telas, sem a lista andar por cima. O par de chassis chega com
-//     ele (T06·2, C12·11);
-//   · a confirmação manual (T06·3): o quadrado surge, e o primário acende por uma camada (C12·8);
-//     desmarcar apaga o primário direto;
-//   · o pedido de correção (T06·1): o cartão vira o registro no lugar, em 150, e nada fica
-//     animando depois (C12·19) — pela porta da Ibura, o RDF-3R14 do chassi divergente.
+//     conteúdo esmaece em 150, como entre telas, sem a lista andar por cima. Os dados do modelo chegam
+//     com ele, e não esmaecem de novo por dentro;
+//   · o vínculo confirmado: `Vincular o módulo` leva à T09, no que vai ser gravado (05) — a
+//     instalação nova, o padrão (D1);
+//   · o 10 e o 11, os avisos do vínculo, abrem só pela coluna, parados: o aviso chega com o quadro
+//     (animacao.md, a nota no protótipo), e nada anda.
 // A tela abre parada pela URL, em cada momento e estado, e no print. Com reduzir, nada anda.
+// Com o pacote 1 saíram a confirmação manual do sem chassi (o 03, o KNB-5H39 com a caixa) e o
+// pedido de correção (o 02 e o 07, o RDF-3R14 pela porta da Ibura); e a T06 passou a vir depois do
+// diagnóstico: da T05, `Conectar ao …` abre a T07, e o `Selecionar ativo` dela, com as sete linhas
+// passadas, abre a T06.
 const C = 'cubic-bezier(0.2, 0.8, 0.2, 1)'
 const TROCA = [{ prop: 'opacity', ms: 150, em: 'tela-miolo', curva: C }, { prop: 'opacity', ms: 150, em: 'ds-rodape', curva: C }]
 const desliza = (em) => ({ prop: 'transform', ms: 150, em, curva: C })
 const esmaece = (em) => ({ prop: 'opacity', ms: 150, em, curva: C })
 const MARCA = [esmaece('ds-quadrado-cheio'), desliza('ds-quadrado-cheio')]
 const ACENDE = esmaece('ds-primario-antes')
-const CHECKBOX_SOLTA = { prop: 'opacity', ms: 100, em: 'ds-checkbox', curva: C }   // o pressionado do checkbox solta em 100, como a linha (C12·17, G14 a · o conserto de 27/09)
 const SAI = 'ds-reorganiza-sai'
 const LAYOUT = ['height', 'top', 'margin-top', 'margin-bottom', 'padding-top', 'max-height'].map((prop) => ({ prop }))
 const BUSCA = 'Buscar placa, frota ou módulo'
-const CONFIRMO = 'Confirmo que o KNB-5H39 é o veículo à minha frente'
+const FICA = 'O M2C-0417 fica neste ativo, na Viação Atlântico Sul.'
+// os dados do modelo e o aviso nascem com o quadro: nada esmaece de novo dentro dele
+const DENTRO = [esmaece('ds-dados-modelo'), esmaece('ds-aviso')]
 
 const PARADA = [{ quieto: true }, { dorme: 600 }, { quieto: true }]
-const MOMENTOS = ['01-momento-confirmar-o-veiculo', '07-momento-correcao-solicitada', '08-momento-busca-sem-resultado', '09-momento-busca-esconde-a-escolha']
-const ESTADOS = ['02-estado-chassi-divergente', '03-estado-sem-chassi-na-can', '04-estado-fora-do-pacote', '05-estado-conflito-de-pinos-resolvivel', '06-estado-conflito-de-pinos-sem-saida']
+const MOMENTOS = ['01-momento-confirmar-o-veiculo', '08-momento-busca-sem-resultado', '09-momento-busca-esconde-a-escolha']
+const ESTADOS = ['04-estado-fora-do-pacote', '05-estado-conflito-de-pinos-resolvivel', '06-estado-conflito-de-pinos-sem-saida',
+  '10-estado-modulo-em-outro-ativo', '11-estado-modulo-ja-deste-ativo']
 
 export default [
   // ── abre parada: pela URL, em cada momento e em cada estado, e no print ──
@@ -41,6 +47,18 @@ export default [
   ...PARADA,
   ...MOMENTOS.flatMap((m) => [{ abre: `?tela=T06&momento=${m}&print=1` }, ...PARADA]),
   ...ESTADOS.flatMap((e) => [{ abre: `?tela=T06&estado=${e}&print=1` }, ...PARADA]),
+
+  // ── os avisos do vínculo (10, 11): parados, com o aviso no quadro, e o app sem toque (o palco) ──
+  { abre: '?tela=T06&estado=10-estado-modulo-em-outro-ativo' },
+  { ve: 'O M2C-0417 ESTÁ NO QTM-5S79' },
+  { ve: 'O M2C-0417 passa a ficar neste ativo, na Viação Atlântico Sul.' },
+  { ve: 'Desvincular e vincular aqui' },
+  { quieto: true },
+  { abre: '?tela=T06&estado=11-estado-modulo-ja-deste-ativo' },
+  { ve: 'O M2C-0417 JÁ É DESTE ATIVO' },
+  { ve: 'O vínculo já existe — nada muda nele.' },
+  { ve: 'Seguir pra manutenção' },
+  { quieto: true },
 
   // ── o marcador (C12·20) e a lista que filtra (C12·10) ──
   { abre: '?tela=T06' },
@@ -72,13 +90,16 @@ export default [
   { dorme: 250 },
   { quieto: true },
 
-  // ── a troca de quadro (C12·4): a lista que vira *Confirmar o veículo*, com o par de chassis (T06·2) ──
+  // ── a troca de quadro (C12·4): a lista que vira *Confirmar o vínculo*, com os dados do modelo ──
   { abre: '?tela=T06' },
   { toca: 'RKT-8H42' },
   { dorme: 250 },
-  { toca: 'Usar este ativo', anima: TROCA, naoAnima: [desliza('ds-linha-onibus'), esmaece(SAI)] },
+  { toca: 'Usar este ativo', anima: TROCA, naoAnima: [desliza('ds-linha-onibus'), esmaece(SAI), ...DENTRO] },
   { chega: 'T06', momento: '01-momento-confirmar-o-veiculo' },
-  { ve: 'Os dois batem — é este veículo.' },
+  { ve: 'Confirmar o vínculo' },
+  { ve: 'OF-1621 · ônibus urbano' },
+  { ve: FICA },
+  { naoVe: 'CHASSI' },
   { dorme: 250 },
   { quieto: true },
   // a volta: o mesmo movimento
@@ -95,79 +116,41 @@ export default [
   { toca: 'Escolher outro', anima: TROCA },
   { dorme: 250 },
   { quieto: true },
-  { abre: '?tela=T06' },
 
-  // ── a confirmação manual (T06·3): o quadrado surge, e o primário acende por uma camada ──
-  { toca: 'KNB-5H39' },
-  { dorme: 250 },
-  // o primário que se apaga no mesmo toque perde o roxo de uma vez (C12·18)
-  { toca: 'Usar este ativo', anima: TROCA, naoAnima: [{ prop: 'opacity', em: 'ds-primario-desabilitado' }] },
-  { ve: 'SEM CHASSI NA CAN' },
-  { desligado: 'Usar este ativo' },
-  { dorme: 250 },
-  { quieto: true },
-  { toca: CONFIRMO, anima: [esmaece('ds-quadrado'), ACENDE, CHECKBOX_SOLTA] },
-  // a régua rola o miolo até a caixa pra tocar: o indicador de rolagem (R-15) aparece e some
-  // depois de --rolagem-espera (900) e do esmaecer dele (300); fora ele, nada anda
-  { dorme: 1300 },
-  { quieto: true },
-  // desmarcar: o quadrado some igual (C12·6), e o primário se apaga direto, sem camada
-  { toca: CONFIRMO, anima: [esmaece('ds-quadrado'), CHECKBOX_SOLTA], naoAnima: [ACENDE] },
-  { desligado: 'Usar este ativo' },
-  { dorme: 1300 },
-  { quieto: true },
-  { toca: CONFIRMO, anima: [ACENDE] },
+  // ── o vínculo confirmado: Vincular o módulo → T09, no que vai ser gravado (05) ──
+  { abre: '?tela=T06' },
+  { toca: 'RKT-8H42' },
   { dorme: 250 },
   { toca: 'Usar este ativo', anima: TROCA },
-  { chega: 'T07' },
+  { chega: 'T06', momento: '01-momento-confirmar-o-veiculo' },
+  { dorme: 250 },
+  { quieto: true },
+  { toca: 'Vincular o módulo' },
+  { chega: 'T09', momento: '05-momento-o-que-vai-ser-gravado' },
 
   // ── a trava que o leitor sem fio resolve (05 → 01): pela sessão do M2C-0335, com cabo ──
+  // da T05, a conexão abre o diagnóstico (T07), e o Selecionar ativo dele abre a T06
   { abre: '?tela=T05&momento=01-momento-nenhum-escolhido' },
   { toca: 'M2C-0335' },
   { dorme: 250 },
   { toca: 'Conectar ao M2C-0335' },
-  { toca: 'Acordar módulo', ms: 9000 },
-  { toca: 'Selecionar ativo', ms: 6000 },
+  { chega: 'T07' },
+  { toca: 'Selecionar ativo', ms: 15000 },
   { chega: 'T06', momento: null },
   { toca: 'KHT-4B08' },
   { dorme: 250 },
   { toca: 'Usar este ativo', anima: TROCA },
   { ve: 'CONFLITO NO FIO BRANCO' },
-  { dorme: 250 },
+  // a régua rola a lista até o KHT-4B08 pra tocar, e a lista que vira a trava volta a rolagem
+  // a 0: o indicador de rolagem (R-15) aparece e some depois de --rolagem-espera (900) e do
+  // esmaecer dele (300); fora ele, nada anda
+  { dorme: 1300 },
   { quieto: true },
-  { toca: 'Usar leitor sem fio', anima: TROCA },
+  { toca: 'Usar leitor sem fio', anima: TROCA, naoAnima: DENTRO },
   { chega: 'T06', momento: '01-momento-confirmar-o-veiculo' },
-  { ve: 'CHASSI LIDO DO VEÍCULO' },
+  { ve: 'O M2C-0335 fica neste ativo, na Viação Atlântico Sul.' },
   { dorme: 250 },
   { quieto: true },
-
-  // ── o pedido de correção (T06·1), pela porta da Ibura: o RDF-3R14 tem o chassi divergente ──
-  { abre: '?tela=T02' },
-  { toca: 'Garagem Ibura' },
-  { toca: 'Sincronizar Garagem Ibura' },
-  { chega: 'T03', momento: '02-momento-concluido', ms: 9000 },
-  { toca: 'Ir para o menu' },
-  { chega: 'T04' },
-  { toca: 'Entendi' },
-  { dorme: 250 },
-  { toca: 'CONECTAR MÓDULO' },
-  { chega: 'T05', momento: '01-momento-nenhum-escolhido' },
-  { toca: 'M2C-0417' },
-  { dorme: 250 },
-  { toca: 'Conectar ao M2C-0417' },
-  { toca: 'Selecionar ativo', ms: 12000 },
-  { chega: 'T06', momento: null },
-  { toca: 'RDF-3R14' },
-  { dorme: 250 },
-  { toca: 'Usar este ativo', anima: TROCA },
-  { ve: 'NO CADASTRO' },
-  { dorme: 250 },
-  { quieto: true },
-  { toca: 'Solicitar correção de cadastro', anima: [esmaece('ds-linha-tocavel')] },
-  { chega: 'T06', momento: '07-momento-correcao-solicitada' },
-  { ve: 'Correção solicitada às 14:30' },
-  { dorme: 1300 },    // o indicador de rolagem do toque da régua some (R-15)
-  { quieto: true },   // o registro sem resto (C12·19)
 
   // ── com reduzir movimento: nada anda ──
   { reduzir: true },
@@ -192,52 +175,25 @@ export default [
   { toca: 'Usar este ativo' },
   { quieto: true },
   { chega: 'T06', momento: '01-momento-confirmar-o-veiculo' },
+  { ve: FICA },
   { toca: 'Escolher outro' },
   { quieto: true },
   { chega: 'T06', momento: null },
-  { abre: '?tela=T06' },   // a busca guarda o termo na volta: a lista inteira, de novo
-  { toca: 'KNB-5H39' },
-  { toca: 'Usar este ativo' },
-  { quieto: true },
-  { toca: CONFIRMO },
-  { quieto: true },
-  { toca: 'Usar este ativo' },
-  { chega: 'T07' },
-  { quieto: true },
   // a trava que o leitor sem fio resolve, direto
   { abre: '?tela=T05&momento=01-momento-nenhum-escolhido' },
   { toca: 'M2C-0335' },
   { toca: 'Conectar ao M2C-0335' },
-  { toca: 'Acordar módulo', ms: 9000 },
-  { toca: 'Selecionar ativo', ms: 6000 },
+  { chega: 'T07' },
+  { toca: 'Selecionar ativo', ms: 15000 },
   { chega: 'T06', momento: null },
   { toca: 'KHT-4B08' },
   { toca: 'Usar este ativo' },
   { ve: 'CONFLITO NO FIO BRANCO' },
   { quieto: true },
   { toca: 'Usar leitor sem fio' },
-  { ve: 'CHASSI LIDO DO VEÍCULO' },
+  { ve: 'O M2C-0335 fica neste ativo, na Viação Atlântico Sul.' },
   { quieto: true },
-  // o pedido de correção, pela porta da Ibura: o registro entra direto, sem resto
-  { abre: '?tela=T02' },
-  { toca: 'Garagem Ibura' },
-  { toca: 'Sincronizar Garagem Ibura' },
-  { chega: 'T03', momento: '02-momento-concluido', ms: 9000 },
-  { toca: 'Ir para o menu' },
-  { chega: 'T04' },
-  { toca: 'Entendi' },
-  { toca: 'CONECTAR MÓDULO' },
-  { chega: 'T05', momento: '01-momento-nenhum-escolhido' },
-  { toca: 'M2C-0417' },
-  { toca: 'Conectar ao M2C-0417' },
-  { toca: 'Selecionar ativo', ms: 12000 },
-  { chega: 'T06', momento: null },
-  { toca: 'RDF-3R14' },
-  { toca: 'Usar este ativo' },
-  { ve: 'NO CADASTRO' },
-  { quieto: true },
-  { toca: 'Solicitar correção de cadastro' },
-  { ve: 'Correção solicitada às 14:30' },
-  { quieto: true },
+  { toca: 'Vincular o módulo' },
+  { chega: 'T09', momento: '05-momento-o-que-vai-ser-gravado' },
   { reduzir: false },
 ]

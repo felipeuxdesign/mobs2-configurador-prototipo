@@ -19,7 +19,7 @@ import { TX as T02 } from '../../telas/T02/textos.js'
 import { filtrar as filtrarUnidades, gruposDo } from '../../telas/T02/garagens.js'
 import { doPacote, modeloDe, filtrar as filtrarOnibus, contagemDoPacote } from '../../telas/T06/dados.js'
 import { TX as T05 } from '../../telas/T05/textos.js'
-import { porPerto, cadastrado, varianteNaLista, firmwareDe, HEROI } from '../../telas/T05/dados.js'
+import { porPerto, varianteNaLista, firmwareDe, HEROI } from '../../telas/T05/dados.js'
 import { T as T15 } from '../../telas/T15/textos.js'
 import { quadroDoEstado, grupos as gruposDaFila, linhaDaLista } from '../../telas/T15/dados.js'
 import '../../telas/T02/T02.css'
@@ -156,18 +156,17 @@ function Modulos() {
   const [montagem, setMontagem] = useState({ vez: 0, surge: false })
   const [marcado, setMarcado] = useState(null)
   const perto = porPerto()
-  const ultimo = perto.length - 1
   const monta = (surge) => { setMarcado(null); setMontagem((m) => ({ vez: m.vez + 1, surge })) }
   return (
     <div className="vitrine-ml-pilha">
       <CabecalhoConteudo titulo={T05.titulo} contagem={perto.length} unidade={T05.encontrados(perto.length)} />
       <span id="vitrine-ml-escolha" className="t05-frase">{T05.escolhaNaMao}</span>
       <Lista key={montagem.vez} surge={montagem.surge} className="t05-lista" role="radiogroup" aria-labelledby="vitrine-ml-escolha">
-        {perto.map((p, i) => (cadastrado(p.serial)
-          ? <LinhaModulo key={p.serial} escolha serial={p.serial} variante={varianteNaLista(p.serial)}
-              rotuloValor={T05.rotuloFirmware} valor={firmwareDe(p.serial)} marcado={p.serial === marcado} aoTocar={() => setMarcado(p.serial)}
-              divisoria={i < ultimo} fim={i === ultimo} />
-          : <LinhaModulo key={p.serial} escolha apagada serial={p.serial} variante={T05.foraDestaEmpresa} divisoria={i < ultimo} fim={i === ultimo} />))}
+        {/* a errata do pacote 1: as cinco se escolhem, o M2C-0999 também, e todas levam a divisória (T05/01) */}
+        {perto.map((p) => (
+          <LinhaModulo key={p.serial} escolha serial={p.serial} variante={varianteNaLista(p.serial)}
+            rotuloValor={T05.rotuloFirmware} valor={firmwareDe(p.serial)} marcado={p.serial === marcado} aoTocar={() => setMarcado(p.serial)} />
+        ))}
       </Lista>
       <Controles>
         <Botao aoTocar={() => monta(true)}>bancada · a busca acha</Botao>

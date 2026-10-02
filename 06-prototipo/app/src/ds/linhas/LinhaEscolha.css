@@ -8,6 +8,8 @@
 .ds-escolha-valor { font-size: var(--t-secundario); font-weight: 700; color: var(--tinta-apagada); flex-shrink: 0; }
 .ds-escolha-escolhida .ds-escolha-nome { color: var(--tinta); }
 .ds-escolha-vencida .ds-escolha-nome { color: var(--tinta-apagada); }
+/* pacote 1 · a escolha do bloco (T09/08): o valor em --tinta-secundaria */
+.ds-escolha-valor-secundaria { color: var(--tinta-secundaria); }
 
 /* ── C12 · o movimento fino ── */
 /* a vencida que se escolhe (C12·20): o quadrado no meio do poço, fora do fluxo, por

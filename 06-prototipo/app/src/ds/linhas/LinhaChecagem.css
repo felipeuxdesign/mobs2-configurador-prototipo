@@ -41,6 +41,12 @@
 .ds-checagem-ainda-nao .ds-checagem-titulo,
 .ds-checagem-ainda-nao .ds-checagem-valor { color: var(--tinta-apagada); }
 
+/* o pacote 1 · T07/05 e 07 · a linha que só informa (folha 4): o i cinza no poço, o título em 600
+ * e --tinta, a frase embaixo em --tinta-secundaria, o valor em --tinta */
+.ds-checagem-informa .ds-checagem-titulo { font-weight: 600; color: var(--tinta); }
+.ds-checagem-informa .ds-checagem-causa { color: var(--tinta-secundaria); }
+.ds-checagem-informa .ds-checagem-valor { color: var(--tinta); }
+
 /* C6 · T05 · a checagem que corre: o quadrado branco de 10 no poço de 24, o valor em --tinta */
 .ds-checagem-agora .ds-poco-24 .ds-glifo-agora { width: var(--e-10); height: var(--e-10); }
 .ds-checagem-agora .ds-checagem-valor { color: var(--tinta); }

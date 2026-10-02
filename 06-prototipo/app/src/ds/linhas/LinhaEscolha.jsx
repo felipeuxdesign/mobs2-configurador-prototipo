@@ -20,6 +20,12 @@
 // quadrado se trocavam no poço, e o lima nascia pronto, sem se mover. Parada, a linha
 // é a mesma de antes, pixel a pixel. A tela não liga nada: a peça lembra que a linha
 // é uma vencida, porque a tela escolhida a passa como 'escolhida'.
+//
+// Pacote 1 · a escolha do bloco na manutenção (T09/08): `valorTom` 'secundaria', o
+// valor à direita em --tinta-secundaria, como a 08 desenha (na T02 ele é
+// --tinta-apagada: a pergunta vai ao arquiteto); `inerte`, a linha que ainda não se
+// escolhe — no desenho igual às outras, sem o pressionado, e desabilitada pro leitor
+// (os blocos sem texto aprovado pro reenvio, G25).
 import { useRef } from 'react'
 import { Tocavel } from '../primitivos/Tocavel.jsx'
 import { Poco } from '../primitivos/Poco.jsx'
@@ -27,7 +33,7 @@ import { Glifo } from '../primitivos/Glifo.jsx'
 import { Quadrado } from '../primitivos/Marcador.jsx'
 import './LinhaEscolha.css'
 
-export function LinhaEscolha({ nome, detalhe, valor, estado = 'disponivel', aoTocar, rotulo, nomeGlifo, divisoria = true, escolhivel = false, className = '' }) {
+export function LinhaEscolha({ nome, detalhe, valor, estado = 'disponivel', aoTocar, rotulo, nomeGlifo, divisoria = true, escolhivel = false, valorTom, inerte = false, className = '' }) {
   const vencida = estado === 'vencida'
   const escolhida = estado === 'escolhida'
   // a vencida que se escolhe: o quadrado mora no poço por cima do traço, e a linha lembra disso
@@ -38,7 +44,7 @@ export function LinhaEscolha({ nome, detalhe, valor, estado = 'disponivel', aoTo
     <Tocavel
       className={`ds-escolha ds-escolha-${estado} ${divisoria ? '' : 'ds-escolha-sem-divisoria'} ${className}`}
       role="radio" aria-checked={escolhida}
-      rotulo={rotulo} aoTocar={aoTocar} desabilitado={vencida && !escolhivel}
+      rotulo={rotulo} aoTocar={aoTocar} desabilitado={(vencida && !escolhivel) || inerte}
     >
       <Poco tam={30} className={sobre ? 'ds-escolha-poco-sobre' : ''} aria-hidden={vencida && escolhivel ? true : undefined}>
         {vencida && <Glifo key="traco" estado="traco" nome={nomeGlifo} />}
@@ -48,7 +54,7 @@ export function LinhaEscolha({ nome, detalhe, valor, estado = 'disponivel', aoTo
         <span className="ds-escolha-nome">{nome}</span>
         <span className="ds-escolha-detalhe">{detalhe}</span>
       </span>
-      {valor != null && <span className="ds-escolha-valor">{valor}</span>}
+      {valor != null && <span className={`ds-escolha-valor ${valorTom ? `ds-escolha-valor-${valorTom}` : ''}`}>{valor}</span>}
     </Tocavel>
   )
 }

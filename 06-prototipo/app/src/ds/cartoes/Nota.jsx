@@ -5,6 +5,10 @@
 //   achado  · C11 (G11): o que a leitura achou e não classifica (T11/01) — a
 //             borda do poço, 10 · 12, 2 entre o rótulo e a frase, os dois em
 //             --tinta-secundaria, a frase de 13 a 1,4
+//   aguarda · o pacote 1 (folha 4, 'nota com rótulo'; T07/00 e 02 a 07): a CAN que
+//             espera o bloco do ativo — 10 · 12 em volta, o rótulo e a frase em
+//             --tinta-apagada, a frase de 12 em 400, na entrelinha da frase que
+//             explica na caixa apagada (1,5). O tom fato da T04 fica como está
 // antesDoRodape: a folga de 16 até o rodapé, quando a nota fecha o conteúdo.
 import './caixas.css'
 import './Nota.css'

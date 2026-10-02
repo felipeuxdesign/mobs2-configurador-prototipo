@@ -6,6 +6,7 @@ import { caixaAlta, pacotePassouDoBloqueio, idadeNaLinhaDaGaragem } from '../../
 import { filaDoMundo } from '../../estado/fila.js'
 import { garagemDe } from '../../dados/garagens.js'
 import { EMPRESA_ESCOLHIDA, HEROI, UMA_EMPRESA, mundoDasEmpresas, temVariasEmpresas as variasNoContexto } from '../T02/empresas.js'
+import { dadosDoModelo } from '../T06/dados.js'
 
 // os nomes das referências (02-telas/T04-menu/referencias)
 export const REF = {
@@ -23,6 +24,7 @@ export const REF = {
   acesso: '12-estado-acesso-vencendo',
   encerrar: '13-momento-encerrar-antes-de-homologar',
   empresa: '14-estado-folha-trocar-de-unidade-com-empresa',
+  semConexao: '15-estado-sem-conexao',
 }
 
 // o que está por cima do menu em cada referência: a folha da conta, o
@@ -47,8 +49,8 @@ export const placaDe = (id) => ativo(id)?.placa
 export const uoDe = garagemDe
 
 // O que a sessão prendeu, pro cartão da folha (T04/10, 11): a identidade e as
-// linhas do detalhe, do mock. As palavras em volta do dado (firmware, frota,
-// chassi) são as do textos.md.
+// linhas do detalhe, do mock. As palavras em volta do dado (firmware, frota)
+// são as do textos.md.
 // o módulo: 'VL06 · CAN-BT · firmware 2.3.5'
 export function moduloPreso(serial) {
   const m = M.modulos.find((x) => x.serial === serial)
@@ -56,12 +58,24 @@ export function moduloPreso(serial) {
   const modelo = M.modelos.find((x) => x.id === m.modeloId)
   return { identidade: serial, detalhes: [`${modelo.nome} · ${m.variante} · firmware ${m.firmware}`] }
 }
-// o ativo: 'frota 1003 · Ônibus urbano OF-1621' e 'chassi 9BM384067GB120401'
+// o ativo (decisão 46: o modelo, não o chassi): 'frota 1003' e
+// 'Mercedes-Benz · OF-1621 · ônibus urbano' — o fabricante e o modelo com o tipo,
+// pela mesma conta dos dados do modelo da T06 (o tipo sai do nome do modelo de
+// ativo sem o código: o mock não o declara; desvio nomeado, pro arquiteto)
 export function ativoPreso(id) {
   const a = ativo(id)
   if (!a) return { identidade: undefined, detalhes: [] }
-  const modelo = M.modelosAtivo.find((x) => x.id === a.modeloAtivoId)
-  return { identidade: a.placa, detalhes: [`frota ${a.frota} · ${modelo.nome}`, `chassi ${a.chassi}`] }
+  const { fabricante, modelo } = dadosDoModelo(a)
+  return { identidade: a.placa, detalhes: [`frota ${a.frota}`, `${fabricante} · ${modelo}`] }
+}
+
+// A rede do menu (decisão 48): o herói começa com rede, e o Últimas instalações
+// fica ligado; o 15 abre pela coluna sem ela, montado pelo caso sem-conexao-no-menu.
+// Só o Últimas instalações depende dela (HU-T04-6)
+export const CASO_SEM_REDE = 'sem-conexao-no-menu'
+export function temRede(unico, est) {
+  if (est === REF.semConexao) return M.casos[CASO_SEM_REDE].rede
+  return unico.situacao.rede === 'conectada'
 }
 
 // as iniciais do técnico: a primeira letra do primeiro e do último nome

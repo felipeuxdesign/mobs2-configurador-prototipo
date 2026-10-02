@@ -1,14 +1,23 @@
-/* T07 · Dados da CAN — só a montagem da tela; o desenho de cada bloco é da peça.
- * A barra do sistema na cor da faixa, a faixa da sessão, o miolo e o rodapé. */
+/* T07 · Diagnóstico do módulo — só a montagem da tela; o desenho de cada bloco é
+ * da peça (a linha de checagem, a lista, a nota, o cabeçalho). Só tokens. */
 .t07 { height: 100%; display: flex; flex-direction: column; background: var(--fundo-pagina); color: var(--tinta); }
 
-/* o miolo: entre a faixa e o rodapé, rola quando passa de 800 (G16) — no 01,
- * a causa da bateria abre espaço e o miolo passa dos 577 —, sem a barra de
- * rolagem do navegador do computador, que nenhuma referência desenha. A folga
- * de 16 até o rodapé é o recheio dele; o resumo apagado fica no pé (aoPe). */
-.t07-miolo {
+/* o miolo: entre a barra (ou a faixa) e o rodapé, 14 em cima, 16 dos lados e
+ * até o rodapé, 12 entre os blocos, como as onze referências desenham. Rola
+ * quando passa de 800 (G16), sem a barra de rolagem do computador. */
+.t07 .t07-miolo {
   flex-grow: 1; min-height: 0; overflow-y: auto; scrollbar-width: none;
-  display: flex; flex-direction: column; gap: var(--e-6);
-  padding: var(--e-14) var(--e-16) var(--respiro) var(--e-16);
+  display: flex; flex-direction: column; gap: var(--e-12);
+  padding: var(--e-14) var(--respiro) var(--respiro) var(--respiro);
 }
 .t07-miolo > * { flex-shrink: 0; }
+
+/* o cabeçalho: sem a faixa (as travas, a atualização do firmware, a leitura que
+ * corre), o módulo em cima do título, a 2 — o rótulo de topo em 12, com a letra
+ * de 1.2, em todas as referências que o desenham (02, 03, 04, 05 e 06) */
+.t07-cabeca { display: flex; flex-direction: column; gap: var(--e-2); }
+.t07-rotulo-topo { font-size: var(--t-legenda); font-weight: 700; letter-spacing: var(--ls-rotulo-topo-fora); color: var(--tinta-secundaria); }
+
+/* as duas seções, O MÓDULO e A CAN: o rótulo de bloco e, a 8, a lista ou a caixa */
+.t07-secao { display: flex; flex-direction: column; gap: var(--e-8); }
+.t07-rotulo-bloco { font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--tinta-apagada); }

@@ -1,4 +1,4 @@
-// T04 · Menu (02-telas/T04-menu): a grade de dez cartões em que cada
+// T04 · Menu (02-telas/T04-menu): a grade de nove cartões em que cada
 // ferramenta diz, no próprio cartão, o que falta pra ela funcionar. Em cima, a
 // tira de contexto e a faixa da sessão; por cima, as folhas da conta, da
 // unidade, do módulo e do ativo da sessão, os diálogos de sair e de trocar, o
@@ -22,18 +22,20 @@ import { CartaoPreso } from './pecas.jsx'
 import {
   REF, SOBRE, MOMENTO_DA_FOLHA, FOLHAS, SOB_A_FAIXA, placaDe, uoDe, iniciais, filaToda, pendentesDaGaragem, naFila,
   enviando, checklistPendentes, prazoDoAcesso, avisoDoAcesso, garagens, moduloPreso, ativoPreso, temVariasEmpresas,
-  mundoDoMenu, TROCA_DE_EMPRESA, destinoDaTroca, depoisDoTrocar,
+  mundoDoMenu, TROCA_DE_EMPRESA, destinoDaTroca, depoisDoTrocar, temRede,
 } from './dados.js'
 import './t04.css'
 
-// as seis ferramentas que dependem do módulo e do ativo, na ordem da grade
+// as cinco ferramentas que dependem do módulo e do ativo, na ordem da grade (pacote 1,
+// decisão 44): o Diagnóstico do módulo no lugar do Dados da CAN, e sem o Refazer leitura.
+// O Diagnóstico só precisa do módulo (T04/02: liberado, com o módulo sem ativo); as outras,
+// do módulo e do ativo. O Finalizar com checklist ocupa a linha (CartaoFerramenta · linha)
 const FERRAMENTAS = [
-  { icone: 'can', titulo: 'Dados da CAN', tela: 'T07' },
+  { icone: 'can', titulo: 'Diagnóstico do módulo', tela: 'T07', soModulo: true },
   { icone: 'configurar', titulo: 'Configurar módulo', tela: 'T09' },
-  { icone: 'refazer', titulo: 'Refazer leitura', tela: 'T08' },
   { icone: 'calibracao', titulo: 'Calibração', tela: 'T10' },
   { icone: 'conferir', titulo: 'Conferir configuração', tela: 'T11' },
-  { icone: 'checklist', titulo: 'Finalizar com checklist', tela: 'T13', contaChecklist: true },
+  { icone: 'checklist', titulo: 'Finalizar com checklist', tela: 'T13', contaChecklist: true, linha: true },
 ]
 const HEROI = SEMENTES.T04.sessao
 
@@ -53,9 +55,10 @@ function ajusteDoMomento(momento, unico, est) {
 }
 
 // Num estado da coluna, o mundo é o do caso (receitas.js): a falha do 03 é só
-// "o link caiu", na sessão do herói; o 04 e o 09 também pedem a sessão inteira.
+// "o link caiu", na sessão do herói; o 04, o 09 e o 15 (sem rede, com a faixa do
+// herói, como a referência desenha) também pedem a sessão inteira.
 function sessaoDoEstado(sessao, est) {
-  const precisa = est === REF.falha || est === REF.checklist || est === REF.trocar
+  const precisa = est === REF.falha || est === REF.checklist || est === REF.trocar || est === REF.semConexao
   const base = precisa && !sessao?.ativoId ? HEROI : sessao
   return est === REF.falha && M.casos['link-perdido'] ? { ...base, saude: 'falha' } : base
 }
@@ -80,7 +83,7 @@ export default function T04({ momento, estado: est }) {
   const subindo = est === REF.envio ? enviando(fila) : 0
   // T04·2 (b): o contador do checklist só depois de aberto uma vez
   const checklistAberto = mundo.etapas.checklist != null || est === REF.checklist
-  const rede = mundo.situacao.rede === 'conectada'
+  const rede = temRede(mundo, est)
 
   // o que está por cima do menu: pela referência do estado, pelo momento, ou o diálogo de trocar
   const sobre = est ? (SOBRE[est] ?? null) : (trocarPara ? 'trocar' : (SOBRE[momento] ?? null))
@@ -195,7 +198,9 @@ export default function T04({ momento, estado: est }) {
     : !completa
       ? <CartaoFerramenta largo estado="decide" icone="ativo" poco={poco} titulo="ATIVO SELECIONADO" valor="toque para escolher" aoTocar={() => ir('T06')} />
       : <CartaoFerramenta largo icone="ativo" poco={poco} titulo="ATIVO SELECIONADO" valor={placaDe(sessao.ativoId)} aoTocar={() => abrir('ativo')} />
-  const causa = !sessao ? 'espera módulo e ativo' : !completa ? 'espera ativo' : undefined
+  // o que cada ferramenta espera: o Diagnóstico, só o módulo; as outras, o módulo e o ativo
+  const liberada = (f) => (f.soModulo ? Boolean(sessao) : completa)
+  const causaDe = (f) => (!sessao ? (f.soModulo ? 'espera módulo' : 'espera módulo e ativo') : 'espera ativo')
 
   // ── por cima: as folhas e os diálogos ──
   // A folha fecha pelo X, pelo toque no véu, fora dela, e pelo voltar do
@@ -339,13 +344,14 @@ export default function T04({ momento, estado: est }) {
           <GradeFerramentas folga={10}>
             {conectar}
             {ativo}
-            {FERRAMENTAS.map((f) => completa
-              ? <CartaoFerramenta key={f.tela} icone={f.icone} titulo={f.titulo} aoTocar={() => ir(f.tela)}
+            {FERRAMENTAS.map((f) => liberada(f)
+              ? <CartaoFerramenta key={f.tela} linha={f.linha} icone={f.icone} titulo={f.titulo} aoTocar={() => ir(f.tela)}
                   contagem={f.contaChecklist && pendentesChecklist > 0 ? pendentesChecklist : undefined} />
-              : <CartaoFerramenta key={f.tela} estado="espera" titulo={f.titulo} causa={causa} />)}
+              : <CartaoFerramenta key={f.tela} linha={f.linha} estado="espera" titulo={f.titulo} causa={causaDe(f)} />)}
+            {/* decisão 48: depende só da rede do aparelho, não do módulo nem do ativo (T04/15) */}
             {rede
               ? <CartaoFerramenta icone="instalacoes" titulo="Últimas instalações" aoTocar={() => ir('T12')} />
-              : <CartaoFerramenta estado={completa ? 'sem-rede' : 'espera'} titulo="Últimas instalações" causa={completa ? 'sem conexão' : 'espera conexão'} />}
+              : <CartaoFerramenta estado="sem-rede" titulo="Últimas instalações" causa="sem conexão" />}
             <CartaoFerramenta icone="fila" titulo="Fila de saída" aoTocar={() => ir('T15')}
               contagem={pendentesFila > 0 ? pendentesFila : undefined} />
           </GradeFerramentas>

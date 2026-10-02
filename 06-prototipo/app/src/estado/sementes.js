@@ -20,7 +20,9 @@ export const SEMENTES = {
   T04: { contexto: varzea, sessao: sessao() },
   T05: { contexto: varzea },
   T06: { contexto: varzea, sessao: sessao(null) },
-  T07: { contexto: varzea, sessao: sessao() },
+  // a T07 (o pacote 1): a sessão do herói, ainda sem ativo, e o diagnóstico do módulo dele feito — os
+  // sete certos (tela.md); pela URL, a tela abre no 00, parada
+  T07: { contexto: varzea, sessao: sessao(null), etapas: { preChecagem: { checagens: M.diagnostico.modulo.length, passaram: M.diagnostico.modulo.length, aprovadas: M.diagnostico.modulo.length, moduloSerial: HEROI.moduloSerial } } },
   T09: { contexto: varzea, sessao: sessao() },
   T10: { contexto: varzea, sessao: sessao() },
   T11: { contexto: { uoId: 'uo-02', pacote: pacote('pac-uo-02') }, sessao: sessao('a-16', 'M2C-0438') },

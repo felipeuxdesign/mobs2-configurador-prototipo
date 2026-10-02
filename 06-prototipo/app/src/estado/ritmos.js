@@ -5,6 +5,7 @@
 // movimento.md, no ciclo da tela (G4).
 export const RITMOS = {
   preChecagemLinhaMs: 600,   // pré-checagem · cada linha
+  diagnosticoLinhaMs: 600,   // diagnóstico · cada linha (T07, o pacote 1): as sete do módulo depois da conexão, e os sinais da CAN no Ler de novo
   cadeiaBlocoMs: 1000,       // cadeia · cada bloco, gravado e relido
   conferenciaLinhaMs: 400,   // conferência da T11 · cada linha
   encerramentoPassoMs: 600,  // encerramento · cada passo

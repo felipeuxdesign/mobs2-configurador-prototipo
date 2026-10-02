@@ -15,3 +15,6 @@
 .t09 .tela-miolo > * { flex-shrink: 0; }
 /* com a cadeia parada (01, 02, 03), os blocos ficam a 12, como as referências desenham */
 .t09 .t09-miolo-justo { gap: var(--e-12); }
+/* a cadeia curta da manutenção (09): o que fica como está, embaixo dos dois elos — a
+ * frase de 12, na entrelinha de 1,5, em --tinta-apagada */
+.t09 .t09-ficam { margin: 0; font-size: var(--t-legenda); line-height: var(--entrelinha-frase); color: var(--tinta-apagada); }

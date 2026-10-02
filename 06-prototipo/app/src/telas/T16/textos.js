@@ -1,5 +1,5 @@
 // T16 · os textos exatos (02-telas/T16-sessao/textos.md). Onde o texto traz um
-// dado (a placa, o serial, a hora, a versão, a contagem, o contador lido), ele
+// dado (a placa, o serial, a hora, os blocos, a contagem, o contador lido), ele
 // é montado do mock na hora, em dados.js, e confere com o textos.md (G1, G8).
 // Os rótulos das assertivas e os valores fixos (fechado, restaurado, na fila)
 // vêm do M.autotesteEncerramento, e são os mesmos do textos.md.
@@ -79,6 +79,11 @@ export const T = {
   confere: 'confere',
   naoSeAplica: 'não se aplica',
   deTotalIdentificadores: (lidos, total) => `${lidos} de ${total}`,
+  // a errata do pacote 1 (T16/02): a assertiva dos identificadores, preservados pela limpeza
+  extendedId: 'Extended ID',
+  preservado: 'preservado',
+  // a prova da sessão encerrada: os blocos relidos, no lugar da versão (decisão 49)
+  blocos: (n) => `${n} blocos`,
   notaPlataforma: 'O ID na plataforma confirma quando a evidência subir.',
   bloqueada: 'A HOMOLOGAÇÃO FICA BLOQUEADA',
   causaContadores: 'Os contadores voltaram zerados — o módulo perdeu a leitura no reinício. A sessão fechou, mas a instalação não pode ser aprovada assim.',
@@ -92,9 +97,12 @@ export const T = {
   // a sessão interrompida
   iniciada: (placa, serial, quando, hora) => `${placa} · ${serial} · iniciada ${quando} às ${hora}`,
   hoje: 'hoje',
-  feita: 'feita',                // a limpeza confirmada (ela não tem versão), como na T09
+  feita: 'feita',                // a limpeza confirmada, como na T09
   parouAqui: 'parou aqui',
-  versaoAteAqui: (versao) => `a versão gravada até aqui é ${versao}`,
+  // o que já foi gravado (decisão 49): os blocos confirmados com o artigo, sem a limpeza
+  comArtigo: { ativo: 'o ativo', cercas: 'as cercas' },
+  // (só o plural tem texto: um bloco só, sem legenda — G25)
+  jaGravados: (blocos) => `${blocos.slice(0, -1).join(', ')} e ${blocos[blocos.length - 1]} já estão gravados`,
   retomar: 'Retomar',
   descartar: 'Descartar',
 

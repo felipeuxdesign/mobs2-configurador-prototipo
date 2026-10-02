@@ -1,33 +1,38 @@
 // T06 · Selecionar ativo (02-telas/T06-selecionar-ativo): escolher o ônibus que
-// está na frente do técnico e provar que é ele. A lista são os ônibus do pacote
-// da garagem do contexto (G9: os 10 do mock, e o miolo rola, G16). Tocar num
-// deles o marca, e o 'Usar este ativo' leva à confirmação (R-14; T06·1 b, o
-// T06-N3), que checa, nesta ordem, o pacote, os pinos e o chassi (T06·3 a):
+// está na frente do técnico e vincular o módulo a ele, na empresa (decisão 46).
+// Vem depois do diagnóstico (T07), com a sessão já aberta e a faixa *sem ativo*.
+// A lista são os ônibus do pacote da garagem do contexto (G9: os 10 do mock, e
+// o miolo rola, G16). Tocar num deles o marca, e o 'Usar este ativo' leva à
+// confirmação do vínculo (R-14; T06·1 b, o T06-N3), que checa, nesta ordem, o
+// pacote, os pinos e o vínculo (T06·3, com o vínculo no lugar do chassi):
 //   · fora do pacote → a trava, sem pedir cadastro (04)
 //   · o par da faixa é um caso de pinos → a trava com ou sem saída (05, 06);
 //     'Usar leitor sem fio' resolve no lugar: a sessão passa a sem fio (T06·4 a)
-//   · o modelo não manda chassi → a confirmação marcada libera o primário (03)
-//   · o chassi lido contra o do cadastro: batem (01) ou divergem (02);
-//     'Solicitar correção de cadastro' vira o registro no mesmo cartão (07)
-// O ônibus que não é caso abre a 01 com o lido igual ao cadastro (T06·2 a).
+//   · o vínculo: o módulo fica neste ativo (01) — o escolhido em cima e os dados
+//     do modelo embaixo, placa, frota, fabricante e modelo, sem chassi —; o
+//     módulo em outro ativo, com o aviso (10); o módulo que já é deste ativo, a
+//     manutenção (11). O 10 e o 11 são os casos do vínculo, que caem no par do
+//     herói e abrem só pela coluna, nunca pelo serial (D1): no fluxo, o vínculo
+//     é sempre novo — a instalação nova, o padrão
+// O vínculo decide o modo, sem pergunta ao técnico (logica.md · O vínculo decide
+// o modo): o modo e o desvínculo ficam no registro do vínculo, etapas.ativo, que
+// zera com a sessão; a T09 abre no que vai ser gravado (05) na instalação nova,
+// e no escolher o bloco (08) na manutenção.
 // A busca que não acha nenhum ônibus do pacote mostra o vazio declarado, com o
 // termo no título (08, a entrega de 25/09, que muda a T06·5). Enquanto a busca
 // esconde o ônibus marcado, o primário espera (decisão do diretor, 25/09, b), e
 // a URL diz o 09 (a otimização do design). Com um termo na busca, a instrução
 // sai: embaixo do campo fica o que a busca achou, a lista ou o vazio, como a 08
-// e a 09 desenham.
-// 'Usar este ativo' grava o ativo na sessão e segue pra T07.
+// e a 09 desenham. A busca não se refaz no pacote 1.
 // O último grupo antes do rodapé não tem margem: a folga é só a da coluna, os 16
 // do recheio do miolo (a proposta do protótipo que o arquiteto aceitou, e as
-// referências da otimizacao300000000 desenham — MUDANCAS §4). Assim a lista do
-// pacote (00), que rola, e a linha da correção de cadastro (02, 07), embaixo do
-// par comparado, que cresce até ela. Onde o último bloco é o que cresce (o par
-// que bate, 01, e a trava, 04 a 06), ele segue com os 16 dele
-// (t06-antes-do-rodape), como as referências ainda desenham.
+// referências da otimizacao300000000 desenham — MUDANCAS §4): a lista do pacote
+// (00), que rola. Onde o último bloco é o que cresce (os dados do modelo, 01, 10
+// e 11, e a trava, 04 a 06), ele segue com os 16 dele, como as referências desenham.
 import { Fragment, useEffect, useState } from 'react'
 import {
   BarraDoSistema, Faixa, CabecalhoConteudo, Busca, Lista, LinhaOnibus, BlocoEscolhido,
-  ParComparado, Nota, Checkbox, LinhaTocavel, Rodape, Vazio, useTrocaDeQuadro, useReorganiza,
+  Aviso, DadosDoModelo, Rodape, Vazio, useTrocaDeQuadro, useReorganiza,
 } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
@@ -37,7 +42,7 @@ import { M } from '../../dados/mock.js'
 import { caixaAlta } from '../../dados/formato.js'
 import {
   REF, ativoDe, modeloDe, doPacote, contagemDoPacote, ativoDoModulo, filtrar, placaDeOutroPacote,
-  avaliar, mundoDoEstado, ultimosTrocados,
+  avaliar, mundoDoEstado, dadosDoModelo,
 } from './dados.js'
 import './t06.css'
 
@@ -53,29 +58,23 @@ export default function T06({ momento, estado: est }) {
   const sessaoFluxo = unico.sessao ?? SEMENTES.T06.sessao
   const uoFluxo = unico.contexto.uoId ?? M.contextoAtivo.uoId
 
-  // num estado da coluna, o mundo é o do caso (receitas.js); no fluxo, o do estado
-  // único. O momento 07 também é do caso: o do chassi divergente (mundoDoEstado)
-  const doCaso = est ?? (momento === REF.corrigida ? momento : null)
-  const doEstado = doCaso ? mundoDoEstado(doCaso, { sessao: sessaoFluxo, uoId: uoFluxo }) : null
+  // num estado da coluna, o mundo é o do caso (receitas.js); no fluxo, o do estado único
+  const doEstado = est ? mundoDoEstado(est, { sessao: sessaoFluxo, uoId: uoFluxo }) : null
   const sessao = doEstado?.sessao ?? sessaoFluxo
   const uoId = doEstado?.uoId ?? uoFluxo
 
   // o ônibus escolhido: o do caso, o do módulo da sessão (a 01 aberta pela URL) ou nenhum (a lista)
   const [escolhido, setEscolhido] = useState(() => doEstado?.ativoId ?? (momento === REF.confirmar ? ativoDoModulo(uoFluxo, sessaoFluxo) : null))
   const [busca, setBusca] = useState(momento === REF.semResultado ? TERMO_DA_08 : momento === REF.esconde ? TERMO_DA_09 : '')
-  const [confirmado, setConfirmado] = useState(false)
   // na lista, tocar num ônibus o marca, e o 'Usar este ativo' leva à confirmação
   // (decisão do diretor, 24/09: a T06·1 passa pra (b), o T06-N3). Aberta pelo 09, o
   // marcado é o ônibus do módulo da sessão (RKT-8H42), como o 01, e a busca da
   // referência (PCX) o esconde
   const [marcado, setMarcado] = useState(() => (momento === REF.esconde ? ativoDoModulo(uoFluxo, sessaoFluxo) : null))
-  // os ônibus com a correção de cadastro já pedida, enquanto a T06 está aberta:
-  // o pedido não volta a ser tocável — escolher o mesmo ônibus de novo abre o registro (07)
-  const [pedidos, setPedidos] = useState(() => (momento === REF.corrigida && doEstado?.ativoId ? [doEstado.ativoId] : []))
 
   const ir = (tela, extra = {}) => despachar({ tipo: 'ir', tela, ...extra })
-  const escolher = (id) => { setEscolhido(id); setConfirmado(false); ir('T06', { momento: pedidos.includes(id) ? REF.corrigida : REF.confirmar }) }
-  const escolherOutro = () => { setEscolhido(null); setMarcado(null); setConfirmado(false); ir('T06') }
+  const escolher = (id) => { setEscolhido(id); ir('T06', { momento: REF.confirmar }) }
+  const escolherOutro = () => { setEscolhido(null); setMarcado(null); ir('T06') }
   const voltarAoMenu = () => ir('T04')
   // o ENCERRAR (decisão 36, src/estado/encerrar.jsx): antes de homologar, o diálogo
   // Encerrar sem homologar? por cima desta tela; depois de homologar, direto, pra T16
@@ -89,19 +88,20 @@ export default function T06({ momento, estado: est }) {
   }
 
   const ativo = escolhido ? ativoDe(escolhido) : null
-  const prova = ativo ? avaliar(ativo, { uoId, sessao }, doEstado?.desde) : null
+  // o caso do vínculo só vale no estado que o trouxe (10, 11): depois do Escolher outro, a lista
+  // volta ao fluxo, sem o caso, como nos pinos
+  const prova = ativo ? avaliar(ativo, { uoId, sessao }, doEstado?.desde, doEstado?.vinculo) : null
 
-  // o movimento (C12). A troca de quadro (C12·4 a): a lista que vira *Confirmar o veículo*, e a
-  // volta, trocam o desenho inteiro, e o conteúdo esmaece em 150, como entre telas — o par de
-  // chassis chega com ele (C12·11 a). A trava que o leitor sem fio resolve (05 → 01) também é
-  // outro quadro: o rodapé e o bloco trocam. O pedido de correção (02 → 07) e a confirmação
-  // marcada (03) movem só a peça: o registro esmaece no lugar (C12·19), e o Usar este ativo
-  // acende por uma camada (C12·8, T06·3). A lista se reorganiza quando a busca filtra (C12·10 a): o
-  // que fica desliza, o que sai esmaece por cima, o que volta esmaece no lugar; na
-  // confirmação, a chave null diz que o quadro não é a lista (a placa de outro pacote abre a
-  // trava pela troca de quadro, sem a lista andar por cima). Aberto pela URL, pelo palco,
-  // num estado ou no print, parado. O rodapé nasce com o quadro (a chave, lá embaixo): entre quadros,
-  // só a troca esmaece, e a camada do primário que acendeu logo antes não segue por dentro dela
+  // o movimento (C12). A troca de quadro (C12·4 a): a lista que vira *Confirmar o vínculo*, e a
+  // volta, trocam o desenho inteiro, e o conteúdo esmaece em 150, como entre telas — os dados do
+  // modelo, e o aviso do vínculo no 10 e no 11, chegam com ele (o que nasce com o quadro não
+  // esmaece de novo). A trava que o leitor sem fio resolve (05 → 01) também é outro quadro: o
+  // rodapé e o bloco trocam. A lista se reorganiza quando a busca filtra (C12·10 a): o que fica
+  // desliza, o que sai esmaece por cima, o que volta esmaece no lugar; na confirmação, a chave
+  // null diz que o quadro não é a lista (a placa de outro pacote abre a trava pela troca de
+  // quadro, sem a lista andar por cima). Aberto pela URL, pelo palco, num estado ou no print,
+  // parado. O rodapé nasce com o quadro (a chave, lá embaixo): entre quadros, só a troca
+  // esmaece, e a camada do primário que acendeu logo antes não segue por dentro dela
   const quadro = ativo ? `${ativo.id}·${prova.passo}` : 'lista'
   useTrocaDeQuadro(quadro)
   const lugar = useReorganiza(ativo ? null : busca)
@@ -125,34 +125,28 @@ export default function T06({ momento, estado: est }) {
     else if (!quadroDaBusca && DA_BUSCA.includes(momento)) despachar({ tipo: 'ir', tela: 'T06', momento: null })
   }, [est, quadroDaBusca, momento, despachar])
 
-  // O voltar do Android (logica.md): o link de saída do rodapé — na lista, na
-  // busca sem resultado, no chassi divergente e na correção pedida (00, 08, 02,
-  // 07), o Voltar ao menu; na
-  // confirmação (01, 03, 05), o Escolher outro, que volta à lista. Nas travas sem
-  // link (04, 06), o Escolher outro do primário, a saída que elas têm
-  useVoltar(!ativo || prova.passo === 'diverge' ? voltarAoMenu : escolherOutro)
+  // O voltar do Android (logica.md): o link de saída do rodapé — na lista e na
+  // busca sem resultado (00, 08), o Voltar ao menu; na confirmação do vínculo
+  // (01), nos avisos do vínculo (10, 11) e no conflito com saída (05), o Escolher
+  // outro, que volta à lista. Nas travas sem link (04, 06), o Escolher outro do
+  // primário, a saída que elas têm
+  useVoltar(!ativo ? voltarAoMenu : escolherOutro)
 
-  // 'Usar este ativo': o ativo entra na sessão, e o vínculo fica anotado com
-  // como foi provado — o chassi lido ou a confirmação do técnico, às 14:30
-  // O ativo confirmado começa sem a leitura da CAN: a T07 que abre em seguida lê na frente de
-  // quem olha, sinal a sinal (C12·30 a, a chegada da T06); pelo menu, a leitura feita fica
-  const usar = () => {
+  // o vínculo confirmado: o ativo entra na sessão, e o registro do vínculo fica em
+  // etapas.ativo — o modo, que o vínculo decide (instalação nova, o padrão, ou
+  // manutenção), o desvínculo, quando houve, e a hora, 14:30. Segue pra T09, que
+  // abre pelo modo: o que vai ser gravado (05) ou o escolher o bloco (08)
+  const vincular = (registro) => {
     despachar({ tipo: 'mesclar', parcial: {
       sessao: { ...sessao, ativoId: ativo.id },
-      etapas: { ...unico.etapas, ativo: { ativoId: ativo.id, vinculo: prova.passo === 'sem-chassi' ? 'confirmacao' : 'chassi', as: M.HORA_NOMINAL }, can: null },
+      etapas: { ...unico.etapas, ativo: { ativoId: ativo.id, ...registro, as: M.HORA_NOMINAL } },
     } })
-    ir('T07')
+    ir('T09')
   }
   // 'Usar leitor sem fio' (T06·4 a): a sessão passa a sem fio, e o mesmo ônibus segue pra confirmação
   const usarSemFio = () => {
     despachar({ tipo: 'mesclar', parcial: { sessao: { ...sessao, meio: 'sem-fio' } } })
     ir('T06', { momento: REF.confirmar })
-  }
-  // 'Solicitar correção de cadastro' (T06·2, o 07): o pedido vira o registro no
-  // mesmo cartão, com a hora do protótipo, e deixa de ser tocável
-  const solicitarCorrecao = () => {
-    setPedidos((p) => (p.includes(ativo.id) ? p : [...p, ativo.id]))
-    ir('T06', { momento: REF.corrigida })
   }
 
   const faixa = (
@@ -188,13 +182,12 @@ export default function T06({ momento, estado: est }) {
     // na frente de quem olha (C12·8, a direção de movimento); o que a busca esconde apaga direto (C12·18)
     rodape = <Rodape primario="Usar este ativo" primarioDesabilitado={!marcadoAVista} primarioAcende aoPrimario={() => escolher(marcado)} link="Voltar ao menu" aoLink={voltarAoMenu} />
   } else {
-    const modelo = modeloDe(ativo)
-    const detalhe = `frota ${ativo.frota} · ${modelo.nome}`
-    const titulo = <CabecalhoConteudo titulo="Confirmar o veículo" />
+    const titulo = <CabecalhoConteudo titulo="Confirmar o vínculo" />
     const { passo } = prova
 
     if (passo === 'fora' || passo === 'resolvivel' || passo === 'sem-saida') {
       // ── 04 · 05 · 06 · a trava mora no escolhido ──
+      const detalhe = `frota ${ativo.frota} · ${modeloDe(ativo).nome}`
       const { caso } = prova
       const trava = {
         fora: { rotulo: 'FORA DO PACOTE DESTA UO', falha: true, motivo: [`Pertence a ${prova.garagem}.`, 'Acione o cadastro no M2.'] },
@@ -211,43 +204,38 @@ export default function T06({ momento, estado: est }) {
       rodape = passo === 'resolvivel'
         ? <Rodape primario="Usar leitor sem fio" aoPrimario={usarSemFio} link="Escolher outro" aoLink={escolherOutro} />
         : <Rodape primario="Escolher outro" aoPrimario={escolherOutro} />
-    } else if (passo === 'sem-chassi') {
-      // ── 03 · o modelo não manda o chassi: o vínculo é a confirmação do técnico ──
-      miolo = (
-        <>
-          {titulo}
-          <BlocoEscolhido justo rotulo="ESCOLHIDO" identidade={ativo.placa} detalhe={detalhe} />
-          <Nota tom="fato" titulo="SEM CHASSI NA CAN" frase="Este modelo não manda o chassi. O vínculo fica pela sua confirmação, e ela entra na evidência." />
-          <Checkbox marcado={confirmado} aoMudar={setConfirmado}>{`Confirmo que o ${ativo.placa} é o veículo à minha frente`}</Checkbox>
-        </>
-      )
-      rodape = (
-        <Rodape legenda="Confirme o veículo para continuar" primario="Usar este ativo" primarioDesabilitado={!confirmado} primarioAcende aoPrimario={usar}
-          link="Escolher outro" aoLink={escolherOutro} />
-      )
     } else {
-      // ── 01 · 02 · o par comparado: o chassi lido e o do cadastro ──
-      const bate = passo === 'confere'
-      const explicacao = bate ? 'Os dois batem — é este veículo.'
-        : ultimosTrocados(prova.lido, prova.cadastro) ? 'Os dois últimos dígitos estão trocados de lugar — erro de digitação no cadastro.' : null
+      // ── 01 · 10 · 11 · o vínculo: o escolhido em cima, a frota sem o modelo, e os dados do modelo embaixo ──
+      // o estado muda o conteúdo: o aviso do vínculo entra antes do escolhido (10, 11), e a frase
+      // e o primário dizem o que o vínculo faz; o escolhido e os dados são os mesmos
+      const serial = sessao.moduloSerial
+      const empresa = M.empresa.nome
+      const { fabricante, modelo } = dadosDoModelo(ativo)
+      const { caso } = prova
+      const vinculo = passo === 'outro-ativo' ? {
+        // D3: o desvínculo é um fato da sessão, sem tela — fica no registro do vínculo, com a hora
+        aviso: { titulo: `O ${serial} ESTÁ NO ${prova.onde.placa}`, frase: 'Vincular aqui desfaz o vínculo antigo, e o desvínculo fica registrado.' },
+        frase: `O ${serial} passa a ficar neste ativo, na ${empresa}.`,
+        primario: 'Desvincular e vincular aqui',
+        registro: { modo: 'instalacao', desvinculo: { ativoId: caso.vinculadoAoAtivoId, as: M.HORA_NOMINAL } },
+      } : passo === 'ja-deste' ? {
+        aviso: { titulo: `O ${serial} JÁ É DESTE ATIVO`, frase: 'É manutenção: você reenvia um bloco por vez.' },
+        frase: 'O vínculo já existe — nada muda nele.',
+        primario: 'Seguir pra manutenção', registro: { modo: caso.modo },
+      } : {
+        frase: `O ${serial} fica neste ativo, na ${empresa}.`,
+        primario: 'Vincular o módulo', registro: { modo: 'instalacao' },
+      }
       miolo = (
         <>
           {titulo}
-          <BlocoEscolhido justo tom={bate ? 'escolhido' : 'apagado'} rotulo="ESCOLHIDO" identidade={ativo.placa} detalhe={detalhe} />
-          <ParComparado className={bate ? 't06-antes-do-rodape' : ''} veredito
-            lido={{ titulo: 'CHASSI LIDO DO VEÍCULO', valor: prova.lido }}
-            cadastro={{ titulo: 'NO CADASTRO', valor: prova.cadastro }}
-            explicacao={explicacao} />
-          {/* 02 → 07: o pedido de correção, e depois do toque o registro no mesmo cartão (a hora é a do protótipo) */}
-          {!bate && (pedidos.includes(ativo.id)
-            ? <LinhaTocavel variante="acao" registrado estado="relogio"
-                titulo={`Correção solicitada às ${M.HORA_NOMINAL}`} valor="o gestor recebe os dois chassis" />
-            : <LinhaTocavel variante="acao" titulo="Solicitar correção de cadastro" valor="anexa os dois" aoTocar={solicitarCorrecao} />)}
+          {vinculo.aviso && <Aviso tom="neutro" glifo="info" titulo={vinculo.aviso.titulo} frase={vinculo.aviso.frase} />}
+          <BlocoEscolhido justo rotulo="ESCOLHIDO" identidade={ativo.placa} detalhe={`frota ${ativo.frota}`} />
+          <DadosDoModelo antesDoRodape frase={vinculo.frase}
+            dados={[{ rotulo: 'FABRICANTE', valor: fabricante }, { rotulo: 'MODELO', valor: modelo }]} />
         </>
       )
-      rodape = bate
-        ? <Rodape primario="Usar este ativo" aoPrimario={usar} link="Escolher outro" aoLink={escolherOutro} />
-        : <Rodape primario="Escolher outro veículo" aoPrimario={escolherOutro} link="Voltar ao menu" aoLink={voltarAoMenu} />
+      rodape = <Rodape primario={vinculo.primario} aoPrimario={() => vincular(vinculo.registro)} link="Escolher outro" aoLink={escolherOutro} />
     }
   }
 

@@ -1,256 +1,243 @@
-// T07 · o movimento dos dados da CAN (02-telas/T07-dados-da-can/animacao.md; gate C12·30 e C12·31).
-// A leitura corre na chegada da T06 — o ativo que o Usar este ativo acabou de confirmar —,
-// depois da troca entre telas (150), e no Ler novamente: um sinal a cada 600 ms
-// (RITMOS.leituraCanSinalMs), na ordem da tela. Cada sinal que chega:
-//   · a leitura grande e as pequenas: o valor troca no lugar, e o marcador corre do
-//     começo da escala até o valor, em 300, desacelerando (T07·1);
-//   · o hodômetro: as rodinhas rolam da casa 0, 300 cada, de 40 em 40, a unidade
-//     primeiro (T07·2);
-//   · a contagem do cabeçalho troca no lugar, sem animar (T07·3);
-//   · o sinal fora da faixa: a borda vermelha, por uma camada, e a causa esmaecem em
-//     150; o lugar da causa abre direto (T07·4, G24);
-//   · o liga-desliga: o valor troca no lugar, e o check esmaece em 150 (C12·30).
-// O veredito espera a prova: o reprovado entra no cabeçalho com o sinal que falha, e
-// o primário, apagado com o texto dele enquanto lê, acende por uma camada no fim (C12·8).
-// O texto do primário que troca na frente de quem olha — o Configurar módulo que vira o
-// Ler novamente com o sinal que falha, e o Ler novamente que volta ao Configurar módulo —
-// esmaece no lugar, em 150, com o roxo direto (C12·23, o conserto de 27/09).
-// Pelo menu, depois da T08, pela URL, pelo palco, na coluna e no print: a tela nasce
-// lida, parada. Com reduzir movimento, o mesmo ritmo, e nada anda.
+// T07 · o movimento do diagnóstico do módulo (02-telas/T07-diagnostico-do-modulo/animacao.md;
+// movimento.md · a faixa que nasce, C12·24; o processo que espera a troca, C12·35; a linha que
+// conclui, C12·12 e C12·29; o texto do primário que troca, C12·23):
+//   · a chegada da T05 (o Conectar): a troca entre telas, e as sete linhas do módulo acendem uma a
+//     cada 600 ms (RITMOS.diagnosticoLinhaMs), depois dos 150 da troca. A linha que lê tem o quadrado
+//     de agora e *lendo*; a que chega troca o glifo e o valor esmaecendo no lugar, em 150; o contador
+//     troca no lugar. Sem a faixa, o módulo fica em cima do título;
+//   · as sete passam sem trava: a faixa desce de cima em 200, e o miolo acompanha só por
+//     deslocamento; o rótulo de cima sai, e o primário diz Selecionar ativo, o texto esmaecendo no
+//     lugar, com o roxo direto (C12·23);
+//   · a trava (o M2C-0999, fora do cadastro): a faixa não desce, e o Procurar outro módulo volta à
+//     T05/01, a lista sem nada escolhido;
+//   · a atualização do firmware (D4, o 06 pela URL): os 62% parados por 1 s (RITMOS.cadeiaBlocoMs), e
+//     o diagnóstico recomeça das sete, com o firmware disponível — passando, a faixa desce;
+//   · o Ler de novo (01 → 10 → 01): a CAN relê uma linha a cada 600 ms, no lugar, sem troca de quadro
+//     (movimento.md: o Ler de novo move só a peça); relendo, o ENCERRAR fica apagado (a lei 17);
+//   · o voltar do Android: lendo, atualizando e relendo, nada; na trava, o Procurar outro módulo; sem
+//     trava e com a CAN lida, o Voltar ao menu.
+// A tela abre parada pela URL, em cada estado e no print. Com reduzir, o mesmo ritmo, e nada anda.
 const C = 'cubic-bezier(0.2, 0.8, 0.2, 1)'
-const TROCA = [{ prop: 'opacity', ms: 150, em: 'tela-miolo', curva: C }, { prop: 'opacity', ms: 150, em: 'ds-rodape', curva: C }]
-const CORRE = { prop: 'transform', ms: 300, em: 'ds-escala-agulha', curva: C }
-const ROLA = [
-  { prop: 'transform', ms: 300, atraso: 0, em: 'ds-roda-fita', curva: C },
-  { prop: 'transform', ms: 300, atraso: 40, em: 'ds-roda-fita', curva: C },
-  { prop: 'transform', ms: 300, atraso: 200, em: 'ds-roda-fita', curva: C },
-]
-const CHECK = { prop: 'opacity', ms: 150, em: 'ds-icone-mini', curva: C }   // o check do sinal (ds-sinais-nasce)
-const ACENDE = { prop: 'opacity', ms: 150, em: 'ds-primario-antes', curva: C }
-const TEXTO = { prop: 'opacity', ms: 150, em: 'ds-primario-texto', curva: C }   // o texto do primário que troca no lugar (C12·23)
-const BORDA = { prop: 'opacity', ms: 150, em: 'ds-leitura-borda', curva: C }
-const CAUSA = { prop: 'opacity', ms: 150, em: 'ds-leitura-causa', curva: C }
-const SEM_ROXO = [{ prop: 'opacity', em: 'ds-primario-desabilitado' }]   // C12·18
-// o ritmo: 600 por sinal, medido a partir do passo de antes (a régua leva uns 20 a 60 ms em cada passo)
-const SINAL = [480, 760]
-
-// da lista da T06 (a semente: Várzea, o M2C-0417, sem ativo) até a confirmação do ônibus
-const ATE_A_CONFIRMACAO = (placa) => [
-  { abre: '?tela=T06' },
+const esmaece = (em, extra = {}) => ({ prop: 'opacity', ms: 150, em, curva: C, ...extra })
+const TROCA = [esmaece('tela-miolo'), esmaece('ds-rodape')]
+const GLIFO = esmaece('ds-glifo')
+const VALOR = esmaece('ds-checagem-valor')
+const CAUSA = esmaece('ds-checagem-causa')
+const TEXTO = esmaece('ds-primario-texto')   // o texto do primário que troca no lugar (C12·23)
+const DESCE = { prop: 'transform', ms: 200, curva: C, em: 'ds-faixa ds-faixa-aberta' }
+const MIOLO = { prop: 'transform', ms: 200, curva: C, em: 'tela-miolo' }
+// a barra do sistema é do Android (decisão 43): não se move
+const BARRA = [{ prop: 'opacity', em: 'ds-barra-sistema' }, { prop: 'transform', em: 'ds-barra-sistema' }]
+// o ritmo: 600 por linha, medido a partir do passo de antes (a régua leva uns 20 a 60 ms em cada passo)
+const LINHA = [450, 800]
+const PARADA = [{ quieto: true }, { dorme: 700 }, { quieto: true }]
+const M01 = '01-momento-can-lida'
+const M06 = '06-momento-atualizando-o-firmware'
+const M10 = '10-momento-relendo-a-can'
+const LISTA_T05 = '01-momento-nenhum-escolhido'
+const ESTADOS = ['02-estado-serial-nao-cadastrado', '03-estado-modelo-sem-suporte', '04-estado-firmware-nao-homologado',
+  '05-estado-firmware-sem-rede-no-modulo', '07-estado-modem-sem-sinal', '08-estado-sinal-da-can-sem-leitura', '09-estado-sinal-da-can-fora-do-esperado']
+// da lista da T05 (a busca, sem nada escolhido) até o Conectar: a troca entre telas leva à T07
+const CONECTA = (serial) => [
+  { abre: `?tela=T05&momento=${LISTA_T05}` },
   { quieto: true },
-  { marca: placa },
-  { toca: 'Usar este ativo' },
-  { chega: 'T06', momento: '01-momento-confirmar-o-veiculo' },
+  { marca: serial },
   { dorme: 250 },
+  { toca: `Conectar ao ${serial}`, anima: TROCA, naoAnima: BARRA },
+  { chega: 'T07', momento: null },
 ]
 
 export default [
-  // ── abre parada: pela URL, em cada estado, no print ──
+  // ── abre parada: pela URL, a 01 e cada estado ──
   { abre: '?tela=T07' },
-  { quieto: true },
-  { ve: '7 de 12' },
-  { ve: '13,8' },
-  { ouve: '184.320 km' },
-  { dorme: 700 },
-  { quieto: true },
-  { ve: '7 de 12' },
-  { abre: '?tela=T07&estado=01-estado-fora-da-faixa' },
-  { quieto: true },
-  { ve: '1 reprovado' },
-  { dorme: 700 },
-  { quieto: true },
-  { abre: '?tela=T07&estado=02-estado-sem-leitura' },
-  { quieto: true },
-  { ve: 'sem leitura · ligação' },
-  { dorme: 700 },
-  { quieto: true },
-  { abre: '?tela=T07&estado=03-estado-dominio-mudo' },
-  { quieto: true },
-  { dorme: 700 },
-  { quieto: true },
-  // no print, cada quadro de referência: nada se move
-  ...['', '&estado=01-estado-fora-da-faixa', '&estado=02-estado-sem-leitura', '&estado=03-estado-dominio-mudo']
-    .flatMap((e) => [{ abre: `?tela=T07${e}&print=1` }, { quieto: true }, { dorme: 700 }, { quieto: true }]),
+  ...PARADA,
+  { ve: '7 de 7' },
+  { ve: 'ENCERRAR' },
+  { abre: `?tela=T07&momento=${M01}` },
+  ...PARADA,
+  { ve: '15 de 15' },
+  ...ESTADOS.flatMap((e) => [{ abre: `?tela=T07&estado=${e}` }, ...PARADA]),
+  // no print, cada quadro de referência: nada se move, nem os dois processos (06, 10)
+  ...['', `&momento=${M01}`, `&momento=${M06}`, `&momento=${M10}`, ...ESTADOS.map((e) => `&estado=${e}`)]
+    .flatMap((q) => [{ abre: `?tela=T07${q}&print=1` }, ...PARADA]),
+  { ve: '14 de 15' },
 
-  // ── a chegada da T06, tudo aprovado (o RKT-8H42): a troca, e os sete sinais no ritmo ──
-  ...ATE_A_CONFIRMACAO('RKT-8H42'),
-  { toca: 'Usar este ativo', anima: TROCA },
-  { chega: 'T07', momento: null },
-  // o quadro de começo (C12·31): o valor em traço, as rodinhas na casa 0, a contagem em 0, o primário apagado
-  { ve: '0 de 12' },
-  { ouve: '— km' },
-  { naoVe: '13,8' },
-  { desligado: 'Configurar módulo' },
-  // a bateria: 150 da troca + 600
-  { ve: '13,8', entre: [560, 860] },
-  { anima: [CORRE] },
-  { ve: '1 de 12' },
-  // o hodômetro: as rodinhas rolam
-  { ouve: '184.320 km', entre: SINAL },
-  { anima: ROLA },
-  { ve: '2 de 12' },
-  // a temperatura, os satélites e o combustível: o marcador de cada uma corre
-  { ve: '3 de 12', entre: SINAL },
-  { anima: [CORRE] },
-  { ve: '4 de 12', entre: SINAL },
-  { anima: [CORRE] },
-  { ve: '5 de 12', entre: SINAL },
-  { anima: [CORRE] },
-  // a ignição e a posição: o check esmaece
-  { ve: 'ligada', entre: SINAL },
-  { anima: [CHECK] },
-  { ve: '6 de 12' },
-  { desligado: 'Configurar módulo' },
-  // a posição, o último: o check, e o primário acende por uma camada, com o mesmo texto
-  { ve: 'fixa', entre: SINAL },
-  { anima: [CHECK, ACENDE], naoAnima: [TEXTO] },
-  { ve: '7 de 12' },
+  // ── a chegada da T05, o herói: as sete no ritmo, e a faixa desce ──
+  ...CONECTA('M2C-0417'),
+  // o quadro de começo: sem a faixa, o módulo em cima do título, a primeira lendo, o rodapé sem saída
+  { ve: 'M2C-0417 · RKT-8H42' },
+  { naoVe: 'ENCERRAR' },
+  { ve: '0 de 7' },
+  { desligado: 'Lendo · não saia da tela' },
+  // a primeira: os 150 da troca + 600, contados do toque (as quatro conferências de cima levam uns 300)
+  { ve: '1 de 7', entre: [200, 1000] },
+  { anima: [GLIFO, VALOR] },
+  { ve: 'VL06 CAN-BT' },
+  { ve: '2 de 7', entre: LINHA },
+  { anima: [GLIFO, VALOR] },
+  { ve: '2.3.5' },
+  { ve: '3 de 7', entre: LINHA },
+  { ve: '4 de 7', entre: LINHA },
+  { ve: '5 de 7', entre: LINHA },
+  { ve: '6 de 7', entre: LINHA },
+  { naoVe: 'ENCERRAR' },
+  // a sétima: a faixa desce, o miolo acompanha, a barra fica; o primário diz Selecionar ativo
+  { ve: 'ENCERRAR', entre: LINHA },
+  { anima: [DESCE, MIOLO, GLIFO, TEXTO], naoAnima: BARRA },
+  { ve: '7 de 7' },
+  { ve: 'sem ativo' },
+  { naoVe: 'M2C-0417 · RKT-8H42' },   // o rótulo de cima sai: o serial está na faixa
   { dorme: 400 },
   { quieto: true },
   { dorme: 700 },
   { quieto: true },   // acabou: nada mais chega
-  { ve: '7 de 12' },
-  // pelo menu, a leitura feita fica: nasce lida, parada
-  { toca: 'Voltar ao menu', anima: [TROCA[0]] },   // o menu não tem rodapé
-  { chega: 'T04' },
-  { toca: 'Entendi' },                              // o aviso do acesso, na primeira chegada ao menu (T04/12)
+  { toca: 'Selecionar ativo', anima: TROCA, naoAnima: [{ prop: 'transform', em: 'ds-faixa' }, ...BARRA] },
+  { chega: 'T06' },
+  { dorme: 300 },
+
+  // ── a trava (o M2C-0999, fora do cadastro): a faixa não desce, e o voltar é o Procurar outro módulo ──
+  ...CONECTA('M2C-0999'),
+  { ve: 'M2C-0999 · fora do cadastro' },
+  // lendo, o voltar não faz nada
+  { tecla: 'Escape' },
+  { fica: 'T07', ms: 300 },
+  { ve: 'não está no cadastro', ms: 2000 },
+  { ve: '4 de 7', ms: 6000 },
+  { dorme: 400 },
+  { quieto: true },
+  { naoVe: 'ENCERRAR' },
+  { naoToca: 'Selecionar ativo' },
+  { tecla: 'Escape' },
+  { chega: 'T05', momento: LISTA_T05 },
+  { desligado: 'Conectar' },   // a lista volta sem nada escolhido
+  // de novo, pelo Procurar outro módulo, o primário da trava
+  { marca: 'M2C-0999' },
   { dorme: 250 },
-  { toca: 'Dados da CAN', anima: TROCA },
-  { chega: 'T07' },
+  { toca: 'Conectar ao M2C-0999' },
+  { chega: 'T07', momento: null },
+  { toca: 'Procurar outro módulo', ms: 8000, anima: TROCA },
+  { chega: 'T05', momento: LISTA_T05 },
+  { naoVe: 'ENCERRAR' },
+
+  // ── o firmware que atualiza (o 06 pela URL): 1 s nos 62%, e o diagnóstico recomeça das sete ──
+  { abre: `?tela=T07&momento=${M06}` },
+  { quieto: true },
+  { ve: 'atualizando · 62%' },
+  { ve: 'M2C-0451 · QTM-5S79' },
+  { desligado: 'Atualizando · não desconecte' },
+  { tecla: 'Escape' },
+  { fica: 'T07', ms: 300 },
+  { chega: 'T07', momento: null, entre: [300, 1200] },
+  { ve: '0 de 7' },
+  { ve: '1 de 7', entre: LINHA },
+  { ve: '2 de 7', entre: LINHA },
+  { ve: '2.3.5' },   // o firmware disponível, depois da atualização (o caso consumido)
+  { naoVe: 'homologadas 2.2.0 e 2.3.5' },
+  { ve: 'ENCERRAR', ms: 4000 },
+  { anima: [DESCE, MIOLO], naoAnima: BARRA },
+  { ve: '7 de 7' },
+  { ve: 'M2C-0451' },
+  { dorme: 400 },
+  { quieto: true },
+
+  // ── o Ler de novo: a CAN relê no lugar, e volta lida ──
+  { abre: `?tela=T07&momento=${M01}` },
+  { quieto: true },
+  { ve: 'RKT-8H42' },
+  { toca: 'Ler de novo', anima: [TEXTO], naoAnima: [esmaece('tela-miolo'), { prop: 'transform', em: 'ds-faixa' }] },
+  { chega: 'T07', momento: M10 },
+  { desligado: 'Lendo · não saia da tela' },
+  { desligado: 'ENCERRAR' },
+  { ve: '7 de 15' },
+  { ve: '8 de 15', entre: LINHA },
+  { tecla: 'Escape' },
+  { fica: 'T07', ms: 300 },
+  { ve: '10 de 15', ms: 2000 },
+  { chega: 'T07', momento: M01, ms: 6000 },
+  { ve: '15 de 15' },
+  { dorme: 400 },
+  { quieto: true },
+  // lida: o voltar é o Voltar ao menu
+  { tecla: 'Escape' },
+  { chega: 'T04' },
+  // o 10 pela URL: abre no quadro dele (a temperatura lendo), e segue dali
+  { abre: `?tela=T07&momento=${M10}` },
+  { quieto: true },
+  { ve: '10 de 15' },
+  { ve: '11 de 15', entre: [300, 900] },
+  { chega: 'T07', momento: M01, ms: 4000 },
+  { ve: '15 de 15' },
+
+  // ── pelo menu, o diagnóstico feito fica: nasce parado ──
+  { abre: '?tela=T07' },
+  { quieto: true },
+  { toca: 'Voltar ao menu', anima: [TROCA[0]] },
+  { chega: 'T04' },
+  { toca: 'Entendi' },   // o aviso do acesso, na primeira chegada ao menu (T04/12)
+  { dorme: 250 },
+  { toca: 'Diagnóstico do módulo', anima: TROCA },
+  { chega: 'T07', momento: null },
   { dorme: 250 },
   { quieto: true },
-  { ve: '7 de 12' },
-  { ve: '13,8' },
+  { ve: '7 de 7' },
+  { ve: 'ENCERRAR' },
   { dorme: 700 },
   { quieto: true },
-  // depois da T08: também nasce lida
+
+  // com o ativo na sessão e antes da cadeia (a semente do menu): a placa na faixa, e só o Voltar ao menu (NOVA-5)
+  { abre: '?tela=T04' },
+  { toca: 'Entendi' },
+  { dorme: 250 },
+  { toca: 'Diagnóstico do módulo', anima: TROCA },
+  { chega: 'T07', momento: null },
+  { dorme: 250 },
+  { quieto: true },
+  { ve: 'RKT-8H42' },
+  { ve: 'AGUARDANDO A CONFIGURAÇÃO DO ATIVO' },
+  { naoToca: 'Selecionar ativo' },
   { toca: 'Voltar ao menu' },
   { chega: 'T04' },
-  { dorme: 250 },
-  { toca: 'Refazer leitura' },
-  { chega: 'T08' },
-  { toca: 'Refazer a leitura' },
-  { chega: 'T08', momento: '02-momento-concluida', ms: 12000 },
-  { dorme: 250 },
-  { toca: 'Ver os dados da CAN', anima: TROCA },
-  { chega: 'T07' },
-  { dorme: 250 },
-  { quieto: true },
-  { ve: '7 de 12' },
-  { dorme: 700 },
-  { quieto: true },
-
-  // ── a chegada da T06 com a bateria fora (o QJF-2C61): o reprovado entra com a prova ──
-  ...ATE_A_CONFIRMACAO('QJF-2C61'),
-  { toca: 'Usar este ativo', anima: TROCA },
-  { chega: 'T07', momento: null },
-  { ve: '0 de 12' },
-  { naoVe: 'reprovado' },
-  { desligado: 'Configurar módulo' },
-  // a bateria chega fora: a borda vermelha e a causa esmaecem, o marcador corre, o cabeçalho diz o reprovado,
-  // e o primário apagado troca o Configurar módulo pelo Ler novamente, o texto esmaecendo no lugar (C12·23)
-  { ve: '1 reprovado', entre: [560, 860] },
-  { anima: [BORDA, CAUSA, CORRE, TEXTO], naoAnima: [ACENDE] },
-  { ve: 'veículo ou cadastro' },
-  { desligado: 'Ler novamente' },
-  { ve: 'ligada', ms: 6000 },
-  { anima: [CHECK] },
-  { ve: 'fixa', entre: SINAL },
-  { anima: [CHECK, ACENDE] },
-  { ve: '1 reprovado' },
+  // depois da cadeia (D2): pelo menu, a CAN lida, parada, e o endereço diz a 01
+  { abre: '?tela=T09&momento=04-momento-cadeia-concluida' },
   { dorme: 400 },
+  { toca: 'Voltar ao menu' },
+  { chega: 'T04' },
+  { toca: 'Entendi' },
+  { dorme: 250 },
+  { toca: 'Diagnóstico do módulo', anima: TROCA },
+  { chega: 'T07', momento: M01 },
+  { dorme: 250 },
   { quieto: true },
-  // Ler novamente: o quadro de começo de uma vez, e a leitura corre de novo, sem a troca (600 do toque)
-  { toca: 'Ler novamente', anima: [TEXTO], naoAnima: [...SEM_ROXO, ACENDE] },   // o Configurar módulo apagado volta, o texto esmaecendo
-  { ve: '0 de 12' },
-  { naoVe: 'reprovado' },
-  { naoVe: 'veículo ou cadastro' },
-  { desligado: 'Configurar módulo' },
-  { ve: '13,8', entre: [420, 700] },
-  { anima: [CORRE] },
-  { naoAnima: [BORDA] },
-  { ve: '1 de 12' },
-  { ouve: '201.115 km', entre: SINAL },   // o hodômetro do caso é do veículo, e fica (leitura.js)
-  { anima: ROLA },
-  { ve: 'fixa', ms: 6000 },
-  { anima: [CHECK, ACENDE] },
-  { ve: '7 de 12' },
-  { dorme: 400 },
-  { quieto: true },
-
-  // ── o sinal que não chega (o PCX-9A17, os satélites): o reprovado entra no quarto ──
-  ...ATE_A_CONFIRMACAO('PCX-9A17'),
-  { toca: 'Usar este ativo', anima: TROCA },
-  { chega: 'T07', momento: null },
-  { ve: '3 de 12', ms: 4000 },
-  { naoVe: 'reprovado' },
-  { naoVe: 'sem leitura' },
-  { ve: '1 reprovado', entre: SINAL },
-  { ve: 'sem leitura · ligação' },
-  { ve: 'fixa', ms: 4000 },
-  { dorme: 400 },
-  { quieto: true },
+  { ve: 'Conferido na conexão' },
+  { ve: '15 de 15' },
 
   // ── com reduzir movimento: o mesmo ritmo, e nada anda ──
   { reduzir: true },
-  ...ATE_A_CONFIRMACAO('RKT-8H42'),
-  { toca: 'Usar este ativo' },
-  { chega: 'T07', momento: null },
+  ...CONECTA('M2C-0417').map((p) => (p.toca ? { toca: p.toca } : p)),
   { quieto: true },
-  { ve: '0 de 12' },
-  { ve: '13,8', entre: [420, 700] },
+  { ve: '1 de 7', entre: [400, 900] },
   { quieto: true },
-  { ouve: '184.320 km', entre: SINAL },
-  // com reduzir, as rodinhas nascem com 0 ms e saem no animationend, um quadro depois (a peça, o Tambor): nada anda
-  { dorme: 100 },
+  { ve: '4 de 7', ms: 3000 },
   { quieto: true },
-  { ve: '3 de 12', entre: [380, 760] },
-  { ve: '4 de 12', entre: SINAL },
-  { ve: '5 de 12', entre: SINAL },
-  { ve: 'ligada', entre: SINAL },
-  { quieto: true },
-  { ve: 'fixa', entre: SINAL },
-  { quieto: true },
-  { ve: '7 de 12' },
-  { toca: 'Configurar módulo' },
-  { chega: 'T09' },
-  // o sinal fora da faixa (o QJF-2C61): a borda, a causa e o reprovado, direto, no mesmo ritmo
-  ...ATE_A_CONFIRMACAO('QJF-2C61'),
-  { toca: 'Usar este ativo' },
-  { chega: 'T07', momento: null },
-  { quieto: true },
-  { ve: '1 reprovado', entre: [420, 700] },
-  { ve: 'veículo ou cadastro' },
-  { quieto: true },
-  { ve: 'fixa', ms: 6000 },
-  { quieto: true },
-  { toca: 'Ler novamente' },
-  { quieto: true },
-  { ve: '0 de 12' },
-  { ve: '13,8', entre: [420, 700] },
+  { ve: 'ENCERRAR', ms: 3000 },
   { quieto: true },
   { reduzir: false },
 
-  // ── o palco (a janela larga): o estado da coluna, a volta ao fluxo e o pulo abrem parados ──
+  // ── o palco (a janela larga): o estado da coluna e a volta ao fluxo abrem parados ──
   { abre: '?tela=T07' },
   { janela: [1440, 900] },
   { quieto: true },
-  { palco: 'Fora da faixa' },
-  { chega: 'T07', estado: '01-estado-fora-da-faixa' },
-  { quieto: true },
-  { dorme: 700 },
-  { quieto: true },
+  { palco: 'Serial fora do cadastro' },
+  { chega: 'T07', estado: '02-estado-serial-nao-cadastrado' },
+  ...PARADA,
+  { palco: 'Modem sem sinal' },
+  { chega: 'T07', estado: '07-estado-modem-sem-sinal' },
+  ...PARADA,
+  { palco: 'Sinal fora do esperado' },
+  { chega: 'T07', estado: '09-estado-sinal-da-can-fora-do-esperado' },
+  ...PARADA,
   { palco: 'Voltar ao fluxo' },
   { chega: 'T07', estado: null },
-  { quieto: true },
-  { dorme: 700 },
-  { quieto: true },
-  { palco: 'Telas do protótipo' },
-  { dorme: 400 },   // o painel desliza da esquerda: o toque espera ele parar no lugar
-  { palco: 'T07' },
-  { chega: 'T07' },
-  { quieto: true },
-  { ve: '7 de 12' },
-  { dorme: 700 },
-  { quieto: true },
+  ...PARADA,
+  { ve: '7 de 7' },
 ]

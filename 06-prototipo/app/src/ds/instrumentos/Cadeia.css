@@ -22,3 +22,12 @@
 .ds-cadeia-elo-resto .ds-cadeia-nome, .ds-cadeia-elo-resto .ds-cadeia-valor { color: var(--tinta-apagada); }
 /* na recusada, o que já foi feito sobe um tom */
 .ds-cadeia-recusada .ds-cadeia-elo-feito .ds-cadeia-descricao { color: var(--tinta-secundaria); }
+/* pacote 1 · a cadeia antes de gravar (T09/05, 06, 07): o relógio em --marca-limite, o nome
+ * em --tinta-forte, o valor em --tinta-secundaria (o de sempre) e o trilho em --borda-poco */
+.ds-cadeia-elo-antes .ds-cadeia-nome { color: var(--tinta-forte); }
+.ds-cadeia-elo-antes .ds-glifo { color: var(--marca-limite); }
+.ds-cadeia-elo-antes .ds-trilho-linha { background: var(--borda-poco); }
+/* a cadeia curta da manutenção (T09/09): o último elo guarda a altura, e a frase vem embaixo */
+.ds-cadeia-curta .ds-cadeia-elo-ultimo { min-height: var(--ds-cadeia-elo); }
+/* a cadeia que fecha o miolo (T09/05 a 07): o último elo sem o fecho, que só faria o quadro rolar */
+.ds-cadeia-sem-fecho .ds-cadeia-elo-ultimo .ds-cadeia-texto { padding-bottom: 0; }

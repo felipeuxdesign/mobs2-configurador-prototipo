@@ -1,6 +1,6 @@
 // Folha 4 · os cartões de ferramenta do menu, o aviso nos quatro usos, o
 // vazio declarado, as notas e o par comparado. Texto exato da folha.
-import { CartaoFerramenta, GradeFerramentas, Aviso, Vazio, Nota, ParComparado } from '../../ds/cartoes/index.js'
+import { CartaoFerramenta, GradeFerramentas, Aviso, Vazio, Nota, ParComparado, DadosDoModelo } from '../../ds/cartoes/index.js'
 
 export const especimes = [
   // cartões de ferramenta · o menu
@@ -41,5 +41,11 @@ export const especimes = [
         cadastro={{ titulo: 'NO CADASTRO', valor: '9BM384067GB120417' }}
         explicacao="Os dois últimos dígitos estão trocados de lugar — erro de digitação no cadastro."
       />
+    ) },
+  // os dados do modelo (o pacote 1 · decisão 46): o bloco de baixo do vínculo, como a T06/01
+  { id: 'f4-dados-do-modelo', folha: 4, rotulo: 'os dados do modelo', legenda: 'rótulo em cima, valor grande · no vínculo',
+    render: () => (
+      <DadosDoModelo antesDoRodape frase="O M2C-0417 fica neste ativo, na Viação Atlântico Sul."
+        dados={[{ rotulo: 'FABRICANTE', valor: 'Mercedes-Benz' }, { rotulo: 'MODELO', valor: 'OF-1621 · ônibus urbano' }]} />
     ) },
 ]

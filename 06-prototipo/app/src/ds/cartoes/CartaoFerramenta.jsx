@@ -9,6 +9,9 @@
 //   sem-rede   · o mesmo da espera, com a causa da rede e o traço um a menos
 //                (9, como a folha 4 e a T04 o desenham)
 // A contagem é o contador no canto (o da fila, HU-T04-3).
+// `linha` (pacote 1): o de meia largura que ocupa a linha da grade, com o mesmo
+// desenho — o poço e o contador em cima, o nome embaixo —, o Finalizar com
+// checklist do menu (T04/00 a 04, 12, 13, 15) e o com pendência da folha 4.
 // O módulo e o ativo com a sessão aberta são o cartão largo de sempre, e o
 // toque abre a folha do que a sessão prendeu (HU-T16-2, T04/10 e 11): quem
 // monta passa o aoTocar. Só a espera é desabilitada de verdade (logica.md ·
@@ -20,7 +23,7 @@ import './CartaoFerramenta.css'
 const ICONE_DO_POCO = { 30: 18, 34: 20 } // o ícone de ferramenta dentro do poço (folha 3)
 
 export function CartaoFerramenta({
-  largo = false, estado = 'disponivel', icone, poco = 30,
+  largo = false, linha = false, estado = 'disponivel', icone, poco = 30,
   titulo, valor, causa, contagem, rotulo, aoTocar, className = '',
 }) {
   const espera = estado === 'espera' || estado === 'sem-rede'
@@ -30,7 +33,7 @@ export function CartaoFerramenta({
   const nome = rotulo ?? [titulo, valor, causa, contagem].filter((x) => x != null).join(', ')
   // sem-rede leva as duas classes: desenha como a espera (a folha 4 a desenha tracejada,
   // embora a legenda diga borda sólida) e só muda o traço no poço
-  const classe = `ds-ferramenta ds-ferramenta-${largo ? 'largo' : 'meia'} ${espera ? 'ds-ferramenta-espera' : ''} ds-ferramenta-${estado} ${className}`
+  const classe = `ds-ferramenta ds-ferramenta-${largo ? 'largo' : 'meia'} ${linha && !largo ? 'ds-ferramenta-linha' : ''} ${espera ? 'ds-ferramenta-espera' : ''} ds-ferramenta-${estado} ${className}`
   if (largo) {
     return (
       <Tocavel className={classe} rotulo={nome} aoTocar={aoTocar} desabilitado={espera}>

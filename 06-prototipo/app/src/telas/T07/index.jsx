@@ -1,182 +1,314 @@
-// T07 · Dados da CAN (02-telas/T07-dados-da-can): com o ônibus parado e a
-// chave ligada, cada sinal estático que a CAN entregou contra a faixa que o
-// cadastro espera; o bloco que falhou acende com a causa provável, e os que
-// só se provam andando ficam num resumo apagado.
-// · Tudo sai do mock: os sinais do modelo do ativo da sessão, pela peça do
-//   mapa por id (T07·4 b), a escala pela regra da T07·2 (leitura.js).
-// · Os estados da coluna, parados, pela receita: o 01 (can-estatico-isolado)
-//   e o 02 (can-estatico-ausente) trocam a sessão pela do caso. O estado muda
-//   o conteúdo; onde a referência remonta (a causa do 01 abre espaço), ela é
-//   construída fiel (G24). O 03 fica fora do ciclo (T07·1 a).
-// · A leitura que corre (C12·30 a, G27): na chegada da T06 — o ativo que
-//   acabou de ser confirmado, cuja CAN ainda não foi lida —, depois da troca
-//   entre telas, e no Ler novamente, os sinais chegam um a cada
-//   RITMOS.leituraCanSinalMs, na ordem da tela (o que o mapa não desenha, por
-//   último, só na contagem). Pelo menu, depois da T08, pela URL, pelo palco,
-//   na coluna e no print, a tela nasce lida e parada. Com reduzir movimento,
-//   o mesmo ritmo, e nada anda.
-//   O quadro de começo (C12·31 a, sem referência, G25) é o de fim com o que
-//   anda na origem: o valor em traço, o marcador no começo da escala, as
-//   rodinhas na casa 0, o check fora, e o primário apagado com o texto dele.
-//   Enquanto lê, o cabeçalho e o rodapé dizem o que já chegou — o veredito
-//   espera a prova (C12·35 e C12·44): a contagem troca no lugar a cada sinal
-//   que passa, e o reprovado entra, na cor dele, com o sinal que falha; o
-//   texto do primário que troca com ele (o Ler novamente) esmaece no lugar
-//   (C12·23). Quando o último chega, o primário acende por uma camada (C12·8).
-//   O movimento é das peças: o marcador corre em 300 (a Escala, `corre`), as
-//   rodinhas rolam 300 cada, de 40 em 40 (o Tambor), a borda vermelha e a
-//   causa esmaecem em 150 (a Leitura), o check do liga-desliga esmaece em 150
-//   (os Sinais). O Ler novamente volta ao quadro de começo de uma vez (as
-//   peças nascem de novo, paradas) e lê de novo.
-// · Os toques: Configurar módulo → T09 · Voltar ao menu → T04 · Ler
-//   novamente relê no lugar (T07·5 a) · ENCERRAR, antes de homologar, abre o
-//   diálogo Encerrar sem homologar? por cima da tela (decisão 36), que leva à
-//   sessão abortada da T16 (G23); depois de homologar (a T07 continua no
-//   menu), são os passos do encerramento, a T16 (logica.md, como a T08).
-import { useEffect, useState } from 'react'
+// T07 · Diagnóstico do módulo (02-telas/T07-diagnostico-do-modulo, decisão 44):
+// logo depois da conexão, o que o módulo informa — as sete linhas de
+// M.diagnostico.modulo —, e, depois que o bloco do ativo é gravado, o que a CAN
+// do modelo do ativo lê. Substitui a pré-checagem da T05 e os Dados da CAN.
+//
+// Os quadros do fluxo:
+// · a chegada da T05 (a sessão nasceu no Conectar, sem faixa): as sete linhas
+//   acendem uma a cada RITMOS.diagnosticoLinhaMs, depois da troca entre telas
+//   (C12·35). Enquanto lê: a linha que lê com o quadrado de agora e *lendo*, as
+//   que esperam com o relógio e o traço, e o rodapé *Lendo · não saia da tela* —
+//   os quadros da 10, a mesma tela e o mesmo processo (gate do pacote 1, NOVA-2:
+//   o começo da leitura do módulo não tem referência). Sem a faixa, o módulo
+//   fica em cima do título: o serial e a placa do ativo que o cadastro prevê
+// · as sete passam sem trava: a sessão aparece — a faixa desce de cima (a peça,
+//   Faixa `ausente`, C12·24) —, e a tela é a 00 (7 de 7, ou a 07, com o modem que
+//   só informa, 6 de 7). Fica gravado etapas.preChecagem, com o nome de hoje,
+//   porque a T13 e a T12 leem assim (o gate do pacote 1, item 2)
+// · uma trava (02, 03, 04, 05): a faixa não desce, e o rodapé dá a saída dela.
+//   `Procurar outro módulo` desfaz a sessão que não chegou a aparecer e volta à
+//   T05/01, a lista sem nada escolhido. `Atualizar firmware` (04) e `Gravar a
+//   conexão` (05, que grava só a conexão, isolada, e o firmware atualiza por ela)
+//   levam à 06: o quadro dos 62% (CASOS[firmware-fora-matriz].atualizacao) por
+//   RITMOS.cadeiaBlocoMs (D4), e o diagnóstico recomeça das sete, com o firmware
+//   disponível; o voltar não faz nada, e não há ENCERRAR (a faixa não desceu)
+// · com o bloco do ativo gravado (D2): a tela abre com a CAN lida, a 01 — o
+//   módulo numa linha só, *Conferido na conexão*, e a lista da CAN do modelo do
+//   ativo. Grava etapas.can { lida }. `Ler de novo` relê a CAN (10), uma linha a
+//   cada RITMOS.diagnosticoLinhaMs, e volta à 01; relendo, o ENCERRAR fica apagado
+//   (a lei 17, a logica.md · NOVA-9: o PNG da 10 o desenha aceso)
+// · com o ativo escolhido e antes da cadeia (o menu depois da T06), a 00 com a
+//   placa na faixa e só o `Voltar ao menu` — o Selecionar ativo não cabe com o
+//   ativo preso na sessão (gate do pacote 1, NOVA-5, sem referência)
+//
+// Aberta pela URL, pelo palco, num estado da coluna ou no print, a tela fica
+// parada no quadro da referência. Os momentos de processo (06 e 10) pela URL
+// abrem no quadro deles e seguem dali; no print, param.
+//
+// Os estados (receitas.js), cada um pelo seu caso, montados e parados: 02
+// serial-nao-cadastrado, 03 modelo-sem-driver, 04 firmware-fora-matriz, 05
+// firmware-sem-rede-no-modulo, 07 modem-sem-sinal (só informa) — o módulo do caso,
+// na conexão —, 08 can-estatico-ausente e 09 can-estatico-isolado — a CAN lida
+// do ativo do caso. O estado muda o conteúdo, nunca o desenho: a falha mora na
+// linha que falhou.
+//
+// O movimento (animacao.md): a faixa que nasce (a peça); a linha que lê, o poço
+// com o quadrado de agora; a leitura que chega, o glifo e o valor esmaecendo no
+// lugar (a LinhaChecagem percebe sozinha); o contador troca no lugar; o texto do
+// primário que troca esmaece no lugar, com o roxo direto (C12·23).
+import { useEffect, useRef, useState } from 'react'
 import {
-  BarraDoSistema, Faixa, CabecalhoConteudo, Leitura, LeituraTambor, LeituraPequena, GradeLeituras,
-  Sinais, Declarado, Rodape, useFimDaTroca,
+  BarraDoSistema, Faixa, Rodape, CabecalhoConteudo, Lista, LinhaChecagem, Nota, ESTADOS, useFimDaTroca,
 } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
-import { EM_QUADRO } from '../../estado/quadro.js'
-import { RITMOS } from '../../estado/ritmos.js'
 import { useVoltar } from '../../estado/voltar.js'
 import { useEncerrar } from '../../estado/encerrar.jsx'
+import { EM_QUADRO } from '../../estado/quadro.js'
+import { RITMOS } from '../../estado/ritmos.js'
 import { SEMENTES } from '../../estado/sementes.js'
 import { M } from '../../dados/mock.js'
-import { caixaAlta } from '../../dados/formato.js'
-import { Vazia } from '../Vazia.jsx'
-import {
-  REF, casoDoEstado, casoDoAtivo, ativoDe, ler, pecas, leituraGrande, leituraPequena, leituraTambor, ligaDesliga,
-} from './leitura.js'
 import { T } from './textos.js'
+import {
+  REF, TOTAL, LINHA_FIRMWARE, CASO_FIRMWARE, CASO_SEM_REDE, QUADRO_10, CAN_AGUARDA, NA_CAN,
+  ativoDe, ativoPrevisto, serialDoCaso, casosDoEstado, casosDoModulo, contextoDe, rotuloDeTopo, faltas,
+  resultados, sinaisDoModelo, tituloDaCan, leituraDaCan, canLidaNoFluxo, sessaoDo,
+} from './diagnostico.js'
 import './t07.css'
 
+// a lista da T05, sem nada escolhido: aonde o Procurar outro módulo leva
+const T05_LISTA = '01-momento-nenhum-escolhido'
 
-// a sessão do estado da coluna: o par módulo × ativo do caso, do cadastro
-function sessaoDoCaso(casoId) {
-  const a = ativoDe(M.casos[casoId].ativoId)
-  return { ...SEMENTES.T07.sessao, ativoId: a.id, moduloSerial: a.moduloSerial }
+// o quadro: o módulo (serial; undefined = o da sessão), o ativo (undefined = o
+// da sessão; null = sem ativo), se a CAN está lida (o módulo numa linha só),
+// quantas das sete já terminaram, a porcentagem do firmware que atualiza, quantos
+// sinais da CAN a releitura já leu (null = todos), e os casos que valem
+const quadro = (q) => ({ serial: undefined, ativoId: undefined, can: false, feitas: TOTAL, atualizando: null, lidos: null, casos: [], ...q })
+
+// o diagnóstico deste módulo já está no estado único (a semente da T07 o traz:
+// o módulo do herói, com os sete certos)
+const conferido = (pc, serial) => pc != null && (pc.moduloSerial == null || pc.moduloSerial === serial)
+
+// o quadro em que a tela abre, pelo momento da URL e pelo estado único
+function inicio(momento, unico) {
+  const s = unico.sessao ?? SEMENTES.T07.sessao
+  if (momento === REF.atualizando) {
+    const caso = M.casos[CASO_FIRMWARE]
+    return quadro({ serial: serialDoCaso(CASO_FIRMWARE), ativoId: null, feitas: LINHA_FIRMWARE, atualizando: caso.atualizacao.quadroPct })
+  }
+  if (momento === REF.canLida || momento === REF.relendo) {
+    return quadro({ ativoId: s.ativoId ?? ativoPrevisto(s.moduloSerial)?.id ?? null, can: true, lidos: momento === REF.relendo ? QUADRO_10 : null })
+  }
+  if (canLidaNoFluxo(unico)) return quadro({ can: true })
+  // a chegada da T05: a sessão sem ativo, e o diagnóstico deste módulo ainda não feito — ele lê
+  // agora. Com o ativo na sessão (o pulo do palco pra uma tela de depois, que semeia só a sessão),
+  // o módulo já passou: a faixa, que já estava lá, não some
+  const corre = !EM_QUADRO && !s.ativoId && !conferido(unico.etapas.preChecagem, s.moduloSerial)
+  return quadro({ feitas: corre ? 0 : TOTAL, casos: casosDoModulo(s.moduloSerial, unico.casosConsumidos) })
 }
 
-export default function T07({ estado: est }) {
-  // T07·1 (a): o domínio mudo espera a referência nova do ma-02 — até lá, a
-  // coluna abre a tela ainda não construída, com o nome (como no C3)
-  if (est === REF.dominio) return <Vazia tela="T07" estado={est} />
-  return <DadosDaCan est={est} />
+// os estados da coluna, montados pela receita e parados: o módulo do caso, na
+// conexão (02 a 07), ou a CAN lida do ativo do caso (08, 09)
+function quadroDoEstado(est) {
+  const casos = est ? casosDoEstado(est) : null
+  if (!casos) return null
+  const k = casos[0]
+  if (NA_CAN[k]) {
+    const a = ativoDe(M.casos[k].ativoId)
+    return quadro({ serial: a.moduloSerial, ativoId: a.id, can: true, casos })
+  }
+  return quadro({ serial: serialDoCaso(k), ativoId: null, casos })
 }
 
-function DadosDaCan({ est }) {
+export default function T07({ momento, estado: est }) {
   const { estado: unico, despachar } = useEstado()
-  const casoEst = est ? casoDoEstado(est) : null
-  const sessao = casoEst ? sessaoDoCaso(casoEst) : (unico.sessao?.ativoId ? unico.sessao : SEMENTES.T07.sessao)
-  const caso = est ? casoEst : casoDoAtivo(sessao.ativoId)
-  const consumido = !est && caso != null && unico.casosConsumidos.includes(caso)
-  const leitura = ler(sessao.ativoId, caso, consumido)
-  const { leitura: grandes, tambor, pequenas, sinais } = pecas(leitura)
+  const [fluxo, setFluxo] = useState(() => inicio(momento, unico))
+  const vivo = useRef(null)
+  vivo.current = { estado: unico, momento }
+  const q = quadroDoEstado(est) ?? fluxo
+  const ir = (tela, extra = {}) => despachar({ tipo: 'ir', tela, ...extra })
+  // o caso que acontece agora fica consumido na sessão (G21); num estado da coluna, nada se grava
+  const consumir = (...ids) => {
+    const e = vivo.current.estado
+    const novos = ids.filter((k) => !e.casosConsumidos.includes(k))
+    if (est == null && novos.length) despachar({ tipo: 'mesclar', parcial: { casosConsumidos: [...e.casosConsumidos, ...novos] } })
+  }
 
-  // ── a leitura que corre (C12·30 a) ──
-  // a ordem em que os sinais chegam: a da tela, e o estático que o mapa não desenha, por último
-  const estaticos = leitura.sinais.filter((s) => s.fase === 'estatico')
-  const naTela = [...grandes, ...tambor, ...pequenas, ...sinais].map((s) => s.id)
-  const ordem = [...naTela, ...estaticos.map((s) => s.id).filter((id) => !naTela.includes(id))]
-  // a chegada da T06: o ativo que o Usar este ativo acabou de confirmar, com a CAN por ler
-  const [corrida, setCorrida] = useState(() => ({
-    rodada: 0,
-    lidos: !est && !EM_QUADRO && unico.etapas.ativo?.ativoId === sessao.ativoId && !unico.etapas.can?.lida ? 0 : null,
-  }))
-  const lendo = corrida.lidos != null
+  // ── o módulo e o ativo do quadro ──
+  const sessao = unico.sessao ?? SEMENTES.T07.sessao
+  const serial = q.serial ?? sessao.moduloSerial
+  const ativoId = q.ativoId !== undefined ? q.ativoId : sessao.ativoId
+  const ativo = ativoId ? ativoDe(ativoId) : null
+
+  // ── as sete linhas: as que terminaram dizem o resultado; a que corre mostra o
+  // quadrado de agora; as outras esperam, com o relógio apagado e o traço ──
+  const c = contextoDe(serial, est != null ? [] : unico.casosConsumidos)
+  const res = resultados(c, q.casos)
+  const corre = !q.can && q.atualizando == null && q.feitas < TOTAL
+  const concluido = !q.can && q.atualizando == null && q.feitas >= TOTAL
+  const trava = res.some((r) => r.estado === 'reprovada')
+  const passou = concluido && !trava
+  const linhas = res.map((r, i) => {
+    if (q.atualizando != null && i === LINHA_FIRMWARE) return { ...r, estado: 'agora', valor: T.atualizandoPct(q.atualizando), causa: undefined, glifo: undefined }
+    if (i < q.feitas) return r
+    if (i === q.feitas && corre) return { ...r, estado: 'agora', valor: T.lendo, causa: undefined, glifo: undefined }
+    return { ...r, estado: 'ainda-nao', valor: T.vazio, causa: undefined, glifo: 'relogio' }
+  })
+  const aprovadas = linhas.filter((l) => l.estado === 'aprovada').length
+
+  // ── a CAN lida: o módulo numa linha só, com o que a conexão conferiu ──
+  const sinais = q.can && ativo ? sinaisDoModelo(ativo.modeloAtivoId) : null
+  const leitura = sinais ? leituraDaCan(sinais, q.casos) : null
+  const relendo = q.can && q.lidos != null
+  const linhasCan = (leitura ?? []).map((r, i) => {
+    if (!relendo || i < q.lidos) return r
+    if (i === q.lidos) return { ...r, estado: 'agora', valor: T.lendo, causa: undefined }
+    return { ...r, estado: 'ainda-nao', valor: T.vazio, causa: undefined, glifo: 'relogio' }
+  })
+  // o que a conexão conferiu: no fluxo, o que ficou gravado pra este módulo; num estado, ou sem registro, os sete
+  const pc = est == null && conferido(unico.etapas.preChecagem, serial) ? unico.etapas.preChecagem : null
+  const modTotal = pc?.checagens ?? TOTAL
+  const modAprovadas = pc?.aprovadas ?? pc?.passaram ?? TOTAL
+
+  const contagem = q.can ? modAprovadas + linhasCan.filter((l) => l.estado === 'aprovada').length : aprovadas
+  const total = q.can ? modTotal + linhasCan.length : TOTAL
+
+  // ── os processos: uma linha por tick, depois da troca entre telas que trouxe
+  // a tela (C12·35); param no print e num estado da coluna ──
   const fimDaTroca = useFimDaTroca()
   useEffect(() => {
-    if (!lendo) return undefined
-    let vivo = true, relogio = null
-    // o relógio só liga depois da troca entre telas que trouxe a tela (logo, no Ler novamente)
+    if (EM_QUADRO || est != null || !(corre || relendo)) return undefined
+    let ativa = true, relogio = null
     fimDaTroca().then(() => {
-      if (!vivo) return
-      relogio = setInterval(() => setCorrida((c) => {
-        if (c.lidos == null) return c
-        const lidos = c.lidos + 1
-        return { ...c, lidos: lidos >= ordem.length ? null : lidos }
-      }), RITMOS.leituraCanSinalMs)
+      if (!ativa) return
+      relogio = setInterval(() => setFluxo((f) => {
+        if (f.can) return f.lidos == null ? f : { ...f, lidos: f.lidos + 1 >= linhasCan.length ? null : f.lidos + 1 }
+        return f.atualizando == null && f.feitas < TOTAL ? { ...f, feitas: f.feitas + 1 } : f
+      }), RITMOS.diagnosticoLinhaMs)
     })
-    return () => { vivo = false; clearInterval(relogio) }
-  }, [lendo, corrida.rodada, ordem.length]) // eslint-disable-line react-hooks/exhaustive-deps
-  // o que já chegou: tudo, fora da corrida
-  const chegaram = new Set(lendo ? ordem.slice(0, corrida.lidos) : ordem)
-  const chegou = (s) => chegaram.has(s.id)
-  const lidosAgora = estaticos.filter(chegou)
-  const reprovadosAgora = lidosAgora.filter((s) => s.veredito !== 'ok').length
-  const passaramAgora = lidosAgora.length - reprovadosAgora
-  const falhou = reprovadosAgora > 0
-  // cada peça no quadro de começo, até o sinal dela chegar: o de fim, com o que anda na origem
-  const grande = (s) => {
-    const p = leituraGrande(s, T)
-    return chegou(s) ? p : { ...p, valor: T.vazio, unidade: undefined, fora: false, causa: undefined, escala: { ...p.escala, valor: p.escala.min } }
-  }
-  const pequena = (s) => {
-    if (chegou(s)) return leituraPequena(s, T)
-    // o que não vai chegar (o sem leitura) espera como os outros: a escala dele, do mapa e da faixa
-    const p = leituraPequena(s.veredito === 'ausente' ? { ...s, veredito: 'ok', lido: null } : s, T)
-    return { ...p, valor: T.vazio, unidade: undefined, escala: { ...p.escala, valor: p.escala.min } }
-  }
-  const rodas = (s) => {
-    const t = leituraTambor(s)
-    return chegou(s) ? t : { ...t, valor: String(t.valor).replace(/[0-9]/g, '0'), nome: [T.vazio, t.unidade].filter(Boolean).join(' ') }
-  }
-  const liga = (s) => (chegou(s) ? ligaDesliga(s) : { rotulo: s.rotulo, valor: T.vazio, confere: false })
+    return () => { ativa = false; clearInterval(relogio) }
+  }, [corre, relendo, est]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // no fluxo, a leitura feita vai pro estado único (etapas.can)
+  // D4 · o firmware atualiza: o quadro dos 62% por RITMOS.cadeiaBlocoMs, e o
+  // diagnóstico recomeça das sete, com o firmware disponível (o caso consumido)
   useEffect(() => {
-    if (est) return
-    const atual = unico.etapas.can
-    if (atual?.lida && atual.reprovados === leitura.reprovados) return
-    despachar({ tipo: 'mesclar', parcial: { etapas: { ...unico.etapas, can: { ...atual, lida: true, reprovados: leitura.reprovados } } } })
-  }, [est, leitura.reprovados]) // eslint-disable-line react-hooks/exhaustive-deps
+    if (EM_QUADRO || est != null || q.atualizando == null) return undefined
+    const relogio = setTimeout(() => {
+      consumir(CASO_FIRMWARE, CASO_SEM_REDE)
+      setFluxo((f) => ({ ...f, atualizando: null, feitas: 0, casos: f.casos.filter((k) => k !== CASO_SEM_REDE) }))
+      ir('T07')
+    }, RITMOS.cadeiaBlocoMs)
+    return () => clearTimeout(relogio)
+  }, [q.atualizando, est]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const ir = (tela, extra = {}) => despachar({ tipo: 'ir', tela, ...extra })
-  // G23: antes de homologar, a sessão abortada (T16/03); depois, o encerramento (T16)
-  // o ENCERRAR (decisão 36, src/estado/encerrar.jsx): antes de homologar, o diálogo
-  // Encerrar sem homologar? por cima desta tela; depois de homologar, direto, pra T16
-  const enc = useEncerrar()
-  // T07·5 (a): relê no lugar. O caso vale uma vez por sessão (G21): relida, a
-  // falha dá lugar ao nominal do sinal. A leitura volta ao quadro de começo e
-  // corre de novo, no ritmo (C12·30 a)
-  const lerNovamente = () => {
-    if (caso && !unico.casosConsumidos.includes(caso)) despachar({ tipo: 'mesclar', parcial: { casosConsumidos: [...unico.casosConsumidos, caso] } })
-    setCorrida((c) => ({ rodada: c.rodada + 1, lidos: 0 }))
+  // as sete passaram sem trava: a sessão aparece, e o diagnóstico fica gravado
+  // (etapas.preChecagem, o nome de hoje: { checagens, passaram } — passaram são as
+  // que não travam; aprovadas, as do contador; e o módulo)
+  useEffect(() => {
+    if (est != null || !passou) return
+    const e = vivo.current.estado
+    const mesmo = e.sessao?.moduloSerial === serial
+    if (mesmo && conferido(e.etapas.preChecagem, serial) && e.etapas.preChecagem.passaram === TOTAL) return
+    despachar({ tipo: 'mesclar', parcial: {
+      ...(mesmo ? {} : { sessao: sessaoDo(serial, e.sessao) }),
+      etapas: { ...e.etapas, preChecagem: { checagens: TOTAL, passaram: TOTAL, aprovadas, moduloSerial: serial } },
+    } })
+  }, [passou, serial, est]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // a CAN lida fica gravada (etapas.can { lida }, que a T13 lê), com o ativo dela; e,
+  // no fluxo, o endereço diz a 01 (o 01 e o 10 pela URL também põem o ativo na sessão)
+  useEffect(() => {
+    if (est != null || !q.can || relendo || !leitura) return
+    const e = vivo.current.estado
+    const reprovados = leitura.filter((r) => r.estado === 'reprovada').length
+    const s = e.sessao
+    const mesma = s?.moduloSerial === serial && s?.ativoId === ativoId
+    if (!(mesma && e.etapas.can?.lida && e.etapas.can.ativoId === ativoId && e.etapas.can.reprovados === reprovados)) {
+      despachar({ tipo: 'mesclar', parcial: {
+        ...(mesma ? {} : { sessao: { ...(s ?? SEMENTES.T07.sessao), moduloSerial: serial, ativoId } }),
+        etapas: { ...e.etapas, can: { ...e.etapas.can, lida: true, ativoId, reprovados } },
+      } })
+    }
+    if (vivo.current.momento !== REF.canLida) ir('T07', { momento: REF.canLida })
+  }, [q.can, relendo, est, ativoId]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // ── os toques (tela.md). Num estado da coluna o celular não toca ──
+  const voltarAoMenu = () => ir('T04')
+  // a trava: a sessão que nasceu no Conectar não chegou a aparecer, e se desfaz sem
+  // registro; a T05 abre na lista, sem nada escolhido
+  function procurarOutro() {
+    const e = vivo.current.estado
+    despachar({ tipo: 'mesclar', parcial: { sessao: null, etapas: { ...e.etapas, preChecagem: null } } })
+    ir('T05', { momento: T05_LISTA })
+  }
+  // 04 · Atualizar firmware → 06
+  function atualizarFirmware() {
+    setFluxo({ ...q, serial, ativoId: null, feitas: LINHA_FIRMWARE, atualizando: M.casos[CASO_FIRMWARE].atualizacao.quadroPct })
+    ir('T07', { momento: REF.atualizando })
+  }
+  // 05 · Gravar a conexão: grava só a conexão, isolada — o módulo ganha rede, e o
+  // firmware atualiza por ela (a 06). O quadro de gravando não tem referência: direto
+  function gravarConexao() {
+    consumir(CASO_SEM_REDE)
+    setFluxo({ ...q, serial, ativoId: null, casos: q.casos.filter((k) => k !== CASO_SEM_REDE), feitas: LINHA_FIRMWARE, atualizando: M.casos[CASO_FIRMWARE].atualizacao.quadroPct })
+    ir('T07', { momento: REF.atualizando })
+  }
+  // 01 · Ler de novo → 10: relê a CAN inteira, e o caso da CAN, se houver, fica consumido (G21)
+  function lerDeNovo() {
+    consumir(...q.casos.filter((k) => NA_CAN[k]))
+    setFluxo({ ...q, serial, ativoId, lidos: 0, casos: q.casos.filter((k) => !NA_CAN[k]) })
+    ir('T07', { momento: REF.relendo })
   }
 
-  // O voltar do Android (logica.md): com tudo aprovado, o Voltar ao menu, o link
-  // de saída do rodapé. Com um sinal reprovado, o link é o Configurar módulo, que
-  // avança pra gravação e não é saída: não faz nada (pendencias.md)
-  useVoltar(falhou ? null : () => ir('T04'))
+  // O voltar do Android (logica.md): lendo, atualizando e relendo, nada — o processo
+  // termina sozinho; sem trava (00, 07) e com a CAN lida (01, 08, 09), o Voltar ao
+  // menu; na trava (02 a 05), o Procurar outro módulo
+  const processo = corre || relendo || q.atualizando != null
+  useVoltar(processo ? null : q.can || passou ? voltarAoMenu : procurarOutro)
+  // o ENCERRAR (decisão 36): antes de homologar, o diálogo Encerrar sem homologar? por cima
+  const enc = useEncerrar()
 
-  // enquanto lê, o primário fica apagado, com o texto do que já chegou, e acende por uma camada no fim (C12·8, C12·31);
-  // o texto que troca na frente de quem olha — o sinal que falha traz o Ler novamente, e o Ler novamente volta ao
-  // Configurar módulo — esmaece no lugar, com o roxo direto (C12·23, o conserto de 27/09). O link troca direto
-  const rodape = falhou
-    ? <Rodape primario={T.lerNovamente} aoPrimario={lerNovamente} primarioDesabilitado={lendo} primarioAcende primarioTrocaTexto link={T.configurar} aoLink={() => ir('T09')} />
-    : <Rodape primario={T.configurar} aoPrimario={() => ir('T09')} primarioDesabilitado={lendo} primarioAcende primarioTrocaTexto link={T.voltar} aoLink={() => ir('T04')} />
+  // ── o topo: a faixa quando a sessão aparece ──
+  const comFaixa = q.can || passou
+  const faixa = (
+    <Faixa ausente={!comFaixa} serial={serial} placa={ativo ? ativo.placa : T.semAtivo} semAtivo={!ativo} acao={T.encerrar}
+      aoEncerrar={enc.encerrar} acaoDesabilitada={relendo} />
+  )
+
+  // ── o rodapé: o primário que espera o processo acende quando ele termina — com
+  // outro texto, o texto esmaece no lugar e o roxo troca direto (C12·23) ──
+  let rodape
+  if (q.atualizando != null) rodape = <Rodape primario={T.atualizando} primarioDesabilitado explicacao={T.recomeca} pe="botao" />
+  else if (corre || relendo) rodape = <Rodape primario={T.lendoNaoSaia} primarioDesabilitado primarioTrocaTexto />
+  else if (q.can) rodape = <Rodape primario={T.voltarAoMenu} aoPrimario={voltarAoMenu} primarioAcende primarioTrocaTexto link={T.lerDeNovo} aoLink={lerDeNovo} />
+  else if (passou && ativo) rodape = <Rodape primario={T.voltarAoMenu} aoPrimario={voltarAoMenu} primarioAcende primarioTrocaTexto />
+  else if (passou) rodape = <Rodape primario={T.selecionarAtivo} aoPrimario={() => ir('T06')} primarioAcende primarioTrocaTexto link={T.voltarAoMenu} aoLink={voltarAoMenu} />
+  else {
+    const f = faltas(c)
+    if (f.firmwareFora && q.casos.includes(CASO_SEM_REDE)) {
+      rodape = <Rodape legenda={T.comConexaoGravada} primario={T.gravarConexao} aoPrimario={gravarConexao} primarioAcende primarioTrocaTexto link={T.procurarOutro} aoLink={procurarOutro} />
+    } else if (f.firmwareFora) {
+      rodape = <Rodape primario={T.atualizarFirmware} aoPrimario={atualizarFirmware} primarioAcende primarioTrocaTexto link={T.procurarOutro} aoLink={procurarOutro} />
+    } else rodape = <Rodape primario={T.procurarOutro} aoPrimario={procurarOutro} primarioAcende primarioTrocaTexto />
+  }
+
+  const linha = (l, k) => (
+    <LinhaChecagem key={k} estado={l.estado} titulo={l.titulo} valor={l.valor} causa={l.causa} glifo={l.glifo}
+      nomeGlifo={l.estado === 'ainda-nao' ? ESTADOS.espera.nome : undefined} />
+  )
 
   return (
     <div className="t07">
-      <BarraDoSistema hora={M.HORA_NOMINAL} fundo="faixa" />
-      <Faixa serial={sessao.moduloSerial} placa={leitura.ativo.placa} acao={T.encerrar}
-        aoEncerrar={enc.encerrar} />
+      <BarraDoSistema hora={M.HORA_NOMINAL} fundo={comFaixa ? 'faixa' : 'pagina'} />
+      {faixa}
       <div className="tela-miolo t07-miolo">
-        {falhou
-          ? <CabecalhoConteudo titulo={T.titulo} contagem={reprovadosAgora} unidade={T.reprovado} tom="falha" />
-          : <CabecalhoConteudo titulo={T.titulo} contagem={passaramAgora} unidade={T.deTotal(leitura.total)} />}
-        {/* a rodada na chave: o Ler novamente devolve as peças ao quadro de começo de uma vez, paradas */}
-        {grandes.map((s) => <Leitura key={`${s.id}·${corrida.rodada}`} rotulo={caixaAlta(s.rotulo)} {...grande(s)} corre />)}
-        {tambor.map((s) => <LeituraTambor key={`${s.id}·${corrida.rodada}`} rotulo={caixaAlta(s.rotulo)} nota={T.notaSemFaixa} {...rodas(s)} />)}
-        <GradeLeituras folga={10}>
-          {pequenas.map((s) => <LeituraPequena key={`${s.id}·${corrida.rodada}`} rotulo={caixaAlta(s.rotulo)} {...pequena(s)} corre />)}
-          {sinais.length > 0 && <Sinais key={corrida.rodada} sinais={sinais.map(liga)} />}
-        </GradeLeituras>
-        <Declarado aoPe rotulo={T.apagados(leitura.dinamicos.length)}
-          texto={leitura.dinamicos.map((s) => s.rotuloCurto ?? s.rotulo).join(T.entreSinais)} />
+        <div className="t07-cabeca">
+          {!comFaixa && <span className="t07-rotulo-topo">{rotuloDeTopo(c)}</span>}
+          <CabecalhoConteudo titulo={T.titulo} contagem={contagem} unidade={T.de(total)} tom={contagem === total ? 'veredito' : 'neutro'} />
+        </div>
+        <div className="t07-secao">
+          <span className="t07-rotulo-bloco">{T.oModulo}</span>
+          <Lista>
+            {q.can
+              ? linha({ estado: 'aprovada', titulo: T.conferido, valor: T.deTotal(modAprovadas, modTotal) }, 'conferido')
+              : linhas.map((l) => linha(l, l.id))}
+          </Lista>
+        </div>
+        <div className="t07-secao">
+          <span className="t07-rotulo-bloco">{leitura ? tituloDaCan(ativo) : T.aCan}</span>
+          {leitura
+            ? <Lista>{linhasCan.map((l) => linha(l, l.id))}</Lista>
+            : <Nota tom="aguarda" titulo={T.aguardando} frase={CAN_AGUARDA} />}
+        </div>
       </div>
       {rodape}
       {enc.sobre}

@@ -44,7 +44,7 @@ import { RITMOS } from '../../estado/ritmos.js'
 import { M } from '../../dados/mock.js'
 import {
   REF, CASO_FALHA, CASO_INTERROMPIDA, REINICIO, AUTOTESTE, QUADRO_00, QUADRO_03, SEGUROS, TOTAL_ASSERTIVAS, CAUSA,
-  placaDe, moduloDoAtivo, pedeOCorte, parDoCorte, passosEncerrando, passosAbortando, versaoCompleta, assertivas,
+  placaDe, moduloDoAtivo, pedeOCorte, parDoCorte, passosEncerrando, passosAbortando, blocosRelidos, assertivas,
   interrompida,
 } from './dados.js'
 import { T, PASSOS } from './textos.js'
@@ -66,11 +66,12 @@ const parDe = (s) => {
 function inicio(momento, est, unico) {
   if (est === REF.falhando) {
     const { ativoId } = M.casos[CASO_FALHA]
-    return { fase: 'encerrada', par: { ativoId, moduloSerial: moduloDoAtivo(ativoId) }, versao: versaoCompleta() }
+    return { fase: 'encerrada', par: { ativoId, moduloSerial: moduloDoAtivo(ativoId) }, versao: blocosRelidos() }
   }
   if (est === REF.interrompida) return { fase: 'interrompida', par: null }
   const par = parDe(unico.sessao)
-  const versao = unico.etapas.cadeia?.versaoGravada || versaoCompleta()
+  // a prova da sessão encerrada: os 6 blocos relidos (decisão 49 · o módulo não guarda versão)
+  const versao = blocosRelidos()
   if (momento === REF.corte) {
     // o 01 é a sessão de um módulo que não reinicia por comando (T16·1)
     const uoId = unico.contexto.uoId ?? M.contextoAtivo.uoId
@@ -177,7 +178,7 @@ export default function T16({ momento, estado: est }) {
       tipo: 'mesclar',
       parcial: {
         sessao: { ...(unico.sessao ?? SEMENTES.T16.sessao), moduloSerial: c.moduloSerial, ativoId: c.ativoId, saude: 'ok', abertaAs: c.iniciadaAs },
-        etapas: { ...vazio.etapas, cadeia: { confirmados: c.confirmados, versaoGravada: c.versaoGravada } },
+        etapas: { ...vazio.etapas, cadeia: { confirmados: c.confirmados } },
       },
     })
     ir('T09')

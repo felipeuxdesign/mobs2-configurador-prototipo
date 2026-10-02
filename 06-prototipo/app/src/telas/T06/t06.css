@@ -16,9 +16,10 @@
 /* a lista do pacote não encolhe: o miolo rola. O último grupo antes do rodapé
  * não tem margem: os 16 até ele são o recheio do miolo (--respiro) — a margem
  * somava folga dupla, 32, no fim da rolagem (MUDANCAS §4 da otimizacao300000000:
- * T06/00, 02 e 07). A linha da correção de cadastro (02, 07) também vai sem ela */
+ * T06/00) */
 .t06-lista { flex-shrink: 0; }
 
-/* na confirmação, o bloco que cresce até o rodapé e é o último (o par que bate,
- * 01, e a trava, 04 a 06) guarda 16 até ele, como as referências desenham */
+/* na confirmação, o bloco que cresce até o rodapé e é o último guarda 16 até ele,
+ * como as referências desenham: a trava (04 a 06) por esta classe, e os dados do
+ * modelo (01, 10 e 11) pela folga da própria peça (DadosDoModelo · antesDoRodape) */
 .t06-antes-do-rodape { margin-bottom: var(--respiro); }

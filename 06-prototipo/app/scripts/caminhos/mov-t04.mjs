@@ -1,6 +1,6 @@
 // C12 · o movimento da T04 · Menu (02-telas/T04-menu/animacao.md; gate C12·2, 3, 6, 24, 26, 27
-// e 43). No menu, nada se move ao chegar: a faixa da sessão desce na T05, onde a sessão nasce, e o
-// menu já abre com ela (C12·24 a); os cartões liberados chegam com o esmaecer entre telas, sem
+// e 43). No menu, nada se move ao chegar: a sessão nasce na conexão (T05), a faixa desce no
+// diagnóstico (T07), quando as sete linhas passam sem trava, e o menu já abre com ela (C12·24 a, pacote 1); os cartões liberados chegam com o esmaecer entre telas, sem
 // nada mudando depois (C12·26 a); o contador da fila e do checklist troca no lugar. O que se move
 // é o que vem por cima, o mesmo peso em todo o app (src/ds/chrome/PorCima.jsx): a folha sobe em
 // 200 e desce em 150, com o véu — no X, tocando fora, arrastando e no voltar (lei 20) —; o diálogo
@@ -39,7 +39,8 @@ const ENTENDI = [
 const MOMENTOS = ['01-momento-sem-modulo', '02-momento-modulo-sem-ativo', '05-momento-folha-conta', '06-momento-folha-conta-sair-com-sessao-aberta',
   '07-momento-folha-trocar-de-garagem', '10-momento-folha-modulo-conectado', '11-momento-folha-ativo-da-sessao', '13-momento-encerrar-antes-de-homologar']
 const ESTADOS = ['03-estado-faixa-modulo-com-falha', '04-estado-checklist-pendente', '08-estado-folha-trocar-de-garagem-envio-em-andamento',
-  '09-estado-folha-trocar-de-garagem-com-modulo-conectado', '12-estado-acesso-vencendo', '14-estado-folha-trocar-de-unidade-com-empresa']
+  '09-estado-folha-trocar-de-garagem-com-modulo-conectado', '12-estado-acesso-vencendo', '14-estado-folha-trocar-de-unidade-com-empresa',
+  '15-estado-sem-conexao']
 const abreParado = (q) => [{ abre: `?tela=T04${q}` }, { quieto: true }, { dorme: 300 }, { quieto: true }]
 
 export default [
@@ -52,6 +53,11 @@ export default [
   ...abreParado('&momento=10-momento-folha-modulo-conectado&print=1'),
   // T04·2 · o contador do checklist, num estado: troca no lugar, e nada anima
   { abre: '?tela=T04&estado=04-estado-checklist-pendente' },
+  { quieto: true },
+  // T04/15 (decisão 48) · sem rede, na sessão do herói: só o Últimas instalações espera a conexão
+  { abre: '?tela=T04&estado=15-estado-sem-conexao' },
+  { ve: 'sem conexão' },
+  { ve: 'RKT-8H42' },
   { quieto: true },
 
   // ── T04·3 · as folhas: sobem em 200 com o véu e descem em 150 — no X, fora, arrastando e no voltar ──
@@ -144,7 +150,7 @@ export default [
   { quieto: true },
 
   // ── os toques que levam a outra tela: o conteúdo dela esmaece, e o topo troca direto ──
-  { toca: 'Dados da CAN', anima: [MIOLO], naoAnima: TOPO_PARADO },
+  { toca: 'Diagnóstico do módulo', anima: [MIOLO], naoAnima: TOPO_PARADO },
   { chega: 'T07' },
   { dorme: 250 },
   { toca: 'Voltar ao menu', anima: [MIOLO], naoAnima: TOPO_PARADO },
@@ -172,10 +178,18 @@ export default [
   { toca: 'Garagem Ibura', anima: [MIOLO, RODAPE], naoAnima: [FOLHA_DESCE, VEU_SAI] },
   { chega: 'T03' },
 
-  // ── T04·1 e T04·4 · a faixa e o cartão liberado: a sessão nasce na T05, e o menu só chega com ela ──
+  // sem sessão (o 01), o Diagnóstico espera o módulo, e as outras ferramentas, o módulo e o ativo
+  { abre: '?tela=T04&momento=01-momento-sem-modulo' },
+  ...ENTENDI,
+  { desligado: 'Diagnóstico do módulo, espera módulo' },
+  { desligado: 'Configurar módulo, espera módulo e ativo' },
+
+  // ── T04·1 e T04·4 · a faixa e o cartão liberado: a sessão nasce na conexão (T05), a faixa desce no
+  // diagnóstico (T07), e o menu só chega com ela ──
   { abre: '?tela=T05&momento=01-momento-nenhum-escolhido' },
   { marca: 'M2C-0417' },
   { toca: 'Conectar ao M2C-0417' },
+  { chega: 'T07' },
   { ve: 'ENCERRAR', ms: 12000 },
   { dorme: 400 },
   { toca: 'Voltar ao menu', anima: [MIOLO], naoAnima: TOPO_PARADO },
@@ -185,6 +199,16 @@ export default [
   { quieto: true },                                           // nada se move depois de chegar: nem a faixa, nem os cartões
   { dorme: 400 },
   { quieto: true },
+  // com o módulo sem ativo (02), o Diagnóstico já se toca, e as outras esperam o ativo
+  // (a primeira chegada ao menu desta página: o aviso do acesso nasce aberto, e o Entendi o fecha)
+  ...ENTENDI,
+  { desligado: 'Configurar módulo, espera ativo' },
+  { toca: 'Diagnóstico do módulo', anima: [MIOLO], naoAnima: TOPO_PARADO },
+  { chega: 'T07' },
+  { dorme: 250 },
+  { toca: 'Voltar ao menu', ms: 12000 },
+  { chega: 'T04', momento: '02-momento-modulo-sem-ativo' },
+  { dorme: 250 },
 
   // ── com reduzir movimento: tudo direto ──
   { reduzir: true },
@@ -228,6 +252,7 @@ export default [
   { chega: 'T05', momento: '01-momento-nenhum-escolhido' },
   { marca: 'M2C-0417' },
   { toca: 'Conectar ao M2C-0417' },
+  { chega: 'T07' },
   { ve: 'ENCERRAR', ms: 12000 },
   { dorme: 400 },
   { toca: 'Voltar ao menu' },

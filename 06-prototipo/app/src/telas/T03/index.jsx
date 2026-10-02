@@ -1,7 +1,8 @@
 // T03 · Sincronizar (02-telas/T03-sincronizar): baixa o pacote da unidade
 // escolhida e diz se dá pra trabalhar com ele.
-// · No fluxo, a sincronização sempre corre (G27): um item por tick, na ordem
-//   Modelos → Ativos → Cartões, 4 s no total (T03·1). O poço acompanha os
+// · No fluxo, a sincronização sempre corre (G27): um item por tick, nos cinco
+//   grupos do pacote — Ativos → Conexões → Modelos de ativo → Eventos → Cercas,
+//   os ativos primeiro —, 4 s no total (T03·1). O poço acompanha os
 //   ativos (T03·5). A primeira baixa do pacote do caso sync-falha-rede cai no
 //   item do caso (G21), e Reconectar segue de onde parou. Ao terminar, o
 //   pacote novo vai pro estado único (T03·7) e a URL passa a dizer 02. A
@@ -32,10 +33,10 @@ const E04 = '04-estado-pacote-vencido'
 const MENU = { tipo: 'ir', tela: 'T04', momento: '01-momento-sem-modulo' } // T03·6: o menu antes de conectar
 const CONTEXTO = { tipo: 'ir', tela: 'T02' }                                  // T03·6: Voltar ao contexto, Trocar de unidade
 
-// o quadro que a 00 desenha (gate C4, achado 5): Várzea no 9º item de 16
-const QUADRO_00 = 9
+// o quadro que a 00 desenha (gate C4, achado 5): Várzea no 6º item de 31 (6 de 10 ativos)
+const QUADRO_00 = 6
 
-const NOMES = { ativos: 'Ativos', modelosAtivo: 'Modelos de ativo', cartoes: 'Cartões' }
+const NOMES = { ativos: 'Ativos', conexoes: 'Conexões', modelosAtivo: 'Modelos de ativo', eventos: 'Eventos', cercas: 'Cercas' }
 const TITULOS = { baixando: 'Baixando o pacote', falha: 'Baixando o pacote', concluido: 'Pacote de hoje', idade: 'Sincronizar' }
 
 // o pacote que o aparelho tem da unidade, na forma do estado único (sementes.js)

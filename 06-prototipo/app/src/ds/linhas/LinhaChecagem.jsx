@@ -4,7 +4,7 @@
 // o de 32 desde a entrega do checklist — antes, 26 —, com o glifo de 16 que a
 // folha 4 e a T11 desenham (o tamanho do glifo do poço de 26).
 //
-// estado:   'aprovada' · 'reprovada' · 'nao-se-aplica' · 'parou' · 'ainda-nao'
+// estado:   'aprovada' · 'reprovada' · 'nao-se-aplica' · 'parou' · 'ainda-nao' · 'informa' (o pacote 1, T07)
 // variante: 'compacta' (38, a pré-checagem) · 'passo' (38, o ciclo da T14)
 //           'dupla' (50, a assertiva da sessão) · 'conferencia' (50, a T11)
 // titulo, causa (só na reprovada: a linha cresce), valor (o que foi lido)
@@ -25,8 +25,12 @@ import './LinhaChecagem.css'
 //        segue o dado (G15): quem monta passa o nomeGlifo.
 // A entrega do checklist (T11/00): o bloco que não bate leva o xis vermelho, e não mais o traço.
 // A última entrega · T12 (decisão 41): +estado 'indisponivel' (o traço) e 'pendente' (o relógio), no que o servidor recebeu
+// O pacote 1 · T07/05 e 07 (folha 4, 'só informa'): +estado 'informa' — o que não trava e o
+//   técnico segue, e o checklist registra: o i cinza no poço (o glifo 'info', mudo pro leitor: a
+//   frase já diz), o título em 600 e --tinta, a frase embaixo (a `causa`) em --tinta-secundaria e o
+//   valor em --tinta. A linha cresce com a frase, 6 em cima e embaixo, como a reprovada com causa.
 const GLIFO = { aprovada: 'ok', reprovada: 'xis', 'nao-se-aplica': 'traco', parou: 'sem-sinal', 'ainda-nao': 'espera', agora: 'agora', diverge: 'xis',
-  indisponivel: 'traco', pendente: 'relogio' }
+  indisponivel: 'traco', pendente: 'relogio', informa: 'info' }
 const POCO = { compacta: 24, passo: 24, dupla: 32, conferencia: 32, recebimento: 32 }
 // o glifo pelo poço (--glifo-<poço>); onde a folha desenha outro, o poço cujo glifo ela usa
 const GLIFO_DO_POCO = { conferencia: 26 }

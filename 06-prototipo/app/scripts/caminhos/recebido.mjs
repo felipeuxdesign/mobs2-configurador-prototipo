@@ -13,7 +13,10 @@ export default [
   { chega: 'T12', momento: '01-momento-detalhe-da-instalacao' },
   { ve: 'RKT-8H42\naprovada\nM2C-0417 · hoje, 11:47 · Rafael Vieira' },
   { ve: 'O QUE O SERVIDOR RECEBEU\nPosicionamento\n3 posições em 1 min 12 s\nconforme\nEventos\no teste chegou em 24 s\nconforme\nViagens\n1 viagem fechada · 3 km\ncompleta\nA INSTALAÇÃO' },
-  { ve: 'A INSTALAÇÃO\nPré-checagem\n12 de 12' },
+  // o pacote 1: o resumo diz o Diagnóstico do módulo (7 de 7, das linhas do diagnóstico do mock) e o checklist de 31
+  { ve: 'A INSTALAÇÃO\nDiagnóstico\n7 de 7' },
+  { ve: 'Checklist\n31 de 31' },
+  { naoVe: 'Pré-checagem' },
   { ve: 'Autoteste\n8 de 8' },
   { naoVe: 'Recebimento' },
   { naoVe: 'confirmado 11:47' },
@@ -24,9 +27,9 @@ export default [
   { chega: 'T12', momento: '01-momento-detalhe-da-instalacao' },
   { ve: 'PCX-9A17\naguardando validação\nM2C-0312 · ontem, 16:05' },
   { ve: 'O QUE O SERVIDOR RECEBEU\nPosicionamento\nconforme\nEventos\nconforme\nViagens\ncompleta\nA INSTALAÇÃO' },
-  { ve: 'A INSTALAÇÃO\nConfiguração\n6 blocos relidos\nChecklist\n10 de 10\nAutoteste\n8 de 8' },
+  { ve: 'A INSTALAÇÃO\nConfiguração\n6 blocos relidos\nChecklist\n31 de 31\nAutoteste\n8 de 8' },
   { naoVe: 'Rafael Vieira' },
-  { naoVe: 'Pré-checagem' },
+  { naoVe: 'Diagnóstico' },
   { tecla: 'Escape' },   // o voltar do Android, no detalhe, volta às instalações
   { chega: 'T12', momento: null },
   // a RVM-1E54, da falha reconhecida: nada chegou ao servidor

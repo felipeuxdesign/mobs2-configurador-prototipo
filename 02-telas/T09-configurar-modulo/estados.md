@@ -16,3 +16,5 @@
 | `09-momento-manutencao-reenviando` | momento | `Reenviar`, com um bloco escolhido | `modulo-ja-deste-ativo` |
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.
+
+- no protótipo · o pacote 1 (02/10): a `00` é a tela da régua — no print, `?tela=T09` fica no quadro da cadeia correndo; fora do print, o mesmo endereço é o app vivo na semente (*abre no que vai ser gravado*), e a URL passa a dizer o `05`. A `00` se alcança no fluxo, no `Gravar no módulo` · o `08` e o `09` pelo endereço são a sessão da semente, o par do caso `modulo-ja-deste-ativo` (o herói); no fluxo, o `08` vem do modo que a T06 grava · o `06` e o `07` abrem pela coluna, montados pelo caso; no fluxo, valem toda vez que o par da faixa é o do caso, porque são a regra do cadastro (`tela.md` · No protótipo · o pacote 1)

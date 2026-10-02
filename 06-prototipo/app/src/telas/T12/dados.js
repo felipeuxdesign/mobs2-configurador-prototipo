@@ -148,6 +148,19 @@ export function detalheDoCaso(est) {
 }
 
 const par = (s) => s.split('/').map(Number) // '6/6' → [6, 6]
+
+// O diagnóstico da instalação (o pacote 1, decisão 44 · T12/01: 'Diagnóstico · 7 de 7').
+// A i-01 só guarda a pré-checagem de antes (preChecagem 12 de 12, que passou inteira):
+// as linhas vêm do diagnóstico do módulo do mock, M.diagnostico.modulo — as 7 —, e as que
+// conferiram são as que o herói lê sem trava (todas: a i-01 é a instalação dele, e ela
+// passou). Desvio nomeado, pro arquiteto: a fonte certa é a i-01 ganhar o diagnostico
+// dela nas etapas, no lugar da preChecagem. Quando ganhar, a linha lê dele
+function diagnosticoDe(e) {
+  if (e.diagnostico) return e.diagnostico
+  const linhas = M.diagnostico.modulo
+  const passou = e.preChecagem && e.preChecagem.passaram === e.preChecagem.checagens
+  return { linhas: linhas.length, conferiram: passou ? linhas.filter((l) => l.heroi != null).length : 0 }
+}
 const contagem = (titulo, feito, total, extra = {}) => ({ titulo, valor: TX.deN(feito, total), ok: feito === total, ...extra })
 
 // as linhas da instalação (T12·2 a): as seis etapas da i-01, lidas das etapas; nas
@@ -160,8 +173,9 @@ export function linhasDoDetalhe(i) {
   const e = i.etapas
   if (e) {
     const relidos = e.cadeia.filter((b) => b.readBack === 'confirmado').length
+    const diag = diagnosticoDe(e)
     return [
-      contagem(E.preChecagem, e.preChecagem.passaram, e.preChecagem.checagens),
+      contagem(E.diagnostico, diag.conferiram, diag.linhas),
       { titulo: E.configuracao, valor: TX.blocosRelidos(relidos), ok: relidos === e.cadeia.length },
       { titulo: E.calibracao, valor: e.calibracao.foto ? TX.comFoto(e.calibracao.grandeza) : e.calibracao.grandeza, ok: true },
       contagem(E.ciclo, e.cicloDinamico.confirmados, e.cicloDinamico.passos.length),
