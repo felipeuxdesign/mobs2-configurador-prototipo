@@ -29,6 +29,8 @@
 // Uso (com o `npm run dev` rodando em :5173):
 //   node scripts/palco.mjs                 → os 5 quadros; grava prints/palco/relatorio.json
 //   node scripts/palco.mjs <base.json>     → e diz o que piorou contra essa base
+//   a base das cenas do pacote 1 (00 a 04 novas: a T07 agrupada, a T04 nas colunas do 00) é a
+//   prints/linha-de-base-palco-pacote1.json; a prints/linha-de-base-palco.json é a das cenas de antes
 // Saída: prints/palco/<quadro>-{html,app,diff}.png (o quadro inteiro) e
 // <quadro>-<peça>-{html,app,diff}.png (cada peça), uma linha por peça.
 import { readFileSync, writeFileSync, mkdirSync, rmSync } from 'node:fs'
@@ -50,15 +52,19 @@ const H_MOLDURA = 792
 const MOLDURA = { tela: [360, 800], metal: 3, aro: 10, fora: [386, 826], raioFora: 57, raioTela: 44,
   metalCor: 'rgb(60, 60, 67)', aroCor: 'rgb(5, 5, 7)', fios: 'rgb(23, 23, 27) 0px 0px 0px 1px, rgba(255, 255, 255, 0.04) 0px 0px 0px 1px inset', coluna: 40 }
 
-// os quadros e o lugar do palco que cada um desenha
+// os quadros e o lugar do palco que cada um desenha · o pacote 1: a tela agrupada é a T07, o Diagnóstico do
+// módulo (O módulo e A CAN), e não mais a T05; o 02 é a T07 no Firmware não homologado (a T07 antiga e o
+// Fora da faixa saíram)
 const QUADROS = [
   { ref: '01-no-fluxo', url: '?tela=T04' },
-  { ref: '02-num-estado', url: '?tela=T07&estado=01-estado-fora-da-faixa' },
-  { ref: '03-tela-com-muitos-estados', url: '?tela=T05' },
+  { ref: '02-num-estado', url: '?tela=T07&estado=04-estado-firmware-nao-homologado' },
+  { ref: '03-tela-com-muitos-estados', url: '?tela=T07' },
   { ref: '04-painel-aberto', url: '?tela=T07&painel=1' },
 ]
 // a linha normal do painel, que o 00 desenha com a T07: o painel aberto numa tela que não é a T07
 const AUX = { ref: 'painel-noutra-tela', url: '?tela=T04&painel=1' }
+// a coluna num estado, que o 00 do pacote 1 desenha com a T04 no Módulo com falha
+const AUX_ESTADO = { ref: 'coluna-T04-num-estado', url: '?tela=T04&estado=03-estado-faixa-modulo-com-falha' }
 
 // o que já se sabe que difere, peça a peça: a bancada mostra o número e diz por quê.
 // A chave é "<quadro>/<peça>"; sem ela, vale a da peça. O texto só leva nota quando o quadro diz outra coisa.
@@ -72,16 +78,17 @@ const NOTAS = {
   'painel': 'o X e o RotateCcw do Lucide, no traço 1,8, contra os desenhados à mão no traço 2 (G5)',
   'coluna': MARCADOR,
   '02-num-estado/coluna': MARCADOR + '; e o Undo2 do Lucide no Voltar ao fluxo (G5)',
-  '01-no-fluxo/coluna': 'o quadro lista 2 dos 6 estados da T04; a coluna lista todos (PALCO-A4, PALCO-D3); e ' + MARCADOR,
-  '03-tela-com-muitos-estados/coluna': 'o quadro põe o momento "Um encontrado" no grupo Achar; a coluna lista só os 13 estados, com o Bluetooth desligado e sem permissão no Achar (o mundo real, T05/16 e 17) (G19, PALCO-A7); o nome do grupo na tinta e na letra do rótulo de 10 (lei 11, PALCO-A15, PALCO-V4); e ' + MARCADOR,
-  'coluna-no-fluxo': MARCADOR,
-  'coluna-num-estado': MARCADOR + '; e o Undo2 do Lucide no Voltar ao fluxo (G5)',
-  'coluna-T05': 'a lista dos grupos: a folha tem 10 estados, sem "Firmware fora · sem rede", e a coluna tem os 13, com o Bluetooth desligado e sem permissão no Achar (o mundo real, T05/16 e 17) (PALCO-A7); o nome do grupo na tinta e na letra do rótulo de 10, e não em --marca-limite e 1,4 (lei 11, PALCO-A15, PALCO-V4); e ' + MARCADOR,
+  '01-no-fluxo/coluna': 'o quadro lista 4 dos 7 estados da T04 (sem os três da folha de trocar de unidade); a coluna lista todos (PALCO-A4, PALCO-D3); e ' + MARCADOR,
+  '03-tela-com-muitos-estados/coluna': 'o nome do grupo (O MÓDULO, A CAN) na tinta e na letra do rótulo de 10, e não em --marca-limite e 1,4 (lei 11, PALCO-A15, PALCO-V4); e ' + MARCADOR,
+  '04-painel-aberto/coluna': 'o quadro desenha os 7 estados da T07 sem os grupos, e a coluna os agrupa em O MÓDULO e A CAN, como o 02, o 03 e o 00 desenham (a regra dos seis, palco.md); e ' + MARCADOR,
+  'coluna-no-fluxo': 'a folha lista 3 dos 7 estados da T04; a coluna lista todos (PALCO-A4, PALCO-D3); e ' + MARCADOR,
+  'coluna-num-estado': 'a folha lista 3 dos 7 estados da T04; a coluna lista todos (PALCO-A4, PALCO-D3); e ' + MARCADOR + '; e o Undo2 do Lucide no Voltar ao fluxo (G5)',
+  'coluna-T07': 'a lista dos grupos: o nome do grupo na tinta e na letra do rótulo de 10, e não em --marca-limite e 1,4 (lei 11, PALCO-A15, PALCO-V4); e ' + MARCADOR,
 }
 const notaDe = (nome, nomePeca) => NOTAS[`${nome}/${nomePeca}`] ?? NOTAS[nomePeca]
 const NOTAS_TEXTO = {
   '01-no-fluxo/coluna': NOTAS['01-no-fluxo/coluna'].split('; e ')[0],
-  '03-tela-com-muitos-estados/coluna': NOTAS['03-tela-com-muitos-estados/coluna'].split('; e ')[0],
+  '04-painel-aberto/coluna': NOTAS['04-painel-aberto/coluna'].split('; e ')[0],
 }
 
 // o script que vai no fim da cópia do quadro: mede as peças e escreve a medida.
@@ -250,17 +257,18 @@ for (const q of QUADROS) {
 }
 // o 00, a folha: cada espécime contra a peça numa das fotos do palco
 {
-  const R = quadro('00-componentes', H00), P = palco(AUX), m = R.medida
+  const R = quadro('00-componentes', H00), P = palco(AUX), E = palco(AUX_ESTADO), m = R.medida
   const f = (ref) => fotos[ref]
   res.push(peca('00-componentes', 'quadrado', R.png, m.quadrados[0], f('01-no-fluxo').png, f('01-no-fluxo').medida.quadrado, 0))
   // a linha tem 280 na folha e 279 no painel, que fecha com a borda da direita: compara os 279
   const linha = (c) => c && { ...c, w: Math.min(c.w, P.medida.linhas.T07?.w ?? c.w) }
   res.push(peca('00-componentes', 'linha-normal', R.png, linha(m.linhas[0]), P.png, P.medida.linhas.T07, 0))
   res.push(peca('00-componentes', 'linha-aberta', R.png, linha(m.linhas[2]), f('04-painel-aberto').png, f('04-painel-aberto').medida.linhas.T07, 0))
-  res.push(peca('00-componentes', 'coluna-no-fluxo', R.png, m.colunas[0], f('04-painel-aberto').png, f('04-painel-aberto').medida.conteudo))
-  res.push(peca('00-componentes', 'coluna-num-estado', R.png, m.colunas[1], f('02-num-estado').png, f('02-num-estado').medida.conteudo))
-  // a da T05, pela lista: a folha não desenha o lugar fixo do topo (decisão 30), e a lista dos grupos fica comparável
-  res.push(peca('00-componentes', 'coluna-T05', R.png, m.listas[2], f('03-tela-com-muitos-estados').png, f('03-tela-com-muitos-estados').medida.lista))
+  // as duas primeiras colunas da folha do pacote 1 são a da T04: no fluxo (o 01) e no Módulo com falha
+  res.push(peca('00-componentes', 'coluna-no-fluxo', R.png, m.colunas[0], f('01-no-fluxo').png, f('01-no-fluxo').medida.conteudo))
+  res.push(peca('00-componentes', 'coluna-num-estado', R.png, m.colunas[1], E.png, E.medida.conteudo))
+  // a da T07, pela lista: a folha não desenha o lugar fixo do topo (decisão 30), e a lista dos grupos fica comparável
+  res.push(peca('00-componentes', 'coluna-T07', R.png, m.listas[2], f('03-tela-com-muitos-estados').png, f('03-tela-com-muitos-estados').medida.lista))
   // O CELULAR: a miniatura contra o palco numa janela em que a escala dá a altura dela ((369 − 48) / 826 = 321 / 826)
   if (m.celular) { const M = palco({ ref: '00-componentes', url: '?tela=T04' }, Math.round(m.celular.celular.h) + 48, '-escala'); res.push(anel('00-componentes', R.png, m.celular, M.png, { ...M.medida, tela: M.medida.moldura?.tela })) }
   else res.push({ quadro: '00-componentes', peca: 'moldura', erro: 'a folha não tem O CELULAR' })

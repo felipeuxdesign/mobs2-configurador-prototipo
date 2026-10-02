@@ -4,7 +4,6 @@
 // Processo sem ritmo declarado entra aqui só depois de declarado em
 // movimento.md, no ciclo da tela (G4).
 export const RITMOS = {
-  preChecagemLinhaMs: 600,   // pré-checagem · cada linha
   diagnosticoLinhaMs: 600,   // diagnóstico · cada linha (T07, o pacote 1): as sete do módulo depois da conexão, e os sinais da CAN no Ler de novo
   cadeiaBlocoMs: 1000,       // cadeia · cada bloco, gravado e relido
   conferenciaLinhaMs: 400,   // conferência da T11 · cada linha
@@ -16,8 +15,6 @@ export const RITMOS = {
   prazoFator: 4,             // prazo do evento · 1 s real vale 4 s de prazo
   sincronizacaoTotalMs: 4000, // sincronização do pacote · 4 s no total
   cronometroCodigoMs: 1000,   // cronômetro do código (T01) · 1 s real vale 1 s de prazo e de reenvio (T01·1)
-  releituraSinalMs: 600,      // releitura da CAN (T08) · cada sinal que responde (G4, T08-D5 · C8)
-  leituraCanSinalMs: 600,     // leitura da CAN (T07) · cada sinal que chega, na chegada da T06 e no Ler novamente, na ordem da tela (C12·30 a: o ritmo da releitura da T08)
   semearGravandoMs: 1000,     // semear da calibração (T10) · Gravando no módulo… (T10 animacao.md, a entrega de 25/09)
   semearRelendoMs: 1000,      // semear da calibração (T10) · Relendo…, e aí o tambor rola e a tela vira o semeado ou o não confere
   // busca da T05 · a busca de novo (o Procurar de novo, a otimização do design): o quadro da busca da

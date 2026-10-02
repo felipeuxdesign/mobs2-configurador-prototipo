@@ -1,17 +1,15 @@
 // O movimento dos instrumentos (C12 · as peças do movimento): cada espécime é
 // a peça tocável, com os botões da vitrine que fazem o que a tela fará — a
-// baixa que corre, o prazo que drena, a leitura que chega, o semear, a volta
-// do nível do item. Fora da bancada (semBancada): o quadro parado de cada peça
+// baixa que corre, o prazo que drena, o semear, a volta do nível do item. A
+// leitura que chega e cai fora (a T07 antiga) e o mostrador (a T08) saíram com
+// o pacote 1. Fora da bancada (semBancada): o quadro parado de cada peça
 // é o espécime da folha dela, e estes só provam o que anda entre os quadros
 // (scripts/caminhos/mov-instrumentos.mjs). Os botões são da vitrine, não do
 // app; o que está dentro da moldura é a peça, com os textos das telas.
 // O ritmo dos processos sai de ritmos.js, como nas telas.
 import { useEffect, useRef, useState } from 'react'
-import {
-  Escala, Leitura, LeituraPequena, GradeLeituras, LeituraTambor, Sinais, Prazo, BarraDoChecklist,
-  ValorEmPoco, ReguaDiferenca,
-} from '../../ds/instrumentos/index.js'
-import { Mostrador, VereditoDoChecklist } from '../../ds/checklist/index.js'
+import { Escala, Prazo, BarraDoChecklist, ValorEmPoco, ReguaDiferenca } from '../../ds/instrumentos/index.js'
+import { VereditoDoChecklist } from '../../ds/checklist/index.js'
 import { RITMOS } from '../../estado/ritmos.js'
 import './mov-instrumentos.css'
 
@@ -73,68 +71,6 @@ function PrazoDrena() {
   )
 }
 
-// ── a leitura que chega (T07, C12·30 e 31): o quadro de começo é o de fim com o que
-// anda na origem — o valor em traço, o marcador no começo, as rodinhas na casa 0
-const bateria = { rotulo: 'TENSÃO DA BATERIA', unidade: 'V', legendas: { min: '11,0', faixa: '12,0 — 15,0', max: '16,0' } }
-const escalaBateria = (valor) => ({ min: 11, max: 16, valor, faixa: { de: 12, ate: 15 }, divisoes: 10, fortes: [12, 13.5, 15] })
-const escalaTemperatura = (valor) => ({ min: -40, max: 150, valor, faixa: { de: -40, ate: 120 }, divisoes: 4, fortes: [55] })
-function LeituraChega() {
-  const [lida, setLida] = useState(false)
-  const [vez, setVez] = useState(0)
-  return (
-    <>
-      <div className="vitrine-mov-pilha" key={vez}>
-        <Leitura {...bateria} valor={lida ? '13,8' : '—'} escala={escalaBateria(lida ? 13.8 : 11)} corre />
-        <LeituraTambor rotulo="HODÔMETRO" nota="SEM FAIXA" valor={lida ? '184.320' : '000.000'} unidade="km" nome={lida ? '184.320 km' : undefined} />
-        <GradeLeituras folga={10}>
-          <LeituraPequena rotulo="TEMPERATURA" valor={lida ? '31' : '—'} unidade={lida ? '°C' : undefined} legenda="−40 a 120" escala={escalaTemperatura(lida ? 31 : -40)} corre />
-          <Sinais sinais={[{ rotulo: 'Ignição', valor: lida ? 'ligada' : '—', confere: lida }, { rotulo: 'Posição', valor: lida ? 'fixa' : '—', confere: lida }]} />
-        </GradeLeituras>
-      </div>
-      <Controles>
-        <Botao aoTocar={() => setLida(true)}>Ler novamente</Botao>
-        <Botao aoTocar={() => { setLida(false); setVez((v) => v + 1) }}>Voltar ao começo</Botao>
-      </Controles>
-    </>
-  )
-}
-
-// ── a leitura que cai fora (T07/01): a borda vermelha e a causa esmaecem no lugar
-function LeituraFora() {
-  const [lida, setLida] = useState(false)
-  const [vez, setVez] = useState(0)
-  return (
-    <>
-      <Leitura key={vez} {...bateria} valor={lida ? '10,9' : '—'} fora={lida} causa={lida ? '1,1 V abaixo do mínimo · veículo ou cadastro' : undefined}
-        escala={{ min: 10, max: 16, valor: lida ? 10.9 : 10, faixa: { de: 12, ate: 15 }, divisoes: 6, fortes: [12, 15] }}
-        legendas={{ min: '10,0', faixa: '12,0 — 15,0', max: '16,0' }} corre />
-      <Controles>
-        <Botao aoTocar={() => setLida(true)}>Ler a bateria fora</Botao>
-        <Botao aoTocar={() => { setLida(false); setVez((v) => v + 1) }}>Voltar ao começo</Botao>
-      </Controles>
-    </>
-  )
-}
-
-// ── o mostrador da T08: acende quando o sinal responde (a pele por opacity), e o valor troca no lugar
-function MostradorAcende() {
-  const [fase, setFase] = useState('apagado')
-  const estado = (valor) => (fase === 'apagado' ? { estado: 'apagado', valor: '—' } : { estado: fase === 'concluida' ? 'aceso' : 'relendo', valor })
-  return (
-    <>
-      <GradeLeituras>
-        <Mostrador {...estado('ligada')} nome="Ignição" />
-        <Mostrador {...estado('13,8')} unidade={fase === 'apagado' ? undefined : 'V'} nome="Tensão da bateria" />
-      </GradeLeituras>
-      <Controles>
-        <Botao aoTocar={() => setFase('relendo')}>Refazer a leitura</Botao>
-        <Botao aoTocar={() => setFase('concluida')}>Concluir a releitura</Botao>
-        <Botao aoTocar={() => setFase('apagado')}>Voltar ao começo</Botao>
-      </Controles>
-    </>
-  )
-}
-
 // ── o semear da T10 (C12·34): o tambor rola do módulo até o painel, a diferença
 // encolhe e esmaece, e o veredito entra no fim — o confere, ou o não confere
 function Semear() {
@@ -187,14 +123,8 @@ export const especimes = [
     render: () => <Baixa /> },
   { id: 'mov-prazo-drena', folha: 5, semBancada: true, rotulo: 'movimento · o prazo drena (T14)', legenda: 'segue: um trecho linear por tique · o número troca no lugar',
     render: () => <PrazoDrena /> },
-  { id: 'mov-leitura-chega', folha: 5, semBancada: true, rotulo: 'movimento · a leitura chega (T07)', legenda: 'o marcador corre em 300 · as rodinhas rolam da casa 0 · o check do sinal esmaece · montar não anima',
-    render: () => <LeituraChega /> },
-  { id: 'mov-leitura-fora', folha: 5, semBancada: true, rotulo: 'movimento · a leitura cai fora (T07)', legenda: 'a borda vermelha e a causa esmaecem em 150 · o lugar da causa abre direto (G24)',
-    render: () => <LeituraFora /> },
   { id: 'mov-barra-checklist', folha: 5, semBancada: true, rotulo: 'movimento · a barra do checklist (T13)', legenda: 'a volta do item: parte do que tinha e avança em 300 · o Finalizar completa, e o veredito surge em 150',
     render: () => <BarraVolta /> },
-  { id: 'mov-mostrador', folha: 7, semBancada: true, rotulo: 'movimento · o mostrador (T08)', legenda: 'a pele acesa entra por opacity em 150 · o valor troca no lugar',
-    render: () => <MostradorAcende /> },
   { id: 'mov-semear', folha: 8, semBancada: true, rotulo: 'movimento · o semear (T10)', legenda: 'o tambor rola em 500 · a diferença encolhe e esmaece em 300 · o veredito entra em 150',
     render: () => <Semear /> },
 ]

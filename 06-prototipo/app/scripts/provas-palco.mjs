@@ -17,7 +17,7 @@
 //       direita e a de cima igual à de baixo
 //   (e) a coluna a 40 do celular e com a altura dele (826)
 //   (f) a T16 com o vão de 14 entre os blocos do miolo nas sete referências, e a
-//       T06 (00, 02, 07) e a T12 (00, 03) com 16 entre o último grupo e o rodapé,
+//       T06 (00 · a 02 e a 07 saíram no pacote 1) e a T12 (00, 03) com 16 entre o último grupo e o rodapé,
 //       no fim da rolagem — no app e, de referência, no HTML da referência
 //   e as fotos: o palco a 1440 × 900 (a 1×, como os PNG do palco) nos quatro modos,
 //   e as peças da folha 00, em prints/provas-palco/; o lado a lado com as
@@ -59,8 +59,8 @@ const JANELAS = [[1440, 900], [1920, 1080]]
 // os quatro modos, no lugar do palco que cada quadro desenha (o mesmo do scripts/palco.mjs)
 const MODOS = [
   { ref: '01-no-fluxo', url: '?tela=T04', o: 'no fluxo · a T04' },
-  { ref: '02-num-estado', url: '?tela=T07&estado=01-estado-fora-da-faixa', o: 'num estado · a T07, Fora da faixa' },
-  { ref: '03-tela-com-muitos-estados', url: '?tela=T05', o: 'tela com muitos estados · a T05' },
+  { ref: '02-num-estado', url: '?tela=T07&estado=04-estado-firmware-nao-homologado', o: 'num estado · a T07, Firmware não homologado' },
+  { ref: '03-tela-com-muitos-estados', url: '?tela=T07', o: 'tela com muitos estados · a T07, em O módulo e A CAN' },
   { ref: '04-painel-aberto', url: '?tela=T07&painel=1', o: 'painel aberto · a T07' },
 ]
 
@@ -199,14 +199,13 @@ async function fonteUsada(seletor) {
 }
 
 // o que não se constrói, por desvio nomeado: fica fora da conta, e o relatório diz por quê
-const FORA_DO_CICLO = {
-  'T07/03-estado-dominio-mudo': 'desvio nomeado T07·1 a (CHANGELOG, 02-telas/T07-dados-da-can/tela.md): o domínio mudo não se constrói — a referência desenha o ma-01 com a placa do a-16, que é ma-02 —, e a tela abre só com o nome e o rótulo do estado, sem a barra, até chegar a referência nova',
-}
+// (o domínio mudo da T07 antiga saiu com ela, no pacote 1: hoje nenhuma)
+const FORA_DO_CICLO = {}
 async function barraNas145() {
   const indice = JSON.parse(readFileSync(resolve(raiz, '02-telas/indice.json'), 'utf8'))
   await janela(360, 800)
   const linhas = []
-  // PROVAS_SO=T07/03-estado-dominio-mudo,T02/00-tela: só essas (pra conferir uma de novo)
+  // PROVAS_SO=T07/04-estado-firmware-nao-homologado,T02/00-tela: só essas (pra conferir uma de novo)
   const so = process.env.PROVAS_SO ? process.env.PROVAS_SO.split(',') : null
   for (const it of indice.itens.filter((i) => !so || so.includes(i.id))) {
     const q = new URLSearchParams({ print: '1', tela: it.tela })
@@ -403,7 +402,10 @@ async function telasDoAcabamento() {
     t16.push({ ref: `T16/${ref}`, app: a, referencia: h, passa: !a.erro && a.vaos.length > 0 && a.vaos.every((v) => perto(v, NORMA.t16Vao)) })
   }
   const folga = []
-  for (const [t, ref] of [['T06', '00-tela'], ['T06', '02-estado-chassi-divergente'], ['T06', '07-momento-correcao-solicitada'], ['T12', '00-tela'], ['T12', '03-estado-sem-rede']]) {
+  // a T06 do pacote 1: a 02 e a 07 (o chassi e a correção) saíram. O vínculo (01, 10, 11) não entra: ele fecha com os
+  // dados do modelo, que levam os 16 do antesDoRodape por cima dos 16 do miolo — 32, iguais aos das três referências
+  // (medido no pacote 1) —, e não com o último grupo de uma lista
+  for (const [t, ref] of [['T06', '00-tela'], ['T12', '00-tela'], ['T12', '03-estado-sem-rede']]) {
     await abre(endereco(t, ref), { pronto: `!!${ACHA_MIOLO_APP} && !!document.querySelector('.celular-tela .ds-rodape')` }); const a = await avalia(MEDE_RODAPE(ACHA_MIOLO_APP, true))
     await abre(refHtml(t, ref)); const h = await avalia(MEDE_RODAPE(ACHA_MIOLO_REF, false))
     // a folga que o desenho põe é o recheio do miolo mais a margem do último: 16 + 0. Ela se vê inteira quando o
@@ -482,18 +484,20 @@ async function pecasDaFolha() {
   await cdp('Input.dispatchMouseEvent', { type: 'mouseReleased', x: l.x + 60, y: 880, button: 'left', buttons: 0, clickCount: 1 }, S)
   await abre(BASE + '?tela=T07&painel=1', pronto); await quieto()
   await guarda('linha-aberta', await avalia(caixa(linhaDoPainel('T07'))), '?tela=T07&painel=1 · a linha da T07, a tela aberta')
-  // a coluna: no fluxo e num estado (a T07), a da T05 e a tela sem estados (a T01)
-  await abre(BASE + '?tela=T07', pronto); await quieto(); await guarda('coluna-no-fluxo', await avalia(colunaInteira), '?tela=T07 · a coluna no fluxo')
-  await abre(BASE + '?tela=T07&estado=01-estado-fora-da-faixa', pronto); await quieto(); await guarda('coluna-num-estado', await avalia(colunaInteira), '?tela=T07&estado=01-estado-fora-da-faixa · a coluna num estado')
-  await abre(BASE + '?tela=T05', pronto); await quieto(); await guarda('coluna-T05', await avalia(colunaInteira), '?tela=T05 · a coluna em grupos')
-  // a tela sem estados: a T08, a única sem estado no índice (palco.md: tela sem estados, a coluna não aparece). A folha
-  // diz "T01, T02 e T08 não mostram coluna", mas a T01 tem 8 estados e a T02 tem 3 no índice, e o palco mostra a
-  // coluna das duas (o PALCO-N2 do C0: "tela sem estado de condição" só existe no quadro 00)
+  // a coluna, como a folha do pacote 1 desenha: no fluxo e num estado (a T04, no Módulo com falha), a da T07 em
+  // grupos (O módulo e A CAN) e a tela sem estados
+  await abre(BASE + '?tela=T04', pronto); await quieto(); await tiraOAviso(); await guarda('coluna-no-fluxo', await avalia(colunaInteira), '?tela=T04 · a coluna no fluxo')
+  await abre(BASE + '?tela=T04&estado=03-estado-faixa-modulo-com-falha', pronto); await quieto(); await guarda('coluna-num-estado', await avalia(colunaInteira), '?tela=T04&estado=03-estado-faixa-modulo-com-falha · a coluna num estado')
+  await abre(BASE + '?tela=T07', pronto); await quieto(); await guarda('coluna-T07', await avalia(colunaInteira), '?tela=T07 · a coluna em grupos')
+  // a tela sem estados (palco.md: a coluna não aparece): desde que a T08 saiu, no pacote 1, nenhuma tela do índice fica
+  // sem estado. A folha diz "T01 e T02 não mostram coluna", mas a T01 tem 8 estados e a T02 tem 4 no índice, e o palco
+  // mostra a coluna das duas (o PALCO-N2 do C0: "tela sem estado de condição" só existe no quadro 00). A foto é o lugar
+  // da coluna na T01
   const semColuna = {}
-  for (const t of ['T08', 'T01', 'T02']) {
+  for (const t of ['T01', 'T02']) {
     await abre(BASE + `?tela=${t}`, pronto); await quieto()
     semColuna[t] = await avalia(`(() => { const c = document.querySelector('.celular').getBoundingClientRect(); return { tem: !!document.querySelector('.coluna'), estados: document.querySelectorAll('.coluna [role=radio]').length, x: c.right + 40, y: c.y + c.height / 2 - 77, width: 264, height: 154 } })()`)
-    if (t === 'T08') await guarda('sem-coluna', semColuna.T08, `?tela=T08 · 40 à direita do celular: ${semColuna.T08.tem ? 'TEM coluna' : 'nenhuma coluna'}`)
+    if (t === 'T01') await guarda('sem-coluna', semColuna.T01, `?tela=T01 · 40 à direita do celular: ${semColuna.T01.tem ? 'TEM coluna' : 'nenhuma coluna'}`)
   }
   pecas.semColuna = Object.fromEntries(Object.entries(semColuna).map(([t, v]) => [t, v.tem ? `mostra a coluna, com ${v.estados} estados` : 'sem coluna']))
   // o celular em miniatura: o palco numa janela em que a escala dá a altura da miniatura da folha (321 + 48)
@@ -567,7 +571,7 @@ function emTexto(r) {
     L.push('AS FOTOS · o palco a 1440 × 900, a 1× (a janela e a escala dos PNG do palco)')
     for (const [k, v] of Object.entries(r.fotos.modos)) L.push(`  ${k}: ${v.erro ?? v.foto}${v.aviso ? ` · ${v.aviso.o_que} (a de antes: ${v.aviso.foto})` : ''}`)
     for (const [k, v] of Object.entries(r.fotos.pecas ?? {})) if (v.foto || v.erro) L.push(`  00 · ${k}: ${v.erro ?? v.foto} · ${v.como}`)
-    if (r.fotos.pecas?.semColuna) L.push(`  00 · a tela sem coluna: ${Object.entries(r.fotos.pecas.semColuna).map(([t, v]) => `${t} ${v}`).join(' · ')} (a folha diz que a T01, a T02 e a T08 não mostram coluna)`)
+    if (r.fotos.pecas?.semColuna) L.push(`  00 · a tela sem coluna: ${Object.entries(r.fotos.pecas.semColuna).map(([t, v]) => `${t} ${v}`).join(' · ')} (a folha diz que a T01 e a T02 não mostram coluna; desde o pacote 1, nenhuma tela fica sem estado)`)
     if (r.fotos.ladoALado) L.push(`  o lado a lado: ${r.fotos.ladoALado}`)
   }
   // o relatório escrito à mão no mesmo json (os achados pro arquiteto, os padrões, as pendências)

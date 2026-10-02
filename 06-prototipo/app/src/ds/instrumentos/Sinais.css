@@ -1,9 +1,0 @@
-.ds-sinais { padding: var(--e-10); gap: var(--e-10); justify-content: center; }
-.ds-sinais-linha { display: flex; align-items: center; justify-content: space-between; }
-.ds-sinais-rotulo { font-size: var(--t-legenda); color: var(--tinta-secundaria); }
-.ds-sinais-lido { display: flex; align-items: center; gap: var(--e-4); }
-.ds-sinais-valor { font-size: var(--t-corpo); font-weight: 600; }
-.ds-sinais-divisoria { display: block; height: var(--traco-borda); background: var(--borda); }
-/* o check do sinal que chega depois de montar: esmaece no lugar (sem preenchimento: acabou, não sobra) */
-.ds-sinais-nasce { animation: ds-sinais-nasce var(--mov-rapido) var(--mov-curva); }
-@keyframes ds-sinais-nasce { from { opacity: 0; } }

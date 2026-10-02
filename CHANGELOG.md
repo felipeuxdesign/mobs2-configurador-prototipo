@@ -1,5 +1,13 @@
 # Registro de mudanças
 
+## 2026-10-02 · o pacote 1 e a errata, construídos
+
+- **as telas:** a T05 só conecta (sai a pré-checagem; o M2C-0999 se toca na 01 e leva à T07/02) · a T07 nova, o Diagnóstico do módulo, com as 11 referências (as sete linhas a 600 ms, as três travas, a linha que só informa, a CAN que espera e a lida, o firmware de 62% por 1 s e a releitura) · a T04 com o Diagnóstico, a rede e o estado 15 · a T03 com cinco grupos e 31 itens · a T06 com o vínculo, os dados do modelo e os estados 10 e 11 · a T09 com o que vai ser gravado, as travas do envio, a manutenção e o conteúdo nos elos · a T16 com "6 blocos" e o Extended ID preservado · o resumo da T12 · a T08 sai, e a coluna agrupa a T07 em o módulo e a CAN
+- **o mock e o gate:** o merge de três vias, nas duas entregas · ficam como acréscimo nomeado até o pacote 2 o `CADEIA.versoes`, o `chassiPelaCan` dos modelos e o caso `can-estatico-bateria` (o formato antigo do isolado), que a T11 e a T13 de hoje leem; a checagem do arquiteto sobre o `chassiPelaCan` aceita o acréscimo · as nossas 16 checagens que liam o que saiu: 8 saem, as outras se ajustam · a que passava em falso era a da versão composta da T16/06 · o gate com **199 checagens**
+- **a régua:** as 145 referências sem erro, 37 em 0% contra o HTML, e nenhuma tela que não mudou pior que a base da 600 (a base nova: `prints/linha-de-base-pacote1.json`) · os 42 roteiros aprovam (o herói com 238 passos) · os 116 espécimes das folhas, 62 em 0% · o palco com 38 de 38
+- **os componentes que saíram,** sem tela: Leitura, LeituraPequena, LeituraTambor, Sinais, Mostrador, GradeCartoes, TiraLeituras e ParComparado · entram a linha que só informa, a nota que aguarda, os dados do modelo e a cadeia antes de gravar
+- **desvios nomeados** (nas fichas de cada tela): o M2C-0999 ainda *não cadastrado* na T05/00 e na 04, que a errata não refez · o rodapé da T07 que sobe com a faixa · a placa da faixa em `--tinta-apagada` na folha 2 nova e nas 4 da T07, contra as outras referências · o último elo da cadeia antes de gravar · as colunas das cenas do palco (a T04 com 4 e 3 dos 7, a T07 sem grupos na 04) · os documentos juntados com as nossas anotações embaixo
+
 ## 2026-10-02 · a errata do pacote 1 — o que o gate do executor achou
 
 - **as cercas contam em regiões** (decisão 50): é o que o módulo guarda e o que o limite conta · a cadeia diz *"4 regiões"* · a T09/06 tem os valores do OCT-2J85 com o ECO — nenhuma região, o leitor no fio branco · a T09/07: *"5 regiões, cabem 4"*

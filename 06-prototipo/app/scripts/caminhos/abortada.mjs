@@ -1,6 +1,6 @@
 // C11 · decisão 36 · ENCERRAR antes de homologar (logica.md, ENCERRAR): o diálogo
-// Encerrar sem homologar? antes dos 4 passos — por cima da própria tela, na T05,
-// na T06, na T07 e na T13, e por cima do menu, o momento 13 da T04, também pelo
+// Encerrar sem homologar? antes dos 4 passos — por cima da própria tela, na T07
+// (o diagnóstico, pacote 1), na T06, na T09 e na T13, e por cima do menu, o momento 13 da T04, também pelo
 // Encerrar a sessão das folhas do módulo e do ativo. O Continuar a instalação
 // fecha e deixa o técnico onde estava; o voltar (o Esc) também, antes da saída
 // da tela; o Encerrar sem homologar roda os 4 passos, a Sessão encerrada sem
@@ -10,9 +10,10 @@ const ATE_A_FAIXA = [
   { chega: 'T05', momento: '01-momento-nenhum-escolhido' },
   { marca: 'M2C-0417' },
   { toca: 'Conectar ao M2C-0417' },
-  { chega: 'T05', momento: '05-momento-pre-checagem' },
+  // a conexão abre o diagnóstico (T07, pacote 1): as sete passam, e a faixa desce
+  { chega: 'T07', momento: null },
   { ve: 'ENCERRAR', ms: 12000 },
-  { ve: '11 de 11' },
+  { ve: '7 de 7' },
 ]
 const O_DIALOGO = [
   { ve: 'Encerrar sem homologar?' },
@@ -93,10 +94,11 @@ const O_ONIBUS = [
   { marca: 'RKT-8H42' },
   { toca: 'Usar este ativo' },
   { chega: 'T06', momento: '01-momento-confirmar-o-veiculo' },
-  { toca: 'Usar este ativo' },
-  { chega: 'T07' },
+  { toca: 'Vincular o módulo' },
+  { chega: 'T09', momento: '05-momento-o-que-vai-ser-gravado' },
   { ve: 'RKT-8H42' },
 ]
+const T09_05 = '05-momento-o-que-vai-ser-gravado'
 // no menu, o diálogo é o momento 13: a URL abre e fecha, e o Continuar volta ao quadro do menu
 const NO_MENU = '13-momento-encerrar-antes-de-homologar'
 
@@ -119,7 +121,7 @@ export default [
   { toca: 'Entendi' },
   { naoVe: 'Seu acesso vence em 2 dias' },
 
-  // 1ª passada: a T06 (sem ativo) e a T07 (com o ônibus), por cima da própria tela
+  // 1ª passada: a T06 (sem ativo) e a T09 antes de gravar (com o ônibus), por cima da própria tela
   ...ATE_A_FAIXA,
   { toca: 'Selecionar ativo' },
   { chega: 'T06', momento: null },
@@ -135,13 +137,13 @@ export default [
   { fica: 'T06', ms: 300 },
   { ve: 'Escolha o veículo que está na sua frente.' },
   ...O_ONIBUS,
-  ...NA_TELA('T07', null),
+  ...NA_TELA('T09', T09_05),
   ...OS_QUATRO_PASSOS,
 
-  // 2ª passada: a sessão recém-nascida, sem ativo, na própria pré-checagem
+  // 2ª passada: a sessão recém-nascida, sem ativo, no próprio diagnóstico
   ...ATE_A_FAIXA,
   { ve: 'sem ativo' },
-  ...NA_TELA('T05', '05-momento-pre-checagem'),
+  ...NA_TELA('T07', null),
   ...OS_QUATRO_PASSOS,
 
   // 3ª passada: no menu, com o módulo e o ônibus — o ENCERRAR da faixa e o Encerrar a

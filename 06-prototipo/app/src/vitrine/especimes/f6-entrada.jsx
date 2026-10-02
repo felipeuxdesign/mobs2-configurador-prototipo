@@ -1,12 +1,14 @@
 // Folha 6 · a família entrada: o cabeçalho do conteúdo, a marca, digitar,
-// escolher e as leituras em lista. Os textos são os da folha, exatos.
+// escolher e a lista com contagem. Os textos são os da folha, exatos. O pacote 1
+// tirou da folha o contador de falha e a tira de leituras (a T07 antiga): o
+// cabeçalho com contador é o do Diagnóstico do módulo, e a lista é a baixa da T03.
 // O checkbox (primitivo) está em f6-checkbox.jsx; a linha de opção é do chrome.
 // A lista em cartão é a da família linhas (folha 4): a mesma peça, uma vez só.
 import { SoIcone } from '../../ds/index.js'
 import { Lista } from '../../ds/linhas/Lista.jsx'
 import {
   CabecalhoConteudo, Marca, Campo, Requisito, Codigo, LinkConteudo, Busca, Justificativa,
-  LinhaModulo, LinhaOnibus, BlocoEscolhido, CartaoAcao, BotaoSecundario, TiraLeituras, LinhaContagem,
+  LinhaModulo, LinhaOnibus, BlocoEscolhido, CartaoAcao, BotaoSecundario, LinhaContagem,
 } from '../../ds/entrada/index.js'
 
 // "botões só de ícone": os dois lado a lado, cada um com a margem que ele tem
@@ -17,10 +19,8 @@ const encostaOlho = { display: 'flex', marginRight: 'calc(-1 * var(--e-6))' }
 
 export const especimes = [
   // o cabeçalho do conteúdo
-  { id: 'f6-cabecalho-neutro', folha: 6, rotulo: 'com contador neutro', legenda: 'o contador conta o que passou',
-    render: () => <CabecalhoConteudo titulo="Dados da CAN" contagem="7" unidade="de 12" /> },
-  { id: 'f6-cabecalho-falha', folha: 6, rotulo: 'com contador de falha', legenda: 'quantos reprovaram, em vermelho',
-    render: () => <CabecalhoConteudo titulo="Dados da CAN" contagem="1" unidade="reprovado" tom="falha" /> },
+  { id: 'f6-cabecalho-contador', folha: 6, rotulo: 'com contador', legenda: 'o contador conta o que passou · lima quando completo',
+    render: () => <CabecalhoConteudo titulo="Diagnóstico do módulo" contagem="7" unidade="de 7" tom="veredito" /> },
 
   // a marca
   { id: 'f6-marca', folha: 6, rotulo: 'a marca no login', legenda: 'o logo e CONFIGURADOR entre dois traços',
@@ -99,20 +99,17 @@ export const especimes = [
   { id: 'f6-secundario', folha: 6, rotulo: 'botão secundário', legenda: 'fundo --elevado · a ação da linha',
     render: () => <BotaoSecundario>Ressincronizar e reenviar</BotaoSecundario> },
 
-  // leituras em lista
-  { id: 'f6-tira-leituras', folha: 6, rotulo: 'tira de leituras', legenda: 'duas colunas · rótulo em cima',
-    render: () => (
-      <TiraLeituras itens={[
-        { rotulo: 'Mensagens pendentes', valor: 'nenhuma' },
-        { rotulo: 'Rede do módulo', valor: 'conectada' },
-      ]} />
-    ) },
+  // a lista com contagem · a baixa do pacote (T03/01): a divisória entre as linhas e
+  // nenhuma depois da última, a regra da peça; a folha desenha só a dos Ativos (o
+  // desvio A da T03, na tela.md dela)
   { id: 'f6-lista-contagem', folha: 6, rotulo: 'lista com contagem', legenda: 'o pacote baixando',
     render: () => (
       <Lista>
         <LinhaContagem nome="Ativos" contagem="6 de 10" estado="agora" />
-        <LinhaContagem nome="Modelos de ativo" contagem="3 de 3" estado="ok" />
-        <LinhaContagem nome="Cartões" contagem="—" estado="espera" divisoria={false} />
+        <LinhaContagem nome="Conexões" contagem="—" estado="espera" />
+        <LinhaContagem nome="Modelos de ativo" contagem="—" estado="espera" />
+        <LinhaContagem nome="Eventos" contagem="—" estado="espera" />
+        <LinhaContagem nome="Cercas" contagem="—" estado="espera" divisoria={false} />
       </Lista>
     ) },
 ]

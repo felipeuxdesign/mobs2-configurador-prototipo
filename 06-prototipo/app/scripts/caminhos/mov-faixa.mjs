@@ -1,8 +1,8 @@
 // C12 · a faixa de sessão e a barra do sistema (gate C12·24 e C12·25; movimento.md; a peça:
-// src/ds/chrome/Faixa.jsx, e os gatilhos: o `ausente` da T05 e o `revela` da T16).
-// · A faixa que nasce (T05, quando a pré-checagem aprova): desce de cima em --mov-padrao (200), na
-//   --mov-curva, por baixo da barra do sistema; o miolo acompanha só por deslocamento, com o lugar
-//   já aberto (e, dentro dele, a tira das leituras, que andou os 5 da folga do pé do cartão a mais).
+// src/ds/chrome/Faixa.jsx, e os gatilhos: o `ausente` da T07 e o `revela` da T16).
+// · A faixa que nasce (T07, quando as sete linhas do diagnóstico passam sem trava · pacote 1): desce
+//   de cima em --mov-padrao (200), na --mov-curva, por baixo da barra do sistema; o miolo acompanha só
+//   por deslocamento, com o lugar já aberto. A T05 só conecta: a faixa não desce no toque.
 // · A faixa que encerra (T16, quando a sessão fecha): a aberta sobe em 200, por baixo da barra, e
 //   revela a sem sessão, que já está no lugar — nada do miolo se move.
 // · O ENCERRAR que se apaga e volta (a lei 17): a tinta troca direto, sem piscar — nada anima na
@@ -10,50 +10,54 @@
 // · A barra do sistema é do Android (decisão 43): não se move, nem por transform nem por opacity; a
 //   cor dela troca direto.
 // Nada disso na abertura: a tela que abre já com a faixa (pela URL, no print) abre parada. Com reduzir
-// movimento, nada se move, e os processos seguem no mesmo ritmo. Na vitrine, as três peças tocáveis.
+// movimento, nada se move, e os processos seguem no mesmo ritmo. Na vitrine, as peças tocáveis (o
+// espécime da faixa que nasce saiu com a pré-checagem da T05, no pacote 1).
 const C = 'cubic-bezier(0.2, 0.8, 0.2, 1)'
 const DESCE = { prop: 'transform', ms: 200, curva: C, em: 'ds-faixa ds-faixa-aberta' }
 const MIOLO = { prop: 'transform', ms: 200, curva: C, em: 'tela-miolo' }
-const TIRA = { prop: 'transform', ms: 200, curva: C, em: 'ds-tira-leituras' }
 const SOBE = { prop: 'transform', ms: 200, curva: C, em: 'ds-faixa-saindo' }
 // a barra não se move, e o rodapé fica onde está
-const PARADOS = [{ prop: 'opacity', em: 'ds-barra-sistema' }, { prop: 'transform', em: 'ds-barra-sistema' }, { prop: 'transform', em: 'ds-rodape' }]
+const BARRA = [{ prop: 'opacity', em: 'ds-barra-sistema' }, { prop: 'transform', em: 'ds-barra-sistema' }]
+const PARADOS = [...BARRA, { prop: 'transform', em: 'ds-rodape' }]
 // o ENCERRAR que se apaga e volta: nada na faixa, nem a camada do pressionado soltando por cima
 const SEM_PISCAR = [{ prop: 'opacity', em: 'ds-chrome-camadas' }, { prop: 'transform', em: 'ds-faixa' }, { prop: 'opacity', em: 'ds-faixa' }]
-// a pré-checagem do herói: onze linhas, uma a cada 600 ms (RITMOS.preChecagemLinhaMs), do toque à faixa
-const PRE = [6200, 7200]
+// o diagnóstico do herói: os 150 da troca e sete linhas, uma a cada 600 ms (RITMOS.diagnosticoLinhaMs), do toque à faixa
+const DIAG = [3900, 5200]
 // os sete passos do encerramento, um a cada 600 ms (RITMOS.encerramentoPassoMs), do abre à sem sessão
 const PASSOS = [3700, 4700]
 
 export default [
-  // ── a faixa que nasce, na T05: a busca abre parada, sem faixa ──
+  // ── a faixa que nasce, na T07: a busca da T05 abre parada, sem faixa, e o Conectar não a desce ──
   { abre: '?tela=T05' },
   { chega: 'T05', momento: null },
   { quieto: true },
   { naoVe: 'ENCERRAR' },
   { toca: 'Conectar ao M2C-0417', naoAnima: [{ prop: 'transform', em: 'ds-faixa' }] },
-  // aprovada: a faixa desce, o miolo e a tira acompanham; a barra e o rodapé ficam
-  { ve: 'ENCERRAR', entre: PRE },
-  { anima: [DESCE, MIOLO, TIRA], naoAnima: PARADOS },
-  { chega: 'T05', momento: '05-momento-pre-checagem' },
+  { chega: 'T07', momento: null },
+  { naoVe: 'ENCERRAR' },
+  // as sete passam: a faixa desce, o miolo acompanha; a barra fica. O rodapé da T07 passa de uma
+  // ação a duas e sobe junto, só por deslocamento (o desvio 10 da T07, tela.md): aqui ele anda
+  { ve: 'ENCERRAR', entre: DIAG },
+  { anima: [DESCE, MIOLO], naoAnima: BARRA },
   { naoVe: 'M2C-0417 · RKT-8H42' },   // o rótulo do topo sai: o serial está na faixa
-  { ve: '11 de 11' },
+  { ve: '7 de 7' },
   { dorme: 300 },
   { quieto: true },
   // a faixa que nasceu segue a outra tela parada: o topo não se move entre telas (C12·3)
   { toca: 'Selecionar ativo', naoAnima: [{ prop: 'transform', em: 'ds-faixa' }, ...PARADOS] },
   { chega: 'T06' },
   { dorme: 300 },
-  // ── a T05 que abre já com a faixa, pelo endereço e no print: parada ──
-  { abre: '?tela=T05&momento=05-momento-pre-checagem' },
+  // ── a T07 que abre já com a faixa, pelo endereço e no print: parada ──
+  { abre: '?tela=T07' },
   { ve: 'ENCERRAR' },
   { quieto: true },
-  { abre: '?tela=T05&momento=05-momento-pre-checagem&print=1' },
+  { abre: '?tela=T07&print=1' },
   { quieto: true },
   // ── com reduzir movimento: a faixa aparece, no mesmo ritmo, e nada se move ──
   { reduzir: true },
   { abre: '?tela=T05' },
   { toca: 'Conectar ao M2C-0417' },
+  { chega: 'T07', momento: null },
   { ve: 'M2C-0417 · RKT-8H42' },   // o serial no rótulo do topo, enquanto a faixa não nasce
   { ve: 'ENCERRAR', ms: 8000 },
   { quieto: true },
@@ -87,7 +91,11 @@ export default [
   { reduzir: false },
 
   // ── o ENCERRAR que se apaga e volta (a lei 17): a recuperação da T09 e o semear da T10 ──
+  // a T09 abre no que vai ser gravado (05, pacote 1): o Gravar no módulo liga a cadeia
   { abre: '?tela=T09' },
+  { chega: 'T09', momento: '05-momento-o-que-vai-ser-gravado' },
+  { toca: 'Gravar no módulo' },
+  { chega: 'T09', momento: null },
   { toca: 'ENCERRAR', naoAnima: SEM_PISCAR },   // antes de a Conexão gravar, o ENCERRAR abre a recuperação e se apaga
   { desligado: 'ENCERRAR' },
   { toca: 'Continuar a gravação', naoAnima: SEM_PISCAR },
@@ -101,19 +109,7 @@ export default [
   { toca: 'ENCERRAR' },   // aceso de novo, com o pressionado de sempre: o diálogo Encerrar sem homologar?
   { ve: 'Encerrar sem homologar?' },
 
-  // ── a vitrine: as três peças, tocáveis ──
-  { abre: '?vitrine=1&especime=mov-faixa-nasce' },
-  { quieto: true },
-  { toca: 'bancada · a última linha passa', anima: [DESCE, MIOLO, TIRA], naoAnima: PARADOS },
-  { dorme: 300 },
-  { quieto: true },
-  { toca: 'bancada · abre no fim', naoAnima: [{ prop: 'transform' }] },   // montada já com a faixa: parada
-  { quieto: true },
-  { toca: 'bancada · abre no começo', naoAnima: [{ prop: 'transform' }] },
-  { reduzir: true },
-  { toca: 'bancada · a última linha passa' },
-  { quieto: true },
-  { reduzir: false },
+  // ── a vitrine: as duas peças, tocáveis ──
   { abre: '?vitrine=1&especime=mov-faixa-encerra' },
   { quieto: true },
   { toca: 'bancada · a sessão encerra', anima: [SOBE], naoAnima: [{ prop: 'transform', em: 'tela-miolo' }, ...PARADOS] },

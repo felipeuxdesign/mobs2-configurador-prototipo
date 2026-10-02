@@ -1,4 +1,4 @@
-// C11 · o voltar do Android (logica.md, "O voltar do Android"), nas 16 telas: no
+// C11 · o voltar do Android (logica.md, "O voltar do Android"), em cada tela: no
 // computador, o Esc. Cada tela abre pelo endereço (a semente) e pelos momentos que
 // têm saída própria; o Esc faz o mesmo que o link de saída do rodapé (chega), ou
 // não faz nada (fica): a tela sem saída desenhada, os processos que não podem
@@ -163,8 +163,8 @@ export default [
   { fica: 'T04', ms: 500 },
   { chega: 'T04', estado: '14-estado-folha-trocar-de-unidade-com-empresa' },
 
-  // ── T05 · na busca, nada; a pré-checagem correndo, nada; aprovada, o Voltar ao menu;
-  //    reprovada ou parada, o Procurar outro módulo, que volta à lista ──
+  // ── T05 · na busca e na lista, nada: a T05 só conecta (pacote 1), e a conexão abre o
+  //    diagnóstico (T07, abaixo) ──
   { abre: '?tela=T05' },
   esc,
   { fica: 'T05', ms: 500 },
@@ -172,27 +172,6 @@ export default [
   { abre: '?tela=T05&momento=01-momento-nenhum-escolhido' },
   esc,
   { fica: 'T05', ms: 500 },
-  { marca: 'M2C-0417' },
-  { toca: 'Conectar ao M2C-0417' },
-  { chega: 'T05', momento: '05-momento-pre-checagem' },
-  esc,
-  { fica: 'T05', ms: 500 },
-  { naoVe: 'ENCERRAR' },
-  { ve: 'ENCERRAR' },
-  esc,
-  { chega: 'T04' },
-  { abre: '?tela=T05&momento=01-momento-nenhum-escolhido' },
-  { marca: 'M2C-0394' },
-  { toca: 'Conectar ao M2C-0394' },
-  { chega: 'T05', momento: '05-momento-pre-checagem' },
-  { ve: 'Procurar outro módulo' },
-  esc,
-  { chega: 'T05', momento: '01-momento-nenhum-escolhido' },
-  { marca: 'M2C-0335' },
-  { toca: 'Conectar ao M2C-0335' },
-  { chega: 'T05', momento: '05-momento-pre-checagem' },
-  { ve: 'Acordar módulo' },
-  esc,
   { chega: 'T05', momento: '01-momento-nenhum-escolhido' },
   // o mundo real · o Bluetooth desligado e sem permissão, pela coluna: parados e sem
   // toque — o primário de cada um se prova no node (scripts/testar-login-e-bluetooth.mjs)
@@ -219,9 +198,6 @@ export default [
   { ve: 'Escolha o veículo que está na sua frente.' },
   esc,
   { chega: 'T04' },
-  { abre: '?tela=T06&momento=07-momento-correcao-solicitada' },
-  esc,
-  { chega: 'T04' },
   // a trava sem link (04, fora do pacote): o Escolher outro do primário, de volta à lista
   // com a busca como estava — a placa não está no pacote, e é a busca sem resultado (08,
   // a entrega de 25/09); ali, o voltar é o Voltar ao menu, como na lista
@@ -236,7 +212,9 @@ export default [
   esc,
   { chega: 'T04' },
 
-  // ── T07 · tudo aprovado, o Voltar ao menu; com um sinal reprovado, nada ──
+  // ── T07 · o diagnóstico (pacote 1): lendo, nada; passou sem trava, o Voltar ao menu; na
+  //    trava, o Procurar outro módulo, que volta à lista; atualizando e relendo, nada; com a
+  //    CAN lida, o Voltar ao menu ──
   { abre: '?tela=T07' },
   esc,
   { chega: 'T04' },
@@ -249,32 +227,52 @@ export default [
   { fica: 'T07', ms: 500 },
   esc,
   { chega: 'T04' },
-  { abre: '?tela=T06' },
-  { marca: 'QJF-2C61' },
-  { toca: 'Usar este ativo' },
-  { chega: 'T06', momento: '01-momento-confirmar-o-veiculo' },
-  { toca: 'Usar este ativo' },
-  { chega: 'T07' },
-  { ve: 'Ler novamente' },
+  // a leitura que corre, da conexão: nada; as sete passam, e o voltar é o Voltar ao menu
+  { abre: '?tela=T05&momento=01-momento-nenhum-escolhido' },
+  { marca: 'M2C-0417' },
+  { toca: 'Conectar ao M2C-0417' },
+  { chega: 'T07', momento: null },
   esc,
   { fica: 'T07', ms: 500 },
-
-  // ── T08 · antes e depois da releitura, o Voltar ao menu; relendo, nada ──
-  { abre: '?tela=T08' },
+  { naoVe: 'ENCERRAR' },
+  { ve: 'ENCERRAR', ms: 8000 },
+  { ve: 'Selecionar ativo' },
   esc,
   { chega: 'T04' },
-  { abre: '?tela=T08' },
-  { toca: 'Refazer a leitura' },
-  { chega: 'T08', momento: '01-momento-relendo' },
+  // a trava (o M2C-0999, fora do cadastro): lendo, nada; parada, o Procurar outro módulo
+  { abre: '?tela=T05&momento=01-momento-nenhum-escolhido' },
+  { marca: 'M2C-0999' },
+  { toca: 'Conectar ao M2C-0999' },
+  { chega: 'T07', momento: null },
   esc,
-  { fica: 'T08', ms: 500 },
-  { chega: 'T08', momento: '01-momento-relendo' },
-  { chega: 'T08', momento: '02-momento-concluida' },
+  { fica: 'T07', ms: 300 },
+  { ve: 'Procurar outro módulo', ms: 8000 },
+  esc,
+  { chega: 'T05', momento: '01-momento-nenhum-escolhido' },
+  { desligado: 'Conectar' },
+  // o firmware que atualiza (06): nada
+  { abre: '?tela=T07&momento=06-momento-atualizando-o-firmware' },
+  esc,
+  { fica: 'T07', ms: 300 },
+  // a CAN lida (01): o Ler de novo relê (10), e relendo, nada; lida de novo, o Voltar ao menu
+  { abre: '?tela=T07&momento=01-momento-can-lida' },
+  { toca: 'Ler de novo' },
+  { chega: 'T07', momento: '10-momento-relendo-a-can' },
+  esc,
+  { fica: 'T07', ms: 500 },
+  { chega: 'T07', momento: '01-momento-can-lida', ms: 8000 },
   esc,
   { chega: 'T04' },
 
-  // ── T09 · antes de a Conexão gravar, a recuperação; nela, nada; concluída, o Voltar ao menu ──
+  // ── T09 · antes de gravar (05), o Voltar ao menu; gravando, antes de a Conexão gravar, a
+  //    recuperação; nela, nada; concluída, o Voltar ao menu ──
   { abre: '?tela=T09' },
+  { chega: 'T09', momento: '05-momento-o-que-vai-ser-gravado' },
+  esc,
+  { chega: 'T04' },
+  { abre: '?tela=T09' },
+  { toca: 'Gravar no módulo' },
+  { chega: 'T09', momento: null },
   { ve: 'Gravando · não interrompa' },
   esc,
   { ve: 'Continuar a gravação' },
@@ -283,7 +281,7 @@ export default [
   { fica: 'T09', ms: 500 },
   { ve: 'Continuar a gravação' },
   { toca: 'Continuar a gravação' },
-  { chega: 'T09', momento: '04-momento-cadeia-concluida' },
+  { chega: 'T09', momento: '04-momento-cadeia-concluida', ms: 12000 },
   esc,
   { chega: 'T04' },
 

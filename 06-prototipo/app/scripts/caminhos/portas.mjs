@@ -1,27 +1,16 @@
 // C11 · as portas naturais (logica.md, "As portas naturais"; G28, R-11) e a R-14 em
 // toda lista de escolha: tocar na linha só marca, e só o botão avança.
-// Na T05, marcar e conectar o M2C-0394 (o 11), o M2C-0362 (o 13) e o M2C-0335 (o 15);
-// na T06, o KNB-5H39 (o 03). Só por toque, do login.
+// Na T05, marcar e conectar o M2C-0999, o fora do cadastro: a conexão abre o diagnóstico
+// (T07), que trava no serial (o quadro da T07/02). Só por toque, do login.
+// Com o pacote 1 saíram as portas da pré-checagem da T05 (o M2C-0394, o 11; o M2C-0362,
+// o 13; o M2C-0335, o 15) e a do chassi da T06 (o KNB-5H39, o 03).
 const A_LISTA = [
   { toca: 'CONECTAR MÓDULO' },
   { chega: 'T05', momento: '01-momento-nenhum-escolhido' },
   { ve: 'Escolha o que está na sua mão.' },
   { desligado: 'Conectar' },
-  { ve: 'não está no cadastro desta empresa' },
-  { naoToca: 'M2C-0999' },   // o não cadastrado não se toca, como a referência desenha
+  { ve: 'M2C-0999' },   // na 01, o fora do cadastro se escolhe como os outros (a errata do pacote 1)
 ]
-// a sessão que a porta abriu: ENCERRAR, o Encerrar sem homologar do diálogo (decisão 36),
-// os 4 passos, e o menu sem sessão
-const ENCERRA = [
-  { toca: 'ENCERRAR' },
-  { ve: 'Encerrar sem homologar?' },
-  { toca: 'Encerrar sem homologar' },
-  { chega: 'T16', momento: '03-momento-encerrando-sem-homologar', ms: 1000 },
-  { chega: 'T16', momento: '04-momento-encerrada-sem-homologar', ms: 5000 },
-  { toca: 'Voltar ao menu' },
-  { chega: 'T04', momento: '01-momento-sem-modulo' },
-]
-
 export default [
   { abre: '' },
   { chega: 'T01', momento: null },
@@ -74,69 +63,31 @@ export default [
   { chega: 'T05', momento: '01-momento-nenhum-escolhido' },
   { ve: 'Conectar ao M2C-0394' },
   { naoVe: 'Conectar ao M2C-0417' },
-  { naoVe: 'Pré-checagem' },
-  // a porta do M2C-0394: o conteúdo não cabe (o 11), e a sessão não nasce
-  { toca: 'Conectar ao M2C-0394' },
-  { chega: 'T05', momento: '05-momento-pre-checagem' },
-  { ve: 'M2C-0394 · OCT-2J85' },
-  { ve: '128 registros · cabem 96', ms: 9000 },
-  { ve: 'não cabe' },
-  { ve: 'sem CAN' },
-  { ve: '0 de 2', ms: 5000 },
-  { ve: '9 de 11', ms: 5000 },
-  { ve: 'registrado' },
-  { ve: 'livre' },
+
+  // a porta do M2C-0999: fora do cadastro, ele se marca e conecta como os outros; o
+  // diagnóstico (T07) trava pelo serial, a faixa não desce, e o Procurar outro módulo
+  // volta à lista sem nada escolhido (o quadro da T07/02)
+  { marca: 'M2C-0999' },
+  { fica: 'T05', ms: 600 },
+  { chega: 'T05', momento: '01-momento-nenhum-escolhido' },
+  { ve: 'Conectar ao M2C-0999' },
+  { naoVe: 'Conectar ao M2C-0394' },
+  { toca: 'Conectar ao M2C-0999' },
+  { chega: 'T07', momento: null },
+  { ve: 'M2C-0999 · fora do cadastro' },
+  { ve: 'não está no cadastro', ms: 8000 },
+  { ve: 'Procurar outro módulo', ms: 8000 },
   { naoVe: 'ENCERRAR' },
+  { naoToca: 'Selecionar ativo' },
+  { fica: 'T07', ms: 600 },
   { toca: 'Procurar outro módulo' },
   { chega: 'T05', momento: '01-momento-nenhum-escolhido' },
   { desligado: 'Conectar' },
 
-  // a porta do M2C-0335: o módulo dorme na nona (o 15), e o Acordar segue dali
-  { marca: 'M2C-0335' },
-  { fica: 'T05', ms: 400 },
-  { toca: 'Conectar ao M2C-0335' },
-  { chega: 'T05', momento: '05-momento-pre-checagem' },
-  { ve: 'M2C-0335 · KHT-4B08' },
-  { ve: 'MÓDULO EM REPOUSO', ms: 9000, entre: [4000, 7000] },
-  { ve: 'Acorde para seguir da nona.' },
-  { ve: 'em repouso' },
-  { ve: '8 de 11' },
-  { ve: 'Procurar outro módulo' },
-  { naoVe: 'ENCERRAR' },
-  { fica: 'T05', ms: 1500 },
-  { ve: '8 de 11' },   // parado na nona até o técnico acordar
-  { toca: 'Acordar módulo' },
-  { chega: 'T05', momento: '05-momento-pre-checagem' },
-  { naoVe: 'MÓDULO EM REPOUSO' },
-  { ve: 'ENCERRAR', entre: [1000, 3000] },
-  { ve: '11 de 11' },
-  { ve: 'sem ativo' },
-  { ve: '128 de 192' },
-  ...ENCERRA,
-
-  // a porta do M2C-0362: o app fecha o canal da sessão anterior e mostra as pendências (o 13)
-  ...A_LISTA,
-  { marca: 'M2C-0362' },
-  { fica: 'T05', ms: 400 },
-  { toca: 'Conectar ao M2C-0362' },
-  { chega: 'T05', momento: '05-momento-pre-checagem' },
-  { ve: 'ENCERRAR', ms: 12000, entre: [5000, 9000] },
-  { ve: '11 de 11' },
-  { ve: 'M2C-0362' },
-  { ve: 'sem ativo' },
-  { ve: 'VL06 CAN' },
-  { ve: 'aberto desde 03/03 às 13:20' },
-  { ve: 'fechado' },
-  { ve: '0 de 4' },
-  { ve: '12' },
-  { ve: '· 3 de diagnóstico' },
-  ...ENCERRA,
-
-  // T06 · R-14 e a porta do KNB-5H39: o ônibus marca, só o Usar este ativo confirma
-  ...A_LISTA,
+  // T06 · R-14: o ônibus marca, só o Usar este ativo confirma, e só o Vincular o módulo vincula
   { marca: 'M2C-0417' },
   { toca: 'Conectar ao M2C-0417' },
-  { chega: 'T05', momento: '05-momento-pre-checagem' },
+  { chega: 'T07', momento: null },
   { toca: 'Selecionar ativo', ms: 12000 },
   { chega: 'T06', momento: null },
   { ve: 'Escolha o veículo que está na sua frente.' },
@@ -144,36 +95,28 @@ export default [
   { marca: 'RKT-8H42' },
   { fica: 'T06', ms: 600 },
   { chega: 'T06', momento: null },
-  { naoVe: 'Confirmar o veículo' },
+  { naoVe: 'Confirmar o vínculo' },
   { marca: 'QJF-2C61' },
   { fica: 'T06', ms: 600 },
   { chega: 'T06', momento: null },
-  { naoVe: 'Confirmar o veículo' },
-  { marca: 'KNB-5H39' },
-  { fica: 'T06', ms: 600 },
-  { chega: 'T06', momento: null },
-  { naoVe: 'Confirmar o veículo' },
+  { naoVe: 'Confirmar o vínculo' },
   { toca: 'Usar este ativo' },
   { chega: 'T06', momento: '01-momento-confirmar-o-veiculo' },
-  { ve: 'Confirmar o veículo' },
-  { ve: 'KNB-5H39' },
-  { ve: 'frota 1027 · Caminhão coletor 17.230' },
-  { ve: 'SEM CHASSI NA CAN' },
-  { ve: 'Este modelo não manda o chassi. O vínculo fica pela sua confirmação, e ela entra na evidência.' },
-  { ve: 'Confirme o veículo para continuar' },
-  { desligado: 'Usar este ativo' },
+  { ve: 'Confirmar o vínculo' },
+  { ve: 'QJF-2C61' },
+  { fica: 'T06', ms: 600 },
+  { chega: 'T06', momento: '01-momento-confirmar-o-veiculo' },
   // Escolher outro volta à lista; outro ônibus, a confirmação dele
   { toca: 'Escolher outro' },
   { chega: 'T06', momento: null },
-  { marca: 'KNB-5H39' },
+  { marca: 'RKT-8H42' },
   { toca: 'Usar este ativo' },
   { chega: 'T06', momento: '01-momento-confirmar-o-veiculo' },
-  { ve: 'SEM CHASSI NA CAN' },
-  { marca: 'Confirmo que o KNB-5H39 é o veículo à minha frente' },
-  { fica: 'T06', ms: 400 },
-  { toca: 'Usar este ativo' },
-  { chega: 'T07' },
-  { ve: 'KNB-5H39' },
+  { ve: 'RKT-8H42' },
+  { ve: 'O M2C-0417 fica neste ativo, na Viação Atlântico Sul.' },
+  { toca: 'Vincular o módulo' },
+  { chega: 'T09', momento: '05-momento-o-que-vai-ser-gravado' },
+  { ve: 'RKT-8H42' },
 
   // T05 · a 00, pelo endereço: o ESCOLHIDO é a marca; tocar noutro por perto troca o
   // escolhido no lugar, e o primário diz o serial dele — também não conecta (tela.md)
@@ -187,8 +130,7 @@ export default [
   { chega: 'T05', momento: null },
   { ve: 'Conectar ao M2C-0362' },
   { naoVe: 'Conectar ao M2C-0417' },
-  { naoVe: 'Pré-checagem' },
   { toca: 'Conectar ao M2C-0362' },
-  { chega: 'T05', momento: '05-momento-pre-checagem' },
-  { ve: 'Pré-checagem' },
+  { chega: 'T07', momento: null },
+  { ve: 'Diagnóstico do módulo' },
 ]

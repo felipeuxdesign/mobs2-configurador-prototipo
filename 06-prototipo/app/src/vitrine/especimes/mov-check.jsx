@@ -20,7 +20,8 @@ import { M } from '../../dados/mock.js'
 import { T as T11 } from '../../telas/T11/textos.js'
 import { BLOCOS, rotuloDe, parDoCaso, CASO_DIFF, CASO_CONFERE, cadastroDo, moduloDo, VERSAO_DO_CADASTRO } from '../../telas/T11/conferencia.js'
 import { T as T16 } from '../../telas/T16/textos.js'
-import { assertivas, CAUSA, CASO_FALHA, versaoCompleta } from '../../telas/T16/dados.js'
+import { assertivas, CAUSA, CASO_FALHA, blocosRelidos } from '../../telas/T16/dados.js'
+import { elosDo } from '../../telas/T09/cadeia.js'
 import { T as T13 } from '../../telas/T13/textos.js'
 import { TX as T02 } from '../../telas/T02/textos.js'
 import './mov-check.css'
@@ -85,13 +86,10 @@ function Contagens() {
 }
 
 // ── a cadeia (C12·12, C12·32, T09): o elo relido, o trilho que acende de cima pra baixo; e a recusa, com o aviso que surge (C12·9, C12·13) ──
-// os blocos e a recusa são os da folha 5 (f5-instrumentos) e da folha 4 (o aviso de processo parado)
-const BLOCOS_CADEIA = [
-  { nome: 'Limpeza', valor: 'feita', descricao: 'apaga a configuração anterior' },
-  { nome: 'Ativo', valor: 'A12', descricao: 'quem é o veículo e a tradução da CAN' },
-  { nome: 'Cercas', valor: 'G07', descricao: 'as regiões geográficas' },
-  { nome: 'Leitor', valor: 'L02', descricao: 'como o cartão do motorista é lido' },
-]
+// os blocos e a recusa são os da folha 5 (f5-instrumentos) e da folha 4 (o aviso de processo parado):
+// os quatro primeiros elos da cadeia concluída, com o conteúdo de cada bloco (CADEIA.conteudo, decisão 49)
+const BLOCOS_CADEIA = elosDo({ confirmados: M.cadeia.ordem.length, fase: 'concluida' }, M.cadeia.conteudo)
+  .slice(0, 4).map(({ nome, valor, descricao }) => ({ nome, valor, descricao }))
 function CadeiaQueGrava() {
   const [feitos, setFeitos] = useState(1)
   const [recusada, setRecusada] = useState(false)
@@ -226,7 +224,7 @@ function Autoteste({ falha = false, lida = false }) {
   const ultima = total - 1
   return (
     <div className="vitrine-mc-pilha">
-      {!falha && <Prova tipo="sessao" rotulo={T16.sobreviveu} versao={versaoCompleta()} legenda={T16.relidoDoModulo} aguarda={aguarda} aguardaUnidade={T16.deTotal(total)} />}
+      {!falha && <Prova tipo="sessao" rotulo={T16.sobreviveu} versao={blocosRelidos()} legenda={T16.relidoDoModulo} aguarda={aguarda} aguardaUnidade={T16.deTotal(total)} />}
       <Lista>
         {lista.map((a, i) => (
           <LinhaChecagem key={a.id} variante="dupla" estado={a.estado} titulo={a.titulo} glifo={a.glifo} nomeGlifo={a.nomeGlifo}

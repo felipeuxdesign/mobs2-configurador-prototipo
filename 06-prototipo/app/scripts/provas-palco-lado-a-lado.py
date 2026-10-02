@@ -124,13 +124,13 @@ linhas = {(l['janela'][0], l['modo']): l for l in MED['palco']['linhas'] if 'jan
 quadros = {q['quadro']: q for q in MED['palco']['quadrosA90']}
 MODOS = [
     ('01-no-fluxo', '?tela=T04', 'no fluxo, a T04',
-     'O quadro lista 2 dos estados da T04; a coluna do palco lista todos os do índice (PALCO-A4). Foto depois do Entendi: na chegada ao menu, a semente mostra o aviso do acesso (T04 tela.md). O quadro traz a T04/00, sem rede (Últimas instalações sem conexão); o fluxo do palco tem rede.'),
-    ('02-num-estado', '?tela=T07&estado=01-estado-fora-da-faixa', 'num estado, a T07 em Fora da faixa',
+     'O quadro lista 4 dos 7 estados da T04; a coluna do palco lista todos os do índice (PALCO-A4). Foto depois do Entendi: na chegada ao menu, a semente mostra o aviso do acesso (T04 tela.md). O quadro traz a T04/00, sem rede (Últimas instalações sem conexão); o fluxo do palco tem rede.'),
+    ('02-num-estado', '?tela=T07&estado=04-estado-firmware-nao-homologado', 'num estado, a T07 em Firmware não homologado',
      'A mesma moldura do fluxo; o que avisa que está parado é o Voltar ao fluxo.'),
-    ('03-tela-com-muitos-estados', '?tela=T05', 'a T05, com os estados em grupos',
-     'O quadro põe o momento Um encontrado no ACHAR; a coluna lista só os estados, com o Bluetooth desligado e sem permissão no ACHAR (PALCO-A7).'),
+    ('03-tela-com-muitos-estados', '?tela=T07', 'a T07, com os estados em grupos',
+     'O MÓDULO e A CAN, os grupos do índice (a regra dos seis); o nome do grupo na tinta e na letra do rótulo de 10 (lei 11, PALCO-A15).'),
     ('04-painel-aberto', '?tela=T07&painel=1', 'o painel aberto, na T07',
-     'O quadro anda o celular e a coluna 90 à direita; no palco o painel passa por cima e nada se mexe (palco.md, o quadro 00: não se mexe quando o painel abre).'),
+     'O quadro anda o celular e a coluna 90 à direita; no palco o painel passa por cima e nada se mexe (palco.md, o quadro 00: não se mexe quando o painel abre). O quadro desenha a coluna da T07 sem os grupos; o palco agrupa, como o 02 e o 03.'),
 ]
 for ref, url, o_que, nota in MODOS:
     foto = os.path.join(FOTOS, ref + '-app.png')
@@ -168,7 +168,7 @@ if F and os.path.exists(ref00):
     texto(d, (t[0]['caixa'][0], t[0]['caixa'][1]), 'PALCO DO PROTÓTIPO · AS PEÇAS RODANDO', rot, APAGADA, 1.6)
     texto(d, (t[1]['caixa'][0], t[1]['caixa'][1]), 'O palco de revisão, no protótipo', fonte(700, 30), TINTA)
     texto(d, (t[2]['caixa'][0], t[2]['caixa'][1]), 'Cada peça fotografada no palco rodando, a 1×, e posta no lugar do espécime da folha. Embaixo, o que se mediu.', fonte(400, 15), SECUNDARIA)
-    # os rótulos das partes de cima; os das tabelas vão depois, que a coluna da T05 do palco é mais alta que a da folha
+    # os rótulos das partes de cima; os das tabelas vão depois, que a coluna da T04 do palco é mais alta que a da folha
     y_tabelas = min(t_[1] for t_ in F['tabelas']) if F['tabelas'] else H
     for r in F['rotulos'][1:]:
         if r['caixa'][1] < y_tabelas - 40:
@@ -217,20 +217,20 @@ if F and os.path.exists(ref00):
         tam = cola(nome, caixa[0], caixa[1])
         legenda(caixa[0], caixa[1] + (tam[1] if tam else caixa[3]) + 10, s, 280)
 
-    # a coluna: no fluxo, num estado, a da T05 e a tela sem estados — o conteúdo no lugar do conteúdo da folha,
+    # a coluna: no fluxo e num estado (a T04), a da T07 e a tela sem estados — o conteúdo no lugar do conteúdo da folha,
     # com a moldura tracejada da folha em volta, do tamanho do que o palco desenha
     fundo_colunas = 0
     for (nome, s), tr in zip([
-            ('coluna-no-fluxo', 'no fluxo · ?tela=T07'),
-            ('coluna-num-estado', 'num estado · ?tela=T07&estado=01-estado-fora-da-faixa'),
-            ('coluna-T05', 'a T05 · os estados em grupos, com os 13 do índice'),
+            ('coluna-no-fluxo', 'no fluxo · ?tela=T04, com os 7 do índice'),
+            ('coluna-num-estado', 'num estado · ?tela=T04&estado=03-estado-faixa-modulo-com-falha'),
+            ('coluna-T07', 'a T07 · os estados em grupos, O módulo e A CAN'),
             ('sem-coluna', '')], F['tracejadas']):
         bx = tr['caixa']
         if nome == 'sem-coluna':
             tam = cola(nome, bx[0], bx[1])
             tracejado(d, (bx[0], bx[1], bx[0] + (tam[0] if tam else bx[2]) - 1, bx[1] + (tam[1] if tam else bx[3]) - 1))
             sc = P.get('semColuna', {})
-            s = (f'?tela=T08, o lugar da coluna: {sc.get("T08", "—")} · a folha diz que a T01, a T02 e a T08 não mostram coluna, '
+            s = (f'?tela=T01, o lugar da coluna · desde que a T08 saiu (pacote 1), nenhuma tela fica sem estado · a folha diz que a T01 e a T02 não mostram coluna, '
                  f'mas a T01 {sc.get("T01", "—")} e a T02 {sc.get("T02", "—")}: as duas têm estados no índice (palco.md; PALCO-N2 do C0)')
             fundo_colunas = max(fundo_colunas, legenda(bx[0], bx[1] + (tam[1] if tam else bx[3]) + 10, s, 262))
             continue
@@ -255,11 +255,11 @@ if F and os.path.exists(ref00):
         ('PAINEL', f'transition: {l04["folha"]["painel"]["transicao"]}'),
         ('CELULAR', f'não se mexe quando o painel abre: {"no mesmo lugar" if mexe["passa"] else "SE MEXE"} com e sem o painel ({", ".join(num(v) for v in mexe["medido"]["semPainel"])})'),
     ]
-    # as tabelas descem o que a coluna da T05 cresceu (a folha tem 10 estados nela; o palco, os 13 do índice)
+    # as tabelas descem o que as colunas cresceram (a folha lista 3 dos 7 estados da T04)
     desce = max(0, fundo_colunas + 44 - (y_tabelas - 26))
     for r in F['rotulos'][1:]:
         if r['caixa'][1] >= y_tabelas - 40:
-            texto(d, (r['caixa'][0], r['caixa'][1] + desce), r['texto'] + (f'  ·  {round(desce)} mais embaixo que na folha: a coluna da T05 é mais alta' if desce and r['texto'].startswith('MEDIDAS') else ''), rot, APAGADA, 1.6)
+            texto(d, (r['caixa'][0], r['caixa'][1] + desce), r['texto'] + (f'  ·  {round(desce)} mais embaixo que na folha: a coluna da T04 é mais alta' if desce and r['texto'].startswith('MEDIDAS') else ''), rot, APAGADA, 1.6)
     fim = 0
     for (x, y, w, h), linhas_ in zip(F['tabelas'], (medidas, movimento)):
         y += desce

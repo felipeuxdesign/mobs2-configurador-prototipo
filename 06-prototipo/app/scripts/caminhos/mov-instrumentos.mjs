@@ -6,16 +6,13 @@
 // processo segue no mesmo ritmo.
 //   · a Escala que segue um processo (a baixa da T03, o prazo da T14): um trecho
 //     linear por passo, no passo do ritmos.js, o marcador e o preenchido juntos
-//   · a leitura que chega (T07): o marcador corre em 300, desacelerando; as
-//     rodinhas do hodômetro rolam da casa 0, 300 cada, de 40 em 40, a unidade
-//     primeiro; o check do sinal esmaece em 150
-//   · a leitura que cai fora (T07/01): a borda vermelha (uma camada) e a causa
-//     esmaecem em 150
 //   · a barra do checklist (T13): a volta do item parte do que tinha e avança
 //     em 300; o Finalizar completa em 300, e o veredito surge em 150
-//   · o mostrador (T08): a pele acesa entra em 150; concluir não anima
 //   · o semear (T10): a diferença encolhe e esmaece em 300, o tambor rola, e o
 //     veredito (o confere, ou o não confere) entra em 150 no fim dos 300
+// Com o pacote 1 saíram a leitura que chega e a que cai fora (a T07 antiga, Dados
+// da CAN, e o Ler novamente dela) e o mostrador (a T08, Refazer leitura): as telas
+// que os usavam saíram, e os espécimes ficam só na vitrine.
 const C = 'cubic-bezier(0.2, 0.8, 0.2, 1)'
 const trecho = (ms) => [
   { prop: 'transform', ms, curva: 'linear', em: 'ds-escala-agulha' },
@@ -52,31 +49,6 @@ export default [
   { dorme: 400 },
   { quieto: true },
 
-  // ── a leitura que chega (T07, C12·30 e 31)
-  { abre: '?vitrine=1&especime=mov-leitura-chega' },
-  { quieto: true },
-  { toca: 'Ler novamente', anima: [
-    { prop: 'transform', ms: 300, curva: C, em: 'ds-escala-agulha' },
-    ...rola,
-    { prop: 'opacity', ms: 150, curva: C, em: 'ds-icone ds-icone-mini' }, // o check do sinal (ds-sinais-nasce)
-  ] },
-  { ve: '13,8' },
-  { dorme: 600 },
-  { quieto: true },
-  { toca: 'Voltar ao começo' },                    // remonta no quadro de começo: parada
-  { quieto: true },
-  // ── a leitura que cai fora (T07/01)
-  { abre: '?vitrine=1&especime=mov-leitura-fora' },
-  { quieto: true },
-  { toca: 'Ler a bateria fora', anima: [
-    { prop: 'opacity', ms: 150, curva: C, em: 'ds-leitura-borda' },   // a camada da borda vermelha
-    { prop: 'opacity', ms: 150, curva: C, em: 'ds-leitura-causa' },
-    { prop: 'transform', ms: 300, curva: C, em: 'ds-escala-agulha' },
-  ] },
-  { ve: '1,1 V abaixo do mínimo' },
-  { dorme: 400 },
-  { quieto: true },
-
   // ── a barra do checklist (T13, C12·36)
   { abre: '?vitrine=1&especime=mov-barra-checklist' },
   { quieto: true },
@@ -91,14 +63,6 @@ export default [
   { dorme: 400 },
   { quieto: true },
   { toca: 'Voltar ao começo' },
-  { quieto: true },
-
-  // ── o mostrador (T08): a pele acesa entra por opacity; concluir não anima
-  { abre: '?vitrine=1&especime=mov-mostrador' },
-  { quieto: true },
-  { toca: 'Refazer a leitura', anima: [{ prop: 'opacity', ms: 150, curva: C, em: 'ds-mostrador' }] },
-  { dorme: 300 },
-  { toca: 'Concluir a releitura' },
   { quieto: true },
 
   // ── o semear (T10, C12·34): o confere, e o não confere
@@ -131,21 +95,10 @@ export default [
   { dorme: 300 },
   { quieto: true },
   { ve: '1:36', entre: [5400, 6000] },
-  { abre: '?vitrine=1&especime=mov-leitura-chega' },
-  { toca: 'Ler novamente' },
-  { quieto: true },
-  { ve: '13,8' },
-  { abre: '?vitrine=1&especime=mov-leitura-fora' },
-  { toca: 'Ler a bateria fora' },
-  { quieto: true },
-  { ve: '1,1 V abaixo do mínimo' },
   { abre: '?vitrine=1&especime=mov-barra-checklist' },
   { toca: 'Voltar ao checklist' },
   { quieto: true },
   { toca: 'Finalizar instalação' },
-  { quieto: true },
-  { abre: '?vitrine=1&especime=mov-mostrador' },
-  { toca: 'Refazer a leitura' },
   { quieto: true },
   { abre: '?vitrine=1&especime=mov-semear' },
   { toca: 'Semear o hodômetro' },

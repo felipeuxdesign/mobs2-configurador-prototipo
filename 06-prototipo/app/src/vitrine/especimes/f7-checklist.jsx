@@ -1,16 +1,18 @@
 // Folha 7 · checklist, evidência e processo. Os textos são os da folha.
 // O checklist numa estrutura só (a entrega do checklist, decisão 34): a seção
 // é uma peça, fechada e aberta — de leitura ou de tocar —, os quatro tipos de
-// item, o veredito e a ação da seção. Os três mostradores são uma peça com
-// três estados; a foto, uma peça com dois; a câmera do app, uma peça só.
+// item, o veredito e a ação da seção. A foto é uma peça com dois estados; a
+// câmera do app, uma peça só. O pacote 1 tirou da folha o mostrador (a T08) e
+// trocou a versão das provas pelos blocos: o módulo não guarda versão (decisão 49).
 // As peças de outra família entram compostas: a Lista (linhas, folha 4) e o
 // cartão de ferramenta com o contador (cartões, folha 4).
 import {
   SecaoDoChecklist, ItemDoChecklist, VereditoDoChecklist, FotoProva, VisorCamera,
-  Mostrador, BlocoEvento, LinhaFila, LinhaRechecagem, Prova,
+  BlocoEvento, LinhaFila, LinhaRechecagem, Prova,
 } from '../../ds/checklist/index.js'
 import { Lista } from '../../ds/linhas/index.js'
 import { CartaoFerramenta, GradeFerramentas } from '../../ds/cartoes/index.js'
+import { blocosRelidos } from '../../telas/T16/dados.js'
 
 // as seções como a folha desenha: a A aberta, de leitura; a B fechada e aberta, de tocar
 const leituraDaA = [['Serial do módulo', 'M2C-0417'], ['Firmware', '2.3.5'], ['Ativo vinculado', 'RKT-8H42'], ['Chassi', 'confere']]
@@ -59,12 +61,6 @@ export const especimes = [
     render: () => <VisorCamera semPermissao frase="O app precisa da câmera pra fotografar o painel" explicacao="Sem a foto, a calibração não semeia." /> },
   { id: 'f7-visor-sem-permissao-item', folha: 7, rotulo: 'a câmera do item · sem a permissão', semBancada: true, legenda: 'fora da folha · no checklist, sem texto aprovado: só a câmera riscada (G25)',
     render: () => <VisorCamera semPermissao /> },
-  { id: 'f7-mostrador-apagado', folha: 7, rotulo: 'mostrador · apagado', legenda: 'tracejado · o traço no lugar do valor',
-    render: () => <Mostrador estado="apagado" valor="—" nome="Ignição" /> },
-  { id: 'f7-mostrador-relendo', folha: 7, rotulo: 'mostrador · relendo', legenda: 'acende quando o sinal responde',
-    render: () => <Mostrador estado="relendo" valor="ligada" nome="Ignição" /> },
-  { id: 'f7-mostrador-aceso', folha: 7, rotulo: 'mostrador · aceso', legenda: 'o nome com altura de duas linhas',
-    render: () => <Mostrador estado="aceso" valor="ligada" nome="Ignição" /> },
   { id: 'f7-acao-secao', folha: 7, rotulo: 'a ação da seção', legenda: 'uma linha só com seta · o resto da seção é leitura',
     render: () => <Lista><ItemDoChecklist tipo="tocar" icone="ciclo" nome="Fazer o ciclo dinâmico" legenda="os 5 passos, com o ônibus em movimento" aoTocar={() => {}} /></Lista> },
 
@@ -82,10 +78,10 @@ export const especimes = [
   { id: 'f7-linha-rechecagem', folha: 7, rotulo: 'linha da re-checagem', legenda: 'a Seção F esperando o servidor',
     render: () => <LinhaRechecagem titulo="RVM-1E54" legenda="recebimento pendente" prazo="confere em 24 h" /> },
   // na T09 a prova é o último bloco antes do rodapé: a folga de 16 vem junto (folha 7)
-  { id: 'f7-prova-cadeia', folha: 7, rotulo: 'prova da cadeia', legenda: 'a versão gravada e relida',
-    render: () => <Prova tipo="cadeia" rotulo="GRAVADO E RELIDO" versao="A12.G07.L02.E05.C03" legenda="o módulo devolveu os seis blocos" style={{ marginBottom: 'var(--respiro)' }} /> },
+  { id: 'f7-prova-cadeia', folha: 7, rotulo: 'prova da cadeia', legenda: 'os seis blocos, gravados e relidos',
+    render: () => <Prova tipo="cadeia" rotulo="GRAVADO E RELIDO" versao={blocosRelidos()} legenda="o módulo devolveu os seis blocos" style={{ marginBottom: 'var(--respiro)' }} /> },
   { id: 'f7-prova-sessao', folha: 7, rotulo: 'prova da sessão', legenda: 'o que sobreviveu ao reinício',
-    render: () => <Prova tipo="sessao" rotulo="A CONFIGURAÇÃO SOBREVIVEU AO REINÍCIO" versao="A12.G07.L02.E05.C03" legenda="relido do módulo depois de desligar e ligar" /> },
+    render: () => <Prova tipo="sessao" rotulo="A CONFIGURAÇÃO SOBREVIVEU AO REINÍCIO" versao={blocosRelidos()} legenda="relido do módulo depois de desligar e ligar" /> },
   { id: 'f7-contador-menu', folha: 7, rotulo: 'contador no menu', legenda: 'itens na fila, no canto do cartão',
     render: () => <GradeFerramentas><CartaoFerramenta icone="fila" titulo="Fila de saída" contagem={2} /></GradeFerramentas> },
 ]

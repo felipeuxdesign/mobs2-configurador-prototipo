@@ -44,7 +44,7 @@ export const especimes = [
 
   // o rodapé
   { id: 'f2-rodape-duas', folha: 2, chrome: true, rotulo: 'duas ações', legenda: 'primário 56 · link com 48 de toque',
-    render: () => <Rodape primario="Configurar módulo" link="Voltar ao menu" /> },
+    render: () => <Rodape primario="Voltar ao menu" link="Ler de novo" /> },
   { id: 'f2-rodape-uma', folha: 2, chrome: true, rotulo: 'uma ação', legenda: 'quando só existe um caminho',
     render: () => <Rodape primario="Voltar ao menu" /> },
   { id: 'f2-rodape-correndo', folha: 2, chrome: true, rotulo: 'processo correndo', legenda: 'o primário diz o que acontece',

@@ -1,15 +1,12 @@
-// A família dos instrumentos (folhas 5 e 8): as leituras com escala, o
-// tambor e a roda de dígito (G29), os sinais liga-desliga, o fato declarado,
-// a cadeia, o encerramento, o segmentado, a pré-condição, o prazo, a barra
-// do checklist (que saiu no lugar do placar, na entrega do checklist) e as
-// peças da calibração.
+// A família dos instrumentos (folhas 5 e 8): a escala, o tambor e a roda de
+// dígito (G29, o valor em poço da calibração), o fato declarado, a cadeia, o
+// encerramento, o segmentado, a pré-condição, o prazo, a barra do checklist
+// (que saiu no lugar do placar, na entrega do checklist) e as peças da
+// calibração. As leituras da CAN (a leitura, a pequena, a grade, o
+// tambor de células e os sinais) saíram com a T07 antiga, no pacote 1.
 export { Escala } from './Escala.jsx'
-export { Leitura } from './Leitura.jsx'
-export { LeituraPequena, GradeLeituras } from './LeituraPequena.jsx'
 export { RodaDigito, FITA, passos } from './RodaDigito.jsx'
 export { Tambor } from './Tambor.jsx'
-export { LeituraTambor } from './LeituraTambor.jsx'
-export { Sinais } from './Sinais.jsx'
 export { Declarado } from './Declarado.jsx'
 export { Trilho } from './Trilho.jsx'
 export { Cadeia } from './Cadeia.jsx'

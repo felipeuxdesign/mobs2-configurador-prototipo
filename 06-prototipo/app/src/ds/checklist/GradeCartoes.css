@@ -1,4 +1,0 @@
-/* A grade dos cartões (folha 7): hoje, os mostradores da T08, em três colunas */
-.ds-grade-cartoes { display: grid; gap: var(--e-8); grid-auto-flow: row dense; }
-.ds-grade-cartoes-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.ds-grade-cartoes-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }

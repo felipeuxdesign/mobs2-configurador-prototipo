@@ -137,7 +137,7 @@ export default [
   { naoVe: 'Escolha o veículo que está na sua frente.' },
   { toca: 'Usar este ativo' },
   { chega: 'T06', momento: '01-momento-confirmar-o-veiculo' },
-  { ve: 'Os dois batem — é este veículo.' },
+  { ve: 'O M2C-0417 fica neste ativo, na Viação Atlântico Sul.' },   // o vínculo (pacote 1, a T06 sem o chassi)
   // Escolher outro volta à lista com a busca como estava; outra placa que não existe
   { toca: 'Escolher outro' },
   { chega: 'T06', momento: null },
@@ -173,7 +173,7 @@ export default [
   { toca: 'Usar este ativo' },
   { chega: 'T06', momento: '01-momento-confirmar-o-veiculo' },
   { ve: 'RKT-8H42' },
-  { ve: 'Os dois batem — é este veículo.' },
+  { ve: 'O M2C-0417 fica neste ativo, na Viação Atlântico Sul.' },   // o vínculo (pacote 1, a T06 sem o chassi)
 
   // ── T05 · o Procurar de novo: a busca da T05/00 corre de novo, e a lista volta ──
   { abre: '?tela=T05&momento=01-momento-nenhum-escolhido' },

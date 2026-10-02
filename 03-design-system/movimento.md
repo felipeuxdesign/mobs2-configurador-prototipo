@@ -165,7 +165,7 @@ Mudam **no lugar**. O ritmo do protótipo é de apresentação: rápido o bastan
 - **O tambor** (G29, C12·33) rola na troca de valor: 300ms por rodinha, 40ms entre elas, a unidade primeiro, 500ms no total. Nunca ao abrir.
 - **O trilho da cadeia** (C12·32) acende de cima pra baixo em 300ms, só na cadeia da T09. No encerramento da T16, o trilho troca direto.
 - **A barra do checklist** (C12·36), na volta do item às seções, parte do valor de quando o item abriu e avança em 300ms. No `Finalizar instalação`, completa em 300ms.
-- **Sem ritmo declarado, fica parado** (C12·14): o firmware da T07/06 nos 62% (a D4 do pacote 1 manda terminar sozinho e reler o diagnóstico, sem dizer em quanto tempo: o número espera o arquiteto) e o envio da fila da T15.
+- **Sem ritmo declarado, fica parado** (C12·14): o envio da fila da T15. O firmware da T07/06 já tem ritmo: o quadro dos 62% por 1 s (`RITMOS.cadeiaBlocoMs`), e o diagnóstico relê (a D4, aprovada no gate do pacote 1).
 
 ## Só isto se move
 

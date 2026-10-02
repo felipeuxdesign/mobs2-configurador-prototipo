@@ -71,10 +71,15 @@ export default [
   { ve: 'Reenviar os 5 blocos' },
   { toca: 'Reenviar os 5 blocos' },
   { chega: 'T09' },
+  // a T09 abre no que vai ser gravado (05, pacote 1), e o Gravar no módulo liga a cadeia
+  { chega: 'T09', momento: '05-momento-o-que-vai-ser-gravado' },
+  { toca: 'Gravar no módulo' },
+  { chega: 'T09', momento: null },
   // Corrigir as 5 divergências: a cadeia da T09, e depois dela a mesma sessão confere (T11·2)
   { abre: '?tela=T11' },
   { toca: 'Corrigir as 5 divergências' },
-  { chega: 'T09' },
+  { chega: 'T09', momento: '05-momento-o-que-vai-ser-gravado' },
+  { toca: 'Gravar no módulo' },
   { chega: 'T09', momento: '04-momento-cadeia-concluida', ms: 12000 },
   { toca: 'Voltar ao menu' },
   { chega: 'T04' },

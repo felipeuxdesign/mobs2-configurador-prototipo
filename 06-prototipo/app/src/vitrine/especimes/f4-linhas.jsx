@@ -10,21 +10,24 @@ const naTela = { padding: '0 calc(var(--e-16) - var(--traco-borda))' }
 
 export const especimes = [
   // ── a linha de checagem · cinco estados ──
+  // o pacote 1: o 'parou aqui' saiu (era da pré-checagem) e entrou o 'só informa' (a T07);
+  // o 'não se aplica' é o da assertiva da sessão (dupla, o círculo com o traço) e o 'ainda não', o relógio
   { id: 'f4-aprovada', folha: 4, rotulo: 'aprovada', legenda: 'check lima · valor em --tinta-secundaria',
     render: () => <Lista><LinhaChecagem estado="aprovada" titulo="Serial no cadastro" valor="VL06 FULL" /></Lista> },
   { id: 'f4-reprovada', folha: 4, rotulo: 'reprovada, com causa', legenda: 'X, título e valor em vermelho · a causa embaixo',
     render: () => <Lista><LinhaChecagem estado="reprovada" titulo="Firmware" causa="homologadas 2.2.0 e 2.3.5" valor="2.4.1" /></Lista> },
-  { id: 'f4-nao-se-aplica', folha: 4, rotulo: 'não se aplica', legenda: 'traço · depende de outra que reprovou',
-    render: () => <Lista><LinhaChecagem estado="nao-se-aplica" titulo="Espaço no módulo" valor="não avaliada" /></Lista> },
-  { id: 'f4-parou-aqui', folha: 4, rotulo: 'parou aqui', legenda: 'o processo caiu nesta',
-    render: () => <Lista><LinhaChecagem estado="parou" titulo="Modem, SIM e sinal" valor="sem resposta" /></Lista> },
+  { id: 'f4-nao-se-aplica', folha: 4, rotulo: 'não se aplica', legenda: 'traço · a assertiva que não vale pra este ativo',
+    render: () => <Lista><LinhaChecagem variante="dupla" estado="nao-se-aplica" glifo="traco-circulo" titulo="Faixa de contadores" valor="não se aplica" /></Lista> },
+  { id: 'f4-so-informa', folha: 4, rotulo: 'só informa', legenda: 'i cinza · o valor à direita · a frase diz que dá pra seguir',
+    render: () => <Lista><LinhaChecagem estado="informa" titulo="Modem" causa="dá pra seguir · o checklist registra" valor="sem sinal" /></Lista> },
   { id: 'f4-ainda-nao', folha: 4, rotulo: 'ainda não', legenda: 'círculo apagado · valor em traço',
-    render: () => <Lista><LinhaChecagem estado="ainda-nao" titulo="Espaço no módulo" valor="—" /></Lista> },
+    render: () => <Lista><LinhaChecagem estado="ainda-nao" glifo="relogio" titulo="Alimentação" valor="—" /></Lista> },
 
   // ── a família da linha de lista · uma peça, seis contextos ──
-  { id: 'f4-pre-checagem', folha: 4, rotulo: 'pré-checagem', legenda: 'compacta · 38',
+  // o diagnóstico do módulo (a T07) no lugar da pré-checagem: a mesma linha compacta de 38
+  { id: 'f4-diagnostico', folha: 4, rotulo: 'diagnóstico', legenda: 'compacta · 38',
     render: () => <Lista><LinhaChecagem titulo="Serial no cadastro" valor="VL06 FULL" /></Lista> },
-  { id: 'f4-pre-checagem-sessao', folha: 4, rotulo: 'pré-checagem com sessão', legenda: 'a mesma 38 — a exceção acabou',
+  { id: 'f4-diagnostico-sessao', folha: 4, rotulo: 'diagnóstico com sessão', legenda: 'a mesma 38 — a exceção acabou',
     render: () => <Lista><LinhaChecagem titulo="Serial no cadastro" valor="VL06 CAN-BT" /></Lista> },
   { id: 'f4-passo-ciclo', folha: 4, rotulo: 'passo do ciclo', legenda: 'compacta · 38',
     render: () => <Lista><LinhaChecagem variante="passo" titulo="Ignição ligada" /></Lista> },
