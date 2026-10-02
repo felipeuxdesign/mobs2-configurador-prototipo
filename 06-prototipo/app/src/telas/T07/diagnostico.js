@@ -84,9 +84,10 @@ export function contextoDe(serial, consumidos = []) {
 }
 
 // o rótulo de cima do título, sem a faixa: o serial e a placa do ativo previsto
-// (03 a 06), ou 'fora do cadastro' (02); o módulo do cadastro sem ativo previsto,
+// (03 a 06); fora do cadastro, só o serial (02 · o pacote 3: o topo só identifica
+// o módulo, e a trava fica com o aviso); o módulo do cadastro sem ativo previsto,
 // que nenhuma referência desenha, diz 'sem ativo', como a faixa
-export const rotuloDeTopo = (c) => `${c.serial} · ${!c.modulo ? T.foraDoCadastro : c.previsto ? c.previsto.placa : T.semAtivo}`
+export const rotuloDeTopo = (c) => (!c.modulo ? c.serial : `${c.serial} · ${c.previsto ? c.previsto.placa : T.semAtivo}`)
 
 // o que o cadastro decide antes de ler: fora do cadastro e sem driver travam o
 // que depende do cadastro; o firmware fora da matriz trava o firmware
@@ -102,7 +103,17 @@ const reprova = (valor, causa) => ({ estado: 'reprovada', valor, causa })
 // o que o serial travado deixa sem cadastro: o relógio apagado, com o valor escrito (02, 03)
 const semCadastro = () => ({ estado: 'ainda-nao', valor: T.semCadastro, glifo: 'relogio' })
 const informa = (valor, causa) => ({ estado: 'informa', valor, causa })
-const nomeDoModelo = (c) => `${c.modelo.nome} ${c.modulo.variante}`
+export const nomeDoModelo = (c) => `${c.modelo.nome} ${c.modulo.variante}`
+
+// o pacote 3 · o aviso que abre a trava sem saída escrita, como as travas da T09: o
+// serial fora do cadastro (02) e o modelo sem suporte (03). O firmware (04, 05) não
+// o leva: ele já se explica, e o aviso deixaria menos de 20 de folga (MUDANCAS §1)
+export function avisoDaTrava(c) {
+  const f = faltas(c)
+  if (!c.modulo) return { titulo: T.serialForaDoCadastro, frase: T.pecaAoGestor(c.serial) }
+  if (f.semDriver) return { titulo: T.modeloSemSuporteTitulo, frase: T.appNaoConfigura(nomeDoModelo(c)) }
+  return null
+}
 
 // a regra do cadastro em cada linha; as outras dizem o que o módulo leu (o heroi do mock)
 const REGRA = {

@@ -391,15 +391,16 @@ function itemF(mundo, item, total, feitosSemF) {
 // quem age, embaixo do nome da seção (a entrega do checklist, decisão 34): o
 // que o app confere, o que o técnico fotografa, o ciclo, o servidor. Com 1, o
 // singular (a resposta do arquiteto de 26/09: *você fotografa 1 item*, *1 foto
-// tirada*). As fotos tiradas contam o item fotografado aqui e o salvo com a
+// tirada*). O que ele fotografa conta os itens da seção, não os que faltam (o
+// pacote 3, a T13/12: com o Módulo salvo com ressalva, *você fotografa 5 itens*).
+// As fotos tiradas contam o item fotografado aqui e o salvo com a
 // ressalva, que tem a foto do problema (decisão 39);
 // sem nenhuma, a linha fica sem ela (G25)
 function quemAgeDa(s, itens, homologada) {
   const feitos = itens.filter(resolvido).length
   if (s.natureza === 'automatico') return homologada ? T.appConferiu : T.appConfere
   if (s.natureza === 'manual') {
-    const aTirar = itens.filter((c) => c.estado === 'pendente').length
-    if (aTirar) return T.voceFotografa(aTirar)
+    if (itens.some((c) => c.estado === 'pendente')) return T.voceFotografa(itens.length)
     const fotos = itens.filter((c) => c.estado === 'ok' || c.estado === 'ressalva').length
     return fotos ? T.fotosTiradas(fotos) : null
   }

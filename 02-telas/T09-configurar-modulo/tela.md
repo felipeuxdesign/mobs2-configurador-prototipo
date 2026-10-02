@@ -111,6 +111,13 @@ A construção das dez referências, com as decisões aprovadas no gate do pacot
 - **a cadeia que fecha o miolo** (05 a 07): o último elo fica sem o fecho de baixo (`semFecho`, na peça) — com o aviso das travas, o fecho e o recheio do miolo passavam 7 da altura que a referência corta, e o quadro rolaria à toa (G16). No desenho, nada muda
 - **quanto afasta** (02/10, contra o HTML · contra o PNG): `00` 0,06% · 2,29% · `01` 0,04% · 1,94% · `02` 0,08% · 2,11% · `03` 0,09% · 2,19% · `04` 0,07% · 2,69% · `05` 0,08% · 2,67% · `06` 0,08% · 2,61% · `07` 0,08% · 2,81% · `08` 0% · 1,82% · `09` 0,10% · 1,21%. O que sobra é o contorno dos glifos do Lucide no poço (o relógio, o check, o xis, o i), e, com nome: na `02` e na `03`, o *nenhuma* no lugar do *4 regiões*; na `09`, o ENCERRAR apagado. Contra o PNG, a rasterização do gerador do design. Os textos conferem nas dez, menos a `02` e a `03` (o *nenhuma*)
 
+## No protótipo · o pacote 3, construído (02/10)
+
+- **as travas do envio dizem o número no aviso** (06, 07): *São 128 registros, e o módulo guarda 96.* sai dos registros do modelo do ativo e da capacidade da variante (`envioDo`, a mesma conta de antes), e *O Terminal Cosme e Damião ficaria de fora.* sai da região que o caso `pool-esgotado` pede (`regiaoSolicitada`). Na `06`, a linha do espaço não aparece; na `05` e na `07`, que cabem, ela segue. O elo das cercas da `07` fica numa linha, *5 regiões, cabem 4* · **desvio nomeado:** o artigo *O* é o do Terminal; uma região de outro gênero pediria *A*, e nenhuma referência desenha — fica fixo até haver texto (G25)
+- **a `01`:** a linha dos pinos vem logo depois do aviso, dentro do miolo, como na `06` — sai o lugar no pé (o T09-D2 de antes) · a causa da recusa diz *os pontos das regiões não voltaram*
+- **as regiões do ativo** (D1): as do `ativoId` mais as em que ele está no `tambemAtivos`, num lugar só (`app/src/dados/regioes.js` · `regioesDoAtivo`), que a T09, a T11, a T13 (pelo conteúdo da T09) e a T16 leem. O PCX-9A17 da `02` e da `03` passa a dizer *4 regiões*, pelo dado — sai o desvio nomeado da `02` e da `03`
+- **quanto afasta** (02/10, contra o HTML · contra o PNG): `01` 0,04% · 1,62% · `02` 0,04% · 2,09% · `03` 0,06% · 2,17% · `05` 0,08% · 2,67% · `06` 0,07% · 2,06% · `07` 0,08% · 2,63%. O que sobra é o contorno dos glifos do Lucide no poço, como no pacote 1
+
 ## Histórias de usuário
 
 - **HU-T09-1** — Na instalação nova, vejo o que vai ser gravado antes de gravar: todos os blocos, obrigatórios

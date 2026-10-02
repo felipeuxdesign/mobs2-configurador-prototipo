@@ -1,5 +1,14 @@
 # Registro de mudanças
 
+## 2026-10-02 · o pacote 3, construído
+
+- **a T07 com o espaço do app (lei 23):** o módulo na linha de 50 (a variante `diagnostico`), a CAN e o *Conferido na conexão* na lista longa de 44 (a `longa`), a mesma letra, o aviso nas travas 02 e 03, o topo da 02 só com o serial · as 11 referências de 0,03% a 0,13% contra o HTML
+- **a T09** (a 01, a 06 e a 07), **as regiões do ativo** pela regra da D1 (o `ativoId` mais o `tambemAtivos`, num lugar só) — a T09/02 e 03 e a T16/06 dizem *4 regiões* com o dado · **a T13** com a barra do checklist no número do título e o Painel pendente · **o checklist da T04/04** em 11 · **a coluna do palco** pelo campo `coluna` (D2) · **o Bluetooth** nas 9 referências refotografadas · **o token** `--conferencia-nome` a 96 · a T10 sem o `itemChecklist`, que saiu do mock
+- **o design system:** as peças de estado da linha em 50, a lista longa em 44, sai a *diagnóstico com sessão*
+- **a régua:** as 142 referências sem erro, 35 em 0% contra o HTML, nenhuma pior que a base do pacote 2 (`prints/linha-de-base-pacote3.json`) · o herói com o horímetro (243 passos) e sem ele (231) · o palco com 5 de 5 textos e 38 de 38 na moldura · o gate aprovando
+- **um movimento sem referência, nomeado:** no fluxo, o aviso da trava (T07/02 e 03) surge quando a sétima linha fecha e empurra o bloco do módulo pra baixo, como as travas da T09
+- o README da raiz com os números novos
+
 ## 2026-10-02 · o pacote 3 — a T07 com o espaço do app
 
 - **a T07 usa as linhas do app** (lei 23, nova): as do módulo na linha de conferência, de 50px, a mesma da T11 e da T16; as leituras da CAN na lista longa, de 44, a do checklist · a letra é a mesma na T07 inteira — rótulo 15, valor 14 · a sobra cai de 117 a 213px pra 65 a 111

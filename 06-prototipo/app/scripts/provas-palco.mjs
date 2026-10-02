@@ -218,20 +218,10 @@ function mundoDaReferencia(html) {
   const i = s.indexOf("font-family: 'Google Sans'"), icones = i < 0 ? '' : s.slice(i, s.indexOf('</div>', i))
   return { bluetooth: icones.includes('M17.71'), semRede: /viewBox="0 0 14\.7 9\.7" fill="#4A4166"/.test(icones) && !icones.includes('M1.24 4.14') }
 }
-// Onde o protótipo segue a lei 22 e a referência não foi refotografada pelo pacote 2: o Bluetooth com o
-// módulo conectado, da conexão ao fim da sessão (D6). Desvio nomeado, fora da falha: o relatório diz qual
-const NAO_REFOTOGRAFADA = 'a referência não saiu na tabela do MUDANCAS §10 e ficou sem o Bluetooth; o protótipo segue a lei 22'
-const DESVIOS_DA_BARRA = {
-  'T04/05-momento-folha-conta': `a sessão do herói aberta atrás da folha — ${NAO_REFOTOGRAFADA} (a referência não desenha o menu atrás da folha)`,
-  'T04/06-momento-folha-conta-sair-com-sessao-aberta': `a sessão do M2C-0417 aberta — ${NAO_REFOTOGRAFADA}`,
-  'T04/07-momento-folha-trocar-de-garagem': `a sessão do herói aberta atrás da folha — ${NAO_REFOTOGRAFADA} (a referência não desenha o menu atrás da folha)`,
-  'T04/08-estado-folha-trocar-de-garagem-envio-em-andamento': `a sessão do herói aberta atrás da folha — ${NAO_REFOTOGRAFADA} (a referência não desenha o menu atrás da folha)`,
-  'T04/09-estado-folha-trocar-de-garagem-com-modulo-conectado': `o M2C-0417 conectado, como o diálogo diz — ${NAO_REFOTOGRAFADA}`,
-  'T04/14-estado-folha-trocar-de-unidade-com-empresa': `a sessão do herói aberta atrás da folha — ${NAO_REFOTOGRAFADA} (a referência não desenha o menu atrás da folha)`,
-  'T16/00-tela': `o encerramento corre com o módulo conectado até a Desconexão, o passo 7 (D6: sai quando a sessão encerra) — ${NAO_REFOTOGRAFADA}`,
-  'T16/01-momento-pede-o-corte-de-alimentacao': `o encerramento corre com o módulo conectado até a Desconexão, o passo 7 (D6) — ${NAO_REFOTOGRAFADA}`,
-  'T16/03-momento-encerrando-sem-homologar': `os 4 passos correm com o módulo conectado (D6) — ${NAO_REFOTOGRAFADA}`,
-}
+// Onde o protótipo segue a lei 22 e a referência não foi refotografada: o Bluetooth com o módulo conectado,
+// da conexão ao fim da sessão (D6). Desvio nomeado, fora da falha: o relatório diz qual. O pacote 3 trouxe as
+// 9 que faltavam com o Bluetooth (a T04/05, 06, 07, 08, 09 e 14, e a T16/00, 01 e 03 · MUDANCAS §3): hoje nenhuma
+const DESVIOS_DA_BARRA = {}
 async function barraNas145() {
   const indice = JSON.parse(readFileSync(resolve(raiz, '02-telas/indice.json'), 'utf8'))
   await janela(360, 800)

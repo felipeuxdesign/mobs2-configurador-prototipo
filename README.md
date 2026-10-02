@@ -1,7 +1,7 @@
 # App Configurador Mobs2
 
 <p align="center">
-  <img src="05-recursos/readme/caminho-do-heroi.gif" alt="O caminho do técnico no protótipo: o login, a empresa e a unidade, o pacote do dia, o menu, a conexão com o módulo, a pré-checagem, o ônibus confirmado, a leitura da CAN e a configuração gravada e relida" width="330">
+  <img src="05-recursos/readme/caminho-do-heroi.gif" alt="O caminho do técnico no protótipo: o login, a empresa e a unidade, o pacote do dia, o menu, a conexão com o módulo, o diagnóstico, o vínculo com o ônibus, o que vai ser gravado e a configuração gravada e relida" width="330">
 </p>
 
 <p align="center"><b><a href="https://configurador-mobs2-prototipo.vercel.app">Abrir o protótipo navegável →</a></b></p>
@@ -14,7 +14,7 @@ Este repositório tem o **design fechado e medido** e o **protótipo navegável*
 
 No computador, o celular aparece na moldura, em tamanho real quando a janela cabe, e anda só por toque, do login ao encerramento da sessão. No celular, o app ocupa a tela inteira. Em volta dele fica o palco:
 
-- **as telas:** o quadrado no canto de cima abre o painel, e qualquer uma das 16 telas abre direto por ele;
+- **as telas:** o quadrado no canto de cima abre o painel, e qualquer uma das 15 telas abre direto por ele;
 - **os estados:** a coluna ao lado do celular lista os estados da tela aberta (sem rede, pacote vencido, módulo que não responde…). Cada um abre montado pelo caso do mock, parado, como a referência desenha, e o `Voltar ao fluxo` devolve o instante de antes;
 - **o endereço:** cada tela, momento e estado tem o seu link (`?tela=T05&estado=…`), e o link aberto de novo mostra o mesmo quadro;
 - **o recomeço:** recarregar a página volta ao login.
@@ -23,14 +23,14 @@ No computador, o celular aparece na moldura, em tamanho real quando a janela cab
 
 | telas | momentos | estados | histórias de usuário | tokens | peças no design system | casos no mock |
 |---|---|---|---|---|---|---|
-| 16 | 63 | 68 | 107 | 295 | 132 | 55 |
+| 15 | 62 | 65 | 109 | 295 | 106 | 56 |
 
-As **147 referências** (16 telas, 63 momentos e 68 estados) têm, cada uma, um HTML e um PNG. O protótipo é medido contra elas, pixel a pixel. Toda diferença que sobra tem um desvio nomeado, com o porquê.
+As **142 referências** (15 telas, 62 momentos e 65 estados) têm, cada uma, um HTML e um PNG. O protótipo é medido contra elas, pixel a pixel. Toda diferença que sobra tem um desvio nomeado, com o porquê.
 
 ## Como foi feito
 
 - **O design decide, e o protótipo constrói.** O comportamento de cada tela está no `tela.md` e no `estados.md` dela, os textos exatos no `textos.md`, os valores no `tokens.css`, as leis no `leis.md` e o movimento no `movimento.md`. O código não inventa número, texto nem cor.
-- **Medir antes de afirmar.** Cada ciclo abriu com um gate (o censo, os achados, as decisões numeradas com o padrão adotado) e fechou com a régua: as fotos contra as referências, os textos, os espécimes das oito folhas do design system, os 42 roteiros que andam o app por toque e o gate do mock.
+- **Medir antes de afirmar.** Cada ciclo abriu com um gate (o censo, os achados, as decisões numeradas com o padrão adotado) e fechou com a régua: as fotos contra as referências, os textos, os espécimes das oito folhas do design system, os 43 roteiros que andam o app por toque e o gate do mock.
 - **As leis do toque.** O técnico toca, e o que responde é o pressionado. Não há hover. O estado muda o conteúdo, nunca o desenho. O que está desabilitado aparece em tinta apagada. Só transform e opacity se movem: nada anima a entrada de uma tela, e nada fica em loop.
 - **Mesma entrada, mesma saída.** O relógio do produto está parado às 14:30, e não há nada aleatório no código.
 

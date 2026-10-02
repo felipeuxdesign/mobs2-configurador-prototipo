@@ -78,16 +78,15 @@ const NOTAS = {
   'painel': 'o X e o RotateCcw do Lucide, no traço 1,8, contra os desenhados à mão no traço 2 (G5)',
   'coluna': MARCADOR,
   '02-num-estado/coluna': MARCADOR + '; e o Undo2 do Lucide no Voltar ao fluxo (G5)',
-  '01-no-fluxo/coluna': 'o quadro lista 4 dos 7 estados da T04 (sem os três da folha de trocar de unidade); a coluna lista todos (PALCO-A4, PALCO-D3); e ' + MARCADOR,
   '03-tela-com-muitos-estados/coluna': 'o nome do grupo (O MÓDULO, A CAN) na tinta e na letra do rótulo de 10, e não em --marca-limite e 1,4 (lei 11, PALCO-A15, PALCO-V4); e ' + MARCADOR,
   '04-painel-aberto/coluna': 'o quadro desenha os 7 estados da T07 sem os grupos, e a coluna os agrupa em O MÓDULO e A CAN, como o 02, o 03 e o 00 desenham (a regra dos seis, palco.md); e ' + MARCADOR,
-  'coluna-no-fluxo': 'a folha lista 3 dos 7 estados da T04; a coluna lista todos (PALCO-A4, PALCO-D3); e ' + MARCADOR,
-  'coluna-num-estado': 'a folha lista 3 dos 7 estados da T04; a coluna lista todos (PALCO-A4, PALCO-D3); e ' + MARCADOR + '; e o Undo2 do Lucide no Voltar ao fluxo (G5)',
+  // o pacote 3 (D2): a coluna lista os estados com o campo `coluna` do indice.json — na T04, 4 dos 7, como o quadro 01
+  'coluna-no-fluxo': 'a folha desenha 3 linhas da coluna da T04, e a coluna tem 4 — as do campo coluna do indice.json, como o quadro 01 (o pacote 3, D2: o Sem conexão é a quarta); e ' + MARCADOR,
+  'coluna-num-estado': 'a folha desenha 3 linhas da coluna da T04, e a coluna tem 4 — as do campo coluna do indice.json, como o quadro 01 (o pacote 3, D2: o Sem conexão é a quarta); e ' + MARCADOR + '; e o Undo2 do Lucide no Voltar ao fluxo (G5)',
   'coluna-T07': 'a lista dos grupos: o nome do grupo na tinta e na letra do rótulo de 10, e não em --marca-limite e 1,4 (lei 11, PALCO-A15, PALCO-V4); e ' + MARCADOR,
 }
 const notaDe = (nome, nomePeca) => NOTAS[`${nome}/${nomePeca}`] ?? NOTAS[nomePeca]
 const NOTAS_TEXTO = {
-  '01-no-fluxo/coluna': NOTAS['01-no-fluxo/coluna'].split('; e ')[0],
   '04-painel-aberto/coluna': NOTAS['04-painel-aberto/coluna'].split('; e ')[0],
 }
 

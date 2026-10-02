@@ -8,8 +8,9 @@
 //   · as sete passam sem trava: a faixa desce de cima em 200, e o miolo acompanha só por
 //     deslocamento; o rótulo de cima sai, e o primário diz Selecionar ativo, o texto esmaecendo no
 //     lugar, com o roxo direto (C12·23);
-//   · a trava (o M2C-0999, fora do cadastro): a faixa não desce, e o Procurar outro módulo volta à
-//     T05/01, a lista sem nada escolhido;
+//   · a trava (o M2C-0999, fora do cadastro): a faixa não desce; o topo diz só o serial, e o aviso
+//     (SERIAL FORA DO CADASTRO) esmaece no lugar quando a sétima fecha (o pacote 3); o Procurar outro
+//     módulo volta à T05/01, a lista sem nada escolhido;
 //   · a atualização do firmware (D4, o 06 pela URL): os 62% parados por 1 s (RITMOS.cadeiaBlocoMs), e
 //     o diagnóstico recomeça das sete, com o firmware disponível — passando, a faixa desce;
 //   · o Ler de novo (01 → 10 → 01): a CAN relê uma linha a cada 600 ms, no lugar, sem troca de quadro
@@ -97,12 +98,20 @@ export default [
 
   // ── a trava (o M2C-0999, fora do cadastro): a faixa não desce, e o voltar é o Procurar outro módulo ──
   ...CONECTA('M2C-0999'),
-  { ve: 'M2C-0999 · fora do cadastro' },
+  // o pacote 3: o topo só identifica o módulo, e a trava fica com o aviso, que só vem no fim
+  { ve: 'M2C-0999' },
+  { naoVe: 'M2C-0999 · ' },
+  { naoVe: 'SERIAL FORA DO CADASTRO' },
   // lendo, o voltar não faz nada
   { tecla: 'Escape' },
   { fica: 'T07', ms: 300 },
   { ve: 'não está no cadastro', ms: 2000 },
+  { naoVe: 'SERIAL FORA DO CADASTRO' },
+  // a sétima fecha na trava: o aviso abre a tela com o porquê, esmaecendo no lugar (Aviso · surge, 150)
   { ve: '4 de 7', ms: 6000 },
+  { anima: [esmaece('ds-aviso ds-caixa-poco ds-caixa-falha')] },
+  { ve: 'SERIAL FORA DO CADASTRO' },
+  { ve: 'Peça ao gestor pra cadastrar o M2C-0999.' },
   { dorme: 400 },
   { quieto: true },
   { naoVe: 'ENCERRAR' },

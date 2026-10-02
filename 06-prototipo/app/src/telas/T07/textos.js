@@ -8,7 +8,6 @@ export const T = {
   de: (total) => `de ${total}`,
   semAtivo: 'sem ativo',
   encerrar: 'ENCERRAR',
-  foraDoCadastro: 'fora do cadastro',
 
   // as duas seções
   oModulo: 'O MÓDULO',
@@ -19,6 +18,12 @@ export const T = {
   // o módulo depois da configuração: uma linha só (01, 08, 09, 10)
   conferido: 'Conferido na conexão',
   deTotal: (n, total) => `${n} de ${total}`,
+
+  // o aviso que abre as travas sem saída escrita (02, 03 · o pacote 3): o serial e o modelo, do cadastro
+  serialForaDoCadastro: 'SERIAL FORA DO CADASTRO',
+  pecaAoGestor: (serial) => `Peça ao gestor pra cadastrar o ${serial}.`,
+  modeloSemSuporteTitulo: 'MODELO SEM SUPORTE',
+  appNaoConfigura: (modelo) => `O app ainda não configura o ${modelo}.`,
 
   // o que trava (02, 03, 04)
   naoEstaNoCadastro: 'não está no cadastro',

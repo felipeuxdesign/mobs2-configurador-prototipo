@@ -42,13 +42,19 @@
 // do ativo do caso. O estado muda o conteúdo, nunca o desenho: a falha mora na
 // linha que falhou.
 //
+// O pacote 3 (lei 23): o módulo na linha de 50 (a medida da linha de conferência,
+// LinhaChecagem 'diagnostico'), a CAN e o *Conferido na conexão* na lista longa de
+// 44 ('longa'); as travas sem saída escrita — o serial fora do cadastro (02) e o
+// modelo sem suporte (03) — abrem com o aviso, entre o cabeçalho e o módulo, como
+// as travas da T09; o topo do serial fora do cadastro só o identifica.
+//
 // O movimento (animacao.md): a faixa que nasce (a peça); a linha que lê, o poço
 // com o quadrado de agora; a leitura que chega, o glifo e o valor esmaecendo no
 // lugar (a LinhaChecagem percebe sozinha); o contador troca no lugar; o texto do
 // primário que troca esmaece no lugar, com o roxo direto (C12·23).
 import { useEffect, useRef, useState } from 'react'
 import {
-  BarraDoSistema, Faixa, Rodape, CabecalhoConteudo, Lista, LinhaChecagem, Nota, ESTADOS, useFimDaTroca,
+  BarraDoSistema, Faixa, Rodape, CabecalhoConteudo, Lista, LinhaChecagem, Aviso, Nota, ESTADOS, useFimDaTroca,
 } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
@@ -60,7 +66,7 @@ import { M } from '../../dados/mock.js'
 import { T } from './textos.js'
 import {
   REF, TOTAL, LINHA_FIRMWARE, CASO_FIRMWARE, CASO_SEM_REDE, QUADRO_10, CAN_AGUARDA, NA_CAN,
-  ativoDe, ativoPrevisto, serialDoCaso, casosDoEstado, casosDoModulo, contextoDe, rotuloDeTopo, faltas,
+  ativoDe, ativoPrevisto, serialDoCaso, casosDoEstado, casosDoModulo, contextoDe, rotuloDeTopo, faltas, avisoDaTrava,
   resultados, sinaisDoModelo, tituloDaCan, leituraDaCan, canLidaNoFluxo, sessaoDo,
 } from './diagnostico.js'
 import './t07.css'
@@ -281,10 +287,18 @@ export default function T07({ momento, estado: est }) {
     } else rodape = <Rodape primario={T.procurarOutro} aoPrimario={procurarOutro} primarioAcende primarioTrocaTexto />
   }
 
-  const linha = (l, k) => (
-    <LinhaChecagem key={k} estado={l.estado} titulo={l.titulo} valor={l.valor} causa={l.causa} glifo={l.glifo}
+  // as linhas (lei 23, o pacote 3): o módulo na medida da linha de conferência, 50
+  // ('diagnostico'); a CAN e o *Conferido na conexão*, na lista longa, 44 ('longa')
+  const linha = (l, k, variante) => (
+    <LinhaChecagem key={k} variante={variante} estado={l.estado} titulo={l.titulo} valor={l.valor} causa={l.causa} glifo={l.glifo}
       nomeGlifo={l.estado === 'ainda-nao' ? ESTADOS.espera.nome : undefined} />
   )
+  // o pacote 3 · a trava sem saída escrita (o serial fora do cadastro, o modelo sem
+  // suporte) abre com o aviso, quando a leitura termina nela — como as travas da T09;
+  // na frente de quem olha, ele esmaece no lugar (Aviso · surge), e o espaço abre direto
+  const aviso = concluido && trava ? avisoDaTrava(c) : null
+  const avisoVivo = useRef(false)
+  if (corre) avisoVivo.current = true
 
   return (
     <div className="t07">
@@ -295,18 +309,19 @@ export default function T07({ momento, estado: est }) {
           {!comFaixa && <span className="t07-rotulo-topo">{rotuloDeTopo(c)}</span>}
           <CabecalhoConteudo titulo={T.titulo} contagem={contagem} unidade={T.de(total)} tom={contagem === total ? 'veredito' : 'neutro'} />
         </div>
+        {aviso && <Aviso tom="falha" glifo="xis" titulo={aviso.titulo} frase={aviso.frase} surge={avisoVivo.current && !EM_QUADRO && est == null} />}
         <div className="t07-secao">
           <span className="t07-rotulo-bloco">{T.oModulo}</span>
           <Lista>
             {q.can
-              ? linha({ estado: 'aprovada', titulo: T.conferido, valor: T.deTotal(modAprovadas, modTotal) }, 'conferido')
-              : linhas.map((l) => linha(l, l.id))}
+              ? linha({ estado: 'aprovada', titulo: T.conferido, valor: T.deTotal(modAprovadas, modTotal) }, 'conferido', 'longa')
+              : linhas.map((l) => linha(l, l.id, 'diagnostico'))}
           </Lista>
         </div>
         <div className="t07-secao">
           <span className="t07-rotulo-bloco">{leitura ? tituloDaCan(ativo) : T.aCan}</span>
           {leitura
-            ? <Lista>{linhasCan.map((l) => linha(l, l.id))}</Lista>
+            ? <Lista>{linhasCan.map((l) => linha(l, l.id, 'longa'))}</Lista>
             : <Nota tom="aguarda" titulo={T.aguardando} frase={CAN_AGUARDA} />}
         </div>
       </div>

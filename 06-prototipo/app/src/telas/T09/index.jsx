@@ -40,7 +40,9 @@
 //   envio são a regra do cadastro, e valem toda vez. Tentar de novo e Reconectar
 //   e seguir retomam o mesmo bloco (HU-T09-7, 8).
 // · O estado muda o conteúdo; onde a referência remonta (a altura do elo, os
-//   pinos no pé do 01, o contador do 02 e do 03), ela é construída fiel (G24).
+//   pinos depois do aviso no 01, o contador do 02 e do 03), ela é construída fiel (G24).
+//   Nas travas do envio (o pacote 3), o aviso diz o número e quem fica de fora, e a
+//   linha do espaço que o repetiria não aparece na 06.
 // · O movimento (C12), o mesmo vocabulário das outras telas, e nada ao abrir:
 //   - a cadeia só corre depois da troca que a trouxe (G27): no Gravar no módulo e
 //     no Reenviar, o quadro troca inteiro e o conteúdo esmaece, como entre telas
@@ -270,10 +272,11 @@ export default function T09({ momento, estado: est }) {
     miolo = (
       <>
         <CabecalhoConteudo titulo={T.titulo} />
-        {trava === 'nao-cabe' && <Aviso tom="falha" glifo="xis" titulo={T.naoCabeTitulo} frase={T.naoCabeFrase} />}
-        {trava === 'cercas-demais' && <Aviso tom="falha" glifo="xis" titulo={T.cercasDemaisTitulo} frase={T.cercasDemaisFrase} />}
+        {trava === 'nao-cabe' && <Aviso tom="falha" glifo="xis" titulo={T.naoCabeTitulo} frase={T.naoCabeFrase(envio.registros, envio.capacidade)} />}
+        {trava === 'cercas-demais' && <Aviso tom="falha" glifo="xis" titulo={T.cercasDemaisTitulo} frase={T.cercasDemaisFrase(envio.fora)} />}
         {pinos}
-        <Precondicao estado={envio.cabe ? 'ok' : 'xis'}>{envio.cabe ? T.cabe(envio.registros, envio.capacidade) : T.naoCabe(envio.registros, envio.capacidade)}</Precondicao>
+        {/* o espaço: na trava dele (06), a linha não aparece — o aviso já diz os números (o pacote 3) */}
+        {envio.cabe && <Precondicao estado="ok">{T.cabe(envio.registros, envio.capacidade)}</Precondicao>}
         <Cadeia elos={elosDo(fluxo, conteudo, envio)} justa semFecho />
       </>
     )
@@ -327,6 +330,8 @@ export default function T09({ momento, estado: est }) {
         {cabeca}
         {fase !== 'recusado' && pinos}
         {aviso}
+        {/* no 01, a linha dos pinos vem logo depois do aviso, como na 06 (o pacote 3) */}
+        {fase === 'recusado' && pinos}
         <Cadeia elos={elosDo(fluxo, conteudo)} justa={fase === 'recusado'} altura={altura} />
         {fase === 'concluida' && <Prova surge={aoVivo && !abriuConcluida} rotulo={T.gravadoERelido} versao={T.blocos(TOTAL)} legenda={T.devolveu(TOTAL)} />}
       </>
@@ -347,8 +352,6 @@ export default function T09({ momento, estado: est }) {
       <div key={`miolo·${quadro}`} className={`tela-miolo t09-miolo ${parada ? 't09-miolo-justo' : ''}`}>
         {miolo}
       </div>
-      {/* no 01, a linha dos pinos fica no pé, fora do miolo, como a referência desenha (G11, T09-D2) */}
-      {fase === 'recusado' && pinos}
       {/* o rodapé nasce com o quadro: dentro da troca, o texto do primário não esmaece de novo */}
       <Fragment key={`rodape·${quadro}`}>{rodape}</Fragment>
       {enc.sobre}

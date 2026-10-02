@@ -5,6 +5,7 @@
 // (conteudo-nao-cabe, pool-esgotado) e a manutenção (modulo-ja-deste-ativo).
 // Nada de número digitado: as contagens dos textos saem da ordem e do cadastro.
 import { M } from '../../dados/mock.js'
+import { regioesDoAtivo } from '../../dados/regioes.js'
 import { ESTADOS } from '../../ds/index.js'
 import { T } from './textos.js'
 
@@ -67,15 +68,16 @@ function linhaDoModulo(serial) {
   return mod ? M.matrizCapacidades.find((l) => l.modeloId === mod.modeloId && l.variante === mod.variante) : null
 }
 
-// as regiões que vão pro módulo (decisão 50: o app conta regiões): as do ativo em
-// CERCAS.regioes — 4 no herói, nenhuma nos outros. No ativo do pool-esgotado, as
+// as regiões que vão pro módulo (decisão 50: o app conta regiões): as do ativo, pela
+// regra de src/dados/regioes.js (o pacote 3, D1: as do ativoId mais as do tambemAtivos)
+// — 4 no herói e no PCX-9A17 da queda, nenhuma nos outros. No ativo do pool-esgotado, as
 // que o caso diz que ele tem e a que ele pede, que fica de fora quando passa do
 // limite (o caso fala a língua da pré-checagem de antes: regioesUsadas 4 e a
 // regiaoSolicitada, o Terminal Cosme e Damião — 5 regiões, T09/07)
 export function regioesDo(ativoId) {
   const pool = M.casos[CASO_POOL]
   if (pool?.ativoId === ativoId) return { total: pool.regioesUsadas + [pool.regiaoSolicitada].length, fora: pool.regiaoSolicitada }
-  return { total: M.cercas.regioes.filter((r) => r.ativoId === ativoId).length, fora: null }
+  return { total: regioesDoAtivo(ativoId).length, fora: null }
 }
 
 // O conteúdo de cada bloco no par (decisão 49, a errata do pacote 1: o do caso,
@@ -152,7 +154,7 @@ export function elosDo({ confirmados: k, fase, parou }, conteudo, envio) {
     const base = { nome: rotulos[b], descricao: T.descricao[b] }
     if (fase === 'antes') {
       if (b === 'cercas' && envio && !envio.cercasCabem) {
-        return { ...base, estado: 'xis', valor: T.cercasNaoCabem, descricao: T.cercasDemais(envio.regioes, envio.regioesMax, envio.fora) }
+        return { ...base, estado: 'xis', valor: T.cercasNaoCabem, descricao: T.cercasDemais(envio.regioes, envio.regioesMax) }
       }
       return { ...base, estado: 'relogio', valor: b === LIMPEZA ? T.primeiro : conteudo[b], nomeGlifo: AINDA_NAO }
     }

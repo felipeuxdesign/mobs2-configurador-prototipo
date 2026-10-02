@@ -1,7 +1,8 @@
 /* A linha de checagem (folha 4) — uma peça, o mesmo desenho em todo estado:
  * poço, título (e a causa embaixo), valor à direita, divisória embaixo.
- * Variantes: compacta 38 (pré-checagem) · passo 38 (T14) · dupla 50
- * (assertiva da sessão) · conferência 50 (T11). O estado muda a tinta. */
+ * Variantes: compacta 38 (pré-checagem, sem uso nas telas) · passo 38 (T14) · dupla 50
+ * (assertiva da sessão) · conferência 50 (T11) · diagnóstico 50 (o módulo da T07) ·
+ * longa 44 (a CAN da T07). O estado muda a tinta. */
 .ds-checagem {
   display: flex; align-items: center; gap: var(--e-12);
   height: var(--linha-compacta);
@@ -27,12 +28,23 @@
 .ds-checagem-dupla .ds-checagem-valor { color: var(--tinta); }
 
 .ds-checagem-conferencia { gap: var(--e-10); height: var(--linha-dupla); }
-/* o pacote 2 (folha 4, T11): a coluna do nome mede 96 nas referências (o Extended ID), e o token
- * --conferencia-nome diz 74 (os tokens não mudam neste pacote): o nome fica do tamanho dele, numa
- * linha, nunca menos que o token, e o valor, alinhado à direita, cai no mesmo pixel (desvio nomeado) */
+/* o pacote 2 (folha 4, T11): a coluna do nome mede 96 nas referências (o Extended ID); o nome fica do
+ * tamanho dele, numa linha, nunca menos que o token --conferencia-nome — 96 desde o pacote 3, que
+ * acabou com o desvio do 74 —, e o valor, alinhado à direita, cai no mesmo pixel */
 .ds-checagem-conferencia .ds-checagem-corpo { flex: 0 0 auto; min-width: var(--conferencia-nome); }
 .ds-checagem-conferencia .ds-checagem-titulo { font-size: var(--t-link); font-weight: 600; color: var(--tinta); white-space: nowrap; }
 .ds-checagem-conferencia .ds-checagem-valor { flex-grow: 1; font-size: var(--t-corpo); text-align: right; }
+
+/* o pacote 3 (lei 23) · a T07: o módulo na medida da linha de conferência (50, o poço de 32, a 10)
+ * e a CAN na lista longa (44, o poço de 30, a 12); nas duas, o título em 15/600 e o valor em 14.
+ * Com a causa, a linha cresce, 6 em cima e embaixo, nunca menos que a altura dela (D3). A tinta
+ * é a do estado, logo abaixo */
+.ds-checagem-diagnostico { gap: var(--e-10); height: var(--linha-dupla); }
+.ds-checagem-longa { height: var(--linha-padrao); }
+.ds-checagem-diagnostico .ds-checagem-titulo, .ds-checagem-longa .ds-checagem-titulo { font-size: var(--t-link); font-weight: 600; }
+.ds-checagem-diagnostico .ds-checagem-valor, .ds-checagem-longa .ds-checagem-valor { font-size: var(--t-corpo); }
+.ds-checagem-diagnostico.ds-checagem-com-causa { height: auto; min-height: var(--linha-dupla); }
+.ds-checagem-longa.ds-checagem-com-causa { height: auto; min-height: var(--linha-padrao); }
 
 /* ── estados (depois das variantes: a tinta do estado ganha) ── */
 .ds-checagem-reprovada .ds-checagem-titulo,
@@ -52,6 +64,8 @@
 
 /* C6 · T05 · a checagem que corre: o quadrado branco de 10 no poço de 24, o valor em --tinta */
 .ds-checagem-agora .ds-poco-24 .ds-glifo-agora { width: var(--e-10); height: var(--e-10); }
+/* o pacote 3 · a T07 (06, 10): o mesmo quadrado de 10 no poço de 32 do módulo e no de 30 da CAN */
+.ds-checagem-agora.ds-checagem-diagnostico .ds-glifo-agora, .ds-checagem-agora.ds-checagem-longa .ds-glifo-agora { width: var(--e-10); height: var(--e-10); }
 .ds-checagem-agora .ds-checagem-valor { color: var(--tinta); }
 /* C6 · T05/10 · no 'ainda não', o glifo que troca o círculo (o relógio) fica apagado */
 .ds-checagem-ainda-nao .ds-glifo-cor-secundaria { color: var(--marca-limite); }

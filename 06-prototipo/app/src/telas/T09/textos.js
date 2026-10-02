@@ -40,18 +40,20 @@ export const T = {
   noFioBranco: 'no fio branco',
   intervalo: (seg) => `intervalo ${seg} s`,
   // a causa da recusa, por bloco: só a de Cercas tem texto aprovado (G25)
-  causa: { cercas: 'os pontos das áreas não voltaram' },
-  // as duas pré-condições, embaixo do título (HU-T09-2): os pinos e o espaço no módulo
+  causa: { cercas: 'os pontos das regiões não voltaram' },
+  // as duas pré-condições, embaixo do título (HU-T09-2): os pinos e o espaço no módulo. Na
+  // trava do espaço (06), a linha do espaço não aparece: o aviso já diz os números (o pacote 3)
   cabe: (registros, capacidade) => `cabe no módulo · ${registros} de ${capacidade} registros`,
-  naoCabe: (registros, capacidade) => `não cabe · ${registros} registros, cabem ${capacidade}`,
-  // as travas do envio (06, 07, HU-T09-4): o aviso diz o que fazer, sem repetir os
-  // números que o elemento já mostra (decisão 47)
+  // as travas do envio (06, 07, HU-T09-4): o aviso diz o número e quem fica de fora (o
+  // pacote 3 · antes, ele dizia o que fazer, e a pré-condição repetia os números)
   naoCabeTitulo: 'NÃO CABE NO MÓDULO',
-  naoCabeFrase: 'Use um módulo com mais memória.',
+  naoCabeFrase: (registros, capacidade) => `São ${registros} registros, e o módulo guarda ${capacidade}.`,
   cercasDemaisTitulo: 'CERCAS DEMAIS PRO MÓDULO',
-  cercasDemaisFrase: 'Use um módulo que guarde mais cercas.',
+  // o artigo é o da região que o mock nomeia (o Terminal Cosme e Damião); outra região, outro artigo — sem referência (G25)
+  cercasDemaisFrase: (fora) => `O ${fora} ficaria de fora.`,
   cercasNaoCabem: 'não cabe',
-  cercasDemais: (regioes, cabem, fora) => `${T.regioes(regioes)}, cabem ${cabem}${fora ? ` · ${fora} fica de fora` : ''}`,
+  // o elo das cercas numa linha (o pacote 3): quem fica de fora vai pro aviso
+  cercasDemais: (regioes, cabem) => `${T.regioes(regioes)}, cabem ${cabem}`,
   // os avisos da cadeia
   parou: 'A CADEIA PAROU',
   recusou: (rotulo, seguintes) => `${rotulo} foi recusado. Os ${porExtenso(seguintes)} seguintes nem começaram.`,

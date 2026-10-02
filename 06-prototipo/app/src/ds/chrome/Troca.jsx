@@ -6,8 +6,7 @@
 // que aparece.
 //
 // O conteúdo é o miolo (.tela-miolo) e o rodapé (.ds-rodape) da tela, e o que
-// estiver solto fora deles, no fluxo (a linha dos pinos no pé da T09/01, o
-// título Menu escondido da T04). Ficam de fora:
+// estiver solto fora deles, no fluxo (o título Menu escondido da T04). Ficam de fora:
 // · o topo — a barra do sistema, a tira e a faixa —, que troca direto quando
 //   o topo muda (o menu, a T03 → T04, a T15 sem sessão: C12·3) e fica parado
 //   entre as telas com o mesmo topo;

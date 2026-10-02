@@ -5,6 +5,7 @@
 // contagens saem das listas do mock e da lista dos passos.
 import { M } from '../../dados/mock.js'
 import { milhar } from '../../dados/formato.js'
+import { regioesDoAtivo } from '../../dados/regioes.js'
 import { ESTADOS } from '../../ds/index.js'
 import { conteudoDo } from '../T09/cadeia.js'
 import { PASSOS, T } from './textos.js'
@@ -105,8 +106,8 @@ function contadores(ativoId) {
   if (!painel) return null
   return M.calibracao.grandezas.filter((g) => painel[g.id] != null).map((g) => `${milhar(painel[g.id])} ${g.unidade}`).join(' · ')
 }
-// as telas leem só a contagem de regiões por ativo (mocks.js · CERCAS): no herói, 4
-export const cercasAplicam = (ativoId) => M.cercas.regioes.some((r) => r.ativoId === ativoId)
+// as telas leem só a contagem de regiões por ativo (src/dados/regioes.js, o pacote 3 · D1): no herói, 4
+export const cercasAplicam = (ativoId) => regioesDoAtivo(ativoId).length > 0
 
 // A falha do autoteste (HU-T16-5): no ativo do caso, a assertiva do
 // noEncerramento volta com o valor lido do caso — no a-14, 'Contadores · 0 km'.
@@ -162,8 +163,8 @@ export const CAUSA = { contadores: T.causaContadores }
 // ── a sessão interrompida (06): os seis blocos da T09 no desenho da cadeia do
 // encerramento; os confirmados feitos, o seguinte parado e o resto esperando ──
 // Os confirmados mostram o conteúdo do bloco no par do caso, o mesmo da T09
-// (decisão 49 · o do caso, nunca o do herói: o QAH-1M67 não tem região, e as
-// cercas dizem 'nenhuma'); a limpeza, 'feita'. A legenda do bloco que parou diz o
+// (decisão 49 · o do caso, nunca o do herói: o QAH-1M67 tem as 4 regiões da
+// garagem dele, a uo-02 — o pacote 3, D1); a limpeza, 'feita'. A legenda do bloco que parou diz o
 // que já foi gravado, montada dos confirmados do caso, sem a limpeza: 'o ativo e
 // as cercas já estão gravados' (só o ativo e as cercas têm a forma com artigo no
 // textos.md; outro bloco, sem texto, fica de fora — G25)

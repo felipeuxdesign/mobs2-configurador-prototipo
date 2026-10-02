@@ -19,7 +19,7 @@ export const especimes = [
   { id: 'f4-cartao-conectado', folha: 4, rotulo: 'conectado', legenda: 'o cartão largo com o serial',
     render: () => <CartaoFerramenta largo icone="conectar" titulo="CONECTAR MÓDULO" valor="M2C-0417" /> },
   { id: 'f4-cartao-com-pendencia', folha: 4, rotulo: 'com pendência', legenda: 'o contador no canto, igual ao da fila',
-    render: () => <GradeFerramentas><CartaoFerramenta linha icone="checklist" titulo="Finalizar com checklist" contagem={10} /></GradeFerramentas> },
+    render: () => <GradeFerramentas><CartaoFerramenta linha icone="checklist" titulo="Finalizar com checklist" contagem={11} /></GradeFerramentas> }, // o pacote 3: o checklist da T04/04, 11, como o mock
   { id: 'f4-cartao-espera-a-rede', folha: 4, rotulo: 'espera a rede', legenda: 'sem conexão · fundo apagado, borda sólida, traço no poço',
     render: () => <GradeFerramentas><CartaoFerramenta estado="sem-rede" titulo="Últimas instalações" causa="sem conexão" /></GradeFerramentas> },
 

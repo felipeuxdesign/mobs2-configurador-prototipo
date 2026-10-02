@@ -5,8 +5,9 @@
 // folha 4 e a T11 desenham (o tamanho do glifo do poço de 26).
 //
 // estado:   'aprovada' · 'reprovada' · 'nao-se-aplica' · 'parou' · 'ainda-nao' · 'informa' (o pacote 1, T07)
-// variante: 'compacta' (38, a pré-checagem) · 'passo' (38, o ciclo da T14)
+// variante: 'compacta' (38, a pré-checagem; sem uso nas telas desde o pacote 3) · 'passo' (38, o ciclo da T14)
 //           'dupla' (50, a assertiva da sessão) · 'conferencia' (50, a T11)
+//           'diagnostico' (50, o módulo da T07) · 'longa' (44, a lista longa: a CAN da T07)
 // titulo, causa (só na reprovada: a linha cresce), valor (o que foi lido)
 // glifo: troca o glifo do estado por outro do Glifo (ex.: 'relogio'); no
 //        'ainda não', o glifo trocado fica apagado, na tinta de marca (T05/10)
@@ -31,9 +32,19 @@ import './LinhaChecagem.css'
 //   valor em --tinta. A linha cresce com a frase, 6 em cima e embaixo, como a reprovada com causa.
 const GLIFO = { aprovada: 'ok', reprovada: 'xis', 'nao-se-aplica': 'traco', parou: 'sem-sinal', 'ainda-nao': 'espera', agora: 'agora', diverge: 'xis',
   indisponivel: 'traco', pendente: 'relogio', informa: 'info' }
-const POCO = { compacta: 24, passo: 24, dupla: 32, conferencia: 32, recebimento: 32 }
+// O pacote 3 (lei 23, as três densidades): a T07 sai da compacta de 38. O módulo
+//   passa à medida da linha de conferência — 50, o poço de 32, o glifo de 16, a 10
+//   (variante 'diagnostico') — e a CAN, com o *Conferido na conexão*, à lista longa
+//   — 44, o poço de 30, o glifo de 16, a 12 (variante 'longa'). Nas duas, o título
+//   em 15/600 e o valor em 14, inclusive na linha de duas linhas, que cresce com a
+//   causa, 6 em cima e embaixo, nunca menos que a altura dela (D3). A tinta de cada
+//   estado é a da checagem — o título aprovado em --tinta-forte, o que espera
+//   apagado, o que reprova e o que informa em --tinta —, e não a da T11, que
+//   acende o nome em todo estado: as quatro peças de estado da folha 4 são
+//   recortadas da T07, e desenham assim.
+const POCO = { compacta: 24, passo: 24, dupla: 32, conferencia: 32, recebimento: 32, diagnostico: 32, longa: 30 }
 // o glifo pelo poço (--glifo-<poço>); onde a folha desenha outro, o poço cujo glifo ela usa
-const GLIFO_DO_POCO = { conferencia: 26 }
+const GLIFO_DO_POCO = { conferencia: 26, diagnostico: 26, longa: 26 }
 // no recebimento, o check é o do poço de 32 (19), e o relógio do pendente, o de 16 (o do poço de 26), como a T12/05 desenha
 const glifoDoPoco = (variante, estado, tam) => (variante === 'recebimento' && estado === 'pendente' ? 26 : GLIFO_DO_POCO[variante] ?? tam)
 

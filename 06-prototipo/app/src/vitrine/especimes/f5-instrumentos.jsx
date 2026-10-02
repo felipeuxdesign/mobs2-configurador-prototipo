@@ -27,7 +27,7 @@ export const especimes = [
   { id: 'f5-segmentado', folha: 5, rotulo: 'segmentado', legenda: 'um segmento por passo',
     render: () => (
       <Segmentado rotulo="B · INSTALAÇÃO FÍSICA" contagem="1" total="de 5" legenda="Depois: Antena GPS posicionada e livre"
-        segmentos={['atual', 'pendente', 'pendente', 'pendente', 'feito']} />
+        segmentos={['atual', 'pendente', 'pendente', 'pendente', 'pendente']} /> // o pacote 3: o Painel pendente, como a T13
     ) },
   { id: 'f5-precondicao-pinos', folha: 5, rotulo: 'a pré-condição dos pinos', legenda: 'a primeira linha da configuração, embaixo do título',
     render: () => <Precondicao>ocupação de pinos confere</Precondicao> },
@@ -71,5 +71,5 @@ export const especimes = [
     ) },
   // a entrega do checklist (decisão 34): a barra fina no lugar do placar, que repetia o número do título
   { id: 'f5-barra-checklist', folha: 5, rotulo: 'a barra do checklist', legenda: 'o que já passou, em lima · o número fica no título',
-    render: () => <BarraDoChecklist feitos={19} total={31} /> },
+    render: () => <BarraDoChecklist feitos={17} total={31} /> }, // o pacote 3: o número do título da T13, 17 de 31
 ]

@@ -98,7 +98,7 @@ function etapaDe(fluxo, ordem, ativoId, moduloSerial) {
   }
   const puladas = ordem.filter((g) => fluxo.puladas.includes(g) && !semeadas[g])
   return {
-    ativoId, moduloSerial, itemChecklist: M.calibracao.itemChecklist.id, passo: ordem[fluxo.atual],
+    ativoId, moduloSerial, passo: ordem[fluxo.atual],
     painel, semeadas, puladas, concluida: fluxo.concluida,
   }
 }

@@ -13,7 +13,10 @@ export const NOMES = {
 export const CAMINHO = ['T01', 'T02', 'T03', 'T04', 'T05', 'T07', 'T06', 'T09', 'T10', 'T14', 'T13', 'T16']
 export const CONSULTAS = ['T15', 'T11', 'T12']
 export const REFERENCIAS = indice.itens
-export const estadosDa = (tela) => REFERENCIAS.filter((r) => r.tela === tela && r.tipo === 'estado')
+// a coluna (o pacote 3, D2): quem entra é o campo `coluna` do indice.json — falso pros estados que abrem
+// por um toque (as três folhas de trocar da T04: a 08, a 09 e a 14), e, sem o campo, o estado entra. Fora
+// da coluna, o estado continua abrindo pelo endereço
+export const estadosDa = (tela) => REFERENCIAS.filter((r) => r.tela === tela && r.tipo === 'estado' && r.coluna !== false)
 export const momentosDa = (tela) => REFERENCIAS.filter((r) => r.tela === tela && r.tipo === 'momento')
 // a regra dos seis (palco.md): com mais de seis estados na coluna, eles se agrupam — só a T07, pelo `grupo` do indice.json
 export const GRUPOS = { T07: [['modulo', 'O módulo'], ['can', 'A CAN']] }

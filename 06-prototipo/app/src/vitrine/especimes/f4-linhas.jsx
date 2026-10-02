@@ -11,24 +11,25 @@ const naTela = { padding: '0 calc(var(--e-16) - var(--traco-borda))' }
 export const especimes = [
   // ── a linha de checagem · cinco estados ──
   // o pacote 1: o 'parou aqui' saiu (era da pré-checagem) e entrou o 'só informa' (a T07);
-  // o 'não se aplica' é o da assertiva da sessão (dupla, o círculo com o traço) e o 'ainda não', o relógio
+  // o 'não se aplica' é o da assertiva da sessão (dupla, o círculo com o traço) e o 'ainda não', o relógio.
+  // O pacote 3 (lei 23): as quatro recortadas da T07 mostram a linha de 50 do módulo, a do app
+  // (variante diagnostico: a medida da linha de conferência, com a tinta da checagem), e não mais a de 38
   { id: 'f4-aprovada', folha: 4, rotulo: 'aprovada', legenda: 'check lima · valor em --tinta-secundaria',
-    render: () => <Lista><LinhaChecagem estado="aprovada" titulo="Serial no cadastro" valor="VL06 FULL" /></Lista> },
+    render: () => <Lista><LinhaChecagem variante="diagnostico" estado="aprovada" titulo="Serial no cadastro" valor="VL06 FULL" /></Lista> },
   { id: 'f4-reprovada', folha: 4, rotulo: 'reprovada, com causa', legenda: 'X, título e valor em vermelho · a causa embaixo',
-    render: () => <Lista><LinhaChecagem estado="reprovada" titulo="Firmware" causa="homologadas 2.2.0 e 2.3.5" valor="2.4.1" /></Lista> },
+    render: () => <Lista><LinhaChecagem variante="diagnostico" estado="reprovada" titulo="Firmware" causa="homologadas 2.2.0 e 2.3.5" valor="2.4.1" /></Lista> },
   { id: 'f4-nao-se-aplica', folha: 4, rotulo: 'não se aplica', legenda: 'traço · a assertiva que não vale pra este ativo',
     render: () => <Lista><LinhaChecagem variante="dupla" estado="nao-se-aplica" glifo="traco-circulo" titulo="Faixa de contadores" valor="não se aplica" /></Lista> },
   { id: 'f4-so-informa', folha: 4, rotulo: 'só informa', legenda: 'i cinza · o valor à direita · a frase diz que dá pra seguir',
-    render: () => <Lista><LinhaChecagem estado="informa" titulo="Modem" causa="dá pra seguir · o checklist registra" valor="sem sinal" /></Lista> },
+    render: () => <Lista><LinhaChecagem variante="diagnostico" estado="informa" titulo="Modem" causa="dá pra seguir · o checklist registra" valor="sem sinal" /></Lista> },
   { id: 'f4-ainda-nao', folha: 4, rotulo: 'ainda não', legenda: 'círculo apagado · valor em traço',
-    render: () => <Lista><LinhaChecagem estado="ainda-nao" glifo="relogio" titulo="Alimentação" valor="—" /></Lista> },
+    render: () => <Lista><LinhaChecagem variante="diagnostico" estado="ainda-nao" glifo="relogio" titulo="Alimentação" valor="—" /></Lista> },
 
-  // ── a família da linha de lista · uma peça, seis contextos ──
-  // o diagnóstico do módulo (a T07) no lugar da pré-checagem: a mesma linha compacta de 38
-  { id: 'f4-diagnostico', folha: 4, rotulo: 'diagnóstico', legenda: 'compacta · 38',
-    render: () => <Lista><LinhaChecagem titulo="Serial no cadastro" valor="VL06 FULL" /></Lista> },
-  { id: 'f4-diagnostico-sessao', folha: 4, rotulo: 'diagnóstico com sessão', legenda: 'a mesma 38 — a exceção acabou',
-    render: () => <Lista><LinhaChecagem titulo="Serial no cadastro" valor="VL06 CAN-BT" /></Lista> },
+  // ── a família da linha de lista · uma peça, sete contextos ──
+  // o pacote 3: a 'diagnóstico com sessão' saiu (virou cópia da linha de conferência), e a
+  // 'diagnóstico · compacta · 38' virou a lista longa de 44, recortada da CAN lida (T07/01)
+  { id: 'f4-lista-longa', folha: 4, rotulo: 'lista longa', legenda: 'média · 44 · a CAN e o checklist',
+    render: () => <Lista><LinhaChecagem variante="longa" titulo="Velocidade" valor="0 km/h" /></Lista> },
   { id: 'f4-passo-ciclo', folha: 4, rotulo: 'passo do ciclo', legenda: 'compacta · 38',
     render: () => <Lista><LinhaChecagem variante="passo" titulo="Ignição ligada" /></Lista> },
   { id: 'f4-assertiva', folha: 4, rotulo: 'assertiva da sessão', legenda: 'dupla · 50',

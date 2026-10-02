@@ -3,6 +3,7 @@
 // diverge e o que ficou pra revisar em seguida. Nada de número digitado: a
 // contagem, os valores e o arraste saem de M.cadeia, dos casos e do cadastro do par.
 import { M } from '../../dados/mock.js'
+import { regioesDoAtivo } from '../../dados/regioes.js'
 import { RECEITAS } from '../../estado/receitas.js'
 import { SEMENTES } from '../../estado/sementes.js'
 import { T } from './textos.js'
@@ -119,7 +120,7 @@ export function cadastroDo(par, sessao) {
   const modelo = M.modelosAtivo.find((m) => m.id === ativoDe(par.ativoId)?.modeloAtivoId)
   const preset = M.presetsEvento.find((p) => p.id === modelo?.presetEventoId)
   return {
-    cercas: T.regioes(M.cercas.regioes.filter((r) => r.ativoId === par.ativoId).length),
+    cercas: T.regioes(regioesDoAtivo(par.ativoId).length),
     conexao: M.conexoes[0]?.apn ?? null,
     eventos: preset ? T.intervalo(preset.intervaloRastreamentoSeg) : null,
     leitor: sessao?.meio === 'sem-fio' ? T.leitorSemFio : null,

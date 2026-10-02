@@ -43,7 +43,7 @@ function useLeitura(total, ms) {
 }
 
 // ── a linha que conclui (C12·7, C12·12, C12·29): o quadrado de agora, o check com o valor, a reprova com a causa ──
-// os textos são os da folha 4 (f4-linhas)
+// os textos são os da folha 4 (f4-linhas), na linha de 50 do módulo da T07 (o pacote 3)
 const LINHA = [
   [{ estado: 'ainda-nao', valor: '—' }, { estado: 'ainda-nao', valor: '—' }],
   [{ estado: 'agora' }, { estado: 'ainda-nao', valor: '—' }],
@@ -55,8 +55,8 @@ function LinhasQueConcluem({ inicio = 0 }) {
   const [a, b] = LINHA[passo]
   return (
     <Lista>
-      <LinhaChecagem titulo="Serial no cadastro" {...a} />
-      <LinhaChecagem titulo="Firmware" {...b} divisoria={false} />
+      <LinhaChecagem variante="diagnostico" titulo="Serial no cadastro" {...a} />
+      <LinhaChecagem variante="diagnostico" titulo="Firmware" {...b} divisoria={false} />
       <Controles><Botao aoTocar={() => setPasso((p) => Math.min(p + 1, LINHA.length - 1))}>bancada · avança</Botao></Controles>
     </Lista>
   )
@@ -95,7 +95,7 @@ function CadeiaQueGrava() {
   const [recusada, setRecusada] = useState(false)
   const elos = BLOCOS_CADEIA.map((b, i) => {
     if (i < feitos) return { estado: 'ok', ...b }
-    if (i === feitos) return recusada ? { estado: 'xis', nome: b.nome, valor: 'recusado', descricao: 'os pontos das áreas não voltaram' } : { estado: 'agora', nome: b.nome, valor: 'gravando', descricao: b.descricao }
+    if (i === feitos) return recusada ? { estado: 'xis', nome: b.nome, valor: 'recusado', descricao: 'os pontos das regiões não voltaram' } : { estado: 'agora', nome: b.nome, valor: 'gravando', descricao: b.descricao }
     return recusada ? { estado: 'traco', nome: b.nome, descricao: 'não foi alcançado' } : { estado: 'espera', nome: b.nome, descricao: b.descricao }
   })
   return (
