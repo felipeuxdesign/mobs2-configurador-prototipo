@@ -31,7 +31,7 @@ export const especimes = [
   { id: 'f4-aviso-processo-parado', folha: 4, rotulo: 'processo parado', legenda: 'o veredito de uma cadeia ou de um download',
     render: () => <Aviso glifo="xis" titulo="A CADEIA PAROU" frase="Cercas foi recusado. Os três seguintes nem começaram." /> },
   { id: 'f4-aviso-com-contagem', folha: 4, rotulo: 'com contagem', legenda: 'quantos não bateram, à direita',
-    render: () => <Aviso glifo="xis" titulo="NÃO BATE COM O CADASTRO" numero={5} unidade="de 5" /> },
+    render: () => <Aviso glifo="xis" titulo="NÃO BATE COM O CADASTRO" numero={4} unidade="de 4" /> }, // o pacote 2: as quatro que se comparam (decisão 53)
 
   // vazio, notas e os dados do modelo
   { id: 'f4-vazio-declarado', folha: 4, rotulo: 'vazio declarado', legenda: 'tracejado · título e uma frase · sem ícone',

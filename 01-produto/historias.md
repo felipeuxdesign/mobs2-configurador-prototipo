@@ -1,4 +1,4 @@
-# As 105 histórias de usuário
+# As 109 histórias de usuário
 
 Cada uma aponta pra pasta da tela que a atende — lá, a ficha, os estados e a referência. **É daqui que as fichas das telas tiram as histórias**; o `dominio.md` §5 espelha esta lista.
 
@@ -88,26 +88,28 @@ No protótipo (decisão 44), a HU-T05-2: a sessão nasce na conexão, mas **a fa
 
 - **HU-T10-1** — Vejo só as grandezas calibráveis para este ativo × módulo, com justificativa quando indisponível
 - **HU-T10-2** — RPM/velocidade: informo o valor que leio no painel; o módulo calcula o fator
-- **HU-T10-3** — Hodômetro/horímetro: digito o valor do painel e fotografo; o app converte a unidade
-- **HU-T10-4** — A foto do painel satisfaz também a Seção B, com a origem visível na linha
+- **HU-T10-3** — Hodômetro/horímetro: digito o valor do painel; o app converte a unidade
+- **HU-T10-4** — O horímetro só aparece quando o modelo tem, e é opcional: posso pular
 - **HU-T10-5** — O read-back tolera granularidade + tempo decorrido, na unidade do reporte
-- **HU-T10-6** — Releitura obrigatória antes do ciclo dinâmico
+- **HU-T10-6** — Releitura obrigatória antes do ciclo de testes
 - **HU-T10-7** — Recalibrar em manutenção recalcula o offset, não acumula
 - **HU-T10-8** — Quem escolhe pulso ou GPS é o cadastro do modelo de ativo, não eu
 
 ## T11 · Conferir configuração · `02-telas/T11-conferir-configuracao/`
 
-- **HU-T11-1** — O app lê a string de versão como primeiro passo; ausente ou ilegível roda diff completo por conteúdo
-- **HU-T11-2** — Vejo divergências agrupadas por bloco, em linguagem de negócio
-- **HU-T11-3** — Escolho entre 3 ações nomeadas pelo efeito, incluindo *apenas registrar o diagnóstico*
-- **HU-T11-4** — Corrigir arrasta as dependências automaticamente, na ordem canônica
-- **HU-T11-5** — Índice que o firmware cria sozinho não é divergência; sem lista, vai para *não classificados*
-- **HU-T11-6** — Escopo fixo em limpeza de configuração — limpeza total não é oferecida aqui
-- **HU-T11-7** — Configuração conforme é declarada explicitamente; o diff sobe mesmo sem reenvio
+- **HU-T11-1** — A conferência compara o conteúdo de cada bloco — o módulo não guarda versão
+- **HU-T11-2** — Vejo as cercas, em regiões, a APN, os eventos e o leitor, cada um com o que está no módulo e no cadastro
+- **HU-T11-3** — O Extended ID — os cartões e iButtons gravados no módulo — aparece só pra leitura
+- **HU-T11-4** — Corrigir reenvia um bloco por vez: o primeiro que diverge, na ordem da cadeia
+- **HU-T11-5** — Depois de reenviar um bloco, os que dependem dele ficam marcados *revisar em seguida*
+- **HU-T11-6** — As outras ações dizem o efeito: reenviar os 5 blocos ou apenas registrar o diagnóstico
+- **HU-T11-7** — Índice que o firmware cria sozinho não é divergência; sem lista, vai para *não classificados*
+- **HU-T11-8** — Escopo fixo em limpeza de configuração — limpeza total não é oferecida aqui
+- **HU-T11-9** — Configuração conforme é declarada explicitamente; o diff sobe mesmo sem reenvio
 
 ## T12 · Últimas instalações · `02-telas/T12-ultimas-instalacoes/`
 
-- **HU-T12-1** — Vejo por ativo: última intervenção, posicionamento, eventos, viagens e status geral
+- **HU-T12-1** — Vejo por ativo: última intervenção, posicionamento, eventos e status geral
 - **HU-T12-2** — A janela de posicionamento é derivada do pacote (`3 × intervalo + 2 min`), não fixa
 - **HU-T12-3** — Os 10 min aparecem como teto de espera, não como critério
 - **HU-T12-4** — Critério sem parâmetro declarado fica indisponível com motivo
@@ -122,18 +124,20 @@ No protótipo (decisão 44), a HU-T05-2: a sessão nasce na conexão, mas **a fa
 - **HU-T13-4** — Posso responder manual como não conforme com justificativa → marca ressalvada, não bloqueia
 - **HU-T13-5** — Finalizar exige 100% dos automáticos de A, C, D e 100% dos manuais com foto
 - **HU-T13-6** — A Seção F não bloqueia; finalizar com ela falhando exige ciência marcada, com nome e hora
-- **HU-T13-7** — Finalizado gera o relatório com seriais, versões, resultados, fotos, geolocalização e técnico
-- **HU-T13-8** — A Seção E não é respondida aqui — item faltante me devolve ao ciclo dinâmico
+- **HU-T13-7** — Finalizado gera o relatório com seriais, resultados, fotos, geolocalização e técnico
+- **HU-T13-8** — A Seção E não é respondida aqui — item faltante me devolve ao ciclo de testes
+- **HU-T13-9** — A foto do painel é tirada aqui, na Seção B — obrigatória quando houve calibração
 
-## T14 · Ciclo dinâmico · `02-telas/T14-ciclo-dinamico/`
+## T14 · Ciclo de testes · `02-telas/T14-ciclo-dinamico/`
 
-- **HU-T14-1** — Um deslocamento alimenta 4 blocos: CAN dinâmica · Seção E · evento de teste · viagem
+- **HU-T14-1** — Com a ignição ligada e o ônibus parado, o ciclo prova a rotação, as entradas, o cartão e o evento de teste
 - **HU-T14-2** — Disparo o evento de teste por botão, com o cronômetro dos 120 s em destaque
 - **HU-T14-3** — Antes do cronômetro vejo a fila do módulo drenando; o botão fica indisponível com motivo
 - **HU-T14-4** — Vejo 3 linhas de estado: disparado · recebido · campos conferidos. E posso disparar novamente
 - **HU-T14-5** — No teste do identificador vejo o código lido ao lado do esperado, em formato de negócio
 - **HU-T14-6** — Divergindo, a tela oferece solicitar correção de cadastro já com os dois valores anexados
 - **HU-T14-7** — Vejo o tempo decorrido e o que ainda falta capturar; encerrar leva direto ao checklist
+- **HU-T14-8** — A velocidade só entra no ciclo quando o ônibus tem tacógrafo digital
 
 ## T15 · Fila de saída · `02-telas/T15-fila-de-saida/`
 

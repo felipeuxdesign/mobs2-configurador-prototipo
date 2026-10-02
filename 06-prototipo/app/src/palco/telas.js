@@ -7,7 +7,7 @@ export const NOMES = {
   T01: 'Login', T02: 'Selecionar contexto', T03: 'Sincronizar', T04: 'Menu', T05: 'Conectar módulo',
   T06: 'Selecionar ativo', T07: 'Diagnóstico do módulo', T09: 'Configurar módulo',
   T10: 'Calibração', T11: 'Conferir configuração', T12: 'Últimas instalações', T13: 'Checklist',
-  T14: 'Ciclo dinâmico', T15: 'Fila de saída', T16: 'Sessão',
+  T14: 'Ciclo de testes', T15: 'Fila de saída', T16: 'Sessão',
 }
 // pacote 1: o diagnóstico vem antes do vínculo, como a cena 04 desenha; a T07 só no caminho
 export const CAMINHO = ['T01', 'T02', 'T03', 'T04', 'T05', 'T07', 'T06', 'T09', 'T10', 'T14', 'T13', 'T16']

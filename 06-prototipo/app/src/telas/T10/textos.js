@@ -3,13 +3,16 @@
 // hora, a seção, o nome da grandeza), a moldura é daqui e o dado vem do mock,
 // na hora de montar. Dois textos vêm de outro documento da tela, porque
 // nenhuma referência os desenha: o semear do horímetro (estados.md, a 09) e o
-// que o botão diz enquanto o semear corre (animacao.md).
+// que o botão diz enquanto o semear corre (animacao.md). Com a decisão 52, a
+// foto e a câmera saíram daqui (a Seção B do checklist).
 export const T = {
   encerrar: 'ENCERRAR',
   rotulo: 'CALIBRAÇÃO',
   deTotal: (total) => `de ${total}`,
   depois: (nomes) => `Depois: ${nomes.join(' · ')}`,
-  ultimoPasso: 'Último passo',
+  // o horímetro é opcional (decisão 52): o Depois: diz, e o passo dele também (T10/00 e 08)
+  opcional: (nome) => `${nome}, opcional`,
+  ultimoOpcional: 'Opcional · o último passo',
   completa: 'Calibração completa',
 
   // o valor em poço: o que o módulo conta (partida) ou lê (ajuste)
@@ -35,36 +38,21 @@ export const T = {
   alvoCumprido: 'o mesmo que o módulo agora conta',
   alvoAjuste: { rotacao: 'digite o que o conta-giros mostra' },
 
-  // a foto do painel: o cartão que se toca e o registro no lugar dele
-  fotografar: 'Fotografar o painel',
-  fotoLegenda: 'é a prova do número — vale no checklist',
-  fotografado: (hora) => `Painel fotografado às ${hora}`,
-  fotoVale: (secao) => `vale também no checklist, na Seção ${secao}`,
-
-  // a câmera do app (T10/06): o nome é o da grandeza do passo
-  fotoDoPainel: 'Foto do painel',
-  enquadre: (nome) => `Enquadre o ${nome} do painel`,
-  tirarFoto: 'Tirar foto',
-  voltarCalibracao: 'Voltar à calibração',
-  // a câmera sem a permissão (T10/11, o mundo real): o quadro diz o que falta
-  precisaDaCamera: 'O app precisa da câmera pra fotografar o painel',
-  semAFoto: 'Sem a foto, a calibração não semeia.',
-  abrirConfiguracoes: 'Abrir as configurações',
-
   // o que não se aplica (T10·5)
   naoSeAplicamModelo: 'NÃO SE APLICAM NESTE MODELO',
   naoSeAplicam: 'NÃO SE APLICAM',
 
-  // o rodapé: o primário diz sempre o que falta (decisão 33)
+  // o rodapé: o primário diz sempre o que falta — com a decisão 52, só o número
   digite: 'Digite o que o painel mostra',
-  fotografe: 'Fotografe o painel',
   ligue: 'Ligue o motor',
   semear: { hodometro: 'Semear o hodômetro', horimetro: 'Semear o horímetro' },
   gravando: 'Gravando no módulo…',
   relendo: 'Relendo…',
   semearDeNovo: 'Semear de novo',
   calibrar: { horimetro: 'Calibrar o horímetro' },
-  // a calibração completa aponta o ciclo (T10/09, a entrega do checklist · decisão 35)
-  cicloDinamico: 'Fazer o ciclo dinâmico',
+  // o opcional se pula (decisão 52, T10/01 e 08): o link no lugar do Voltar ao menu
+  pular: { horimetro: 'Pular o horímetro' },
+  // a calibração completa aponta o ciclo (T10/09 · decisões 35 e 54)
+  cicloDeTestes: 'Fazer o ciclo de testes',
   voltar: 'Voltar ao menu',
 }

@@ -1,6 +1,6 @@
-# T14 · Ciclo dinâmico
+# T14 · Ciclo de testes
 
-Andar com o ônibus e deixar o app provar o que só fecha em movimento.
+Com a ignição ligada e o ônibus parado, deixar o app provar o que o módulo lê: a rotação, as entradas, o cartão e o evento de teste.
 
 | | |
 |---|---|
@@ -12,6 +12,7 @@ Andar com o ônibus e deixar o app provar o que só fecha em movimento.
 
 ## O que se toca
 
+- **seis passos, com o ônibus parado** (decisão 54): ignição ligada, rotação, ré, porta, cartão do motorista e ignição desligada · a velocidade só entra com tacógrafo digital — o herói não tem
 - a fila do módulo drena → `Disparar evento de teste` acende
   - no protótipo · a nossa versão desta linha, antes desta entrega: a tela entra no quadro `01`: a fila do módulo drenando, o prazo cheio e o disparo indisponível com o motivo (G27). A fila drena em 3 s (`movimento.md`), e o `Disparar evento de teste` acende; esse quadro não tem referência e junta as peças que existem (G25)
 - disparado → o prazo de 2:00 começa: 1 s real vale 4 s de prazo
@@ -28,8 +29,13 @@ Andar com o ônibus e deixar o app provar o que só fecha em movimento.
   - **no protótipo** (decisão 36): antes de homologar, o ENCERRAR abre o diálogo *Encerrar sem homologar?* por cima desta tela, e o `Continuar a instalação` deixa o técnico nela — a resposta do arquiteto de 26/09 · o `Encerrar sem homologar` roda os 4 passos da T16 · o ciclo continua correndo embaixo do diálogo, porque o técnico ainda não decidiu nada (padrão do protótipo, pro arquiteto; a alternativa é pausar)
 - o voltar do Android (no computador, o Esc) faz o mesmo que o link de saída do rodapé (`logica.md`): `Ir para o checklist`, com o ciclo aberto, e no ciclo concluído `Voltar ao menu`. Com o caso de identificador, o link do rodapé é o pedido de correção, que não sai, e o voltar não faz nada
 - sinal fora do esperado (`can-fora-esperado`): o passo que o sinal prova reprova, com a causa embaixo, e os outros seguem acendendo
+  - **no protótipo · o pacote 2** (decisão 54, construído em 02/10): a `03` é a rotação zerada, pelo caso `motor-desligado-no-ciclo` (a-02, M2C-0301 · QJF-2C61): o passo do caso (`passo: rotacao`, a chave do título sem acento) reprova com *0 rpm · ligue o motor* — o lido é do caso, e o *ligue o motor* é do `textos.md` —, e os outros seguem acendendo; o ciclo fica aberto. O `can-fora-esperado` saiu da T14 (a velocidade em 0 é do ônibus parado, e o ma-01 não tem tacógrafo); o mock ainda o traz, com o `CICLO.passoDoSinal` apontando o *Movimento detectado*, que não existe mais — os dois sem leitor no app (pro arquiteto). A linha reprovada leva o recheio justo (4), como a `03` desenha agora
 - a linha do teste do cartão só entra com o caso de identificador (T14·3), e conta nos passos (*de 6*)
+  - **no protótipo · o pacote 2:** o *Cartão do motorista* é o quinto dos seis passos, sempre na lista; com o caso de identificador ele reprova no lugar, com o lido e o esperado embaixo. Padrão do protótipo, pela `04`: ele já entra reprovado (a 1:36, o cartão reprova enquanto a ré e a porta esperam), como a linha do cartão de antes; sem o caso, acende no tempo dele (+15 s)
+- **no protótipo · D3, a velocidade com tacógrafo** (o pacote 2, montada pelo dado — nenhuma referência desenha): quando o modelo do ativo tem `tacografoDigital` (o ma-02: o KNB-5H39 e o RJP-1W48), o passo entra depois da rotação, com o nome do sinal da CAN do modelo (*Velocidade*, `sinaisCan`), e o ciclo conta *de 7 passos*; os passos acendem a +9 s, +12 s… até o sétimo a +21 s. O herói (ma-01) tem os seis. O roteiro `mov-t14.mjs` passa pela sessão do KNB-5H39. Desvio nomeado: a Seção E do checklist tem os seis (o mock); o passo da velocidade é gravado com o id `e-velocidade`, que a E não lê (pro arquiteto: a E ganhar a linha com tacógrafo, ou ficar com os seis)
+- **no protótipo · o 01 e o 02** (o pacote 2): no `01`, o rodapé fica só com o primário apagado e o link — a legenda *Espera a fila do módulo drenar* saiu, e quem explica é a frase da fila no prazo; no `02`, a frase é uma só, *A Seção F reprova · os passos continuam valendo.*, numa linha
 - o ciclo fica gravado em `etapas.ciclo` (`logica.md`)
+  - **no protótipo · o formato, depois do pacote 2** (o que a T13 lê; os nomes de antes ficaram): `{ ativoId, moduloSerial, passos: { 'e-1'…'e-6' (e 'e-velocidade' com tacógrafo): 'aprovada' | 'reprovada' | 'pendente' }, feitos, total (6, ou 7), evento: 'antes' | 'disparado' | 'recebido' | 'conferido' | 'nao-chegou', tentativa, cartao: { cartaoId, estado, lido, esperado } | null, correcao: { solicitadaAs, lido, esperado } | null, motor: { passo, lido } | null, concluido, fechado }` — o `motor` é novo (o caso da `03`); o resto é o de antes
 
 ## Peças do design system que esta tela usa
 
@@ -77,13 +83,14 @@ Medido no código do C10, no fechamento do C10 e do C11 (G10), com os nomes das 
 
 ## Histórias de usuário
 
-- **HU-T14-1** — Um deslocamento alimenta 4 blocos: CAN dinâmica · Seção E · evento de teste · viagem
+- **HU-T14-1** — Com a ignição ligada e o ônibus parado, o ciclo prova a rotação, as entradas, o cartão e o evento de teste
 - **HU-T14-2** — Disparo o evento de teste por botão, com o cronômetro dos 120 s em destaque
 - **HU-T14-3** — Antes do cronômetro vejo a fila do módulo drenando; o botão fica indisponível com motivo
 - **HU-T14-4** — Vejo 3 linhas de estado: disparado · recebido · campos conferidos. E posso disparar novamente
 - **HU-T14-5** — No teste do identificador vejo o código lido ao lado do esperado, em formato de negócio
 - **HU-T14-6** — Divergindo, a tela oferece solicitar correção de cadastro já com os dois valores anexados
 - **HU-T14-7** — Vejo o tempo decorrido e o que ainda falta capturar; encerrar leva direto ao checklist
+- **HU-T14-8** — A velocidade só entra no ciclo quando o ônibus tem tacógrafo digital
 
 ## Textos
 

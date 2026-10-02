@@ -39,7 +39,7 @@ export const TX = {
   // (instalacoes[].recebimento, ou o recebimento do caso) e entra pelos parâmetros
   oQueRecebeu: 'O QUE O SERVIDOR RECEBEU',
   aInstalacao: 'A INSTALAÇÃO',
-  criterios: { posicionamento: 'Posicionamento', eventos: 'Eventos', viagens: 'Viagens' },
+  criterios: { posicionamento: 'Posicionamento', eventos: 'Eventos' }, // a viagem saiu (decisão 54)
   // o veredito de cada critério pelo estado dele: os quatro desenhados e, sem
   // referência, os valores da regra do mock (criteriosRegra.porEstado), como vêm
   vereditoDoCriterio: {
@@ -54,9 +54,6 @@ export const TX = {
   },
   posicoesEm: (n, tempo) => `${n} posições em ${tempo}`,
   testeChegouEm: (tempo) => `o teste chegou em ${tempo}`,
-  // o '1' é do texto: o mock dá os km da viagem, e não a contagem — a viagem é a
-  // do ciclo dinâmico, uma por instalação (decisão 41)
-  viagemFechada: (km) => `1 viagem fechada · ${km} km`,
   confereDeNovo: (motivo, horas) => `${motivo} · confere por ${horas} h`,
   // o tempo do porquê: '1 min 12 s', '24 s'
   seg: (s) => `${s} s`,
@@ -67,12 +64,12 @@ export const TX = {
     diagnostico: 'Diagnóstico',
     configuracao: 'Configuração',
     calibracao: 'Calibração',
-    ciclo: 'Ciclo dinâmico',
+    ciclo: 'Ciclo de testes', // decisão 54
     checklist: 'Checklist',
     autoteste: 'Autoteste',
   },
   deN: (feito, total) => `${feito} de ${total}`,
   blocosRelidos: (n) => `${n} blocos relidos`,
-  comFoto: (grandeza) => `${grandeza} · com foto`,
+  e: ' e ', // as grandezas da calibração: 'hodômetro e horímetro' (o pacote 2, decisão 52)
   voltarAsInstalacoes: 'Voltar às instalações',
 }

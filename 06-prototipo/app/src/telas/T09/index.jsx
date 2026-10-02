@@ -93,7 +93,9 @@ const CASO_DO_ESTADO = {
 // modo: o que vai ser gravado (05) ou o escolher o bloco (08).
 //   fase · antes · escolher · gravando · recusado · pausado · recuperacao · concluida · curta · curtaFeita
 function inicio(momento, est, unico) {
-  const bloco = BLOCO_DA_MANUTENCAO
+  // o pacote 2 (D2, a mudança mínima): o bloco que a conferência (T11) pede vem escolhido, pelo estado
+  const pedido = unico.etapas.ativo?.bloco
+  const bloco = pedido && T.reenviar[pedido] ? pedido : BLOCO_DA_MANUTENCAO
   if (est === REF.recusado) {
     const p = paradaDoCaso(CASO_RECUSA)
     return { par: parDoCaso(CASO_RECUSA), confirmados: ORDEM.indexOf(p.bloco), fase: 'recusado', parou: p.parou }

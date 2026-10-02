@@ -13,11 +13,11 @@
 | `06-momento-f-servidor-aberta` | momento | tocar na seção | derivado do fluxo |
 | `07-momento-responder-item` | momento | tocar num item manual | `checklist.itens · B` |
 | `08-momento-nao-conforme-com-justificativa` | momento | marcar não conforme | `checklist.itens · B` |
-| `09-estado-item-reprovado` | estado | um item automático reprova | `can-fora-esperado` |
+| `09-estado-item-reprovado` | estado | um item automático reprova | `can-estatico-bateria` |
 | `10-estado-finalizar-com-a-secao-f-falhando` | estado | `Finalizar` com a Seção F falhando | `secaoF` |
 | `11-momento-homologado` | momento | tudo passa | `checklist` |
 | `12-momento-b-com-ressalva` | momento | salvar um item como não conforme, com a justificativa | derivado do fluxo |
-| `13-momento-e-resolvida` | momento | voltar do ciclo dinâmico com os cinco passos feitos | derivado do fluxo |
+| `13-momento-e-resolvida` | momento | voltar do ciclo de testes com os seis passos feitos | derivado do fluxo |
 | `14-estado-homologado-sem-localizacao` | estado | finalizar com a localização negada | `localizacao-negada` |
 | `15-momento-problema-fotografado` | momento | fotografar o problema depois de marcar Não está conforme | derivado do fluxo |
 
@@ -26,6 +26,8 @@
 - no protótipo · a nossa versão da linha *10-estado-finalizar-com-a-secao-f-falhando*, antes desta entrega: | `10-estado-finalizar-com-a-secao-f-falhando` | estado | `Finalizar` com a Seção F falhando — o servidor não respondeu | `pronto-para-fechar` (C10, T13-A2) |
 
 - no protótipo · a nossa versão da linha *09-estado-item-reprovado*, antes desta entrega: | `09-estado-item-reprovado` | estado | um item automático reprova — a bateria abaixo do mínimo, na CAN | `can-estatico-isolado` (C10, T13-A1) |
+
+- no protótipo · o pacote 2 · a linha *09-estado-item-reprovado* diz o caso `can-fora-esperado`, e ele é a velocidade do a-02 a 0 km/h — não monta a bateria a 10,9 V que a referência desenha. O 09 segue montado pelo `can-estatico-bateria` (a bateria do a-02 abaixo do mínimo, lida no módulo), o acréscimo nomeado do pacote 1 (pro arquiteto: ou o caso da linha vira esse, ou o `can-fora-esperado` passa a declarar a bateria)
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.
 

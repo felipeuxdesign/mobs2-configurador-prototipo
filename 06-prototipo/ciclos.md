@@ -63,6 +63,8 @@ Em cada ciclo de tela entram também os acréscimos do mock que as telas dele le
 
 **Depois do C14 · o pacote 1 do retorno do PM (29/09).** As rodadas 1 e 2 do PM, com as decisões 44 a 49: a T05 só conecta, e perde os 11 estados da pré-checagem · a T07 vira o Diagnóstico do módulo, com 11 referências, e a T08 sai · a T06 confirma o vínculo, sem chassi, e o vínculo decide o modo · a T09 ganha o que vai ser gravado, as duas travas do envio e a manutenção · o menu começa com rede, e o sem rede vira a T04/15 · no palco, a regra dos seis agrupa a coluna da T07 em *o módulo* e *a CAN*. O `ciclos.md` do pacote trazia o plano original do C0; vale a numeração acima, a dos commits. Depois do pacote: 145 referências · 15 telas · 64 momentos · 66 estados.
 
+**Depois do pacote 1 · o pacote 2 do retorno do PM (02/10).** A rodada 3 do PM, com as decisões 52 a 54: a calibração sem foto, com o horímetro opcional, e a foto do painel na Seção B do checklist · a conferência pelo conteúdo, em cinco linhas, com o Extended ID só leitura e o `Corrigir` de um bloco por vez (a decisão 40 fica superada pela 53) · o servidor sem a viagem · a T14 vira o *Ciclo de testes*, com o ônibus parado e seis passos · o checklist com a A de 3, o Painel na B e a E de 6 · a barra do sistema segue o mundo (lei 22) · saem a T10/06, 07 e 11 e a T11/04, e entra a T11/05. Como no pacote 1, o `ciclos.md` do pacote traz o plano original do C0, e vale a numeração acima. Depois do pacote: 142 referências · 15 telas · 62 momentos · 65 estados · 107 peças no design.
+
 ## Ao fim de cada ciclo
 
 - os prints das telas do ciclo, lado a lado com o PNG da referência

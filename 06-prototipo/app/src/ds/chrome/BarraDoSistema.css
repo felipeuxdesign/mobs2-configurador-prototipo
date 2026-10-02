@@ -33,5 +33,10 @@
 .ds-barra-sistema-icones { display: flex; align-items: center; color: var(--tinta); }
 .ds-barra-sistema-icones svg { display: block; overflow: visible; }
 .ds-barra-sistema-sinal { width: var(--barra-sinal); height: var(--barra-sinal-altura); }
+/* os dois do mundo (lei 22): o Bluetooth, 12 de alto e a largura do próprio viewBox (7,6), a 6 do sinal ·
+   sem rede, o sinal apagado, na cor do marcador vazio (a ficha: #4A4166), e o Wi-Fi fora — a bateria
+   fica a 5,5 do sinal, pelo mesmo espaço de antes */
+.ds-barra-sistema-bluetooth { height: var(--e-12); margin-right: var(--e-6); }
+.ds-barra-sistema-sinal-apagado { color: var(--marca-vazia); }
 .ds-barra-sistema-wifi { width: var(--barra-wifi); height: var(--barra-icone); stroke-width: var(--barra-wifi-traco); margin-left: var(--barra-sistema-espaco-wifi); }
 .ds-barra-sistema-bateria { width: var(--barra-bateria); height: var(--barra-icone); margin-left: var(--barra-sistema-espaco-bateria); }

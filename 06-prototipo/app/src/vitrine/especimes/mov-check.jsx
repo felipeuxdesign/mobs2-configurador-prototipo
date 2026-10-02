@@ -18,7 +18,7 @@ import { RITMOS } from '../../estado/ritmos.js'
 import { SEMENTES } from '../../estado/sementes.js'
 import { M } from '../../dados/mock.js'
 import { T as T11 } from '../../telas/T11/textos.js'
-import { BLOCOS, rotuloDe, parDoCaso, CASO_DIFF, CASO_CONFERE, cadastroDo, moduloDo, VERSAO_DO_CADASTRO } from '../../telas/T11/conferencia.js'
+import { LINHAS, parDoCaso, CASO_DIFF, CASO_CONFERE, conferenciaDo, comparadasAte } from '../../telas/T11/conferencia.js'
 import { T as T16 } from '../../telas/T16/textos.js'
 import { assertivas, CAUSA, CASO_FALHA, blocosRelidos } from '../../telas/T16/dados.js'
 import { elosDo } from '../../telas/T09/cadeia.js'
@@ -180,31 +180,29 @@ function BotaoQueDizOQueFalta() {
 }
 
 // ── o veredito que espera a prova (C12·35, o retorno do diretor de 26/09 · T11): a caixa no lugar desde o começo,
-// neutra, com a contagem; a palavra e a cor entram quando a quinta linha acende ──
+// neutra, com a contagem das que se comparam; a palavra e a cor entram quando a quinta linha acende (o pacote 2,
+// decisão 53: as cinco linhas, o Extended ID só leitura e fora da contagem; a versão lida no módulo saiu do 02) ──
 const SESSAO_T11 = SEMENTES.T11.sessao
 function Conferencia({ confere = false, lida = false }) {
   const par = parDoCaso(confere ? CASO_CONFERE : CASO_DIFF)
-  const cadastro = cadastroDo(par, SESSAO_T11), modulo = moduloDo(par)
-  const total = BLOCOS.length
-  const leitura = useLeitura(total, RITMOS.conferenciaLinhaMs)
-  const lidas = lida ? total : leitura.lidas
-  const lendo = lidas < total
-  const aguarda = lendo ? lidas : null
+  const { linhas, naoBatem, total } = conferenciaDo({ par, sessao: SESSAO_T11, divergem: confere ? [] : M.casos[CASO_DIFF].divergencias.map((d) => d.bloco) })
+  const n = LINHAS.length
+  const leitura = useLeitura(n, RITMOS.conferenciaLinhaMs)
+  const lidas = lida ? n : leitura.lidas
+  const lendo = lidas < n
+  const aguarda = lendo ? comparadasAte(lidas) : null
   const cabeca = confere
     ? <Aviso tom="veredito" titulo={T11.confere} numero={total} unidade={T11.deTotal(total)} aguarda={aguarda} aguardaUnidade={T11.deTotal(total)} />
-    : <Aviso glifo="xis" titulo={T11.naoBate} numero={total} unidade={T11.deTotal(total)} aguarda={aguarda} aguardaUnidade={T11.deTotal(total)} />
+    : <Aviso glifo="xis" titulo={T11.naoBate} numero={naoBatem} unidade={T11.deTotal(total)} aguarda={aguarda} aguardaUnidade={T11.deTotal(total)} />
   return (
     <div className="vitrine-mc-pilha">
       {cabeca}
       <Lista>
-        {BLOCOS.map((b, i) => (
-          <LinhaChecagem key={b} variante="conferencia" estado={confere ? 'aprovada' : 'diverge'} titulo={rotuloDe(b)}
-            valor={confere ? cadastro[b] : undefined}
-            par={confere ? undefined : { modulo: T11.noModulo(modulo[b]), cadastro: T11.noCadastro(cadastro[b]) }}
-            divisoria={i < total - 1} lendo={i >= lidas} />
+        {linhas.map((l, i) => (
+          <LinhaChecagem key={l.id} variante="conferencia" estado={l.estado} titulo={l.titulo} valor={l.valor} par={l.par}
+            divisoria={i < n - 1} lendo={i >= lidas} />
         ))}
       </Lista>
-      {confere && <Prova tipo="cadeia" rotulo={T11.versaoLida} versao={VERSAO_DO_CADASTRO} legenda={T11.igualAoCadastro} aguarda={lendo ? 'legenda' : null} />}
       {!lida && <Controles><Botao aoTocar={leitura.correr}>bancada · confere</Botao></Controles>}
     </div>
   )

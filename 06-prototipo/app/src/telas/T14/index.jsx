@@ -1,22 +1,26 @@
-// T14 · Ciclo dinâmico (02-telas/T14-ciclo-dinamico): andar com o ônibus e
-// deixar o app provar o que só fecha em movimento.
+// T14 · Ciclo de testes (02-telas/T14-ciclo-dinamico): com a ignição ligada e o
+// ônibus parado, deixar o app provar o que o módulo lê (decisão 54).
 // · A entrada (G27): a tela abre no quadro 01 — a fila do módulo drenando
 //   (M.ciclo.mensagensGuardadas, ou a do modulo-com-pendencias no serial dele),
-//   o prazo cheio e o disparo indisponível com o motivo. A fila drena em
+//   o prazo cheio e o disparo indisponível (o pacote 2 tirou a legenda do
+//   rodapé, que repetia a frase da fila no prazo). A fila drena em
 //   RITMOS.filaDrenagemMs, e o 'Disparar evento de teste' acende (o quadro da
 //   fila drenada antes do disparo não tem referência: junta as peças que
 //   existem, G25). No print (EM_QUADRO), sem momento, a tela fica parada na 00.
 // · O disparo: o prazo de 2:00 (M.ciclo.prazoEventoSeg) drena no tique do prazo
-//   (1 s real vale 4 s de prazo). A semente traz 2 passos feitos, e os passos
-//   3 a 5 acendem sozinhos a +9, +12 e +15 s (T14·1). O evento chega depois de
+//   (1 s real vale 4 s de prazo). Os passos são os seis da Seção E — ignição
+//   ligada, rotação, ré, porta, cartão do motorista e ignição desligada — e, com
+//   tacógrafo digital no modelo, a velocidade depois da rotação (D3, ciclo.js).
+//   A semente traz 2 passos feitos, e os outros acendem sozinhos a +9, +12, +15
+//   e +18 s (T14·1). O evento chega depois de
 //   M.ciclo.evento.recebidoAosSeg — a 00 é o instante antes, 1:36 — e o número
 //   passa a ser o tempo que ele levou, com a barra parada no que restava; os
-//   campos conferem depois de conferidoAosSeg ('6 de 6', AC-09). Os cinco
+//   campos conferem depois de conferidoAosSeg ('6 de 6', AC-09). Os seis
 //   passos e o evento → 05-momento-ciclo-concluido.
 // · Os estados da coluna, parados, pela receita (G21), cada um na sessão do
-//   caso: o 02 (evento-sem-resposta, o fim do prazo), o 03 (can-fora-esperado,
-//   o passo que o sinal prova reprova, AC-10) e o 04 (identificador-divergente,
-//   a linha do teste do cartão, que só entra com o caso, T14·3). No fluxo, o
+//   caso: o 02 (evento-sem-resposta, o fim do prazo), o 03 (motor-desligado-no-ciclo,
+//   a rotação zerada reprova e pede o motor ligado) e o 04 (identificador-divergente,
+//   o passo do cartão reprova com o lido e o esperado). No fluxo, o
 //   caso vale quando o par da faixa é o dele (G28); o evento sem resposta, uma
 //   vez por sessão: 'Disparar outro evento' tenta de novo, e os passos continuam
 //   valendo.
@@ -46,9 +50,9 @@ import { RITMOS } from '../../estado/ritmos.js'
 import { M } from '../../dados/mock.js'
 import { minSeg } from '../../dados/formato.js'
 import {
-  REF, CASO_SEM_RESPOSTA, CASO_FORA, CASO_IDENTIFICADOR, PASSOS, PRAZO, EVENTO, TIQUE_MS, QUADRO_00, QUADRO_05,
-  tiqueDoPasso, horaDoRecebido, ativoDe, parDaSessao, parDoCaso, casosDoPar, filaDoModulo, veredito,
-  passosNaEntrada, passosFeitos, passosDoRegistro,
+  REF, CASO_SEM_RESPOSTA, CASO_MOTOR, CASO_IDENTIFICADOR, PRAZO, EVENTO, TIQUE_MS, QUADRO_00, quadro05,
+  tiqueDoPasso, horaDoRecebido, ativoDe, parDaSessao, parDoCaso, casosDoPar, filaDoModulo, veredito, causaDo,
+  passosDo, passosNaEntrada, passosFeitos, passosDoRegistro,
 } from './ciclo.js'
 import { T } from './textos.js'
 import './t14.css'
@@ -58,30 +62,32 @@ import './t14.css'
 // 'drenada' (o disparo acende) · 'correndo' (o prazo drena) · 'estourado' (o
 // prazo acabou sem o evento) · 'concluido'. tique: os segundos de prazo desde o disparo.
 function inicio(momento, est, unico) {
-  const doCaso = { [REF.estourado]: CASO_SEM_RESPOSTA, [REF.fora]: CASO_FORA, [REF.identificador]: CASO_IDENTIFICADOR }[est]
+  const doCaso = { [REF.estourado]: CASO_SEM_RESPOSTA, [REF.fora]: CASO_MOTOR, [REF.identificador]: CASO_IDENTIFICADOR }[est]
     ?? (momento === REF.corrigida ? CASO_IDENTIFICADOR : null)
   const par = doCaso ? parDoCaso(doCaso) : parDaSessao(unico.sessao)
   // num estado da coluna, o caso vale sempre (a receita); no fluxo, uma vez por sessão
   const casos = casosDoPar(par, est ? [] : unico.casosConsumidos)
-  const base = { par, casos, tentativa: 1, correcao: false }
-  if (est === REF.estourado) return { ...base, fase: 'estourado', tique: PRAZO, passos: passosFeitos(casos.fora) }
+  // os passos do par: os seis, e a velocidade com tacógrafo digital (D3)
+  const lista = passosDo(par)
+  const base = { par, casos, lista, tentativa: 1, correcao: false }
+  if (est === REF.estourado) return { ...base, fase: 'estourado', tique: PRAZO, passos: passosFeitos(lista, casos) }
   if (est != null || momento === REF.corrigida) {
-    return { ...base, fase: 'correndo', tique: QUADRO_00, passos: passosNaEntrada(casos.fora), correcao: momento === REF.corrigida }
+    return { ...base, fase: 'correndo', tique: QUADRO_00, passos: passosNaEntrada(lista, casos), correcao: momento === REF.corrigida }
   }
-  if (momento === REF.concluido) return { ...base, fase: 'concluido', tique: QUADRO_05, passos: passosFeitos(casos.fora) }
+  if (momento === REF.concluido) return { ...base, fase: 'concluido', tique: quadro05(lista), passos: passosFeitos(lista, casos) }
   if (EM_QUADRO) {
     return momento === REF.antes
-      ? { ...base, fase: 'drenando', tique: 0, passos: passosNaEntrada(casos.fora) }
-      : { ...base, fase: 'correndo', tique: QUADRO_00, passos: passosNaEntrada(casos.fora) }
+      ? { ...base, fase: 'drenando', tique: 0, passos: passosNaEntrada(lista, casos) }
+      : { ...base, fase: 'correndo', tique: QUADRO_00, passos: passosNaEntrada(lista, casos) }
   }
   // no fluxo, a entrada é a 01 (G27). Com o ciclo deste par já gravado, os passos
   // que valem ficam, e a correção pedida também; o ciclo concluído abre concluído
   const salvo = unico.etapas.ciclo
   if (salvo && salvo.ativoId === par.ativoId && salvo.moduloSerial === par.moduloSerial) {
-    const retomado = { ...base, passos: passosDoRegistro(salvo), correcao: !!salvo.correcao }
-    return salvo.concluido ? { ...retomado, fase: 'concluido', tique: QUADRO_05 } : { ...retomado, fase: 'drenando', tique: 0 }
+    const retomado = { ...base, passos: passosDoRegistro(salvo, lista), correcao: !!salvo.correcao }
+    return salvo.concluido ? { ...retomado, fase: 'concluido', tique: quadro05(lista) } : { ...retomado, fase: 'drenando', tique: 0 }
   }
-  return { ...base, fase: 'drenando', tique: 0, passos: passosNaEntrada(casos.fora) }
+  return { ...base, fase: 'drenando', tique: 0, passos: passosNaEntrada(lista, casos) }
 }
 
 // o evento desta tentativa não vai chegar (o caso evento-sem-resposta, 1ª tentativa)
@@ -92,28 +98,35 @@ const conferido = (f) => !semResposta(f) && (f.fase === 'concluido' || (f.fase =
 const assentado = (f) => conferido(f) && !f.passos.includes('pendente')
 
 // um tique do prazo: os passos que chegaram na hora acendem; o prazo acaba sem
-// o evento (02), ou os cinco passos e o evento fecham o ciclo (05)
+// o evento (02), ou os seis passos e o evento fecham o ciclo (05). O passo
+// reprovado (a rotação zerada, o cartão que não bate) segura o ciclo aberto
 function avancar(f) {
   if (f.fase !== 'correndo' || assentado(f)) return f
   const tique = f.tique + 1
-  const passos = f.passos.map((e, i) => (e === 'pendente' && tique >= tiqueDoPasso(i) ? veredito(i, f.casos.fora) : e))
+  const passos = f.passos.map((e, i) => (e === 'pendente' && tique >= tiqueDoPasso(i) ? veredito(f.lista[i], f.casos) : e))
   const g = { ...f, tique, passos }
   if (semResposta(g) && tique >= PRAZO) return { ...g, tique: PRAZO, fase: 'estourado' }
-  if (assentado(g) && passos.every((e) => e === 'aprovada') && !g.casos.cartao) return { ...g, fase: 'concluido' }
+  if (assentado(g) && passos.every((e) => e === 'aprovada')) return { ...g, fase: 'concluido' }
   return g
 }
 
-// o que fica gravado em etapas.ciclo (logica.md · o ciclo dinâmico)
+// o que fica gravado em etapas.ciclo (logica.md · o ciclo de testes) — o que a
+// T13 lê: os passos pelo id (os e-1 a e-6 da Seção E e, com tacógrafo, o
+// e-velocidade, que a E não tem), os feitos e o total do par, o evento ('antes'
+// · 'disparado' · 'recebido' · 'conferido' · 'nao-chegou'), a tentativa, o
+// cartão e a correção do caso de identificador, o motor desligado (o passo e o
+// lido do caso), e se o ciclo concluiu ou a captura foi fechada
 function registro(f, fechado = false) {
   const evento = f.fase === 'estourado' ? 'nao-chegou' : conferido(f) ? 'conferido' : recebido(f) ? 'recebido'
     : f.fase === 'correndo' ? 'disparado' : 'antes'
-  const { cartao } = f.casos
+  const { cartao, motor } = f.casos
   return {
     ativoId: f.par.ativoId, moduloSerial: f.par.moduloSerial,
-    passos: Object.fromEntries(PASSOS.map((p, i) => [p.id, f.passos[i]])),
-    feitos: f.passos.filter((e) => e === 'aprovada').length, total: PASSOS.length,
+    passos: Object.fromEntries(f.lista.map((p, i) => [p.id, f.passos[i]])),
+    feitos: f.passos.filter((e) => e === 'aprovada').length, total: f.lista.length,
     evento, tentativa: f.tentativa,
     cartao: cartao ? { cartaoId: cartao.cartaoId, estado: 'reprovada', lido: cartao.lido, esperado: cartao.esperado } : null,
+    motor: motor ? { passo: motor.passo, lido: motor.lido } : null,
     correcao: f.correcao && cartao ? { solicitadaAs: M.HORA_NOMINAL, lido: cartao.lido, esperado: cartao.esperado } : null,
     concluido: f.fase === 'concluido', fechado,
   }
@@ -148,7 +161,7 @@ export default function T14({ momento, estado: est }) {
     if (!u.casosConsumidos.includes(CASO_SEM_RESPOSTA)) despachar({ tipo: 'mesclar', parcial: { casosConsumidos: [...u.casosConsumidos, CASO_SEM_RESPOSTA] } })
   }, [fluxo.fase, est, despachar])
 
-  // os cinco passos e o evento: a URL passa a dizer 05
+  // os seis passos e o evento: a URL passa a dizer 05
   useEffect(() => {
     if (est != null || fluxo.fase !== 'concluido') return
     if (vivo.current.momento !== REF.concluido) despachar({ tipo: 'ir', tela: 'T14', momento: REF.concluido })
@@ -199,7 +212,7 @@ export default function T14({ momento, estado: est }) {
   const disparado = fase === 'correndo' || estourado || fase === 'concluido'
   const chegou = recebido(fluxo)
   const conferiu = conferido(fluxo)
-  const total = PASSOS.length + (casos.cartao ? 1 : 0)
+  const total = fluxo.lista.length
   const aprovados = passos.filter((e) => e === 'aprovada').length
   // o que resta do prazo; depois que o evento chega, a barra fica no que restava
   const restante = chegou ? PRAZO - EVENTO.recebidoAosSeg : disparado ? Math.max(0, PRAZO - tique) : PRAZO
@@ -211,7 +224,7 @@ export default function T14({ momento, estado: est }) {
       tempo={minSeg(chegou ? EVENTO.recebidoAosSeg : restante)}
       restante={restante} limite={PRAZO} segue={TIQUE_MS}
       legendas={{ inicio: chegou ? T.disparadoAs(M.HORA_NOMINAL) : minSeg(0), fim: T.limite(PRAZO) }}
-      detalhe={fase === 'drenando' ? T.filaSaindo(filaDoModulo(par.moduloSerial)) : estourado ? [T.secaoF, T.continuamValendo(PASSOS.length)] : null}
+      detalhe={fase === 'drenando' ? T.filaSaindo(filaDoModulo(par.moduloSerial)) : estourado ? [T.secaoF] : null}
       falha={estourado}
     />
   )
@@ -227,25 +240,22 @@ export default function T14({ momento, estado: est }) {
     ]} />
   )
 
-  // os passos do veículo e, com o caso de identificador, o teste do cartão (T14·3).
-  // No prazo estourado, a última linha leva a folga do pé do cartão (40, folha 4)
+  // os passos do par: o reprovado leva a causa embaixo, com o recheio justo (4,
+  // a 03 e a 04). No prazo estourado, a última linha leva a folga do pé do cartão (40, folha 4)
   const lista = (
     <Lista recheio="passos">
-      {PASSOS.map((p, i) => {
+      {fluxo.lista.map((p, i) => {
         const e = passos[i]
-        const ultima = i === PASSOS.length - 1 && !casos.cartao
-        const reprovada = e === 'reprovada'
+        const ultima = i === fluxo.lista.length - 1
+        const causa = e === 'reprovada' ? causaDo(p, casos) : undefined
         return (
           <LinhaChecagem key={p.id} variante="passo" titulo={p.titulo}
             estado={e === 'pendente' ? 'ainda-nao' : e}
             glifo={e === 'pendente' ? 'relogio' : undefined} nomeGlifo={e === 'pendente' ? ESTADOS.espera.nome : undefined}
-            causa={reprovada ? T.causaDoSinal(casos.fora) : undefined} recheioCausa={reprovada ? 'largo' : undefined}
+            causa={causa} recheioCausa={causa ? 'justo' : undefined}
             divisoria={!ultima} folgaFim={ultima && estourado} />
         )
       })}
-      {casos.cartao && (
-        <LinhaChecagem variante="passo" estado="reprovada" titulo={T.cartao} causa={T.leu(casos.cartao)} recheioCausa="justo" divisoria={false} />
-      )}
     </Lista>
   )
 
@@ -258,7 +268,8 @@ export default function T14({ momento, estado: est }) {
 
   let rodape
   if (fase === 'drenando') {
-    rodape = <Rodape legenda={T.esperaFila} primario={T.disparar} primarioDesabilitado link={T.irAoChecklist} aoLink={irAoChecklist} />
+    // o primário apagado diz a ação, e quem explica é a frase da fila no prazo (o pacote 2 tirou a legenda repetida)
+    rodape = <Rodape primario={T.disparar} primarioDesabilitado link={T.irAoChecklist} aoLink={irAoChecklist} />
   } else if (fase === 'drenada') {
     // o disparo troca o texto do primário no lugar (C12·23): Disparar evento de teste → Encerrar o ciclo
     rodape = <Rodape primario={T.disparar} aoPrimario={disparar} primarioTrocaTexto link={T.irAoChecklist} aoLink={irAoChecklist} />

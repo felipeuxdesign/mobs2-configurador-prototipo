@@ -16,6 +16,11 @@
  *   instalação: o que o `resumo` já diz não se reescreve) e
  *   +casos["instalacoes-sem-rede"] (o carimbo da consulta anterior,
  *   declarado). Tudo ADITIVO: âncoras intactas, instalações intactas.
+ * PM · rodada 3 (decisões 52 a 54): a calibração sem foto, com o horímetro opcional · a conferência sem
+ *   versão, com a APN, o Extended ID só leitura e o revisar em seguida (cercas-reenviadas) · o ciclo de
+ *   testes parado, em 6 passos, com a velocidade só com tacógrafo digital (motor-desligado-no-ciclo) · o
+ *   servidor sem a viagem · o checklist sem o chassi, com o Painel como foto a tirar · a fila sem a foto
+ *   de calibração. SAEM: versao-ilegivel, camera-sem-permissao, a viagem do CICLO e dos critérios.
  * PM · rodadas 1 e 2 (decisões 44 a 47): +diagnostico (o que a T07 mostra e de onde vem),
  *   +fabricante/modelo nos 3 modelos de ativo, o pacote SEM cartões (conexões, eventos e cercas
  *   no lugar), +5 casos (modem-sem-sinal, firmware-sem-rede-no-modulo, modulo-em-outro-ativo,
@@ -82,7 +87,8 @@
      que emite o pacote — nunca a tela, que lê a forma já derivada. */
   var MODELOS_ATIVO = [
     { id: "ma-01", nome: "Ônibus urbano OF-1621",
-      fabricante: "Mercedes-Benz", modelo: "OF-1621", chassiPelaCan: true,
+      tacografoDigital: false, /* a velocidade só entra no ciclo com tacógrafo digital (decisão 54) */
+      fabricante: "Mercedes-Benz", modelo: "OF-1621",
       traducaoCan: "urbano v3",
       mapaContadores: { declarado: true, versao: "v2" },
       conteudoRegistros: 128,
@@ -91,7 +97,8 @@
       leitor: { tipo: "cartao-serial", buzzerNoFio: false },
       leituraCan: "barramento" },
     { id: "ma-02", nome: "Caminhão coletor 17.230",
-      fabricante: "Volkswagen", modelo: "17.230", chassiPelaCan: false,
+      tacografoDigital: true, /* a velocidade só entra no ciclo com tacógrafo digital (decisão 54) */
+      fabricante: "Volkswagen", modelo: "17.230",
       traducaoCan: "frota v2",
       mapaContadores: { declarado: true, versao: "v1" },
       conteudoRegistros: 84,
@@ -100,7 +107,8 @@
       leitor: { tipo: "chave-de-contato", buzzerNoFio: false },
       leituraCan: "barramento" },
     { id: "ma-03", nome: "Retroescavadeira 580N",
-      fabricante: "Case", modelo: "580N", chassiPelaCan: false,
+      tacografoDigital: false, /* a velocidade só entra no ciclo com tacógrafo digital (decisão 54) */
+      fabricante: "Case", modelo: "580N",
       traducaoCan: "máquina v1",
       mapaContadores: { declarado: false,
         /* C16 · "Reset de leitura" virou "Refazer leitura da CAN" (R3: reset
@@ -347,7 +355,7 @@
           { bloco: "conexao", hora: "10:26", readBack: "confirmado" }
         ],
         calibracao: { grandeza: "hodômetro", valorPainel: "482.317 km", foto: true },
-        cicloDinamico: { completo: true, passos: ["Ignição ligada", "Movimento detectado", "Ré acionada", "Porta aberta", "Ignição desligada"], confirmados: 5 },
+        cicloDinamico: { completo: true, passos: ["Ignição ligada", "Rotação", "Ré acionada", "Porta aberta", "Cartão do motorista", "Ignição desligada"], confirmados: 6 },
         checklist: { itens: 31, concluidos: 31 },
         autoteste: { assertivas: 8, passaram: 8 },
         recebimento: { confirmado: true, hora: "11:47" }
@@ -398,8 +406,8 @@
      não tem são os três critérios, e eles DERIVAM do estado:
        aprovada / reprocessada / aguardando → os três chegaram; o que falta
          em aguardando é o gestor, não o dado.
-       reprovada → `Ignição desliga` não passou: sem desligar a ignição a
-         viagem não fecha e o evento sai do parâmetro.
+       reprovada → `Ignição desliga` não passou: sem desligar a ignição o
+         evento sai do parâmetro. (A viagem saiu dos critérios: o ciclo é parado — decisão 54.)
        falha reconhecida → nada chegou ao servidor, coerente com a secaoF.
      ⚠ UMA exceção declarada (aprovada no gate): i-09, posicionamento
      `atrasado` — posição que chegou tarde é exatamente o que um gestor não
@@ -415,11 +423,11 @@
     folgaJanelaSeg: 120,
     tetoEsperaMin: 10,
     porEstado: {
-      "aprovada":                      { posicionamento: "conforme", eventos: "conforme",          viagens: "completa" },
-      "aprovada-reprocessamento":      { posicionamento: "conforme", eventos: "conforme",          viagens: "completa" },
-      "aguardando-validacao":          { posicionamento: "conforme", eventos: "conforme",          viagens: "completa" },
-      "reprovada":                     { posicionamento: "conforme", eventos: "fora do parâmetro", viagens: "incompleta" },
-      "falha-recebimento-reconhecida": { posicionamento: "ausente",  eventos: "ausente",           viagens: "ausente" }
+      "aprovada":                      { posicionamento: "conforme", eventos: "conforme" },
+      "aprovada-reprocessamento":      { posicionamento: "conforme", eventos: "conforme" },
+      "aguardando-validacao":          { posicionamento: "conforme", eventos: "conforme" },
+      "reprovada":                     { posicionamento: "conforme", eventos: "fora do parâmetro" },
+      "falha-recebimento-reconhecida": { posicionamento: "ausente",  eventos: "ausente" }
     },
     excecoes: { "i-09": { posicionamento: "atrasado" } }
   };
@@ -472,7 +480,7 @@
      técnico, NUNCA silenciosa. Seção F em re-checagem é seção separada. */
   var FILA_SAIDA = comData([
     { id: "f-01", tipo: "Evidências da instalação",  ativoId: "a-03", diasAtras: 0, criadoAs: "14:28", estado: "na-fila" },
-    { id: "f-02", tipo: "Foto de calibração",        ativoId: "a-12", diasAtras: 0, criadoAs: "14:12", estado: "na-fila" },
+    { id: "f-02", tipo: "Checklist de homologação",  ativoId: "a-12", diasAtras: 0, criadoAs: "14:12", estado: "na-fila" },
     { id: "f-03", tipo: "Checklist de homologação",  ativoId: "a-20", diasAtras: 0, criadoAs: "11:30", estado: "na-fila" },
     /* C19 · +tamanhoMb — SÓ no corrente, um campo com UM leitor: é a escala
        do progresso (`62% · 8,4 MB`) e o que explica por que uma evidência
@@ -480,7 +488,7 @@
     { id: "f-04", tipo: "Evidências da instalação",  ativoId: "a-09", diasAtras: 0, criadoAs: "14:29", estado: "enviando", progresso: 62, tamanhoMb: 8.4 },
     { id: "f-05", tipo: "Evidências da instalação",  ativoId: "a-01", diasAtras: 0, criadoAs: "09:02", estado: "recebida", confirmadoAs: "09:14" },
     { id: "f-06", tipo: "Checklist de homologação",  ativoId: "a-01", diasAtras: 0, criadoAs: "09:03", estado: "recebida", confirmadoAs: "09:15" },
-    { id: "f-07", tipo: "Foto de calibração",        ativoId: "a-03", diasAtras: 1, criadoAs: "16:20", estado: "recebida", confirmadoAs: "16:40" },
+    { id: "f-07", tipo: "Checklist de homologação",  ativoId: "a-03", diasAtras: 1, criadoAs: "16:20", estado: "recebida", confirmadoAs: "16:40" },
     { id: "f-08", tipo: "Evidências da instalação",  ativoId: "a-12", diasAtras: 2, criadoAs: "09:48", estado: "recebida", confirmadoAs: "10:05" },
     { id: "f-09", tipo: "Evidências da instalação",  ativoId: "a-19", diasAtras: 0, criadoAs: "13:40", estado: "erro-rede",
       reenvio: "automático", tentativas: 3, proximaTentativaAs: "14:32" },
@@ -514,7 +522,6 @@
     /* T11 · a versão do módulo não se lê (HU-T11-1): ausente, truncada ou em
        formato desconhecido. O diff roda por conteúdo, bloco a bloco, e acha
        2 divergências. Corrigir as Cercas arrasta o Leitor e os Eventos. */
-    "versao-ilegivel": { tela: "T11", versaoLida: null, divergentes: ["cercas", "eventos"] },
     /* T01 · os 3 envios da hora acabaram (HU-T01-7): o primeiro foi às
        14:12, e o reenvio libera às 15:12. O código enviado segue valendo. */
     "teto-de-envios": { tela: "T01", enviosNaHora: 3, primeiroEnvioAs: "14:12", liberaAs: "15:12" },
@@ -552,7 +559,6 @@
          preenchidos, porque a senha não estava errada */
     "bluetooth-desligado": { tela: "T05", bluetooth: "desligado" },
     "bluetooth-sem-permissao": { tela: "T05", permissao: "bluetooth", resposta: "negada" },
-    "camera-sem-permissao": { tela: "T10", permissao: "camera", resposta: "negada" },
     "sem-conexao-no-login": { tela: "T01", rede: false },
     /* T10 · a releitura que não confere (HU-T10-5). O técnico semeou
        482.317 km, e o módulo releu 482.316,5 km: 500 m a menos. A tolerância
@@ -640,12 +646,13 @@
        tela mostra o que o caso declara. */
     "diff-divergente": { ativoId: "a-16", moduloSerial: "M2C-0438",
       divergencias: [
-        { bloco: "ativo",   noModulo: "tradução frota v1", noCadastro: "tradução frota v2" },
         { bloco: "cercas",  noModulo: "3 regiões",         noCadastro: "4 regiões" },
-        { bloco: "leitor",  noModulo: "leitor no fio branco", noCadastro: "leitor sem fio" },
+        { bloco: "conexao", rotulo: "APN", noModulo: "m2m.antiga.br", noCadastro: "m2m.mobs2.br" },
         { bloco: "eventos", noModulo: "intervalo 60 s",    noCadastro: "intervalo 30 s" },
-        { bloco: "conexao", noModulo: "rede do módulo antiga", noCadastro: "rede do módulo atual" }
-      ] },
+        { bloco: "leitor",  noModulo: "leitor no fio branco", noCadastro: "leitor sem fio" }
+      ],
+      /* o Extended ID não diverge: é só leitura (decisão 45) — a conferência mostra o que está no módulo */
+      extendedId: { cartoes: 3, ibuttons: 1, somenteLeitura: true } },
     "indice-nao-classificado": { ativoId: "a-16", moduloSerial: "M2C-0438",
       posicao: 7, motivo: "Conteúdo gravado que o app não reconhece — não pertence a nenhum bloco." },
     /* protótipo C11 (T11) · AC-17 — o par que CONFERE (T11/02, T11·1 a): a
@@ -841,16 +848,19 @@
   CASOS["can-estatico-isolado"] = { ativoId: "a-01", sinal: "temperatura", lido: "215 °C", esperado: "−40 a 120" }; /* T07/09 */
   CASOS["can-estatico-ausente"] = { ativoId: "a-01", sinal: "rotacao", lido: null, motivo: "ligação" }; /* T07/08 */
   /* protótipo · pacote 1 (o arquiteto, 02/10) · ACRÉSCIMOS NOMEADOS até o pacote 2, como o CADEIA.versoes:
-     a T13 de hoje, intocável neste pacote, ainda lê o chassiPelaCan dos modelos (o vínculo pelo chassi
-     da seção A, que dá o 19 de 31 da T13/00) e a bateria abaixo do mínimo do a-02 (o item reprovado da
-     T13/09) — o formato antigo do can-estatico-isolado, que agora é a temperatura do herói na T07/09. */
+     a T13 de antes lia a bateria abaixo do mínimo do a-02 (o item reprovado da T13/09; o chassiPelaCan e o
+     CADEIA.versoes saíram no pacote 2) — o formato antigo do can-estatico-isolado, que agora é a temperatura do herói na T07/09. */
   CASOS["can-estatico-bateria"] = { ativoId: "a-02", lidos: { bateria: "10,9 V", hodometro: "201.115 km" } };
   /* PM · rodadas 1 e 2 — os casos novos */
   CASOS["modem-sem-sinal"] = { moduloSerial: "M2C-0417", modem: "sem sinal" }; /* T07/07 · só informa: o checklist registra */
   CASOS["firmware-sem-rede-no-modulo"] = { base: "firmware-fora-matriz", modemSemRede: true }; /* T07/05 · trava, e não dá pra atualizar */
   CASOS["modulo-em-outro-ativo"] = { moduloSerial: "M2C-0417", vinculadoAoAtivoId: "a-18", registraDesvinculo: true }; /* T06/10 */
   CASOS["modulo-ja-deste-ativo"] = { moduloSerial: "M2C-0417", ativoId: "a-01", modo: "manutencao" }; /* T06/11 · T09/08-09 · o vínculo decide o modo */
-  CASOS["sem-conexao-no-menu"] = { tela: "T04", rede: false }; /* T04/15 · só o Últimas instalações depende da rede */
+  CASOS["sem-conexao-no-menu"] = { tela: "T04", rede: false };
+  /* PM · rodada 3 — os casos novos */
+  CASOS["cercas-reenviadas"] = { ativoId: "a-01", moduloSerial: "M2C-0417", modo: "manutencao", reenviado: "cercas" }; /* T11/05 · os dependentes vêm do arraste: o leitor e os eventos */
+  CASOS["can-estatico-bateria"] = { ativoId: "a-02", lidos: { bateria: "10,9 V", hodometro: "201.115 km" } }; /* T13/09 · o item da bateria reprovado — o nome é do executor (gate da errata) */
+  CASOS["motor-desligado-no-ciclo"] = { ativoId: "a-02", passo: "rotacao", lido: "0 rpm" }; /* T14/03 · o motor tem que estar ligado */ /* T04/15 · só o Últimas instalações depende da rede */
   /* ⚠ NÃO é falha — é COERÊNCIA, e por isso ficou em a-09 quando o domínio
      saiu: o hodômetro que T07 lê é o mesmo que T10 calibra (bruto 87.604.000 m
      contra 87.712 no painel). Sem ele, T07 cairia no nominal de ma-02 (96.410)
@@ -885,8 +895,6 @@
   /* O módulo NÃO guarda versão (o PM, decisão 49): a cadeia declara o CONTEÚDO de cada bloco,
      com as mesmas palavras da conferência (T11) — é o que a T09 mostra em cada elo. */
   CADEIA.conteudo = { ativo: "OF-1621", cercas: "4 regiões", leitor: "sem fio", eventos: "intervalo 30 s", conexao: "m2m.mobs2.br" };
-  /* acréscimo nomeado, só até o pacote 2: a T11 e a T13 de hoje ainda leem os códigos (protótipo: nenhuma tela do pacote 1 lê daqui). Sai junto com a conferência nova. */
-  CADEIA.versoes = { ativo: "A12", cercas: "G07", leitor: "L02", eventos: "E05", conexao: "C03" };
   CADEIA.leituraFinal = { redeDoModulo: "Mobs2 dados", servidor: "principal" };
   CASOS["bloco-recusado"] = { ativoId: "a-02", moduloSerial: "M2C-0301", bloco: "cercas",
     motivo: "O módulo não confirmou os pontos das áreas." };
@@ -927,12 +935,12 @@
         rotuloCampo: "Horas no painel",       fatorEnvio: 3600 }
     ],
     porModelo: {
-      "ma-01": { calibraveis: ["hodometro", "horimetro"],
+      "ma-01": { calibraveis: ["hodometro", "horimetro"], opcionais: ["horimetro"],
         indisponiveis: [{ grandeza: "rotacao", motivo: "já vem da CAN" },
                         { grandeza: "velocidade", motivo: "não precisa" }] },
       "ma-02": { calibraveis: ["rotacao", "velocidade", "hodometro"],
         indisponiveis: [{ grandeza: "horimetro", motivo: "sem horímetro" }] },
-      "ma-03": { calibraveis: ["horimetro"],
+      "ma-03": { calibraveis: ["horimetro"], opcionais: ["horimetro"],
         indisponiveis: [{ grandeza: "rotacao", motivo: "já vem da CAN" }] }
     },
     /* o MÓDULO derruba o que o cadastro dá: variante sem leitura de pulsos não
@@ -1035,7 +1043,6 @@
       { id: "a-serial",    secao: "A", rotulo: "Serial do módulo",  fonte: "serial",   origem: "conectar" },
       { id: "a-firmware",  secao: "A", rotulo: "Firmware",          fonte: "firmware", origem: "conectar" },
       { id: "a-ativo",     secao: "A", rotulo: "Ativo vinculado",   fonte: "ativo",    origem: "ativo" },
-      { id: "a-chassi",    secao: "A", rotulo: "Chassi",            fonte: "chassi",   origem: "ativo" },
 
       /* ⚠ O RÓTULO É O OBJETO; O VERBO É A RESPOSTA. `fixado`, `posicionado`,
          `protegido` e `livre` diziam a MESMA asserção cinco vezes — "está
@@ -1050,13 +1057,11 @@
       { id: "b-antena",         secao: "B", rotulo: "Antena GPS", pergunta: "Antena GPS posicionada e livre", foto: true },
       { id: "b-chicote",        secao: "B", rotulo: "Chicote",    pergunta: "Chicote e emendas protegidos",   foto: true },
       { id: "b-leitor",         secao: "B", rotulo: "Leitor",     pergunta: "Leitor posicionado", foto: true, condicao: "leitor" },
-      /* ⚠ O item que T10 já resolveu: a foto do painel satisfaz os dois
-         (HU-T10-4). O id é o mesmo de calibracao.itemChecklist — é por ele
-         que o vínculo é encontrado, e é por isso que T13 NÃO pede a foto de
-         novo. Sem calibração na sessão, o item não se aplica. */
+      /* A foto do painel é tirada AQUI (decisão 52): a calibração não fotografa mais. O item só existe
+         quando houve calibração na sessão — e aí é obrigatório, como as outras fotos da B. */
       { id: "b-painel-legivel", secao: "B", rotulo: "Painel",
         pergunta: "Painel com hodômetro e horímetro legíveis",
-        foto: true, condicao: "calibracao", herda: "calibracao" },
+        foto: true, condicao: "calibracao" },
 
       { id: "c-alimentacao", secao: "C", rotulo: "Alimentação",       fonte: "alimentacao", origem: "can" },
       { id: "c-gps",         secao: "C", rotulo: "GPS e antena",      fonte: "gps",         origem: "conectar" },
@@ -1065,12 +1070,12 @@
 
       { id: "d-limpeza",   secao: "D", rotulo: "Limpeza",              fonte: "bloco:limpeza", origem: "configurar" },
       { id: "d-ativo",     secao: "D", rotulo: "Tradução da CAN",      fonte: "bloco:ativo",   origem: "configurar" },
-      { id: "d-cercas",    secao: "D", rotulo: "Pontos de cerca",      fonte: "bloco:cercas",  origem: "configurar" },
-      { id: "d-leitor",    secao: "D", rotulo: "Identificadores",      fonte: "bloco:leitor",  origem: "configurar" },
+      { id: "d-cercas",    secao: "D", rotulo: "Cercas",               fonte: "bloco:cercas",  origem: "configurar" },
+      { id: "d-extended",  secao: "D", rotulo: "Extended ID",          fonte: "identificadores", origem: "conectar" }, /* só leitura: a v1 não grava cartões */
       { id: "d-eventos",   secao: "D", rotulo: "Eventos",              fonte: "bloco:eventos", origem: "configurar" },
-      { id: "d-conexao",   secao: "D", rotulo: "Rede do módulo",       fonte: "bloco:conexao", origem: "configurar" },
+      { id: "d-conexao",   secao: "D", rotulo: "APN",                  fonte: "bloco:conexao", origem: "configurar" },
       { id: "d-servidor",  secao: "D", rotulo: "Endereço",             fonte: "servidor",      origem: "configurar" },
-      { id: "d-versao",    secao: "D", rotulo: "Versão gravada",       fonte: "versao",        origem: "configurar" },
+      { id: "d-leitor",    secao: "D", rotulo: "Leitor",               fonte: "bloco:leitor",  origem: "configurar" }, /* o módulo não guarda versão (decisão 49) */
       { id: "d-hodometro", secao: "D", rotulo: "Hodômetro",            fonte: "cal:hodometro", origem: "calibracao" },
       { id: "d-horimetro", secao: "D", rotulo: "Horímetro",            fonte: "cal:horimetro", origem: "calibracao" },
 
@@ -1085,9 +1090,9 @@
      ⚠ UM ÚNICO ENCURTAMENTO, medido: `Movimento detectado` pede 164,7 e a
      faixa do rótulo dentro do contêiner é 144. O passo canônico segue
      inteiro em `pergunta`; só a coluna encurta. */
-  var E_ENCURTA = { "Movimento detectado": "Movimento" };
+  var E_ENCURTA = {}; /* o "Movimento detectado" saiu (ciclo parado); "Cartão do motorista" cabe inteiro na coluna */
   PASSOS_CICLO.forEach(function (p, i) {
-    CHECKLIST.itens.splice(23 + i, 0,
+    CHECKLIST.itens.splice(CHECKLIST.itens.filter(function (x) { return x.secao < "E"; }).length + i, 0,
       { id: "e-" + (i + 1), secao: "E", rotulo: E_ENCURTA[p] || p, pergunta: p, fonte: "ciclo", origem: "ciclo" });
   });
   /* C17 · caso ADITIVO — O ATIVO QUE CHEGA PRONTO PARA FECHAR. Sem ele, com
@@ -1133,15 +1138,12 @@
      um caso. `modulo-com-pendencias` (12 + 3) continua intacto e SOBREPÕE
      quando o serial da sessão é o dele — consumir só o caso deixaria a
      drenagem inalcançável, porque a-06 não é selecionável (ver o comentário
-     de `pronto-para-fechar`).
-     `viagem.distanciaKm` é o que o deslocamento andou: o hodômetro final
-     DERIVA do inicial (a tela soma), nunca um segundo literal que possa
-     contradizer o primeiro. */
+     de `pronto-para-fechar`). */
   var CICLO = {
     prazoEventoSeg: 120,
     evento: { recebidoAosSeg: 24, conferidoAosSeg: 33 },
-    mensagensGuardadas: { mensagens: 6, diagnostico: 2 },
-    viagem: { distanciaKm: 3 }
+    mensagensGuardadas: { mensagens: 6, diagnostico: 2 }
+    /* sem viagem: o ciclo de testes é feito com o ônibus parado (decisão 54) — o hodômetro final é o inicial */
   };
 
   /* A leitura dos sinais de fase DINÂMICA — os que só existem com o veículo
@@ -1153,8 +1155,8 @@
      sobrepõe estes valores: é ele que finalmente ganha consumidor, reservado
      ao ciclo dinâmico desde o C11. */
   var LIDO_DINAMICO = {
-    "ma-01": { alternador: "14,1 V", velocidade: "38 km/h", re: "acendeu", rotacao: "1.180 rpm", consumo: "9,4 L/h" },
-    "ma-02": { velocidade: "31 km/h", rotacao: "1.240 rpm" },
+    "ma-01": { alternador: "14,1 V", re: "acendeu", rotacao: "980 rpm", consumo: "1,8 L/h" }, /* parado, em marcha lenta (decisão 54) */
+    "ma-02": { velocidade: "0 km/h", rotacao: "780 rpm" }, /* a velocidade só com tacógrafo digital — o ma-02 tem */
     "ma-03": { rotacao: "1.050 rpm" }
   };
   MODELOS_ATIVO.forEach(function (m) {
@@ -1215,7 +1217,9 @@
      o passo "Movimento detectado" (T14/03, T14-A8). As chaves são ids de sinal
      dinâmico do ma-01; os valores, passos canônicos da i-01 (PASSOS_CICLO).
      A frase da causa ("devia passar de zero") é texto, do textos.md (G9). */
-  CICLO.passoDoSinal = { velocidade: "Movimento detectado", re: "Ré acionada" };
+  /* pacote 2 (decisão 54): o ciclo é parado — a rotação pede o motor ligado (T14/03), e a velocidade só entra com
+     tacógrafo digital (o passo dela não vem daqui). Era { velocidade: "Movimento detectado", re: … }, que o merge deixou. */
+  CICLO.passoDoSinal = { rotacao: "Rotação", re: "Ré acionada" };
 
   /* protótipo C11 (T12) · AC-16 — os grupos por idade da lista das últimas
      instalações (T12·1 a, T12-A4): HOJE, ONTEM, ESTE MÊS e MAIS DE UM MÊS saem
@@ -1246,7 +1250,6 @@
      do objeto, pra não mudar a ordem de nenhuma de antes. */
   var TIPOS_FILA = [
     { tipo: "Evidências da instalação", rotuloCurto: "Evidências" },
-    { tipo: "Foto de calibração",       rotuloCurto: "Calibração" },
     { tipo: "Checklist de homologação", rotuloCurto: "Checklist" },
     { tipo: "Registro da sessão",       rotuloCurto: "Registro da sessão" },
     { tipo: "Diagnóstico",              rotuloCurto: "Diagnóstico" }

@@ -8,7 +8,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `01-momento-detalhe-da-instalacao`
 
-`14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `RKT-8H42` · `aprovada` · `M2C-0417 · hoje, 11:47 · Rafael Vieira` · `O QUE O SERVIDOR RECEBEU` · `Posicionamento` · `3 posições em 1 min 12 s` · `conforme` · `Eventos` · `o teste chegou em 24 s` · `conforme` · `Viagens` · `1 viagem fechada · 3 km` · `completa` · `A INSTALAÇÃO` · `Diagnóstico` · `7 de 7` · `Configuração` · `6 blocos relidos` · `Calibração` · `hodômetro · com foto` · `Ciclo dinâmico` · `5 de 5` · `Checklist` · `31 de 31` · `Autoteste` · `8 de 8` · `Voltar às instalações`
+`14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `RKT-8H42` · `aprovada` · `M2C-0417 · hoje, 11:47 · Rafael Vieira` · `O QUE O SERVIDOR RECEBEU` · `Posicionamento` · `3 posições em 1 min 12 s` · `conforme` · `Eventos` · `o teste chegou em 24 s` · `conforme` · `A INSTALAÇÃO` · `Diagnóstico` · `7 de 7` · `Configuração` · `6 blocos relidos` · `Calibração` · `hodômetro e horímetro` · `Ciclo de testes` · `6 de 6` · `Checklist` · `31 de 31` · `Autoteste` · `8 de 8` · `Voltar às instalações`
 
 ## `02-estado-nenhuma-instalacao`
 
@@ -20,8 +20,8 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `04-estado-criterio-indisponivel`
 
-`14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `PCX-9A17` · `aguardando validação` · `M2C-0312 · ontem, 16:05 · Rafael Vieira` · `O QUE O SERVIDOR RECEBEU` · `Posicionamento` · `3 posições em 1 min 12 s` · `conforme` · `Eventos` · `o pacote não declara a fila` · `indisponível` · `Viagens` · `1 viagem fechada · 1,1 km` · `completa` · `A INSTALAÇÃO` · `Diagnóstico` · `7 de 7` · `Configuração` · `6 blocos relidos` · `Calibração` · `hodômetro · com foto` · `Ciclo dinâmico` · `5 de 5` · `Checklist` · `31 de 31` · `Autoteste` · `8 de 8` · `Voltar às instalações`
+`14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `PCX-9A17` · `aguardando validação` · `M2C-0312 · ontem, 16:05 · Rafael Vieira` · `O QUE O SERVIDOR RECEBEU` · `Posicionamento` · `3 posições em 1 min 12 s` · `conforme` · `Eventos` · `o pacote não declara a fila` · `indisponível` · `A INSTALAÇÃO` · `Diagnóstico` · `7 de 7` · `Configuração` · `6 blocos relidos` · `Calibração` · `hodômetro e horímetro` · `Ciclo de testes` · `6 de 6` · `Checklist` · `31 de 31` · `Autoteste` · `8 de 8` · `Voltar às instalações`
 
 ## `05-estado-criterio-pendente`
 
-`14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `PCX-9A17` · `aguardando validação` · `M2C-0312 · ontem, 16:05 · Rafael Vieira` · `O QUE O SERVIDOR RECEBEU` · `Posicionamento` · `sem resposta · confere por 24 h` · `pendente` · `Eventos` · `o teste chegou em 52 s` · `conforme` · `Viagens` · `1 viagem fechada · 1,1 km` · `completa` · `A INSTALAÇÃO` · `Diagnóstico` · `7 de 7` · `Configuração` · `6 blocos relidos` · `Calibração` · `hodômetro · com foto` · `Ciclo dinâmico` · `5 de 5` · `Checklist` · `31 de 31` · `Autoteste` · `8 de 8` · `Voltar às instalações`
+`14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `PCX-9A17` · `aguardando validação` · `M2C-0312 · ontem, 16:05 · Rafael Vieira` · `O QUE O SERVIDOR RECEBEU` · `Posicionamento` · `sem resposta · confere por 24 h` · `pendente` · `Eventos` · `o teste chegou em 52 s` · `conforme` · `A INSTALAÇÃO` · `Diagnóstico` · `7 de 7` · `Configuração` · `6 blocos relidos` · `Calibração` · `hodômetro e horímetro` · `Ciclo de testes` · `6 de 6` · `Checklist` · `31 de 31` · `Autoteste` · `8 de 8` · `Voltar às instalações`

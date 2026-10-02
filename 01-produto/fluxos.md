@@ -8,7 +8,7 @@ flowchart TD
   T04 --> T05[T05 Conectar módulo]
   T05 -- conectado · a faixa da sessão desce --> T07[T07 Diagnóstico do módulo]
   T07 -- nenhuma trava --> T06[T06 Selecionar ativo] -- o vínculo --> T09[T09 Configurar módulo] --> T10[T10 Calibração]
-  T10 --> T14[T14 Ciclo dinâmico] --> T13[T13 Checklist]
+  T10 --> T14[T14 Ciclo de testes] --> T13[T13 Checklist]
   T13 -- homologado --> T16[T16 Sessão · encerrar]
   T16 -- a faixa sobe --> T04
   T04 -.consultas.-> T15[T15 Fila de saída]

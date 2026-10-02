@@ -57,6 +57,11 @@ const glifoDoPoco = (variante, estado, tam) => (variante === 'recebimento' && es
 //   nome: o que o módulo tem, em vermelho, e o que o cadastro manda, em
 //   --tinta-secundaria, a 3 um do outro; a linha cresce, com 10 em cima e
 //   embaixo, e fica sem o valor à direita (T11/00).
+//   O pacote 2 (decisão 53, T11/00 e 05): o par também desenha o Extended ID com
+//   par na tela, no estado 'informa' (o i cinza; as duas linhas em
+//   --tinta-secundaria: o que está no módulo e o só leitura), e o revisar em
+//   seguida, no estado 'pendente' (o relógio; a linha de cima em --tinta, o porquê
+//   embaixo). Sem o porquê (`cadastro` nulo), só a linha de cima.
 // · `valorAceso` — o valor em --tinta, e não em --tinta-secundaria: o bloco que
 //   confere quando a conferência não bate por outra razão (T11/01).
 // · `acende` — a leitura chegou nesta linha na frente de quem olha: o glifo, e
@@ -72,8 +77,9 @@ const glifoDoPoco = (variante, estado, tam) => (variante === 'recebimento' && es
 //   do cartão, sem divisória (54, T16/02, 04 e 05).
 // C10 · T14 (G11): `recheioCausa` — no passo do ciclo, a linha que cresce com a
 // causa abre o recheio que a referência desenha, e a causa fica na entrelinha do
-// texto: 'largo' (8 em cima e embaixo, o passo reprovado no meio da lista, T14/03)
-// ou 'justo' (4, o teste do cartão, a última linha, T14/04). Sem ele, os 6 de sempre.
+// texto: 'justo' (4 em cima e embaixo — o passo reprovado, a rotação zerada da
+// T14/03 e o cartão da T14/04, desde o pacote 2) ou 'largo' (8, a T14/03 de antes
+// do pacote 2; fica na peça, sem uso nas telas). Sem ele, os 6 de sempre.
 // C11 · T12 (G11, G25): `valorQuebra` — o título não quebra, e o valor longo quebra
 // em duas linhas, alinhado à direita, dentro da mesma altura: o recebimento de
 // outra unidade, sem referência ('confirmado após reprocessamento', T12·2). O que
@@ -144,7 +150,7 @@ export function LinhaChecagem({
         {causa && <span key={cCausa.vez} className={`ds-checagem-causa ${nasce(cCausa)}`}>{causa}</span>}
         {nota && <span key={cNota.vez} className={`ds-checagem-causa ds-checagem-nota ${nasce(cNota)}`}>{nota}</span>}
         {par && <span key={cModulo.vez} className={`ds-checagem-par ds-checagem-par-modulo ${nasce(cModulo)}`} aria-hidden={lendo ? 'true' : undefined}>{par.modulo}</span>}
-        {par && <span className="ds-checagem-par ds-checagem-par-cadastro">{par.cadastro}</span>}
+        {par?.cadastro != null && <span className="ds-checagem-par ds-checagem-par-cadastro">{par.cadastro}</span>}
       </span>
       {valor != null && <span key={cValor.vez} className={`ds-checagem-valor ${nasce(cValor)}`}>{valor}</span>}
     </div>

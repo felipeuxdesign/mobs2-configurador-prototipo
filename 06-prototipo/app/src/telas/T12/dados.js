@@ -6,7 +6,6 @@
 //   as seis da i-01, ou só as linhas que o resumo sustenta (T12·2 a)
 // · o mundo de cada estado da coluna, pela receita (receitas.js)
 import { M } from '../../dados/mock.js'
-import { decimal } from '../../dados/formato.js'
 import { TX } from './textos.js'
 
 export const REF = {
@@ -94,10 +93,13 @@ export function linhaDoDetalhe(i) {
 // Os três critérios, cada um com o veredito e o porquê numa linha. O dado é o
 // `recebimento` da instalação (a i-01) ou o do caso (a PCX-9A17 dos estados 04
 // e 05). A instalação sem `recebimento` — as outras doze do mock — tem o
-// veredito da regra dos três critérios do mock (criteriosRegra.porEstado, com a
+// veredito da regra dos critérios do mock (criteriosRegra.porEstado, com a
 // exceção da i-09), e fica sem o porquê: o mock não tem o número dela, e nada se
-// inventa (padrão do protótipo, pro arquiteto)
-const CRITERIOS = ['posicionamento', 'eventos', 'viagens']
+// inventa (padrão do protótipo, pro arquiteto). O pacote 2 (decisão 54): o
+// servidor confere o posicionamento e os eventos — a viagem saiu, porque o ciclo
+// de testes é parado. O mock ainda traz `viagens` no recebimento da i-01 e dos
+// dois casos: fica sem leitor (pro arquiteto, tirar do mock)
+const CRITERIOS = ['posicionamento', 'eventos']
 // a natureza de cada veredito, pro glifo e a tinta da linha (LinhaChecagem
 // 'recebimento'): o que chegou é o check; o parâmetro que o pacote não declara é
 // o traço; o servidor que não respondeu — e a posição que chegou tarde — é o
@@ -113,13 +115,11 @@ function duracao(seg) {
   if (!m) return TX.seg(s)
   return s ? `${TX.min(m)} ${TX.seg(s)}` : TX.min(m)
 }
-const km = (n) => decimal(n, Number.isInteger(n) ? 0 : 1)
 function porqueDe(id, c) {
   if (c.estado === 'pendente') return TX.confereDeNovo(c.motivo, c.confereDeNovoPorHoras)
   if (c.estado === 'indisponivel') return c.motivo
   if (id === 'posicionamento') return TX.posicoesEm(c.posicoes, duracao(c.emSeg))
-  if (id === 'eventos') return TX.testeChegouEm(duracao(c.recebidoAosSeg))
-  return TX.viagemFechada(km(c.km))
+  return TX.testeChegouEm(duracao(c.recebidoAosSeg))
 }
 export function criteriosDe(i, recebimento = i.recebimento) {
   const regra = regraDe(i)
@@ -161,6 +161,21 @@ function diagnosticoDe(e) {
   const passou = e.preChecagem && e.preChecagem.passaram === e.preChecagem.checagens
   return { linhas: linhas.length, conferiram: passou ? linhas.filter((l) => l.heroi != null).length : 0 }
 }
+// A calibração da instalação (o pacote 2, decisão 52 · T12/01: 'hodômetro e
+// horímetro'): as grandezas que o modelo do ativo calibra (calibracao.porModelo,
+// as calibráveis de partida, na ordem do cadastro), com o nome em caixa baixa —
+// sem a foto, que saiu da calibração. Desvio nomeado, pro arquiteto: a i-01 do
+// mock ainda guarda `calibracao: { grandeza: 'hodômetro', foto: true }`, de antes
+// do pacote; quando ela ganhar as grandezas dela (`grandezas`), a linha lê dela
+const ateUltimo = (nomes) => (nomes.length > 1 ? `${nomes.slice(0, -1).join(', ')}${TX.e}${nomes.at(-1)}` : nomes[0])
+function calibracaoDe(i) {
+  const cal = i.etapas.calibracao
+  if (cal.grandezas) return ateUltimo(cal.grandezas)
+  const modelo = M.ativos.find((a) => a.id === i.ativoId)?.modeloAtivoId
+  const ids = M.calibracao.porModelo[modelo]?.calibraveis ?? []
+  const nomes = M.calibracao.grandezas.filter((g) => ids.includes(g.id) && g.natureza === 'partida').map((g) => g.rotulo.toLowerCase())
+  return nomes.length ? ateUltimo(nomes) : cal.grandeza
+}
 const contagem = (titulo, feito, total, extra = {}) => ({ titulo, valor: TX.deN(feito, total), ok: feito === total, ...extra })
 
 // as linhas da instalação (T12·2 a): as seis etapas da i-01, lidas das etapas; nas
@@ -177,7 +192,7 @@ export function linhasDoDetalhe(i) {
     return [
       contagem(E.diagnostico, diag.conferiram, diag.linhas),
       { titulo: E.configuracao, valor: TX.blocosRelidos(relidos), ok: relidos === e.cadeia.length },
-      { titulo: E.calibracao, valor: e.calibracao.foto ? TX.comFoto(e.calibracao.grandeza) : e.calibracao.grandeza, ok: true },
+      { titulo: E.calibracao, valor: calibracaoDe(i), ok: true },
       contagem(E.ciclo, e.cicloDinamico.confirmados, e.cicloDinamico.passos.length),
       contagem(E.checklist, e.checklist.concluidos, e.checklist.itens),
       contagem(E.autoteste, e.autoteste.passaram, e.autoteste.assertivas),

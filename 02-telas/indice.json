@@ -1,6 +1,6 @@
 {
  "telas": 15,
- "referencias": 145,
+ "referencias": 142,
  "itens": [
   {
    "id": "T01/00-tela",
@@ -1218,30 +1218,6 @@
    "png": "02-telas/T10-calibracao/referencias/png/05-momento-hodometro-digitado.png"
   },
   {
-   "id": "T10/06-momento-camera-do-painel",
-   "tela": "T10",
-   "pasta": "T10-calibracao",
-   "tipo": "momento",
-   "nome": "06-momento-camera-do-painel",
-   "titulo": "T10 · camera do painel",
-   "como": "tocar em `Fotografar o painel`",
-   "caso": "",
-   "html": "02-telas/T10-calibracao/referencias/html/06-momento-camera-do-painel.html",
-   "png": "02-telas/T10-calibracao/referencias/png/06-momento-camera-do-painel.png"
-  },
-  {
-   "id": "T10/07-momento-painel-fotografado",
-   "tela": "T10",
-   "pasta": "T10-calibracao",
-   "tipo": "momento",
-   "nome": "07-momento-painel-fotografado",
-   "titulo": "T10 · painel fotografado · pronto pra semear",
-   "como": "`Tirar foto`",
-   "caso": "",
-   "html": "02-telas/T10-calibracao/referencias/html/07-momento-painel-fotografado.html",
-   "png": "02-telas/T10-calibracao/referencias/png/07-momento-painel-fotografado.png"
-  },
-  {
    "id": "T10/08-momento-horimetro",
    "tela": "T10",
    "pasta": "T10-calibracao",
@@ -1277,20 +1253,6 @@
    "html": "02-telas/T10-calibracao/referencias/html/10-estado-releitura-nao-confere.html",
    "png": "02-telas/T10-calibracao/referencias/png/10-estado-releitura-nao-confere.png",
    "rotulo": "Releitura não confere",
-   "rotuloOrigem": "proposto"
-  },
-  {
-   "id": "T10/11-estado-camera-sem-permissao",
-   "tela": "T10",
-   "pasta": "T10-calibracao",
-   "tipo": "estado",
-   "nome": "11-estado-camera-sem-permissao",
-   "titulo": "T10 · camera sem permissao",
-   "como": "o técnico negou a permissão da câmera",
-   "caso": "camera-sem-permissao",
-   "html": "02-telas/T10-calibracao/referencias/html/11-estado-camera-sem-permissao.html",
-   "png": "02-telas/T10-calibracao/referencias/png/11-estado-camera-sem-permissao.png",
-   "rotulo": "Câmera sem permissão",
    "rotuloOrigem": "proposto"
   },
   {
@@ -1344,17 +1306,17 @@
    "png": "02-telas/T11-conferir-configuracao/referencias/png/03-momento-outras-acoes.png"
   },
   {
-   "id": "T11/04-estado-versao-ilegivel",
+   "id": "T11/05-estado-revisar-em-seguida",
    "tela": "T11",
    "pasta": "T11-conferir-configuracao",
    "tipo": "estado",
-   "nome": "04-estado-versao-ilegivel",
-   "titulo": "T11 · a versão que não se lê",
-   "como": "a versão do módulo está ausente, truncada ou num formato desconhecido",
-   "caso": "versao-ilegivel",
-   "html": "02-telas/T11-conferir-configuracao/referencias/html/04-estado-versao-ilegivel.html",
-   "png": "02-telas/T11-conferir-configuracao/referencias/png/04-estado-versao-ilegivel.png",
-   "rotulo": "Versão ilegível",
+   "nome": "05-estado-revisar-em-seguida",
+   "titulo": "T11 · revisar em seguida",
+   "como": "reenviou as cercas numa manutenção — o leitor e os eventos dependem delas",
+   "caso": "cercas-reenviadas",
+   "html": "02-telas/T11-conferir-configuracao/referencias/html/05-estado-revisar-em-seguida.html",
+   "png": "02-telas/T11-conferir-configuracao/referencias/png/05-estado-revisar-em-seguida.png",
+   "rotulo": "Revisar em seguida",
    "rotuloOrigem": "proposto"
   },
   {
@@ -1553,7 +1515,7 @@
    "nome": "09-estado-item-reprovado",
    "titulo": "T13 · item reprovado",
    "como": "um item automático reprova",
-   "caso": "can-fora-esperado",
+   "caso": "can-estatico-bateria",
    "html": "02-telas/T13-checklist/referencias/html/09-estado-item-reprovado.html",
    "png": "02-telas/T13-checklist/referencias/png/09-estado-item-reprovado.png",
    "rotulo": "Item reprovado",
@@ -1604,7 +1566,7 @@
    "tipo": "momento",
    "nome": "13-momento-e-resolvida",
    "titulo": "T13 · E Teste dinamico resolvida",
-   "como": "voltar do ciclo dinâmico com os cinco passos feitos",
+   "como": "voltar do ciclo de testes com os seis passos feitos",
    "caso": "",
    "html": "02-telas/T13-checklist/referencias/html/13-momento-e-resolvida.html",
    "png": "02-telas/T13-checklist/referencias/png/13-momento-e-resolvida.png"
@@ -1680,8 +1642,8 @@
    "tipo": "estado",
    "nome": "03-estado-dinamico-fora-do-esperado",
    "titulo": "T14 · dinamico fora do esperado",
-   "como": "um sinal andando fora do esperado",
-   "caso": "can-fora-esperado",
+   "como": "a rotação não aparece: o motor está desligado",
+   "caso": "motor-desligado-no-ciclo",
    "html": "02-telas/T14-ciclo-dinamico/referencias/html/03-estado-dinamico-fora-do-esperado.html",
    "png": "02-telas/T14-ciclo-dinamico/referencias/png/03-estado-dinamico-fora-do-esperado.png",
    "rotulo": "Dinâmico fora do esperado",
@@ -1708,7 +1670,7 @@
    "tipo": "momento",
    "nome": "05-momento-ciclo-concluido",
    "titulo": "T14 · ciclo concluido",
-   "como": "os cinco passos e o evento",
+   "como": "os seis passos e o evento",
    "caso": "ciclo",
    "html": "02-telas/T14-ciclo-dinamico/referencias/html/05-momento-ciclo-concluido.html",
    "png": "02-telas/T14-ciclo-dinamico/referencias/png/05-momento-ciclo-concluido.png"

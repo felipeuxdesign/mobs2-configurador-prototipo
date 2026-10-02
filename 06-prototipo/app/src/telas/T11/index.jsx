@@ -1,69 +1,70 @@
 // T11 · Conferir configuração (02-telas/T11-conferir-configuracao): compara,
-// bloco a bloco, o que o módulo tem gravado com o que o cadastro manda, em
-// linguagem de negócio, e deixa o técnico corrigir, reenviar ou só registrar.
-// · Os blocos são os cinco versionados da cadeia (M.cadeia, sem a limpeza), na
-//   ordem canônica. O valor de cada linha é o que o cadastro manda: o do caso,
-//   no par do diff-divergente; o cadastro do próprio par, nos outros (AC-17, G9).
-// · O que não bate (a entrega do checklist, T11/00): cada bloco com o xis
-//   vermelho e o par embaixo do nome — no módulo, o noModulo do caso, em
-//   vermelho; no cadastro, o noCadastro. Todas as linhas têm 50, e a Conexão
-//   também (antes, 72).
+// linha a linha, o que o módulo tem gravado com o que o cadastro manda, em
+// linguagem de negócio, e deixa o técnico corrigir um bloco por vez, reenviar
+// a cadeia ou só registrar.
+// · As cinco linhas (o pacote 2, decisão 53): Cercas (em regiões), APN, Extended
+//   ID, Eventos e Leitor, nessa ordem. O Extended ID é só leitura — o i cinza no
+//   poço, os cartões e iButtons que estão no módulo — e fica fora da contagem: o
+//   contador conta as quatro que se comparam. Sem cartão nenhum, ele só informa
+//   (D5). O valor de cada linha é o que o cadastro manda: o do caso, no par do
+//   diff-divergente; o cadastro do próprio par, nos outros (AC-17, G9).
+// · O que não bate (T11/00): o xis vermelho e o par embaixo do nome — no módulo,
+//   o noModulo do caso, em vermelho; no cadastro, o noCadastro. Com par na tela,
+//   o Extended ID diz o que está no módulo e que é só leitura, nas duas linhas.
+// · O rodapé (decisão 53): `Corrigir` reenvia o primeiro bloco que diverge, na
+//   ordem da cadeia — na 00, `Corrigir as cercas`. Depois dele, os que dependem
+//   ficam *revisar em seguida*, pelo arraste do mock (as cercas levam o leitor e
+//   os eventos): o relógio no poço, a linha dizendo o porquê, o cabeçalho cinza
+//   com quantas, e `Revisar o leitor` (05). Com algum que ainda diverge, o link é
+//   o `Outras ações`; só com os de revisar, o `Voltar ao menu` (05).
+// · Corrigir e Revisar (D2): o estado único passa à T09 o modo e o bloco
+//   (etapas.ativo.modo = 'manutencao', etapas.ativo.bloco) — a T09 abre no
+//   escolher o bloco (08) com ele escolhido, e a cadeia curta o reenvia. A
+//   conferência guarda os blocos já reenviados (etapas.conferencia.reenviados) e
+//   lê o que a T09 acabou de reenviar (etapas.cadeia.reenviado, que ela limpa a
+//   cada pedido). Reaberta pelo menu, ela pede o próximo: depois do leitor, os eventos.
 // · A tela confere ao abrir (G27), sobre o desenho do quadro a que ela chega:
-//   cada bloco entra com o relógio no poço e vira check ou xis, um a cada
+//   cada linha entra com o relógio no poço e vira o glifo dela, uma a cada
 //   RITMOS.conferenciaLinhaMs (400 ms), no mesmo ritmo com reduzir movimento
-//   (movimento.md:47, G26); o que o módulo tem espera a leitura chegar no bloco,
+//   (movimento.md:47, G26); o que o módulo tem espera a leitura chegar na linha,
 //   e o glifo e ele esmaecem em 150 ms (animacao.md; com reduzir, direto). O
-//   relógio só liga depois da troca entre telas (C12·35 b): pelo menu, o
-//   primeiro bloco vira aos 550 ms (150 + 400); pelo endereço, aos 400. O
-//   veredito espera a última linha (C12·35, o retorno do diretor de 26/09, o
-//   padrão a): a caixa dele já está no lugar desde que a tela abre, com o
-//   desenho do quadro final, neutra — o traço no cinza, o poço vazio, o lugar
-//   da palavra guardado —, e a contagem acompanha as linhas no lugar do número
-//   (1 de 5 … 4 de 5); na quinta, a palavra e a cor entram em 150 (o Aviso,
-//   aguarda), e no 02 a legenda 'igual à do cadastro' da prova, no mesmo tique
-//   (a Prova, aguarda 'legenda'). Nada muda de lugar nem de altura, e o
-//   veredito só fala pro leitor no fim. No print (EM_QUADRO), num estado da
-//   coluna e na folha Outras ações aberta pelo endereço (03), nasce lida, parada:
-//   o quadro de cada referência é o do fim.
+//   relógio só liga depois da troca entre telas (C12·35 b): pelo menu, a primeira
+//   linha vira aos 550 ms (150 + 400); pelo endereço, aos 400. O veredito espera a
+//   última linha (C12·35, o padrão a): a caixa dele já está no lugar, neutra, e a
+//   contagem acompanha as que se comparam (1 de 4 … 3 de 4 — na linha do Extended
+//   ID ela não sobe); na quinta linha, a palavra e a cor entram em 150. No print
+//   (EM_QUADRO), num estado da coluna e na folha Outras ações aberta pelo
+//   endereço (03), nasce lida, parada: o quadro de cada referência é o do fim.
 // · O que diverge (T11·1, T11·2): a semente do painel (M2C-0438 + ONK-8Q90) é o
-//   par do diff-divergente e abre na 00, com os cinco não batendo. Aberta pelo
-//   menu com a sessão do herói (o par do conferencia-confere), nada diverge, e
-//   ela vai pro 02. Depois de regravar pela T09, a mesma sessão confere: o
-//   estado único registra a cadeia concluída (etapas.cadeia). O endereço do 02
+//   par do diff-divergente e abre na 00. Aberta pelo menu com a sessão do herói
+//   (o par do conferencia-confere), nada diverge, e ela vai pro 02. Depois de
+//   regravar a cadeia inteira pela T09, a mesma sessão confere. O endereço do 02
 //   monta o par que confere (G20), como a T04 ajusta o mundo do momento.
 // · O 01 (a coluna) é o índice que o app não classifica (indice-nao-classificado),
-//   no par da semente: os cinco blocos conferem, com o valor em --tinta, e o
-//   cabeçalho diz NÃO BATE COM O CADASTRO · 1 a mais — o conteúdo fora de todos
-//   os blocos, na nota entre a lista e a legenda (G24, T11-A5). No fluxo, o par da
-//   semente é o do diff-divergente, e a semente abre na 00: o 01 é só da coluna.
-// · O 04 (a coluna, a última entrega) é a versão que não se lê (versao-ilegivel),
-//   no par da semente: a linha de condição embaixo do título (a pré-condição, com
-//   o i), o diff por conteúdo com as 2 que o caso diz, e a legenda do arraste —
-//   o que corrigir leva junto, de M.cadeia.arraste.
-// · As ações (decisão 40, a última entrega · logica.md · As ações da conferência):
-//   o rodapé tem um botão e um link (lei 19) — Corrigir as N divergências e
-//   Outras ações, que abre a folha (03) com Reenviar os 5 blocos e Apenas
-//   registrar o diagnóstico, cada uma com o efeito embaixo. Sem divergência (o
-//   01), o Corrigir não aparece: o principal é o Reenviar, e o link, o Apenas
-//   registrar. No protótipo, o Corrigir e o Reenviar levam à cadeia da T09 (a
-//   de sempre, que regrava os seis); o Apenas registrar grava no estado único
-//   (etapas.conferencia) e volta ao menu, sem item na fila (G25, T11-V4).
-//   Voltar ao menu → T04 (02). ENCERRAR → antes do checklist, o diálogo
-//   Encerrar sem homologar? (decisão 36), e a T16 sem homologar (G23).
+//   no par da semente: as quatro conferem, e o cabeçalho diz NÃO BATE COM O
+//   CADASTRO · 1 a mais — o conteúdo fora de todos os blocos, na nota. O 05 (a
+//   coluna) é o cercas-reenviadas, no par do herói: as cercas conferem, e o leitor
+//   e os eventos ficam pra revisar em seguida.
+// · As outras ações (decisão 40): a folha Outras ações (03) tem Reenviar os 5
+//   blocos e Apenas registrar o diagnóstico, cada uma com o efeito embaixo. Sem
+//   divergência — só o conteúdo não reconhecido (01) —, o principal é o Reenviar,
+//   e o link, o Apenas registrar. Reenviar leva à cadeia inteira da T09 (o modo da
+//   manutenção volta ao que o vínculo decidiu); o Apenas registrar grava no estado
+//   único (etapas.conferencia) e volta ao menu, sem item na fila (G25, T11-V4).
+//   Voltar ao menu → T04. ENCERRAR → antes de homologar, o diálogo Encerrar sem
+//   homologar? (decisão 36), e a T16 sem homologar (G23).
 // · A folha Outras ações (lei 20) fecha no X, tocando fora, arrastando e no
-//   voltar do Android (o Esc), e a URL segue: o 03 com ela aberta, nada com ela
-//   fechada (G20). Por cima, o véu começa embaixo da faixa, que fica acesa e
-//   desabilitada, como a T11/03 desenha (e a T04/10); a tela atrás do véu fica
-//   inerte (G25). Sobe em 200 e desce em 150 (movimento.md); pelo endereço ou no
-//   print, nasce aberta, parada.
-// · O voltar do Android (logica.md): o link de saída do rodapé. No 02, o Voltar
-//   ao menu; no 01, o Apenas registrar o diagnóstico. Na 00 e no 04, o link é o
-//   Outras ações, que não sai da tela, e ele não faz nada (como o Procurar de
-//   novo da T05); com a folha aberta, fecha a folha.
+//   voltar do Android (o Esc), e a URL segue: o 03 com ela aberta (G20). O véu
+//   começa embaixo da faixa, que fica acesa e desabilitada, como a T11/03 desenha;
+//   a tela atrás do véu fica inerte (G25).
+// · O voltar do Android (logica.md): o link de saída do rodapé. No 02 e no revisar
+//   em seguida, o Voltar ao menu; no 01, o Apenas registrar o diagnóstico. Com o
+//   Outras ações no link, ele não sai da tela, e o voltar não faz nada; com a
+//   folha aberta, fecha a folha.
 import { useEffect, useState } from 'react'
 import {
-  BarraDoSistema, Faixa, CabecalhoConteudo, Aviso, Lista, LinhaChecagem, Nota, Prova, Rodape,
-  Veu, Folha, CartaoDeOpcoes, LinhaDeOpcao, Precondicao, ESTADOS, useFimDaTroca,
+  BarraDoSistema, Faixa, CabecalhoConteudo, Aviso, Lista, LinhaChecagem, Nota, Rodape,
+  Veu, Folha, CartaoDeOpcoes, LinhaDeOpcao, ESTADOS, useFimDaTroca,
 } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
@@ -75,8 +76,8 @@ import { M } from '../../dados/mock.js'
 // a presença da folha (entra fechada e sobe; sai descendo antes de desmontar) é a do que vem por cima
 import { usePresenca } from '../../ds/chrome/PorCima.jsx'
 import {
-  REF, BLOCOS, VERSAO_DO_CADASTRO, rotuloDe, ativoDe, mundoDoEstado,
-  divergenciasDo, cadastroDo, moduloDo, mundoQueConfere, arrasteDe,
+  REF, LINHAS, BLOCOS_DA_CADEIA, ativoDe, mundoDoEstado, divergenciasDo, reenviadosDa,
+  conferenciaDo, comparadasAte, mundoQueConfere,
 } from './conferencia.js'
 import { T } from './textos.js'
 import './t11.css'
@@ -106,43 +107,43 @@ export default function T11({ momento, estado: est }) {
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
   const mundo = aplicado ? unico : { ...unico, ...ajuste }
 
-  // Num estado da coluna, o mundo é o da receita (receitas.js): o 01 é o índice
-  // que o app não classifica, e o 04, a versão que não se lê — os dois no par da semente
+  // Num estado da coluna, o mundo é o da receita (receitas.js): o 01, o índice que
+  // o app não classifica; o 05, as cercas reenviadas
   const doEstado = mundoDoEstado(est)
   const par = doEstado ? doEstado.par : parDaSessao(mundo.sessao)
   const sessao = mundo.sessao ?? SEMENTE
-  const divergem = doEstado ? doEstado.divergem : divergenciasDo(par, mundo.etapas)
   const naoReconhecidos = doEstado?.naoReconhecidos ?? 0
-  const versaoIlegivel = doEstado?.versaoIlegivel ?? false
-  // tudo bate: nenhum bloco diverge, e nada fora deles (o 02)
-  const bate = divergem.length === 0 && naoReconhecidos === 0
-  // sem divergência, só o conteúdo não reconhecido (o 01): o Corrigir não aparece
-  const soReenviar = divergem.length === 0 && !bate
-  const cadastro = cadastroDo(par, sessao)
-  const modulo = moduloDo(par)
-  const total = BLOCOS.length
-  const arrasta = arrasteDe(divergem)
+  const conf = conferenciaDo({
+    par, sessao, naoReconhecidos,
+    divergem: doEstado ? doEstado.divergem : divergenciasDo(par, mundo.etapas),
+    reenviados: doEstado ? doEstado.reenviados : reenviadosDa(mundo.etapas),
+  })
+  const { linhas, naoBatem, aRevisar, total, proximo, bate } = conf
+  // sem nada pra reenviar um a um, só o conteúdo não reconhecido (o 01): o principal é o Reenviar
+  const soReenviar = !bate && !proximo
+  const blocos = BLOCOS_DA_CADEIA.length
 
-  // a folha Outras ações (03): a URL abre e fecha (G20); fora do que diverge, não há folha
-  const outrasPedida = est == null && !bate && momento === REF.outras
+  // a folha Outras ações (03): a URL abre e fecha (G20); só com o que ainda diverge
+  const outrasPedida = est == null && naoBatem > 0 && momento === REF.outras
   const outras = usePresenca(outrasPedida)
 
-  // a leitura: um bloco a cada 400 ms, na ordem da cadeia; parada no print, na
+  // a leitura: uma linha a cada 400 ms, na ordem da tela; parada no print, na
   // coluna e na folha aberta pelo endereço (o 03 é um quadro depois da leitura)
+  const nLinhas = LINHAS.length
   const [nasceuLida] = useState(() => EM_QUADRO || est != null || outrasPedida)
-  const [lidas, setLidas] = useState(() => (nasceuLida ? total : 0))
-  const lendo = lidas < total
+  const [lidas, setLidas] = useState(() => (nasceuLida ? nLinhas : 0))
+  const lendo = lidas < nLinhas
   // o relógio só liga depois da troca entre telas que trouxe a tela (C12·35 b): pelo menu,
-  // o primeiro bloco aos 150 + 400; pelo endereço (nada esmaece), aos 400
+  // a primeira linha aos 150 + 400; pelo endereço (nada esmaece), aos 400
   const fimDaTroca = useFimDaTroca()
   useEffect(() => {
     if (!lendo) return undefined
     let vivo = true, relogio = null
     fimDaTroca().then(() => {
-      if (vivo) relogio = setInterval(() => setLidas((n) => Math.min(n + 1, total)), RITMOS.conferenciaLinhaMs)
+      if (vivo) relogio = setInterval(() => setLidas((n) => Math.min(n + 1, nLinhas)), RITMOS.conferenciaLinhaMs)
     })
     return () => { vivo = false; clearInterval(relogio) }
-  }, [lendo, total]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [lendo, nLinhas]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // a URL segue o quadro (G20): nada diverge é o 02; o que diverge, a 00, ou o 03 com a folha aberta
   const quadro = bate ? REF.confere : outrasPedida ? REF.outras : null
@@ -153,12 +154,34 @@ export default function T11({ momento, estado: est }) {
 
   // os toques
   const ir = (tela, extra = {}) => despachar({ tipo: 'ir', tela, ...extra })
-  // o Corrigir e o Reenviar gravam pela cadeia da T09 (a de sempre, que regrava os seis)
-  const corrigir = () => ir('T09')
-  const reenviar = () => ir('T09')
+  const etapas = unico.etapas
+  const anotada = etapas.conferencia ?? {}
+  // Corrigir e Revisar (D2): um bloco por vez, pela manutenção da T09 — o modo e o
+  // bloco vão no registro do vínculo (etapas.ativo), e o modo que o vínculo tinha
+  // fica guardado pra cadeia inteira; o que a T09 reenviou antes entra na lista, e
+  // o lugar dela fica limpo pro próximo
+  const reenviarUm = (bloco) => {
+    const modoDoVinculo = 'modoDoVinculo' in anotada ? anotada.modoDoVinculo : etapas.ativo?.modo ?? null
+    despachar({ tipo: 'mesclar', parcial: { etapas: {
+      ...etapas,
+      ativo: { ...(etapas.ativo ?? {}), modo: 'manutencao', bloco },
+      cadeia: { ...(etapas.cadeia ?? {}), reenviado: null },
+      conferencia: { ...anotada, modoDoVinculo, reenviados: reenviadosDa(etapas) },
+    } } })
+    ir('T09')
+  }
+  // Reenviar os 5 blocos: a cadeia inteira da T09, com o modo que o vínculo decidiu
+  const reenviar = () => {
+    if ('modoDoVinculo' in anotada) {
+      const { bloco: _bloco, ...ativo } = etapas.ativo ?? {}
+      despachar({ tipo: 'mesclar', parcial: { etapas: { ...etapas, ativo: { ...ativo, modo: anotada.modoDoVinculo } } } })
+    }
+    ir('T09')
+  }
   // só registra o que a leitura achou, no estado único (G25: nenhum item na fila)
   const registrar = () => {
-    despachar({ tipo: 'mesclar', parcial: { etapas: { ...unico.etapas, conferencia: { diagnostico: 'registrado', blocos: divergem, as: M.HORA_NOMINAL } } } })
+    const blocosQueNaoBatem = linhas.filter((l) => l.estado === 'diverge').map((l) => l.id)
+    despachar({ tipo: 'mesclar', parcial: { etapas: { ...etapas, conferencia: { ...anotada, diagnostico: 'registrado', blocos: blocosQueNaoBatem, as: M.HORA_NOMINAL } } } })
     ir('T04')
   }
   const voltar = () => ir('T04')
@@ -169,28 +192,31 @@ export default function T11({ momento, estado: est }) {
   const enc = useEncerrar()
 
   // O voltar do Android (logica.md): no computador, o Esc — o mesmo que o link
-  // de saída do rodapé; com a folha aberta, fecha a folha. Na 00 (e no 04), o link
-  // é o Outras ações, que não sai da tela: não faz nada. Num estado da coluna, a peça não escuta.
-  useVoltar(outrasPedida ? fecharOutras : bate ? voltar : soReenviar ? registrar : null)
+  // de saída do rodapé; com a folha aberta, fecha a folha. Com o Outras ações no
+  // link, que não sai da tela, não faz nada. Num estado da coluna, a peça não escuta.
+  const linkSai = !bate && !soReenviar && naoBatem === 0
+  useVoltar(outrasPedida ? fecharOutras : bate || linkSai ? voltar : soReenviar ? registrar : null)
 
-  // o veredito: quantos não batem de 5; no 01, quantos conteúdos a mais. Enquanto lê, a
-  // caixa espera no lugar, neutra, com a contagem das linhas (C12·35 a, a peça: Aviso · aguarda)
-  const aguarda = lendo ? lidas : null
+  // o veredito: quantas não batem de 4; quantas ficam pra revisar; no 01, quantos
+  // conteúdos a mais. Enquanto lê, a caixa espera no lugar, neutra, com a contagem
+  // das que se comparam (C12·35 a, a peça: Aviso · aguarda)
+  const aguarda = lendo ? comparadasAte(lidas) : null
   const conta = T.deTotal(total)
-  let cabeca = <Aviso tom="veredito" titulo={T.confere} numero={total} unidade={T.deTotal(total)} aguarda={aguarda} aguardaUnidade={conta} />
-  if (divergem.length) cabeca = <Aviso glifo="xis" titulo={T.naoBate} numero={divergem.length} unidade={T.deTotal(total)} aguarda={aguarda} aguardaUnidade={conta} />
+  let cabeca = <Aviso tom="veredito" titulo={T.confere} numero={total} unidade={conta} aguarda={aguarda} aguardaUnidade={conta} />
+  if (naoBatem) cabeca = <Aviso glifo="xis" titulo={T.naoBate} numero={naoBatem} unidade={conta} aguarda={aguarda} aguardaUnidade={conta} />
+  else if (aRevisar) cabeca = <Aviso tom="neutro" glifo="relogio" titulo={T.revisarCabecalho} numero={aRevisar} aguarda={aguarda} aguardaUnidade={conta} />
   else if (!bate) cabeca = <Aviso glifo="xis" titulo={T.naoBate} numero={naoReconhecidos} unidade={T.aMais} aguarda={aguarda} aguardaUnidade={conta} />
 
-  // a legenda embaixo da lista: no 01, o que o Reenviar preserva; com o arraste (04), o que o Corrigir leva junto
-  const legenda = soReenviar ? T.preservaConexao
-    : arrasta ? T.arraste(arrasta.bloco, rotuloDe(arrasta.bloco), arrasta.levados.map((b) => [b, rotuloDe(b)]))
-      : null
-
-  // O rodapé (decisão 40, lei 19): um botão e um link
+  // O rodapé (decisão 53, lei 19): um botão e um link
   let rodape
   if (bate) rodape = <Rodape primario={T.voltar} aoPrimario={voltar} />
-  else if (soReenviar) rodape = <Rodape primario={T.reenviar(total)} aoPrimario={reenviar} link={T.registrar} aoLink={registrar} />
-  else rodape = <Rodape primario={T.corrigir(divergem.length)} aoPrimario={corrigir} link={T.outrasAcoes} aoLink={abrirOutras} />
+  else if (soReenviar) rodape = <Rodape primario={T.reenviar(blocos)} aoPrimario={reenviar} link={T.registrar} aoLink={registrar} />
+  else {
+    const primario = proximo.acao === 'corrigir' ? T.corrigir(proximo.bloco) : T.revisar(proximo.bloco)
+    rodape = naoBatem
+      ? <Rodape primario={primario} aoPrimario={() => reenviarUm(proximo.bloco)} link={T.outrasAcoes} aoLink={abrirOutras} />
+      : <Rodape primario={primario} aoPrimario={() => reenviarUm(proximo.bloco)} link={T.voltar} aoLink={voltar} />
+  }
 
   // a tela atrás do véu da folha fica inerte (G25); a faixa, acesa em cima dele, desabilitada
   const atras = outras.montado ? '' : undefined
@@ -203,23 +229,15 @@ export default function T11({ momento, estado: est }) {
       <div className="t11-corpo" inert={atras}>
         <div className="tela-miolo t11-miolo">
           <CabecalhoConteudo titulo={T.titulo} />
-          {versaoIlegivel && <Precondicao estado="info">{T.versaoIlegivel}</Precondicao>}
           <div className="t11-veredito">{cabeca}</div>
           <Lista>
-            {BLOCOS.map((b, i) => {
-              const diverge = divergem.includes(b)
-              return (
-                <LinhaChecagem key={b} variante="conferencia" estado={diverge ? 'diverge' : 'aprovada'} nomeGlifo={diverge ? NOME_DIVERGE : undefined}
-                  titulo={rotuloDe(b)} valor={diverge ? undefined : cadastro[b]} valorAceso={soReenviar}
-                  par={diverge ? { modulo: T.noModulo(modulo[b]), cadastro: T.noCadastro(cadastro[b]) } : undefined}
-                  divisoria={i < total - 1} lendo={i >= lidas} />
-              )
-            })}
+            {linhas.map((l, i) => (
+              <LinhaChecagem key={l.id} variante="conferencia" estado={l.estado} nomeGlifo={l.estado === 'diverge' ? NOME_DIVERGE : undefined}
+                titulo={l.titulo} valor={l.valor} par={l.par} divisoria={i < nLinhas - 1} lendo={i >= lidas} />
+            ))}
           </Lista>
-          {naoReconhecidos > 0 && <Nota tom="achado" titulo={T.naoReconhece} frase={T.foraDosBlocos(total)} />}
-          {/* no 02, o bloco da prova já está inteiro no lugar, e só a legenda espera a quinta linha (C12·35 a) */}
-          {bate && <Prova tipo="cadeia" rotulo={T.versaoLida} versao={VERSAO_DO_CADASTRO} legenda={T.igualAoCadastro} aguarda={lendo ? 'legenda' : null} />}
-          {legenda && <span className="t11-legenda">{legenda}</span>}
+          {naoReconhecidos > 0 && <Nota tom="achado" titulo={T.naoReconhece} frase={T.foraDosBlocos(blocos)} />}
+          {soReenviar && <span className="t11-legenda">{T.preservaConexao}</span>}
         </div>
         {rodape}
       </div>
@@ -228,7 +246,7 @@ export default function T11({ momento, estado: est }) {
           <Veu de="folha" visivel={outras.visivel}>
             <Folha titulo={T.outrasAcoes} rotuloFechar={T.fechar} puxador={false} aoFechar={fecharOutras} aberta={outras.visivel}>
               <CartaoDeOpcoes>
-                <LinhaDeOpcao variante="efeito" icone="reenviar" titulo={T.reenviar(total)} detalhe={T.efeitoReenviar} aoTocar={reenviar} />
+                <LinhaDeOpcao variante="efeito" icone="reenviar" titulo={T.reenviar(blocos)} detalhe={T.efeitoReenviar} aoTocar={reenviar} />
                 <LinhaDeOpcao variante="efeito" icone="diagnostico" titulo={T.registrar} detalhe={T.efeitoRegistrar} aoTocar={registrar} />
               </CartaoDeOpcoes>
             </Folha>

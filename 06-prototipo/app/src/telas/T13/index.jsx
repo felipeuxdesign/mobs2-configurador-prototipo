@@ -6,10 +6,11 @@
 //   seções de baixo descem e a lista rola; nada mais se mexe. Uma aberta por
 //   vez: tocar em outra troca, e tocar na aberta fecha.
 // · Tem seta, toca; sem seta, é leitura (Lei 16). A foto por fazer abre a
-//   câmera do app (07); o automático que falta leva à tela que resolve, pelo
-//   `origem` do mock (conectar → T05, ativo → T06, can → T08, configurar →
-//   T09, calibração → T10); o que reprovou abre o nível do item (09). Na E,
-//   uma ação só, Fazer o ciclo dinâmico → T14. A F não tem ação.
+//   câmera do app (07) — o Painel também, quando houve calibração (decisão 52);
+//   o automático que falta leva à tela que resolve, pelo `origem` do mock
+//   (conectar → T05, ativo → T06, can → T07, configurar → T09, calibração →
+//   T10); o que reprovou abre o nível do item (09). Na E, uma ação só, Fazer o
+//   ciclo de testes → T14. A F não tem ação.
 // · Cada item lê a etapa que o produziu no estado único (checklist.js). Pular
 //   pelo palco semeia só a sessão: o que as telas T05 a T10 gravariam no
 //   caminho vem da semente da T13 — o herói depois da calibração, antes do
@@ -30,7 +31,7 @@
 //   quadro e o visor fica sem frase (G25), e a URL sai do momento; nenhum
 //   estado da coluna chega nele.
 // · O automático reprovado: o nível do item (09) mostra o motivo e o caminho,
-//   Refazer a leitura da CAN → T08 (T13·2). Nada se marca à mão.
+//   Refazer o diagnóstico → T07 (T13·2). Nada se marca à mão.
 // · Finalizar instalação acende quando o que bloqueia fecha (A a E); o toque
 //   gera o relatório na fila (HU-T13-7) e o homologado aparece depois (T13·3):
 //   o veredito e o relatório no topo — com a localização negada, o relatório
@@ -304,11 +305,11 @@ export default function T13({ momento, estado: est }) {
       <>
         <Segmentado rotulo={rotuloDoNivel(nivel.secao)} contagem={String(nivel.posicao)} total={T.de(nivel.total)} segmentos={nivel.segmentos} />
         <h1 className="t13-titulo-item">{nivel.item.pergunta ?? nivel.item.rotulo}</h1>
-        {instrumento && <InstrumentoDoItem rotulo={T.lidoNaCan} {...instrumento} />}
+        {instrumento && <InstrumentoDoItem rotulo={T.lidoNoModulo} {...instrumento} />}
         {NOTA_DO_REPROVADO[q.item] && <Nota tom="explica" corpo="item" titulo={T.naoSeMarca} frase={NOTA_DO_REPROVADO[q.item]} />}
       </>
     )
-    rodape = <Rodape primario={T.refazerCan} aoPrimario={() => ir('T07')} link={T.voltarChecklist} aoLink={voltarAoChecklist} />
+    rodape = <Rodape primario={T.refazerDiagnostico} aoPrimario={() => ir('T07')} link={T.voltarChecklist} aoLink={voltarAoChecklist} />
   } else {
     // as seções: o título com a contagem, a barra, o veredito (homologado) e os seis cartões
     miolo = (
@@ -344,7 +345,8 @@ export default function T13({ momento, estado: est }) {
   // acesa em cima dele como a referência desenha (G12), fica desabilitada.
   return (
     <div className="t13">
-      <BarraDoSistema hora={HORA} fundo="faixa" />
+      {/* o Bluetooth: o módulo está conectado durante toda a sessão (lei 22, D6) */}
+      <BarraDoSistema hora={HORA} fundo="faixa" bluetooth />
       <fieldset className="t13-topo" role="presentation" disabled={dialogo.montado}>
         <Faixa serial={sessao.moduloSerial} placa={ativoDe(sessao.ativoId)?.placa} acao={T.encerrar} aoEncerrar={enc.encerrar} />
       </fieldset>

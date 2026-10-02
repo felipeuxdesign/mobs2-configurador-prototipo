@@ -43,7 +43,7 @@ Cada decisão com o contexto, a escolha, o que foi descartado e a consequência.
 | [37](37-empresa-e-unidade.md) | O contexto é empresa e unidade |
 | [38](38-o-toque-do-rodape.md) | O botão e o link do rodapé ficam a 8px |
 | [39](39-nao-conforme-com-foto.md) | O não conforme exige a foto do problema |
-| [40](40-as-acoes-da-conferencia.md) | As três ações da conferência cabem num rodapé de duas |
+| [40](40-as-acoes-da-conferencia.md) | As três ações da conferência cabem num rodapé de duas · *superada pela 53* |
 | [41](41-o-que-o-servidor-recebeu.md) | A T12 mostra o que o servidor recebeu |
 | [42](42-a-fila-e-do-aparelho.md) | A fila de saída é do aparelho |
 | [43](43-a-moldura-e-a-barra-de-status.md) | A moldura do palco é um celular atual, sem marca |
@@ -55,3 +55,6 @@ Cada decisão com o contexto, a escolha, o que foi descartado e a consequência.
 | [49](49-a-cadeia-mostra-o-conteudo.md) | O módulo não guarda versão: a cadeia mostra o conteúdo |
 | [50](50-as-cercas-contam-em-regioes.md) | As cercas contam em regiões |
 | [51](51-a-apn-aparece.md) | A APN aparece pro técnico |
+| [52](52-a-calibracao-sem-foto.md) | A calibração não fotografa; o horímetro é opcional |
+| [53](53-a-conferencia-por-conteudo.md) | A conferência compara conteúdo, e corrige um bloco por vez |
+| [54](54-o-ciclo-parado.md) | O ciclo de testes é parado, e o servidor não confere viagem |

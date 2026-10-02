@@ -128,8 +128,8 @@ var OBRIGATORIOS = ["serial-nao-cadastrado", "modelo-sem-driver", "firmware-fora
   /* PM · rodadas 1 e 2 */ "modem-sem-sinal", "firmware-sem-rede-no-modulo", "modulo-em-outro-ativo",
   "modulo-ja-deste-ativo", "sem-conexao-no-menu"];
 OBRIGATORIOS.forEach(function (k) { chk("caso: " + k, !!M.casos[k]); });
-chk("diff divergente cobre os 5 blocos", M.casos["diff-divergente"] &&
-  M.casos["diff-divergente"].divergencias.map(function (d) { return d.bloco; }).sort().join(",") === "ativo,cercas,conexao,eventos,leitor");
+chk("diff divergente cobre os 4 blocos que se comparam (decisão 53)", M.casos["diff-divergente"] &&
+  M.casos["diff-divergente"].divergencias.map(function (d) { return d.bloco; }).sort().join(",") === "cercas,conexao,eventos,leitor");
 chk("casos apontam para ativos/módulos reais", OBRIGATORIOS.every(function (k) {
   var c = M.casos[k]; if (!c) return false;
   if (c.ativoId && !M.ativos.some(function (a) { return a.id === c.ativoId; })) return false;
@@ -176,8 +176,10 @@ chk("P·C1 calibração: as diferenças da T10 derivam do mock (297.997 · 108 �
 chk("P·C1 calibração: calibráveis e indisponíveis não se cruzam, em todo modelo", Object.keys(M.calibracao.porModelo).every(function (k) {
   var m = M.calibracao.porModelo[k]; return m.indisponiveis.every(function (i) { return m.calibraveis.indexOf(i.grandeza) < 0; }); }));
 chk("P·C1 calibração: todo modelo de ativo tem regra de calibração", M.modelosAtivo.every(function (m) { return !!M.calibracao.porModelo[m.id]; }));
-chk("P·C1 checklist: 31 itens = 4 + 5 + 4 + 10 + 5 + 3", M.checklist.itens.length === 31 &&
-  JSON.stringify(M.checklist.secoes.map(function (s) { return M.checklist.itens.filter(function (i) { return i.secao === s.id; }).length; })) === "[4,5,4,10,5,3]");
+/* pacote 2 (02/10): a A perde o chassi e a E ganha o sexto passo (decisão 54) — a soma segue 31 */
+chk("P·C1 checklist: 31 itens = 3 + 5 + 4 + 10 + 6 + 3", M.checklist.itens.length === 31 &&
+  JSON.stringify(M.checklist.secoes.map(function (s) { return M.checklist.itens.filter(function (i) { return i.secao === s.id; }).length; })) === "[3,5,4,10,6,3]",
+  M.checklist.secoes.map(function (s) { return s.id + " " + M.checklist.itens.filter(function (i) { return i.secao === s.id; }).length; }).join(" · "));
 chk("P·C1 checklist: todo item aponta uma seção que existe", M.checklist.itens.every(function (i) { return M.checklist.secoes.some(function (s) { return s.id === i.secao; }); }));
 chk("P·C1 ciclo: o evento chega e confere dentro do prazo (24 < 33 < 120 s)", (function () {
   var c = M.ciclo; return 0 < c.evento.recebidoAosSeg && c.evento.recebidoAosSeg < c.evento.conferidoAosSeg && c.evento.conferidoAosSeg < c.prazoEventoSeg; })());
@@ -200,7 +202,9 @@ chk("P·C1 casos de módulo: o par ativo × módulo é o do cadastro", SEM_GATE.
   var c = M.casos[k]; if (!c.ativoId || !c.moduloSerial) return true;
   var a = M.ativos.find(function (x) { return x.id === c.ativoId; }); return a.moduloSerial === c.moduloSerial; }));
 chk("P·C1 sync-falha-rede aponta um pacote que existe", M.pacotes.some(function (p) { return p.id === M.casos["sync-falha-rede"].pacoteId; }));
-chk("P·C1 a cadeia tem 6 passos e 5 blocos versionados", M.cadeia.ordem.length === 6 && M.cadeia.ordem[0] === "limpeza");
+/* pacote 2 (02/10): o CADEIA.versoes saiu — os 5 blocos são os que têm conteúdo (decisão 49), e a limpeza não tem */
+chk("P·C1 a cadeia tem 6 passos e 5 blocos com conteúdo", M.cadeia.ordem.length === 6 && M.cadeia.ordem[0] === "limpeza" &&
+  M.cadeia.ordem.slice(1).join(",") === Object.keys(M.cadeia.conteudo).join(","));
 
 /* ── P·C4 · entrar: o login e a sincronização (gate C4) ── */
 chk("P·C4 código errado: seis dígitos, diferente do código", /^\d{6}$/.test(rec.codigoErrado) && rec.codigoErrado !== rec.codigo);
@@ -246,7 +250,9 @@ chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência n
   chk("P·C5 · T04 a folha da garagem no 08: uma evidência subindo", fila.filter(function (f) { return f.estado === "enviando"; }).length === 1);
   var manuais = M.checklist.secoes.filter(function (s) { return s.natureza === "manual" || s.natureza === "dinamico"; }).map(function (s) { return s.id; });
   var abertos = M.checklist.itens.filter(function (i) { return manuais.indexOf(i.secao) >= 0; });
-  chk("P·C5 · T04 o contador do checklist: B + E, os que o técnico resolve (T04·2 b · 10)", manuais.join("") === "BE" && abertos.length === 10, abertos.length);
+  /* pacote 2 (02/10): a E com 6 passos dá 5 + 6 = 11, o mesmo 'Faltam 11 itens' da T13/00; a T04/04 do pacote
+     (que só mudou na barra) ainda desenha 10 — diferença com nome, pro arquiteto */
+  chk("P·C5 · T04 o contador do checklist: B + E, os que o técnico resolve (T04·2 b · 5 + 6 = 11)", manuais.join("") === "BE" && abertos.length === 11, abertos.length);
   var ac = M.situacao.sessaoAcesso;
   chk("P·C5 · T04 a folha da conta: restam 2 de 7 dias, já no aviso", ac.validadeDias - ac.abertaDiasAtras === 2 && ac.validadeDias === 7 && ac.abertaDiasAtras >= ac.avisoNoDia);
   chk("P·C5 · T04 a folha da garagem: só o Pátio Caruaru passa do limite (8 > 7)", M.pacotes.filter(function (p) { return p.diasAtras > p.limiares.bloqueioDias; }).map(function (p) { return p.uoId; }).join(",") === "uo-03");
@@ -369,18 +375,18 @@ chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência n
   var h = gr("horimetro"), bh = C.bruto["a-01"].horimetro / h.fatorEnvio;
   chk("P·C9 · T10 o passo do horímetro do herói: 8.540 h no módulo, 9.640 no painel, diferença de 1.100",
     Number.isInteger(bh) && bh === 8540 && C.painel["a-01"].horimetro - bh === 1100, bh + " h");
-  var item = M.checklist.itens.filter(function (i) { return i.id === C.itemChecklist.id; })[0];
-  chk("P·C9 · T10 a foto do painel vale no item da Seção B (HU-T10-4): o item existe, é da B e herda da calibração",
-    !!item && item.secao === C.itemChecklist.secao && C.itemChecklist.secao === "B" && item.herda === "calibracao" && item.foto === true);
+  /* pacote 2 (02/10): sai a da foto do painel herdada da calibração (HU-T10-4) — a calibração não fotografa
+     mais, e o Painel é foto a tirar na B (decisão 52; a 'r3:' do arquiteto confere) */
 })();
 
 /* ── P·C9 · T09 · configurar módulo: o que a cadeia lê de M.cadeia e dos dois casos (nenhum campo novo) ── */
 (function () {
   var Cd = M.cadeia, ordem = Cd.ordem;
-  var versionados = ordem.filter(function (b) { return !!Cd.versoes[b]; });
-  chk("P·C9 · T09 os 6 passos têm rótulo, e só a limpeza não tem versão (5 blocos versionados · o CADEIA.versoes, acréscimo nomeado até o pacote 2, pela T11 e pela T13)",
-    ordem.every(function (b) { return !!Cd.rotulos[b]; }) && versionados.length === 5 && !Cd.versoes.limpeza && ordem.indexOf("conexao") === ordem.length - 1,
-    versionados.join(","));
+  /* pacote 2 (02/10): o CADEIA.versoes saiu — a mesma conta pelo CADEIA.conteudo, o que a T09 mostra em cada elo */
+  var comConteudo = ordem.filter(function (b) { return !!Cd.conteudo[b]; });
+  chk("P·C9 · T09 os 6 passos têm rótulo, e só a limpeza não tem conteúdo (5 blocos com conteúdo, as palavras da conferência)",
+    ordem.every(function (b) { return !!Cd.rotulos[b]; }) && comConteudo.length === 5 && !Cd.conteudo.limpeza && ordem.indexOf("conexao") === ordem.length - 1,
+    comConteudo.join(","));
   var rec = M.casos["bloco-recusado"], que = M.casos["queda-na-cadeia"];
   var iR = ordem.indexOf(rec.bloco), iQ = ordem.indexOf(que.noBloco);
   chk("P·C9 · T09 o 01: o bloco recusado é Cercas, o 3º, com dois relidos antes e três não alcançados depois",
@@ -446,8 +452,10 @@ chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência n
   var fontesFila = M.checklist.itens.filter(function (i) { return /^fila:/.test(i.fonte || ""); }).map(function (i) { return i.fonte.slice(5); });
   var semCurto = F.map(function (f) { return f.tipo; }).concat(fontesFila).filter(function (t) { return !curto(t); });
   chk("P·C11 · T15 todo tipo da fila e toda fonte 'fila:<tipo>' do checklist têm rótulo curto (AC-14)", T.length > 0 && !semCurto.length, semCurto.join(", ") || T.length + " tipos");
-  chk("P·C11 · T15 os rótulos curtos que as referências mostram: Evidências, Calibração, Checklist",
-    curto("Evidências da instalação") === "Evidências" && curto("Foto de calibração") === "Calibração" && curto("Checklist de homologação") === "Checklist");
+  /* pacote 2 (02/10): a foto de calibração deixa de existir como tipo (MUDANCAS §7) — as referências mostram Evidências e Checklist */
+  chk("P·C11 · T15 os rótulos curtos que as referências mostram: Evidências e Checklist, e a foto de calibração não é mais tipo",
+    curto("Evidências da instalação") === "Evidências" && curto("Checklist de homologação") === "Checklist" && !curto("Foto de calibração"),
+    T.map(function (t) { return t.rotuloCurto; }).join(" · "));
   chk("P·C11 · T15 a re-checagem da Seção F tem janela em horas, maior que 0 (AC-15: 'confere em 24 h')",
     M.criteriosRegra.recheckHoras > 0, M.criteriosRegra.recheckHoras + " h");
   var item = function (id) { return F.filter(function (f) { return f.id === id; })[0]; };
@@ -485,26 +493,30 @@ chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência n
   var ma01 = um(M.modelosAtivo, "ma-01");
   var passos = um(M.instalacoes, "i-01").etapas.cicloDinamico.passos;
   var sinais = Object.keys(C.passoDoSinal || {});
-  chk("P·C10 · T14 o passo de cada sinal: as chaves são sinais dinâmicos do ma-01, e os valores, passos da i-01 (AC-10)",
-    sinais.length > 0 && sinais.every(function (k) { var s = um(ma01.sinaisCan, k); return !!s && s.fase === "dinamico" && passos.indexOf(C.passoDoSinal[k]) >= 0; }),
-    sinais.map(function (k) { return k + " → " + C.passoDoSinal[k]; }).join(" · "));
-  var cf = M.casos["can-fora-esperado"];
-  chk("P·C10 · T14 o 03: o sinal do caso can-fora-esperado reprova um passo do ciclo (velocidade → Movimento detectado)",
-    !!C.passoDoSinal[cf.sinal] && !!cf.lido, cf.sinal + " " + cf.lido + " → " + C.passoDoSinal[cf.sinal]);
+  /* pacote 2 (02/10): os passos são os seis do ciclo parado, e a velocidade só entra com tacógrafo digital (decisão 54) */
+  chk("P·C10 · T14 o passo de cada sinal: as chaves são sinais dinâmicos do ma-01, e os valores, passos da i-01 (AC-10) — a velocidade só com tacógrafo digital",
+    sinais.length > 0 && sinais.every(function (k) { var s = um(ma01.sinaisCan, k); return !!s && s.fase === "dinamico" && passos.indexOf(C.passoDoSinal[k]) >= 0 &&
+      (k !== "velocidade" || ma01.tacografoDigital === true); }),
+    sinais.map(function (k) { return k + " → " + C.passoDoSinal[k]; }).join(" · ") + " · passos: " + passos.join(", "));
+  /* pacote 2 (02/10): a 03 é a rotação zerada do motor-desligado-no-ciclo, não mais a velocidade do can-fora-esperado */
+  var md = M.casos["motor-desligado-no-ciclo"], amd = um(M.ativos, md.ativoId), smd = um(um(M.modelosAtivo, amd.modeloAtivoId).sinaisCan, md.passo);
+  chk("P·C10 · T14 o 03: o caso motor-desligado-no-ciclo zera um sinal dinâmico do modelo do ativo, fora da faixa, e reprova o passo dele (rotação → Rotação, '0 rpm · ligue o motor')",
+    !!smd && smd.fase === "dinamico" && !!smd.faixa && Number(md.lido.split(" ")[0]) < smd.faixa.min && passos.indexOf(C.passoDoSinal[md.passo]) >= 0,
+    md.passo + " " + md.lido + " → " + C.passoDoSinal[md.passo]);
   var id = M.casos["identificador-divergente"], ex = id.exemplos.filter(function (e) { return e.cartaoId === id.cartaoId; })[0];
   var cartao = um(M.identificadores.cartoes, id.cartaoId);
   chk("P·C10 · T14 o 04: o cartão do caso foi lido diferente do que o cadastro espera, e o esperado é o do cartão (9412857 × 0009412857)",
     !!ex && !!cartao && ex.esperado === cartao.codigoEsperado && ex.lido !== ex.esperado, ex && ex.lido + " × " + ex.esperado);
   var ativo = function (i) { return um(M.ativos, i); };
   var sr = M.casos["evento-sem-resposta"], a3 = ativo(id.ativoId);
-  chk("P·C10 · T14 a faixa dos três estados é o par do cadastro (a-04 × M2C-0335, a-02, a-03), e o identificador cai num ativo com leitor de cartão",
-    !!ativo(sr.ativoId) && ativo(sr.ativoId).moduloSerial === sr.moduloSerial && sr.tentativa === 1 && !!ativo(cf.ativoId) && !!ativo(cf.ativoId).moduloSerial &&
+  chk("P·C10 · T14 a faixa dos três estados é o par do cadastro (a-04 × M2C-0335, a-02 × M2C-0301 · QJF-2C61, a-03), e o identificador cai num ativo com leitor de cartão",
+    !!ativo(sr.ativoId) && ativo(sr.ativoId).moduloSerial === sr.moduloSerial && sr.tentativa === 1 && amd.moduloSerial === "M2C-0301" && amd.placa === "QJF-2C61" &&
     !!a3 && !!a3.moduloSerial && um(M.modelosAtivo, a3.modeloAtivoId).leitor.tipo === "cartao-serial");
 })();
 
 /* ── P·C11 · T11 · conferir configuração: o par que confere (AC-17) e o que a tela lê dos dois casos ── */
 (function () {
-  var Cd = M.cadeia, blocos = Cd.ordem.filter(function (b) { return !!Cd.versoes[b]; });
+  var Cd = M.cadeia;
   var ativo = function (id) { return M.ativos.filter(function (a) { return a.id === id; })[0]; };
   var real = function (c) { var a = c && ativo(c.ativoId); return !!a && a.moduloSerial === c.moduloSerial && M.modulos.some(function (m) { return m.serial === c.moduloSerial; }); };
   var cc = M.casos["conferencia-confere"], dd = M.casos["diff-divergente"], ic = M.casos["indice-nao-classificado"];
@@ -512,17 +524,27 @@ chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência n
     real(cc) && cc.ativoId === "a-01" && Object.keys(cc).join(",") === "ativoId,moduloSerial" && !(cc.ativoId === dd.ativoId && cc.moduloSerial === dd.moduloSerial));
   chk("P·C11 · T11 a 00 e a 01: o diff-divergente e o indice-nao-classificado são do mesmo par real (M2C-0438 · ONK-8Q90)",
     real(dd) && real(ic) && dd.ativoId === ic.ativoId && dd.moduloSerial === ic.moduloSerial && ativo(dd.ativoId).placa === "ONK-8Q90");
-  chk("P·C11 · T11 as linhas são os 5 blocos versionados, na ordem canônica, e os 5 divergem na 00 ('5 de 5', 'os cinco')",
-    dd.divergencias.map(function (d) { return d.bloco; }).join(",") === blocos.join(",") && blocos.length === 5 && blocos.every(function (b) { return !!Cd.rotulos[b]; }),
-    blocos.map(function (b) { return Cd.rotulos[b]; }).join(" · "));
+  /* pacote 2 (02/10): sem versão, a conferência compara conteúdo (decisão 53) — quatro linhas que se comparam e o
+     Extended ID só leitura, fora da conta; o Corrigir vai no primeiro que diverge na ordem da cadeia */
+  var cmp = dd.divergencias.map(function (d) { return d.bloco; });
+  var primeiro = Cd.ordem.filter(function (b) { return cmp.indexOf(b) >= 0; })[0];
+  chk("P·C11 · T11 a 00: as 4 que se comparam divergem ('4 de 4'), o cadastro é o conteúdo que a cadeia grava, o Extended ID é só leitura, e o Corrigir é o do primeiro na ordem da cadeia ('Corrigir as cercas')",
+    cmp.length === 4 && dd.divergencias.every(function (d) { var c = Cd.conteudo[d.bloco];
+      return !!c && (d.noCadastro === c || d.noCadastro === Cd.rotulos[d.bloco].toLowerCase() + " " + c); }) &&
+    !!dd.extendedId && dd.extendedId.somenteLeitura === true && primeiro === "cercas",
+    dd.divergencias.map(function (d) { return (d.rotulo || Cd.rotulos[d.bloco]) + " " + d.noCadastro; }).join(" · ") + " · corrige " + primeiro);
   var a = ativo(cc.ativoId), mdl = M.modelosAtivo.filter(function (m) { return m.id === a.modeloAtivoId; })[0];
   var pe = M.presetsEvento.filter(function (p) { return p.id === mdl.presetEventoId; })[0];
   var regioes = M.cercas.regioes.filter(function (r) { return r.ativoId === a.id; }).length;
   var perto = (M.situacao.porPerto || []).filter(function (p) { return p.serial === cc.moduloSerial; })[0];
   chk("P·C11 · T11 o 02 pelo cadastro do herói: '4 regiões', 'intervalo 30 s' e o leitor sem fio da sessão, como a referência",
     regioes === 4 && pe.intervaloRastreamentoSeg === 30 && !!perto && perto.meio === "sem-fio", regioes + " · " + pe.intervaloRastreamentoSeg + " s · " + (perto && perto.meio));
-  chk("P·C11 · T11 o 02, o custo declarado (G9): a tradução do herói é 'urbano v3', e a 'frota v2' da referência é a do a-16",
-    mdl.traducaoCan === "urbano v3" && dd.divergencias[0].noCadastro === "tradução " + M.modelosAtivo.filter(function (m) { return m.id === ativo(dd.ativoId).modeloAtivoId; })[0].traducaoCan);
+  /* pacote 2 (02/10): sai a do custo declarado do 02 (a tradução 'urbano v3' × 'frota v2') — o bloco do ativo
+     saiu da conferência, e o diff-divergente não o traz mais (decisão 53) */
+  var cr = M.casos["cercas-reenviadas"];
+  chk("P·C11 · T11 a 05: o caso cercas-reenviadas é o par do herói, na manutenção, e os que ficam 'revisar em seguida' são o arraste do bloco reenviado (2: o leitor e os eventos)",
+    real(cr) && cr.ativoId === "a-01" && cr.modo === "manutencao" && Cd.arraste[cr.reenviado].slice().sort().join(",") === "eventos,leitor",
+    cr.reenviado + " → " + Cd.arraste[cr.reenviado].join(", "));
 })();
 
 /* ── P·C10 · T13 · checklist: os títulos, a dica e a justificativa (AC-11, AC-12), a leitura nominal (AC-13) e o que a tela deriva ── */
@@ -570,14 +592,16 @@ chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência n
     desta.length === 0 && M.filaSaida.filter(function (f) { return f.ativoId === "a-01"; }).length === 2);
   chk("P·C10 · T13 AC-14: as fontes 'fila:<tipo>' da Seção F são tipos da fila", CK.itens.filter(function (i) { return /^fila:/.test(i.fonte || ""); }).every(function (i) {
     return (M.tiposFila || []).some(function (t) { return "fila:" + t.tipo === i.fonte; }); }));
-  // a 00 pela semente (G21, G9): o herói depois da calibração — o Painel herda a foto (b-painel-legivel) —, antes do ciclo e da fila.
+  // a 00 pela semente (G21, G9): o herói depois da calibração, antes das fotos, do ciclo e da fila.
   // Cada seção recomputada do que a tela lê: A pelo cadastro do par, B pelo que herda, C pelas leituras, D pela cadeia e pelo painel, E e F vazias
+  // pacote 2 (02/10): sai o chassi da A (o chassiPelaCan saiu), o Painel não herda mais (a B começa em 0 de 5),
+  // a versão gravada sai da D e entra o Extended ID, lido do módulo pelos identificadores (decisões 52 a 54)
   var heroi = um(M.ativos, "a-01"), mod = M.modulos.filter(function (m) { return m.serial === heroi.moduloSerial; })[0], ma = um(M.modelosAtivo, heroi.modeloAtivoId);
   var linha = M.matrizCapacidades.filter(function (r) { return r.modeloId === mod.modeloId && r.variante === mod.variante; })[0];
   var da = function (s) { return CK.itens.filter(function (i) { return i.secao === s; }); };
   var partida = M.calibracao.porModelo[ma.id].calibraveis.filter(function (g) { return M.calibracao.painel[heroi.id][g] != null; });
   var conta = {
-    A: linha.firmwares.indexOf(mod.firmware) >= 0 && ma.chassiPelaCan ? da("A").length : 0,
+    A: linha.firmwares.indexOf(mod.firmware) >= 0 ? da("A").length : 0,
     B: da("B").filter(function (i) { return i.herda === "calibracao"; }).length * (partida.length ? 1 : 0),
     C: [nBat >= bat.faixa.min && nBat <= bat.faixa.max, Number(sat.lido) >= sat.faixa.min, L.entradasUsadas <= L.entradasTotal,
       L.modemDbm >= L.modemFaixa.min && L.modemDbm <= L.modemFaixa.max].filter(Boolean).length,
@@ -585,13 +609,14 @@ chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência n
       var f = String(i.fonte).split(":");
       if (f[0] === "bloco") return M.cadeia.ordem.indexOf(f[1]) >= 0;
       if (f[0] === "cal") return M.calibracao.painel[heroi.id][f[1]] != null && M.calibracao.porModelo[ma.id].calibraveis.indexOf(f[1]) >= 0;
-      return i.fonte === "servidor" ? !!M.cadeia.leituraFinal.servidor : i.fonte === "versao";
+      if (i.fonte === "identificadores") return M.identificadores.indicesAlocados.length > 0;
+      return i.fonte === "servidor" && !!M.cadeia.leituraFinal.servidor;
     }).length,
     E: 0, F: desta.length
   };
   var feitos = Object.keys(conta).reduce(function (s, k) { return s + conta[k]; }, 0);
-  chk("P·C10 · T13 a 00: 19 de 31 pela semente (A 4 · B 1, o Painel herdado · C 4 · D 10 · E 0 · F 0) e 'Faltam 9' (B 4 + E 5)",
-    item(M.calibracao.itemChecklist.id).herda === "calibracao" && feitos === 19 && da("B").length - conta.B + da("E").length - conta.E === 9,
+  chk("P·C10 · T13 a 00: 17 de 31 pela semente (A 3 · B 0 · C 4 · D 10 · E 0 · F 0) e 'Faltam 11 itens' (B 5 + E 6)",
+    conta.A === 3 && conta.B === 0 && conta.D === 10 && feitos === 17 && da("B").length - conta.B + da("E").length - conta.E === 11,
     Object.keys(conta).map(function (k) { return k + " " + conta[k]; }).join(" · ") + " = " + feitos);
 })();
 
@@ -682,10 +707,8 @@ if (fonte !== null) {
 
 /* ── PM · rodadas 1 e 2 (decisões 44 a 47) ── */
 chk("PM: fabricante e modelo nos 3 modelos de ativo", M.modelosAtivo.every(function (m) { return !!m.fabricante && !!m.modelo; }));
-/* protótipo · pacote 1 (02/10): o chassiPelaCan fica nos 3 modelos como acréscimo nomeado até o pacote 2 (a T13 de hoje,
-   intocável, lê o vínculo pelo chassi da seção A). A checagem confere que nada do pacote 1 o lê: a T06 e a T07 não o usam. */
-chk("PM: nenhum modelo declara mais chassiPelaCan (fora do acréscimo nomeado até o pacote 2, só pela T13)", M.modelosAtivo.every(function (m) { return !("chassiPelaCan" in m) || typeof m.chassiPelaCan === "boolean"; }) &&
-  M.modelosAtivo.filter(function (m) { return m.chassiPelaCan; }).map(function (m) { return m.id; }).join(",") === "ma-01");
+/* pacote 2 (02/10): o acréscimo nomeado do pacote 1 acabou (o chassiPelaCan saiu com a T13 nova) — volta a checagem do arquiteto */
+chk("PM: nenhum modelo declara mais chassiPelaCan", M.modelosAtivo.every(function (m) { return !("chassiPelaCan" in m); }));
 var todosPacotes = (function () { var out = []; (function anda(o) { if (!o || typeof o !== "object") return; if (o.contem && o.uoId) out.push(o); for (var k in o) anda(o[k]); })(M); return out; })();
 chk("errata: nenhum pacote leva cartões — conferido em cada contem, não no texto", todosPacotes.length >= 3 && todosPacotes.every(function (p) { return !("cartoes" in p.contem); }));
 chk("errata: conexões e eventos de cada pacote recomputados das coleções", todosPacotes.every(function (p) { return p.contem.conexoes === M.conexoes.length && p.contem.eventos === M.eventosEmbarcados.length; }));
@@ -697,6 +720,16 @@ chk("PM: o pacote sem cartões, 31 itens nos 5 grupos", M.pacotes.every(function
 chk("PM: o diagnóstico tem 7 linhas, e as 3 travas existem como casos", M.diagnostico.modulo.length === 7 &&
   ["serial-nao-cadastrado", "modelo-sem-driver", "firmware-fora-matriz"].every(function (k) { return !!M.casos[k]; }));
 chk("PM: o modo sai do vínculo — a manutenção é um caso, a instalação é o padrão", M.casos["modulo-ja-deste-ativo"].modo === "manutencao");
+
+/* ── PM · rodada 3 (decisões 52 a 54) ── */
+chk("r3: o checklist tem 31 itens — a A com 3, sem o chassi, e a E com os 6 passos", M.checklist.itens.length === 31 && M.checklist.itens.filter(function (x) { return x.secao === "A"; }).length === 3 && M.checklist.itens.filter(function (x) { return x.secao === "E"; }).length === 6);
+chk("r3: o Painel é foto a tirar, só quando houve calibração", M.checklist.itens.filter(function (x) { return x.id === "b-painel-legivel" && x.foto && x.condicao === "calibracao" && !x.herda; }).length === 1);
+chk("r3: os critérios do servidor sem viagem", JSON.stringify(M.criteriosRegra).indexOf("viage") < 0);
+chk("r3: o horímetro é opcional onde existe", M.modelosAtivo.every(function (m) { var c = M.calibracao.porModelo[m.id]; return !c || c.calibraveis.indexOf("horimetro") < 0 || (c.opcionais || []).indexOf("horimetro") >= 0; }));
+chk("r3: os casos novos existem, e os que saíram saíram", !!M.casos["cercas-reenviadas"] && !!M.casos["motor-desligado-no-ciclo"] && !M.casos["versao-ilegivel"] && !M.casos["camera-sem-permissao"]);
+chk("r3: a fila sem foto de calibração", JSON.stringify(M.filaSaida || []).indexOf("Foto de calibração") < 0);
+
+chk("r3: o can-estatico-bateria monta a T13/09, e os acréscimos nomeados saíram", !!M.casos["can-estatico-bateria"] && M.modelosAtivo.every(function (m) { return !("chassiPelaCan" in m); }) && !M.cadeia.versoes);
 
 console.log(falhas ? "\nGATE REPROVADO — " + falhas + " falha(s)" : "\nGATE APROVADO — todas as âncoras recomputadas conferem");
 if (typeof process !== "undefined") process.exitCode = falhas ? 1 : 0;

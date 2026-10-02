@@ -4,7 +4,7 @@
 //   pelo corte do AC-16 (T12·1 a), cada uma com o veredito do estado dela
 //   (T12·3 a). A i-01, de hoje às 11:47, fica ao lado da sessão aberta (G22).
 // · Tocar numa instalação abre o detalhe (01) e a URL diz 01: em cima, o que o
-//   servidor recebeu — posicionamento, eventos e viagens, cada um com o veredito
+//   servidor recebeu — posicionamento e eventos (a viagem saiu, decisão 54), cada um com o veredito
 //   e o porquê (decisão 41) —, e embaixo a instalação: a i-01 com as seis
 //   etapas; as outras com só as linhas que o resumo sustenta (T12·2 a). O 01
 //   aberto pelo endereço mostra a mais nova da garagem — a i-01 em Várzea.

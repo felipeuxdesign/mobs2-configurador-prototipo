@@ -20,10 +20,11 @@ const opcoes = [
 
 export const especimes = [
   // o topo
+  // as duas com sessão levam o Bluetooth do módulo conectado (lei 22, o pacote 2 · a folha 2 nova); a sem sessão, não
   { id: 'f2-barra', folha: 2, chrome: true, rotulo: 'barra do sistema', legenda: 'desenho do Android · não é do app',
-    render: () => <BarraDoSistema hora="14:30" /> },
+    render: () => <BarraDoSistema hora="14:30" bluetooth /> },
   { id: 'f2-barra-menu', folha: 2, chrome: true, rotulo: 'barra do sistema no menu', legenda: 'sobre o fundo da tira',
-    render: () => <BarraDoSistema hora="14:30" fundo="tira" /> },
+    render: () => <BarraDoSistema hora="14:30" fundo="tira" bluetooth /> },
   { id: 'f2-barra-sem-sessao', folha: 2, chrome: true, rotulo: 'barra do sistema sem sessão', legenda: 'a cor da página — ela sangra no que vem embaixo',
     render: () => <BarraDoSistema hora="14:30" fundo="pagina" /> },
   { id: 'f2-faixa-aberta', folha: 2, chrome: true, rotulo: 'faixa · sessão aberta', legenda: 'LED lima, serial, placa e o ENCERRAR',

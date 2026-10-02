@@ -8,7 +8,7 @@ Cada lei tem o porquê. Uma lei sem motivo vira gosto, e gosto se discute; lei c
 
 | # | Lei | Por quê |
 |---|---|---|
-| 1 ◆ | **Lima marca veredito e escolhido** — e o texto do botão primário. Contam como escolhido: o campo em foco (rótulo e traço), o próximo passo do menu (*decide agora*), a faixa esperada de uma leitura e o rótulo de uma prova (*O PAINEL MOSTRA*, *VERSÃO LIDA NO MÓDULO*). E a marca (lei 15). Nunca enfeite | se o lima aparece em todo lugar, ele para de dizer *passou* |
+| 1 ◆ | **Lima marca veredito e escolhido** — e o texto do botão primário. Contam como escolhido: o campo em foco (rótulo e traço), o próximo passo do menu (*decide agora*), a faixa esperada de uma leitura e o rótulo de uma prova (*O PAINEL MOSTRA*; o *VERSÃO LIDA NO MÓDULO* da conferência saiu com a decisão 53). E a marca (lei 15). Nunca enfeite | se o lima aparece em todo lugar, ele para de dizer *passou* |
 | 2 | **A falha mora no elemento.** O bloco que falhou acende; o título da tela fica | o técnico olha onde deu errado, não lê a tela de novo |
 | 3 ◆ | **O estado muda o conteúdo.** O desenho só abre espaço pro que o estado acrescenta — um aviso, uma causa, uma busca, uma linha que some por não se aplicar. Título, faixa e rodapé ficam no lugar | a tela que muda de forma parece outra tela, e ele se perde |
 | 4 ◆ | **Todo glifo de estado vive num poço**, até dentro de cartão. Exceções declaradas: o check dos requisitos da senha (T01) e do *confere* da calibração (T10), e os glifos do bloco do evento (T14), que vivem soltos ao lado do texto | o poço é o lugar onde se lê o veredito, sempre o mesmo lugar |
@@ -29,7 +29,7 @@ Cada lei tem o porquê. Uma lei sem motivo vira gosto, e gosto se discute; lei c
 | 19 | **Rodapé: um botão e um link.** Ação a mais vai pra uma folha | três ações empilhadas quebram a gramática de todas as outras telas |
 | 20 | **Folha de opções fecha no xis; folha de confirmação, no Cancelar.** Toda folha também fecha tocando fora, arrastando pra baixo e no voltar do Android | numa confirmação, o *não* fica junto do *sim*, embaixo do polegar — é o padrão do Material |
 | 21 | **Ícone riscado é o ícone inteiro, com o risco por cima** e um fio escuro separando — nunca a versão *-off* da biblioteca | a versão da biblioteca redesenha o ícone em pedaços, e o técnico precisa reconhecer um desenho novo |
-| 22 | **A barra de status é do sistema.** A hora na Google Sans e os ícones segmentados do Android atual, recuados das curvas · nunca na fonte do app | com a hora na fonte do app, a barra parecia parte da tela, e o celular não se separava do app |
+| 22 | **A barra de status é do sistema.** A hora na Google Sans e os ícones segmentados do Android atual, recuados das curvas · nunca na fonte do app · **ela segue o mundo, em duas coisas só**: o Bluetooth enquanto o módulo está conectado — da conexão ao fim da sessão —, e, sem internet, o sinal apagado e sem o Wi-Fi · o resto é cenário fixo | com a hora na fonte do app, a barra parecia parte da tela, e o celular não se separava do app |
 
 ## Leis de medida
 
@@ -59,7 +59,7 @@ Cada lei tem o porquê. Uma lei sem motivo vira gosto, e gosto se discute; lei c
 | R-07 | O diagnóstico é **lista, na ordem**: o módulo primeiro, a CAN depois — a trava acende na própria linha, e o título fica |
 | R-08 | O processo que para é **aviso**, no formato único |
 | R-09 | A calibração mostra o número **rolando no lugar** — o tambor —, sem remontar a tela |
-| R-10 | No protótipo, os passos do ciclo dinâmico **acontecem sozinhos**, um a cada 3 segundos |
+| R-10 | No protótipo, os passos do ciclo de testes **acontecem sozinhos**, um a cada 3 segundos |
 | R-11 ◆ | Escolher e seguir com um módulo ou ônibus que é caso do mock **abre o estado dele** — a porta natural. Com a R-14, o estado aparece quando o técnico aperta o botão, não no toque da linha |
 | R-12 | Estados de toque: **normal, pressionado, desabilitado.** Sem hover. Sem foco de teclado no app |
 | R-13 | O palco fica **fora do app**. Comparar com a referência é trabalho do ciclo, não do palco |

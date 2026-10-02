@@ -13,7 +13,6 @@ export const TX = {
   outrosPorPerto: { 4: 'OUTROS QUATRO POR PERTO' },
   nenhumOutro: 'NENHUM OUTRO POR PERTO',
   seNaoForEste: 'Se não for este, aproxime o aparelho do módulo e procure de novo.',
-  naoCadastrado: 'não cadastrado',
   escolhaNaMao: 'Escolha o que está na sua mão.',
   rotuloFirmware: 'FIRMWARE',
   escolhaUm: 'Escolha um módulo para continuar',

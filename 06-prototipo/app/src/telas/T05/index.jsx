@@ -63,7 +63,7 @@ import { RECEITAS } from '../../estado/receitas.js'
 import { M } from '../../dados/mock.js'
 import { TX } from './textos.js'
 import {
-  porPerto, soOHeroi, HEROI, cadastrado, varianteNaLista, detalheDoEscolhido, firmwareDe, sessaoNova,
+  porPerto, soOHeroi, HEROI, varianteNaLista, detalheDoEscolhido, firmwareDe, sessaoNova,
   casosDoModulo, buscaVazia, serialDaFalha, pertoComFalha, CASO_BUSCA_VAZIA, CASO_CONEXAO,
 } from './dados.js'
 import './t05.css'
@@ -209,9 +209,9 @@ export default function T05({ momento, estado: est }) {
     const outros = perto.filter((p) => p.serial !== escolhido)
     const cabeca = <CabecalhoConteudo titulo={TX.titulo} contagem={perto.length} unidade={TX.encontrados(perto.length)} />
     if (escolhido) {
-      // 00 · 02 · 04 · os outros por perto: o M2C-0999, fora do cadastro, segue sem toque e
-      // diz *não cadastrado*, como a 00 e a 04 desenham (só a 01 mudou na errata)
-      const ultimo = outros.length - 1
+      // 00 · 02 · 04 · os outros por perto, todos tocáveis: o M2C-0999, fora do cadastro, é uma
+      // linha como as outras, com o que ele informa na busca, e a última também com a divisória
+      // (o complemento do pacote 2 refez a 00 e a 04)
       miolo = (
         <>
           {cabeca}
@@ -222,10 +222,8 @@ export default function T05({ momento, estado: est }) {
             <>
               {TX.outrosPorPerto[outros.length] && <span className="t05-rotulo-bloco">{TX.outrosPorPerto[outros.length]}</span>}
               <Lista className="t05-lista">
-                {outros.map((p, i) => (cadastrado(p.serial)
-                  ? <LinhaModulo key={p.serial} serial={p.serial} variante={varianteNaLista(p.serial)} aoTocar={() => escolher(p.serial)}
-                      divisoria={i < ultimo} fim={i === ultimo} />
-                  : <LinhaModulo key={p.serial} apagada serial={p.serial} variante={TX.naoCadastrado} divisoria={i < ultimo} fim={i === ultimo} />))}
+                {outros.map((p) => (
+                  <LinhaModulo key={p.serial} serial={p.serial} variante={varianteNaLista(p.serial)} aoTocar={() => escolher(p.serial)} divisoria />))}
               </Lista>
             </>
           ) : (

@@ -18,13 +18,13 @@
 //   número relido, de volta na unidade da tela, é o que o poço mostra. No
 //   estado da coluna 10, o módulo devolve o `relidoBruto` do caso
 //   releitura-nao-confere (na unidade de envio, como o bruto).
+// · Os opcionais (decisão 52): o cadastro do modelo diz quais grandezas se
+//   podem pular (porModelo.opcionais) — no herói, o horímetro.
 // · O mundo de cada estado da coluna (receitas.js): o par ativo × módulo que o
-//   dado da receita aponta, com a sessão dele na faixa. O 11 (a câmera sem a
-//   permissão) é do celular, e não aponta ativo: o mundo é o da semente.
+//   dado da receita aponta, com a sessão dele na faixa.
 // · O quadro da URL: cada passo do fluxo que tem referência diz o momento dela.
 import { M } from '../../dados/mock.js'
 import { RECEITAS } from '../../estado/receitas.js'
-import { NEGADA, permissaoDoEstado } from '../../estado/camera.js'
 
 export const REF = {
   tela: '00-tela',
@@ -33,12 +33,9 @@ export const REF = {
   jaSemeado: '03-estado-ja-semeado',
   semPulsos: '04-estado-modulo-sem-pulsos',
   digitado: '05-momento-hodometro-digitado',
-  camera: '06-momento-camera-do-painel',
-  fotografado: '07-momento-painel-fotografado',
   horimetro: '08-momento-horimetro',
   completa: '09-momento-calibracao-completa',
   naoConfere: '10-estado-releitura-nao-confere',
-  semPermissao: '11-estado-camera-sem-permissao',
 }
 
 const C = M.calibracao
@@ -55,14 +52,16 @@ function lePulsos(serial) {
 export function grandezasDoPar(ativoId, moduloSerial) {
   const a = ativoDe(ativoId)
   const pm = a && C.porModelo[a.modeloAtivoId]
-  if (!pm) return { calibraveis: [], naoSeAplicam: [], doModulo: false }
+  if (!pm) return { calibraveis: [], opcionais: [], naoSeAplicam: [], doModulo: false }
   const derrubadas = lePulsos(moduloSerial) ? [] : pm.calibraveis.filter((g) => grandezaDe(g).natureza === 'ajuste')
   const motivo = {}
   for (const i of pm.indisponiveis) motivo[i.grandeza] = { motivo: i.motivo, doModulo: false }
   for (const g of derrubadas) motivo[g] = { motivo: C.motivoSemPulsos, doModulo: true }
   const naoSeAplicam = C.grandezas.filter((g) => motivo[g.id]).map((g) => ({ id: g.id, nome: g.rotulo, ...motivo[g.id] }))
+  const calibraveis = pm.calibraveis.filter((g) => !derrubadas.includes(g))
   return {
-    calibraveis: pm.calibraveis.filter((g) => !derrubadas.includes(g)),
+    calibraveis,
+    opcionais: (pm.opcionais ?? []).filter((g) => calibraveis.includes(g)),
     naoSeAplicam,
     doModulo: naoSeAplicam.some((l) => l.doModulo),
   }
@@ -94,19 +93,11 @@ export function releitura(g, painel, relidoBruto) {
   return { valor: Math.floor(devolvido / t.porUnidade), desvio, confere: Math.abs(desvio) <= t.granularidade + t.decorrido }
 }
 
-// a permissão da câmera com que a tela abre (estado/camera.js): negada só no
-// estado da coluna que o caso camera-sem-permissao causa (11); no fluxo, concedida
-export const permissaoDaCamera = (est) => permissaoDoEstado(est ? RECEITAS[`T10/${est}`] : null, M.casos)
-
-// a seção do checklist em que a foto do painel também vale (HU-T10-4)
-export const secaoDaFoto = () => C.itemChecklist.secao
-
 // o número digitado: só os dígitos, sem zero à esquerda
 export const digitos = (s) => String(s ?? '').replace(/\D/g, '').replace(/^0+(?=\d)/, '')
 
 // ── o mundo de cada estado (receitas.js): o ativo que o dado da receita aponta ──
-// `semente`: a sessão da semente da T10, o mundo do caso que não aponta ativo
-export function mundoDoEstado(est, uoId, semente) {
+export function mundoDoEstado(est, uoId) {
   const receita = RECEITAS[`T10/${est}`]
   if (!receita) return null
   const daUo = M.ativos.filter((a) => a.uoId === uoId && a.moduloSerial)
@@ -126,11 +117,6 @@ export function mundoDoEstado(est, uoId, semente) {
     // o caso releitura-nao-confere: o ativo e a grandeza dele, e o que o módulo releu
     caso = M.casos[receita.casos[0]]
     ativo = ativoDe(caso.ativoId)
-  } else if (est === REF.semPermissao) {
-    // o caso camera-sem-permissao é do celular, não do ônibus: não aponta ativo, e
-    // o mundo é o da semente da T10 (o herói, como a referência), na câmera do 1º passo
-    caso = M.casos[receita.casos[0]]
-    ativo = semente ? ativoDe(semente.ativoId) : null
   }
   if (!ativo) return null
   const { calibraveis } = grandezasDoPar(ativo.id, ativo.moduloSerial)
@@ -140,27 +126,23 @@ export function mundoDoEstado(est, uoId, semente) {
 }
 
 // ── o quadro da URL: o momento que o passo do fluxo desenha, ou nenhum ──
-// Hodômetro: digitado (05), a câmera (06), fotografado (07, e enquanto grava
-// e relê), semeado (01). Horímetro, o passo seguinte: a entrada (08) e a
-// calibração completa (09). O digitado, a câmera e o fotografado do horímetro
-// são os do hodômetro com outro número, e não têm referência: a URL sai do
-// momento, como a entrada do hodômetro, que é a própria tela (00). A câmera sem
-// a permissão (11) é estado da coluna: no fluxo, a URL sai do momento.
-export function quadroDe({ ordem, atual, passos, camera, permissao }) {
+// Hodômetro: digitado (05, e enquanto grava e relê), semeado (01). Horímetro,
+// o passo seguinte: a entrada (08) e a calibração completa (09). O digitado do
+// horímetro é o do hodômetro com outro número, e não tem referência: a URL sai
+// do momento, como a entrada do hodômetro, que é a própria tela (00).
+export function quadroDe({ ordem, atual, passos }) {
   const g = ordem[atual]; const p = passos[g]
   if (!p) return null
   const todas = ordem.every((x) => passos[x]?.fase === 'semeada')
   if (g === 'hodometro') {
-    if (camera) return permissao === NEGADA ? null : REF.camera
     if (p.fase === 'semeada') return REF.semeado
     if (p.fase === 'nao-confere') return null
-    if (p.digitado && p.foto) return REF.fotografado
-    if (p.digitado && p.fase === 'pronta') return REF.digitado
+    if (p.digitado) return REF.digitado
     return null
   }
-  if (g === 'horimetro' && atual > 0 && !camera) {
+  if (g === 'horimetro' && atual > 0) {
     if (p.fase === 'semeada' && todas) return REF.completa
-    if (p.fase === 'pronta' && !p.digitado && !p.foto) return REF.horimetro
+    if (p.fase === 'pronta' && !p.digitado) return REF.horimetro
   }
   return null
 }

@@ -34,17 +34,19 @@ export const especimes = [
   { id: 'f4-assertiva', folha: 4, rotulo: 'assertiva da sessão', legenda: 'dupla · 50',
     render: () => <Lista><LinhaChecagem variante="dupla" titulo="Configuração" valor="confere" /></Lista> },
   { id: 'f4-conferencia', folha: 4, rotulo: 'linha de conferência', legenda: 'dupla · 50',
-    render: () => <Lista><LinhaChecagem variante="conferencia" titulo="Ativo" valor="urbano v3" /></Lista> },
+    render: () => <Lista><LinhaChecagem variante="conferencia" titulo="Cercas" valor="4 regiões" /></Lista> }, // o pacote 2: a folha 4 nova (decisão 53)
   // a entrega do checklist (decisão 34): a folha 4 desenha as duas com a seção nova, a mesma peça da folha 7
   { id: 'f4-secao-aberta', folha: 4, rotulo: 'seção aberta do checklist', legenda: 'o cartão cresce no lugar · a seta vira pra cima', render: secaoALeitura },
   { id: 'f4-secao-recolhida', folha: 4, rotulo: 'seção recolhida', legenda: 'um cartão por seção · quem age, a contagem e a seta', render: secaoBFechada },
+  // o pacote 2 (decisão 54): os seis passos do ciclo parado, com a rotação e o cartão do motorista
   { id: 'f4-passos-prazo', folha: 4, rotulo: 'passos com o prazo estourado', legenda: 'a lista inteira da T14',
     render: () => (
       <Lista recheio="passos">
         <LinhaChecagem variante="passo" titulo="Ignição ligada" />
-        <LinhaChecagem variante="passo" titulo="Movimento detectado" />
+        <LinhaChecagem variante="passo" titulo="Rotação" />
         <LinhaChecagem variante="passo" titulo="Ré acionada" />
         <LinhaChecagem variante="passo" titulo="Porta aberta" />
+        <LinhaChecagem variante="passo" titulo="Cartão do motorista" />
         <LinhaChecagem variante="passo" titulo="Ignição desligada" divisoria={false} folgaFim />
       </Lista>
     ) },

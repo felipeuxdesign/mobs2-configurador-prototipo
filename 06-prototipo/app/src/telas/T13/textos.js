@@ -9,6 +9,10 @@ export const T = {
   titulo: 'Checklist',
   de: (total) => `de ${total}`,
   secao: (id, nome) => `${id} · ${nome}`,
+  // o nome da E nas referências do pacote 2 (T13/00 a 06, 11 a 14): Ciclo de testes. O
+  // mock ainda diz Teste dinâmico (checklist.secoes, rótulo e título) — vale o texto da
+  // referência, até o mock trocar (desvio nomeado, pro arquiteto)
+  rotuloDaSecao: { E: 'Ciclo de testes' },
 
   // quem age, embaixo do nome da seção (a entrega do checklist, decisão 34)
   appConfere: 'o app confere sozinho',
@@ -16,7 +20,7 @@ export const T = {
   // no singular, com 1 (a resposta do arquiteto de 26/09: *1 item*, *1 foto tirada*)
   voceFotografa: (n) => (n === 1 ? 'você fotografa 1 item' : `você fotografa ${n} itens`),
   fotosTiradas: (n) => (n === 1 ? '1 foto tirada' : `${n} fotos tiradas`),
-  voceFazCiclo: 'você faz o ciclo em movimento',
+  voceFazCiclo: 'você faz o ciclo parado',
   cicloPassou: 'o ciclo passou',
   esperaServidor: 'espera o servidor · não bloqueia',
   servidorConfirmou: 'o servidor confirmou',
@@ -32,25 +36,32 @@ export const T = {
   sinalBom: 'sinal bom',
   satelites: (n) => `${n} satélites`,
   feita: 'feita',
-  gravados: 'gravados',
+  gravada: 'gravada',
   gravado: 'gravado',
-  atual: 'atual',
-  intervalo: (seg) => `intervalo ${seg} s`,
+  // D · o Extended ID, só leitura (decisão 45): o que está no módulo (T13/04, '3 cartões ·
+  // 1 iButton'); sem nenhum, só informando, e não é divergência (D5)
+  extendedId: (cartoes, ibuttons) => {
+    if (!cartoes && !ibuttons) return 'nenhum cartão no módulo'
+    const partes = []
+    if (cartoes) partes.push(cartoes === 1 ? '1 cartão' : `${cartoes} cartões`)
+    if (ibuttons) partes.push(ibuttons === 1 ? '1 iButton' : `${ibuttons} iButtons`)
+    return partes.join(' · ')
+  },
+  // D · o horímetro pulado na calibração (D1): resolvido, sem bloquear
+  naoCalibrado: 'não calibrado',
   aFazer: 'a fazer',
   esperaEnvio: 'espera o envio',
   vazio: '—',
-  // B: a foto por fazer, a herdada da calibração e a ressalva com a causa
+  // B: a foto por fazer (o Painel também, decisão 52) e a ressalva com a causa
   fotoATirar: 'foto a tirar',
-  fotografadoNaCalibracao: (hora) => `fotografado na calibração, às ${hora}`,
   comRessalva: (causa) => `com ressalva · ${causa}`,
   // E: a ação da seção, a única
-  fazerCiclo: 'Fazer o ciclo dinâmico',
-  osPassos: (n) => `os ${n} passos, com o ônibus em movimento`,
+  fazerCiclo: 'Fazer o ciclo de testes',
+  osPassos: (n) => `os ${n} passos, com o ônibus parado`,
   // F depois de homologar: nenhuma referência da entrega desenha a F aberta
   // com o servidor confirmado; ficam as palavras do C10 (T13/06 de antes: 12
   // subiram · 31 de 31 · na fila), com o número do mock (G25, pro arquiteto)
   subiram: (n) => `${n} subiram`,
-  semCerca: 'sem cerca',
 
   // o rodapé
   // no singular, *1 item*, com o verbo junto (o singular do `Faltam N itens`: proposta do protótipo, pro arquiteto)
@@ -84,12 +95,13 @@ export const T = {
   abrirConfiguracoes: 'Abrir as configurações',
 
   // o item reprovado (09)
-  lidoNaCan: 'LIDO NA CAN',
+  lidoNoModulo: 'LIDO NO MÓDULO',
   faixa: (min, max) => `${min} — ${max}`,
   abaixo: (dif, unidade) => `${dif} ${unidade} abaixo do mínimo`,
   naoSeMarca: 'ISTO NÃO SE MARCA À MÃO',
-  confiraAlimentacao: 'Confira a alimentação e refaça a leitura da CAN.',
-  refazerCan: 'Refazer a leitura da CAN',
+  confiraAlimentacao: 'Confira a alimentação e refaça o diagnóstico.',
+  // leva à T07, o Diagnóstico do módulo, que relê o módulo e a CAN
+  refazerDiagnostico: 'Refazer o diagnóstico',
 
   // o diálogo da Seção F (10)
   secaoFNaoPassou: 'A Seção F não passou',

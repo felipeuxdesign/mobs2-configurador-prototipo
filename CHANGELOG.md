@@ -1,5 +1,27 @@
 # Registro de mudanças
 
+## 2026-10-02 · o complemento do pacote 2 — o que o gate da errata achou
+
+- o M2C-0999 tocável também na T05/00 e na T05/04 — a errata tinha feito só a 01
+- a placa da faixa na tinta secundária na T07/01, 08, 09 e 10, como nas outras 50 telas · o *"sem ativo"* continua na apagada, porque é ausência · a folha 2 acompanha
+- a cena 04 do palco com a T07 em dois grupos, o módulo e a CAN
+- o `can-estatico-bateria` vira oficial, com o nome que o executor deu · ele monta a T13/09
+- saem os acréscimos nomeados `chassiPelaCan` e `CADEIA.versoes`
+
+## 2026-10-02 · o retorno do PM, rodada 3 — a calibração, a conferência, o ciclo, o servidor e o checklist
+
+- **a calibração não fotografa** (decisão 52): o botão acende com o número digitado · **o horímetro é opcional**, com `Pular o horímetro`, e só aparece quando o modelo tem · saem a câmera do painel, o painel fotografado e a câmera sem permissão
+- **a foto do painel vai pra Seção B do checklist**, obrigatória quando houve calibração · a Seção B começa em 0 de 5
+- **a conferência compara conteúdo, e corrige um bloco por vez** (decisão 53): as cercas em regiões, a APN, o Extended ID só leitura, os eventos e o leitor · `Corrigir as cercas` · **o revisar em seguida** marca o leitor e os eventos depois das cercas · sai a versão ilegível · a decisão 40 fica superada
+- **o ciclo de testes é parado** (decisão 54): seis passos — ignição ligada, rotação, ré, porta, cartão e ignição desligada · a velocidade só com tacógrafo digital
+- **o servidor confere o posicionamento e os eventos** — a viagem saiu
+- **o checklist**: a A sem o chassi, a D com os itens novos, a E com os seis passos — 31 itens
+- **a fila**: a foto de calibração vira o checklist de homologação
+- no mock: o `diff-divergente` com 4 blocos e o Extended ID, os casos `cercas-reenviadas` e `motor-desligado-no-ciclo`, o `tacografoDigital`, os `opcionais` da calibração, o `CICLO` e os critérios sem viagem · saem o `versao-ilegivel`, o `camera-sem-permissao` e o `CADEIA.versoes`
+- **a barra do sistema segue o mundo, em duas coisas só** (lei 22): o Bluetooth enquanto o módulo está conectado — da conexão ao fim da sessão, com o diagnóstico inteiro —, e, sem internet, o sinal apagado e sem o Wi-Fi · 85 telas mudam **só na barra** · no componente, as propriedades `bluetooth` e `semRede`
+- a coluna *Telas que usam* do `componentes.md` passa a comparar os dois estilos mais longos de cada peça, e não o primeiro
+- agora são **142 referências**: 15 telas, 62 momentos e 65 estados · 109 histórias · 107 peças · 54 decisões
+
 ## 2026-10-02 · o pacote 1 e a errata, construídos
 
 - **as telas:** a T05 só conecta (sai a pré-checagem; o M2C-0999 se toca na 01 e leva à T07/02) · a T07 nova, o Diagnóstico do módulo, com as 11 referências (as sete linhas a 600 ms, as três travas, a linha que só informa, a CAN que espera e a lida, o firmware de 62% por 1 s e a releitura) · a T04 com o Diagnóstico, a rede e o estado 15 · a T03 com cinco grupos e 31 itens · a T06 com o vínculo, os dados do modelo e os estados 10 e 11 · a T09 com o que vai ser gravado, as travas do envio, a manutenção e o conteúdo nos elos · a T16 com "6 blocos" e o Extended ID preservado · o resumo da T12 · a T08 sai, e a coluna agrupa a T07 em o módulo e a CAN

@@ -63,9 +63,16 @@ export const T = {
   // pro reenvio — o primário, a frase da cadeia curta e a limpeza só delas (G25)
   manutencao: 'MANUTENÇÃO',
   reenvieUm: 'Reenvie um bloco por vez. A limpeza apaga só o que você escolher.',
-  reenviar: { cercas: 'Reenviar as cercas' },
-  reenviando: { cercas: 'Reenviando só as cercas.' },
-  limpezaSo: { cercas: 'apaga só as cercas · o resto fica como está' },
+  // o pacote 2 (D2): a conferência corrige um bloco por vez — as cercas, e depois o leitor, os eventos
+  // e a conexão. Os textos desses três seguem a gramática dos das cercas: nenhuma referência os desenha
+  reenviar: { cercas: 'Reenviar as cercas', leitor: 'Reenviar o leitor', eventos: 'Reenviar os eventos', conexao: 'Reenviar a conexão' },
+  reenviando: { cercas: 'Reenviando só as cercas.', leitor: 'Reenviando só o leitor.', eventos: 'Reenviando só os eventos.', conexao: 'Reenviando só a conexão.' },
+  limpezaSo: {
+    cercas: 'apaga só as cercas · o resto fica como está',
+    leitor: 'apaga só o leitor · o resto fica como está',
+    eventos: 'apaga só os eventos · o resto fica como está',
+    conexao: 'apaga só a conexão · o resto fica como está',
+  },
   ficamComoEstao: (rotulos) => `${emLista(rotulos)} ficam como estão.`,
   // a prova da cadeia concluída: os blocos, contados da ordem (decisão 49)
   gravadoERelido: 'GRAVADO E RELIDO',

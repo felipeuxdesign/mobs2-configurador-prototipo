@@ -28,4 +28,4 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `06-estado-sessao-interrompida`
 
-`14:30` · `Sem sessão de configuração` · `Sessão interrompida` · `3` · `de 6` · `QAH-1M67 · M2C-0411 · iniciada hoje às 13:05` · `Limpeza` · `feita` · `Ativo` · `OF-1621` · `Cercas` · `4 áreas` · `Leitor` · `o ativo e as cercas já estão gravados` · `parou aqui` · `Eventos` · `—` · `Conexão` · `—` · `Retomar` · `Descartar`
+`14:30` · `Sem sessão de configuração` · `Sessão interrompida` · `3` · `de 6` · `QAH-1M67 · M2C-0411 · iniciada hoje às 13:05` · `Limpeza` · `feita` · `Ativo` · `OF-1621` · `Cercas` · `4 regiões` · `Leitor` · `o ativo e as cercas já estão gravados` · `parou aqui` · `Eventos` · `—` · `Conexão` · `—` · `Retomar` · `Descartar`

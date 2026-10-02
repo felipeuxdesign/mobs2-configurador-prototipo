@@ -11,10 +11,10 @@ Cada caso de `mocks.js` → a tela e o estado que ele produz. **O estado se mont
 | `bluetooth-desligado` | `T05/16-estado-bluetooth-desligado` |
 | `bluetooth-sem-permissao` | `T05/17-estado-bluetooth-sem-permissao` |
 | `busca-vazia` | `T05/03-estado-nenhum-encontrado` |
-| `camera-sem-permissao` | `T10/11-estado-camera-sem-permissao` |
 | `can-estatico-ausente` | `T07/08-estado-sinal-da-can-sem-leitura` |
+| `can-estatico-bateria` | `T13/09-estado-item-reprovado` |
 | `can-estatico-isolado` | `T07/09-estado-sinal-da-can-fora-do-esperado` |
-| `can-fora-esperado` | `T13/09-estado-item-reprovado` · `T14/03-estado-dinamico-fora-do-esperado` |
+| `cercas-reenviadas` | `T11/05-estado-revisar-em-seguida` |
 | `conexao-falha` | `T05/04-estado-conexao-falhou` |
 | `conflito-pinos-resolvivel` | `T06/05-estado-conflito-de-pinos-resolvivel` |
 | `conflito-pinos-sem-saida` | `T06/06-estado-conflito-de-pinos-sem-saida` |
@@ -38,6 +38,7 @@ Cada caso de `mocks.js` → a tela e o estado que ele produz. **O estado se mont
 | `modem-sem-sinal` | `T07/07-estado-modem-sem-sinal` |
 | `modulo-em-outro-ativo` | `T06/10-estado-modulo-em-outro-ativo` |
 | `modulo-ja-deste-ativo` | `T06/11-estado-modulo-ja-deste-ativo` · `T09/08-momento-manutencao-escolher-o-bloco` · `T09/09-momento-manutencao-reenviando` |
+| `motor-desligado-no-ciclo` | `T14/03-estado-dinamico-fora-do-esperado` |
 | `outro-usuario` | `T01/18-estado-outro-usuario-no-aparelho` |
 | `pac-uo-02` | `T03/03-estado-pacote-de-4-dias` |
 | `pac-uo-03` | `T03/04-estado-pacote-vencido` |
@@ -53,6 +54,5 @@ Cada caso de `mocks.js` → a tela e o estado que ele produz. **O estado se mont
 | `teto-de-envios` | `T01/17-estado-teto-de-envios` |
 | `uma-empresa` | `T02/00-tela` · `T02/01-momento-escolhida` · `T02/08-estado-uma-empresa-ja-marcada` · `T04/07-momento-folha-trocar-de-garagem` |
 | `usuario-lembrado` | `T01/16-estado-usuario-lembrado` |
-| `versao-ilegivel` | `T11/04-estado-versao-ilegivel` |
 
 O caso `fila-vazia` dá a hora do último envio da fila vazia (T15/03 e T15/04). Os estados sem caso próprio nascem de um dado do mock — por exemplo, a rotação e a velocidade do caminhão KNB-5H39 na calibração vêm de `calibracao.porModelo`, sem caso nenhum. O `estados.md` de cada tela diz de onde vem cada um.

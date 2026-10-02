@@ -27,8 +27,11 @@
 .ds-checagem-dupla .ds-checagem-valor { color: var(--tinta); }
 
 .ds-checagem-conferencia { gap: var(--e-10); height: var(--linha-dupla); }
-.ds-checagem-conferencia .ds-checagem-corpo { flex: 0 0 auto; width: var(--conferencia-nome); }
-.ds-checagem-conferencia .ds-checagem-titulo { font-size: var(--t-link); font-weight: 600; color: var(--tinta); }
+/* o pacote 2 (folha 4, T11): a coluna do nome mede 96 nas referências (o Extended ID), e o token
+ * --conferencia-nome diz 74 (os tokens não mudam neste pacote): o nome fica do tamanho dele, numa
+ * linha, nunca menos que o token, e o valor, alinhado à direita, cai no mesmo pixel (desvio nomeado) */
+.ds-checagem-conferencia .ds-checagem-corpo { flex: 0 0 auto; min-width: var(--conferencia-nome); }
+.ds-checagem-conferencia .ds-checagem-titulo { font-size: var(--t-link); font-weight: 600; color: var(--tinta); white-space: nowrap; }
 .ds-checagem-conferencia .ds-checagem-valor { flex-grow: 1; font-size: var(--t-corpo); text-align: right; }
 
 /* ── estados (depois das variantes: a tinta do estado ganha) ── */
@@ -71,6 +74,13 @@
 .ds-checagem-par-modulo { color: var(--vermelho); }
 /* a entrega do checklist · T11/01 · o bloco que confere, com o valor em --tinta */
 .ds-checagem-conferencia.ds-checagem-valor-aceso .ds-checagem-valor { color: var(--tinta); }
+/* o pacote 2 (decisão 53) · T11 · o Extended ID, só leitura ('informa', o i cinza): o valor curto em
+ * --tinta-secundaria, como o das que conferem (01, 02, 05); com par na tela (00), as duas linhas em
+ * --tinta-secundaria. O revisar em seguida ('pendente', o relógio): a linha de cima em --tinta, o
+ * porquê embaixo em --tinta-secundaria (05) */
+.ds-checagem-conferencia.ds-checagem-informa .ds-checagem-valor,
+.ds-checagem-conferencia.ds-checagem-informa .ds-checagem-par-modulo { color: var(--tinta-secundaria); }
+.ds-checagem-conferencia.ds-checagem-pendente .ds-checagem-par-modulo { color: var(--tinta); }
 /* C11 · T11 · a leitura ainda não chegou nesta linha: o poço fica vazio (a T16) */
 .ds-checagem-lendo .ds-poco > * { opacity: 0; }
 /* a entrega do checklist · T11 · na conferência, o bloco entra com o relógio no poço, e o que o

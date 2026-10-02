@@ -2,9 +2,9 @@
 
 > O começo é o [`README.md`](README.md): o que é o projeto, o link do protótipo navegável e como rodar no computador. Esta página é a ordem de leitura de cada perfil.
 
-O app que técnicos de campo usam para **instalar e homologar rastreadores em ônibus** — conectar o módulo, gravar a configuração, calibrar, rodar o ciclo dinâmico e fechar o checklist, com **a evidência gerada pelo sistema, nunca digitada**.
+O app que técnicos de campo usam para **instalar e homologar rastreadores em ônibus** — conectar o módulo, gravar a configuração, calibrar, rodar o ciclo de testes e fechar o checklist, com **a evidência gerada pelo sistema, nunca digitada**.
 
-Esta pasta é a fonte única do produto. O design está **fechado e medido**: 15 telas, 64 momentos e 66 estados, um design system que cobre todo desenho que se repete, e o gabarito visual de cada um.
+Esta pasta é a fonte única do produto. O design está **fechado e medido**: 15 telas, 62 momentos e 65 estados, um design system que cobre todo desenho que se repete, e o gabarito visual de cada um.
 
 ## Quem é você
 

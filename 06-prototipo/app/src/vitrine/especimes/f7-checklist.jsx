@@ -4,6 +4,9 @@
 // item, o veredito e a ação da seção. A foto é uma peça com dois estados; a
 // câmera do app, uma peça só. O pacote 1 tirou da folha o mostrador (a T08) e
 // trocou a versão das provas pelos blocos: o módulo não guarda versão (decisão 49).
+// O pacote 2: a A com 3 (o chassi saiu), o Painel foto a tirar na B (decisão 52), a
+// foto tirada é o registro do problema, a ação da seção é o Fazer o ciclo de testes
+// (decisão 54), e a foto a tirar saiu da folha (a calibração não fotografa mais).
 // As peças de outra família entram compostas: a Lista (linhas, folha 4) e o
 // cartão de ferramenta com o contador (cartões, folha 4).
 import {
@@ -15,17 +18,17 @@ import { CartaoFerramenta, GradeFerramentas } from '../../ds/cartoes/index.js'
 import { blocosRelidos } from '../../telas/T16/dados.js'
 
 // as seções como a folha desenha: a A aberta, de leitura; a B fechada e aberta, de tocar
-const leituraDaA = [['Serial do módulo', 'M2C-0417'], ['Firmware', '2.3.5'], ['Ativo vinculado', 'RKT-8H42'], ['Chassi', 'confere']]
+const leituraDaA = [['Serial do módulo', 'M2C-0417'], ['Firmware', '2.3.5'], ['Ativo vinculado', 'RKT-8H42']]
 export const secaoALeitura = () => (
-  <SecaoDoChecklist estado="aprovada" titulo="A · Identificação" quemAge="o app confere sozinho" feitos={4} de="de 4" aberta>
+  <SecaoDoChecklist estado="aprovada" titulo="A · Identificação" quemAge="o app confere sozinho" feitos={3} de="de 3" aberta>
     {leituraDaA.map(([nome, valor], i) => <ItemDoChecklist key={nome} nome={nome} valor={valor} divisoria={i < leituraDaA.length - 1} />)}
   </SecaoDoChecklist>
 )
-export const secaoBFechada = () => <SecaoDoChecklist estado="pendente" titulo="B · Montagem" quemAge="você fotografa 4 itens" feitos={1} de="de 5" />
+export const secaoBFechada = () => <SecaoDoChecklist estado="pendente" titulo="B · Montagem" quemAge="você fotografa 5 itens" feitos={0} de="de 5" />
+const fotosDaB = ['Módulo', 'Antena GPS', 'Chicote', 'Leitor', 'Painel']
 const secaoBTocar = () => (
-  <SecaoDoChecklist estado="pendente" titulo="B · Montagem" quemAge="você fotografa 4 itens" feitos={1} de="de 5" aberta>
-    {['Módulo', 'Antena GPS', 'Chicote', 'Leitor'].map((nome) => <ItemDoChecklist key={nome} tipo="tocar" icone="camera" nome={nome} legenda="foto a tirar" aoTocar={() => {}} />)}
-    <ItemDoChecklist tipo="feito" nome="Painel" legenda="fotografado na calibração, às 14:30" divisoria={false} />
+  <SecaoDoChecklist estado="pendente" titulo="B · Montagem" quemAge="você fotografa 5 itens" feitos={0} de="de 5" aberta>
+    {fotosDaB.map((nome, i) => <ItemDoChecklist key={nome} tipo="tocar" icone="camera" nome={nome} legenda="foto a tirar" divisoria={i < fotosDaB.length - 1} aoTocar={() => {}} />)}
   </SecaoDoChecklist>
 )
 
@@ -39,30 +42,28 @@ export const especimes = [
   { id: 'f7-item-tocar', folha: 7, rotulo: 'item de tocar', legenda: 'a câmera e a seta · abre a foto',
     render: () => <Lista><ItemDoChecklist tipo="tocar" icone="camera" nome="Chicote" legenda="foto a tirar" aoTocar={() => {}} /></Lista> },
   { id: 'f7-item-feito', folha: 7, rotulo: 'item feito', legenda: 'o check e de onde veio · sem seta',
-    render: () => <Lista><ItemDoChecklist tipo="feito" nome="Painel" legenda="fotografado na calibração, às 14:30" divisoria={false} /></Lista> },
+    render: () => <Lista><ItemDoChecklist tipo="feito" nome="Módulo" legenda="fotografado às 14:31" divisoria={false} /></Lista> },
   { id: 'f7-item-ressalva', folha: 7, rotulo: 'item com ressalva', legenda: 'passou, mas diz a ressalva embaixo',
     render: () => <Lista><ItemDoChecklist tipo="ressalva" estado="ressalva" nome="Módulo" legenda="com ressalva · suporte trincado" /></Lista> },
   { id: 'f7-veredito', folha: 7, rotulo: 'o veredito', legenda: 'o topo do checklist homologado · o relatório embaixo',
     render: () => <VereditoDoChecklist titulo="Instalação homologada às 14:30" relatorio="o relatório leva 12 evidências, o local e o seu nome" /> },
 
   // ── evidência
-  // a entrega de 25/09 (decisão 33): a que se tira é o cartão tocável, com a câmera e a seta; a tirada, o registro no lugar
-  { id: 'f7-foto-a-tirar', folha: 7, rotulo: 'foto · a tirar', legenda: 'tocável, com a câmera · a legenda diz pra que ela serve',
-    render: () => <FotoProva titulo="Fotografar o painel" legenda="é a prova do número — vale no checklist" aoTocar={() => {}} /> },
+  // a tirada é o registro no lugar (o problema fotografado, T13/15); a a tirar saiu da folha no pacote 2
   { id: 'f7-foto-tirada', folha: 7, rotulo: 'foto · tirada', legenda: 'vira o registro no lugar, e deixa de ser tocável · diz onde mais ela vale',
-    render: () => <FotoProva tirada titulo="Painel fotografado às 14:30" legenda="vale também no checklist, na Seção B" /> },
+    render: () => <FotoProva tirada titulo="Problema fotografado às 14:30" legenda="vai junto com a ressalva, pro gestor" /> },
   // a câmera do app (T10/06 e 11, T13/07 e 08): a entrega do checklist a pôs na
   // folha 7, e ela entra na bancada. As duas sem a permissão seguem fora da
   // folha (semBancada): a do item não tem referência nem estado na coluna, e é
   // aqui que ela se vê
   { id: 'f7-visor-camera', folha: 7, rotulo: 'a câmera do app', legenda: 'a mesma na calibração e no checklist · o quadro diz o que enquadrar',
-    render: () => <VisorCamera frase="Enquadre o hodômetro do painel" /> },
+    render: () => <VisorCamera frase="Enquadre o módulo e o ponto de fixação" /> },
   { id: 'f7-visor-sem-permissao', folha: 7, rotulo: 'a câmera do app · sem a permissão', semBancada: true, legenda: 'fora da folha · a câmera riscada, o que falta e a explicação apagada (T10/11)',
     render: () => <VisorCamera semPermissao frase="O app precisa da câmera pra fotografar o painel" explicacao="Sem a foto, a calibração não semeia." /> },
   { id: 'f7-visor-sem-permissao-item', folha: 7, rotulo: 'a câmera do item · sem a permissão', semBancada: true, legenda: 'fora da folha · no checklist, sem texto aprovado: só a câmera riscada (G25)',
     render: () => <VisorCamera semPermissao /> },
   { id: 'f7-acao-secao', folha: 7, rotulo: 'a ação da seção', legenda: 'uma linha só com seta · o resto da seção é leitura',
-    render: () => <Lista><ItemDoChecklist tipo="tocar" icone="ciclo" nome="Fazer o ciclo dinâmico" legenda="os 5 passos, com o ônibus em movimento" aoTocar={() => {}} /></Lista> },
+    render: () => <Lista><ItemDoChecklist tipo="tocar" icone="ciclo" nome="Fazer o ciclo de testes" legenda="os 6 passos, com o ônibus parado" aoTocar={() => {}} /></Lista> },
 
   // ── processo e prova
   { id: 'f7-bloco-evento', folha: 7, rotulo: 'bloco do evento', legenda: 'o que foi disparado e recebido',

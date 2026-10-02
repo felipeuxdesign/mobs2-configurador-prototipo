@@ -2,18 +2,22 @@
 // número digitado. Cada item lê a etapa que o produziu (as telas T05 a T10 e
 // a T14 gravam em estado.etapas; a T13 grava o que ela resolve em
 // etapas.checklist):
-//   A · identificação  ← a sessão, a pré-checagem (T05) e o vínculo do ativo (T06)
-//   B · montagem       ← as fotos e as ressalvas desta tela; o Painel herda a
-//                        foto da calibração (T10, HU-T10-4)
-//   C · hardware       ← a leitura da CAN (T07, T08; o caso do ativo, se não
-//                        foi consumido) e a leitura nominal do módulo (AC-13)
-//   D · configuração   ← a cadeia (T09) e a calibração (T10)
-//   E · teste dinâmico ← o ciclo (T14); não se responde aqui (HU-T13-8)
+//   A · identificação  ← a sessão, o diagnóstico do módulo (T07, etapas.preChecagem)
+//                        e o vínculo do ativo (T06, etapas.ativo)
+//   B · montagem       ← as fotos e as ressalvas desta tela; o Painel é foto a
+//                        tirar, e só existe quando houve calibração (decisão 52, D4)
+//   C · hardware       ← a leitura da CAN (T07, etapas.can; o caso do ativo, se
+//                        não foi consumido) e a leitura nominal do módulo (AC-13)
+//   D · configuração   ← a cadeia (T09, etapas.cadeia: o conteúdo de cada bloco,
+//                        decisão 49), o Extended ID só leitura (decisão 45) e a
+//                        calibração (T10, etapas.calibracao; o horímetro pulado
+//                        diz 'não calibrado', sem bloquear — D1)
+//   E · ciclo de testes← o ciclo (T14, etapas.ciclo); não se responde aqui (HU-T13-8)
 //   F · servidor       ← a fila desta sessão (G22): só o que foi criado depois
 //                        da abertura, pelos tipos da fila (AC-14)
 // O que é um item resolvido (a regra do logica.md): o automático cuja fonte
-// passa, o manual com foto (tirada ou herdada) ou com ressalva, e o que não se
-// aplica. O que não bloqueia (F) conta no título, mas não no 'Faltam'.
+// passa, o manual com foto ou com ressalva, e o que não se aplica (o horímetro
+// pulado, D1, conta como resolvido). O que não bloqueia (F) conta no título, mas não no 'Faltam'.
 //
 // A entrega do checklist (decisão 34): cada item é uma linha da seção aberta,
 // e tem seta só o que se toca (Lei 16) — a foto por fazer (a câmera do app), o
@@ -23,6 +27,7 @@
 import { M } from '../../dados/mock.js'
 import { milhar, decimal, caixaAlta } from '../../dados/formato.js'
 import { RECEITAS } from '../../estado/receitas.js'
+import { conteudoDo } from '../T09/cadeia.js'
 import { T } from './textos.js'
 
 export const REF = {
@@ -63,8 +68,11 @@ const HORA = M.HORA_NOMINAL
 // do item: o título longo na seção que o técnico faz ('B · INSTALAÇÃO FÍSICA',
 // T13/07 e 08) e o nome curto na que o app confere ('C · HARDWARE', T13/09) —
 // é o que as referências da entrega desenham (AC-11, pro arquiteto)
-export const nomeDaSecao = (s) => T.secao(s.id, s.rotulo)
-export const rotuloDoNivel = (s) => caixaAlta(T.secao(s.id, s.natureza === 'manual' ? s.titulo : s.rotulo))
+// (a E se chama Ciclo de testes nas referências e no textos.md; o mock ainda diz
+// Teste dinâmico — o texto da referência, até o mock trocar, desvio nomeado)
+const rotuloDa = (s) => T.rotuloDaSecao[s.id] ?? s.rotulo
+export const nomeDaSecao = (s) => T.secao(s.id, rotuloDa(s))
+export const rotuloDoNivel = (s) => caixaAlta(T.secao(s.id, s.natureza === 'manual' ? s.titulo : rotuloDa(s)))
 
 // o momento da seção aberta, pelo que ela mostra: a B com ressalva (12) e a E
 // resolvida (13) têm quadro próprio; homologado, nenhuma seção aberta tem
@@ -76,12 +84,6 @@ export function momentoDaSecao(s, ck, homologada) {
   return { A: REF.A, B: REF.B, C: REF.C, D: REF.D, E: REF.E, F: REF.F }[s]
 }
 
-// ── a versão composta da cadeia, dos blocos confirmados (a mesma conta da T09) ──
-function versaoComposta(confirmados) {
-  const { ordem, versoes } = M.cadeia
-  return ordem.slice(0, confirmados).filter((b) => versoes[b]).map((b) => versoes[b]).join('.')
-}
-
 // ── G21 · a semente da T13: o herói depois da calibração, antes do ciclo ──
 // Pular pro checklist pelo palco monta só a sessão (sementes.js); o que as
 // telas T05 a T10 gravariam no caminho vem daqui, pelo cadastro do par. Vale
@@ -89,21 +91,22 @@ function versaoComposta(confirmados) {
 // foi gravada): é o palco que semeou. No fluxo, cada etapa é a que a tela gravou.
 function etapasDoCaminho(ativoId, moduloSerial) {
   const modelo = modeloDe(ativoId)
-  // a calibração só se o painel do ativo tem o número (sem ele, a T10 não semeia)
-  const partida = M.calibracao.porModelo[modelo?.id]?.calibraveis.find((g) => grandezaDe(g).natureza === 'partida' && M.calibracao.painel[ativoId]?.[g] != null)
+  // a calibração semeia o que o painel do ativo tem (sem o número, a T10 não semeia):
+  // no herói, o hodômetro e o horímetro (T13/04). Sem nenhuma, não houve calibração
+  const partidas = (M.calibracao.porModelo[modelo?.id]?.calibraveis ?? []).filter((g) => grandezaDe(g).natureza === 'partida' && M.calibracao.painel[ativoId]?.[g] != null)
   return {
     preChecagem: { daSemente: true },
-    ativo: { ativoId, vinculo: modelo?.chassiPelaCan ? 'chassi' : 'confirmacao', as: HORA },
+    ativo: { ativoId, as: HORA },
     can: { lida: true },
-    cadeia: { confirmados: M.cadeia.ordem.length, versaoGravada: versaoComposta(M.cadeia.ordem.length) },
-    calibracao: partida
-      ? { ativoId, moduloSerial, itemChecklist: M.calibracao.itemChecklist.id, foto: true, passo: partida, semeadas: { [partida]: { painel: M.calibracao.painel[ativoId][partida], as: HORA } } }
+    cadeia: { confirmados: M.cadeia.ordem.length },
+    calibracao: partidas.length
+      ? { ativoId, moduloSerial, concluida: true, semeadas: Object.fromEntries(partidas.map((g) => [g, { painel: M.calibracao.painel[ativoId][g], as: HORA }])) }
       : null,
   }
 }
 const daSemente = (etapas) => etapas.preChecagem == null
 
-// o ciclo que a T14 grava quando os cinco passos e o evento fecham (T14/05):
+// o ciclo que a T14 grava quando os seis passos e o evento fecham (T14/05):
 // o 13 aberto pela URL é o fluxo depois disso (G20), e a coluna do 10 e do 14 chega com ele
 export function cicloConcluido(ativoId, moduloSerial) {
   const passos = Object.fromEntries(itensDa('E').map((i) => [i.id, 'aprovada']))
@@ -113,11 +116,11 @@ export function cicloConcluido(ativoId, moduloSerial) {
   }
 }
 // as fotos de B tiradas: o que bloqueia fechou (o 10, o 14 e o 11 pela URL)
-const fotosDeB = () => Object.fromEntries(itensDa('B').filter((i) => !i.herda).map((i) => [i.id, HORA]))
+const fotosDeB = () => Object.fromEntries(itensDa('B').map((i) => [i.id, HORA]))
 
 // ── o mundo: a sessão, as etapas, a fila e os casos que valem ──
 // No estado da coluna, o do caso da receita (G21): o 09 no a-02 do
-// can-estatico-isolado (a bateria abaixo do mínimo, na CAN), o 10 no a-09 do
+// can-estatico-bateria (a bateria abaixo do mínimo, lida no módulo), o 10 no a-09 do
 // pronto-para-fechar (o ciclo completo, as fotos tiradas e o servidor que não
 // respondeu), o 14 na sessão do herói homologada, com a localização negada
 // (localizacao-negada é caso do celular, e não diz ativo). No fluxo, o estado único.
@@ -209,11 +212,17 @@ export function escalaDo(id, faixa) {
 // ── o que cada seção lê ──
 function passou(etapa) { return !!etapa && (etapa.daSemente || etapa.passaram === etapa.checagens) }
 function confirmadosDaCadeia(etapas) { return etapas.cadeia?.confirmados ?? 0 }
-function calibrada(mundo) { const c = mundo.etapas.calibracao; return !!c && c.ativoId === mundo.sessao.ativoId && Object.keys(c.semeadas ?? {}).length > 0 }
-// a hora da foto do painel, a da calibração (o relógio parado, G9)
-function horaDaFotoDoPainel(mundo) {
-  const f = Object.values(mundo.etapas.calibracao?.fotos ?? {})[0]
-  return f?.as ?? HORA
+// houve calibração na sessão: a T10 semeou ao menos uma grandeza neste ativo
+function calibracaoDa(mundo) { const c = mundo.etapas.calibracao; return c && c.ativoId === mundo.sessao.ativoId ? c : null }
+function calibrada(mundo) { return Object.keys(calibracaoDa(mundo)?.semeadas ?? {}).length > 0 }
+// a grandeza pulada (D1): a T10 a marcou em `puladas`, ou a calibração concluiu sem
+// semear a que o modelo tem como opcional (o Pular o horímetro, decisão 52)
+function pulada(mundo, g) {
+  const c = calibracaoDa(mundo)
+  if (!c || c.semeadas?.[g]) return false
+  if ((c.puladas ?? []).includes(g)) return true
+  const opcionais = M.calibracao.porModelo[modeloDe(mundo.sessao.ativoId)?.id]?.opcionais ?? []
+  return !!c.concluida && opcionais.includes(g)
 }
 // E · o ciclo que a T14 gravou (etapas.ciclo), se é do ativo da sessão: cada
 // passo pelo id do item da Seção E ('aprovada' · 'reprovada' · 'pendente')
@@ -263,14 +272,14 @@ function reprovou(item, legenda, leitura) {
   return base(item, { estado: 'reprovado', tipo: 'tocar', legenda, leitura, destino: leitura ? 'reprovado' : { tela: TELA_DA_ORIGEM[item.origem] } })
 }
 
+// A · três itens: o chassi saiu (decisão 46)
 function itemA(mundo, item) {
   const { sessao, etapas } = mundo
   const conectado = passou(etapas.preChecagem)
   const vinculado = etapas.ativo?.ativoId === sessao.ativoId
   if (item.id === 'a-serial') return conectado ? lido(item, sessao.moduloSerial) : falta(item)
   if (item.id === 'a-firmware') return conectado ? lido(item, moduloDe(sessao.moduloSerial)?.firmware) : falta(item)
-  if (item.id === 'a-ativo') return vinculado ? lido(item, ativoDe(sessao.ativoId)?.placa) : falta(item)
-  return vinculado ? lido(item, T.confere) : falta(item) // o chassi: pela CAN ou confirmado (T06)
+  return vinculado ? lido(item, ativoDe(sessao.ativoId)?.placa) : falta(item)
 }
 
 // a causa da ressalva, na linha: a primeira oração da justificativa, com a
@@ -281,15 +290,13 @@ export function causaDa(justificativa) {
   return t ? t.charAt(0).toLowerCase() + t.slice(1) : null
 }
 
+// B · o Painel é foto a tirar, como os outros quatro (decisão 52); sem calibração na
+// sessão ele nem aparece (D4 · itensDeB)
 function itemB(mundo, item) {
-  const { registro, etapas } = mundo
+  const { registro } = mundo
   const b = (c) => base(item, { tipo: 'feito', pergunta: item.pergunta, ...c })
-  // sem leitor no ônibus, ou sem calibração na sessão, não se aplica (o mock): o traço, sem frase (G25)
+  // sem leitor no ônibus, não se aplica (o mock): o traço, sem frase (G25)
   if (item.condicao === 'leitor' && !modeloDe(mundo.sessao.ativoId)?.leitor) return b({ estado: 'nsa' })
-  if (item.herda === 'calibracao') {
-    if (!calibrada(mundo)) return b({ estado: 'nsa' })
-    if (etapas.calibracao.foto) return b({ estado: 'ok', herdado: true, legenda: T.fotografadoNaCalibracao(horaDaFotoDoPainel(mundo)) })
-  }
   const ressalva = registro.ressalvas[item.id]
   if (ressalva) { const causa = causaDa(ressalva.justificativa); return b({ estado: 'ressalva', tipo: 'ressalva', legenda: causa ? T.comRessalva(causa) : undefined }) }
   // a foto tirada aqui: o check, e nenhum texto aprovado diz de onde ela veio (G25)
@@ -318,44 +325,47 @@ function itemC(mundo, item) {
   return dentro(L.modemFaixa, L.modemDbm) ? lido(item, T.sinalBom) : reprovou(item, T.vazio, null)
 }
 
+// D · o que a cadeia gravou, pelo conteúdo de cada bloco (decisão 49 — o módulo não
+// guarda versão; as mesmas palavras da T09 e da T11, conteudoDo): as cercas em
+// regiões, a APN, os eventos e o leitor; a tradução da CAN, gravada · o Extended ID,
+// só leitura (decisão 45), o que está no módulo — sem cartões, D5 · a calibração:
+// o valor de partida que pôs no módulo (o do painel), ou, pulado, 'não calibrado' (D1)
+function extendedIdDo(moduloSerial) {
+  // o que está no módulo: o do cadastro do módulo, se o mock declarar; senão, o único
+  // Extended ID declarado, o do diff-divergente (o mesmo que a T11/02 desenha no herói)
+  return moduloDe(moduloSerial)?.extendedId ?? M.leituraNominalModulo.extendedId ?? M.casos['diff-divergente']?.extendedId ?? null
+}
 function itemD(mundo, item) {
   const { sessao, etapas } = mundo
   const conf = confirmadosDaCadeia(etapas)
-  const { ordem, versoes } = M.cadeia
+  const { ordem } = M.cadeia
   const gravou = (bloco) => conf > ordem.indexOf(bloco)
   const modelo = modeloDe(sessao.ativoId)
   const [tipo, alvo] = String(item.fonte).split(':')
   if (tipo === 'bloco') {
     if (!gravou(alvo)) return falta(item)
     if (alvo === 'limpeza') return lido(item, T.feita)
-    if (alvo === 'ativo') return lido(item, modelo?.traducaoCan ?? versoes.ativo)
-    if (alvo === 'cercas') {
-      const regioes = M.cercas.regioes.filter((r) => r.ativoId === sessao.ativoId).length
-      return lido(item, regioes ? versoes.cercas : T.semCerca)
-    }
-    if (alvo === 'leitor') return lido(item, T.gravados)
-    if (alvo === 'eventos') {
-      const preset = M.presetsEvento.find((p) => p.id === modelo?.presetEventoId)
-      return lido(item, preset ? T.intervalo(preset.intervaloRastreamentoSeg) : versoes.eventos)
-    }
-    if (alvo === 'conexao') return lido(item, T.atual)
-    return lido(item, versoes[alvo])
+    if (alvo === 'ativo') return lido(item, T.gravada)
+    return lido(item, conteudoDo(sessao)[alvo] ?? T.vazio)
   }
   if (item.fonte === 'servidor') return gravou('conexao') ? lido(item, T.gravado) : falta(item)
-  if (item.fonte === 'versao') {
-    // a versão gravada inteira (G9)
-    return conf >= ordem.length ? lido(item, etapas.cadeia.versaoGravada ?? versaoComposta(conf)) : falta(item)
+  if (item.fonte === 'identificadores') {
+    if (!passou(etapas.preChecagem)) return falta(item)
+    const x = extendedIdDo(sessao.moduloSerial)
+    return lido(item, x ? T.extendedId(x.cartoes ?? 0, x.ibuttons ?? 0) : T.vazio)
   }
   // cal:<grandeza> · o valor de partida que a calibração da sessão pôs no módulo: o do painel
   const g = alvo
   if (!M.calibracao.porModelo[modelo?.id]?.calibraveis.includes(g)) return naoSeAplica(item)
-  const painel = M.calibracao.painel[sessao.ativoId]?.[g]
-  if (!calibrada(mundo) || painel == null) return falta(item)
+  if (pulada(mundo, g)) return lido(item, T.naoCalibrado)
+  const semeada = calibracaoDa(mundo)?.semeadas?.[g]
+  const painel = semeada?.painel ?? null
+  if (painel == null) return falta(item)
   return lido(item, `${milhar(painel)} ${grandezaDe(g).unidade}`)
 }
 
 // E · leitura só: o passo aprovado diz 'confere'; o que falta, 'a fazer'. A
-// ação da seção é uma só, o Fazer o ciclo dinâmico (T13·4, HU-T13-8)
+// ação da seção é uma só, o Fazer o ciclo de testes (T13·4, HU-T13-8)
 function itemE(mundo, item) {
   const passo = passoDoCiclo(mundo, item)
   if (passo === 'aprovada') return lido(item, T.confere)
@@ -381,8 +391,8 @@ function itemF(mundo, item, total, feitosSemF) {
 // quem age, embaixo do nome da seção (a entrega do checklist, decisão 34): o
 // que o app confere, o que o técnico fotografa, o ciclo, o servidor. Com 1, o
 // singular (a resposta do arquiteto de 26/09: *você fotografa 1 item*, *1 foto
-// tirada*). As fotos tiradas contam o item fotografado aqui, o herdado da
-// calibração e o salvo com a ressalva, que tem a foto do problema (decisão 39);
+// tirada*). As fotos tiradas contam o item fotografado aqui e o salvo com a
+// ressalva, que tem a foto do problema (decisão 39);
 // sem nenhuma, a linha fica sem ela (G25)
 function quemAgeDa(s, itens, homologada) {
   const feitos = itens.filter(resolvido).length
@@ -399,14 +409,18 @@ function quemAgeDa(s, itens, homologada) {
 
 // ── o checklist inteiro: os itens, as seções, a contagem e o que falta ──
 export const resolvido = (c) => c.estado === 'ok' || c.estado === 'ressalva' || c.estado === 'nsa'
+// os itens de B que existem nesta sessão: o Painel só quando houve calibração (D4 —
+// sem ela, a B tem 4, e o total, 30)
+export const itensDeB = (mundo) => itensDa('B').filter((i) => i.condicao !== 'calibracao' || calibrada(mundo))
+const itensDaSessao = (mundo, s) => (s === 'B' ? itensDeB(mundo) : itensDa(s))
 export function checklist(mundo) {
   const porSecao = {}
   for (const s of ['A', 'B', 'C', 'D', 'E']) {
-    porSecao[s] = itensDa(s).map((item) => (
+    porSecao[s] = itensDaSessao(mundo, s).map((item) => (
       s === 'A' ? itemA(mundo, item) : s === 'B' ? itemB(mundo, item) : s === 'C' ? itemC(mundo, item) : s === 'D' ? itemD(mundo, item) : itemE(mundo, item)
     ))
   }
-  const total = CK.itens.length
+  const total = Object.values(porSecao).flat().length + itensDa('F').length
   const semF = Object.values(porSecao).flat()
   // o checklist que sobe (f-checklist) leva o que estava resolvido e a própria Seção F
   const fItens = itensDa('F')
@@ -420,7 +434,7 @@ export function checklist(mundo) {
     if (itens.some((c) => c.estado === 'reprovado')) estado = 'reprovada'
     else if (feitos === itens.length) estado = 'aprovada'
     else estado = s.natureza === 'servidor' ? 'aguarda' : 'pendente'
-    // a E tem uma ação só, enquanto falta passo: Fazer o ciclo dinâmico → T14
+    // a E tem uma ação só, enquanto falta passo: Fazer o ciclo de testes → T14
     const acao = s.natureza === 'dinamico' && feitos < itens.length
       ? { nome: T.fazerCiclo, legenda: T.osPassos(itens.length), icone: 'ciclo', destino: { tela: 'T14' } }
       : null
