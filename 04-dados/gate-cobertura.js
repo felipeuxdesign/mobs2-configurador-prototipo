@@ -120,11 +120,13 @@ chk("pool de índices esgotado nos DOIS limites", !!M.casos["pool-esgotado"] &&
 
 /* ── Casos obrigatórios ── */
 var OBRIGATORIOS = ["serial-nao-cadastrado", "modelo-sem-driver", "firmware-fora-matriz",
-  "conteudo-nao-cabe", "pool-esgotado", "ativo-fora-pacote", "divergencia-chassi",
+  "conteudo-nao-cabe", "pool-esgotado", "ativo-fora-pacote",
   "conflito-pinos-resolvivel", "conflito-pinos-sem-saida", "can-fora-esperado",
-  "sinal-aguardando-ciclo", "grandeza-indisponivel", "diff-divergente",
+  "grandeza-indisponivel", "diff-divergente",
   "indice-nao-classificado", "autoteste-falhando", "sessao-interrompida",
-  "canal-aberto", "identificador-divergente"];
+  "identificador-divergente",
+  /* PM · rodadas 1 e 2 */ "modem-sem-sinal", "firmware-sem-rede-no-modulo", "modulo-em-outro-ativo",
+  "modulo-ja-deste-ativo", "sem-conexao-no-menu"];
 OBRIGATORIOS.forEach(function (k) { chk("caso: " + k, !!M.casos[k]); });
 chk("diff divergente cobre os 5 blocos", M.casos["diff-divergente"] &&
   M.casos["diff-divergente"].divergencias.map(function (d) { return d.bloco; }).sort().join(",") === "ativo,cercas,conexao,eventos,leitor");
@@ -140,8 +142,6 @@ chk("autoteste: 8 assertivas nomeadas", M.autotesteAssertivas.length === 8 &&
 /* ── C10 · T06 ── */
 chk("C10: frota em todos os 24 ativos, únicas", M.ativos.every(function (a) { return /^\d{4}$/.test(a.frota); }) &&
   M.ativos.map(function (a) { return a.frota; }).filter(function (v, ix, arr) { return arr.indexOf(v) === ix; }).length === 24);
-chk("C10: chassiPelaCan declarado nos 3 modelos, 1 sim", M.modelosAtivo.every(function (m) { return typeof m.chassiPelaCan === "boolean"; }) &&
-  M.modelosAtivo.filter(function (m) { return m.chassiPelaCan; }).length === 1);
 chk("C10: leitor + leituraCan nos 3 modelos", M.modelosAtivo.every(function (m) { return m.leitor && m.leitor.tipo && (m.leituraCan === "barramento" || m.leituraCan === "gateway"); }));
 chk("C10: casos de pinos com consumidores e meioAtual; ocupadoPor intacto", ["conflito-pinos-resolvivel", "conflito-pinos-sem-saida"].every(function (k) {
   var c = M.casos[k]; return c && c.consumidores && c.consumidores.length >= 2 && c.meioAtual === "cabo" && c.ocupadoPor === "sensor de porta"; }));
@@ -149,10 +149,6 @@ chk("C10: resolvível fala sem fio, sem saída não", (function () {
   function semFio(k) { var c = M.casos[k]; var mod = M.modulos.find(function (x) { return x.serial === c.moduloSerial; });
     var l = M.matrizCapacidades.find(function (r) { return r.modeloId === mod.modeloId && r.variante === mod.variante; }); return !!(l && l.semFio); }
   return semFio("conflito-pinos-resolvivel") === true && semFio("conflito-pinos-sem-saida") === false; })());
-chk("C10: divergência de chassi por dígitos transpostos, mesmo comprimento", (function () {
-  var c = M.casos["divergencia-chassi"]; var a = M.ativos.find(function (x) { return x.id === c.ativoId; });
-  return a.chassi === c.chassiCadastro && c.chassiLido.length === c.chassiCadastro.length && c.chassiLido !== c.chassiCadastro &&
-    c.chassiLido.split("").sort().join("") === c.chassiCadastro.split("").sort().join(""); })());
 
 /* ── P·C1 · o que as telas leem e o gate ainda não conferia (gate C1) ── */
 var cred = M.credenciais, rec = cred.recuperacao, lim = rec.limites;
@@ -696,6 +692,16 @@ if (fonte !== null) {
     semComentario.indexOf("Math.random") < 0 && semComentario.indexOf("Date.now") < 0 && semComentario.indexOf("new Date") < 0);
   chk("zero hex no mocks.js (fora de comentário)", !/#[0-9a-fA-F]{3,8}\b/.test(semComentario));
 }
+
+/* ── PM · rodadas 1 e 2 (decisões 44 a 47) ── */
+chk("PM: fabricante e modelo nos 3 modelos de ativo", M.modelosAtivo.every(function (m) { return !!m.fabricante && !!m.modelo; }));
+chk("PM: nenhum modelo declara mais chassiPelaCan", M.modelosAtivo.every(function (m) { return !("chassiPelaCan" in m); }));
+chk("PM: nenhum pacote leva cartões — nem os das unidades a mais", JSON.stringify(M).indexOf('"cartoes":3') < 0 && M.pacotes.every(function (p) { return !("cartoes" in p.contem); }));
+chk("PM: o pacote sem cartões, 31 itens nos 5 grupos", M.pacotes.every(function (p) { return !("cartoes" in p.contem); }) &&
+  (function (c) { return c.ativos + c.conexoes + c.modelosAtivo + c.eventos + c.cercas === 31; })(M.pacotes[0].contem));
+chk("PM: o diagnóstico tem 7 linhas, e as 3 travas existem como casos", M.diagnostico.modulo.length === 7 &&
+  ["serial-nao-cadastrado", "modelo-sem-driver", "firmware-fora-matriz"].every(function (k) { return !!M.casos[k]; }));
+chk("PM: o modo sai do vínculo — a manutenção é um caso, a instalação é o padrão", M.casos["modulo-ja-deste-ativo"].modo === "manutencao");
 
 console.log(falhas ? "\nGATE REPROVADO — " + falhas + " falha(s)" : "\nGATE APROVADO — todas as âncoras recomputadas conferem");
 if (typeof process !== "undefined") process.exitCode = falhas ? 1 : 0;

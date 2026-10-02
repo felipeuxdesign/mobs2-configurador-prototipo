@@ -32,7 +32,7 @@ Dois números organizam o produto inteiro:
 
 > O app não foi feito para o técnico configurar melhor. Foi feito para que ninguém — nem ele — precise acreditar na palavra dele.
 
-**Todo o design move a verificação para antes de o técnico sair do veículo.** O read-back em cada bloco gravado, a pré-checagem que aprova o módulo antes de qualquer gravação, o ciclo dinâmico que prova o que só fecha andando, o evento de teste que prova que o servidor recebe, o autoteste que prova que a configuração sobreviveu ao desligar — e o checklist que só fecha com o que o sistema provou.
+**Todo o design move a verificação para antes de o técnico sair do veículo.** O read-back em cada bloco gravado, o diagnóstico que confere o módulo antes de qualquer gravação, o ciclo dinâmico que prova o que só fecha andando, o evento de teste que prova que o servidor recebe, o autoteste que prova que a configuração sobreviveu ao desligar — e o checklist que só fecha com o que o sistema provou.
 
 ## A resposta de design
 

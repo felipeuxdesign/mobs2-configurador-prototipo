@@ -4,15 +4,15 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `00-tela`
 
-`14:30` · `GARAGEM VÁRZEA` · `Baixando o pacote` · `ATIVOS` · `6` · `de 10` · `9 de 16 no total` · `faltam ~40 s` · `Ativos` · `6 de 10` · `Modelos de ativo` · `3 de 3` · `Cartões` · `—` · `pacote pct-uo01-2026-03-11 · 11/03 07:10` · `Baixando · não saia da tela`
+`14:30` · `GARAGEM VÁRZEA` · `Baixando o pacote` · `ATIVOS` · `6` · `de 10` · `6 de 31 no total` · `faltam ~40 s` · `Ativos` · `6 de 10` · `Conexões` · `—` · `Modelos de ativo` · `—` · `Eventos` · `—` · `Cercas` · `—` · `pacote pct-uo01-2026-03-11 · 11/03 07:10` · `Baixando · não saia da tela`
 
 ## `01-estado-falha-de-rede`
 
-`14:30` · `GARAGEM VÁRZEA` · `Baixando o pacote` · `A BAIXA PAROU ONDE ESTAVA` · `Nada se perdeu. Ao reconectar, continua de onde parou.` · `Ativos` · `6 de 10` · `Modelos de ativo` · `3 de 3` · `Cartões` · `—` · `pacote pct-uo01-2026-03-11 · 11/03 07:10` · `Reconectar` · `Voltar ao contexto`
+`14:30` · `GARAGEM VÁRZEA` · `Baixando o pacote` · `A BAIXA PAROU ONDE ESTAVA` · `Nada se perdeu. Ao reconectar, continua de onde parou.` · `Ativos` · `6 de 10` · `Conexões` · `—` · `Modelos de ativo` · `—` · `Eventos` · `—` · `Cercas` · `—` · `pacote pct-uo01-2026-03-11 · 11/03 07:10` · `Reconectar` · `Voltar ao contexto`
 
 ## `02-momento-concluido`
 
-`14:30` · `GARAGEM VÁRZEA` · `Pacote de hoje` · `BAIXADO AGORA` · `16` · `de 16` · `o pacote vale por 7 dias` · `Ativos` · `10` · `Modelos de ativo` · `3` · `Cartões` · `3` · `pacote pct-uo01-2026-03-12 · 12/03 14:30` · `Ir para o menu`
+`14:30` · `GARAGEM VÁRZEA` · `Pacote de hoje` · `BAIXADO AGORA` · `31` · `de 31` · `o pacote vale por 7 dias` · `Ativos` · `10` · `Conexões` · `2` · `Modelos de ativo` · `3` · `Eventos` · `12` · `Cercas` · `4` · `pacote pct-uo01-2026-03-12 · 12/03 14:30` · `Ir para o menu`
 
 ## `03-estado-pacote-de-4-dias`
 

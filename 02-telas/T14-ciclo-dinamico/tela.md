@@ -45,8 +45,7 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - passos com o prazo estourado
 - cronômetro
 - prazo cheio
-- com contador neutro
-- com contador de falha
+- com contador
 - checkbox
 - checkbox marcado
 - justificativa
@@ -71,10 +70,10 @@ Anotação de construção, medida no código e nas referências. A lista de cim
 - passos com o prazo estourado
 - cronômetro
 - prazo cheio
-- com contador neutro
+- com contador
 - bloco do evento
 
-Medido no código do C10, no fechamento do C10 e do C11 (G10), com os nomes das linhas do `componentes.md`. Saíram as seis que o código não usa: a faixa · sem ação (a faixa da T14 sempre tem o ENCERRAR), o processo correndo (no `01`, o primário apagado diz a ação, e quem explica é a legenda em cima), o com contador de falha (o contador conta os passos que passaram, neutro), o checkbox, o checkbox marcado e a justificativa. Entraram as de toque da folha 1 (o primário nos três estados, apagado enquanto a fila drena, e o link de saída do rodapé) e os átomos da folha 3 (os glifos e os poços dos passos, o relógio do evento e do registro, e o LED da faixa). As diferenças da tela contra a folha viraram variante nomeada da peça (G11), declarada lá: o passo do ciclo reprovado com a causa (`03` e `04`); o cronômetro estourado, com o número em vermelho e as frases do estado uma por linha (`02`); o nome do relógio do bloco do evento pelo dado; e o link registrado, o pedido de correção feito no lugar do link, nas duas ações (`06`).
+Medido no código do C10, no fechamento do C10 e do C11 (G10), com os nomes das linhas do `componentes.md`. Saíram as seis que o código não usa: a faixa · sem ação (a faixa da T14 sempre tem o ENCERRAR), o processo correndo (no `01`, o primário apagado diz a ação, e quem explica é a legenda em cima), o com contador de falha (o contador conta os passos que passaram, neutro), o checkbox, o checkbox marcado e a justificativa. Entraram as de toque da folha 1 (o primário nos três estados, apagado enquanto a fila drena, e o link de saída do rodapé) e os átomos da folha 3 (os glifos e os poços dos passos, o relógio do evento e do registro, e o LED da faixa). As diferenças da tela contra a folha viraram variante nomeada da peça (G11), declarada lá: o passo do ciclo reprovado com a causa (`03` e `04`); o cronômetro estourado, com o número em vermelho e as frases do estado uma por linha (`02`); o nome do relógio do bloco do evento pelo dado; e o link registrado, o pedido de correção feito no lugar do link, nas duas ações (`06`). Com o pacote 1 (a folha 6), o *com contador neutro* e o *com contador de falha* viraram uma peça só, o *com contador*: as listas dizem o nome novo, e o *de falha* desta nota é ele em falha.
 
 ## Histórias de usuário
 

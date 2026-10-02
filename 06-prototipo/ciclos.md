@@ -61,6 +61,8 @@ Em cada ciclo de tela entram também os acréscimos do mock que as telas dele le
 - **está pronto quando:** o link público abrindo no computador e no celular, com a etiqueta da versão
 - **no protótipo (27/09):** a publicação veio antes, em 25/09, com o ok do diretor, e cada ciclo desde então subiu com um push. O C14 ficou com o fecho: o `README.md` na raiz (o GIF do caminho do herói, o link sem senha, como rodar), o `LEIA-PRIMEIRO.md` apontando pra ele, os relatórios pro arquiteto juntos em `06-prototipo/para-o-arquiteto/`, e a `08-produto-real/` pelo critério combinado com o arquiteto (fica o que é útil ao dev e não está em outro lugar: os cinco arquivos, sem o jeito de pergunta pro PM) · `gate-C14.md`
 
+**Depois do C14 · o pacote 1 do retorno do PM (29/09).** As rodadas 1 e 2 do PM, com as decisões 44 a 49: a T05 só conecta, e perde os 11 estados da pré-checagem · a T07 vira o Diagnóstico do módulo, com 11 referências, e a T08 sai · a T06 confirma o vínculo, sem chassi, e o vínculo decide o modo · a T09 ganha o que vai ser gravado, as duas travas do envio e a manutenção · o menu começa com rede, e o sem rede vira a T04/15 · no palco, a regra dos seis agrupa a coluna da T07 em *o módulo* e *a CAN*. O `ciclos.md` do pacote trazia o plano original do C0; vale a numeração acima, a dos commits. Depois do pacote: 145 referências · 15 telas · 64 momentos · 66 estados.
+
 ## Ao fim de cada ciclo
 
 - os prints das telas do ciclo, lado a lado com o PNG da referência

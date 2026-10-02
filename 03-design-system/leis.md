@@ -8,11 +8,11 @@ Cada lei tem o porquê. Uma lei sem motivo vira gosto, e gosto se discute; lei c
 
 | # | Lei | Por quê |
 |---|---|---|
-| 1 ◆ | **Lima marca veredito e escolhido** — e o texto do botão primário. Contam como escolhido: o campo em foco (rótulo e traço), o próximo passo do menu (*decide agora*), a faixa esperada de uma leitura e o rótulo de uma prova (*NO CADASTRO*, *O PAINEL MOSTRA*, *VERSÃO LIDA NO MÓDULO*, *NADA SE PERDE*). E a marca (lei 15). Nunca enfeite | se o lima aparece em todo lugar, ele para de dizer *passou* |
+| 1 ◆ | **Lima marca veredito e escolhido** — e o texto do botão primário. Contam como escolhido: o campo em foco (rótulo e traço), o próximo passo do menu (*decide agora*), a faixa esperada de uma leitura e o rótulo de uma prova (*O PAINEL MOSTRA*, *VERSÃO LIDA NO MÓDULO*). E a marca (lei 15). Nunca enfeite | se o lima aparece em todo lugar, ele para de dizer *passou* |
 | 2 | **A falha mora no elemento.** O bloco que falhou acende; o título da tela fica | o técnico olha onde deu errado, não lê a tela de novo |
 | 3 ◆ | **O estado muda o conteúdo.** O desenho só abre espaço pro que o estado acrescenta — um aviso, uma causa, uma busca, uma linha que some por não se aplicar. Título, faixa e rodapé ficam no lugar | a tela que muda de forma parece outra tela, e ele se perde |
-| 4 ◆ | **Todo glifo de estado vive num poço**, até dentro de cartão. Exceções declaradas: o check dos sinais liga-desliga (T07), dos requisitos da senha (T01) e do *confere* da calibração (T10), e os glifos do bloco do evento (T14), que vivem soltos ao lado do texto | o poço é o lugar onde se lê o veredito, sempre o mesmo lugar |
-| 5 | **Barra só onde há faixa esperada.** Exceções declaradas: o placar do checklist, o combustível da T07, que tem a escala do próprio tanque, de 0 a 100%, o progresso da sincronização (T03) e o do envio da fila (T15) | barra sem faixa é decoração |
+| 4 ◆ | **Todo glifo de estado vive num poço**, até dentro de cartão. Exceções declaradas: o check dos requisitos da senha (T01) e do *confere* da calibração (T10), e os glifos do bloco do evento (T14), que vivem soltos ao lado do texto | o poço é o lugar onde se lê o veredito, sempre o mesmo lugar |
+| 5 | **Barra só onde há faixa esperada.** Exceções declaradas: o placar do checklist, o progresso da sincronização (T03) e o do envio da fila (T15) | barra sem faixa é decoração |
 | 6 ◆ | **Preenchido é o que resta:** o tempo drena, o placar enche. O que baixa ou sobe (sincronização, envio) enche com o que já foi; a idade do pacote (T03) enche com o tempo que passou, até o limite | a barra cheia de um prazo diria que sobra tempo |
 | 7 ◆ | **Aviso tem um formato só:** poço, rótulo, uma frase. Quatro usos — falha, aviso, processo parado, com contagem. Exceções declaradas: a falha do autoteste (T16), com rótulo de topo e duas orações, e o aviso da folha de trocar de unidade (T04), sem poço | um aviso de cada jeito ensina nada |
 | 8 | **Um primário por tela.** Rodapé com no máximo duas ações | duas opções de igual peso são uma pergunta que o técnico não sabe responder |
@@ -54,9 +54,9 @@ Cada lei tem o porquê. Uma lei sem motivo vira gosto, e gosto se discute; lei c
 | R-02 | Nome, saída e estado normal **nunca são lima** |
 | R-03 ◆ | O título da tela **nunca vira a falha**. Exceção declarada: no código de recuperação (T01), o título diz *Código não confere* |
 | R-04 | **Momento é fluxo; estado é coluna do palco** |
-| R-05 | A T05 não tem faixa de sessão: **a faixa aparece** quando a pré-checagem aprova — é ali que a sessão nasce |
+| R-05 | A T05 não tem faixa de sessão: **a faixa aparece** quando o módulo conecta — é ali que a sessão nasce |
 | R-06 | `Sair da conta` mora na folha da conta, nunca na faixa |
-| R-07 | A pré-checagem é **lista, na ordem da especificação**, porque é processo: o link cai *na sexta* |
+| R-07 | O diagnóstico é **lista, na ordem**: o módulo primeiro, a CAN depois — a trava acende na própria linha, e o título fica |
 | R-08 | O processo que para é **aviso**, no formato único |
 | R-09 | A calibração mostra o número **rolando no lugar** — o tambor —, sem remontar a tela |
 | R-10 | No protótipo, os passos do ciclo dinâmico **acontecem sozinhos**, um a cada 3 segundos |
@@ -65,3 +65,5 @@ Cada lei tem o porquê. Uma lei sem motivo vira gosto, e gosto se discute; lei c
 | R-13 | O palco fica **fora do app**. Comparar com a referência é trabalho do ciclo, não do palco |
 | R-14 ◆ | **Escolher numa lista marca; quem avança é o botão.** Tocar numa linha que tem o marcador de escolha (o quadrado) só marca — o quadrado lima surge — e acende o primário; é o primário que segue. Tocar em outra linha troca a marca. A linha com chevron (uma opção, uma consulta) age no toque. *Decisão do diretor, 24/09* |
 | R-15 ◆ | **O celular não mostra a barra de rolagem do navegador.** O que rola mostra o indicador do sistema: fino, por cima do conteúdo, sem ocupar lugar, enquanto rola, e some depois. *Decisão do diretor, 24/09* |
+
+**No protótipo · R-05** · a sessão nasce na conexão, e **a faixa desce na T07**, quando as sete linhas do módulo passam sem trava — é o que as referências desenham: a T07/00, 01 e 07 a 10 têm a faixa; as travas e o firmware, 02 a 06, não. Padrão aprovado pelo arquiteto no gate do pacote 1; a errata dele acerta a `logica.md`, a decisão 44 e a animação da T04.

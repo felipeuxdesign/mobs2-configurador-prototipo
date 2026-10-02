@@ -9,25 +9,8 @@
 | `02-momento-um-encontrado` | momento | só um módulo por perto | `modulos` |
 | `03-estado-nenhum-encontrado` | estado | nenhum módulo responde | `busca-vazia` |
 | `04-estado-conexao-falhou` | estado | o módulo não responde ao conectar | `conexao-falha` |
-| `05-momento-pre-checagem` | momento | conectado | `matrizCapacidades` |
-| `06-estado-pre-checagem-serial-nao-cadastrado` | estado | o serial não está no cadastro | `serial-nao-cadastrado` |
-| `07-estado-pre-checagem-modelo-sem-driver` | estado | o modelo não tem driver | `modelo-sem-driver` |
-| `08-estado-pre-checagem-firmware-fora-da-matriz` | estado | o firmware não é homologado | `firmware-fora-matriz` |
-| `09-estado-firmware-fora-sem-rede-no-modulo` | estado | firmware fora e o módulo sem rede | `firmware-fora-matriz + modem sem rede` |
-| `10-momento-atualizando-o-firmware` | momento | `Atualizar firmware` | `firmware-fora-matriz` |
-| `11-estado-pre-checagem-conteudo-nao-cabe` | estado | a configuração não cabe no módulo | `conteudo-nao-cabe` |
-| `12-estado-pre-checagem-pool-de-cercas-esgotado` | estado | as cercas passam do limite | `pool-esgotado` |
-| `13-estado-pre-checagem-canal-aberto-e-pendencias` | estado | o módulo tem canal de sessão anterior — o app fecha antes de começar | `canal-aberto` |
-| `14-estado-pre-checagem-link-perdido-na-6a` | estado | o link cai na sexta checagem | `link-perdido` |
-| `15-estado-pre-checagem-modulo-em-repouso-na-9a` | estado | o módulo dorme na nona checagem — não é erro | `modulo-em-repouso` |
 | `16-estado-bluetooth-desligado` | estado | o Bluetooth do celular está desligado | `bluetooth-desligado` |
 | `17-estado-bluetooth-sem-permissao` | estado | o técnico negou a permissão do Bluetooth | `bluetooth-sem-permissao` |
-
-- no protótipo · a nossa versão da linha *13-estado-pre-checagem-canal-aberto-e-pendencias*, antes desta entrega: | `13-estado-pre-checagem-canal-aberto-e-pendencias` | estado | o módulo tem canal de sessão anterior — o app fecha antes de começar | `canal-aberto` + `modulo-com-pendencias` (as mensagens da tira) |
-
-- no protótipo · a nossa versão da linha *10-momento-atualizando-o-firmware*, antes desta entrega: | `10-momento-atualizando-o-firmware` | momento | `Atualizar firmware` | `firmware-fora-matriz` (`.atualizacao`, o quadro de 62%) |
-
-- no protótipo · a nossa versão da linha *09-estado-firmware-fora-sem-rede-no-modulo*, antes desta entrega: | `09-estado-firmware-fora-sem-rede-no-modulo` | estado | firmware fora e o módulo sem rede | `firmware-fora-matriz` + `firmware-fora-sem-rede` (o modem sem rede, AC-20) |
 
 - no protótipo · a nossa versão da linha *03-estado-nenhum-encontrado*, antes desta entrega: | `03-estado-nenhum-encontrado` | estado | nenhum módulo responde | `busca-vazia` (com a duração, AC-18) |
 

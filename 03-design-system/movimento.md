@@ -1,6 +1,6 @@
 # O movimento
 
-**O movimento conta o que mudou. Ele nunca chama atenção pra si.** O que impressiona neste app é a evidência nascendo na frente de quem olha — a pré-checagem acendendo, o tambor rolando, o prazo drenando. A transição entre telas é quase invisível justamente pra esses momentos aparecerem.
+**O movimento conta o que mudou. Ele nunca chama atenção pra si.** O que impressiona neste app é a evidência nascendo na frente de quem olha — o diagnóstico acendendo, o tambor rolando, o prazo drenando. A transição entre telas é quase invisível justamente pra esses momentos aparecerem.
 
 ## O vocabulário do app (C12)
 
@@ -25,7 +25,7 @@ Quem usa o app está de luva, dentro do ônibus, com pressa, às vezes no sol. O
 | `--mov-curva` | cubic-bezier(0.2, 0.8, 0.2, 1) | desacelera no fim · a curva de tudo, menos do que é linear · **(C12)** o *esmaece* e o *acelera* das tabelas das telas também são ela (C12·5); linear, só a barra que segue um processo |
 | `--mov-solta` | 100ms | **(C12)** o pressionado solta · o dígito do código aparece na célula (T01) · zera no reduzir |
 | `--mov-escalonar-lista` | 80ms | **(C12)** entre as linhas da cascata, quando a busca da T05 acha (C12·28) · zera no reduzir |
-| `--mov-escalonar-tambor` | 40ms | **(C12)** entre as rodinhas do tambor, a unidade primeiro (T07, T10 · G29) · zera no reduzir |
+| `--mov-escalonar-tambor` | 40ms | **(C12)** entre as rodinhas do tambor, a unidade primeiro (T10 · G29) · zera no reduzir |
 | `--mov-fator` | 1 · 0 no reduzir | **novo (C12·15, C12·40)** · o trecho da barra que segue um processo dura o passo do processo vezes ele: com reduzir, a barra salta pro valor de cada passo, e o processo segue no mesmo ritmo · a baixa da T03, o prazo da T14 |
 | `--escala-toque` | 0.98 | **(C12)** o primário e o secundário afundam 2% no toque |
 | `--escala-dialogo` | 0.98 | **(C12)** o diálogo nasce de 98% e cresce a 100% |
@@ -48,7 +48,7 @@ Só **o conteúdo** esmaece, em 150ms. **A barra do sistema e a faixa da sessão
 - **O que vem por cima fica de fora**, como o topo: o véu, a folha, o diálogo e o indicador de rolagem. O diálogo que nasce aberto com a tela nova aparece direto, e o conteúdo esmaece embaixo dele.
 - **A exceção do menu (C12·3).** Quando o topo muda — a ida e a volta do menu, a T03 à T04, a T04 à T05, a T15 sem sessão —, a barra, a tira e a faixa trocam direto. O topo do menu é outro desenho, e não a mesma faixa se mexendo.
 - **Uma troca no meio de outra** recomeça do 0.
-- **O processo que só pode começar depois da troca espera ela acabar** (C12·35): a leitura da T07, a cadeia da T09 e a conferência da T11. Chegando por um toque, o primeiro passo vem depois dos 150ms da troca; pelo endereço e com reduzir, logo.
+- **O processo que só pode começar depois da troca espera ela acabar** (C12·35): o diagnóstico da T07, a cadeia da T09 e a conferência da T11. Chegando por um toque, o primeiro passo vem depois dos 150ms da troca; pelo endereço e com reduzir, logo.
 - **Com reduzir movimento**, a troca é direta.
 
 ## O quadro que troca inteiro (C12·4)
@@ -60,9 +60,8 @@ Quando o título ou o rodapé trocam inteiros dentro da mesma tela, o conteúdo 
 | T01 | a entrada, o canal, o código e a senha nova do recuperar acesso |
 | T02 | as empresas e as unidades (`Ver as unidades`, `Trocar de empresa`) |
 | T03 | a baixa, a parada e a sincronização concluída (00 → 02, 00 → 01, 01 → 00) |
-| T05 | a lista (01), o escolhido (00, 02, 04) e a pré-checagem · a busca de novo, 01 → 00 → 01 (C12·41) |
-| T06 | a lista e o *Confirmar o veículo* |
-| T08 | 00 → 01 → 02 |
+| T05 | a lista (01) e o escolhido (00, 02, 04) · a busca de novo, 01 → 00 → 01 (C12·41) |
+| T06 | a lista e o *Confirmar o vínculo* |
 | T10 | a câmera do app, ao entrar e ao voltar · o `Calibrar o horímetro` |
 | T12 | a lista e o detalhe da instalação |
 | T13 | as seções e o item aberto · o próximo item depois do `Tirar foto` e do `Salvar com ressalva` · a volta |
@@ -70,7 +69,7 @@ Quando o título ou o rodapé trocam inteiros dentro da mesma tela, o conteúdo 
 | T16 | o encerramento, a sessão encerrada, os 4 sem homologar, a encerrada sem homologar e a interrompida |
 
 - **O que nasce com o quadro não esmaece de novo por dentro dele:** o rodapé e o texto do primário, o último passo, o check das fotos na volta do item, o registro da foto na volta da câmera. Entre quadros, só a troca esmaece.
-- **O estado que só muda o que está escrito, ou uma peça no lugar, move só a peça:** o `Ler novamente` da T07, a recuperação da T09, a parada e o `Acordar módulo` da T05, abrir e fechar uma seção da T13.
+- **O estado que só muda o que está escrito, ou uma peça no lugar, move só a peça:** o `Ler de novo` da T07, a recuperação da T09, abrir e fechar uma seção da T13.
 
 ## No lugar (C12)
 
@@ -80,7 +79,7 @@ Quando o título ou o rodapé trocam inteiros dentro da mesma tela, o conteúdo 
 | **o número que conta** | troca no lugar, sem animar: a contagem do cabeçalho, o placar, o contador do menu |
 | **o aviso que surge** (C12·9) | esmaece no lugar em 150ms, só quando aparece depois de a tela abrir · o espaço abre direto, e nada desliza |
 | **a prova que chega** (C12·9) | a prova sem lugar reservado (a cadeia concluída da T09) esmaece no lugar, inteira, em 150ms |
-| **a cor que muda** (C12·8) | onde a linha pede o movimento, a cor nova entra por uma camada, em 150ms: a borda vermelha da leitura (T07), o traço do veredito · a cor de um valor ou de um número troca direto |
+| **a cor que muda** (C12·8) | onde a linha pede o movimento, a cor nova entra por uma camada, em 150ms: o traço do veredito · a cor de um valor ou de um número troca direto |
 | **o primário que acende** (C12·8, C12·23) | uma regra só, no toque e no fim de um processo · **com o mesmo texto**, acende por uma camada em 150ms · **com outro texto**, o texto novo esmaece no lugar em 150ms e o roxo troca direto · o que se desabilita troca direto (C12·18) |
 | **o campo em foco** (C12·21, C12·22) | um foco só: o que a tela diz, ou o do próprio campo, nunca o de dentro do poço · o traço de 2 é desenhado por cima da borda de 1: a capa dele encolhe da esquerda pra direita em 150ms (só `scaleX`), e o rótulo troca a cor direto · nada sai do lugar |
 | **o marcador de escolha** (C12·20) | o quadrado lima surge no poço, de 80% a 100% e esmaecendo, em 150ms · o que perde a marca faz o contrário · em toda escolha |
@@ -115,7 +114,7 @@ O layout vai direto pro quadro final. O que muda de lugar na mesma vista vai do 
 
 ## A faixa (C12·24, C12·25)
 
-- **A faixa que nasce** (T05, quando a pré-checagem aprova) desce de cima em 200ms, por baixo da barra do sistema. O que ela empurra vai de onde estava ao lugar novo só por deslocamento, no mesmo tempo.
+- **A faixa que nasce** (T07, quando as sete linhas do módulo passam sem trava — a sessão nasce na conexão; o padrão aprovado no gate do pacote 1, a R-05 no protótipo) desce de cima em 200ms, por baixo da barra do sistema. O que ela empurra vai de onde estava ao lugar novo só por deslocamento, no mesmo tempo.
 - **A faixa que encerra** (T16) sobe em 200ms e revela, embaixo, a faixa sem sessão, que já está no lugar. Nada do layout se move.
 - **A barra do sistema é do aparelho**: não se move, a cor troca direto, e ela fica por cima de tudo o que o app desenha.
 - **O ENCERRAR que se apaga** (lei 17) troca de tinta direto.
@@ -146,7 +145,7 @@ Mudam **no lugar**. O ritmo do protótipo é de apresentação: rápido o bastan
 
 | Processo | Ritmo no protótipo |
 |---|---|
-| pré-checagem · cada linha | 600ms |
+| diagnóstico · cada linha | 600ms |
 | cadeia · cada bloco, gravado e relido | 1s |
 | conferência da T11 · cada linha | 400ms |
 | encerramento · cada passo | 600ms |
@@ -156,26 +155,23 @@ Mudam **no lugar**. O ritmo do protótipo é de apresentação: rápido o bastan
 | prazo do evento | 1s real vale 4s de prazo |
 | sincronização do pacote | 4s no total |
 | cronômetro do código (T01) | 1s real vale 1s · o prazo e o reenvio abrem cheios, como o mock diz (T01·1) |
-| releitura da CAN (T08) · cada sinal que responde | 600ms · na ordem da grade (T08·1) |
 | semear da calibração (T10) · gravando e relendo | 1s + 1s · o botão diz *Gravando no módulo…* e depois *Relendo…*; aí o tambor e a régua (a `animacao.md` da T10) |
 | espera do Entrar da T01 (C12 · decisão do diretor, 27/09) | 1,2s · no protótipo, a resposta do servidor ao `Entrar`: o primário diz *Entrando…*, desabilitado, sem indicador girando (o padrão do *Gravando no módulo…* da T10, e a lei do loop fica sem exceção); a T02 chega com a troca entre telas, como a resposta do toque (`Troca.jsx` · `respostaDoToque`) · no aparelho, o tempo é o do servidor |
 | busca da T05 · a busca de novo | 1,2s · o número do arquiteto (a última entrega, o `animacao.md` da T05): 400ms passaria sem o técnico ver que buscou · no protótipo, o quadro da busca da T05/00 fica na tela, e a lista volta sem nada escolhido (a T05/01) — o *Procurando…* do `animacao.md` não está em referência nem em `textos.md`, e fica de fora (pergunta ao arquiteto) |
-| leitura da CAN (T07) · cada sinal que chega **(C12·30)** | 600ms, o ritmo da releitura da T08 · na ordem da tela, 4,2s no total · corre na chegada da T06, depois da troca (o primeiro aos ~750ms do toque), e no `Ler novamente` · pelo menu, depois da T08, pelo endereço e no print, a tela nasce lida |
 
 **Como o processo se move (C12):**
 
 - **A barra que segue um processo** (C12·15, C12·40) anda num trecho linear por passo, o passo vezes `--mov-fator`, só por transform: a baixa da T03 (250ms por item, na janela dos ativos) e o prazo da T14 (250ms por tique). Com reduzir, salta pro valor de cada passo, no mesmo ritmo.
-- **O marcador que corre** (C12·31) vai de onde estava ao valor novo em 300ms, desacelerando, quando a leitura chega (T07).
 - **O tambor** (G29, C12·33) rola na troca de valor: 300ms por rodinha, 40ms entre elas, a unidade primeiro, 500ms no total. Nunca ao abrir.
 - **O trilho da cadeia** (C12·32) acende de cima pra baixo em 300ms, só na cadeia da T09. No encerramento da T16, o trilho troca direto.
 - **A barra do checklist** (C12·36), na volta do item às seções, parte do valor de quando o item abriu e avança em 300ms. No `Finalizar instalação`, completa em 300ms.
-- **Sem ritmo declarado, fica parado** (C12·14): o firmware da T05 nos 62% e o envio da fila da T15.
+- **Sem ritmo declarado, fica parado** (C12·14): o firmware da T07/06 nos 62% (a D4 do pacote 1 manda terminar sozinho e reler o diagnóstico, sem dizer em quanto tempo: o número espera o arquiteto) e o envio da fila da T15.
 
 ## Só isto se move
 
 `transform` e `opacity`. **Proibido:** animar a entrada de uma tela, contar de zero ao abrir, mover o layout, animar em loop, e qualquer coisa que reaja ao mouse passando por cima.
 
-**Abre parada (C12).** A tela que abre pelo endereço, pelo palco, num estado da coluna, no `Voltar ao fluxo`, no recarregar ou no print abre no quadro da referência, sem nada se mexendo. Nada conta de zero ao abrir, fora dos processos que a G27 declara, que acontecem agora (a baixa da T03, a releitura da T08 aberta no 01, o encerramento da T16). **No print, nada se move:** a tela nasce no quadro da referência.
+**Abre parada (C12).** A tela que abre pelo endereço, pelo palco, num estado da coluna, no `Voltar ao fluxo`, no recarregar ou no print abre no quadro da referência, sem nada se mexendo. Nada conta de zero ao abrir, fora dos processos que a G27 declara, que acontecem agora (a baixa da T03 e o encerramento da T16). **No print, nada se move:** a tela nasce no quadro da referência.
 
 **O indicador de rolagem (C12)** é do sistema, como a barra: aparece enquanto a tela rola e some em 300ms, 900ms depois de a rolagem parar.
 

@@ -10,8 +10,8 @@ Cada decisão com o contexto, a escolha, o que foi descartado e a consequência.
 | [04](04-falha-no-elemento.md) | A falha mora no elemento, o título fica |
 | [05](05-nada-se-remonta.md) | O estado muda o conteúdo, nunca o desenho |
 | [06](06-momento-e-estado.md) | Momento é fluxo; estado é coluna |
-| [07](07-faixa-nasce.md) | A sessão nasce na pré-checagem, e a faixa desce ali |
-| [08](08-precheck-em-lista.md) | A pré-checagem é lista, na ordem |
+| [07](07-faixa-nasce.md) | A sessão nasce na pré-checagem, e a faixa desce ali · *atualizada pela 44* |
+| [08](08-precheck-em-lista.md) | A pré-checagem é lista, na ordem · *superada pela 44* |
 | [09](09-aviso-unico.md) | O aviso tem um formato só |
 | [10](10-tambor.md) | A calibração rola o número no lugar |
 | [11](11-porta-natural.md) | Tocar no caso abre o estado |
@@ -47,3 +47,9 @@ Cada decisão com o contexto, a escolha, o que foi descartado e a consequência.
 | [41](41-o-que-o-servidor-recebeu.md) | A T12 mostra o que o servidor recebeu |
 | [42](42-a-fila-e-do-aparelho.md) | A fila de saída é do aparelho |
 | [43](43-a-moldura-e-a-barra-de-status.md) | A moldura do palco é um celular atual, sem marca |
+| [44](44-o-diagnostico-do-modulo.md) | O diagnóstico do módulo substitui a pré-checagem e os Dados da CAN |
+| [45](45-o-pacote-sem-cartoes.md) | O pacote sincronizado não leva os cartões |
+| [46](46-o-vinculo-sem-chassi.md) | O vínculo mostra o modelo, não o chassi — e decide o modo |
+| [47](47-a-limpeza-aparece.md) | A limpeza aparece, e o espaço se confere no envio |
+| [48](48-o-menu-sem-rede.md) | Sem rede, só as últimas instalações esperam |
+| [49](49-a-cadeia-mostra-o-conteudo.md) | O módulo não guarda versão: a cadeia mostra o conteúdo |

@@ -23,8 +23,8 @@ Entrar no app com usuário e senha, e recuperar o acesso sem ligar pra ninguém.
   - no protótipo: o 03, o 04, o 05 e a 17 abrem com o prazo e o reenvio cheios (10:00, 60 s), e a diferença contra o HTML é só o número (a 03 e a 17 em 0,51%, a régua dos textos acusa o número nas quatro) — o arquiteto confirmou que vale o relógio
 - o `Entrar` diz o que falta enquanto o técnico apaga e digita: *Digite o usuário* → *Digite a senha* → `Entrar` · o foco vai pro primeiro campo vazio
 - o usuário lembrado tem o xis dentro do campo · tocar nele limpa o campo e esquece o usuário lembrado; a caixa fica como o técnico deixou
-
-- sem internet, o `Entrar` mostra o aviso *SEM CONEXÃO · O login precisa de internet.* · os campos ficam preenchidos, porque a senha não estava errada · o `Entrar` fica aceso e tenta de novo: sem internet, o mesmo aviso; com a conexão de volta, a regra da senha — entra, ou o erro da 01 no lugar do aviso
+- sem internet, o `Entrar` mostra o aviso *SEM CONEXÃO · O login precisa de internet.* · os campos ficam preenchidos, porque a senha não estava errada
+  - no protótipo · a nossa versão desta linha, antes desta entrega: sem internet, o `Entrar` mostra o aviso *SEM CONEXÃO · O login precisa de internet.* · os campos ficam preenchidos, porque a senha não estava errada · o `Entrar` fica aceso e tenta de novo: sem internet, o mesmo aviso; com a conexão de volta, a regra da senha — entra, ou o erro da 01 no lugar do aviso
 - no erro, o `Entrar` fica apagado, dizendo *Digite a senha*, até a senha ter um caractere
 - `Entrar` → T02 se a senha tiver 8 caracteres ou mais; com menos, o erro de usuário ou senha
   - no protótipo (decisão do diretor, 27/09 · a espera do Entrar): com internet, o `Entrar` espera a resposta do servidor antes de levar à T02 ou ao erro da 01 — no protótipo, 1,2 s fixos (`ritmos.js` · `entrarEsperaMs`), sem relógio. Enquanto espera, o primário diz *Entrando…*, desabilitado de verdade e em tinta apagada, como o *Gravando no módulo…* da T10 (a lei 17), e o `Esqueci a senha` também; os campos, a caixa e o olho ficam onde estão, sem responder, e nada muda de lugar. Sem internet, o aparelho já sabe: o aviso da 14 vem na hora, sem espera. Nenhuma referência desenha o quadro da espera (pro arquiteto). O roteiro `mov-t01` confere o texto que troca no lugar, o botão e o link desligados, o lugar de tudo e a chegada entre 0,8 e 1,7 s
@@ -36,7 +36,7 @@ Entrar no app com usuário e senha, e recuperar o acesso sem ligar pra ninguém.
 - o olho do campo de senha mostra e esconde: escondida, o olho e o nome *Mostrar a senha*; visível, o olho riscado e o nome *Ocultar a senha*
 - no erro, a senha é apagada e o cursor vai pra ela — o usuário fica, pra ele só redigitar a senha
 - `Lembrar meu usuário` marca e desmarca · desmarcado por padrão
-- o voltar do sistema (no computador, o Esc) faz o `Voltar ao login` em cada passo do recuperar — o canal, o código, a senha nova —, e na folha *Não recebi o código* a fecha, como o X. Na entrada, que não tem saída desenhada — também sem conexão, na 14, e na de quem abre o app, na 15 e na 16 —, e no diálogo *Senha alterada*, sem X nem Cancelar, ele não faz nada (`06-prototipo/logica.md` · O voltar do Android; a pergunta está em `08-produto-real/pendencias.md`)
+- no protótipo · a nossa linha, que saiu do pacote desta entrega (o protótipo segue com ela): o voltar do sistema (no computador, o Esc) faz o `Voltar ao login` em cada passo do recuperar — o canal, o código, a senha nova —, e na folha *Não recebi o código* a fecha, como o X. Na entrada, que não tem saída desenhada — também sem conexão, na 14, e na de quem abre o app, na 15 e na 16 —, e no diálogo *Senha alterada*, sem X nem Cancelar, ele não faz nada (`06-prototipo/logica.md` · O voltar do Android; a pergunta está em `08-produto-real/pendencias.md`)
   - no protótipo (lei 20, a última entrega): a folha *Não recebi o código* também fecha tocando no véu, fora dela, e arrastando pra baixo — o painel acompanha o dedo e, soltando depois de 56, fecha; antes, volta. O arraste que começa numa das duas linhas não reenvia (`06-prototipo/logica.md` · A folha que fecha)
 
 **Como o protótipo constrói** (entrega de 24/09, decisões 31 e 32):
@@ -66,6 +66,7 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - folha com opções
 - barra do sistema sob o véu
 - escolha numa lista
+- falha
 - linha do histórico
 - linha de garagem
 - linha de garagem · a atual
@@ -134,7 +135,7 @@ Corrigida no C4 pelo medido (G10, T01-A10): saíram as 14 peças que nenhuma das
 - **HU-T01-5** — Recupero senha escolhendo canal (e-mail/telefone), com validação local antes de gastar rede
 - **HU-T01-6** — Máscara de telefone derivada do DDI, não fixa; trocar DDI reaplica e avisa
 - **HU-T01-7** — Digito código de 6 dígitos · 10 min · 3 tentativas · reenvio após 60 s · teto 3/hora
-- **HU-T01-8** — Não recebi o código com 3 saídas: conferir e reenviar · trocar canal · acionar gestor · mudou em 2026-09-24: o PM retirou o acionar gestor — ficam duas saídas · decisão 32
+- **HU-T01-8** — Não recebi o código com 3 saídas: conferir e reenviar · trocar canal · acionar gestor · **mudou em 2026-09-24: o PM retirou o *acionar gestor* — ficam duas saídas, conferir e reenviar e trocar de canal · decisão 32**
 - **HU-T01-9** — Eu crio a senha nova; os 6 requisitos ficam visíveis desde o início e marcam sozinhos
 - **HU-T01-10** — Modal diz "senha alterada", sem botão fechar; a troca encerra sessões em outros aparelhos
 - **HU-T01-11** — A sessão de acesso não expira por inatividade; só por Sair ou pelos 7 dias, com aviso no 5º

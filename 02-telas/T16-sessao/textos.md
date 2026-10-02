@@ -12,7 +12,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `02-momento-sessao-encerrada`
 
-`14:30` · `Sem sessão de configuração` · `Sessão encerrada` · `A CONFIGURAÇÃO SOBREVIVEU AO REINÍCIO` · `A12.G07.L02.E05.C03` · `relido do módulo depois de desligar e ligar` · `Configuração` · `confere` · `Contadores` · `482.317 km · 9.640 h` · `Identificadores` · `3 de 3` · `Faixa de contadores` · `não se aplica` · `Pontos de cerca` · `não se aplica` · `Canal de programação` · `fechado` · `Repouso do módulo` · `restaurado` · `ID na plataforma` · `na fila` · `O ID na plataforma confirma quando a evidência subir.` · `Voltar ao menu`
+`14:30` · `Sem sessão de configuração` · `Sessão encerrada` · `A CONFIGURAÇÃO SOBREVIVEU AO REINÍCIO` · `6 blocos` · `relido do módulo depois de desligar e ligar` · `Configuração` · `confere` · `Contadores` · `482.317 km · 9.640 h` · `Identificadores` · `3 de 3` · `Faixa de contadores` · `não se aplica` · `Pontos de cerca` · `não se aplica` · `Canal de programação` · `fechado` · `Repouso do módulo` · `restaurado` · `ID na plataforma` · `na fila` · `O ID na plataforma confirma quando a evidência subir.` · `Voltar ao menu`
 
 ## `03-momento-encerrando-sem-homologar`
 
@@ -28,4 +28,4 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `06-estado-sessao-interrompida`
 
-`14:30` · `Sem sessão de configuração` · `Sessão interrompida` · `3` · `de 6` · `QAH-1M67 · M2C-0411 · iniciada hoje às 13:05` · `Limpeza` · `feita` · `Ativo` · `A12` · `Cercas` · `G07` · `Leitor` · `a versão gravada até aqui é A12.G07` · `parou aqui` · `Eventos` · `—` · `Conexão` · `—` · `Retomar` · `Descartar`
+`14:30` · `Sem sessão de configuração` · `Sessão interrompida` · `3` · `de 6` · `QAH-1M67 · M2C-0411 · iniciada hoje às 13:05` · `Limpeza` · `feita` · `Ativo` · `OF-1621` · `Cercas` · `4 áreas` · `Leitor` · `o ativo e as cercas já estão gravados` · `parou aqui` · `Eventos` · `—` · `Conexão` · `—` · `Retomar` · `Descartar`

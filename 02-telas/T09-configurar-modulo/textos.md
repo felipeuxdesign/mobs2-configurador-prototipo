@@ -4,20 +4,40 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `00-tela`
 
-`14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Configurar módulo` · `ocupação de pinos confere` · `Limpeza` · `feita` · `apaga a configuração anterior` · `Ativo` · `A12` · `quem é o veículo e a tradução da CAN` · `Cercas` · `G07` · `as regiões geográficas` · `Leitor` · `gravando` · `como o cartão do motorista é lido` · `Eventos` · `E05` · `o que o módulo reporta e quando` · `Conexão` · `C03` · `para onde ele manda` · `Gravando · não interrompa` · `A saída volta quando a cadeia fechar`
+`14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Configurar módulo` · `ocupação de pinos confere` · `Limpeza` · `feita` · `apaga a configuração anterior · preserva o serial e os contadores` · `Ativo` · `OF-1621` · `quem é o veículo e a tradução da CAN` · `Cercas` · `4 áreas` · `as regiões geográficas` · `Leitor` · `gravando` · `como o cartão do motorista é lido` · `Eventos` · `intervalo 30 s` · `o que o módulo reporta e quando` · `Conexão` · `m2m.mobs2.br` · `para onde ele manda` · `Gravando · não interrompa` · `A saída volta quando a cadeia fechar`
 
 ## `01-estado-bloco-recusado`
 
-`14:30` · `M2C-0301` · `QJF-2C61` · `ENCERRAR` · `Configurar módulo` · `A CADEIA PAROU` · `Cercas foi recusado. Os três seguintes nem começaram.` · `Limpeza` · `feita` · `apaga a configuração anterior` · `Ativo` · `A12` · `quem é o veículo e a tradução da CAN` · `Cercas` · `recusado` · `os pontos das áreas não voltaram` · `Leitor` · `não foi alcançado` · `Eventos` · `não foi alcançado` · `Conexão` · `não foi alcançado` · `ocupação de pinos confere` · `Tentar de novo` · `Voltar ao menu`
+`14:30` · `M2C-0301` · `QJF-2C61` · `ENCERRAR` · `Configurar módulo` · `A CADEIA PAROU` · `Cercas foi recusado. Os três seguintes nem começaram.` · `Limpeza` · `feita` · `apaga a configuração anterior · preserva o serial e os contadores` · `Ativo` · `OF-1621` · `quem é o veículo e a tradução da CAN` · `Cercas` · `recusado` · `os pontos das áreas não voltaram` · `Leitor` · `não foi alcançado` · `Eventos` · `não foi alcançado` · `Conexão` · `não foi alcançado` · `ocupação de pinos confere` · `Tentar de novo` · `Voltar ao menu`
 
 ## `02-estado-queda-na-cadeia`
 
-`14:30` · `M2C-0312` · `PCX-9A17` · `ENCERRAR` · `Configurar módulo` · `3` · `de 6` · `ocupação de pinos confere` · `A CADEIA PAUSOU NO LEITOR` · `O link caiu. Os três primeiros blocos ficam gravados.` · `Limpeza` · `feita` · `apaga a configuração anterior` · `Ativo` · `A12` · `quem é o veículo e a tradução da CAN` · `Cercas` · `G07` · `as regiões geográficas` · `Leitor` · `pausado` · `como o cartão do motorista é lido` · `Eventos` · `—` · `o que o módulo reporta e quando` · `Conexão` · `—` · `para onde ele manda` · `Reconectar e seguir` · `Voltar ao menu`
+`14:30` · `M2C-0312` · `PCX-9A17` · `ENCERRAR` · `Configurar módulo` · `3` · `de 6` · `ocupação de pinos confere` · `A CADEIA PAUSOU NO LEITOR` · `O link caiu. Os três primeiros blocos ficam gravados.` · `Limpeza` · `feita` · `apaga a configuração anterior · preserva o serial e os contadores` · `Ativo` · `OF-1621` · `quem é o veículo e a tradução da CAN` · `Cercas` · `4 áreas` · `as regiões geográficas` · `Leitor` · `pausado` · `como o cartão do motorista é lido` · `Eventos` · `—` · `o que o módulo reporta e quando` · `Conexão` · `—` · `para onde ele manda` · `Reconectar e seguir` · `Voltar ao menu`
 
 ## `03-estado-recuperacao-ate-a-conexao-gravar`
 
-`14:30` · `M2C-0312` · `PCX-9A17` · `ENCERRAR` · `Configurar módulo` · `3` · `de 6` · `ocupação de pinos confere` · `A CONEXÃO AINDA NÃO FOI GRAVADA` · `Sem ela o módulo fica sem sinal. Termine a gravação antes de sair.` · `Limpeza` · `feita` · `apaga a configuração anterior` · `Ativo` · `A12` · `quem é o veículo e a tradução da CAN` · `Cercas` · `G07` · `as regiões geográficas` · `Leitor` · `pausado` · `como o cartão do motorista é lido` · `Eventos` · `—` · `o que o módulo reporta e quando` · `Conexão` · `—` · `para onde ele manda` · `Continuar a gravação`
+`14:30` · `M2C-0312` · `PCX-9A17` · `ENCERRAR` · `Configurar módulo` · `3` · `de 6` · `ocupação de pinos confere` · `A CONEXÃO AINDA NÃO FOI GRAVADA` · `Sem ela o módulo fica sem sinal. Termine a gravação antes de sair.` · `Limpeza` · `feita` · `apaga a configuração anterior · preserva o serial e os contadores` · `Ativo` · `OF-1621` · `quem é o veículo e a tradução da CAN` · `Cercas` · `4 áreas` · `as regiões geográficas` · `Leitor` · `pausado` · `como o cartão do motorista é lido` · `Eventos` · `—` · `o que o módulo reporta e quando` · `Conexão` · `—` · `para onde ele manda` · `Continuar a gravação`
 
 ## `04-momento-cadeia-concluida`
 
-`14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Configurar módulo` · `ocupação de pinos confere` · `Limpeza` · `feita` · `apaga a configuração anterior` · `Ativo` · `A12` · `quem é o veículo e a tradução da CAN` · `Cercas` · `G07` · `as regiões geográficas` · `Leitor` · `L02` · `como o cartão do motorista é lido` · `Eventos` · `E05` · `o que o módulo reporta e quando` · `Conexão` · `C03` · `para onde ele manda` · `GRAVADO E RELIDO` · `A12.G07.L02.E05.C03` · `o módulo devolveu os seis blocos` · `Voltar ao menu`
+`14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Configurar módulo` · `ocupação de pinos confere` · `Limpeza` · `feita` · `apaga a configuração anterior · preserva o serial e os contadores` · `Ativo` · `OF-1621` · `quem é o veículo e a tradução da CAN` · `Cercas` · `4 áreas` · `as regiões geográficas` · `Leitor` · `sem fio` · `como o cartão do motorista é lido` · `Eventos` · `intervalo 30 s` · `o que o módulo reporta e quando` · `Conexão` · `m2m.mobs2.br` · `para onde ele manda` · `GRAVADO E RELIDO` · `6 blocos` · `o módulo devolveu os seis blocos` · `Voltar ao menu`
+
+## `05-momento-o-que-vai-ser-gravado`
+
+`14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Configurar módulo` · `ocupação de pinos confere` · `cabe no módulo · 128 de 192 registros` · `Limpeza` · `primeiro` · `apaga a configuração anterior · preserva o serial e os contadores` · `Ativo` · `OF-1621` · `quem é o veículo e a tradução da CAN` · `Cercas` · `4 áreas` · `as regiões geográficas` · `Leitor` · `sem fio` · `como o cartão do motorista é lido` · `Eventos` · `intervalo 30 s` · `o que o módulo reporta e quando` · `Conexão` · `m2m.mobs2.br` · `para onde ele manda` · `Gravar no módulo` · `Voltar ao menu`
+
+## `06-estado-a-configuracao-nao-cabe`
+
+`14:30` · `M2C-0394` · `OCT-2J85` · `ENCERRAR` · `Configurar módulo` · `NÃO CABE NO MÓDULO` · `Use um módulo com mais memória.` · `ocupação de pinos confere` · `não cabe · 128 registros, cabem 96` · `Limpeza` · `primeiro` · `apaga a configuração anterior · preserva o serial e os contadores` · `Ativo` · `OF-1621` · `quem é o veículo e a tradução da CAN` · `Cercas` · `4 áreas` · `as regiões geográficas` · `Leitor` · `sem fio` · `como o cartão do motorista é lido` · `Eventos` · `intervalo 30 s` · `o que o módulo reporta e quando` · `Conexão` · `m2m.mobs2.br` · `para onde ele manda` · `Procurar outro módulo` · `Voltar ao menu`
+
+## `07-estado-cercas-demais-pro-modulo`
+
+`14:30` · `M2C-0348` · `OYS-7D93` · `ENCERRAR` · `Configurar módulo` · `CERCAS DEMAIS PRO MÓDULO` · `Use um módulo que guarde mais cercas.` · `ocupação de pinos confere` · `cabe no módulo · 128 de 192 registros` · `Limpeza` · `primeiro` · `apaga a configuração anterior · preserva o serial e os contadores` · `Ativo` · `OF-1621` · `quem é o veículo e a tradução da CAN` · `Cercas` · `não cabe` · `5 cercas, cabem 4 · Terminal Cosme e Damião fica de fora` · `Leitor` · `sem fio` · `como o cartão do motorista é lido` · `Eventos` · `intervalo 30 s` · `o que o módulo reporta e quando` · `Conexão` · `m2m.mobs2.br` · `para onde ele manda` · `Procurar outro módulo` · `Voltar ao menu`
+
+## `08-momento-manutencao-escolher-o-bloco`
+
+`14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Configurar módulo` · `MANUTENÇÃO` · `Reenvie um bloco por vez. A limpeza apaga só o que você escolher.` · `Ativo` · `quem é o veículo e a tradução da CAN` · `OF-1621` · `Cercas` · `as regiões geográficas` · `4 áreas` · `Leitor` · `como o cartão do motorista é lido` · `sem fio` · `Eventos` · `o que o módulo reporta e quando` · `intervalo 30 s` · `Conexão` · `para onde ele manda` · `m2m.mobs2.br` · `Reenviar as cercas` · `Voltar ao menu`
+
+## `09-momento-manutencao-reenviando`
+
+`14:30` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Configurar módulo` · `MANUTENÇÃO` · `Reenviando só as cercas.` · `Limpeza` · `feita` · `apaga só as cercas · o resto fica como está` · `Cercas` · `gravando` · `as regiões geográficas` · `Ativo, Leitor, Eventos e Conexão ficam como estão.` · `Gravando · não interrompa` · `A saída volta quando a cadeia fechar`

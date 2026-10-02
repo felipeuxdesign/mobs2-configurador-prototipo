@@ -15,8 +15,8 @@ A moldura de apresentação em volta do app. **Três peças e mais nada**, no fu
 
 ## O painel · em duas partes
 
-- **O caminho** — as telas na ordem do fluxo: T01 a T07, T09 e T10, depois T14, T13 e T16
-- **As consultas** — T15, T11, T12 e T08, que o técnico abre a qualquer hora pelo menu
+- **O caminho** — as telas na ordem do fluxo: T01 a T05, a T07 e a T06, T09 e T10, depois T14, T13 e T16 · o diagnóstico vem antes do vínculo, como o quadro 04 desenha
+- **As consultas** — T15, T11 e T12, que o técnico abre a qualquer hora pelo menu · a T07, o Diagnóstico do módulo, fica só no caminho
 - no pé, **`Recomeçar do login`** — zera o estado único e volta ao começo
 
 A tela aberta aparece marcada. As folhas não entram no painel: são momentos da T04.
@@ -24,7 +24,8 @@ A tela aberta aparece marcada. As folhas não entram no painel: são momentos da
 ## A coluna
 
 - lista **só os estados** da tela aberta — momento é fluxo e não entra
-- com mais de seis, os estados se agrupam pelo que o técnico estava fazendo — na T05: achar, conectar, conferir · o Bluetooth desligado e sem permissão (T05/16 e 17, o mundo real) vão no achar: é a busca que não começa. O grupo é o `grupo` de cada estado no `02-telas/indice.json`; o estado sem ele não aparece na coluna, e o `scripts/testar-estado.mjs` (no `npm run checar`) confere que todo estado da T05 tem um
+- com mais de seis estados na coluna, eles se agrupam pelo que o técnico estava fazendo — a regra conta a coluna, e a coluna só lista os estados, os que nascem de uma condição · **só a T07 se agrupa**, com 7, em dois grupos: **o módulo** (02, 03, 04, 05 e 07) e **a CAN** (08 e 09); as outras ficam soltas, e a T05, com 4, também. O grupo é o `grupo` de cada estado no `02-telas/indice.json`, `modulo` ou `can`, que a coluna escreve *O módulo* e *A CAN*. Numa tela agrupada, o estado sem grupo não aparece na coluna, e o `scripts/testar-estado.mjs` (no `npm run checar`) confere que todo estado da T07 tem um
+  - no protótipo (o pacote 1): pelo `indice.json`, a coluna da T01 lista 8 estados e a da T04 lista 7, e as duas ficam soltas, como o arquiteto respondeu ao gate do pacote — a conta da regra contra essas duas vai pro arquiteto
 - o marcador é **o mesmo do app**: poço de 24 com o quadrado vazado de 11, que vira lima de 11 no escolhido
 - **o topo da coluna tem um lugar fixo, de 34px**: no fluxo, o texto *no fluxo · toque num estado pra ver*; num estado, o **`Voltar ao fluxo`**. Com a mesma altura, a lista nunca se mexe quando um estado abre · o `Voltar ao fluxo` devolve o instante de antes do primeiro estado aberto; se o estado veio pelo endereço, monta a semente da tela
   - no protótipo (a empresa antes da unidade, a otimização 400): na T02, o quadro das empresas ou das unidades vai pro estado único no `Ver as unidades` e no `Trocar de empresa` (`contexto.empresas`, `app/src/telas/T02/empresas.js` · `contextoDoQuadro`), e o `Voltar ao fluxo` devolve o quadro de antes, no mesmo mundo: as unidades da Viação depois do `Ver as unidades` — do `Entrar`, do `Trocar de empresa` do menu ou do `07` aberto pelo endereço —, e o `07` depois do `Trocar de empresa` (o roteiro `app/scripts/caminhos/empresa.mjs` prova). Até o fechamento de 27/09, o quadro morava só na tela, e o `Voltar ao fluxo` do quadro do `06` caía nas empresas (o `05` ou o `07`), ou, do `07` aberto pelo endereço, na `T02/00` de uma empresa só. A escolha tocada dentro do quadro ainda não vai: o `Voltar ao fluxo` do `07` e do `09` traz a escolha do endereço — a Viação, a Várzea —, e não a tocada (a pergunta ao diretor, de 24/09: gravar a escolha no toque)

@@ -1,6 +1,6 @@
-# As 107 histórias de usuário
+# As 105 histórias de usuário
 
-Tiradas do `dominio.md` §5. Cada uma aponta pra pasta da tela que a atende — lá, a ficha, os estados e a referência.
+Cada uma aponta pra pasta da tela que a atende — lá, a ficha, os estados e a referência. **É daqui que as fichas das telas tiram as histórias**; o `dominio.md` §5 espelha esta lista.
 
 
 ## T01 · Login · `02-telas/T01-login/`
@@ -35,57 +35,54 @@ Tiradas do `dominio.md` §5. Cada uma aponta pra pasta da tela que a atende — 
 ## T04 · Menu · `02-telas/T04-menu/`
 
 - **HU-T04-1** — Vejo o semáforo do módulo no topo e a faixa de sessão acima dele
-- **HU-T04-2** — Vejo 10 ferramentas; as que dependem de módulo ou ativo ficam desabilitadas com o motivo
+- **HU-T04-2** — Vejo as ferramentas; as que dependem de módulo ou ativo ficam desabilitadas com o motivo
 - **HU-T04-3** — A fila mostra o contador de pendentes no próprio cartão, sem abrir
 - **HU-T04-4** — Checklist pendente aparece como aviso persistente
 - **HU-T04-5** — Não existe console de log. Cada ferramenta reporta estado em linguagem de campo
+- **HU-T04-6** — Sem rede, o menu continua de pé; só as últimas instalações esperam a conexão
 
 ## T05 · Conectar módulo · `02-telas/T05-conectar-modulo/`
 
 - **HU-T05-1** — Busco dispositivos (sem fio ou cabo, conforme a variante); vazio explica alimentação, cabo, distância
-- **HU-T05-2** — Ao conectar, a pré-checagem roda sozinha e mostra cada item com resultado
-- **HU-T05-3** — Serial não cadastrado e modelo sem driver são dois estados com mensagens distintas
-- **HU-T05-4** — Falha de comunicação mostra uma causa única com 3 coisas a checar: cabo, alimentação, cadastro
-- **HU-T05-5** — Firmware incompatível: com conectividade oferece atualizar; sem, grava Conexão isolado e então oferece
-- **HU-T05-6** — Após atualizar, o app relê capacidades e reinicia a pré-checagem
-- **HU-T05-7** — Vejo pendências do módulo e estado do modem como informação — não bloqueiam nada
-- **HU-T05-8** — Conexão bem-sucedida abre a sessão de configuração
-- **HU-T05-9** — Perda de link mostra Reconectar e preserva o estado da etapa. Queda por repouso não é erro
+- **HU-T05-2** — Conectar só conecta: a sessão abre, a faixa desce, e o diagnóstico vem em seguida
+- **HU-T05-3** — Falha de comunicação mostra uma causa única com 3 coisas a checar: cabo, alimentação, cadastro
+- **HU-T05-4** — Perda de link mostra Reconectar e preserva o estado da etapa
+- **HU-T05-5** — Bluetooth desligado ou sem permissão: o app diz o que fazer antes de procurar
+
+No protótipo (decisão 44), a HU-T05-2: a sessão nasce na conexão, mas **a faixa desce na T07**, quando as sete linhas do módulo passam sem trava — é o que as referências desenham. Numa trava, o módulo fica em cima do título, sem faixa.
 
 ## T06 · Selecionar ativo · `02-telas/T06-selecionar-ativo/`
 
-- **HU-T06-1** — Busco por placa, frota ou identificador; vejo modelo do ativo e módulo esperado
-- **HU-T06-2** — Quando o ativo trafega chassi pela CAN, o app lê e compara — divergência bloqueia
-- **HU-T06-3** — Sem chassi na CAN, o vínculo é confirmação explícita minha, registrada na evidência
-- **HU-T06-4** — Ativo fora do pacote trava, sem oferecer solicitar cadastro
-- **HU-T06-5** — A matriz de ocupação de pinos roda aqui; conflito resolvível oferece reconectar sem fio no lugar
-- **HU-T06-6** — Conflito sem saída é nomeado como incompatibilidade e escalonado — não há reordenação que resolva
-- **HU-T06-7** — Cada linha do arnês é nomeada por cor e função
+- **HU-T06-1** — Busco por placa, frota ou módulo; vejo o modelo do ativo
+- **HU-T06-2** — Confirmo o vínculo vendo placa, frota, fabricante e modelo — sem chassi
+- **HU-T06-3** — Se o módulo já está em outro ativo, o app avisa; vincular aqui desfaz o vínculo antigo e registra o desvínculo
+- **HU-T06-4** — Se o módulo já é deste ativo, é manutenção: o vínculo decide o modo, e eu não preciso escolher
+- **HU-T06-5** — Ativo fora do pacote trava, sem oferecer solicitar cadastro
+- **HU-T06-6** — A matriz de ocupação de pinos roda aqui; conflito resolvível oferece o leitor sem fio no lugar
+- **HU-T06-7** — Conflito sem saída é nomeado como incompatibilidade e escalonado — não há reordenação que resolva
+- **HU-T06-8** — Cada linha do arnês é nomeada por cor e função
 
-## T07 · Dados da CAN · `02-telas/T07-dados-da-can/`
+## T07 · Diagnóstico do módulo · `02-telas/T07-diagnostico-do-modulo/`
 
-- **HU-T07-1** — Vejo sinais por domínio, cada um com valor lido · esperado · semáforo
-- **HU-T07-2** — Sinal fora do esperado traz causa provável: ligação, barramento, modelo incorreto
-- **HU-T07-3** — Sinais dinâmicos aparecem como *aguardando o ciclo dinâmico* — não aprováveis aqui
-
-## T08 · Refazer leitura da CAN · `02-telas/T08-refazer-leitura/`
-
-- **HU-T08-1** — Apago só os valores lidos da CAN, para reconferir do zero
-- **HU-T08-2** — A tela declara o que apaga e o que preserva, em linguagem de campo, antes de executar
-- **HU-T08-3** — Após o reset, o app relê e me devolve a T07 com a leitura em branco
-- **HU-T08-4** — Sem mapa declarado, a ferramenta fica indisponível com motivo — o app não chuta índice
+- **HU-T07-1** — Logo depois de conectar, vejo o módulo: serial, firmware, alimentação, GPS, entradas, modem e SIM
+- **HU-T07-2** — Serial fora do cadastro, modelo sem suporte e firmware não homologado travam — cada um com a sua mensagem
+- **HU-T07-3** — Firmware não homologado oferece atualizar quando o módulo tem rede; sem rede, a tela diz que não dá
+- **HU-T07-4** — O resto só informa, com o ícone de informação: eu sigo, e o checklist registra
+- **HU-T07-5** — A CAN aparece depois que o bloco do ativo é gravado, com a lista do modelo; sinal sem leitura ou fora do esperado aparece na própria linha
+- **HU-T07-6** — Ler de novo relê a CAN inteira
 
 ## T09 · Configurar módulo · `02-telas/T09-configurar-modulo/`
 
-- **HU-T09-1** — Disparo e acompanho; não escolho conteúdo nem bloco
-- **HU-T09-2** — A pré-condição de ocupação de pinos é a primeira linha da tela
-- **HU-T09-3** — O bloco 1 declara o escopo e o que apaga/preserva. Sem confirmação em dois passos
-- **HU-T09-4** — Cada bloco só inicia com o anterior confirmado por read-back
-- **HU-T09-5** — Falha interrompe, nomeia a etapa em linguagem de campo e oferece repetir a etapa
-- **HU-T09-6** — Queda no meio: retomo do mesmo bloco, de forma idempotente
-- **HU-T09-7** — Ao final, read-back consolidado dos parâmetros críticos
-- **HU-T09-8** — A versão dos 5 blocos é gravada como string composta após o read-back de cada bloco
-- **HU-T09-9** — Nova instalação é transação inteira — abortar mantém na tela de recuperação até Conexão gravar
+- **HU-T09-1** — Na instalação nova, vejo o que vai ser gravado antes de gravar: todos os blocos, obrigatórios
+- **HU-T09-2** — A pré-condição de ocupação de pinos é a primeira linha; o espaço no módulo, calculado sobre o que vai ser gravado, é a segunda
+- **HU-T09-3** — A limpeza vem primeiro e diz o que apaga e o que preserva — e apaga só a parte dos blocos que vão ser gravados
+- **HU-T09-4** — Se a configuração não cabe, ou as cercas passam do limite do módulo, a gravação não começa, e o app me manda procurar outro módulo
+- **HU-T09-5** — Na manutenção, escolho um bloco e reenvio só ele
+- **HU-T09-6** — Cada bloco só inicia com o anterior confirmado por read-back
+- **HU-T09-7** — Falha interrompe, nomeia a etapa em linguagem de campo e oferece repetir a etapa
+- **HU-T09-8** — Queda no meio: retomo do mesmo bloco, de forma idempotente
+- **HU-T09-9** — Ao final, read-back consolidado dos parâmetros críticos
+- **HU-T09-10** — Nova instalação é transação inteira — abortar mantém na tela de recuperação até Conexão gravar
 
 ## T10 · Calibração · `02-telas/T10-calibracao/`
 

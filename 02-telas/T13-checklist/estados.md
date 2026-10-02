@@ -5,12 +5,12 @@
 | Referência | Tipo | Como se chega · o que causa | Caso do mock |
 |---|---|---|---|
 | `00-tela` | tela | a entrada da tela | sessão M2C-0417 + RKT-8H42 · 31 itens |
-| `01-momento-a-identificacao-aberta` | momento | tocar na seção | `checklist.secoes` |
-| `02-momento-b-montagem-aberta` | momento | tocar na seção | `checklist.secoes` |
-| `03-momento-c-hardware-aberta` | momento | tocar na seção | `checklist.secoes` |
-| `04-momento-d-configuracao-aberta` | momento | tocar na seção | `checklist.secoes` |
-| `05-momento-e-teste-dinamico-aberta` | momento | tocar na seção | `checklist.secoes` |
-| `06-momento-f-servidor-aberta` | momento | tocar na seção | `checklist.secoes` |
+| `01-momento-a-identificacao-aberta` | momento | tocar na seção | derivado do fluxo |
+| `02-momento-b-montagem-aberta` | momento | tocar na seção | derivado do fluxo |
+| `03-momento-c-hardware-aberta` | momento | tocar na seção | derivado do fluxo |
+| `04-momento-d-configuracao-aberta` | momento | tocar na seção | derivado do fluxo |
+| `05-momento-e-teste-dinamico-aberta` | momento | tocar na seção | derivado do fluxo |
+| `06-momento-f-servidor-aberta` | momento | tocar na seção | derivado do fluxo |
 | `07-momento-responder-item` | momento | tocar num item manual | `checklist.itens · B` |
 | `08-momento-nao-conforme-com-justificativa` | momento | marcar não conforme | `checklist.itens · B` |
 | `09-estado-item-reprovado` | estado | um item automático reprova | `can-fora-esperado` |

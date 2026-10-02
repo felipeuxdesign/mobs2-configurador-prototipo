@@ -15,14 +15,16 @@ Baixar o pacote da unidade e dizer se dá pra trabalhar com ele.
 - a sincronização corre sozinha → concluído → `Ir para o menu` → T04
 - na falha de rede: `Tentar de novo`
   - no protótipo · a nossa versão desta linha, antes desta entrega: na falha de rede: `Reconectar` (segue de onde parou) ou `Voltar ao contexto` → T02
-- pacote vencido: `Sincronizar agora` ou `Trocar de unidade` → T02
-- pacote de 4 dias: `Sincronizar agora` ou `Continuar com este pacote` → T04, o menu antes de conectar, com o pacote de Ibura
-- o voltar do sistema (no computador, o Esc) faz o mesmo que o link do rodapé — `Voltar ao contexto`, `Trocar de unidade`, `Continuar com este pacote` —, e no concluído o `Ir para o menu`, a saída que ele tem. Baixando, a tela diz *não saia da tela* e não tem saída: ele não faz nada (`06-prototipo/logica.md` · O voltar do Android)
+- pacote vencido: `Sincronizar agora` ou `Trocar de unidade`
+  - no protótipo · a nossa versão desta linha, antes desta entrega: pacote vencido: `Sincronizar agora` ou `Trocar de unidade` → T02
+- pacote de 4 dias: `Sincronizar agora` ou `Continuar com este pacote`
+  - no protótipo · a nossa versão desta linha, antes desta entrega: pacote de 4 dias: `Sincronizar agora` ou `Continuar com este pacote` → T04, o menu antes de conectar, com o pacote de Ibura
+- no protótipo · a nossa linha, que saiu do pacote desta entrega (o protótipo segue com ela): o voltar do sistema (no computador, o Esc) faz o mesmo que o link do rodapé — `Voltar ao contexto`, `Trocar de unidade`, `Continuar com este pacote` —, e no concluído o `Ir para o menu`, a saída que ele tem. Baixando, a tela diz *não saia da tela* e não tem saída: ele não faz nada (`06-prototipo/logica.md` · O voltar do Android)
 
-No protótipo, a sincronização corre um item por vez — Modelos, Ativos, Cartões —, em 4 s no total, e o poço acompanha os ativos (T03·1, T03·5). A primeira baixa do Pátio Caruaru cai no quarto item (o caso `sync-falha-rede`), uma vez por sessão. Ao terminar, o pacote novo fica no estado único (T03·7).
+No protótipo, a sincronização corre um item por vez, nos cinco grupos do pacote — Ativos, Conexões, Modelos de ativo, Eventos e Cercas, 31 itens no herói (decisão 45) —, em 4 s no total, e o poço acompanha os ativos (T03·1, T03·5). Os ativos baixam primeiro, como a 00 e a 01 desenham (*6 de 10*, e o resto em *—*); depois, os outros quatro, na ordem da lista (padrão, pro arquiteto: nenhuma referência desenha a ordem deles). O *faltam ~N s* é o que falta baixar vezes a estimativa do servidor por item, 1,6 s (`segPorItem`), na dezena: na 00, os 25 que faltam dão 40, o *faltam ~40 s* da referência (a resposta do arquiteto ao gate, 02/10). A primeira baixa do Pátio Caruaru cai no quarto item (o caso `sync-falha-rede`), uma vez por sessão. Ao terminar, o pacote novo fica no estado único (T03·7).
 
-No protótipo (a otimização do design, construída): a unidade que só o caso `lista-longa-garagens` tem baixa o pacote que o caso declara pra ela (pac-uo-11 a pac-uo-16) — o nome da unidade, os ativos, a idade, a hora e a versão são os dele: na Garagem Olinda, *de 12* e *pacote pct-uo12-2026-03-12 · 12/03 06:15*, e no concluído *pacote pct-uo12-2026-03-12 · 12/03 14:30*. O que o pacote do caso não declara — os modelos de ativo e os cartões que ele traz, e a estimativa do servidor por item, que dá o *faltam ~N s* — sai do que os três pacotes de `pacotes` declaram iguais (3, 3 e 6 s): desvio nomeado, pro arquiteto (`app/src/dados/garagens.js`). O `Ir para o menu` leva ao menu dessa unidade.
-  - no protótipo (a última entrega, a resposta do arquiteto de 26/09): a fonte da idade, da hora e dos ativos de cada unidade é o pacote — os três campos saíram das unidades do caso —, e os seis pacotes declaram os modelos e os cartões no `contem` (3 e 3), como o do herói: a T03 lê dali, e a inferência dos modelos e dos cartões saiu. Só a estimativa por item (6 s) segue saindo dos três pacotes de `pacotes`, porque o pacote do caso ainda não a declara — desvio nomeado, pro arquiteto. O mundo das seis unidades vai até o menu, sem os ônibus (a T06 não tem ativo delas), e as medidas não mudam: os números do caso são os que a inferência dava
+No protótipo (a otimização do design, construída): a unidade que só o caso `lista-longa-garagens` tem baixa o pacote que o caso declara pra ela (pac-uo-11 a pac-uo-16) — o nome da unidade, os ativos, a idade, a hora e a versão são os dele: na Garagem Olinda, *de 12* e *pacote pct-uo12-2026-03-12 · 12/03 06:15*, e no concluído *pacote pct-uo12-2026-03-12 · 12/03 14:30*. O que o pacote do caso não declara — a estimativa do servidor por item, que dá o *faltam ~N s* — sai do que os três pacotes de `pacotes` declaram igual (1,6 s): desvio nomeado, pro arquiteto (`app/src/dados/garagens.js`). O `Ir para o menu` leva ao menu dessa unidade.
+  - no protótipo (a última entrega, a resposta do arquiteto de 26/09): a fonte da idade, da hora e dos ativos de cada unidade é o pacote — os três campos saíram das unidades do caso —, e os seis pacotes declaram os cinco grupos no `contem` — os ativos de cada unidade, e as conexões 2, os modelos 3, os eventos 12 e as cercas 4 —, como o do herói: a T03 lê dali, e a inferência dos modelos saiu. Os cartões saíram de todos os pacotes (decisão 45). Só a estimativa por item (1,6 s) segue saindo dos três pacotes de `pacotes`, porque o pacote do caso ainda não a declara — desvio nomeado, pro arquiteto. O mundo das seis unidades vai até o menu, sem os ônibus (a T06 não tem ativo delas), e as medidas não mudam: os números do caso são os que a inferência dava
 
 ## Peças do design system que esta tela usa
 
@@ -33,7 +35,6 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - duas ações
 - uma ação
 - com legenda
-- falha
 - aviso
 - processo parado
 - linha do histórico
@@ -60,7 +61,7 @@ Anotação de construção, medida no código e nas referências. A lista de cim
 - nota tracejada
 - lista com contagem
 
-Corrigida no C4 pelas referências (G1, T03-A3): saíram as 13 peças que nenhuma das cinco desenha e entrou a nota tracejada da 04. Os três instrumentos no poço (o download, o concluído e a idade do pacote), o cabeçalho com a unidade em cima e a linha do pacote não têm linha no `componentes.md` (T03-A11): são peças desta tela, em `06-prototipo/app/src/telas/T03/`. A barra do download é o desenho do placar sem as bordas dos lados. No acerto do design system pelo medido (G10), entraram as peças de toque da folha 1 (o primário nos três estados e o link) e os glifos e os poços da folha 3, que a tela usa.
+Corrigida no C4 pelas referências (G1, T03-A3): saíram as 13 peças que nenhuma das cinco desenha e entrou a nota tracejada da 04. Os três instrumentos no poço (o download, o concluído e a idade do pacote), o cabeçalho com a unidade em cima e a linha do pacote não têm linha no `componentes.md` (T03-A11): são peças desta tela, em `06-prototipo/app/src/telas/T03/`. A barra do download é o desenho do placar sem as bordas dos lados. No acerto do design system pelo medido (G10), entraram as peças de toque da folha 1 (o primário nos três estados e o link) e os glifos e os poços da folha 3, que a tela usa. Com o pacote 1, a lista de cima perde a *falha*, que a 01 desenha — o traço vermelho de 2 embaixo da baixa que parou: ela fica nesta lista, e a diferença vai pro arquiteto.
 
 ## Histórias de usuário
 

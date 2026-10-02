@@ -16,6 +16,12 @@
  *   instalação: o que o `resumo` já diz não se reescreve) e
  *   +casos["instalacoes-sem-rede"] (o carimbo da consulta anterior,
  *   declarado). Tudo ADITIVO: âncoras intactas, instalações intactas.
+ * PM · rodadas 1 e 2 (decisões 44 a 47): +diagnostico (o que a T07 mostra e de onde vem),
+ *   +fabricante/modelo nos 3 modelos de ativo, o pacote SEM cartões (conexões, eventos e cercas
+ *   no lugar), +5 casos (modem-sem-sinal, firmware-sem-rede-no-modulo, modulo-em-outro-ativo,
+ *   modulo-ja-deste-ativo, sem-conexao-no-menu). SAEM: o chassiPelaCan, a divergencia-chassi e
+ *   os dois estados da pré-checagem (canal-aberto, modulo-em-repouso). O chassi continua no
+ *   cadastro dos ativos, mas nenhuma tela o mostra (decisão 46).
  *
  * Dia nominal FIXO: 2026-03-12 (quinta), 14:30. Toda data deriva por offset
  * via aritmética de calendário PURA — zero objeto Date, zero Date.now,
@@ -76,33 +82,33 @@
      que emite o pacote — nunca a tela, que lê a forma já derivada. */
   var MODELOS_ATIVO = [
     { id: "ma-01", nome: "Ônibus urbano OF-1621",
+      fabricante: "Mercedes-Benz", modelo: "OF-1621",
       traducaoCan: "urbano v3",
       mapaContadores: { declarado: true, versao: "v2" },
       conteudoRegistros: 128,
       metodoVelocidade: "gps",
       presetEventoId: "pe-urbano",
-      chassiPelaCan: true,
       leitor: { tipo: "cartao-serial", buzzerNoFio: false },
       leituraCan: "barramento" },
     { id: "ma-02", nome: "Caminhão coletor 17.230",
+      fabricante: "Volkswagen", modelo: "17.230",
       traducaoCan: "frota v2",
       mapaContadores: { declarado: true, versao: "v1" },
       conteudoRegistros: 84,
       metodoVelocidade: "pulso",
       presetEventoId: "pe-rodoviario",
-      chassiPelaCan: false,
       leitor: { tipo: "chave-de-contato", buzzerNoFio: false },
       leituraCan: "barramento" },
     { id: "ma-03", nome: "Retroescavadeira 580N",
+      fabricante: "Case", modelo: "580N",
       traducaoCan: "máquina v1",
       mapaContadores: { declarado: false,
         /* C16 · "Reset de leitura" virou "Refazer leitura da CAN" (R3: reset
            é jargão, e o nome antigo não dizia o que reseta). */
-        motivo: "Mapa de contadores não declarado no cadastro deste modelo. Refazer leitura da CAN indisponível — acione o gestor." },
+        motivo: "Mapa de contadores não declarado no cadastro deste modelo — acione o gestor." },
       conteudoRegistros: 112,
       metodoVelocidade: "gps",
       presetEventoId: "pe-maquina",
-      chassiPelaCan: false,
       leitor: { tipo: "sem-fio", buzzerNoFio: false },
       leituraCan: "gateway" }
   ];
@@ -334,48 +340,48 @@
         ],
         calibracao: { grandeza: "hodômetro", valorPainel: "482.317 km", foto: true },
         cicloDinamico: { completo: true, passos: ["Ignição ligada", "Movimento detectado", "Ré acionada", "Porta aberta", "Ignição desligada"], confirmados: 5 },
-        checklist: { itens: 10, concluidos: 10 },
+        checklist: { itens: 31, concluidos: 31 },
         autoteste: { assertivas: 8, passaram: 8 },
         recebimento: { confirmado: true, hora: "11:47" }
       } },
     { id: "i-02", ativoId: "a-03", moduloSerial: "M2C-0312", diasAtras: 1,  hora: "16:05",
       estado: "aguardando-validacao", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "10/10", autoteste: "8/8", recebimento: "confirmado" } },
+      resumo: { blocos: "6/6", checklist: "31/31", autoteste: "8/8", recebimento: "confirmado" } },
     { id: "i-03", ativoId: "a-12", moduloSerial: "M2C-0402", diasAtras: 2,  hora: "10:22",
       estado: "aguardando-validacao",
       ressalva: { item: "Fixação da antena", justificativa: "Suporte original quebrado — fixada com abraçadeira reforçada" },
-      resumo: { blocos: "6/6", checklist: "10/10", autoteste: "8/8", recebimento: "confirmado" } },
+      resumo: { blocos: "6/6", checklist: "31/31", autoteste: "8/8", recebimento: "confirmado" } },
     { id: "i-04", ativoId: "a-19", moduloSerial: "M2C-0466", diasAtras: 4,  hora: "09:40",
       estado: "aprovada",
       ressalva: { item: "Foto do painel", justificativa: "Vidro do painel trincado — foto lateral autorizada pelo gestor" },
-      resumo: { blocos: "6/6", checklist: "10/10", autoteste: "8/8", recebimento: "confirmado" } },
+      resumo: { blocos: "6/6", checklist: "31/31", autoteste: "8/8", recebimento: "confirmado" } },
     { id: "i-05", ativoId: "a-14", moduloSerial: "M2C-0423", diasAtras: 6,  hora: "15:12",
       estado: "reprovada", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "10/10", autoteste: "7/8", assertivaFalhou: "Ignição desliga", recebimento: "confirmado" } },
+      resumo: { blocos: "6/6", checklist: "31/31", autoteste: "7/8", assertivaFalhou: "Ignição desliga", recebimento: "confirmado" } },
     { id: "i-06", ativoId: "a-06", moduloSerial: "M2C-0362", diasAtras: 9,  hora: "13:58",
       estado: "falha-recebimento-reconhecida", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "10/10", autoteste: "8/8", recebimento: "não confirmado — falha reconhecida pelo técnico" } },
+      resumo: { blocos: "6/6", checklist: "31/31", autoteste: "8/8", recebimento: "não confirmado — falha reconhecida pelo técnico" } },
     { id: "i-07", ativoId: "a-16", moduloSerial: "M2C-0438", diasAtras: 13, hora: "08:31",
       estado: "aprovada-reprocessamento", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "10/10", autoteste: "8/8", recebimento: "confirmado após reprocessamento" } },
+      resumo: { blocos: "6/6", checklist: "31/31", autoteste: "8/8", recebimento: "confirmado após reprocessamento" } },
     { id: "i-08", ativoId: "a-02", moduloSerial: "M2C-0301", diasAtras: 17, hora: "14:03",
       estado: "aprovada", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "10/10", autoteste: "8/8", recebimento: "confirmado" } },
+      resumo: { blocos: "6/6", checklist: "31/31", autoteste: "8/8", recebimento: "confirmado" } },
     { id: "i-09", ativoId: "a-20", moduloSerial: "M2C-0472", diasAtras: 22, hora: "10:47",
       estado: "aguardando-validacao", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "10/10", autoteste: "8/8", recebimento: "confirmado" } },
+      resumo: { blocos: "6/6", checklist: "31/31", autoteste: "8/8", recebimento: "confirmado" } },
     { id: "i-10", ativoId: "a-09", moduloSerial: "M2C-0371", diasAtras: 27, hora: "16:55",
       estado: "aprovada", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "10/10", autoteste: "8/8", recebimento: "confirmado" } },
+      resumo: { blocos: "6/6", checklist: "31/31", autoteste: "8/8", recebimento: "confirmado" } },
     { id: "i-11", ativoId: "a-13", moduloSerial: "M2C-0411", diasAtras: 33, hora: "09:18",
       estado: "aprovada", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "10/10", autoteste: "8/8", recebimento: "confirmado" } },
+      resumo: { blocos: "6/6", checklist: "31/31", autoteste: "8/8", recebimento: "confirmado" } },
     { id: "i-12", ativoId: "a-22", moduloSerial: "M2C-0480", diasAtras: 39, hora: "11:36",
       estado: "aprovada", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "10/10", autoteste: "8/8", recebimento: "confirmado" } },
+      resumo: { blocos: "6/6", checklist: "31/31", autoteste: "8/8", recebimento: "confirmado" } },
     { id: "i-13", ativoId: "a-17", moduloSerial: "M2C-0445", diasAtras: 44, hora: "15:29",
       estado: "aprovada", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "10/10", autoteste: "8/8", recebimento: "confirmado" } }
+      resumo: { blocos: "6/6", checklist: "31/31", autoteste: "8/8", recebimento: "confirmado" } }
   ]);
 
   /* ── C22 · T12 · A REGRA dos três critérios — não é campo por instalação.
@@ -410,24 +416,47 @@
     excecoes: { "i-09": { posicionamento: "atrasado" } }
   };
 
+  /* ── Diagnóstico do módulo (T07 · decisão 44) — o que a tela mostra e de onde vem.
+     Substitui a pré-checagem da conexão e os Dados da CAN. TRÊS linhas travam
+     (serial, modelo, firmware); as outras só informam — o checklist registra.
+     A CAN só aparece com o ATIVO: antes do bloco do ativo gravado, ela espera. */
+  var DIAGNOSTICO = {
+    modulo: [
+      { id: "serial",      rotulo: "Serial no cadastro", heroi: "VL06 CAN-BT",        trava: "serial-nao-cadastrado", travaModelo: "modelo-sem-driver" },
+      { id: "firmware",    rotulo: "Firmware",           heroi: "2.3.5",              trava: "firmware-fora-matriz" },
+      { id: "alimentacao", rotulo: "Alimentação",        heroi: "13,8 V" },
+      { id: "gps",         rotulo: "GPS",                heroi: "fixo · 9 satélites" },
+      { id: "entradas",    rotulo: "Entradas digitais",  heroi: "ignição ligada" },
+      { id: "modem",       rotulo: "Modem",              heroi: "na rede",            informa: "modem-sem-sinal" },
+      { id: "sim",         rotulo: "SIM",                heroi: "ativo" }
+    ],
+    canAguarda: "A CAN aparece depois que o bloco do ativo for gravado.",
+    can: { modeloAtivoId: "ma-01", sinais: [
+      { id: "rotacao", rotulo: "Rotação", lido: "980 rpm" }, { id: "velocidade", rotulo: "Velocidade", lido: "0 km/h" },
+      { id: "hodometro", rotulo: "Hodômetro", lido: "184.320 km" }, { id: "temperatura", rotulo: "Temperatura", lido: "31 °C", esperado: "−40 a 120" },
+      { id: "combustivel", rotulo: "Combustível", lido: "62%" }, { id: "consumo", rotulo: "Consumo", lido: "1,8 L/h" },
+      { id: "alternador", rotulo: "Alternador", lido: "14,1 V" }, { id: "re", rotulo: "Ré", lido: "desligada" } ] }
+  };
+
   /* ── Pacote de sincronização — um por UO, em TRÊS idades (T03).
      Idade → estado deriva NA TELA a partir dos limiares daqui. */
   /* protótipo C4 (AC-05) · segPorItem: a estimativa do servidor por item,
-     de onde sai o "faltam ~40 s" da T03 (7 itens × 6 s = 42, arredonda pra
-     dezena). A versão do pacote deriva de uoId e data (T03·2), sem campo. */
+     de onde sai o "faltam ~40 s" da T03 (pacote 1: 25 itens por baixar × 1,6 s
+     = 40, arredonda pra dezena; o arquiteto, 02/10). A versão do pacote deriva
+     de uoId e data (T03·2), sem campo. */
   var PACOTES = comData([
-    { id: "pac-uo-01", uoId: "uo-01", diasAtras: 1, hora: "07:10", segPorItem: 6,
+    { id: "pac-uo-01", uoId: "uo-01", diasAtras: 1, hora: "07:10", segPorItem: 1.6,
       limiares: { avisoDias: 3, bloqueioDias: 7 },
       presetsEventoIds: ["pe-urbano", "pe-rodoviario"],
-      contem: { ativos: 10, modelosAtivo: 3, cartoes: 3 } },
-    { id: "pac-uo-02", uoId: "uo-02", diasAtras: 4, hora: "06:55", segPorItem: 6,
+      contem: { ativos: 10, conexoes: 2, modelosAtivo: 3, eventos: 12, cercas: 4 } },
+    { id: "pac-uo-02", uoId: "uo-02", diasAtras: 4, hora: "06:55", segPorItem: 1.6,
       limiares: { avisoDias: 3, bloqueioDias: 7 },
       presetsEventoIds: ["pe-urbano", "pe-rodoviario"],
-      contem: { ativos: 8, modelosAtivo: 3, cartoes: 3 } },
-    { id: "pac-uo-03", uoId: "uo-03", diasAtras: 8, hora: "07:30", segPorItem: 6,
+      contem: { ativos: 8, conexoes: 2, modelosAtivo: 3, eventos: 12, cercas: 4 } },
+    { id: "pac-uo-03", uoId: "uo-03", diasAtras: 8, hora: "07:30", segPorItem: 1.6,
       limiares: { avisoDias: 3, bloqueioDias: 7 },
       presetsEventoIds: ["pe-urbano", "pe-rodoviario", "pe-maquina"],
-      contem: { ativos: 6, modelosAtivo: 3, cartoes: 3 } }
+      contem: { ativos: 6, conexoes: 2, modelosAtivo: 3, eventos: 12, cercas: 4 } }
   ]);
 
   /* ── Fila de saída (T15) — tempo parado deriva de criadoAs vs 14:30.
@@ -532,12 +561,12 @@
     "lista-longa-garagens": { limiteSemBusca: 6,
       /* as garagens a mais do caso têm pacote, pra o Sincronizar funcionar em todas */
       pacotes: [
-        { id: "pac-uo-11", uoId: "uo-11", diasAtras: 1, hora: "06:40", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 14, modelosAtivo: 3, cartoes: 3 } },
-        { id: "pac-uo-12", uoId: "uo-12", diasAtras: 0, hora: "06:15", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 12, modelosAtivo: 3, cartoes: 3 } },
-        { id: "pac-uo-13", uoId: "uo-13", diasAtras: 1, hora: "07:30", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 9, modelosAtivo: 3, cartoes: 3 } },
-        { id: "pac-uo-14", uoId: "uo-14", diasAtras: 2, hora: "07:05", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 7, modelosAtivo: 3, cartoes: 3 } },
-        { id: "pac-uo-15", uoId: "uo-15", diasAtras: 1, hora: "06:50", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 5, modelosAtivo: 3, cartoes: 3 } },
-        { id: "pac-uo-16", uoId: "uo-16", diasAtras: 1, hora: "07:20", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 4, modelosAtivo: 3, cartoes: 3 } } ],
+        { id: "pac-uo-11", uoId: "uo-11", diasAtras: 1, hora: "06:40", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 14, conexoes: 2, modelosAtivo: 3, eventos: 12, cercas: 4 } },
+        { id: "pac-uo-12", uoId: "uo-12", diasAtras: 0, hora: "06:15", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 12, conexoes: 2, modelosAtivo: 3, eventos: 12, cercas: 4 } },
+        { id: "pac-uo-13", uoId: "uo-13", diasAtras: 1, hora: "07:30", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 9, conexoes: 2, modelosAtivo: 3, eventos: 12, cercas: 4 } },
+        { id: "pac-uo-14", uoId: "uo-14", diasAtras: 2, hora: "07:05", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 7, conexoes: 2, modelosAtivo: 3, eventos: 12, cercas: 4 } },
+        { id: "pac-uo-15", uoId: "uo-15", diasAtras: 1, hora: "06:50", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 5, conexoes: 2, modelosAtivo: 3, eventos: 12, cercas: 4 } },
+        { id: "pac-uo-16", uoId: "uo-16", diasAtras: 1, hora: "07:20", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 4, conexoes: 2, modelosAtivo: 3, eventos: 12, cercas: 4 } } ],
       ucs: [ { id: "uc-01", nome: "RMR – Recife" }, { id: "uc-03", nome: "Zona da Mata – Vitória" }, { id: "uc-02", nome: "Agreste – Caruaru" } ],
       uos: [
         { id: "uo-01", ucId: "uc-01", nome: "Garagem Várzea",     cidade: "Recife" },
@@ -573,8 +602,6 @@
       regiaoSolicitada: "Terminal Cosme e Damião" },
     "ativo-fora-pacote": { ativoId: "a-24", pacoteId: "pac-uo-01",
       motivo: "Este ativo pertence ao Pátio Caruaru e não veio no pacote desta UO." },
-    "divergencia-chassi": { ativoId: "a-17",
-      chassiCadastro: "9BM384067GB120417", chassiLido: "9BM384067GB120471" },
     /* C10 (D8) · ocupadoPor "sensor de porta" é ENTRADA DIGITAL (checagem #5
        de T05); consumidores é o PAR SERIAL (entrada do leitor + saída de
        transmissão) da matriz de T06. Linhas físicas diferentes, dois
@@ -592,8 +619,6 @@
       consumidores: ["leitor serial", "cabo de programação"] },
     "can-fora-esperado": { ativoId: "a-02", sinal: "velocidade",
       lido: "0 km/h", esperado: "maior que zero com o motor ligado" },
-    "sinal-aguardando-ciclo": { ativoId: "a-03", sinal: "ré",
-      motivo: "Sinal dinâmico — só confirma durante o ciclo dinâmico." },
     "grandeza-indisponivel": { modeloAtivoId: "ma-02", grandeza: "horímetro",
       motivo: "A leitura desta linha não fornece horímetro. Use o valor do painel na próxima revisão." },
     /* protótipo C11 (T11) · o que a T11 lê destes dois casos (G9, T11-V1,
@@ -647,21 +672,15 @@
         { cartaoId: "id-01", esperado: "0009412857", lido: "9412857", tipo: "zeros à esquerda" },
         { cartaoId: "id-03", esperado: "PE-0033120", lido: "0033120", tipo: "prefixo" }
       ] },
-    /* C16 (HU-T16-6) · +o último bloco confirmado POR READ-BACK e a versão
-       composta até ele — é o que a retomada mostra e o que faz o TEMPO
+    /* C16 (HU-T16-6) · +o último bloco confirmado POR READ-BACK — é o que a retomada mostra e o que faz o TEMPO
        DECORRIDO existir de verdade (13:05 → 14:30 = 1h25; o zero estrutural
        do C12.6 morre aqui). 3 confirmados = limpeza · ativo · cercas, e o
-       ponto de retomada é o bloco 4 (Leitor) — coerente com pontoRetomada.
-       versaoGravada só dos VERSIONÁVEIS confirmados (Limpeza não versiona). */
+       ponto de retomada é o bloco 4 (Leitor) — coerente com pontoRetomada. O que já foi gravado deriva de ultimoConfirmado e da ordem da cadeia (decisão 49). */
     "sessao-interrompida": { ativoId: "a-13", moduloSerial: "M2C-0411",
       diasAtras: 0, iniciadaAs: "13:05", pontoRetomada: "Bloco 4 de 6 — Leitor",
-      confirmados: 3, ultimoConfirmado: "cercas", versaoGravada: "A12.G07" },
-    "canal-aberto": { moduloSerial: "M2C-0362", ativoId: "a-06",
-      sessaoAnterior: { diasAtras: 9, hora: "13:20" },
-      tratamento: "o app fecha o canal antigo antes de abrir a sessão" }
+      confirmados: 3, ultimoConfirmado: "cercas" },
   };
   CASOS["sessao-interrompida"].data = diasAntes(0);
-  CASOS["canal-aberto"].sessaoAnterior.data = diasAntes(9);
   /* protótipo C6 (T05) · AC-19 — a atualização do firmware (T05/10): o
      quadro que a referência desenha, 62% gravados ("atualizando · 62%").
      Campo ADITIVO no caso: o par módulo × ativo e o firmwareDisponivel
@@ -695,7 +714,6 @@
     motivo: "O módulo leva alguns segundos para acordar depois de alimentado." };
   CASOS["conexao-falha"] = { moduloSerial: "M2C-0301", ativoId: "a-02", tentativa: 1 };
   CASOS["link-perdido"] = { moduloSerial: "M2C-0312", ativoId: "a-03", naChecagem: 6 };
-  CASOS["modulo-em-repouso"] = { moduloSerial: "M2C-0335", ativoId: "a-04", naChecagem: 9 };
   CASOS["modulo-com-pendencias"] = { moduloSerial: "M2C-0362", ativoId: "a-06", mensagens: 12, diagnostico: 3 };
   /* protótipo C7 (T05) · AC-18 — quanto a busca vazia durou (T05/03: "A
      busca durou 8 s · primeira tentativa"). Campo ADITIVO no caso: a
@@ -812,9 +830,14 @@
      a-24 são todos de CARUARU, cujo pacote tem 8 dias e está BLOQUEADO — a UO
      nem abre em T02 sem passar por T03; e a-24 é ainda o ativo-fora-pacote e
      a-22 carrega mock de calibração, a mesma armadilha do a-09. */
-  CASOS["can-estatico-isolado"] = { ativoId: "a-02", lidos: { bateria: "10,9 V", hodometro: "201.115 km" } };
-  CASOS["can-estatico-ausente"] = { ativoId: "a-03", lidos: { satelites: null, hodometro: "176.902 km" } };
-  CASOS["can-estatico-dominio"] = { ativoId: "a-16", semLeituraDominio: "Motor" };
+  CASOS["can-estatico-isolado"] = { ativoId: "a-01", sinal: "temperatura", lido: "215 °C", esperado: "−40 a 120" }; /* T07/09 */
+  CASOS["can-estatico-ausente"] = { ativoId: "a-01", sinal: "rotacao", lido: null, motivo: "ligação" }; /* T07/08 */
+  /* PM · rodadas 1 e 2 — os casos novos */
+  CASOS["modem-sem-sinal"] = { moduloSerial: "M2C-0417", modem: "sem sinal" }; /* T07/07 · só informa: o checklist registra */
+  CASOS["firmware-sem-rede-no-modulo"] = { base: "firmware-fora-matriz", modemSemRede: true }; /* T07/05 · trava, e não dá pra atualizar */
+  CASOS["modulo-em-outro-ativo"] = { moduloSerial: "M2C-0417", vinculadoAoAtivoId: "a-18", registraDesvinculo: true }; /* T06/10 */
+  CASOS["modulo-ja-deste-ativo"] = { moduloSerial: "M2C-0417", ativoId: "a-01", modo: "manutencao" }; /* T06/11 · T09/08-09 · o vínculo decide o modo */
+  CASOS["sem-conexao-no-menu"] = { tela: "T04", rede: false }; /* T04/15 · só o Últimas instalações depende da rede */
   /* ⚠ NÃO é falha — é COERÊNCIA, e por isso ficou em a-09 quando o domínio
      saiu: o hodômetro que T07 lê é o mesmo que T10 calibra (bruto 87.604.000 m
      contra 87.712 no painel). Sem ele, T07 cairia no nominal de ma-02 (96.410)
@@ -825,12 +848,8 @@
      escopos · o bloco 1 declara o que apaga e o que preserva (HU-T09-3); o
        escopo é DERIVADO na tela: módulo cadastrado neste mesmo ativo →
        configuracao, senão → total. Contagens vêm de CERCAS/IDENTIFICADORES.
-     versoes · a versão de cada bloco versionável; a tela compõe a string
-       posicional A12.G07.L02.E05.C03 DEPOIS do read-back de cada bloco
-       (HU-T09-8) e grava em sessao.cadeia.versaoGravada — nunca em tela.
-       protótipo C9 (T09) · a referência vence (G1, T09-A6): a string aparece
-       na prova da cadeia concluída (T09/04) e na T16; no app ela é gravada em
-       etapas.cadeia.versaoGravada a cada bloco relido.
+     conteudo · o módulo NÃO guarda versão (decisão 49): a cadeia declara o conteúdo de cada bloco,
+     o mesmo que a conferência mostra, e o read-back confere esse conteúdo.
      leituraFinal · os dois parâmetros críticos que não derivam de outra
        coleção (os outros três: traducaoCan do modelo, preset de eventos,
        pontos de cerca do ativo). Vocabulário de campo: rede do módulo,
@@ -849,6 +868,11 @@
     total:        { apaga: ["cercas", "identificadores", "configuracao-anterior"], mantem: ["leituras", "firmware"] },
     configuracao: { apaga: ["configuracao-anterior"], mantem: ["cercas", "identificadores", "leituras", "firmware"] }
   };
+  /* O módulo NÃO guarda versão (o PM, decisão 49): a cadeia declara o CONTEÚDO de cada bloco,
+     com as mesmas palavras da conferência (T11) — é o que a T09 mostra em cada elo. */
+  CADEIA.conteudo = { ativo: "OF-1621", cercas: "4 áreas", leitor: "sem fio", eventos: "intervalo 30 s", conexao: "m2m.mobs2.br" };
+  /* protótipo · pacote 1 (o arquiteto, 02/10) · ACRÉSCIMO NOMEADO até o pacote 2: a T11 e a T13,
+     intocáveis neste pacote, ainda leem a versão de cada bloco. Nenhuma tela do pacote 1 lê daqui. */
   CADEIA.versoes = { ativo: "A12", cercas: "G07", leitor: "L02", eventos: "E05", conexao: "C03" };
   CADEIA.leituraFinal = { redeDoModulo: "Mobs2 dados", servidor: "principal" };
   CASOS["bloco-recusado"] = { ativoId: "a-02", moduloSerial: "M2C-0301", bloco: "cercas",
@@ -1429,6 +1453,7 @@
     instalacoes: INSTALACOES,
     criteriosRegra: CRITERIOS_REGRA,
     pacotes: PACOTES,
+    diagnostico: DIAGNOSTICO,
     filaSaida: FILA_SAIDA,
     secaoF: SECAO_F,
     ciclo: CICLO,

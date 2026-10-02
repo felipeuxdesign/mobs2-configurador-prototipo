@@ -51,7 +51,6 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - faixa · sem ação
 - uma ação
 - vazio declarado
-- o par comparado
 - linha do histórico
 - linha da fila · esperando
 - a lista de garagens
@@ -60,8 +59,7 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - encerrando
 - pede o corte
 - sem homologar
-- com contador neutro
-- com contador de falha
+- com contador
 - linha de opção
 - cartão que pede ação
 - botão secundário
@@ -86,7 +84,7 @@ Medido nas 5 referências e construído no C11 (T15-A13, G1): as peças que a te
 - os ícones de ferramenta (a seta `subindo`)
 - os poços
 - os marcadores
-- com contador neutro
+- com contador
 - cartão que pede ação
 - botão secundário
 - vazio declarado
@@ -94,7 +92,7 @@ Medido nas 5 referências e construído no C11 (T15-A13, G1): as peças que a te
 - linha da fila
 - linha da re-checagem
 
-As variantes nomeadas (G11), declaradas na peça: o cartão que pede ação **compacto**, com mais de um erro (`02`: o título de 17, a causa de 13, o botão compacto de 46 com o toque de 48, a divisória e o que vem depois); a linha da fila com a altura pela **posição** (`01`: a recebida do meio com 50), e o poço pela altura (a entrega do checklist, o poço na linha: 32 na linha de 50, 30 na última, de 62, como as três que têm a lista desenham — 00, 01 e 02); a escala do **envio** (a barra de 16 do `01`); e a seta do SUBINDO AGORA no dicionário de ícones (`subindo`, com o traço 2,2 do glifo). Peças só da tela, sem linha no `componentes.md` (`app/src/telas/T15/pecas.jsx`): o cartão SUBINDO AGORA, o erro que reenvia sozinho e a legenda dentro do cartão; os rótulos das seções são só tipografia. Na coluna do `componentes.md`, a T15 saiu de 15 linhas que nenhuma das cinco desenha: faixa · sem ação, o par comparado, linha do histórico, a lista de unidades, as duas da cadeia, as três do encerramento, com contador de falha, a marca no login, campo e campo focado, linha de opção e lista com contagem. Da lista do design saíram também a seção aberta do checklist e a seção recolhida, que a coluna não dava à T15. No fechamento do C11 (G10), entraram os marcadores da folha 3 (o LED da faixa) e o dicionário de ícones, pela seta do SUBINDO AGORA, que mora na linha dos ícones de ferramenta.
+As variantes nomeadas (G11), declaradas na peça: o cartão que pede ação **compacto**, com mais de um erro (`02`: o título de 17, a causa de 13, o botão compacto de 46 com o toque de 48, a divisória e o que vem depois); a linha da fila com a altura pela **posição** (`01`: a recebida do meio com 50), e o poço pela altura (a entrega do checklist, o poço na linha: 32 na linha de 50, 30 na última, de 62, como as três que têm a lista desenham — 00, 01 e 02); a escala do **envio** (a barra de 16 do `01`); e a seta do SUBINDO AGORA no dicionário de ícones (`subindo`, com o traço 2,2 do glifo). Peças só da tela, sem linha no `componentes.md` (`app/src/telas/T15/pecas.jsx`): o cartão SUBINDO AGORA, o erro que reenvia sozinho e a legenda dentro do cartão; os rótulos das seções são só tipografia. Na coluna do `componentes.md`, a T15 saiu de 15 linhas que nenhuma das cinco desenha: faixa · sem ação, o par comparado, linha do histórico, a lista de unidades, as duas da cadeia, as três do encerramento, com contador de falha, a marca no login, campo e campo focado, linha de opção e lista com contagem. Da lista do design saíram também a seção aberta do checklist e a seção recolhida, que a coluna não dava à T15. No fechamento do C11 (G10), entraram os marcadores da folha 3 (o LED da faixa) e o dicionário de ícones, pela seta do SUBINDO AGORA, que mora na linha dos ícones de ferramenta. Com o pacote 1, o *par comparado* saiu do design system junto com o chassi da T06 (decisão 46), e sai da lista do design; e o *com contador neutro* e o *com contador de falha* viraram uma peça só, o *com contador* (a folha 6): as listas dizem o nome novo, e o *de falha* desta nota é ele em falha.
 
 ## Histórias de usuário
 

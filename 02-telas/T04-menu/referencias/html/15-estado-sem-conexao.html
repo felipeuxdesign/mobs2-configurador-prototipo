@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=360">
+<title>T04 · o menu sem conexão</title>
+<link rel="stylesheet" href="../../../../05-recursos/fontes/barlow.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; font-family: Barlow, system-ui, sans-serif; background: #0F0D14; }
+a { color: inherit; text-decoration: none; }
+</style>
+<style>@font-face { font-family: "Google Sans"; src: url(data:font/woff;base64,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) format("woff"); font-weight: 500; font-style: normal; }</style>
+</head>
+<body>
+<div style="width: 360px; height: 800px; box-sizing: border-box; background: #0F0D14; color: #F2F0F7; display: flex; flex-direction: column; font-variant-numeric: tabular-nums;">
+  <div style="height: 30px; flex-shrink: 0; background: #0B0910; display: flex; align-items: center; justify-content: space-between; padding: 6px 32px 0 26px; box-sizing: border-box;">
+    <span style="font-family: 'Google Sans', sans-serif; font-size: 13px; font-weight: 500; color: #F2F0F7; letter-spacing: 0;">14:30</span>
+    <span style="display: flex; align-items: center;"><svg width="14.7" height="9.7" viewBox="0 0 14.7 9.7" fill="#F2F0F7" aria-hidden="true" style="overflow: visible;"><rect x="0" y="5.4" width="2.1" height="4.3" rx="1.05"></rect><rect x="4.2" y="3.6" width="2.1" height="6.1" rx="1.05"></rect><rect x="8.4" y="1.2" width="2.1" height="8.5" rx="1.05"></rect><rect x="12.6" y="0" width="2.1" height="9.7" rx="1.05"></rect></svg><span style="width: 5px;"></span><svg width="12.8" height="10.4" viewBox="0 0 12.8 10.4" fill="none" stroke="#F2F0F7" stroke-width="2.3" stroke-linecap="round" aria-hidden="true" style="overflow: visible;"><path d="M1.24 4.14 A7.3 7.3 0 0 1 11.56 4.14"></path><path d="M3.64 6.54 A3.9 3.9 0 0 1 9.16 6.54"></path><circle cx="6.4" cy="9.2" r="1.2" fill="#F2F0F7" stroke="none"></circle></svg><span style="width: 5.5px;"></span><svg width="20.4" height="10.4" viewBox="0 0 20.4 10.4" aria-hidden="true" style="overflow: visible;"><rect x="0" y="0" width="18.3" height="10.4" rx="3.1" fill="#F2F0F7"></rect><rect x="19.1" y="3.1" width="1.3" height="4.2" rx="0.65" fill="#F2F0F7"></rect></svg></span>
+  </div>
+  <div style="flex-shrink: 0; background: #0B0910;">
+    <div style="height: 52px; display: flex; align-items: center; justify-content: space-between; padding: 0 12px 0 16px; box-sizing: border-box;">
+      <button type="button" style="appearance: none; border: 0; background: transparent; font: inherit; display: flex; align-items: center; gap: 6px; height: 44px; cursor: pointer; padding: 0 4px 0 0;">
+        <span style="font-size: 11px; font-weight: 700; letter-spacing: 1.4px; color: #A9A2BC;">GARAGEM VÁRZEA</span>
+        <svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="#6E6683" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 7.5l5 5 5-5"></path></svg>
+      </button>
+      <button type="button" aria-label="Conta — Rafael Vieira" style="appearance: none; border: 0; background: transparent; width: 44px; height: 44px; padding: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; font: inherit;"><span style="width: 32px; height: 32px; border: 1px solid #3A3350; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; letter-spacing: 1.4px; color: #C9C3DA;">RV</span></button>
+    </div>
+    <div style="flex-shrink: 0; height: 52px; background: #16131D; border-top: 1px solid #221D2E; border-bottom: 1px solid #2E2840; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; box-sizing: border-box;">
+      <div style="display: flex; align-items: center; gap: 10px; min-width: 0;">
+        <span style="width: 8px; height: 8px; border-radius: 4px; background: #AAEF00; display: block; flex-shrink: 0;"></span>
+        <span style="font-size: 16px; font-weight: 700; letter-spacing: 0.3px; white-space: nowrap;">M2C-0417</span>
+        <span style="width: 1px; height: 16px; background: #2E2840; display: block; flex-shrink: 0;"></span>
+        <span style="font-size: 15px; font-weight: 500; color: #A9A2BC; white-space: nowrap;">RKT-8H42</span>
+      </div>
+      <a href="#encerrar" style="height: 44px; display: flex; align-items: center; padding-left: 12px; font-size: 13px; font-weight: 700; letter-spacing: 0.6px; color: #A9A2BC; text-decoration: none; flex-shrink: 0;">ENCERRAR</a>
+    </div>
+  </div>
+  <h1 style="position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;">Menu</h1>
+  <div style="flex-grow: 1; min-height: 0; padding: 14px 16px 24px 16px; box-sizing: border-box; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; align-content: start; overflow: hidden;">
+      <a href="#Conectar módulo" style="grid-column: span 2; text-decoration: none; background: #1A1726; border: 1px solid #2B2540; border-radius: 4px; padding: 14px 12px; display: flex; align-items: center; gap: 12px;">
+        <span style="width: 30px; height: 30px; background: #0B0910; border-top: 1px solid #06050A; border-bottom: 1px solid #332C49; border-left: 1px solid #14111C; border-right: 1px solid #14111C; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#AAEF00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="2"></circle><path d="M7.8 16.2a6 6 0 010-8.5M16.2 7.8a6 6 0 010 8.5M4.9 19.1a10 10 0 010-14.2M19.1 4.9a10 10 0 010 14.2"></path></svg></span>
+        <span style="flex-grow: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0;">
+          <span style="font-size: 11px; font-weight: 700; letter-spacing: 1.4px; color: #A9A2BC;">CONECTAR MÓDULO</span>
+          <span style="font-size: 16px; font-weight: 700; letter-spacing: 0.2px; color: #F2F0F7;">M2C-0417</span>
+        </span>
+      </a>
+      <a href="#Ativo selecionado" style="grid-column: span 2; text-decoration: none; background: #1A1726; border: 1px solid #2B2540; border-radius: 4px; padding: 14px 12px; display: flex; align-items: center; gap: 12px;">
+        <span style="width: 30px; height: 30px; background: #0B0910; border-top: 1px solid #06050A; border-bottom: 1px solid #332C49; border-left: 1px solid #14111C; border-right: 1px solid #14111C; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#AAEF00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h11v9H3zM14 9h4l3 3v3h-7z"></path><circle cx="7" cy="18" r="2"></circle><circle cx="17" cy="18" r="2"></circle></svg></span>
+        <span style="flex-grow: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0;">
+          <span style="font-size: 11px; font-weight: 700; letter-spacing: 1.4px; color: #A9A2BC;">ATIVO SELECIONADO</span>
+          <span style="font-size: 16px; font-weight: 700; letter-spacing: 0.2px; color: #F2F0F7;">RKT-8H42</span>
+        </span>
+      </a>
+      <a href="#Diagnóstico do módulo" style="text-decoration: none; background: #1A1726; border: 1px solid #2B2540;  border-radius: 4px; padding: 12px; display: flex; flex-direction: column; gap: 8px; justify-content: space-between; min-height: 108px; box-sizing: border-box;">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between;">
+          <span style="width: 30px; height: 30px; background: #0B0910; border-top: 1px solid #06050A; border-bottom: 1px solid #332C49; border-left: 1px solid #14111C; border-right: 1px solid #14111C; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#AAEF00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3 8 4-16 3 8h4"></path></svg></span>
+          
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+          <span style="font-size: 14px; font-weight: 600; line-height: 1.25; color: #F2F0F7;">Diagnóstico do módulo</span>
+          
+        </div>
+      </a>
+      <a href="#Configurar módulo" style="text-decoration: none; background: #1A1726; border: 1px solid #2B2540;  border-radius: 4px; padding: 12px; display: flex; flex-direction: column; gap: 8px; justify-content: space-between; min-height: 108px; box-sizing: border-box;">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between;">
+          <span style="width: 30px; height: 30px; background: #0B0910; border-top: 1px solid #06050A; border-bottom: 1px solid #332C49; border-left: 1px solid #14111C; border-right: 1px solid #14111C; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#AAEF00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"></path></svg></span>
+          
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+          <span style="font-size: 14px; font-weight: 600; line-height: 1.25; color: #F2F0F7;">Configurar módulo</span>
+          
+        </div>
+      </a> <a href="#Calibração" style="text-decoration: none; background: #1A1726; border: 1px solid #2B2540;  border-radius: 4px; padding: 12px; display: flex; flex-direction: column; gap: 8px; justify-content: space-between; min-height: 108px; box-sizing: border-box;">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between;">
+          <span style="width: 30px; height: 30px; background: #0B0910; border-top: 1px solid #06050A; border-bottom: 1px solid #332C49; border-left: 1px solid #14111C; border-right: 1px solid #14111C; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#AAEF00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 14l4-4"></path><path d="M3.5 18a10 10 0 1117 0"></path></svg></span>
+          
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+          <span style="font-size: 14px; font-weight: 600; line-height: 1.25; color: #F2F0F7;">Calibração</span>
+          
+        </div>
+      </a>
+      <a href="#Conferir configuração" style="text-decoration: none; background: #1A1726; border: 1px solid #2B2540;  border-radius: 4px; padding: 12px; display: flex; flex-direction: column; gap: 8px; justify-content: space-between; min-height: 108px; box-sizing: border-box;">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between;">
+          <span style="width: 30px; height: 30px; background: #0B0910; border-top: 1px solid #06050A; border-bottom: 1px solid #332C49; border-left: 1px solid #14111C; border-right: 1px solid #14111C; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#AAEF00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg></span>
+          
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+          <span style="font-size: 14px; font-weight: 600; line-height: 1.25; color: #F2F0F7;">Conferir configuração</span>
+          
+        </div>
+      </a>
+      <a href="#Finalizar com checklist" style="grid-column: span 2; text-decoration: none; background: #1A1726; border: 1px solid #2B2540;  border-radius: 4px; padding: 12px; display: flex; flex-direction: column; gap: 8px; justify-content: space-between; min-height: 108px; box-sizing: border-box;">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between;">
+          <span style="width: 30px; height: 30px; background: #0B0910; border-top: 1px solid #06050A; border-bottom: 1px solid #332C49; border-left: 1px solid #14111C; border-right: 1px solid #14111C; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#AAEF00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 6h11M10 12h11M10 18h11"></path><path d="M3 6l1.5 1.5L7 5M3 12l1.5 1.5L7 11M3 18l1.5 1.5L7 17"></path></svg></span>
+          
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+          <span style="font-size: 14px; font-weight: 600; line-height: 1.25; color: #F2F0F7;">Finalizar com checklist</span>
+          
+        </div>
+      </a>
+      <a href="#Últimas instalações" style="text-decoration: none; background: #131019; border: 1px solid #241F33; border-style: dashed; border-radius: 4px; padding: 12px; display: flex; flex-direction: column; gap: 8px; justify-content: space-between; min-height: 108px; box-sizing: border-box;">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between;">
+          <span style="width: 30px; height: 30px; background: #0B0910; border-top: 1px solid #06050A; border-bottom: 1px solid #332C49; border-left: 1px solid #14111C; border-right: 1px solid #14111C; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><span style="width: 9px; height: 1px; background: #332C49; display: block;"></span></span>
+          
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+          <span style="font-size: 14px; font-weight: 600; line-height: 1.25; color: #867E9A;">Últimas instalações</span>
+          <span style="font-size: 12px;font-weight:600;color: #867E9A;">sem conexão</span>
+        </div>
+      </a>
+      <a href="#Fila de saída" style="text-decoration: none; background: #1A1726; border: 1px solid #2B2540;  border-radius: 4px; padding: 12px; display: flex; flex-direction: column; gap: 8px; justify-content: space-between; min-height: 108px; box-sizing: border-box;">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between;">
+          <span style="width: 30px; height: 30px; background: #0B0910; border-top: 1px solid #06050A; border-bottom: 1px solid #332C49; border-left: 1px solid #14111C; border-right: 1px solid #14111C; display: flex; align-items: center; justify-content: center; flex-shrink: 0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#AAEF00" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4"></path><path d="M7 9l5-5 5 5"></path><path d="M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"></path></svg></span>
+          <span style="min-width:20px;height:20px;padding:0 6px;border-radius:4px;background:#3A3350;color:#F2F0F7;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">2</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 2px;">
+          <span style="font-size: 14px; font-weight: 600; line-height: 1.25; color: #F2F0F7;">Fila de saída</span>
+          
+        </div>
+      </a>
+  </div>
+</div>
+</body>
+</html>

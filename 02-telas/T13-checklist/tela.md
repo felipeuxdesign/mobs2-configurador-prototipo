@@ -19,6 +19,7 @@ Fechar a homologação: o que o app já provou sozinho, e o que o técnico ainda
 - **tem seta, toca; não tem seta, é leitura** · as leituras da A, da C e da D, os itens feitos e os passos da E não têm seta
 - na B, cada foto a tirar tem a câmera e a seta → a câmera do app · o Painel vem feito da calibração, e diz *fotografado na calibração, às 14:30*
 - item pendente leva à tela que resolve, pelo campo *origem* do mock: conectar → T05 · ativo → T06 · can → T08 · configurar → T09 · calibração → T10
+  - no protótipo · a T08 saiu com o pacote 1 (decisão 44): a origem `can` leva à T07, o Diagnóstico do módulo, que lê o módulo e a CAN (`Ler de novo`) · o `Refazer a leitura da CAN` do 09 também · o texto do botão fica até o pacote 2 (desvio nomeado)
 - na E, uma ação só: *Fazer o ciclo dinâmico* → T14 · os cinco passos são leitura, e depois do ciclo dizem *confere*
 - o item não conforme salvo com justificativa aparece com o check e *com ressalva · a causa*
 - homologado: o veredito no topo — *Instalação homologada às 14:30* — e o relatório embaixo · com a localização negada, *o relatório vai sem localização*
@@ -32,12 +33,12 @@ Fechar a homologação: o que o app já provou sozinho, e o que o técnico ainda
 
 - **as seções:** uma aberta por vez; tocar num cartão abre ele no lugar, tocar em outro troca a aberta, e tocar na aberta fecha. O título, a barra e o rodapé ficam; as seções de baixo descem por transform, e a lista rola (a rolagem fica onde está). Abrir não anima altura
 - **o que é um item resolvido:** o automático cuja fonte passa, o manual com foto (tirada aqui, ou herdada da calibração) ou com ressalva, e o que não se aplica. O título e a contagem de cada seção contam os resolvidos; o `Faltam N itens` conta só os das seções que bloqueiam (A a E) — com 1, o texto não existia e a legenda sumia (G25); no protótipo, desde a resposta do arquiteto de 26/09 (*o singular vale*), *Falta 1 item*
-- **de onde cada seção lê:** A, da sessão, da pré-checagem e do vínculo do ativo · B, das fotos e ressalvas desta tela e da foto da calibração (o Painel) · C, da leitura da CAN e da leitura nominal do módulo (as entradas e o modem) · D, da cadeia gravada e da calibração (o valor de partida é o do painel) · E, do ciclo da T14 · F, da fila desta sessão (G22)
+- **de onde cada seção lê:** A, da sessão, do diagnóstico do módulo (a T07; até o pacote 1, da pré-checagem) e do vínculo do ativo · B, das fotos e ressalvas desta tela e da foto da calibração (o Painel) · C, da leitura da CAN e da leitura nominal do módulo (as entradas e o modem) · D, da cadeia gravada e da calibração (o valor de partida é o do painel) · E, do ciclo da T14 · F, da fila desta sessão (G22)
 - **a semente:** pular pro checklist pelo palco é o herói depois da calibração e antes do ciclo — A, C e D resolvidas, o Painel herdado, B e E por fazer, F esperando: 19 de 31, `Faltam 9 itens`, como as referências desenham
 - **a Seção F:** conta só o que entrou na fila depois da abertura da sessão (G22). Antes do Finalizar, nada desta sessão está na fila, e ela espera (o relógio, *espera o servidor · não bloqueia*). O `Finalizar instalação` gera o relatório da instalação — as evidências e o checklist — na fila (HU-T13-7), e a Seção F passa a contar ele: 3 de 3, *o servidor confirmou*. Ela **falha** quando o servidor diz que não: o evento de teste que não chegou no prazo (T14/02), um item desta sessão recusado, ou o caso do ativo sem resposta (pronto-para-fechar)
 - **o Finalizar (T13·3):** acende quando o que bloqueia fecha; o homologado aparece depois do toque, com o veredito e o relatório no topo. Com a Seção F falhando, o toque abre o diálogo da ciência (10), e o `Finalizar instalação` do diálogo espera o `Estou ciente` marcado
 - **o item manual:** tocar numa foto por fazer abre o nível do item (07). `Tirar foto` ou `Salvar com ressalva` resolvem o item e seguem pro próximo por fazer da seção; sem próximo, voltam à Seção B aberta. No protótipo, desde a decisão 39, o `Salvar com ressalva` só aparece com a foto do problema e o que aconteceu (08 → 15). A foto tirada fica tirada, e o Painel herdado não se fotografa de novo: o item feito não tem seta e não se toca (pendencias.md)
-- **o item reprovado (T13·2):** o item reprovado tem a seta e abre o nível do item (09), com o motivo; `Refazer a leitura da CAN` leva à T08. Nada automático se marca à mão
+- **o item reprovado (T13·2):** o item reprovado tem a seta e abre o nível do item (09), com o motivo; `Refazer a leitura da CAN` leva à T07, o Diagnóstico do módulo (até o pacote 1, à T08, que saiu; o texto fica até o pacote 2). Nada automático se marca à mão
 - **a Seção E (T13·4):** uma ação só, `Fazer o ciclo dinâmico`, abre a T14 enquanto falta passo. Nada de E se responde aqui. O passo que a T14 aprovou diz `confere`, e o que falta, `a fazer`. Sair da T14 por `Encerrar o ciclo` ou por `Ir para o checklist` (T14·2) dá a mesma Seção E: os pendentes ficam pendentes, e a ação continua
 - **o item reprovado (T13·5), a escala:** a bateria com a faixa esperada entre 1/3 e 5/6 da barra (10 a 16 V no herói), no nível do item reprovado. As posições saem da conta
 - **o voltar (T13·6):** nas seções e no homologado, faz o `Voltar ao menu`; no nível do item, o `Voltar ao checklist`, que volta à seção do item aberta; no diálogo, o `Cancelar`
@@ -63,8 +64,7 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - pede o corte
 - sem homologar
 - a barra do checklist
-- com contador neutro
-- com contador de falha
+- com contador
 - checkbox
 - checkbox marcado
 - justificativa
@@ -106,7 +106,7 @@ Medido nas 15 referências e no código da entrega do checklist (decisão 34, G1
 - nota tracejada
 - segmentado
 - a barra do checklist
-- com contador neutro
+- com contador
 - campo focado
 - checkbox
 - checkbox marcado
@@ -123,7 +123,7 @@ Medido nas 15 referências e no código da entrega do checklist (decisão 34, G1
 - a ação da seção
 - a câmera do app
 
-Contra a lista do design, entraram as de toque da folha 1 (o primário nos três estados e o link), os átomos da folha 3 (os glifos e os poços das seções e dos itens, os ícones da câmera, do ciclo e das ferramentas que resolvem o que falta, e o LED da faixa e o quadrado do checkbox), a nota tracejada do item reprovado (09), o campo focado da justificativa (08, 15) e a foto tirada da T10, que é o registro do problema (15). Com a decisão 39, a linha tocável do `Não conforme` saiu: a caixa *Não está conforme* é a justificativa nas duas telas do item (a variante do checkbox com a linha de baixo). Saíram as 12 que o código não usa: faixa · sem ação, processo correndo, diálogo, diálogo sem saída, assertiva da sessão, linha de conferência, encerrando, pede o corte, sem homologar, com contador de falha, linha da fila e linha da re-checagem. As variantes nomeadas desta tela (G11): o segmento atual com falha (09), a nota do item que não se marca à mão (09), a legenda junta, a 6 do botão, e, sem desenho na entrega, o item que falta com o ícone da ferramenta e *a fazer*, e o item reprovado com o X, a leitura e a seta. A barra de 22 do instrumento do item reprovado é o tamanho `item` da escala, peça interna (`06-prototipo/app/src/ds/MAPA.md`).
+Contra a lista do design, entraram as de toque da folha 1 (o primário nos três estados e o link), os átomos da folha 3 (os glifos e os poços das seções e dos itens, os ícones da câmera, do ciclo e das ferramentas que resolvem o que falta, e o LED da faixa e o quadrado do checkbox), a nota tracejada do item reprovado (09), o campo focado da justificativa (08, 15) e a foto tirada da T10, que é o registro do problema (15). Com a decisão 39, a linha tocável do `Não conforme` saiu: a caixa *Não está conforme* é a justificativa nas duas telas do item (a variante do checkbox com a linha de baixo). Saíram as 12 que o código não usa: faixa · sem ação, processo correndo, diálogo, diálogo sem saída, assertiva da sessão, linha de conferência, encerrando, pede o corte, sem homologar, com contador de falha, linha da fila e linha da re-checagem. As variantes nomeadas desta tela (G11): o segmento atual com falha (09), a nota do item que não se marca à mão (09), a legenda junta, a 6 do botão, e, sem desenho na entrega, o item que falta com o ícone da ferramenta e *a fazer*, e o item reprovado com o X, a leitura e a seta. A barra de 22 do instrumento do item reprovado é o tamanho `item` da escala, peça interna (`06-prototipo/app/src/ds/MAPA.md`). Com o pacote 1 (a folha 6), o *com contador neutro* e o *com contador de falha* viraram uma peça só, o *com contador*: as listas dizem o nome novo, e o *de falha* desta nota é ele em falha.
 
 ## Histórias de usuário
 

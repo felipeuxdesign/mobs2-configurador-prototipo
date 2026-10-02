@@ -21,12 +21,12 @@ O executor de um projeto cujo design está **fechado, medido e aprovado**. Você
 7. `07-decisoes/` e `08-produto-real/`
 8. **`02-telas/`, tela por tela** — o passo mais importante, descrito abaixo
 
-## As 16 telas, uma por uma
+## As 15 telas, uma por uma
 
-Pra **cada uma** das 16 pastas de `02-telas/`:
+Pra **cada uma** das 15 pastas de `02-telas/`:
 
 - leia `tela.md`, `estados.md`, `animacao.md` e `textos.md`
-- **abra cada PNG de `referencias/png/`** — todas as 147 referências, sem exceção — e olhe a tela como o técnico olharia
+- **abra cada PNG de `referencias/png/`** — todas as 145 referências, sem exceção — e olhe a tela como o técnico olharia
 - abra o HTML da `00-tela` e **leia as medidas reais** das peças principais
 - confira se cada estado tem um caso do mock que o produz, abrindo o caso em `mocks.js`
 
@@ -47,7 +47,7 @@ E escreva, pra cada tela:
 
 1. **O produto em suas palavras** — o problema, o usuário, a tese. Meia página
 2. **O censo medido** — cada contagem, com de onde saiu
-3. **As 16 telas** — os cinco itens de cada uma
+3. **As 15 telas** — os cinco itens de cada uma
 4. **Os achados** — tudo que contradiz outra parte da pasta, com a prova: arquivo e linha, ou referência e o que se vê nela
 5. **As divergências** — o que você encontrou além do que estava descrito
 6. **As decisões numeradas** — cada dúvida já com o padrão que você adotaria: *G1: (a) ou (b); vou de (a) porque…*
@@ -57,7 +57,7 @@ E escreva, pra cada tela:
 ## Está pronto quando
 
 - o `gate-C0.md` existe, com as oito partes
-- as 16 telas estão analisadas, cada uma com os cinco itens
+- as 15 telas estão analisadas, cada uma com os cinco itens
 - o censo bate com o `indice.json`, ou a divergência está explicada
 - o gate do mock está copiado com o resultado
 

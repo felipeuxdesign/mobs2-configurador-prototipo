@@ -20,9 +20,10 @@ Ver o que foi instalado nesta unidade e o que cada instalação provou.
   - **o status geral sai dos critérios**: com um indisponível ou pendente, o cabeçalho diz *aguardando validação*, em `--tinta-secundaria`; sem eles, o estado da instalação
   - **a instalação sem `recebimento`** — as outras doze do mock, que o técnico abre tocando na lista — leva o veredito da regra dos três critérios do mock (`criteriosRegra.porEstado`, com a exceção da i-09) e fica sem o porquê, porque o mock não tem o número dela: a PCX-9A17 no fluxo tem os três conformes; a RVM-1E54, da falha reconhecida, os três *ausente*, com o xis. Os vereditos sem referência (*ausente*, *fora do parâmetro*, *incompleta*, *atrasado*) são o valor do mock, como vem; *atrasado* leva o relógio. Padrão do protótipo, pro arquiteto
   - **o quando de ontem** ganhou texto (T12/04 e 05): embaixo da placa, *M2C-0312 · ontem, 16:05*. As de mais de um dia seguem com a linha de baixo da lista (G25)
-  - **desvio nomeado, T12/04 e 05:** as duas desenham a PCX-9A17 com as seis etapas e *Rafael Vieira*, mas a i-02 do mock só tem o resumo. O protótipo mostra o que o mock sustenta — as três linhas do resumo e, embaixo da placa, sem o nome (T12-V5) — e fica a 1,27% e 1,28% do HTML. A correção é de dado: a i-02 ganhar as `etapas` no mock, e o detalhe passa a mostrar as seis e o nome sem mudar uma linha de código
+  - **desvio nomeado, T12/04 e 05:** as duas desenham a PCX-9A17 com as seis etapas e *Rafael Vieira*, mas a i-02 do mock só tem o resumo. O protótipo mostra o que o mock sustenta — as três linhas do resumo e, embaixo da placa, sem o nome (T12-V5) — e fica a 1,27% e 1,28% do HTML (medido antes do pacote 1: a 04 e a 05 mudaram no resumo, e se medem de novo). A correção é de dado: a i-02 ganhar as `etapas` no mock, e o detalhe passa a mostrar as seis e o nome sem mudar uma linha de código
 - tocar numa instalação → o detalhe (a 01). A i-01, a do herói, mostra as sete etapas; as outras abrem o mesmo detalhe só com as linhas que o resumo delas sustenta — Configuração, Checklist, Autoteste e Recebimento (T12·2). O nome do técnico só aparece na instalação que tem a história inteira no aparelho, a de hoje: o resumo das outras não diz quem instalou. Embaixo da placa, as outras repetem a linha de baixo da lista (`M2C-0312 · 16:05`, `M2C-0362 · há 9 dias`): o *quando* do detalhe só tem texto pra hoje (G25). O 01 aberto pelo endereço mostra a mais nova da unidade
   - **no protótipo · quem instalou** (a revisão de 26/09): o nome é o do dado — a i-01 é do herói do mock (`tecnico`, *Rafael Vieira*) —, nunca o de quem está logado: com outro usuário no aparelho (T01/18) o detalhe da RKT-8H42 segue dizendo *M2C-0417 · hoje, 11:47 · Rafael Vieira*. O roteiro `outro-usuario.mjs` prova com o m.souza. Padrão do protótipo; a alternativa é o mock ganhar quem instalou em cada instalação, com a checagem no gate (pro arquiteto)
+  - **no protótipo · o resumo, pelo pacote 1** (decisão 49, e a resposta do arquiteto ao gate): na `01`, na `04` e na `05`, só duas linhas de *A INSTALAÇÃO* mudam — *Diagnóstico · 7 de 7* no lugar de *Pré-checagem · 12 de 12*, e *Checklist · 31 de 31* no lugar de *10 de 10*. O resto da T12 fica como está, como os HTML do pacote desenham: *Viagens*, *hodômetro · com foto* e *Ciclo dinâmico · 5 de 5* ficam até o pacote 2 · o 31 de 31 sai do mock (`etapas.checklist` da i-01, e os resumos das outras); o 7 de 7 não tem campo na i-01, que guarda a pré-checagem (12 de 12): a fonte vai pro arquiteto
 - `Voltar às instalações` → a lista (a 00)
 - `Voltar ao menu` → T04 · `ENCERRAR`, antes de homologar: a sessão abortada da T16 (G23); depois, o encerramento
   - **no protótipo** (decisão 36): antes de homologar, o ENCERRAR abre o diálogo *Encerrar sem homologar?* por cima desta tela, e o `Continuar a instalação` deixa o técnico nela — a resposta do arquiteto de 26/09 · o `Encerrar sem homologar` roda os 4 passos da T16
@@ -53,8 +54,7 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - encerrando
 - pede o corte
 - sem homologar
-- com contador neutro
-- com contador de falha
+- com contador
 - linha de opção
 - linha de ônibus
 - lista com contagem
@@ -74,8 +74,7 @@ Medido nas 4 referências e construído no C11 (T12-A1, G1): as peças que a tel
 - faixa · sessão aberta
 - faixa · sem sessão
 - uma ação
-- com contador neutro
-- com contador de falha
+- com contador
 - linha do histórico
 - assertiva da sessão
 - aviso
@@ -84,7 +83,7 @@ Medido nas 4 referências e construído no C11 (T12-A1, G1): as peças que a tel
 - os poços
 - os marcadores
 
-Saíram as que nenhuma das quatro referências desenha e o código não usa (faixa · sem ação, linha de conferência, a lista de unidades, encerrando, pede o corte, sem homologar, linha de opção, linha de ônibus, lista com contagem), e entrou a faixa · sessão aberta, que a 00, a 01 e a 03 desenham. O com contador de falha nenhuma das quatro desenha, mas o código usa (G10, no fechamento do C11): é o cabeçalho do detalhe de uma instalação reprovada ou com a falha reconhecida, o veredito em vermelho, em 700 — a i-06 da unidade do herói abre nele. As variantes nomeadas (G11) ficam declaradas na peça: a linha do histórico com o veredito pela natureza do estado (o que espera em `--tinta`, a falha em `--vermelho`) e com a linha de baixo em 12 quando diz há quantos dias (G12, T12-V2); o contador neutro forte, em 700, no veredito do detalhe; a assertiva da sessão com o valor longo em duas linhas. Peça só da tela: o grupo por idade, o rótulo em cima do cartão (`app/src/telas/T12/pecas.jsx`), e a linha módulo · quando · técnico embaixo do cabeçalho do detalhe.
+Saíram as que nenhuma das quatro referências desenha e o código não usa (faixa · sem ação, linha de conferência, a lista de unidades, encerrando, pede o corte, sem homologar, linha de opção, linha de ônibus, lista com contagem), e entrou a faixa · sessão aberta, que a 00, a 01 e a 03 desenham. O com contador de falha nenhuma das quatro desenha, mas o código usa (G10, no fechamento do C11): é o cabeçalho do detalhe de uma instalação reprovada ou com a falha reconhecida, o veredito em vermelho, em 700 — a i-06 da unidade do herói abre nele. As variantes nomeadas (G11) ficam declaradas na peça: a linha do histórico com o veredito pela natureza do estado (o que espera em `--tinta`, a falha em `--vermelho`) e com a linha de baixo em 12 quando diz há quantos dias (G12, T12-V2); o contador neutro forte, em 700, no veredito do detalhe; a assertiva da sessão com o valor longo em duas linhas. Peça só da tela: o grupo por idade, o rótulo em cima do cartão (`app/src/telas/T12/pecas.jsx`), e a linha módulo · quando · técnico embaixo do cabeçalho do detalhe. Com o pacote 1 (a folha 6), o *com contador neutro* e o *com contador de falha* viraram uma peça só, o *com contador*: as listas dizem o nome novo, e o *de falha* desta nota é ele em falha.
 
 ## Histórias de usuário
 

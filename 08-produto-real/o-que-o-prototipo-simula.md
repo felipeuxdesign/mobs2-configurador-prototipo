@@ -4,7 +4,7 @@
 |---|---|
 | a busca de módulos acha cinco, sempre — o do herói e mais quatro (situacao.porPerto) | busca por Bluetooth ou cabo, conforme a variante |
 | a busca de novo mostra o quadro da busca da T05/00 por 1,2 s e a lista volta igual (o ritmo do arquiteto, 26/09: 400ms passaria sem o técnico ver que buscou; até ali, o 400 era proposta do protótipo) | a busca leva o tempo do rádio, e pode achar módulo novo |
-| a pré-checagem acende uma linha a cada 600ms | cada checagem lê o módulo de verdade |
+| o diagnóstico acende uma linha a cada 600ms | cada linha lê o módulo de verdade |
 | a CAN chega com os valores do mock | leitura dos sinais do ônibus pelo módulo |
 | a cadeia grava e relê um bloco por segundo | gravação real, com read-back de cada bloco |
 | a câmera devolve a foto do mock | a câmera do aparelho, com a foto guardada como evidência |

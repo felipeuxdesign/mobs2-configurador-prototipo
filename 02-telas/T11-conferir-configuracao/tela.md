@@ -79,13 +79,13 @@ Medido nas 3 referências da entrega do checklist, nas 2 da última entrega e no
 - com contagem
 - linha de conferência
 - nota com rótulo
-- com contador neutro
+- com contador
 - prova da cadeia
 - folha com opções (a *Outras ações*, sem o puxador · `03`, a última entrega)
 - linha de opção (com o efeito embaixo · `03`)
 - a pré-condição dos pinos (a linha de condição da versão ilegível, com o i · `04`)
 
-As diferenças da tela contra a folha viraram variante nomeada da peça (G11): o com contagem que confere, em lima e sem poço, 12 · 14 (`02`), e o que não bate, com o poço de 32 e o glifo de 16, como a folha 4 nova (`00`, `01`: o *1 a mais*); a linha de conferência com o poço de 32 e o glifo de 16 (o poço na linha: 50 leva 32), a Conexão com os 50 das outras (`00` a `02`); a que não bate, com o xis vermelho e o par embaixo do nome, o módulo em vermelho e o cadastro em `--tinta-secundaria`, a 3, com 10 em cima e embaixo e sem o valor à direita (`00`, `LinhaChecagem` `par`); a que confere com o valor em `--tinta`, quando a conferência não bate por outra razão (`01`, `valorAceso`); a que a leitura ainda não alcançou, com o relógio no poço e a linha do módulo esperando, e a que acende, esmaecendo (`lendo`, `acende`); e a nota com rótulo do que a leitura achou, com a borda do poço, 10 · 12 (`01`). A legenda embaixo da lista é texto do conteúdo, não a *com legenda* do rodapé (T11-A14). A faixa é a *sessão aberta*, com a linha de baixo, igual nas referências e no app (a faixa é uma peça só). Na coluna do `componentes.md`, a T11 sai das linhas que nenhuma das três desenha.
+As diferenças da tela contra a folha viraram variante nomeada da peça (G11): o com contagem que confere, em lima e sem poço, 12 · 14 (`02`), e o que não bate, com o poço de 32 e o glifo de 16, como a folha 4 nova (`00`, `01`: o *1 a mais*); a linha de conferência com o poço de 32 e o glifo de 16 (o poço na linha: 50 leva 32), a Conexão com os 50 das outras (`00` a `02`); a que não bate, com o xis vermelho e o par embaixo do nome, o módulo em vermelho e o cadastro em `--tinta-secundaria`, a 3, com 10 em cima e embaixo e sem o valor à direita (`00`, `LinhaChecagem` `par`); a que confere com o valor em `--tinta`, quando a conferência não bate por outra razão (`01`, `valorAceso`); a que a leitura ainda não alcançou, com o relógio no poço e a linha do módulo esperando, e a que acende, esmaecendo (`lendo`, `acende`); e a nota com rótulo do que a leitura achou, com a borda do poço, 10 · 12 (`01`). A legenda embaixo da lista é texto do conteúdo, não a *com legenda* do rodapé (T11-A14). A faixa é a *sessão aberta*, com a linha de baixo, igual nas referências e no app (a faixa é uma peça só). Na coluna do `componentes.md`, a T11 sai das linhas que nenhuma das três desenha. Com o pacote 1 (a folha 6), o *com contador neutro* e o *com contador de falha* viraram uma peça só, o *com contador*: a lista diz o nome novo.
 
 ## Histórias de usuário
 
