@@ -21,7 +21,6 @@ export const SEMENTES = {
   T05: { contexto: varzea },
   T06: { contexto: varzea, sessao: sessao(null) },
   T07: { contexto: varzea, sessao: sessao() },
-  T08: { contexto: varzea, sessao: sessao(), etapas: { can: { lida: true } } },
   T09: { contexto: varzea, sessao: sessao() },
   T10: { contexto: varzea, sessao: sessao() },
   T11: { contexto: { uoId: 'uo-02', pacote: pacote('pac-uo-02') }, sessao: sessao('a-16', 'M2C-0438') },

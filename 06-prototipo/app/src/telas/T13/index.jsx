@@ -308,7 +308,7 @@ export default function T13({ momento, estado: est }) {
         {NOTA_DO_REPROVADO[q.item] && <Nota tom="explica" corpo="item" titulo={T.naoSeMarca} frase={NOTA_DO_REPROVADO[q.item]} />}
       </>
     )
-    rodape = <Rodape primario={T.refazerCan} aoPrimario={() => ir('T08')} link={T.voltarChecklist} aoLink={voltarAoChecklist} />
+    rodape = <Rodape primario={T.refazerCan} aoPrimario={() => ir('T07')} link={T.voltarChecklist} aoLink={voltarAoChecklist} />
   } else {
     // as seções: o título com a contagem, a barra, o veredito (homologado) e os seis cartões
     miolo = (

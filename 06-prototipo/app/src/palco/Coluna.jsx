@@ -1,9 +1,9 @@
 // A coluna (palco.md): só os estados da tela aberta, linhas de 32, o marcador
 // igual ao do app (decisão 29: poço de 24 com o quadrado vazado de 11, lima de 11 no escolhido). Com mais de seis, em
-// grupos (só a T05). O topo tem um lugar fixo (decisão 30): a frase do fluxo, ou
+// grupos (só a T07, pela regra dos seis · pacote 1). O topo tem um lugar fixo (decisão 30): a frase do fluxo, ou
 // o "Voltar ao fluxo" com um estado aberto. A coluna fica no meio da altura do celular.
 import { Undo2 } from 'lucide-react'
-import { NOMES, estadosDa, GRUPOS_T05 } from './telas.js'
+import { NOMES, estadosDa, GRUPOS } from './telas.js'
 import { Poco, Quadrado } from '../ds/index.js'
 
 function Linha({ e, aberto, aoAbrir }) {
@@ -18,7 +18,7 @@ function Linha({ e, aberto, aoAbrir }) {
 export function Coluna({ tela, estado, aoAbrir, aoVoltar, pisca, escala = 1 }) {
   const estados = estadosDa(tela)
   if (!estados.length) return null
-  const grupos = tela === 'T05' ? GRUPOS_T05.map(([g, nome]) => [nome, estados.filter((e) => e.grupo === g)]) : [[null, estados]]
+  const grupos = GRUPOS[tela] ? GRUPOS[tela].map(([g, nome]) => [nome, estados.filter((e) => e.grupo === g)]) : [[null, estados]]
   return (
     <aside className="coluna" aria-label="Estados desta tela" style={{ '--escala': escala }}>
       <div className="coluna-cabeca">

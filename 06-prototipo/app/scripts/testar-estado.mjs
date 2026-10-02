@@ -13,11 +13,11 @@ let falhas = 0; const chk = (n, ok, d) => { console.log((ok ? 'OK     ' : 'FALHA
 const estados = indice.filter((r) => r.tipo === 'estado').map((r) => r.id)
 const sem = estados.filter((id) => !RECEITAS[id])
 chk(`os ${estados.length} estados do indice.json têm receita`, estados.length > 0 && !sem.length, sem.join(', '))
-// a coluna da T05 agrupa os estados (palco.md · A coluna, src/palco/telas.js · GRUPOS_T05): o estado
-// sem um desses grupos não aparece nela, e só abriria pelo endereço (o mundo real: a 16 e a 17)
-const gruposT05 = [...(readFileSync(resolve(app, 'src/palco/telas.js'), 'utf8').match(/GRUPOS_T05 = \[(.*)\]/)?.[1] ?? '').matchAll(/\['([a-z]+)'/g)].map((m) => m[1])
-const foraDaColuna = indice.filter((r) => r.tela === 'T05' && r.tipo === 'estado' && !gruposT05.includes(r.grupo)).map((r) => r.id)
-chk(`todo estado da T05 está num grupo da coluna (${gruposT05.join(', ')})`, gruposT05.length > 0 && !foraDaColuna.length, foraDaColuna.join(', '))
+// a coluna da T07 agrupa os estados (palco.md · a regra dos seis, src/palco/telas.js · GRUPOS): o estado
+// sem um desses grupos não aparece nela, e só abriria pelo endereço · pacote 1: era a T05, agora é a T07
+const gruposT07 = [...(readFileSync(resolve(app, 'src/palco/telas.js'), 'utf8').match(/T07: \[(.*)\] \}/)?.[1] ?? '').matchAll(/\['([a-z]+)'/g)].map((m) => m[1])
+const foraDaColuna = indice.filter((r) => r.tela === 'T07' && r.tipo === 'estado' && !gruposT07.includes(r.grupo)).map((r) => r.id)
+chk(`todo estado da T07 está num grupo da coluna (${gruposT07.join(', ')})`, gruposT07.length > 0 && !foraDaColuna.length, foraDaColuna.join(', '))
 // a coluna escreve o `rotulo` de cada estado (src/palco/Coluna.jsx): sem ele, a linha fica em branco e o
 // radio fica sem nome pro leitor de tela (a revisão de 26/09) — todo estado tem rótulo e a origem dele
 // (gate-C3, achado 3: 'quadro' ou 'proposto')

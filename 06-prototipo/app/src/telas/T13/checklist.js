@@ -251,7 +251,7 @@ const base = (item, c) => ({ id: item.id, secao: item.secao, nome: item.rotulo, 
 const lido = (item, valor) => base(item, { estado: 'ok', valor })
 const naoSeAplica = (item) => base(item, { estado: 'nsa', valor: T.vazio, apagado: true })
 // o automático que falta leva à tela que resolve, pelo `origem` do mock (a entrega do checklist)
-const TELA_DA_ORIGEM = { conectar: 'T05', ativo: 'T06', can: 'T08', configurar: 'T09', calibracao: 'T10' }
+const TELA_DA_ORIGEM = { conectar: 'T05', ativo: 'T06', can: 'T07', configurar: 'T09', calibracao: 'T10' }
 const ICONE_DA_ORIGEM = { conectar: 'conectar', ativo: 'ativo', can: 'refazer', configurar: 'configurar', calibracao: 'calibracao' }
 function falta(item) {
   const tela = TELA_DA_ORIGEM[item.origem]
