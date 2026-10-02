@@ -1,7 +1,8 @@
-// O teste da câmera sem a permissão (src/estado/camera.js): o que o botão do
-// estado T10/11 faz, provado no node — no palco o estado fica parado e sem
-// toque, e o fluxo não chega nele (o protótipo não tem o pedido do Android).
-// Vale pras duas câmeras do app, a da T10 e a do item manual da T13.
+// O teste da câmera sem a permissão (src/estado/camera.js): o que o primário da
+// câmera faz sem ela, provado no node — nenhum estado nem o fluxo chegam nela (o
+// protótipo não tem o pedido do Android). Desde o pacote 2 (decisão 52), a T10 não
+// tem câmera, e a T10/11 e o caso camera-sem-permissao saíram: a câmera do app é
+// uma só, a do item manual da T13 (a do item e a do problema, decisão 39).
 // Uso: node scripts/testar-camera.mjs → exit 0 aprovado / 1 reprovado.
 import { readFileSync, readdirSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
@@ -12,7 +13,6 @@ const app = resolve(dirname(fileURLToPath(import.meta.url)), '..'); const raiz =
 globalThis.window = {}; createRequire(import.meta.url)(resolve(raiz, '04-dados/mocks.js')); const M = window.M2CF_MOCKS
 const { RECEITAS } = await import(resolve(app, 'src/estado/receitas.js'))
 const { CONCEDIDA, NEGADA, APAGADO, permissaoDoEstado, camera, primarioDaCamera, voltaDasConfiguracoes } = await import(resolve(app, 'src/estado/camera.js'))
-const { T: T10 } = await import(resolve(app, 'src/telas/T10/textos.js'))
 const { T: T13 } = await import(resolve(app, 'src/telas/T13/textos.js'))
 const indice = JSON.parse(readFileSync(resolve(raiz, '02-telas/indice.json'), 'utf8')).itens
 // os textos de uma referência no textos.md da tela (o mesmo recorte do scripts/textos.mjs)
@@ -24,11 +24,16 @@ function textosDaRef(t, ref) {
 }
 let falhas = 0; const chk = (n, ok, d) => { console.log((ok ? 'OK     ' : 'FALHA  ') + n + (d ? ' — ' + d : '')); if (!ok) falhas++ }
 
-// 1 · de onde vem a permissão: só o caso camera-sem-permissao nega, e só a T10/11 aponta pra ele
-const caso = M.casos['camera-sem-permissao']
-chk('o caso camera-sem-permissao existe e nega a câmera', caso?.permissao === 'camera' && caso?.resposta === 'negada', JSON.stringify(caso))
+// 1 · de onde vem a permissão: do caso que a receita aponta — e, desde o pacote 2, nenhum caso do
+// mock nega a câmera (o camera-sem-permissao saiu com a T10/11, decisão 52)
+const negadores = Object.entries(M.casos).filter(([, c]) => c?.permissao === 'camera' && c?.resposta === 'negada').map(([id]) => id)
+chk('nenhum caso do mock nega a câmera (o camera-sem-permissao saiu)', negadores.length === 0 && !M.casos['camera-sem-permissao'], negadores.join(', '))
+chk('a T10/11 saiu do indice.json', !indice.some((r) => r.id.startsWith('T10/11')))
 const negam = indice.filter((r) => r.tipo === 'estado').map((r) => r.id).filter((id) => permissaoDoEstado(RECEITAS[id], M.casos) === NEGADA)
-chk('dos estados do indice.json, só a T10/11 abre sem a câmera', negam.length === 1 && negam[0] === 'T10/11-estado-camera-sem-permissao', negam.join(', '))
+chk('nenhum estado do indice.json abre sem a câmera', negam.length === 0, negam.join(', '))
+// a função continua lendo o caso: um caso que negue a câmera, apontado pela receita, a nega
+const finge = { 'nega-camera': { permissao: 'camera', resposta: 'negada' } }
+chk('um caso que negue a câmera, apontado pela receita, a nega', permissaoDoEstado({ casos: ['nega-camera'] }, finge) === NEGADA && permissaoDoEstado({ casos: [] }, finge) === CONCEDIDA)
 chk('no fluxo (sem estado), a câmera abre', permissaoDoEstado(undefined, M.casos) === CONCEDIDA)
 const t13 = Object.keys(RECEITAS).filter((id) => id.startsWith('T13/'))
 chk('nenhum estado da T13 nega a câmera (nenhuma referência desenha o checklist sem ela)', t13.every((id) => permissaoDoEstado(RECEITAS[id], M.casos) === CONCEDIDA), t13.join(', '))
@@ -43,7 +48,7 @@ chk('se ele volta sem permitir, a câmera continua sem ela, e o primário contin
 
 // 2b · o primário que as telas tocam (primarioDaCamera): o da câmera, e no item manual, com o Não está
 // conforme marcado, o que falta pra ressalva — o não conforme exige a foto do problema (decisão 39)
-chk('T10 · na câmera, o primário é o da permissão: Tirar foto, ou Abrir as configurações', primarioDaCamera(CONCEDIDA) === 'tirar-foto' && primarioDaCamera(NEGADA) === 'abrir-configuracoes')
+chk('na câmera, sem o item marcado, o primário é o da permissão: Tirar foto, ou Abrir as configurações', primarioDaCamera(CONCEDIDA) === 'tirar-foto' && primarioDaCamera(NEGADA) === 'abrir-configuracoes')
 chk('T13 · desmarcado, o da câmera: Tirar foto, e sem a permissão o Abrir as configurações',
   primarioDaCamera(CONCEDIDA, { naoConforme: false }) === 'tirar-foto' && primarioDaCamera(NEGADA, { naoConforme: false }) === 'abrir-configuracoes')
 chk('T13 · marcado, sem a foto do problema: o disparador Fotografar o problema, com ou sem o texto (a ordem é livre)',
@@ -56,16 +61,16 @@ chk('T13 · fotografado e contado: Salvar com ressalva', primarioDaCamera(CONCED
 // o Salvar com ressalva só existe com a foto do problema e o texto: nenhuma combinação o dá sem os dois
 const combina = [CONCEDIDA, NEGADA].flatMap((p) => [false, true].flatMap((f) => [false, true].map((c) => ({ p, f, c }))))
 chk('T13 · nenhum Salvar com ressalva sem a foto do problema e o texto', combina.every(({ p, f, c }) => primarioDaCamera(p, { naoConforme: true, fotografado: f, contou: c }) !== 'salvar-com-ressalva' || (f && c)))
-// as duas telas tocam o que a função diz, e não uma decisão delas: senão o teste provaria outra coisa
-const leem = ['T10', 'T13'].filter((t) => /primarioDaCamera\(/.test(readFileSync(resolve(app, `src/telas/${t}/index.jsx`), 'utf8')))
-chk('a T10 e a T13 tiram o primário da câmera de primarioDaCamera', leem.length === 2, leem.join(', '))
+// a tela toca o que a função diz, e não uma decisão dela: senão o teste provaria outra coisa
+const fonte = (t) => readFileSync(resolve(app, `src/telas/${t}/index.jsx`), 'utf8')
+chk('a T13 tira o primário da câmera de primarioDaCamera', /primarioDaCamera\(/.test(fonte('T13')))
+chk('a T10 não tem câmera (decisão 52): não lê src/estado/camera.js', !/estado\/camera/.test(fonte('T10')))
 
-// 3 · os textos: os da T10/11 são os do textos.md; o primário da T13 é o mesmo da T10 (logica.md · a câmera do checklist)
-const md = textosDaRef('T10', '11-estado-camera-sem-permissao')
-for (const [nome, texto] of [['precisaDaCamera', T10.precisaDaCamera], ['semAFoto', T10.semAFoto], ['abrirConfiguracoes', T10.abrirConfiguracoes], ['voltarCalibracao', T10.voltarCalibracao], ['fotoDoPainel', T10.fotoDoPainel]]) {
-  chk(`T10 · ${nome} está no textos.md da 11`, md.includes(texto), texto)
-}
-chk('T13 · o primário sem a permissão é o Abrir as configurações da T10', T13.abrirConfiguracoes === T10.abrirConfiguracoes, T13.abrirConfiguracoes)
+// 3 · os textos: nenhuma referência desenha a câmera sem a permissão desde que a T10/11 saiu; o
+// Abrir as configurações é a letra da ficha da T13, do logica.md e da regra 12 (06-prototipo/CLAUDE.md)
+const fontesDoAbrir = ['02-telas/T13-checklist/tela.md', '06-prototipo/logica.md', '06-prototipo/CLAUDE.md'].map((f) => readFileSync(resolve(raiz, f), 'utf8'))
+chk('T13 · o primário sem a permissão, Abrir as configurações, é a letra da ficha da T13, do logica.md e da regra 12',
+  fontesDoAbrir.every((md) => md.includes('`' + T13.abrirConfiguracoes + '`')), T13.abrirConfiguracoes)
 const md07 = textosDaRef('T13', '07-momento-responder-item')
 const md08 = textosDaRef('T13', '08-momento-nao-conforme-com-justificativa')
 const md15 = textosDaRef('T13', '15-momento-problema-fotografado')

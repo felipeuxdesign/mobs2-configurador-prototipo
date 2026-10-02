@@ -98,30 +98,29 @@ export default [
   V('mov-check-veredito'),
   { quieto: true },
   { naoVe: 'NÃO BATE COM O CADASTRO' },                                            // o lugar da palavra, reservado, sem texto
-  { naoVe: '1 de 5' },                                                             // nada conta de zero
+  { naoVe: '1 de 4' },                                                             // nada conta de zero
   { toca: 'bancada · confere' },
-  { ve: '1 de 5', entre: [300, 650] },                                             // o primeiro bloco, aos 400
+  { ve: '1 de 4', entre: [300, 650] },                                             // a primeira linha, aos 400
   { anima: [GLIFO] },
-  { ve: '4 de 5', entre: [1000, 1500] },
+  { ve: '3 de 4', entre: [1000, 1500] },                                           // a quarta linha: o Extended ID não conta (o pacote 2)
   { naoVe: 'NÃO BATE COM O CADASTRO' },
   { ve: 'NÃO BATE COM O CADASTRO', entre: [250, 600] },                            // a quinta: o veredito entra
   { anima: [esmaece('ds-aviso-titulo'), esmaece('ds-aviso-capa'), GLIFO] },        // a palavra, a cor do traço por camada, o xis
-  { ve: '5 de 5' },
+  { ve: '4 de 4' },
   { dorme: 200 },
   { quieto: true },
   { toca: 'bancada · abre de novo', naoAnima: [{ prop: 'opacity' }] },             // nascida lida: o veredito, parado
   { quieto: true },
   { ve: 'NÃO BATE COM O CADASTRO' },
 
-  // ── o veredito que confere (T11/02): o lima do traço por camada e a legenda da prova no mesmo tique ──
+  // ── o veredito que confere (T11/02): o lima do traço por camada (a prova da versão saiu no pacote 2) ──
   V('mov-check-veredito-confere'),
   { quieto: true },
   { toca: 'bancada · confere' },
-  { ve: '1 de 5', entre: [300, 650] },
-  { naoVe: 'igual à do cadastro' },
+  { ve: '1 de 4', entre: [300, 650] },
   { ve: 'CONFERE COM O CADASTRO', entre: [1400, 2100] },
-  { anima: [esmaece('ds-aviso-titulo'), esmaece('ds-aviso-capa'), esmaece('ds-prova-legenda')] },
-  { ve: 'igual à do cadastro' },
+  { anima: [esmaece('ds-aviso-titulo'), esmaece('ds-aviso-capa')] },
+  { naoVe: 'igual à do cadastro' },
 
   // ── a prova que espera o autoteste (C12·44, T16/02): a contagem no lugar da versão ──
   V('mov-check-veredito-sessao'),
@@ -168,9 +167,9 @@ export default [
   { quieto: true },
   V('mov-check-veredito'),
   { toca: 'bancada · confere' },
-  { ve: '1 de 5', entre: [300, 650] },
+  { ve: '1 de 4', entre: [300, 650] },
   { quieto: true },
-  { ve: '4 de 5', entre: [1000, 1500] },
+  { ve: '3 de 4', entre: [1000, 1500] },
   { ve: 'NÃO BATE COM O CADASTRO', entre: [250, 600] },
   { quieto: true },
   V('mov-check-veredito-sessao'),

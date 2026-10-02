@@ -79,7 +79,7 @@ export default [
   { aVista: 'Digite o que o painel mostra' },
   { digita: '482317', em: 'O PAINEL MOSTRA' },   // calibracao.painel · a-01 · hodômetro
   { aVista: 'O PAINEL MOSTRA' },
-  { aVista: 'Fotografe o painel' },
+  { aVista: 'Semear o hodômetro' },   // era 'Fotografe o painel': com o número, o Semear acende (decisão 52)
   { aVista: 'Voltar ao menu' },
   ...fecha,
 

@@ -140,6 +140,10 @@ export default [
   { toca: 'Tirar foto', anima: TROCA },
   { ve: 'Leitor posicionado' },
   { dorme: 250 },
+  // o Painel é foto a tirar, como os outros quatro (decisão 52)
+  { toca: 'Tirar foto', anima: TROCA },
+  { ve: 'Painel com hodômetro e horímetro legíveis' },
+  { dorme: 250 },
   // o último: a volta às seções, e a barra avança do que tinha quando o item abriu (C12·36, C12·37)
   { toca: 'Tirar foto', anima: [...TROCA, BARRA], naoAnima: [esmaece('ds-glifo')] },   // o check entra com a troca
   { chega: 'T13', momento: '12-momento-b-com-ressalva' },
@@ -159,6 +163,8 @@ export default [
   { toca: 'B · Montagem' },
   { dorme: 300 },
   { toca: 'Módulo' },
+  { dorme: 250 },
+  { toca: 'Tirar foto' },
   { dorme: 250 },
   { toca: 'Tirar foto' },
   { dorme: 250 },
@@ -193,7 +199,7 @@ export default [
   { tecla: 'Escape' },
   { anima: [...TROCA, BARRA] },
   { chega: 'T13', momento: M02 },
-  { ve: 'você fotografa 3 itens' },
+  { ve: 'você fotografa 4 itens' },
   { dorme: 400 },
   { quieto: true },
 
@@ -231,6 +237,7 @@ export default [
   { abre: '?tela=T13&momento=13-momento-e-resolvida' },
   { toca: 'B · Montagem' },
   { toca: 'Módulo' },
+  { toca: 'Tirar foto' },
   { toca: 'Tirar foto' },
   { toca: 'Tirar foto' },
   { toca: 'Tirar foto' },

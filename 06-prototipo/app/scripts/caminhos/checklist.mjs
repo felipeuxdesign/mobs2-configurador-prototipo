@@ -4,7 +4,9 @@
 // a ação da E — e o reduzir movimento. A última entrega (decisão 39): o não
 // conforme exige a foto do problema — a caixa nas duas telas do item, o
 // Fotografar o problema, o registro (15), o Conte o que aconteceu apagado, a
-// ordem livre entre escrever e fotografar — e o singular (1 item). Entre um toque que mexe as seções e o
+// ordem livre entre escrever e fotografar — e o singular (1 item). O pacote 2: a A com 3, o Painel
+// foto a tirar (decisão 52), a D pelo conteúdo, a E com os 6 passos do ciclo de testes, parado
+// (decisão 54). Entre um toque que mexe as seções e o
 // próximo, a espera dos 200 ms do movimento: no meio dele, o cartão que desce
 // ainda não está no lugar (logica.md · O checklist).
 export default [
@@ -40,15 +42,34 @@ export default [
   { reduzir: false },
   // o 13 pela URL grava o ciclo que a T14 fecha: abrir a B não desfaz a E resolvida
   { abre: '?tela=T13&momento=13-momento-e-resolvida' },
-  { ve: '24' },
+  { ve: '23' },
   { toca: 'B · Montagem' },
   { chega: 'T13', momento: '02-momento-b-montagem-aberta' },
   { ve: 'o ciclo passou' },
-  { ve: 'Faltam 4 itens' },
+  { ve: 'Faltam 5 itens' },
+  // a D pelo conteúdo: as cercas em regiões, o Extended ID só leitura, a APN e o leitor, sem a versão
+  { abre: '?tela=T13&momento=04-momento-d-configuracao-aberta' },
+  { ve: '4 regiões' },
+  { ve: '3 cartões · 1 iButton' },
+  { ve: 'm2m.mobs2.br' },
+  { ve: '9.640 h' },
+  { naoToca: 'Extended ID' },
+  // a A com 3: o chassi saiu
+  { abre: '?tela=T13&momento=01-momento-a-identificacao-aberta' },
+  { naoVe: 'Chassi' },
+  // o Painel é foto a tirar, como os outros quatro (decisão 52)
+  { abre: '?tela=T13&momento=02-momento-b-montagem-aberta' },
+  { ve: 'você fotografa 5 itens' },
+  { naoVe: 'fotografado na calibração' },
+  { toca: 'Painel' },
+  { chega: 'T13', momento: '07-momento-responder-item' },
+  { ve: 'Painel com hodômetro e horímetro legíveis' },
+  { toca: 'Voltar ao checklist' },
+  { chega: 'T13', momento: '02-momento-b-montagem-aberta' },
   // o 12: a ressalva com o check e a causa, sem seta; a foto por fazer abre a câmera do app
   { abre: '?tela=T13&momento=12-momento-b-com-ressalva' },
   { ve: 'com ressalva · suporte trincado' },
-  { ve: 'você fotografa 3 itens' },
+  { ve: 'você fotografa 4 itens' },
   { naoToca: 'Módulo' },
   { toca: 'Antena GPS' },
   { chega: 'T13', momento: '07-momento-responder-item' },
@@ -94,8 +115,8 @@ export default [
   { toca: 'Voltar ao checklist' },
   { chega: 'T13', momento: '12-momento-b-com-ressalva' },
   { ve: 'com ressalva · suporte trincado' },
-  { ve: 'você fotografa 3 itens' },
-  { ve: 'Faltam 8 itens' },
+  { ve: 'você fotografa 4 itens' },
+  { ve: 'Faltam 10 itens' },
   // escrever primeiro e fotografar depois: o 08 pela URL já tem o que aconteceu
   { abre: '?tela=T13&momento=08-momento-nao-conforme-com-justificativa' },
   { toca: 'Fotografar o problema' },
@@ -128,7 +149,7 @@ export default [
   { app: [360, 800] },
   // ── o singular (a resposta do arquiteto de 26/09): você fotografa 1 item · Falta 1 item ──
   { abre: '?tela=T13&momento=13-momento-e-resolvida' },
-  { ve: 'Faltam 4 itens' },
+  { ve: 'Faltam 5 itens' },
   { toca: 'B · Montagem' },
   { chega: 'T13', momento: '02-momento-b-montagem-aberta' },
   { toca: 'Módulo' },
@@ -139,12 +160,14 @@ export default [
   { ve: 'Chicote e emendas protegidos' },
   { toca: 'Tirar foto' },
   { ve: 'Leitor posicionado' },
+  { toca: 'Tirar foto' },
+  { ve: 'Painel com hodômetro e horímetro legíveis' },
   { toca: 'Voltar ao checklist' },
   { chega: 'T13', momento: '02-momento-b-montagem-aberta' },
   { ve: 'você fotografa 1 item' },
   { ve: 'Falta 1 item' },
   { naoVe: 'você fotografa 1 itens' },
-  { toca: 'Leitor' },
+  { toca: 'Painel' },
   { toca: 'Tirar foto' },
   { chega: 'T13', momento: '02-momento-b-montagem-aberta' },
   { ve: '5 fotos tiradas' },
@@ -154,8 +177,10 @@ export default [
   { naoToca: 'Ignição ligada' },
   { toca: 'D · Configuração' },
   { dorme: 250 },
-  { toca: 'E · Teste dinâmico' },
+  { toca: 'E · Ciclo de testes' },
   { dorme: 250 },
-  { toca: 'Fazer o ciclo dinâmico' },
+  { ve: 'os 6 passos, com o ônibus parado' },
+  { ve: 'Cartão do motorista' },
+  { toca: 'Fazer o ciclo de testes' },
   { chega: 'T14' },
 ]

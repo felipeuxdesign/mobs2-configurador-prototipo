@@ -1,7 +1,7 @@
-// T14 · o movimento do ciclo dinâmico (02-telas/T14-ciclo-dinamico/animacao.md; gate C12·4, C12·5,
+// T14 · o movimento do ciclo de testes (02-telas/T14-ciclo-dinamico/animacao.md; gate C12·4, C12·5,
 // C12·12, C12·15, C12·18, C12·19, C12·23 e C12·40):
 //   · a troca de quadro (C12·4, G26 · T14 01 → 00): quando a fila do módulo drena, a frase dela sai
-//     do prazo, a espera sai do rodapé e o disparo acende — o desenho muda, e o conteúdo esmaece em
+//     do prazo e o disparo acende (o pacote 2 tirou a legenda do rodapé) — o desenho muda, e o conteúdo esmaece em
 //     150, pelo processo; o disparo acende com ele, sem camada por dentro. O mesmo quando o ciclo
 //     conclui (o rodapé troca inteiro): o último passo entra com a troca, sem esmaecer de novo;
 //   · o disparo (C12·23): o texto do primário troca no lugar (Disparar evento de teste → Encerrar
@@ -9,7 +9,8 @@
 //   · a barra do prazo (T14·1, C12·40): cada tique de 250 ms é um trecho linear, o marcador e o
 //     preenchido juntos, só por transform; o número troca no lugar (T14·2). Com reduzir, o número
 //     troca e a barra salta, no mesmo ritmo;
-//   · o passo do veículo (T14·3, C12·12): o relógio vira check esmaecendo, a +9 e +12 s do disparo;
+//   · o passo do veículo (T14·3, C12·12): o relógio vira check esmaecendo, a +9, +12 e +15 s do
+//     disparo; o sexto, a +18 s, entra com a troca do ciclo concluído (decisão 54: seis passos);
 //   · o evento que chega (T14·4): o relógio vira o horário, esmaecendo;
 //   · o pedido de correção (T14·5, C12·19): o link vira o registro no lugar, esmaecendo, e nada
 //     fica animando depois — pela sessão do PCX-9A17 (o caso identificador-divergente, G28).
@@ -73,14 +74,16 @@ export default [
   { dorme: 400 },
   { quieto: true },
   // os passos do veículo: o check esmaece no poço (T14·3)
-  { ve: '3 de 5 passos', entre: [1000, 3200] },
+  { ve: '3 de 6 passos', entre: [1000, 3200] },
   { anima: [CHECK] },
-  { ve: '4 de 5 passos', entre: [2400, 3600] },
+  { ve: '4 de 6 passos', entre: [2400, 3600] },
+  { anima: [CHECK] },
+  { ve: '5 de 6 passos', entre: [2400, 3600] },
   { anima: [CHECK] },
   // o ciclo conclui: o rodapé troca inteiro, e o conteúdo esmaece; o último passo entra com a troca
   { chega: 'T14', momento: M05, entre: [2400, 3600] },
   { anima: TROCA, naoAnima: [CHECK, TEXTO_NASCE] },
-  { ve: '5 de 5 passos' },
+  { ve: '6 de 6 passos' },
   { dorme: 300 },
   { quieto: true },
   { toca: 'Voltar ao checklist', anima: TROCA },
@@ -123,9 +126,9 @@ export default [
   { toca: 'Finalizar com checklist' },
   { chega: 'T13' },
   { dorme: 300 },
-  { toca: 'E · Teste dinâmico' },
+  { toca: 'E · Ciclo de testes' },
   { dorme: 300 },
-  { toca: 'Fazer o ciclo dinâmico', anima: TROCA },
+  { toca: 'Fazer o ciclo de testes', anima: TROCA },
   { chega: 'T14' },
   { ve: 'FILA DRENADA', entre: [2400, 3300] },
   { dorme: 300 },
@@ -166,9 +169,9 @@ export default [
   { toca: 'Finalizar com checklist' },
   { chega: 'T13' },
   { dorme: 300 },
-  { toca: 'E · Teste dinâmico' },
+  { toca: 'E · Ciclo de testes' },
   { dorme: 300 },
-  { toca: 'Fazer o ciclo dinâmico', anima: TROCA },
+  { toca: 'Fazer o ciclo de testes', anima: TROCA },
   { chega: 'T14' },
   { ve: 'FILA DRENADA', entre: [2400, 3300] },
   { dorme: 300 },
@@ -177,7 +180,7 @@ export default [
   // troca inteiro — o conteúdo esmaece, pelo processo; o Disparar outro evento entra com ele
   { ve: 'Disparar outro evento', ms: 40000, entre: [28500, 32500] },
   { anima: TROCA, naoAnima: [ACENDE, TEXTO_NASCE, CHECK] },
-  { ve: 'A Seção F reprova.' },
+  { ve: 'A Seção F reprova · os passos continuam valendo.' },
   { dorme: 300 },
   { quieto: true },
   // Disparar outro evento: o prazo volta cheio com o quadro, sem encher por dentro, e drena dali
@@ -188,6 +191,52 @@ export default [
   { anima: [EVENTO] },
   { chega: 'T14', momento: M05, entre: [1000, 3500] },
   { anima: TROCA, naoAnima: [CHECK] },
+  { dorme: 300 },
+  { quieto: true },
+
+  // ── o motor desligado (T14/03, o caso motor-desligado-no-ciclo): a rotação zerada reprova e pede o motor ──
+  { abre: '?tela=T14&estado=03-estado-dinamico-fora-do-esperado' },
+  { ve: '1 de 6 passos' },
+  { ve: 'Rotação\n0 rpm · ligue o motor' },
+  { quieto: true },
+
+  // ── D3 · a velocidade com tacógrafo digital: pela sessão do KNB-5H39 com o M2C-0335 (o a-09, ma-02, que tem
+  // tacografoDigital), o passo da velocidade entra depois da rotação, e o ciclo tem sete passos.
+  // Nenhuma referência o desenha — o herói não tem —: monta pelo dado ──
+  { abre: '?tela=T05&momento=01-momento-nenhum-escolhido' },
+  { toca: 'M2C-0335' },   // o módulo do M2C-0335, num ativo de tacógrafo (o caso dele é do a-04, e não vale aqui)
+  { dorme: 250 },
+  { toca: 'Conectar ao M2C-0335' },
+  { chega: 'T07' },
+  { toca: 'Selecionar ativo', ms: 12000 },
+  { chega: 'T06', momento: null },
+  { toca: 'KNB-5H39' },
+  { dorme: 250 },
+  { toca: 'Usar este ativo' },
+  { chega: 'T06', momento: '01-momento-confirmar-o-veiculo' },
+  { dorme: 300 },
+  { toca: 'Vincular o módulo' },
+  { chega: 'T09', momento: '05-momento-o-que-vai-ser-gravado' },
+  { dorme: 400 },
+  { toca: 'Voltar ao menu', ms: 20000 },
+  { chega: 'T04' },
+  { toca: 'Entendi' },
+  { dorme: 400 },
+  { toca: 'Finalizar com checklist' },
+  { chega: 'T13' },
+  { dorme: 300 },
+  { toca: 'E · Ciclo de testes' },
+  { dorme: 300 },
+  { toca: 'Fazer o ciclo de testes', anima: TROCA },
+  { chega: 'T14' },
+  { ve: '2 de 7 passos' },
+  { ve: 'Ignição ligada\nRotação\nVelocidade\nRé acionada\nPorta aberta\nCartão do motorista\nIgnição desligada' },
+  { ve: 'FILA DRENADA', entre: [2400, 3300] },
+  { dorme: 300 },
+  { toca: 'Disparar evento de teste', anima: [TEXTO, EVENTO] },
+  { ve: '3 de 7 passos', entre: [8000, 10500] },
+  { chega: 'T14', momento: M05, entre: [10000, 13500] },
+  { ve: '7 de 7 passos' },
   { dorme: 300 },
   { quieto: true },
 

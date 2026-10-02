@@ -285,32 +285,18 @@ export default [
   esc,
   { chega: 'T04' },
 
-  // ── T10 · o Voltar ao menu, em todo passo; na câmera, o Voltar à calibração, sem foto;
-  //    no semear, nada (a decisão do diretor de 25/09: o semear não para); na calibração
-  //    completa, o Voltar ao menu, embaixo do Fazer o ciclo dinâmico (decisão 35) ──
+  // ── T10 · o Voltar ao menu, em todo passo — também onde o link do rodapé é o Pular o horímetro
+  //    (01 e 08: o voltar nunca pula); no semear, nada (a decisão do diretor de 25/09: o semear
+  //    não para); na calibração completa, o Voltar ao menu, embaixo do Fazer o ciclo de testes ──
   { abre: '?tela=T10' },
   esc,
   { chega: 'T04' },
   { abre: '?tela=T10&momento=05-momento-hodometro-digitado' },
   esc,
   { chega: 'T04' },
-  { abre: '?tela=T10&momento=06-momento-camera-do-painel' },
-  { ve: 'Enquadre o hodômetro do painel' },
-  esc,
-  { chega: 'T10', momento: '05-momento-hodometro-digitado' },
-  { toca: 'Fotografar o painel' },   // sem foto: o cartão continua a tirar
-  { chega: 'T10', momento: '06-momento-camera-do-painel' },
-  { toca: 'Voltar à calibração' },
-  { chega: 'T10', momento: '05-momento-hodometro-digitado' },
-  { desligado: 'Fotografe o painel' },
-  esc,
-  { chega: 'T04' },
-  { abre: '?tela=T10&momento=07-momento-painel-fotografado' },
-  esc,
-  { chega: 'T04' },
   // o semear grava no módulo e não para: nos 2 s, o Voltar ao menu desabilitado e o Esc, nada;
   // o ENCERRAR faz o mesmo que o voltar, apagado (a lei 17)
-  { abre: '?tela=T10&momento=07-momento-painel-fotografado' },
+  { abre: '?tela=T10&momento=05-momento-hodometro-digitado' },
   { toca: 'Semear o hodômetro' },
   { desligado: 'Gravando no módulo…' },
   { desligado: 'Voltar ao menu' },
@@ -323,32 +309,24 @@ export default [
   esc,
   { fica: 'T10', ms: 300 },
   { chega: 'T10', momento: '01-momento-hodometro-semeado', entre: [0, 1500] },
-  { ve: 'O MÓDULO CONTA AGORA' },   // o semear chegou ao fim: nada o parou
+  { ve: 'O MÓDULO CONTA AGORA' },
   esc,
   { chega: 'T04' },
   { abre: '?tela=T10&momento=01-momento-hodometro-semeado' },
+  { ve: 'Pular o horímetro' },
   esc,
   { chega: 'T04' },
   { abre: '?tela=T10&momento=08-momento-horimetro' },
+  { ve: 'Pular o horímetro' },
   esc,
   { chega: 'T04' },
   { abre: '?tela=T10&momento=09-momento-calibracao-completa' },
-  { ve: 'Fazer o ciclo dinâmico' },
+  { ve: 'Fazer o ciclo de testes' },
   esc,
   { chega: 'T04' },
-  // a calibração completa aponta o ciclo: o Voltar ao menu, embaixo, também leva ao menu
   { abre: '?tela=T10&momento=09-momento-calibracao-completa' },
   { toca: 'Voltar ao menu' },
   { chega: 'T04' },
-  // o mundo real · a câmera sem a permissão, pela coluna: parada e sem toque — o
-  // Abrir as configurações se prova no node (scripts/testar-camera.mjs)
-  { abre: '?tela=T10&estado=11-estado-camera-sem-permissao' },
-  { ve: 'O app precisa da câmera pra fotografar o painel' },
-  { naoToca: 'Abrir as configurações' },
-  { naoToca: 'Voltar à calibração' },
-  esc,
-  { fica: 'T10', ms: 500 },
-  { chega: 'T10', estado: '11-estado-camera-sem-permissao' },
 
   // ── T11 · o que diverge, nada: o link é o Outras ações, que não sai da tela (a última
   //    entrega, decisão 40); na folha Outras ações, fecha; tudo confere, o Voltar ao menu ──

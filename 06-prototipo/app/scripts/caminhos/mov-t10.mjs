@@ -1,21 +1,21 @@
 // T10 · o movimento da calibração (02-telas/T10-calibracao/animacao.md; gate C12·4, C12·8, C12·18,
-// C12·22, C12·23, C12·33, C12·34, C12·42 e C12·45):
+// C12·22, C12·23, C12·33, C12·34 e C12·45), com a decisão 52 (pacote 2): sem a câmera e sem a foto,
+// e o horímetro opcional:
 //   · o campo do painel (T10·1, C12·45): o traço de foco acende por cima da borda, scaleX em 150, e
 //     nenhum texto sai do lugar (marcaLugar / mesmoLugar);
-//   · o primário diz o que falta (C12·23): o texto novo esmaece no lugar, em 150; o toque que o apaga
+//   · o primário diz o que falta (C12·23): o texto novo esmaece no lugar, em 150 — com a decisão 52,
+//     o Digite o que o painel mostra vira o Semear assim que o número entra; o toque que o apaga
 //     não deixa o roxo por cima (C12·18); o que acende no fim do semear acende com o texto do passo
 //     seguinte, que esmaece no lugar, e o roxo direto, sem camada (C12·23, a peça · o conserto de 27/09);
-//   · a câmera e o passo seguinte são outro desenho (C12·4): no Fotografar o painel, no Tirar foto, no
-//     Voltar à calibração e no Calibrar o horímetro, o miolo e o rodapé esmaecem em 150; o rodapé nasce
-//     com o quadro, e o texto dele não esmaece de novo por dentro;
-//   · a foto registrada (T10·2, C12·42): o registro entra no lugar do cartão com a troca da volta da
-//     câmera — os mesmos 150 —, e não esmaece de novo por dentro; aberto pelo endereço, parado;
+//   · o passo seguinte é outro desenho (C12·4): no Calibrar o horímetro, o miolo e o rodapé
+//     esmaecem em 150; o rodapé nasce com o quadro, e o texto dele não esmaece de novo por dentro;
 //   · o semear (T10·3): Gravando no módulo… e Relendo…, 1 s + 1 s (RITMOS), linear — é o ritmo; no fim,
 //     em sequência (a T10·4 do C0, C12·34 a): o tambor rola até o relido (300 por rodinha, 40 entre
 //     elas, 500 no total, C12·33); quando ele para, a diferença encolhe e esmaece em 300 (T10·5,
 //     C12·34); no fim dos 300, o veredito assenta — o confere entra na régua em 150, e no mesmo quadro
 //     o poço acende, o alvo diz que cumpriu, o segmento fica feito e o primário acende (o texto novo esmaece);
-//   · a foto do painel (T10·6) é o mesmo movimento da foto registrada (C12·42).
+//   · o Pular o horímetro (D1 do pacote 2): do semeado (01) e do passo do horímetro (08), a calibração
+//     segue pro ciclo, a troca entre telas, e a etapa guarda o horímetro pulado.
 // A tela abre parada pela URL, em cada momento e estado, no print e no palco. Com reduzir movimento,
 // tudo direto, e o semear no mesmo ritmo.
 const C = 'cubic-bezier(0.2, 0.8, 0.2, 1)'
@@ -25,18 +25,17 @@ const TRACO = { prop: 'transform', ms: 150, curva: C, em: 'ds-traco-foco' }
 const TEXTO = esmaece('ds-primario-texto')
 const ACENDE = esmaece('ds-primario-antes')
 const SEM_ROXO = [{ prop: 'opacity', em: 'ds-primario-desabilitado' }, { prop: 'opacity', em: 'ds-primario-antes' }]   // C12·18
-const FOTO = { prop: 'opacity', em: 'ds-foto' }   // o registro não esmaece por dentro da troca (C12·42)
 const RODA = { prop: 'transform', ms: 300, em: 'ds-roda-fita', curva: C }
 const ROLA = [{ ...RODA, atraso: 0 }, { ...RODA, atraso: 40 }, { ...RODA, atraso: 200 }]   // as seis do hodômetro
 const SAI = [{ prop: 'transform', ms: 300, em: 'ds-regua-sai', curva: C }, { prop: 'opacity', ms: 300, em: 'ds-regua-sai', curva: C }]
 const ENTRA = esmaece('ds-regua-entra')
 const PARADA = [{ quieto: true }, { dorme: 700 }, { quieto: true }]
 const M = {
-  semeado: '01-momento-hodometro-semeado', digitado: '05-momento-hodometro-digitado', camera: '06-momento-camera-do-painel',
-  fotografado: '07-momento-painel-fotografado', horimetro: '08-momento-horimetro', completa: '09-momento-calibracao-completa',
+  semeado: '01-momento-hodometro-semeado', digitado: '05-momento-hodometro-digitado',
+  horimetro: '08-momento-horimetro', completa: '09-momento-calibracao-completa',
 }
 const ESTADOS = ['02-estado-rotacao-caminhao-coletor', '03-estado-ja-semeado', '04-estado-modulo-sem-pulsos',
-  '10-estado-releitura-nao-confere', '11-estado-camera-sem-permissao']
+  '10-estado-releitura-nao-confere']
 
 export default [
   // ── abre parada: no print, pela URL em cada momento e em cada estado da coluna ──
@@ -44,9 +43,10 @@ export default [
     .flatMap((q) => [{ abre: `?tela=T10${q}&print=1` }, ...PARADA]),
   ...['', ...Object.values(M).map((m) => `&momento=${m}`), ...ESTADOS.map((e) => `&estado=${e}`)]
     .flatMap((q) => [{ abre: `?tela=T10${q}` }, ...PARADA]),
-  { abre: `?tela=T10&momento=${M.fotografado}` },
+  { abre: `?tela=T10&momento=${M.digitado}` },
   { quieto: true },
-  { ve: 'Painel fotografado às 14:30' },                          // o registro aberto pelo endereço, parado
+  { ve: 'Semear o hodômetro' },                                    // o número digitado basta (decisão 52)
+  { naoVe: 'Fotografar o painel' },
 
   // ── o campo do painel (T10·1): o traço acende por cima da borda, e nada sai do lugar ──
   { abre: '?tela=T10' },
@@ -55,41 +55,11 @@ export default [
   { foca: 'O PAINEL MOSTRA', teclado: 'numerico' },
   { anima: [TRACO] },
   { mesmoLugar: true },
-  // o primário diz o que falta: o texto novo esmaece no lugar (C12·23), apagado, sem camada
+  // o primário diz o que falta: com o número, o Semear acende (decisão 52) e o texto novo esmaece no lugar (C12·23)
   { digita: '482317', em: 'O PAINEL MOSTRA' },
-  { anima: [TEXTO], naoAnima: [ACENDE] },
-  { desligado: 'Fotografe o painel' },
+  { anima: [TEXTO] },
+  { ve: 'Semear o hodômetro' },
   { chega: 'T10', momento: M.digitado },
-  { dorme: 250 },
-  { quieto: true },
-
-  // ── a câmera do app (C12·4): o conteúdo esmaece na ida e na volta ──
-  { toca: 'Fotografar o painel', anima: TROCA, naoAnima: [TEXTO] },   // o rodapé nasce com o quadro: o texto não esmaece de novo
-  { chega: 'T10', momento: M.camera },
-  { ve: 'Enquadre o hodômetro do painel' },
-  { dorme: 250 },
-  { quieto: true },
-  { toca: 'Voltar à calibração', anima: TROCA, naoAnima: [TEXTO, FOTO] },   // sem foto: só a troca
-  { chega: 'T10', momento: M.digitado },
-  { dorme: 250 },
-  { quieto: true },
-  { toca: 'Fotografar o painel', anima: TROCA },
-  { chega: 'T10', momento: M.camera },
-  { dorme: 250 },
-  // o voltar do Android (o Esc), na câmera: o mesmo que o Voltar à calibração, e a mesma troca
-  { tecla: 'Escape' },
-  { anima: TROCA, naoAnima: [TEXTO] },
-  { chega: 'T10', momento: M.digitado },
-  { dorme: 250 },
-  { quieto: true },
-  { toca: 'Fotografar o painel', anima: TROCA },
-  { chega: 'T10', momento: M.camera },
-  { dorme: 250 },
-  // a foto registrada (T10·2, C12·42): o registro entra com a troca da volta, nos mesmos 150, e não
-  // esmaece de novo por dentro (C12·4)
-  { toca: 'Tirar foto', anima: TROCA, naoAnima: [TEXTO, ACENDE, FOTO] },
-  { chega: 'T10', momento: M.fotografado },
-  { ve: 'Painel fotografado às 14:30' },
   { dorme: 250 },
   { quieto: true },
 
@@ -129,29 +99,39 @@ export default [
   // o passo seguinte (C12·4): o título, o miolo e o rodapé trocam inteiros
   { toca: 'Calibrar o horímetro', anima: TROCA, naoAnima: [TEXTO, ACENDE, RODA] },   // o poço do passo novo nasce parado
   { chega: 'T10', momento: M.horimetro },
-  { ve: 'Último passo' },
+  { ve: 'Opcional · o último passo' },
   { dorme: 250 },
   { quieto: true },
 
   // ── o horímetro, até a calibração completa ──
+  { ve: 'Opcional · o último passo' },
+  { ve: 'Pular o horímetro' },
   { digita: '9640', em: 'O PAINEL MOSTRA' },
   { anima: [TEXTO] },
   { dorme: 250 },
-  { toca: 'Fotografar o painel', anima: TROCA },
-  { dorme: 250 },
-  { toca: 'Tirar foto', anima: TROCA, naoAnima: [FOTO] },
-  { dorme: 250 },
   { toca: 'Semear o horímetro', anima: [TEXTO], naoAnima: SEM_ROXO },
+  { desligado: 'Pular o horímetro' },                              // o semear não para: o link do passo, apagado
   { chega: 'T10', momento: M.completa, entre: [1700, 2400] },
   { anima: [{ ...RODA, atraso: 0 }], naoAnima: [...SAI, ACENDE] },   // o tambor primeiro (4 rodinhas, 420), e a régua depois
   { naoVe: 'Calibração completa', ms: 100 },
   { ve: 'Calibração completa', entre: [520, 900] },               // a legenda assenta junto com o veredito, no fim da régua (~720)
   { anima: [ENTRA, TEXTO], naoAnima: [ACENDE] },
   { ve: '9.640' },
+  { ve: 'Voltar ao menu' },
   { dorme: 400 },
   { quieto: true },
   // a calibração completa aponta o ciclo: a troca entre telas
-  { toca: 'Fazer o ciclo dinâmico', anima: TROCA },
+  { toca: 'Fazer o ciclo de testes', anima: TROCA },
+  { chega: 'T14' },
+
+  // ── o Pular o horímetro (D1): do semeado e do passo do horímetro, segue pro ciclo ──
+  { abre: `?tela=T10&momento=${M.semeado}` },
+  { quieto: true },
+  { toca: 'Pular o horímetro', anima: TROCA },
+  { chega: 'T14' },
+  { abre: `?tela=T10&momento=${M.horimetro}` },
+  { quieto: true },
+  { toca: 'Pular o horímetro', anima: TROCA },
   { chega: 'T14' },
 
   // ── com reduzir movimento: tudo direto, e o semear no mesmo ritmo ──
@@ -162,11 +142,6 @@ export default [
   { quieto: true },
   { digita: '482317', em: 'O PAINEL MOSTRA' },
   { quieto: true },
-  { toca: 'Fotografar o painel' },
-  { quieto: true },
-  { toca: 'Tirar foto' },
-  { quieto: true },
-  { ve: 'Painel fotografado às 14:30' },
   { toca: 'Semear o hodômetro' },
   { quieto: true },
   { desligado: 'Relendo…', entre: [800, 1300] },
@@ -186,9 +161,6 @@ export default [
   { quieto: true },
   { palco: 'Releitura não confere' },
   { chega: 'T10', estado: ESTADOS[3] },
-  ...PARADA,
-  { palco: 'Câmera sem permissão' },
-  { chega: 'T10', estado: ESTADOS[4] },
   ...PARADA,
   { palco: 'Já semeado' },
   { chega: 'T10', estado: ESTADOS[1] },

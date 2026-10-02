@@ -81,8 +81,11 @@ chk(`T05/17 · Permitir pede de novo, e a resposta do caso (${M.casos[C.CASO_BT_
 const tNegada = C.textosDoCelular(negada)
 chk('T05/17 · sem poder perguntar, o primário vira Abrir as configurações, e o bloco fica', tNegada.primario === TX05.abrirConfiguracoes && tNegada.titulo === t17.titulo && tNegada.frase === t17.frase && tNegada.unidade === t17.unidade)
 chk('T05/17 · Abrir as configurações: o técnico volta com a permissão, e a busca começa', C.depoisDoPedido(negada) === 'busca')
-// nenhuma referência da T05 desenha o botão virado: a letra é a da T10/11 (e da lei de construir, 12)
-chk('T05 · o Abrir as configurações é a letra do textos.md da T10/11', naSecao('T10', '11-estado-camera-sem-permissao', TX05.abrirConfiguracoes))
+// nenhuma referência da T05 desenha o botão virado: a letra era a da T10/11, que saiu com a decisão 52
+// (o pacote 2); fica a da ficha da T05 e a da lei de construir (06-prototipo/CLAUDE.md, regra 12)
+const fichaT05 = readFileSync(resolve(raiz, '02-telas/T05-conectar-modulo/tela.md'), 'utf8')
+const leiDeConstruir = readFileSync(resolve(raiz, '06-prototipo/CLAUDE.md'), 'utf8')
+chk('T05 · o Abrir as configurações é a letra da ficha da T05 e da regra 12', [fichaT05, leiDeConstruir].every((md) => md.includes('`' + TX05.abrirConfiguracoes + '`')), TX05.abrirConfiguracoes)
 
 // nunca um botão que não faz nada (a lei de construir, 12): de todo quadro do
 // celular, o primário leva à busca ou a um quadro com outro primário

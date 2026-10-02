@@ -101,7 +101,7 @@ export default [
   { toca: 'Continuar a gravação', naoAnima: SEM_PISCAR },
   { toca: 'ENCERRAR', naoAnima: SEM_PISCAR },   // voltou aceso: toca de novo, e se apaga de novo
   { desligado: 'ENCERRAR' },
-  { abre: '?tela=T10&momento=07-momento-painel-fotografado' },
+  { abre: '?tela=T10&momento=05-momento-hodometro-digitado' },   // era o 07, que saiu (decisão 52)
   { toca: 'Semear o hodômetro', naoAnima: SEM_PISCAR },
   { desligado: 'ENCERRAR' },
   { chega: 'T10', momento: '01-momento-hodometro-semeado', ms: 4000 },

@@ -42,7 +42,7 @@ try {
   chk('o login sem conexão e o Bluetooth', /TESTE APROVADO/.test(saida), n + ' toques')
 } catch (e) { chk('o login sem conexão e o Bluetooth', false, 'reprovou'); console.log(e.stdout) }
 
-// 2e · a câmera sem a permissão (T10/11 e a câmera do checklist), que só abre pela coluna: o Abrir as configurações
+// 2e · a câmera sem a permissão (a do checklist; a T10/11 saiu com o pacote 2), que nenhum estado abre: o Abrir as configurações
 try {
   const saida = execFileSync('node', [resolve(app, 'scripts/testar-camera.mjs')], { encoding: 'utf8' })
   const n = saida.split('\n').filter((l) => l.startsWith('OK')).length

@@ -4,7 +4,9 @@
 //
 //   (a) nas 147 do 02-telas/indice.json (as que o índice tiver), pelo endereço do print (como o tela.mjs
 //       abre): a barra de status com 30 de altura, no topo da tela do app, e o
-//       topo do primeiro elemento que vem embaixo dela em y = 30
+//       topo do primeiro elemento que vem embaixo dela em y = 30 · e, desde o pacote 2 (lei 22), o
+//       mundo dela como o da referência: o Bluetooth (7,6 × 12, a 6 do sinal) e o sem rede (o sinal
+//       apagado, sem o Wi-Fi), lidos dos ícones da barra no HTML de cada uma
 //   (b) a hora na Google Sans: o document.fonts com a família carregada, a família
 //       calculada do elemento da hora, a fonte que o Chrome de fato usou pra
 //       desenhar o texto (CSS.getPlatformFontsForNode) e nenhum pedido pra fora da
@@ -175,7 +177,14 @@ const MEDE_BARRA = `(() => {
   const soLeitor = (e) => { const r = e.getBoundingClientRect(); return r.width <= 1 && r.height <= 1 }
   const porCima = naFaixa.filter((e) => !soLeitor(e)).map(quem), soDoLeitor = naFaixa.filter(soLeitor).map(quem)
   const hora = b.querySelector('.ds-barra-sistema-hora'), ch = hora && getComputedStyle(hora), rz = getComputedStyle(document.documentElement)
+  // o mundo da barra (lei 22): o Bluetooth, o Wi-Fi e a cor do sinal, e a geometria do Bluetooth (7,6 × 12, a 6 do sinal)
+  const bt = b.querySelector('.ds-barra-sistema-bluetooth'), sinal = b.querySelector('.ds-barra-sistema-sinal'), wifi = b.querySelector('.ds-barra-sistema-wifi')
+  const corDe = (v) => { const s = document.createElement('span'); s.style.color = v; document.body.appendChild(s); const c = getComputedStyle(s).color; s.remove(); return c }
+  const rbt = bt && bt.getBoundingClientRect(), rsi = sinal && sinal.getBoundingClientRect()
+  const mundo = { bluetooth: !!bt, wifi: !!wifi, sinalCor: sinal && getComputedStyle(sinal).color, corTinta: corDe('var(--tinta)'), corVazia: corDe('var(--marca-vazia)'),
+    desenhoBt: bt ? { largura: rbt.width, altura: rbt.height, vao: rsi.left - rbt.right, cor: getComputedStyle(bt).color } : null }
   return {
+    mundo,
     barra: { topo: rb.top - T.top, altura: rb.height, largura: rb.width, alturaCalculada: cb.height, recheioTopo: cb.paddingTop, token: rz.getPropertyValue('--barra-sistema').trim(), quantas: barras.length },
     embaixo: prox ? { quem: quem(prox), topo: prox.getBoundingClientRect().top - T.top, como } : null,
     porCima: [...new Set(porCima)].slice(0, 6), soDoLeitor: [...new Set(soDoLeitor)],
@@ -201,6 +210,28 @@ async function fonteUsada(seletor) {
 // o que não se constrói, por desvio nomeado: fica fora da conta, e o relatório diz por quê
 // (o domínio mudo da T07 antiga saiu com ela, no pacote 1: hoje nenhuma)
 const FORA_DO_CICLO = {}
+
+// O mundo da barra na referência (lei 22, o pacote 2 · MUDANCAS §10): os ícones da primeira barra do HTML —
+// o Bluetooth (o path do Material, M17.71…) e, sem rede, o sinal em #4A4166 e sem o Wi-Fi
+function mundoDaReferencia(html) {
+  const s = readFileSync(resolve(raiz, html), 'utf8')
+  const i = s.indexOf("font-family: 'Google Sans'"), icones = i < 0 ? '' : s.slice(i, s.indexOf('</div>', i))
+  return { bluetooth: icones.includes('M17.71'), semRede: /viewBox="0 0 14\.7 9\.7" fill="#4A4166"/.test(icones) && !icones.includes('M1.24 4.14') }
+}
+// Onde o protótipo segue a lei 22 e a referência não foi refotografada pelo pacote 2: o Bluetooth com o
+// módulo conectado, da conexão ao fim da sessão (D6). Desvio nomeado, fora da falha: o relatório diz qual
+const NAO_REFOTOGRAFADA = 'a referência não saiu na tabela do MUDANCAS §10 e ficou sem o Bluetooth; o protótipo segue a lei 22'
+const DESVIOS_DA_BARRA = {
+  'T04/05-momento-folha-conta': `a sessão do herói aberta atrás da folha — ${NAO_REFOTOGRAFADA} (a referência não desenha o menu atrás da folha)`,
+  'T04/06-momento-folha-conta-sair-com-sessao-aberta': `a sessão do M2C-0417 aberta — ${NAO_REFOTOGRAFADA}`,
+  'T04/07-momento-folha-trocar-de-garagem': `a sessão do herói aberta atrás da folha — ${NAO_REFOTOGRAFADA} (a referência não desenha o menu atrás da folha)`,
+  'T04/08-estado-folha-trocar-de-garagem-envio-em-andamento': `a sessão do herói aberta atrás da folha — ${NAO_REFOTOGRAFADA} (a referência não desenha o menu atrás da folha)`,
+  'T04/09-estado-folha-trocar-de-garagem-com-modulo-conectado': `o M2C-0417 conectado, como o diálogo diz — ${NAO_REFOTOGRAFADA}`,
+  'T04/14-estado-folha-trocar-de-unidade-com-empresa': `a sessão do herói aberta atrás da folha — ${NAO_REFOTOGRAFADA} (a referência não desenha o menu atrás da folha)`,
+  'T16/00-tela': `o encerramento corre com o módulo conectado até a Desconexão, o passo 7 (D6: sai quando a sessão encerra) — ${NAO_REFOTOGRAFADA}`,
+  'T16/01-momento-pede-o-corte-de-alimentacao': `o encerramento corre com o módulo conectado até a Desconexão, o passo 7 (D6) — ${NAO_REFOTOGRAFADA}`,
+  'T16/03-momento-encerrando-sem-homologar': `os 4 passos correm com o módulo conectado (D6) — ${NAO_REFOTOGRAFADA}`,
+}
 async function barraNas145() {
   const indice = JSON.parse(readFileSync(resolve(raiz, '02-telas/indice.json'), 'utf8'))
   await janela(360, 800)
@@ -239,7 +270,15 @@ async function barraNas145() {
     l.googleSans = gs
     l.pedidosParaFora = fora
     l.fontesPedidas = fontesPedidas
+    // o mundo da barra contra o da referência: o Bluetooth, e o sem rede (o sinal apagado e sem o Wi-Fi)
+    const ref = mundoDaReferencia(it.html), mu = med.mundo
+    l.mundo = { referencia: ref, app: { bluetooth: mu.bluetooth, semRede: !mu.wifi && mu.sinalCor === mu.corVazia }, desenhoBt: mu.desenhoBt && { largura: r2(mu.desenhoBt.largura), altura: r2(mu.desenhoBt.altura), vao: r2(mu.desenhoBt.vao) } }
+    const btConfere = mu.bluetooth === ref.bluetooth
+    if (!btConfere && DESVIOS_DA_BARRA[it.id]) l.desvioDaBarra = DESVIOS_DA_BARRA[it.id]
     l.ok = {
+      a_bluetoothComoAReferencia: btConfere || !!DESVIOS_DA_BARRA[it.id],
+      a_semRedeComoAReferencia: ref.semRede ? !mu.wifi && mu.sinalCor === mu.corVazia : mu.wifi && mu.sinalCor === mu.corTinta,
+      a_desenhoDoBluetooth: !mu.desenhoBt || (perto(mu.desenhoBt.largura, 7.6, 0.05) && perto(mu.desenhoBt.altura, 12, 0.05) && perto(mu.desenhoBt.vao, 6, 0.05) && mu.desenhoBt.cor === mu.corTinta),
       a_altura30: perto(med.barra.altura, NORMA.barra) && perto(med.barra.topo, 0),
       a_embaixoEm30: !!med.embaixo && perto(med.embaixo.topo, NORMA.barra),
       b_googleSansCarregada: gs.length > 0 && gs.every((f) => f.status === 'loaded'),
@@ -256,7 +295,10 @@ async function barraNas145() {
   const medidas = linhas.filter((l) => !l.foraDoCiclo)
   const resumo = { referencias: linhas.length, medidas: medidas.length, foraDoCiclo: linhas.filter((l) => l.foraDoCiclo).map((l) => `${l.id}: ${l.foraDoCiclo} · medido: ${l.medido} («${l.texto}»)`),
     erros: linhas.filter((l) => l.erro).length, passam: linhas.filter((l) => l.passa).length }
-  for (const k of ['a_altura30', 'a_embaixoEm30', 'b_googleSansCarregada', 'b_familiaCalculada', 'b_desenhadaNaGoogleSans', 'b_tokens', 'b_nadaDaInternet']) resumo[k] = `${conta(k)} de ${medidas.length}`
+  resumo.comBluetooth = `${linhas.filter((l) => l.mundo?.app.bluetooth).length} no app · ${linhas.filter((l) => l.mundo?.referencia.bluetooth).length} nas referências`
+  resumo.semRede = `${linhas.filter((l) => l.mundo?.app.semRede).length} no app · ${linhas.filter((l) => l.mundo?.referencia.semRede).length} nas referências`
+  resumo.desviosDaBarra = linhas.filter((l) => l.desvioDaBarra).map((l) => `${l.id}: ${l.desvioDaBarra}`)
+  for (const k of ['a_bluetoothComoAReferencia', 'a_semRedeComoAReferencia', 'a_desenhoDoBluetooth', 'a_altura30', 'a_embaixoEm30', 'b_googleSansCarregada', 'b_familiaCalculada', 'b_desenhadaNaGoogleSans', 'b_tokens', 'b_nadaDaInternet']) resumo[k] = `${conta(k)} de ${medidas.length}`
   // o que vem embaixo, por peça, e as famílias e as fontes que apareceram (pra ler de uma vez)
   const porPeca = {}; for (const l of linhas) if (l.embaixo) { const k = l.embaixo.quem + (l.embaixo.como === 'no fluxo' ? '' : ' (por cima da tela)'); porPeca[k] = (porPeca[k] || 0) + 1 }
   resumo.oQueVemEmbaixo = porPeca
@@ -532,6 +574,12 @@ function emTexto(r) {
     const b = r.barra.resumo
     L.push(`(a) A BARRA DE STATUS · ${b.referencias} referências do 02-telas/indice.json, pelo endereço do print, a 360 × 800 · ${b.medidas} medidas${b.foraDoCiclo.length ? `, ${b.foraDoCiclo.length} fora do ciclo` : ''}`)
     for (const f of b.foraDoCiclo) L.push(`       fora do ciclo: ${f}`)
+    if (b.a_bluetoothComoAReferencia) {
+      L.push(`${s(b.a_bluetoothComoAReferencia.startsWith(b.medidas + ' '))} o Bluetooth como a referência (lei 22 · o módulo conectado, da conexão ao fim da sessão): ${b.a_bluetoothComoAReferencia} · com ele: ${b.comBluetooth}`)
+      for (const d of b.desviosDaBarra) L.push(`       desvio nomeado: ${d}`)
+      L.push(`${s(b.a_semRedeComoAReferencia.startsWith(b.medidas + ' '))} o sem rede como a referência (o sinal em --marca-vazia e sem o Wi-Fi; com rede, o sinal em --tinta e o Wi-Fi): ${b.a_semRedeComoAReferencia} · sem rede: ${b.semRede}`)
+      L.push(`${s(b.a_desenhoDoBluetooth.startsWith(b.medidas + ' '))} o Bluetooth com 7,6 × 12, a 6 do sinal, em --tinta: ${b.a_desenhoDoBluetooth}`)
+    }
     L.push(`${s(b.a_altura30.startsWith(b.medidas + ' '))} a barra com 30 de altura, no topo da tela: ${b.a_altura30}`)
     L.push(`${s(b.a_embaixoEm30.startsWith(b.medidas + ' '))} o primeiro elemento embaixo dela em y = 30: ${b.a_embaixoEm30}`)
     L.push(`       o que vem embaixo: ${Object.entries(b.oQueVemEmbaixo).map(([k, v]) => `${k} (${v})`).join(' · ')}`)

@@ -1,5 +1,12 @@
 # Registro de mudanças
 
+## 2026-10-02 · o pacote 2 e o complemento, construídos
+
+- **as telas:** a T10 sem foto, com o horímetro opcional e o `Pular o horímetro` · a T11 com as cinco linhas, o Extended ID só leitura, o Corrigir no primeiro bloco e o revisar em seguida (a D2 no fluxo; a T09 lê o bloco escolhido do estado, a mudança mínima) · a T13 com a A de 3, o Painel a tirar, a D nova e a E de 6 · a T14, o Ciclo de testes, com seis passos e a velocidade só com tacógrafo · a T12 sem a viagem · a barra do sistema com o Bluetooth e o sem rede, passados num lugar só · do complemento: o M2C-0999 tocável na T05/00 e na 04, e a cena 04 com os grupos
+- **o mock e o gate:** o merge de três vias · saem o `CADEIA.versoes` e o `chassiPelaCan`; o `can-estatico-bateria` fica (a T13/09) · duas sobras do merge acertadas: o `CICLO.passoDoSinal` (a rotação, sem o *Movimento detectado*) e a *Foto de calibração* fora dos tipos da fila · o gate com 205 checagens
+- **a régua:** as 142 referências sem erro, 34 em 0% contra o HTML · os 43 roteiros, com o herói com e sem o horímetro · o palco e a barra, 142 de 142
+- **os desvios e as perguntas** estão no `06-prototipo/para-o-arquiteto/gate-pacote2.md`
+
 ## 2026-10-02 · o complemento do pacote 2 — o que o gate da errata achou
 
 - o M2C-0999 tocável também na T05/00 e na T05/04 — a errata tinha feito só a 01

@@ -3,7 +3,8 @@
 // saiu, e o que o módulo informa vem no diagnóstico (T07).
 //   · o marcador de escolha (C12·20): tocar num módulo da lista, o quadrado lima surge; o primário
 //     diz o serial dele, e o texto novo esmaece no lugar, com o roxo direto (C12·23, como a T02).
-//     Na 01, todos se escolhem — o M2C-0999 também (a errata do pacote 1); na 00, ele segue sem toque;
+//     Na 01, todos se escolhem — o M2C-0999 também (a errata do pacote 1); na 00 e na 04 também (o
+//     complemento do pacote 2 refez as duas: ele é uma linha como as outras, com o que informa na busca);
 //   · a busca de novo (C12·41): da lista (01), o conteúdo esmaece pro quadro da busca (00) em 150;
 //     aos 1,2 s (RITMOS.buscaMs), a lista volta — a frase e o rodapé esmaecem, e as cinco linhas
 //     surgem em cascata, 150 cada, de 80 em 80 (C12·28). Do quadro da 00, o toque não troca o desenho;
@@ -72,7 +73,12 @@ export default [
   // do quadro da 00 (a tela), o toque não troca o desenho: só a volta da lista esmaece, com a cascata
   { abre: '?tela=T05' },
   { quieto: true },
-  { naoToca: 'M2C-0999' },   // na 00, o fora do cadastro diz não cadastrado, sem toque, como a referência desenha
+  // na 00, o fora do cadastro é uma linha como as outras, com o que ele informa (o complemento do pacote 2)
+  { ve: 'M2C-0999\nVL06 · CAN-BT' },
+  { naoVe: 'não cadastrado' },
+  { toca: 'M2C-0999' },   // tocável: troca o escolhido no lugar
+  { ve: 'Conectar ao M2C-0999' },
+  { dorme: 300 },
   { toca: 'Procurar de novo', naoAnima: [esmaece('tela-miolo')] },
   { chega: 'T05', momento: M01, entre: [1050, 1400] },
   { anima: [...TROCA, ...CASCATA] },

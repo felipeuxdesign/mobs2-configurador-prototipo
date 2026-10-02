@@ -1,5 +1,7 @@
-// C11 · o caminho do herói inteiro (logica.md, "O caminho do herói"), só por toque:
-// do login às 14:30 ao encerramento, e de volta ao menu sem sessão.
+// O pacote 2 (D1) · o caminho do herói sem o horímetro: o mesmo do heroi.mjs, do login às 14:30 ao
+// encerramento, mas na calibração, semeado o hodômetro, o técnico toca Pular o horímetro — a
+// calibração fica concluída e segue pro ciclo de testes; no checklist, a Seção D diz o Horímetro
+// não calibrado, conta como resolvido e não bloqueia (a T13 lê etapas.calibracao.puladas).
 export default [
   { abre: '' },
   { chega: 'T01', momento: null },
@@ -137,24 +139,10 @@ export default [
   { chega: 'T10', momento: '01-momento-hodometro-semeado', entre: [700, 1500] },
   { ve: 'O MÓDULO CONTA AGORA' },
   { ve: 'relido às 14:30 · confere com o painel' },
+  // D1: o horímetro é opcional — pular segue pro ciclo, sem a calibração completa
   { ve: 'Pular o horímetro' },
-  { toca: 'Calibrar o horímetro' },
-  { chega: 'T10', momento: '08-momento-horimetro' },
-  { ve: 'Opcional · o último passo' },
-  { ve: '8.540' },
-  { desligado: 'Digite o que o painel mostra' },
-  { digita: '9640', em: 'O PAINEL MOSTRA' },   // calibracao.painel · a-01 · horímetro
-  { chega: 'T10', momento: null },   // o digitado do horímetro não tem referência
-  { ve: 'diferença de 1.100 h' },
-  { toca: 'Semear o horímetro' },
-  { desligado: 'Gravando no módulo…' },
-  { desligado: 'Pular o horímetro' },   // o link do passo, apagado (desvio nomeado na ficha)
-  { chega: 'T10', momento: '09-momento-calibracao-completa', entre: [1400, 3000] },
-  { ve: 'Calibração completa' },
-  { ve: '9.640' },
-  // a calibração aponta o ciclo (decisão 35): o caminho anda em linha — calibra, ciclo, checklist
-  { ve: 'Voltar ao menu' },
-  { toca: 'Fazer o ciclo de testes' },
+  { ve: 'Calibrar o horímetro' },
+  { toca: 'Pular o horímetro' },
   // o ciclo de testes (decisão 54): seis passos, com o ônibus parado; a fila do módulo drena em 3 s,
   // e o disparo acende
   { chega: 'T14' },
@@ -185,7 +173,7 @@ export default [
   { ve: 'de 31' },
   { ve: 'o ciclo passou' },
   { ve: 'você fotografa 5 itens' },
-  { ve: 'Faltam 5 itens' },
+  { ve: 'Faltam 5 itens' },   // as cinco fotos: o horímetro pulado não falta
   { desligado: 'Finalizar instalação' },
   // a E aberta: os seis passos dizem confere, e não há ação (13); tocar de novo fecha
   { toca: 'E · Ciclo de testes' },
@@ -196,12 +184,14 @@ export default [
   { naoToca: 'Ignição ligada' },   // sem seta, é leitura (Lei 16)
   { toca: 'E · Ciclo de testes' },
   { chega: 'T13', momento: null },
-  // a D: o hodômetro e o horímetro calibrados
+  // a D: o hodômetro calibrado, e o horímetro pulado — não calibrado, resolvido, sem bloquear (D1)
+  { ve: '10 de 10' },   // a D inteira resolvida, com o horímetro pulado
   { toca: 'D · Configuração' },
-  { chega: 'T13', momento: '04-momento-d-configuracao-aberta' },
+  { chega: 'T13' },
   { ve: '482.317 km' },
-  { ve: '9.640 h' },
-  { naoVe: 'não calibrado' },
+  { ve: 'Horímetro\nnão calibrado' },
+  { naoVe: '9.640 h' },
+  { naoToca: 'Horímetro' },   // sem seta, é leitura (Lei 16)
   { toca: 'D · Configuração' },
   { chega: 'T13', momento: null },
   { dorme: 250 },
