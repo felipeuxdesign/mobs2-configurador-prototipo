@@ -29,8 +29,8 @@ Você está num projeto cujo design já foi decidido, medido e aprovado. **Seu t
 - animar a entrada de tela, contar de zero ao abrir, animar em loop, mover o layout
 - remontar uma tela num estado — **o estado muda o conteúdo, nunca o desenho**
 - lima fora de veredito, de escolhido e do texto do botão primário
-- mencionar tecnologia, protocolo ou código pro técnico — ele lê negócio
+- mencionar tecnologia, protocolo ou código pro técnico — ele lê negócio · a exceção é a APN, que o PM pediu pra conferir (decisão 51)
 
 ## Os números desta versão
 
-15 telas · 64 momentos · 66 estados · 105 histórias de usuário · 96 tokens · 107 peças no design system · 49 casos no mock.
+15 telas · 64 momentos · 66 estados · 105 histórias de usuário · 295 tokens · 108 peças no design system · 56 casos no mock.

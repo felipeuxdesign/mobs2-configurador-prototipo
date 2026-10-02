@@ -82,7 +82,7 @@
      que emite o pacote — nunca a tela, que lê a forma já derivada. */
   var MODELOS_ATIVO = [
     { id: "ma-01", nome: "Ônibus urbano OF-1621",
-      fabricante: "Mercedes-Benz", modelo: "OF-1621",
+      fabricante: "Mercedes-Benz", modelo: "OF-1621", chassiPelaCan: true,
       traducaoCan: "urbano v3",
       mapaContadores: { declarado: true, versao: "v2" },
       conteudoRegistros: 128,
@@ -91,7 +91,7 @@
       leitor: { tipo: "cartao-serial", buzzerNoFio: false },
       leituraCan: "barramento" },
     { id: "ma-02", nome: "Caminhão coletor 17.230",
-      fabricante: "Volkswagen", modelo: "17.230",
+      fabricante: "Volkswagen", modelo: "17.230", chassiPelaCan: false,
       traducaoCan: "frota v2",
       mapaContadores: { declarado: true, versao: "v1" },
       conteudoRegistros: 84,
@@ -100,7 +100,7 @@
       leitor: { tipo: "chave-de-contato", buzzerNoFio: false },
       leituraCan: "barramento" },
     { id: "ma-03", nome: "Retroescavadeira 580N",
-      fabricante: "Case", modelo: "580N",
+      fabricante: "Case", modelo: "580N", chassiPelaCan: false,
       traducaoCan: "máquina v1",
       mapaContadores: { declarado: false,
         /* C16 · "Reset de leitura" virou "Refazer leitura da CAN" (R3: reset
@@ -185,7 +185,7 @@
      HU pede e porque colar funciona — não nasce campo novo. ── */
   var ATIVOS = [
     /* uo-01 · Garagem Várzea (10) */
-    { id: "a-01", placa: "RKT-8H42", frota: "1003", modeloAtivoId: "ma-01", chassi: "9BM384067GB120401", uoId: "uo-01", moduloSerial: "M2C-0417" }, /* HERÓI */
+    { id: "a-01", placa: "RKT-8H42", frota: "1003", modeloAtivoId: "ma-01", chassi: "9BM384067GB120401", uoId: "uo-01", moduloSerial: "M2C-0417" }, /* HERÓI · o moduloSerial do cadastro é o módulo PREVISTO pro ativo; o modo (instalação × manutenção) vem do caso modulo-ja-deste-ativo, nunca do cadastro (decisão 46) */
     { id: "a-02", placa: "QJF-2C61", frota: "1006", modeloAtivoId: "ma-01", chassi: "9BM384067GB120402", uoId: "uo-01", moduloSerial: "M2C-0301" },
     { id: "a-03", placa: "PCX-9A17", frota: "1009", modeloAtivoId: "ma-01", chassi: "9BM384067GB120403", uoId: "uo-01", moduloSerial: "M2C-0312" },
     { id: "a-04", placa: "KHT-4B08", frota: "1012", modeloAtivoId: "ma-01", chassi: "9BM384067GB120404", uoId: "uo-01", moduloSerial: "M2C-0335" },
@@ -231,6 +231,14 @@
      só a CONTAGEM de regiões por ativo (T05, T13, T16).
      ⚠ Sinalizado, não decidido: `regioes[].nome` também não tem leitor, e não
      estava na lista de candidatos do C23. Fica intocado. */
+  /* errata do pacote 1 · as coleções que o pacote conta (decisão 45): as conexões da empresa e os
+     eventos embarcados do preset. O gate recomputa o contem de cada pacote a partir delas. */
+  var CONEXOES = [
+    { id: "cx-01", nome: "Servidor principal", apn: "m2m.mobs2.br" },
+    { id: "cx-02", nome: "Servidor de contingência", apn: "m2m.mobs2.br" }
+  ];
+  var EVENTOS_EMBARCADOS = ["Ignição ligada", "Ignição desligada", "Excesso de velocidade", "Freada brusca", "Aceleração brusca", "Curva brusca",
+    "Porta aberta em movimento", "Ré acionada", "Botão de pânico", "Bateria baixa", "Entrada em cerca", "Saída de cerca"];
   var CERCAS = {
     areas: [
       { id: "ar-01", nome: "Garagem Várzea" },
@@ -452,11 +460,11 @@
     { id: "pac-uo-02", uoId: "uo-02", diasAtras: 4, hora: "06:55", segPorItem: 1.6,
       limiares: { avisoDias: 3, bloqueioDias: 7 },
       presetsEventoIds: ["pe-urbano", "pe-rodoviario"],
-      contem: { ativos: 8, conexoes: 2, modelosAtivo: 3, eventos: 12, cercas: 4 } },
+      contem: { ativos: 8, conexoes: 2, modelosAtivo: 3, eventos: 12, cercas: 0 } },
     { id: "pac-uo-03", uoId: "uo-03", diasAtras: 8, hora: "07:30", segPorItem: 1.6,
       limiares: { avisoDias: 3, bloqueioDias: 7 },
       presetsEventoIds: ["pe-urbano", "pe-rodoviario", "pe-maquina"],
-      contem: { ativos: 6, conexoes: 2, modelosAtivo: 3, eventos: 12, cercas: 4 } }
+      contem: { ativos: 6, conexoes: 2, modelosAtivo: 3, eventos: 12, cercas: 0 } }
   ]);
 
   /* ── Fila de saída (T15) — tempo parado deriva de criadoAs vs 14:30.
@@ -561,12 +569,12 @@
     "lista-longa-garagens": { limiteSemBusca: 6,
       /* as garagens a mais do caso têm pacote, pra o Sincronizar funcionar em todas */
       pacotes: [
-        { id: "pac-uo-11", uoId: "uo-11", diasAtras: 1, hora: "06:40", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 14, conexoes: 2, modelosAtivo: 3, eventos: 12, cercas: 4 } },
-        { id: "pac-uo-12", uoId: "uo-12", diasAtras: 0, hora: "06:15", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 12, conexoes: 2, modelosAtivo: 3, eventos: 12, cercas: 4 } },
-        { id: "pac-uo-13", uoId: "uo-13", diasAtras: 1, hora: "07:30", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 9, conexoes: 2, modelosAtivo: 3, eventos: 12, cercas: 4 } },
-        { id: "pac-uo-14", uoId: "uo-14", diasAtras: 2, hora: "07:05", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 7, conexoes: 2, modelosAtivo: 3, eventos: 12, cercas: 4 } },
-        { id: "pac-uo-15", uoId: "uo-15", diasAtras: 1, hora: "06:50", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 5, conexoes: 2, modelosAtivo: 3, eventos: 12, cercas: 4 } },
-        { id: "pac-uo-16", uoId: "uo-16", diasAtras: 1, hora: "07:20", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 4, conexoes: 2, modelosAtivo: 3, eventos: 12, cercas: 4 } } ],
+        { id: "pac-uo-11", uoId: "uo-11", diasAtras: 1, hora: "06:40", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 14, conexoes: 2, modelosAtivo: 3, eventos: 12, cercas: 0 } },
+        { id: "pac-uo-12", uoId: "uo-12", diasAtras: 0, hora: "06:15", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 12, conexoes: 2, modelosAtivo: 3, eventos: 12, cercas: 0 } },
+        { id: "pac-uo-13", uoId: "uo-13", diasAtras: 1, hora: "07:30", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 9, conexoes: 2, modelosAtivo: 3, eventos: 12, cercas: 0 } },
+        { id: "pac-uo-14", uoId: "uo-14", diasAtras: 2, hora: "07:05", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 7, conexoes: 2, modelosAtivo: 3, eventos: 12, cercas: 0 } },
+        { id: "pac-uo-15", uoId: "uo-15", diasAtras: 1, hora: "06:50", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 5, conexoes: 2, modelosAtivo: 3, eventos: 12, cercas: 0 } },
+        { id: "pac-uo-16", uoId: "uo-16", diasAtras: 1, hora: "07:20", limiares: { avisoDias: 3, bloqueioDias: 7 }, contem: { ativos: 4, conexoes: 2, modelosAtivo: 3, eventos: 12, cercas: 0 } } ],
       ucs: [ { id: "uc-01", nome: "RMR – Recife" }, { id: "uc-03", nome: "Zona da Mata – Vitória" }, { id: "uc-02", nome: "Agreste – Caruaru" } ],
       uos: [
         { id: "uo-01", ucId: "uc-01", nome: "Garagem Várzea",     cidade: "Recife" },
@@ -832,6 +840,11 @@
      a-22 carrega mock de calibração, a mesma armadilha do a-09. */
   CASOS["can-estatico-isolado"] = { ativoId: "a-01", sinal: "temperatura", lido: "215 °C", esperado: "−40 a 120" }; /* T07/09 */
   CASOS["can-estatico-ausente"] = { ativoId: "a-01", sinal: "rotacao", lido: null, motivo: "ligação" }; /* T07/08 */
+  /* protótipo · pacote 1 (o arquiteto, 02/10) · ACRÉSCIMOS NOMEADOS até o pacote 2, como o CADEIA.versoes:
+     a T13 de hoje, intocável neste pacote, ainda lê o chassiPelaCan dos modelos (o vínculo pelo chassi
+     da seção A, que dá o 19 de 31 da T13/00) e a bateria abaixo do mínimo do a-02 (o item reprovado da
+     T13/09) — o formato antigo do can-estatico-isolado, que agora é a temperatura do herói na T07/09. */
+  CASOS["can-estatico-bateria"] = { ativoId: "a-02", lidos: { bateria: "10,9 V", hodometro: "201.115 km" } };
   /* PM · rodadas 1 e 2 — os casos novos */
   CASOS["modem-sem-sinal"] = { moduloSerial: "M2C-0417", modem: "sem sinal" }; /* T07/07 · só informa: o checklist registra */
   CASOS["firmware-sem-rede-no-modulo"] = { base: "firmware-fora-matriz", modemSemRede: true }; /* T07/05 · trava, e não dá pra atualizar */
@@ -853,7 +866,8 @@
      leituraFinal · os dois parâmetros críticos que não derivam de outra
        coleção (os outros três: traducaoCan do modelo, preset de eventos,
        pontos de cerca do ativo). Vocabulário de campo: rede do módulo,
-       endereço do servidor — nunca APN, nunca IP/DNS.
+       e a APN — a APN aparece porque o PM pediu pra conferir (decisão 51); o endereço do servidor
+       e o IP/DNS, nunca.
      Casos: bloco-recusado reusa o par de conexao-falha + can-estatico-isolado
        (a-02/M2C-0301: bateria em 10,9 V, módulo que já falhou em responder —
        recusa Cercas UMA vez; pool-esgotado/a-05 não serve: trava em T05 e
@@ -865,14 +879,13 @@
        CERCAS.regioes (T09-A15): a recusa de Cercas cai num ônibus sem cercas
        — pendência do PM, sem mudar o dado. */
   CADEIA.escopos = {
-    total:        { apaga: ["cercas", "identificadores", "configuracao-anterior"], mantem: ["leituras", "firmware"] },
+    total:        { apaga: ["cercas", "configuracao-anterior"], mantem: ["identificadores", "leituras", "firmware"] }, /* a v1 não grava cartões: a limpeza nunca apaga os identificadores (errata do pacote 1) */
     configuracao: { apaga: ["configuracao-anterior"], mantem: ["cercas", "identificadores", "leituras", "firmware"] }
   };
   /* O módulo NÃO guarda versão (o PM, decisão 49): a cadeia declara o CONTEÚDO de cada bloco,
      com as mesmas palavras da conferência (T11) — é o que a T09 mostra em cada elo. */
-  CADEIA.conteudo = { ativo: "OF-1621", cercas: "4 áreas", leitor: "sem fio", eventos: "intervalo 30 s", conexao: "m2m.mobs2.br" };
-  /* protótipo · pacote 1 (o arquiteto, 02/10) · ACRÉSCIMO NOMEADO até o pacote 2: a T11 e a T13,
-     intocáveis neste pacote, ainda leem a versão de cada bloco. Nenhuma tela do pacote 1 lê daqui. */
+  CADEIA.conteudo = { ativo: "OF-1621", cercas: "4 regiões", leitor: "sem fio", eventos: "intervalo 30 s", conexao: "m2m.mobs2.br" };
+  /* acréscimo nomeado, só até o pacote 2: a T11 e a T13 de hoje ainda leem os códigos (protótipo: nenhuma tela do pacote 1 lê daqui). Sai junto com a conferência nova. */
   CADEIA.versoes = { ativo: "A12", cercas: "G07", leitor: "L02", eventos: "E05", conexao: "C03" };
   CADEIA.leituraFinal = { redeDoModulo: "Mobs2 dados", servidor: "principal" };
   CASOS["bloco-recusado"] = { ativoId: "a-02", moduloSerial: "M2C-0301", bloco: "cercas",
@@ -1442,6 +1455,9 @@
     matrizCapacidades: MATRIZ_CAPACIDADES,
     modulos: MODULOS,
     seriaisForaCadastro: ["M2C-0999", "M2C-1042"],
+    /* errata do pacote 1 · o que um módulo fora do cadastro informa na busca: a T05 lista ele como os
+       outros, tocável; a trava do serial é no diagnóstico (T07/02), como o PM pediu. */
+    naBuscaForaCadastro: { "M2C-0999": { modeloId: "vl06", variante: "CAN-BT", firmware: "2.3.5" } },
     ativos: ATIVOS,
     cadeia: CADEIA,
     calibracao: CALIBRACAO,
@@ -1453,6 +1469,8 @@
     instalacoes: INSTALACOES,
     criteriosRegra: CRITERIOS_REGRA,
     pacotes: PACOTES,
+    conexoes: CONEXOES,
+    eventosEmbarcados: EVENTOS_EMBARCADOS,
     diagnostico: DIAGNOSTICO,
     filaSaida: FILA_SAIDA,
     secaoF: SECAO_F,

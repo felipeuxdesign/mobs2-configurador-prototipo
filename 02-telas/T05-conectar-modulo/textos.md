@@ -8,7 +8,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `01-momento-nenhum-escolhido`
 
-`14:30` · `Conectar módulo` · `5` · `encontrados` · `Escolha o que está na sua mão.` · `M2C-0417` · `VL06 · CAN-BT` · `FIRMWARE` · `2.3.5` · `M2C-0362` · `VL06 · CAN` · `FIRMWARE` · `2.3.5` · `M2C-0394` · `VL06 · ECO` · `FIRMWARE` · `2.2.0` · `M2C-0335` · `VL06 · CAN-BT` · `FIRMWARE` · `2.3.5` · `M2C-0999` · `não está no cadastro desta empresa` · `Escolha um módulo para continuar` · `Conectar` · `Procurar de novo`
+`14:30` · `Conectar módulo` · `5` · `encontrados` · `Escolha o que está na sua mão.` · `M2C-0417` · `VL06 · CAN-BT` · `FIRMWARE` · `2.3.5` · `M2C-0362` · `VL06 · CAN` · `FIRMWARE` · `2.3.5` · `M2C-0394` · `VL06 · ECO` · `FIRMWARE` · `2.2.0` · `M2C-0335` · `VL06 · CAN-BT` · `FIRMWARE` · `2.3.5` · `M2C-0999` · `VL06 · CAN-BT` · `FIRMWARE` · `2.3.5` · `Escolha um módulo para continuar` · `Conectar` · `Procurar de novo`
 
 ## `02-momento-um-encontrado`
 

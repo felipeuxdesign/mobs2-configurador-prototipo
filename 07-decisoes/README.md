@@ -53,3 +53,5 @@ Cada decisão com o contexto, a escolha, o que foi descartado e a consequência.
 | [47](47-a-limpeza-aparece.md) | A limpeza aparece, e o espaço se confere no envio |
 | [48](48-o-menu-sem-rede.md) | Sem rede, só as últimas instalações esperam |
 | [49](49-a-cadeia-mostra-o-conteudo.md) | O módulo não guarda versão: a cadeia mostra o conteúdo |
+| [50](50-as-cercas-contam-em-regioes.md) | As cercas contam em regiões |
+| [51](51-a-apn-aparece.md) | A APN aparece pro técnico |

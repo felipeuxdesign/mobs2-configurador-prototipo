@@ -1,5 +1,7 @@
 # 45 · O pacote sincronizado não leva os cartões
 
+> **Atualizada na errata do pacote 1:** a limpeza nunca apaga os identificadores — a v1 não grava cartões, então eles nunca voltariam · o autoteste confere o *Extended ID · preservado* · o pacote é contado das coleções: as conexões, os eventos embarcados e as regiões de cada unidade.
+
 **O contexto.** O PM definiu o que a sincronização baixa: ativos, conexões, modelos, eventos e cercas. Os cartões e iButtons não entram — a v1 não grava cartões no módulo, só lê os que já estão lá.
 
 **A decisão.** O pacote tem cinco grupos, 31 itens no herói: 10 ativos, 2 conexões, 3 modelos, 12 eventos e 4 cercas. O cadastro de identificadores continua no mock — é de onde vêm o Extended ID da conferência e o cartão do ciclo —, mas não viaja no pacote.

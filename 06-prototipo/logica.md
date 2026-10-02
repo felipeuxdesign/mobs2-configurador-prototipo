@@ -16,7 +16,7 @@ situacao     o que é do celular: a rede, a sessão de acesso, o usuário que el
 tela         onde o app está · momento ou estado aberto
 ```
 
-**A sessão nasce quando o módulo conecta** — é aí que a faixa desce. A conexão só conecta: o que o módulo é e como ele está, o diagnóstico mostra logo depois, já dentro da sessão. E morre no encerramento, quando a faixa sobe.
+**A sessão nasce quando o módulo conecta.** A faixa desce no diagnóstico, quando as sete linhas passam sem trava. A conexão só conecta: o que o módulo é e como ele está, o diagnóstico mostra logo depois, já dentro da sessão. E morre no encerramento, quando a faixa sobe.
 
 - **no protótipo** (o padrão aprovado pelo arquiteto no gate do pacote 1, até a errata dele): a sessão nasce na conexão, e **a faixa desce na T07, quando as sete linhas do diagnóstico passam sem trava** — é o que as referências desenham: a T07/00 e a 07 têm a faixa; da 02 à 06, as travas e a atualização do firmware, não, e o módulo fica em cima do título. Na trava, `Procurar outro módulo` leva à T05/01, a lista sem nada escolhido (O diagnóstico do módulo)
 - **no protótipo, as etapas** (o padrão do gate do pacote 1, item 2): a T13 é intocável até o pacote 2 e lê `etapas.preChecagem` e `etapas.can`, então o diagnóstico grava ali, com os nomes de hoje — as sete linhas do módulo e a CAN lida. O vínculo fica em `etapas.ativo`, como antes. Os nomes novos chegam com o pacote 2, junto com a T13
@@ -35,8 +35,8 @@ O protótipo abre no **login, às 14:30, com o Rafael Vieira**, na T01/00: o usu
 
 ```
 login → a Viação Atlântico Sul → a unidade Várzea → sincroniza o pacote → menu, com o aviso do acesso na primeira chegada (Entendi)
-→ conectar: acha cinco módulos (o do herói e mais quatro), escolhe o M2C-0417, conecta → a faixa desce
-→ o diagnóstico do módulo: as sete linhas conferem · a CAN espera o ativo
+→ conectar: acha cinco módulos (o do herói e mais quatro), escolhe o M2C-0417, conecta
+→ o diagnóstico do módulo: as sete linhas conferem, e a faixa desce · a CAN espera o ativo
 → o ônibus RKT-8H42 → confirma o vínculo: placa, frota, fabricante e modelo
 → o que vai ser gravado: a limpeza primeiro, e o espaço cabe → a cadeia grava e relê os blocos
 → a CAN do ônibus aparece no diagnóstico → calibra o hodômetro e o horímetro, com a prova: o número do painel e a foto
@@ -255,7 +255,7 @@ No protótipo, o relógio parado faz do *uma vez por dia* uma vez só:
 
 ## O diagnóstico do módulo
 
-Depois de conectar, o diagnóstico lê o módulo: o serial, o firmware, a alimentação, o GPS, as entradas, o modem e o SIM. **Três linhas travam a instalação** — o serial fora do cadastro, o modelo sem suporte e o firmware não homologado. O firmware tem `Atualizar`, a não ser que o módulo esteja sem rede. **As outras só informam**: o app segue, e o checklist registra. A CAN só aparece com o ativo — até o bloco do ativo ser gravado, ela espera. Depois, `Ler de novo` relê a CAN inteira. Os dados vêm de `diagnostico` no mock.
+Depois de conectar, o diagnóstico lê o módulo: o serial, o firmware, a alimentação, o GPS, as entradas, o modem e o SIM. **Três linhas travam a instalação** — o serial fora do cadastro, o modelo sem suporte e o firmware não homologado. O firmware tem `Atualizar`; sem rede no módulo, `Gravar a conexão` grava só a conexão, isolada — a sessão já existe, e a conexão não depende do ativo —, e o firmware atualiza por ela. `Procurar outro módulo` volta pra lista da T05, sem nada escolhido. **As outras só informam**: o app segue, e o checklist registra. A CAN só aparece com o ativo — até o bloco do ativo ser gravado, ela espera. Depois, `Ler de novo` relê a CAN inteira. Os dados vêm de `diagnostico` no mock.
 
 - **no protótipo, a faixa** (o padrão aprovado no gate do pacote 1, até a errata): as sete linhas acendem uma a cada 600ms (`movimento.md`), ainda sem a faixa; passando sem trava, a faixa desce, e a tela é a 00 — *7 de 7*, `Selecionar ativo` e `Voltar ao menu`. O modem sem sinal (07) só informa: a faixa desce também, com *6 de 7*. Nas travas (02 a 05) e na atualização do firmware (06), a faixa não desce, e o módulo fica em cima do título — *M2C-0999 · fora do cadastro*, ou o serial e a placa do cadastro
 - **`Procurar outro módulo`**, nas travas, leva à T05/01, a lista sem nada escolhido (o padrão aprovado no gate)
@@ -266,14 +266,14 @@ Depois de conectar, o diagnóstico lê o módulo: o serial, o firmware, a alimen
 
 ## O vínculo decide o modo
 
-Confirmar o vínculo liga o módulo ao ativo, na empresa: placa, frota, fabricante e modelo — **sem chassi**. Se o módulo já está em outro ativo, a tela avisa, e `Desvincular e vincular aqui` desfaz o vínculo antigo e registra o desvínculo. Se o módulo já é deste ativo, **é manutenção**. Módulo novo neste ativo é instalação nova — o padrão do herói.
+Confirmar o vínculo liga o módulo ao ativo, na empresa: placa, frota, fabricante e modelo — **sem chassi**. Se o módulo já está em outro ativo, a tela avisa, e `Desvincular e vincular aqui` desfaz o vínculo antigo e registra o desvínculo. Se o módulo já é deste ativo, **é manutenção**. Módulo novo neste ativo é instalação nova — o padrão do herói. O `moduloSerial` do cadastro é o módulo **previsto** pro ativo: o modo vem do caso, nunca do cadastro.
 
 - **no protótipo** (D1, com a condição do gate do pacote 1, item 5): o padrão é a instalação nova. O cadastro já põe o M2C-0417 no RKT-8H42, e o caso `modulo-ja-deste-ativo` é o mesmo par: se o vínculo lesse o par, toda instalação do herói seria manutenção. Por isso a manutenção vem só do caso, pela coluna (T06/11), e `Seguir pra manutenção` → T09, no escolher o bloco (08)
 - `Vincular o módulo` (01) e `Desvincular e vincular aqui` (10) → T09, no que vai ser gravado (05) · o desvínculo é um fato da sessão, sem tela própria (D3)
 
 ## O que vai ser gravado
 
-Na instalação nova, a configuração abre na conferência do que vai ser gravado: todos os blocos, obrigatórios, com **a limpeza primeiro** — ela diz o que apaga e o que preserva, e apaga só a parte dos blocos que vão ser gravados. **O espaço no módulo e as cercas são calculados ali**, sobre o que vai ser gravado: se não cabe, a gravação não começa, e o botão vira `Procurar outro módulo`. Na manutenção, o técnico escolhe um bloco, e a cadeia curta grava só ele.
+Na instalação nova, a configuração abre na conferência do que vai ser gravado: todos os blocos, obrigatórios, com **a limpeza primeiro** — ela diz o que apaga e o que preserva, e apaga só a parte dos blocos que vão ser gravados. **O espaço no módulo e as cercas são calculados ali**, sobre o que vai ser gravado: se não cabe, a gravação não começa, e o botão vira `Procurar outro módulo` — com a sessão aberta, ele pergunta antes: *Encerrar sem homologar?*. Na manutenção, o técnico escolhe um bloco, e a cadeia curta grava só ele.
 
 - **no protótipo, `Procurar outro módulo`** (06, 07): com a sessão aberta, o módulo não troca (Módulo e ativo travados), então ele abre o diálogo *Encerrar sem homologar?*, como o ENCERRAR da faixa (decisão 36 · o padrão aprovado no gate do pacote 1)
 - **o conteúdo de cada elo** é o de `CADEIA.conteudo`, o mesmo em todo par, como as nove referências desenham — *OF-1621*, *4 áreas*, *sem fio*, *intervalo 30 s*, *m2m.mobs2.br* (decisão 49). Os valores dos elos esperam a errata do arquiteto: o mock tem 2 áreas e 4 regiões (gate do pacote 1, item 9)

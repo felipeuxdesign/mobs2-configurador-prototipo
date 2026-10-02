@@ -12,6 +12,8 @@ Ver o que o módulo informa e o que a CAN do modelo lê — logo depois da conex
 
 ## O que se toca
 
+- `Gravar a conexão` (firmware não homologado, módulo sem rede) → grava só a conexão, isolada, e o firmware atualiza por ela
+- `Procurar outro módulo` → T05/01, a lista sem nada escolhido
 - logo depois de conectar: as sete linhas do módulo, e a CAN aguardando a configuração do ativo
 - `Selecionar ativo` → T06, o vínculo
 - **só três coisas travam**: serial não cadastrado, modelo sem suporte e firmware não homologado — sinal, GPS e alimentação só informam, e o checklist registra
@@ -52,7 +54,7 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 
 - **HU-T07-1** — Logo depois de conectar, vejo o módulo: serial, firmware, alimentação, GPS, entradas, modem e SIM
 - **HU-T07-2** — Serial fora do cadastro, modelo sem suporte e firmware não homologado travam — cada um com a sua mensagem
-- **HU-T07-3** — Firmware não homologado oferece atualizar quando o módulo tem rede; sem rede, a tela diz que não dá
+- **HU-T07-3** — Firmware não homologado oferece atualizar quando o módulo tem rede; sem rede, o app grava só a conexão, e então atualiza
 - **HU-T07-4** — O resto só informa, com o ícone de informação: eu sigo, e o checklist registra
 - **HU-T07-5** — A CAN aparece depois que o bloco do ativo é gravado, com a lista do modelo; sinal sem leitura ou fora do esperado aparece na própria linha
 - **HU-T07-6** — Ler de novo relê a CAN inteira

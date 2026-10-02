@@ -59,7 +59,7 @@ export const RECEITAS = {
   'T12/03-estado-sem-rede': { casos: ['instalacoes-sem-rede'] },
   'T12/04-estado-criterio-indisponivel': { casos: ['criterio-indisponivel'], dados: ['instalacoes'], obs: 'a PCX-9A17: o pacote não declara a fila, e os eventos ficam indisponíveis, com o motivo; o status geral espera (a última entrega, decisão 41)' },
   'T12/05-estado-criterio-pendente': { casos: ['criterio-pendente'], dados: ['instalacoes'], obs: 'a PCX-9A17: o servidor não respondeu, e o posicionamento fica pendente, confere por 24 h; o status geral espera (a última entrega, decisão 41)' },
-  'T13/09-estado-item-reprovado': { casos: ['can-estatico-isolado'] },
+  'T13/09-estado-item-reprovado': { casos: ['can-estatico-bateria'] },
   'T13/10-estado-finalizar-com-a-secao-f-falhando': { casos: ['pronto-para-fechar'] },
   'T13/14-estado-homologado-sem-localizacao': { casos: ['localizacao-negada'], obs: 'homologa igual, e o relatório vai sem a geolocalização (entrega do design de 25/09, o checklist numa estrutura só)' },
   'T14/02-estado-prazo-estourado': { casos: ['evento-sem-resposta'] },

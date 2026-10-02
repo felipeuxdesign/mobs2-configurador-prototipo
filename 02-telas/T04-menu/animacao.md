@@ -4,7 +4,6 @@ Vale o `03-design-system/movimento.md`. Entre telas, só o conteúdo esmaece em 
 
 | Elemento | Quando | O que muda | Tempo | Curva | Com reduzir movimento |
 |---|---|---|---|---|---|
-| faixa de sessão | a sessão abre (o diagnóstico aprova o módulo) | desce de cima (translateY -100%→0) e o conteúdo desce junto | 200ms | desacelera | aparece |
 | contador da fila e do checklist | o número muda | troca no lugar, sem pular | — | — | igual |
 | folhas | tocar na unidade ou nas iniciais | o painel sobe de baixo e o véu esmaece; fechar desce | 200ms · fecha em 150ms | desacelera | aparece |
 | cartão liberado | o módulo conecta | o poço ganha cor e o texto de espera some | 150ms | esmaece | troca direta |

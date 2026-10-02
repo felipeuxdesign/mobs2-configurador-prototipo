@@ -66,7 +66,7 @@ No protótipo (decisão 44), a HU-T05-2: a sessão nasce na conexão, mas **a fa
 
 - **HU-T07-1** — Logo depois de conectar, vejo o módulo: serial, firmware, alimentação, GPS, entradas, modem e SIM
 - **HU-T07-2** — Serial fora do cadastro, modelo sem suporte e firmware não homologado travam — cada um com a sua mensagem
-- **HU-T07-3** — Firmware não homologado oferece atualizar quando o módulo tem rede; sem rede, a tela diz que não dá
+- **HU-T07-3** — Firmware não homologado oferece atualizar quando o módulo tem rede; sem rede, o app grava só a conexão, e então atualiza
 - **HU-T07-4** — O resto só informa, com o ícone de informação: eu sigo, e o checklist registra
 - **HU-T07-5** — A CAN aparece depois que o bloco do ativo é gravado, com a lista do modelo; sinal sem leitura ou fora do esperado aparece na própria linha
 - **HU-T07-6** — Ler de novo relê a CAN inteira

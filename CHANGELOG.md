@@ -1,5 +1,30 @@
 # Registro de mudanças
 
+## 2026-10-02 · a errata do pacote 1 — o que o gate do executor achou
+
+- **as cercas contam em regiões** (decisão 50): é o que o módulo guarda e o que o limite conta · a cadeia diz *"4 regiões"* · a T09/06 tem os valores do OCT-2J85 com o ECO — nenhuma região, o leitor no fio branco · a T09/07: *"5 regiões, cabem 4"*
+- **a APN aparece pro técnico** (decisão 51): o PM pediu pra conferir · é a exceção à regra de não mostrar protocolo
+- **o M2C-0999 é tocável na T05**, como os outros; a trava do serial é no diagnóstico · no mock, o que ele informa na busca
+- **a limpeza nunca apaga os identificadores** · na T16/02, *Extended ID · preservado*
+- **a sessão nasce na conexão, e a faixa desce no diagnóstico** quando as sete linhas passam sem trava · sem rede no módulo, o firmware atualiza depois de gravar só a conexão · `Procurar outro módulo` volta pra T05, ou pergunta *Encerrar sem homologar?* na T09
+- **o pacote é contado das coleções**: as conexões, os eventos embarcados e as regiões de cada unidade · o gate recomputa, e confere os cartões em cada pacote
+- os números: 108 peças, 295 tokens · os títulos das folhas 2 e 6 · os textos da T10 à T15 voltam aos de hoje · o gerador das fichas lê as referências da pasta, não o canvas
+
+## 2026-09-29 · o retorno do PM, rodadas 1 e 2 — o diagnóstico, o vínculo e a configuração
+
+- **o diagnóstico do módulo substitui a pré-checagem e os Dados da CAN** (decisão 44) · a conexão só conecta, e a faixa desce ali · a T07 nova tem 11 referências: as 7 linhas do módulo, 3 que travam — o serial, o modelo e o firmware —, o resto só informa, e a CAN depois do ativo · a T08 some · a T05 perde 11 estados
+- **o pacote não leva os cartões** (decisão 45): ativos, conexões, modelos, eventos e cercas — 31 itens no herói
+- **o vínculo sem chassi** (decisão 46): placa, frota, fabricante e modelo · o módulo em outro ativo avisa e registra o desvínculo · o módulo que já é deste ativo abre a manutenção · saem da T06 o chassi divergente, o sem chassi na CAN e a correção solicitada · a folha do ativo, no menu, mostra o modelo
+- **a configuração** (decisão 47): o que vai ser gravado, antes da cadeia · a limpeza diz o que apaga e o que preserva · o espaço e as cercas se conferem no envio · a manutenção grava um bloco · a T09 ganha 5 referências
+- **o menu conectado** (decisão 48): o Últimas instalações ligado, com o relógio de histórico · o menu sem rede vira o estado T04/15 · a chave inteira no Conferir configuração, que estava quebrada
+- no mock: o bloco `diagnostico`, o fabricante e o modelo, o pacote sem cartões e 5 casos novos · saem o `chassiPelaCan`, a `divergencia-chassi`, o `canal-aberto`, o `modulo-em-repouso` e dois casos da CAN antiga · o gate confere tudo isso
+- no design system: saem as 14 peças da pré-checagem e dos Dados da CAN · entram a linha que só informa, os dados do modelo e a cadeia antes de gravar · 107 peças
+- as fichas das telas passam a tirar as histórias do `historias.md` da pasta · o `casos.md` e as duas tabelas da `logica.md` são gerados das fichas
+- **o módulo não guarda versão** (decisão 49): a cadeia mostra o conteúdo de cada bloco — *OF-1621, 4 áreas, sem fio, intervalo 30 s, m2m.mobs2.br* — nas nove telas da T09 · a cadeia concluída e o encerramento dizem *"6 blocos"* · a sessão interrompida diz o que já foi gravado · no mock, `CADEIA.versoes` vira `CADEIA.conteudo` · a HU-T09-10 sai
+- **o resumo da T12 conta os 31 itens do checklist**, e diz *Diagnóstico · 7 de 7* no lugar da pré-checagem · no mock, os resumos passam a 31/31
+- no palco, **a regra dos seis**: com mais de seis estados, a coluna se agrupa pelo que o técnico estava fazendo · a T07 tem 7, e se agrupa em *o módulo* e *a CAN*, nas cenas 32 e 33 · a T05 tem 4, e fica solta · os componentes mostram os exemplos de hoje
+- agora são **145 referências**: 15 telas, 64 momentos e 66 estados
+
 ## 2026-09-28 · a temperatura, construída · a leitura com máximo, e a posição pela conta exata
 
 - **a comparação, antes de sobrescrever:** os 4 html (a T07/00, 01 e 02 e a folha 5) são os nossos com a faixa da temperatura em 84,2%, com a borda da direita, e o marcador em 37,4%, e mais nada; nos 4 png, a diferença cabe na barra

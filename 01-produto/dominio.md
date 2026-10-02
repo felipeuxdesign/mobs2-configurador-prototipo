@@ -152,7 +152,7 @@ Não há flag de permissão. Não há confirmação em dois passos. Não há esc
 |---|---|---|
 | Serial não cadastrado | T07 | nomeia pela letra, bloqueia, **registra no M2** |
 | Modelo/variante sem suporte v1 | T07 | nomeia pelo cadastro, bloqueia, registra |
-| Firmware não homologado | T07 | atualiza, se o módulo tem rede, e relê o diagnóstico; sem rede, trava |
+| Firmware não homologado | T07 | atualiza, se o módulo tem rede, e relê o diagnóstico; sem rede, grava só a conexão → atualiza → relê |
 | Conteúdo não cabe no módulo | T09 | no envio, sobre o que vai ser gravado — bloqueia (mesmo cálculo da publicação no M2) |
 | Cercas demais pro módulo | T09 | no envio, sobre o que vai ser gravado · **dois limites**: regiões E posições |
 | ID não reconhecido no destino | T13 · Seção F | trava com rede; **sem rede vira aviso**, e a Seção F confere quando a rede voltar |
@@ -289,7 +289,7 @@ No protótipo (decisão 44), a HU-T05-2: a sessão nasce na conexão, mas **a fa
 |---|---|
 | HU-T07-1 | Logo depois de conectar, vejo o módulo: serial, firmware, alimentação, GPS, entradas, modem e SIM |
 | HU-T07-2 | Serial fora do cadastro, modelo sem suporte e firmware não homologado travam — cada um com a sua mensagem |
-| HU-T07-3 | Firmware não homologado oferece atualizar quando o módulo tem rede; sem rede, a tela diz que não dá |
+| HU-T07-3 | Firmware não homologado oferece atualizar quando o módulo tem rede; sem rede, o app grava só a conexão, e então atualiza |
 | HU-T07-4 | O resto só informa, com o ícone de informação: eu sigo, e o checklist registra |
 | HU-T07-5 | A CAN aparece depois que o bloco do ativo é gravado, com a lista do modelo; sinal sem leitura ou fora do esperado aparece na própria linha |
 | HU-T07-6 | Ler de novo relê a CAN inteira |

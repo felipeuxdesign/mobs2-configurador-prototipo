@@ -12,6 +12,7 @@ Gravar no módulo o que ele precisa: todos os blocos, na instalação nova; um b
 
 ## O que se toca
 
+- `Procurar outro módulo` → com a sessão aberta, primeiro *Encerrar sem homologar?*
 - a entrada, na instalação nova: *o que vai ser gravado* — os blocos, a limpeza dizendo o que apaga e o que preserva, e o espaço calculado sobre o que vai ser gravado
 - `Gravar no módulo` → a cadeia
 - não cabe, ou cercas demais: a gravação não começa · `Procurar outro módulo`

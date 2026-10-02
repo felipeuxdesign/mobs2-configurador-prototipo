@@ -1,5 +1,7 @@
 # 46 · O vínculo mostra o modelo, não o chassi — e decide o modo
 
+> **Atualizada na errata do pacote 1:** o `moduloSerial` do cadastro é o módulo previsto pro ativo; o modo vem do caso, nunca do cadastro · o M2C-0999 aparece na lista da T05 como os outros, e a trava do serial acontece no diagnóstico.
+
 **O contexto.** A confirmação do veículo comparava o chassi lido pela CAN com o do cadastro. O PM tirou o chassi: o técnico reconhece o ônibus pela placa, pela frota e pelo modelo, e o que importa confirmar é a ligação do módulo com o ativo, na empresa.
 
 **A decisão.** A tela vira **Confirmar o vínculo**: a placa e a frota em cima, o fabricante e o modelo no bloco de baixo, e a frase *"O M2C-0417 fica neste ativo, na Viação Atlântico Sul"*. Se o módulo já está em outro ativo, a tela avisa, e `Desvincular e vincular aqui` registra o desvínculo. E **o vínculo decide o modo**: módulo novo neste ativo é instalação nova; módulo que já era dele é manutenção.

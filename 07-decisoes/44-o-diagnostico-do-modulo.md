@@ -1,5 +1,7 @@
 # 44 · O diagnóstico do módulo substitui a pré-checagem e os Dados da CAN
 
+> **Atualizada na errata do pacote 1:** a sessão nasce na conexão, e a faixa desce no diagnóstico quando as sete linhas passam sem trava · sem rede no módulo, o firmware atualiza depois de gravar só a conexão.
+
 **O contexto.** O PM pediu que a conexão só conecte, e que tudo o que o app sabe do módulo apareça numa tela depois dela. A pré-checagem de doze linhas, dentro da conexão, misturava o que trava com o que só informa, e a leitura da CAN vivia em duas telas — os Dados da CAN e o Refazer leitura — sem o ativo que dá sentido a ela.
 
 **A decisão.** Uma tela só, o **Diagnóstico do módulo** (T07): as sete linhas do módulo — serial, firmware, alimentação, GPS, entradas, modem e SIM — e, embaixo, a CAN do modelo do ativo. Três linhas travam: o serial fora do cadastro, o modelo sem suporte e o firmware não homologado, que oferece `Atualizar` quando o módulo tem rede. As outras só informam, com o ícone de informação, e o checklist registra. A CAN espera o bloco do ativo gravado; depois, `Ler de novo` relê tudo.
