@@ -103,7 +103,7 @@ export default [
   { dorme: 250 },
   { toca: 'Conectar ao M2C-0999', anima: TROCA, naoAnima: PARADOS },
   { chega: 'T07' },
-  { ve: 'M2C-0999 · fora do cadastro', ms: 8000 },
+  { ve: 'Peça ao gestor pra cadastrar o M2C-0999.', ms: 8000 }, // pacote 3: o topo só com o serial, e o aviso da trava
   { naoVe: 'ENCERRAR' },
 
   // ── com reduzir movimento: o mesmo ritmo, e nada anda ──

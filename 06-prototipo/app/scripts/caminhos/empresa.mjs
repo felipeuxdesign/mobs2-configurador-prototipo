@@ -233,11 +233,8 @@ export default [
   { chega: 'T04', momento: null },
   { toca: 'Entendi' },
   ...A_FOLHA,
-  { palco: 'Trocar com mais de uma empresa' },
-  { chega: 'T04', estado: '14-estado-folha-trocar-de-unidade-com-empresa' },
-  { ve: 'Trocar de empresa' },
-  { palco: 'Voltar ao fluxo' },
-  { chega: 'T04', momento: FOLHA },
+  // pacote 3 (D2): as folhas de trocar abrem por um toque e saíram da coluna (o campo `coluna` do índice):
+  // o estado 14 não se abre mais pela coluna, e o Voltar ao fluxo que reabria a folha não tem mais de onde partir
   { ve: 'Garagem Ibura' },
   { ve: 'Trocar de empresa' },
 

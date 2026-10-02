@@ -199,7 +199,7 @@ export default [
   { tecla: 'Escape' },
   { anima: [...TROCA, BARRA] },
   { chega: 'T13', momento: M02 },
-  { ve: 'você fotografa 4 itens' },
+  { ve: 'você fotografa 5 itens' },
   { dorme: 400 },
   { quieto: true },
 

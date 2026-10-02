@@ -74,7 +74,7 @@ export default [
   { naoVe: 'Conectar ao M2C-0394' },
   { toca: 'Conectar ao M2C-0999' },
   { chega: 'T07', momento: null },
-  { ve: 'M2C-0999 · fora do cadastro' },
+  { ve: 'Peça ao gestor pra cadastrar o M2C-0999.' }, // pacote 3: o aviso da trava
   { ve: 'não está no cadastro', ms: 8000 },
   { ve: 'Procurar outro módulo', ms: 8000 },
   { naoVe: 'ENCERRAR' },

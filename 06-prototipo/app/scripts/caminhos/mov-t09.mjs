@@ -54,13 +54,14 @@ export default [
   // as travas do envio, pelo caso: o elemento que falhou diz o número, e o aviso, o que fazer
   { abre: `?tela=T09&estado=${ESTADOS[3]}` },
   { ve: 'NÃO CABE NO MÓDULO' },
-  { ve: 'não cabe · 128 registros, cabem 96' },
+  { ve: 'São 128 registros, e o módulo guarda 96.' }, // pacote 3: os números no aviso
   { ve: 'Cercas\nnenhuma' },
   { ve: 'Leitor\nno fio branco' },
   { ve: 'Procurar outro módulo' },
   { abre: `?tela=T09&estado=${ESTADOS[4]}` },
   { ve: 'CERCAS DEMAIS PRO MÓDULO' },
-  { ve: 'Cercas\nnão cabe\n5 regiões, cabem 4 · Terminal Cosme e Damião fica de fora' },
+  { ve: 'O Terminal Cosme e Damião ficaria de fora.' }, // pacote 3: o elo numa linha, e quem fica de fora no aviso
+  { ve: '5 regiões, cabem 4' },
   { abre: `?tela=T09&momento=${CONCLUIDA}` },
   ...PARADA,
   { ve: 'GRAVADO E RELIDO\n6 blocos' },

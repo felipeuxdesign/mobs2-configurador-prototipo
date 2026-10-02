@@ -24,8 +24,8 @@ export default [
   { palco: 'Voltar ao fluxo' },
   { chega: 'T04', estado: null },
   { pisca: false },
-  { palco: 'Trocar com envio em andamento' },
-  { chega: 'T04', estado: '08-estado-folha-trocar-de-garagem-envio-em-andamento' },
+  { palco: 'Checklist pendente' }, // pacote 3 (D2): as folhas de trocar saíram da coluna
+  { chega: 'T04', estado: '04-estado-checklist-pendente' },
   { pisca: false },
   { tocaNoApp: true },
   { pisca: true },

@@ -69,7 +69,7 @@ export default [
   // o 12: a ressalva com o check e a causa, sem seta; a foto por fazer abre a câmera do app
   { abre: '?tela=T13&momento=12-momento-b-com-ressalva' },
   { ve: 'com ressalva · suporte trincado' },
-  { ve: 'você fotografa 4 itens' },
+  { ve: 'você fotografa 5 itens' },
   { naoToca: 'Módulo' },
   { toca: 'Antena GPS' },
   { chega: 'T13', momento: '07-momento-responder-item' },
@@ -115,7 +115,7 @@ export default [
   { toca: 'Voltar ao checklist' },
   { chega: 'T13', momento: '12-momento-b-com-ressalva' },
   { ve: 'com ressalva · suporte trincado' },
-  { ve: 'você fotografa 4 itens' },
+  { ve: 'você fotografa 5 itens' },
   { ve: 'Faltam 10 itens' },
   // escrever primeiro e fotografar depois: o 08 pela URL já tem o que aconteceu
   { abre: '?tela=T13&momento=08-momento-nao-conforme-com-justificativa' },
@@ -147,7 +147,7 @@ export default [
   { aVista: 'Salvar com ressalva' },
   { janela: [360, 800] },
   { app: [360, 800] },
-  // ── o singular (a resposta do arquiteto de 26/09): você fotografa 1 item · Falta 1 item ──
+  // ── o singular (a resposta do arquiteto de 26/09): Falta 1 item · o que ele fotografa conta os itens da seção (pacote 3), e fica 5 ──
   { abre: '?tela=T13&momento=13-momento-e-resolvida' },
   { ve: 'Faltam 5 itens' },
   { toca: 'B · Montagem' },
@@ -164,7 +164,7 @@ export default [
   { ve: 'Painel com hodômetro e horímetro legíveis' },
   { toca: 'Voltar ao checklist' },
   { chega: 'T13', momento: '02-momento-b-montagem-aberta' },
-  { ve: 'você fotografa 1 item' },
+  { ve: 'você fotografa 5 itens' },
   { ve: 'Falta 1 item' },
   { naoVe: 'você fotografa 1 itens' },
   { toca: 'Painel' },
