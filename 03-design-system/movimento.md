@@ -4,7 +4,7 @@
 
 ## O vocabulário do app (C12)
 
-Quem usa o app está de luva, dentro do ônibus, com pressa, às vezes no sol. O movimento é curto e é sempre o mesmo. Nada decora: tudo informa ou confirma.
+Quem usa o app está em campo — no pátio, embaixo do ônibus, com o arnês na mão. O movimento é curto e é sempre o mesmo. Nada decora: tudo informa ou confirma.
 
 - **O pressionado responde no dedo, sempre igual.** Entra no toque e solta em 100ms.
 - **O estado troca no lugar.** O texto, o número e a cor mudam onde estão. Nada muda de lugar nem de altura.

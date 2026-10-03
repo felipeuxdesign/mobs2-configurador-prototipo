@@ -1,19 +1,22 @@
 # Quem usa
 
+A fonte desta página é o documento de requisitos do PM, *App Configurador — Requisitos v1* (o público, o §1 e o §3).
+
 ## O técnico de campo
 
-**Terceirizado, sem conhecimento de protocolo.** Trabalha embaixo de um ônibus, no pátio, muitas vezes sem rede. Uma mão no módulo, outra no celular — às vezes de luva, às vezes no sol. Instala de 1 a 4 vezes por mês, então **nunca tem prática**: cada instalação é quase a primeira.
+**Terceirizado, sem conhecimento prévio da lógica de programação do módulo.** Instala em pátio, obra e zona rural, muitas vezes sem rede — uma semana de campo sem sinal é o cenário real —, às vezes embaixo do ônibus, com o arnês na mão. Navega livre pelas empresas e unidades que tem permissão, sem ordem de serviço, e executa a cadeia completa, inclusive a limpeza que o cenário exigir.
 
 O que isso decide no desenho:
 
-- **menos decisão ganha de mais informação**, sempre
-- cada tela responde **uma pergunta de negócio** — *é este o ônibus?*, *o evento chegou?* —, nunca uma de protocolo
-- alvo de toque de 48px, 56 no primário; o rodapé com as ações onde o polegar alcança
-- o app diz o que falhou **e o que fazer**, na mesma linha, sem mandar ligar pra ninguém
-- estado raro é sempre estado desconhecido: a tela explica o que se perdeu e o que continua valendo
+- **o sistema decide, ele executa:** o técnico não escolhe script, parâmetro, índice ou faixa
+- cada tela responde **uma pergunta de negócio** — *é este o ônibus?*, *o evento chegou?* —, nunca uma de protocolo: nenhuma tela mostra comando, código de entrada ou saída, índice de memória ou a palavra *script*, e o hardware é nomeado por cor e função
+- o app diz **o que falhou e a ação que resolve**, na mesma linha — e, onde a saída não é dele, diz a quem escalonar
+- **nada some em silêncio:** a fila diz o que ainda não subiu, a sessão interrompida é oferecida de volta, e a tela explica o que se perdeu e o que continua valendo
+- ele não perde o acesso no meio do pátio: a sessão de acesso só termina quando ele escolhe sair
 
 ## Quem mais olha
 
-- **o gestor**, que recebe a instalação homologada e quer saber que ela funciona
-- **o PM**, dono das regras de negócio — as pendências com ele estão em `08-para-o-dev/o-que-o-produto-ainda-decide.md`
+- **o gestor**, na web do M2: vê os logs, os checklists com as fotos, o histórico por módulo e ativo, e valida as instalações
+- **a engenharia**, na web do M2: cadastra e versiona os blocos, a matriz de compatibilidade e os presets de evento
+- **o PM**, dono das regras de negócio — o que o produto ainda decide está em `08-para-o-dev/o-que-o-produto-ainda-decide.md`
 - **quem aprova o produto**, que vê o protótipo no palco e precisa ver a evidência nascendo

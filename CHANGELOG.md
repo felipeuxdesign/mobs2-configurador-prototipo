@@ -1,5 +1,13 @@
 # Registro de mudanças
 
+## 2026-10-03 · o problema e o usuário alinhados aos requisitos v1 do PM
+
+- **a fonte da verdade é o *App Configurador — Requisitos v1*** (o diretor, 03/10) · a `01-produto/historia.md` e a `usuario.md` reescritas por ele, e as duas dizem a fonte no topo
+- **saíram, porque os requisitos não trazem:** o pagamento por instalação concluída, o roteiro impresso e o incidente com cliente, a tabela de ordem de grandeza, as 1 a 4 instalações por mês, a luva e o sol
+- **mudaram, porque os requisitos dizem outra coisa:** a falha aparecia *no relatório dias depois* (T14, §4.4), não no mesmo dia · o app escalona ao gestor quando a saída não é do técnico, em vez de *sem mandar ligar pra ninguém* · o autoteste prova por *um reinício e uma releitura* · os princípios são os seis do §1, com o 5 (*sem cadastro prévio, o app trava*), que faltava
+- **entrou o que os requisitos dizem e as fichas não tinham:** a letra do serial e as variantes do VL06, os índices de efeito colateral do VL08, o checklist de 30 itens com o *marcar todos*, a navegação livre sem ordem de serviço, o gestor e a engenharia na web do M2
+- acompanham: o contexto da decisão 01 e a abertura do `movimento.md` · o README já seguia os requisitos · os gates antigos ficam como estavam
+
 ## 2026-10-03 · a pasta do dev: `08-produto-real` vira `08-para-o-dev`
 
 - **o nome diz pra quem é**, como o `para-o-arquiteto` · o diretor, 03/10
