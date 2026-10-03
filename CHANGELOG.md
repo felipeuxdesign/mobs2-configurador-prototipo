@@ -7,6 +7,7 @@
 - **mudaram, porque os requisitos dizem outra coisa:** a falha aparecia *no relatório dias depois* (T14, §4.4), não no mesmo dia · o app escalona ao gestor quando a saída não é do técnico, em vez de *sem mandar ligar pra ninguém* · o autoteste prova por *um reinício e uma releitura* · os princípios são os seis do §1, com o 5 (*sem cadastro prévio, o app trava*), que faltava
 - **entrou o que os requisitos dizem e as fichas não tinham:** a letra do serial e as variantes do VL06, os índices de efeito colateral do VL08, o checklist de 30 itens com o *marcar todos*, a navegação livre sem ordem de serviço, o gestor e a engenharia na web do M2
 - acompanham: o contexto da decisão 01 e a abertura do `movimento.md` · o README já seguia os requisitos · os gates antigos ficam como estavam
+- **a varredura que fechou o alinhamento:** os porquês das leis 10, 11 e do toque de 48, a `logica.md`, as decisões 36 e 39 e a pasta do dev não falam mais de luva, sol ou pressa — o que os requisitos dizem é *em campo, com o arnês na mão* (Anexo A)
 
 ## 2026-10-03 · a pasta do dev: `08-produto-real` vira `08-para-o-dev`
 

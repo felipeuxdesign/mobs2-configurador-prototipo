@@ -30,7 +30,7 @@ O que **não é de desenho** e o produto ainda decide. O protótipo seguiu o pad
 ## Validar no aparelho
 
 - o roxo pressionado `#4A2A80`
-- o contraste da tinta apagada no sol
+- o contraste da tinta apagada em campo
 - a altura útil com a navegação de três botões, que tira mais espaço que a barra de gestos
 
 ## Fora do protótipo

@@ -17,8 +17,8 @@ Cada lei tem o porquê. Uma lei sem motivo vira gosto, e gosto se discute; lei c
 | 7 ◆ | **Aviso tem um formato só:** poço, rótulo, uma frase. Quatro usos — falha, aviso, processo parado, com contagem. Exceções declaradas: a falha do autoteste (T16), com rótulo de topo e duas orações, e o aviso da folha de trocar de unidade (T04), sem poço | um aviso de cada jeito ensina nada |
 | 8 | **Um primário por tela.** Rodapé com no máximo duas ações | duas opções de igual peso são uma pergunta que o técnico não sabe responder |
 | 9 | **Dois portadores de urgência, no máximo** | três vermelhos são um só barulho |
-| 10 ◆ | **Texto informa a partir de 12px**; rótulo em caixa alta pode ter 10 ou 11, e a unidade ou a contagem junto de um número também (*km*, *%*, *de 4*) | sol, luva e pressa |
-| 11 ◆ | **Tinta mínima de texto: `--tinta-apagada`**, com contraste AA medido no fundo real. O traço de vazio (—) não é texto e pode usar `--marca-limite` | abaixo disso, some no sol |
+| 10 ◆ | **Texto informa a partir de 12px**; rótulo em caixa alta pode ter 10 ou 11, e a unidade ou a contagem junto de um número também (*km*, *%*, *de 4*) | abaixo disso não se lê em campo, com o celular na mão |
+| 11 ◆ | **Tinta mínima de texto: `--tinta-apagada`**, com contraste AA medido no fundo real. O traço de vazio (—) não é texto e pode usar `--marca-limite` | abaixo disso, some em campo |
 | 12 | **Prova só quando diz algo novo** | a frase que repete o que a tela já mostra é ruído |
 | 13 | **Valor vem de token.** Nenhum número solto | o número solto é o primeiro a divergir |
 | 14 ◆ | **Ícone vem do Lucide**, com o traço dos tokens por classe: glifo de estado 2,2 em todo tamanho · ferramenta e ícone de ação 1,8 · fechar e chevron 2,2 · check abaixo de 14px 2,6 · **exceção: o olho da senha**, desenhado no app, com a amêndoa baixa — e o riscado é o mesmo olho, inteiro, com um risco que corta o contorno onde passa | ícone de sistema tem forma canônica — o wi-fi tem o ponto · o eye-off do Lucide tem outro desenho e parece um olho quebrado ao lado do nosso |
@@ -39,7 +39,7 @@ Cada lei tem o porquê. Uma lei sem motivo vira gosto, e gosto se discute; lei c
 | **A tela** | 360 × 800 | o Android de entrada que o técnico usa |
 | **Toda medida é por dentro** | `box-sizing: border-box` em tudo | o número escrito é o tamanho que aparece |
 | **Nada visível a menos de 32px do pé** | rodapé que termina em link fecha com 24; em botão, com 32 | a barra de gestos do Android, e o polegar |
-| **Toque de 48** ◆ | todo tocável tem 48 de toque, e o primário 56. O desenho pode ser menor (o olho, o X, o link de 44): a área de toque cresce por fora, sem mudar o desenho | luva, sol e o polegar |
+| **Toque de 48** ◆ | todo tocável tem 48 de toque, e o primário 56. O desenho pode ser menor (o olho, o X, o link de 44): a área de toque cresce por fora, sem mudar o desenho | o polegar, com o arnês na outra mão |
 | **Nada encosta** ◆ | todo tocável — botão, checkbox, rádio, campo — a 8px de qualquer vizinho · poço a 6px da divisória · texto a 6px da borda · caixa a 6px da caixa vizinha · **área de toque a 8px de qualquer outra**: quando o desenho não deixa esse espaço, a área cresce só pro lado livre — o link do rodapé, pra baixo, com 44px e a 8px do botão; o avatar da conta, pra cima, e o ENCERRAR da faixa com 44px — e o que se vê não muda | peça encostada lê como uma peça só, e toque encostado cai no vizinho |
 | **Poço na linha** ◆ | linha de 38 leva poço de 24 · 44 leva 30 · 50 leva 32 — sempre no centro | o poço é da linha, não da divisória · vale pra linha de lista e pro cartão que age como linha; **não vale pro aviso**, que tem o poço dele |
 | **A barra do sistema sangra no primeiro andar** | a cor dela é a do que está logo embaixo; sob o véu, escurece junto | a tela começa na borda, não embaixo de uma faixa |

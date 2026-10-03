@@ -1,6 +1,6 @@
 # 36 · O ENCERRAR pede confirmação antes de homologar
 
-**O contexto.** A lógica dizia: *quem tocou no ENCERRAR já decidiu* — sem confirmação. Mas o ENCERRAR fica no canto de cima, e o técnico está de luva. Um toque sem querer perdia a instalação. E o domínio já pedia confirmação num caso irmão: a HU-T02-3, trocar de contexto com módulo conectado.
+**O contexto.** A lógica dizia: *quem tocou no ENCERRAR já decidiu* — sem confirmação. Mas o ENCERRAR fica no canto de cima, e o técnico tem o arnês na outra mão. Um toque sem querer perdia a instalação. E o domínio já pedia confirmação num caso irmão: a HU-T02-3, trocar de contexto com módulo conectado.
 
 **A decisão.** Antes de homologar, o ENCERRAR abre o diálogo *Encerrar sem homologar?*. O principal é *Continuar a instalação* — o que mantém o técnico na tarefa, pela D-51. Depois de homologar, o ENCERRAR vai direto: ali encerrar é o fim natural.
 
