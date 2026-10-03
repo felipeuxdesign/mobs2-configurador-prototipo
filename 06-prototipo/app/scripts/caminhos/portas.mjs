@@ -52,15 +52,16 @@ export default [
   { toca: 'Entendi' },
   { naoVe: 'Seu acesso vence em 2 dias' },
 
-  // T05 · R-14: o módulo marca, o primário diz o serial do marcado, e só ele conecta
+  // T05 · R-14: o módulo marca, o primário diz o serial do marcado, e só ele conecta · a marca
+  // é a 00, a tela (o pacote 7): a URL passa a dizer a 00
   ...A_LISTA,
   { marca: 'M2C-0417' },
   { fica: 'T05', ms: 600 },
-  { chega: 'T05', momento: '01-momento-nenhum-escolhido' },
+  { chega: 'T05', momento: null },
   { ve: 'Conectar ao M2C-0417' },
   { marca: 'M2C-0394' },
   { fica: 'T05', ms: 600 },
-  { chega: 'T05', momento: '01-momento-nenhum-escolhido' },
+  { chega: 'T05', momento: null },
   { ve: 'Conectar ao M2C-0394' },
   { naoVe: 'Conectar ao M2C-0417' },
 
@@ -69,7 +70,7 @@ export default [
   // volta à lista sem nada escolhido (o quadro da T07/02)
   { marca: 'M2C-0999' },
   { fica: 'T05', ms: 600 },
-  { chega: 'T05', momento: '01-momento-nenhum-escolhido' },
+  { chega: 'T05', momento: null },
   { ve: 'Conectar ao M2C-0999' },
   { naoVe: 'Conectar ao M2C-0394' },
   { toca: 'Conectar ao M2C-0999' },
@@ -118,12 +119,13 @@ export default [
   { chega: 'T09', momento: '05-momento-o-que-vai-ser-gravado' },
   { ve: 'RKT-8H42' },
 
-  // T05 · a 00, pelo endereço: o ESCOLHIDO é a marca; tocar noutro por perto troca o
-  // escolhido no lugar, e o primário diz o serial dele — também não conecta (tela.md)
+  // T05 · a 00, pelo endereço: a lista com o M2C-0417 marcado (o pacote 7); tocar noutro
+  // troca a marca no lugar, e o primário diz o serial dele — também não conecta (tela.md)
   { abre: '?tela=T05' },
   { chega: 'T05', momento: null },
-  { ve: 'ESCOLHIDO' },
-  { ve: 'OUTROS QUATRO POR PERTO' },
+  { ve: 'Escolha o que está na sua mão.' },
+  { naoVe: 'ESCOLHIDO' },
+  { naoVe: 'FIRMWARE' },
   { ve: 'Conectar ao M2C-0417' },
   { marca: 'M2C-0362' },
   { fica: 'T05', ms: 600 },

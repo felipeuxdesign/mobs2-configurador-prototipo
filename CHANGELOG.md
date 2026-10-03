@@ -1,5 +1,22 @@
 # Registro de mudanças
 
+## 2026-10-04 · o pacote 7 — a T05 numa lista só
+
+- **o módulo escolhido é a linha marcada, em toda a T05**: desde a decisão de 24/09, escolher numa lista marca e quem avança é o botão · a 00 ainda era o bloco grande, *ESCOLHIDO*, de antes dessa decisão, e a 06 e a 04 estavam desenhadas em cima dele — tocar em *Conectar* trocava a estrutura da tela no meio da conexão · agora a **00** é a lista com o M2C-0417 marcado e o *Conectar ao M2C-0417* aceso, a **02** é a lista com o único módulo já marcado, a **06** é a mesma lista com o botão dizendo *Conectando ao M2C-0417…*, e a **04** é a lista com o M2C-0301 marcado dizendo *não respondeu*, as três causas embaixo e o *Tentar de novo*
+- **o firmware sai das linhas** da lista: na conexão o técnico só acha o módulo que está na mão, pelo número e pelo modelo · o firmware é do diagnóstico (o retorno do PM)
+- **o design system acompanha**: saem da folha 6 e do `componentes.md` as duas peças que só a T05 antiga usava, o *bloco escolhido* e o *escolhido com trava* — **106 → 104 peças** · a *escolha numa lista* ganha a T05
+- a 00 deixa de ser *"a entrada da tela"*: é o que vem de tocar num módulo da lista
+- **o tempo-limite da conexão** vai pras pendências do PM: 15 s até ele decidir · o protótipo simula 1,2 s
+
+- **no protótipo** (o gate em `06-prototipo/para-o-arquiteto/gate-pacote7.md`, as folhas lado a lado em `pacote7/`):
+  - a T05 é a lista marcada em todos os quadros da busca, e a troca de desenho no meio da conexão sumiu;
+  - a linha de módulo ganha a `falha`, e a 04 ganha o *O QUE CONFERIR* (`CausasDaFalha`);
+  - as cinco referências da T05 batem: 0% na 00, 01, 02 e 04, e 0,1% na 06, o link apagado;
+  - os 43 roteiros aprovados (`portas`, `busca` e `mov-t07` atualizados) e o GIF regravado.
+- **os desvios nomeados** (o gate, §3):
+  - o bloco escolhido segue no protótipo porque a T06 o desenha (01, 10 e 11): o censo dá 104, e o desenho usa 105;
+  - a pendência do tempo-limite entrou em `08-para-o-dev/o-que-o-produto-ainda-decide.md`, e não em `08-produto-real/pendencias.md`, que não existe mais.
+
 ## 2026-10-04 · o pé do painel do palco
 
 - **o `Recomeçar do login` saiu** (o diretor): ele repetia a T01 do painel — os dois zeram o estado único e abrem o login, porque a semente da T01 é vazia · decisão 25 revista

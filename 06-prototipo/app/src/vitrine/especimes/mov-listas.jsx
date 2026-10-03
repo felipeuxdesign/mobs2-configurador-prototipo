@@ -19,7 +19,7 @@ import { TX as T02 } from '../../telas/T02/textos.js'
 import { filtrar as filtrarUnidades, gruposDo } from '../../telas/T02/garagens.js'
 import { doPacote, modeloDe, filtrar as filtrarOnibus, contagemDoPacote } from '../../telas/T06/dados.js'
 import { TX as T05 } from '../../telas/T05/textos.js'
-import { porPerto, varianteNaLista, firmwareDe, HEROI } from '../../telas/T05/dados.js'
+import { porPerto, varianteNaLista, HEROI } from '../../telas/T05/dados.js'
 import { T as T15 } from '../../telas/T15/textos.js'
 import { quadroDoEstado, grupos as gruposDaFila, linhaDaLista } from '../../telas/T15/dados.js'
 import '../../telas/T02/T02.css'
@@ -165,7 +165,7 @@ function Modulos() {
         {/* a errata do pacote 1: as cinco se escolhem, o M2C-0999 também, e todas levam a divisória (T05/01) */}
         {perto.map((p) => (
           <LinhaModulo key={p.serial} escolha serial={p.serial} variante={varianteNaLista(p.serial)}
-            rotuloValor={T05.rotuloFirmware} valor={firmwareDe(p.serial)} marcado={p.serial === marcado} aoTocar={() => setMarcado(p.serial)} />
+            marcado={p.serial === marcado} aoTocar={() => setMarcado(p.serial)} />
         ))}
       </Lista>
       <Controles>

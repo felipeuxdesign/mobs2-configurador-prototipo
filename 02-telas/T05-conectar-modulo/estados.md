@@ -4,7 +4,7 @@
 
 | Referência | Tipo | Como se chega · o que causa | Caso do mock |
 |---|---|---|---|
-| `00-tela` | tela | a entrada da tela | quatro módulos por perto · M2C-0417 é o do herói |
+| `00-tela` | tela | tocar num módulo da lista: a linha marca e o `Conectar ao …` acende | cinco módulos por perto · o M2C-0417 marcado, o do herói |
 | `01-momento-nenhum-escolhido` | momento | a busca achou, nada tocado ainda | `modulos` |
 | `02-momento-um-encontrado` | momento | só um módulo por perto | `modulos` |
 | `03-estado-nenhum-encontrado` | estado | nenhum módulo responde | `busca-vazia` |

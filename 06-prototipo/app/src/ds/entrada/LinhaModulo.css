@@ -20,3 +20,7 @@
 .ds-linha-modulo-coluna { flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: var(--e-2); }
 .ds-linha-modulo-rotulo { font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--tinta-apagada); }
 .ds-linha-modulo-valor { font-size: var(--t-corpo); font-weight: 700; color: var(--tinta-secundaria); }
+
+/* o pacote 7 · a linha marcada da T05: o número em --tinta; e a falha à direita (04), em vermelho */
+.ds-linha-modulo-escolha[aria-checked="true"] .ds-linha-modulo-serial { color: var(--tinta); }
+.ds-linha-modulo-falha { flex-shrink: 0; font-size: var(--t-secundario); font-weight: 700; color: var(--vermelho); }

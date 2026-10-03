@@ -22,6 +22,7 @@ O que **não é de desenho** e o produto ainda decide. O protótipo seguiu o pad
 | T14 | se o evento falhar de novo: *confira a conexão do módulo* | aparece na segunda falha |
 | T06 | no conflito de pinos com saída, `Usar leitor sem fio` resolve ali, ou a saída é reconectar o módulo sem fio, como a HU-T06-5 e o domínio dizem (T06-N1)? | resolve ali: a sessão passa a sem fio e o mesmo ônibus segue pra confirmação (T06·4) |
 | T01 | o `Entrar` espera o servidor: qual é o tempo limite, e o que a tela diz quando ele estoura? | o protótipo espera 1,2 s (*Entrando…*, o primário desabilitado, como o semear da T10) e entra sempre; sem tempo limite, porque o servidor é de mentira (decisão do diretor, 27/09) |
+| T05 | o tempo-limite da conexão: quanto o app espera o módulo responder antes do *não respondeu*? | 15 s (o pacote 7) · o protótipo simula 1,2 s (*Conectando ao …*, o primário desligado) |
 | T01 | o celular e o e-mail do técnico aparecem mascarados antes do login? | mascarados: `(81) •••••-8675` e `r•••••@atlsul.com.br` |
 | T01 | a espera de 60 s do reenvio vale também pra trocar de canal? | vale: qualquer envio novo espera |
 | T15 | depois de quanto tempo a fila parada vira notificação? | 30 min |

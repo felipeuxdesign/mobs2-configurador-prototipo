@@ -193,9 +193,9 @@ export default [
   { ve: 'Escolha o que está na sua mão.' },
   { naoVe: 'Procurando…' },
   { desligado: 'Conectar' },
-  // da 00 também: o *Procurando…*, e a lista sem nada escolhido
+  // da 00 também (a lista marcada, o pacote 7): o *Procurando…*, e a lista sem nada escolhido
   { abre: '?tela=T05' },
-  { ve: 'ESCOLHIDO' },
+  { ve: 'Conectar ao M2C-0417' },
   { toca: 'Procurar de novo' },
   { chega: 'T05', momento: '05-momento-procurando' },
   { chega: 'T05', momento: '01-momento-nenhum-escolhido' },

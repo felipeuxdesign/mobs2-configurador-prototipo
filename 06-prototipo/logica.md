@@ -76,7 +76,7 @@ Pular direto pra uma tela pelo painel monta o estado mínimo que ela precisa pra
 
 ## As portas naturais
 
-Tocar num módulo ou ônibus da lista que é **caso do mock** abre o estado dele, igual ao que o técnico veria no mundo. Na T05, tocar no M2C-0999 conecta, e o diagnóstico abre travado pelo serial fora do cadastro; na T06, tocar num ônibus de outra unidade abre o fora do pacote. A coluna do palco sempre funciona também.
+Tocar num módulo ou ônibus da lista que é **caso do mock** abre o estado dele, igual ao que o técnico veria no mundo. Na T05, marcar o M2C-0999 e conectar abre o diagnóstico travado pelo serial fora do cadastro; na T06, tocar num ônibus de outra unidade abre o fora do pacote. A coluna do palco sempre funciona também.
 
 - **no protótipo** (a R-14 do diretor, de 24/09, que vence a R-11 do pacote, da cópia de antes): tocar na linha **só marca**, e o estado aparece quando o técnico aperta o botão — o `Conectar ao …` na T05, o `Usar este ativo` na T06
 - **o M2C-0999 se toca** (a errata): na T05/01 ele é uma linha como as outras, com *VL06 · CAN-BT · FIRMWARE 2.3.5*, de `naBuscaForaCadastro`; conectar nele leva à T07/02, travado pelo serial fora do cadastro. A T05/00 e a 04, que a errata não refez, ainda o desenham *não cadastrado* e sem toque, e o protótipo segue cada referência (pro arquiteto)

@@ -74,17 +74,7 @@ export const especimes = [
     render: () => <Lista><LinhaModulo serial="M2C-0362" variante="VL06 · CAN" /></Lista> },
   { id: 'f6-linha-onibus', folha: 6, rotulo: 'linha de ônibus', legenda: 'placa, modelo e frota · T06',
     render: () => <LinhaOnibus placa="RKT-8H42" modelo="Ônibus urbano OF-1621" rotuloFrota="FROTA" frota="1003" /> },
-  { id: 'f6-escolhido', folha: 6, rotulo: 'bloco escolhido', legenda: 'traço lima embaixo = escolhido',
-    render: () => <BlocoEscolhido rotulo="ESCOLHIDO" identidade="M2C-0417" detalhe="VL06 · CAN-BT · firmware 2.3.5" /> },
-  { id: 'f6-escolhido-trava', folha: 6, rotulo: 'escolhido com trava', legenda: 'a falha mora no escolhido · T05',
-    render: () => (
-      <BlocoEscolhido falha rotulo="NÃO RESPONDEU" identidade="M2C-0301" detalhe="VL06 · FULL · firmware 2.3.5"
-        passos={[
-          { titulo: '1 · Cabo e conector', texto: '— encaixe firme' },
-          { titulo: '2 · Alimentação', texto: '— energia chegando' },
-          { titulo: '3 · Cadastro', texto: '— serial e modelo conferem' },
-        ]} />
-    ) },
+  // o pacote 7: o bloco escolhido e o escolhido com trava da T05 saíram da folha 6 (a T05 é a lista marcada)
   { id: 'f6-escolhido-trava-t06', folha: 6, rotulo: 'escolhido com trava · T06', legenda: 'a placa com o motivo embaixo',
     render: () => (
       <BlocoEscolhido falha rotulo="FORA DO PACOTE DESTA UO" identidade="ONK-8Q90" detalhe="frota 1048 · Caminhão coletor 17.230"

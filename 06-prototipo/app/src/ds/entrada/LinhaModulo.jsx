@@ -14,7 +14,8 @@ import './LinhaModulo.css'
 
 // `marcado` (diretor, 24/09): na lista de escolha, tocar marca o módulo (o quadrado lima)
 //   e quem avança é o primário — a linha não navega.
-export function LinhaModulo({ serial, variante, aoTocar, rotulo, apagada = false, divisoria = true, escolha = false, marcado = false, rotuloValor, valor, fim = false }) {
+// O pacote 7 (T05/04) · `falha`: a linha do módulo que não respondeu diz isso à direita, em vermelho
+export function LinhaModulo({ serial, variante, aoTocar, rotulo, apagada = false, divisoria = true, escolha = false, marcado = false, rotuloValor, valor, falha, fim = false }) {
   const classe = [
     'ds-linha-modulo', escolha ? 'ds-linha-modulo-escolha' : '', apagada ? 'ds-linha-modulo-apagada' : '',
     divisoria ? '' : 'ds-sem-divisoria', fim ? 'ds-linha-modulo-fim' : '',
@@ -26,6 +27,7 @@ export function LinhaModulo({ serial, variante, aoTocar, rotulo, apagada = false
         <span className="ds-linha-modulo-serial">{serial}</span>
         <span className="ds-linha-modulo-variante">{variante}</span>
       </span>
+      {falha != null && <span className="ds-linha-modulo-falha">{falha}</span>}
       {valor != null && (
         <span className="ds-linha-modulo-coluna">
           <span className="ds-linha-modulo-rotulo">{rotuloValor}</span>

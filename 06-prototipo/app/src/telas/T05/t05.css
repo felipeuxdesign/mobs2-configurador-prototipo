@@ -14,6 +14,8 @@
 
 /* as listas não encolhem: quem cede espaço é o bloco escolhido (flex-grow) */
 .t05-lista { flex-shrink: 0; }
+/* o pacote 7: 16 embaixo da lista, antes do nenhum outro (02) e do que conferir (04), como as referências desenham */
+.t05 .t05-lista { margin-bottom: var(--e-16); }
 
 /* o rótulo de bloco em cima dos outros módulos por perto */
 .t05-rotulo-bloco {

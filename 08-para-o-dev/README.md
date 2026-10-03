@@ -8,7 +8,7 @@ Esta pasta é pra quem vai construir o App Configurador de verdade. O protótipo
 |---|---|
 | **entender o produto** | `01-produto/historia.md` → `usuario.md` → `dominio.md` → `historias.md` (105 histórias) → `fluxos.md` |
 | **construir uma tela** | a ficha da tela em `02-telas/<tela>/` (`tela.md`, `estados.md`, `animacao.md`, `textos.md`) → as referências HTML e PNG dela → as peças que ela usa em `03-design-system/componentes.md` → `contrato-de-dados.md`, nesta pasta |
-| **montar o design system** | `03-design-system/tokens.css` (295 tokens; o `tokens.json` é gerado dele, em formato neutro) → `leis.md` (24 leis) → `componentes.md` (106 peças) → `movimento.md` → as oito folhas em `referencias/` |
+| **montar o design system** | `03-design-system/tokens.css` (295 tokens; o `tokens.json` é gerado dele, em formato neutro) → `leis.md` (24 leis) → `componentes.md` (104 peças) → `movimento.md` → as oito folhas em `referencias/` |
 | **integrar com o módulo, a CAN e o servidor** | `integracoes.md`, nesta pasta → `04-dados/mocks.js` (o formato que cada integração tem que entregar) |
 | **testar** | `testes-prontos.md` e `conferir-contra-o-design.md`, nesta pasta |
 | **saber o porquê de uma escolha** | `07-decisoes/` (54 decisões, com o que foi descartado) |

@@ -687,7 +687,7 @@
       "tipo": "tela",
       "nome": "00-tela",
       "titulo": "T05 Conectar modulo",
-      "como": "entrada",
+      "como": "tocar num módulo da lista: a linha marca e o Conectar acende",
       "caso": "",
       "html": "02-telas/T05-conectar-modulo/referencias/html/00-tela.html",
       "png": "02-telas/T05-conectar-modulo/referencias/png/00-tela.png"

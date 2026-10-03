@@ -56,9 +56,9 @@
 // coluna, parados: o toque se prova no node (scripts/testar-login-e-bluetooth.mjs)
 import { Fragment, useEffect, useRef, useState } from 'react'
 import {
-  BarraDoSistema, Rodape, CabecalhoConteudo, BlocoEscolhido, Lista, LinhaModulo, Nota, useTrocaDeQuadro,
+  BarraDoSistema, Rodape, CabecalhoConteudo, Lista, LinhaModulo, Nota, useTrocaDeQuadro,
 } from '../../ds/index.js'
-import { VazioDaBusca } from './pecas.jsx'
+import { VazioDaBusca, CausasDaFalha } from './pecas.jsx'
 import { quadroDoCelular, textosDoCelular, depoisDoPedido } from './celular.js'
 import { useEstado, estadoVazio } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
@@ -67,7 +67,7 @@ import { RECEITAS } from '../../estado/receitas.js'
 import { M } from '../../dados/mock.js'
 import { TX } from './textos.js'
 import {
-  porPerto, soOHeroi, HEROI, varianteNaLista, detalheDoEscolhido, firmwareDe, sessaoNova,
+  porPerto, soOHeroi, HEROI, varianteNaLista, sessaoNova,
   casosDoModulo, buscaVazia, serialDaFalha, pertoComFalha, CASO_BUSCA_VAZIA, CASO_CONEXAO,
 } from './dados.js'
 import './t05.css'
@@ -122,7 +122,8 @@ export default function T05({ momento, estado: est }) {
   // embaixo): entre quadros, só a troca de quadro esmaece, e o texto do primário não esmaece
   // uma segunda vez por dentro dela (C12·23, a nota da T01: dentro do quadro, o texto; entre
   // quadros, a troca)
-  const quadro = q.fase === 'busca' ? (q.escolhido ? 'escolhido' : 'lista') : q.fase
+  // o pacote 7: a busca é um desenho só, a lista — marcar, conectar e a falha mudam a linha e o rodapé, não a tela
+  const quadro = q.fase
   useTrocaDeQuadro(quadro)
   // o caso que acontece agora fica consumido na sessão (G21); num estado da coluna, nada se grava
   const consumir = (...ids) => {
@@ -135,16 +136,15 @@ export default function T05({ momento, estado: est }) {
   // tocasse, cada toque parte do quadro que está na tela (q) e vira fluxo ──
   // na lista (01), tocar num módulo só o marca; o 'Conectar ao …' acende e é
   // ele que conecta (diretor, 24/09: escolher numa lista marca, quem avança é o botão)
-  const [marcado, setMarcado] = useState(null)
+  // o pacote 7: o escolhido é a linha marcada, em toda a T05 — a marca nova tira a falha da 04
   function escolher(serial) {
     if (fluxo.conectando) return // conectando, a lista fica, sem responder
-    setFluxo((f) => ({ ...f, escolhido: serial }))
-    if (momento) ir('T05') // o escolhido é a 00, a tela: a URL segue
+    setFluxo((f) => ({ ...f, escolhido: serial, trava: false }))
+    if (momento) ir('T05') // marcar é a 00, a tela: a URL segue
   }
   // a busca de novo (tela.md: a busca da T05/00 corre de novo, e a lista volta):
   // o *Procurando…* (05), com a URL dizendo a 05, e depois de RITMOS.buscaMs a lista sem nada escolhido (01)
   function procurar() {
-    setMarcado(null)
     setFluxo(procurando((q.tentativa ?? 1) + 1, true))
     ir('T05', { momento: M05 })
   }
@@ -166,12 +166,11 @@ export default function T05({ momento, estado: est }) {
   const espera = useRef(null)
   useEffect(() => () => clearTimeout(espera.current), [])
   function conectando(serial, depois, trava = false) {
-    setMarcado(null)
     setFluxo({ ...busca(q.fase === 'busca' ? q.perto : porPerto(), serial, trava), conectando: true })
     ir('T05', { momento: M06 })
     espera.current = setTimeout(depois, RITMOS.buscaMs)
   }
-  function conectar(serial = marcado ?? q.escolhido) {
+  function conectar(serial = q.escolhido) {
     if (fluxo.conectando) return
     const falha = casosDoModulo(serial, vivo.current.estado.casosConsumidos).includes(CASO_CONEXAO)
     conectando(serial, () => {
@@ -241,55 +240,30 @@ export default function T05({ momento, estado: est }) {
     rodape = <Rodape primario={TX.procurarDeNovo} aoPrimario={procurar} link={TX.voltarAoMenu} aoLink={voltar} />
   } else {
     const { perto, escolhido, trava } = q
-    const outros = perto.filter((p) => p.serial !== escolhido)
-    const cabeca = <CabecalhoConteudo titulo={TX.titulo} contagem={perto.length} unidade={TX.encontrados(perto.length)} />
-    if (escolhido) {
-      // 00 · 02 · 04 · os outros por perto, todos tocáveis: o M2C-0999, fora do cadastro, é uma
-      // linha como as outras, com o que ele informa na busca, e a última também com a divisória
-      // (o complemento do pacote 2 refez a 00 e a 04)
-      miolo = (
-        <>
-          {cabeca}
-          {trava
-            ? <BlocoEscolhido falha rotulo={TX.naoRespondeu} identidade={escolhido} detalhe={detalheDoEscolhido(escolhido)} passos={TX.conferir} />
-            : <BlocoEscolhido rotulo={TX.escolhido} identidade={escolhido} detalhe={detalheDoEscolhido(escolhido)} />}
-          {outros.length > 0 ? (
-            <>
-              {TX.outrosPorPerto[outros.length] && <span className="t05-rotulo-bloco">{TX.outrosPorPerto[outros.length]}</span>}
-              <Lista className="t05-lista">
-                {outros.map((p) => (
-                  <LinhaModulo key={p.serial} serial={p.serial} variante={varianteNaLista(p.serial)} aoTocar={() => escolher(p.serial)} divisoria />))}
-              </Lista>
-            </>
-          ) : (
-            <Nota titulo={TX.nenhumOutro} frase={TX.seNaoForEste} />
-          )}
-        </>
-      )
-      rodape = q.conectando
-        ? <Rodape primario={TX.conectandoAo(escolhido)} primarioDesabilitado primarioTrocaTexto link={TX.procurarDeNovo} linkDesabilitado />
-        : trava
-        ? <Rodape primario={TX.tentarDeNovo} aoPrimario={tentarDeNovo} link={TX.procurarDeNovo} aoLink={procurar} />
-        : <Rodape primario={TX.conectarAo(escolhido)} aoPrimario={() => conectar()} primarioTrocaTexto link={TX.procurarDeNovo} aoLink={procurar} />
-    } else {
-      // 01 · a lista de escolha: as cinco linhas iguais, com a divisória embaixo de cada uma,
-      // a última também (a referência da errata: 72 e o traço, sem a folga de 76 do fim)
-      miolo = (
-        <>
-          {cabeca}
-          <span id="t05-escolha" className="t05-frase">{TX.escolhaNaMao}</span>
-          <Lista className="t05-lista" surge={!!q.achou} role="radiogroup" aria-labelledby="t05-escolha">
-            {perto.map((p) => (
-              <LinhaModulo key={p.serial} escolha serial={p.serial} variante={varianteNaLista(p.serial)}
-                rotuloValor={TX.rotuloFirmware} valor={firmwareDe(p.serial)} marcado={p.serial === marcado} aoTocar={() => setMarcado(p.serial)} />
-            ))}
-          </Lista>
-        </>
-      )
-      rodape = marcado
-        ? <Rodape primario={TX.conectarAo(marcado)} aoPrimario={() => conectar(marcado)} primarioTrocaTexto link={TX.procurarDeNovo} aoLink={procurar} />
-        : <Rodape legenda={TX.escolhaUm} primario={TX.conectar} primarioDesabilitado primarioTrocaTexto link={TX.procurarDeNovo} aoLink={procurar} />
-    }
+    // O pacote 7: a T05 numa lista só. As cinco linhas iguais, só o número e o modelo (o firmware
+    // é do diagnóstico), com a divisória embaixo de cada uma; o escolhido é a linha marcada (00),
+    // e com um módulo só ele já vem marcado, com o nenhum outro embaixo (02). Na falha (04), a
+    // linha dele diz não respondeu, e o que conferir vem embaixo da lista; no Conectando… (06),
+    // só o texto do botão muda
+    miolo = (
+      <>
+        <CabecalhoConteudo titulo={TX.titulo} contagem={perto.length} unidade={TX.encontrados(perto.length)} />
+        <span id="t05-escolha" className="t05-frase">{TX.escolhaNaMao}</span>
+        <Lista className="t05-lista" surge={!!q.achou} role="radiogroup" aria-labelledby="t05-escolha">
+          {perto.map((p) => (
+            <LinhaModulo key={p.serial} escolha serial={p.serial} variante={varianteNaLista(p.serial)}
+              marcado={p.serial === escolhido} falha={trava && p.serial === escolhido ? TX.naoRespondeu : undefined}
+              aoTocar={() => escolher(p.serial)} />
+          ))}
+        </Lista>
+        {perto.length === 1 && <Nota titulo={TX.nenhumOutro} frase={TX.seNaoForEste} />}
+        {trava && <CausasDaFalha rotulo={TX.oQueConferir} causas={TX.conferir} />}
+      </>
+    )
+    if (q.conectando) rodape = <Rodape primario={TX.conectandoAo(escolhido)} primarioDesabilitado primarioTrocaTexto link={TX.procurarDeNovo} linkDesabilitado />
+    else if (trava) rodape = <Rodape primario={TX.tentarDeNovo} aoPrimario={tentarDeNovo} primarioTrocaTexto link={TX.procurarDeNovo} aoLink={procurar} />
+    else if (escolhido) rodape = <Rodape primario={TX.conectarAo(escolhido)} aoPrimario={() => conectar()} primarioTrocaTexto link={TX.procurarDeNovo} aoLink={procurar} />
+    else rodape = <Rodape legenda={TX.escolhaUm} primario={TX.conectar} primarioDesabilitado primarioTrocaTexto link={TX.procurarDeNovo} aoLink={procurar} />
   }
 
   return (

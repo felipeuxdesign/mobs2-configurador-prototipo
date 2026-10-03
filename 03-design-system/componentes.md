@@ -37,7 +37,7 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 
 | Peça | Regra | Telas que usam |
 |---|---|---|
-| escolha numa lista | o quadrado lima cheio é o escolhido | T01 T02 T09 |
+| escolha numa lista | o quadrado lima cheio é o escolhido | T01 T02 T05 T09 |
 | ainda não | círculo apagado · valor em traço | T07 |
 | espera | tracejado · a causa no lugar da ação | T04 |
 
@@ -109,8 +109,6 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 | linha de opção | o ícone, o que faz, e pra onde | T01 T05 T06 T07 T09 T15 |
 | linha de módulo | serial e variante · T05 | T05 |
 | linha de ônibus | placa, modelo e frota · T06 | T05 T06 |
-| bloco escolhido | traço lima embaixo = escolhido | T05 |
-| escolhido com trava | a falha mora no escolhido · T05 | T05 |
 | escolhido com trava · T06 | a placa com o motivo embaixo | T06 |
 | cartão que pede ação | o erro que precisa dele | T15 |
 | botão secundário | fundo --elevado · a ação da linha | T15 |
@@ -255,7 +253,8 @@ Cada linha é um espécime de moldura das folhas, e a folha 3 soma quatro linhas
 | justificativa | o não conforme com o porquê · a caixa, nas duas telas do item (decisão 39): o checkbox com o título *Não está conforme* em 14/600 e a linha de baixo em 12 --tinta-secundaria, a 2 — desmarcada, *marque e conte o que aconteceu* (T13/07); marcada, *conte embaixo o que aconteceu* e o campo *O QUE ACONTECEU* (T13/08, 15) · é a variante do checkbox com a linha de baixo · antes, um cartão virava a caixa no toque | T13 |
 | linha de módulo | serial e variante · T05 · variante: a última da lista, 56 (T05) · variante: a lista de escolha, o marcador vazado de 11 no poço de 30, o serial em cima da variante e o firmware à direita, 72, todas com a divisória, a última também (T05/01, a errata do pacote 1; a última de 76 saiu) | T05 |
 | linha de ônibus | placa, modelo e frota · T06 · a última da lista com os 72 das outras, só sem a divisória (T06/00 · a entrega do checklist: saiu a de 78) · variante: escolha, tocar marca o quadrado lima e o primário avança, e o leitor de tela lê a escolha (T06) | T06 |
-| bloco escolhido | traço lima embaixo = escolhido · variante: justo, não cresce e fica em cima dos dados do modelo, 22 em cima e embaixo — antes, em cima do chassi; a T06/01 do pacote 1 mantém os 22 (T06) | T05 T06 |
+| bloco escolhido | traço lima embaixo = escolhido · variante: justo, não cresce e fica em cima dos dados do modelo, 22 em cima e embaixo — antes, em cima do chassi; a T06/01 do pacote 1 mantém os 22 (T06) | T06 |
+| | **o pacote 7** · a T05 deixou de usar o bloco escolhido e o escolhido com trava (a lista marcada, numa estrutura só), e a folha 6 nova tirou os dois · o bloco escolhido segue no protótipo porque a T06 o desenha (01, 10 e 11: *ESCOLHIDO* com a placa) — o desvio do censo está no gate do pacote 7 | T06 |
 | escolhido com trava · T06 | a placa com o motivo embaixo · variante: neutro, a trava que tem saída, o rótulo cinza e o traço neutro (T06) | T06 |
 | cartão que pede ação | o erro que precisa dele · variante: compacto, com mais de um erro, o título de 17, a causa de 13 e o botão compacto num bloco com a divisória embaixo, e depois dele o que a tela põe (T15) | T15 |
 | botão secundário | fundo --elevado · a ação da linha · variante: compacto, 46 de desenho e 15 de letra, com o toque de 48 por fora (T15) | T15 |

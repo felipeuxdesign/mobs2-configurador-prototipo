@@ -6,15 +6,9 @@ export const TX = {
   // a busca · 00, 01 e 02
   titulo: 'Conectar módulo',
   encontrados: (n) => (n === 1 ? 'encontrado' : 'encontrados'),
-  escolhido: 'ESCOLHIDO',
-  firmwareNoDetalhe: (fw) => `firmware ${fw}`,
-  // o rótulo dos outros módulos, pela quantidade: só o que o textos.md escreve
-  // (a lista do mock acha cinco; com outra contagem, o rótulo fica sem texto, G25)
-  outrosPorPerto: { 4: 'OUTROS QUATRO POR PERTO' },
   nenhumOutro: 'NENHUM OUTRO POR PERTO',
   seNaoForEste: 'Se não for este, aproxime o aparelho do módulo e procure de novo.',
   escolhaNaMao: 'Escolha o que está na sua mão.',
-  rotuloFirmware: 'FIRMWARE',
   escolhaUm: 'Escolha um módulo para continuar',
   conectar: 'Conectar',
   conectarAo: (serial) => `Conectar ao ${serial}`,
@@ -43,7 +37,8 @@ export const TX = {
   qualTentativa: (tentativa) => (TX.tentativa[tentativa] ? `${TX.tentativa[tentativa]} tentativa` : null),
 
   // 04 · a conexão falhou (conexao-falha): a trava mora no escolhido
-  naoRespondeu: 'NÃO RESPONDEU',
+  naoRespondeu: 'não respondeu',   // o pacote 7: na linha do módulo, em vermelho
+  oQueConferir: 'O QUE CONFERIR',
   conferir: [
     { titulo: '1 · Cabo e conector', texto: '— encaixe firme' },
     { titulo: '2 · Alimentação', texto: '— energia chegando' },

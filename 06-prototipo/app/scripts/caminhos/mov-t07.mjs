@@ -45,7 +45,7 @@ const CONECTA = (serial) => [
   { quieto: true },
   { marca: serial },
   { dorme: 250 },
-  { toca: `Conectar ao ${serial}`, anima: TROCA, naoAnima: BARRA },
+  { toca: `Conectar ao ${serial}`, naoAnima: BARRA },   // o Conectando… (o pacote 7: só o texto do botão)
   { chega: 'T07', momento: null },
 ]
 

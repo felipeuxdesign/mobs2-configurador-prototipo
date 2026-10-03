@@ -3,7 +3,6 @@
 // de M. A T05 só conecta (decisão 44): o que o módulo é e como ele está, o
 // diagnóstico mostra logo depois (T07).
 import { M } from '../../dados/mock.js'
-import { TX } from './textos.js'
 
 // ── a busca (AC-06) ──
 // os módulos por perto, na ordem da referência, o herói primeiro (gate P·C6)
@@ -22,10 +21,9 @@ export const cadastrado = (serial) => moduloDe(serial) != null
 const informado = (serial) => moduloDe(serial) ?? M.naBuscaForaCadastro[serial]
 const modeloDe = (mod) => M.modelos.find((m) => m.id === mod.modeloId)
 
-// 'VL06 · CAN-BT' (a linha da busca) · 'VL06 · CAN-BT · firmware 2.3.5' (o escolhido)
+// 'VL06 · CAN-BT': o modelo e a variante, na linha da busca
 export const varianteNaLista = (serial) => { const m = informado(serial); return `${modeloDe(m).nome} · ${m.variante}` }
-export const detalheDoEscolhido = (serial) => `${varianteNaLista(serial)} · ${TX.firmwareNoDetalhe(informado(serial).firmware)}`
-export const firmwareDe = (serial) => informado(serial).firmware
+// o pacote 7: o firmware saiu das linhas da T05 — é do diagnóstico (T07)
 
 // a sessão que nasce na conexão (logica.md · O estado único; o padrão aprovado no gate do
 // pacote 1): o módulo, sem ativo ainda, aberta na hora nominal, com o meio em que a busca o

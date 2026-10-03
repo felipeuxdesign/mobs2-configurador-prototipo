@@ -2,6 +2,17 @@
 // desenha e não tem linha no componentes.md. Montadas com o que o design
 // system já tem (a caixa de poço, Lei 4), só com tokens.
 import { Poco, Icone, Glifo } from '../../ds/index.js'
+
+// 04 (o pacote 7): o que conferir quando o módulo não responde — a caixa de poço com o traço
+// vermelho, o rótulo e as três causas, embaixo da lista (o nome e o porquê de cada uma)
+export function CausasDaFalha({ rotulo, causas }) {
+  return (
+    <div className="t05-causas ds-caixa-poco ds-caixa-falha">
+      <span className="t05-causas-rotulo">{rotulo}</span>
+      {causas.map((c) => <span key={c.titulo} className="t05-causa"><span className="t05-causa-titulo">{c.titulo}</span> {c.texto}</span>)}
+    </div>
+  )
+}
 import './pecas.css'
 
 // 03 · o bloco do nenhum encontrado: a caixa de poço que cresce e ocupa o
