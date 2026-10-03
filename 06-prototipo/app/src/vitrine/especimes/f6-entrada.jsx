@@ -74,7 +74,9 @@ export const especimes = [
     render: () => <Lista><LinhaModulo serial="M2C-0362" variante="VL06 · CAN" /></Lista> },
   { id: 'f6-linha-onibus', folha: 6, rotulo: 'linha de ônibus', legenda: 'placa, modelo e frota · T06',
     render: () => <LinhaOnibus placa="RKT-8H42" modelo="Ônibus urbano OF-1621" rotuloFrota="FROTA" frota="1003" /> },
-  // o pacote 7: o bloco escolhido e o escolhido com trava da T05 saíram da folha 6 (a T05 é a lista marcada)
+  // o pacote 7 tirou da folha 6 o escolhido com trava da T05; o pacote 8 devolveu o bloco escolhido, como peça da T06
+  { id: 'f6-escolhido', folha: 6, rotulo: 'bloco escolhido', legenda: 'traço lima embaixo = o escolhido, na hora de confirmar · T06',
+    render: () => <BlocoEscolhido justo rotulo="ESCOLHIDO" identidade="RKT-8H42" detalhe="frota 1003" /> },
   { id: 'f6-escolhido-trava-t06', folha: 6, rotulo: 'escolhido com trava · T06', legenda: 'a placa com o motivo embaixo',
     render: () => (
       <BlocoEscolhido falha rotulo="FORA DO PACOTE DESTA UO" identidade="ONK-8Q90" detalhe="frota 1048 · Caminhão coletor 17.230"

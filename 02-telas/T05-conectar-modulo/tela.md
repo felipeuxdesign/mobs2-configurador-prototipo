@@ -50,6 +50,7 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - com contador
 - linha de opção
 - linha de módulo
+- escolha numa lista
 - linha de ônibus
 - lista com contagem
 - linha da fila

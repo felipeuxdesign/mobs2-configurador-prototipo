@@ -1,5 +1,10 @@
 # Registro de mudanças
 
+## 2026-10-04 · o pacote 8 — o bloco escolhido volta, como peça da T06
+
+- **o bloco escolhido volta à folha 6, como peça da T06**: o pacote 7 tirou ele como se fosse só da T05, mas a T06 desenha ele em três telas — confirmar o veículo, módulo em outro ativo e módulo já deste ativo · ali não é escolher numa lista: o técnico já escolheu, e a tela mostra o veículo grande pra confirmar o vínculo, com placa, frota, fabricante e modelo · o recorte agora vem da T06 · **104 → 105 peças**
+- **a ficha da T05** deixa de citar o *bloco escolhido* e o *escolhido com trava*, e passa a citar a *escolha numa lista*
+
 ## 2026-10-04 · o pacote 7 — a T05 numa lista só
 
 - **o módulo escolhido é a linha marcada, em toda a T05**: desde a decisão de 24/09, escolher numa lista marca e quem avança é o botão · a 00 ainda era o bloco grande, *ESCOLHIDO*, de antes dessa decisão, e a 06 e a 04 estavam desenhadas em cima dele — tocar em *Conectar* trocava a estrutura da tela no meio da conexão · agora a **00** é a lista com o M2C-0417 marcado e o *Conectar ao M2C-0417* aceso, a **02** é a lista com o único módulo já marcado, a **06** é a mesma lista com o botão dizendo *Conectando ao M2C-0417…*, e a **04** é a lista com o M2C-0301 marcado dizendo *não respondeu*, as três causas embaixo e o *Tentar de novo*
