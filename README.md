@@ -33,22 +33,6 @@ O protótipo roda no navegador e anda só por toque, do login ao encerramento. N
 
 No celular, o app ocupa a tela inteira.
 
-## O design system
-
-<p align="center">
-  <img src="05-recursos/readme/design-system-paleta.png" alt="A paleta do design system, com o nome de cada token" width="720">
-</p>
-
-<p align="center">
-  <img src="03-design-system/referencias/png/folha-5-instrumentos-cadeia-processo.png" alt="A folha de processo, tempo e placar: a cadeia de gravação, os cronômetros e o placar do checklist" width="720">
-</p>
-
-| tokens | peças | leis | folhas desenhadas |
-|---|---|---|---|
-| 295 | 106 | 23 | 8 |
-
-Tudo está em [`03-design-system/`](03-design-system/): os tokens em `tokens.css` (com o `tokens.json` gerado em formato neutro), as leis visuais e de produto em `leis.md`, o movimento em `movimento.md`, as peças em `componentes.md` e as oito folhas em `referencias/`.
-
 ## Como foi construído
 
 Cada tela, momento e estado tem uma referência desenhada, em HTML e PNG — 142 ao todo. O protótipo foi construído contra elas e comparado pixel a pixel; toda diferença que sobrou tem um nome e um motivo registrados. A comparação final, com cada referência ao lado do protótipo, está em [`06-prototipo/para-o-arquiteto/conferencia-final/`](06-prototipo/para-o-arquiteto/conferencia-final/).
