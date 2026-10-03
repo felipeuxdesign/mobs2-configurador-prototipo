@@ -8,9 +8,13 @@ App Android para o técnico de campo instalar e homologar rastreadores em ônibu
 
 <p align="center"><b><a href="https://configurador-mobs2-prototipo.vercel.app">Abrir o protótipo →</a></b></p>
 
+## O problema
+
+Um rastreador mal instalado não avisa: o ônibus sai rodando com o módulo errado, a configuração de outro veículo ou um sensor que não lê, e o erro só aparece depois, no dado. Quem instala é o técnico de campo, dentro do ônibus, **de luva, com pressa e às vezes no sol**, com o motorista esperando pra sair — e a prova de que ficou certo não pode depender do que ele anota.
+
 ## O que o app faz
 
-O técnico chega ao ônibus com um módulo rastreador e precisa deixá-lo instalado, configurado e provado. O app conduz isso em sequência:
+O app conduz a instalação em sequência e prova cada passo:
 
 1. **Sincroniza** o pacote da unidade — os ônibus, as conexões, os modelos, os eventos e as cercas — pra trabalhar mesmo sem rede.
 2. **Conecta** ao módulo por Bluetooth ou cabo.
@@ -21,7 +25,7 @@ O técnico chega ao ônibus com um módulo rastreador e precisa deixá-lo instal
 7. **Roda o ciclo de testes** com o ônibus parado: ignição, rotação, ré, porta e cartão do motorista.
 8. **Fecha o checklist** de 31 itens — o app confere o que consegue sozinho e o técnico fotografa o resto — e encerra a sessão.
 
-A regra que atravessa tudo: **a evidência é gerada pelo sistema, nunca digitada.** O técnico trabalha de luva, com pressa e às vezes no sol, e as telas foram desenhadas pra isso — áreas de toque de 48, nada a menos de 8 px do vizinho, contraste medido no fundo real.
+A regra que atravessa tudo: **a evidência é gerada pelo sistema, nunca digitada.** E as telas foram desenhadas pra luva e pro sol: áreas de toque de 48, nada a menos de 8 px do vizinho, contraste medido no fundo real.
 
 ## O protótipo
 
