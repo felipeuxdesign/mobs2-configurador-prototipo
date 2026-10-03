@@ -12,7 +12,7 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 
 | Peça | Regra | Telas que usam |
 |---|---|---|
-| barra do sistema | desenho do Android · não é do app · o Bluetooth com o módulo conectado · sem internet, o sinal apaga e o Wi-Fi some | T06 T07 T09 T10 T11 T12 T13 T14 T15 T16 |
+| barra do sistema | não é do app · cenário fixo: a barra oficial do Android, com o 9:30 · o espaço da câmera reservado, sem desenhar | T06 T07 T09 T10 T11 T12 T13 T14 T15 T16 |
 | barra do sistema no menu | sobre o fundo da tira | T04 |
 | barra do sistema sem sessão | a cor da página — ela sangra no que vem embaixo | T01 T02 T03 T07 |
 | faixa · sessão aberta | LED lima, serial, placa e o ENCERRAR | T06 T07 T09 T10 T11 T12 T13 T14 T15 |
@@ -295,13 +295,15 @@ Cada linha é um espécime de moldura das folhas, e a folha 3 soma quatro linhas
 
 | Parte | Como é |
 |---|---|
-| a hora | **Google Sans**, 13px, peso 500 · o recorte `05-recursos/fontes/GoogleSans-hora.woff` tem só os números e os dois-pontos, e vai embutido em cada tela |
+| a hora | **vem desenhada na barra oficial** — o 9:30 do kit, em `05-recursos/sistema/barra-de-status-android.svg` · a Google Sans sai da barra; o token `--fonte-sistema` e o recorte `GoogleSans-hora.woff` ficam, sem uso |
 | o sinal | 4 cápsulas de 2,1 de largura, a cada 4,2 · alturas 4,3 · 6,1 · 8,5 · 9,7, alinhadas embaixo |
 | o Wi-Fi | 12,8 de largura · dois arcos de traço 2,3 com ponta redonda, e um ponto de 2,4 embaixo |
 | a bateria | corpo de 18,3 × 10,4 com canto de 3,1 · o pininho de 1,3 × 4,2 separado · **cheia e branca**, sem porcentagem |
 | os espaços | 5 entre o sinal e o Wi-Fi · 5,5 entre o Wi-Fi e a bateria |
 | o lugar | recuo de **26 à esquerda e 32 à direita** · os glifos **3px abaixo do centro** da barra (`padding-top: 6px`) |
 | a cor | `--tinta` (`#F2F0F7`), a do texto principal |
+
+**As barras são fixas** (lei 22): em cima, a barra oficial do Android, do kit do Material — o 9:30, o Wi-Fi, o sinal e a bateria —, escalada pra 360 de largura e cortada na altura de 30; o espaço da câmera fica reservado, sem desenhar. Embaixo, a navegação por gestos do Material — a pílula de 94×3,5px a 9px do pé — nas 142 telas, por cima de tudo, inclusive das folhas. O fundo das duas é o da tela. No componente, nenhuma propriedade.
 
 Nunca na fonte do app, e nunca com ícone de notificação, operadora ou porcentagem — cada detalhe a mais é um que envelhece.
 

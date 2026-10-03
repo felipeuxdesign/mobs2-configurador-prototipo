@@ -1,5 +1,13 @@
 # Registro de mudanças
 
+## 2026-10-02 · o pacote 4 — as barras do sistema viram cenário fixo, as oficiais do Android
+
+- **em cima, a barra oficial do Android, e fixa** (lei 22): a do kit do Material no Figma, versão escura de alto contraste — o 9:30, o Wi-Fi cheio, o sinal em triângulo e a bateria em pé, pela metade como no kit · o espaço da câmera reservado no centro, sem desenhar · escalada pra 360 e na altura de 30px · o fundo é o de cada tela, porque a barra sangra
+- **embaixo, a navegação por gestos do Material** (lei 22): a pílula branca no centro, em todas as 142 telas, inclusive no login, por cima de tudo, inclusive das folhas · o rodapé já reservava os 24px dela: o botão de baixo fica a 7px da pílula · nas listas que rolam, o conteúdo passa por baixo
+- **o palco ganha a silhueta** (`palco.md`): a tela no raio de 28, a borda preta de 8 e o raio de 36 por fora — concêntricos —, sem o metal e o aro de antes · a borda quase-preta com um fio de luz de 1px, que dá o acabamento · a sombra suave embaixo · o fundo do palco passa a `--fundo-faixa` · as cenas 01 a 04 e a folha de componentes · no código, o componente da moldura do palco
+- **saem o Bluetooth e a variação de sem conexão** · o que acontece no mundo, a tela diz
+- as 142 telas, as cenas 01 a 04 do palco e a folha 2 · no componente da barra, saem as propriedades `bluetooth` e `semRede`; entra o componente da navegação por gestos, em todas
+
 ## 2026-10-02 · o pacote 3, construído
 
 - **a T07 com o espaço do app (lei 23):** o módulo na linha de 50 (a variante `diagnostico`), a CAN e o *Conferido na conexão* na lista longa de 44 (a `longa`), a mesma letra, o aviso nas travas 02 e 03, o topo da 02 só com o serial · as 11 referências de 0,03% a 0,13% contra o HTML

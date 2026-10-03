@@ -1,17 +1,17 @@
 # O palco
 
-A moldura de apresentação em volta do app. **Três peças e mais nada**, no fundo `--poco-fundo`. As referências estão em `palco/referencias/`.
+A moldura de apresentação em volta do app. **Três peças e mais nada**, no fundo `--fundo-faixa` — a cor das superfícies do app. As referências estão em `palco/referencias/`.
 
 ## As peças
 
 | Peça | Como é |
 |---|---|
 | **o quadrado** | 44 × 44, no canto de cima à esquerda, a 16px das bordas · abre o painel |
-| **o celular** | no centro, **o app em tamanho real, 360 × 800** · a moldura é um celular sem marca: **metal de 3px** em volta e **aro preto de 10px** — 386 × 826 por fora · **canto de 57 por fora e 44 na tela**, concêntricos · metal `#3C3C43`, aro `#050507`, um fio de 1px `#17171B` por fora · sem câmera, sem botão, sem sombra · escala inteiro pra caber na janela, **nunca maior que o real** |
+| **o celular** | no centro, **o app em tamanho real, 360 × 800** · a moldura é **a silhueta, sem marca**: **uma borda preta de 8px** em volta — 376 × 816 por fora · **canto de 36 por fora e 28 na tela, concêntricos** (28 + 8 = 36) · a borda **quase-preta `#050407`**, mais escura que a tela, com **um fio de luz de 1px por dentro** (`rgba(255,255,255,0.14)`) e um contorno escuro de 1px por fora — o acabamento de material, sem metal nem botão · **a sombra suave embaixo**, `0 12px 24px` a 45% — os 8% de fundo claro não aparecem no escuro · sem metal, sem câmera, sem botão · escala inteiro pra caber na janela, **nunca maior que o real** |
 | **a coluna** | 230 de largura, 40 à direita do celular, **centralizada na altura dele** — a caixa tem a altura do celular e o conteúdo fica no meio · os estados da tela aberta, linhas de 32 |
 | **o painel** | 280 de largura, desliza da esquerda por cima de tudo · fecha no X ou tocando fora · escolher uma tela não fecha o painel |
 
-- **no protótipo** (decisão 43) · a moldura é o metal na borda e o aro no recheio, e os dois fios são sombra, que não soma no tamanho: o de `#17171B` por fora do metal e o de `rgba(255,255,255,0.04)` por dentro dele, que o `MUDANCAS.md` da entrega e os quadros desenham · os valores moram em `app/src/palco/palco-tokens.css` (`--palco-metal`, `--palco-aro`, `--palco-raio-fora`, e o `--palco-raio-tela`, que sai dele menos a moldura: concêntrico por construção) · o celular fica no centro da janela nos dois eixos, com a mesma folga em cima e embaixo, e a coluna a 40 dele, com a altura dele (826 em tamanho real, a altura do celular na escala) · a escala é a menor entre 1, (altura − 48) / 826 e (largura − 48 − 2 × 270) / 386 — a 1440 × 900, o tamanho real, com 37 em cima e embaixo · o painel passa por cima, e o celular e a coluna não se mexem quando ele abre (o quadro 00: *não se mexe quando o painel abre*); o quadro 04 desenha os dois 90 à direita, juntos · a régua do palco (`app/scripts/palco.mjs`) confere a moldura em tamanho real, número a número, e o anel dela contra o do quadro, com o palco numa janela de 792, onde a escala põe o celular na altura do quadro (744)
+- **no protótipo** (decisão 43, revista no pacote 4) · a silhueta: os valores moram em `app/src/palco/palco-tokens.css` (a borda, os dois raios concêntricos, o fio de luz, o contorno e a sombra), e a moldura escala junto com a tela, nunca maior que o real (D3)
 
 ## O painel · em duas partes
 

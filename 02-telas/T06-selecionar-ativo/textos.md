@@ -4,36 +4,36 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `00-tela`
 
-`14:30` · `M2C-0417` · `sem ativo` · `ENCERRAR` · `Selecionar ativo` · `5` · `no pacote` · `Buscar placa, frota ou módulo` · `Escolha o veículo que está na sua frente.` · `RKT-8H42` · `Ônibus urbano OF-1621` · `FROTA` · `1003` · `QJF-2C61` · `Ônibus urbano OF-1621` · `FROTA` · `1006` · `PCX-9A17` · `Ônibus urbano OF-1621` · `FROTA` · `1009` · `KHT-4B08` · `Ônibus urbano OF-1621` · `FROTA` · `1012` · `OYS-7D93` · `Ônibus urbano OF-1621` · `FROTA` · `1015` · `Usar este ativo` · `Voltar ao menu`
+`M2C-0417` · `sem ativo` · `ENCERRAR` · `Selecionar ativo` · `5` · `no pacote` · `Buscar placa, frota ou módulo` · `Escolha o veículo que está na sua frente.` · `RKT-8H42` · `Ônibus urbano OF-1621` · `FROTA` · `1003` · `QJF-2C61` · `Ônibus urbano OF-1621` · `FROTA` · `1006` · `PCX-9A17` · `Ônibus urbano OF-1621` · `FROTA` · `1009` · `KHT-4B08` · `Ônibus urbano OF-1621` · `FROTA` · `1012` · `OYS-7D93` · `Ônibus urbano OF-1621` · `FROTA` · `1015` · `Usar este ativo` · `Voltar ao menu`
 
 ## `01-momento-confirmar-o-veiculo`
 
-`14:30` · `M2C-0417` · `sem ativo` · `ENCERRAR` · `Confirmar o vínculo` · `ESCOLHIDO` · `RKT-8H42` · `frota 1003` · `FABRICANTE` · `Mercedes-Benz` · `MODELO` · `OF-1621 · ônibus urbano` · `O M2C-0417 fica neste ativo, na Viação Atlântico Sul.` · `Vincular o módulo` · `Escolher outro`
+`M2C-0417` · `sem ativo` · `ENCERRAR` · `Confirmar o vínculo` · `ESCOLHIDO` · `RKT-8H42` · `frota 1003` · `FABRICANTE` · `Mercedes-Benz` · `MODELO` · `OF-1621 · ônibus urbano` · `O M2C-0417 fica neste ativo, na Viação Atlântico Sul.` · `Vincular o módulo` · `Escolher outro`
 
 ## `04-estado-fora-do-pacote`
 
-`14:30` · `M2C-0417` · `sem ativo` · `ENCERRAR` · `Confirmar o vínculo` · `FORA DO PACOTE DESTA UO` · `ONK-8Q90` · `frota 1048 · Caminhão coletor 17.230` · `Pertence a Garagem Ibura.` · `Acione o cadastro no M2.` · `Escolher outro`
+`M2C-0417` · `sem ativo` · `ENCERRAR` · `Confirmar o vínculo` · `FORA DO PACOTE DESTA UO` · `ONK-8Q90` · `frota 1048 · Caminhão coletor 17.230` · `Pertence a Garagem Ibura.` · `Acione o cadastro no M2.` · `Escolher outro`
 
 ## `05-estado-conflito-de-pinos-resolvivel`
 
-`14:30` · `M2C-0335` · `sem ativo` · `ENCERRAR` · `Confirmar o vínculo` · `CONFLITO NO FIO BRANCO` · `KHT-4B08` · `frota 1012 · Ônibus urbano OF-1621` · `O sensor de porta já ocupa o fio branco.` · `Com o leitor sem fio, os dois funcionam.` · `Usar leitor sem fio` · `Escolher outro`
+`M2C-0335` · `sem ativo` · `ENCERRAR` · `Confirmar o vínculo` · `CONFLITO NO FIO BRANCO` · `KHT-4B08` · `frota 1012 · Ônibus urbano OF-1621` · `O sensor de porta já ocupa o fio branco.` · `Com o leitor sem fio, os dois funcionam.` · `Usar leitor sem fio` · `Escolher outro`
 
 ## `06-estado-conflito-de-pinos-sem-saida`
 
-`14:30` · `M2C-0389` · `sem ativo` · `ENCERRAR` · `Confirmar o vínculo` · `ERRO DE PROJETO DE INSTALAÇÃO` · `PGE-6K41` · `frota 1033 · Ônibus urbano OF-1621` · `O fio branco é do sensor de porta, e este módulo não tem leitor sem fio.` · `Acione o gestor.` · `Escolher outro`
+`M2C-0389` · `sem ativo` · `ENCERRAR` · `Confirmar o vínculo` · `ERRO DE PROJETO DE INSTALAÇÃO` · `PGE-6K41` · `frota 1033 · Ônibus urbano OF-1621` · `O fio branco é do sensor de porta, e este módulo não tem leitor sem fio.` · `Acione o gestor.` · `Escolher outro`
 
 ## `08-momento-busca-sem-resultado`
 
-`14:30` · `M2C-0417` · `sem ativo` · `ENCERRAR` · `Selecionar ativo` · `5` · `no pacote` · `ABC-1234` · `Nada com “ABC-1234”` · `Confira a placa, ou busque pela frota.` · `Usar este ativo` · `Voltar ao menu`
+`M2C-0417` · `sem ativo` · `ENCERRAR` · `Selecionar ativo` · `5` · `no pacote` · `ABC-1234` · `Nada com “ABC-1234”` · `Confira a placa, ou busque pela frota.` · `Usar este ativo` · `Voltar ao menu`
 
 ## `09-momento-busca-esconde-a-escolha`
 
-`14:30` · `M2C-0417` · `sem ativo` · `ENCERRAR` · `Selecionar ativo` · `5` · `no pacote` · `PCX` · `PCX-9A17` · `Ônibus urbano OF-1621` · `FROTA` · `1009` · `Usar este ativo` · `Voltar ao menu`
+`M2C-0417` · `sem ativo` · `ENCERRAR` · `Selecionar ativo` · `5` · `no pacote` · `PCX` · `PCX-9A17` · `Ônibus urbano OF-1621` · `FROTA` · `1009` · `Usar este ativo` · `Voltar ao menu`
 
 ## `10-estado-modulo-em-outro-ativo`
 
-`14:30` · `M2C-0417` · `sem ativo` · `ENCERRAR` · `Confirmar o vínculo` · `O M2C-0417 ESTÁ NO QTM-5S79` · `Vincular aqui desfaz o vínculo antigo, e o desvínculo fica registrado.` · `ESCOLHIDO` · `RKT-8H42` · `frota 1003` · `FABRICANTE` · `Mercedes-Benz` · `MODELO` · `OF-1621 · ônibus urbano` · `O M2C-0417 passa a ficar neste ativo, na Viação Atlântico Sul.` · `Desvincular e vincular aqui` · `Escolher outro`
+`M2C-0417` · `sem ativo` · `ENCERRAR` · `Confirmar o vínculo` · `O M2C-0417 ESTÁ NO QTM-5S79` · `Vincular aqui desfaz o vínculo antigo, e o desvínculo fica registrado.` · `ESCOLHIDO` · `RKT-8H42` · `frota 1003` · `FABRICANTE` · `Mercedes-Benz` · `MODELO` · `OF-1621 · ônibus urbano` · `O M2C-0417 passa a ficar neste ativo, na Viação Atlântico Sul.` · `Desvincular e vincular aqui` · `Escolher outro`
 
 ## `11-estado-modulo-ja-deste-ativo`
 
-`14:30` · `M2C-0417` · `sem ativo` · `ENCERRAR` · `Confirmar o vínculo` · `O M2C-0417 JÁ É DESTE ATIVO` · `É manutenção: você reenvia um bloco por vez.` · `ESCOLHIDO` · `RKT-8H42` · `frota 1003` · `FABRICANTE` · `Mercedes-Benz` · `MODELO` · `OF-1621 · ônibus urbano` · `O vínculo já existe — nada muda nele.` · `Seguir pra manutenção` · `Escolher outro`
+`M2C-0417` · `sem ativo` · `ENCERRAR` · `Confirmar o vínculo` · `O M2C-0417 JÁ É DESTE ATIVO` · `É manutenção: você reenvia um bloco por vez.` · `ESCOLHIDO` · `RKT-8H42` · `frota 1003` · `FABRICANTE` · `Mercedes-Benz` · `MODELO` · `OF-1621 · ônibus urbano` · `O vínculo já existe — nada muda nele.` · `Seguir pra manutenção` · `Escolher outro`
