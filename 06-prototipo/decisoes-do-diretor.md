@@ -1,6 +1,6 @@
 # O que espera o diretor
 
-As perguntas que os ciclos deixaram, cada uma com o padrão que o protótipo adotou enquanto a resposta não vem. Nenhuma trava o protótipo: ele roda com o padrão, e a resposta muda o que está escrito aqui e no código. As perguntas de produto, pro PM, ficam em `08-produto-real/pendencias.md`; as do desenho, pro arquiteto, em `diferencas-para-o-arquiteto.md`, na raiz.
+As perguntas que os ciclos deixaram, cada uma com o padrão que o protótipo adotou enquanto a resposta não vem. Nenhuma trava o protótipo: ele roda com o padrão, e a resposta muda o que está escrito aqui e no código. As perguntas de produto, pro PM, ficam em `08-para-o-dev/o-que-o-produto-ainda-decide.md`; as do desenho, pro arquiteto, em `diferencas-para-o-arquiteto.md`, na raiz.
 
 ## Respondidas pelo diretor (25/09)
 

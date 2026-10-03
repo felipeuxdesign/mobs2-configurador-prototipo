@@ -1,8 +1,8 @@
-# As pendências
+# O que o produto ainda decide
 
 O que **não é de desenho** e o produto ainda decide. O protótipo seguiu o padrão ao lado de cada linha, e mudar é uma linha.
 
-## O que o produto ainda decide
+## As perguntas abertas
 
 | Onde | A pergunta | Enquanto isso |
 |---|---|---|
@@ -18,10 +18,10 @@ O que **não é de desenho** e o produto ainda decide. O protótipo seguiu o pad
 | T01 · T02 · T04 | o voltar do Android no login, na escolha da unidade e no menu, que não têm saída desenhada, faz o quê — fecha o app, como o Android faz na primeira tela? | nada: a tela não oferece o caminho, e o voltar não inventa (`06-prototipo/logica.md` · O voltar do Android, G25) · **na T02, respondida pelo arquiteto (26/09):** o que o protótipo propôs — nas unidades de quem tem mais de uma empresa (`06`), o mesmo que o `Trocar de empresa`; nas empresas (`05`), nada |
 | T05 | o voltar do Android na busca (00, 01, 02, 04), em que o rodapé só oferece o `Procurar de novo` e nenhuma saída pro menu, faz o quê? | nada: o link não sai da tela (G25) |
 | T16 | o `Descartar` da sessão interrompida fica registrado onde (HU-T16-7)? | em lugar nenhum: volta ao menu sem sessão e sem item de fila, porque o registro do descarte não tem dado (T16·5, G25) |
-| T10 | os sinais podem se chamar Bateria e Alternador no cadastro? | o nome do cadastro |
 | todas | o app respeita a fonte aumentada do Android? | trava o tamanho |
 | T14 | se o evento falhar de novo: *confira a conexão do módulo* | aparece na segunda falha |
 | T06 | no conflito de pinos com saída, `Usar leitor sem fio` resolve ali, ou a saída é reconectar o módulo sem fio, como a HU-T06-5 e o domínio dizem (T06-N1)? | resolve ali: a sessão passa a sem fio e o mesmo ônibus segue pra confirmação (T06·4) |
+| T01 | o `Entrar` espera o servidor: qual é o tempo limite, e o que a tela diz quando ele estoura? | o protótipo espera 1,2 s (*Entrando…*, o primário desabilitado, como o semear da T10) e entra sempre; sem tempo limite, porque o servidor é de mentira (decisão do diretor, 27/09) |
 | T01 | o celular e o e-mail do técnico aparecem mascarados antes do login? | mascarados: `(81) •••••-8675` e `r•••••@atlsul.com.br` |
 | T01 | a espera de 60 s do reenvio vale também pra trocar de canal? | vale: qualquer envio novo espera |
 | T15 | depois de quanto tempo a fila parada vira notificação? | 30 min |

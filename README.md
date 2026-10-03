@@ -44,7 +44,7 @@ As **142 referências** (15 telas, 62 momentos e 65 estados) têm, cada uma, um 
 05-recursos/         a marca, a fonte e os ícones
 06-prototipo/        o protótipo navegável, o palco, os ciclos e a régua
 07-decisoes/         o porquê de cada escolha, com o que foi descartado
-08-produto-real/     notas pro dev do produto real: o que é norma, o que o protótipo simula
+08-para-o-dev/       pro dev do produto: por onde começar, o contrato de dados, as integrações e os testes
 ```
 
 As pastas de 01 a 07 são a fonte do produto. A ordem de leitura de cada perfil está no [`LEIA-PRIMEIRO.md`](LEIA-PRIMEIRO.md), e o registro de tudo o que mudou, no [`CHANGELOG.md`](CHANGELOG.md).
@@ -59,6 +59,6 @@ npm run dev
 
 O protótipo abre em `http://localhost:5173`. A régua fica em `06-prototipo/app`: `npm run checar`, `npm run build` e `npm run gate`, e, com os fotógrafos no ar (`npm run fotografo` e `npm run fotografo:1`), `node scripts/tela.mjs todas`, `node scripts/textos.mjs T01` e `node scripts/caminho.mjs todos`. O cabeçalho de cada script explica o que ele mede.
 
-## Pro dev do produto real
+## Pro dev
 
-O protótipo é **uma forma de consumir esta pasta**, não a especificação. O produto se constrói a partir das mesmas fontes, na stack que o time escolher. A pasta [`08-produto-real/`](08-produto-real/) separa o que é regra do produto do que o protótipo só finge: o mock, os tempos dos processos, o relógio parado e o palco.
+O protótipo é **uma forma de consumir esta pasta**, não a especificação. O produto se constrói a partir das mesmas fontes, na stack que o time escolher. A pasta [`08-para-o-dev/`](08-para-o-dev/) é a porta de entrada: por onde começar em cada tarefa, o que é norma e o que é só do protótipo, o contrato de dados (o que cada tela lê do mock), as integrações (o módulo, a CAN, o servidor e a fila), os testes que já estão prontos (os casos, os roteiros e o gate) e o que o produto ainda decide.

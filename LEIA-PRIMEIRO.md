@@ -11,7 +11,7 @@ Esta pasta é a fonte única do produto. O design está **fechado e medido**: 15
 | Se você vai… | Leia, nesta ordem |
 |---|---|
 | **construir o protótipo navegável** | `CLAUDE.md` → `06-prototipo/CLAUDE.md` → `01-produto/` → `02-telas/` inteira → `03-design-system/` → `04-dados/` → `06-prototipo/` |
-| **construir o produto real** | `CLAUDE.md` → `08-produto-real/` → `01-produto/` → `02-telas/` → `03-design-system/` → `04-dados/` → `07-decisoes/` |
+| **construir o produto** | `CLAUDE.md` → `08-para-o-dev/` → `01-produto/` → `02-telas/` → `03-design-system/` → `04-dados/` → `07-decisoes/` |
 | **entender o projeto** | `01-produto/historia.md` → `01-produto/usuario.md` → `07-decisoes/` → `02-telas/` |
 
 ## O mapa
@@ -24,7 +24,7 @@ Esta pasta é a fonte única do produto. O design está **fechado e medido**: 15
 05-recursos/         a marca, a fonte e os ícones
 06-prototipo/        como construir o protótipo navegável e o palco em volta dele
 07-decisoes/         o porquê de cada escolha, com o que foi descartado
-08-produto-real/     o que o dev precisa saber: norma, simulação, stack e pendências
+08-para-o-dev/       pro dev do produto: por onde começar, o contrato de dados, as integrações, os testes e o que ainda decide
 _fontes-v1/          os documentos do v1, intocados, só pra consulta
 ```
 

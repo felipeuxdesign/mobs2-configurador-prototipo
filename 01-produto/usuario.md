@@ -15,5 +15,5 @@ O que isso decide no desenho:
 ## Quem mais olha
 
 - **o gestor**, que recebe a instalação homologada e quer saber que ela funciona
-- **o PM**, dono das regras de negócio — as pendências com ele estão em `08-produto-real/pendencias.md`
+- **o PM**, dono das regras de negócio — as pendências com ele estão em `08-para-o-dev/o-que-o-produto-ainda-decide.md`
 - **quem aprova o produto**, que vê o protótipo no palco e precisa ver a evidência nascendo

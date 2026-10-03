@@ -18,7 +18,7 @@ O executor de um projeto cujo design está **fechado, medido e aprovado**. Você
 4. `03-design-system/` — `README.md`, `leis.md`, `movimento.md`, `componentes.md`, `tokens.css`, e **as oito folhas em `referencias/png/`, olhando cada uma**
 5. `04-dados/` — `contrato.md`, `casos.md`, e o `mocks.js` inteiro
 6. `06-prototipo/` — `logica.md`, `palco.md`, `ciclos.md`, `publicar.md`, e os cinco quadros em `palco/referencias/png/`
-7. `07-decisoes/` e `08-produto-real/`
+7. `07-decisoes/` e `08-para-o-dev/`
 8. **`02-telas/`, tela por tela** — o passo mais importante, descrito abaixo
 
 ## As 15 telas, uma por uma

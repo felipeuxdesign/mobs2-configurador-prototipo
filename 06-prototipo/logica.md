@@ -194,7 +194,7 @@ O botão de voltar do sistema faz **o mesmo que o link de saída do rodapé** da
 
 - **a saída é o link que sai:** o que leva a outra tela, ou ao nível de cima da mesma (a lista, o mapa, a seção). O link que fica no lugar (o `Procurar de novo` da busca da T05, o pedido de correção da T14) ou que avança o fluxo não é saída, e o voltar não faz nada
 - **sem link**, a saída é o primário quando ele é a única saída e só navega: o `Voltar ao menu` da *Sessão encerrada* (T16) e da cadeia concluída (T09/04), o `Ir para o menu` do pacote baixado (T03/02), o `Escolher outro` das travas sem link da T06, o `Procurar outro módulo` das travas sem link da T07 (02, 03). O primário que é ato (`Entrar`, `Sincronizar`) não é saída
-- **onde a tela não tem saída desenhada** — o login, a escolha da unidade, o menu, a busca da T05 —, ele não faz nada no protótipo (`08-produto-real/pendencias.md`)
+- **onde a tela não tem saída desenhada** — o login, a escolha da unidade, o menu, a busca da T05 —, ele não faz nada no protótipo (`08-para-o-dev/o-que-o-produto-ainda-decide.md`)
 
 Nos processos que não podem parar, ele **não sai**:
 
@@ -417,7 +417,7 @@ Todo lugar do protótipo tem endereço: `?tela=T07` abre a tela · `?tela=T07&es
 
 ## O que é provisório
 
-O que não é de desenho e o produto ainda decide segue um padrão — a lista e o padrão de cada um estão em `08-produto-real/pendencias.md`. Se o padrão mudar, é uma linha.
+O que não é de desenho e o produto ainda decide segue um padrão — a lista e o padrão de cada um estão em `08-para-o-dev/o-que-o-produto-ainda-decide.md`. Se o padrão mudar, é uma linha.
 
 ## Como se chega em cada momento
 

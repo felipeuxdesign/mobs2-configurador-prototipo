@@ -1,5 +1,13 @@
 # Registro de mudanças
 
+## 2026-10-03 · a pasta do dev: `08-produto-real` vira `08-para-o-dev`
+
+- **o nome diz pra quem é**, como o `para-o-arquiteto` · o diretor, 03/10
+- **seis arquivos que apontam, sem copiar:** `README.md` (por onde começar, pela tarefa · o que é norma e o que é só do protótipo · a stack), `contrato-de-dados.md` (o que cada tela lê do mock, medido no código, e de onde cada coleção viria no produto), `integracoes.md` (o módulo, o diagnóstico e a CAN, a cadeia, a calibração e o ciclo, o servidor e a fila, o acesso · o que a stack decide), `testes-prontos.md` (os 56 casos como dados de teste, os 43 roteiros como cenários de aceite, o gate como teste do contrato), `conferir-contra-o-design.md` (as 142 referências e como medir contra elas) e `o-que-o-produto-ainda-decide.md` (as pendências de antes)
+- **saíram, juntados nos novos:** o `norma-e-ilustracao.md`, o `o-que-o-prototipo-simula.md` e o `stack-a-definir.md` · o que tinha ficado velho com os pacotes saiu (as viagens do servidor, a câmera da calibração, os nomes da bateria na T10)
+- **entrou a pendência do tempo limite do login** (a linha que o arquiteto deixou pro fim): o `Entrar` espera 1,2 s e entra sempre; o produto decide o tempo limite e o que a tela diz quando ele estoura
+- o `README.md`, o `LEIA-PRIMEIRO.md`, o `usuario.md`, as fichas e as notas do protótipo apontam pra pasta nova · os gates e o CHANGELOG antigos ficam como estavam, o registro de quando foram escritos
+
 ## 2026-10-03 · o pacote 4, construído, e a conferência final
 
 - **as barras do sistema, cenário fixo:** em cima, o desenho oficial do Android, importado de `05-recursos/sistema/` (D1), 360 × 30; embaixo, a navegação por gestos, componente novo, montado uma vez no `App.jsx`, por cima de tudo (D2), nas 142 telas · saem as propriedades `bluetooth`, `semRede` e `hora` e o contexto que passava o estado

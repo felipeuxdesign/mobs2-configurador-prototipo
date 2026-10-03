@@ -35,7 +35,7 @@ No protótipo (a otimização 400): a semente da T02 — o pulo do palco e o end
 - `Sincronizar Unidade X` → T03
 - com **mais de 6 unidades**, o campo de busca aparece em cima e filtra por nome ou cidade · a lista rola por baixo do rodapé, que fica parado
 - a linha de unidade diz a idade do pacote — *pacote de hoje*, *de ontem*, *de 4 dias* —, e vencida diz só a causa: *pacote vencido há 8 dias* · a ação de sincronizar mora na T03
-- o voltar do sistema (no computador, o Esc) não faz nada: a tela não tem saída desenhada, e o `Sincronizar` é o ato, não a saída (`06-prototipo/logica.md` · O voltar do Android; a pergunta está em `08-produto-real/pendencias.md`)
+- o voltar do sistema (no computador, o Esc) não faz nada: a tela não tem saída desenhada, e o `Sincronizar` é o ato, não a saída (`06-prototipo/logica.md` · O voltar do Android; a pergunta está em `08-para-o-dev/o-que-o-produto-ainda-decide.md`)
   - no protótipo (a otimização do design): nas unidades de quem tem mais de uma empresa (o quadro do `06`, e o `09`), o voltar faz o `Trocar de empresa`, a saída desenhada do rodapé; nas empresas (`05`, `07`, `08`), nada, como no `00` e no `01`, de uma empresa só — a tela não tem saída desenhada (padrão c). Provado no node (`testar-empresa.mjs`): aberto pela coluna ou pelo endereço, o estado fica parado, e o voltar não escuta
   - no protótipo (a última entrega): o arquiteto confirmou o padrão c em 26/09. No `05` e no `07`, vivos, o voltar não faz nada; nas unidades do herói, faz o `Trocar de empresa` → o `07`, com a atual marcada. Com o diálogo de outro usuário por cima (a T01/18), o `Entendi`, que só fecha e é a única saída, como o aviso do acesso (T04/12). O roteiro `empresa.mjs`, o `voltar.mjs` e o `outro-usuario.mjs` provam no app
 
