@@ -1,4 +1,4 @@
-# Mobs2 Configurador · protótipo
+# Mobs2 Configurador · Protótipo
 
 Aplicativo mobile de instalação, configuração e homologação de módulos de telemetria embarcados, usado pelo técnico de campo. Este repositório reúne o design do produto, o design system e o protótipo navegável construído a partir deles.
 
