@@ -257,7 +257,7 @@ export default function T11({ momento, estado: est }) {
       {outras.montado && (
         <div className="t11-sobre">
           <Veu de="folha" visivel={outras.visivel}>
-            <Folha titulo={T.outrasAcoes} rotuloFechar={T.fechar} puxador={false} aoFechar={fecharOutras} aberta={outras.visivel}>
+            <Folha titulo={T.outrasAcoes} rotuloFechar={T.fechar} aoFechar={fecharOutras} aberta={outras.visivel}>
               <CartaoDeOpcoes>
                 <LinhaDeOpcao variante="efeito" icone="reenviar" titulo={T.reenviar(blocos)} detalhe={T.efeitoReenviar} aoTocar={reenviar} />
                 <LinhaDeOpcao variante="efeito" icone="diagnostico" titulo={T.registrar} detalhe={T.efeitoRegistrar} aoTocar={registrar} />

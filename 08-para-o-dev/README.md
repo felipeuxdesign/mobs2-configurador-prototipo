@@ -23,7 +23,7 @@ Esta pasta é pra quem vai construir o App Configurador de verdade. O protótipo
 - as leis visuais, de medida e de produto · `03-design-system/leis.md`
 - o movimento · `03-design-system/movimento.md` e cada `animacao.md`
 - as regras de negócio e as histórias · `01-produto/dominio.md` e `historias.md`
-- a aparência de cada tela · as 150 referências em `02-telas/*/referencias/`
+- a aparência de cada tela · as 153 referências em `02-telas/*/referencias/`
 
 **É só do protótipo — não leve pro produto:**
 - os dados do mock: pessoas, placas, seriais, números (o **formato** é contrato; os **valores**, não)

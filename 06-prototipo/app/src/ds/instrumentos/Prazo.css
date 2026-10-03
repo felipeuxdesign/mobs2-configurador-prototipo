@@ -9,3 +9,11 @@
  * que isso quer dizer, uma por linha, na entrelinha da legenda de 12 */
 .ds-prazo-falha .ds-prazo-tempo { color: var(--vermelho); }
 .ds-prazo-frases { display: flex; flex-direction: column; line-height: var(--entrelinha-legenda); }
+
+/* o pacote 6 · a fila que drena (T14/01): a linha fina de 4 embaixo da frase, colada nela (2 acima,
+ * dentro do vão de 6), sobre o poço; o que resta em lima, esvaziando da direita pra esquerda */
+.ds-prazo-fila { position: relative; height: var(--e-4); margin-top: calc(-1 * var(--e-2)); background: var(--poco); overflow: hidden; }
+.ds-prazo-fila-resta {
+  position: absolute; inset: 0; background: var(--lima-barra-checklist);
+  transform-origin: left center; transition-property: transform; transition-timing-function: linear;
+}

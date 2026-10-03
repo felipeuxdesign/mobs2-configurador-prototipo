@@ -17,6 +17,11 @@
 // quando as sete linhas passam sem trava (o padrão aprovado no gate do pacote 1).
 // O M2C-0999 conecta como os outros, e a T07 trava pelo serial fora do cadastro (T07/02).
 // · 05-momento-procurando — a busca de novo, enquanto corre (o pacote 5, lei 24)
+// · 06-momento-conectando — o Conectar ao …, enquanto conecta (o pacote 6): o primário
+//   desligado diz *Conectando ao …*, o Procurar de novo apaga, e o resto do quadro fica.
+//   Depois de RITMOS.buscaMs (os mesmos 1,2 s da busca e do Entrar, sem número novo), a
+//   T07, ou o NÃO RESPONDEU da 04. O Tentar de novo da 04 passa pelo mesmo momento, sobre
+//   o quadro dela. Aberta pela URL, a 06 fica parada
 // A busca de novo (`Procurar de novo`, o Bluetooth que liga): a lista some e a
 // tela vira o *Procurando…* (05) — o poço com o quadrado branco de agora, a
 // tentativa embaixo e o primário desligado —, com a URL dizendo a 05; depois de
@@ -70,6 +75,7 @@ import './t05.css'
 const M01 = '01-momento-nenhum-escolhido'
 const M02 = '02-momento-um-encontrado'
 const M05 = '05-momento-procurando'
+const M06 = '06-momento-conectando'
 
 // o quadro da busca: os módulos por perto, o escolhido (ou nenhum) e, se a
 // conexão com ele falhou, a trava no escolhido (04)
@@ -85,6 +91,7 @@ function inicio(momento) {
   if (momento === M01) return busca(porPerto(), null)
   if (momento === M02) return busca(soOHeroi(), HEROI)
   if (momento === M05) return procurando(2)
+  if (momento === M06) return { ...busca(porPerto(), HEROI), conectando: true }
   return busca(porPerto(), HEROI)
 }
 
@@ -130,6 +137,7 @@ export default function T05({ momento, estado: est }) {
   // ele que conecta (diretor, 24/09: escolher numa lista marca, quem avança é o botão)
   const [marcado, setMarcado] = useState(null)
   function escolher(serial) {
+    if (fluxo.conectando) return // conectando, a lista fica, sem responder
     setFluxo((f) => ({ ...f, escolhido: serial }))
     if (momento) ir('T05') // o escolhido é a 00, a tela: a URL segue
   }
@@ -153,19 +161,34 @@ export default function T05({ momento, estado: est }) {
     despachar({ tipo: 'mesclar', parcial: { sessao: sessaoNova(serial), etapas: estadoVazio().etapas } })
     ir('T07')
   }
-  // conectar: a primeira tentativa do módulo do caso não responde (04), uma vez; senão, conecta
-  function conectar(serial = q.escolhido) {
-    if (casosDoModulo(serial, vivo.current.estado.casosConsumidos).includes(CASO_CONEXAO)) {
-      consumir(CASO_CONEXAO)
-      setFluxo(busca(q.fase === 'busca' ? q.perto : porPerto(), serial, true))
-      return
-    }
-    abrirSessao(serial)
+  // conectar: o *Conectando…* (06) por RITMOS.buscaMs, com a URL dizendo a 06; aí a primeira
+  // tentativa do módulo do caso não responde (04), uma vez; senão, conecta
+  const espera = useRef(null)
+  useEffect(() => () => clearTimeout(espera.current), [])
+  function conectando(serial, depois, trava = false) {
+    setMarcado(null)
+    setFluxo({ ...busca(q.fase === 'busca' ? q.perto : porPerto(), serial, trava), conectando: true })
+    ir('T05', { momento: M06 })
+    espera.current = setTimeout(depois, RITMOS.buscaMs)
   }
-  // `Tentar de novo` (04): o caso já valeu, e a conexão segue
+  function conectar(serial = marcado ?? q.escolhido) {
+    if (fluxo.conectando) return
+    const falha = casosDoModulo(serial, vivo.current.estado.casosConsumidos).includes(CASO_CONEXAO)
+    conectando(serial, () => {
+      if (falha) {
+        consumir(CASO_CONEXAO)
+        setFluxo(busca(q.fase === 'busca' ? q.perto : porPerto(), serial, true))
+        ir('T05')
+        return
+      }
+      abrirSessao(serial)
+    })
+  }
+  // `Tentar de novo` (04): o mesmo *Conectando…*, sobre o quadro da 04; o caso já valeu, e a conexão segue
   function tentarDeNovo() {
-    consumir(CASO_CONEXAO)
-    abrirSessao(q.escolhido)
+    if (fluxo.conectando) return
+    const serial = q.escolhido
+    conectando(serial, () => { consumir(CASO_CONEXAO); abrirSessao(serial) }, true)
   }
   const voltar = () => ir('T04')
   // 16 · 17 · o primário do celular: o Android responde, e a tela vai pra busca
@@ -243,7 +266,9 @@ export default function T05({ momento, estado: est }) {
           )}
         </>
       )
-      rodape = trava
+      rodape = q.conectando
+        ? <Rodape primario={TX.conectandoAo(escolhido)} primarioDesabilitado primarioTrocaTexto link={TX.procurarDeNovo} linkDesabilitado />
+        : trava
         ? <Rodape primario={TX.tentarDeNovo} aoPrimario={tentarDeNovo} link={TX.procurarDeNovo} aoLink={procurar} />
         : <Rodape primario={TX.conectarAo(escolhido)} aoPrimario={() => conectar()} primarioTrocaTexto link={TX.procurarDeNovo} aoLink={procurar} />
     } else {

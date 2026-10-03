@@ -15,7 +15,8 @@ export const T = {
   // o que cada bloco faz, na descrição do elo (a mesma nas nove referências da cadeia).
   // A limpeza diz o que apaga e o que preserva (decisão 47, HU-T09-3)
   descricao: {
-    limpeza: 'apaga a configuração anterior · preserva o serial e os contadores',
+    // duas ideias, duas linhas de verdade (o pacote 6, componentes.md · Duas ideias numa linha)
+    limpeza: ['apaga a configuração anterior', 'preserva o serial e os contadores'],
     ativo: 'quem é o veículo e a tradução da CAN',
     cercas: 'as regiões geográficas',
     leitor: 'como o cartão do motorista é lido',

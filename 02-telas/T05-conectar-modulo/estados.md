@@ -10,6 +10,7 @@
 | `03-estado-nenhum-encontrado` | estado | nenhum módulo responde | `busca-vazia` |
 | `04-estado-conexao-falhou` | estado | o módulo não responde ao conectar | `conexao-falha` |
 | `05-momento-procurando` | momento | `Procurar de novo` · 1,2s antes da lista voltar | `modulos` |
+| `06-momento-conectando` | momento | tocar em `Conectar ao M2C-0417` · 1,2s antes da T07, ou do não respondeu da 04 | `modulos` |
 | `16-estado-bluetooth-desligado` | estado | o Bluetooth do celular está desligado | `bluetooth-desligado` |
 | `17-estado-bluetooth-sem-permissao` | estado | o técnico negou a permissão do Bluetooth | `bluetooth-sem-permissao` |
 

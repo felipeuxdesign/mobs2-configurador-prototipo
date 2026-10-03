@@ -28,6 +28,7 @@
 // deixa o último elo sem o fecho de baixo. Com o aviso das travas, o fecho e o
 // recheio do miolo passariam 7 da altura, que a referência corta: o quadro rolaria
 // à toa (G16). No desenho, nada muda.
+import { emLinhas } from '../primitivos/linhas.jsx'
 import { Trilho } from './Trilho.jsx'
 import './Cadeia.css'
 
@@ -48,7 +49,7 @@ export function Cadeia({ elos, justa = false, altura, curta = false, semFecho = 
                 <span className="ds-cadeia-nome">{e.nome}</span>
                 <span className={`ds-cadeia-valor ${e.valorAceso ? 'ds-cadeia-valor-aceso' : ''}`}>{e.valor}</span>
               </div>
-              {e.descricao != null && <span className="ds-cadeia-descricao">{e.descricao}</span>}
+              {e.descricao != null && <span className="ds-cadeia-descricao">{emLinhas(e.descricao)}</span>}
             </div>
           </div>
         )

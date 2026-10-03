@@ -1,5 +1,29 @@
 # Registro de mudanças
 
+## 2026-10-04 · o pacote 6 — a T14 e a T05 com retorno
+
+- **a T14 entra na gramática do poço** (`componentes.md`): o passo da vez ganha o quadrado branco, o título aceso e **a ação do técnico** à direita — *engate a ré*, *abra a porta*, *passe o cartão*, *desligue a ignição* · antes do disparo e na falha da rotação, sem quadrado · sai a frase *"a T14 fica fora"*
+- **o disparo dá retorno e não arma o encerrar**: do toque até o evento chegar, o primário fica desligado com *Aguardando o evento*; o `Encerrar o ciclo` só acende quando o evento chega ou o prazo estoura — o toque duplo não encerra mais o ciclo
+- **a fila que drena se vê**: na 01, uma linha fina de 4px embaixo da frase da fila, esvaziando em 3s · a escala de 16px da T15 empurrava a lista pra baixo do rodapé
+- **a ordem dos passos corrigida na 04 e na 06**: o cartão divergente aparecia lido com a ré e a porta ainda esperando · agora a ré e a porta têm check, o cartão tem o xis, a ignição desligada está na vez, e a contagem diz 4 de 6 · e como o evento chega aos 6,6s, as telas depois da vez da porta mostram o evento chegado
+- **o rodapé da 03** também espera o evento
+- **dois momentos novos na T14**: a `07` vez da porta e a `08` vez do cartão · **um na T05**: a `06` conectando — *Conectando ao M2C-0417…*, 1,2s, antes da T07 ou do não respondeu da 04; o `Tentar de novo` passa pelo mesmo momento · 150 → **153** referências, 70 → **73** momentos
+- **o ícone em linha com o texto desce até o meio das minúsculas** (`componentes.md`): o check do *ocupação de pinos confere* estava 1,9px alto nas oito telas da T09 com a cadeia, e o do *relido às 14:30* 1,1px alto na T10 · desce 2px no texto de 12 e 1px no de 13 · na T10/10, o xis solto vira o xis com círculo de 15px, da família do poço · também a peça da folha 5
+- **a folha *Outras ações* da T11 ganha o puxador**, como as folhas da T01 e da T04 · era a única folha sem ele · e o `animacao.md` da T11 descreve a folha subindo, arrastando e fechando — os mesmos tempos das outras · as outras telas com véu são diálogos, que fecham no botão, e não têm puxador
+- **a limpeza em duas linhas**, na T09: *apaga a configuração anterior* numa, *preserva o serial e os contadores* na outra · antes, o navegador quebrava a frase e deixava o *contadores* sozinho · são duas linhas de verdade, não a quebra automática · a altura do elo não muda · as oito telas com a cadeia e a peça da folha 5
+- **a recusa da T15/02 em duas linhas**: *o servidor recusou* numa, *instalação encerrada por outro usuário* na outra · antes, o *usuário* ficava sozinho · e a regra no `componentes.md`, *Duas ideias numa linha*: quando o rótulo com · não cabe, quebra no ·, em duas linhas de verdade, sem o ·
+- **a lógica do protótipo** lista todos os momentos — os oito do pacote 5 tinham ficado de fora da tabela
+
+- **no protótipo** (o gate em `06-prototipo/para-o-arquiteto/gate-pacote6.md`, as folhas lado a lado em `pacote6/`):
+  - o complemento é idêntico, byte a byte, ao pacote 6 já aplicado;
+  - as 153 sem erro, e as mudadas entre 0% e 0,1%;
+  - os 43 roteiros aprovados; o `mov-t05` e o `mov-t14` foram atualizados.
+  - **as peças:** o `Prazo` ganha a `fila` (a linha que drena), o `Precondicao` e a régua descem o ícone, o xis da régua ganha o círculo, e a `Cadeia` e o `CartaoAcao` quebram as duas ideias (`emLinhas`). O puxador volta à folha da T11 e diz *Arrastar pra fechar*.
+- **os desvios nomeados** (o gate, §3):
+  - o `Procurar de novo` apagado da T05/06 em `--tinta-apagada` (a lei 17), onde a referência desenha `--marca`;
+  - o marcador branco da escala da T14 no que restava, o caso da `05`, agora também na 04, 06, 07 e 08;
+  - o arraste da folha da T11 fecha nos 56px de toda folha, e não em 1/3 da altura.
+
 ## 2026-10-03 · o pacote 5 — os momentos que faltavam, e o RV no centro
 
 - **oito referências novas, todas *momento*** (lei 24) — o meio das leituras e das gravações, que existia só por escrito: **T01/19** entrando · **T05/05** procurando · **T07/11** lendo · **T09/10** manutenção concluída · **T10/06** gravando no módulo · **T10/07** relendo · **T11/04** conferindo · **T16/07** o autoteste correndo · 142 → **150** referências, 62 → **70** momentos

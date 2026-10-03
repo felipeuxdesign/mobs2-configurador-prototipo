@@ -28,11 +28,11 @@
 // Sem `aoFechar` (a vitrine), a folha fica parada: nem arrasta, nem fecha fora.
 // `aberta`: a tela diz, ou, sem ela, a presença em volta (PorCima.jsx, a folha que
 // se reveza com o diálogo no mesmo véu); sem nenhuma das duas, aberta.
-// `puxador` (a última entrega · T11/03, G11): false tira o puxador, como a folha
-// Outras ações desenha — a única das dez folhas das referências sem ele. O
-// painel arrasta igual, de qualquer ponto (a lei 20 vale pra toda folha); o
-// conteúdo sobe os 14 do vão que o puxador ocupava. Sem ela, o puxador de
-// sempre (folha 2).
+// `puxador` (a última entrega · T11/03, G11): false tira o puxador. O pacote 6
+// devolveu o puxador à folha Outras ações da T11, e hoje toda folha das
+// referências tem; a propriedade fica pra vitrine. O painel arrasta igual, de
+// qualquer ponto (a lei 20 vale pra toda folha). O puxador, pro leitor de tela,
+// diz *Arrastar pra fechar* (o animacao.md da T11, o pacote 6).
 import { useContext, useId, useLayoutEffect, useRef } from 'react'
 import { SoIcone } from '../primitivos/SoIcone.jsx'
 import { FechaPeloVeu } from './Veu.jsx'
@@ -125,7 +125,7 @@ export function Folha({ titulo, subtitulo, aoFechar, rotuloFechar, minima = fals
     <div ref={painel} role="dialog" aria-modal="true" aria-labelledby={id}
       className={`ds-folha ${minima ? 'ds-folha-minima' : ''} ${folga === 12 ? 'ds-folha-folga-12' : ''} ${aberta ? '' : 'ds-folha-fechada'}`}
       onPointerDown={desce} onPointerMove={anda} onPointerUp={sobe} onPointerCancel={cancela} onLostPointerCapture={cancela}>
-      {puxador && <div className="ds-folha-puxador" aria-hidden="true"><span /></div>}
+      {puxador && <div className="ds-folha-puxador" role="img" aria-label="Arrastar pra fechar"><span /></div>}
       <div className="ds-folha-cabeca">
         <h2 id={id} className="ds-folha-titulo">{titulo}</h2>
         <span className="ds-folha-fechar">

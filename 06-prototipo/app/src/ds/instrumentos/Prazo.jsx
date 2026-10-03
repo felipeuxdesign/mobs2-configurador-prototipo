@@ -3,6 +3,7 @@
 // de 0 ao limite com o preenchido do que resta e o marcador nele, as duas
 // marcas embaixo e, se houver, a frase do que está acontecendo.
 // `restante` e `limite` em segundos; `tempo` é o texto do número (1:36).
+import { useEffect, useState } from 'react'
 import { Escala } from './Escala.jsx'
 import './caixas.css'
 import './Prazo.css'
@@ -16,7 +17,16 @@ import './Prazo.css'
 // contínua — cada tique é um trecho linear da Escala, só por transform; o
 // número troca no lugar. Com reduzir, o número troca e a barra salta, no
 // mesmo ritmo. Sem `segue`, a barra fica no valor, parada.
-export function Prazo({ rotulo, nota, tempo, restante, limite, legendas, detalhe, falha = false, segue }) {
+// O pacote 6 · `fila` { resta, ms } (T14/01): a fila do módulo que drena, uma linha fina de 4
+// embaixo da frase — o que resta por sair, em fração; com `ms`, esvazia até o zero nesse tempo,
+// linear, só por transform (com reduzir, salta). Muda pro leitor: a frase já diz
+export function Prazo({ rotulo, nota, tempo, restante, limite, legendas, detalhe, falha = false, segue, fila }) {
+  const [resta, setResta] = useState(fila ? fila.resta : null)
+  useEffect(() => {
+    if (!fila?.ms) return undefined
+    const q = requestAnimationFrame(() => requestAnimationFrame(() => setResta(0)))
+    return () => cancelAnimationFrame(q)
+  }, [fila?.ms]) // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <div className={`ds-prazo ds-inst-cartao ${falha ? 'ds-prazo-falha' : ''}`}>
       <div className="ds-inst-cabeca">
@@ -29,6 +39,11 @@ export function Prazo({ rotulo, nota, tempo, restante, limite, legendas, detalhe
       {detalhe != null && (Array.isArray(detalhe)
         ? <span className="ds-prazo-detalhe ds-prazo-frases">{detalhe.map((f) => <span key={f}>{f}</span>)}</span>
         : <span className="ds-prazo-detalhe">{detalhe}</span>)}
+      {fila && (
+        <div className="ds-prazo-fila" aria-hidden="true">
+          <div className="ds-prazo-fila-resta" style={{ transform: `scaleX(${resta})`, transitionDuration: fila.ms ? `calc(${fila.ms}ms * var(--mov-fator))` : undefined }} />
+        </div>
+      )}
     </div>
   )
 }

@@ -90,21 +90,33 @@ export default [
   // ── conectar: a sessão nasce, e a troca entre telas leva à T07, sem a faixa descer aqui ──
   { toca: 'M2C-0417' },
   { dorme: 250 },
-  { toca: 'Conectar ao M2C-0417', anima: TROCA, naoAnima: [...SEM_ROXO, ...PARADOS] },
-  { chega: 'T07' },
+  { toca: 'Conectar ao M2C-0417', naoAnima: [...SEM_ROXO, ...PARADOS] },
+  { ve: 'Conectando ao M2C-0417…' },   // o pacote 6: o Conectando… (06), o primário desligado
+  { desligado: 'Conectando ao M2C-0417…' },
+  { desligado: 'Procurar de novo' },
+  { chega: 'T05', momento: '06-momento-conectando' },
+  { chega: 'T07', entre: [900, 1700] },
   { naoVe: 'Escolha o que está na sua mão.' },
   { naoVe: 'ENCERRAR' },   // a faixa desce na T07, quando as sete linhas passam sem trava — não no toque
   // da 00, o mesmo: o escolhido conecta
   { abre: '?tela=T05' },
   { quieto: true },
-  { toca: 'Conectar ao M2C-0417', anima: TROCA, naoAnima: PARADOS },
-  { chega: 'T07' },
+  { toca: 'Conectar ao M2C-0417', anima: [esmaece('ds-primario-texto')], naoAnima: [...PARADOS, esmaece('tela-miolo')] },   // da 00, o mesmo quadro: só o texto do primário troca
+  { ve: 'Conectando ao M2C-0417…' },   // o pacote 6: o Conectando… (06), o primário desligado
+  { desligado: 'Conectando ao M2C-0417…' },
+  { desligado: 'Procurar de novo' },
+  { chega: 'T05', momento: '06-momento-conectando' },
+  { chega: 'T07', entre: [900, 1700] },
   // o M2C-0999 conecta como os outros, e a T07 trava pelo serial fora do cadastro, lido da sessão (T07/02)
   { abre: `?tela=T05&momento=${M01}` },
   { toca: 'M2C-0999' },
   { dorme: 250 },
-  { toca: 'Conectar ao M2C-0999', anima: TROCA, naoAnima: PARADOS },
-  { chega: 'T07' },
+  { toca: 'Conectar ao M2C-0999', naoAnima: PARADOS },
+  { ve: 'Conectando ao M2C-0999…' },   // o pacote 6: o Conectando… (06), o primário desligado
+  { desligado: 'Conectando ao M2C-0999…' },
+  { desligado: 'Procurar de novo' },
+  { chega: 'T05', momento: '06-momento-conectando' },
+  { chega: 'T07', entre: [900, 1700] },
   { ve: 'Peça ao gestor pra cadastrar o M2C-0999.', ms: 8000 }, // pacote 3: o topo só com o serial, e o aviso da trava
   { naoVe: 'ENCERRAR' },
 
@@ -122,7 +134,8 @@ export default [
   { toca: 'M2C-0999' },
   { quieto: true },
   { toca: 'Conectar ao M2C-0999', naoAnima: [...TROCA, ...PARADOS] },
-  { chega: 'T07' },
+  { chega: 'T05', momento: '06-momento-conectando' },
+  { chega: 'T07', entre: [900, 1700] },
   { reduzir: false },
 
   // ── o palco (a janela larga): o estado da coluna e a volta ao fluxo abrem parados ──

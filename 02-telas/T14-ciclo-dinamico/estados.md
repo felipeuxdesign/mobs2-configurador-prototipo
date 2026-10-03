@@ -11,6 +11,8 @@
 | `04-estado-identificador-divergente` | estado | o cartão lido não bate | `identificador-divergente` |
 | `05-momento-ciclo-concluido` | momento | os seis passos e o evento | `ciclo` |
 | `06-momento-correcao-solicitada` | momento | tocar em `Solicitar correção de cadastro` no identificador divergente | `identificador-divergente` |
+| `07-momento-vez-da-porta` | momento | depois da ré · abra a porta · o evento já chegou | `ciclo` |
+| `08-momento-vez-do-cartao` | momento | depois da porta · passe o cartão | `ciclo` |
 
 - no protótipo · a nossa versão da linha *01-momento-antes-do-disparo*, antes desta entrega: | `01-momento-antes-do-disparo` | momento | a entrada da tela: a fila do módulo ainda drenando (G27) | `ciclo.mensagensGuardadas` |
 

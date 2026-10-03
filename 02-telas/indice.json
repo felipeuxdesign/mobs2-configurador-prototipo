@@ -1,6 +1,6 @@
 {
   "telas": 15,
-  "referencias": 150,
+  "referencias": 153,
   "itens": [
     {
       "id": "T01/00-tela",
@@ -757,6 +757,18 @@
       "caso": "modulos",
       "html": "02-telas/T05-conectar-modulo/referencias/html/05-momento-procurando.html",
       "png": "02-telas/T05-conectar-modulo/referencias/png/05-momento-procurando.png"
+    },
+    {
+      "id": "T05/06-momento-conectando",
+      "tela": "T05",
+      "pasta": "T05-conectar-modulo",
+      "tipo": "momento",
+      "nome": "06-momento-conectando",
+      "titulo": "T05 Conectando",
+      "como": "tocar em `Conectar ao M2C-0417` · 1,2s antes da T07, ou do não respondeu da 04",
+      "caso": "modulos",
+      "html": "02-telas/T05-conectar-modulo/referencias/html/06-momento-conectando.html",
+      "png": "02-telas/T05-conectar-modulo/referencias/png/06-momento-conectando.png"
     },
     {
       "id": "T05/16-estado-bluetooth-desligado",
@@ -1829,6 +1841,30 @@
       "caso": "identificador-divergente",
       "html": "02-telas/T14-ciclo-dinamico/referencias/html/06-momento-correcao-solicitada.html",
       "png": "02-telas/T14-ciclo-dinamico/referencias/png/06-momento-correcao-solicitada.png"
+    },
+    {
+      "id": "T14/07-momento-vez-da-porta",
+      "tela": "T14",
+      "pasta": "T14-ciclo-dinamico",
+      "tipo": "momento",
+      "nome": "07-momento-vez-da-porta",
+      "titulo": "T14 Vez da porta",
+      "como": "depois da ré · abra a porta · o evento já chegou",
+      "caso": "ciclo",
+      "html": "02-telas/T14-ciclo-dinamico/referencias/html/07-momento-vez-da-porta.html",
+      "png": "02-telas/T14-ciclo-dinamico/referencias/png/07-momento-vez-da-porta.png"
+    },
+    {
+      "id": "T14/08-momento-vez-do-cartao",
+      "tela": "T14",
+      "pasta": "T14-ciclo-dinamico",
+      "tipo": "momento",
+      "nome": "08-momento-vez-do-cartao",
+      "titulo": "T14 Vez do cartao",
+      "como": "depois da porta · passe o cartão",
+      "caso": "ciclo",
+      "html": "02-telas/T14-ciclo-dinamico/referencias/html/08-momento-vez-do-cartao.html",
+      "png": "02-telas/T14-ciclo-dinamico/referencias/png/08-momento-vez-do-cartao.png"
     },
     {
       "id": "T15/00-tela",

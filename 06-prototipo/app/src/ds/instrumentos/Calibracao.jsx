@@ -1,7 +1,7 @@
 // As peças da calibração (folha 8, T10) — a história da tela: o que o
 // módulo conta, a distância até o painel e o número que vai.
 import { useId, useLayoutEffect, useRef, useState } from 'react'
-import { Glifo, Icone } from '../index.js'
+import { Glifo } from '../index.js'
 import { Tambor } from './Tambor.jsx'
 import '../cartoes/caixas.css'   // a caixa de poço é a do aviso e do par comparado (revisão do C2)
 import '../entrada/TracoFoco.css'   // o traço de foco do valor alvo é o dos campos (C12·45)
@@ -51,7 +51,7 @@ export function ReguaDiferenca({ children, confere = false, falha = false, nomeG
   let texto = <span className="ds-regua-texto">{children}</span>
   if (troca.sai != null) texto = <span className="ds-regua-texto ds-regua-sai" onAnimationEnd={saiu}>{troca.sai}</span>
   else if (confere) texto = <span className={`ds-regua-texto ds-regua-confere ${troca.entra ? 'ds-regua-entra' : ''}`}><Glifo estado="ok" poco={24} nome={nomeGlifo} />{children}</span>
-  else if (falha) texto = <span className={`ds-regua-texto ds-regua-falha ${troca.entra ? 'ds-regua-entra' : ''}`}><Icone nome="xis-mini" tam={14} cor="vermelho" />{children}</span>
+  else if (falha) texto = <span className={`ds-regua-texto ds-regua-falha ${troca.entra ? 'ds-regua-entra' : ''}`}><Glifo estado="xis" poco={24} nome={nomeGlifo} />{children}</span>
   return (
     <div className="ds-regua">
       <span className="ds-regua-traco" />

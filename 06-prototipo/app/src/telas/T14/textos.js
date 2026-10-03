@@ -33,7 +33,11 @@ export const T = {
   causaDoPasso: (caso) => `${caso.lido} · ${O_QUE_FAZER[caso.passo]}`,
   cartao: 'Cartão do motorista',
   leu: (cartao) => `leu ${cartao.lido} · o cadastro espera ${cartao.esperado}`,
+  // o passo da vez (o pacote 6): a ação do técnico, pela chave do passo; o que não tem
+  // texto aprovado (a velocidade do tacógrafo) fica só com o quadrado (G25)
+  acao: { 're acionada': 'engate a ré', 'porta aberta': 'abra a porta', 'cartao do motorista': 'passe o cartão', 'ignicao desligada': 'desligue a ignição' },
   // o rodapé
+  aguardandoEvento: 'Aguardando o evento',
   disparar: 'Disparar evento de teste',
   dispararOutro: 'Disparar outro evento',
   encerrarCiclo: 'Encerrar o ciclo',

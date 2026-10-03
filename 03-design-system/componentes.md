@@ -313,15 +313,29 @@ Nunca na fonte do app, e nunca com ícone de notificação, operadora ou porcent
 
 ## O poço numa leitura em andamento (lei 24)
 
-Toda lista que lê, confere ou grava **uma linha por vez** — a T07, a T09, a T11 e a T16 — fala com três estados no poço:
+Toda lista que lê, confere ou grava **uma linha por vez** — a T07, a T09, a T11, a T14 e a T16 — fala com três estados no poço:
 
 | Estado | O poço | O valor |
 |---|---|---|
 | **esperando** | o relógio | um traço |
-| **agora** | o quadrado branco — 12px no poço de 32, 14px no de 34 | o verbo: *lendo*, *conferindo*, *gravando* |
+| **agora** | o quadrado branco — 12px no poço de 32, 14px no de 34 | o verbo: *lendo*, *conferindo*, *gravando* · na T14, a ação do técnico: *engate a ré* |
 | **pronto** | o check, o xis ou o *i* da linha que só informa | o resultado |
 
-**A contagem do andamento mora onde mora a do resultado:** ao lado do título na T07 e na T16; dentro do veredito, neutro, na T11. Enquanto a leitura corre, o rodapé fica desligado e diz o que está acontecendo. **A T14 fica fora:** o passo do veículo vai do relógio direto ao check, porque a espera é pelo ônibus.
+**A contagem do andamento mora onde mora a do resultado:** ao lado do título na T07 e na T16; dentro do veredito, neutro, na T11. Enquanto a leitura corre, o rodapé fica desligado e diz o que está acontecendo. **Na T14, o *agora* é uma ordem pro técnico:** o passo da vez diz o que ele tem que fazer no ônibus. Antes do disparo e na falha da rotação, sem quadrado.
+
+**No protótipo** · a fila que drena da T14/01 é a propriedade `fila` do `Prazo` (`{ resta, ms }`): a linha de `--e-4` sobre o `--poco`, o que resta em `--lima-barra-checklist`, esvaziando por `scaleX`, linear, em `RITMOS.filaDrenagemMs` vezes `--mov-fator`.
+
+## Ícone em linha com o texto
+
+O ícone que abre uma linha de texto — *ocupação de pinos confere* na T09, *relido às 14:30* na T10 — é **da família do poço**, com o círculo: o check, o xis ou o *i* · **14px no texto de 12, 15px no de 13** · e **desce até o meio das minúsculas**: `position: relative; top: 2px` no texto de 12, `top: 1px` no de 13. A Barlow reserva espaço em cima das letras, e o centro da caixa do texto fica acima delas — centralizado pela caixa, o ícone parece alto.
+
+**No protótipo** · o `Precondicao` desce o glifo `--e-2` (o texto de 12), e a régua da diferença (`Calibracao`), `--traco-borda` (o de 13), os dois com `position: relative` · o não confere da T10/10 usa o glifo `xis` de `--glifo-confere`, o mesmo tamanho do check.
+
+## Duas ideias numa linha
+
+Um rótulo com duas ideias separadas por **·** — *sem rede · 3 tentativas feitas* — fica numa linha só quando cabe. **Quando não cabe, quebra no ·, em duas linhas de verdade**, uma ideia em cada, e o · sai: *apaga a configuração anterior* / *preserva o serial e os contadores* na T09, *o servidor recusou* / *instalação encerrada por outro usuário* na T15. Nunca deixar o navegador decidir a quebra: ele parte a ideia no meio e deixa palavra sozinha. Rótulo não leva ponto final; frase completa, como os avisos, leva.
+
+**No protótipo** · o texto com duas ideias vem como lista, uma por item, e a peça quebra entre elas com `emLinhas` (`06-prototipo/app/src/ds/primitivos/linhas.jsx`) · na Cadeia (a descrição da Limpeza) e no CartaoAcao (a recusa da T15/02).
 
 ## No protótipo · o movimento das peças (C12)
 

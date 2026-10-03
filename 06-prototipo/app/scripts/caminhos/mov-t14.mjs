@@ -32,6 +32,8 @@ const M05 = '05-momento-ciclo-concluido'
 const M06 = '06-momento-correcao-solicitada'
 const ESTADOS = ['02-estado-prazo-estourado', '03-estado-dinamico-fora-do-esperado', '04-estado-identificador-divergente']
 const PARADA = [{ quieto: true }, { dorme: 700 }, { quieto: true }]
+// o pacote 6: a fila que drena, a linha fina da 01, em 3 s, linear, só por transform
+const FILA = { prop: 'transform', ms: 3000, em: 'ds-prazo-fila-resta' }
 
 export default [
   // ── abre parada: pela URL no 05 e em cada estado; no print, cada quadro ──
@@ -43,15 +45,14 @@ export default [
   // o 06 pela URL: o prazo corre dali, sem animar a entrada
   { abre: `?tela=T14&momento=${M06}` },
   { quieto: true },
-  // o 01 pela URL: a fila drena dali (G27), sem animar a entrada
+  // o 01 pela URL: a fila drena dali (G27) — só a linha da fila anda, a entrada não anima
   { abre: '?tela=T14&momento=01-momento-antes-do-disparo' },
-  { quieto: true },
-  { dorme: 700 },
-  { quieto: true },
+  { anima: [FILA], naoAnima: [esmaece('tela-miolo')] },
+  { ve: 'FILA DRENADA', entre: [2000, 3600] },
 
   // ── a entrada (G27): a fila drena, e a troca de quadro acende o disparo ──
   { abre: '?tela=T14' },
-  { quieto: true },
+  { anima: [FILA], naoAnima: [esmaece('tela-miolo')] },
   { ve: 'FILA DRENANDO' },
   { ve: '6 mensagens e 2 de diagnóstico saindo do módulo' },
   { desligado: 'Disparar evento de teste' },
@@ -61,8 +62,12 @@ export default [
   { dorme: 300 },
   { quieto: true },
   // o disparo: o texto do primário troca no lugar, e o disparado pelo app vira a hora
+  // (o pacote 6) o primário desliga e diz Aguardando o evento: o toque duplo não encerra o ciclo;
+  // e o passo da vez, a ré, ganha o quadrado de agora e a ação
   { toca: 'Disparar evento de teste', anima: [TEXTO, EVENTO], naoAnima: [MIOLO] },
-  { ve: 'Encerrar o ciclo' },
+  { desligado: 'Aguardando o evento' },
+  { naoVe: 'Encerrar o ciclo' },
+  { ve: 'engate a ré' },
   // o prazo drena contínuo: um trecho linear por tique, só por transform; o número troca no lugar
   { ve: '1:59', entre: [100, 450] },
   { anima: PRAZO, naoAnima: [...SEM_LARGURA, ...NUMERO_PARADO] },
@@ -71,11 +76,14 @@ export default [
   // o evento chega: o relógio vira o horário (T14·4); a barra fica no que restava
   { ve: 'O EVENTO CHEGOU EM', entre: [4500, 6500] },
   { anima: [EVENTO] },
+  { ve: 'Encerrar o ciclo' },   // o evento chegou: o Encerrar o ciclo acende
   { dorme: 400 },
   { quieto: true },
   // os passos do veículo: o check esmaece no poço (T14·3)
   { ve: '3 de 6 passos', entre: [1000, 3200] },
   { anima: [CHECK] },
+  { ve: 'abra a porta' },       // a vez passa pra porta, no mesmo tique
+  { naoVe: 'engate a ré' },
   { ve: '4 de 6 passos', entre: [2400, 3600] },
   { anima: [CHECK] },
   { ve: '5 de 6 passos', entre: [2400, 3600] },
@@ -189,6 +197,7 @@ export default [
   { anima: PRAZO, naoAnima: SEM_LARGURA },
   { ve: 'O EVENTO CHEGOU EM', entre: [4500, 6500] },
   { anima: [EVENTO] },
+  { ve: 'Encerrar o ciclo' },   // o evento chegou: o Encerrar o ciclo acende
   { chega: 'T14', momento: M05, entre: [1000, 3500] },
   { anima: TROCA, naoAnima: [CHECK] },
   { dorme: 300 },

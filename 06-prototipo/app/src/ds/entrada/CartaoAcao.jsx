@@ -2,6 +2,7 @@
 // técnico. O mesmo poço do bloco escolhido, com o traço vermelho; em cima o
 // X e o rótulo em vermelho, no meio o que falhou e por quê, embaixo a ação —
 // o botão secundário. O X é o glifo de falha solto ao lado do rótulo, em 22.
+import { emLinhas } from '../primitivos/linhas.jsx'
 import { Glifo } from '../index.js'
 import { BotaoSecundario } from './BotaoSecundario.jsx'
 import './CartaoAcao.css'
@@ -14,7 +15,7 @@ export function CartaoAcao({ rotulo, titulo, descricao, acao, aoAgir, rotuloAcao
   const corpo = (
     <div className="ds-cartao-acao-corpo">
       <span className="ds-cartao-acao-titulo">{titulo}</span>
-      <span className="ds-cartao-acao-descricao">{descricao}</span>
+      <span className="ds-cartao-acao-descricao">{emLinhas(descricao)}</span>
     </div>
   )
   const botao = <BotaoSecundario aoTocar={aoAgir} rotulo={rotuloAcao} compacto={compacto}>{acao}</BotaoSecundario>

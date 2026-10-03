@@ -18,6 +18,8 @@ export const TX = {
   escolhaUm: 'Escolha um módulo para continuar',
   conectar: 'Conectar',
   conectarAo: (serial) => `Conectar ao ${serial}`,
+  // 06 · conectando (o pacote 6): a espera da conexão, no primário desligado
+  conectandoAo: (serial) => `Conectando ao ${serial}…`,
   procurarDeNovo: 'Procurar de novo',
   voltarAoMenu: 'Voltar ao menu',
 

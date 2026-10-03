@@ -5,11 +5,12 @@ Vale o `03-design-system/movimento.md`. Entre telas, só o conteúdo esmaece em 
 | Elemento | Quando | O que muda | Tempo | Curva | Com reduzir movimento |
 |---|---|---|---|---|---|
 | troca de quadro (C12·4) | a fila do módulo drena (01 → 00); o prazo estoura; o ciclo conclui; tocar em `Disparar outro evento` | o antes do disparo, o prazo correndo, o prazo estourado e o ciclo concluído são desenhos diferentes — a frase da fila e a espera saem, a frase da Seção F entra, o rodapé troca inteiro: o conteúdo esmaece, como entre telas, pelo processo ou pelo toque; o que entra com o quadro (o disparo que acende, o último passo) não esmaece de novo por dentro | 150ms | desacelera | troca direta |
-| botão primário (C12·23) | tocar em `Disparar evento de teste` | o texto troca no lugar, pra `Encerrar o ciclo`; o roxo fica | 150ms | desacelera | troca direta |
+| botão Disparar | tocar em `Disparar evento de teste` | o primário desliga e diz *Aguardando o evento* até o evento chegar ou o prazo estourar; aí acende *Encerrar o ciclo* — o toque duplo não encerra o ciclo | — | — | igual |
 | barra do prazo | o evento foi disparado | drena da direita pra esquerda · no protótipo, 1s vale 4s de prazo; cada tique de 250ms é um trecho linear, o marcador e o preenchido juntos, só por transform (C12·40) | contínuo | linear | o número troca, a barra salta |
 | número do prazo | a cada segundo do prazo | troca no lugar | — | — | igual |
-| fila do módulo | antes do disparo | drena por 3s — a ref. 01 é o quadro do começo | 3s | linear | salta pro fim |
-| passo do veículo | o ônibus faz o passo | o relógio vira check — sem *agora*: a espera é pelo ônibus · um passo a cada 3s depois do disparo (+9, +12, +15 e +18s) | 150ms | desacelera | troca direta |
+| fila do módulo | antes do disparo | uma linha fina de 4px, embaixo da frase da fila, esvazia — a ref. 01 é o quadro do meio · só transform · fina pra a lista dos passos caber | 3s | linear | salta pro fim |
+| passo do veículo | o passo anterior vira check | o quadrado de agora nasce no poço do passo da vez, no mesmo tique: o título acende e a ação entra à direita — *engate a ré*, *abra a porta*, *passe o cartão*, *desligue a ignição* · um passo a cada 3s depois do disparo (+9, +12, +15 e +18s) · antes do disparo e na falha da rotação, sem quadrado | 150ms | esmaece | troca direta |
+| disparado pelo app | o disparo | o horário entra esmaecendo, como o do recebido | 150ms | esmaece | aparece |
 | linha do evento | o servidor recebe | o relógio vira o horário | 150ms | desacelera (C12·5) | troca direta |
 | pedido de correção | tocar em Solicitar correção | o link vira o registro com o relógio, no mesmo lugar | 150ms | desacelera (C12·5) | troca direta |
 

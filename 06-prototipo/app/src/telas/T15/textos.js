@@ -13,7 +13,7 @@ export const T = {
   rotuloDosErros: { 1: 'UM PRECISA DE VOCÊ', 2: 'DUAS COM ERRO' },
   ressincronizar: 'Ressincronizar e reenviar',
   entre: ' · ',                                              // o tipo e a placa, no título do item
-  recusou: (motivo) => `o servidor recusou · ${motivo}`,     // T15·1 (a): só com mais de um erro no cartão
+  recusou: (motivo) => ['o servidor recusou', motivo],   // duas linhas de verdade (o pacote 6)     // T15·1 (a): só com mais de um erro no cartão
   semRede: (tentativas, proxima) => `sem rede · ${tentativas} tentativas feitas, próxima às ${proxima}`,
   soAPrimeira: 'Só a primeira precisa de você. A segunda reenvia sozinha.',
   // o cartão do topo sem erro: o item que sobe agora (01)

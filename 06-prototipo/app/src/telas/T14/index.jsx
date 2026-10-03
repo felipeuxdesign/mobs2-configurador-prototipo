@@ -52,7 +52,7 @@ import { minSeg } from '../../dados/formato.js'
 import {
   REF, CASO_SEM_RESPOSTA, CASO_MOTOR, CASO_IDENTIFICADOR, PRAZO, EVENTO, TIQUE_MS, QUADRO_00, quadro05,
   tiqueDoPasso, horaDoRecebido, ativoDe, parDaSessao, parDoCaso, casosDoPar, filaDoModulo, veredito, causaDo,
-  passosDo, passosNaEntrada, passosFeitos, passosDoRegistro,
+  passosDo, passosNaEntrada, passosFeitos, passosDoRegistro, passosAte, tiqueDe, CHAVE, passoDaVez, FILA_NO_QUADRO_01,
 } from './ciclo.js'
 import { T } from './textos.js'
 import './t14.css'
@@ -71,8 +71,17 @@ function inicio(momento, est, unico) {
   const lista = passosDo(par)
   const base = { par, casos, lista, tentativa: 1, correcao: false }
   if (est === REF.estourado) return { ...base, fase: 'estourado', tique: PRAZO, passos: passosFeitos(lista, casos) }
-  if (est != null || momento === REF.corrigida) {
-    return { ...base, fase: 'correndo', tique: QUADRO_00, passos: passosNaEntrada(lista, casos), correcao: momento === REF.corrigida }
+  // o pacote 6: o identificador (04, 06) para na vez da ignição — a ré e a porta feitas, o
+  // cartão reprovado na vez dele; os outros estados, no quadro da 00
+  if (est === REF.identificador || momento === REF.corrigida) {
+    const tique = tiqueDe(lista, CHAVE.cartao)
+    return { ...base, fase: 'correndo', tique, passos: passosAte(lista, casos, tique), correcao: momento === REF.corrigida }
+  }
+  if (est != null) return { ...base, fase: 'correndo', tique: QUADRO_00, passos: passosNaEntrada(lista, casos) }
+  // a 07 e a 08 (o pacote 6): a vez da porta e a do cartão, pela URL, paradas
+  if (momento === REF.vezDaPorta || momento === REF.vezDoCartao) {
+    const tique = tiqueDe(lista, momento === REF.vezDaPorta ? CHAVE.re : CHAVE.porta)
+    return { ...base, fase: 'correndo', tique, passos: passosAte(lista, casos, tique), parado: true }
   }
   if (momento === REF.concluido) return { ...base, fase: 'concluido', tique: quadro05(lista), passos: passosFeitos(lista, casos) }
   if (EM_QUADRO) {
@@ -147,7 +156,7 @@ export default function T14({ momento, estado: est }) {
   }, [fluxo.fase, est])
 
   // o prazo anda um segundo por tique, até o quadro assentar
-  const correndo = !EM_QUADRO && est == null && fluxo.fase === 'correndo' && !assentado(fluxo)
+  const correndo = !EM_QUADRO && est == null && fluxo.fase === 'correndo' && !assentado(fluxo) && !fluxo.parado
   useEffect(() => {
     if (!correndo) return undefined
     const relogio = setInterval(() => setFluxo(avancar), TIQUE_MS)
@@ -213,6 +222,10 @@ export default function T14({ momento, estado: est }) {
   const chegou = recebido(fluxo)
   const conferiu = conferido(fluxo)
   const total = fluxo.lista.length
+  // o passo da vez (o pacote 6): o quadrado de agora e a ação do técnico
+  const vez = passoDaVez(passos, casos, fase === 'correndo')
+  // o cartão que não bate já reprovou: o link do rodapé vira o pedido de correção (04, 06)
+  const cartaoReprovado = !!casos.cartao && fluxo.lista.some((p, i) => p.chave === CHAVE.cartao && passos[i] === 'reprovada')
   const aprovados = passos.filter((e) => e === 'aprovada').length
   // o que resta do prazo; depois que o evento chega, a barra fica no que restava
   const restante = chegou ? PRAZO - EVENTO.recebidoAosSeg : disparado ? Math.max(0, PRAZO - tique) : PRAZO
@@ -226,6 +239,7 @@ export default function T14({ momento, estado: est }) {
       legendas={{ inicio: chegou ? T.disparadoAs(M.HORA_NOMINAL) : minSeg(0), fim: T.limite(PRAZO) }}
       detalhe={fase === 'drenando' ? T.filaSaindo(filaDoModulo(par.moduloSerial)) : estourado ? [T.secaoF] : null}
       falha={estourado}
+      fila={fase === 'drenando' ? (EM_QUADRO ? { resta: FILA_NO_QUADRO_01 } : { resta: 1, ms: RITMOS.filaDrenagemMs }) : undefined}
     />
   )
 
@@ -248,6 +262,9 @@ export default function T14({ momento, estado: est }) {
         const e = passos[i]
         const ultima = i === fluxo.lista.length - 1
         const causa = e === 'reprovada' ? causaDo(p, casos) : undefined
+        if (i === vez) {
+          return <LinhaChecagem key={p.id} variante="passo" titulo={p.titulo} estado="agora" valor={T.acao[p.chave]} divisoria={!ultima} />
+        }
         return (
           <LinhaChecagem key={p.id} variante="passo" titulo={p.titulo}
             estado={e === 'pendente' ? 'ainda-nao' : e}
@@ -264,26 +281,30 @@ export default function T14({ momento, estado: est }) {
   // ciclo concluído, 'Voltar ao menu'. Com o caso de identificador, o link do
   // rodapé é o pedido de correção, que não sai: o voltar não faz nada (como o menu
   // da T04). Num estado da coluna, o celular não toca, e a peça não escuta.
-  useVoltar(fase === 'concluido' ? () => ir('T04') : casos.cartao && fase === 'correndo' ? null : irAoChecklist)
+  useVoltar(fase === 'concluido' ? () => ir('T04') : cartaoReprovado && fase === 'correndo' ? null : irAoChecklist)
 
   let rodape
   if (fase === 'drenando') {
     // o primário apagado diz a ação, e quem explica é a frase da fila no prazo (o pacote 2 tirou a legenda repetida)
     rodape = <Rodape primario={T.disparar} primarioDesabilitado link={T.irAoChecklist} aoLink={irAoChecklist} />
   } else if (fase === 'drenada') {
-    // o disparo troca o texto do primário no lugar (C12·23): Disparar evento de teste → Encerrar o ciclo
+    // o disparo troca o texto do primário no lugar (C12·23): Disparar evento de teste → Aguardando o evento
     rodape = <Rodape primario={T.disparar} aoPrimario={disparar} primarioTrocaTexto link={T.irAoChecklist} aoLink={irAoChecklist} />
+  } else if (fase === 'correndo' && !chegou) {
+    // o pacote 6: depois do disparo, o primário desliga e diz o que espera; o Encerrar o ciclo só
+    // acende quando o evento chega ou o prazo estoura — o toque duplo não encerra o ciclo
+    rodape = <Rodape primario={T.aguardandoEvento} primarioDesabilitado primarioTrocaTexto link={T.irAoChecklist} aoLink={irAoChecklist} />
   } else if (estourado) {
     rodape = <Rodape primario={T.dispararOutro} aoPrimario={dispararOutro} link={T.irAoChecklist} aoLink={irAoChecklist} />
   } else if (fase === 'concluido') {
     rodape = <Rodape primario={T.voltarAoChecklist} aoPrimario={() => ir('T13')} link={T.voltarAoMenu} aoLink={() => ir('T04')} />
-  } else if (casos.cartao) {
+  } else if (cartaoReprovado) {
     rodape = (
-      <Rodape primario={T.encerrarCiclo} aoPrimario={encerrarCiclo} primarioTrocaTexto
+      <Rodape primario={T.encerrarCiclo} aoPrimario={encerrarCiclo} primarioTrocaTexto primarioAcende
         link={correcao ? T.solicitada(M.HORA_NOMINAL) : T.solicitar} aoLink={solicitarCorrecao} linkRegistrado={correcao} />
     )
   } else {
-    rodape = <Rodape primario={T.encerrarCiclo} aoPrimario={encerrarCiclo} primarioTrocaTexto link={T.irAoChecklist} aoLink={irAoChecklist} />
+    rodape = <Rodape primario={T.encerrarCiclo} aoPrimario={encerrarCiclo} primarioTrocaTexto primarioAcende link={T.irAoChecklist} aoLink={irAoChecklist} />
   }
 
   return (

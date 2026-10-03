@@ -8,15 +8,17 @@ Com a ignição ligada e o ônibus parado, deixar o app provar o que o módulo l
 | **Chrome** | faixa de sessão |
 | **Semente no protótipo** | sessão M2C-0417 + RKT-8H42 · fila com 6 mensagens e 2 de diagnóstico |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 3 · 3 — ver `estados.md` |
+| **Momentos · estados** | 5 · 3 — ver `estados.md` |
 
 ## O que se toca
 
+- `Disparar evento de teste` desliga o primário, que diz *Aguardando o evento* · **o `Encerrar o ciclo` só acende quando o evento chega ou o prazo estoura** — o toque duplo não encerra o ciclo
 - **seis passos, com o ônibus parado** (decisão 54): ignição ligada, rotação, ré, porta, cartão do motorista e ignição desligada · a velocidade só entra com tacógrafo digital — o herói não tem
 - a fila do módulo drena → `Disparar evento de teste` acende
   - no protótipo · a nossa versão desta linha, antes desta entrega: a tela entra no quadro `01`: a fila do módulo drenando, o prazo cheio e o disparo indisponível com o motivo (G27). A fila drena em 3 s (`movimento.md`), e o `Disparar evento de teste` acende; esse quadro não tem referência e junta as peças que existem (G25)
 - disparado → o prazo de 2:00 começa: 1 s real vale 4 s de prazo
 - os passos do veículo acendem sozinhos: a semente traz 2 feitos, e os passos 3 a 5 acendem a +9, +12 e +15 s do disparo (T14·1). A `00` é o instante antes de o evento chegar (1:36)
+  - no protótipo (o pacote 6): o passo da vez tem o quadrado de agora, o título aceso e a ação à direita (*engate a ré*, *abra a porta*, *passe o cartão*, *desligue a ignição*); antes do disparo e na falha da rotação, sem quadrado. O evento chega aos 6,6 s, antes da vez da porta: a `07`, a `08`, a `04` e a `06` mostram o evento chegado e o `Encerrar o ciclo` aceso
 - o evento chega aos 24 s do prazo e os campos conferem aos 33 (o mock): o número passa a ser o tempo que ele levou, e a barra para no que restava. Os cinco passos e o evento → `05` (C10 · G9: 0:24 e 14:30:24, o valor do mock)
   - no protótipo, conferido na última entrega: a referência `05` agora segue o mock — *0:24*, *14:30:24* e a barra em 80% —, e o app bate (os textos conferem; 0,87% → 0,09% contra o HTML). O que sobra é o marcador branco da escala: a `05` nova deixou o marcador em 60%, onde a barra parava com os 0:48 de antes, e a peça põe o marcador no fim do preenchido, no que restava (80%), como toda escala do app (`Prazo`, `Escala`) — vai ao arquiteto, pra o marcador da `05` ir pros 80%
 - `Encerrar o ciclo` → T13, e fecha a captura: os pendentes ficam pendentes na Seção E · `Ir para o checklist` → T13, com o ciclo aberto (T14·2). Voltar à T14 com o ciclo aberto retoma os passos que já valem, e o evento se dispara de novo

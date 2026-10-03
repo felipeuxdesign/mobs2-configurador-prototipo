@@ -6,7 +6,7 @@ O protótipo deixou três coisas que viram teste do produto quase sem trabalho.
 
 Cada estado de tela nasce de **um caso** — uma condição do mundo que o técnico encontra no campo: o módulo fora do cadastro, a rede que cai na sincronização, o ônibus fora do pacote, o servidor que não responde. São 56 casos em `04-dados/mocks.js` (`casos`), e o `04-dados/casos.md` diz que caso monta que estado. Cada um vira um teste: monte o mundo do caso, abra a tela, confira o estado da referência.
 
-O `02-telas/indice.json` lista as 150 referências com o caso de cada uma (`caso`), e se o estado nasce de uma condição (`coluna`).
+O `02-telas/indice.json` lista as 153 referências com o caso de cada uma (`caso`), e se o estado nasce de uma condição (`coluna`).
 
 ## 2 · Os roteiros são os cenários de aceite
 

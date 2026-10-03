@@ -14,7 +14,10 @@
 .ds-regua-traco { display: block; flex-grow: 1; height: var(--traco-borda); background: var(--divisoria); }
 .ds-regua-texto { font-size: var(--t-secundario); font-weight: 700; color: var(--tinta-secundaria); }
 .ds-regua-confere { display: flex; align-items: center; gap: var(--e-6); color: var(--tinta); }
-.ds-regua-confere .ds-glifo { width: var(--glifo-confere); height: var(--glifo-confere); }
+.ds-regua-confere .ds-glifo, .ds-regua-falha .ds-glifo { width: var(--glifo-confere); height: var(--glifo-confere); }
+/* o pacote 6 · o ícone em linha com o texto desce até o meio das minúsculas: 1 no texto de 13; o
+ * xis do não confere (T10/10) é o da família do poço, com o círculo, como o check */
+.ds-regua-confere .ds-glifo, .ds-regua-falha .ds-glifo { position: relative; top: var(--traco-borda); }
 /* o não confere (T10/10): o xis solto de 14 e a frase, em vermelho */
 .ds-regua-falha { display: flex; align-items: center; gap: var(--e-6); color: var(--vermelho); }
 /* o veredito que chega (C12·34): a diferença encolhe no centro e esmaece, ainda no

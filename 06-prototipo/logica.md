@@ -433,6 +433,7 @@ O que não é de desenho e o produto ainda decide segue um padrão — a lista e
 | `T01/11-momento-nao-recebi-reenvio-liberado` | os 60 s do reenvio zeram |
 | `T01/12-momento-codigo-reenviado` | tocar em *Conferir e reenviar* |
 | `T01/13-momento-codigo-no-e-mail` | tocar em *Mandar para o e-mail* |
+| `T01/19-momento-entrando` | tocar em `Entrar` · 1,2s antes do menu |
 | `T02/01-momento-escolhida` | tocar numa unidade, com uma empresa só |
 | `T02/03-momento-busca-sem-resultado` | digitar na busca um nome que não existe |
 | `T02/04-momento-busca-esconde-a-escolha` | com uma unidade escolhida, digitar uma busca que esconde ela |
@@ -449,22 +450,29 @@ O que não é de desenho e o produto ainda decide segue um padrão — a lista e
 | `T04/13-momento-encerrar-antes-de-homologar` | tocar no ENCERRAR antes de homologar |
 | `T05/01-momento-nenhum-escolhido` | a busca achou, nada tocado ainda |
 | `T05/02-momento-um-encontrado` | só um módulo por perto |
+| `T05/05-momento-procurando` | `Procurar de novo` · 1,2s antes da lista voltar |
+| `T05/06-momento-conectando` | tocar em `Conectar ao M2C-0417` · 1,2s antes da T07, ou do não respondeu da 04 |
 | `T06/01-momento-confirmar-o-veiculo` | tocar num ônibus |
 | `T06/08-momento-busca-sem-resultado` | digitar na busca uma placa que não existe |
 | `T06/09-momento-busca-esconde-a-escolha` | com um ativo escolhido, digitar uma busca que esconde ele |
 | `T07/01-momento-can-lida` | a configuração do ativo gravada, voltando ao diagnóstico |
 | `T07/06-momento-atualizando-o-firmware` | `Atualizar firmware` |
 | `T07/10-momento-relendo-a-can` | `Ler de novo` |
+| `T07/11-momento-lendo` | a leitura correndo · 600ms por linha |
 | `T09/04-momento-cadeia-concluida` | o último bloco relido |
 | `T09/05-momento-o-que-vai-ser-gravado` | `Configurar módulo`, numa instalação nova |
 | `T09/08-momento-manutencao-escolher-o-bloco` | `Configurar módulo`, numa manutenção |
 | `T09/09-momento-manutencao-reenviando` | `Reenviar`, com um bloco escolhido |
+| `T09/10-momento-manutencao-concluida` | a cadeia curta da manutenção fecha · as cercas relidas |
 | `T10/01-momento-hodometro-semeado` | `Semear o hodômetro` |
 | `T10/05-momento-hodometro-digitado` | digitar o valor do painel |
+| `T10/06-momento-gravando-no-modulo` | tocar em `Semear o hodômetro` · 1s |
+| `T10/07-momento-relendo` | depois de gravar · 1s, e o tambor rola |
 | `T10/08-momento-horimetro` | `Calibrar o horímetro` |
 | `T10/09-momento-calibracao-completa` | `Semear o horímetro`, com a releitura conferindo |
 | `T11/02-momento-tudo-confere` | nada diverge: pelo menu, com a sessão do herói, ou depois de regravar pela T09 (T11·1, T11·2) |
 | `T11/03-momento-outras-acoes` | tocar em Outras ações, no rodapé da conferência |
+| `T11/04-momento-conferindo` | a conferência correndo · 400ms por linha |
 | `T12/01-momento-detalhe-da-instalacao` | tocar numa instalação |
 | `T13/01-momento-a-identificacao-aberta` | tocar na seção |
 | `T13/02-momento-b-montagem-aberta` | tocar na seção |
@@ -481,10 +489,13 @@ O que não é de desenho e o produto ainda decide segue um padrão — a lista e
 | `T14/01-momento-antes-do-disparo` | a fila do módulo ainda drenando |
 | `T14/05-momento-ciclo-concluido` | os seis passos e o evento |
 | `T14/06-momento-correcao-solicitada` | tocar em `Solicitar correção de cadastro` no identificador divergente |
+| `T14/07-momento-vez-da-porta` | depois da ré · abra a porta · o evento já chegou |
+| `T14/08-momento-vez-do-cartao` | depois da porta · passe o cartão |
 | `T16/01-momento-pede-o-corte-de-alimentacao` | o passo do corte |
 | `T16/02-momento-sessao-encerrada` | o autoteste passa |
 | `T16/03-momento-encerrando-sem-homologar` | ENCERRAR antes de homologar |
 | `T16/04-momento-encerrada-sem-homologar` | os 4 passos terminam |
+| `T16/07-momento-autoteste-correndo` | as assertivas acendem em ordem · 400ms cada |
 
 - **no protótipo** · a nossa versão das linhas da T13, antes desta entrega: o `11` é tocar em `Finalizar instalação`, com A a E resolvidas (T13·3) · o `12` é salvar um item como não conforme, com a justificativa, e voltar à Seção B · o `13` é voltar do ciclo com os passos feitos, e tocar na Seção E
 

@@ -15,6 +15,9 @@ export const REF = {
   identificador: '04-estado-identificador-divergente',
   concluido: '05-momento-ciclo-concluido',
   corrigida: '06-momento-correcao-solicitada',
+  // o pacote 6: a vez da porta e a do cartão, quadros do meio do ciclo
+  vezDaPorta: '07-momento-vez-da-porta',
+  vezDoCartao: '08-momento-vez-do-cartao',
 }
 export const CASO_SEM_RESPOSTA = 'evento-sem-resposta'
 // o pacote 2 (decisão 54): o 03 é a rotação zerada, o motor desligado com a
@@ -134,12 +137,24 @@ export function causaDo(p, casos) {
   return undefined
 }
 
-// os passos na entrada: os que a semente traz feitos (T14·1), e o resto por
-// fazer. O cartão do caso de identificador já entra reprovado: na T14/04, a 1:36,
-// ele reprova enquanto a ré e a porta ainda esperam (o leitor leu o cartão antes
-// do disparo — padrão do protótipo, como a linha do cartão de antes do pacote 2)
-export const passosNaEntrada = (passos, casos) => passos.map((p, i) =>
-  (i < RITMOS.cicloPassosNaEntrada || (casos.cartao && ehCartao(p)) ? veredito(p, casos) : 'pendente'))
+// os passos num tique do prazo: os que a semente traz feitos (T14·1), os que já
+// aconteceram, e o resto por fazer. O cartão do caso de identificador reprova na vez
+// dele, depois da ré e da porta (o pacote 6: a 04 e a 06 na ordem certa)
+export const passosAte = (passos, casos, tique) => passos.map((p, i) =>
+  (i < RITMOS.cicloPassosNaEntrada || tique >= tiqueDoPasso(i) ? veredito(p, casos) : 'pendente'))
+export const passosNaEntrada = (passos, casos) => passosAte(passos, casos, 0)
+// o tique em que um passo acontece, pela chave (a 04, a 06, a 07 e a 08 param ali)
+export const tiqueDe = (passos, chave) => tiqueDoPasso(passos.findIndex((p) => p.chave === chave))
+// a T14/01 desenha a fila com 45% por sair (o quadro do meio da drenagem, o pacote 6)
+export const FILA_NO_QUADRO_01 = 0.45
+export const CHAVE = { re: 're acionada', porta: 'porta aberta', cartao: 'cartao do motorista' }
+// O passo da vez (o pacote 6, a T14 na gramática do poço): o primeiro por fazer, depois do
+// disparo, com o quadrado de agora e a ação do técnico; antes do disparo e na falha do motor
+// (o ciclo não anda sem ele), nenhum
+export function passoDaVez(passos, casos, disparado) {
+  if (!disparado || (casos.motor && passos.includes('reprovada'))) return -1
+  return passos.indexOf('pendente')
+}
 // todos os passos feitos (o 02 e o 05)
 export const passosFeitos = (passos, casos) => passos.map((p) => veredito(p, casos))
 // os passos gravados em etapas.ciclo (pelo id), na ordem do par
