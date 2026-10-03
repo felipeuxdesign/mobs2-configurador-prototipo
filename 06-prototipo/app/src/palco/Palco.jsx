@@ -13,7 +13,6 @@ import { lerUrl, escreverUrl, recarregou } from './rotas.js'
 import { estadosDa } from './telas.js'
 import { deitado, alturaDoPalco } from './retrato.js'
 import { abreTeclado } from '../estado/teclado-conta.js'
-import { VERSAO } from './versao.js'
 
 // a largura que o palco pede antes de encolher o celular: celular + distância + coluna + margens
 // o corte do modo estreito mora no palco-tokens.css (--palco-estreito)
@@ -90,7 +89,7 @@ function Medida() {
         raioTela: ts.borderTopLeftRadius, largura: cel.offsetWidth, altura: cel.offsetHeight, tela: caixa(cel.querySelector('.celular-tela')) }
       const out = document.createElement('pre'); out.id = 'm2cf-out'; out.style.display = 'none'
       out.textContent = JSON.stringify({ W: innerWidth, H: innerHeight, quadrado: um('.palco-quadrado'), celular: um('.celular'), moldura, painel: um('.painel'),
-        painelAberto: !!document.querySelector('.painel-aberto'), linhas, coluna: um('.coluna'), conteudo, lista: um('.coluna-lista'), etiqueta: um('.palco-etiqueta'),
+        painelAberto: !!document.querySelector('.painel-aberto'), linhas, coluna: um('.coluna'), conteudo, lista: um('.coluna-lista'), etiqueta: um('.painel-etiqueta'),
         textos: { painel: textos(document.querySelector('.painel-aberto')), coluna: textos(document.querySelector('.coluna')) } })
       document.body.appendChild(out)
     }, 50))
@@ -137,7 +136,6 @@ function PalcoApp() {
   const ir = useCallback((id) => { semPisca(); despachar({ tipo: 'pular', tela: id }) }, [despachar])
   const abrirEstado = (nome) => { semPisca(); despachar({ tipo: 'abrir-estado', estado: nome }) }
   const voltarAoFluxo = () => { semPisca(); despachar({ tipo: 'voltar-ao-fluxo' }) }
-  const recomecar = () => { semPisca(); despachar({ tipo: 'recomecar' }) }
 
   if (print) return <main className="palco palco-print"><div className="celular-tela"><App /></div>{lerUrl().textos && <Textos />}</main>
 
@@ -165,8 +163,7 @@ function PalcoApp() {
         </div>
         {temColuna && <Coluna tela={tela} estado={est} aoAbrir={abrirEstado} aoVoltar={voltarAoFluxo} pisca={piscaColuna} escala={escala} />}
       </div>
-      <span className="palco-etiqueta">{VERSAO.ciclo} · {VERSAO.data}</span>
-      <Painel aberto={painel} tela={tela} aoIr={ir} aoFechar={() => setPainel(false)} aoRecomecar={recomecar}
+      <Painel aberto={painel} tela={tela} aoIr={ir} aoFechar={() => setPainel(false)}
         estreito={estreito} numEstado={numEstado} aoVoltar={voltarAoFluxo} />
       {medir && <Medida />}
     </main>

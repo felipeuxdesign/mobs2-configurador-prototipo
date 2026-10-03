@@ -4,7 +4,7 @@
 // 0 a 1 em --mov-rapido (150), na --mov-curva; a barra do sistema, a tira e a faixa ficam de
 // fora e trocam direto quando o topo muda (o menu). O voltar do Android (o Esc) é o toque na
 // saída do rodapé, e esmaece igual. Nada se move no que não é toque: a primeira abertura, o
-// recarregar, o print, o pulo do palco, o estado da coluna, a volta ao fluxo, o Recomeçar e o
+// recarregar, o print, o pulo do palco, o estado da coluna, a volta ao fluxo, o login pelo painel e o
 // processo que leva sozinho a outra tela (os 4 passos da T16, que seguem pro login). Com
 // reduzir movimento, a troca é direta. Na vitrine, a troca de quadro (a Troca por chave, que
 // as telas ligam na fase seguinte): a primeira chave abre parada, e cada troca esmaece.
@@ -91,7 +91,7 @@ export default [
   { chega: 'T16', momento: '03-momento-encerrando-sem-homologar', ms: 1000 },
   { chega: 'T01', momento: null, entre: [1500, 3500] },
   { quieto: true },
-  // ── o palco, na janela larga: o pulo, o estado da coluna, a volta ao fluxo e o Recomeçar abrem parados ──
+  // ── o palco, na janela larga: o pulo, o estado da coluna, a volta ao fluxo e o login pelo painel abrem parados ──
   { abre: '?tela=T04' },
   { janela: [1440, 900] },
   { quieto: true },
@@ -108,10 +108,10 @@ export default [
   { quieto: true },
   { palco: 'Telas do protótipo' },
   { dorme: 400 },
-  { palco: 'Recomeçar do login' },
+  { palco: 'T01' },      // o login pelo painel zera o estado (o Recomeçar do login saiu, o diretor, 04/10)
   { chega: 'T01', momento: null },
   { quieto: true },
-  { palco: 'Fechar' },   // o Recomeçar deixa o painel aberto: o X dele fecha
+  { palco: 'Fechar' },   // escolher uma tela deixa o painel aberto: o X dele fecha
   { dorme: 400 },
   // e na janela larga o toque segue igual: do login às unidades
   { digita: 'Varzea26', em: 'SENHA' },

@@ -17,7 +17,8 @@ A moldura de apresentação em volta do app. **Três peças e mais nada**, no fu
 
 - **O caminho** — as telas na ordem do fluxo: T01 a T05, a T07 e a T06, T09 e T10, depois T14, T13 e T16 · o diagnóstico vem antes do vínculo, como o quadro 04 desenha
 - **As consultas** — T15, T11 e T12, que o técnico abre a qualquer hora pelo menu · a T07, o Diagnóstico do módulo, fica só no caminho
-- no pé, **`Recomeçar do login`** — zera o estado único e volta ao começo
+- no pé, **a data da última atualização** — *Atualizado em 04/10/2026*, a data do `CHANGELOG` (`app/src/palco/versao.js`)
+  - no protótipo (o diretor, 04/10): o `Recomeçar do login` saiu do pé — tocar na T01 do painel faz o mesmo, zera o estado único e abre o login, porque a semente da T01 é vazia; e a etiqueta do canto do palco saiu junto, pra a data morar num lugar só. A cena 04 desenha o botão: o desvio fica nomeado até o quadro ser redesenhado
 
 A tela aberta aparece marcada. As folhas não entram no painel: são momentos da T04.
 

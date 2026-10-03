@@ -88,8 +88,13 @@ const NOTAS = {
   'coluna-T07': 'a lista dos grupos: o nome do grupo na tinta e na letra do rótulo de 10, e não em --marca-limite e 1,4 (lei 11, PALCO-A15, PALCO-V4); e ' + MARCADOR,
 }
 const notaDe = (nome, nomePeca) => NOTAS[`${nome}/${nomePeca}`] ?? NOTAS[nomePeca]
+// o complemento do pacote 6 pôs o momento que nasce de um estado na coluna (o `depoisDe`): a
+// cena 02 já desenha o Atualizando o firmware, e a 03 e a 04 ainda não
+const DEPOIS_DE = 'a coluna põe o Atualizando o firmware logo depois do Firmware não homologado (o depoisDe do complemento do pacote 6), como a cena 02 desenha; este quadro ainda não'
 const NOTAS_TEXTO = {
-  '04-painel-aberto/coluna': NOTAS['04-painel-aberto/coluna'].split('; e ')[0],
+  '03-tela-com-muitos-estados/coluna': DEPOIS_DE,
+  '04-painel-aberto/coluna': NOTAS['04-painel-aberto/coluna'].split('; e ')[0] + '; e ' + DEPOIS_DE,
+  '04-painel-aberto/painel': 'o pé diz a data da última atualização (Atualizado em …), no lugar do Recomeçar do login, que saiu (o diretor, 04/10: a T01 do painel já zera o estado e abre o login); o quadro ainda desenha o botão',
 }
 
 // o script que vai no fim da cópia do quadro: mede as peças e escreve a medida.

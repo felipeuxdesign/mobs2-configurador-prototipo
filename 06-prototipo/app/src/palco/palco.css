@@ -98,15 +98,9 @@ body { background: var(--fundo-faixa); overflow: hidden; }
 .painel-nome { font-size: var(--t-corpo); font-weight: 500; color: var(--tinta-forte); }
 .painel-linha-aberta .painel-codigo { color: var(--tinta-secundaria); }
 .painel-linha-aberta .painel-nome { color: var(--tinta); font-weight: 700; }
-/* o pé: a borda, e o Recomeçar do login com o ícone de voltar ao começo (quadro 04); no estreito, a etiqueta embaixo dele */
+/* o pé: a borda, e a data da última atualização (o diretor, 04/10: no lugar do Recomeçar do login,
+ * que saiu, e da etiqueta do canto do palco) */
 .painel-pe { flex-shrink: 0; display: flex; flex-direction: column; padding: var(--e-12) var(--e-20) var(--e-20); border-top: var(--traco-borda) solid var(--borda); }
-.painel-recomecar { height: var(--palco-recomecar); display: flex; align-items: center; gap: var(--e-10); text-align: left;
-  font-size: var(--t-corpo); font-weight: 600; color: var(--tinta-forte); }
-.painel-recomecar svg { color: var(--tinta-secundaria); }
-/* o pressionado, como o do link (movimento.md): o texto e o ícone vão pra --tinta */
-.painel-recomecar:active, .painel-recomecar:active svg { color: var(--tinta); }
-
-.palco-etiqueta { position: absolute; left: var(--palco-margem); bottom: var(--palco-margem); font-size: var(--t-legenda); color: var(--tinta-apagada); }
 
 /* ?print=1 — só a tela do app, no canto: o que se compara com o PNG */
 .palco-print { background: var(--fundo-pagina); }
@@ -119,7 +113,6 @@ body { background: var(--fundo-faixa); overflow: hidden; }
 .palco-estreito:not(.palco-deitado) .palco-cena { align-items: stretch; justify-content: stretch; }
 .palco-estreito:not(.palco-deitado) .celular { width: 100%; height: 100%; padding: 0; border: 0; border-radius: 0; box-shadow: none; }
 .palco-estreito:not(.palco-deitado) .celular-tela { width: 100%; height: 100%; border-radius: 0; overflow-y: auto; }
-.palco-estreito .palco-etiqueta { display: none; }
 /* no celular de verdade, com o app na tela inteira, as barras desenhadas saem (diretor, 25/09): a altura dela vira
    zero, e tudo que as telas medem a partir dela (o véu, as folhas, o topo do login) acompanha. No computador,
    no print e no celular deitado (que desenha o celular), ela fica */

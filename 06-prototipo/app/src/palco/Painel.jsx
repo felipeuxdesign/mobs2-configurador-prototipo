@@ -1,11 +1,12 @@
 // O painel (palco.md, decisão 25, quadro 04): em duas partes — o caminho, na
-// ordem do fluxo, e as consultas —, e no pé o Recomeçar do login, sem confirmação.
+// ordem do fluxo, e as consultas —, e no pé a data da última atualização (o diretor,
+// 04/10: o Recomeçar do login saiu — tocar na T01 já zera o estado e abre o login).
 // Desliza da esquerda por cima de tudo; fecha no X, tocando fora ou com Esc.
-// No modo estreito ele leva o Voltar ao fluxo, no topo, e a etiqueta, no pé (G19).
+// No modo estreito ele leva também o Voltar ao fluxo, no topo.
 import { useEffect } from 'react'
-import { X, Undo2, RotateCcw } from 'lucide-react'
+import { X, Undo2 } from 'lucide-react'
 import { NOMES, CAMINHO, CONSULTAS } from './telas.js'
-import { VERSAO } from './versao.js'
+import { atualizadoEm } from './versao.js'
 
 function Linha({ id, aberta, aoIr }) {
   return (
@@ -15,7 +16,7 @@ function Linha({ id, aberta, aoIr }) {
   )
 }
 
-export function Painel({ aberto, tela, aoIr, aoFechar, aoRecomecar, estreito, numEstado, aoVoltar }) {
+export function Painel({ aberto, tela, aoIr, aoFechar, estreito, numEstado, aoVoltar }) {
   useEffect(() => {
     if (!aberto) return
     // o Esc do painel vem antes do Esc do app (a captura) e para aí: com o painel e uma folha
@@ -44,8 +45,7 @@ export function Painel({ aberto, tela, aoIr, aoFechar, aoRecomecar, estreito, nu
           </div>
         </div>
         <div className="painel-pe">
-          <button type="button" className="painel-recomecar" onClick={aoRecomecar}><RotateCcw aria-hidden="true" className="palco-icone-16" />Recomeçar do login</button>
-          {estreito && <span className="painel-etiqueta">{VERSAO.ciclo} · {VERSAO.data}</span>}
+          <span className="painel-etiqueta">Atualizado em {atualizadoEm()}</span>
         </div>
       </nav>
     </>

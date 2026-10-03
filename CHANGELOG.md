@@ -1,5 +1,11 @@
 # Registro de mudanças
 
+## 2026-10-04 · o pé do painel do palco
+
+- **o `Recomeçar do login` saiu** (o diretor): ele repetia a T01 do painel — os dois zeram o estado único e abrem o login, porque a semente da T01 é vazia · decisão 25 revista
+- **no lugar dele, a data da última atualização**, *Atualizado em 04/10/2026*, lida do `versao.js`; a etiqueta do canto do palco (*pacote 6 · 2026-10-04*) saiu, pra a data morar num lugar só
+- **no protótipo** · o roteiro `mov-troca` passa a zerar pelo T01 do painel · a cena 04 do palco ainda desenha o botão: o desvio fica nomeado no `palco.md` até o quadro ser redesenhado
+
 ## 2026-10-04 · o pacote 6 — a T14 e a T05 com retorno
 
 - **a T14 entra na gramática do poço** (`componentes.md`): o passo da vez ganha o quadrado branco, o título aceso e **a ação do técnico** à direita — *engate a ré*, *abra a porta*, *passe o cartão*, *desligue a ignição* · antes do disparo e na falha da rotação, sem quadrado · sai a frase *"a T14 fica fora"*
