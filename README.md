@@ -45,9 +45,11 @@ No celular, o app ocupa a tela inteira.
 
 ## Como foi construído
 
-Cada tela, momento e estado tem uma referência desenhada, em HTML e PNG — 153 ao todo. O protótipo foi construído contra elas e comparado pixel a pixel; toda diferença que sobrou tem um nome e um motivo registrados. A comparação final, com cada referência ao lado do protótipo, está em [`06-prototipo/para-o-arquiteto/conferencia-final/`](06-prototipo/para-o-arquiteto/conferencia-final/).
+Cada tela, momento e estado tem uma referência desenhada, em HTML e PNG — 153 ao todo. O protótipo foi construído contra elas e comparado pixel a pixel; toda diferença que sobrou tem um nome e um motivo registrados.
 
 O código não inventa nada: o comportamento vem da ficha de cada tela, os textos do `textos.md` dela, os valores dos tokens. Além das referências, o protótipo é verificado por 43 roteiros que tocam o app como o técnico — inclusive o caminho completo, com e sem horímetro — e por um gate que confere a coerência dos dados de exemplo.
+
+**As tecnologias:** o protótipo é um app web em **React 18** com **Vite**, em JavaScript, sem biblioteca de componentes de fora: as peças são as do design system, construídas no próprio projeto, com os valores dos tokens em CSS. Os ícones são do **Lucide**, e a fonte é a **Barlow**. A comparação com as referências roda no **Chrome** sem tela, com o **pixelmatch** medindo a diferença pixel a pixel. Ele é publicado na **Vercel**.
 
 | telas | momentos | estados | referências | histórias de usuário | casos de dados | decisões registradas |
 |---|---|---|---|---|---|---|
