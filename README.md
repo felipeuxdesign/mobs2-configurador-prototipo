@@ -97,3 +97,5 @@ Estar visível não significa estar liberado para uso. Os termos completos estã
 - as fontes **Barlow** e o recorte da **Google Sans**, sob a SIL Open Font License 1.1, com o texto da licença em [`05-recursos/fontes/`](05-recursos/fontes/);
 - os ícones do **Lucide**, sob a licença ISC;
 - as barras do sistema, do kit do **Material 3**, do Google.
+
+**Autoria:** design de produto e protótipo por [Luiz Felipe Silva Correia](https://www.linkedin.com/in/lfelipe-scorreia/), para a MOBS2.
