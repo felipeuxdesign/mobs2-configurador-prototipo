@@ -1,6 +1,6 @@
 # Mobs2 Configurador
 
-App Android para o técnico de campo instalar e homologar rastreadores em ônibus. Este repositório reúne o design do produto, o design system e o protótipo navegável construído a partir deles.
+Aplicativo mobile de instalação, configuração e homologação de módulos de telemetria embarcados, usado pelo técnico de campo. Este repositório reúne o design do produto, o design system e o protótipo navegável construído a partir deles.
 
 <p align="center">
   <img src="05-recursos/readme/caminho-do-heroi.gif" alt="O caminho do técnico no protótipo: o login, a empresa e a unidade, o pacote do dia, o menu, a conexão com o módulo, o diagnóstico, o vínculo com o ônibus, o que vai ser gravado e a configuração gravada e relida" width="330">
@@ -10,9 +10,9 @@ App Android para o técnico de campo instalar e homologar rastreadores em ônibu
 
 ## O problema
 
-As instalações não falhavam: **se declaravam concluídas e não funcionavam**. O módulo aceita comandos que destroem a configuração em silêncio, e o técnico — terceirizado, pago por instalação concluída, com um checklist marcável à mão — não tinha como validar o que fazia. Ele instala de 1 a 4 vezes por mês, então nunca ganha prática, e trabalha embaixo do ônibus, no pátio, muitas vezes sem rede, às vezes de luva e no sol. A falha aparecia no mesmo dia, mas depois de ele ir embora — e o custo era a viagem repetida.
+O técnico de campo é terceirizado e não conhece a lógica de programação do módulo. Ele instala em pátio, obra e zona rural, muitas vezes sem rede, às vezes embaixo do ônibus. E o equipamento não avisa quando algo dá errado: **sucesso de comando não é sucesso de configuração** — um bloco pode ser aceito e não funcionar, e um erro de faixa apaga em silêncio, aparecendo dias depois. O checklist antigo era uma lista de 30 itens marcáveis à mão, com um "marcar todos" que permitia homologar sem verificar.
 
-A resposta do produto: **levar a verificação pra antes de o técnico sair do veículo**, de um jeito que ninguém — nem ele — precise acreditar na palavra dele.
+A resposta do produto: **o sistema decide e o técnico executa**, todo envio é confirmado por releitura do módulo, e **a evidência é gerada pelo app, não digitada pelo técnico**.
 
 ## O que o app faz
 
@@ -27,7 +27,7 @@ O app conduz a instalação em sequência e prova cada passo:
 7. **Roda o ciclo de testes** com o ônibus parado: ignição, rotação, ré, porta e cartão do motorista.
 8. **Fecha o checklist** de 31 itens — o app confere o que consegue sozinho e o técnico fotografa o resto — e encerra a sessão.
 
-A regra que atravessa tudo: **a evidência é gerada pelo sistema, nunca digitada.** E as telas foram desenhadas pra luva e pro sol: áreas de toque de 48, nada a menos de 8 px do vizinho, contraste medido no fundo real.
+Nenhuma tela expõe comando, sintaxe ou parâmetro técnico: o técnico responde perguntas de negócio, e o app fala com o módulo.
 
 ## O protótipo
 
