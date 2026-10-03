@@ -7,7 +7,7 @@ const olha = (ms = 900) => ({ dorme: ms })
 export default [
   { abre: '' },
   { chega: 'T01', momento: null },
-  { ve: '14:30' },
+  { ouve: '9:30 · Wi-Fi, sinal e bateria' }, // pacote 4: a hora vem desenhada na barra oficial
   olha(1200),
   { digita: 'Varzea26', em: 'SENHA' },
   olha(700),

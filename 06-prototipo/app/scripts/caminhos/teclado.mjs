@@ -130,24 +130,24 @@ export default [
   { app: [360, 800] },
   // o Chrome de um tablet Android: o teclado encolhe a página, e o celular não encolhe junto (retrato.js,
   // alturaDoPalco) — fica do tamanho que tinha, e o app encolhe até o que sobra, como no Safari.
-  // Na escala de 1280 × 800 (0,91, a moldura da decisão 43: 752 / 826), os 450 que sobram são 494 do app
+  // Na escala de 1280 × 800 (0,92, a silhueta do pacote 4: 752 / 816), os 450 que sobram são 488 do app
   { janela: [1280, 800] },
   { abre: '?tela=T13&momento=08-momento-nao-conforme-com-justificativa' },
   { foca: 'O QUE ACONTECEU' },
   { janela: [1280, 450] },
-  { app: [360, 494] },
+  { app: [360, 488] },
   { aVista: 'O QUE ACONTECEU' },
   { aVista: 'Fotografar o problema' },
   { janela: [1280, 800] },
   { app: [360, 800], centrado: true },
-  // o celular deitado, com o teclado: o app segue em pé, na escala de antes (0,38: 312 / 826), e não encolhe pra caber
-  // nos 160 que sobram; o app encolhe até eles (424 do app), com o campo e o Entrar à vista
+  // o celular deitado, com o teclado: o app segue em pé, na escala de antes (0,38: 312 / 816, a silhueta do pacote 4), e não encolhe pra caber
+  // nos 160 que sobram; o app encolhe até eles (418 do app), com o campo e o Entrar à vista
   { janela: [800, 360] },
   { abre: '?tela=T01' },
   { app: [360, 800], centrado: true },
   { foca: 'SENHA' },
   { janela: [800, 160] },
-  { app: [360, 424] },
+  { app: [360, 418] },
   { aVista: 'SENHA' },
   { aVista: 'Entrar' },
   { janela: [800, 360] },

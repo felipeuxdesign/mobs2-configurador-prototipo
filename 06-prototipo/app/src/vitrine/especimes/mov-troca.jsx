@@ -7,7 +7,6 @@
 // dado é o do mock (a i-01), nada escrito aqui. Prova: scripts/caminhos/mov-troca.mjs.
 import { useRef, useState } from 'react'
 import { BarraDoSistema, Faixa, Rodape, CabecalhoConteudo, Lista, LinhaHistorico, RaizDaTroca, TrocaDeQuadro } from '../../ds/index.js'
-import { M } from '../../dados/mock.js'
 import { TX } from '../../telas/T12/textos.js'
 import { ativoDe, instalacaoDe, vereditoDe, detalheDaLinha, linhaDoDetalhe } from '../../telas/T12/dados.js'
 import '../../telas/T12/t12.css'
@@ -19,7 +18,7 @@ function EspecimeDaTroca() {
   return (
     <RaizDaTroca raiz={raiz}>
       <div ref={raiz} className="t12" style={{ height: 'var(--tela-altura)' }}>
-        <BarraDoSistema hora={M.HORA_NOMINAL} fundo="faixa" />
+        <BarraDoSistema fundo="faixa" />
         <Faixa serial={i.moduloSerial} placa={placa} acao={TX.encerrar} />
         {/* a tela diz qual quadro desenha: a chave é o quadro, e os filhos passam direto */}
         <TrocaDeQuadro chave={aberta ? 'detalhe' : 'lista'}>

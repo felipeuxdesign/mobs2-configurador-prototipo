@@ -3,7 +3,7 @@
 export default [
   { abre: '' },
   { chega: 'T01', momento: null },
-  { ve: '14:30' },
+  { ouve: '9:30 · Wi-Fi, sinal e bateria' }, // pacote 4: a hora vem desenhada na barra oficial
   { digita: 'Varzea26', em: 'SENHA' },
   { toca: 'Entrar' },
   // a empresa vem sempre antes da unidade (decisão 37, revista em 26/09): o herói tem

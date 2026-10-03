@@ -288,7 +288,7 @@ export default function T14({ momento, estado: est }) {
 
   return (
     <div className="t14">
-      <BarraDoSistema hora={M.HORA_NOMINAL} fundo="faixa" />
+      <BarraDoSistema fundo="faixa" />
       <Faixa serial={par.moduloSerial} placa={ativoDe(par.ativoId).placa} acao={T.encerrar} aoEncerrar={enc.encerrar} />
       {/* o miolo e o rodapé nascem com o quadro: dentro da troca, nada anda nem esmaece de novo por
           dentro (o passo que fecha o ciclo, o prazo que acaba) */}

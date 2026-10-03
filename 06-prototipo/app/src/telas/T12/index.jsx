@@ -28,7 +28,6 @@ import { BarraDoSistema, Faixa, CabecalhoConteudo, Aviso, Vazio, Lista, LinhaHis
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
 import { useEncerrar } from '../../estado/encerrar.jsx'
-import { M } from '../../dados/mock.js'
 import { TX } from './textos.js'
 import {
   REF, ativoDe, instalacaoDe, agrupar, vereditoDe, vereditoDoEstado, detalheDaLinha, linhaDoDetalhe, linhasDoDetalhe, mundoDe,
@@ -129,7 +128,7 @@ export default function T12({ momento, estado: est }) {
 
   return (
     <div className="t12">
-      <BarraDoSistema hora={M.HORA_NOMINAL} fundo="faixa" />
+      <BarraDoSistema fundo="faixa" />
       {faixa}
       {miolo}
       {rodape}

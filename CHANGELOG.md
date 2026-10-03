@@ -1,5 +1,13 @@
 # Registro de mudanças
 
+## 2026-10-03 · o pacote 4, construído, e a conferência final
+
+- **as barras do sistema, cenário fixo:** em cima, o desenho oficial do Android, importado de `05-recursos/sistema/` (D1), 360 × 30; embaixo, a navegação por gestos, componente novo, montado uma vez no `App.jsx`, por cima de tudo (D2), nas 142 telas · saem as propriedades `bluetooth`, `semRede` e `hora` e o contexto que passava o estado
+- **o palco:** a silhueta — borda de 8, cantos de 36 e 28, o fio de luz e a sombra —, no fundo `--fundo-faixa`, escalando junto com a tela (D3) · a etiqueta diz *pacote 4*
+- **a conferência final:** as 142 referências, a tela inteira, sem erro, 35 em 0% contra o HTML, nenhuma pior que a base do pacote 3, e nenhuma diferença nos 30 de cima e nos 21 de baixo · cada referência ao lado do print, em `06-prototipo/para-o-arquiteto/conferencia-final/` · as cenas do palco em `para-o-arquiteto/palco/` · os 43 roteiros (o herói com e sem o horímetro) · o GIF do README regravado
+- **a régua acompanha:** os três roteiros que viam o `14:30` leem o nome da barra (*9:30 · Wi-Fi, sinal e bateria*); o do teclado, a escala da silhueta (752 / 816 e 312 / 816)
+- os desvios e a conferência estão em `06-prototipo/para-o-arquiteto/gate-pacote4.md`
+
 ## 2026-10-02 · o pacote 4 — as barras do sistema viram cenário fixo, as oficiais do Android
 
 - **em cima, a barra oficial do Android, e fixa** (lei 22): a do kit do Material no Figma, versão escura de alto contraste — o 9:30, o Wi-Fi cheio, o sinal em triângulo e a bateria em pé, pela metade como no kit · o espaço da câmera reservado no centro, sem desenhar · escalada pra 360 e na altura de 30px · o fundo é o de cada tela, porque a barra sangra

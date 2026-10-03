@@ -257,7 +257,7 @@ export default function T05({ momento, estado: est }) {
 
   return (
     <div className="t05">
-      <BarraDoSistema hora={M.HORA_NOMINAL} fundo="pagina" />
+      <BarraDoSistema fundo="pagina" />
       <div className={`tela-miolo t05-miolo-busca ${q.fase === 'celular' ? 't05-miolo-celular' : ''}`}>{miolo}</div>
       <Fragment key={quadro}>{rodape}</Fragment>
     </div>

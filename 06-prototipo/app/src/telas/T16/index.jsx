@@ -288,7 +288,7 @@ export default function T16({ momento, estado: est }) {
 
   return (
     <div className="t16">
-      <BarraDoSistema hora={M.HORA_NOMINAL} fundo="faixa" />
+      <BarraDoSistema fundo="faixa" />
       {faixa}
       <div className="tela-miolo">{miolo}</div>
       {/* o rodapé nasce com o quadro: dentro da troca, o texto do primário não esmaece de novo */}

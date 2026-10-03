@@ -2,20 +2,20 @@
  * (08-produto-real/norma-e-ilustracao.md): os tokens do app não mudam por ele.
  * Apoiados nos tokens do app sempre que o valor já existe lá. */
 :root {
-  /* a moldura é um celular atual, sem marca (decisão 43, palco.md), em tamanho real: o metal em volta do aro preto,
-     os dois fios de 1 por sombra (não somam no tamanho), e nada mais — sem câmera, botão, sombra nem reflexo */
-  --palco-metal: 3px;                                          /* o metal, em volta do aro */
-  --palco-aro: var(--e-10);                                    /* o aro preto, igual nos quatro lados */
-  --palco-moldura: calc(var(--palco-metal) + var(--palco-aro)); /* 13 de cada lado: 386 × 826 por fora */
-  --palco-celular-largura: calc(var(--tela-largura) + 2 * var(--palco-moldura));
-  --palco-celular-altura: calc(var(--tela-altura) + 2 * var(--palco-moldura));
-  --palco-raio-fora: 57px;                                     /* o canto por fora do metal */
-  --palco-raio-tela: calc(var(--palco-raio-fora) - var(--palco-moldura)); /* 44 na tela: concêntrico com o de fora */
-  --palco-metal-cor: rgb(60 60 67);                            /* #3C3C43 */
-  --palco-aro-cor: rgb(5 5 7);                                 /* #050507 */
-  --palco-fio: var(--traco-borda);                             /* os dois fios têm 1 */
-  --palco-fio-fora: rgb(23 23 27);                             /* #17171B, por fora do metal */
-  --palco-fio-dentro: rgb(255 255 255 / 0.04);                 /* por dentro do metal, sobre o aro */
+  /* a moldura é a silhueta, sem marca (decisão 43, revista no pacote 4 · palco.md): uma borda quase-preta de 8 em volta da
+     tela — 376 × 816 por fora —, os cantos de 36 por fora e 28 na tela, concêntricos por construção, o fio de luz de 1 por
+     dentro, o contorno escuro de 1 por fora e a sombra suave embaixo — os três por sombra, que não soma no tamanho. Sem
+     metal, câmera nem botão. Em escala, tudo escala junto (a transformação do celular), nunca maior que o real (D3) */
+  --palco-borda: var(--e-8);                                   /* a borda, igual nos quatro lados */
+  --palco-celular-largura: calc(var(--tela-largura) + 2 * var(--palco-borda));
+  --palco-celular-altura: calc(var(--tela-altura) + 2 * var(--palco-borda));
+  --palco-raio-fora: 36px;                                     /* o canto por fora da borda */
+  --palco-raio-tela: calc(var(--palco-raio-fora) - var(--palco-borda)); /* 28 na tela: concêntrico com o de fora */
+  --palco-borda-cor: rgb(5 4 7);                               /* #050407, a quase-preta, mais escura que a tela */
+  --palco-fio: var(--traco-borda);                             /* o fio de luz e o contorno têm 1 */
+  --palco-fio-luz: rgb(255 255 255 / 0.14);                    /* o fio de luz, por dentro da borda */
+  --palco-contorno: rgb(0 0 0 / 0.6);                          /* o contorno escuro, por fora */
+  --palco-sombra: 0 12px 24px rgb(0 0 0 / 0.45);               /* a sombra suave embaixo (palco.md) */
   --palco-quadrado: var(--poco-44);                             /* 44 × 44 (palco.md) */
   --palco-coluna: 230px;
   --palco-coluna-distancia: var(--e-40);

@@ -35,7 +35,7 @@ TINTA = '#F2F0F7'      # --tinta
 SECUNDARIA = '#A9A2BC' # --tinta-secundaria
 FORTE = '#C9C3DA'      # --tinta-forte
 APAGADA = '#867E9A'    # --tinta-apagada
-PALCO = '#06050A'      # --poco-fundo
+PALCO = '#16131D'      # --fundo-faixa (o pacote 4)
 
 
 def fonte(peso, tam):
@@ -140,11 +140,11 @@ for ref, url, o_que, nota in MODOS:
     q, l = quadros[ref], linhas[(1440, ref)]
     c, co = q['celular'], q['coluna']
     sub_ref = (f'1440 × 900 a 1× · o celular desenhado a 90%: {num(c[2])} × {num(c[3])}, no {num(c[0])}, {num(c[1])} · '
-               f'metal {q["metal"]}, aro {q["aro"]}, canto {q["cantos"][0]} e {q["cantos"][1]}'
+               f'borda {q["borda"]}, canto {q["cantos"][0]} e {q["cantos"][1]}'
                + (f' · a coluna a {num(co["distancia"])}, com {num(co["altura"])} de altura, {co["estados"]} estados' if co else ''))
     lc, lk = l['celular'], l['coluna']
     sub_app = (f'a mesma janela, 1440 × 900 a 1×, sem reescalar · o celular em tamanho real (a escala é 1): {num(lc[2])} × {num(lc[3])}, no {num(lc[0])}, {num(lc[1])} · '
-               f'metal 3, aro 10, canto 57 e 44'
+               f'a silhueta: borda 8, canto 36 e 28'
                + (f' · a coluna a {num(lk[0] - lc[0] - lc[2])}, com {num(lk[3])} de altura, {l["folha"]["estados"]} estados' if lk else '')
                + f' · {nota}')
     lado_a_lado(Image.open(os.path.join(REF, ref + '.png')), Image.open(foto),
@@ -203,9 +203,9 @@ if F and os.path.exists(ref00):
     l1440 = [l for l in MED['palco']['linhas'] if l.get('janela') == [1440, 900] and l.get('modo') == '01-no-fluxo'][0]
     b = MED.get('barra') or {}
     for s, cor in [
-        ('?tela=T04 numa janela de 1440 × 369 · a escala (321/826) põe o celular na altura da miniatura, com o app dentro', FORTE),
-        (f'medido a 1440 × 900 e a 1920 × 1080: {l1440["conf"]["c_porFora"]["medido"][0]} × {l1440["conf"]["c_porFora"]["medido"][1]} por fora · metal 3 · aro 10 · canto 57 por fora e 44 na tela · a mesma moldura no fluxo e num estado', APAGADA),
-        (f'a hora na Google Sans, carregada e desenhada nela: {b.get("b_desenhadaNaGoogleSans", "—")} telas medidas', APAGADA),
+        ('?tela=T04 numa janela de 1440 × 369 · a escala (321/816) põe o celular na altura da miniatura, com o app dentro', FORTE),
+        (f'medido a 1440 × 900 e a 1920 × 1080: {l1440["conf"]["c_porFora"]["medido"][0]} × {l1440["conf"]["c_porFora"]["medido"][1]} por fora · a borda de 8 quase-preta · canto 36 por fora e 28 na tela · o fio de luz, o contorno e a sombra · a mesma moldura no fluxo e num estado', APAGADA),
+        (f'as barras oficiais do Android, em cima e embaixo: {b.get("a_desenhoOficialEmCima", "—")} e {b.get("a_navegacaoOficial", "—")} telas medidas', APAGADA),
     ]:
         y = paragrafo(d, (xs, y), s, leg, cor, 360, 1.45) + 10
 
@@ -245,10 +245,10 @@ if F and os.path.exists(ref00):
     l04 = [l for l in MED['palco']['linhas'] if l.get('janela') == [1440, 900] and l.get('modo') == '04-painel-aberto'][0]
     mexe = [l for l in MED['palco']['linhas'] if l.get('janela') == [1440, 900] and l.get('modo') == 'o painel não mexe'][0]
     medidas = [
-        ('PALCO', f'fundo {fo["fundo"]} (#06050A)'),
+        ('PALCO', f'fundo {fo["fundo"]} (#16131D, --fundo-faixa)'),
         ('COLUNA', f'{num(fo["colunaLargura"])} de largura, {l1440["conf"]["e_colunaA40"]["medido"]} à direita do celular, com a altura dele ({num(l1440["coluna"][3])}), o conteúdo no meio · linhas de {num(fo["linhaDaColuna"])}'),
         ('PAINEL', f'{num(l04["folha"]["painel"]["largura"])} de largura · fundo {l04["folha"]["painel"]["fundo"]} (#16131D) · cabeçalho {num(l04["folha"]["painel"]["cabeca"])} · linhas de {num(l04["folha"]["painel"]["linha"])}'),
-        ('CELULAR', f'o app em tamanho real, 360 × 800 · 386 × 826 por fora · metal 3 · aro 10 · canto 57 e 44 · no centro da janela ({l1440["conf"]["d_centroHorizontal"]["medido"]} dos lados, {l1440["conf"]["d_centroVertical"]["medido"]} em cima e embaixo) · escala 1 a 1440 × 900 e a 1920 × 1080'),
+        ('CELULAR', f'o app em tamanho real, 360 × 800 · 376 × 816 por fora · a silhueta: borda 8, canto 36 e 28 · no centro da janela ({l1440["conf"]["d_centroHorizontal"]["medido"]} dos lados, {l1440["conf"]["d_centroVertical"]["medido"]} em cima e embaixo) · escala 1 a 1440 × 900 e a 1920 × 1080'),
         ('ESTADO', 'a mesma moldura do fluxo, medida igual nos quatro modos · o app parado, sem toque'),
     ]
     movimento = [

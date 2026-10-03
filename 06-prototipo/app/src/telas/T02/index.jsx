@@ -259,7 +259,7 @@ export default function T02({ momento, estado, outraSessao }) {
 
   return (
     <div className="t02">
-      <BarraDoSistema hora={M.HORA_NOMINAL} fundo="pagina" />
+      <BarraDoSistema fundo="pagina" />
       {/* o quadro tem a chave dele: o miolo e o rodapé nascem com ele, e o texto do primário
           não esmaece de novo por dentro da troca (movimento.md · o que nasce com o quadro) */}
       <div className="t02-fundo" inert={atras}>

@@ -222,7 +222,7 @@ export default function T11({ momento, estado: est }) {
   const atras = outras.montado ? '' : undefined
   return (
     <div className="t11">
-      <BarraDoSistema hora={M.HORA_NOMINAL} fundo="faixa" />
+      <BarraDoSistema fundo="faixa" />
       <fieldset className="t11-topo" role="presentation" disabled={outras.montado}>
         <Faixa serial={par.moduloSerial} placa={ativoDe(par.ativoId)?.placa} acao={T.encerrar} aoEncerrar={enc.encerrar} />
       </fieldset>

@@ -1,8 +1,8 @@
-/* O palco: o fundo --poco-fundo, o quadrado, o celular no centro, a coluna,
+/* O palco: o fundo --fundo-faixa (o pacote 4), o quadrado, o celular no centro, a coluna,
  * o painel e a etiqueta. Nada reage a passar o mouse; o que responde é o
  * pressionado. A mãozinha só nas peças do palco; dentro do celular, a seta. */
 html, body, #raiz { height: 100%; }
-body { background: var(--poco-fundo); overflow: hidden; }
+body { background: var(--fundo-faixa); overflow: hidden; }
 
 .palco { position: relative; min-height: 100%; height: 100%; font-family: var(--fonte); color: var(--tinta); }
 .palco :where(button) { font: inherit; color: inherit; background: none; border: 0; padding: 0; margin: 0; cursor: pointer; }
@@ -26,14 +26,15 @@ body { background: var(--poco-fundo); overflow: hidden; }
 /* a cena · o celular no centro da janela nos dois eixos, com a mesma folga em cima e embaixo; a coluna a 40 dele,
    com a altura dele. O painel passa por cima: o celular e a coluna não se mexem quando ele abre */
 .palco-cena { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
-/* a moldura (decisão 43): o metal na borda, o aro preto no recheio, e os dois fios por sombra — o de fora do metal e o
-   de dentro dele —, que não somam no tamanho: 386 × 826 por fora, o canto de 57 por fora e 44 na tela, concêntricos */
+/* a moldura (decisão 43, revista no pacote 4): a silhueta — a borda de 8 no recheio, quase-preta, e o fio de luz por dentro,
+   o contorno por fora e a sombra embaixo, por sombra, que não somam no tamanho: 376 × 816 por fora, o canto de 36 por fora e
+   28 na tela, concêntricos. A escala (Palco.jsx) leva a moldura inteira junto: a borda e os raios proporcionais */
 .celular {
   position: relative; flex-shrink: 0;
   width: var(--palco-celular-largura); height: var(--palco-celular-altura);
-  padding: var(--palco-aro);
-  border: var(--palco-metal) solid var(--palco-metal-cor); border-radius: var(--palco-raio-fora); background: var(--palco-aro-cor);
-  box-shadow: 0 0 0 var(--palco-fio) var(--palco-fio-fora), inset 0 0 0 var(--palco-fio) var(--palco-fio-dentro);
+  padding: var(--palco-borda);
+  border-radius: var(--palco-raio-fora); background: var(--palco-borda-cor);
+  box-shadow: inset 0 0 0 var(--palco-fio) var(--palco-fio-luz), 0 0 0 var(--palco-fio) var(--palco-contorno), var(--palco-sombra);
   transform-origin: center center;
 }
 /* uma moldura só: num estado, ela é a mesma do fluxo — o que avisa que o app está parado é o Voltar ao fluxo, que pisca (decisão 43) */
@@ -119,11 +120,13 @@ body { background: var(--poco-fundo); overflow: hidden; }
 .palco-estreito:not(.palco-deitado) .celular { width: 100%; height: 100%; padding: 0; border: 0; border-radius: 0; box-shadow: none; }
 .palco-estreito:not(.palco-deitado) .celular-tela { width: 100%; height: 100%; border-radius: 0; overflow-y: auto; }
 .palco-estreito .palco-etiqueta { display: none; }
-/* no celular de verdade, com o app na tela inteira, a barra desenhada sai (diretor, 25/09): a altura dela vira
+/* no celular de verdade, com o app na tela inteira, as barras desenhadas saem (diretor, 25/09): a altura dela vira
    zero, e tudo que as telas medem a partir dela (o véu, as folhas, o topo do login) acompanha. No computador,
    no print e no celular deitado (que desenha o celular), ela fica */
 .palco-celular:not(.palco-deitado) { --barra-sistema: var(--palco-barra-no-celular); }
 .palco-celular:not(.palco-deitado) .ds-barra-sistema { overflow: hidden; padding: 0; }
+/* e a navegação por gestos desenhada também: a do aparelho já está lá */
+.palco-celular:not(.palco-deitado) .ds-navegacao-gestos { display: none; }
 /* no estreito, o painel leva o Voltar ao fluxo e a etiqueta (G19); o toque no
    app parado pisca o quadrado, que é a porta do Voltar */
 /* 12 da linha do cabeçalho (decisão 17: nada encosta); embaixo, o recheio da lista e o do nome da parte já dão 16 até O CAMINHO.

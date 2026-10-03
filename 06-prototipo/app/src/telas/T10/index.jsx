@@ -332,7 +332,7 @@ export default function T10({ momento, estado: est }) {
 
   return (
     <div className="t10">
-      <BarraDoSistema hora={HORA} fundo="faixa" />
+      <BarraDoSistema fundo="faixa" />
       <Faixa serial={moduloSerial} placa={ativoDe(ativoId)?.placa} acao={T.encerrar} aoEncerrar={enc.encerrar} acaoDesabilitada={semeando} />
       <div className="tela-miolo t10-miolo" onAnimationEnd={assentar}>
         <Segmentado rotulo={T.rotulo} contagem={String(fluxo.atual + 1)} total={T.deTotal(ordem.length)} segmentos={segmentos} legenda={legenda} />

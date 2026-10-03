@@ -1,24 +1,17 @@
-/* a Google Sans da hora (decisão 43): o recorte com só os números e os dois-pontos, no peso 500,
-   lido de 05-recursos/fontes e empacotado no build, como a Barlow — nunca baixado da internet. Só a
-   hora usa. A licença (OFL-GoogleSans.txt) fica ao lado do arquivo, e o próprio arquivo leva o aviso
-   dela nos metadados, que vão junto no build */
-@font-face { font-family: 'Google Sans'; font-style: normal; font-weight: 500; font-display: block; src: url('../../../../../05-recursos/fontes/GoogleSans-hora.woff') format('woff'); }
-
-/* os 30 de sempre (nada embaixo se move): o recuo de 26 e 32, das curvas da tela, e os glifos
-   3px abaixo do centro — o recheio de 6 em cima, com a medida por dentro. É do aparelho, e fica por
-   cima de tudo o que o app desenha (--camada-sistema): a faixa que desce e a que sobe passam por baixo dela
-   (C12·24, C12·25), e ela não se move */
+/* os 30 de sempre (nada embaixo se move): o desenho oficial na largura da tela, cortado na altura da barra
+   (o viewBox do BarraDoSistema.jsx). É do aparelho, e fica por cima de tudo o que o app desenha
+   (--camada-sistema): a faixa que desce e a que sobe passam por baixo dela (C12·24, C12·25), e ela não se move.
+   O fundo é o da tela (lei 22): a barra sangra */
 .ds-barra-sistema {
   position: relative; isolation: isolate; z-index: var(--camada-sistema);
   height: var(--barra-sistema); flex-shrink: 0;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: var(--barra-sistema-desce) var(--barra-sistema-recuo-direita) 0 var(--barra-sistema-recuo);
   background: var(--fundo-faixa);
 }
 .ds-barra-sistema-tira { background: var(--poco); }
 .ds-barra-sistema-pagina { background: var(--fundo-pagina); }
+.ds-barra-sistema > svg { display: block; width: 100%; height: 100%; }
 
-/* sob o véu: a camada escura fica por baixo da hora e dos ícones */
+/* sob o véu: a camada escura fica por baixo do desenho */
 .ds-barra-sistema::before {
   content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background: var(--veu); opacity: 0;
@@ -26,17 +19,3 @@
 }
 .ds-barra-sistema-veu-folha::before { opacity: 1; transition-duration: var(--mov-padrao); }
 .ds-barra-sistema-veu-dialogo::before { opacity: 1; }
-
-/* a hora: a fonte do sistema, nunca a do app (lei 22) · 13 é o --t-secundario */
-.ds-barra-sistema-hora { font-family: var(--fonte-sistema); font-size: var(--t-secundario); font-weight: 500; letter-spacing: 0; color: var(--tinta); }
-/* os ícones na cor do texto principal, cada um no tamanho do desenho (o do viewBox, por token), com 5 e 5,5 entre eles */
-.ds-barra-sistema-icones { display: flex; align-items: center; color: var(--tinta); }
-.ds-barra-sistema-icones svg { display: block; overflow: visible; }
-.ds-barra-sistema-sinal { width: var(--barra-sinal); height: var(--barra-sinal-altura); }
-/* os dois do mundo (lei 22): o Bluetooth, 12 de alto e a largura do próprio viewBox (7,6), a 6 do sinal ·
-   sem rede, o sinal apagado, na cor do marcador vazio (a ficha: #4A4166), e o Wi-Fi fora — a bateria
-   fica a 5,5 do sinal, pelo mesmo espaço de antes */
-.ds-barra-sistema-bluetooth { height: var(--e-12); margin-right: var(--e-6); }
-.ds-barra-sistema-sinal-apagado { color: var(--marca-vazia); }
-.ds-barra-sistema-wifi { width: var(--barra-wifi); height: var(--barra-icone); stroke-width: var(--barra-wifi-traco); margin-left: var(--barra-sistema-espaco-wifi); }
-.ds-barra-sistema-bateria { width: var(--barra-bateria); height: var(--barra-icone); margin-left: var(--barra-sistema-espaco-bateria); }

@@ -3,19 +3,20 @@
 // 1440 × 900, e o 00 (a folha das peças) em 1440 × 1760.
 //
 // O palco não é igual ao quadro inteiro, e isso é decidido (G19): o quadro desenha
-// o celular a 90% (348 × 744, no centro: no topo a 78) com o PNG da referência dentro,
-// e o palco põe o app em tamanho real, rodando, no centro (386 × 826, no topo a 37); o
+// o celular a 90% (338,4 × 734,4, no centro: no topo a 82,8) com o PNG da referência dentro,
+// e o palco põe o app em tamanho real, rodando, no centro (376 × 816, no topo a 42); o
 // quadrado fica a 16, e não a 24; e a etiqueta, que nenhum quadro desenha, fica no canto
 // (PALCO-A14). Por isso a bancada compara **peça por peça**, cada uma no lugar onde caiu
 // nos dois — o quadrado, a coluna (o conteúdo, que fica no meio da altura do celular), o
 // painel —, e dá o quadro inteiro só de informação. A tela do celular não entra: ela é da
 // régua das telas (scripts/tela.mjs), a 360 × 800.
-// A moldura (decisão 43) entra de dois jeitos: medida em tamanho real, contra os números
-// do palco.md (386 × 826, o metal de 3, o aro de 10, o canto de 57 e 44, as cores, os
-// dois fios, o centro da janela e a coluna a 40 com a altura dele) — a conferência da
-// moldura, que falha se um número não bate —, e desenhada: o anel da moldura, sem a tela,
-// com o palco numa janela de 792 de altura, onde a escala (744/826) põe o celular na
-// altura do quadro, contra o anel do quadro (a peça `moldura`).
+// A moldura (decisão 43, revista no pacote 4: a silhueta) entra de dois jeitos: medida em
+// tamanho real, contra os números do palco.md (376 × 816, a borda de 8 quase-preta, sem metal,
+// o canto de 36 e 28, o fio de luz por dentro, o contorno por fora e a sombra embaixo, o
+// centro da janela e a coluna a 40 com a altura dele) — a conferência da moldura, que falha
+// se um número não bate —, e desenhada: o anel da moldura, sem a tela, com o palco numa
+// janela de 782 de altura, onde a escala (734/816) põe o celular na altura do quadro (734,4),
+// contra o anel do quadro (a peça `moldura`).
 // No 00, cada espécime da folha contra a mesma peça numa das fotos do palco.
 // E os textos do painel e da coluna, na ordem, contra os do quadro (o palco não tem
 // textos.md: o texto dele é o que o quadro escreve, G19).
@@ -46,11 +47,12 @@ const REF = resolve(raiz, '06-prototipo/palco/referencias')
 const OUT = resolve(app, 'prints/palco'); mkdirSync(OUT, { recursive: true })
 const DEV = process.env.DEV || 'http://localhost:5173'
 const W = 1440, H = 900, H00 = 1760
-// a janela em que o palco escala o celular pra altura do quadro: (792 − 48) / 826 = 744 / 826
-const H_MOLDURA = 792
-// a moldura em tamanho real (palco.md, decisão 43; MUDANCAS §1 da otimizacao300000000): a norma da conferência
-const MOLDURA = { tela: [360, 800], metal: 3, aro: 10, fora: [386, 826], raioFora: 57, raioTela: 44,
-  metalCor: 'rgb(60, 60, 67)', aroCor: 'rgb(5, 5, 7)', fios: 'rgb(23, 23, 27) 0px 0px 0px 1px, rgba(255, 255, 255, 0.04) 0px 0px 0px 1px inset', coluna: 40 }
+// a janela em que o palco escala o celular pra altura do quadro (o quadro desenha a 90%: 734,4): (782 − 48) / 816 = 734 / 816
+const H_MOLDURA = 782
+// a moldura em tamanho real (palco.md, decisão 43 revista no pacote 4 · MUDANCAS §2): a norma da conferência — a silhueta:
+// a borda de 8 no recheio, sem metal; o fio de luz por dentro, o contorno por fora e a sombra, na sombra do celular
+const MOLDURA = { tela: [360, 800], borda: 8, fora: [376, 816], raioFora: 36, raioTela: 28, bordaCor: 'rgb(5, 4, 7)',
+  sombras: 'rgba(255, 255, 255, 0.14) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.6) 0px 0px 0px 1px, rgba(0, 0, 0, 0.45) 0px 12px 24px 0px', coluna: 40 }
 
 // os quadros e o lugar do palco que cada um desenha · o pacote 1: a tela agrupada é a T07, o Diagnóstico do
 // módulo (O módulo e A CAN), e não mais a T05; o 02 é a T07 no Firmware não homologado (a T07 antiga e o
@@ -70,10 +72,10 @@ const AUX_ESTADO = { ref: 'coluna-T04-num-estado', url: '?tela=T04&estado=03-est
 // A chave é "<quadro>/<peça>"; sem ela, vale a da peça. O texto só leva nota quando o quadro diz outra coisa.
 const MARCADOR = 'o quadrado vazado de 11 por dentro (lei do marcador, decisão 15); o quadro desenha 11 mais a borda, 13'
 const NOTAS = {
-  'inteiro': 'o quadro inteiro só informa: o celular a 90% com o PNG dentro (348 × 744, no topo a 78), o quadrado a 24 e sem etiqueta, contra o palco.md: o celular em tamanho real, rodando (386 × 826, no topo a 37) (G19, PALCO-A11, PALCO-A14)',
-  '04-painel-aberto/inteiro': 'o quadro inteiro só informa: o celular a 90% com o PNG dentro (348 × 744, no topo a 78), o quadrado a 24 e sem etiqueta, contra o palco.md: o celular em tamanho real, rodando (386 × 826, no topo a 37) (G19, PALCO-A11, PALCO-A14); e o quadro põe o celular e a coluna 90 à direita com o painel aberto, e o palco não os mexe: o painel passa por cima (palco.md, o 00: "não se mexe quando o painel abre", PALCO-A10)',
-  'moldura': 'o palco em escala (744/826) contra o quadro a 90% desenhado à mão: o metal de 3 inteiro no quadro (2,7 no palco em escala), o canto de 52 (51,3) e a caixa de 348 (347,7) — a moldura em tamanho real é da conferência da moldura',
-  '00-componentes/moldura': 'a miniatura da folha contra o palco na escala dela (321/826): a folha desenha o metal de 1,5, o aro de 4, o canto de 22 e 16,5 e o fio de fora de 0,5, e o palco em escala dá 1,2 · 3,9 · 22,2 e 17,1 · 0,4 — a moldura em tamanho real é da conferência da moldura',
+  'inteiro': 'o quadro inteiro só informa: o celular a 90% com o PNG dentro (338,4 × 734,4, no topo a 82,8), o quadrado a 24 e sem etiqueta, contra o palco.md: o celular em tamanho real, rodando (376 × 816, no topo a 42) (G19, PALCO-A11, PALCO-A14)',
+  '04-painel-aberto/inteiro': 'o quadro inteiro só informa: o celular a 90% com o PNG dentro (338,4 × 734,4, no topo a 82,8), o quadrado a 24 e sem etiqueta, contra o palco.md: o celular em tamanho real, rodando (376 × 816, no topo a 42) (G19, PALCO-A11, PALCO-A14); e o quadro põe o celular e a coluna 90 à direita com o painel aberto, e o palco não os mexe: o painel passa por cima (palco.md, o 00: "não se mexe quando o painel abre", PALCO-A10)',
+  'moldura': 'o palco em escala (734/816) contra o quadro a 90% desenhado à mão: o quadro escala a borda, o canto e a sombra (7,2 · 32,4 · 10,8 e 21,6) e deixa o fio de luz e o contorno em 1, e o palco escala a silhueta inteira, os fios também (0,9), e cai em 734 e não 734,4 — a moldura em tamanho real é da conferência da moldura',
+  '00-componentes/moldura': 'a miniatura da folha 00 ainda desenha a moldura de antes do pacote 4 — o metal de 1,5 #3C3C43, o aro de 4 e o canto de 22 —, e o palco é a silhueta na escala dela (321/816): o pacote 4 trocou os textos da folha, e não o desenho da miniatura (divergência do pacote) — a moldura em tamanho real é da conferência da moldura',
   'quadrado': 'o LayoutGrid do Lucide contra os quatro quadrados desenhados à mão (G5)',
   'painel': 'o X e o RotateCcw do Lucide, no traço 1,8, contra os desenhados à mão no traço 2 (G5)',
   'coluna': MARCADOR,
@@ -103,14 +105,14 @@ const SCRIPT = `<script>(()=>{new Promise(ok=>document.readyState==='complete'?o
     m.quadrados=spans.filter(e=>e.style.width==='44px'&&e.style.height==='44px').map(inteiro).map(cx);
     m.linhas=divs.filter(e=>e.style.width==='280px'&&e.style.height==='34px').map(inteiro).map(cx);
     const cols=divs.filter(e=>/dashed/.test(e.style.border)&&e.children.length>1).map(inteiro);m.colunas=cols.map(conteudo);m.listas=cols.map(e=>cx(e.lastElementChild));
-    // O CELULAR: a moldura em miniatura, com a tela vazia dentro (decisão 43)
+    // O CELULAR: a moldura em miniatura, com a tela vazia dentro (decisão 43; o pacote 4 não a redesenhou)
     const ce=divs.find(e=>e.children.length===1&&e.style.borderRadius==='22px'&&e.firstElementChild.style.borderRadius);
     if(ce){inteiro(ce);const s=getComputedStyle(ce);m.celular={celular:cx(ce),tela:cx(ce.firstElementChild),moldura:{metal:s.borderTopWidth,aro:s.paddingTop,raioFora:s.borderTopLeftRadius,raioTela:getComputedStyle(ce.firstElementChild).borderTopLeftRadius}}}
   }else{
     m.quadrado=cx(document.querySelector('a[aria-label="Telas do protótipo"]'));
-    // o celular: a caixa da moldura, com a imagem da tela dentro (decisão 43: o metal na borda, o aro no recheio)
+    // o celular: a caixa da moldura, com a imagem da tela dentro (decisão 43, revista no pacote 4: a borda da silhueta no recheio)
     const fr=divs.find(e=>e.children.length===1&&e.firstElementChild.tagName==='IMG');m.celular=cx(fr);m.tela=fr?cx(fr.firstElementChild):null;
-    if(fr){const s=getComputedStyle(fr);m.moldura={metal:s.borderTopWidth,metalCor:s.borderTopColor,aro:[s.paddingTop,s.paddingRight,s.paddingBottom,s.paddingLeft],aroCor:s.backgroundColor,raioFora:s.borderTopLeftRadius,fios:s.boxShadow,raioTela:getComputedStyle(fr.firstElementChild).borderTopLeftRadius}}
+    if(fr){const s=getComputedStyle(fr);m.moldura={borda:[s.paddingTop,s.paddingRight,s.paddingBottom,s.paddingLeft],bordaCor:s.backgroundColor,raioFora:s.borderTopLeftRadius,sombras:s.boxShadow,raioTela:getComputedStyle(fr.firstElementChild).borderTopLeftRadius}}
     const p=divs.find(e=>e.style.width==='280px'&&e.style.left==='0px');m.painel=cx(p);
     m.linhas=p?Object.fromEntries([...p.querySelectorAll('a[href^="#T"]')].map(a=>[a.firstElementChild.textContent.trim(),cx(a)])):{};
     const c=divs.find(e=>e.style.width==='230px'&&e.style.justifyContent==='center');m.coluna=cx(c);m.conteudo=c?conteudo(c):null;
@@ -174,7 +176,7 @@ function peca(nome, nomePeca, A, ca, B, cb, folga = 8) {
 }
 
 // a moldura desenhada: o anel da moldura dos dois, com a tela apagada — o retângulo de cantos redondos da tela do
-// quadro, 1 pra dentro do aro, some nos dois —, a caixa do quadro contra a do palco, com 4 de folga pro fio de fora
+// quadro, 1 pra dentro da borda, some nos dois —, a caixa do quadro contra a do palco, com 4 de folga pro fio de fora
 function anel(nome, A, ca, B, cb, folga = 4) {
   if (!ca?.celular || !cb?.celular) return { quadro: nome, peca: 'moldura', erro: `${!ca?.celular ? 'o quadro' : 'o palco'} não tem o celular` }
   const qa = ca.celular, qb = cb.celular
@@ -211,11 +213,11 @@ function confereMoldura(nome, m) {
   if (!c || !f) return confere(nome, 'o celular', 'medido', 'sem o celular')
   confere(nome, 'o tamanho por fora', MOLDURA.fora, [c.w, c.h])
   confere(nome, 'a tela', MOLDURA.tela, [f.tela.w, f.tela.h])
-  confere(nome, 'o metal, nos quatro lados', Array(4).fill(MOLDURA.metal).concat(Array(4).fill(MOLDURA.metalCor)), f.lados.map((v, i) => i < 4 ? px(v) : v))
-  confere(nome, 'o aro preto, nos quatro lados', Array(4).fill(MOLDURA.aro).concat(MOLDURA.aroCor), f.aro.map(px).concat(f.aroCor))
-  confere(nome, 'a tela dentro do aro', [c.x + MOLDURA.metal + MOLDURA.aro, c.y + MOLDURA.metal + MOLDURA.aro], [f.tela.x, f.tela.y])
-  confere(nome, 'o canto: por fora e na tela', [Array(4).fill(MOLDURA.raioFora), MOLDURA.raioTela], [f.raios.map(px), px(f.raioTela)])
-  confere(nome, 'os fios: o de fora do metal e o de dentro', MOLDURA.fios, f.fios)
+  confere(nome, 'sem metal: nenhuma borda de CSS', Array(4).fill(0), f.lados.map(px))
+  confere(nome, 'a borda quase-preta, nos quatro lados', Array(4).fill(MOLDURA.borda).concat(MOLDURA.bordaCor), f.borda.map(px).concat(f.bordaCor))
+  confere(nome, 'a tela dentro da borda', [c.x + MOLDURA.borda, c.y + MOLDURA.borda], [f.tela.x, f.tela.y])
+  confere(nome, 'o canto: por fora e na tela, concêntricos', [Array(4).fill(MOLDURA.raioFora), MOLDURA.raioTela], [f.raios.map(px), px(f.raioTela)])
+  confere(nome, 'o fio de luz por dentro, o contorno por fora e a sombra embaixo', MOLDURA.sombras, f.sombras)
   confere(nome, 'no centro da janela: a mesma folga dos dois lados', [true, true], [perto(c.x, m.W - c.x - c.w), perto(c.y, m.H - c.y - c.h)])
   if (co) confere(nome, 'a coluna a 40, com a altura do celular', [c.x + c.w + MOLDURA.coluna, c.y, c.h], [co.x, co.y, co.h])
 }
@@ -224,7 +226,7 @@ const doQuadro = []
 function informaQuadro(nome, m) {
   const c = m.celular, co = m.coluna; if (!c) return
   const r = { quadro: nome, caixa: [c.x, c.y, c.w, c.h], folgas: { esquerda: c.x, direita: m.W - c.x - c.w, cima: c.y, baixo: m.H - c.y - c.h },
-    metal: m.moldura.metal, aro: m.moldura.aro[0], raios: [m.moldura.raioFora, m.moldura.raioTela], coluna: co ? { distancia: co.x - c.x - c.w, altura: co.h, topo: co.y } : null }
+    borda: m.moldura.borda[0], raios: [m.moldura.raioFora, m.moldura.raioTela], coluna: co ? { distancia: co.x - c.x - c.w, altura: co.h, topo: co.y } : null }
   r.noCentro = perto(r.folgas.esquerda, r.folgas.direita) && perto(r.folgas.cima, r.folgas.baixo)
   doQuadro.push(r)
 }
@@ -268,7 +270,7 @@ for (const q of QUADROS) {
   res.push(peca('00-componentes', 'coluna-num-estado', R.png, m.colunas[1], E.png, E.medida.conteudo))
   // a da T07, pela lista: a folha não desenha o lugar fixo do topo (decisão 30), e a lista dos grupos fica comparável
   res.push(peca('00-componentes', 'coluna-T07', R.png, m.listas[2], f('03-tela-com-muitos-estados').png, f('03-tela-com-muitos-estados').medida.lista))
-  // O CELULAR: a miniatura contra o palco numa janela em que a escala dá a altura dela ((369 − 48) / 826 = 321 / 826)
+  // O CELULAR: a miniatura contra o palco numa janela em que a escala dá a altura dela ((369 − 48) / 816 = 321 / 816)
   if (m.celular) { const M = palco({ ref: '00-componentes', url: '?tela=T04' }, Math.round(m.celular.celular.h) + 48, '-escala'); res.push(anel('00-componentes', R.png, m.celular, M.png, { ...M.medida, tela: M.medida.moldura?.tela })) }
   else res.push({ quadro: '00-componentes', peca: 'moldura', erro: 'a folha não tem O CELULAR' })
 }
@@ -287,7 +289,7 @@ for (const t of textos) {
 }
 console.log('')
 for (const c of moldura) console.log(`${c.ok ? 'OK    ' : 'FALHA '} moldura · ${c.quadro} · ${c.o}${c.ok ? '' : ` — pede ${JSON.stringify(c.esperado)}, tem ${JSON.stringify(c.tem)}`}`)
-for (const q of doQuadro) console.log(`       o quadro · ${q.quadro} · a 90%: ${q.caixa.slice(2).join(' × ')} em ${q.caixa.slice(0, 2).join(', ')} · ${q.noCentro ? 'no centro' : `fora do centro (folgas ${Object.values(q.folgas).join(' · ')})`} · metal ${q.metal}, aro ${q.aro}, canto ${q.raios.join(' e ')}${q.coluna ? ` · a coluna a ${q.coluna.distancia}, com ${q.coluna.altura} de altura` : ''}`)
+for (const q of doQuadro) console.log(`       o quadro · ${q.quadro} · a 90%: ${q.caixa.slice(2).join(' × ')} em ${q.caixa.slice(0, 2).join(', ')} · ${q.noCentro ? 'no centro' : `fora do centro (folgas ${Object.values(q.folgas).join(' · ')})`} · borda ${q.borda}, canto ${q.raios.join(' e ')}${q.coluna ? ` · a coluna a ${q.coluna.distancia}, com ${q.coluna.altura} de altura` : ''}`)
 writeFileSync(resolve(OUT, 'relatorio.json'), JSON.stringify(res, null, 1))
 writeFileSync(resolve(OUT, 'textos.json'), JSON.stringify(textos, null, 1))
 writeFileSync(resolve(OUT, 'moldura.json'), JSON.stringify({ conferencias: moldura, quadros: doQuadro }, null, 1))

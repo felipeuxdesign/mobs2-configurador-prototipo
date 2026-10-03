@@ -326,7 +326,7 @@ export default function T04({ momento, estado: est }) {
   const sobreTudo = aviso || doEncerrar
   return (
     <div className="t04">
-      <BarraDoSistema hora={M.HORA_NOMINAL} fundo="tira" />
+      <BarraDoSistema fundo="tira" />
       <div className="t04-fundo">
         <fieldset className="t04-topo" role="presentation" disabled={montado} inert={sobreTudo ? '' : undefined}>
           <TopoDoMenu>

@@ -443,7 +443,7 @@ export function Login({ momento, estado, irMomento }) {
   useVoltar(folhaAberta ? fecharFolha : porCima || s.quadro === 'entrada' ? null : aoLogin)
   return (
     <div className="t01">
-      <BarraDoSistema hora={M.HORA_NOMINAL} fundo="pagina" veu={veu} />
+      <BarraDoSistema fundo="pagina" veu={veu} />
       <div className="t01-fundo" inert={porCima ? '' : undefined}>
         {s.quadro === 'entrada' && Entrada()}
         {s.quadro === 'canal' && Canal()}

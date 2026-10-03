@@ -345,8 +345,7 @@ export default function T13({ momento, estado: est }) {
   // acesa em cima dele como a referência desenha (G12), fica desabilitada.
   return (
     <div className="t13">
-      {/* o Bluetooth: o módulo está conectado durante toda a sessão (lei 22, D6) */}
-      <BarraDoSistema hora={HORA} fundo="faixa" bluetooth />
+      <BarraDoSistema fundo="faixa" />
       <fieldset className="t13-topo" role="presentation" disabled={dialogo.montado}>
         <Faixa serial={sessao.moduloSerial} placa={ativoDe(sessao.ativoId)?.placa} acao={T.encerrar} aoEncerrar={enc.encerrar} />
       </fieldset>

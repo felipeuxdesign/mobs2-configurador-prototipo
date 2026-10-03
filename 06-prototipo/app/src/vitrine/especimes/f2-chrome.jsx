@@ -20,13 +20,14 @@ const opcoes = [
 
 export const especimes = [
   // o topo
-  // as duas com sessão levam o Bluetooth do módulo conectado (lei 22, o pacote 2 · a folha 2 nova); a sem sessão, não
+  // as quatro peças da barra (lei 22, o pacote 4): o desenho oficial do Android, fixo — só o fundo muda, o da tela.
+  // A navegação por gestos a folha 2 não desenha: ela vive no pé do celular (App.jsx), e não tem espécime
   { id: 'f2-barra', folha: 2, chrome: true, rotulo: 'barra do sistema', legenda: 'desenho do Android · não é do app',
-    render: () => <BarraDoSistema hora="14:30" bluetooth /> },
+    render: () => <BarraDoSistema /> },
   { id: 'f2-barra-menu', folha: 2, chrome: true, rotulo: 'barra do sistema no menu', legenda: 'sobre o fundo da tira',
-    render: () => <BarraDoSistema hora="14:30" fundo="tira" bluetooth /> },
+    render: () => <BarraDoSistema fundo="tira" /> },
   { id: 'f2-barra-sem-sessao', folha: 2, chrome: true, rotulo: 'barra do sistema sem sessão', legenda: 'a cor da página — ela sangra no que vem embaixo',
-    render: () => <BarraDoSistema hora="14:30" fundo="pagina" /> },
+    render: () => <BarraDoSistema fundo="pagina" /> },
   { id: 'f2-faixa-aberta', folha: 2, chrome: true, rotulo: 'faixa · sessão aberta', legenda: 'LED lima, serial, placa e o ENCERRAR',
     render: () => <Faixa {...faixaAberta} acao="ENCERRAR" /> },
   { id: 'f2-faixa-sem-sessao', folha: 2, chrome: true, rotulo: 'faixa · sem sessão', legenda: 'LED apagado · só o fato',
@@ -105,7 +106,7 @@ export const especimes = [
       </div>
     ) },
   { id: 'f2-barra-veu', folha: 2, chrome: true, rotulo: 'barra do sistema sob o véu', legenda: 'escurece junto quando não há tira',
-    render: () => <BarraDoSistema hora="14:30" fundo="pagina" veu="folha" /> },
+    render: () => <BarraDoSistema fundo="pagina" veu="folha" /> },
 
   // folha 6 · a linha de opção — a folha desenha o cartão duas vezes, um dentro do outro
   { id: 'f6-linha-opcao', folha: 6, chrome: true, rotulo: 'linha de opção', legenda: 'o ícone, o que faz, e pra onde',

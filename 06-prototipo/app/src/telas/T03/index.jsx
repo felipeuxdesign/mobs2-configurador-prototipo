@@ -203,8 +203,7 @@ export default function T03({ momento, estado: est }) {
 
   return (
     <div className="t03">
-      {/* a baixa que caiu é a rede do aparelho que caiu (lei 22): a barra apaga o sinal e tira o Wi-Fi, no fluxo e no 01 */}
-      <BarraDoSistema hora={M.HORA_NOMINAL} fundo="pagina" semRede={q.fase === 'falha' || undefined} />
+      <BarraDoSistema fundo="pagina" />
       <div className="tela-miolo">
         <div className="t03-cabeca">
           <span className="t03-cabeca-rotulo">{caixaAlta(uo.nome)}</span>

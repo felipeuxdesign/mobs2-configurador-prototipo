@@ -39,7 +39,6 @@ import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
 import { useEncerrar } from '../../estado/encerrar.jsx'
 import { SEMENTES } from '../../estado/sementes.js'
-import { M } from '../../dados/mock.js'
 import {
   quadroDoEstado, quadroDoFluxo, grupos, placaDe, tituloDoItem, causaDaRecusa, causaDaRede, tamanhoDoEnvio,
   linhaDaLista, linhaDaRechecagem,
@@ -117,7 +116,7 @@ export default function T15({ estado: est }) {
 
   return (
     <div className="t15">
-      <BarraDoSistema hora={M.HORA_NOMINAL} fundo="faixa" />
+      <BarraDoSistema fundo="faixa" />
       {faixa}
       <div ref={lugar} className="tela-miolo">
         <CabecalhoConteudo titulo={T.titulo} contagem={total} unidade={T.nesteAparelho} />

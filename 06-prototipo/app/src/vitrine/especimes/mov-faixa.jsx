@@ -11,7 +11,6 @@
 // nada escrito aqui. Prova: scripts/caminhos/mov-faixa.mjs.
 import { useState } from 'react'
 import { BarraDoSistema, Faixa, CabecalhoConteudo } from '../../ds/index.js'
-import { M } from '../../dados/mock.js'
 import { SEMENTES } from '../../estado/sementes.js'
 import { T as T10 } from '../../telas/T10/textos.js'
 import { T as T16 } from '../../telas/T16/textos.js'
@@ -30,7 +29,7 @@ function Encerramento({ inicio }) {
     <div className="vitrine-mf-pilha">
       <Controles><Botao aoTocar={() => setFechada(true)}>bancada · a sessão encerra</Botao></Controles>
       <div className="t16 vitrine-mf-tela vitrine-mf-curta">
-        <BarraDoSistema hora={M.HORA_NOMINAL} fundo="faixa" />
+        <BarraDoSistema fundo="faixa" />
         {fechada
           ? <Faixa estado="sem-sessao" fato={T16.semSessao} revela />
           : <Faixa serial={s.moduloSerial} placa={placaDe(s.ativoId)} />}

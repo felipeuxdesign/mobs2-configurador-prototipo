@@ -302,7 +302,7 @@ export default function T07({ momento, estado: est }) {
 
   return (
     <div className="t07">
-      <BarraDoSistema hora={M.HORA_NOMINAL} fundo={comFaixa ? 'faixa' : 'pagina'} />
+      <BarraDoSistema fundo={comFaixa ? 'faixa' : 'pagina'} />
       {faixa}
       <div className="tela-miolo t07-miolo">
         <div className="t07-cabeca">

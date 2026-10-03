@@ -48,7 +48,7 @@ function Unidades() {
   return (
     <div className="vitrine-ml-pilha">
       <div className="t02 vitrine-ml-tela">
-        <BarraDoSistema hora={M.HORA_NOMINAL} fundo="pagina" />
+        <BarraDoSistema fundo="pagina" />
         <div ref={lugar} className="tela-miolo t02-miolo">
           <div className="t02-cabeca">
             <span className="t02-empresa">{caixaAlta(M.empresa.nome)}</span>
@@ -97,7 +97,7 @@ function Onibus() {
   return (
     <div className="vitrine-ml-pilha">
       <div className="t06 vitrine-ml-tela">
-        <BarraDoSistema hora={M.HORA_NOMINAL} fundo="faixa" />
+        <BarraDoSistema fundo="faixa" />
         <Faixa serial={HEROI} placa={T06.semAtivo} semAtivo acao={T06.encerrar} />
         <div ref={lugar} className="tela-miolo t06-miolo">
           <CabecalhoConteudo titulo={T06.titulo} contagem={contagemDoPacote({}, uoId)} unidade={T06.noPacote} />

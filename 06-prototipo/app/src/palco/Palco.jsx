@@ -29,11 +29,12 @@ const medirJanela = (antes) => {
   return { ...agora, toque, deitado: deitado(antes, agora, campo), alto: alturaDoPalco(antes, agora, campo) }
 }
 
-// o celular é a tela e a moldura (o metal e o aro, palco-tokens.css): 386 × 826 por fora; os fios são sombra e não somam
+// o celular é a tela e a moldura (a borda da silhueta, palco-tokens.css): 376 × 816 por fora; o fio de luz, o contorno e a
+// sombra são sombra e não somam. A escala leva a moldura inteira junto, e nunca passa de 1 (D3)
 function medirEscala(temColuna, alto) {
   const css = getComputedStyle(document.documentElement)
   const px = (v) => parseFloat(css.getPropertyValue(v))
-  const moldura = px('--palco-metal') + px('--palco-aro')
+  const moldura = px('--palco-borda')
   const alturaCel = px('--tela-altura') + 2 * moldura
   const larguraCel = px('--tela-largura') + 2 * moldura
   const lado = temColuna ? px('--palco-coluna-distancia') + px('--palco-coluna') : 0
@@ -80,11 +81,12 @@ function Medida() {
         for (let n = w.nextNode(); n; n = w.nextNode()) { const t = n.textContent.replace(/\s+/g, ' ').trim(); if (!t) continue; if (n.previousSibling?.nodeType === 3 && l.length) l[l.length - 1] = `${l[l.length - 1]} ${t}`; else l.push(t) }
         return l
       }
-      // a moldura como o navegador a desenhou (decisão 43): o metal, o aro, os cantos, as cores e os fios, e a tela dentro
+      // a moldura como o navegador a desenhou (decisão 43, revista no pacote 4): a borda da silhueta, os cantos, a cor, o fio
+      // de luz, o contorno e a sombra, e a tela dentro
       const cel = document.querySelector('.celular'), cs = cel && getComputedStyle(cel), ts = cel && getComputedStyle(cel.querySelector('.celular-tela'))
-      const moldura = cel && { metal: cs.borderTopWidth, metalCor: cs.borderTopColor, lados: [cs.borderTopWidth, cs.borderRightWidth, cs.borderBottomWidth, cs.borderLeftWidth, cs.borderTopColor, cs.borderRightColor, cs.borderBottomColor, cs.borderLeftColor],
-        aro: [cs.paddingTop, cs.paddingRight, cs.paddingBottom, cs.paddingLeft], aroCor: cs.backgroundColor, raioFora: cs.borderTopLeftRadius,
-        raios: [cs.borderTopLeftRadius, cs.borderTopRightRadius, cs.borderBottomRightRadius, cs.borderBottomLeftRadius], fios: cs.boxShadow,
+      const moldura = cel && { lados: [cs.borderTopWidth, cs.borderRightWidth, cs.borderBottomWidth, cs.borderLeftWidth],
+        borda: [cs.paddingTop, cs.paddingRight, cs.paddingBottom, cs.paddingLeft], bordaCor: cs.backgroundColor, raioFora: cs.borderTopLeftRadius,
+        raios: [cs.borderTopLeftRadius, cs.borderTopRightRadius, cs.borderBottomRightRadius, cs.borderBottomLeftRadius], sombras: cs.boxShadow,
         raioTela: ts.borderTopLeftRadius, largura: cel.offsetWidth, altura: cel.offsetHeight, tela: caixa(cel.querySelector('.celular-tela')) }
       const out = document.createElement('pre'); out.id = 'm2cf-out'; out.style.display = 'none'
       out.textContent = JSON.stringify({ W: innerWidth, H: innerHeight, quadrado: um('.palco-quadrado'), celular: um('.celular'), moldura, painel: um('.painel'),

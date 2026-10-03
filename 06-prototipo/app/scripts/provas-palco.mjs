@@ -2,22 +2,23 @@
 // moldura do palco, a T16, a T06 e a T12), medidas no protótipo rodando, e os
 // quatro modos do palco (e a folha 00) fotografados no quadro das referências.
 //
-//   (a) nas 147 do 02-telas/indice.json (as que o índice tiver), pelo endereço do print (como o tela.mjs
-//       abre): a barra de status com 30 de altura, no topo da tela do app, e o
-//       topo do primeiro elemento que vem embaixo dela em y = 30 · e, desde o pacote 2 (lei 22), o
-//       mundo dela como o da referência: o Bluetooth (7,6 × 12, a 6 do sinal) e o sem rede (o sinal
-//       apagado, sem o Wi-Fi), lidos dos ícones da barra no HTML de cada uma
-//   (b) a hora na Google Sans: o document.fonts com a família carregada, a família
-//       calculada do elemento da hora, a fonte que o Chrome de fato usou pra
-//       desenhar o texto (CSS.getPlatformFontsForNode) e nenhum pedido pra fora da
-//       máquina (a fonte vai empacotada, nunca baixada)
-//   (c) a moldura no palco largo, a 1440 × 900 e a 1920 × 1080: 386 × 826 por fora,
-//       o aro de 10, o metal de 3, o canto de 57 por fora e 44 na tela — pelo
-//       getBoundingClientRect e o getComputedStyle do celular e da tela
+//   (a) nas 142 do 02-telas/indice.json (as que o índice tiver), pelo endereço do print (como o tela.mjs
+//       abre), as duas barras do sistema (lei 22, o pacote 4): em cima, o desenho oficial do Android
+//       (05-recursos/sistema/barra-de-status-android.svg), elemento por elemento, no recorte do pacote
+//       (viewBox 0 12.90 412 34.33), com 360 × 30 no topo da tela, a imagem com o rótulo pro leitor, e o topo do
+//       primeiro elemento que vem embaixo dela em y = 30; embaixo, a navegação por gestos oficial, 360 × 20,97
+//       no pé, uma só, por cima de tudo (o ponto do meio de cada terço dela cai nela, com folha e véu abertos),
+//       sem toque e muda · e as duas na referência, com os mesmos desenhos
+//   (b) nenhum pedido pra fora da máquina (os desenhos vão no código, nunca baixados)
+//   (c) a moldura no palco largo, a 1440 × 900 e a 1920 × 1080: a silhueta (palco.md, o pacote 4) — 376 × 816
+//       por fora, a borda de 8 quase-preta, sem metal, o canto de 36 por fora e 28 na tela, o fio de luz, o
+//       contorno e a sombra, e o fundo do palco em --fundo-faixa — pelo getBoundingClientRect e o
+//       getComputedStyle do celular e da tela; e numa janela baixa, a moldura que escala junto, nunca maior
+//       que o real (D3)
 //   (d) o celular no centro da janela (palco.md: é o celular que fica no centro, nos
 //       dois eixos; a coluna fica ao lado dele): a folga da esquerda igual à da
 //       direita e a de cima igual à de baixo
-//   (e) a coluna a 40 do celular e com a altura dele (826)
+//   (e) a coluna a 40 do celular e com a altura dele (816)
 //   (f) a T16 com o vão de 14 entre os blocos do miolo nas sete referências, e a
 //       T06 (00 · a 02 e a 07 saíram no pacote 1) e a T12 (00, 03) com 16 entre o último grupo e o rodapé,
 //       no fim da rolagem — no app e, de referência, no HTML da referência
@@ -49,12 +50,13 @@ const RELATORIOS = resolve(app, 'prints/tmp/relatorios'); mkdirSync(RELATORIOS, 
 const REF_PALCO = resolve(raiz, '06-prototipo/palco/referencias')
 const modo = process.argv[2] || 'tudo'
 
-// as normas: a barra (componentes.md · A barra de status) e a moldura (palco.md, decisão 43)
+// as normas: as barras (lei 22 e a ficha das barras no componentes.md, o pacote 4) e a moldura (palco.md, decisão 43 revista)
 const NORMA = {
-  barra: 30,
-  moldura: { fora: [386, 826], tela: [360, 800], metal: 3, aro: 10, raioFora: 57, raioTela: 44,
-    metalCor: 'rgb(60, 60, 67)', aroCor: 'rgb(5, 5, 7)', fios: 'rgb(23, 23, 27) 0px 0px 0px 1px, rgba(255, 255, 255, 0.04) 0px 0px 0px 1px inset' },
-  coluna: { distancia: 40, altura: 826 },
+  barra: 30, recorte: '0 12.90 412 34.33', rotulo: '9:30 · Wi-Fi, sinal e bateria', navegacao: 20.97,
+  moldura: { fora: [376, 816], tela: [360, 800], borda: 8, raioFora: 36, raioTela: 28, bordaCor: 'rgb(5, 4, 7)',
+    sombras: 'rgba(255, 255, 255, 0.14) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.6) 0px 0px 0px 1px, rgba(0, 0, 0, 0.45) 0px 12px 24px 0px',
+    fundo: 'rgb(22, 19, 29)' },
+  coluna: { distancia: 40, altura: 816 },
   t16Vao: 14, folgaRodape: 16,
 }
 const JANELAS = [[1440, 900], [1920, 1080]]
@@ -143,14 +145,23 @@ async function fotografa(saida, clip) {
   const buf = Buffer.from(data, 'base64'); writeFileSync(saida, buf)
   return PNG.sync.read(buf)
 }
-// a foto preta (nesta máquina, às vezes a foto sai toda preta): o fundo do palco é #06050A, nunca o preto puro
+// a foto preta (nesta máquina, às vezes a foto sai toda preta): o fundo do palco é o --fundo-faixa, nunca o preto puro
 const preta = (png) => { let n = 0; for (let i = 0; i < png.data.length; i += 4) if (png.data[i] + png.data[i + 1] + png.data[i + 2] === 0) n++; return n / (png.width * png.height) > 0.9 }
 
 const perto = (a, b, tol = 0.5) => Math.abs(a - b) <= tol
 const r2 = (v) => Math.round(v * 100) / 100
-const resultado = { entrega: 'otimizacao300000000', o_que: 'as provas do arquiteto, medidas no protótipo rodando (scripts/provas-palco.mjs)', chrome: `o do fotógrafo de escala ${escalaDoChrome}, numa aba própria`, norma: NORMA }
+const resultado = { entrega: 'pacote 4', o_que: 'as provas do arquiteto, medidas no protótipo rodando (scripts/provas-palco.mjs)', chrome: `o do fotógrafo de escala ${escalaDoChrome}, numa aba própria`, norma: NORMA }
 
-// ─── (a) e (b): a barra de status nas 147 ─────────────────────────────────────
+// ─── (a) e (b): as barras do sistema nas 142 ─────────────────────────────────
+// as duas são o desenho oficial (lei 22, o pacote 4 · 05-recursos/sistema/): em cima, a barra do Android cortada no
+// viewBox do pacote, e embaixo, a navegação por gestos. Os elementos do desenho (cada path e rect, com os atributos),
+// lidos do arquivo oficial, contra os que a página desenhou
+const SISTEMA = resolve(raiz, '05-recursos/sistema')
+const elementos = (svg) => [...svg.matchAll(/<(path|rect)\b([^>]*?)\/?>/g)].map(([, tag, at]) => `${tag} ${[...at.matchAll(/([\w-]+)="([^"]*)"/g)].map(([, k, v]) => `${k}=${v}`).sort().join(' ')}`)
+const OFICIAL = {
+  barra: elementos(readFileSync(resolve(SISTEMA, 'barra-de-status-android.svg'), 'utf8')),
+  navegacao: elementos(readFileSync(resolve(SISTEMA, 'navegacao-por-gestos.svg'), 'utf8')),
+}
 const MEDE_BARRA = `(() => {
   const tela = document.querySelector('.celular-tela'); if (!tela) return { erro: 'sem a tela do app' }
   const T = tela.getBoundingClientRect()
@@ -166,7 +177,7 @@ const MEDE_BARRA = `(() => {
   const flutua = (e) => /absolute|fixed/.test(getComputedStyle(e).position)
   const seguintes = []
   for (let el = b; el && el !== tela; el = el.parentElement) for (let s = el.nextElementSibling; s; s = s.nextElementSibling) seguintes.push(...abre(s))
-  const vistos = seguintes.filter((e) => getComputedStyle(e).display !== 'none' && tem(e))
+  const vistos = seguintes.filter((e) => getComputedStyle(e).display !== 'none' && tem(e) && !e.closest('.ds-navegacao-gestos'))
   let prox = vistos.find((e) => !flutua(e)), como = 'no fluxo'
   if (!prox) { prox = vistos.find((e) => flutua(e) && e.getBoundingClientRect().top - T.top > 0.5); como = 'por cima da tela, embaixo da barra' }
   const quem = (e) => (typeof e.className === 'string' && e.className.trim() ? e.className.trim().split(/\\s+/).slice(0, 2).join(' ') : e.tagName.toLowerCase())
@@ -176,128 +187,110 @@ const MEDE_BARRA = `(() => {
     && e.getBoundingClientRect().top - T.top < ${NORMA.barra} - 0.5 && e.getBoundingClientRect().bottom - T.top > 0.5)
   const soLeitor = (e) => { const r = e.getBoundingClientRect(); return r.width <= 1 && r.height <= 1 }
   const porCima = naFaixa.filter((e) => !soLeitor(e)).map(quem), soDoLeitor = naFaixa.filter(soLeitor).map(quem)
-  const hora = b.querySelector('.ds-barra-sistema-hora'), ch = hora && getComputedStyle(hora), rz = getComputedStyle(document.documentElement)
-  // o mundo da barra (lei 22): o Bluetooth, o Wi-Fi e a cor do sinal, e a geometria do Bluetooth (7,6 × 12, a 6 do sinal)
-  const bt = b.querySelector('.ds-barra-sistema-bluetooth'), sinal = b.querySelector('.ds-barra-sistema-sinal'), wifi = b.querySelector('.ds-barra-sistema-wifi')
-  const corDe = (v) => { const s = document.createElement('span'); s.style.color = v; document.body.appendChild(s); const c = getComputedStyle(s).color; s.remove(); return c }
-  const rbt = bt && bt.getBoundingClientRect(), rsi = sinal && sinal.getBoundingClientRect()
-  const mundo = { bluetooth: !!bt, wifi: !!wifi, sinalCor: sinal && getComputedStyle(sinal).color, corTinta: corDe('var(--tinta)'), corVazia: corDe('var(--marca-vazia)'),
-    desenhoBt: bt ? { largura: rbt.width, altura: rbt.height, vao: rsi.left - rbt.right, cor: getComputedStyle(bt).color } : null }
+  // os elementos de um desenho, com os atributos, como o node lê o arquivo oficial
+  const elementos = (svg) => svg ? [...svg.querySelectorAll('path, rect')].map((e) => e.tagName.toLowerCase() + ' ' + e.getAttributeNames().map((k) => k + '=' + e.getAttribute(k)).sort().join(' ')) : []
+  const caixa = (e) => { const r = e.getBoundingClientRect(); return { esquerda: r.left - T.left, topo: r.top - T.top, largura: r.width, altura: r.height, baixo: T.bottom - r.bottom } }
+  const sb = b.querySelector(':scope > svg')
+  const desenho = sb && { viewBox: sb.getAttribute('viewBox'), elementos: elementos(sb), caixa: caixa(sb), mudo: sb.getAttribute('aria-hidden') }
+  // a navegação por gestos: no pé, por cima de tudo — com o toque ligado só pra medir, o ponto do meio de cada
+  // terço da faixa dela cai nela, e não numa folha, num véu ou no rodapé —, sem toque e muda
+  const navs = [...tela.querySelectorAll('.ds-navegacao-gestos')]
+  const n = navs[0]; let nav = null
+  if (n) {
+    const sn = n.querySelector(':scope > svg'), rn = n.getBoundingClientRect(), cn = getComputedStyle(n)
+    const toque = cn.pointerEvents
+    n.style.pointerEvents = 'auto'
+    const pontos = [1 / 6, 1 / 2, 5 / 6].map((f) => document.elementFromPoint(rn.left + rn.width * f, rn.top + rn.height / 2))
+    n.style.pointerEvents = ''
+    nav = { quantas: navs.length, caixa: caixa(n), toque, mudo: n.getAttribute('aria-hidden'), porCima: pontos.map((p) => !!p && n.contains(p)),
+      quemCobre: pontos.filter((p) => p && !n.contains(p)).map(quem), viewBox: sn?.getAttribute('viewBox'), elementos: elementos(sn) }
+  }
   return {
-    mundo,
-    barra: { topo: rb.top - T.top, altura: rb.height, largura: rb.width, alturaCalculada: cb.height, recheioTopo: cb.paddingTop, token: rz.getPropertyValue('--barra-sistema').trim(), quantas: barras.length },
+    barra: { topo: rb.top - T.top, altura: rb.height, largura: rb.width, alturaCalculada: cb.height, quantas: barras.length,
+      papel: b.getAttribute('role'), rotulo: b.getAttribute('aria-label'), texto: b.textContent.trim(), fundo: cb.backgroundColor },
+    desenho, nav,
     embaixo: prox ? { quem: quem(prox), topo: prox.getBoundingClientRect().top - T.top, como } : null,
     porCima: [...new Set(porCima)].slice(0, 6), soDoLeitor: [...new Set(soDoLeitor)],
-    hora: hora && { texto: hora.textContent, familia: ch.fontFamily, tamanho: ch.fontSize, peso: ch.fontWeight, cor: ch.color,
-      tokens: { '--fonte-sistema': rz.getPropertyValue('--fonte-sistema').trim(), '--t-secundario': rz.getPropertyValue('--t-secundario').trim(), '--tinta': rz.getPropertyValue('--tinta').trim() } },
-    googleSans: [...document.fonts].filter((f) => f.family.replace(/["']/g, '') === 'Google Sans').map((f) => ({ status: f.status, peso: f.weight, estilo: f.style })),
-    fontes: document.fonts.status,
   }
 })()`
-
-// a cor do token --tinta, calculada, pra comparar com a cor da hora
-const COR_DO_TOKEN = `(() => { const s = document.createElement('span'); s.style.color = 'var(--tinta)'; document.body.appendChild(s); const c = getComputedStyle(s).color; s.remove(); return c })()`
-const TAMANHO_DO_TOKEN = `(() => { const s = document.createElement('span'); s.style.fontSize = 'var(--t-secundario)'; document.body.appendChild(s); const c = getComputedStyle(s).fontSize; s.remove(); return c })()`
-
-async function fonteUsada(seletor) {
-  const { root } = await cdp('DOM.getDocument', { depth: 0 }, S)
-  const { nodeId } = await cdp('DOM.querySelector', { nodeId: root.nodeId, selector: seletor }, S)
-  if (!nodeId) return null
-  const { fonts } = await cdp('CSS.getPlatformFontsForNode', { nodeId }, S)
-  return fonts.map((f) => ({ familia: f.familyName, postScript: f.postScriptName, daPagina: f.isCustomFont, glifos: f.glyphCount }))
-}
 
 // o que não se constrói, por desvio nomeado: fica fora da conta, e o relatório diz por quê
 // (o domínio mudo da T07 antiga saiu com ela, no pacote 1: hoje nenhuma)
 const FORA_DO_CICLO = {}
 
-// O mundo da barra na referência (lei 22, o pacote 2 · MUDANCAS §10): os ícones da primeira barra do HTML —
-// o Bluetooth (o path do Material, M17.71…) e, sem rede, o sinal em #4A4166 e sem o Wi-Fi
-function mundoDaReferencia(html) {
+// As barras na referência (o pacote 4): a de cima no recorte do pacote, com os elementos do desenho oficial, e a
+// navegação por gestos no pé
+function barrasDaReferencia(html) {
   const s = readFileSync(resolve(raiz, html), 'utf8')
-  const i = s.indexOf("font-family: 'Google Sans'"), icones = i < 0 ? '' : s.slice(i, s.indexOf('</div>', i))
-  return { bluetooth: icones.includes('M17.71'), semRede: /viewBox="0 0 14\.7 9\.7" fill="#4A4166"/.test(icones) && !icones.includes('M1.24 4.14') }
+  const i = s.indexOf(`viewBox="${NORMA.recorte}"`), j = s.indexOf('data-sistema="navegacao-por-gestos"')
+  const cima = i < 0 ? '' : s.slice(i, s.indexOf('</svg>', i)), baixo = j < 0 ? '' : s.slice(j, s.indexOf('</svg>', j))
+  return { barra: i >= 0 && JSON.stringify(elementos(cima)) === JSON.stringify(OFICIAL.barra), navegacao: j >= 0 && JSON.stringify(elementos(baixo)) === JSON.stringify(OFICIAL.navegacao) }
 }
-// Onde o protótipo segue a lei 22 e a referência não foi refotografada: o Bluetooth com o módulo conectado,
-// da conexão ao fim da sessão (D6). Desvio nomeado, fora da falha: o relatório diz qual. O pacote 3 trouxe as
-// 9 que faltavam com o Bluetooth (a T04/05, 06, 07, 08, 09 e 14, e a T16/00, 01 e 03 · MUDANCAS §3): hoje nenhuma
-const DESVIOS_DA_BARRA = {}
 async function barraNas145() {
   const indice = JSON.parse(readFileSync(resolve(raiz, '02-telas/indice.json'), 'utf8'))
   await janela(360, 800)
   const linhas = []
   // PROVAS_SO=T07/04-estado-firmware-nao-homologado,T02/00-tela: só essas (pra conferir uma de novo)
   const so = process.env.PROVAS_SO ? process.env.PROVAS_SO.split(',') : null
+  const igual = (a, b) => JSON.stringify(a) === JSON.stringify(b)
   for (const it of indice.itens.filter((i) => !so || so.includes(i.id))) {
     const q = new URLSearchParams({ print: '1', tela: it.tela })
     const m = it.nome.match(/^\d\d-(estado|momento)-/); if (m) q.set(m[1], it.nome)
     const endereco = `${BASE}?${q}`
-    let med, usada, erro = null, tentativas = 0
+    let med, erro = null, tentativas = 0
     // a que não abre tenta de novo, duas vezes (o dev server às vezes demora a responder uma)
     for (;;) {
       tentativas++; pedidos = []; erro = null
       try {
         await abre(endereco, { pronto: `!!document.querySelector('.celular-tela .app')?.children.length` })
         med = await avalia(MEDE_BARRA)
-        if (med.erro) break
-        usada = await fonteUsada('.celular-tela .ds-barra-sistema-hora')
-        med.corDoToken = await avalia(COR_DO_TOKEN); med.tamanhoDoToken = await avalia(TAMANHO_DO_TOKEN)
       } catch (e) { erro = e.message }
       if (!erro || tentativas >= 3) break
     }
     const fora = pedidos.filter((p) => !local(p.url)).map((p) => p.url)
-    const fontesPedidas = pedidos.filter((p) => p.tipo === 'Font').map((p) => p.url.replace(/^https?:\/\/[^/]+/, '').slice(0, 140))
     const l = { id: it.id, endereco: `?${q}` }
     if (tentativas > 1) l.tentativas = tentativas
     if (FORA_DO_CICLO[it.id] && med?.erro) { l.foraDoCiclo = FORA_DO_CICLO[it.id]; l.medido = med.erro; l.texto = med.texto; linhas.push(l); console.log(`  – ${it.id} · fora do ciclo: ${l.foraDoCiclo}`); continue }
     if (erro || med?.erro) { l.erro = erro || med.erro; linhas.push(l); console.log(`  ✘ ${it.id} · ${l.erro}`); continue }
-    const gs = med.googleSans
-    l.barra = { topo: r2(med.barra.topo), altura: r2(med.barra.altura), token: med.barra.token, recheioTopo: med.barra.recheioTopo, quantas: med.barra.quantas }
+    const d = med.desenho, n = med.nav
+    l.barra = { topo: r2(med.barra.topo), altura: r2(med.barra.altura), quantas: med.barra.quantas, fundo: med.barra.fundo }
+    l.desenho = d && { viewBox: d.viewBox, caixa: [r2(d.caixa.esquerda), r2(d.caixa.topo), r2(d.caixa.largura), r2(d.caixa.altura)], elementos: d.elementos.length }
+    l.navegacao = n && { caixa: [r2(n.caixa.esquerda), r2(n.caixa.topo), r2(n.caixa.largura), r2(n.caixa.altura)], baixo: r2(n.caixa.baixo), quantas: n.quantas, toque: n.toque, porCima: n.porCima, ...(n.quemCobre.length ? { quemCobre: n.quemCobre } : {}) }
     l.embaixo = med.embaixo && { quem: med.embaixo.quem, topo: r2(med.embaixo.topo), como: med.embaixo.como }
     if (med.porCima.length) l.porCima = med.porCima
     if (med.soDoLeitor.length) l.soDoLeitor = med.soDoLeitor
-    l.hora = { texto: med.hora.texto, familia: med.hora.familia, tamanho: med.hora.tamanho, peso: med.hora.peso, cor: med.hora.cor, desenhadaCom: usada }
-    l.googleSans = gs
     l.pedidosParaFora = fora
-    l.fontesPedidas = fontesPedidas
-    // o mundo da barra contra o da referência: o Bluetooth, e o sem rede (o sinal apagado e sem o Wi-Fi)
-    const ref = mundoDaReferencia(it.html), mu = med.mundo
-    l.mundo = { referencia: ref, app: { bluetooth: mu.bluetooth, semRede: !mu.wifi && mu.sinalCor === mu.corVazia }, desenhoBt: mu.desenhoBt && { largura: r2(mu.desenhoBt.largura), altura: r2(mu.desenhoBt.altura), vao: r2(mu.desenhoBt.vao) } }
-    const btConfere = mu.bluetooth === ref.bluetooth
-    if (!btConfere && DESVIOS_DA_BARRA[it.id]) l.desvioDaBarra = DESVIOS_DA_BARRA[it.id]
+    l.referencia = barrasDaReferencia(it.html)
     l.ok = {
-      a_bluetoothComoAReferencia: btConfere || !!DESVIOS_DA_BARRA[it.id],
-      a_semRedeComoAReferencia: ref.semRede ? !mu.wifi && mu.sinalCor === mu.corVazia : mu.wifi && mu.sinalCor === mu.corTinta,
-      a_desenhoDoBluetooth: !mu.desenhoBt || (perto(mu.desenhoBt.largura, 7.6, 0.05) && perto(mu.desenhoBt.altura, 12, 0.05) && perto(mu.desenhoBt.vao, 6, 0.05) && mu.desenhoBt.cor === mu.corTinta),
+      a_referenciaComOsDesenhos: l.referencia.barra && l.referencia.navegacao,
+      a_desenhoOficialEmCima: !!d && d.viewBox === NORMA.recorte && igual(d.elementos, OFICIAL.barra) && d.mudo === 'true',
+      a_360por30: !!d && perto(d.caixa.esquerda, 0) && perto(d.caixa.topo, 0) && perto(d.caixa.largura, 360, 0.05) && perto(d.caixa.altura, NORMA.barra, 0.05),
+      a_imagemPraOLeitor: med.barra.papel === 'img' && med.barra.rotulo === NORMA.rotulo && med.barra.texto === '',
       a_altura30: perto(med.barra.altura, NORMA.barra) && perto(med.barra.topo, 0),
       a_embaixoEm30: !!med.embaixo && perto(med.embaixo.topo, NORMA.barra),
-      b_googleSansCarregada: gs.length > 0 && gs.every((f) => f.status === 'loaded'),
-      b_familiaCalculada: /^"?Google Sans"?,\s*sans-serif$/.test(med.hora.familia) && med.hora.familia.replace(/"/g, "'") === med.hora.tokens['--fonte-sistema'].replace(/"/g, "'"),
-      b_desenhadaNaGoogleSans: !!usada && usada.length > 0 && usada.every((f) => f.familia === 'Google Sans' && f.daPagina),
-      b_tokens: med.hora.tamanho === med.tamanhoDoToken && med.hora.peso === '500' && med.hora.cor === med.corDoToken,
+      a_navegacaoOficial: !!n && n.quantas === 1 && n.viewBox === '0 0 412 24' && igual(n.elementos, OFICIAL.navegacao),
+      a_navegacaoNoPe: !!n && perto(n.caixa.esquerda, 0) && perto(n.caixa.largura, 360, 0.05) && perto(n.caixa.altura, NORMA.navegacao, 0.05) && perto(n.caixa.baixo, 0, 0.05),
+      a_navegacaoPorCimaDeTudo: !!n && n.porCima.every(Boolean),
+      a_navegacaoSemToqueEMuda: !!n && n.toque === 'none' && n.mudo === 'true',
       b_nadaDaInternet: fora.length === 0,
     }
     l.passa = Object.values(l.ok).every(Boolean)
     linhas.push(l)
-    if (!l.passa) console.log(`  ✘ ${it.id} · ${Object.entries(l.ok).filter(([, v]) => !v).map(([k]) => k).join(', ')} · barra ${l.barra.altura} no ${l.barra.topo} · embaixo ${l.embaixo?.quem} em ${l.embaixo?.topo}`)
+    if (!l.passa) console.log(`  ✘ ${it.id} · ${Object.entries(l.ok).filter(([, v]) => !v).map(([k]) => k).join(', ')} · barra ${l.barra.altura} no ${l.barra.topo} · embaixo ${l.embaixo?.quem} em ${l.embaixo?.topo}${n?.quemCobre.length ? ` · a navegação coberta por ${n.quemCobre.join(', ')}` : ''}`)
   }
   const conta = (k) => linhas.filter((l) => l.ok?.[k]).length
   const medidas = linhas.filter((l) => !l.foraDoCiclo)
   const resumo = { referencias: linhas.length, medidas: medidas.length, foraDoCiclo: linhas.filter((l) => l.foraDoCiclo).map((l) => `${l.id}: ${l.foraDoCiclo} · medido: ${l.medido} («${l.texto}»)`),
     erros: linhas.filter((l) => l.erro).length, passam: linhas.filter((l) => l.passa).length }
-  resumo.comBluetooth = `${linhas.filter((l) => l.mundo?.app.bluetooth).length} no app · ${linhas.filter((l) => l.mundo?.referencia.bluetooth).length} nas referências`
-  resumo.semRede = `${linhas.filter((l) => l.mundo?.app.semRede).length} no app · ${linhas.filter((l) => l.mundo?.referencia.semRede).length} nas referências`
-  resumo.desviosDaBarra = linhas.filter((l) => l.desvioDaBarra).map((l) => `${l.id}: ${l.desvioDaBarra}`)
-  for (const k of ['a_bluetoothComoAReferencia', 'a_semRedeComoAReferencia', 'a_desenhoDoBluetooth', 'a_altura30', 'a_embaixoEm30', 'b_googleSansCarregada', 'b_familiaCalculada', 'b_desenhadaNaGoogleSans', 'b_tokens', 'b_nadaDaInternet']) resumo[k] = `${conta(k)} de ${medidas.length}`
-  // o que vem embaixo, por peça, e as famílias e as fontes que apareceram (pra ler de uma vez)
+  for (const k of ['a_referenciaComOsDesenhos', 'a_desenhoOficialEmCima', 'a_360por30', 'a_imagemPraOLeitor', 'a_altura30', 'a_embaixoEm30', 'a_navegacaoOficial', 'a_navegacaoNoPe', 'a_navegacaoPorCimaDeTudo', 'a_navegacaoSemToqueEMuda', 'b_nadaDaInternet']) resumo[k] = `${conta(k)} de ${medidas.length}`
+  // o que vem embaixo, por peça, e os fundos da barra (pra ler de uma vez)
   const porPeca = {}; for (const l of linhas) if (l.embaixo) { const k = l.embaixo.quem + (l.embaixo.como === 'no fluxo' ? '' : ' (por cima da tela)'); porPeca[k] = (porPeca[k] || 0) + 1 }
   resumo.oQueVemEmbaixo = porPeca
+  const fundos = {}; for (const l of linhas) if (l.barra) fundos[l.barra.fundo] = (fundos[l.barra.fundo] || 0) + 1
+  resumo.fundosDaBarra = fundos
   resumo.tituloSoDoLeitorNaFaixa = [...new Set(linhas.flatMap((l) => l.soDoLeitor ?? []))].map((k) => `${k} (${linhas.filter((l) => l.soDoLeitor?.includes(k)).length})`)
-  resumo.familiasCalculadas = [...new Set(linhas.map((l) => l.hora?.familia).filter(Boolean))]
-  resumo.fontesQueDesenharamAHora = [...new Set(linhas.flatMap((l) => (l.hora?.desenhadaCom ?? []).map((f) => `${f.familia} (${f.postScript}, da página: ${f.daPagina})`)))]
-  resumo.textoDaHora = [...new Set(linhas.map((l) => l.hora?.texto).filter(Boolean))]
-  resumo.deOndeVemAFonte = [...new Set(linhas.flatMap((l) => l.fontesPedidas ?? []).filter((u) => /GoogleSans/i.test(u)))]
   resumo.comAlgoPorCimaDaBarra = linhas.filter((l) => l.porCima).map((l) => `${l.id}: ${l.porCima.join(', ')}`)
+  resumo.desenhoOficial = { barra: `${OFICIAL.barra.length} elementos, no recorte ${NORMA.recorte}`, navegacao: `${OFICIAL.navegacao.length} elemento, no 0 0 412 24` }
   return { resumo, linhas }
 }
 
@@ -328,12 +321,13 @@ function confereMoldura(m) {
   const conf = {
     c_porFora: { norma: N.fora, medido: [r2(c.w), r2(c.h)] },
     c_tela: { norma: N.tela, medido: [r2(t.w), r2(t.h)] },
-    c_metal: { norma: `${N.metal} nos 4 lados, ${N.metalCor}, sólido`, medido: `${m.borda.larguras.join(' ')} · ${[...new Set(m.borda.cores)].join(' / ')} · ${m.borda.estilo}` },
-    c_aro: { norma: `${N.aro} nos 4 lados, ${N.aroCor}`, medido: `${m.recheio.join(' ')} · ${m.fundo}` },
-    c_telaDentroDoAro: { norma: [N.metal + N.aro, N.metal + N.aro], medido: [r2(t.x - c.x), r2(t.y - c.y)] },
+    c_semMetal: { norma: 'nenhuma borda de CSS: a silhueta é o recheio', medido: m.borda.larguras.join(' ') },
+    c_borda: { norma: `${N.borda} nos 4 lados, ${N.bordaCor}`, medido: `${m.recheio.join(' ')} · ${m.fundo}` },
+    c_telaDentroDaBorda: { norma: [N.borda, N.borda], medido: [r2(t.x - c.x), r2(t.y - c.y)] },
     c_cantoFora: { norma: `${N.raioFora} nos 4 cantos`, medido: m.raioFora.join(' ') },
-    c_cantoTela: { norma: `${N.raioTela} nos 4 cantos (57 − 13: concêntrico)`, medido: m.raioTela.join(' ') },
-    c_fios: { norma: N.fios, medido: m.fios },
+    c_cantoTela: { norma: `${N.raioTela} nos 4 cantos (36 − 8: concêntrico)`, medido: m.raioTela.join(' ') },
+    c_sombras: { norma: N.sombras, medido: m.fios },
+    c_fundoDoPalco: { norma: `${N.fundo} (--fundo-faixa)`, medido: m.folha.fundo },
     c_escala: { norma: 1, medido: escala },
     d_centroHorizontal: { norma: 'esquerda = direita', medido: `${folgas.esquerda} · ${folgas.direita}` },
     d_centroVertical: { norma: 'cima = baixo', medido: `${folgas.cima} · ${folgas.baixo}` },
@@ -341,12 +335,13 @@ function confereMoldura(m) {
   const ok = {
     c_porFora: perto(c.w, N.fora[0]) && perto(c.h, N.fora[1]),
     c_tela: perto(t.w, N.tela[0]) && perto(t.h, N.tela[1]),
-    c_metal: m.borda.larguras.every((v) => px(v) === N.metal) && m.borda.cores.every((v) => v === N.metalCor) && m.borda.estilo === 'solid',
-    c_aro: m.recheio.every((v) => px(v) === N.aro) && m.fundo === N.aroCor,
-    c_telaDentroDoAro: perto(t.x - c.x, N.metal + N.aro) && perto(t.y - c.y, N.metal + N.aro),
+    c_semMetal: m.borda.larguras.every((v) => px(v) === 0),
+    c_borda: m.recheio.every((v) => px(v) === N.borda) && m.fundo === N.bordaCor,
+    c_telaDentroDaBorda: perto(t.x - c.x, N.borda) && perto(t.y - c.y, N.borda),
     c_cantoFora: m.raioFora.every((v) => px(v) === N.raioFora),
     c_cantoTela: m.raioTela.every((v) => px(v) === N.raioTela),
-    c_fios: m.fios === N.fios,
+    c_sombras: m.fios === N.sombras,
+    c_fundoDoPalco: m.folha.fundo === N.fundo,
     c_escala: escala === 1,
     d_centroHorizontal: perto(folgas.esquerda, folgas.direita),
     d_centroVertical: perto(folgas.cima, folgas.baixo),
@@ -381,6 +376,21 @@ async function palcoLargo() {
     linhas.push({ janela: [w, h], modo: 'o painel não mexe', norma: 'o celular e a coluna no mesmo lugar, com e sem o painel', medido: { semPainel: lugar(sem), comPainel: [...com.celular.slice(0, 2), ...com.coluna.slice(0, 2)] },
       passa: JSON.stringify(lugar(sem)) === JSON.stringify([...com.celular.slice(0, 2), ...com.coluna.slice(0, 2)]) })
   }
+  // D3 (o pacote 4): numa janela baixa, a moldura escala junto com a tela — a borda, o canto e a tela proporcionais —,
+  // e numa janela alta, nunca maior que o real
+  for (const [w, h] of [[1440, 700], [1440, 1400]]) {
+    await janela(w, h)
+    await abre(BASE + '?tela=T04', { pronto: `!!document.querySelector('.celular .celular-tela .app')` }); await quieto()
+    const m = await avalia(MEDE_PALCO), N = NORMA.moldura
+    const s = Math.min(1, (h - 48) / N.fora[1]), escala = m.transform === 'none' ? 1 : +(m.transform.match(/matrix\(([^,]+)/)?.[1] ?? NaN)
+    const medido = { escala: r2(escala), porFora: [r2(m.celular.w), r2(m.celular.h)], tela: [r2(m.tela.w), r2(m.tela.h)], borda: r2(m.tela.x - m.celular.x),
+      cantos: [m.raioFora[0], m.raioTela[0]] }
+    const norma = { escala: r2(s), porFora: [r2(N.fora[0] * s), r2(N.fora[1] * s)], tela: [r2(N.tela[0] * s), r2(N.tela[1] * s)], borda: r2(N.borda * s),
+      cantos: [`${N.raioFora}px`, `${N.raioTela}px`] }
+    linhas.push({ janela: [w, h], modo: 'a moldura escala junto', norma, medido,
+      passa: perto(escala, s, 0.001) && escala <= 1 && perto(medido.porFora[0], norma.porFora[0]) && perto(medido.porFora[1], norma.porFora[1])
+        && perto(medido.tela[0], norma.tela[0]) && perto(medido.tela[1], norma.tela[1]) && perto(medido.borda, norma.borda, 0.1) && JSON.stringify(medido.cantos) === JSON.stringify(norma.cantos) })
+  }
   // o quadro a 90%, pra ler do lado (a norma é o tamanho real): o mesmo centro e a coluna a 40, com a altura dele
   await janela(1440, 900)
   const quadros = []
@@ -391,7 +401,7 @@ async function palcoLargo() {
       const c = fr.getBoundingClientRect(), s = getComputedStyle(fr), col = [...document.querySelectorAll('div')].find((e) => e.style.width === '230px' && e.style.justifyContent === 'center')
       const k = col && col.getBoundingClientRect(), W = 1440, H = 900
       return { celular: [c.x, c.y, c.width, c.height], folgas: { esquerda: c.x, direita: W - c.right, cima: c.y, baixo: H - c.bottom },
-        metal: s.borderTopWidth, aro: s.paddingTop, cantos: [s.borderTopLeftRadius, getComputedStyle(fr.firstElementChild).borderTopLeftRadius],
+        borda: s.paddingTop, cantos: [s.borderTopLeftRadius, getComputedStyle(fr.firstElementChild).borderTopLeftRadius],
         coluna: k ? { distancia: k.x - c.right, altura: k.height, topo: k.y, estados: col.querySelectorAll('[role=radio]').length } : null }
     })()`)) })
   }
@@ -550,7 +560,7 @@ async function pecasDaFolha() {
   })()`)
   await janela(1440, 321 + 48)
   await abre(BASE + '?tela=T04', pronto); await quieto(); await tiraOAviso()
-  await guarda('celular', await avalia(caixa(`document.querySelector('.celular')`, 2)), '?tela=T04 numa janela de 1440 × 369 · a escala (321/826) põe o celular na altura da miniatura')
+  await guarda('celular', await avalia(caixa(`document.querySelector('.celular')`, 2)), '?tela=T04 numa janela de 1440 × 369 · a escala (321/816) põe o celular na altura da miniatura')
   await janela(1440, 900)
   return pecas
 }
@@ -559,35 +569,36 @@ async function pecasDaFolha() {
 function emTexto(r) {
   const L = []
   const s = (ok) => (ok ? 'OK    ' : 'FALHA ')
-  L.push('AS PROVAS DO PALCO · otimizacao300000000 · medidas no protótipo rodando (scripts/provas-palco.mjs)', '')
+  L.push('AS PROVAS DO PALCO · o pacote 4 (as barras oficiais e a silhueta) · medidas no protótipo rodando (scripts/provas-palco.mjs)', '')
   if (r.barra) {
-    const b = r.barra.resumo
-    L.push(`(a) A BARRA DE STATUS · ${b.referencias} referências do 02-telas/indice.json, pelo endereço do print, a 360 × 800 · ${b.medidas} medidas${b.foraDoCiclo.length ? `, ${b.foraDoCiclo.length} fora do ciclo` : ''}`)
+    const b = r.barra.resumo, todas = (k) => s(b[k]?.startsWith(b.medidas + ' '))
+    L.push(`(a) AS BARRAS DO SISTEMA · ${b.referencias} referências do 02-telas/indice.json, pelo endereço do print, a 360 × 800 · ${b.medidas} medidas${b.foraDoCiclo.length ? `, ${b.foraDoCiclo.length} fora do ciclo` : ''}`)
     for (const f of b.foraDoCiclo) L.push(`       fora do ciclo: ${f}`)
-    if (b.a_bluetoothComoAReferencia) {
-      L.push(`${s(b.a_bluetoothComoAReferencia.startsWith(b.medidas + ' '))} o Bluetooth como a referência (lei 22 · o módulo conectado, da conexão ao fim da sessão): ${b.a_bluetoothComoAReferencia} · com ele: ${b.comBluetooth}`)
-      for (const d of b.desviosDaBarra) L.push(`       desvio nomeado: ${d}`)
-      L.push(`${s(b.a_semRedeComoAReferencia.startsWith(b.medidas + ' '))} o sem rede como a referência (o sinal em --marca-vazia e sem o Wi-Fi; com rede, o sinal em --tinta e o Wi-Fi): ${b.a_semRedeComoAReferencia} · sem rede: ${b.semRede}`)
-      L.push(`${s(b.a_desenhoDoBluetooth.startsWith(b.medidas + ' '))} o Bluetooth com 7,6 × 12, a 6 do sinal, em --tinta: ${b.a_desenhoDoBluetooth}`)
-    }
-    L.push(`${s(b.a_altura30.startsWith(b.medidas + ' '))} a barra com 30 de altura, no topo da tela: ${b.a_altura30}`)
-    L.push(`${s(b.a_embaixoEm30.startsWith(b.medidas + ' '))} o primeiro elemento embaixo dela em y = 30: ${b.a_embaixoEm30}`)
+    L.push(`       o desenho oficial: em cima, ${b.desenhoOficial.barra} · embaixo, ${b.desenhoOficial.navegacao}`)
+    L.push(`${todas('a_referenciaComOsDesenhos')} a referência com os dois desenhos oficiais (a barra no recorte e a navegação no pé): ${b.a_referenciaComOsDesenhos}`)
+    L.push(`${todas('a_desenhoOficialEmCima')} em cima, o desenho oficial, elemento por elemento, no viewBox 0 12.90 412 34.33: ${b.a_desenhoOficialEmCima}`)
+    L.push(`${todas('a_360por30')} o desenho com 360 × 30, no canto de cima da tela: ${b.a_360por30}`)
+    L.push(`${todas('a_imagemPraOLeitor')} uma imagem pro leitor, com o rótulo «9:30 · Wi-Fi, sinal e bateria», sem texto: ${b.a_imagemPraOLeitor}`)
+    L.push(`${todas('a_altura30')} a barra com 30 de altura, no topo da tela: ${b.a_altura30}`)
+    L.push(`${todas('a_embaixoEm30')} o primeiro elemento embaixo dela em y = 30: ${b.a_embaixoEm30}`)
     L.push(`       o que vem embaixo: ${Object.entries(b.oQueVemEmbaixo).map(([k, v]) => `${k} (${v})`).join(' · ')}`)
+    L.push(`       o fundo da barra, o da tela: ${Object.entries(b.fundosDaBarra).map(([k, v]) => `${k} (${v})`).join(' · ')}`)
     if (b.tituloSoDoLeitorNaFaixa.length) L.push(`       na faixa da barra, só o título que o leitor de tela lê (1 × 1, recortado, ninguém vê): ${b.tituloSoDoLeitorNaFaixa.join(' · ')}`)
     L.push(`       por cima da faixa da barra, visível: ${b.comAlgoPorCimaDaBarra.length ? '' : 'nada, nas ' + b.medidas}`)
     if (b.comAlgoPorCimaDaBarra.length) L.push(`       por cima da faixa da barra (só informa): ${b.comAlgoPorCimaDaBarra.length} referências — ${b.comAlgoPorCimaDaBarra.slice(0, 4).join(' | ')}${b.comAlgoPorCimaDaBarra.length > 4 ? ' | …' : ''}`)
-    L.push('', `(b) A HORA NA GOOGLE SANS · as mesmas ${b.medidas}`)
-    L.push(`${s(b.b_googleSansCarregada.startsWith(b.medidas + ' '))} document.fonts com a "Google Sans" carregada (status loaded): ${b.b_googleSansCarregada}`)
-    L.push(`${s(b.b_familiaCalculada.startsWith(b.medidas + ' '))} a família calculada da hora = var(--fonte-sistema): ${b.b_familiaCalculada} · ${b.familiasCalculadas.join(' / ')}`)
-    L.push(`${s(b.b_desenhadaNaGoogleSans.startsWith(b.medidas + ' '))} a fonte que o Chrome usou pra desenhar o "${b.textoDaHora.join('/')}" (CSS.getPlatformFontsForNode): ${b.b_desenhadaNaGoogleSans} · ${b.fontesQueDesenharamAHora.join(' / ')}`)
-    L.push(`${s(b.b_tokens.startsWith(b.medidas + ' '))} o tamanho, o peso e a cor = var(--t-secundario), 500 e var(--tinta): ${b.b_tokens}`)
-    L.push(`${s(b.b_nadaDaInternet.startsWith(b.medidas + ' '))} nenhum pedido pra fora da máquina: ${b.b_nadaDaInternet} · a fonte vem de ${b.deOndeVemAFonte.join(' · ') || '(nenhum pedido de fonte: veio no CSS)'}`)
+    L.push(`${todas('a_navegacaoOficial')} embaixo, a navegação por gestos oficial, uma só: ${b.a_navegacaoOficial}`)
+    L.push(`${todas('a_navegacaoNoPe')} com 360 × 20,97, no pé da tela: ${b.a_navegacaoNoPe}`)
+    L.push(`${todas('a_navegacaoPorCimaDeTudo')} por cima de tudo, inclusive das folhas e dos véus (o meio de cada terço dela cai nela): ${b.a_navegacaoPorCimaDeTudo}`)
+    L.push(`${todas('a_navegacaoSemToqueEMuda')} sem receber toque e muda pro leitor: ${b.a_navegacaoSemToqueEMuda}`)
+    L.push('', `(b) NADA DA INTERNET · as mesmas ${b.medidas}`)
+    L.push(`${todas('b_nadaDaInternet')} nenhum pedido pra fora da máquina: ${b.b_nadaDaInternet}`)
     for (const l of r.barra.linhas.filter((x) => !x.passa && !x.foraDoCiclo)) L.push(`       ✘ ${l.id} · ${l.erro ?? Object.entries(l.ok).filter(([, v]) => !v).map(([k]) => k).join(', ')}`)
     L.push('')
   }
   if (r.palco) {
-    L.push('(c) A MOLDURA · (d) O CENTRO · (e) A COLUNA · no palco largo, a 1440 × 900 e a 1920 × 1080, nos quatro modos')
+    L.push('(c) A MOLDURA · (d) O CENTRO · (e) A COLUNA · no palco largo, a 1440 × 900 e a 1920 × 1080, nos quatro modos; e a moldura que escala, a 1440 × 700 e a 1440 × 1400')
     for (const l of r.palco.linhas) {
+      if (l.modo === 'a moldura escala junto') { L.push(`${s(l.passa)} ${l.janela.join(' × ')} · a moldura escala junto, nunca maior que o real (D3) · ${JSON.stringify(l.medido)}${l.passa ? '' : `  (pede ${JSON.stringify(l.norma)})`}`); continue }
       if (l.modo === 'o painel não mexe') { L.push(`${s(l.passa)} ${l.janela.join(' × ')} · o painel aberto não mexe o celular nem a coluna · sem ${l.medido.semPainel.join(', ')} · com ${l.medido.comPainel.join(', ')}`); continue }
       if (l.erro) { L.push(`FALHA  ${l.janela.join(' × ')} · ${l.modo} · ${l.erro}`); continue }
       L.push(`${s(l.passa)} ${l.janela.join(' × ')} · ${l.modo} (${l.endereco}) · o celular em ${l.celular.join(', ')}${l.coluna ? ` · a coluna em ${l.coluna.join(', ')}` : ''}`)
@@ -595,7 +606,7 @@ function emTexto(r) {
       if (l.conjunto) L.push(`           (o conjunto celular + coluna, só informa: ${l.conjunto.esquerda} à esquerda · ${l.conjunto.direita} à direita)`)
     }
     L.push('       o quadro, a 90% (só informa: a norma é o tamanho real):')
-    for (const q of r.palco.quadrosA90) L.push(`         ${q.quadro}: ${q.celular.slice(2).join(' × ')} em ${q.celular.slice(0, 2).join(', ')} · folgas ${Object.values(q.folgas).map(r2).join(' · ')} · metal ${q.metal}, aro ${q.aro}, canto ${q.cantos.join(' e ')}${q.coluna ? ` · a coluna a ${r2(q.coluna.distancia)}, com ${q.coluna.altura}` : ''}`)
+    for (const q of r.palco.quadrosA90) L.push(`         ${q.quadro}: ${q.celular.slice(2).join(' × ')} em ${q.celular.slice(0, 2).join(', ')} · folgas ${Object.values(q.folgas).map(r2).join(' · ')} · borda ${q.borda}, canto ${q.cantos.join(' e ')}${q.coluna ? ` · a coluna a ${r2(q.coluna.distancia)}, com ${q.coluna.altura}` : ''}`)
     L.push('')
   }
   if (r.acabamento) {
@@ -638,7 +649,7 @@ try {
     console.log('as peças da folha 00…')
     const pecas = await pecasDaFolha()
     resultado.fotos = { janela: [1440, 900], escala: 1, modos, pecas,
-      nota: 'as referências desenham o celular a 90% (348 × 744, no topo a 78), com a coluna, o quadrado e o painel em tamanho real; o palco, a 1440 × 900, põe o celular em tamanho real (386 × 826, no topo a 37), porque a escala é a menor entre 1, (900 − 48)/826 e (1440 − 588)/386 — nunca maior que o real (palco.md). As fotos são o palco como ele roda nessa janela, sem reescalar' }
+      nota: 'as referências desenham o celular a 90% (338,4 × 734,4, no topo a 82,8), com a coluna, o quadrado e o painel em tamanho real; o palco, a 1440 × 900, põe o celular em tamanho real (376 × 816, no topo a 42), porque a escala é a menor entre 1, (900 − 48)/816 e (1440 − 588)/376 — nunca maior que o real (palco.md). As fotos são o palco como ele roda nessa janela, sem reescalar' }
   } else resultado.fotos = anterior.fotos
 } finally {
   await cdp('Target.closeTarget', { targetId }).catch(() => {})
