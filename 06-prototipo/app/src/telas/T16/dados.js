@@ -17,6 +17,7 @@ export const REF = {
   encerradaSemHomologar: '04-momento-encerrada-sem-homologar',
   falhando: '05-estado-assertiva-falhando',
   interrompida: '06-estado-sessao-interrompida',
+  autoteste: '07-momento-autoteste-correndo', // as assertivas acendendo, sem o veredito (o pacote 5, lei 24)
 }
 export const CASO_FALHA = 'autoteste-falhando'
 export const CASO_INTERROMPIDA = 'sessao-interrompida'
@@ -95,6 +96,8 @@ export const versaoCompleta = blocosRelidos
 // ── as 8 assertivas do encerramento (M.autotesteEncerramento), cada uma com o
 // valor lido — nunca um OK agregado (HU-T16-4) ──
 const ENC = M.autotesteEncerramento
+// a 07 (o pacote 5): o autoteste parado nos Pontos de cerca — quatro prontas, a da vez lendo (4 de 8)
+export const QUADRO_07 = ENC.findIndex((a) => a.id === 'cercas')
 export const TOTAL_ASSERTIVAS = ENC.length
 const AINDA_NAO = ESTADOS.espera.nome
 

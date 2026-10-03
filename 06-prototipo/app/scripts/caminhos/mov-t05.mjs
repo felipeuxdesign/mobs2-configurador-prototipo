@@ -26,6 +26,7 @@ const SEM_ROXO = [{ prop: 'opacity', em: 'ds-primario-desabilitado' }]   // C12�
 // a barra do sistema é do Android (decisão 43): não se move; e a faixa não nasce na conexão
 const PARADOS = [{ prop: 'opacity', em: 'ds-barra-sistema' }, { prop: 'transform', em: 'ds-barra-sistema' }, { prop: 'transform', em: 'ds-faixa' }]
 const M01 = '01-momento-nenhum-escolhido'
+const M05 = '05-momento-procurando'
 
 const PARADA = [{ quieto: true }, { dorme: 700 }, { quieto: true }]
 const MOMENTOS = [M01, '02-momento-um-encontrado']
@@ -59,18 +60,18 @@ export default [
   { dorme: 250 },
   { quieto: true },
 
-  // ── a busca de novo (C12·41): 01 → o quadro da 00 → 01, com a cascata ──
+  // ── a busca de novo (o pacote 5): 01 → o *Procurando…* (05) → 01, com a cascata ──
   { toca: 'Procurar de novo', anima: TROCA, naoAnima: [TEXTO] },   // entre quadros, só a troca
-  { chega: 'T05', momento: null },
-  { ve: 'ESCOLHIDO' },
+  { chega: 'T05', momento: M05 },
+  { ve: 'Procurando…' },
   { dorme: 250 },
-  { quieto: true },   // o quadro da busca fica parado na tela
+  { quieto: true },   // o *Procurando…* fica parado na tela
   { chega: 'T05', momento: M01, entre: [700, 1150] },
   { anima: [...TROCA, ...CASCATA], naoAnima: [TEXTO] },
   { desligado: 'Conectar' },   // volta sem nada escolhido
   { dorme: 600 },
   { quieto: true },
-  // do quadro da 00 (a tela), o toque não troca o desenho: só a volta da lista esmaece, com a cascata
+  // da 00 (a tela), o mesmo: o *Procurando…*, e a volta da lista, com a cascata
   { abre: '?tela=T05' },
   { quieto: true },
   // na 00, o fora do cadastro é uma linha como as outras, com o que ele informa (o complemento do pacote 2)
@@ -79,8 +80,9 @@ export default [
   { toca: 'M2C-0999' },   // tocável: troca o escolhido no lugar
   { ve: 'Conectar ao M2C-0999' },
   { dorme: 300 },
-  { toca: 'Procurar de novo', naoAnima: [esmaece('tela-miolo')] },
-  { chega: 'T05', momento: M01, entre: [1050, 1400] },
+  { toca: 'Procurar de novo', anima: TROCA },
+  { chega: 'T05', momento: M05 },
+  { chega: 'T05', momento: M01, entre: [700, 1250] },
   { anima: [...TROCA, ...CASCATA] },
   { dorme: 600 },
   { quieto: true },
@@ -114,7 +116,7 @@ export default [
   { quieto: true },
   { toca: 'Procurar de novo' },
   { quieto: true },
-  { chega: 'T05', momento: null },
+  { chega: 'T05', momento: M05 },
   { chega: 'T05', momento: M01, entre: [700, 1250] },
   { quieto: true },
   { toca: 'M2C-0999' },

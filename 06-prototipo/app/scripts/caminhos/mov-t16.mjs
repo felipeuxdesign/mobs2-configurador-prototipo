@@ -10,11 +10,9 @@
 //     sem sessão (T16·3, C12·25), e nada do miolo desliza;
 //   · a assertiva do autoteste (T16·2, C12·12): o glifo e o valor lido esmaecem em 150, uma a cada
 //     400 ms (RITMOS.autotesteAssertivaMs); com reduzir, em ordem, no mesmo ritmo (C12·38);
-//   · o veredito que espera a prova (C12·44): a prova já está no lugar desde a primeira assertiva,
-//     neutra, com a contagem (1 de 8 …); na última, o rótulo, a versão e a legenda entram em 150, o
-//     cinza do traço sai por cima do lima, a contagem sai, e o Voltar ao menu — no lugar, apagado,
-//     com o mesmo texto — acende por uma camada (C12·8). O bloqueio (05) só existe na sessão do
-//     caso autoteste-falhando: a prova dele é o espécime mov-check-veredito-bloqueio (mov-check);
+//   · o autoteste correndo (07, o pacote 5): sem veredito — a contagem ao lado do título, a da vez
+//     com o quadrado de agora e *lendo*, o Voltar ao menu desligado; na última, o quadro troca pro
+//     fim (02): o conteúdo e o rodapé esmaecem, como entre telas (C12·4), e nada desliza;
 //   · entre quadros, só a troca esmaece: o rodapé nasce com o quadro.
 // A tela abre parada pela URL (o 02 e o 04, que já acabaram), em cada estado e no print; o 00, o 01
 // e o 03 pela URL correm desde o passo deles (G27, C12·16), sem animar a entrada.
@@ -29,9 +27,6 @@ const COMECA = esmaece('ds-glifo-agora')
 const LEGENDA = esmaece('ds-encerramento-legenda')
 const VALOR = esmaece('ds-checagem-valor')
 const TEXTO = esmaece('ds-primario-texto')                 // o texto do primário que troca no lugar (C12·23)
-const ACENDE = esmaece('ds-primario-antes')                // o primário que acende por uma camada (C12·8)
-const PROVA = [esmaece('ds-prova-rotulo'), esmaece('ds-prova-versao'), esmaece('ds-prova-legenda'),
-  esmaece('ds-prova-capa'), esmaece('ds-prova-conta-sai')]
 const FAIXA_SOBE = { prop: 'transform', ms: 200, em: 'ds-faixa-aberta', curva: C }
 const TRILHO = [{ prop: 'transform', em: 'ds-trilho' }]    // o trilho da T16 não acende (C12·32)
 const NADA_DESLIZA = [{ prop: 'transform', em: 'tela-miolo' }, { prop: 'transform', em: 'ds-encerramento' }]
@@ -42,6 +37,7 @@ const M01 = '01-momento-pede-o-corte-de-alimentacao'
 const M02 = '02-momento-sessao-encerrada'
 const M03 = '03-momento-encerrando-sem-homologar'
 const M04 = '04-momento-encerrada-sem-homologar'
+const M07 = '07-momento-autoteste-correndo'
 const ESTADOS = ['05-estado-assertiva-falhando', '06-estado-sessao-interrompida']
 const PARADA = [{ quieto: true }, { dorme: 700 }, { quieto: true }]
 
@@ -52,8 +48,14 @@ export default [
   { ve: 'A CONFIGURAÇÃO SOBREVIVEU AO REINÍCIO' },
   { abre: `?tela=T16&momento=${M04}` },
   ...PARADA,
+  // a 07 pela URL: parada nos Pontos de cerca
+  { abre: `?tela=T16&momento=${M07}` },
+  ...PARADA,
+  { ve: '4 de 8' },
+  { ve: 'lendo' },
+  { naoVe: 'A CONFIGURAÇÃO SOBREVIVEU AO REINÍCIO' },
   ...ESTADOS.flatMap((e) => [{ abre: `?tela=T16&estado=${e}` }, ...PARADA]),
-  ...['', `&momento=${M01}`, `&momento=${M02}`, `&momento=${M03}`, `&momento=${M04}`, ...ESTADOS.map((e) => `&estado=${e}`)]
+  ...['', `&momento=${M01}`, `&momento=${M02}`, `&momento=${M03}`, `&momento=${M04}`, `&momento=${M07}`, ...ESTADOS.map((e) => `&estado=${e}`)]
     .flatMap((q) => [{ abre: `?tela=T16${q}&print=1` }, ...PARADA]),
 
   // ── os sete passos, desde o passo 1 (G27): a entrada fica parada ──
@@ -74,22 +76,23 @@ export default [
   // a sessão fecha: o conteúdo esmaece pra Sessão encerrada, pelo processo, e a faixa aberta sobe
   { ve: 'Sessão encerrada', entre: [1800, 3000] },
   { anima: [...TROCA, FAIXA_SOBE], naoAnima: NADA_DESLIZA },
-  { chega: 'T16', momento: M02 },
+  { chega: 'T16', momento: M07 },
   { ve: 'Sem sessão de configuração' },
-  // a prova e o Voltar ao menu estão no lugar desde já, neutros; o rodapé apagado, com o mesmo texto
+  // o autoteste correndo (07): sem o veredito, e o Voltar ao menu no lugar, desligado
+  { naoVe: 'A CONFIGURAÇÃO SOBREVIVEU AO REINÍCIO' },
   { desligado: 'Voltar ao menu' },
   { dorme: 150 },
-  // cada assertiva: o glifo e o valor esmaecem; a contagem troca no lugar da versão
+  // cada assertiva: o glifo e o valor esmaecem; a contagem sobe ao lado do título
   { ve: '1 de 8', entre: [100, 550] },
-  { anima: [CHECK, VALOR], naoAnima: [esmaece('tela-miolo'), esmaece('ds-prova-rotulo')] },
+  { anima: [CHECK, VALOR], naoAnima: [esmaece('tela-miolo')] },
   { ve: '2 de 8', entre: ASSERTIVA },
   { anima: [CHECK, VALOR] },
   { ve: '7 de 8', entre: [1700, 2300] },
   { anima: [CHECK, VALOR] },
-  // a oitava: o veredito entra no lugar dele, e o Voltar ao menu acende por uma camada (C12·44, C12·8)
-  { naoVe: '7 de 8', entre: ASSERTIVA },
-  { anima: [...PROVA, CHECK, ACENDE], naoAnima: NADA_DESLIZA },
-  { ve: 'A CONFIGURAÇÃO SOBREVIVEU AO REINÍCIO' },
+  // a oitava: o quadro troca pro fim (02) — a prova e o Voltar ao menu aceso vêm com ele (C12·4)
+  { ve: 'A CONFIGURAÇÃO SOBREVIVEU AO REINÍCIO', entre: ASSERTIVA },
+  { anima: TROCA, naoAnima: NADA_DESLIZA },
+  { chega: 'T16', momento: M02 },
   { dorme: 300 },
   { quieto: true },
   { toca: 'Voltar ao menu', anima: [esmaece('tela-miolo')] },   // o menu não tem rodapé

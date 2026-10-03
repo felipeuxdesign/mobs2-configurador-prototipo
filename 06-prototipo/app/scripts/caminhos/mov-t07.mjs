@@ -35,6 +35,7 @@ const PARADA = [{ quieto: true }, { dorme: 700 }, { quieto: true }]
 const M01 = '01-momento-can-lida'
 const M06 = '06-momento-atualizando-o-firmware'
 const M10 = '10-momento-relendo-a-can'
+const M11 = '11-momento-lendo'
 const LISTA_T05 = '01-momento-nenhum-escolhido'
 const ESTADOS = ['02-estado-serial-nao-cadastrado', '03-estado-modelo-sem-suporte', '04-estado-firmware-nao-homologado',
   '05-estado-firmware-sem-rede-no-modulo', '07-estado-modem-sem-sinal', '08-estado-sinal-da-can-sem-leitura', '09-estado-sinal-da-can-fora-do-esperado']
@@ -59,14 +60,14 @@ export default [
   { ve: '15 de 15' },
   ...ESTADOS.flatMap((e) => [{ abre: `?tela=T07&estado=${e}` }, ...PARADA]),
   // no print, cada quadro de referência: nada se move, nem os dois processos (06, 10)
-  ...['', `&momento=${M01}`, `&momento=${M06}`, `&momento=${M10}`, ...ESTADOS.map((e) => `&estado=${e}`)]
+  ...['', `&momento=${M01}`, `&momento=${M06}`, `&momento=${M10}`, `&momento=${M11}`, ...ESTADOS.map((e) => `&estado=${e}`)]
     .flatMap((q) => [{ abre: `?tela=T07${q}&print=1` }, ...PARADA]),
   { ve: '14 de 15' },
 
   // ── a chegada da T05, o herói: as sete no ritmo, e a faixa desce ──
   ...CONECTA('M2C-0417'),
-  // o quadro de começo: sem a faixa, o módulo em cima do título, a primeira lendo, o rodapé sem saída
-  { ve: 'M2C-0417 · RKT-8H42' },
+  // o quadro de começo: sem a faixa, nada em cima do título (a 11, o pacote 5), a primeira lendo, o rodapé sem saída
+  { naoVe: 'M2C-0417 · RKT-8H42' },
   { naoVe: 'ENCERRAR' },
   { ve: '0 de 7' },
   { desligado: 'Lendo · não saia da tela' },

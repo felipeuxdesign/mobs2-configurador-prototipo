@@ -8,7 +8,8 @@ Vale o `03-design-system/movimento.md`. Entre telas, só o conteúdo esmaece em 
 | botão primário (C12·23) | tocar em `Disparar evento de teste` | o texto troca no lugar, pra `Encerrar o ciclo`; o roxo fica | 150ms | desacelera | troca direta |
 | barra do prazo | o evento foi disparado | drena da direita pra esquerda · no protótipo, 1s vale 4s de prazo; cada tique de 250ms é um trecho linear, o marcador e o preenchido juntos, só por transform (C12·40) | contínuo | linear | o número troca, a barra salta |
 | número do prazo | a cada segundo do prazo | troca no lugar | — | — | igual |
-| passo do veículo | o ônibus faz o passo | o relógio vira check · ritmo 3s por passo | 150ms | desacelera | troca direta |
+| fila do módulo | antes do disparo | drena por 3s — a ref. 01 é o quadro do começo | 3s | linear | salta pro fim |
+| passo do veículo | o ônibus faz o passo | o relógio vira check — sem *agora*: a espera é pelo ônibus · um passo a cada 3s depois do disparo (+9, +12, +15 e +18s) | 150ms | desacelera | troca direta |
 | linha do evento | o servidor recebe | o relógio vira o horário | 150ms | desacelera (C12·5) | troca direta |
 | pedido de correção | tocar em Solicitar correção | o link vira o registro com o relógio, no mesmo lugar | 150ms | desacelera (C12·5) | troca direta |
 

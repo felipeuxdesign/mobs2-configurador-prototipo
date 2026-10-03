@@ -41,3 +41,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `09-momento-manutencao-reenviando`
 
 `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Configurar módulo` · `MANUTENÇÃO` · `Reenviando só as cercas.` · `Limpeza` · `feita` · `apaga só as cercas · o resto fica como está` · `Cercas` · `gravando` · `as regiões geográficas` · `Ativo, Leitor, Eventos e Conexão ficam como estão.` · `Gravando · não interrompa` · `A saída volta quando a cadeia fechar`
+
+## `10-momento-manutencao-concluida`
+
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Configurar módulo` · `MANUTENÇÃO` · `As cercas foram reenviadas.` · `Limpeza` · `feita` · `apaga só as cercas · o resto fica como está` · `Cercas` · `relidas` · `as regiões geográficas` · `Ativo, Leitor, Eventos e Conexão ficam como estão.` · `Voltar ao menu`

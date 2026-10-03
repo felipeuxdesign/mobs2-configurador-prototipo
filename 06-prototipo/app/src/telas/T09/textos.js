@@ -69,6 +69,10 @@ export const T = {
   // e a conexão. Os textos desses três seguem a gramática dos das cercas: nenhuma referência os desenha
   reenviar: { cercas: 'Reenviar as cercas', leitor: 'Reenviar o leitor', eventos: 'Reenviar os eventos', conexao: 'Reenviar a conexão' },
   reenviando: { cercas: 'Reenviando só as cercas.', leitor: 'Reenviando só o leitor.', eventos: 'Reenviando só os eventos.', conexao: 'Reenviando só a conexão.' },
+  // a 10 (o pacote 5): a cadeia curta fechada — o das cercas é a letra da referência; os outros
+  // três seguem a gramática dela, como os do reenviando
+  reenviado: { cercas: 'As cercas foram reenviadas.', leitor: 'O leitor foi reenviado.', eventos: 'Os eventos foram reenviados.', conexao: 'A conexão foi reenviada.' },
+  relido: { cercas: 'relidas', leitor: 'relido', eventos: 'relidos', conexao: 'relida' },
   limpezaSo: {
     cercas: 'apaga só as cercas · o resto fica como está',
     leitor: 'apaga só o leitor · o resto fica como está',

@@ -11,6 +11,7 @@
 | `04-momento-encerrada-sem-homologar` | momento | os 4 passos terminam | derivado do fluxo |
 | `05-estado-assertiva-falhando` | estado | uma assertiva falha | `autoteste-falhando` |
 | `06-estado-sessao-interrompida` | estado | a sessão caiu e volta oferecida | `sessao-interrompida` |
+| `07-momento-autoteste-correndo` | momento | as assertivas acendem em ordem · 400ms cada | `autotesteAssertivas` |
 
 - no protótipo · a nossa versão da linha *01-momento-pede-o-corte-de-alimentacao*, antes desta entrega: | `01-momento-pede-o-corte-de-alimentacao` | momento | o passo do corte, na sessão do KNB-5H39 · M2C-0371, pelo endereço (T16·1) | `modelos · vl08 · reinicioPorComando: false` |
 

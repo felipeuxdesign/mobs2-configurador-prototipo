@@ -6,7 +6,7 @@ O protótipo deixou três coisas que viram teste do produto quase sem trabalho.
 
 Cada estado de tela nasce de **um caso** — uma condição do mundo que o técnico encontra no campo: o módulo fora do cadastro, a rede que cai na sincronização, o ônibus fora do pacote, o servidor que não responde. São 56 casos em `04-dados/mocks.js` (`casos`), e o `04-dados/casos.md` diz que caso monta que estado. Cada um vira um teste: monte o mundo do caso, abra a tela, confira o estado da referência.
 
-O `02-telas/indice.json` lista as 142 referências com o caso de cada uma (`caso`), e se o estado nasce de uma condição (`coluna`).
+O `02-telas/indice.json` lista as 150 referências com o caso de cada uma (`caso`), e se o estado nasce de uma condição (`coluna`).
 
 ## 2 · Os roteiros são os cenários de aceite
 
@@ -14,8 +14,8 @@ Em `06-prototipo/app/scripts/caminhos/` estão 43 roteiros que andam o app pelo 
 
 | Roteiro | O que prova |
 |---|---|
-| `heroi.mjs` | o caminho inteiro, do login ao encerramento: empresa, unidade, sincronização, menu, conexão, diagnóstico, vínculo, o que vai ser gravado, a cadeia, a CAN lida, a calibração com o horímetro, o ciclo de testes, o checklist e o encerramento (243 passos) |
-| `heroi-sem-horimetro.mjs` | o mesmo caminho, pulando o horímetro (231 passos) |
+| `heroi.mjs` | o caminho inteiro, do login ao encerramento: empresa, unidade, sincronização, menu, conexão, diagnóstico, vínculo, o que vai ser gravado, a cadeia, a CAN lida, a calibração com o horímetro, o ciclo de testes, o checklist e o encerramento (245 passos) |
+| `heroi-sem-horimetro.mjs` | o mesmo caminho, pulando o horímetro (233 passos) |
 | `portas.mjs` | as portas naturais: escolher um módulo ou ônibus que é caso do mock abre o estado dele |
 | `voltar.mjs` | o voltar do Android em cada tela |
 | `abortada.mjs` | a sessão encerrada sem homologar |

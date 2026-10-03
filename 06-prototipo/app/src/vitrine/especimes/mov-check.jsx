@@ -1,6 +1,7 @@
 // O movimento do check (C12 · as peças do movimento · gate C12·7, 8, 9, 12, 13, 18, 23,
 // 32, 35 e 44): o check que nasce no poço, o aviso que surge, o primário que acende e
-// troca o texto no lugar, e o veredito que espera a prova. Cada espécime é a peça
+// troca o texto no lugar, e o veredito que espera a prova (o da T16 saiu no pacote 5: o
+// autoteste correndo não tem veredito, e o fim é outro quadro). Cada espécime é a peça
 // tocável, com os botões da bancada fazendo o que a tela fará — a leitura que chega, a
 // recusa, o toque que acende. Fora da bancada (semBancada): o quadro parado de cada
 // peça é o espécime da folha dela, e estes só provam o que anda entre os quadros
@@ -11,7 +12,7 @@
 // outra vez já no fim, parada.
 import { useEffect, useState } from 'react'
 import {
-  Lista, LinhaChecagem, LinhaEscolha, Aviso, Prova, Primario, Dialogo, Frase, Cadeia, Encerramento,
+  Lista, LinhaChecagem, LinhaEscolha, Aviso, Primario, Dialogo, Frase, Cadeia, Encerramento,
   LinhaContagem, Requisito, Requisitos,
 } from '../../ds/index.js'
 import { RITMOS } from '../../estado/ritmos.js'
@@ -19,8 +20,6 @@ import { SEMENTES } from '../../estado/sementes.js'
 import { M } from '../../dados/mock.js'
 import { T as T11 } from '../../telas/T11/textos.js'
 import { LINHAS, parDoCaso, CASO_DIFF, CASO_CONFERE, conferenciaDo, comparadasAte } from '../../telas/T11/conferencia.js'
-import { T as T16 } from '../../telas/T16/textos.js'
-import { assertivas, CAUSA, CASO_FALHA, blocosRelidos } from '../../telas/T16/dados.js'
 import { elosDo } from '../../telas/T09/cadeia.js'
 import { T as T13 } from '../../telas/T13/textos.js'
 import { TX as T02 } from '../../telas/T02/textos.js'
@@ -191,46 +190,22 @@ function Conferencia({ confere = false, lida = false }) {
   const lidas = lida ? n : leitura.lidas
   const lendo = lidas < n
   const aguarda = lendo ? comparadasAte(lidas) : null
+  // o pacote 5 (T11/04): enquanto lê, a caixa diz *CONFERINDO*, sem poço; no fim, o veredito
+  const espera = { aguarda, aguardaUnidade: T11.deTotal(total), aguardaTitulo: T11.conferindo }
   const cabeca = confere
-    ? <Aviso tom="veredito" titulo={T11.confere} numero={total} unidade={T11.deTotal(total)} aguarda={aguarda} aguardaUnidade={T11.deTotal(total)} />
-    : <Aviso glifo="xis" titulo={T11.naoBate} numero={naoBatem} unidade={T11.deTotal(total)} aguarda={aguarda} aguardaUnidade={T11.deTotal(total)} />
+    ? <Aviso tom="veredito" titulo={T11.confere} numero={total} unidade={T11.deTotal(total)} {...espera} />
+    : <Aviso glifo="xis" titulo={T11.naoBate} numero={naoBatem} unidade={T11.deTotal(total)} {...espera} />
   return (
     <div className="vitrine-mc-pilha">
       {cabeca}
       <Lista>
-        {linhas.map((l, i) => (
-          <LinhaChecagem key={l.id} variante="conferencia" estado={l.estado} titulo={l.titulo} valor={l.valor} par={l.par}
-            divisoria={i < n - 1} lendo={i >= lidas} />
+        {linhas.map((l, i) => (i === lidas
+          ? <LinhaChecagem key={l.id} variante="conferencia" estado="agora" titulo={l.titulo} valor={T11.conferindoLinha} par={l.par} divisoria={i < n - 1} />
+          : <LinhaChecagem key={l.id} variante="conferencia" estado={l.estado} titulo={l.titulo} valor={i > lidas ? T11.vazio : l.valor} par={l.par}
+            divisoria={i < n - 1} lendo={i > lidas} />
         ))}
       </Lista>
       {!lida && <Controles><Botao aoTocar={leitura.correr}>bancada · confere</Botao></Controles>}
-    </div>
-  )
-}
-
-// ── o veredito que espera a prova na T16 (C12·44): a prova, ou o bloqueio, no lugar desde a primeira assertiva ──
-const HEROI = SEMENTES.T16.sessao.ativoId
-const FALHA = M.casos[CASO_FALHA]?.ativoId
-function Autoteste({ falha = false, lida = false }) {
-  const lista = assertivas(falha ? FALHA : HEROI)
-  const total = lista.length
-  const leitura = useLeitura(total, RITMOS.autotesteAssertivaMs)
-  const acesas = lida ? total : leitura.lidas
-  const lendo = acesas < total
-  const aguarda = lendo ? acesas : null
-  const reprovada = lista.find((a) => a.estado === 'reprovada')
-  const ultima = total - 1
-  return (
-    <div className="vitrine-mc-pilha">
-      {!falha && <Prova tipo="sessao" rotulo={T16.sobreviveu} versao={blocosRelidos()} legenda={T16.relidoDoModulo} aguarda={aguarda} aguardaUnidade={T16.deTotal(total)} />}
-      <Lista>
-        {lista.map((a, i) => (
-          <LinhaChecagem key={a.id} variante="dupla" estado={a.estado} titulo={a.titulo} glifo={a.glifo} nomeGlifo={a.nomeGlifo}
-            lendo={i >= acesas} valor={i < acesas ? a.valor : undefined} divisoria={i < ultima} folgaFim={i === ultima ? 'assertiva' : false} />
-        ))}
-      </Lista>
-      {falha && reprovada && <Aviso tom="falha" bloqueio titulo={T16.bloqueada} frase={CAUSA[reprovada.id]} aguarda={aguarda} aguardaUnidade={T16.deTotal(total)} />}
-      {!lida && <Controles><Botao aoTocar={leitura.correr}>bancada · lê</Botao></Controles>}
     </div>
   )
 }
@@ -264,15 +239,9 @@ export const especimes = [
     legenda: 'o toque desabilita sem o roxo por cima · o texto novo esmaece no lugar, em 150',
     render: () => <BotaoQueDizOQueFalta /> },
   { id: 'mov-check-veredito', folha: 4, chrome: true, semBancada: true, rotulo: 'o veredito que espera a prova',
-    legenda: 'bancada · confere: a caixa neutra no lugar, a contagem acompanha, e a palavra e a cor entram na quinta linha',
+    legenda: 'bancada · confere: a caixa diz CONFERINDO, a contagem acompanha, e a palavra, a cor e o poço entram na quinta linha',
     render: () => <div style={naTela}><ComAbrirDeNovo fim={<Conferencia lida />}><Conferencia /></ComAbrirDeNovo></div> },
   { id: 'mov-check-veredito-confere', folha: 4, chrome: true, semBancada: true, rotulo: 'o veredito que confere',
-    legenda: 'o traço cinza vira lima por uma camada, e a legenda da prova entra no mesmo tique',
+    legenda: 'o traço cinza vira lima por uma camada, e a palavra entra no mesmo tique',
     render: () => <div style={naTela}><Conferencia confere /></div> },
-  { id: 'mov-check-veredito-sessao', folha: 7, chrome: true, semBancada: true, rotulo: 'a prova que espera o autoteste',
-    legenda: 'bancada · lê: a prova no lugar, a contagem no lugar da versão · na oitava, o rótulo, a versão e a legenda entram',
-    render: () => <div style={naTela}><ComAbrirDeNovo fim={<Autoteste lida />}><Autoteste /></ComAbrirDeNovo></div> },
-  { id: 'mov-check-veredito-bloqueio', folha: 4, chrome: true, semBancada: true, rotulo: 'o bloqueio que espera o autoteste',
-    legenda: 'a caixa do bloqueio no lugar, a contagem à direita · na oitava, o título e a frase entram, e a contagem sai',
-    render: () => <div style={naTela}><Autoteste falha /></div> },
 ]

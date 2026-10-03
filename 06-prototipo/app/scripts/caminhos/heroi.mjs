@@ -45,7 +45,7 @@ export default [
   // o diagnóstico do módulo (T07): as sete linhas acendem, uma a cada 600 ms; passando sem
   // trava, a faixa desce, e o primário diz Selecionar ativo
   { chega: 'T07', momento: null },
-  { ve: 'M2C-0417 · RKT-8H42' },   // sem a faixa, o módulo em cima do título: o serial e o ativo previsto
+  { naoVe: 'M2C-0417 · RKT-8H42' },   // a leitura (a 11, o pacote 5): nada em cima do título
   { naoVe: 'ENCERRAR' },
   { ve: 'Diagnóstico do módulo' },
   { desligado: 'Lendo · não saia da tela' },
@@ -259,15 +259,17 @@ export default [
   { ve: 'Guarda o que foi feito aqui, pra ir ao servidor junto com a instalação.' },
   { ve: 'Solta o Bluetooth. O módulo fica livre pra outro aparelho.' },
   // fechado o sétimo passo, a faixa sobe e a tela passa pra Sessão encerrada
-  { chega: 'T16', momento: '02-momento-sessao-encerrada', entre: [100, 1500] },
+  { chega: 'T16', momento: '07-momento-autoteste-correndo', entre: [100, 1500] },
   { ve: 'Sem sessão de configuração' },
   { naoVe: 'ENCERRAR' },
   { ve: 'Sessão encerrada' },
-  // as oito assertivas acendem a 400 ms; a prova e o Voltar ao menu já estão no lugar, neutros, e o
-  // veredito entra com a última: a palavra, a versão e a legenda, e o Voltar ao menu acende (C12·44)
-  { ve: 'O ID na plataforma confirma quando a evidência subir.' },
+  // o autoteste correndo (07, o pacote 5): as oito assertivas acendem a 400 ms, sem o veredito, e o
+  // Voltar ao menu desligado; com a última, o quadro troca pro fim (02): a prova e o Voltar ao menu aceso
+  { naoVe: 'A CONFIGURAÇÃO SOBREVIVEU AO REINÍCIO' },
   { desligado: 'Voltar ao menu' },
   { ve: 'A CONFIGURAÇÃO SOBREVIVEU AO REINÍCIO', entre: [2000, 5000] },
+  { chega: 'T16', momento: '02-momento-sessao-encerrada' },
+  { ve: 'O ID na plataforma confirma quando a evidência subir.' },
   { ve: '6 blocos' },
   { ve: 'relido do módulo depois de desligar e ligar' },
   { toca: 'Voltar ao menu' },

@@ -133,10 +133,13 @@ function inicio({ momento, est, mundo, ordem, etapa, ativoId }) {
   const digita = (g) => { passos[g] = { ...passos[g], digitado: String(painelMostra(ativoId, g)) } }
   const semeia = (g) => { digita(g); passos[g] = { ...passos[g], fase: 'semeada', relido: releitura(g, Number(passos[g].digitado)) } }
   const hod = ordem.indexOf('hodometro'); const hor = ordem.indexOf('horimetro')
-  if ([REF.digitado, REF.semeado].includes(momento) && hod >= 0 && temPainel('hodometro')) {
+  if ([REF.digitado, REF.semeado, REF.gravando, REF.relendo].includes(momento) && hod >= 0 && temPainel('hodometro')) {
     f.atual = hod
     digita('hodometro')
     if (momento === REF.digitado) f.focado = true
+    // a 06 e a 07 (o pacote 5): o semear parado num dos dois textos
+    if (momento === REF.gravando) passos.hodometro = { ...passos.hodometro, fase: 'gravando' }
+    if (momento === REF.relendo) passos.hodometro = { ...passos.hodometro, fase: 'relendo' }
     if (momento === REF.semeado) semeia('hodometro')
   }
   if ([REF.horimetro, REF.completa].includes(momento) && hor > 0 && ordem.slice(0, hor).every(temPainel)) {

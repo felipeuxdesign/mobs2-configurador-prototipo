@@ -4,4 +4,7 @@
   font-weight: 700; color: var(--tinta-forte);
 }
 .ds-avatar-tira { width: var(--avatar-tira); height: var(--avatar-tira); font-size: var(--t-rotulo-topo); letter-spacing: var(--ls-rotulo-topo); }
+/* o pacote 5 · o RV no centro do círculo: a letra de 1,4 empurrava o conjunto 0,7 pra esquerda, e a métrica
+ * da Barlow descia as maiúsculas 1,1 — o recheio de 2 embaixo e de 1,4 (a própria letra) à esquerda, com 32 */
+.ds-avatar-tira { box-sizing: border-box; padding: 0 0 var(--e-2) var(--ls-rotulo-topo); }
 .ds-avatar-conta { width: var(--avatar-conta); height: var(--avatar-conta); font-size: var(--t-destaque); letter-spacing: var(--ls-avatar-conta); }

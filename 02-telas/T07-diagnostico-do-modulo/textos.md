@@ -45,3 +45,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `10-momento-relendo-a-can`
 
 `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Diagnóstico do módulo` · `10` · `de 15` · `O MÓDULO` · `Conferido na conexão` · `7 de 7` · `A CAN · ÔNIBUS URBANO OF-1621` · `Rotação` · `980 rpm` · `Velocidade` · `0 km/h` · `Hodômetro` · `184.320 km` · `Temperatura` · `lendo` · `Combustível` · `—` · `Consumo` · `—` · `Alternador` · `—` · `Ré` · `—` · `Lendo · não saia da tela`
+
+## `11-momento-lendo`
+
+`Diagnóstico do módulo` · `4` · `de 7` · `O MÓDULO` · `Serial no cadastro` · `VL06 CAN-BT` · `Firmware` · `2.3.5` · `Alimentação` · `13,8 V` · `GPS` · `fixo · 9 satélites` · `Entradas digitais` · `lendo` · `Modem` · `—` · `SIM` · `—` · `A CAN` · `AGUARDANDO A CONFIGURAÇÃO DO ATIVO` · `A CAN aparece depois que o bloco do ativo for gravado.` · `Lendo · não saia da tela`

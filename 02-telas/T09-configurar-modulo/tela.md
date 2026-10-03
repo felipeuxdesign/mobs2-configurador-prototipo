@@ -8,7 +8,7 @@ Gravar no módulo o que ele precisa: todos os blocos, na instalação nova; um b
 | **Chrome** | faixa de sessão · a linha dos pinos embaixo do título |
 | **Semente no protótipo** | sessão M2C-0417 + RKT-8H42 · os blocos do mock |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 4 · 5 — ver `estados.md` |
+| **Momentos · estados** | 5 · 5 — ver `estados.md` |
 
 ## O que se toca
 
@@ -105,6 +105,7 @@ A construção das dez referências, com as decisões aprovadas no gate do pacot
 - **antes de gravar** (05 a 08) o ENCERRAR é o de toda tela com sessão, e o voltar faz o `Voltar ao menu` (decisão 36)
 - **a manutenção · o `08`:** as cercas abrem escolhidas, e só elas se escolhem: o `Reenviar`, a frase da cadeia curta e a limpeza só têm texto pras cercas (*Reenviar as cercas*, *Reenviando só as cercas.*, *apaga só as cercas · o resto fica como está*). As outras quatro linhas ficam no lugar, iguais no desenho, inertes e desabilitadas pro leitor, até haver texto aprovado (G25) · pro arquiteto: os textos dos outros quatro blocos, ou o caso declarar o bloco
 - **a manutenção · o `09`:** a cadeia curta grava a limpeza só das cercas e as cercas, um bloco por segundo, e a frase embaixo diz o que fica como está, montada dos rótulos (*Ativo, Leitor, Eventos e Conexão ficam como estão.*). Enquanto ela corre, o ENCERRAR fica apagado e o voltar não faz nada (a lei 17): a recuperação não se aplica, porque a Conexão não está na cadeia · **desvio nomeado:** a `09` desenha o ENCERRAR aceso. Relidas as cercas, o primário acende com o `Voltar ao menu`, sem a prova dos 6 blocos — o fim da cadeia curta não tem referência (padrão do protótipo, pro arquiteto); o aviso continua dizendo *Reenviando só as cercas.*, o único texto dele. A curta grava no estado único o bloco que reenviou (`etapas.cadeia.reenviado`), sem contar os confirmados da cadeia inteira
+- **a manutenção · o `10`** (o pacote 5): a cadeia curta fechada — *As cercas foram reenviadas.*, as cercas com o check e *relidas*, aceso, e o `Voltar ao menu` · a URL passa a dizer a 10 quando o último bloco é relido, e pela URL ela abre parada · os outros três blocos, que nenhuma referência desenha, seguem a gramática dela: *O leitor foi reenviado.*, *Os eventos foram reenviados.*, *A conexão foi reenviada.* (relido, relidos, relida)
 - **desvio nomeado · só as cercas:** o mock diz que as cercas arrastam o Leitor e os Eventos (`CADEIA.arraste`, a memória compartilhada), e a `09` diz que eles ficam como estão. O protótipo segue a referência · pro arquiteto: a manutenção ignora o arraste?
 - **o que fica gravado:** a cada bloco relido, `etapas.cadeia` fica com quantos confirmaram — sem a versão, que saiu (decisão 49). Com o bloco do ativo gravado (2 confirmados), a T07 abre com a CAN lida (D2)
 - **a conferência que corrige** (a T11, intocável): o `Corrigir as N divergências` e o `Reenviar os 5 blocos` levam à T09, que agora abre no `05`: o técnico toca `Gravar no módulo` e a cadeia corre

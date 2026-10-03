@@ -58,7 +58,7 @@ export default [
   { abre: '?tela=T05' },
   { toca: 'Conectar ao M2C-0417' },
   { chega: 'T07', momento: null },
-  { ve: 'M2C-0417 · RKT-8H42' },   // o serial no rótulo do topo, enquanto a faixa não nasce
+  { naoVe: 'M2C-0417 · RKT-8H42' },   // a leitura (a 11, o pacote 5): nada em cima do título, enquanto a faixa não nasce
   { ve: 'ENCERRAR', ms: 8000 },
   { quieto: true },
   { reduzir: false },

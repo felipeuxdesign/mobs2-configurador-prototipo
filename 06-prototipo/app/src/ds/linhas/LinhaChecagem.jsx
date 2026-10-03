@@ -141,7 +141,9 @@ export function LinhaChecagem({
   const cCausa = useChega(causa, leitura)
   const cNota = useChega(nota, leitura)
   const cPorque = useChega(porque, leitura)
-  const cModulo = useChega(lendo ? null : par?.modulo, leitura)
+  // o que o módulo tem espera a leitura chegar: na linha que ainda lê e na da vez (o pacote 5, T11/04)
+  const esperaModulo = lendo || estado === 'agora'
+  const cModulo = useChega(esperaModulo ? null : par?.modulo, leitura)
   const classes = [
     'ds-checagem', `ds-checagem-${variante}`, `ds-checagem-${estado}`, neutro ? 'ds-checagem-tom-neutro' : '',
     causa || nota ? 'ds-checagem-com-causa' : '', divisoria ? '' : 'ds-checagem-sem-divisoria',
@@ -160,7 +162,7 @@ export function LinhaChecagem({
         {porque != null && <span key={cPorque.vez} className={`ds-checagem-porque ${nasce(cPorque)}`}>{porque}</span>}
         {causa && <span key={cCausa.vez} className={`ds-checagem-causa ${nasce(cCausa)}`}>{causa}</span>}
         {nota && <span key={cNota.vez} className={`ds-checagem-causa ds-checagem-nota ${nasce(cNota)}`}>{nota}</span>}
-        {par && <span key={cModulo.vez} className={`ds-checagem-par ds-checagem-par-modulo ${nasce(cModulo)}`} aria-hidden={lendo ? 'true' : undefined}>{par.modulo}</span>}
+        {par && <span key={cModulo.vez} className={`ds-checagem-par ds-checagem-par-modulo ${nasce(cModulo)}`} aria-hidden={esperaModulo ? 'true' : undefined}>{par.modulo}</span>}
         {par?.cadastro != null && <span className="ds-checagem-par ds-checagem-par-cadastro">{par.cadastro}</span>}
       </span>
       {valor != null && <span key={cValor.vez} className={`ds-checagem-valor ${nasce(cValor)}`}>{valor}</span>}

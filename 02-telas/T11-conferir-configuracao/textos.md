@@ -18,6 +18,10 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 `M2C-0438` · `ONK-8Q90` · `ENCERRAR` · `Outras ações` · `Reenviar os 5 blocos` · `a cadeia inteira, preservando a conexão` · `Apenas registrar o diagnóstico` · `nada é gravado · só o diagnóstico sobe`
 
+## `04-momento-conferindo`
+
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Conferir configuração` · `CONFERINDO` · `2` · `de 4` · `Cercas` · `4 regiões` · `APN` · `m2m.mobs2.br` · `Extended ID` · `3 cartões · 1 iButton` · `Eventos` · `conferindo` · `Leitor` · `—` · `Voltar ao menu`
+
 ## `05-estado-revisar-em-seguida`
 
 `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Conferir configuração` · `REVISAR EM SEGUIDA` · `2` · `Cercas` · `4 regiões` · `APN` · `m2m.mobs2.br` · `Extended ID` · `3 cartões · 1 iButton` · `Eventos` · `revisar em seguida` · `dependem das cercas, que acabaram de mudar` · `Leitor` · `revisar em seguida` · `usa os índices das cercas, que acabaram de mudar` · `Revisar o leitor` · `Voltar ao menu`

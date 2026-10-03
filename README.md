@@ -41,13 +41,13 @@ No celular, o app ocupa a tela inteira.
 
 ## Como foi construído
 
-Cada tela, momento e estado tem uma referência desenhada, em HTML e PNG — 142 ao todo. O protótipo foi construído contra elas e comparado pixel a pixel; toda diferença que sobrou tem um nome e um motivo registrados. A comparação final, com cada referência ao lado do protótipo, está em [`06-prototipo/para-o-arquiteto/conferencia-final/`](06-prototipo/para-o-arquiteto/conferencia-final/).
+Cada tela, momento e estado tem uma referência desenhada, em HTML e PNG — 150 ao todo. O protótipo foi construído contra elas e comparado pixel a pixel; toda diferença que sobrou tem um nome e um motivo registrados. A comparação final, com cada referência ao lado do protótipo, está em [`06-prototipo/para-o-arquiteto/conferencia-final/`](06-prototipo/para-o-arquiteto/conferencia-final/).
 
 O código não inventa nada: o comportamento vem da ficha de cada tela, os textos do `textos.md` dela, os valores dos tokens. Além das referências, o protótipo é verificado por 43 roteiros que tocam o app como o técnico — inclusive o caminho completo, com e sem horímetro — e por um gate que confere a coerência dos dados de exemplo.
 
 | telas | momentos | estados | referências | histórias de usuário | casos de dados | decisões registradas |
 |---|---|---|---|---|---|---|
-| 15 | 62 | 65 | 142 | 109 | 56 | 54 |
+| 15 | 70 | 65 | 150 | 109 | 56 | 54 |
 
 ## O repositório
 
@@ -72,4 +72,4 @@ npm install
 npm run dev
 ```
 
-Abre em `http://localhost:5173`. As verificações ficam na mesma pasta: `npm run checar` e `npm run build`; com os fotógrafos rodando (`npm run fotografo` e `npm run fotografo:1`), `node scripts/tela.mjs todas` compara as 142 referências e `node scripts/caminho.mjs todos` roda os roteiros.
+Abre em `http://localhost:5173`. As verificações ficam na mesma pasta: `npm run checar` e `npm run build`; com os fotógrafos rodando (`npm run fotografo` e `npm run fotografo:1`), `node scripts/tela.mjs todas` compara as 150 referências e `node scripts/caminho.mjs todos` roda os roteiros.

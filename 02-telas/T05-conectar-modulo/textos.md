@@ -22,6 +22,10 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 `Conectar módulo` · `5` · `encontrados` · `NÃO RESPONDEU` · `M2C-0301` · `VL06 · FULL · firmware 2.3.5` · `1 · Cabo e conector` · `— encaixe firme` · `2 · Alimentação` · `— energia chegando` · `3 · Cadastro` · `— serial e modelo conferem` · `OUTROS QUATRO POR PERTO` · `M2C-0362` · `VL06 · CAN` · `M2C-0394` · `VL06 · ECO` · `M2C-0335` · `VL06 · CAN-BT` · `M2C-0999` · `VL06 · CAN-BT` · `Tentar de novo` · `Procurar de novo`
 
+## `05-momento-procurando`
+
+`Conectar módulo` · `procurando` · `Procurando…` · `Os módulos por perto aparecem aqui assim que responderem.` · `segunda tentativa` · `Procurar de novo` · `Voltar ao menu`
+
 ## `16-estado-bluetooth-desligado`
 
 `Conectar módulo` · `sem Bluetooth` · `O Bluetooth está desligado` · `Sem ele, o app não acha o módulo. Ligue, e a busca começa sozinha.` · `Ligar o Bluetooth` · `Voltar ao menu`

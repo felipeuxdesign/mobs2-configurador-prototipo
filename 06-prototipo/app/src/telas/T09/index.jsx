@@ -113,6 +113,8 @@ function inicio(momento, est, unico) {
   if (momento === REF.escolher) return { par, confirmados: 0, fase: 'escolher', parou: null, bloco }
   // a 09: a limpeza feita, as cercas gravando
   if (momento === REF.reenviando) return { par, confirmados: 1, fase: 'curta', parou: null, bloco }
+  // a 10: a cadeia curta fechada, os dois relidos
+  if (momento === REF.reenviado) return { par, confirmados: CURTA, fase: 'curtaFeita', parou: null, bloco }
   if (EM_QUADRO) return { par, confirmados: QUADRO_00, fase: 'gravando', parou: null }
   const gravados = unico.etapas.cadeia?.confirmados
   if (gravados > 0) return { par, confirmados: Math.min(gravados, TOTAL), fase: gravados >= TOTAL ? 'concluida' : 'gravando', parou: null }
@@ -192,10 +194,11 @@ export default function T09({ momento, estado: est }) {
     despachar({ tipo: 'mesclar', parcial: { etapas: { ...u.etapas, cadeia: { confirmados: fluxo.confirmados } } } })
   }, [fluxo.confirmados, fluxo.fase, est, despachar]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // o último relido: a URL passa a dizer 04
+  // o último relido: a URL passa a dizer 04 — e, na cadeia curta, 10 (o pacote 5)
   useEffect(() => {
-    if (est != null || fluxo.fase !== 'concluida') return
-    if (vivo.current.momento !== REF.concluida) despachar({ tipo: 'ir', tela: 'T09', momento: REF.concluida })
+    if (est != null) return
+    const m = fluxo.fase === 'concluida' ? REF.concluida : fluxo.fase === 'curtaFeita' ? REF.reenviado : null
+    if (m && vivo.current.momento !== m) despachar({ tipo: 'ir', tela: 'T09', momento: m })
   }, [fluxo.fase, est, despachar])
 
   // a troca de quadro (C12·4): o que vai ser gravado → a cadeia, o escolher → a curta
@@ -305,14 +308,14 @@ export default function T09({ momento, estado: est }) {
     miolo = (
       <>
         <CabecalhoConteudo titulo={T.titulo} />
-        <Aviso tom="neutro" glifo="info" titulo={T.manutencao} frase={T.reenviando[fluxo.bloco]} />
+        <Aviso tom="neutro" glifo="info" titulo={T.manutencao} frase={(fase === 'curta' ? T.reenviando : T.reenviado)[fluxo.bloco]} />
         <Cadeia elos={elosDaCurta(k, fluxo.bloco, conteudo)} altura="correndo" curta />
         <p className="t09-ficam">{ficam(fluxo.bloco)}</p>
       </>
     )
     rodape = fase === 'curta'
       ? <Rodape {...mov} primario={T.gravandoNaoInterrompa} primarioDesabilitado explicacao={T.saidaVolta} />
-      : <Rodape {...mov} primario={T.voltar} aoPrimario={voltarAoMenu} />
+      : <Rodape {...mov} primario={T.voltar} aoPrimario={voltarAoMenu} pe="link" />
   } else {
     // ── a cadeia: correndo (00), parada (01, 02, 03) e concluída (04) ──
     const cabeca = fase === 'pausado' || fase === 'recuperacao'

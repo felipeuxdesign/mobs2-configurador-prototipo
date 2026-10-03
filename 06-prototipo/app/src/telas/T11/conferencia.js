@@ -11,6 +11,8 @@ import { T } from './textos.js'
 export const REF = {
   naoReconhece: '01-estado-conteudo-que-o-app-nao-reconhece',
   confere: '02-momento-tudo-confere',
+  // a conferência correndo, parada na linha dos Eventos (o pacote 5, lei 24)
+  conferindo: '04-momento-conferindo',
   // a folha Outras ações, por cima da 00 (decisão 40)
   outras: '03-momento-outras-acoes',
   // o pacote 2 (decisão 53): reenviou um bloco, e os que dependem dele ficam pra revisar
@@ -172,6 +174,8 @@ export function conferenciaDo({ par, sessao, divergem, reenviados = [], naoRecon
 }
 
 // quantas das que se comparam a leitura já alcançou (o contador que acompanha as linhas)
+// o quadro da 04 (o pacote 5): a conferência parada nos Eventos — três lidas, 2 de 4
+export const QUADRO_04 = LINHAS.indexOf('eventos')
 export const comparadasAte = (lidas) => LINHAS.slice(0, lidas).filter((b) => COMPARADAS.includes(b)).length
 
 // O endereço do 02 monta o par que confere (G20, T11·1): a sessão do herói, com

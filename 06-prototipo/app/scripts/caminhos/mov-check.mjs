@@ -94,18 +94,21 @@ export default [
   { toca: 'bancada · conta', anima: [esmaece('ds-primario-texto')] },
   { ve: 'Salvar com ressalva' },
 
-  // ── o veredito que espera a prova (C12·35, T11/00): a caixa neutra no lugar, a contagem, e a palavra na quinta ──
+  // ── o veredito que espera a prova (T11/04, o pacote 5): a caixa diz CONFERINDO, a contagem, e a palavra na quinta ──
   V('mov-check-veredito'),
   { quieto: true },
-  { naoVe: 'NÃO BATE COM O CADASTRO' },                                            // o lugar da palavra, reservado, sem texto
+  { ve: 'CONFERINDO' },                                                           // a caixa diz o que corre
+  { naoVe: 'NÃO BATE COM O CADASTRO' },
   { naoVe: '1 de 4' },                                                             // nada conta de zero
   { toca: 'bancada · confere' },
   { ve: '1 de 4', entre: [300, 650] },                                             // a primeira linha, aos 400
   { anima: [GLIFO] },
+  { ve: 'conferindo' },                                                            // a linha da vez, com o quadrado de agora
   { ve: '3 de 4', entre: [1000, 1500] },                                           // a quarta linha: o Extended ID não conta (o pacote 2)
   { naoVe: 'NÃO BATE COM O CADASTRO' },
   { ve: 'NÃO BATE COM O CADASTRO', entre: [250, 600] },                            // a quinta: o veredito entra
-  { anima: [esmaece('ds-aviso-titulo'), esmaece('ds-aviso-capa'), GLIFO] },        // a palavra, a cor do traço por camada, o xis
+  { anima: [esmaece('ds-aviso-titulo'), esmaece('ds-aviso-capa'), esmaece('ds-poco')] },  // a palavra, a cor do traço por camada, o poço com o xis
+  { naoVe: 'CONFERINDO' },
   { ve: '4 de 4' },
   { dorme: 200 },
   { quieto: true },
@@ -113,7 +116,7 @@ export default [
   { quieto: true },
   { ve: 'NÃO BATE COM O CADASTRO' },
 
-  // ── o veredito que confere (T11/02): o lima do traço por camada (a prova da versão saiu no pacote 2) ──
+  // ── o veredito que confere (T11/02): o lima do traço por camada ──
   V('mov-check-veredito-confere'),
   { quieto: true },
   { toca: 'bancada · confere' },
@@ -121,31 +124,6 @@ export default [
   { ve: 'CONFERE COM O CADASTRO', entre: [1400, 2100] },
   { anima: [esmaece('ds-aviso-titulo'), esmaece('ds-aviso-capa')] },
   { naoVe: 'igual à do cadastro' },
-
-  // ── a prova que espera o autoteste (C12·44, T16/02): a contagem no lugar da versão ──
-  V('mov-check-veredito-sessao'),
-  { quieto: true },
-  { naoVe: 'A CONFIGURAÇÃO SOBREVIVEU AO REINÍCIO' },
-  { toca: 'bancada · lê' },
-  { ve: '1 de 8', entre: [300, 650] },
-  { ve: '7 de 8', entre: [2200, 2800] },
-  { ve: 'A CONFIGURAÇÃO SOBREVIVEU AO REINÍCIO', entre: [250, 600] },
-  { anima: [esmaece('ds-prova-rotulo'), esmaece('ds-prova-versao'), esmaece('ds-prova-legenda'), esmaece('ds-prova-conta-sai'), esmaece('ds-prova-capa')] },
-  { naoVe: '7 de 8' },                                                            // a contagem que saiu não se lê
-  { dorme: 200 },
-  { quieto: true },
-  { toca: 'bancada · abre de novo', naoAnima: [{ prop: 'opacity' }] },
-  { quieto: true },
-
-  // ── o bloqueio que espera o autoteste (C12·44, T16/05): a contagem à direita sai no mesmo esmaecer ──
-  V('mov-check-veredito-bloqueio'),
-  { quieto: true },
-  { toca: 'bancada · lê' },
-  { ve: '1 de 8', entre: [300, 650] },
-  { naoVe: 'A HOMOLOGAÇÃO FICA BLOQUEADA' },
-  { ve: 'A HOMOLOGAÇÃO FICA BLOQUEADA', entre: [2600, 3400] },
-  { anima: [esmaece('ds-aviso-titulo'), esmaece('ds-aviso-frase'), esmaece('ds-aviso-conta-sai'), esmaece('ds-aviso-capa')] },
-  { naoVe: '7 de 8' },
 
   // ── com reduzir movimento: nada anima, e os processos seguem no mesmo ritmo ──
   { reduzir: true },
@@ -171,10 +149,6 @@ export default [
   { quieto: true },
   { ve: '3 de 4', entre: [1000, 1500] },
   { ve: 'NÃO BATE COM O CADASTRO', entre: [250, 600] },
-  { quieto: true },
-  V('mov-check-veredito-sessao'),
-  { toca: 'bancada · lê' },
-  { ve: 'A CONFIGURAÇÃO SOBREVIVEU AO REINÍCIO', entre: [3000, 3600] },
   { quieto: true },
   { reduzir: false },
 ]

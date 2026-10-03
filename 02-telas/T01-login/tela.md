@@ -8,7 +8,7 @@ Entrar no app com usuário e senha, e recuperar o acesso sem ligar pra ninguém.
 | **Chrome** | sem faixa · barra do sistema na cor da página |
 | **Semente no protótipo** | nenhuma sessão · usuário r.vieira preenchido |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 10 · 8 — ver `estados.md` |
+| **Momentos · estados** | 11 · 8 — ver `estados.md` |
 
 ## O que se toca
 
@@ -27,7 +27,7 @@ Entrar no app com usuário e senha, e recuperar o acesso sem ligar pra ninguém.
   - no protótipo · a nossa versão desta linha, antes desta entrega: sem internet, o `Entrar` mostra o aviso *SEM CONEXÃO · O login precisa de internet.* · os campos ficam preenchidos, porque a senha não estava errada · o `Entrar` fica aceso e tenta de novo: sem internet, o mesmo aviso; com a conexão de volta, a regra da senha — entra, ou o erro da 01 no lugar do aviso
 - no erro, o `Entrar` fica apagado, dizendo *Digite a senha*, até a senha ter um caractere
 - `Entrar` → T02 se a senha tiver 8 caracteres ou mais; com menos, o erro de usuário ou senha
-  - no protótipo (decisão do diretor, 27/09 · a espera do Entrar): com internet, o `Entrar` espera a resposta do servidor antes de levar à T02 ou ao erro da 01 — no protótipo, 1,2 s fixos (`ritmos.js` · `entrarEsperaMs`), sem relógio. Enquanto espera, o primário diz *Entrando…*, desabilitado de verdade e em tinta apagada, como o *Gravando no módulo…* da T10 (a lei 17), e o `Esqueci a senha` também; os campos, a caixa e o olho ficam onde estão, sem responder, e nada muda de lugar. Sem internet, o aparelho já sabe: o aviso da 14 vem na hora, sem espera. Nenhuma referência desenha o quadro da espera (pro arquiteto). O roteiro `mov-t01` confere o texto que troca no lugar, o botão e o link desligados, o lugar de tudo e a chegada entre 0,8 e 1,7 s
+  - no protótipo (decisão do diretor, 27/09 · a espera do Entrar): com internet, o `Entrar` espera a resposta do servidor antes de levar à T02 ou ao erro da 01 — no protótipo, 1,2 s fixos (`ritmos.js` · `entrarEsperaMs`), sem relógio. Enquanto espera, o primário diz *Entrando…*, desabilitado de verdade e em tinta apagada, como o *Gravando no módulo…* da T10 (a lei 17), e a URL diz a 19 (o pacote 5); o `Esqueci a senha` também, desabilitado e em tinta apagada (a lei 17 e a decisão de 27/09; a 19 o desenha aceso — o desvio está no gate do pacote 5); os campos, a caixa e o olho ficam onde estão, sem responder, e nada muda de lugar. A senha errada (a 01) chega depois da espera, e a URL volta à entrada. Sem internet, o aparelho já sabe: o aviso da 14 vem na hora, sem espera. O roteiro `mov-t01` confere o texto que troca no lugar, o botão e o link desligados, o lugar de tudo e a chegada entre 0,8 e 1,7 s
 - `Esqueci a senha` → recuperar: escolher o canal
 - canal escolhido → digitar o código (482913 no mock) → nova senha → senha alterada → login
 - `Não recebi o código` → a folha com as duas saídas: *Conferir e reenviar* e *Mandar para o e-mail*, que esperam os 60 s do reenvio, com a contagem no lugar da seta e a linha desabilitada até zerar

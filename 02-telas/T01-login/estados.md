@@ -23,6 +23,7 @@
 | `16-estado-usuario-lembrado` | estado | o técnico marcou Lembrar meu usuário num login anterior | `usuario-lembrado` |
 | `17-estado-teto-de-envios` | estado | pedir um código depois dos 3 envios da hora | `teto-de-envios` |
 | `18-estado-outro-usuario-no-aparelho` | estado | entrar com um usuário diferente do da sessão anterior | `outro-usuario` |
+| `19-momento-entrando` | momento | tocar em `Entrar` · 1,2s antes do menu | derivado do fluxo |
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.
 

@@ -19,6 +19,7 @@ export const REF = {
   cercasDemais: '07-estado-cercas-demais-pro-modulo',
   escolher: '08-momento-manutencao-escolher-o-bloco',
   reenviando: '09-momento-manutencao-reenviando',
+  reenviado: '10-momento-manutencao-concluida', // a cadeia curta fechada: o bloco relido (o pacote 5)
 }
 export const CASO_RECUSA = 'bloco-recusado'
 export const CASO_QUEDA = 'queda-na-cadeia'
@@ -176,7 +177,8 @@ export const CURTA = 2
 export function elosDaCurta(k, bloco, conteudo) {
   return [LIMPEZA, bloco].map((b, i) => {
     const base = { nome: rotulos[b], descricao: b === LIMPEZA ? T.limpezaSo[bloco] : T.descricao[b] }
-    if (i < k) return { ...base, estado: 'ok', valor: valorFeito(b, conteudo) }
+    // a curta fechada (a 10, o pacote 5): o bloco diz que foi relido, aceso
+    if (i < k) return b !== LIMPEZA && k > 1 ? { ...base, estado: 'ok', valor: T.relido[bloco], valorAceso: true } : { ...base, estado: 'ok', valor: valorFeito(b, conteudo) }
     if (i === k) return { ...base, estado: 'agora', valor: T.gravando }
     return { ...base, estado: 'espera', valor: conteudo[b] }
   })

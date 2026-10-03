@@ -60,7 +60,8 @@ export const T = {
   semSessao: 'Sem sessão de configuração',
 
   // a cadeia do encerramento
-  aindaNao: '—',                 // o passo que ainda não chegou
+  aindaNao: '—',
+  lendo: 'lendo',                // a assertiva da vez, no autoteste (a 07, o pacote 5)                 // o passo que ainda não chegou
   pulado: 'pulado',              // sem homologar: o que não roda
   semHomologar: 'Sem homologar · só o que deixa o módulo seguro',
   // o corte de alimentação (T16·1: só quando o driver não reinicia por comando);

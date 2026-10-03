@@ -32,9 +32,11 @@ export default [
   { ve: LEGENDA.canal, entre: [300, 1000] },
   { ve: LEGENDA.registro, entre: [300, 1000] },
   { ve: LEGENDA.desconexao, entre: [300, 1000] },
-  // fechado o sétimo, a Sessão encerrada, sem legenda de passo nenhum
-  { chega: 'T16', momento: '02-momento-sessao-encerrada', entre: [300, 1000] },
+  // fechado o sétimo, a Sessão encerrada, sem legenda de passo nenhum: o autoteste correndo (07,
+  // o pacote 5), e a 02 quando a oitava assertiva chega
+  { chega: 'T16', momento: '07-momento-autoteste-correndo', entre: [300, 1000] },
   { ve: 'Sessão encerrada' },
+  { chega: 'T16', momento: '02-momento-sessao-encerrada', entre: [2800, 4000] },
   { naoVe: LEGENDA.desconexao },
   { ve: 'Sem sessão de configuração' },
 ]

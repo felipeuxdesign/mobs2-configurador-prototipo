@@ -35,6 +35,7 @@ export const REF = {
   canLida: '01-momento-can-lida',
   atualizando: '06-momento-atualizando-o-firmware',
   relendo: '10-momento-relendo-a-can',
+  lendo: '11-momento-lendo', // a leitura do módulo correndo (o pacote 5, lei 24)
 }
 
 // ── o módulo: as sete linhas ──
@@ -145,6 +146,9 @@ export const sinaisDoModelo = (modeloAtivoId) => (modeloAtivoId === D.can.modelo
 export const tituloDaCan = (ativo) => T.aCanDo(caixaAlta(M.modelosAtivo.find((m) => m.id === ativo.modeloAtivoId).nome))
 export const CAN_AGUARDA = D.canAguarda
 // o quadro que a 10 desenha: a rotação, a velocidade e o hodômetro lidos, a temperatura lendo
+// o quadro da 11 (o pacote 5): a leitura do módulo parada na quinta linha, as
+// Entradas digitais — quatro prontas, a da vez com o quadrado e *lendo* (4 de 7)
+export const QUADRO_11 = D.modulo.findIndex((l) => l.id === 'entradas')
 export const QUADRO_10 = D.can.sinais.findIndex((s) => s.id === 'temperatura')
 
 // o que o caso muda no sinal dele

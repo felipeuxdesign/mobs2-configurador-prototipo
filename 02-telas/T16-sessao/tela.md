@@ -8,7 +8,7 @@ Encerrar a sessão de configuração provando que a configuração sobreviveu ao
 | **Chrome** | faixa de sessão, até ela subir no fim |
 | **Semente no protótipo** | sessão M2C-0417 + RKT-8H42 homologada |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 4 · 2 — ver `estados.md` |
+| **Momentos · estados** | 5 · 2 — ver `estados.md` |
 
 ## O que se toca
 

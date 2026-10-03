@@ -14,6 +14,7 @@
 | `07-estado-cercas-demais-pro-modulo` | estado | o cadastro tem mais cercas do que o módulo guarda | `pool-esgotado` |
 | `08-momento-manutencao-escolher-o-bloco` | momento | `Configurar módulo`, numa manutenção | `modulo-ja-deste-ativo` |
 | `09-momento-manutencao-reenviando` | momento | `Reenviar`, com um bloco escolhido | `modulo-ja-deste-ativo` |
+| `10-momento-manutencao-concluida` | momento | a cadeia curta da manutenção fecha · as cercas relidas | derivado do fluxo |
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.
 

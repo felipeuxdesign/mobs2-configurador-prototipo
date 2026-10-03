@@ -29,3 +29,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `06-estado-sessao-interrompida`
 
 `Sem sessão de configuração` · `Sessão interrompida` · `3` · `de 6` · `QAH-1M67 · M2C-0411 · iniciada hoje às 13:05` · `Limpeza` · `feita` · `Ativo` · `OF-1621` · `Cercas` · `4 regiões` · `Leitor` · `o ativo e as cercas já estão gravados` · `parou aqui` · `Eventos` · `—` · `Conexão` · `—` · `Retomar` · `Descartar`
+
+## `07-momento-autoteste-correndo`
+
+`Sem sessão de configuração` · `Sessão encerrada` · `4` · `de 8` · `Configuração` · `confere` · `Contadores` · `482.317 km · 9.640 h` · `Extended ID` · `preservado` · `Faixa de contadores` · `não se aplica` · `Pontos de cerca` · `lendo` · `Canal de programação` · `—` · `Repouso do módulo` · `—` · `ID na plataforma` · `—` · `Voltar ao menu`

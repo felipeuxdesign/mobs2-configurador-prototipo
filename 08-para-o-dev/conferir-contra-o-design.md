@@ -1,6 +1,6 @@
 # Conferir contra o design
 
-As 142 referências — cada tela, momento e estado — estão em `02-telas/<tela>/referencias/`, em **HTML** e **PNG**, em 360 × 800. Elas valem pra qualquer tecnologia: são o gabarito da aparência.
+As 150 referências — cada tela, momento e estado — estão em `02-telas/<tela>/referencias/`, em **HTML** e **PNG**, em 360 × 800. Elas valem pra qualquer tecnologia: são o gabarito da aparência.
 
 ## Como o protótipo foi medido
 

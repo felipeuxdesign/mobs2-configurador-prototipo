@@ -8,7 +8,7 @@ Fazer o módulo contar igual ao painel do ônibus.
 | **Chrome** | faixa de sessão |
 | **Semente no protótipo** | sessão M2C-0417 + RKT-8H42 · hodômetro 184.320 no módulo, 482.317 no painel |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 4 · 4 — ver `estados.md` |
+| **Momentos · estados** | 6 · 4 — ver `estados.md` |
 
 ## O que se toca
 
@@ -16,6 +16,7 @@ Fazer o módulo contar igual ao painel do ônibus.
   - no protótipo · a nossa emenda desta linha, antes da entrega do pacote 1 — pra o arquiteto ver: *(a lei 17)*, o desabilitado que é tinta apagada
 - o semear não para: durante o *Gravando no módulo…* e o *Relendo…*, o `Voltar ao menu` e o voltar do Android não fazem nada
   - no protótipo · a nossa versão desta linha: parar no meio deixaria o valor pela metade (a decisão do diretor de 25/09) · nos 2 s de *Gravando no módulo…* e *Relendo…*, o `Voltar ao menu` e o voltar do sistema não fazem nada, como no firmware atualizando da T07 (a D4 do pacote 1) · o `Voltar ao menu` fica no lugar, desabilitado de verdade e em `--tinta-apagada`: o toque não faz nada, e o leitor ouve desabilitado (a regra 12 e a lei 17, *desabilitado é tinta apagada*) · o `ENCERRAR` faz o mesmo que o voltar: apagado, e não faz nada · terminado o semear, os dois voltam a valer
+  - no protótipo (o pacote 5): o *Gravando no módulo…* e o *Relendo…* são a 06 e a 07, que abrem pela URL paradas, e no fluxo a URL as diz enquanto duram · o botão desligado bate com elas; o `Voltar ao menu` e o `ENCERRAR` seguem apagados (a lei 17 e a decisão de 25/09), e o campo perde o foco quando o semear começa, onde a 06 e a 07 os desenham acesos e o campo com foco — o desvio está no gate do pacote 5
 - o campo do painel → tocar e digitar o que o painel mostra, com o teclado numérico
 - o botão acende com o número digitado, e sempre diz o que falta: *Digite o que o painel mostra* → `Semear o hodômetro`
 - `Semear o hodômetro` → grava e relê → semeado · se a releitura passar da tolerância, *não confere* e `Semear de novo`

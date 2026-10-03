@@ -8,6 +8,7 @@
 | `01-estado-conteudo-que-o-app-nao-reconhece` | estado | índice que o app não classifica | `indice-nao-classificado` |
 | `02-momento-tudo-confere` | momento | nada diverge | `diff-divergente, invertido` |
 | `03-momento-outras-acoes` | momento | tocar em Outras ações, no rodapé da conferência | derivado do fluxo |
+| `04-momento-conferindo` | momento | a conferência correndo · 400ms por linha | `diff-divergente, invertido` |
 | `05-estado-revisar-em-seguida` | estado | reenviou as cercas numa manutenção — o leitor e os eventos dependem delas | `cercas-reenviadas` |
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.

@@ -89,12 +89,12 @@ Quando o título ou o rodapé trocam inteiros dentro da mesma tela, o conteúdo 
 
 ## O veredito que espera a prova (C12·35, C12·44)
 
-Vale pra todo veredito que espera a prova: a conferência da T11 e o autoteste da T16.
+Vale pro veredito da conferência da T11. O autoteste da T16 não tem veredito enquanto corre (a T16/07, o pacote 5): a contagem fica ao lado do título, e o fim é outro quadro.
 
-- **A caixa do veredito está no lugar desde o começo**, com o desenho do quadro final. Nada muda de lugar nem de altura entre o começo e o fim.
-- **Enquanto a prova corre, a caixa fica neutra:** o traço no cinza, o poço vazio, o lugar da palavra guardado.
-- **A contagem acompanha a prova** no lugar do número (*1 de 5* … *5 de 5*), em `--tinta`, com a unidade em `--tinta-secundaria`. Começa com a primeira linha e troca no lugar.
-- **Na última linha, o veredito entra em 150ms:** a palavra, já na cor dela, a cor do traço por uma camada, e o xis ou o check no poço. O primário que esperava acende por uma camada.
+- **A caixa do veredito está no lugar desde o começo**, com a altura do quadro final. Nada muda de altura entre o começo e o fim.
+- **Enquanto a prova corre, a caixa fica neutra e diz o que corre** (a T11/04, o pacote 5): *CONFERINDO* em `--tinta-secundaria`, sem poço à vista, com o traço no `--borda-poco`. Quando o veredito final tem poço, o lugar dele já está guardado, invisível: nada muda de lugar.
+- **A contagem acompanha a prova** no lugar do número (*1 de 4* … *4 de 4*), em `--tinta`, com a unidade em `--tinta-secundaria`. Começa com a primeira linha e troca no lugar.
+- **Na última linha, o veredito entra em 150ms:** a palavra, já na cor dela, a cor do traço por uma camada, e — quando não bate — o poço com o xis. O rodapé, desligado enquanto a prova corre, vira o do quadro.
 - **O leitor de tela só ouve o veredito no fim.**
 - **Com reduzir movimento**, a prova e a contagem andam no mesmo ritmo, e a palavra e a cor entram direto.
 - **Nascido pronto** (no print, na coluna, pelo endereço), o veredito já está lá, parado.

@@ -46,7 +46,7 @@ export function Cadeia({ elos, justa = false, altura, curta = false, semFecho = 
             <div className="ds-cadeia-texto">
               <div className="ds-cadeia-linha">
                 <span className="ds-cadeia-nome">{e.nome}</span>
-                <span className="ds-cadeia-valor">{e.valor}</span>
+                <span className={`ds-cadeia-valor ${e.valorAceso ? 'ds-cadeia-valor-aceso' : ''}`}>{e.valor}</span>
               </div>
               {e.descricao != null && <span className="ds-cadeia-descricao">{e.descricao}</span>}
             </div>

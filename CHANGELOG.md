@@ -1,5 +1,16 @@
 # Registro de mudanças
 
+## 2026-10-03 · o pacote 5 — os momentos que faltavam, e o RV no centro
+
+- **oito referências novas, todas *momento*** (lei 24) — o meio das leituras e das gravações, que existia só por escrito: **T01/19** entrando · **T05/05** procurando · **T07/11** lendo · **T09/10** manutenção concluída · **T10/06** gravando no módulo · **T10/07** relendo · **T11/04** conferindo · **T16/07** o autoteste correndo · 142 → **150** referências, 62 → **70** momentos
+- **o poço numa leitura em andamento** (`componentes.md`): **esperando** é o relógio, **agora** é o quadrado branco, **pronto** é o check, o xis ou o *i* · **a contagem do andamento mora onde mora a do resultado** — ao lado do título na T07 e na T16, dentro do veredito, neutro, na T11 · a T14 fica fora: a espera é pelo ônibus
+- **a lei 24**: todo momento que mostra algo novo ganha referência; o movimento entre duas referências que já existem fica só no `animacao.md`
+- **os ritmos que o executor confirmou viram os oficiais** (os `animacao.md` da T01, T03, T05, T07, T09, T10, T11, T14 e T16): a T07 com 600ms por linha · a T11 com 400ms, o relógio ligando só depois da troca de tela · a T14 com um passo a cada 3s depois do disparo · o firmware com 1s · a T03 com 4s no total · o esmaecer no lugar com 150ms
+- **o RV centralizado no círculo**: o espaçamento de 1,4px entre as letras empurrava o conjunto 0,7px pra esquerda, e a métrica da Barlow descia as maiúsculas 1,1px · o círculo ganha `box-sizing: border-box` e `padding: 0 0 2px 1.4px` — continua com 32px, e o desvio cai pra 0,06px · as 16 telas da T04 com o avatar, a cena 01 do palco e a folha 2
+- **a ficha da barra** no `componentes.md`: o lugar e a cor são os do desenho oficial — saem o recuo de 26 e 32 e a cor `--tinta`, que eram da barra de texto
+- **no protótipo** (o gate em `06-prototipo/para-o-arquiteto/gate-pacote5.md`, as folhas lado a lado em `pacote5/`) · os oito momentos abrem pela URL, parados, e no fluxo a URL os diz enquanto duram (a 19, a 05, a 06 e a 07 da T10, a 10 da T09 e a 07 da T16); a T07/11 e a T11/04 são quadros do meio da leitura e não mudam a URL · as 150 referências sem erro, nenhuma das 142 pior que a base do pacote 4, as 8 novas entre 0% e 0,49% · o `Aviso` ganha `aguardaTitulo` (o *CONFERINDO*) e a `Cadeia`, o valor aceso (o *relidas*) · a T16 deixa de usar o `aguarda`, e os dois espécimes do veredito que espera o autoteste saem da vitrine
+- **os desvios nomeados** (o gate, §4): o `Esqueci a senha` da 19 e o `Voltar ao menu` e o `ENCERRAR` da T10/06–07 ficam apagados durante a espera, pela lei 17 e as decisões de 25/09 e 27/09, onde as referências os desenham acesos · a T07/11 desenha a espera diferente da 06 e da 10 (o título aceso, a barra no fundo da faixa, o rodapé em 24): cada uma como a sua referência · na T11, o poço do veredito entra no fim, com a palavra, no mesmo esmaecer · na T16, o fim do autoteste é uma troca de quadro
+
 ## 2026-10-03 · o problema e o usuário alinhados aos requisitos v1 do PM
 
 - **a fonte da verdade é o *App Configurador — Requisitos v1*** (o diretor, 03/10) · a `01-produto/historia.md` e a `usuario.md` reescritas por ele, e as duas dizem a fonte no topo

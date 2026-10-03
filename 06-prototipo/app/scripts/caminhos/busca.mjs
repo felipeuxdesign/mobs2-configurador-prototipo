@@ -5,8 +5,8 @@
 // feita também faz o primário esperar, e ele acende de novo quando ela volta.
 // A otimização do design: a URL diz esse quadro também (o 04 da T02, o 09 da T06),
 // e o endereço dele abre a tela nele; o Sincronizar das unidades que só o caso da
-// lista longa tem baixa o pacote dele; e o Procurar de novo da T05 mostra o quadro
-// da busca da T05/00 antes de a lista voltar.
+// lista longa tem baixa o pacote dele; e o Procurar de novo da T05 mostra o
+// *Procurando…* (T05/05, o pacote 5) antes de a lista voltar.
 const ESCONDE_T02 = '04-momento-busca-esconde-a-escolha'
 const ESCONDE_T06 = '09-momento-busca-esconde-a-escolha'
 export default [
@@ -175,35 +175,39 @@ export default [
   { ve: 'RKT-8H42' },
   { ve: 'O M2C-0417 fica neste ativo, na Viação Atlântico Sul.' },   // o vínculo (pacote 1, a T06 sem o chassi)
 
-  // ── T05 · o Procurar de novo: a busca da T05/00 corre de novo, e a lista volta ──
+  // ── T05 · o Procurar de novo: a lista some, o *Procurando…* (05), e a lista volta (o pacote 5) ──
   { abre: '?tela=T05&momento=01-momento-nenhum-escolhido' },
   { chega: 'T05', momento: '01-momento-nenhum-escolhido' },
   { ve: 'Escolha o que está na sua mão.' },
   { toca: 'Procurar de novo' },
-  // o quadro da busca da 00, com a URL dizendo a 00, no ritmo da busca (ritmos.js · buscaMs):
-  // 1,2 s, o número do arquiteto (a última entrega) — 600 ms depois, o quadro ainda está na tela
-  { chega: 'T05', momento: null },
-  { ve: 'ESCOLHIDO' },
+  // o *Procurando…*, com a URL dizendo a 05, no ritmo da busca (ritmos.js · buscaMs):
+  // 1,2 s — 600 ms depois, ele ainda está na tela
+  { chega: 'T05', momento: '05-momento-procurando' },
+  { ve: 'Procurando…' },
+  { ve: 'segunda tentativa' },
+  { desligado: 'Procurar de novo' },
   { naoVe: 'Escolha o que está na sua mão.' },
   { dorme: 600 },
-  { chega: 'T05', momento: null },
-  { ve: 'ESCOLHIDO' },
+  { chega: 'T05', momento: '05-momento-procurando' },
   { chega: 'T05', momento: '01-momento-nenhum-escolhido', entre: [50, 1000] },
   { ve: 'Escolha o que está na sua mão.' },
-  { naoVe: 'ESCOLHIDO' },
+  { naoVe: 'Procurando…' },
   { desligado: 'Conectar' },
-  // da 00 também: o quadro da busca, e a lista sem nada escolhido
+  // da 00 também: o *Procurando…*, e a lista sem nada escolhido
   { abre: '?tela=T05' },
   { ve: 'ESCOLHIDO' },
   { toca: 'Procurar de novo' },
+  { chega: 'T05', momento: '05-momento-procurando' },
   { chega: 'T05', momento: '01-momento-nenhum-escolhido' },
   { desligado: 'Conectar' },
-  // o toque no quadro da busca vale como na 00: o escolhido troca, e a lista não volta por cima
+  // a terceira busca: o *Procurando…* sem a legenda — o textos.md só escreve as duas primeiras (G25)
   { toca: 'Procurar de novo' },
-  { chega: 'T05', momento: null },
-  { toca: 'M2C-0362' },
-  { ve: 'Conectar ao M2C-0362' },
-  { fica: 'T05', ms: 1000 },
-  { chega: 'T05', momento: null },
-  { ve: 'Conectar ao M2C-0362' },
+  { chega: 'T05', momento: '05-momento-procurando' },
+  { naoVe: 'segunda tentativa' },
+  { chega: 'T05', momento: '01-momento-nenhum-escolhido' },
+  // pela URL, a 05 fica parada
+  { abre: '?tela=T05&momento=05-momento-procurando' },
+  { fica: 'T05', ms: 1600 },
+  { chega: 'T05', momento: '05-momento-procurando' },
+  { ve: 'Procurando…' },
 ]

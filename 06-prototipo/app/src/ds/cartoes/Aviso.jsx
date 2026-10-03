@@ -49,9 +49,12 @@ const CONTAGEM = { poco: 32, glifo: 26 }
 //   esmaece). O número do veredito troca no lugar da contagem, direto; sem número
 //   no quadro final (o bloqueio da T16), a contagem sai no mesmo esmaecer. Nascida
 //   com a prova (sem `aguarda`), a caixa nasce com o veredito, parada.
+// · `aguardaTitulo` (o pacote 5, lei 24 · T11/04): o veredito que espera diz o que
+//   corre — *CONFERINDO* —, em --tinta-secundaria, com o traço de baixo no
+//   --borda-poco; sem ele, o rótulo guarda o lugar, sem texto (o de antes)
 export function Aviso({
   tom = 'falha', glifo = 'xis', poco = 26, nomeGlifo, titulo, frase, numero, unidade, semPoco = false, bloqueio = false, traco = false, mudo = true,
-  surge = false, aguarda, aguardaUnidade,
+  surge = false, aguarda, aguardaUnidade, aguardaTitulo,
 }) {
   const falha = tom === 'falha'
   const veredito = tom === 'veredito'
@@ -66,10 +69,16 @@ export function Aviso({
   const conta = useRef(null)
   if (espera) conta.current = aguarda >= 1 ? aguarda : null
   const mostraConta = espera ? aguarda >= 1 : chega && !contagem && conta.current != null
+  const diz = espera && aguardaTitulo != null
+  // a caixa que disse o que corria: na chegada, o poço (que ela não tinha) entra no mesmo esmaecer,
+  // e a camada que sai tem o cinza do poço
+  const disse = useRef(false)
+  if (espera) disse.current = diz
   const classes = [
     'ds-aviso ds-caixa-poco', falha ? 'ds-caixa-falha ds-aviso-falha' : '', semPoco ? 'ds-aviso-sem-poco' : '', veredito ? 'ds-aviso-veredito' : '',
     bloqueio ? 'ds-aviso-bloqueio' : '', traco && !falha ? 'ds-aviso-traco' : '', surge ? 'ds-aviso-surge' : '',
-    espera ? 'ds-aviso-aguarda' : '', chega ? 'ds-aviso-chega' : '',
+    espera ? 'ds-aviso-aguarda' : '', diz ? 'ds-aviso-aguarda-diz' : '', chega ? 'ds-aviso-chega' : '',
+    chega && disse.current ? 'ds-aviso-chega-disse' : '',
   ].filter(Boolean).join(' ')
   return (
     <div className={classes} aria-hidden={espera ? 'true' : undefined}>
@@ -80,7 +89,7 @@ export function Aviso({
         </Poco>
       )}
       <span className="ds-aviso-texto">
-        <span className="ds-aviso-titulo">{titulo}</span>
+        <span className="ds-aviso-titulo">{diz ? aguardaTitulo : titulo}</span>
         {frase != null && <span className="ds-aviso-frase">{frase}</span>}
       </span>
       {numero != null && (

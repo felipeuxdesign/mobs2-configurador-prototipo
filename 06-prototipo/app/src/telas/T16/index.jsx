@@ -9,9 +9,11 @@
 //   só no corte (T16·7). Ao fechar o 7, a sessão sai do estado
 //   único, e a aberta sobe e revela a faixa "sem sessão" (C12·25, na peça); a tela
 //   passa pra "Sessão encerrada" (a troca de quadro, C12·4), onde as 8 assertivas
-//   acendem, uma a cada RITMOS.autotesteAssertivaMs. A prova (ou o bloqueio) e o
-//   Voltar ao menu já estão no lugar desde a primeira, neutros, com a contagem, e
-//   o veredito entra quando chega a última (T16·4, C12·44). A falha de uma
+//   acendem, uma a cada RITMOS.autotesteAssertivaMs — o autoteste correndo (07, o
+//   pacote 5): a contagem ao lado do título, a da vez com o quadrado de agora e
+//   *lendo*, as seguintes com o relógio e o traço, sem o veredito, e o Voltar ao
+//   menu no lugar, desligado. Na última, o quadro troca (C12·4) pro fim: a prova
+//   (ou o bloqueio) e o Voltar ao menu aceso (02, 05). A falha de uma
 //   assertiva fecha a sessão do mesmo jeito e bloqueia a homologação (05, HU-T16-5).
 // · Antes de homologar (ENCERRAR → 03, G23): os 4 passos da sessão abortada —
 //   quem pediu já confirmou, no diálogo Encerrar sem homologar? (decisão 36) ou
@@ -34,7 +36,7 @@
 //   ainda não chegou (00, 01).
 import { Fragment, useEffect, useRef, useState } from 'react'
 import {
-  BarraDoSistema, Faixa, CabecalhoConteudo, Encerramento, Lista, LinhaChecagem, Prova, Aviso, Nota, Rodape, useTrocaDeQuadro,
+  BarraDoSistema, Faixa, CabecalhoConteudo, Encerramento, Lista, LinhaChecagem, Prova, Aviso, Nota, Rodape, useTrocaDeQuadro, ESTADOS,
 } from '../../ds/index.js'
 import { useEstado, estadoVazio } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
@@ -43,7 +45,7 @@ import { EM_QUADRO } from '../../estado/quadro.js'
 import { RITMOS } from '../../estado/ritmos.js'
 import { M } from '../../dados/mock.js'
 import {
-  REF, CASO_FALHA, CASO_INTERROMPIDA, REINICIO, AUTOTESTE, QUADRO_00, QUADRO_03, SEGUROS, TOTAL_ASSERTIVAS, CAUSA,
+  REF, CASO_FALHA, CASO_INTERROMPIDA, REINICIO, AUTOTESTE, QUADRO_00, QUADRO_03, QUADRO_07, SEGUROS, TOTAL_ASSERTIVAS, CAUSA,
   placaDe, moduloDoAtivo, pedeOCorte, parDoCorte, passosEncerrando, passosAbortando, blocosRelidos, assertivas,
   interrompida,
 } from './dados.js'
@@ -78,6 +80,8 @@ function inicio(momento, est, unico) {
     return { fase: 'encerrando', par: parDoCorte(uoId) ?? par, k: REINICIO, versao }
   }
   if (momento === REF.encerrada) return { fase: 'encerrada', par, versao }
+  // a 07 pelo endereço: o autoteste parado nos Pontos de cerca, como todo momento
+  if (momento === REF.autoteste) return { fase: 'autoteste', par, acesas: QUADRO_07, versao, parado: true }
   if (momento === REF.encerradaSemHomologar) return { fase: 'abortada', par }
   if (momento === REF.semHomologar) {
     return { fase: 'abortando', par, feitos: EM_QUADRO ? QUADRO_03 : 0, destino: unico.etapas.encerramento?.destino ?? null }
@@ -108,7 +112,7 @@ const RITMO = { encerrando: RITMOS.encerramentoPassoMs, autoteste: RITMOS.autote
 // a encerrada sem homologar (04) e a interrompida (06). Quando um vira o outro, na frente de
 // quem olha, o conteúdo esmaece em 150, como entre telas (src/ds/chrome/Troca.jsx); o que
 // muda dentro de uma fase move só a peça.
-const QUADRO = { encerrando: 'encerrando', autoteste: 'encerrada', encerrada: 'encerrada', abortando: 'abortando', abortada: 'abortada', interrompida: 'interrompida' }
+const QUADRO = { encerrando: 'encerrando', autoteste: 'autoteste', encerrada: 'encerrada', abortando: 'abortando', abortada: 'abortada', interrompida: 'interrompida' }
 
 export default function T16({ momento, estado: est }) {
   const { estado: unico, despachar } = useEstado()
@@ -127,14 +131,14 @@ export default function T16({ momento, estado: est }) {
     if (f.fase === 'encerrando' && u.sessao?.moduloSerial !== f.par.moduloSerial) {
       despachar({ tipo: 'mesclar', parcial: { sessao: { ...(u.sessao ?? SEMENTES.T16.sessao), ...f.par } } })
     }
-    if ((f.fase === 'encerrada' || f.fase === 'abortada') && u.sessao) {
+    if ((f.fase === 'autoteste' || f.fase === 'encerrada' || f.fase === 'abortada') && u.sessao) {
       despachar({ tipo: 'mesclar', parcial: { sessao: null, etapas: estadoVazio().etapas } })
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // O processo anda sozinho no ritmo de ritmos.js; para no print e num estado.
   // A cada passo, o estado único e a URL seguem o quadro.
-  const correndo = !EM_QUADRO && est == null && RITMO[fluxo.fase] != null
+  const correndo = !EM_QUADRO && est == null && RITMO[fluxo.fase] != null && !fluxo.parado
   useEffect(() => {
     if (!correndo) return undefined
     const relogio = setInterval(() => {
@@ -154,8 +158,12 @@ export default function T16({ momento, estado: est }) {
       // ao fechar o 7, a sessão acaba: sai do estado único, e a faixa fica sem sessão
       if (f.fase === 'encerrando' && n.fase === 'autoteste') {
         despachar({ tipo: 'mesclar', parcial: fim })
+        despachar({ tipo: 'ir', tela: 'T16', momento: REF.autoteste })
+      }
+      // a última assertiva: o fim — a 02, ou, com a falha, a tela sem momento (a 05 é estado)
+      if (f.fase === 'autoteste' && n.fase === 'encerrada') {
         const falha = assertivas(f.par.ativoId).some((a) => a.estado === 'reprovada')
-        if (!falha) despachar({ tipo: 'ir', tela: 'T16', momento: REF.encerrada })
+        despachar({ tipo: 'ir', tela: 'T16', momento: falha ? undefined : REF.encerrada })
       }
       if (f.fase === 'abortando' && n.fase === 'abortada') {
         despachar({ tipo: 'mesclar', parcial: fim })
@@ -235,23 +243,28 @@ export default function T16({ momento, estado: est }) {
     // O veredito que espera a prova (C12·44, o retorno do diretor de 26/09 sobre a C12·35): a
     // prova, ou o bloqueio, fica no lugar desde a primeira assertiva, neutra, com a contagem das
     // que já acenderam (1 de 8 …); na última, a palavra e a cor entram em 150 (a peça sabe)
-    const aguarda = pronta ? null : acesas
+    // O autoteste correndo (07, o pacote 5, lei 24): sem o veredito — a contagem do
+    // andamento ao lado do título, a da vez com o quadrado de agora e *lendo*, as
+    // seguintes com o relógio e o traço. O fim é outro quadro (a troca, C12·4)
+    const contagem = pronta ? contador : { contagem: acesas, unidade: T.deTotal(TOTAL_ASSERTIVAS) }
+    const linha = (a, i) => {
+      if (pronta || i < acesas) return { estado: a.estado, glifo: a.glifo, nomeGlifo: a.nomeGlifo, valor: a.valor }
+      if (i === acesas) return { estado: 'agora', valor: T.lendo }
+      return { estado: 'ainda-nao', glifo: 'relogio', nomeGlifo: ESTADOS.espera.nome, valor: T.aindaNao }
+    }
     miolo = (
       <>
-        <CabecalhoConteudo titulo={T.encerrada} {...contador} />
-        {!falha && (
-          <Prova tipo="sessao" rotulo={T.sobreviveu} versao={fluxo.versao} legenda={T.relidoDoModulo} aguarda={aguarda} aguardaUnidade={T.deTotal(TOTAL_ASSERTIVAS)} />
-        )}
+        <CabecalhoConteudo titulo={T.encerrada} {...contagem} />
+        {pronta && !falha && <Prova tipo="sessao" rotulo={T.sobreviveu} versao={fluxo.versao} legenda={T.relidoDoModulo} />}
         <Lista>
           {lista.map((a, i) => (
-            <LinhaChecagem key={a.id} variante="dupla" estado={a.estado} titulo={a.titulo} glifo={a.glifo} nomeGlifo={a.nomeGlifo}
-              lendo={i >= acesas} valor={i < acesas ? a.valor : undefined}
+            <LinhaChecagem key={a.id} variante="dupla" titulo={a.titulo} {...linha(a, i)}
               divisoria={i < ultima} folgaFim={i === ultima ? 'assertiva' : false} />
           ))}
         </Lista>
-        {falha
-          ? <Aviso tom="falha" bloqueio titulo={T.bloqueada} frase={CAUSA[reprovadas[0].id]} aguarda={aguarda} aguardaUnidade={T.deTotal(TOTAL_ASSERTIVAS)} />
-          : <span className="t16-nota">{T.notaPlataforma}</span>}
+        {pronta && (falha
+          ? <Aviso tom="falha" bloqueio titulo={T.bloqueada} frase={CAUSA[reprovadas[0].id]} />
+          : <span className="t16-nota">{T.notaPlataforma}</span>)}
       </>
     )
     // o Voltar ao menu fica no lugar, apagado e desabilitado, com o mesmo texto, e acende

@@ -30,8 +30,15 @@ export const TX = {
   nenhumEncontrado: 'nenhum encontrado',
   nenhumRespondeu: 'Nenhum módulo respondeu',
   aproxime: 'Aproxime o aparelho do módulo e confira se ele está alimentado.',
-  tentativa: { 1: 'primeira' },
+  tentativa: { 1: 'primeira', 2: 'segunda' },
   buscaDurou: (seg, tentativa) => (TX.tentativa[tentativa] ? `A busca durou ${seg} s · ${TX.tentativa[tentativa]} tentativa` : null),
+
+  // 05 · procurando (o pacote 5): a busca de novo, enquanto corre — a tentativa sai
+  // da contagem da busca, e só o ordinal que o textos.md escreve (G25)
+  procurando: 'procurando',
+  procurandoTitulo: 'Procurando…',
+  aparecemAqui: 'Os módulos por perto aparecem aqui assim que responderem.',
+  qualTentativa: (tentativa) => (TX.tentativa[tentativa] ? `${TX.tentativa[tentativa]} tentativa` : null),
 
   // 04 · a conexão falhou (conexao-falha): a trava mora no escolhido
   naoRespondeu: 'NÃO RESPONDEU',

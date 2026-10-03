@@ -25,6 +25,10 @@ export const T = {
   // o veredito, com a contagem à direita
   naoBate: 'NÃO BATE COM O CADASTRO',
   confere: 'CONFERE COM O CADASTRO',
+  // a 04 (o pacote 5): a conferência correndo — o veredito neutro e a linha da vez
+  conferindo: 'CONFERINDO',
+  conferindoLinha: 'conferindo',
+  vazio: '—',
   deTotal: (total) => `de ${total}`,
   // o 01: quantos conteúdos o app não reconhece, a mais que os blocos
   aMais: 'a mais',

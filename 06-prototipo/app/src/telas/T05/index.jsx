@@ -16,15 +16,14 @@
 // nenhuma etapa, e a tela vai pra T07. A faixa não desce aqui: desce na T07,
 // quando as sete linhas passam sem trava (o padrão aprovado no gate do pacote 1).
 // O M2C-0999 conecta como os outros, e a T07 trava pelo serial fora do cadastro (T07/02).
-// A busca de novo (`Procurar de novo`, o Bluetooth que liga): a busca da
-// T05/00 corre de novo, e a lista volta (a otimização do design) — o quadro da
-// 00 fica na tela RITMOS.buscaMs, com a URL dizendo a 00, e a lista volta sem
-// nada escolhido (01). O ritmo é o do arquiteto, 1,2 s (a última entrega,
-// animacao.md). O animacao.md diz que a lista some e *Procurando…* fica na
-// tela, mas esse texto não está em referência nem no textos.md: fica o quadro
-// da 00, que ele aprovou antes, sem texto novo (a pergunta vai ao arquiteto).
-// Tocar no quadro da 00 enquanto ele está na tela vale como na 00: o toque
-// fica, e a lista não volta por cima dele.
+// · 05-momento-procurando — a busca de novo, enquanto corre (o pacote 5, lei 24)
+// A busca de novo (`Procurar de novo`, o Bluetooth que liga): a lista some e a
+// tela vira o *Procurando…* (05) — o poço com o quadrado branco de agora, a
+// tentativa embaixo e o primário desligado —, com a URL dizendo a 05; depois de
+// RITMOS.buscaMs (1,2 s, animacao.md), a lista volta sem nada escolhido (01).
+// A tentativa conta as buscas desde que a tela abriu (a da abertura é a
+// primeira); o ordinal é só o que o textos.md escreve (G25). Aberta pela URL,
+// a 05 fica parada, como todo momento.
 //
 // O movimento (C12, animacao.md). Aberta pela URL, pelo palco, num estado ou
 // no print, a tela fica parada; o que se move é só o que acontece depois:
@@ -70,12 +69,14 @@ import './t05.css'
 
 const M01 = '01-momento-nenhum-escolhido'
 const M02 = '02-momento-um-encontrado'
+const M05 = '05-momento-procurando'
 
 // o quadro da busca: os módulos por perto, o escolhido (ou nenhum) e, se a
 // conexão com ele falhou, a trava no escolhido (04)
 const busca = (perto, escolhido, trava = false) => ({ fase: 'busca', perto, escolhido, trava })
-// a busca que corre de novo: o quadro da busca da 00, até a lista voltar (01)
-const correndo = () => ({ ...busca(porPerto(), HEROI), correndo: true })
+// a busca que corre de novo (05): o *Procurando…*, até a lista voltar (01) — `correndo`
+// liga o relógio; aberta pela URL, parada, na segunda tentativa
+const procurando = (tentativa, correndo = false) => ({ fase: 'procurando', tentativa, correndo })
 // o da busca que não achou nada (03)
 const vazia = () => ({ fase: 'vazia' })
 
@@ -83,6 +84,7 @@ const vazia = () => ({ fase: 'vazia' })
 function inicio(momento) {
   if (momento === M01) return busca(porPerto(), null)
   if (momento === M02) return busca(soOHeroi(), HEROI)
+  if (momento === M05) return procurando(2)
   return busca(porPerto(), HEROI)
 }
 
@@ -128,21 +130,20 @@ export default function T05({ momento, estado: est }) {
   // ele que conecta (diretor, 24/09: escolher numa lista marca, quem avança é o botão)
   const [marcado, setMarcado] = useState(null)
   function escolher(serial) {
-    // no quadro da busca que corre, o toque vale como na 00, e a lista não volta por cima dele
-    setFluxo((f) => ({ ...f, escolhido: serial, correndo: false }))
+    setFluxo((f) => ({ ...f, escolhido: serial }))
     if (momento) ir('T05') // o escolhido é a 00, a tela: a URL segue
   }
   // a busca de novo (tela.md: a busca da T05/00 corre de novo, e a lista volta):
-  // o quadro da 00, com a URL dizendo a 00, e depois de RITMOS.buscaMs a lista sem nada escolhido (01)
+  // o *Procurando…* (05), com a URL dizendo a 05, e depois de RITMOS.buscaMs a lista sem nada escolhido (01)
   function procurar() {
     setMarcado(null)
-    setFluxo(correndo())
-    ir('T05')
+    setFluxo(procurando((q.tentativa ?? 1) + 1, true))
+    ir('T05', { momento: M05 })
   }
   useEffect(() => {
     if (est != null || !fluxo.correndo) return undefined
     // a lista que volta leva a marca `achou`: é o *a busca acha*, e ela surge em cascata (C12·28, C12·41)
-    const relogio = setTimeout(() => { setFluxo({ ...busca(porPerto(), null), achou: true }); ir('T05', { momento: M01 }) }, RITMOS.buscaMs)
+    const relogio = setTimeout(() => { setFluxo({ ...busca(porPerto(), null), achou: true, tentativa: fluxo.tentativa }); ir('T05', { momento: M01 }) }, RITMOS.buscaMs)
     return () => clearTimeout(relogio)
   }, [fluxo, est]) // eslint-disable-line react-hooks/exhaustive-deps
   // conectado: a sessão nasce no estado único, com o meio em que a busca achou o módulo e
@@ -179,7 +180,7 @@ export default function T05({ momento, estado: est }) {
   // 01, 02, 04), o link é o Procurar de novo, que não sai da tela: não faz nada
   // (pendencias.md). No vazio (03) e sem Bluetooth ou sem a permissão (16, 17),
   // o Voltar ao menu do rodapé
-  useVoltar(q.fase === 'vazia' || q.fase === 'celular' ? voltar : null)
+  useVoltar(q.fase === 'vazia' || q.fase === 'celular' || q.fase === 'procurando' ? voltar : null)
 
   let miolo, rodape
   if (q.fase === 'celular') {
@@ -192,6 +193,17 @@ export default function T05({ momento, estado: est }) {
       </>
     )
     rodape = <Rodape primario={t.primario} aoPrimario={pedirAoAndroid} link={TX.voltarAoMenu} aoLink={voltar} />
+  } else if (q.fase === 'procurando') {
+    // ── 05 · a busca de novo, enquanto corre: o poço com o quadrado de agora no lugar da lista ──
+    const legenda = TX.qualTentativa(q.tentativa)
+    miolo = (
+      <>
+        <CabecalhoConteudo titulo={TX.titulo} unidade={TX.procurando} />
+        <VazioDaBusca agora titulo={TX.procurandoTitulo} frase={TX.aparecemAqui} />
+        {legenda && <span className="t05-legenda">{legenda}</span>}
+      </>
+    )
+    rodape = <Rodape primario={TX.procurarDeNovo} primarioDesabilitado link={TX.voltarAoMenu} aoLink={voltar} />
   } else if (q.fase === 'vazia') {
     // ── 03 · nenhum módulo respondeu: o vazio no lugar da lista ──
     const bv = buscaVazia()

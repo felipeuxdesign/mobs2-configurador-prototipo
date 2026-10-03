@@ -77,7 +77,7 @@ import { M } from '../../dados/mock.js'
 import { usePresenca } from '../../ds/chrome/PorCima.jsx'
 import {
   REF, LINHAS, BLOCOS_DA_CADEIA, ativoDe, mundoDoEstado, divergenciasDo, reenviadosDa,
-  conferenciaDo, comparadasAte, mundoQueConfere,
+  conferenciaDo, comparadasAte, mundoQueConfere, QUADRO_04,
 } from './conferencia.js'
 import { T } from './textos.js'
 import './t11.css'
@@ -92,8 +92,9 @@ const parDaSessao = (s) => (s?.ativoId ? { ativoId: s.ativoId, moduloSerial: s.m
 // O endereço do 02 com a semente do painel (o par que diverge) pede outro
 // mundo: a sessão do herói, que confere (T11·1, G20). A tela ajusta o estado
 // único uma vez, ao montar, como a T04 faz com os momentos dela.
+// A 04 (o pacote 5) é a conferência do herói, que confere, parada no meio.
 function ajusteDoMomento(momento, est, unico) {
-  if (est != null || momento !== REF.confere) return null
+  if (est != null || (momento !== REF.confere && momento !== REF.conferindo)) return null
   if (divergenciasDo(parDaSessao(unico.sessao), unico.etapas).length === 0) return null
   return mundoQueConfere(unico.sessao ?? SEMENTE)
 }
@@ -131,13 +132,15 @@ export default function T11({ momento, estado: est }) {
   // coluna e na folha aberta pelo endereço (o 03 é um quadro depois da leitura)
   const nLinhas = LINHAS.length
   const [nasceuLida] = useState(() => EM_QUADRO || est != null || outrasPedida)
-  const [lidas, setLidas] = useState(() => (nasceuLida ? nLinhas : 0))
+  // a 04 pelo endereço: parada nos Eventos, como todo momento
+  const [parada] = useState(() => est == null && momento === REF.conferindo)
+  const [lidas, setLidas] = useState(() => (parada ? QUADRO_04 : nasceuLida ? nLinhas : 0))
   const lendo = lidas < nLinhas
   // o relógio só liga depois da troca entre telas que trouxe a tela (C12·35 b): pelo menu,
   // a primeira linha aos 150 + 400; pelo endereço (nada esmaece), aos 400
   const fimDaTroca = useFimDaTroca()
   useEffect(() => {
-    if (!lendo) return undefined
+    if (!lendo || parada) return undefined
     let vivo = true, relogio = null
     fimDaTroca().then(() => {
       if (vivo) relogio = setInterval(() => setLidas((n) => Math.min(n + 1, nLinhas)), RITMOS.conferenciaLinhaMs)
@@ -146,7 +149,7 @@ export default function T11({ momento, estado: est }) {
   }, [lendo, nLinhas]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // a URL segue o quadro (G20): nada diverge é o 02; o que diverge, a 00, ou o 03 com a folha aberta
-  const quadro = bate ? REF.confere : outrasPedida ? REF.outras : null
+  const quadro = parada ? REF.conferindo : bate ? REF.confere : outrasPedida ? REF.outras : null
   useEffect(() => {
     if (est != null || !aplicado) return
     if ((momento ?? null) !== quadro) despachar({ tipo: 'ir', tela: 'T11', momento: quadro ?? undefined })
@@ -200,16 +203,23 @@ export default function T11({ momento, estado: est }) {
   // o veredito: quantas não batem de 4; quantas ficam pra revisar; no 01, quantos
   // conteúdos a mais. Enquanto lê, a caixa espera no lugar, neutra, com a contagem
   // das que se comparam (C12·35 a, a peça: Aviso · aguarda)
+  // O pacote 5 (T11/04): enquanto lê, o veredito diz *CONFERINDO*, neutro, sem poço à
+  // vista, com a contagem; na última linha, o veredito de verdade entra no lugar. A caixa
+  // que espera já tem o desenho da final — no que não bate, o lugar do poço, invisível —,
+  // e nada muda de lugar nem de altura (a lei; a 04 é o caso que confere, sem poço)
   const aguarda = lendo ? comparadasAte(lidas) : null
   const conta = T.deTotal(total)
-  let cabeca = <Aviso tom="veredito" titulo={T.confere} numero={total} unidade={conta} aguarda={aguarda} aguardaUnidade={conta} />
-  if (naoBatem) cabeca = <Aviso glifo="xis" titulo={T.naoBate} numero={naoBatem} unidade={conta} aguarda={aguarda} aguardaUnidade={conta} />
-  else if (aRevisar) cabeca = <Aviso tom="neutro" glifo="relogio" titulo={T.revisarCabecalho} numero={aRevisar} aguarda={aguarda} aguardaUnidade={conta} />
-  else if (!bate) cabeca = <Aviso glifo="xis" titulo={T.naoBate} numero={naoReconhecidos} unidade={T.aMais} aguarda={aguarda} aguardaUnidade={conta} />
+  const espera = { aguarda, aguardaUnidade: conta, aguardaTitulo: T.conferindo }
+  let cabeca = <Aviso tom="veredito" titulo={T.confere} numero={total} unidade={conta} {...espera} />
+  if (naoBatem) cabeca = <Aviso glifo="xis" titulo={T.naoBate} numero={naoBatem} unidade={conta} {...espera} />
+  else if (aRevisar) cabeca = <Aviso tom="neutro" glifo="relogio" titulo={T.revisarCabecalho} numero={aRevisar} {...espera} />
+  else if (!bate) cabeca = <Aviso glifo="xis" titulo={T.naoBate} numero={naoReconhecidos} unidade={T.aMais} {...espera} />
 
   // O rodapé (decisão 53, lei 19): um botão e um link
+  // enquanto lê, o Voltar ao menu desligado (o pacote 5, T11/04 · animacao.md, rodapé)
   let rodape
-  if (bate) rodape = <Rodape primario={T.voltar} aoPrimario={voltar} />
+  if (lendo) rodape = <Rodape primario={T.voltar} primarioDesabilitado primarioTrocaTexto />
+  else if (bate) rodape = <Rodape primario={T.voltar} aoPrimario={voltar} />
   else if (soReenviar) rodape = <Rodape primario={T.reenviar(blocos)} aoPrimario={reenviar} link={T.registrar} aoLink={registrar} />
   else {
     const primario = proximo.acao === 'corrigir' ? T.corrigir(proximo.bloco) : T.revisar(proximo.bloco)
@@ -231,9 +241,12 @@ export default function T11({ momento, estado: est }) {
           <CabecalhoConteudo titulo={T.titulo} />
           <div className="t11-veredito">{cabeca}</div>
           <Lista>
-            {linhas.map((l, i) => (
-              <LinhaChecagem key={l.id} variante="conferencia" estado={l.estado} nomeGlifo={l.estado === 'diverge' ? NOME_DIVERGE : undefined}
-                titulo={l.titulo} valor={l.valor} par={l.par} divisoria={i < nLinhas - 1} lendo={i >= lidas} />
+            {/* o poço numa leitura em andamento (o pacote 5, componentes.md): a linha da vez com o
+                quadrado de agora e *conferindo*; as seguintes com o relógio e o traço */}
+            {linhas.map((l, i) => (i === lidas
+              ? <LinhaChecagem key={l.id} variante="conferencia" estado="agora" titulo={l.titulo} valor={T.conferindoLinha} par={l.par} divisoria={i < nLinhas - 1} />
+              : <LinhaChecagem key={l.id} variante="conferencia" estado={l.estado} nomeGlifo={l.estado === 'diverge' ? NOME_DIVERGE : undefined}
+                titulo={l.titulo} valor={i > lidas ? T.vazio : l.valor} par={l.par} divisoria={i < nLinhas - 1} lendo={i > lidas} />
             ))}
           </Lista>
           {naoReconhecidos > 0 && <Nota tom="achado" titulo={T.naoReconhece} frase={T.foraDosBlocos(blocos)} />}

@@ -31,6 +31,10 @@
 .ds-aviso.ds-aviso-aguarda.ds-caixa-falha, .ds-aviso.ds-aviso-aguarda.ds-aviso-veredito { border-bottom-color: var(--tinta-secundaria); }
 .ds-aviso-aguarda .ds-poco > * { opacity: 0; }
 .ds-aviso-aguarda .ds-aviso-titulo, .ds-aviso-aguarda .ds-aviso-frase, .ds-aviso-aguarda > .ds-aviso-numero { visibility: hidden; }
+/* o pacote 5 (T11/04): o veredito que espera diz o que corre, em --tinta-secundaria, sobre o traço do poço */
+.ds-aviso.ds-aviso-aguarda.ds-aviso-aguarda-diz { border-bottom-color: var(--borda-poco); }
+.ds-aviso-aguarda.ds-aviso-aguarda-diz .ds-aviso-titulo { visibility: visible; color: var(--tinta-secundaria); }
+.ds-aviso-aguarda-diz > .ds-poco { opacity: 0; }   /* o lugar do poço guardado, sem desenho (nada muda de lugar) */
 .ds-aviso-conta {
   position: absolute; inset: 0; padding: inherit; pointer-events: none;
   display: flex; align-items: center; justify-content: flex-end;
@@ -47,4 +51,7 @@
   animation: ds-aviso-sai var(--mov-rapido) var(--mov-curva);
 }
 .ds-aviso-conta-sai { opacity: 0; animation: ds-aviso-sai var(--mov-rapido) var(--mov-curva); }
+/* o pacote 5 · a caixa que dizia *CONFERINDO* (T11/04): o poço do veredito entra esmaecendo, e a camada é do cinza do poço */
+.ds-aviso-chega-disse > .ds-poco { animation: ds-aviso-esmaece var(--mov-rapido) var(--mov-curva); }
+.ds-aviso-chega-disse .ds-aviso-capa { background: var(--borda-poco); }
 @keyframes ds-aviso-sai { from { opacity: 1; } }

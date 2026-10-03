@@ -100,7 +100,7 @@
 /* a entrega do checklist · T11 · na conferência, o bloco entra com o relógio no poço, e o que o
  * módulo tem espera a leitura chegar */
 .ds-checagem-lendo.ds-checagem-lendo-relogio .ds-poco > * { opacity: 1; }
-.ds-checagem-lendo .ds-checagem-par-modulo { opacity: 0; }
+.ds-checagem-lendo .ds-checagem-par-modulo, .ds-checagem-agora .ds-checagem-par-modulo { opacity: 0; }
 /* C12 · a leitura chega na frente de quem olha (C12·7, C12·12, C12·29): o glifo novo esmaece
  * pelo Glifo (esmaece), e o que chega com a leitura — o valor, a causa, a nota, o porquê e, na
  * conferência, a linha do módulo — esmaece junto, no lugar, em 150 (desacelera). A peça percebe

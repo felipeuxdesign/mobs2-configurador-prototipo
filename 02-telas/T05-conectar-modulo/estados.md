@@ -9,6 +9,7 @@
 | `02-momento-um-encontrado` | momento | só um módulo por perto | `modulos` |
 | `03-estado-nenhum-encontrado` | estado | nenhum módulo responde | `busca-vazia` |
 | `04-estado-conexao-falhou` | estado | o módulo não responde ao conectar | `conexao-falha` |
+| `05-momento-procurando` | momento | `Procurar de novo` · 1,2s antes da lista voltar | `modulos` |
 | `16-estado-bluetooth-desligado` | estado | o Bluetooth do celular está desligado | `bluetooth-desligado` |
 | `17-estado-bluetooth-sem-permissao` | estado | o técnico negou a permissão do Bluetooth | `bluetooth-sem-permissao` |
 

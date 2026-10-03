@@ -21,3 +21,7 @@
 /* as duas seções, O MÓDULO e A CAN: o rótulo de bloco e, a 8, a lista ou a caixa */
 .t07-secao { display: flex; flex-direction: column; gap: var(--e-8); }
 .t07-rotulo-bloco { font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--tinta-apagada); }
+
+/* o pacote 5 · a leitura do módulo (T07/11): as linhas que esperam ficam com o título
+ * aceso, o relógio e o traço apagados, como a 11 desenha */
+.t07-lendo .ds-checagem-ainda-nao .ds-checagem-titulo { color: var(--tinta-forte); }

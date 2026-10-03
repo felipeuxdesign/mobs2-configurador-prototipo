@@ -14,6 +14,8 @@
 .ds-cadeia-valor { font-size: var(--t-secundario); font-weight: 700; color: var(--tinta-secundaria); }
 .ds-cadeia-descricao { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-apagada); line-height: var(--entrelinha-detalhe); }
 
+/* o pacote 5 · o valor aceso (`valorAceso`): o bloco relido no fim da cadeia curta (T09/10), em branco */
+.ds-cadeia-valor.ds-cadeia-valor-aceso { color: var(--tinta); }
 /* o que corre: o valor em branco */
 .ds-cadeia-elo-corre .ds-cadeia-valor { color: var(--tinta); }
 /* o elo que falhou acende */

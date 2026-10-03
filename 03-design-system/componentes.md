@@ -79,7 +79,7 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 | cadeia concluída | trilho lima | T09 |
 | cadeia recusada | o elo que falhou acende | T09 |
 | cadeia antes de gravar | o relógio em cada elo · a limpeza diz o que apaga e o que preserva | T09 |
-| segmentado | um segmento por passo | T01 T13 |
+| segmentado | um segmento por passo | T01 T10 T13 |
 | a pré-condição dos pinos | a primeira linha da configuração, embaixo do título | T09 |
 | encerrando | a legenda só no passo que corre | T16 |
 | pede o corte | é com você · o único passo em que ele age | T16 |
@@ -300,8 +300,8 @@ Cada linha é um espécime de moldura das folhas, e a folha 3 soma quatro linhas
 | o Wi-Fi | 12,8 de largura · dois arcos de traço 2,3 com ponta redonda, e um ponto de 2,4 embaixo |
 | a bateria | corpo de 18,3 × 10,4 com canto de 3,1 · o pininho de 1,3 × 4,2 separado · **cheia e branca**, sem porcentagem |
 | os espaços | 5 entre o sinal e o Wi-Fi · 5,5 entre o Wi-Fi e a bateria |
-| o lugar | recuo de **26 à esquerda e 32 à direita** · os glifos **3px abaixo do centro** da barra (`padding-top: 6px`) |
-| a cor | `--tinta` (`#F2F0F7`), a do texto principal |
+| o lugar | **o do desenho oficial** — a barra inteira escalada pra 360 e cortada em 30 (`viewBox="0 12.90 412 34.33"`) · nada recolocado à mão |
+| a cor | **o branco do desenho oficial**, sobre o fundo da tela |
 
 **As barras são fixas** (lei 22): em cima, a barra oficial do Android, do kit do Material — o 9:30, o Wi-Fi, o sinal e a bateria —, escalada pra 360 de largura e cortada na altura de 30; o espaço da câmera fica reservado, sem desenhar. Embaixo, a navegação por gestos do Material — a pílula de 94×3,5px a 9px do pé — nas 142 telas, por cima de tudo, inclusive das folhas. O fundo das duas é o da tela. No componente, nenhuma propriedade.
 
@@ -310,6 +310,18 @@ Nunca na fonte do app, e nunca com ícone de notificação, operadora ou porcent
 **Os dois estados da barra** (lei 22, o pacote 2) saíram no pacote 4: a barra virou cenário fixo, o desenho oficial do Android, igual em toda tela · no protótipo, o componente não tem mais as propriedades `bluetooth` e `semRede` (`app/src/ds/chrome/BarraDoSistema.jsx`), e a navegação por gestos é a `NavegacaoPorGestos`, montada uma vez no `app/src/App.jsx`
 
 **No protótipo** · `06-prototipo/app/src/ds/chrome/BarraDoSistema.jsx`, a mesma peça nos três fundos (a faixa, a tira do menu e a página) e sob o véu · a hora em `var(--fonte-sistema)`, `var(--t-secundario)`, peso 500 e `var(--tinta)` · a fonte não vai embutida em cada tela: o `@font-face` do `BarraDoSistema.css` lê o `05-recursos/fontes/GoogleSans-hora.woff`, como a Barlow, e o build empacota o arquivo (com 3,7KB, ele entra no próprio CSS), com o aviso da licença nos metadados dele · a geometria de dentro dos três ícones fica no SVG (as cápsulas, os arcos, o corpo e o pininho), na cor `currentColor`; o resto é token, com a decisão 43: `--barra-sistema-recuo` 26, `--barra-sistema-recuo-direita` 32, `--barra-sistema-desce` 6, `--barra-sistema-espaco-wifi` 5 e `--barra-sistema-espaco-bateria` 5,5 · o tamanho de cada ícone, o do próprio desenho, também: `--barra-sinal` 14,7 × `--barra-sinal-altura` 9,7, `--barra-wifi` 12,8 e `--barra-bateria` 20,4, os dois com `--barra-icone` 10,4 de altura, e o traço dos arcos, `--barra-wifi-traco` 2,3 (os três da barra velha com valor novo, e três novos) · medido na otimizacao300000000, nas 68 referências de então da T01, T04, T05 e T13 e numa de cada uma das outras 12: a barra sai igual ao HTML, byte a byte, a 2×, e nada abaixo de y=30 mudou · no celular de verdade, a barra desenhada sai (`06-prototipo/palco.md`) · os dois estados da lei 22 (`bluetooth` e `semRede`) entram na peça no ciclo que constrói o pacote 2
+
+## O poço numa leitura em andamento (lei 24)
+
+Toda lista que lê, confere ou grava **uma linha por vez** — a T07, a T09, a T11 e a T16 — fala com três estados no poço:
+
+| Estado | O poço | O valor |
+|---|---|---|
+| **esperando** | o relógio | um traço |
+| **agora** | o quadrado branco — 12px no poço de 32, 14px no de 34 | o verbo: *lendo*, *conferindo*, *gravando* |
+| **pronto** | o check, o xis ou o *i* da linha que só informa | o resultado |
+
+**A contagem do andamento mora onde mora a do resultado:** ao lado do título na T07 e na T16; dentro do veredito, neutro, na T11. Enquanto a leitura corre, o rodapé fica desligado e diz o que está acontecendo. **A T14 fica fora:** o passo do veículo vai do relógio direto ao check, porque a espera é pelo ônibus.
 
 ## No protótipo · o movimento das peças (C12)
 
@@ -325,8 +337,8 @@ Anotação de construção do C12. O movimento é da peça, e vale onde ela est�
 | checkbox | **o pressionado:** a área de 48 sobe pra `--elevado`, por baixo do poço e do texto, e solta em 100ms, como a linha tocável · a folha desenha só o normal e o marcado (C12·17, G14) | T01 T06 T13 |
 | linha tocável | o que se desabilita no próprio toque solta a camada de uma vez (C12·18) | T01 e toda linha |
 | glifo · o check que nasce | o glifo que troca depois de montar esmaece no poço em 150ms, com o que chega junto (C12·12) · o da T05 era a pré-checagem, que passa pro diagnóstico da T07 | T03 T07 T09 T11 T12 T14 T16 |
-| aviso | **surge:** o aviso que aparece depois de a tela abrir esmaece em 150ms · **aguarda:** o veredito que espera a prova, na caixa neutra com a contagem; na última linha, a palavra e a cor entram em 150ms (C12·9, C12·35, C12·44) | T01 T03 T05 T09 T11 T16 |
-| prova | **surge:** a prova sem lugar reservado esmaece em 150ms · **aguarda:** a legenda, ou a prova inteira com a contagem no lugar da versão (C12·9, C12·35, C12·44) | T09 T11 T16 |
+| aviso | **surge:** o aviso que aparece depois de a tela abrir esmaece em 150ms · **aguarda:** o veredito que espera a prova, na caixa neutra com a contagem — com `aguardaTitulo`, ela diz o que corre (*CONFERINDO*, a T11/04, o pacote 5); na última linha, a palavra e a cor entram em 150ms (C12·9, C12·35) | T01 T03 T05 T09 T11 |
+| prova | **surge:** a prova sem lugar reservado esmaece em 150ms · **aguarda:** a legenda, ou a prova inteira com a contagem no lugar da versão (C12·9, C12·35) · a T16 deixou de usar: o autoteste correndo não tem veredito (a T16/07, o pacote 5) | T09 T11 |
 | faixa | **ausente:** a faixa que nasce desce em 200ms, e o que ela empurra acompanha — na T07, quando as sete linhas do módulo passam sem trava (a R-05 no protótipo; antes do pacote 1, na T05) · **revela:** a aberta sobe em 200ms e revela a sem sessão (C12·24, C12·25) | T07 T16 |
 | escala | **segue:** um trecho linear por passo do processo, vezes `--mov-fator` · montar nunca anima (C12·15, C12·40) · o *corre*, a leitura que chegava na T07, saiu com ela | T03 T13 T14 |
 | tambor | rola na troca de valor: 300ms por rodinha, 40ms entre elas, a unidade primeiro · nunca ao montar (G29) · a peça saiu do design com a T07 antiga; o tambor fica dentro do *valor em poço* da calibração (folha 8) | T10 |

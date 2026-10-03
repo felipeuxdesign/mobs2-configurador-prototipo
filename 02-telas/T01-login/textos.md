@@ -6,8 +6,6 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 `Entrar` · `CONFIGURADOR` · `USUÁRIO` · `SENHA` · `Lembrar meu usuário` · `Entrar` · `Esqueci a senha`
 
-No protótipo (decisão do diretor, 27/09): na espera do *Entrar*, o primário diz *Entrando…* — sem referência; o texto é do diretor, no padrão do *Gravando no módulo…* da T10.
-
 ## `01-estado-usuario-ou-senha-incorretos`
 
 `Entrar` · `CONFIGURADOR` · `USUÁRIO OU SENHA INCORRETOS` · `Confira os dois e entre de novo.` · `USUÁRIO` · `SENHA` · `Lembrar meu usuário` · `Digite a senha` · `Esqueci a senha`
@@ -79,3 +77,7 @@ No protótipo (decisão do diretor, 27/09): na espera do *Entrar*, o primário d
 ## `18-estado-outro-usuario-no-aparelho`
 
 `VIAÇÃO ATLÂNTICO SUL` · `Onde você está hoje?` · `RMR – RECIFE` · `Garagem Várzea` · `pacote de ontem, 07:10` · `10 ativos` · `Garagem Ibura` · `pacote de 4 dias, 06:55` · `8 ativos` · `AGRESTE – CARUARU` · `Pátio Caruaru` · `pacote vencido há 8 dias` · `6 ativos` · `Escolha uma unidade` · `Outra sessão neste aparelho` · `A sessão de r.vieira foi encerrada. A fila dele continua subindo: 3 itens.` · `Entendi`
+
+## `19-momento-entrando`
+
+`Entrar` · `CONFIGURADOR` · `USUÁRIO` · `SENHA` · `Lembrar meu usuário` · `Entrando…` · `Esqueci a senha`

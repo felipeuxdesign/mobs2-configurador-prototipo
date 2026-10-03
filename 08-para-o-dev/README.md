@@ -8,7 +8,7 @@ Esta pasta é pra quem vai construir o App Configurador de verdade. O protótipo
 |---|---|
 | **entender o produto** | `01-produto/historia.md` → `usuario.md` → `dominio.md` → `historias.md` (105 histórias) → `fluxos.md` |
 | **construir uma tela** | a ficha da tela em `02-telas/<tela>/` (`tela.md`, `estados.md`, `animacao.md`, `textos.md`) → as referências HTML e PNG dela → as peças que ela usa em `03-design-system/componentes.md` → `contrato-de-dados.md`, nesta pasta |
-| **montar o design system** | `03-design-system/tokens.css` (295 tokens; o `tokens.json` é gerado dele, em formato neutro) → `leis.md` (23 leis) → `componentes.md` (106 peças) → `movimento.md` → as oito folhas em `referencias/` |
+| **montar o design system** | `03-design-system/tokens.css` (295 tokens; o `tokens.json` é gerado dele, em formato neutro) → `leis.md` (24 leis) → `componentes.md` (106 peças) → `movimento.md` → as oito folhas em `referencias/` |
 | **integrar com o módulo, a CAN e o servidor** | `integracoes.md`, nesta pasta → `04-dados/mocks.js` (o formato que cada integração tem que entregar) |
 | **testar** | `testes-prontos.md` e `conferir-contra-o-design.md`, nesta pasta |
 | **saber o porquê de uma escolha** | `07-decisoes/` (54 decisões, com o que foi descartado) |
@@ -23,7 +23,7 @@ Esta pasta é pra quem vai construir o App Configurador de verdade. O protótipo
 - as leis visuais, de medida e de produto · `03-design-system/leis.md`
 - o movimento · `03-design-system/movimento.md` e cada `animacao.md`
 - as regras de negócio e as histórias · `01-produto/dominio.md` e `historias.md`
-- a aparência de cada tela · as 142 referências em `02-telas/*/referencias/`
+- a aparência de cada tela · as 150 referências em `02-telas/*/referencias/`
 
 **É só do protótipo — não leve pro produto:**
 - os dados do mock: pessoas, placas, seriais, números (o **formato** é contrato; os **valores**, não)

@@ -1,7 +1,7 @@
 // As peças só da T05 (tela.md, "Peças do design system"): o que a tela
 // desenha e não tem linha no componentes.md. Montadas com o que o design
 // system já tem (a caixa de poço, Lei 4), só com tokens.
-import { Poco, Icone } from '../../ds/index.js'
+import { Poco, Icone, Glifo } from '../../ds/index.js'
 import './pecas.css'
 
 // 03 · o bloco do nenhum encontrado: a caixa de poço que cresce e ocupa o
@@ -10,12 +10,17 @@ import './pecas.css'
 // componentes.md (tracejado, sem ícone): é peça desta tela.
 // 16 · 17 (o mundo real): o mesmo bloco, com o poço de 44 e o ícone no lugar
 // da marca — o Bluetooth riscado (lei 21), do desligado e do sem permissão (`icone`)
-export function VazioDaBusca({ titulo, frase, icone }) {
+// 05 (o pacote 5, lei 24): a busca que corre de novo — o poço de 44 com o quadrado
+// branco de agora, de 16 (`agora`), o *Procurando…* e a frase (componentes.md · o poço
+// numa leitura em andamento)
+export function VazioDaBusca({ titulo, frase, icone, agora = false }) {
   return (
     <div className="t05-vazio ds-caixa-poco">
-      {icone
-        ? <Poco tam={44}><Icone nome={icone} cor="secundaria" className="t05-vazio-icone" /></Poco>
-        : <span className="t05-vazio-marca" aria-hidden="true" />}
+      {agora
+        ? <Poco tam={44}><Glifo estado="agora" className="t05-vazio-agora" /></Poco>
+        : icone
+          ? <Poco tam={44}><Icone nome={icone} cor="secundaria" className="t05-vazio-icone" /></Poco>
+          : <span className="t05-vazio-marca" aria-hidden="true" />}
       <span className="t05-vazio-titulo">{titulo}</span>
       <p className="t05-vazio-frase">{frase}</p>
     </div>

@@ -65,7 +65,7 @@ import { SEMENTES } from '../../estado/sementes.js'
 import { M } from '../../dados/mock.js'
 import { T } from './textos.js'
 import {
-  REF, TOTAL, LINHA_FIRMWARE, CASO_FIRMWARE, CASO_SEM_REDE, QUADRO_10, CAN_AGUARDA, NA_CAN,
+  REF, TOTAL, LINHA_FIRMWARE, QUADRO_11, CASO_FIRMWARE, CASO_SEM_REDE, QUADRO_10, CAN_AGUARDA, NA_CAN,
   ativoDe, ativoPrevisto, serialDoCaso, casosDoEstado, casosDoModulo, contextoDe, rotuloDeTopo, faltas, avisoDaTrava,
   resultados, sinaisDoModelo, tituloDaCan, leituraDaCan, canLidaNoFluxo, sessaoDo,
 } from './diagnostico.js'
@@ -94,6 +94,8 @@ function inicio(momento, unico) {
   if (momento === REF.canLida || momento === REF.relendo) {
     return quadro({ ativoId: s.ativoId ?? ativoPrevisto(s.moduloSerial)?.id ?? null, can: true, lidos: momento === REF.relendo ? QUADRO_10 : null })
   }
+  // a 11 (o pacote 5): a leitura do módulo do herói, sem ativo, parada no quadro dela
+  if (momento === REF.lendo) return quadro({ serial: SEMENTES.T07.sessao.moduloSerial, ativoId: null, feitas: QUADRO_11 })
   if (canLidaNoFluxo(unico)) return quadro({ can: true })
   // a chegada da T05: a sessão sem ativo, e o diagnóstico deste módulo ainda não feito — ele lê
   // agora. Com o ativo na sessão (o pulo do palco pra uma tela de depois, que semeia só a sessão),
@@ -172,7 +174,8 @@ export default function T07({ momento, estado: est }) {
   // a tela (C12·35); param no print e num estado da coluna ──
   const fimDaTroca = useFimDaTroca()
   useEffect(() => {
-    if (EM_QUADRO || est != null || !(corre || relendo)) return undefined
+    // a 11 aberta pela URL fica parada, como todo momento
+    if (EM_QUADRO || est != null || !(corre || relendo) || (corre && vivo.current.momento === REF.lendo)) return undefined
     let ativa = true, relogio = null
     fimDaTroca().then(() => {
       if (!ativa) return
@@ -274,7 +277,9 @@ export default function T07({ momento, estado: est }) {
   // outro texto, o texto esmaece no lugar e o roxo troca direto (C12·23) ──
   let rodape
   if (q.atualizando != null) rodape = <Rodape primario={T.atualizando} primarioDesabilitado explicacao={T.recomeca} pe="botao" />
-  else if (corre || relendo) rodape = <Rodape primario={T.lendoNaoSaia} primarioDesabilitado primarioTrocaTexto />
+  // a leitura do módulo (a 11, o pacote 5): o rodapé fecha em 24, como a 11 desenha; relendo a CAN (a 10), em 32
+  else if (corre) rodape = <Rodape primario={T.lendoNaoSaia} primarioDesabilitado primarioTrocaTexto pe="link" />
+  else if (relendo) rodape = <Rodape primario={T.lendoNaoSaia} primarioDesabilitado primarioTrocaTexto />
   else if (q.can) rodape = <Rodape primario={T.voltarAoMenu} aoPrimario={voltarAoMenu} primarioAcende primarioTrocaTexto link={T.lerDeNovo} aoLink={lerDeNovo} />
   else if (passou && ativo) rodape = <Rodape primario={T.voltarAoMenu} aoPrimario={voltarAoMenu} primarioAcende primarioTrocaTexto />
   else if (passou) rodape = <Rodape primario={T.selecionarAtivo} aoPrimario={() => ir('T06')} primarioAcende primarioTrocaTexto link={T.voltarAoMenu} aoLink={voltarAoMenu} />
@@ -301,12 +306,15 @@ export default function T07({ momento, estado: est }) {
   if (corre) avisoVivo.current = true
 
   return (
-    <div className="t07">
-      <BarraDoSistema fundo={comFaixa ? 'faixa' : 'pagina'} />
+    // a leitura do módulo (a 11, o pacote 5): a barra já no fundo da faixa, sem o rótulo
+    // de topo, e as linhas que esperam com o título aceso — como a 11 desenha (o desvio
+    // da 06 e da 10, que apagam o título, vai nomeado no gate do pacote 5)
+    <div className={`t07 ${corre ? 't07-lendo' : ''}`}>
+      <BarraDoSistema fundo={comFaixa || corre ? 'faixa' : 'pagina'} />
       {faixa}
       <div className="tela-miolo t07-miolo">
         <div className="t07-cabeca">
-          {!comFaixa && <span className="t07-rotulo-topo">{rotuloDeTopo(c)}</span>}
+          {!comFaixa && !corre && <span className="t07-rotulo-topo">{rotuloDeTopo(c)}</span>}
           <CabecalhoConteudo titulo={T.titulo} contagem={contagem} unidade={T.de(total)} tom={contagem === total ? 'veredito' : 'neutro'} />
         </div>
         {aviso && <Aviso tom="falha" glifo="xis" titulo={aviso.titulo} frase={aviso.frase} surge={avisoVivo.current && !EM_QUADRO && est == null} />}

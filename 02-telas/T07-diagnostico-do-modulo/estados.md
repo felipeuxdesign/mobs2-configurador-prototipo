@@ -15,5 +15,6 @@
 | `08-estado-sinal-da-can-sem-leitura` | estado | um sinal da CAN não chega | `can-estatico-ausente` |
 | `09-estado-sinal-da-can-fora-do-esperado` | estado | um sinal da CAN fora do esperado | `can-estatico-isolado` |
 | `10-momento-relendo-a-can` | momento | `Ler de novo` | derivado do fluxo |
+| `11-momento-lendo` | momento | a leitura correndo · 600ms por linha | derivado do fluxo |
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.

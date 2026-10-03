@@ -33,6 +33,8 @@ export const REF = {
   jaSemeado: '03-estado-ja-semeado',
   semPulsos: '04-estado-modulo-sem-pulsos',
   digitado: '05-momento-hodometro-digitado',
+  gravando: '06-momento-gravando-no-modulo', // o semear do hodômetro: o primário desligado, um texto e depois o outro (o pacote 5)
+  relendo: '07-momento-relendo',
   horimetro: '08-momento-horimetro',
   completa: '09-momento-calibracao-completa',
   naoConfere: '10-estado-releitura-nao-confere',
@@ -137,6 +139,8 @@ export function quadroDe({ ordem, atual, passos }) {
   if (g === 'hodometro') {
     if (p.fase === 'semeada') return REF.semeado
     if (p.fase === 'nao-confere') return null
+    if (p.fase === 'gravando') return REF.gravando
+    if (p.fase === 'relendo') return REF.relendo
     if (p.digitado) return REF.digitado
     return null
   }

@@ -1,6 +1,6 @@
 {
   "telas": 15,
-  "referencias": 142,
+  "referencias": 150,
   "itens": [
     {
       "id": "T01/00-tela",
@@ -253,6 +253,18 @@
       "coluna": true,
       "rotulo": "Outro usuário no aparelho",
       "rotuloOrigem": "proposto"
+    },
+    {
+      "id": "T01/19-momento-entrando",
+      "tela": "T01",
+      "pasta": "T01-login",
+      "tipo": "momento",
+      "nome": "19-momento-entrando",
+      "titulo": "T01 Entrando",
+      "como": "tocar em `Entrar` · 1,2s antes do menu",
+      "caso": "",
+      "html": "02-telas/T01-login/referencias/html/19-momento-entrando.html",
+      "png": "02-telas/T01-login/referencias/png/19-momento-entrando.png"
     },
     {
       "id": "T02/00-tela",
@@ -735,6 +747,18 @@
       "rotuloOrigem": "quadro"
     },
     {
+      "id": "T05/05-momento-procurando",
+      "tela": "T05",
+      "pasta": "T05-conectar-modulo",
+      "tipo": "momento",
+      "nome": "05-momento-procurando",
+      "titulo": "T05 Procurando",
+      "como": "`Procurar de novo` · 1,2s antes da lista voltar",
+      "caso": "modulos",
+      "html": "02-telas/T05-conectar-modulo/referencias/html/05-momento-procurando.html",
+      "png": "02-telas/T05-conectar-modulo/referencias/png/05-momento-procurando.png"
+    },
+    {
       "id": "T05/16-estado-bluetooth-desligado",
       "tela": "T05",
       "pasta": "T05-conectar-modulo",
@@ -1048,6 +1072,18 @@
       "png": "02-telas/T07-diagnostico-do-modulo/referencias/png/10-momento-relendo-a-can.png"
     },
     {
+      "id": "T07/11-momento-lendo",
+      "tela": "T07",
+      "pasta": "T07-diagnostico-do-modulo",
+      "tipo": "momento",
+      "nome": "11-momento-lendo",
+      "titulo": "T07 Lendo",
+      "como": "a leitura correndo · 600ms por linha",
+      "caso": "",
+      "html": "02-telas/T07-diagnostico-do-modulo/referencias/html/11-momento-lendo.html",
+      "png": "02-telas/T07-diagnostico-do-modulo/referencias/png/11-momento-lendo.png"
+    },
+    {
       "id": "T09/00-tela",
       "tela": "T09",
       "pasta": "T09-configurar-modulo",
@@ -1183,6 +1219,18 @@
       "png": "02-telas/T09-configurar-modulo/referencias/png/09-momento-manutencao-reenviando.png"
     },
     {
+      "id": "T09/10-momento-manutencao-concluida",
+      "tela": "T09",
+      "pasta": "T09-configurar-modulo",
+      "tipo": "momento",
+      "nome": "10-momento-manutencao-concluida",
+      "titulo": "T09 Manutencao concluida",
+      "como": "a cadeia curta da manutenção fecha · as cercas relidas",
+      "caso": "",
+      "html": "02-telas/T09-configurar-modulo/referencias/html/10-momento-manutencao-concluida.html",
+      "png": "02-telas/T09-configurar-modulo/referencias/png/10-momento-manutencao-concluida.png"
+    },
+    {
       "id": "T10/00-tela",
       "tela": "T10",
       "pasta": "T10-calibracao",
@@ -1262,6 +1310,30 @@
       "caso": "calibracao.painel · a-01",
       "html": "02-telas/T10-calibracao/referencias/html/05-momento-hodometro-digitado.html",
       "png": "02-telas/T10-calibracao/referencias/png/05-momento-hodometro-digitado.png"
+    },
+    {
+      "id": "T10/06-momento-gravando-no-modulo",
+      "tela": "T10",
+      "pasta": "T10-calibracao",
+      "tipo": "momento",
+      "nome": "06-momento-gravando-no-modulo",
+      "titulo": "T10 Gravando no modulo",
+      "como": "tocar em `Semear o hodômetro` · 1s",
+      "caso": "",
+      "html": "02-telas/T10-calibracao/referencias/html/06-momento-gravando-no-modulo.html",
+      "png": "02-telas/T10-calibracao/referencias/png/06-momento-gravando-no-modulo.png"
+    },
+    {
+      "id": "T10/07-momento-relendo",
+      "tela": "T10",
+      "pasta": "T10-calibracao",
+      "tipo": "momento",
+      "nome": "07-momento-relendo",
+      "titulo": "T10 Relendo",
+      "como": "depois de gravar · 1s, e o tambor rola",
+      "caso": "",
+      "html": "02-telas/T10-calibracao/referencias/html/07-momento-relendo.html",
+      "png": "02-telas/T10-calibracao/referencias/png/07-momento-relendo.png"
     },
     {
       "id": "T10/08-momento-horimetro",
@@ -1352,6 +1424,18 @@
       "caso": "",
       "html": "02-telas/T11-conferir-configuracao/referencias/html/03-momento-outras-acoes.html",
       "png": "02-telas/T11-conferir-configuracao/referencias/png/03-momento-outras-acoes.png"
+    },
+    {
+      "id": "T11/04-momento-conferindo",
+      "tela": "T11",
+      "pasta": "T11-conferir-configuracao",
+      "tipo": "momento",
+      "nome": "04-momento-conferindo",
+      "titulo": "T11 Conferindo",
+      "como": "a conferência correndo · 400ms por linha",
+      "caso": "diff-divergente, invertido",
+      "html": "02-telas/T11-conferir-configuracao/referencias/html/04-momento-conferindo.html",
+      "png": "02-telas/T11-conferir-configuracao/referencias/png/04-momento-conferindo.png"
     },
     {
       "id": "T11/05-estado-revisar-em-seguida",
@@ -1907,6 +1991,18 @@
       "coluna": true,
       "rotulo": "Sessão interrompida",
       "rotuloOrigem": "proposto"
+    },
+    {
+      "id": "T16/07-momento-autoteste-correndo",
+      "tela": "T16",
+      "pasta": "T16-sessao",
+      "tipo": "momento",
+      "nome": "07-momento-autoteste-correndo",
+      "titulo": "T16 Autoteste correndo",
+      "como": "as assertivas acendem em ordem · 400ms cada",
+      "caso": "autotesteAssertivas",
+      "html": "02-telas/T16-sessao/referencias/html/07-momento-autoteste-correndo.html",
+      "png": "02-telas/T16-sessao/referencias/png/07-momento-autoteste-correndo.png"
     }
   ]
 }

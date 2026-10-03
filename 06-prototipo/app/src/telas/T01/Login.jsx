@@ -66,6 +66,7 @@ export const REF = {
   primeiroAcesso: '15-estado-primeiro-acesso',         // nada lembrado: os dois campos vazios, o foco no usuário (a otimização)
   lembrado: '16-estado-usuario-lembrado',              // o usuário lembrado, com o xis, a caixa marcada e o foco na senha
   teto: '17-estado-teto-de-envios',                    // os 3 envios da hora acabaram: o código enviado segue valendo (a última entrega)
+  entrando: '19-momento-entrando',                     // a espera do Entrar com internet: o primário desligado diz Entrando… (o pacote 5)
   outroUsuario: '18-estado-outro-usuario-no-aparelho', // outro usuário entrou: o diálogo sobre as unidades da T02, como a 18 desenha (index.jsx, a última entrega)
 }
 
@@ -191,10 +192,13 @@ export function Login({ momento, estado, irMomento }) {
   // A espera do Entrar (decisão do diretor, 27/09): com internet, o servidor responde
   // depois de um instante — no protótipo, um tempo fixo (RITMOS.entrarEsperaMs), sem
   // relógio. Enquanto espera, o primário diz Entrando…, desabilitado de verdade e em
-  // tinta apagada, como o Gravando no módulo… da T10 (a lei 17), e o Esqueci a senha
-  // também; os campos, a caixa e o olho ficam onde estão, sem responder. A senha errada (a 01) chega depois da espera, como no aparelho. Sem
-  // internet, o aparelho já sabe: o aviso da 14 vem na hora, sem espera
-  const [entrando, setEntrando] = useState(false)
+  // tinta apagada, como o Gravando no módulo… da T10 (a lei 17), com a URL dizendo a 19
+  // (o pacote 5). O Esqueci a senha também fica desabilitado e em tinta apagada (a lei 17
+  // e a decisão de 27/09 — a 19 o desenha aceso: o desvio vai no gate do pacote 5); os
+  // campos, a caixa e o olho ficam onde estão, sem responder. A senha errada (a 01) chega depois da espera, como no aparelho. Sem
+  // internet, o aparelho já sabe: o aviso da 14 vem na hora, sem espera. Aberta pela
+  // URL, a 19 fica parada
+  const [entrando, setEntrando] = useState(momento === REF.entrando)
   const esperaDoEntrar = useRef(null)
   useEffect(() => () => clearTimeout(esperaDoEntrar.current), [])
   const entrar = () => {
@@ -202,9 +206,12 @@ export function Login({ momento, estado, irMomento }) {
     const depois = depoisDoEntrar(s, unico.situacao.rede)
     if (depois !== 'T02' && depois.semConexao) { responder(depois); return }
     setEntrando(true)
+    irMomento(REF.entrando)
     esperaDoEntrar.current = setTimeout(() => {
       // a T02 chega com a troca entre telas: é a resposta do toque no Entrar, depois da espera
       if (depois === 'T02') respostaDoToque()
+      // a senha errada: a URL deixa a 19 e volta à entrada, como antes da espera
+      if (depois !== 'T02') irMomento(null)
       setEntrando(false); responder(depois)
     }, RITMOS.entrarEsperaMs)
   }
@@ -215,7 +222,7 @@ export function Login({ momento, estado, irMomento }) {
       noCelular({ usuarioLembrado: lembradoDepoisDoEntrar(s), jaEntrou: true, outraSessao: outra })
       despachar({ tipo: 'ir', tela: 'T02' }); return
     }
-    // o aviso que o Entrar faz nascer esmaece no lugar (surge, C12·9); aberto no estado, parado
+    // o aviso que o Entrar faz nascer esmaece no lugar (surge, C12·9); aberto no estado, parado.
     setS({ ...depois, avisoSurge: true })
     if (depois.erroEntrada) setTimeout(() => document.getElementById(idSenha)?.focus(), 0)
   }
