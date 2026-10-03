@@ -10,7 +10,9 @@ App Android para o técnico de campo instalar e homologar rastreadores em ônibu
 
 ## O problema
 
-Um rastreador mal instalado não avisa: o ônibus sai rodando com o módulo errado, a configuração de outro veículo ou um sensor que não lê, e o erro só aparece depois, no dado. Quem instala é o técnico de campo, dentro do ônibus, **de luva, com pressa e às vezes no sol**, com o motorista esperando pra sair — e a prova de que ficou certo não pode depender do que ele anota.
+As instalações não falhavam: **se declaravam concluídas e não funcionavam**. O módulo aceita comandos que destroem a configuração em silêncio, e o técnico — terceirizado, pago por instalação concluída, com um checklist marcável à mão — não tinha como validar o que fazia. Ele instala de 1 a 4 vezes por mês, então nunca ganha prática, e trabalha embaixo do ônibus, no pátio, muitas vezes sem rede, às vezes de luva e no sol. A falha aparecia no mesmo dia, mas depois de ele ir embora — e o custo era a viagem repetida.
+
+A resposta do produto: **levar a verificação pra antes de o técnico sair do veículo**, de um jeito que ninguém — nem ele — precise acreditar na palavra dele.
 
 ## O que o app faz
 
