@@ -94,7 +94,7 @@ export default [
   { ve: '6 de 6 passos' },
   { dorme: 300 },
   { quieto: true },
-  { toca: 'Voltar ao checklist', anima: TROCA },
+  { toca: 'Ir para o checklist', anima: TROCA },
   { chega: 'T13' },
 
   // ── com reduzir movimento: o mesmo ritmo; o número troca e a barra salta ──

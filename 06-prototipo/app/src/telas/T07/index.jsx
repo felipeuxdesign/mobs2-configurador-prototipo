@@ -107,6 +107,11 @@ function inicio(momento, unico) {
 // os estados da coluna, montados pela receita e parados: o módulo do caso, na
 // conexão (02 a 07), ou a CAN lida do ativo do caso (08, 09)
 function quadroDoEstado(est) {
+  // a 06 também abre pela coluna, parada, logo depois da 04 (o complemento do pacote 6: `depoisDe`)
+  if (est === REF.atualizando) {
+    const caso = M.casos[CASO_FIRMWARE]
+    return quadro({ serial: serialDoCaso(CASO_FIRMWARE), ativoId: null, feitas: LINHA_FIRMWARE, atualizando: caso.atualizacao.quadroPct })
+  }
   const casos = est ? casosDoEstado(est) : null
   if (!casos) return null
   const k = casos[0]

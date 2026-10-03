@@ -167,7 +167,7 @@ export default [
   // o checklist numa estrutura só (decisão 34): o título com a contagem, a barra e os seis cartões.
   // Depois do ciclo, 23 de 31: a E resolvida, e as cinco fotos de B por fazer (o Painel é foto a
   // tirar, decisão 52)
-  { toca: 'Voltar ao checklist' },
+  { toca: 'Ir para o checklist' },
   { chega: 'T13', momento: null },
   { ve: '23' },
   { ve: 'de 31' },

@@ -24,7 +24,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `05-momento-ciclo-concluido`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Ciclo de testes` · `6` · `de 6 passos` · `O EVENTO CHEGOU EM` · `FILA DRENADA` · `0:24` · `disparado 14:30` · `limite 2:00` · `EVENTO DE TESTE` · `disparado pelo app` · `14:30` · `recebido no servidor` · `14:30:24` · `campos conferidos` · `6 de 6` · `Ignição ligada` · `Rotação` · `Ré acionada` · `Porta aberta` · `Cartão do motorista` · `Ignição desligada` · `Voltar ao checklist` · `Voltar ao menu`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Ciclo de testes` · `6` · `de 6 passos` · `O EVENTO CHEGOU EM` · `FILA DRENADA` · `0:24` · `disparado 14:30` · `limite 2:00` · `EVENTO DE TESTE` · `disparado pelo app` · `14:30` · `recebido no servidor` · `14:30:24` · `campos conferidos` · `6 de 6` · `Ignição ligada` · `Rotação` · `Ré acionada` · `Porta aberta` · `Cartão do motorista` · `Ignição desligada` · `Ir para o checklist` · `Voltar ao menu`
 
 ## `06-momento-correcao-solicitada`
 

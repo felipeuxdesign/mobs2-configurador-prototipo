@@ -1,6 +1,10 @@
-# Mobs2 Configurador
+# Mobs2 Configurador · protótipo
 
 Aplicativo mobile de instalação, configuração e homologação de módulos de telemetria embarcados, usado pelo técnico de campo. Este repositório reúne o design do produto, o design system e o protótipo navegável construído a partir deles.
+
+> **Isto é um protótipo, não o produto.** O app daqui roda no navegador, com dados de exemplo e sem módulo, servidor ou Bluetooth de verdade. Ele serve de referência pra construir o produto: o comportamento, os textos e o desenho de cada tela. O código do produto vai noutro repositório, e quem vai desenvolver começa por [`08-para-o-dev/`](08-para-o-dev/).
+>
+> Propriedade da **MOBS2 COMERCIO E SERVICOS LTDA - EPP**. Conteúdo para consulta: usar, copiar ou distribuir depende de autorização por escrito. Veja [Propriedade e uso](#propriedade-e-uso).
 
 <p align="center">
   <img src="05-recursos/readme/caminho-do-heroi.gif" alt="O caminho do técnico no protótipo: o login, a empresa e a unidade, o pacote do dia, o menu, a conexão com o módulo, o diagnóstico, o vínculo com o ônibus, o que vai ser gravado e a configuração gravada e relida" width="330">
@@ -24,7 +28,7 @@ O app conduz a instalação em sequência e prova cada passo:
 4. **Vincula** o módulo ao ônibus, confirmado pela placa, frota, fabricante e modelo.
 5. **Grava a configuração** em seis blocos, cada um relido no módulo pra provar que chegou.
 6. **Calibra** o hodômetro e, quando o modelo tem, o horímetro.
-7. **Roda o ciclo de testes** com o ônibus parado: ignição, rotação, ré, porta e cartão do motorista.
+7. **Roda o ciclo de testes** com o ônibus parado: ignição, rotação, ré, porta, cartão do motorista e ignição desligada — a cada passo, o app diz o que o técnico tem que fazer.
 8. **Fecha o checklist** de 31 itens — o app confere o que consegue sozinho e o técnico fotografa o resto — e encerra a sessão.
 
 Nenhuma tela expõe comando, sintaxe ou parâmetro técnico: o técnico responde perguntas de negócio, e o app fala com o módulo.
@@ -34,7 +38,7 @@ Nenhuma tela expõe comando, sintaxe ou parâmetro técnico: o técnico responde
 O protótipo roda no navegador e anda só por toque, do login ao encerramento. No computador, o celular aparece em tamanho real dentro de um palco:
 
 - o quadrado no canto abre o painel com as 15 telas;
-- a coluna ao lado lista os estados da tela aberta — sem rede, módulo que não responde, pacote vencido —, cada um montado pelo seu caso nos dados de exemplo;
+- a coluna ao lado lista os estados da tela aberta — sem rede, módulo que não responde, pacote vencido —, cada um montado pelo seu caso nos dados de exemplo, e, logo depois de cada estado, o momento que nasce dele, quando há;
 - cada tela, momento e estado tem um link próprio (`?tela=T07&estado=02-estado-serial-nao-cadastrado`).
 
 No celular, o app ocupa a tela inteira.
@@ -73,3 +77,23 @@ npm run dev
 ```
 
 Abre em `http://localhost:5173`. As verificações ficam na mesma pasta: `npm run checar` e `npm run build`; com os fotógrafos rodando (`npm run fotografo` e `npm run fotografo:1`), `node scripts/tela.mjs todas` compara as 153 referências e `node scripts/caminho.mjs todos` roda os roteiros.
+
+## Propriedade e uso
+
+**Este repositório é propriedade da MOBS2 COMERCIO E SERVICOS LTDA - EPP**, CNPJ 10.938.384/0001-41. © 2026. Todos os direitos reservados.
+
+**O que é da empresa:** tudo o que está aqui — o produto e as regras de negócio, o design das telas, o design system, os textos, as referências desenhadas, os dados de exemplo e o código do protótipo.
+
+**O que é permitido:** abrir, ler e navegar pelo conteúdo e pelo protótipo publicado, para consulta.
+
+**O que depende de autorização prévia e por escrito da empresa:**
+- copiar ou reproduzir qualquer parte, no todo ou em parte;
+- usar o conteúdo em outro produto, projeto ou trabalho;
+- modificar, publicar, distribuir ou repassar a terceiros.
+
+Estar visível não significa estar liberado para uso. Os termos completos estão no [`LICENSE`](LICENSE).
+
+**O que é de terceiros** segue a licença de cada um, e não é da empresa:
+- as fontes **Barlow** e o recorte da **Google Sans**, sob a SIL Open Font License 1.1, com o texto da licença em [`05-recursos/fontes/`](05-recursos/fontes/);
+- os ícones do **Lucide**, sob a licença ISC;
+- as barras do sistema, do kit do **Material 3**, do Google.

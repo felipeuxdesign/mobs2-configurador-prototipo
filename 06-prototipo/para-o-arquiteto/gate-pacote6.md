@@ -1,6 +1,6 @@
 # Gate do pacote 6 e do complemento
 
-Medido em 04/10, com o pacote 6 e o complemento aplicados e construídos.
+Medido em 04/10, com o pacote 6 e o complemento aplicados e construídos. A segunda versão do complemento (43 arquivos) trouxe mais duas coisas: o *Ir para o checklist* na T14/05 e o `depoisDe` da coluna do palco. As duas estão na seção 4.
 
 ## 1 · O censo
 
@@ -69,3 +69,13 @@ Nenhuma bloqueia. Três vão nomeadas, cada uma com o padrão adotado:
 - O puxador ganhou o nome *Arrastar pra fechar* pro leitor de tela, em toda folha, como o `animacao.md` da T11 descreve.
 - Do `Conectar ao …` da lista (a 01), o *Conectando…* vem no quadro do escolhido, que é o que a 06 desenha.
 - A fila da 01 usa `--lima-barra-checklist`, o lima de 55% que a referência desenha. Já existia, e não entra token novo.
+
+## 4 · A segunda versão do complemento
+
+- **A T14/05 diz *Ir para o checklist*.** A referência nova bate em 0,1%; é o marcador branco já nomeado (§3, divergência 2). Os roteiros `heroi`, `heroi-sem-horimetro` e `mov-t14` tocam o texto novo.
+- **A coluna do palco.**
+  - A `T07/06` e a `T14/06` entram logo depois do estado de onde nascem (`coluna` e `depoisDe` no índice) e abrem paradas.
+  - O índice ganhou o rótulo delas: *Atualizando o firmware*, como a cena 02 desenha, e *Correção solicitada*, que eu propus porque nenhuma cena a desenha.
+  - A cena 02 bate na moldura (0%). A coluna dá 0,72%: o quadrado vazado de 11 e o Undo2 do Lucide, os dois já nomeados.
+- **Os 36 arquivos de antes** continuam iguais aos aplicados. Dos 7 a mais, a `palco.md` e o `animacao.md` da T14 vinham de uma cópia antiga: entrou só a regra nova da coluna, e as linhas mais novas da animação ficaram as nossas.
+- **O GIF não muda:** o caminho dele não passa pela T14 nem pela coluna.

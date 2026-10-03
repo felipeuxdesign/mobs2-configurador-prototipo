@@ -16,7 +16,13 @@ export const REFERENCIAS = indice.itens
 // a coluna (o pacote 3, D2): quem entra é o campo `coluna` do indice.json — falso pros estados que abrem
 // por um toque (as três folhas de trocar da T04: a 08, a 09 e a 14), e, sem o campo, o estado entra. Fora
 // da coluna, o estado continua abrindo pelo endereço
-export const estadosDa = (tela) => REFERENCIAS.filter((r) => r.tela === tela && r.tipo === 'estado' && r.coluna !== false)
+// os estados da coluna, e o momento que nasce de dentro de um estado, logo depois dele (o
+// complemento do pacote 6: `coluna` verdadeiro e `depoisDe`, no indice.json) — abre parado, como os estados
+export const estadosDa = (tela) => {
+  const estados = REFERENCIAS.filter((r) => r.tela === tela && r.tipo === 'estado' && r.coluna !== false)
+  const filhos = REFERENCIAS.filter((r) => r.tela === tela && r.tipo === 'momento' && r.coluna === true && r.depoisDe)
+  return estados.flatMap((e) => [e, ...filhos.filter((m) => m.depoisDe === e.id)])
+}
 export const momentosDa = (tela) => REFERENCIAS.filter((r) => r.tela === tela && r.tipo === 'momento')
 // a regra dos seis (palco.md): com mais de seis estados na coluna, eles se agrupam — só a T07, pelo `grupo` do indice.json
 export const GRUPOS = { T07: [['modulo', 'O módulo'], ['can', 'A CAN']] }

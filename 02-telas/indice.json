@@ -1021,7 +1021,12 @@
       "como": "`Atualizar firmware`",
       "caso": "firmware-fora-matriz",
       "html": "02-telas/T07-diagnostico-do-modulo/referencias/html/06-momento-atualizando-o-firmware.html",
-      "png": "02-telas/T07-diagnostico-do-modulo/referencias/png/06-momento-atualizando-o-firmware.png"
+      "png": "02-telas/T07-diagnostico-do-modulo/referencias/png/06-momento-atualizando-o-firmware.png",
+      "coluna": true,
+      "depoisDe": "T07/04-estado-firmware-nao-homologado",
+      "rotulo": "Atualizando o firmware",
+      "rotuloOrigem": "quadro",
+      "grupo": "modulo"
     },
     {
       "id": "T07/07-estado-modem-sem-sinal",
@@ -1840,7 +1845,11 @@
       "como": "tocar em `Solicitar correção de cadastro` no identificador divergente",
       "caso": "identificador-divergente",
       "html": "02-telas/T14-ciclo-dinamico/referencias/html/06-momento-correcao-solicitada.html",
-      "png": "02-telas/T14-ciclo-dinamico/referencias/png/06-momento-correcao-solicitada.png"
+      "png": "02-telas/T14-ciclo-dinamico/referencias/png/06-momento-correcao-solicitada.png",
+      "coluna": true,
+      "depoisDe": "T14/04-estado-identificador-divergente",
+      "rotulo": "Correção solicitada",
+      "rotuloOrigem": "proposto"
     },
     {
       "id": "T14/07-momento-vez-da-porta",

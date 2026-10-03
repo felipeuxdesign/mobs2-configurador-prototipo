@@ -63,7 +63,7 @@ import './t14.css'
 // prazo acabou sem o evento) · 'concluido'. tique: os segundos de prazo desde o disparo.
 function inicio(momento, est, unico) {
   const doCaso = { [REF.estourado]: CASO_SEM_RESPOSTA, [REF.fora]: CASO_MOTOR, [REF.identificador]: CASO_IDENTIFICADOR }[est]
-    ?? (momento === REF.corrigida ? CASO_IDENTIFICADOR : null)
+    ?? (momento === REF.corrigida || est === REF.corrigida ? CASO_IDENTIFICADOR : null)
   const par = doCaso ? parDoCaso(doCaso) : parDaSessao(unico.sessao)
   // num estado da coluna, o caso vale sempre (a receita); no fluxo, uma vez por sessão
   const casos = casosDoPar(par, est ? [] : unico.casosConsumidos)
@@ -73,9 +73,11 @@ function inicio(momento, est, unico) {
   if (est === REF.estourado) return { ...base, fase: 'estourado', tique: PRAZO, passos: passosFeitos(lista, casos) }
   // o pacote 6: o identificador (04, 06) para na vez da ignição — a ré e a porta feitas, o
   // cartão reprovado na vez dele; os outros estados, no quadro da 00
-  if (est === REF.identificador || momento === REF.corrigida) {
+  // a 06 também abre pela coluna, parada, logo depois da 04 (o complemento do pacote 6: `depoisDe`)
+  const corrigida = momento === REF.corrigida || est === REF.corrigida
+  if (est === REF.identificador || corrigida) {
     const tique = tiqueDe(lista, CHAVE.cartao)
-    return { ...base, fase: 'correndo', tique, passos: passosAte(lista, casos, tique), correcao: momento === REF.corrigida }
+    return { ...base, fase: 'correndo', tique, passos: passosAte(lista, casos, tique), correcao: corrigida }
   }
   if (est != null) return { ...base, fase: 'correndo', tique: QUADRO_00, passos: passosNaEntrada(lista, casos) }
   // a 07 e a 08 (o pacote 6): a vez da porta e a do cartão, pela URL, paradas
@@ -297,7 +299,8 @@ export default function T14({ momento, estado: est }) {
   } else if (estourado) {
     rodape = <Rodape primario={T.dispararOutro} aoPrimario={dispararOutro} link={T.irAoChecklist} aoLink={irAoChecklist} />
   } else if (fase === 'concluido') {
-    rodape = <Rodape primario={T.voltarAoChecklist} aoPrimario={() => ir('T13')} link={T.voltarAoMenu} aoLink={() => ir('T04')} />
+    // o complemento do pacote 6: Ir para o checklist, que vale pras duas portas de entrada (a calibração e o checklist)
+    rodape = <Rodape primario={T.irAoChecklist} aoPrimario={() => ir('T13')} link={T.voltarAoMenu} aoLink={() => ir('T04')} />
   } else if (cartaoReprovado) {
     rodape = (
       <Rodape primario={T.encerrarCiclo} aoPrimario={encerrarCiclo} primarioTrocaTexto primarioAcende

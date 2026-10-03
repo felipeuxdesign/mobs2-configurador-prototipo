@@ -14,6 +14,8 @@
 - **a recusa da T15/02 em duas linhas**: *o servidor recusou* numa, *instalação encerrada por outro usuário* na outra · antes, o *usuário* ficava sozinho · e a regra no `componentes.md`, *Duas ideias numa linha*: quando o rótulo com · não cabe, quebra no ·, em duas linhas de verdade, sem o ·
 - **a lógica do protótipo** lista todos os momentos — os oito do pacote 5 tinham ficado de fora da tabela
 
+- **o fim do ciclo diz *Ir para o checklist***, na T14/05 · o *Voltar ao checklist* só era verdade pra quem veio do checklist; no caminho principal, calibra, ciclo, checklist, o técnico ainda nem tinha aberto o checklist · *Ir para* serve pras duas portas, sem lógica de origem
+- **o palco: o momento que nasce de dentro de um estado aparece na coluna**, logo depois dele, alinhado · o *correção solicitada* (T14/06) depois do *identificador divergente*, e o *atualizando o firmware* (T07/06) depois do *firmware não homologado* · antes, só se chegava neles tocando dentro do estado, que no palco abre parado · no índice, o campo `depoisDe` · a cena 02 do palco mostra o exemplo
 - **no protótipo** (o gate em `06-prototipo/para-o-arquiteto/gate-pacote6.md`, as folhas lado a lado em `pacote6/`):
   - o complemento é idêntico, byte a byte, ao pacote 6 já aplicado;
   - as 153 sem erro, e as mudadas entre 0% e 0,1%;
@@ -23,7 +25,7 @@
   - o `Procurar de novo` apagado da T05/06 em `--tinta-apagada` (a lei 17), onde a referência desenha `--marca`;
   - o marcador branco da escala da T14 no que restava, o caso da `05`, agora também na 04, 06, 07 e 08;
   - o arraste da folha da T11 fecha nos 56px de toda folha, e não em 1/3 da altura.
-
+- **o complemento, segunda versão** (no protótipo): o texto da T14/05 e a coluna do palco · a `T07/06` e a `T14/06` entram na coluna logo depois do estado de onde nascem, com o rótulo *Atualizando o firmware* (da cena 02) e *Correção solicitada* (proposto), e abrem paradas: as duas telas leem o momento como estado (`app/src/palco/telas.js` · `estadosDa`) · o GIF não muda: o caminho dele não passa pela T14 nem pela coluna
 ## 2026-10-03 · o pacote 5 — os momentos que faltavam, e o RV no centro
 
 - **oito referências novas, todas *momento*** (lei 24) — o meio das leituras e das gravações, que existia só por escrito: **T01/19** entrando · **T05/05** procurando · **T07/11** lendo · **T09/10** manutenção concluída · **T10/06** gravando no módulo · **T10/07** relendo · **T11/04** conferindo · **T16/07** o autoteste correndo · 142 → **150** referências, 62 → **70** momentos

@@ -42,7 +42,6 @@ export const T = {
   dispararOutro: 'Disparar outro evento',
   encerrarCiclo: 'Encerrar o ciclo',
   irAoChecklist: 'Ir para o checklist',
-  voltarAoChecklist: 'Voltar ao checklist',
   voltarAoMenu: 'Voltar ao menu',
   solicitar: 'Solicitar correção de cadastro',
   solicitada: (hora) => `Correção solicitada às ${hora}`,
