@@ -610,7 +610,7 @@
        da garagem e esta hora no aviso. Nada aqui muda. */
     "instalacoes-sem-rede": { consultadoAs: "11:47", diasAtras: 0 },
     "modelo-sem-driver": { moduloSerial: "M2C-0497", ativoId: "a-21",
-      motivo: "O modelo VC07 ainda não é atendido por esta versão do app." },
+      motivo: "O app ainda não configura o VC07 STD." },
     /* ⚠ C23 (sweep) · `firmwareLido` SAIU: duplicava
        modulos["M2C-0451"].firmware ("2.4.1"), que é o que T05 lê de verdade
        (`d.mod.firmware`). Duas fontes para o mesmo fato é uma que pode
@@ -623,7 +623,7 @@
       regioesUsadas: 4, regioesMax: 4, posicoesUsadas: 8, posicoesMax: 8,
       regiaoSolicitada: "Terminal Cosme e Damião" },
     "ativo-fora-pacote": { ativoId: "a-24", pacoteId: "pac-uo-01",
-      motivo: "Este ativo pertence ao Pátio Caruaru e não veio no pacote desta UO." },
+      motivo: "Pertence a Garagem Ibura." },
     /* C10 (D8) · ocupadoPor "sensor de porta" é ENTRADA DIGITAL (checagem #5
        de T05); consumidores é o PAR SERIAL (entrada do leitor + saída de
        transmissão) da matriz de T06. Linhas físicas diferentes, dois
@@ -734,7 +734,7 @@
          "não conectada" seria a trava do #6, não uma leitura — um fato, um
          portador. */
   CASOS["busca-vazia"] = { tentativa: 1,
-    motivo: "O módulo leva alguns segundos para acordar depois de alimentado." };
+    motivo: "Aproxime o aparelho do módulo e confira se ele está alimentado." };
   CASOS["conexao-falha"] = { moduloSerial: "M2C-0301", ativoId: "a-02", tentativa: 1 };
   CASOS["link-perdido"] = { moduloSerial: "M2C-0312", ativoId: "a-03", naChecagem: 6 };
   CASOS["modulo-com-pendencias"] = { moduloSerial: "M2C-0362", ativoId: "a-06", mensagens: 12, diagnostico: 3 };
@@ -855,10 +855,6 @@
      a-22 carrega mock de calibração, a mesma armadilha do a-09. */
   CASOS["can-estatico-isolado"] = { ativoId: "a-01", sinal: "temperatura", lido: "215 °C", esperado: "−40 a 120" }; /* T07/09 */
   CASOS["can-estatico-ausente"] = { ativoId: "a-01", sinal: "rotacao", lido: null, motivo: "ligação" }; /* T07/08 */
-  /* protótipo · pacote 1 (o arquiteto, 02/10) · ACRÉSCIMOS NOMEADOS até o pacote 2, como o CADEIA.versoes:
-     a T13 de antes lia a bateria abaixo do mínimo do a-02 (o item reprovado da T13/09; o chassiPelaCan e o
-     CADEIA.versoes saíram no pacote 2) — o formato antigo do can-estatico-isolado, que agora é a temperatura do herói na T07/09. */
-  CASOS["can-estatico-bateria"] = { ativoId: "a-02", lidos: { bateria: "10,9 V", hodometro: "201.115 km" } };
   /* PM · rodadas 1 e 2 — os casos novos */
   CASOS["modem-sem-sinal"] = { moduloSerial: "M2C-0417", modem: "sem sinal" }; /* T07/07 · só informa: o checklist registra */
   CASOS["firmware-sem-rede-no-modulo"] = { base: "firmware-fora-matriz", modemSemRede: true }; /* T07/05 · trava, e não dá pra atualizar */
@@ -867,7 +863,7 @@
   CASOS["sem-conexao-no-menu"] = { tela: "T04", rede: false };
   /* PM · rodada 3 — os casos novos */
   CASOS["cercas-reenviadas"] = { ativoId: "a-01", moduloSerial: "M2C-0417", modo: "manutencao", reenviado: "cercas" }; /* T11/05 · os dependentes vêm do arraste: o leitor e os eventos */
-  CASOS["can-estatico-bateria"] = { ativoId: "a-02", lidos: { bateria: "10,9 V", hodometro: "201.115 km" } }; /* T13/09 · o item da bateria reprovado — o nome é do executor (gate da errata) */
+  CASOS["can-estatico-bateria"] = { ativoId: "a-02", moduloSerial: "M2C-0301", alimentacao: "10,9 V", lidos: { hodometro: "201.115 km" } }; /* T13/09 · o item da bateria reprovado — o nome é do executor (gate da errata) */
   CASOS["motor-desligado-no-ciclo"] = { ativoId: "a-02", passo: "rotacao", lido: "0 rpm" }; /* T14/03 · o motor tem que estar ligado */ /* T04/15 · só o Últimas instalações depende da rede */
   /* ⚠ NÃO é falha — é COERÊNCIA, e por isso ficou em a-09 quando o domínio
      saiu: o hodômetro que T07 lê é o mesmo que T10 calibra (bruto 87.604.000 m
@@ -1057,14 +1053,14 @@
          `pergunta` guarda a frase inteira e é o TÍTULO DO NÍVEL 2: a lista
          varre em substantivos, e quem abre o item lê o que exatamente tem de
          conferir. Nada se perde. */
-      { id: "b-modulo",         secao: "B", rotulo: "Módulo",     pergunta: "Módulo fixado e posicionado",    foto: true },
-      { id: "b-antena",         secao: "B", rotulo: "Antena GPS", pergunta: "Antena GPS posicionada e livre", foto: true },
-      { id: "b-chicote",        secao: "B", rotulo: "Chicote",    pergunta: "Chicote e emendas protegidos",   foto: true },
-      { id: "b-leitor",         secao: "B", rotulo: "Leitor",     pergunta: "Leitor posicionado", foto: true, condicao: "leitor" },
+      { id: "b-modulo",         secao: "B", rotulo: "Módulo",     pergunta: "Módulo fixado e posicionado", enquadre: "Enquadre o módulo e o ponto de fixação",    foto: true },
+      { id: "b-antena",         secao: "B", rotulo: "Antena GPS", pergunta: "Antena GPS posicionada e livre", enquadre: "Enquadre a antena e o espaço livre acima dela", foto: true },
+      { id: "b-chicote",        secao: "B", rotulo: "Chicote",    pergunta: "Chicote e emendas protegidos", enquadre: "Enquadre o chicote e as emendas",   foto: true },
+      { id: "b-leitor",         secao: "B", rotulo: "Leitor",     pergunta: "Leitor posicionado", enquadre: "Enquadre o leitor e onde ele está preso", foto: true, condicao: "leitor" },
       /* A foto do painel é tirada AQUI (decisão 52): a calibração não fotografa mais. O item só existe
          quando houve calibração na sessão — e aí é obrigatório, como as outras fotos da B. */
       { id: "b-painel-legivel", secao: "B", rotulo: "Painel",
-        pergunta: "Painel com hodômetro e horímetro legíveis",
+        pergunta: "Painel com hodômetro e horímetro legíveis", enquadre: "Enquadre o painel, com os números legíveis",
         foto: true, condicao: "calibracao" },
 
       { id: "c-alimentacao", secao: "C", rotulo: "Alimentação",       fonte: "alimentacao", origem: "can" },
@@ -1284,22 +1280,11 @@
   /* o caso fila-vazia agora é do design (a entrega de 26/09, ultimoEnvioAs); o protótipo só acrescenta a fila vazia e a sessão */
   Object.assign(CASOS["fila-vazia"], { itens: [], sessao: null });
 
-  /* protótipo C10 (T13) · AC-11 — os títulos longos das seções e o que o
-     nível do item diz. ADITIVO: o `rotulo` (o nome curto do mapa e do
-     acordeão, 'B · Montagem') fica intacto. `titulo` é o rótulo de topo do
-     nível do item ('B · INSTALAÇÃO FÍSICA', 'C · SAÚDE DO HARDWARE', T13/07 a
-     09; a tela põe em caixa alta), e os seis vêm da fonte
-     (_fontes-v1/requisitos-v1.md, §Seção A a F, T13-A17). `instrucao` é a dica
-     do visor da câmera (T13/07) e a `pergunta` do c-alimentacao é o título do
-     nível do item reprovado (T13/09, como a pergunta de B é o título do item
-     manual). Só esses dois têm texto aprovado (textos.md, T13-V6): os outros
-     quatro de B ficam sem dica, e o visor mostra só a câmera, até o texto vir
-     do diretor (G25). */
-  [["A", "Identificação"], ["B", "Instalação física"], ["C", "Saúde do hardware"],
-   ["D", "Configuração embarcada"], ["E", "Teste dinâmico"], ["F", "Recebimento no servidor"]]
-    .forEach(function (p) { CHECKLIST.secoes.filter(function (s) { return s.id === p[0]; })[0].titulo = p[1]; });
-  CHECKLIST.itens.filter(function (i) { return i.id === "b-modulo"; })[0].instrucao = "Enquadre o módulo e o ponto de fixação";
-  CHECKLIST.itens.filter(function (i) { return i.id === "c-alimentacao"; })[0].pergunta = "Tensão da bateria na faixa";
+  /* protótipo C10 (T13) · AC-11 saiu com o pacote 10: o nível do item diz o
+     nome curto da seção em toda tela ('B · MONTAGEM', 'C · HARDWARE'; a
+     tabela dos nomes curtos com os dos requisitos está na ficha da T13), a
+     frase da câmera de cada foto é o `enquadre` do item, e o título do item
+     reprovado (T13/09) é o `rotulo` do c-alimentacao, 'Alimentação'. */
   /* protótipo C10 (T13) · AC-12 — a justificativa de exemplo do não conforme
      (T13/08): o campo nasce preenchido com dado do mock (D-21), e o técnico
      escreve por cima. */

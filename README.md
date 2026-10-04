@@ -45,7 +45,7 @@ No celular, o app ocupa a tela inteira.
 
 ## Como foi construído
 
-Cada tela, momento e estado tem uma referência desenhada, em HTML e PNG — 154 ao todo. O protótipo foi construído contra elas e comparado pixel a pixel; toda diferença que sobrou tem um nome e um motivo registrados.
+Cada tela, momento e estado tem uma referência desenhada, em HTML e PNG — 160 ao todo. O protótipo foi construído contra elas e comparado pixel a pixel; toda diferença que sobrou tem um nome e um motivo registrados.
 
 O código não inventa nada: o comportamento vem da ficha de cada tela, os textos do `textos.md` dela, os valores dos tokens. Além das referências, o protótipo é verificado por 43 roteiros que tocam o app como o técnico — inclusive o caminho completo, com e sem horímetro — e por um gate que confere a coerência dos dados de exemplo.
 
@@ -53,7 +53,7 @@ O código não inventa nada: o comportamento vem da ficha de cada tela, os texto
 
 | telas | momentos | estados | referências | histórias de usuário | casos de dados | decisões registradas |
 |---|---|---|---|---|---|---|
-| 15 | 74 | 65 | 154 | 109 | 56 | 54 |
+| 15 | 78 | 67 | 160 | 109 | 56 | 54 |
 
 ## O repositório
 
@@ -78,7 +78,7 @@ npm install
 npm run dev
 ```
 
-Abre em `http://localhost:5173`. As verificações ficam na mesma pasta: `npm run checar` e `npm run build`; com os fotógrafos rodando (`npm run fotografo` e `npm run fotografo:1`), `node scripts/tela.mjs todas` compara as 154 referências e `node scripts/caminho.mjs todos` roda os roteiros.
+Abre em `http://localhost:5173`. As verificações ficam na mesma pasta: `npm run checar` e `npm run build`; com os fotógrafos rodando (`npm run fotografo` e `npm run fotografo:1`), `node scripts/tela.mjs todas` compara as 160 referências e `node scripts/caminho.mjs todos` roda os roteiros.
 
 ## Propriedade e uso
 

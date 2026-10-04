@@ -32,15 +32,15 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `07-momento-responder-item`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `B · INSTALAÇÃO FÍSICA` · `1` · `de 5` · `Depois: Antena GPS posicionada e livre` · `Módulo fixado e posicionado` · `Enquadre o módulo e o ponto de fixação` · `Não está conforme` · `marque e conte o que aconteceu` · `Tirar foto` · `Voltar ao checklist`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `B · MONTAGEM` · `1` · `de 5` · `Depois: Antena GPS posicionada e livre` · `Módulo fixado e posicionado` · `Enquadre o módulo e o ponto de fixação` · `Não está conforme` · `marque e conte o que aconteceu` · `Tirar foto` · `Voltar ao checklist`
 
 ## `08-momento-nao-conforme-com-justificativa`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `B · INSTALAÇÃO FÍSICA` · `1` · `de 5` · `Depois: Antena GPS posicionada e livre` · `Módulo fixado e posicionado` · `Enquadre o problema` · `Não está conforme` · `conte embaixo o que aconteceu` · `O QUE ACONTECEU` · `Suporte trincado; fixei com abraçadeira até a troca.` · `Fotografar o problema` · `Voltar ao checklist`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `B · MONTAGEM` · `1` · `de 5` · `Depois: Antena GPS posicionada e livre` · `Módulo fixado e posicionado` · `Enquadre o problema` · `Não está conforme` · `conte embaixo o que aconteceu` · `O QUE ACONTECEU` · `Suporte trincado; fixei com abraçadeira até a troca.` · `Fotografar o problema` · `Voltar ao checklist`
 
 ## `09-estado-item-reprovado`
 
-`M2C-0301` · `QJF-2C61` · `ENCERRAR` · `C · HARDWARE` · `2` · `de 4` · `Tensão da bateria na faixa` · `LIDO NO MÓDULO` · `10,9` · `V` · `10,0` · `12,0 — 15,0` · `16,0` · `1,1 V abaixo do mínimo` · `ISTO NÃO SE MARCA À MÃO` · `Confira a alimentação e refaça o diagnóstico.` · `Refazer o diagnóstico` · `Voltar ao checklist`
+`M2C-0301` · `QJF-2C61` · `ENCERRAR` · `C · HARDWARE` · `1` · `de 4` · `Alimentação` · `LIDO NO MÓDULO` · `10,9` · `V` · `10,0` · `12,0 — 15,0` · `16,0` · `1,1 V abaixo do mínimo` · `ISTO NÃO SE MARCA À MÃO` · `Confira a alimentação e refaça o diagnóstico.` · `Refazer o diagnóstico` · `Voltar ao checklist`
 
 ## `10-estado-finalizar-com-a-secao-f-falhando`
 
@@ -64,4 +64,24 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `15-momento-problema-fotografado`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `B · INSTALAÇÃO FÍSICA` · `1` · `de 5` · `Depois: Antena GPS posicionada e livre` · `Módulo fixado e posicionado` · `Problema fotografado às 14:30` · `vai junto com a ressalva, pro gestor` · `Não está conforme` · `conte embaixo o que aconteceu` · `O QUE ACONTECEU` · `Suporte trincado; fixei com abraçadeira até a troca.` · `Salvar com ressalva` · `Voltar ao checklist`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `B · MONTAGEM` · `1` · `de 5` · `Depois: Antena GPS posicionada e livre` · `Módulo fixado e posicionado` · `Problema fotografado às 14:30` · `vai junto com a ressalva, pro gestor` · `Não está conforme` · `conte embaixo o que aconteceu` · `O QUE ACONTECEU` · `Suporte trincado; fixei com abraçadeira até a troca.` · `Salvar com ressalva` · `Voltar ao checklist`
+
+## `16-estado-secao-c-com-item-reprovado`
+
+`M2C-0301` · `QJF-2C61` · `ENCERRAR` · `Checklist` · `16` · `de 31` · `A · Identificação` · `o app confere sozinho` · `3` · `de 3` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `3` · `de 4` · `Alimentação` · `10,9 V` · `GPS e antena` · `9 satélites` · `Entradas digitais` · `conforme` · `Modem e sinal` · `sinal bom` · `D · Configuração` · `o app confere sozinho` · `10` · `de 10` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 6` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 3` · `Faltam 12 itens` · `Finalizar instalação` · `Voltar ao menu`
+
+## `17-momento-foto-da-antena`
+
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `B · MONTAGEM` · `2` · `de 5` · `Depois: Chicote e emendas protegidos` · `Antena GPS posicionada e livre` · `Enquadre a antena e o espaço livre acima dela` · `Não está conforme` · `marque e conte o que aconteceu` · `Tirar foto` · `Voltar ao checklist`
+
+## `18-momento-foto-do-chicote`
+
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `B · MONTAGEM` · `3` · `de 5` · `Depois: Leitor posicionado` · `Chicote e emendas protegidos` · `Enquadre o chicote e as emendas` · `Não está conforme` · `marque e conte o que aconteceu` · `Tirar foto` · `Voltar ao checklist`
+
+## `19-momento-foto-do-leitor`
+
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `B · MONTAGEM` · `4` · `de 5` · `Depois: Painel com hodômetro e horímetro legíveis` · `Leitor posicionado` · `Enquadre o leitor e onde ele está preso` · `Não está conforme` · `marque e conte o que aconteceu` · `Tirar foto` · `Voltar ao checklist`
+
+## `20-momento-foto-do-painel`
+
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `B · MONTAGEM` · `5` · `de 5` · `Painel com hodômetro e horímetro legíveis` · `Enquadre o painel, com os números legíveis` · `Não está conforme` · `marque e conte o que aconteceu` · `Tirar foto` · `Voltar ao checklist`

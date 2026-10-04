@@ -26,7 +26,7 @@ export const especimes = [
     render: () => <Cadeia justa elos={elosDo({ confirmados: 0, fase: 'antes' }, conteudo)} /> },
   { id: 'f5-segmentado', folha: 5, rotulo: 'segmentado', legenda: 'um segmento por passo',
     render: () => (
-      <Segmentado rotulo="B · INSTALAÇÃO FÍSICA" contagem="1" total="de 5" legenda="Depois: Antena GPS posicionada e livre"
+      <Segmentado rotulo="B · MONTAGEM" contagem="1" total="de 5" legenda="Depois: Antena GPS posicionada e livre"
         segmentos={['atual', 'pendente', 'pendente', 'pendente', 'pendente']} /> // o pacote 3: o Painel pendente, como a T13
     ) },
   { id: 'f5-precondicao-pinos', folha: 5, rotulo: 'a pré-condição dos pinos', legenda: 'a primeira linha da configuração, embaixo do título',

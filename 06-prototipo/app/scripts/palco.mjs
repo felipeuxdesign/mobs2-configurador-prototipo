@@ -91,9 +91,12 @@ const notaDe = (nome, nomePeca) => NOTAS[`${nome}/${nomePeca}`] ?? NOTAS[nomePec
 // o complemento do pacote 6 pôs o momento que nasce de um estado na coluna (o `depoisDe`): a
 // cena 02 já desenha o Atualizando o firmware, e a 03 e a 04 ainda não
 const DEPOIS_DE = 'a coluna põe o Atualizando o firmware logo depois do Firmware não homologado (o depoisDe do complemento do pacote 6), como a cena 02 desenha; este quadro ainda não'
+// o pacote 10 pôs a T07/12 na coluna da T07 (o estado novo), e nenhuma cena do palco a desenha ainda
+const ALIMENTACAO = 'a coluna da T07 tem a Alimentação abaixo da faixa, o estado novo do pacote 10, no grupo O MÓDULO; nenhuma cena do palco a desenha ainda'
 const NOTAS_TEXTO = {
-  '03-tela-com-muitos-estados/coluna': DEPOIS_DE,
-  '04-painel-aberto/coluna': NOTAS['04-painel-aberto/coluna'].split('; e ')[0] + '; e ' + DEPOIS_DE,
+  '02-num-estado/coluna': ALIMENTACAO,
+  '03-tela-com-muitos-estados/coluna': DEPOIS_DE + '; e ' + ALIMENTACAO,
+  '04-painel-aberto/coluna': NOTAS['04-painel-aberto/coluna'].split('; e ')[0] + '; e ' + DEPOIS_DE + '; e ' + ALIMENTACAO,
   '04-painel-aberto/painel': 'o pé diz a data da última atualização (Atualizado em …), no lugar do Recomeçar do login, que saiu (o diretor, 04/10: a T01 do painel já zera o estado e abre o login); o quadro ainda desenha o botão',
 }
 

@@ -38,7 +38,7 @@ const M10 = '10-momento-relendo-a-can'
 const M11 = '11-momento-lendo'
 const LISTA_T05 = '01-momento-nenhum-escolhido'
 const ESTADOS = ['02-estado-serial-nao-cadastrado', '03-estado-modelo-sem-suporte', '04-estado-firmware-nao-homologado',
-  '05-estado-firmware-sem-rede-no-modulo', '07-estado-modem-sem-sinal', '08-estado-sinal-da-can-sem-leitura', '09-estado-sinal-da-can-fora-do-esperado']
+  '05-estado-firmware-sem-rede-no-modulo', '07-estado-modem-sem-sinal', '12-estado-alimentacao-abaixo-da-faixa', '08-estado-sinal-da-can-sem-leitura', '09-estado-sinal-da-can-fora-do-esperado']
 // da lista da T05 (a busca, sem nada escolhido) até o Conectar: a troca entre telas leva à T07
 const CONECTA = (serial) => [
   { abre: `?tela=T05&momento=${LISTA_T05}` },

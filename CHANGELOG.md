@@ -1,5 +1,27 @@
 # Registro de mudanças
 
+## 2026-10-04 · o pacote 10 — a bateria fraca do começo ao fim, e os restos de rodadas antigas
+
+- **a alimentação baixa aparece no diagnóstico** · T07/12, estado novo: a linha diz *dá pra seguir · o checklist registra* e mostra 10,9 V · não trava, como o modem sem sinal
+- **a Seção C com o item reprovado** · T13/16, estado novo: a Alimentação com o xis, 10,9 V e a seta pro detalhe · item automático reprovado ganha a seta; passou, é leitura
+- **a T13/09 era de uma rodada antiga**: o título *Tensão da bateria na faixa* vira **Alimentação**, a posição vira *1 de 4*, e o vermelho vai pro primeiro segmento · o caso do mock baixa a alimentação do módulo, e não mais a bateria da CAN
+- **as cinco fotos da Montagem**: a frase da câmera de cada item, no campo `enquadre` do mock, e quatro quadros novos, da T13/17 à 20
+- **os nomes curtos das seções**: as telas de item da B ainda diziam *Instalação física*, o nome longo dos requisitos · agora *Montagem*, como a lista · a tabela dos nomes curtos com os dos requisitos está na ficha da T13 · também a peça da folha 5
+- **o mock alinhado às telas** em três textos que divergiam: o *nenhum encontrado* da T05, o *modelo sem suporte* da T07 e o *fora do pacote* da T06
+- **154 → 160 referências** · 65 → 67 estados · 74 → 78 momentos
+
+- **no protótipo** (o gate em `06-prototipo/para-o-arquiteto/gate-pacote10.md`, as folhas lado a lado em `pacote10/`):
+  - a T07 lê a alimentação do caso na linha dela, como o modem sem sinal (`diagnostico.js`, `NA_LINHA`);
+  - a T13 lê a alimentação do caso do módulo da sessão, contra a faixa da bateria do modelo do ativo;
+  - o item reprovado com leitura é a linha de leitura da peça, com o valor em `--vermelho` e a seta (`ItemDoChecklist`);
+  - o nível do item diz o nome curto da seção em toda tela, e a frase da câmera é o `enquadre`;
+  - o `Tirar foto` leva de uma foto à outra pela URL (07, 17 a 20);
+  - no mock, saíram as sobras do AC-11 (o `titulo` das seções, a `instrucao` do Módulo e a `pergunta` da Alimentação) e a linha repetida do `can-estatico-bateria`.
+- **os desvios nomeados** (o gate, §3):
+  - a T13/16 desenha o QJF-2C61 calibrado (16 de 31), e o mock não tem o painel do a-02: o protótipo mostra 14 de 30;
+  - a folha 7 ainda não desenha o item de leitura reprovado com a seta;
+  - o `motivo` novo do `ativo-fora-pacote` diz *Garagem Ibura*, e o ativo do caso (a-24) é do Pátio Caruaru.
+
 ## 2026-10-04 · o RV no centro, medido na tela
 
 - **o avatar da tira (32)**: o recheio de baixo passa de 2 pra 1 — com 2, as letras ficavam 1 px altas na tela (o diretor viu, e o print dele confirmou: 1 px acima do centro)

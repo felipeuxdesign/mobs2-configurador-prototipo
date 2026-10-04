@@ -13,7 +13,7 @@ Medido no código do protótipo (`06-prototipo/app/src/telas/<tela>/`), em 03/10
 | T03 · Sincronizar | `pacotes`, `uos`, `contextoAtivo` | `sync-falha-rede` |
 | T04 · Menu | `ativos`, `checklist`, `empresa`, `empresas`, `modelos`, `modulos`, `pacotes`, `situacao`, `uos`, `contextoAtivo` | `link-perdido`, `sem-conexao-no-menu` |
 | T05 · Conectar módulo | `modelos`, `modulos`, `naBuscaForaCadastro`, `situacao` | `bluetooth-desligado`, `bluetooth-sem-permissao`, `busca-vazia`, `conexao-falha` |
-| T07 · Diagnóstico do módulo | `diagnostico`, `ativos`, `cadeia`, `matrizCapacidades`, `modelos`, `modelosAtivo`, `modulos`, `situacao` | `serial-nao-cadastrado`, `modelo-sem-driver`, `firmware-fora-matriz`, `firmware-sem-rede-no-modulo`, `modem-sem-sinal`, `can-estatico-ausente`, `can-estatico-isolado` |
+| T07 · Diagnóstico do módulo | `diagnostico`, `ativos`, `cadeia`, `matrizCapacidades`, `modelos`, `modelosAtivo`, `modulos`, `situacao` | `serial-nao-cadastrado`, `modelo-sem-driver`, `firmware-fora-matriz`, `firmware-sem-rede-no-modulo`, `modem-sem-sinal`, `can-estatico-ausente`, `can-estatico-isolado`, `can-estatico-bateria` |
 | T06 · Selecionar ativo | `ativos`, `empresa`, `matrizCapacidades`, `modelosAtivo`, `modulos`, `pacotes`, `uos`, `contextoAtivo` | `ativo-fora-pacote`, `conflito-pinos-resolvivel`, `conflito-pinos-sem-saida`, `modulo-em-outro-ativo`, `modulo-ja-deste-ativo` |
 | T09 · Configurar módulo | `cadeia`, `ativos`, `conexoes`, `matrizCapacidades`, `modelosAtivo`, `modulos`, `presetsEvento` | `bloco-recusado`, `queda-na-cadeia`, `conteudo-nao-cabe`, `pool-esgotado` |
 | T10 · Calibração | `calibracao`, `ativos`, `matrizCapacidades`, `modulos` | `grandeza-indisponivel`, `releitura-nao-confere` |

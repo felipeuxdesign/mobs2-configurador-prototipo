@@ -47,7 +47,17 @@ export const REF = {
   eResolvida: '13-momento-e-resolvida',
   semLocalizacao: '14-estado-homologado-sem-localizacao',
   problemaFotografado: '15-momento-problema-fotografado',
+  secaoCReprovada: '16-estado-secao-c-com-item-reprovado',
 }
+// o pacote 10 · as cinco fotos da Montagem: o 07 é o Módulo, e cada item seguinte
+// tem o seu quadro, com os de antes fotografados (17 a 20)
+export const MOMENTO_DA_FOTO = {
+  'b-antena': '17-momento-foto-da-antena',
+  'b-chicote': '18-momento-foto-do-chicote',
+  'b-leitor': '19-momento-foto-do-leitor',
+  'b-painel-legivel': '20-momento-foto-do-painel',
+}
+export const FOTO_DO_MOMENTO = Object.fromEntries(Object.entries(MOMENTO_DA_FOTO).map(([id, m]) => [m, id]))
 export const SECAO_DO_MOMENTO = {
   [REF.A]: 'A', [REF.B]: 'B', [REF.C]: 'C', [REF.D]: 'D', [REF.E]: 'E', [REF.F]: 'F', [REF.comRessalva]: 'B', [REF.eResolvida]: 'E',
 }
@@ -65,14 +75,14 @@ const sinalDe = (ativoId, id) => modeloDe(ativoId)?.sinaisCan.find((s) => s.id =
 const HORA = M.HORA_NOMINAL
 
 // o nome da seção no cartão ('A · Identificação'), e o rótulo de topo do nível
-// do item: o título longo na seção que o técnico faz ('B · INSTALAÇÃO FÍSICA',
-// T13/07 e 08) e o nome curto na que o app confere ('C · HARDWARE', T13/09) —
-// é o que as referências da entrega desenham (AC-11, pro arquiteto)
+// do item, em caixa alta: o nome curto vale em toda tela ('B · MONTAGEM', T13/07;
+// 'C · HARDWARE', T13/09 · o pacote 10; a tabela com os nomes dos requisitos está
+// na ficha da T13)
 // (a E se chama Ciclo de testes nas referências e no textos.md; o mock ainda diz
 // Teste dinâmico — o texto da referência, até o mock trocar, desvio nomeado)
 const rotuloDa = (s) => T.rotuloDaSecao[s.id] ?? s.rotulo
 export const nomeDaSecao = (s) => T.secao(s.id, rotuloDa(s))
-export const rotuloDoNivel = (s) => caixaAlta(T.secao(s.id, s.natureza === 'manual' ? s.titulo : rotuloDa(s)))
+export const rotuloDoNivel = (s) => caixaAlta(nomeDaSecao(s))
 
 // o momento da seção aberta, pelo que ela mostra: a B com ressalva (12) e a E
 // resolvida (13) têm quadro próprio; homologado, nenhuma seção aberta tem
@@ -120,7 +130,8 @@ const fotosDeB = () => Object.fromEntries(itensDa('B').map((i) => [i.id, HORA]))
 
 // ── o mundo: a sessão, as etapas, a fila e os casos que valem ──
 // No estado da coluna, o do caso da receita (G21): o 09 no a-02 do
-// can-estatico-bateria (a bateria abaixo do mínimo, lida no módulo), o 10 no a-09 do
+// can-estatico-bateria (a alimentação do M2C-0301 abaixo da faixa · o 16, a Seção C
+// aberta com ele), o 10 no a-09 do
 // pronto-para-fechar (o ciclo completo, as fotos tiradas e o servidor que não
 // respondeu), o 14 na sessão do herói homologada, com a localização negada
 // (localizacao-negada é caso do celular, e não diz ativo). No fluxo, o estado único.
@@ -176,11 +187,28 @@ export function registroDoQuadro(momento, base, ck) {
     const id = ck.porSecao.B.find((c) => c.estado === 'pendente')?.id
     if (id) return { ...r, ressalvas: { ...r.ressalvas, [id]: { justificativa: CK.exemploJustificativa, as: HORA, foto: HORA } } }
   }
+  // o 17 ao 20 (o pacote 10): os itens da B antes do da vez, fotografados, como
+  // o Tirar foto do item anterior os deixaria
+  const daVez = FOTO_DO_MOMENTO[momento]
+  if (daVez) {
+    const lista = ck.porSecao.B; const i = lista.findIndex((c) => c.id === daVez)
+    const fotos = { ...r.fotos }
+    for (const c of lista.slice(0, i)) if (c.estado === 'pendente') fotos[c.id] = HORA
+    return { ...r, fotos }
+  }
   return r
 }
 
 // ── C · a leitura: o lido do sinal pelo caso estático do ativo (se não foi
-// consumido, G21) ou o nominal, como a T07 lê ──
+// consumido, G21) ou o nominal, como a T07 lê · a alimentação, pelo caso do
+// módulo da sessão que a declara (o pacote 10: o can-estatico-bateria baixa a
+// alimentação do M2C-0301, e não mais a bateria da CAN), contra a faixa da
+// bateria do modelo do ativo ──
+function alimentacaoDoCaso(mundo) {
+  const { moduloSerial } = mundo.sessao
+  const k = Object.keys(M.casos).find((x) => M.casos[x].alimentacao != null && M.casos[x].moduloSerial === moduloSerial)
+  return k && !mundo.casosConsumidos.includes(k) ? M.casos[k].alimentacao : null
+}
 function lidoDoSinal(mundo, id) {
   const { ativoId } = mundo.sessao
   const s = sinalDe(ativoId, id)
@@ -267,9 +295,12 @@ function falta(item) {
   if (!tela) return base(item, { estado: 'aguarda', valor: T.vazio, apagado: true })
   return base(item, { estado: 'pendente', tipo: 'tocar', icone: ICONE_DA_ORIGEM[item.origem], legenda: T.aFazer, destino: { tela } })
 }
-// o que reprovou: com a leitura, o nível do item (09); sem ela, a tela que resolve
-function reprovou(item, legenda, leitura) {
-  return base(item, { estado: 'reprovado', tipo: 'tocar', legenda, leitura, destino: leitura ? 'reprovado' : { tela: TELA_DA_ORIGEM[item.origem] } })
+// o que reprovou: com a leitura, a linha de leitura com o valor em vermelho e a
+// seta, que abre o nível do item (09 · a 16, o pacote 10: item automático
+// reprovado ganha a seta; passou, é leitura, sem seta); sem ela, a tela que resolve
+function reprovou(item, valor, leitura) {
+  if (leitura) return base(item, { estado: 'reprovado', valor, leitura, destino: 'reprovado' })
+  return base(item, { estado: 'reprovado', tipo: 'tocar', legenda: valor, destino: { tela: TELA_DA_ORIGEM[item.origem] } })
 }
 
 // A · três itens: o chassi saiu (decisão 46)
@@ -311,6 +342,7 @@ function itemC(mundo, item) {
     if (!etapas.can?.lida) return falta(item)
     const r = lidoDoSinal(mundo, item.id === 'c-alimentacao' ? 'bateria' : 'satelites')
     if (!r) return naoSeAplica(item)
+    if (item.id === 'c-alimentacao') r.lido = alimentacaoDoCaso(mundo) ?? r.lido
     const p = partes(r.lido)
     if (!p || !Number.isFinite(p.num)) return reprovou(item, T.vazio, null)
     const valor = item.id === 'c-gps' ? T.satelites(p.texto) : [p.texto, p.unidade].filter(Boolean).join(' ')

@@ -16,11 +16,12 @@
 // · O que o caso muda na linha dele, por cima do cadastro: o modem sem rede, que
 //   prende a atualização do firmware (firmware-sem-rede-no-modulo, 05), e o modem
 //   sem sinal, que só informa (modem-sem-sinal, 07, pela linha que o mock marca
-//   com `informa`). Os da CAN mudam o sinal do caso: sem leitura (08) ou fora do
+//   com `informa`), e a alimentação abaixo da faixa, que também só informa
+//   (can-estatico-bateria, 12 · o pacote 10: o checklist a reprova). Os da CAN mudam o sinal do caso: sem leitura (08) ou fora do
 //   esperado (09).
 // · No fluxo (D1, o gate do pacote 1): as travas acontecem pelo serial que
 //   conectou; o modem sem sinal e os sinais da CAN caem no par do herói e abrem só
-//   pela coluna. O módulo sem rede vale uma vez, até a conexão gravar (G21).
+//   pela coluna, e a alimentação baixa é do M2C-0301, que a busca não acha. O módulo sem rede vale uma vez, até a conexão gravar (G21).
 // · A atualização do firmware (D4): consumido o firmware-fora-matriz, o módulo
 //   do caso passa a ter o firmware disponível (firmwareDisponivel).
 import { M } from '../../dados/mock.js'
@@ -130,6 +131,7 @@ const linhaQueInforma = (k) => LINHAS.find((l) => l.informa === k)?.id
 const NA_LINHA = {
   'modem-sem-sinal': (caso, k) => ({ [linhaQueInforma(k)]: informa(caso.modem, T.daPraSeguir) }),
   [CASO_SEM_REDE]: (caso) => (caso.modemSemRede ? { modem: informa(T.semRede, T.semElaNaoAtualiza) } : {}),
+  'can-estatico-bateria': (caso) => ({ alimentacao: informa(caso.alimentacao, T.daPraSeguir) }),
 }
 
 // o resultado de cada uma das sete, quando termina

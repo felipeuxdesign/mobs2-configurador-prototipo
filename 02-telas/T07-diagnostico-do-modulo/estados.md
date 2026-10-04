@@ -16,5 +16,6 @@
 | `09-estado-sinal-da-can-fora-do-esperado` | estado | um sinal da CAN fora do esperado | `can-estatico-isolado` |
 | `10-momento-relendo-a-can` | momento | `Ler de novo` | derivado do fluxo |
 | `11-momento-lendo` | momento | a leitura correndo · 600ms por linha | derivado do fluxo |
+| `12-estado-alimentacao-abaixo-da-faixa` | estado | a alimentação do módulo abaixo da faixa — só informa, como o modem | `can-estatico-bateria` |
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.

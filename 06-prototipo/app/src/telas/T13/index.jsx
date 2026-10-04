@@ -61,7 +61,7 @@ import { RECEITAS } from '../../estado/receitas.js'
 import { SEMENTES } from '../../estado/sementes.js'
 import { M } from '../../dados/mock.js'
 import {
-  REF, SECAO_DO_MOMENTO, mundoDe, checklist, nivelDoItem, primeiroPendente, proximoPendente, momentoDaSecao,
+  REF, SECAO_DO_MOMENTO, MOMENTO_DA_FOTO, FOTO_DO_MOMENTO, mundoDe, checklist, nivelDoItem, primeiroPendente, proximoPendente, momentoDaSecao,
   instrumentoDoItem, filaDoFinalizar, nomeDaSecao, rotuloDoNivel, itemDe, ativoDe, registroDoQuadro, cicloConcluido,
 } from './checklist.js'
 import { InstrumentoDoItem } from './pecas.jsx'
@@ -97,9 +97,11 @@ function quadroInicial({ momento, est, ck }) {
   // deFeitos: quantos estavam feitos quando o nível do item abriu (a barra parte dali na volta, C12·36)
   const q = { aberta: null, item: null, naoConforme: false, texto: '', fotoProblema: null, dialogo: false, ciente: false, deFeitos: null }
   if (est === REF.reprovado) return { ...q, item: ck.porSecao.C.find((c) => c.estado === 'reprovado')?.id ?? null }
+  if (est === REF.secaoCReprovada) return { ...q, aberta: 'C' }
   if (est === REF.secaoF) return { ...q, dialogo: true }
   if (SECAO_DO_MOMENTO[momento]) return { ...q, aberta: SECAO_DO_MOMENTO[momento] }
   if (momento === REF.responder) return { ...q, item: primeiroPendente(ck) }
+  if (FOTO_DO_MOMENTO[momento]) return { ...q, item: FOTO_DO_MOMENTO[momento] }
   if (momento === REF.naoConforme) return { ...q, item: primeiroPendente(ck), naoConforme: true, texto: M.checklist.exemploJustificativa }
   if (momento === REF.problemaFotografado) return { ...q, item: primeiroPendente(ck), naoConforme: true, texto: M.checklist.exemploJustificativa, fotoProblema: HORA }
   return q
@@ -149,6 +151,10 @@ export default function T13({ momento, estado: est }) {
   // o nível do item manual (07, 08): sem a permissão da câmera, o quadro não tem
   // referência, e a URL sai do momento (como a câmera da T10 e o item reprovado)
   const irItem = (m, p = permissao) => irQuadro(p === NEGADA ? null : m)
+  // o quadro de cada foto (o pacote 10): o 07 e o não conforme (08, 15) são do
+  // Módulo, e os outros quatro têm o seu (17 a 20); o não conforme deles não tem
+  // referência, e a URL sai do momento
+  const momentoDaFoto = (id, m = REF.responder) => (MOMENTO_DA_FOTO[id] ? (m === REF.responder ? MOMENTO_DA_FOTO[id] : null) : m)
   const quadroDasSecoes = (aberta, c = ck) => (aberta ? momentoDaSecao(aberta, c, homologada) : homologada ? REF.homologado : null)
   // o ENCERRAR (decisão 36, src/estado/encerrar.jsx): antes de homologar, o diálogo
   // Encerrar sem homologar? por cima desta tela; depois de homologar, direto, pra T16
@@ -162,7 +168,7 @@ export default function T13({ momento, estado: est }) {
   }
   // o toque num item com seta: a câmera do app, o nível do item reprovado, ou a tela que resolve
   function tocarItem(c) {
-    if (c.destino === 'item') { setQ({ ...q, item: c.id, naoConforme: false, texto: '', fotoProblema: null, deFeitos: ck.feitos }); irItem(REF.responder); return }
+    if (c.destino === 'item') { setQ({ ...q, item: c.id, naoConforme: false, texto: '', fotoProblema: null, deFeitos: ck.feitos }); irItem(momentoDaFoto(c.id)); return }
     if (c.destino === 'reprovado') { setQ({ ...q, item: c.id, deFeitos: ck.feitos }); irQuadro(null); return } // o 09 é estado da coluna: no fluxo, a URL fica na tela
     if (c.destino?.tela) ir(c.destino.tela)
   }
@@ -171,12 +177,12 @@ export default function T13({ momento, estado: est }) {
   // guardados enquanto o técnico está no item, e marcar de novo os devolve
   function marcarNaoConforme(marcado) {
     setQ((x) => ({ ...x, naoConforme: marcado, texto: marcado ? (x.texto || M.checklist.exemploJustificativa) : x.texto }))
-    irItem(marcado ? (q.fotoProblema ? REF.problemaFotografado : REF.naoConforme) : REF.responder)
+    irItem(momentoDaFoto(q.item, marcado ? (q.fotoProblema ? REF.problemaFotografado : REF.naoConforme) : REF.responder))
   }
   // Fotografar o problema: o quadro vira o registro (15), com a hora do relógio parado
   function fotografarProblema() {
     setQ((x) => ({ ...x, fotoProblema: HORA }))
-    irItem(REF.problemaFotografado)
+    irItem(momentoDaFoto(q.item, REF.problemaFotografado))
   }
   function voltarAoChecklist() {
     const s = itemDe(q.item).secao
@@ -193,7 +199,7 @@ export default function T13({ momento, estado: est }) {
     gravar(novo)
     const depois = checklist(comRegistro(base, novo))
     const seguinte = proximoPendente(depois, id)
-    if (seguinte) { setQ({ ...q, item: seguinte, naoConforme: false, texto: '', fotoProblema: null }); irItem(REF.responder) } else {
+    if (seguinte) { setQ({ ...q, item: seguinte, naoConforme: false, texto: '', fotoProblema: null }); irItem(momentoDaFoto(seguinte)) } else {
       const s = itemDe(id).secao
       setQ({ ...q, item: null, naoConforme: false, texto: '', fotoProblema: null, aberta: s })
       irQuadro(quadroDasSecoes(s, depois))
@@ -248,7 +254,7 @@ export default function T13({ momento, estado: est }) {
       }
       return (
         <ItemDoChecklist key={c.id} tipo={c.tipo} estado={c.estado} icone={c.icone} nome={c.nome} valor={c.valor} legenda={c.legenda} apagado={!!c.apagado}
-          divisoria={divisoria} nomeGlifo={NOME_DO_ITEM[c.estado]} aoTocar={c.tipo === 'tocar' ? () => tocarItem(c) : undefined} />
+          divisoria={divisoria} nomeGlifo={NOME_DO_ITEM[c.estado]} aoTocar={c.tipo === 'tocar' || c.destino ? () => tocarItem(c) : undefined} />
       )
     })
   }
@@ -262,7 +268,7 @@ export default function T13({ momento, estado: est }) {
     // (Enquadre o problema, 08); fotografado o problema, o registro no lugar
     // dela (15) — a foto que prova, tirada, a peça da T10
     const cam = cameraDa(permissao)
-    const frase = q.naoConforme ? T.enquadreProblema : nivel.item.instrucao
+    const frase = q.naoConforme ? T.enquadreProblema : nivel.item.enquadre
     miolo = (
       <>
         <Segmentado rotulo={rotuloDoNivel(nivel.secao)} contagem={String(nivel.posicao)} total={T.de(nivel.total)} segmentos={nivel.segmentos}
@@ -289,7 +295,7 @@ export default function T13({ momento, estado: est }) {
       [APAGADO]: { rotulo: T.conteOQueAconteceu, desabilitado: true },
       'salvar-com-ressalva': { rotulo: T.salvarComRessalva, aoTocar: () => responder('ressalva') },
       // de volta das configurações com a permissão, a câmera abre, e a URL volta ao quadro do item (07 ou 08)
-      'abrir-configuracoes': { rotulo: T.abrirConfiguracoes, aoTocar: () => { const p = voltaDasConfiguracoes(); setPermissao(p); irItem(q.naoConforme ? REF.naoConforme : REF.responder, p) } },
+      'abrir-configuracoes': { rotulo: T.abrirConfiguracoes, aoTocar: () => { const p = voltaDasConfiguracoes(); setPermissao(p); irItem(momentoDaFoto(q.item, q.naoConforme ? REF.naoConforme : REF.responder), p) } },
     }
     const primario = PRIMARIO[primarioDaCamera(permissao, { naoConforme: q.naoConforme, fotografado, contou: !!q.texto.trim() })]
     // o botão diz o que falta: o texto novo esmaece no lugar, e o roxo troca direto (C12·23)

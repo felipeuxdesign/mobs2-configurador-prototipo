@@ -50,8 +50,9 @@ const MOMENTOS = [
   '01-momento-a-identificacao-aberta', M02, '03-momento-c-hardware-aberta', '04-momento-d-configuracao-aberta',
   '05-momento-e-teste-dinamico-aberta', '06-momento-f-servidor-aberta', M07, M08, '11-momento-homologado',
   '12-momento-b-com-ressalva', '13-momento-e-resolvida', M15,
+  '17-momento-foto-da-antena', '18-momento-foto-do-chicote', '19-momento-foto-do-leitor', '20-momento-foto-do-painel',
 ]
-const ESTADOS = ['09-estado-item-reprovado', '10-estado-finalizar-com-a-secao-f-falhando', '14-estado-homologado-sem-localizacao']
+const ESTADOS = ['09-estado-item-reprovado', '10-estado-finalizar-com-a-secao-f-falhando', '14-estado-homologado-sem-localizacao', '16-estado-secao-c-com-item-reprovado']
 const PARADA = [{ quieto: true }, { dorme: 700 }, { quieto: true }]
 
 export default [
@@ -96,25 +97,26 @@ export default [
   { quieto: true },
 
   // ── o não conforme (C12·47): a caixa desliza, o campo esmaece embaixo dela, o quadrado surge ──
+  // no item da vez, a Antena (o 17), o não conforme não tem referência (o 08 e o 15 são do Módulo): a URL sai do momento
   { toca: 'Não está conforme', anima: [...MARCA, CAIXA, CAMPO, TEXTO, CHECKBOX_SOLTA], naoAnima: [MIOLO] },
-  { chega: 'T13', momento: M08 },
+  { chega: 'T13', momento: null },
   { ve: 'Enquadre o problema' },
   { dorme: 250 },
   { quieto: true },
   // desmarcar: o mesmo ao contrário — a caixa desce, o campo de antes esmaece por cima (C12·6)
   { toca: 'Não está conforme', anima: [...DESMARCA, CAIXA, CAMPO_SAI, TEXTO, CHECKBOX_SOLTA], naoAnima: [MIOLO] },
-  { chega: 'T13', momento: M07 },
+  { chega: 'T13', momento: '17-momento-foto-da-antena' },
   { dorme: 250 },
   { quieto: true },
   { toca: 'Não está conforme', anima: [CAIXA, CAMPO, TEXTO] },
-  { chega: 'T13', momento: M08 },
+  { chega: 'T13', momento: null },
   { dorme: 250 },
   // sem o texto, o Fotografar o problema vira o Conte o que aconteceu, apagado: sem o roxo (C12·18);
   // o registro esmaece no lugar do visor, que sai por cima, e a caixa sobe (C12·42, C12·10)
   { digita: '', em: 'O QUE ACONTECEU' },
   { dorme: 250 },
   { toca: 'Fotografar o problema', anima: [REGISTRO, SAI, CAIXA, TEXTO], naoAnima: [...SEM_ROXO, MIOLO] },
-  { chega: 'T13', momento: M15 },
+  { chega: 'T13', momento: null },
   { desligado: 'Conte o que aconteceu' },
   { dorme: 250 },
   { quieto: true },
@@ -125,16 +127,16 @@ export default [
   { dorme: 250 },
   // desmarcar com a foto guardada (15 → 07): o visor volta esmaecendo, o registro e o campo saem por cima
   { toca: 'Não está conforme', anima: [VISOR, SAI, CAMPO_SAI, CAIXA, TEXTO] },
-  { chega: 'T13', momento: M07 },
+  { chega: 'T13', momento: '17-momento-foto-da-antena' },
   { dorme: 250 },
   // e marcar de novo (07 → 15): o registro esmaece no lugar do visor, o campo embaixo da caixa
   { toca: 'Não está conforme', anima: [REGISTRO, SAI, CAMPO, CAIXA, TEXTO] },
-  { chega: 'T13', momento: M15 },
+  { chega: 'T13', momento: null },
   { dorme: 250 },
   { quieto: true },
   // Salvar com ressalva: o próximo item, pela troca; o texto não esmaece de novo por dentro
   { toca: 'Salvar com ressalva', anima: TROCA, naoAnima: [TEXTO_NASCE, CAIXA] },
-  { chega: 'T13', momento: M07 },
+  { chega: 'T13', momento: '18-momento-foto-do-chicote' },
   { ve: 'Chicote e emendas protegidos' },
   { dorme: 250 },
   { toca: 'Tirar foto', anima: TROCA },

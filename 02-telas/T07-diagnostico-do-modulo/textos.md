@@ -49,3 +49,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `11-momento-lendo`
 
 `Diagnóstico do módulo` · `4` · `de 7` · `O MÓDULO` · `Serial no cadastro` · `VL06 CAN-BT` · `Firmware` · `2.3.5` · `Alimentação` · `13,8 V` · `GPS` · `fixo · 9 satélites` · `Entradas digitais` · `lendo` · `Modem` · `—` · `SIM` · `—` · `A CAN` · `AGUARDANDO A CONFIGURAÇÃO DO ATIVO` · `A CAN aparece depois que o bloco do ativo for gravado.` · `Lendo · não saia da tela`
+
+## `12-estado-alimentacao-abaixo-da-faixa`
+
+`M2C-0301` · `sem ativo` · `ENCERRAR` · `Diagnóstico do módulo` · `6` · `de 7` · `O MÓDULO` · `Serial no cadastro` · `VL06 FULL` · `Firmware` · `2.3.5` · `Alimentação` · `dá pra seguir · o checklist registra` · `10,9 V` · `GPS` · `fixo · 9 satélites` · `Entradas digitais` · `ignição ligada` · `Modem` · `na rede` · `SIM` · `ativo` · `A CAN` · `AGUARDANDO A CONFIGURAÇÃO DO ATIVO` · `A CAN aparece depois que o bloco do ativo for gravado.` · `Selecionar ativo` · `Voltar ao menu`

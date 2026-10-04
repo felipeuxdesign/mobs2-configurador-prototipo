@@ -553,16 +553,16 @@ chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência n
   var um = function (lista, id) { return lista.filter(function (x) { return x.id === id; })[0]; };
   var secao = function (id) { return um(CK.secoes, id); };
   var item = function (id) { return um(CK.itens, id); };
-  chk("P·C10 · T13 AC-11: as 6 seções têm o título longo, e B e C dão o rótulo de topo do nível do item ('B · INSTALAÇÃO FÍSICA', 'C · SAÚDE DO HARDWARE')",
-    CK.secoes.length === 6 && CK.secoes.every(function (s) { return !!s.titulo && !!s.rotulo; }) &&
-    ("B · " + secao("B").titulo).toUpperCase() === "B · INSTALAÇÃO FÍSICA" && ("C · " + secao("C").titulo).toUpperCase() === "C · SAÚDE DO HARDWARE",
-    CK.secoes.map(function (s) { return s.id + " " + s.titulo; }).join(" · "));
+  chk("P·C10 · T13 o pacote 10: as 6 seções têm o nome curto, e é ele o rótulo de topo do nível do item ('B · MONTAGEM', 'C · HARDWARE')",
+    CK.secoes.length === 6 && CK.secoes.every(function (s) { return !!s.rotulo && !("titulo" in s); }) &&
+    ("B · " + secao("B").rotulo).toUpperCase() === "B · MONTAGEM" && ("C · " + secao("C").rotulo).toUpperCase() === "C · HARDWARE",
+    CK.secoes.map(function (s) { return s.id + " " + s.rotulo; }).join(" · "));
   var B = CK.itens.filter(function (i) { return i.secao === "B"; });
-  chk("P·C10 · T13 AC-11: o nível do item da T13/07 (título, 'Depois:' e dica) e o da T13/09 (título) saem dos itens",
+  chk("P·C10 · T13 o pacote 10: o nível do item da T13/07 (título, 'Depois:' e a frase da câmera) e o da T13/09 (título, o rótulo) saem dos itens",
     item("b-modulo").pergunta === "Módulo fixado e posicionado" && B[B.indexOf(item("b-modulo")) + 1].pergunta === "Antena GPS posicionada e livre" &&
-    item("b-modulo").instrucao === "Enquadre o módulo e o ponto de fixação" && item("c-alimentacao").pergunta === "Tensão da bateria na faixa");
-  chk("P·C10 · T13 AC-11: só a dica do b-modulo tem texto aprovado — os outros quatro de B ficam sem dica (G25, T13-V6)",
-    B.filter(function (i) { return !!i.instrucao; }).map(function (i) { return i.id; }).join(",") === "b-modulo");
+    item("b-modulo").enquadre === "Enquadre o módulo e o ponto de fixação" && !item("c-alimentacao").pergunta && item("c-alimentacao").rotulo === "Alimentação");
+  chk("P·C10 · T13 o pacote 10: cada foto da Montagem tem a sua frase da câmera (o enquadre), e a dica antiga (instrucao) saiu",
+    B.length === 5 && B.every(function (i) { return /^Enquadre /.test(i.enquadre || "") && !("instrucao" in i); }), B.map(function (i) { return i.id; }).join(","));
   chk("P·C10 · T13 AC-12: a justificativa de exemplo não é vazia, e não é a ressalva de outra instalação",
     typeof CK.exemploJustificativa === "string" && CK.exemploJustificativa.length > 0 &&
     M.instalacoes.every(function (i) { return !i.ressalva || i.ressalva.justificativa !== CK.exemploJustificativa; }));
@@ -579,10 +579,11 @@ chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência n
     pos(bat.faixa.min, 10, 16) === 33.3 && pos(bat.faixa.max, 10, 16) === 83.3 && pos(nBat, 10, 16) === 63.3);
   chk("P·C10 · T13 T13·5: o modem em −110 a −50 dá a faixa de 16,7% a 83,3% e o marcador em 65% (T13/03); o GPS em 0–12 dá 75% (o 56,3% da referência é desvio)",
     pos(L.modemFaixa.min, -110, -50) === 16.7 && pos(L.modemFaixa.max, -110, -50) === 83.3 && pos(L.modemDbm, -110, -50) === 65 && pos(Number(sat.lido), 0, 12) === 75);
-  var iso = M.casos["can-estatico-bateria"], lido = Number(iso.lidos.bateria.split(" ")[0].replace(",", "."));
-  chk("P·C10 · T13 o 09 pelo caso can-estatico-bateria (G21 · o formato antigo do can-estatico-isolado, acréscimo nomeado até o pacote 2): a bateria do a-02 abaixo do mínimo, '1,1 V abaixo', o marcador a 15% de 10–16, e ela é o 1º item de C",
+  var iso = M.casos["can-estatico-bateria"], lido = Number(iso.alimentacao.split(" ")[0].replace(",", "."));
+  chk("P·C10 · T13 o 09 e o 16, e a T07/12, pelo caso can-estatico-bateria (o pacote 10): a alimentação do M2C-0301, o módulo do a-02, abaixo do mínimo, '1,1 V abaixo', o marcador a 15% de 10–16, e ela é o 1º item de C",
+    um(M.ativos, iso.ativoId).moduloSerial === iso.moduloSerial && !("bateria" in (iso.lidos || {})) &&
     lido < bat.faixa.min && (bat.faixa.min - lido).toFixed(1) === "1.1" && pos(lido, 10, 16) === 15 &&
-    CK.itens.filter(function (i) { return i.secao === "C"; })[0].id === "c-alimentacao", iso.ativoId + " · " + iso.lidos.bateria);
+    CK.itens.filter(function (i) { return i.secao === "C"; })[0].id === "c-alimentacao", iso.ativoId + " · " + iso.moduloSerial + " · " + iso.alimentacao);
   var pf = M.casos["pronto-para-fechar"], a09 = um(M.ativos, pf.ativoId);
   chk("P·C10 · T13 o 10 pelo caso pronto-para-fechar (G21): o par é o do cadastro (KNB-5H39 × M2C-0371), e o servidor não respondeu",
     !!a09 && a09.moduloSerial === pf.moduloSerial && pf.recebimento === "sem resposta", a09 && a09.placa + " × " + pf.moduloSerial);

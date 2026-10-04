@@ -1,6 +1,6 @@
 {
   "telas": 15,
-  "referencias": 154,
+  "referencias": 160,
   "itens": [
     {
       "id": "T01/00-tela",
@@ -1113,6 +1113,22 @@
       "png": "02-telas/T07-diagnostico-do-modulo/referencias/png/11-momento-lendo.png"
     },
     {
+      "id": "T07/12-estado-alimentacao-abaixo-da-faixa",
+      "tela": "T07",
+      "pasta": "T07-diagnostico-do-modulo",
+      "tipo": "estado",
+      "nome": "12-estado-alimentacao-abaixo-da-faixa",
+      "titulo": "T07 · alimentacao abaixo da faixa",
+      "como": "a alimentação do módulo abaixo da faixa — só informa, como o modem",
+      "caso": "can-estatico-bateria",
+      "html": "02-telas/T07-diagnostico-do-modulo/referencias/html/12-estado-alimentacao-abaixo-da-faixa.html",
+      "png": "02-telas/T07-diagnostico-do-modulo/referencias/png/12-estado-alimentacao-abaixo-da-faixa.png",
+      "coluna": true,
+      "rotulo": "Alimentação abaixo da faixa",
+      "rotuloOrigem": "proposto",
+      "grupo": "modulo"
+    },
+    {
       "id": "T09/00-tela",
       "tela": "T09",
       "pasta": "T09-configurar-modulo",
@@ -1765,6 +1781,69 @@
       "caso": "",
       "html": "02-telas/T13-checklist/referencias/html/15-momento-problema-fotografado.html",
       "png": "02-telas/T13-checklist/referencias/png/15-momento-problema-fotografado.png"
+    },
+    {
+      "id": "T13/16-estado-secao-c-com-item-reprovado",
+      "tela": "T13",
+      "pasta": "T13-checklist",
+      "tipo": "estado",
+      "nome": "16-estado-secao-c-com-item-reprovado",
+      "titulo": "T13 · secao c com item reprovado",
+      "como": "um item automático reprova: o xis, a leitura e a seta pro detalhe (a 09)",
+      "caso": "can-estatico-bateria",
+      "html": "02-telas/T13-checklist/referencias/html/16-estado-secao-c-com-item-reprovado.html",
+      "png": "02-telas/T13-checklist/referencias/png/16-estado-secao-c-com-item-reprovado.png",
+      "coluna": true,
+      "rotulo": "Seção C com item reprovado",
+      "rotuloOrigem": "proposto"
+    },
+    {
+      "id": "T13/17-momento-foto-da-antena",
+      "tela": "T13",
+      "pasta": "T13-checklist",
+      "tipo": "momento",
+      "nome": "17-momento-foto-da-antena",
+      "titulo": "T13 · foto da antena",
+      "como": "o 2º item da Montagem · a frase da câmera vem do mock",
+      "caso": "",
+      "html": "02-telas/T13-checklist/referencias/html/17-momento-foto-da-antena.html",
+      "png": "02-telas/T13-checklist/referencias/png/17-momento-foto-da-antena.png"
+    },
+    {
+      "id": "T13/18-momento-foto-do-chicote",
+      "tela": "T13",
+      "pasta": "T13-checklist",
+      "tipo": "momento",
+      "nome": "18-momento-foto-do-chicote",
+      "titulo": "T13 · foto do chicote",
+      "como": "o 3º item da Montagem",
+      "caso": "",
+      "html": "02-telas/T13-checklist/referencias/html/18-momento-foto-do-chicote.html",
+      "png": "02-telas/T13-checklist/referencias/png/18-momento-foto-do-chicote.png"
+    },
+    {
+      "id": "T13/19-momento-foto-do-leitor",
+      "tela": "T13",
+      "pasta": "T13-checklist",
+      "tipo": "momento",
+      "nome": "19-momento-foto-do-leitor",
+      "titulo": "T13 · foto do leitor",
+      "como": "o 4º item da Montagem · só com leitor",
+      "caso": "",
+      "html": "02-telas/T13-checklist/referencias/html/19-momento-foto-do-leitor.html",
+      "png": "02-telas/T13-checklist/referencias/png/19-momento-foto-do-leitor.png"
+    },
+    {
+      "id": "T13/20-momento-foto-do-painel",
+      "tela": "T13",
+      "pasta": "T13-checklist",
+      "tipo": "momento",
+      "nome": "20-momento-foto-do-painel",
+      "titulo": "T13 · foto do painel",
+      "como": "o 5º item da Montagem · só quando houve calibração",
+      "caso": "",
+      "html": "02-telas/T13-checklist/referencias/html/20-momento-foto-do-painel.html",
+      "png": "02-telas/T13-checklist/referencias/png/20-momento-foto-do-painel.png"
     },
     {
       "id": "T14/00-tela",
