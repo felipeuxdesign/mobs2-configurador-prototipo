@@ -37,3 +37,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `08-momento-vez-do-cartao`
 
 `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Ciclo de testes` · `4` · `de 6 passos` · `O EVENTO CHEGOU EM` · `FILA DRENADA` · `0:24` · `disparado 14:30` · `limite 2:00` · `EVENTO DE TESTE` · `disparado pelo app` · `14:30` · `recebido no servidor` · `14:30:24` · `campos conferidos` · `6 de 6` · `Ignição ligada` · `Rotação` · `Ré acionada` · `Porta aberta` · `Cartão do motorista` · `passe o cartão` · `Ignição desligada` · `Encerrar o ciclo` · `Ir para o checklist`
+
+## `09-estado-segunda-falha-do-evento`
+
+`M2C-0335` · `KHT-4B08` · `ENCERRAR` · `Ciclo de testes` · `6` · `de 6 passos` · `PRAZO DO EVENTO` · `FILA DRENADA` · `0:00` · `0:00` · `limite 2:00` · `A Seção F reprova · os passos continuam valendo.` · `Segunda vez sem chegar: confira a conexão do módulo.` · `EVENTO DE TESTE` · `disparado pelo app` · `14:30` · `recebido no servidor` · `não chegou` · `campos conferidos` · `Ignição ligada` · `Rotação` · `Ré acionada` · `Porta aberta` · `Cartão do motorista` · `Ignição desligada` · `Disparar outro evento` · `Ir para o checklist`

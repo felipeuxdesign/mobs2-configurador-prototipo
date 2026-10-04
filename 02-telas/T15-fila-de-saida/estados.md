@@ -9,6 +9,7 @@
 | `02-estado-dois-erros` | estado | dois itens recusados | `filaSaida` |
 | `03-estado-fila-vazia` | estado | nada esperando envio | `filaSaida` |
 | `04-estado-secao-f-em-re-checagem` | estado | a Seção F esperando o servidor | `secaoF · RVM-1E54` |
+| `05-estado-correcao-na-fila` | estado | o pedido de correção sobe pela fila, como as evidências · *padrão até o PM decidir* | `identificador-divergente` |
 
 - no protótipo · a nossa versão da linha *04-estado-secao-f-em-re-checagem*, antes desta entrega: | `04-estado-secao-f-em-re-checagem` | estado | a Seção F esperando o servidor | `secaoF · RVM-1E54`, sobre a fila vazia do `03` · a janela `criteriosRegra.recheckHoras` |
 

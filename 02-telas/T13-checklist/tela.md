@@ -8,10 +8,11 @@ Fechar a homologação: o que o app já provou sozinho, e o que o técnico ainda
 | **Chrome** | faixa de sessão |
 | **Semente no protótipo** | sessão M2C-0417 + RKT-8H42 · 31 itens |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 16 · 4 — ver `estados.md` |
+| **Momentos · estados** | 16 · 12 — ver `estados.md` |
 
 ## O que se toca
 
+- **no protótipo · o pacote 12** (padrão até o PM decidir): as outras três falhas da C montam pelo caso do estado (`gps-fraco`, `entrada-ignicao`, `modem-sem-sinal`) e só pela coluna — o herói, no fluxo, passa · o GPS usa a régua com o mínimo do caso; as entradas e o modem dizem o valor, sem régua (a variante só com o texto do instrumento, `pecas.jsx`) · o cartão com a correção pedida é a linha de leitura com as linhas do porquê (`ItemDoChecklist` · `linhas`), e conta no *Faltam* sem segurar o `Finalizar`, que abre *A Seção E não passou* · **os números do PCX-9A17** saem do mock: sem o painel do a-03, não houve calibração — *20 de 30*, a B com 4, a D em 8 de 10, *Faltam 7 itens* (a referência estimou 22 de 31) · **o 27 rola até onde dá**: a referência desenha a D no topo, com o vazio embaixo da F, e a lista acaba antes — a F fica no fundo, e a peça da rolagem aparece, como em toda lista rolada
 - **os nomes das seções são curtos**, pra caber no cartão · cada um é uma seção dos requisitos: *A · Identificação* (Identificação) · *B · Montagem* (Instalação física) · *C · Hardware* (Saúde do hardware) · *D · Configuração* (Configuração embarcada) · *E · Ciclo de testes* (Teste dinâmico) · *F · Servidor* (Recebimento no servidor) · o nome curto vale em toda tela, inclusive na de item
 - **item automático reprovado ganha a seta** e abre o detalhe (a 09): **a tela que ajuda a consertar** — a leitura com a régua da faixa, e o bloco *O que conferir* com três causas, o mesmo da conexão que falha na T05 · depois, o `Refazer o diagnóstico` · passou, é leitura, sem seta (a 16)
 - **a barrinha segmentada só onde se percorre**: nas fotos da Montagem, o técnico vai do 1 ao 5; no detalhe de um item automático, não tem o que percorrer, e a tela diz só a seção, *C · HARDWARE*

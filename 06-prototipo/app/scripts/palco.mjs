@@ -93,7 +93,10 @@ const notaDe = (nome, nomePeca) => NOTAS[`${nome}/${nomePeca}`] ?? NOTAS[nomePec
 const DEPOIS_DE = 'a coluna põe o Atualizando o firmware logo depois do Firmware não homologado (o depoisDe do complemento do pacote 6), como a cena 02 desenha; este quadro ainda não'
 // o pacote 10 pôs a T07/12 na coluna da T07 (o estado novo), e nenhuma cena do palco a desenha ainda
 const ALIMENTACAO = 'a coluna da T07 tem a Alimentação abaixo da faixa, o estado novo do pacote 10, no grupo O MÓDULO; nenhuma cena do palco a desenha ainda'
+// o pacote 12 pôs a T04/16, a fila parada, na coluna da T04, e o quadro 01 ainda não a desenha
+const FILA_PARADA = 'a coluna da T04 tem a Fila parada, o estado novo do pacote 12; o quadro 01 desenha a coluna sem ela'
 const NOTAS_TEXTO = {
+  '01-no-fluxo/coluna': FILA_PARADA,
   '02-num-estado/coluna': ALIMENTACAO,
   '03-tela-com-muitos-estados/coluna': DEPOIS_DE + '; e ' + ALIMENTACAO,
   '04-painel-aberto/coluna': NOTAS['04-painel-aberto/coluna'].split('; e ')[0] + '; e ' + DEPOIS_DE + '; e ' + ALIMENTACAO,

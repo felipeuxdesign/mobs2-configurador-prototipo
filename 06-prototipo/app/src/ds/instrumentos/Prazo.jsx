@@ -11,7 +11,8 @@ import './Prazo.css'
 // C10 · T14 (G11), duas propriedades nomeadas; sem elas, o prazo é o de sempre:
 // · `falha` — o prazo estourou (T14/02): o número em vermelho. Sem o que resta,
 //   a escala fica sem o preenchido, com o marcador no zero.
-// · `detalhe` como lista — as frases do que o estado quer dizer, uma por linha,
+// · `detalhe` como lista — as frases do que o estado quer dizer, uma por linha
+//   (uma frase { texto, tom: 'falha' } sai em --vermelho, a segunda falha do evento, T14/09 · o pacote 12),
 //   na entrelinha da legenda ('A Seção F reprova.' e 'Os cinco passos…', T14/02).
 // O movimento (C12·40): com `segue` (o tique do prazo, em ms), a barra drena
 // contínua — cada tique é um trecho linear da Escala, só por transform; o
@@ -39,7 +40,9 @@ export function Prazo({ rotulo, nota, tempo, restante, limite, legendas, detalhe
       <Escala tam="prazo" min={0} max={limite} valor={marcador ?? restante} faixa={restante > 0 ? { de: 0, ate: restante } : null} divisoes={4} fortes={[limite / 2]} segue={segue} />
       <div className="ds-inst-legendas"><span>{legendas.inicio}</span><span>{legendas.fim}</span></div>
       {detalhe != null && (Array.isArray(detalhe)
-        ? <span className="ds-prazo-detalhe ds-prazo-frases">{detalhe.map((f) => <span key={f}>{f}</span>)}</span>
+        ? <span className="ds-prazo-detalhe ds-prazo-frases">{detalhe.map((f) => (typeof f === 'string'
+          ? <span key={f}>{f}</span>
+          : <span key={f.texto} className={f.tom === 'falha' ? 'ds-prazo-frase-falha' : undefined}>{f.texto}</span>))}</span>
         : <span className="ds-prazo-detalhe">{detalhe}</span>)}
       {fila && (
         <div className="ds-prazo-fila" aria-hidden="true">

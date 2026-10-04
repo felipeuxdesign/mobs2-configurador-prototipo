@@ -11,6 +11,7 @@ import { T } from './textos.js'
 export const REF = {
   antes: '01-momento-antes-do-disparo',
   estourado: '02-estado-prazo-estourado',
+  segundaFalha: '09-estado-segunda-falha-do-evento',   // o pacote 12: o evento que não chega nas duas tentativas
   fora: '03-estado-dinamico-fora-do-esperado',
   identificador: '04-estado-identificador-divergente',
   concluido: '05-momento-ciclo-concluido',
@@ -20,6 +21,9 @@ export const REF = {
   vezDoCartao: '08-momento-vez-do-cartao',
 }
 export const CASO_SEM_RESPOSTA = 'evento-sem-resposta'
+// o pacote 12 (T14/09): o mesmo par, e a 2ª tentativa também estoura (`tentativasQueEstouram`)
+// · padrão até o PM decidir · só pela coluna: no fluxo, o par segue o evento-sem-resposta
+export const CASO_DE_NOVO = 'evento-nao-chega-de-novo'
 // o pacote 2 (decisão 54): o 03 é a rotação zerada, o motor desligado com a
 // ignição ligada — o can-fora-esperado (a velocidade em 0) saiu da T14: com o
 // ônibus parado, a velocidade só entra com tacógrafo digital, e o a-02 não tem

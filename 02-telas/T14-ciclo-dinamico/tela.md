@@ -8,10 +8,11 @@ Com a ignição ligada e o ônibus parado, deixar o app provar o que o módulo l
 | **Chrome** | faixa de sessão |
 | **Semente no protótipo** | sessão M2C-0417 + RKT-8H42 · fila com 6 mensagens e 2 de diagnóstico |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 5 · 3 — ver `estados.md` |
+| **Momentos · estados** | 5 · 4 — ver `estados.md` |
 
 ## O que se toca
 
+- **no protótipo · o pacote 12:** a 09 monta pelo `evento-nao-chega-de-novo`, só pela coluna, com a 2ª tentativa estourada; a frase da segunda falha é a linha em falha do `Prazo` (`detalhe` com `tom: 'falha'`) · o `Solicitar correção de cadastro` põe o pedido na fila de saída (`estado/fila.js` · `itemDeCorrecao`)
 - `Disparar evento de teste` desliga o primário, que diz *Aguardando o evento* · **o `Encerrar o ciclo` só acende quando o evento chega ou o prazo estoura** — o toque duplo não encerra o ciclo
 - **seis passos, com o ônibus parado** (decisão 54): ignição ligada, rotação, ré, porta, cartão do motorista e ignição desligada · a velocidade só entra com tacógrafo digital — o herói não tem
 - a fila do módulo drena → `Disparar evento de teste` acende

@@ -8,12 +8,13 @@ O painel das ferramentas: o que está pronto pra usar, o que espera o quê.
 | **Chrome** | tira de contexto (unidade) + faixa de sessão quando há sessão |
 | **Semente no protótipo** | sessão M2C-0417 + RKT-8H42 · fila com 2 itens |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 8 · 7 — ver `estados.md` |
+| **Momentos · estados** | 8 · 8 — ver `estados.md` |
 
 - no protótipo · a nossa versão da linha *Chrome*, antes desta entrega: | **Chrome** | tira de contexto (unidade) + faixa de sessão · sem sessão, a faixa diz só o fato (01) |
 
 ## O que se toca
 
+- **no protótipo · o pacote 12:** a 16 é o diálogo da fila parada, no lugar do aviso do acesso (`avisoDaFila`, o número por extenso), só pela coluna · a saída de 44 fica a 8 do primário (decisão 38, como a T04/06); a referência a desenha a 6
 - o título *Menu* existe escondido em todas as telas do menu, pra leitura de tela
   - no protótipo (a última entrega): o h1 *Menu* escondido não fica mais inerte atrás do véu — existe pro leitor com a folha ou o diálogo por cima ou não. Ele não se toca, e o que é tocável atrás do véu continua inerte. As referências das folhas (`05`, `07`, `08`, `10`, `11`, `14`) e os `textos.md` delas ainda não trazem o *Menu*, e a régua dos textos acusa *sobra* nas seis: desvio nomeado, pro arquiteto (a resposta de 26/09 diz que ele vale em todas); nos diálogos (`06`, `09`), que já o traziam, a régua agora confere
   - no protótipo · a régua dos textos na 12 e na 13 (a auditoria do C13, 27/09): o `textos.md` do aviso do acesso (a 12) e do *Encerrar sem homologar?* (a 13) lista também o menu atrás do diálogo — da *GARAGEM VÁRZEA* ao *Fila de saída* —, e a régua dos textos não lê o que fica atrás do véu, porque está inerte (G25). Ela acusa *falta* nesses dezenove, e só neles: o diálogo confere, e o quadro inteiro está a 0,34% e 0,32% do HTML, só os glifos do Lucide (G5) e o cartão Últimas instalações liberado (G9) no menu de trás. Com o pacote 1 (construído, 02/10), o menu de trás perde o *Refazer leitura* e o *sem conexão*, e os dezenove viram dezessete; e o Últimas instalações ligado, que a decisão 48 desenha, deixa de ser diferença: o quadro inteiro está a 0,04% e 0,03% do HTML novo, só os glifos do Lucide (G5). Nos outros dois diálogos (a 06 e a 09), o véu deixa a tira de cima acesa, e o `textos.md` deles traz só a tira, o *Menu* e o diálogo: conferem. Desvio nomeado da régua, não do app; pro arquiteto: os três `textos.md` no mesmo jeito (a 12, a 13 e a T01/18)

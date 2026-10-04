@@ -48,9 +48,10 @@ import { useEncerrar } from '../../estado/encerrar.jsx'
 import { EM_QUADRO } from '../../estado/quadro.js'
 import { RITMOS } from '../../estado/ritmos.js'
 import { M } from '../../dados/mock.js'
+import { itemDeCorrecao } from '../../estado/fila.js'
 import { minSeg } from '../../dados/formato.js'
 import {
-  REF, CASO_SEM_RESPOSTA, CASO_MOTOR, CASO_IDENTIFICADOR, PRAZO, EVENTO, TIQUE_MS, QUADRO_00, quadro05,
+  REF, CASO_SEM_RESPOSTA, CASO_DE_NOVO, CASO_MOTOR, CASO_IDENTIFICADOR, PRAZO, EVENTO, TIQUE_MS, QUADRO_00, quadro05,
   tiqueDoPasso, horaDoRecebido, ativoDe, parDaSessao, parDoCaso, casosDoPar, filaDoModulo, veredito, causaDo,
   passosDo, passosNaEntrada, passosFeitos, passosDoRegistro, passosAte, tiqueDe, CHAVE, passoDaVez, FILA_NO_QUADRO_01,
 } from './ciclo.js'
@@ -62,7 +63,7 @@ import './t14.css'
 // 'drenada' (o disparo acende) · 'correndo' (o prazo drena) · 'estourado' (o
 // prazo acabou sem o evento) · 'concluido'. tique: os segundos de prazo desde o disparo.
 function inicio(momento, est, unico) {
-  const doCaso = { [REF.estourado]: CASO_SEM_RESPOSTA, [REF.fora]: CASO_MOTOR, [REF.identificador]: CASO_IDENTIFICADOR }[est]
+  const doCaso = { [REF.estourado]: CASO_SEM_RESPOSTA, [REF.segundaFalha]: CASO_DE_NOVO, [REF.fora]: CASO_MOTOR, [REF.identificador]: CASO_IDENTIFICADOR }[est]
     ?? (momento === REF.corrigida || est === REF.corrigida ? CASO_IDENTIFICADOR : null)
   const par = doCaso ? parDoCaso(doCaso) : parDaSessao(unico.sessao)
   // num estado da coluna, o caso vale sempre (a receita); no fluxo, uma vez por sessão
@@ -71,6 +72,11 @@ function inicio(momento, est, unico) {
   const lista = passosDo(par)
   const base = { par, casos, lista, tentativa: 1, correcao: false }
   if (est === REF.estourado) return { ...base, fase: 'estourado', tique: PRAZO, passos: passosFeitos(lista, casos) }
+  // a 09 (o pacote 12): a 2ª tentativa também estourou — as que estouram vêm do caso
+  if (est === REF.segundaFalha) {
+    const estouram = M.casos[CASO_DE_NOVO].tentativasQueEstouram
+    return { ...base, casos: { ...casos, estouram }, tentativa: estouram, fase: 'estourado', tique: PRAZO, passos: passosFeitos(lista, casos) }
+  }
   // o pacote 6: o identificador (04, 06) para na vez da ignição — a ré e a porta feitas, o
   // cartão reprovado na vez dele; os outros estados, no quadro da 00
   // a 06 também abre pela coluna, parada, logo depois da 04 (o complemento do pacote 6: `depoisDe`)
@@ -102,7 +108,7 @@ function inicio(momento, est, unico) {
 }
 
 // o evento desta tentativa não vai chegar (o caso evento-sem-resposta, 1ª tentativa)
-const semResposta = (f) => f.casos.semResposta && f.tentativa === 1
+const semResposta = (f) => (f.casos.semResposta && f.tentativa === 1) || f.tentativa <= (f.casos.estouram ?? 0)
 const recebido = (f) => !semResposta(f) && (f.fase === 'concluido' || (f.fase === 'correndo' && f.tique > EVENTO.recebidoAosSeg))
 const conferido = (f) => !semResposta(f) && (f.fase === 'concluido' || (f.fase === 'correndo' && f.tique > EVENTO.conferidoAosSeg))
 // o quadro chegou ao fim do que acontece sozinho: o evento conferido e nenhum passo por fazer
@@ -200,8 +206,12 @@ export default function T14({ momento, estado: est }) {
   const dispararOutro = () => setFluxo((f) => ({ ...f, fase: 'correndo', tique: 0, tentativa: f.tentativa + 1 }))
   const encerrarCiclo = () => sair('T13', true)   // fecha a captura: os pendentes ficam pendentes na Seção E (T14·2)
   const irAoChecklist = () => sair('T13', false)  // sai com o ciclo aberto (T14·2)
+  // o pedido sobe pela fila de saída, como as evidências (o pacote 12, T15/05); num estado da coluna, nada se grava
   const solicitarCorrecao = () => {
     setFluxo((f) => ({ ...f, correcao: true }))
+    const u = vivo.current.unico
+    const item = itemDeCorrecao(fluxo.par.ativoId, M.HORA_NOMINAL)
+    if (est == null && !(u.fila ?? []).some((x) => x.id === item.id)) despachar({ tipo: 'mesclar', parcial: { fila: [...(u.fila ?? []), item] } })
     ir('T14', { momento: REF.corrigida })
   }
   // o ENCERRAR (decisão 36, src/estado/encerrar.jsx): antes de homologar, o diálogo
@@ -209,7 +219,7 @@ export default function T14({ momento, estado: est }) {
   const enc = useEncerrar()
 
   // ── o quadro ──
-  const { par, casos, fase, tique, passos, correcao } = fluxo
+  const { par, casos, fase, tique, passos, correcao, tentativa } = fluxo
   // O desenho de cada fase (C12·4, G26 · T14 01 → 00): o antes do disparo (a fila saindo do
   // módulo, com a frase dela no prazo e a espera no rodapé), o prazo (a fila drenada, o disparo
   // e o prazo correndo), o prazo estourado (a frase da Seção F e o disparar outro) e o ciclo
@@ -241,7 +251,7 @@ export default function T14({ momento, estado: est }) {
       /* o pacote 9: com o evento chegado, o preenchido para na chegada e o marcador branco segue o tempo */
       marcador={chegou ? Math.max(0, PRAZO - tique) : undefined}
       legendas={{ inicio: chegou ? T.disparadoAs(M.HORA_NOMINAL) : minSeg(0), fim: T.limite(PRAZO) }}
-      detalhe={fase === 'drenando' ? T.filaSaindo(filaDoModulo(par.moduloSerial)) : estourado ? [T.secaoF] : null}
+      detalhe={fase === 'drenando' ? T.filaSaindo(filaDoModulo(par.moduloSerial)) : estourado ? [T.secaoF, ...(tentativa > 1 ? [{ texto: T.segundaVez, tom: 'falha' }] : [])] : null}
       falha={estourado}
       fila={fase === 'drenando' ? (EM_QUADRO ? { resta: FILA_NO_QUADRO_01 } : { resta: 1, ms: RITMOS.filaDrenagemMs }) : undefined}
     />

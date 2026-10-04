@@ -47,7 +47,7 @@
 //   caixa do não conforme desliza pro lugar novo e o registro do problema esmaece
 //   no lugar do visor (C12·47, C12·42); o texto do primário troca no lugar
 //   (C12·23); o diálogo da Seção F nasce e some com o véu. Nada anima ao abrir.
-import { Fragment, useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import {
   BarraDoSistema, Faixa, CabecalhoConteudo, BarraDoChecklist, SecoesDoChecklist, SecaoDoChecklist, ItemDoChecklist, VereditoDoChecklist,
   Segmentado, Justificativa, OQueConferir, Rodape, Veu, Dialogo, Frase, VisorCamera, FotoProva,
@@ -61,7 +61,7 @@ import { RECEITAS } from '../../estado/receitas.js'
 import { SEMENTES } from '../../estado/sementes.js'
 import { M } from '../../dados/mock.js'
 import {
-  REF, SECAO_DO_MOMENTO, MOMENTO_DA_FOTO, FOTO_DO_MOMENTO, mundoDe, checklist, nivelDoItem, primeiroPendente, proximoPendente, momentoDaSecao,
+  REF, SECOES, SECAO_DO_MOMENTO, MOMENTO_DA_FOTO, FOTO_DO_MOMENTO, LISTAS_DA_C, DETALHES_DA_C, mundoDe, checklist, nivelDoItem, primeiroPendente, proximoPendente, momentoDaSecao,
   instrumentoDoItem, filaDoFinalizar, nomeDaSecao, rotuloDoNivel, itemDe, ativoDe, registroDoQuadro, cicloConcluido,
 } from './checklist.js'
 import { InstrumentoDoItem } from './pecas.jsx'
@@ -73,7 +73,7 @@ const HORA = M.HORA_NOMINAL
 const NOME_DA_SECAO = { aprovada: 'aprovado', pendente: 'ainda não', aguarda: 'ainda não', reprovada: 'falha' }
 const NOME_DO_ITEM = { ok: 'aprovado', ressalva: 'aprovado', nsa: 'não se aplica', pendente: 'ainda não', aguarda: 'ainda não', reprovado: 'falha' }
 // o que conferir no nível do item reprovado, por item (textos.md · 09, o pacote 11)
-const CONFERIR_DO_REPROVADO = { 'c-alimentacao': T.conferirAlimentacao }
+const CONFERIR_DO_REPROVADO = { 'c-alimentacao': T.conferirAlimentacao, 'c-gps': T.conferirGps, 'c-entradas': T.conferirEntradas, 'c-modem': T.conferirModem }
 
 // Homologado ⇒ o relatório está na fila (o Finalizar o gerou): a Seção F desta
 // sessão lê dele (G22). O mundo com o registro da tela e esse relatório.
@@ -95,10 +95,13 @@ function comQuadro(base, momento) {
 // da foto do problema (decisão 39)
 function quadroInicial({ momento, est, ck }) {
   // deFeitos: quantos estavam feitos quando o nível do item abriu (a barra parte dali na volta, C12·36)
-  const q = { aberta: null, item: null, naoConforme: false, texto: '', fotoProblema: null, dialogo: false, ciente: false, deFeitos: null }
-  if (est === REF.reprovado) return { ...q, item: ck.porSecao.C.find((c) => c.estado === 'reprovado')?.id ?? null }
-  if (est === REF.secaoCReprovada) return { ...q, aberta: 'C' }
+  // dialogoDe: qual seção não passou, a F (10) ou a E com a correção pedida (28, o pacote 12)
+  const q = { aberta: null, item: null, naoConforme: false, texto: '', fotoProblema: null, dialogo: false, dialogoDe: 'F', ciente: false, deFeitos: null }
+  if (DETALHES_DA_C.includes(est)) return { ...q, item: ck.porSecao.C.find((c) => c.estado === 'reprovado')?.id ?? null }
+  if (LISTAS_DA_C.includes(est)) return { ...q, aberta: 'C' }
+  if (est === REF.secaoECorrecao) return { ...q, aberta: 'E' }
   if (est === REF.secaoF) return { ...q, dialogo: true }
+  if (est === REF.finalizarComE) return { ...q, dialogo: true, dialogoDe: 'E' }
   if (SECAO_DO_MOMENTO[momento]) return { ...q, aberta: SECAO_DO_MOMENTO[momento] }
   if (momento === REF.responder) return { ...q, item: primeiroPendente(ck) }
   if (FOTO_DO_MOMENTO[momento]) return { ...q, item: FOTO_DO_MOMENTO[momento] }
@@ -140,6 +143,13 @@ export default function T13({ momento, estado: est }) {
   }
   // abrir o checklist uma vez já conta pro menu (T04·2); o 11, o 12 e o 13 pela URL gravam o que os toques gravariam
   useEffect(() => { gravar(registro) }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  // o 27 (o pacote 12): o quadro mostra a lista já rolada, a D no topo do miolo e a E aberta embaixo
+  useLayoutEffect(() => {
+    if (est !== REF.secaoECorrecao) return
+    const miolo = document.querySelector('.t13 .tela-miolo')
+    const d = miolo?.querySelectorAll('.ds-secao-ck')[SECOES.findIndex((x) => x.id === 'D')]
+    if (d) miolo.scrollTop += d.getBoundingClientRect().top - miolo.getBoundingClientRect().top
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
   // a volta ao checklist homologado reabre no quadro dele: a URL segue (G20)
   useEffect(() => {
     if (!est && homologada && !momento) despachar({ tipo: 'ir', tela: 'T13', momento: REF.homologado })
@@ -214,7 +224,18 @@ export default function T13({ momento, estado: est }) {
     setQ({ ...q, dialogo: false, aberta: null, item: null, deFeitos: null })
     irQuadro(REF.homologado)
   }
-  const finalizar = () => (ck.falhandoF ? setQ({ ...q, dialogo: true, ciente: false }) : homologar(null))
+  // a E falhando com a correção pedida pede a ciência primeiro; depois, a F (o pacote 12)
+  const finalizar = () => (ck.falhandoE ? setQ({ ...q, dialogo: true, dialogoDe: 'E', ciente: false })
+    : ck.falhandoF ? setQ({ ...q, dialogo: true, dialogoDe: 'F', ciente: false }) : homologar(null))
+  // com a E falhando, a instalação fica registrada, sem homologar (o que o PM decide · o
+  // pacote 12): o registro guarda a ciência, e o técnico volta ao menu — nenhuma referência
+  // desenha o depois (G25)
+  function registrarComFalha(ciencia) {
+    const novo = { ...registro, registradaComFalha: 'E', ciencia }
+    setRegistro(novo)
+    gravar(novo)
+    ir('T04')
+  }
   // o diálogo sai como estava (a ciência marcada continua desenhada até sumir); o Finalizar abre sem ela
   const cancelar = () => setQ({ ...q, dialogo: false })
 
@@ -253,7 +274,7 @@ export default function T13({ momento, estado: est }) {
         return <ItemDoChecklist key="acao" tipo="tocar" icone={c.icone} nome={c.nome} legenda={c.legenda} divisoria={divisoria} aoTocar={() => ir(c.destino.tela)} />
       }
       return (
-        <ItemDoChecklist key={c.id} tipo={c.tipo} estado={c.estado} icone={c.icone} nome={c.nome} valor={c.valor} legenda={c.legenda} apagado={!!c.apagado}
+        <ItemDoChecklist key={c.id} tipo={c.tipo} estado={c.estado} icone={c.icone} nome={c.nome} valor={c.valor} legenda={c.legenda} linhas={c.linhas} apagado={!!c.apagado}
           divisoria={divisoria} nomeGlifo={NOME_DO_ITEM[c.estado]} aoTocar={c.tipo === 'tocar' || c.destino ? () => tocarItem(c) : undefined} />
       )
     })
@@ -344,7 +365,7 @@ export default function T13({ momento, estado: est }) {
       ? <Rodape primario={T.encerrarSessao} aoPrimario={() => ir('T16')} primarioTrocaTexto link={T.voltarMenu} aoLink={voltarAoMenu} />
       : (
         // 'Faltam N itens' explica o primário apagado; com 1, no singular (Falta 1 item, proposta)
-        <Rodape legenda={ck.faltam > 0 ? T.faltam(ck.faltam) : undefined} legendaJunta primario={T.finalizar} primarioDesabilitado={ck.faltam > 0}
+        <Rodape legenda={ck.faltam > 0 ? T.faltam(ck.faltam) : undefined} legendaJunta primario={T.finalizar} primarioDesabilitado={ck.bloqueiam > 0}
           primarioTrocaTexto aoPrimario={finalizar} link={T.voltarMenu} aoLink={voltarAoMenu} />
       )
   }
@@ -366,10 +387,11 @@ export default function T13({ momento, estado: est }) {
         {dialogo.montado && (
           <div className="t13-sobre">
             <Veu de="dialogo" visivel={dialogo.visivel}>
-              <Dialogo titulo={T.secaoFNaoPassou} primario={T.finalizar} aoPrimario={() => homologar({ nome: unico.tecnico.nome, as: HORA })}
+              <Dialogo titulo={q.dialogoDe === 'E' ? T.secaoENaoPassou : T.secaoFNaoPassou} primario={T.finalizar}
+                aoPrimario={() => (q.dialogoDe === 'E' ? registrarComFalha : homologar)({ nome: unico.tecnico.nome, as: HORA })}
                 saida={T.cancelar} aoSair={cancelar} ciencia={T.ciente(unico.tecnico.nome, HORA)} ciente={q.ciente}
                 aoMudarCiencia={(ciente) => setQ((x) => ({ ...x, ciente }))} margem={16} aberto={dialogo.visivel}>
-                <Frase>{T.registradaFalhando}</Frase>
+                <Frase>{q.dialogoDe === 'E' ? T.cartaoRegistrado : T.registradaFalhando}</Frase>
               </Dialogo>
             </Veu>
           </div>

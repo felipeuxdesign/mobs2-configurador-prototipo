@@ -85,3 +85,35 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `20-momento-foto-do-painel`
 
 `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `B · MONTAGEM` · `5` · `de 5` · `Painel com hodômetro e horímetro legíveis` · `Enquadre o painel, com os números legíveis` · `Não está conforme` · `marque e conte o que aconteceu` · `Tirar foto` · `Voltar ao checklist`
+
+## `21-estado-secao-c-com-gps-reprovado`
+
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `16` · `de 31` · `A · Identificação` · `o app confere sozinho` · `3` · `de 3` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `3` · `de 4` · `Alimentação` · `13,8 V` · `GPS e antena` · `4 satélites` · `Entradas digitais` · `conforme` · `Modem e sinal` · `sinal bom` · `D · Configuração` · `o app confere sozinho` · `10` · `de 10` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 6` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 3` · `Faltam 12 itens` · `Finalizar instalação` · `Voltar ao menu`
+
+## `22-estado-gps-reprovado`
+
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `C · HARDWARE` · `GPS e antena` · `LIDO NO MÓDULO` · `4` · `satélites` · `0` · `6 ou mais` · `12` · `2 abaixo do mínimo` · `O QUE CONFERIR` · `1 · Antena GPS` · `— conectada e firme` · `2 · Céu aberto` · `— sem teto nem metal por cima` · `3 · Cabo da antena` · `— sem dobra nem corte` · `Refazer o diagnóstico` · `Voltar ao checklist`
+
+## `23-estado-secao-c-com-entradas-reprovadas`
+
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `16` · `de 31` · `A · Identificação` · `o app confere sozinho` · `3` · `de 3` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `3` · `de 4` · `Alimentação` · `13,8 V` · `GPS e antena` · `9 satélites` · `Entradas digitais` · `ignição desligada` · `Modem e sinal` · `sinal bom` · `D · Configuração` · `o app confere sozinho` · `10` · `de 10` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 6` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 3` · `Faltam 12 itens` · `Finalizar instalação` · `Voltar ao menu`
+
+## `24-estado-entradas-reprovadas`
+
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `C · HARDWARE` · `Entradas digitais` · `LIDO NO MÓDULO` · `ignição desligada` · `esperado: ligada, com a chave virada` · `O QUE CONFERIR` · `1 · Chave do ônibus` · `— virada na ignição` · `2 · Fio da ignição` · `— no pino certo do chicote` · `3 · Fusível da ignição` · `— inteiro` · `Refazer o diagnóstico` · `Voltar ao checklist`
+
+## `25-estado-secao-c-com-modem-reprovado`
+
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `16` · `de 31` · `A · Identificação` · `o app confere sozinho` · `3` · `de 3` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `3` · `de 4` · `Alimentação` · `13,8 V` · `GPS e antena` · `9 satélites` · `Entradas digitais` · `conforme` · `Modem e sinal` · `sem sinal` · `D · Configuração` · `o app confere sozinho` · `10` · `de 10` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 6` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 3` · `Faltam 12 itens` · `Finalizar instalação` · `Voltar ao menu`
+
+## `26-estado-modem-reprovado`
+
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `C · HARDWARE` · `Modem e sinal` · `LIDO NO MÓDULO` · `sem sinal` · `o módulo não alcança a rede da operadora` · `O QUE CONFERIR` · `1 · Chip SIM` · `— encaixado e ativo` · `2 · Antena do modem` · `— conectada` · `3 · Cobertura` · `— teste num lugar aberto` · `Refazer o diagnóstico` · `Voltar ao checklist`
+
+## `27-estado-secao-e-com-correcao-solicitada`
+
+`M2C-0312` · `PCX-9A17` · `ENCERRAR` · `Checklist` · `22` · `de 31` · `A · Identificação` · `o app confere sozinho` · `3` · `de 3` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `4` · `de 4` · `D · Configuração` · `o app confere sozinho` · `10` · `de 10` · `E · Ciclo de testes` · `o cartão não passou` · `5` · `de 6` · `Ignição ligada` · `confere` · `Rotação` · `confere` · `Ré acionada` · `confere` · `Porta aberta` · `confere` · `Cartão do motorista` · `leu 9412857 · o cadastro espera 0009412857` · `correção solicitada às 14:30` · `Ignição desligada` · `confere` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 3` · `Faltam 6 itens` · `Finalizar instalação` · `Voltar ao menu`
+
+## `28-estado-finalizar-com-a-secao-e-falhando`
+
+`M2C-0312` · `PCX-9A17` · `ENCERRAR` · `A Seção E não passou` · `O cartão do motorista não bate com o cadastro, e a correção já foi pedida. A instalação fica registrada com a seção falhando — e com o seu nome.` · `Estou ciente · Rafael Vieira, 14:30` · `Finalizar instalação` · `Cancelar`

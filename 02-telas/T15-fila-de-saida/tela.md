@@ -8,7 +8,7 @@ Ver o que ainda vai subir pro servidor, e o que precisa do técnico.
 | **Chrome** | sem faixa ou com, conforme a sessão |
 | **Semente no protótipo** | fila com dois itens · um com erro |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 0 · 4 — ver `estados.md` |
+| **Momentos · estados** | 0 · 5 — ver `estados.md` |
 
 - no protótipo · a nossa versão da linha *Semente no protótipo*, antes desta entrega: | **Semente no protótipo** | a seleção f-10, f-02 e f-08 (G21): dois itens esperando envio, um deles com erro, e uma recebida — a fila inteira da Ibura, com a faixa da sessão do herói (T15-A2) |
 
@@ -16,6 +16,7 @@ Ver o que ainda vai subir pro servidor, e o que precisa do técnico.
 
 ## O que se toca
 
+- **no protótipo · o pacote 12:** a 05 é a fila do 01 com o pedido de correção do caso, criado na hora do pedido — *agora*, no topo da lista · o recorte aparece inteiro, como no 01 (decisão 42), e o cartão de cima fica mais baixo que na referência
 - a fila é **do aparelho**, não da unidade — a HU-T01-4 diz que a fila de outro usuário continua subindo: o rótulo é *neste aparelho* · as referências mostram o topo da lista; o protótipo mostra a fila do mock inteira
   - **no protótipo** (a última entrega, decisão 42): o rótulo é *neste aparelho* nas cinco. No fluxo, a fila é a seleção da semente mais **tudo** o que a sessão criou, de qualquer unidade — o filtro pela unidade ativa saiu. Em cada estado, o recorte do caso aparece inteiro: no `01`, os cinco itens de `fila-sem-erro`, com a *Checklist · PCX-9A17 · recebida · ontem 16:40* (a *Calibração* até o pacote 2) embaixo da *Evidências · RKT-8H42*, onde a referência corta; o cartão do topo continua crescendo até o espaço livre, e fica 50 mais baixo que o da referência (desvio nomeado, 4,83% do HTML; 4,84% depois do pacote 2)
   - **a fila do mock inteira no fluxo** — os dez de `filaSaida` no lugar da seleção da semente — não se constrói: com o f-09 e o f-10 juntos, o cartão do topo vira o das *DUAS COM ERRO*, e nenhuma referência desenha onde fica o f-04, que sobe enquanto os dois erros esperam; a `00` deixaria de valer inteira (o contador 10 contra 3). Padrão do protótipo, pro arquiteto: *a fila do mock inteira* é o recorte inteiro de cada quadro

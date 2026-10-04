@@ -21,4 +21,5 @@
   font-size: var(--t-legenda); font-weight: 600; color: var(--tinta-apagada);
 }
 .t13-instrumento-faixa { color: var(--lima); }
+.t13-instrumento-texto { text-align: center; }
 .t13-instrumento-frase { font-size: var(--t-secundario); font-weight: 500; color: var(--tinta-secundaria); }

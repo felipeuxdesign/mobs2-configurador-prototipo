@@ -14,4 +14,11 @@ export const comoEsta = (f, reenviados = []) =>
   (ERROS_DA_FILA.includes(f.estado) && reenviados.includes(f.id) ? { ...f, estado: 'na-fila' } : f)
 
 // a fila inteira: a do mock mais a da sessão, cada item como está
+// o pacote 12 · o pedido de correção de cadastro sobe pela fila, como as evidências
+// (T15/05, padrão até o PM decidir): o item que o Solicitar correção da T14 cria
+export const TIPO_CORRECAO = 'Correção de cadastro'
+export const itemDeCorrecao = (ativoId, as) => ({
+  id: `correcao-${ativoId}`, tipo: TIPO_CORRECAO, ativoId, diasAtras: 0, data: M.diasAntes(0), criadoAs: as, estado: 'na-fila',
+})
+
 export const filaDoMundo = (unico) => [...M.filaSaida, ...(unico.fila ?? [])].map((f) => comoEsta(f, unico.reenviados))

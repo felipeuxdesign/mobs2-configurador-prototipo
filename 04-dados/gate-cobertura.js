@@ -739,5 +739,21 @@ chk("p3: o herói declara o Extended ID do módulo, só leitura", M.modulos.filt
 chk("p3: sem as sobras da calibração e da viagem", JSON.stringify(M).indexOf('"itemChecklist"') < 0 && JSON.stringify(M).indexOf('"viagens"') < 0 && !("foto" in heroi.etapas.calibracao));
 chk("p3: a Seção E se chama Ciclo de testes", M.checklist.secoes.filter(function (x) { return x.id === "E" && x.rotulo === "Ciclo de testes"; }).length === 1);
 
+/* ── o pacote 12 · os casos das pendências desenhadas (padrão até o PM decidir) ── */
+(function () {
+  var C = M.casos, heroiSerial = M.ativos.filter(function (a) { return a.id === "a-01"; })[0].moduloSerial;
+  var sat = M.modelosAtivo.filter(function (m) { return m.id === "ma-01"; })[0].sinaisCan.filter(function (x) { return x.id === "satelites"; })[0];
+  chk("p12: o gps-fraco é o módulo do herói, abaixo do mínimo do caso, e o nominal passa dele (T13/21, 22)",
+    C["gps-fraco"].moduloSerial === heroiSerial && Number(C["gps-fraco"].gps.split(" ")[0]) < C["gps-fraco"].gpsMinimo && Number(String(sat.lido).split(" ")[0]) >= C["gps-fraco"].gpsMinimo);
+  chk("p12: a entrada-ignicao é o módulo do herói, e o lido difere do esperado (T13/23, 24)",
+    C["entrada-ignicao"].moduloSerial === heroiSerial && C["entrada-ignicao"].entradas.ignicao !== C["entrada-ignicao"].entradas.esperado);
+  chk("p12: o evento-nao-chega-de-novo é o par do evento-sem-resposta, com as duas tentativas estourando (T14/09)",
+    C["evento-nao-chega-de-novo"].ativoId === C["evento-sem-resposta"].ativoId && C["evento-nao-chega-de-novo"].moduloSerial === C["evento-sem-resposta"].moduloSerial && C["evento-nao-chega-de-novo"].tentativasQueEstouram === 2);
+  chk("p12: a correção do identificador-divergente tem a hora do pedido, e o cartão do caso tem exemplo (T13/27, 28, T15/05)",
+    /^\d\d:\d\d$/.test(C["identificador-divergente"].correcaoSolicitada) && C["identificador-divergente"].exemplos.some(function (e) { return e.cartaoId === C["identificador-divergente"].cartaoId; }));
+  chk("p12: a fila-parada passa dos 30 min das pendências, e tem envios esperando (T04/16)",
+    parseInt(C["fila-parada"].fila.paradaHa, 10) > 30 && C["fila-parada"].fila.esperando > 0);
+})();
+
 console.log(falhas ? "\nGATE REPROVADO — " + falhas + " falha(s)" : "\nGATE APROVADO — todas as âncoras recomputadas conferem");
 if (typeof process !== "undefined") process.exitCode = falhas ? 1 : 0;

@@ -25,6 +25,7 @@ export const REF = {
   encerrar: '13-momento-encerrar-antes-de-homologar',
   empresa: '14-estado-folha-trocar-de-unidade-com-empresa',
   semConexao: '15-estado-sem-conexao',
+  filaParada: '16-estado-fila-parada',   // o pacote 12: a fila parada há mais de 30 min, padrão até o PM decidir
 }
 
 // o que está por cima do menu em cada referência: a folha da conta, o
@@ -111,6 +112,14 @@ export function checklistPendentes(etapa) {
 export function prazoDoAcesso(acesso) {
   return { restam: acesso.validadeDias - acesso.abertaDiasAtras, total: acesso.validadeDias }
 }
+// o aviso da fila parada (o pacote 12, T04/16): há quanto tempo e quantos envios
+// esperam, do caso fila-parada; o número por extenso, como o textos.md diz (*Dois envios*)
+const POR_EXTENSO = ['Nenhum', 'Um', 'Dois', 'Três', 'Quatro', 'Cinco', 'Seis', 'Sete', 'Oito', 'Nove']
+export const avisoDaFila = (fila) => ({
+  titulo: `A fila está parada há ${fila.paradaHa}`,
+  frase: fila.esperando === 1 ? 'Um envio espera a rede. Ele sobe sozinho quando ela voltar.'
+    : `${POR_EXTENSO[fila.esperando] ?? fila.esperando} envios esperam a rede. Eles sobem sozinhos quando ela voltar.`,
+})
 // o aviso do acesso vencendo (T04/12): do dia do aviso (avisoNoDia) até o
 // último dia da validade, o que resta; fora disso, nada (null)
 export function avisoDoAcesso(acesso) {

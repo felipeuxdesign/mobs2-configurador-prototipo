@@ -22,6 +22,7 @@ export const T = {
   filaSaindo: (fila) => `${fila.mensagens} mensagens e ${fila.diagnostico} de diagnóstico saindo do módulo`,
   // a frase do prazo estourado, numa linha (o pacote 2: T14/02)
   secaoF: 'A Seção F reprova · os passos continuam valendo.',
+  segundaVez: 'Segunda vez sem chegar: confira a conexão do módulo.',   // o pacote 12, T14/09
   // o bloco do evento
   evento: 'EVENTO DE TESTE',
   disparado: 'disparado pelo app',

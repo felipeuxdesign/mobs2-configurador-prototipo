@@ -29,6 +29,7 @@ import { milhar, decimal, caixaAlta } from '../../dados/formato.js'
 import { RECEITAS } from '../../estado/receitas.js'
 import { conteudoDo } from '../T09/cadeia.js'
 import { T } from './textos.js'
+import { T as T14 } from '../T14/textos.js'
 
 export const REF = {
   tela: '00-tela',
@@ -48,7 +49,20 @@ export const REF = {
   semLocalizacao: '14-estado-homologado-sem-localizacao',
   problemaFotografado: '15-momento-problema-fotografado',
   secaoCReprovada: '16-estado-secao-c-com-item-reprovado',
+  // o pacote 12 · as outras três falhas da C (a lista e o detalhe) e o pedido de correção
+  secaoCGps: '21-estado-secao-c-com-gps-reprovado',
+  gpsReprovado: '22-estado-gps-reprovado',
+  secaoCEntradas: '23-estado-secao-c-com-entradas-reprovadas',
+  entradasReprovadas: '24-estado-entradas-reprovadas',
+  secaoCModem: '25-estado-secao-c-com-modem-reprovado',
+  modemReprovado: '26-estado-modem-reprovado',
+  secaoECorrecao: '27-estado-secao-e-com-correcao-solicitada',
+  finalizarComE: '28-estado-finalizar-com-a-secao-e-falhando',
 }
+// a Seção C aberta com um item reprovado (a lista) e o detalhe dele, que vem logo
+// depois na coluna (o pacote 11 e o 12: o `depoisDe` do índice)
+export const LISTAS_DA_C = [REF.secaoCReprovada, REF.secaoCGps, REF.secaoCEntradas, REF.secaoCModem]
+export const DETALHES_DA_C = [REF.reprovado, REF.gpsReprovado, REF.entradasReprovadas, REF.modemReprovado]
 // o pacote 10 · as cinco fotos da Montagem: o 07 é o Módulo, e cada item seguinte
 // tem o seu quadro, com os de antes fotografados (17 a 20)
 export const MOMENTO_DA_FOTO = {
@@ -125,6 +139,20 @@ export function cicloConcluido(ativoId, moduloSerial) {
     evento: 'conferido', tentativa: 1, cartao: null, correcao: null, concluido: true, fechado: false,
   }
 }
+// o ciclo do cartão que não bate, com a correção de cadastro pedida (T14/06): os
+// outros passos valem, e o cartão fica reprovado, com o que leu e o que o
+// cadastro espera, até o técnico refazer só ele, na vez do cartão (T14/08)
+const ehCartao = (i) => i.pergunta === T14.cartao
+function cicloComCorrecao(ativoId, moduloSerial, caso) {
+  const c = cicloConcluido(ativoId, moduloSerial)
+  const item = itensDa('E').find(ehCartao)
+  const ex = caso.exemplos.find((e) => e.cartaoId === caso.cartaoId)
+  const leitura = { lido: ex.lido, esperado: ex.esperado }
+  return {
+    ...c, passos: { ...c.passos, [item.id]: 'reprovada' }, feitos: c.total - 1, concluido: false,
+    cartao: { cartaoId: caso.cartaoId, estado: 'reprovada', ...leitura }, correcao: { solicitadaAs: caso.correcaoSolicitada, ...leitura },
+  }
+}
 // as fotos de B tiradas: o que bloqueia fechou (o 10, o 14 e o 11 pela URL)
 const fotosDeB = () => Object.fromEntries(itensDa('B').map((i) => [i.id, HORA]))
 
@@ -144,6 +172,11 @@ export function mundoDe({ unico, est, semente }) {
     const sessao = { ...semente.sessao, ativoId: a.id, moduloSerial: a.moduloSerial }
     const etapas = { ...etapasDoCaminho(a.id, a.moduloSerial) }
     let registro = registroVazio(a.id)
+    // o 27 e o 28 (o pacote 12): o ciclo do PCX-9A17 com o cartão que não bate e a
+    // correção pedida (o caso identificador-divergente, correcaoSolicitada); no 28, as
+    // fotos de B tiradas, e só a E falha
+    if (est === REF.secaoECorrecao || est === REF.finalizarComE) etapas.ciclo = cicloComCorrecao(a.id, a.moduloSerial, caso)
+    if (est === REF.finalizarComE) registro = { ...registro, fotos: fotosDeB() }
     if (est === REF.secaoF || est === REF.semLocalizacao) {
       // o ciclo completo pro Finalizar acender, e as fotos de B tiradas: o que bloqueia fechou (o caso)
       etapas.ciclo = cicloConcluido(a.id, a.moduloSerial)
@@ -208,6 +241,12 @@ function alimentacaoDoCaso(mundo) {
   const { moduloSerial } = mundo.sessao
   const k = Object.keys(M.casos).find((x) => M.casos[x].alimentacao != null && M.casos[x].moduloSerial === moduloSerial)
   return k && !mundo.casosConsumidos.includes(k) ? M.casos[k].alimentacao : null
+}
+// o pacote 12 · os casos da Seção C que só a coluna monta (o herói no fluxo não muda):
+// o GPS fraco, a entrada que não bate e o modem sem sinal, no módulo da sessão
+function casoDaC(mundo, campo) {
+  const k = mundo.casos.find((x) => M.casos[x]?.[campo] != null && M.casos[x].moduloSerial === mundo.sessao.moduloSerial)
+  return k ? M.casos[k] : null
 }
 function lidoDoSinal(mundo, id) {
   const { ativoId } = mundo.sessao
@@ -343,17 +382,31 @@ function itemC(mundo, item) {
     const r = lidoDoSinal(mundo, item.id === 'c-alimentacao' ? 'bateria' : 'satelites')
     if (!r) return naoSeAplica(item)
     if (item.id === 'c-alimentacao') r.lido = alimentacaoDoCaso(mundo) ?? r.lido
+    // o GPS fraco (o pacote 12): o lido e o mínimo de satélites do caso, padrão até o PM decidir
+    const gps = item.id === 'c-gps' ? casoDaC(mundo, 'gps') : null
+    if (gps) r.lido = gps.gps
+    const sinal = gps ? { ...r.sinal, faixa: { min: gps.gpsMinimo, max: null } } : r.sinal
     const p = partes(r.lido)
     if (!p || !Number.isFinite(p.num)) return reprovou(item, T.vazio, null)
     const valor = item.id === 'c-gps' ? T.satelites(p.texto) : [p.texto, p.unidade].filter(Boolean).join(' ')
-    return dentro(r.sinal.faixa, p.num) ? lido(item, valor) : reprovou(item, valor, { sinal: r.sinal, ...p })
+    return dentro(sinal.faixa, p.num) ? lido(item, valor) : reprovou(item, valor, { sinal, ...p })
   }
   if (item.id === 'c-entradas') {
     if (etapas.ativo?.ativoId !== mundo.sessao.ativoId) return falta(item)
+    // a entrada que não bate (o pacote 12): o que o módulo leu e o esperado, sem régua
+    const caso = casoDaC(mundo, 'entradas')
+    if (caso) {
+      const [entrada] = Object.keys(caso.entradas).filter((k) => k !== 'esperado')
+      const valor = T.entradaLida(T.entradas[entrada], caso.entradas[entrada])
+      return reprovou(item, valor, { texto: valor, frase: T.esperadoDaEntrada(caso.entradas.esperado) })
+    }
     return L.entradasUsadas <= L.entradasTotal ? lido(item, T.conforme) : reprovou(item, `${L.entradasUsadas} ${T.de(L.entradasTotal)}`, null)
   }
   // o modem e o sinal: a palavra, sem o dBm (a entrega do checklist, T13-N5)
   if (!passou(etapas.preChecagem)) return falta(item)
+  // o modem sem sinal (o pacote 12, o caso da T07/07): a palavra e o porquê, sem régua
+  const modem = casoDaC(mundo, 'modem')
+  if (modem) return reprovou(item, modem.modem, { texto: modem.modem, frase: T.semAlcance })
   return dentro(L.modemFaixa, L.modemDbm) ? lido(item, T.sinalBom) : reprovou(item, T.vazio, null)
 }
 
@@ -401,6 +454,16 @@ function itemD(mundo, item) {
 function itemE(mundo, item) {
   const passo = passoDoCiclo(mundo, item)
   if (passo === 'aprovada') return lido(item, T.confere)
+  // o cartão que não bate, com a correção pedida (o pacote 12, T13/27): a linha
+  // vermelha com o que leu e a hora do pedido; a seta leva à T14, onde o técnico
+  // refaz só o cartão (a vez do cartão, T14/08)
+  const c = cicloDaSessao(mundo)
+  if (passo === 'reprovada' && ehCartao(item) && c?.correcao) {
+    return base(item, {
+      estado: 'reprovado', destino: { tela: 'T14' }, correcao: true,
+      linhas: [{ texto: T.leuEspera(c.correcao.lido, c.correcao.esperado), tom: 'falha' }, { texto: T.correcaoSolicitada(c.correcao.solicitadaAs) }],
+    })
+  }
   return base(item, { estado: passo === 'reprovada' ? 'reprovado' : 'pendente', valor: T.aFazer, apagado: true })
 }
 
@@ -436,7 +499,10 @@ function quemAgeDa(s, itens, homologada) {
     const fotos = itens.filter((c) => c.estado === 'ok' || c.estado === 'ressalva').length
     return fotos ? T.fotosTiradas(fotos) : null
   }
-  if (s.natureza === 'dinamico') return feitos === itens.length ? T.cicloPassou : T.voceFazCiclo
+  if (s.natureza === 'dinamico') {
+    if (itens.some((c) => c.correcao)) return T.cartaoNaoPassou
+    return feitos === itens.length ? T.cicloPassou : T.voceFazCiclo
+  }
   return feitos === itens.length ? T.servidorConfirmou : T.esperaServidor
 }
 
@@ -468,7 +534,8 @@ export function checklist(mundo) {
     else if (feitos === itens.length) estado = 'aprovada'
     else estado = s.natureza === 'servidor' ? 'aguarda' : 'pendente'
     // a E tem uma ação só, enquanto falta passo: Fazer o ciclo de testes → T14
-    const acao = s.natureza === 'dinamico' && feitos < itens.length
+    // (com a correção pedida, a ação é a seta do cartão, que leva à T14 · o pacote 12)
+    const acao = s.natureza === 'dinamico' && feitos < itens.length && !itens.some((c) => c.correcao)
       ? { nome: T.fazerCiclo, legenda: T.osPassos(itens.length), icone: 'ciclo', destino: { tela: 'T14' } }
       : null
     return { ...s, itens, feitos, total: itens.length, estado, quemAge: quemAgeDa(s, itens, homologada), acao }
@@ -478,7 +545,11 @@ export function checklist(mundo) {
   const faltam = secoes.filter((s) => s.bloqueia).reduce((n, s) => n + s.total - s.feitos, 0)
   // o contador do menu (T04·2): B e E, os que o técnico resolve, ainda por resolver
   const pendentesDoMenu = secoes.filter((s) => s.natureza === 'manual' || s.natureza === 'dinamico').reduce((n, s) => n + s.total - s.feitos, 0)
-  return { secoes, porSecao, feitos, total, faltam, pendentesDoMenu, falhandoF: secaoFFalhando(mundo) }
+  // a E falhando com a correção pedida (o pacote 12): o cartão conta no Faltam, mas não
+  // segura o Finalizar, que abre o diálogo da ciência (T13/28, padrão até o PM decidir)
+  const falhandoE = porSecao.E.some((c) => c.correcao)
+  const bloqueiam = faltam - (falhandoE ? 1 : 0)
+  return { secoes, porSecao, feitos, total, faltam, bloqueiam, pendentesDoMenu, falhandoF: secaoFFalhando(mundo), falhandoE }
 }
 
 // ── o nível do item manual (07, 08): a posição, os segmentos e o que vem depois ──
@@ -503,15 +574,20 @@ export const proximoPendente = (ck, id) => {
 
 // ── o item reprovado (09): o instrumento pela regra da T13·5 e a frase ──
 export function instrumentoDoItem(c) {
+  // o que não é número (o pacote 12 · as entradas e o modem): o valor escrito e o porquê, sem régua
+  if (!c.leitura.sinal) return { texto: c.leitura.texto, frase: c.leitura.frase }
   const { sinal, texto, unidade, num, casas } = c.leitura
   const f = sinal.faixa
   const e = escalaDo(sinal.id, f)
   const dif = num < f.min ? f.min - num : null
+  // os satélites (o pacote 12, T13/22): a faixa aberta pra cima, *6 ou mais*, e a
+  // frase sem a unidade, *2 abaixo do mínimo* · as divisões, de 2 em 2 (a régua de 6)
+  const contagem = sinal.id === 'satelites'
   return {
     valor: texto, unidade,
-    escala: { min: e.min, max: e.max, valor: num, faixa: { de: f.min, ate: f.max ?? e.max }, divisoes: Math.round(e.max - e.min), fortes: [f.min, f.max ?? e.max] },
-    legendas: { min: decimal(e.min, casas), faixa: T.faixa(decimal(f.min, casas), decimal(f.max, casas)), max: decimal(e.max, casas) },
-    frase: dif != null ? T.abaixo(decimal(dif, casas), unidade) : null,
+    escala: { min: e.min, max: e.max, valor: num, faixa: { de: f.min, ate: f.max ?? e.max }, divisoes: contagem ? (e.max - e.min) / 2 : Math.round(e.max - e.min), fortes: [f.min, f.max ?? e.max] },
+    legendas: { min: decimal(e.min, casas), faixa: f.max == null ? T.ouMais(decimal(f.min, casas)) : T.faixa(decimal(f.min, casas), decimal(f.max, casas)), max: decimal(e.max, casas) },
+    frase: dif != null ? T.abaixo(decimal(dif, casas), contagem ? null : unidade) : null,
   }
 }
 

@@ -8,6 +8,7 @@
 /* C10 · T14/02 (G11): o prazo estourado — o número em vermelho, e as frases do
  * que isso quer dizer, uma por linha, na entrelinha da legenda de 12 */
 .ds-prazo-falha .ds-prazo-tempo { color: var(--vermelho); }
+.ds-prazo-frase-falha { color: var(--vermelho); font-weight: 700; }
 .ds-prazo-frases { display: flex; flex-direction: column; line-height: var(--entrelinha-legenda); }
 
 /* o pacote 6 · a fila que drena (T14/01): a linha fina de 4 embaixo da frase, colada nela (2 acima,

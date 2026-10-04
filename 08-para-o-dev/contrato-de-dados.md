@@ -11,16 +11,16 @@ Medido no código do protótipo (`06-prototipo/app/src/telas/<tela>/`), em 03/10
 | T01 · Login | `credenciais`, `ddis`, `tecnico` | `outro-usuario`, `primeiro-acesso`, `sem-conexao-no-login`, `teto-de-envios`, `usuario-lembrado` |
 | T02 · Selecionar contexto | `empresa`, `empresas`, `ucs`, `uos`, `pacotes`, `contextoAtivo` | `lista-longa-garagens`, `uma-empresa` |
 | T03 · Sincronizar | `pacotes`, `uos`, `contextoAtivo` | `sync-falha-rede` |
-| T04 · Menu | `ativos`, `checklist`, `empresa`, `empresas`, `modelos`, `modulos`, `pacotes`, `situacao`, `uos`, `contextoAtivo` | `link-perdido`, `sem-conexao-no-menu` |
+| T04 · Menu | `ativos`, `checklist`, `empresa`, `empresas`, `modelos`, `modulos`, `pacotes`, `situacao`, `uos`, `contextoAtivo` | `link-perdido`, `sem-conexao-no-menu`, `fila-parada` |
 | T05 · Conectar módulo | `modelos`, `modulos`, `naBuscaForaCadastro`, `situacao` | `bluetooth-desligado`, `bluetooth-sem-permissao`, `busca-vazia`, `conexao-falha` |
 | T07 · Diagnóstico do módulo | `diagnostico`, `ativos`, `cadeia`, `matrizCapacidades`, `modelos`, `modelosAtivo`, `modulos`, `situacao` | `serial-nao-cadastrado`, `modelo-sem-driver`, `firmware-fora-matriz`, `firmware-sem-rede-no-modulo`, `modem-sem-sinal`, `can-estatico-ausente`, `can-estatico-isolado`, `can-estatico-bateria` |
 | T06 · Selecionar ativo | `ativos`, `empresa`, `matrizCapacidades`, `modelosAtivo`, `modulos`, `pacotes`, `uos`, `contextoAtivo` | `ativo-fora-pacote`, `conflito-pinos-resolvivel`, `conflito-pinos-sem-saida`, `modulo-em-outro-ativo`, `modulo-ja-deste-ativo` |
 | T09 · Configurar módulo | `cadeia`, `ativos`, `conexoes`, `matrizCapacidades`, `modelosAtivo`, `modulos`, `presetsEvento` | `bloco-recusado`, `queda-na-cadeia`, `conteudo-nao-cabe`, `pool-esgotado` |
 | T10 · Calibração | `calibracao`, `ativos`, `matrizCapacidades`, `modulos` | `grandeza-indisponivel`, `releitura-nao-confere` |
-| T14 · Ciclo de testes | `ciclo`, `checklist`, `identificadores`, `ativos`, `modelosAtivo` | `evento-sem-resposta`, `identificador-divergente`, `motor-desligado-no-ciclo` |
-| T13 · Checklist | `checklist`, `cadeia`, `calibracao`, `autotesteEncerramento`, `filaSaida`, `leituraNominalModulo`, `ativos`, `modelosAtivo`, `modulos` | `can-estatico-bateria`, `diff-divergente`, `localizacao-negada`, `pronto-para-fechar` |
+| T14 · Ciclo de testes | `ciclo`, `checklist`, `identificadores`, `ativos`, `modelosAtivo` | `evento-sem-resposta`, `identificador-divergente`, `motor-desligado-no-ciclo`, `evento-nao-chega-de-novo` |
+| T13 · Checklist | `checklist`, `cadeia`, `calibracao`, `autotesteEncerramento`, `filaSaida`, `leituraNominalModulo`, `ativos`, `modelosAtivo`, `modulos` | `can-estatico-bateria`, `diff-divergente`, `localizacao-negada`, `pronto-para-fechar`, `gps-fraco`, `entrada-ignicao`, `modem-sem-sinal`, `identificador-divergente` |
 | T16 · Sessão | `cadeia`, `autotesteEncerramento`, `calibracao`, `identificadores`, `ativos`, `modelos`, `modulos`, `contextoAtivo` | `autoteste-falhando`, `sessao-interrompida` |
-| T15 · Fila de saída | `filaSaida`, `tiposFila`, `secaoF`, `criteriosRegra`, `ativos` | `fila-vazia` |
+| T15 · Fila de saída | `filaSaida`, `tiposFila`, `secaoF`, `criteriosRegra`, `ativos` | `fila-vazia`, `identificador-divergente` |
 | T11 · Conferir configuração | `cadeia`, `conexoes`, `modelosAtivo`, `modulos`, `pacotes`, `presetsEvento`, `situacao`, `ativos` | `cercas-reenviadas`, `indice-nao-classificado` |
 | T12 · Últimas instalações | `instalacoes`, `criteriosRegra`, `diagnostico`, `calibracao`, `tecnico`, `ativos`, `contextoAtivo` | `criterio-indisponivel`, `criterio-pendente`, `instalacoes-sem-rede` |
 

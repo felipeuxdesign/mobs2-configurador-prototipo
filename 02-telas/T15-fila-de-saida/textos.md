@@ -21,3 +21,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `04-estado-secao-f-em-re-checagem`
 
 `Sem sessão de configuração` · `Fila de saída` · `0` · `neste aparelho` · `Nada esperando envio` · `O último item subiu às 14:02.` · `EM RE-CHECAGEM · SEÇÃO F` · `RVM-1E54` · `recebimento pendente` · `confere em 24 h` · `Voltar ao menu`
+
+## `05-estado-correcao-na-fila`
+
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Fila de saída` · `6` · `neste aparelho` · `SUBINDO AGORA` · `Evidências · KNB-5H39` · `62` · `%` · `de 8,4 MB` · `Nada aqui precisa de você.` · `NA FILA E RECEBIDAS` · `Correção de cadastro` · `PCX-9A17 · na fila` · `agora` · `Evidências` · `PCX-9A17 · na fila` · `há 2 min` · `Checklist` · `RKT-8H42 · recebida` · `09:15` · `Evidências` · `RKT-8H42 · recebida` · `09:14` · `Voltar ao menu`

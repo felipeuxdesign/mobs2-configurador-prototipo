@@ -123,6 +123,7 @@ A fila é **do aparelho**, não da unidade: a HU-T01-4 diz que a fila de outro u
 - **o menu e a fila do aparelho:** o cartão *Fila de saída* do menu conta os pendentes da unidade ativa, e o diálogo *Sair da conta*, a fila do mock inteira (Os contadores do menu). Com a decisão 42, o *da unidade ativa* do cartão ficou sem razão — a regra é da T04, e não mudou aqui
 
 O roteiro `app/scripts/caminhos/fila.mjs` prova o reenvio, a ordem da lista e o contador que continua 3, a volta pelo menu com o cartão da Fila de saída igual, e a conta do diálogo (`node scripts/caminho.mjs fila`).
+- **o pacote 12 · a correção na fila** (T15/05): a fila do 01 com o pedido de correção do PCX-9A17, *agora*, no topo da lista, o mais novo · **a fila parada** (T04/16, `fila-parada`): depois de 30 min, o diálogo sobre o menu, no molde do acesso vencendo — *A fila está parada há 32 min*, `Ver a fila` (leva à T15) e `Agora não` · só pela coluna: no protótipo o relógio não anda
 
 ## A escolha do ativo (T06·1 a T06·5)
 
@@ -168,6 +169,7 @@ A T08 saiu inteira, e a releitura mora na própria T07: com o bloco do ativo gra
 - **os casos, pelo par da faixa (G28):** o `evento-sem-resposta` (M2C-0335 + KHT-4B08) estoura o prazo na 1ª tentativa, uma vez por sessão (G21), e `Disparar outro evento` confirma na 2ª, com os passos valendo · o `can-fora-esperado` (QJF-2C61) reprova o passo que o sinal prova (`ciclo.passoDoSinal`: velocidade → Movimento detectado) · o `identificador-divergente` (PCX-9A17) acrescenta a linha do teste do cartão, que só existe com o caso (T14·3). Os dois últimos são fato do veículo e do cadastro: valem toda vez
 - **as saídas:** `Encerrar o ciclo` fecha a captura, e os pendentes ficam pendentes na Seção E; `Ir para o checklist` sai com o ciclo aberto — os dois → T13 (T14·2). Concluído, `Ir para o checklist` → T13 e `Voltar ao menu` → T04 (T14·4). `Solicitar correção de cadastro` vira o registro no mesmo lugar, com a hora do protótipo e os dois valores anexados
 - **o que fica gravado:** `etapas.ciclo` guarda o par, os passos pelo id do item da Seção E (`aprovada`, `reprovada` ou `pendente`), quantos foram feitos, o evento (`antes`, `disparado`, `recebido`, `conferido` ou `nao-chegou`) e a tentativa, o cartão e a correção pedida (o lido, o esperado e 14:30), se o ciclo concluiu e se a captura foi fechada. Voltar à T14 com o ciclo aberto, no mesmo par, retoma os passos que já valem e a correção; o evento se dispara de novo. Concluído, ela abre concluída
+- **o pacote 12 · a segunda falha do evento** (T14/09, `evento-nao-chega-de-novo`): o mesmo par do `evento-sem-resposta`, e a 2ª tentativa também estoura · embaixo do *A Seção F reprova*, em vermelho, *Segunda vez sem chegar: confira a conexão do módulo.* · só pela coluna: no fluxo, o par segue o `evento-sem-resposta`, e a 2ª confirma · **o pedido de correção** (`Solicitar correção de cadastro`) sobe pela fila de saída, como as evidências (*Correção de cadastro*, T15/05)
 
 ## O checklist (T13·1 a T13·6)
 
@@ -187,6 +189,7 @@ A T08 saiu inteira, e a releitura mora na própria T07: com o bloco do ativo gra
 - **os caminhos:** o item reprovado leva ao nível do item (09 · desde o pacote 11, a tela que ajuda a consertar: só a seção em cima, sem a barrinha, a régua da leitura e o *O que conferir* com as três causas), e `Refazer a leitura da CAN` à T07 (com o pacote 2, o botão diz `Refazer o diagnóstico`), onde mora o `Ler de novo` (T13·2; a T08 saiu) · a ação da E abre a T14 (T13·4), e a Seção E é a mesma se a T14 saiu por `Encerrar o ciclo` ou por `Ir para o checklist` (T14·2): os pendentes ficam *a fazer*, o aprovado diz `confere`, e a ação continua · `Tirar foto` e `Salvar com ressalva` seguem pro próximo item por fazer; sem próximo, voltam à Seção B aberta · no item manual, marcar *Não está conforme* → 08, `Fotografar o problema` → 15, desmarcar → 07 (O não conforme com a foto do problema) · o voltar faz o `Voltar ao menu` nas seções e no homologado (T13·6), e o `Voltar ao checklist` no nível do item
 
 O roteiro `app/scripts/caminhos/checklist.mjs` prova a estrutura por toque (`node scripts/caminho.mjs checklist`): nascer aberta sem animar, a seção que cresce e fecha com o movimento conferido, a troca de uma aberta pra outra, o reduzir movimento, os quadros 11, 12 e 13 pela URL, a foto por fazer que abre a câmera, o não conforme com a foto do problema (a caixa, o disparador, o registro, o apagado, a ordem livre, o 08 e o 15 pela URL, o teclado no campo), o singular e a ação da E que abre a T14.
+- **o pacote 12 · as pendências desenhadas, padrão até o PM decidir:** as outras três falhas da C, cada uma com a lista (a linha vermelha e a seta) e o detalhe logo depois na coluna — o GPS com a régua dos satélites e o mínimo do caso (`gps-fraco`, 6: *6 ou mais*, *2 abaixo do mínimo*), as entradas e o modem sem régua, o valor escrito e o porquê (`entrada-ignicao`, `modem-sem-sinal`), cada um com o seu *O que conferir* · os três casos só valem no estado da coluna: o herói, no fluxo, passa · **o cartão com a correção pedida** (`identificador-divergente`, `correcaoSolicitada`): a E diz *o cartão não passou*, os outros passos *confere*, e o cartão é a linha vermelha com o que leu e a hora do pedido, com a seta pra T14, onde ele refaz só o cartão (a vez do cartão, T14/08) · o cartão conta no *Faltam*, mas não segura o `Finalizar`: o toque abre *A Seção E não passou*, com a ciência, e a instalação fica registrada com a E falhando e o nome, sem homologar (T13/28) — o que vem depois não tem referência, e o protótipo volta ao menu
 
 ## O voltar do Android
 
@@ -532,6 +535,7 @@ O que não é de desenho e o produto ainda decide segue um padrão — a lista e
 | `T04/12-estado-acesso-vencendo` | a sessão de acesso chega ao 5º dia: o diálogo aparece uma vez por dia, na primeira chegada ao menu | `situacao.sessaoAcesso` |
 | `T04/14-estado-folha-trocar-de-unidade-com-empresa` | tocar no nome da unidade, pra quem tem várias empresas — o herói | `empresas · uos · pacotes` |
 | `T04/15-estado-sem-conexao` | o aparelho sem rede — o Últimas instalações espera a conexão | `sem-conexao-no-menu` |
+| `T04/16-estado-fila-parada` | a fila parada há mais de 30 min: o aviso sobre o menu, com Ver a fila | `fila-parada` |
 | `T05/03-estado-nenhum-encontrado` | nenhum módulo responde | `busca-vazia` |
 | `T05/04-estado-conexao-falhou` | o módulo não responde ao conectar | `conexao-falha` |
 | `T05/16-estado-bluetooth-desligado` | o Bluetooth do celular está desligado | `bluetooth-desligado` |
@@ -568,13 +572,23 @@ O que não é de desenho e o produto ainda decide segue um padrão — a lista e
 | `T13/10-estado-finalizar-com-a-secao-f-falhando` | `Finalizar` com a Seção F falhando — o servidor não respondeu | `pronto-para-fechar` (T13-A2) |
 | `T13/14-estado-homologado-sem-localizacao` | finalizar com a localização negada | `localizacao-negada` |
 | `T13/16-estado-secao-c-com-item-reprovado` | um item automático reprova: o xis, a leitura e a seta pro detalhe (a 09) | `can-estatico-bateria` |
+| `T13/21-estado-secao-c-com-gps-reprovado` | o GPS reprova: a linha vermelha, 4 satélites e a seta pro detalhe | `gps-fraco` |
+| `T13/22-estado-gps-reprovado` | tocar na linha vermelha do GPS: a régua dos satélites e o que conferir | `gps-fraco` |
+| `T13/23-estado-secao-c-com-entradas-reprovadas` | uma entrada não bate: a linha vermelha, ignição desligada e a seta | `entrada-ignicao` |
+| `T13/24-estado-entradas-reprovadas` | tocar na linha vermelha das entradas: qual não bate e o que conferir | `entrada-ignicao` |
+| `T13/25-estado-secao-c-com-modem-reprovado` | o modem sem sinal reprova: a linha vermelha e a seta | `modem-sem-sinal` |
+| `T13/26-estado-modem-reprovado` | tocar na linha vermelha do modem: sem sinal e o que conferir | `modem-sem-sinal` |
+| `T13/27-estado-secao-e-com-correcao-solicitada` | o cartão não passou e a correção foi pedida: o cartão vermelho com as duas linhas | `identificador-divergente` |
+| `T13/28-estado-finalizar-com-a-secao-e-falhando` | finalizar com o cartão reprovado e a correção pedida: registra com a falha e o nome | `identificador-divergente` |
 | `T14/02-estado-prazo-estourado` | o evento não chega em 2:00 | `evento-sem-resposta` |
 | `T14/03-estado-dinamico-fora-do-esperado` | a rotação não aparece: o motor está desligado | `motor-desligado-no-ciclo` |
 | `T14/04-estado-identificador-divergente` | o cartão lido não bate | `identificador-divergente` |
+| `T14/09-estado-segunda-falha-do-evento` | o evento não chega pela segunda vez: confira a conexão do módulo | `evento-nao-chega-de-novo` |
 | `T15/01-estado-sem-erro` | a fila sem erros | `filaSaida` |
 | `T15/02-estado-dois-erros` | dois itens recusados | `filaSaida` |
 | `T15/03-estado-fila-vazia` | nada esperando envio | `filaSaida` |
 | `T15/04-estado-secao-f-em-re-checagem` | a Seção F esperando o servidor | `secaoF · RVM-1E54` |
+| `T15/05-estado-correcao-na-fila` | o pedido de correção sobe pela fila, como as evidências | `identificador-divergente` |
 | `T16/05-estado-assertiva-falhando` | uma assertiva falha | `autoteste-falhando` |
 | `T16/06-estado-sessao-interrompida` | a sessão caiu e volta oferecida | `sessao-interrompida` |
 

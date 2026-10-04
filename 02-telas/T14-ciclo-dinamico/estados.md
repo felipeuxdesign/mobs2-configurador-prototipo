@@ -13,6 +13,7 @@
 | `06-momento-correcao-solicitada` | momento | tocar em `Solicitar correção de cadastro` no identificador divergente | `identificador-divergente` |
 | `07-momento-vez-da-porta` | momento | depois da ré · abra a porta · o evento já chegou | `ciclo` |
 | `08-momento-vez-do-cartao` | momento | depois da porta · passe o cartão | `ciclo` |
+| `09-estado-segunda-falha-do-evento` | estado | o evento não chega pela segunda vez: confira a conexão do módulo · *padrão até o PM decidir* | `evento-nao-chega-de-novo` |
 
 - no protótipo · a nossa versão da linha *01-momento-antes-do-disparo*, antes desta entrega: | `01-momento-antes-do-disparo` | momento | a entrada da tela: a fila do módulo ainda drenando (G27) | `ciclo.mensagensGuardadas` |
 

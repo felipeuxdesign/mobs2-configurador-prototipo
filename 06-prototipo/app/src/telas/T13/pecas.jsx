@@ -10,7 +10,18 @@ import './pecas.css'
 // O instrumento do item reprovado (T13/09): o poço com o traço de baixo
 // vermelho (a falha mora no elemento, Lei 2), o rótulo em vermelho, o número
 // de 48 na tinta, a barra de 22 com a faixa esperada, as três marcas e a frase.
-export function InstrumentoDoItem({ rotulo, valor, unidade, escala, legendas, frase }) {
+// O que não é número (o pacote 12 · as entradas e o modem, T13/24 e 26): o rótulo, o
+// valor escrito de 48, centrado, que quebra em duas linhas se precisar, e o porquê — sem régua.
+export function InstrumentoDoItem({ rotulo, valor, unidade, escala, legendas, frase, texto }) {
+  if (texto != null) {
+    return (
+      <div className="t13-instrumento ds-caixa-poco ds-caixa-falha">
+        <span className="t13-instrumento-rotulo">{rotulo}</span>
+        <span className="t13-instrumento-numero t13-instrumento-texto">{texto}</span>
+        {frase && <span className="t13-instrumento-frase">{frase}</span>}
+      </div>
+    )
+  }
   return (
     <div className="t13-instrumento ds-caixa-poco ds-caixa-falha">
       <span className="t13-instrumento-rotulo">{rotulo}</span>

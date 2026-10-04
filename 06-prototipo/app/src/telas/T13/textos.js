@@ -22,6 +22,7 @@ export const T = {
   fotosTiradas: (n) => (n === 1 ? '1 foto tirada' : `${n} fotos tiradas`),
   voceFazCiclo: 'você faz o ciclo parado',
   cicloPassou: 'o ciclo passou',
+  cartaoNaoPassou: 'o cartão não passou',   // a E com a correção de cadastro pedida (o pacote 12, T13/27)
   esperaServidor: 'espera o servidor · não bloqueia',
   servidorConfirmou: 'o servidor confirmou',
 
@@ -35,6 +36,14 @@ export const T = {
   conforme: 'conforme',
   sinalBom: 'sinal bom',
   satelites: (n) => `${n} satélites`,
+  // o pacote 12 · a entrada que não bate (T13/23, 24) e o modem sem sinal (T13/25, 26)
+  entradas: { ignicao: 'ignição' },
+  entradaLida: (entrada, valor) => `${entrada} ${valor}`,
+  esperadoDaEntrada: (valor) => `esperado: ${valor}, com a chave virada`,
+  semAlcance: 'o módulo não alcança a rede da operadora',
+  // o cartão que não bate, com a correção pedida (T13/27)
+  leuEspera: (lido, esperado) => `leu ${lido} · o cadastro espera ${esperado}`,
+  correcaoSolicitada: (hora) => `correção solicitada às ${hora}`,
   feita: 'feita',
   gravada: 'gravada',
   gravado: 'gravado',
@@ -97,7 +106,8 @@ export const T = {
   // o item reprovado (09)
   lidoNoModulo: 'LIDO NO MÓDULO',
   faixa: (min, max) => `${min} — ${max}`,
-  abaixo: (dif, unidade) => `${dif} ${unidade} abaixo do mínimo`,
+  abaixo: (dif, unidade) => `${[dif, unidade].filter(Boolean).join(' ')} abaixo do mínimo`,
+  ouMais: (min) => `${min} ou mais`,   // a faixa aberta pra cima, os satélites (T13/22)
   // o pacote 11: o que conferir, como a conexão que falha na T05/04 (sai o 'isto não se marca à mão')
   oQueConferir: 'O QUE CONFERIR',
   conferirAlimentacao: [
@@ -105,12 +115,31 @@ export const T = {
     { titulo: '2 · Cabo de alimentação', texto: '— encaixe firme' },
     { titulo: '3 · Ponto de ligação', texto: '— direto na bateria, sem queda' },
   ],
+  // as causas das outras três (o pacote 12, padrão até o PM decidir)
+  conferirGps: [
+    { titulo: '1 · Antena GPS', texto: '— conectada e firme' },
+    { titulo: '2 · Céu aberto', texto: '— sem teto nem metal por cima' },
+    { titulo: '3 · Cabo da antena', texto: '— sem dobra nem corte' },
+  ],
+  conferirEntradas: [
+    { titulo: '1 · Chave do ônibus', texto: '— virada na ignição' },
+    { titulo: '2 · Fio da ignição', texto: '— no pino certo do chicote' },
+    { titulo: '3 · Fusível da ignição', texto: '— inteiro' },
+  ],
+  conferirModem: [
+    { titulo: '1 · Chip SIM', texto: '— encaixado e ativo' },
+    { titulo: '2 · Antena do modem', texto: '— conectada' },
+    { titulo: '3 · Cobertura', texto: '— teste num lugar aberto' },
+  ],
   // leva à T07, o Diagnóstico do módulo, que relê o módulo e a CAN
   refazerDiagnostico: 'Refazer o diagnóstico',
 
   // o diálogo da Seção F (10)
   secaoFNaoPassou: 'A Seção F não passou',
   registradaFalhando: 'A instalação fica registrada com ela falhando — e com o seu nome.',
+  // o diálogo da Seção E (o pacote 12, T13/28): o cartão com a correção pedida
+  secaoENaoPassou: 'A Seção E não passou',
+  cartaoRegistrado: 'O cartão do motorista não bate com o cadastro, e a correção já foi pedida. A instalação fica registrada com a seção falhando — e com o seu nome.',
   ciente: (nome, hora) => `Estou ciente · ${nome}, ${hora}`,
   cancelar: 'Cancelar',
 }

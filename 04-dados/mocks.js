@@ -1188,7 +1188,7 @@
      a-06 (não selecionável), a-07/a-08 (sem módulo), a-09 (ma-02, e é o
      ativo que fecha a instalação). */
   CASOS["identificador-divergente"].ativoId = "a-03";
-  CASOS["identificador-divergente"].cartaoId = "id-01";
+  CASOS["identificador-divergente"].cartaoId = "id-01"; CASOS["identificador-divergente"].correcaoSolicitada = "14:30"; /* T13/27, T13/28 e T15/05 · o pedido feito na T14/06 */
 
   /* O evento de teste que não volta no prazo. Mesma forma do `conexao-falha`
      (constante DECLARADA, não moeda): a 1ª tentativa estoura, a 2ª confirma
@@ -1199,6 +1199,11 @@
      ma-01, Várzea, e o conflito de pinos dele é o RESOLVÍVEL — T06 oferece o
      leitor sem fio e o fluxo segue. */
   CASOS["evento-sem-resposta"] = { ativoId: "a-04", moduloSerial: "M2C-0335", tentativa: 1 };
+  /* pacote 12 · os casos das telas que eram pendência · padrão até o PM decidir */
+  CASOS["gps-fraco"] = { moduloSerial: "M2C-0417", gps: "4 satélites", gpsMinimo: 6 }; /* T13/21 e 22 · o mínimo de satélites é padrão até o PM decidir */
+  CASOS["entrada-ignicao"] = { moduloSerial: "M2C-0417", entradas: { ignicao: "desligada", esperado: "ligada" } }; /* T13/23 e 24 */
+  CASOS["evento-nao-chega-de-novo"] = Object.assign({}, CASOS["evento-sem-resposta"], { tentativasQueEstouram: 2 }); /* T14/09 · ao contrário do "evento-sem-resposta", aqui a 2ª tentativa TAMBÉM estoura, e aparece o confira a conexão do módulo */
+  CASOS["fila-parada"] = { fila: { paradaHa: "32 min", esperando: 2 } }; /* T04/16 · o aviso depois de 30 min parada */
 
   /* protótipo C9 (T10) · AC-08 — o hodômetro estático do a-22, o mesmo que a
      T10 calibra no módulo sem pulsos (T10/04): bruto 121.003.000 m ÷ fatorEnvio

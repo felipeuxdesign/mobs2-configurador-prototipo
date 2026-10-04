@@ -65,3 +65,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `15-estado-sem-conexao`
 
 `GARAGEM VÁRZEA` · `RV` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Menu` · `CONECTAR MÓDULO` · `M2C-0417` · `ATIVO SELECIONADO` · `RKT-8H42` · `Diagnóstico do módulo` · `Configurar módulo` · `Calibração` · `Conferir configuração` · `Finalizar com checklist` · `Últimas instalações` · `sem conexão` · `2` · `Fila de saída`
+
+## `16-estado-fila-parada`
+
+`GARAGEM VÁRZEA` · `RV` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Menu` · `CONECTAR MÓDULO` · `M2C-0417` · `ATIVO SELECIONADO` · `RKT-8H42` · `Diagnóstico do módulo` · `Configurar módulo` · `Calibração` · `Conferir configuração` · `Finalizar com checklist` · `Últimas instalações` · `2` · `Fila de saída` · `A fila está parada há 32 min` · `Dois envios esperam a rede. Eles sobem sozinhos quando ela voltar.` · `Ver a fila` · `Agora não`

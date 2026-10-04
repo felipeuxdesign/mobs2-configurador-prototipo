@@ -21,7 +21,7 @@ import { caixaAlta } from '../../dados/formato.js'
 import { CartaoPreso } from './pecas.jsx'
 import {
   REF, SOBRE, MOMENTO_DA_FOLHA, FOLHAS, SOB_A_FAIXA, placaDe, uoDe, iniciais, filaToda, pendentesDaGaragem, naFila,
-  enviando, checklistPendentes, prazoDoAcesso, avisoDoAcesso, garagens, moduloPreso, ativoPreso, temVariasEmpresas,
+  enviando, checklistPendentes, prazoDoAcesso, avisoDoAcesso, avisoDaFila, garagens, moduloPreso, ativoPreso, temVariasEmpresas,
   mundoDoMenu, TROCA_DE_EMPRESA, destinoDaTroca, depoisDoTrocar, temRede,
 } from './dados.js'
 import './t04.css'
@@ -128,7 +128,11 @@ export default function T04({ momento, estado: est }) {
   const prazoDoAviso = avisoDoAcesso(mundo.situacao.sessaoAcesso)
   const avisoPedido = prazoDoAviso != null && (est ? est === REF.acesso
     : !EM_QUADRO && !sobre && !camada.montado && !mundo.avisoDoAcessoVisto)
-  const presencaDoAviso = usePorCima(avisoPedido ? 'acesso' : null)
+  // o aviso da fila parada (o pacote 12, T04/16): no molde do acesso vencendo, por cima do
+  // menu inteiro · só pela coluna, parado — no protótipo o relógio não anda, e a fila não
+  // fica 30 min parada (padrão até o PM decidir: 30 min)
+  const filaParada = est === REF.filaParada ? avisoDaFila(M.casos['fila-parada'].fila) : null
+  const presencaDoAviso = usePorCima(avisoPedido ? 'acesso' : filaParada ? 'fila' : null)
 
   // a URL segue o quadro do menu (G20): sem sessão é o 01, sem ativo é o 02
   useEffect(() => {
@@ -293,7 +297,12 @@ export default function T04({ momento, estado: est }) {
   // Entendi é o único jeito de fechar
   const entendi = () => despachar({ tipo: 'mesclar', parcial: { avisoDoAcessoVisto: true } })
   const aviso = !camada.montado && presencaDoAviso.montado
-  const doAviso = (
+  const doAviso = filaParada ? (
+    <Dialogo titulo={filaParada.titulo} primario="Ver a fila" aoPrimario={() => despachar({ tipo: 'ir', tela: 'T15' })}
+      saida="Agora não" aoSair={() => {}} saidaDe44 margem={24}>
+      <Frase>{filaParada.frase}</Frase>
+    </Dialogo>
+  ) : (
     <Dialogo titulo={`Seu acesso vence em ${prazoDoAviso?.restam} dias`} primario="Entendi" aoPrimario={entendi} margem={24}>
       <Frase>Depois disso, ele pede a senha de novo — e pra isso precisa de rede.</Frase>
     </Dialogo>

@@ -1,5 +1,27 @@
 # Registro de mudanças
 
+## 2026-10-04 · o pacote 12 — as pendências desenhadas, como padrão até o PM decidir
+
+- **as outras três falhas da Seção C**: o GPS, as entradas e o modem, cada um com a lista vermelha e a seta (T13/21, 23 e 25) e o detalhe que ajuda a consertar, logo depois dela na coluna (T13/22, 24 e 26) · o GPS usa a régua; o modem e as entradas, que não são número, dizem o valor
+- **o caminho do pedido de correção**: a correção na fila de saída (T15/05), a Seção E com *o cartão não passou* e a correção solicitada (T13/27), e o finalizar com a Seção E falhando (T13/28)
+- **a segunda falha do evento** (T14/09): *Segunda vez sem chegar: confira a conexão do módulo.* · o caso novo faz as duas tentativas estourarem
+- **a fila parada** (T04/16): depois de 30 min, o aviso sobre o menu, com *Ver a fila*
+- **depois da correção, refaz só o cartão na tela de sempre**: sem tela nova · a vez do cartão (T14/08) já conta
+- **sete linhas novas nas pendências do PM**, cada uma com o padrão desenhado · **160 → 171 referências** · 67 → 78 estados
+
+- **no protótipo** (o gate em `06-prototipo/para-o-arquiteto/gate-pacote12.md`, as folhas lado a lado em `pacote12/`):
+  - os casos da C (`gps-fraco`, `entrada-ignicao`, `modem-sem-sinal`) só valem no estado da coluna: o herói, no fluxo, passa;
+  - o instrumento do detalhe ganhou a variante só com o texto (as entradas e o modem), e a linha de leitura, as linhas do porquê (o cartão da T13/27);
+  - o cartão com a correção pedida conta no *Faltam*, mas não segura o `Finalizar`, que abre *A Seção E não passou*;
+  - o `Solicitar correção de cadastro` da T14 põe o pedido na fila de saída;
+  - a T14/09 é o `evento-nao-chega-de-novo`, só pela coluna, e a frase da segunda falha é a linha em falha do `Prazo`;
+  - a T04/16 é o diálogo da fila parada no lugar do aviso do acesso;
+  - as pendências entraram no `08-para-o-dev/o-que-o-produto-ainda-decide.md`.
+- **os desvios nomeados** (o gate, §3):
+  - os números do PCX-9A17 saem do mock, sem calibração: 20 de 30 e *Faltam 7 itens* na T13/27, onde a referência estimou 22 de 31;
+  - a T13/27 rola até onde a lista deixa;
+  - o *Agora não* da T04/16 fica a 8 do primário (decisão 38).
+
 ## 2026-10-04 · complemento do pacote 11 — duas coisas no design system
 
 - **o *O que conferir* vira peça** (folha 6 e `componentes.md`): as causas de uma falha, numeradas, antes de tentar de novo · aparece na conexão que falha (T05/04) e no item reprovado (T13/09) · a próxima falha usa a mesma · **105 → 106 peças**

@@ -25,6 +25,14 @@
 | `18-momento-foto-do-chicote` | momento | o 3º item da Montagem | o caminho feliz |
 | `19-momento-foto-do-leitor` | momento | o 4º item da Montagem · só com leitor | o caminho feliz |
 | `20-momento-foto-do-painel` | momento | o 5º item da Montagem · só quando houve calibração | o caminho feliz |
+| `21-estado-secao-c-com-gps-reprovado` | estado | o GPS reprova: a linha vermelha, 4 satélites e a seta pro detalhe · *padrão até o PM decidir* | `gps-fraco` |
+| `22-estado-gps-reprovado` | estado | tocar na linha vermelha do GPS: a régua dos satélites e o que conferir · *padrão até o PM decidir* | `gps-fraco` |
+| `23-estado-secao-c-com-entradas-reprovadas` | estado | uma entrada não bate: a linha vermelha, ignição desligada e a seta · *padrão até o PM decidir* | `entrada-ignicao` |
+| `24-estado-entradas-reprovadas` | estado | tocar na linha vermelha das entradas: qual não bate e o que conferir · *padrão até o PM decidir* | `entrada-ignicao` |
+| `25-estado-secao-c-com-modem-reprovado` | estado | o modem sem sinal reprova: a linha vermelha e a seta · *padrão até o PM decidir* | `modem-sem-sinal` |
+| `26-estado-modem-reprovado` | estado | tocar na linha vermelha do modem: sem sinal e o que conferir · *padrão até o PM decidir* | `modem-sem-sinal` |
+| `27-estado-secao-e-com-correcao-solicitada` | estado | o cartão não passou e a correção foi pedida: o cartão vermelho com as duas linhas · *padrão até o PM decidir* | `identificador-divergente` |
+| `28-estado-finalizar-com-a-secao-e-falhando` | estado | finalizar com o cartão reprovado e a correção pedida: registra com a falha e o nome · *padrão até o PM decidir* | `identificador-divergente` |
 
 - no protótipo · a nossa versão da linha *11-momento-homologado*, antes desta entrega: | `11-momento-homologado` | momento | tocar em `Finalizar instalação`, com o que bloqueia resolvido (T13·3) | `checklist` |
 

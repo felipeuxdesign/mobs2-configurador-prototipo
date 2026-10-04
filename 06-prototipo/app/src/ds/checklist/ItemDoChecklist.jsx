@@ -6,7 +6,10 @@
 //              passos da E, a F). `apagado`: o valor que ainda não veio, em
 //              --tinta-apagada ('a fazer', 'espera o envio') · reprovado, com
 //              `aoTocar`: o valor em --vermelho e a seta, e a linha toca (o
-//              automático reprovado abre o detalhe · T13/16, o pacote 10)
+//              automático reprovado abre o detalhe · T13/16, o pacote 10) ·
+//              `linhas` (o pacote 12, o cartão com a correção pedida da T13/27):
+//              embaixo do nome, uma linha por fato, a primeira em --vermelho
+//              ({ texto, tom: 'falha' }); a linha cresce, a 6 em cima e embaixo
 //   tocar    · 50, o ícone no poço de 32 (a câmera, o ciclo), o nome e a
 //              legenda empilhados, e a seta: o cartão inteiro é o toque
 //   feito    · 50, o check no poço de 32, o nome e de onde veio; sem seta
@@ -30,19 +33,26 @@ function GlifoDoItem({ estado, nomeGlifo }) {
   return <Glifo estado={GLIFO[estado] ?? 'ok'} poco={26} nome={nomeGlifo} className={`ds-item-ck-glifo ds-item-ck-glifo-${estado}`} />
 }
 
-export function ItemDoChecklist({ tipo = 'leitura', estado = 'ok', icone, nome, valor, legenda, apagado = false, divisoria = true, aoTocar, rotulo, nomeGlifo }) {
-  const classes = `ds-item-ck ds-item-ck-${tipo === 'leitura' ? 'leitura' : 'dupla'} ${divisoria ? '' : 'ds-item-ck-sem-divisoria'}`
+export function ItemDoChecklist({ tipo = 'leitura', estado = 'ok', icone, nome, valor, legenda, linhas, apagado = false, divisoria = true, aoTocar, rotulo, nomeGlifo }) {
+  const classes = `ds-item-ck ds-item-ck-${tipo === 'leitura' ? 'leitura' : 'dupla'} ${linhas ? 'ds-item-ck-com-linhas' : ''} ${divisoria ? '' : 'ds-item-ck-sem-divisoria'}`
   if (tipo === 'leitura') {
     const linha = (
       <>
         <Poco tam={30}><GlifoDoItem estado={estado} nomeGlifo={nomeGlifo} /></Poco>
-        <span className="ds-item-ck-nome">{nome}</span>
+        {linhas
+          ? (
+            <span className="ds-item-ck-pilha">
+              <span className="ds-item-ck-nome">{nome}</span>
+              {linhas.map((l) => <span key={l.texto} className={`ds-item-ck-linha ${l.tom === 'falha' ? 'ds-item-ck-linha-falha' : ''}`}>{l.texto}</span>)}
+            </span>
+          )
+          : <span className="ds-item-ck-nome">{nome}</span>}
         {valor != null && <span className={`ds-item-ck-valor ${apagado ? 'ds-item-ck-valor-apagado' : ''} ${estado === 'reprovado' ? 'ds-item-ck-valor-falha' : ''}`}>{valor}</span>}
       </>
     )
     if (!aoTocar) return <div className={classes}>{linha}</div>
     return (
-      <Tocavel className={`${classes} ds-item-ck-tocar`} rotulo={rotulo ?? [nome, valor].filter(Boolean).join(', ')} aoTocar={aoTocar}>
+      <Tocavel className={`${classes} ds-item-ck-tocar`} rotulo={rotulo ?? [nome, valor, ...(linhas ?? []).map((l) => l.texto)].filter(Boolean).join(', ')} aoTocar={aoTocar}>
         {linha}
         <Icone nome="avancar" tam={16} cor="secundaria" />
       </Tocavel>
