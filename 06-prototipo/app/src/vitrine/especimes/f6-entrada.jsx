@@ -8,7 +8,7 @@ import { SoIcone } from '../../ds/index.js'
 import { Lista } from '../../ds/linhas/Lista.jsx'
 import {
   CabecalhoConteudo, Marca, Campo, Requisito, Codigo, LinkConteudo, Busca, Justificativa,
-  LinhaModulo, LinhaOnibus, BlocoEscolhido, CartaoAcao, BotaoSecundario, LinhaContagem,
+  LinhaModulo, LinhaOnibus, BlocoEscolhido, CartaoAcao, OQueConferir, BotaoSecundario, LinhaContagem,
 } from '../../ds/entrada/index.js'
 
 // "botões só de ícone": os dois lado a lado, cada um com a margem que ele tem
@@ -87,6 +87,15 @@ export const especimes = [
     render: () => (
       <CartaoAcao rotulo="UM PRECISA DE VOCÊ" titulo="Evidências · KJC-7N23" descricao="instalação encerrada por outro usuário"
         acao="Ressincronizar e reenviar" />
+    ) },
+  // o complemento do pacote 11: as causas da T13/09, sem o traço vermelho (a T05/04 leva o traço, `falha`)
+  { id: 'f6-o-que-conferir', folha: 6, rotulo: 'o que conferir', legenda: 'as causas de uma falha, numeradas, antes de tentar de novo',
+    render: () => (
+      <OQueConferir rotulo="O QUE CONFERIR" causas={[
+        { titulo: '1 · Bateria do ônibus', texto: '— carga e terminais' },
+        { titulo: '2 · Cabo de alimentação', texto: '— encaixe firme' },
+        { titulo: '3 · Ponto de ligação', texto: '— direto na bateria, sem queda' },
+      ]} />
     ) },
   { id: 'f6-secundario', folha: 6, rotulo: 'botão secundário', legenda: 'fundo --elevado · a ação da linha',
     render: () => <BotaoSecundario>Ressincronizar e reenviar</BotaoSecundario> },

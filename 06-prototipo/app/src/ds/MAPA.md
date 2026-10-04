@@ -127,6 +127,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | escolhido com trava | src/ds/entrada/BlocoEscolhido.jsx (falha, passos) |
 | escolhido com trava · T06 | src/ds/entrada/BlocoEscolhido.jsx (falha, motivo; tom neutro na trava com saída · C8, T06/05) |
 | cartão que pede ação | src/ds/entrada/CartaoAcao.jsx (+ BotaoSecundario.jsx; compacto: com mais de um erro, o título de 17, a causa de 13, o botão compacto e a divisória, e o que a tela põe depois — o erro que reenvia sozinho e a legenda, peças da T15 · C11, T15/02) |
+| o que conferir | src/ds/entrada/OQueConferir.jsx (as causas de uma falha, numeradas · `falha`, o traço vermelho embaixo, da T05/04; sem ele, a caixa de poço comum, da T13/09 · o complemento do pacote 11, que juntou o da T05 e o da T13) |
 | botão secundário | src/ds/entrada/BotaoSecundario.jsx (compacto: 46 de desenho e 15 de letra, o toque de 48 por fora, G14 · C11, T15/02) |
 | lista com contagem | src/ds/entrada/LinhaContagem.jsx (+ linhas/Lista.jsx; nomeGlifo, o nome pelo estado do dado · C4 · os cinco grupos da T03 do pacote 1, com a divisória entre as linhas, a regra da peça — a folha desenha só a dos Ativos, o desvio A da T03) |
 

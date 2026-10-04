@@ -113,7 +113,7 @@ Medido nas 15 referências e no código da entrega do checklist (decisão 34, G1
 - seção aberta do checklist
 - seção recolhida
 - nota tracejada (até o pacote 11, no 09)
-- o que conferir (a peça da T05/04, sem o traço vermelho · o 09, desde o pacote 11)
+- o que conferir (a peça da folha 6, a mesma da T05/04, sem o traço vermelho · o 09, desde o pacote 11)
 - segmentado
 - a barra do checklist
 - com contador

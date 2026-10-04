@@ -57,8 +57,9 @@
 import { Fragment, useEffect, useRef, useState } from 'react'
 import {
   BarraDoSistema, Rodape, CabecalhoConteudo, Lista, LinhaModulo, Nota, useTrocaDeQuadro,
+  OQueConferir,
 } from '../../ds/index.js'
-import { VazioDaBusca, CausasDaFalha } from './pecas.jsx'
+import { VazioDaBusca } from './pecas.jsx'
 import { quadroDoCelular, textosDoCelular, depoisDoPedido } from './celular.js'
 import { useEstado, estadoVazio } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
@@ -270,7 +271,7 @@ export default function T05({ momento, estado: est }) {
           ))}
         </Lista>
         {perto.length === 1 && <Nota titulo={TX.nenhumOutro} frase={TX.seNaoForEste} />}
-        {trava && <CausasDaFalha rotulo={TX.oQueConferir} causas={TX.conferir} />}
+        {trava && <OQueConferir rotulo={TX.oQueConferir} causas={TX.conferir} falha />}
       </>
     )
     if (q.conectado) rodape = <Rodape primario={TX.conectadoAo(escolhido)} primarioDesabilitado primarioTrocaTexto link={TX.procurarDeNovo} linkDesabilitado />

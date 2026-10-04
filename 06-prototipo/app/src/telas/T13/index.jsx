@@ -50,7 +50,7 @@
 import { Fragment, useEffect, useRef, useState } from 'react'
 import {
   BarraDoSistema, Faixa, CabecalhoConteudo, BarraDoChecklist, SecoesDoChecklist, SecaoDoChecklist, ItemDoChecklist, VereditoDoChecklist,
-  Segmentado, Justificativa, Rodape, Veu, Dialogo, Frase, VisorCamera, FotoProva,
+  Segmentado, Justificativa, OQueConferir, Rodape, Veu, Dialogo, Frase, VisorCamera, FotoProva,
   useTrocaDeQuadro, useReorganiza, usePresenca,
 } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
@@ -65,7 +65,6 @@ import {
   instrumentoDoItem, filaDoFinalizar, nomeDaSecao, rotuloDoNivel, itemDe, ativoDe, registroDoQuadro, cicloConcluido,
 } from './checklist.js'
 import { InstrumentoDoItem } from './pecas.jsx'
-import { CausasDaFalha } from '../T05/pecas.jsx'
 import { T } from './textos.js'
 import './t13.css'
 
@@ -306,7 +305,7 @@ export default function T13({ momento, estado: est }) {
     )
   } else if (nivel) {
     // o nível do item automático reprovado (09, o pacote 11): a tela que ajuda a consertar — a
-    // leitura com a régua, e o que conferir, o bloco da conexão que falha na T05/04, sem o traço
+    // leitura com a régua, e o que conferir (a peça da folha 6, a mesma da T05/04), sem o traço
     // vermelho (a falha já está na régua) · sem a barrinha: no detalhe não tem o que percorrer
     const c = ck.porSecao[nivel.item.secao].find((x) => x.id === q.item)
     const instrumento = c.leitura ? instrumentoDoItem(c) : null
@@ -315,7 +314,7 @@ export default function T13({ momento, estado: est }) {
         <Segmentado rotulo={rotuloDoNivel(nivel.secao)} />
         <h1 className="t13-titulo-item">{nivel.item.pergunta ?? nivel.item.rotulo}</h1>
         {instrumento && <InstrumentoDoItem rotulo={T.lidoNoModulo} {...instrumento} />}
-        {CONFERIR_DO_REPROVADO[q.item] && <CausasDaFalha rotulo={T.oQueConferir} causas={CONFERIR_DO_REPROVADO[q.item]} falha={false} />}
+        {CONFERIR_DO_REPROVADO[q.item] && <OQueConferir rotulo={T.oQueConferir} causas={CONFERIR_DO_REPROVADO[q.item]} />}
       </>
     )
     rodape = <Rodape primario={T.refazerDiagnostico} aoPrimario={() => ir('T07')} link={T.voltarChecklist} aoLink={voltarAoChecklist} />

@@ -1,5 +1,14 @@
 # Registro de mudanças
 
+## 2026-10-04 · complemento do pacote 11 — duas coisas no design system
+
+- **o *O que conferir* vira peça** (folha 6 e `componentes.md`): as causas de uma falha, numeradas, antes de tentar de novo · aparece na conexão que falha (T05/04) e no item reprovado (T13/09) · a próxima falha usa a mesma · **105 → 106 peças**
+- **a regra da barrinha mora no segmentado** (`componentes.md`): só onde se percorre · estava só na ficha da T13
+
+- **no protótipo** (o gate em `06-prototipo/para-o-arquiteto/gate-complemento11.md`):
+  - o bloco que morava na T05 (`CausasDaFalha`) virou a peça `OQueConferir`, em `ds/entrada`, e a T05 e a T13 usam a mesma · `falha` põe o traço vermelho da T05/04;
+  - o espécime da folha 6 bate em 0,02%, e a T05/04 e a T13/09 ficaram em 0%, como antes.
+
 ## 2026-10-04 · o pacote 11 — o detalhe que ajuda a consertar
 
 - **a T13/09 vira a tela que ajuda a consertar**: a régua com a leitura e a faixa fica, e entra o bloco *O que conferir*, com três causas — a bateria do ônibus, o cabo de alimentação e o ponto de ligação —, o mesmo da conexão que falha na T05 · sai o recado *isto não se marca à mão*

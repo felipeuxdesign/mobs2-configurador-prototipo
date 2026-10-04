@@ -14,5 +14,6 @@ export { LinhaModulo } from './LinhaModulo.jsx'
 export { LinhaOnibus } from './LinhaOnibus.jsx'
 export { BlocoEscolhido } from './BlocoEscolhido.jsx'
 export { CartaoAcao } from './CartaoAcao.jsx'
+export { OQueConferir } from './OQueConferir.jsx'   // as causas de uma falha (folha 6 · o complemento do pacote 11 · T05/04, T13/09)
 export { BotaoSecundario } from './BotaoSecundario.jsx'
 export { LinhaContagem } from './LinhaContagem.jsx'
