@@ -93,7 +93,9 @@ export default [
   { ve: 'A CONFIGURAÇÃO SOBREVIVEU AO REINÍCIO', entre: ASSERTIVA },
   { anima: TROCA, naoAnima: NADA_DESLIZA },
   { chega: 'T16', momento: M02 },
-  { dorme: 300 },
+  // o traço do veredito se desenha, uma vez (o pacote 9): 300 ms, só por transform
+  { anima: [{ prop: 'transform', ms: 300, em: 'ds-prova-traco', curva: C }] },
+  { dorme: 400 },
   { quieto: true },
   { toca: 'Voltar ao menu', anima: [esmaece('tela-miolo')] },   // o menu não tem rodapé
   { chega: 'T04' },

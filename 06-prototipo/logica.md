@@ -452,6 +452,7 @@ O que não é de desenho e o produto ainda decide segue um padrão — a lista e
 | `T05/02-momento-um-encontrado` | só um módulo por perto |
 | `T05/05-momento-procurando` | `Procurar de novo` · 1,2s antes da lista voltar |
 | `T05/06-momento-conectando` | tocar em `Conectar ao M2C-0417` · 1,2s antes da T07, ou do não respondeu da 04 |
+| `T05/07-momento-conectado` | o módulo responde: o traço lima se desenha embaixo da linha, antes da T07 |
 | `T06/01-momento-confirmar-o-veiculo` | tocar num ônibus |
 | `T06/08-momento-busca-sem-resultado` | digitar na busca uma placa que não existe |
 | `T06/09-momento-busca-esconde-a-escolha` | com um ativo escolhido, digitar uma busca que esconde ele |

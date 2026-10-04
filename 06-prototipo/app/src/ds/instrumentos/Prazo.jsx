@@ -20,7 +20,9 @@ import './Prazo.css'
 // O pacote 6 · `fila` { resta, ms } (T14/01): a fila do módulo que drena, uma linha fina de 4
 // embaixo da frase — o que resta por sair, em fração; com `ms`, esvazia até o zero nesse tempo,
 // linear, só por transform (com reduzir, salta). Muda pro leitor: a frase já diz
-export function Prazo({ rotulo, nota, tempo, restante, limite, legendas, detalhe, falha = false, segue, fila }) {
+// O pacote 9 · `marcador` (T14): onde o marcador branco fica, quando não é o fim do preenchido —
+// com o evento chegado, o preenchido para na chegada e o marcador segue o tempo
+export function Prazo({ rotulo, nota, tempo, restante, limite, legendas, detalhe, falha = false, segue, fila, marcador }) {
   const [resta, setResta] = useState(fila ? fila.resta : null)
   useEffect(() => {
     if (!fila?.ms) return undefined
@@ -34,7 +36,7 @@ export function Prazo({ rotulo, nota, tempo, restante, limite, legendas, detalhe
         {nota != null && <span className="ds-inst-nota">{nota}</span>}
       </div>
       <div className="ds-prazo-numero"><span className="ds-prazo-tempo">{tempo}</span></div>
-      <Escala tam="prazo" min={0} max={limite} valor={restante} faixa={restante > 0 ? { de: 0, ate: restante } : null} divisoes={4} fortes={[limite / 2]} segue={segue} />
+      <Escala tam="prazo" min={0} max={limite} valor={marcador ?? restante} faixa={restante > 0 ? { de: 0, ate: restante } : null} divisoes={4} fortes={[limite / 2]} segue={segue} />
       <div className="ds-inst-legendas"><span>{legendas.inicio}</span><span>{legendas.fim}</span></div>
       {detalhe != null && (Array.isArray(detalhe)
         ? <span className="ds-prazo-detalhe ds-prazo-frases">{detalhe.map((f) => <span key={f}>{f}</span>)}</span>

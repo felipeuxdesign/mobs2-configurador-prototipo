@@ -7,6 +7,7 @@ Vale o `03-design-system/movimento.md`. Entre telas, só o conteúdo esmaece em 
 | lista de módulos | a busca acha | cada linha surge esmaecendo, uma depois da outra | 150ms · 80ms entre elas | desacelera | aparecem juntas |
 | busca de novo | tocar em `Procurar de novo` | a lista some e a tela vira o *Procurando…* (ref. 05) — o poço com o quadrado de agora, o botão desligado —, e a lista volta · 400ms passaria sem o técnico ver que buscou | 1,2s | — | igual |
 | conectar | tocar em `Conectar ao …`, ou no `Tentar de novo` da 04 | o primário desliga e diz *Conectando ao M2C-0417…* (ref. 06), e o `Procurar de novo` apaga; depois vem a T07, ou o *NÃO RESPONDEU* da 04 — no aparelho, o tempo real da conexão | 1,2s | — | igual |
+| conexão confirmada | o módulo responde | o traço lima se desenha embaixo da linha marcada, da esquerda pra direita, e o botão diz *Conectado ao M2C-0417* (ref. 07) · depois, a troca normal pra T07 · na falha, sem traço: a linha diz *não respondeu* (ref. 04) | 300ms (`--mov-lento`) | desacelera | aparece já desenhado |
 
 - no protótipo · a nossa versão da linha *lista de módulos*, antes desta entrega: | lista de módulos | a busca acha — a lista que volta da busca de novo (C12·28, C12·41) | cada linha surge esmaecendo, uma depois da outra; ao abrir, a lista já está lá, parada (C12·28) | 150ms · 80ms entre elas | desacelera | aparecem juntas |
 

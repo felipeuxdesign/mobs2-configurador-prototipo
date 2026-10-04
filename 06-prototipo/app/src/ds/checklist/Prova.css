@@ -40,3 +40,12 @@
 /* surge (C12·9, o gesto do Aviso): a prova que aparece depois de a tela abrir esmaece no lugar,
  * inteira, em 150 (desacelera); o espaço abre direto. Sem preenchimento: acabou, nada fica vivo */
 .ds-prova-surge { animation: ds-prova-esmaece var(--mov-rapido) var(--mov-curva); }
+
+/* o pacote 9 · o traço que se desenha (T16/02): a borda lima vira o cinza do poço por baixo, e o
+ * lima vem por uma camada exatamente em cima dela, que se desenha da esquerda pra direita */
+.ds-prova.ds-prova-desenha { position: relative; border-bottom-color: var(--borda-poco); }
+.ds-prova-traco {
+  position: absolute; pointer-events: none;
+  left: calc(-1 * var(--traco-borda)); right: calc(-1 * var(--traco-borda)); bottom: calc(-1 * var(--traco-destaque)); height: var(--traco-destaque);
+  background: var(--lima);
+}

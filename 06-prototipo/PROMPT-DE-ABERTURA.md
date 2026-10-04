@@ -26,7 +26,7 @@ O executor de um projeto cujo design está **fechado, medido e aprovado**. Você
 Pra **cada uma** das 15 pastas de `02-telas/`:
 
 - leia `tela.md`, `estados.md`, `animacao.md` e `textos.md`
-- **abra cada PNG de `referencias/png/`** — todas as 153 referências, sem exceção — e olhe a tela como o técnico olharia
+- **abra cada PNG de `referencias/png/`** — todas as 154 referências, sem exceção — e olhe a tela como o técnico olharia
 - abra o HTML da `00-tela` e **leia as medidas reais** das peças principais
 - confira se cada estado tem um caso do mock que o produz, abrindo o caso em `mocks.js`
 

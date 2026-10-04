@@ -71,6 +71,9 @@ import {
 } from './diagnostico.js'
 import './t07.css'
 
+// com reduzir movimento (o --mov-lento vale 0), a CAN ao vivo para no último valor
+const reduzMovimento = () => (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--mov-lento')) || 0) === 0
+
 // a lista da T05, sem nada escolhido: aonde o Procurar outro módulo leva
 const T05_LISTA = '01-momento-nenhum-escolhido'
 
@@ -162,7 +165,20 @@ export default function T07({ momento, estado: est }) {
   const sinais = q.can && ativo ? sinaisDoModelo(ativo.modeloAtivoId) : null
   const leitura = sinais ? leituraDaCan(sinais, q.casos) : null
   const relendo = q.can && q.lidos != null
+  // O pacote 9 · a CAN ao vivo: com a CAN lida, os sinais que mudam de verdade com o motor ligado
+  // (os que têm `leituras` no mock: rotação, temperatura, consumo, alternador) trocam o número no
+  // lugar a cada 1 s, sem transição — é o dado chegando, não animação (CLAUDE.md). Os outros ficam
+  // parados. Parados também no print, num estado da coluna, no Ler de novo e com reduzir movimento
+  const aoVivo = q.can && !relendo && !!sinais && est == null && !EM_QUADRO
+  const [leituraN, setLeituraN] = useState(0)
+  useEffect(() => {
+    if (!aoVivo || reduzMovimento()) return undefined
+    const t = setInterval(() => setLeituraN((n) => n + 1), RITMOS.canAoVivoMs)
+    return () => clearInterval(t)
+  }, [aoVivo])
   const linhasCan = (leitura ?? []).map((r, i) => {
+    const s = sinais[i]
+    if (aoVivo && !relendo && r.estado === 'aprovada' && s?.leituras?.length) return { ...r, valor: s.leituras[leituraN % s.leituras.length] }
     if (!relendo || i < q.lidos) return r
     if (i === q.lidos) return { ...r, estado: 'agora', valor: T.lendo, causa: undefined }
     return { ...r, estado: 'ainda-nao', valor: T.vazio, causa: undefined, glifo: 'relogio' }

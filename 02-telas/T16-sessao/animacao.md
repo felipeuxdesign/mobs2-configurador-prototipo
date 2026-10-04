@@ -11,7 +11,10 @@ Vale o `03-design-system/movimento.md`. Entre telas, só o conteúdo esmaece em 
 | assertiva do autoteste | cada leitura chega | a linha da vez mostra o quadrado branco de agora e diz *lendo*; as seguintes esperam com o relógio e o traço; a contagem sobe ao lado do título; o veredito só entra no fim (ref. 07) · 400ms por assertiva | 150ms | desacelera | aparecem juntas |
 | rodapé | o autoteste corre | `Voltar ao menu` desligado até o veredito | — | — | igual |
 | prova, bloqueio e `Voltar ao menu` (o pacote 5) | a última assertiva chega | o autoteste correndo (07) não tem veredito: a contagem ao lado do título e o `Voltar ao menu` desligado; na oitava, o quadro troca pro fim (02 ou 05) — o conteúdo esmaece, como entre telas (C12·4), e a prova (ou o bloqueio) e o `Voltar ao menu` aceso já vêm no quadro novo | 150ms | desacelera | troca direta |
+| traço do veredito | a oitava assertiva passa | o veredito esmaece no lugar e, no mesmo tique, o traço lima embaixo da prova se desenha da esquerda pra direita · **uma vez, só no fluxo** · pela URL, no print e na coluna, já desenhado · a T11/02 não desenha: o fecho é só da visita | 300ms (`--mov-lento`) · o resto em 150ms | desacelera | aparece já desenhado |
 | faixa de sessão | a sessão encerra | a faixa aberta sobe (translateY 0→-100%) por baixo da barra do sistema e revela a faixa sem sessão, que já está no lugar; nada do layout se move (C12·25) | 200ms | desacelera (C12·5) | troca direta (C12·25) |
+
+- no protótipo (o pacote 9): o traço do veredito é a camada lima sobre a borda da prova (`Prova` · `desenha`), que nasce com o quadro da 02 quando a oitava assertiva passa; pela URL, a 02 abre com a borda lima de sempre, sem a camada
 
 
 **Os quadros de começo e fim** de cada movimento são as referências desta pasta: o movimento vai de uma referência parada à outra. Só propriedades de transform e opacity — nada que mexa no layout.

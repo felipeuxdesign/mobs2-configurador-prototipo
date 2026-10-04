@@ -27,10 +27,11 @@ Você está num projeto cujo design já foi decidido, medido e aprovado. **Seu t
 - **hover** de qualquer tipo — o app é de toque; o que responde é o **pressionado**
 - foco de teclado desenhado no app — o leitor de tela do sistema desenha o dele
 - animar a entrada de tela, contar de zero ao abrir, animar em loop, mover o layout
+- **o dado ao vivo não é loop**: o sinal que muda de verdade troca o número no lugar a cada leitura, sem transição — é o dado chegando, não animação (os sinais da CAN, na T07)
 - remontar uma tela num estado — **o estado muda o conteúdo, nunca o desenho**
 - lima fora de veredito, de escolhido e do texto do botão primário
 - mencionar tecnologia, protocolo ou código pro técnico — ele lê negócio · a exceção é a APN, que o PM pediu pra conferir (decisão 51)
 
 ## Os números desta versão
 
-15 telas · 73 momentos · 65 estados · 109 histórias de usuário · 295 tokens · 105 peças no design system · 56 casos no mock.
+15 telas · 74 momentos · 65 estados · 109 histórias de usuário · 295 tokens · 105 peças no design system · 56 casos no mock.

@@ -95,6 +95,8 @@ export default [
   { desligado: 'Conectando ao M2C-0417…' },
   { desligado: 'Procurar de novo' },
   { chega: 'T05', momento: '06-momento-conectando' },
+  // o módulo respondeu (o pacote 9): o Conectado ao …, e o traço se desenha embaixo da linha
+  { chega: 'T05', momento: '07-momento-conectado', entre: [900, 1700] },
   { chega: 'T07', entre: [900, 1700] },
   { naoVe: 'Escolha o que está na sua mão.' },
   { naoVe: 'ENCERRAR' },   // a faixa desce na T07, quando as sete linhas passam sem trava — não no toque
@@ -106,6 +108,8 @@ export default [
   { desligado: 'Conectando ao M2C-0417…' },
   { desligado: 'Procurar de novo' },
   { chega: 'T05', momento: '06-momento-conectando' },
+  // o módulo respondeu (o pacote 9): o Conectado ao …, e o traço se desenha embaixo da linha
+  { chega: 'T05', momento: '07-momento-conectado', entre: [900, 1700] },
   { chega: 'T07', entre: [900, 1700] },
   // o M2C-0999 conecta como os outros, e a T07 trava pelo serial fora do cadastro, lido da sessão (T07/02)
   { abre: `?tela=T05&momento=${M01}` },
@@ -116,6 +120,8 @@ export default [
   { desligado: 'Conectando ao M2C-0999…' },
   { desligado: 'Procurar de novo' },
   { chega: 'T05', momento: '06-momento-conectando' },
+  // o módulo respondeu (o pacote 9): o Conectado ao …, e o traço se desenha embaixo da linha
+  { chega: 'T05', momento: '07-momento-conectado', entre: [900, 1700] },
   { chega: 'T07', entre: [900, 1700] },
   { ve: 'Peça ao gestor pra cadastrar o M2C-0999.', ms: 8000 }, // pacote 3: o topo só com o serial, e o aviso da trava
   { naoVe: 'ENCERRAR' },
@@ -135,6 +141,8 @@ export default [
   { quieto: true },
   { toca: 'Conectar ao M2C-0999', naoAnima: [...TROCA, ...PARADOS] },
   { chega: 'T05', momento: '06-momento-conectando' },
+  // o módulo respondeu (o pacote 9): o Conectado ao …, e o traço se desenha embaixo da linha
+  { chega: 'T05', momento: '07-momento-conectado', entre: [900, 1700] },
   { chega: 'T07', entre: [900, 1700] },
   { reduzir: false },
 

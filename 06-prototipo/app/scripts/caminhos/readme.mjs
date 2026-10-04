@@ -64,4 +64,14 @@ export default [
   { ve: '6 blocos' },
   { ve: 'o módulo devolveu os seis blocos' },
   olha(2500),
+  // (o pacote 9) a CAN lida ao vivo: os sinais do motor ligado trocam o número a cada segundo
+  { abre: '?tela=T07&momento=01-momento-can-lida' },
+  { chega: 'T07', momento: '01-momento-can-lida' },
+  { ve: 'Rotação' },
+  olha(3600),
+  // e o fim da visita: o encerramento, o autoteste e o traço do veredito se desenhando
+  { abre: '?tela=T16' },
+  { chega: 'T16', momento: '02-momento-sessao-encerrada', ms: 15000 },
+  { ve: 'A CONFIGURAÇÃO SOBREVIVEU AO REINÍCIO' },
+  olha(2500),
 ]

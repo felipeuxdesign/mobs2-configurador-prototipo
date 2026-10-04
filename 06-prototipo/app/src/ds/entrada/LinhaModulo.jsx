@@ -11,13 +11,16 @@
 //   pé do cartão: 56 na busca (T05/00, 04) e 76 na escolha (T05/01).
 import { Tocavel, Poco, Glifo, Quadrado } from '../index.js'
 import './LinhaModulo.css'
+import '../primitivos/Traco.css'
 
 // `marcado` (diretor, 24/09): na lista de escolha, tocar marca o módulo (o quadrado lima)
 //   e quem avança é o primário — a linha não navega.
 // O pacote 7 (T05/04) · `falha`: a linha do módulo que não respondeu diz isso à direita, em vermelho
-export function LinhaModulo({ serial, variante, aoTocar, rotulo, apagada = false, divisoria = true, escolha = false, marcado = false, rotuloValor, valor, falha, fim = false }) {
+// O pacote 9 · `confirmada` (T05/07): o traço lima embaixo da linha, a conexão confirmada; com
+// `desenha`, ele se desenha da esquerda pra direita (o traço que se desenha, movimento.md)
+export function LinhaModulo({ serial, variante, aoTocar, rotulo, apagada = false, divisoria = true, escolha = false, marcado = false, rotuloValor, valor, falha, confirmada = false, desenha = false, fim = false }) {
   const classe = [
-    'ds-linha-modulo', escolha ? 'ds-linha-modulo-escolha' : '', apagada ? 'ds-linha-modulo-apagada' : '',
+    'ds-linha-modulo', escolha ? 'ds-linha-modulo-escolha' : '', confirmada ? 'ds-linha-modulo-confirmada' : '', apagada ? 'ds-linha-modulo-apagada' : '',
     divisoria ? '' : 'ds-sem-divisoria', fim ? 'ds-linha-modulo-fim' : '',
   ].filter(Boolean).join(' ')
   const conteudo = escolha ? (
@@ -28,6 +31,7 @@ export function LinhaModulo({ serial, variante, aoTocar, rotulo, apagada = false
         <span className="ds-linha-modulo-variante">{variante}</span>
       </span>
       {falha != null && <span className="ds-linha-modulo-falha">{falha}</span>}
+      {confirmada && <span className={`ds-linha-modulo-traco ${desenha ? 'ds-traco-desenha' : ''}`} aria-hidden="true" />}
       {valor != null && (
         <span className="ds-linha-modulo-coluna">
           <span className="ds-linha-modulo-rotulo">{rotuloValor}</span>

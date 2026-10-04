@@ -63,6 +63,7 @@ import { quadroDoCelular, textosDoCelular, depoisDoPedido } from './celular.js'
 import { useEstado, estadoVazio } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
 import { RITMOS } from '../../estado/ritmos.js'
+import { EM_QUADRO } from '../../estado/quadro.js'
 import { RECEITAS } from '../../estado/receitas.js'
 import { M } from '../../dados/mock.js'
 import { TX } from './textos.js'
@@ -76,6 +77,7 @@ const M01 = '01-momento-nenhum-escolhido'
 const M02 = '02-momento-um-encontrado'
 const M05 = '05-momento-procurando'
 const M06 = '06-momento-conectando'
+const M07 = '07-momento-conectado'
 
 // o quadro da busca: os módulos por perto, o escolhido (ou nenhum) e, se a
 // conexão com ele falhou, a trava no escolhido (04)
@@ -92,6 +94,8 @@ function inicio(momento) {
   if (momento === M02) return busca(soOHeroi(), HEROI)
   if (momento === M05) return procurando(2)
   if (momento === M06) return { ...busca(porPerto(), HEROI), conectando: true }
+  // a 07 pela URL: o traço já desenhado, parada (o pacote 9)
+  if (momento === M07) return { ...busca(porPerto(), HEROI), conectado: true }
   return busca(porPerto(), HEROI)
 }
 
@@ -138,7 +142,7 @@ export default function T05({ momento, estado: est }) {
   // ele que conecta (diretor, 24/09: escolher numa lista marca, quem avança é o botão)
   // o pacote 7: o escolhido é a linha marcada, em toda a T05 — a marca nova tira a falha da 04
   function escolher(serial) {
-    if (fluxo.conectando) return // conectando, a lista fica, sem responder
+    if (fluxo.conectando || fluxo.conectado) return // conectando ou conectado, a lista fica, sem responder
     setFluxo((f) => ({ ...f, escolhido: serial, trava: false }))
     if (momento) ir('T05') // marcar é a 00, a tela: a URL segue
   }
@@ -170,8 +174,16 @@ export default function T05({ momento, estado: est }) {
     ir('T05', { momento: M06 })
     espera.current = setTimeout(depois, RITMOS.buscaMs)
   }
+  // o pacote 9: o módulo respondeu — o Conectado ao … (07), o traço lima se desenha embaixo da
+  // linha (uma vez, só no fluxo) e, depois de RITMOS.buscaMs (o mesmo número da espera, sem
+  // número novo), a troca pra T07. Na falha, sem traço
+  function conectado(serial) {
+    setFluxo((f) => ({ ...busca(f.perto ?? porPerto(), serial), conectado: true, desenha: true }))
+    ir('T05', { momento: M07 })
+    espera.current = setTimeout(() => abrirSessao(serial), RITMOS.buscaMs)
+  }
   function conectar(serial = q.escolhido) {
-    if (fluxo.conectando) return
+    if (fluxo.conectando || fluxo.conectado) return
     const falha = casosDoModulo(serial, vivo.current.estado.casosConsumidos).includes(CASO_CONEXAO)
     conectando(serial, () => {
       if (falha) {
@@ -180,14 +192,14 @@ export default function T05({ momento, estado: est }) {
         ir('T05')
         return
       }
-      abrirSessao(serial)
+      conectado(serial)
     })
   }
   // `Tentar de novo` (04): o mesmo *Conectando…*, sobre o quadro da 04; o caso já valeu, e a conexão segue
   function tentarDeNovo() {
-    if (fluxo.conectando) return
+    if (fluxo.conectando || fluxo.conectado) return
     const serial = q.escolhido
-    conectando(serial, () => { consumir(CASO_CONEXAO); abrirSessao(serial) }, true)
+    conectando(serial, () => { consumir(CASO_CONEXAO); conectado(serial) }, true)
   }
   const voltar = () => ir('T04')
   // 16 · 17 · o primário do celular: o Android responde, e a tela vai pra busca
@@ -253,6 +265,7 @@ export default function T05({ momento, estado: est }) {
           {perto.map((p) => (
             <LinhaModulo key={p.serial} escolha serial={p.serial} variante={varianteNaLista(p.serial)}
               marcado={p.serial === escolhido} falha={trava && p.serial === escolhido ? TX.naoRespondeu : undefined}
+              confirmada={!!q.conectado && p.serial === escolhido} desenha={!!q.desenha && !EM_QUADRO && est == null}
               aoTocar={() => escolher(p.serial)} />
           ))}
         </Lista>
@@ -260,7 +273,8 @@ export default function T05({ momento, estado: est }) {
         {trava && <CausasDaFalha rotulo={TX.oQueConferir} causas={TX.conferir} />}
       </>
     )
-    if (q.conectando) rodape = <Rodape primario={TX.conectandoAo(escolhido)} primarioDesabilitado primarioTrocaTexto link={TX.procurarDeNovo} linkDesabilitado />
+    if (q.conectado) rodape = <Rodape primario={TX.conectadoAo(escolhido)} primarioDesabilitado primarioTrocaTexto link={TX.procurarDeNovo} linkDesabilitado />
+    else if (q.conectando) rodape = <Rodape primario={TX.conectandoAo(escolhido)} primarioDesabilitado primarioTrocaTexto link={TX.procurarDeNovo} linkDesabilitado />
     else if (trava) rodape = <Rodape primario={TX.tentarDeNovo} aoPrimario={tentarDeNovo} primarioTrocaTexto link={TX.procurarDeNovo} aoLink={procurar} />
     else if (escolhido) rodape = <Rodape primario={TX.conectarAo(escolhido)} aoPrimario={() => conectar()} primarioTrocaTexto link={TX.procurarDeNovo} aoLink={procurar} />
     else rodape = <Rodape legenda={TX.escolhaUm} primario={TX.conectar} primarioDesabilitado primarioTrocaTexto link={TX.procurarDeNovo} aoLink={procurar} />

@@ -97,7 +97,8 @@ function proximo(f) {
   }
   if (f.fase === 'autoteste') {
     const acesas = f.acesas + 1
-    return acesas >= TOTAL_ASSERTIVAS ? { ...f, fase: 'encerrada' } : { ...f, acesas }
+    // a oitava: o fim — e o traço do veredito se desenha, uma vez (o pacote 9: só no fluxo)
+    return acesas >= TOTAL_ASSERTIVAS ? { ...f, fase: 'encerrada', desenha: true } : { ...f, acesas }
   }
   if (f.fase === 'abortando') {
     const feitos = f.feitos + 1
@@ -255,7 +256,7 @@ export default function T16({ momento, estado: est }) {
     miolo = (
       <>
         <CabecalhoConteudo titulo={T.encerrada} {...contagem} />
-        {pronta && !falha && <Prova tipo="sessao" rotulo={T.sobreviveu} versao={fluxo.versao} legenda={T.relidoDoModulo} />}
+        {pronta && !falha && <Prova tipo="sessao" rotulo={T.sobreviveu} versao={fluxo.versao} legenda={T.relidoDoModulo} desenha={!!fluxo.desenha && !EM_QUADRO && est == null} />}
         <Lista>
           {lista.map((a, i) => (
             <LinhaChecagem key={a.id} variante="dupla" titulo={a.titulo} {...linha(a, i)}

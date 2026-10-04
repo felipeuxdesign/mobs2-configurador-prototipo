@@ -24,3 +24,7 @@
 /* o pacote 7 · a linha marcada da T05: o número em --tinta; e a falha à direita (04), em vermelho */
 .ds-linha-modulo-escolha[aria-checked="true"] .ds-linha-modulo-serial { color: var(--tinta); }
 .ds-linha-modulo-falha { flex-shrink: 0; font-size: var(--t-secundario); font-weight: 700; color: var(--vermelho); }
+
+/* o pacote 9 · a conexão confirmada (T05/07): o traço lima de 2 por dentro, colado na divisória */
+.ds-linha-modulo.ds-linha-modulo-confirmada { position: relative; }
+.ds-linha-modulo-traco { position: absolute; left: 0; right: 0; bottom: 0; height: var(--traco-destaque); background: var(--lima); pointer-events: none; }

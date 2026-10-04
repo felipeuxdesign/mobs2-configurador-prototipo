@@ -1,6 +1,6 @@
 {
   "telas": 15,
-  "referencias": 153,
+  "referencias": 154,
   "itens": [
     {
       "id": "T01/00-tela",
@@ -769,6 +769,18 @@
       "caso": "modulos",
       "html": "02-telas/T05-conectar-modulo/referencias/html/06-momento-conectando.html",
       "png": "02-telas/T05-conectar-modulo/referencias/png/06-momento-conectando.png"
+    },
+    {
+      "id": "T05/07-momento-conectado",
+      "tela": "T05",
+      "pasta": "T05-conectar-modulo",
+      "tipo": "momento",
+      "nome": "07-momento-conectado",
+      "titulo": "T05 Conectado",
+      "como": "o módulo responde: o traço lima se desenha embaixo da linha, antes da T07",
+      "caso": "modulos",
+      "html": "02-telas/T05-conectar-modulo/referencias/html/07-momento-conectado.html",
+      "png": "02-telas/T05-conectar-modulo/referencias/png/07-momento-conectado.png"
     },
     {
       "id": "T05/16-estado-bluetooth-desligado",

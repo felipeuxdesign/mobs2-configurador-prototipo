@@ -27,8 +27,11 @@
 import { useRef } from 'react'
 import { useVez } from '../primitivos/vez.js'
 import './Prova.css'
+import '../primitivos/Traco.css'
 
-export function Prova({ tipo = 'cadeia', rotulo, versao, legenda, legendaMuda = false, className = '', style, aguarda, aguardaUnidade, surge = false }) {
+// O pacote 9 · `desenha` (T16/02): o traço lima embaixo da prova se desenha da esquerda pra
+// direita, uma vez (o traço que se desenha, movimento.md); sem ela, a borda lima de sempre
+export function Prova({ tipo = 'cadeia', rotulo, versao, legenda, legendaMuda = false, className = '', style, aguarda, aguardaUnidade, surge = false, desenha = false }) {
   const espera = aguarda != null
   const tudo = espera && aguarda !== 'legenda'
   const prova = useVez(espera ? (tudo ? 'tudo' : 'legenda') : null)
@@ -37,7 +40,7 @@ export function Prova({ tipo = 'cadeia', rotulo, versao, legenda, legendaMuda = 
   if (tudo) conta.current = aguarda >= 1 ? aguarda : null
   const classes = [
     'ds-prova', `ds-prova-${tipo}`, tudo ? 'ds-prova-aguarda' : '', espera && !tudo ? 'ds-prova-aguarda-legenda' : '',
-    chega ? `ds-prova-chega ds-prova-chega-${chega}` : '', surge ? 'ds-prova-surge' : '', className,
+    chega ? `ds-prova-chega ds-prova-chega-${chega}` : '', surge ? 'ds-prova-surge' : '', desenha ? 'ds-prova-desenha' : '', className,
   ].filter(Boolean).join(' ')
   return (
     <div className={classes} style={style} aria-hidden={tudo ? 'true' : undefined}>
@@ -62,6 +65,7 @@ export function Prova({ tipo = 'cadeia', rotulo, versao, legenda, legendaMuda = 
       <span className="ds-prova-legenda" aria-hidden={legendaMuda || espera ? 'true' : undefined}>{legenda}</span>
       {/* o cinza do traço sai por uma camada, por cima do lima */}
       {chega === 'tudo' && <span className="ds-prova-capa" aria-hidden="true" />}
+      {desenha && <span className="ds-prova-traco ds-traco-desenha" aria-hidden="true" />}
     </div>
   )
 }

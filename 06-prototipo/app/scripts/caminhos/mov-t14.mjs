@@ -77,8 +77,9 @@ export default [
   { ve: 'O EVENTO CHEGOU EM', entre: [4500, 6500] },
   { anima: [EVENTO] },
   { ve: 'Encerrar o ciclo' },   // o evento chegou: o Encerrar o ciclo acende
+  // (o pacote 9) o preenchido para na chegada, e o marcador branco segue o tempo, só por transform
   { dorme: 400 },
-  { quieto: true },
+  { anima: [{ prop: 'transform', em: 'ds-escala-agulha' }], naoAnima: SEM_LARGURA },
   // os passos do veículo: o check esmaece no poço (T14·3)
   { ve: '3 de 6 passos', entre: [1000, 3200] },
   { anima: [CHECK] },

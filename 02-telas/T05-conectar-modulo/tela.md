@@ -8,7 +8,7 @@ Achar o módulo e conectar. O que ele informa vem logo depois, no diagnóstico.
 | **Chrome** | sem faixa — a sessão nasce no diagnóstico, quando o módulo passa |
 | **Semente no protótipo** | quatro módulos por perto · M2C-0417 é o do herói |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 4 · 4 — ver `estados.md` |
+| **Momentos · estados** | 5 · 4 — ver `estados.md` |
 
 - no protótipo · a linha *Chrome*, pelo padrão aprovado: a sessão nasce na conexão, aqui, mas a faixa não desce nesta tela — desce na T07, quando as sete linhas passam sem trava (veja *conectado → T07*, embaixo). Nenhuma das sete referências da T05 tem a faixa
 
@@ -31,6 +31,7 @@ Achar o módulo e conectar. O que ele informa vem logo depois, no diagnóstico.
   - no protótipo (o pacote 6): o `Conectar ao …` passa pelo *Conectando ao …* (06) — o primário desligado, o `Procurar de novo` apagado, a lista inerte — por 1,2 s (`ritmos.js` · `buscaMs`, o mesmo número da busca e do Entrar), com a URL dizendo a 06; aí a T07, ou o *não respondeu* da 04. O `Tentar de novo` da 04 passa pelo mesmo momento, sobre o quadro dela. Pela URL, a 06 abre parada · o `Procurar de novo` apagado fica em `--tinta-apagada` (a lei 17), e a 06 o desenha em `--marca` — o desvio está no gate do pacote 6
   - no protótipo · conectado, a sessão nasce, com o meio em que a busca achou o módulo, e a tela vai pra T07; a faixa ainda não desce: ela desce na T07, quando as sete linhas passam sem trava (o padrão aprovado, a resposta do arquiteto ao gate, 02/10, que a errata do pacote 1 levou à `logica.md` e à decisão 44). A sessão nasce sem nenhuma etapa: a pré-checagem não grava mais nada aqui, e o diagnóstico grava a dele (`etapas.preChecagem`, o nome de hoje, que a T13 e a T12 leem). Construída (o pacote 1): `app/src/telas/T05/index.jsx` · `abrirSessao`. A nossa versão desta linha, antes desta entrega, era a da pré-checagem, que saiu com a decisão 44
 - `Conectar ao …` → o botão desliga e diz *Conectando ao M2C-0417…* (a 06), sem mudar mais nada na tela
+  - no protótipo (o pacote 9): o módulo responde → o *Conectado ao …* (07): o primário desligado com o texto novo, o `Procurar de novo` apagado, e o traço lima se desenha embaixo da linha marcada (`LinhaModulo` · `confirmada`, uma vez, só no fluxo; pela URL, já desenhado); depois de 1,2 s (`buscaMs`, sem número novo), a T07. Na falha, sem traço. O `Tentar de novo` da 04 também termina no 07
 - se a conexão falha: a linha do módulo diz *não respondeu*, as três causas aparecem embaixo da lista, e o primário vira `Tentar de novo` (a 04)
   - no protótipo (C7): `Tentar de novo` (04) → conecta de novo, e a tela vai pra T07 · `Procurar de novo` (03, 04) → a busca de novo (01) · `Voltar ao menu` (03) → T04
 - **as linhas mostram só o número e o modelo** — o firmware é do diagnóstico, não da conexão (o retorno do PM: *na conexão do módulo não é necessário checar nada*)

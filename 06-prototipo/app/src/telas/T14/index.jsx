@@ -238,6 +238,8 @@ export default function T14({ momento, estado: est }) {
       nota={fase === 'drenando' ? T.filaDrenando : T.filaDrenada}
       tempo={minSeg(chegou ? EVENTO.recebidoAosSeg : restante)}
       restante={restante} limite={PRAZO} segue={TIQUE_MS}
+      /* o pacote 9: com o evento chegado, o preenchido para na chegada e o marcador branco segue o tempo */
+      marcador={chegou ? Math.max(0, PRAZO - tique) : undefined}
       legendas={{ inicio: chegou ? T.disparadoAs(M.HORA_NOMINAL) : minSeg(0), fim: T.limite(PRAZO) }}
       detalhe={fase === 'drenando' ? T.filaSaindo(filaDoModulo(par.moduloSerial)) : estourado ? [T.secaoF] : null}
       falha={estourado}

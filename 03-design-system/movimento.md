@@ -87,6 +87,15 @@ Quando o título ou o rodapé trocam inteiros dentro da mesma tela, o conteúdo 
 
 **A animação que acaba não fica viva** (C12·19): sem preenchimento onde não há atraso.
 
+## O traço que se desenha
+
+**O gesto do app: o traço lima que se desenha da esquerda pra direita diz que algo se confirmou.** `scaleX` de 0 a 1, 300ms (`--mov-lento`), desacelerando, **uma vez só**, e só no fluxo — pela URL, no print e na coluna do palco, ele já aparece desenhado. Com reduzir movimento, aparece direto.
+
+- **T05/07** · a conexão confirmada: embaixo da linha do módulo, quando ele responde
+- **T16/02** · a visita fechada: embaixo da prova do veredito, quando a oitava assertiva passa
+
+Nunca durante uma espera: enquanto nada se confirmou, não tem traço.
+
 ## O veredito que espera a prova (C12·35, C12·44)
 
 Vale pro veredito da conferência da T11. O autoteste da T16 não tem veredito enquanto corre (a T16/07, o pacote 5): a contagem fica ao lado do título, e o fim é outro quadro.
@@ -170,7 +179,7 @@ Mudam **no lugar**. O ritmo do protótipo é de apresentação: rápido o bastan
 
 ## Só isto se move
 
-`transform` e `opacity`. **Proibido:** animar a entrada de uma tela, contar de zero ao abrir, mover o layout, animar em loop, e qualquer coisa que reaja ao mouse passando por cima.
+`transform` e `opacity`. **Proibido:** animar a entrada de uma tela, contar de zero ao abrir, mover o layout, animar em loop, e qualquer coisa que reaja ao mouse passando por cima. **O dado ao vivo não é loop:** o sinal que muda de verdade troca o número no lugar a cada leitura, sem transição — os sinais da CAN, na T07.
 
 **Abre parada (C12).** A tela que abre pelo endereço, pelo palco, num estado da coluna, no `Voltar ao fluxo`, no recarregar ou no print abre no quadro da referência, sem nada se mexendo. Nada conta de zero ao abrir, fora dos processos que a G27 declara, que acontecem agora (a baixa da T03 e o encerramento da T16). **No print, nada se move:** a tela nasce no quadro da referência.
 

@@ -458,10 +458,10 @@
     ],
     canAguarda: "A CAN aparece depois que o bloco do ativo for gravado.",
     can: { modeloAtivoId: "ma-01", sinais: [
-      { id: "rotacao", rotulo: "Rotação", lido: "980 rpm" }, { id: "velocidade", rotulo: "Velocidade", lido: "0 km/h" },
-      { id: "hodometro", rotulo: "Hodômetro", lido: "184.320 km" }, { id: "temperatura", rotulo: "Temperatura", lido: "31 °C", esperado: "−40 a 120" },
-      { id: "combustivel", rotulo: "Combustível", lido: "62%" }, { id: "consumo", rotulo: "Consumo", lido: "1,8 L/h" },
-      { id: "alternador", rotulo: "Alternador", lido: "14,1 V" }, { id: "re", rotulo: "Ré", lido: "desligada" } ] }
+      { id: "rotacao", rotulo: "Rotação", lido: "980 rpm", leituras: ["980 rpm", "992 rpm", "975 rpm", "988 rpm"] }, { id: "velocidade", rotulo: "Velocidade", lido: "0 km/h" },
+      { id: "hodometro", rotulo: "Hodômetro", lido: "184.320 km" }, { id: "temperatura", rotulo: "Temperatura", lido: "31 °C", esperado: "−40 a 120", leituras: ["31 °C", "31 °C", "32 °C", "31 °C"] },
+      { id: "combustivel", rotulo: "Combustível", lido: "62%" }, { id: "consumo", rotulo: "Consumo", lido: "1,8 L/h", leituras: ["1,8 L/h", "1,9 L/h", "1,8 L/h", "1,7 L/h"] },
+      { id: "alternador", rotulo: "Alternador", lido: "14,1 V", leituras: ["14,1 V", "14,0 V", "14,2 V", "14,1 V"] }, { id: "re", rotulo: "Ré", lido: "desligada" } ] }
   };
 
   /* ── Pacote de sincronização — um por UO, em TRÊS idades (T03).

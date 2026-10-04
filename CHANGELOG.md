@@ -1,5 +1,23 @@
 # Registro de mudanças
 
+## 2026-10-04 · o pacote 9 — as animações que confirmam
+
+- **o gesto do app: o traço lima que se desenha diz que algo se confirmou** (`movimento.md`) · 300ms, uma vez, só no fluxo · nunca durante uma espera
+- **T16/02 · a visita fechada**: o traço embaixo da prova do veredito se desenha quando a oitava assertiva passa
+- **T05/07 · a conexão confirmada**, quadro novo: quando o módulo responde, o traço se desenha embaixo da linha marcada e o botão diz *Conectado ao M2C-0417*, antes da T07 · na falha, sem traço · **153 → 154 referências, 73 → 74 momentos**
+- **T07 · a CAN ao vivo**: rotação, temperatura, consumo e alternador trocam o número no lugar a cada 1s, sem transição, pela lista `leituras` do mock · os outros sinais ficam parados · o `CLAUDE.md` e o `movimento.md` ganham a exceção: o dado ao vivo não é loop
+- **T14 · o marcador do prazo**: o preenchido para na chegada do evento, e o marcador branco segue o tempo · a vez da porta, a 04 e a 06 estavam com o marcador na mesma posição da 05 · agora em 70%, 50% e 50%
+
+- **no protótipo** (o gate em `06-prototipo/para-o-arquiteto/gate-pacote9.md`, as folhas lado a lado em `pacote9/`):
+  - o traço é uma peça só (`Traco.css`), na linha de módulo (`confirmada`) e na prova (`desenha`);
+  - a T05 ganha o *Conectado ao …* (07) antes da T07;
+  - a CAN ao vivo lê as `leituras` do mock a cada 1 s (`canAoVivoMs`);
+  - o `Prazo` ganha o `marcador`;
+  - as 154 sem erro, os 43 roteiros aprovados, e o GIF regravado com a CAN e o fim da visita.
+- **os desvios nomeados** (o gate, §4):
+  - o marcador da T14/05 fica em 40% pela regra, onde a referência desenha 60%;
+  - o *Conectado* fica 1,2 s antes da T07.
+
 ## 2026-10-04 · o pacote 8 — o bloco escolhido volta, como peça da T06
 
 - **o bloco escolhido volta à folha 6, como peça da T06**: o pacote 7 tirou ele como se fosse só da T05, mas a T06 desenha ele em três telas — confirmar o veículo, módulo em outro ativo e módulo já deste ativo · ali não é escolher numa lista: o técnico já escolheu, e a tela mostra o veículo grande pra confirmar o vínculo, com placa, frota, fabricante e modelo · o recorte agora vem da T06 · **104 → 105 peças**

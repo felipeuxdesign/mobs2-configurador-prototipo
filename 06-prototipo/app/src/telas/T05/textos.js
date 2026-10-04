@@ -14,6 +14,8 @@ export const TX = {
   conectarAo: (serial) => `Conectar ao ${serial}`,
   // 06 · conectando (o pacote 6): a espera da conexão, no primário desligado
   conectandoAo: (serial) => `Conectando ao ${serial}…`,
+  // 07 · conectado (o pacote 9): o módulo respondeu, e o traço se desenha embaixo da linha
+  conectadoAo: (serial) => `Conectado ao ${serial}`,
   procurarDeNovo: 'Procurar de novo',
   voltarAoMenu: 'Voltar ao menu',
 
