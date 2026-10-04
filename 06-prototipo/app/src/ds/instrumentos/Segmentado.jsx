@@ -6,6 +6,8 @@
 // (C9 · T10/01, G11): o passo atual já feito, alto como o atual e lima apagado —
 // e 'atual-falha' (C10 · T13/09, G11): o passo atual reprovado, alto como o
 // atual e em vermelho (a falha mora no elemento que falhou, Lei 2).
+// Sem `segmentos`, só o cabeçalho com o rótulo (o pacote 11 · T13/09): a barrinha
+// fica só onde se percorre, e o detalhe de um item automático diz só a seção.
 import './Segmentado.css'
 
 // `folga`: o vão entre o cabeçalho, os segmentos e a legenda — 6 (a folha 5)
@@ -15,11 +17,13 @@ export function Segmentado({ rotulo, contagem, total, segmentos, legenda, folga 
     <div className={`ds-segmentado ${folga === 8 ? 'ds-segmentado-folga-8' : ''}`}>
       <div className="ds-segmentado-cabeca">
         <span className="ds-segmentado-rotulo">{rotulo}</span>
-        <span className="ds-segmentado-contador">{contagem} <span className="ds-segmentado-total">{total}</span></span>
+        {contagem != null && <span className="ds-segmentado-contador">{contagem} <span className="ds-segmentado-total">{total}</span></span>}
       </div>
-      <div className="ds-segmentado-segmentos" aria-hidden="true">
-        {segmentos.map((s, i) => <span key={i} className={`ds-segmento ds-segmento-${s}`} />)}
-      </div>
+      {segmentos && (
+        <div className="ds-segmentado-segmentos" aria-hidden="true">
+          {segmentos.map((s, i) => <span key={i} className={`ds-segmento ds-segmento-${s}`} />)}
+        </div>
+      )}
       {legenda != null && <span className="ds-segmentado-legenda">{legenda}</span>}
     </div>
   )

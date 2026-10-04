@@ -16,12 +16,14 @@ export const REFERENCIAS = indice.itens
 // a coluna (o pacote 3, D2): quem entra é o campo `coluna` do indice.json — falso pros estados que abrem
 // por um toque (as três folhas de trocar da T04: a 08, a 09 e a 14), e, sem o campo, o estado entra. Fora
 // da coluna, o estado continua abrindo pelo endereço
-// os estados da coluna, e o momento que nasce de dentro de um estado, logo depois dele (o
-// complemento do pacote 6: `coluna` verdadeiro e `depoisDe`, no indice.json) — abre parado, como os estados
+// os estados da coluna, e o que nasce de dentro de um estado, logo depois dele (`depoisDe`, no
+// indice.json): o momento (o complemento do pacote 6, com `coluna` verdadeiro) e, desde o pacote 11,
+// o estado também — a T13/09, o detalhe, depois da T13/16, a lista · abre parado, como os estados
 export const estadosDa = (tela) => {
-  const estados = REFERENCIAS.filter((r) => r.tela === tela && r.tipo === 'estado' && r.coluna !== false)
-  const filhos = REFERENCIAS.filter((r) => r.tela === tela && r.tipo === 'momento' && r.coluna === true && r.depoisDe)
-  return estados.flatMap((e) => [e, ...filhos.filter((m) => m.depoisDe === e.id)])
+  const naColuna = REFERENCIAS.filter((r) => r.tela === tela && (r.tipo === 'estado' ? r.coluna !== false : r.coluna === true && !!r.depoisDe))
+  const filhosDe = (id) => naColuna.filter((r) => r.depoisDe === id)
+  const comFilhos = (r) => [r, ...filhosDe(r.id).flatMap(comFilhos)]
+  return naColuna.filter((r) => !r.depoisDe).flatMap(comFilhos)
 }
 export const momentosDa = (tela) => REFERENCIAS.filter((r) => r.tela === tela && r.tipo === 'momento')
 // a regra dos seis (palco.md): com mais de seis estados na coluna, eles se agrupam — só a T07, pelo `grupo` do indice.json

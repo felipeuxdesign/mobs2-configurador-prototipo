@@ -5,9 +5,12 @@ import { Poco, Icone, Glifo } from '../../ds/index.js'
 
 // 04 (o pacote 7): o que conferir quando o módulo não responde — a caixa de poço com o traço
 // vermelho, o rótulo e as três causas, embaixo da lista (o nome e o porquê de cada uma)
-export function CausasDaFalha({ rotulo, causas }) {
+// `falha`: a borda vermelha de baixo, da conexão que falhou (T05/04); sem ela, a
+// caixa de poço comum — o detalhe do item reprovado da T13 (a 09, o pacote 11), que
+// já leva a falha na régua de cima
+export function CausasDaFalha({ rotulo, causas, falha = true }) {
   return (
-    <div className="t05-causas ds-caixa-poco ds-caixa-falha">
+    <div className={`t05-causas ds-caixa-poco ${falha ? 'ds-caixa-falha' : ''}`}>
       <span className="t05-causas-rotulo">{rotulo}</span>
       {causas.map((c) => <span key={c.titulo} className="t05-causa"><span className="t05-causa-titulo">{c.titulo}</span> {c.texto}</span>)}
     </div>

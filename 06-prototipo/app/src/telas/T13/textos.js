@@ -98,8 +98,13 @@ export const T = {
   lidoNoModulo: 'LIDO NO MÓDULO',
   faixa: (min, max) => `${min} — ${max}`,
   abaixo: (dif, unidade) => `${dif} ${unidade} abaixo do mínimo`,
-  naoSeMarca: 'ISTO NÃO SE MARCA À MÃO',
-  confiraAlimentacao: 'Confira a alimentação e refaça o diagnóstico.',
+  // o pacote 11: o que conferir, como a conexão que falha na T05/04 (sai o 'isto não se marca à mão')
+  oQueConferir: 'O QUE CONFERIR',
+  conferirAlimentacao: [
+    { titulo: '1 · Bateria do ônibus', texto: '— carga e terminais' },
+    { titulo: '2 · Cabo de alimentação', texto: '— encaixe firme' },
+    { titulo: '3 · Ponto de ligação', texto: '— direto na bateria, sem queda' },
+  ],
   // leva à T07, o Diagnóstico do módulo, que relê o módulo e a CAN
   refazerDiagnostico: 'Refazer o diagnóstico',
 

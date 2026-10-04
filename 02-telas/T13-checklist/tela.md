@@ -13,7 +13,8 @@ Fechar a homologação: o que o app já provou sozinho, e o que o técnico ainda
 ## O que se toca
 
 - **os nomes das seções são curtos**, pra caber no cartão · cada um é uma seção dos requisitos: *A · Identificação* (Identificação) · *B · Montagem* (Instalação física) · *C · Hardware* (Saúde do hardware) · *D · Configuração* (Configuração embarcada) · *E · Ciclo de testes* (Teste dinâmico) · *F · Servidor* (Recebimento no servidor) · o nome curto vale em toda tela, inclusive na de item
-- **item automático reprovado ganha a seta** e abre o detalhe (a 09), com a leitura, a faixa e o `Refazer o diagnóstico` · passou, é leitura, sem seta (a 16)
+- **item automático reprovado ganha a seta** e abre o detalhe (a 09): **a tela que ajuda a consertar** — a leitura com a régua da faixa, e o bloco *O que conferir* com três causas, o mesmo da conexão que falha na T05 · depois, o `Refazer o diagnóstico` · passou, é leitura, sem seta (a 16)
+- **a barrinha segmentada só onde se percorre**: nas fotos da Montagem, o técnico vai do 1 ao 5; no detalhe de um item automático, não tem o que percorrer, e a tela diz só a seção, *C · HARDWARE*
 - **cada foto da Montagem tem a sua frase da câmera** (*Enquadre…*), no campo `enquadre` do mock · as cinco estão desenhadas: a 07 e da 17 à 20
   - no protótipo · o pacote 10: o reprovado é a linha de leitura da peça (`ItemDoChecklist`) com o valor em `--vermelho` e a seta, e ela toca — a folha 7 ainda não desenha essa variante (pro arquiteto) · o 16 e o 09 saem do mesmo caso, e a T07/12 também · a frase da câmera é o `enquadre` do item; o não conforme é do Módulo (08, 15), e nos outros quatro a URL sai do momento
 - a A tem três itens — o chassi saiu (decisão 46) · a D confere as cercas em regiões, a APN, o Extended ID, os eventos e o leitor, sem a versão
@@ -111,7 +112,8 @@ Medido nas 15 referências e no código da entrega do checklist (decisão 34, G1
 - diálogo com ciência
 - seção aberta do checklist
 - seção recolhida
-- nota tracejada
+- nota tracejada (até o pacote 11, no 09)
+- o que conferir (a peça da T05/04, sem o traço vermelho · o 09, desde o pacote 11)
 - segmentado
 - a barra do checklist
 - com contador

@@ -50,7 +50,7 @@
 import { Fragment, useEffect, useRef, useState } from 'react'
 import {
   BarraDoSistema, Faixa, CabecalhoConteudo, BarraDoChecklist, SecoesDoChecklist, SecaoDoChecklist, ItemDoChecklist, VereditoDoChecklist,
-  Segmentado, Justificativa, Nota, Rodape, Veu, Dialogo, Frase, VisorCamera, FotoProva,
+  Segmentado, Justificativa, Rodape, Veu, Dialogo, Frase, VisorCamera, FotoProva,
   useTrocaDeQuadro, useReorganiza, usePresenca,
 } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
@@ -65,6 +65,7 @@ import {
   instrumentoDoItem, filaDoFinalizar, nomeDaSecao, rotuloDoNivel, itemDe, ativoDe, registroDoQuadro, cicloConcluido,
 } from './checklist.js'
 import { InstrumentoDoItem } from './pecas.jsx'
+import { CausasDaFalha } from '../T05/pecas.jsx'
 import { T } from './textos.js'
 import './t13.css'
 
@@ -72,8 +73,8 @@ const HORA = M.HORA_NOMINAL
 // o nome do glifo pro leitor, pelo estado do dado (G15, as legendas da folha 3)
 const NOME_DA_SECAO = { aprovada: 'aprovado', pendente: 'ainda não', aguarda: 'ainda não', reprovada: 'falha' }
 const NOME_DO_ITEM = { ok: 'aprovado', ressalva: 'aprovado', nsa: 'não se aplica', pendente: 'ainda não', aguarda: 'ainda não', reprovado: 'falha' }
-// o que o nível do item reprovado explica, por item (textos.md · 09)
-const NOTA_DO_REPROVADO = { 'c-alimentacao': T.confiraAlimentacao }
+// o que conferir no nível do item reprovado, por item (textos.md · 09, o pacote 11)
+const CONFERIR_DO_REPROVADO = { 'c-alimentacao': T.conferirAlimentacao }
 
 // Homologado ⇒ o relatório está na fila (o Finalizar o gerou): a Seção F desta
 // sessão lê dele (G22). O mundo com o registro da tela e esse relatório.
@@ -304,15 +305,17 @@ export default function T13({ momento, estado: est }) {
         primarioDesabilitado={!!primario.desabilitado} primarioTrocaTexto link={T.voltarChecklist} aoLink={voltarAoChecklist} />
     )
   } else if (nivel) {
-    // o nível do item automático reprovado (09): o motivo e o caminho; nada se marca à mão
+    // o nível do item automático reprovado (09, o pacote 11): a tela que ajuda a consertar — a
+    // leitura com a régua, e o que conferir, o bloco da conexão que falha na T05/04, sem o traço
+    // vermelho (a falha já está na régua) · sem a barrinha: no detalhe não tem o que percorrer
     const c = ck.porSecao[nivel.item.secao].find((x) => x.id === q.item)
     const instrumento = c.leitura ? instrumentoDoItem(c) : null
     miolo = (
       <>
-        <Segmentado rotulo={rotuloDoNivel(nivel.secao)} contagem={String(nivel.posicao)} total={T.de(nivel.total)} segmentos={nivel.segmentos} />
+        <Segmentado rotulo={rotuloDoNivel(nivel.secao)} />
         <h1 className="t13-titulo-item">{nivel.item.pergunta ?? nivel.item.rotulo}</h1>
         {instrumento && <InstrumentoDoItem rotulo={T.lidoNoModulo} {...instrumento} />}
-        {NOTA_DO_REPROVADO[q.item] && <Nota tom="explica" corpo="item" titulo={T.naoSeMarca} frase={NOTA_DO_REPROVADO[q.item]} />}
+        {CONFERIR_DO_REPROVADO[q.item] && <CausasDaFalha rotulo={T.oQueConferir} causas={CONFERIR_DO_REPROVADO[q.item]} falha={false} />}
       </>
     )
     rodape = <Rodape primario={T.refazerDiagnostico} aoPrimario={() => ir('T07')} link={T.voltarChecklist} aoLink={voltarAoChecklist} />

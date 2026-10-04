@@ -40,7 +40,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `09-estado-item-reprovado`
 
-`M2C-0301` · `QJF-2C61` · `ENCERRAR` · `C · HARDWARE` · `1` · `de 4` · `Alimentação` · `LIDO NO MÓDULO` · `10,9` · `V` · `10,0` · `12,0 — 15,0` · `16,0` · `1,1 V abaixo do mínimo` · `ISTO NÃO SE MARCA À MÃO` · `Confira a alimentação e refaça o diagnóstico.` · `Refazer o diagnóstico` · `Voltar ao checklist`
+`M2C-0301` · `QJF-2C61` · `ENCERRAR` · `C · HARDWARE` · `Alimentação` · `LIDO NO MÓDULO` · `10,9` · `V` · `10,0` · `12,0 — 15,0` · `16,0` · `1,1 V abaixo do mínimo` · `O QUE CONFERIR` · `1 · Bateria do ônibus` · `— carga e terminais` · `2 · Cabo de alimentação` · `— encaixe firme` · `3 · Ponto de ligação` · `— direto na bateria, sem queda` · `Refazer o diagnóstico` · `Voltar ao checklist`
 
 ## `10-estado-finalizar-com-a-secao-f-falhando`
 
@@ -68,7 +68,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `16-estado-secao-c-com-item-reprovado`
 
-`M2C-0301` · `QJF-2C61` · `ENCERRAR` · `Checklist` · `16` · `de 31` · `A · Identificação` · `o app confere sozinho` · `3` · `de 3` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `3` · `de 4` · `Alimentação` · `10,9 V` · `GPS e antena` · `9 satélites` · `Entradas digitais` · `conforme` · `Modem e sinal` · `sinal bom` · `D · Configuração` · `o app confere sozinho` · `10` · `de 10` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 6` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 3` · `Faltam 12 itens` · `Finalizar instalação` · `Voltar ao menu`
+`M2C-0301` · `QJF-2C61` · `ENCERRAR` · `Checklist` · `14` · `de 30` · `A · Identificação` · `o app confere sozinho` · `3` · `de 3` · `B · Montagem` · `você fotografa 4 itens` · `0` · `de 4` · `C · Hardware` · `o app confere sozinho` · `3` · `de 4` · `Alimentação` · `10,9 V` · `GPS e antena` · `9 satélites` · `Entradas digitais` · `conforme` · `Modem e sinal` · `sinal bom` · `D · Configuração` · `o app confere sozinho` · `8` · `de 10` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 6` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 3` · `Faltam 13 itens` · `Finalizar instalação` · `Voltar ao menu`
 
 ## `17-momento-foto-da-antena`
 

@@ -1,5 +1,19 @@
 # Registro de mudanças
 
+## 2026-10-04 · o pacote 11 — o detalhe que ajuda a consertar
+
+- **a T13/09 vira a tela que ajuda a consertar**: a régua com a leitura e a faixa fica, e entra o bloco *O que conferir*, com três causas — a bateria do ônibus, o cabo de alimentação e o ponto de ligação —, o mesmo da conexão que falha na T05 · sai o recado *isto não se marca à mão*
+- **a barrinha segmentada só onde se percorre**: o detalhe de um item automático perde a barrinha e o *1 de 4* · ali não tem o que percorrer
+- **na coluna do palco, o detalhe vem logo depois da lista**: a T13/09 depois da T13/16, pelo `depoisDe` do índice
+- **os números da T13/16 são os do ônibus da bateria**: 14 de 30, a Montagem com 4 fotos, a Configuração em 8 de 10 ainda por fazer, faltam 13 · eu tinha copiado os do ônibus do herói
+
+- **no protótipo** (o gate em `06-prototipo/para-o-arquiteto/gate-pacote11.md`, as folhas lado a lado em `pacote11/`):
+  - o *O que conferir* da 09 é a peça da T05/04 (`CausasDaFalha`), sem o traço vermelho (`falha={false}`);
+  - o `Segmentado` sem `segmentos` mostra só o cabeçalho com o rótulo;
+  - a coluna do palco põe depois de cada linha o que diz `depoisDe` dela, estado ou momento;
+  - a T13/16 já calculava 14 de 30 pelo mock: o desvio do pacote 10 saiu.
+- **sem uso desde este pacote** (as peças ficam, o escopo não as toca): a nota do item que não se marca à mão e o segmento atual com falha.
+
 ## 2026-10-04 · o pacote 10 — a bateria fraca do começo ao fim, e os restos de rodadas antigas
 
 - **a alimentação baixa aparece no diagnóstico** · T07/12, estado novo: a linha diz *dá pra seguir · o checklist registra* e mostra 10,9 V · não trava, como o modem sem sinal

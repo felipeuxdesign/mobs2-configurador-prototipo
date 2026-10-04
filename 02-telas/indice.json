@@ -1696,13 +1696,14 @@
       "tipo": "estado",
       "nome": "09-estado-item-reprovado",
       "titulo": "T13 · item reprovado",
-      "como": "um item automático reprova",
+      "como": "tocar na linha vermelha da Seção C: a leitura, a faixa e o que conferir",
       "caso": "can-estatico-bateria",
       "html": "02-telas/T13-checklist/referencias/html/09-estado-item-reprovado.html",
       "png": "02-telas/T13-checklist/referencias/png/09-estado-item-reprovado.png",
       "coluna": true,
       "rotulo": "Item reprovado",
-      "rotuloOrigem": "proposto"
+      "rotuloOrigem": "proposto",
+      "depoisDe": "T13/16-estado-secao-c-com-item-reprovado"
     },
     {
       "id": "T13/10-estado-finalizar-com-a-secao-f-falhando",
