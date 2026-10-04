@@ -339,6 +339,8 @@ Um rótulo com duas ideias separadas por **·** — *sem rede · 3 tentativas fe
 
 **No protótipo** · o traço que se desenha (o pacote 9, `movimento.md`) é uma peça só, `06-prototipo/app/src/ds/primitivos/Traco.css` (`ds-traco-desenha`: `scaleX` de 0 a 1 em `--mov-lento`), reaproveitada na linha de módulo (`confirmada`, T05/07) e na prova (`desenha`, T16/02), onde ela vem por uma camada sobre a borda, que fica no cinza do poço · o marcador branco do prazo segue o tempo pela propriedade `marcador` do `Prazo` (T14).
 
+**No protótipo** · o RV no centro do círculo, medido na tela (o diretor, 04/10): o avatar da tira (32) leva 1 de recheio embaixo, e não os 2 do pacote 5, que deixavam as letras 1 px altas na tela; o da folha da conta (52) leva a própria letra à esquerda (1) e 1,5 embaixo · medido no print a 2x: o da tira no centro exato, e o da conta a 0,25 px · `app/src/ds/chrome/Avatar.css`.
+
 ## No protótipo · o movimento das peças (C12)
 
 Anotação de construção do C12. O movimento é da peça, e vale onde ela está: a tela só liga o gatilho. As regras do app inteiro estão no `movimento.md`; o mapa de cada peça pro arquivo está no `06-prototipo/app/src/ds/MAPA.md`. Nenhuma peça nova de desenho: as quatro de baixo sem desenho próprio moram no chrome e nas linhas.

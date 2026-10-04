@@ -1,5 +1,11 @@
 # Registro de mudanças
 
+## 2026-10-04 · o RV no centro, medido na tela
+
+- **o avatar da tira (32)**: o recheio de baixo passa de 2 pra 1 — com 2, as letras ficavam 1 px altas na tela (o diretor viu, e o print dele confirmou: 1 px acima do centro)
+- **o avatar da folha da conta (52)**: ganha a própria letra à esquerda (1) e 1,5 embaixo — ele ficava 1 px à esquerda
+- **medido no print a 2x**: o da tira no centro exato, e o da conta a 0,25 px · as referências da T04 e a folha 2 não mudam de valor
+
 ## 2026-10-04 · o pacote 9 — as animações que confirmam
 
 - **o gesto do app: o traço lima que se desenha diz que algo se confirmou** (`movimento.md`) · 300ms, uma vez, só no fluxo · nunca durante uma espera
