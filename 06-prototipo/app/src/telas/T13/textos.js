@@ -131,8 +131,11 @@ export const T = {
     { titulo: '2 · Antena do modem', texto: '— conectada' },
     { titulo: '3 · Cobertura', texto: '— teste num lugar aberto' },
   ],
-  // leva à T07, o Diagnóstico do módulo, que relê o módulo e a CAN
-  refazerDiagnostico: 'Refazer o diagnóstico',
+  // o pacote 13 · o detalhe relê o módulo ali mesmo (29 a 33), no molde do Relendo… da T10
+  relerModulo: 'Reler o módulo',
+  relendoModulo: 'Relendo o módulo…',
+  relido: (hora, veredito) => `relido às ${hora} · ${veredito}`,
+  dentroDaFaixa: 'dentro da faixa',
 
   // o diálogo da Seção F (10)
   secaoFNaoPassou: 'A Seção F não passou',

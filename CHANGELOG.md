@@ -1,5 +1,28 @@
 # Registro de mudanças
 
+## 2026-10-05 · o pacote 13 — o detalhe relê o módulo ali mesmo
+
+- **o botão do detalhe de um item reprovado é `Reler o módulo`**, nos quatro: Alimentação (T13/09), GPS (22), Entradas (24) e Modem (26) · antes era *Refazer o diagnóstico*, que levava pra T07 — e a T07 depois de configurado mostra o módulo numa linha só, *7 de 7*, e relê só a CAN · o técnico consertava, voltava, e via uma tela dizendo que estava tudo certo, sem ter relido nada
+- **relendo, ali mesmo** (T13/29): o botão diz *Relendo o módulo…*, um quadro só pros quatro
+- **deu certo, a tela fica positiva** (T13/30 a 33): o valor novo, *relido às 14:42* e o veredito do item, e um botão só, *Voltar ao checklist* · no molde do relido da calibração · sem toast, e nada muda de tela sozinho
+- não deu: fica o valor novo, ainda vermelho, e o botão volta a ser *Reler o módulo*
+- **o mock**: cada caso ganhou a `releitura`, o valor que devolve depois do conserto
+- **as duas regras no design system** (`componentes.md`): *item reprovado ganha a seta* e *reler no lugar* · estavam só na ficha da T13, e valem pro app inteiro
+- **171 → 176 referências** · 78 → 83 momentos
+
+- **no protótipo** (o pacote 22, que junta o 12 e o 13 · o gate em `06-prototipo/para-o-arquiteto/gate-pacote22.md`, as folhas lado a lado em `pacote22/`):
+  - o pacote 12 já estava no ar: da Parte 1, só o botão das quatro referências de detalhe mudou;
+  - o `Reler o módulo` liga o *Relendo o módulo…* por 1 s (`RITMOS.relerModuloMs`, o tempo do *Relendo…* da T10), com o link e o ENCERRAR apagados e o voltar sem fazer nada;
+  - aí os casos da C devolvem a `releitura` do mock (`mundoDe` · `relido`), e a C inteira volta atualizada · deu certo, a mesma tela fica positiva, com a variante `relido` do instrumento (`T13/pecas.jsx`) e um botão só;
+  - o ônibus do caso fica enquanto a tela vive: o `Voltar ao checklist` volta à C dele, 4 de 4;
+  - nos estados da coluna o app está parado (decisão 43): o reler se vê pelo endereço do 29, que corre até o 30 · o roteiro novo `reler.mjs` prova;
+  - o gate do mock confere que as quatro releituras passam.
+- **os desvios nomeados** (o gate, §3):
+  - o relido diz 14:30, o relógio parado, como a T10 · a referência diz 14:42;
+  - o rodapé de um botão só fecha em 32, a regra da peça · as referências 30 a 33 deixaram o pé de 24 do rodapé com link;
+  - o link apagado da 29 sai em `--tinta-apagada` (lei 17), e não em `--marca`;
+  - o ENCERRAR da 29 fica apagado, como na releitura da CAN (T07/10).
+
 ## 2026-10-04 · o pacote 12 — as pendências desenhadas, como padrão até o PM decidir
 
 - **as outras três falhas da Seção C**: o GPS, as entradas e o modem, cada um com a lista vermelha e a seta (T13/21, 23 e 25) e o detalhe que ajuda a consertar, logo depois dela na coluna (T13/22, 24 e 26) · o GPS usa a régua; o modem e as entradas, que não são número, dizem o valor

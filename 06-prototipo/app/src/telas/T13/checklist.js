@@ -58,11 +58,26 @@ export const REF = {
   modemReprovado: '26-estado-modem-reprovado',
   secaoECorrecao: '27-estado-secao-e-com-correcao-solicitada',
   finalizarComE: '28-estado-finalizar-com-a-secao-e-falhando',
+  // o pacote 13 · o detalhe relê o módulo ali mesmo: relendo (só de referência) e os quatro relidos
+  relendo: '29-momento-relendo-o-modulo',
+  alimentacaoRelida: '30-momento-alimentacao-relida',
+  gpsRelido: '31-momento-gps-relido',
+  entradasRelidas: '32-momento-entradas-relidas',
+  modemRelido: '33-momento-modem-relido',
 }
 // a Seção C aberta com um item reprovado (a lista) e o detalhe dele, que vem logo
 // depois na coluna (o pacote 11 e o 12: o `depoisDe` do índice)
 export const LISTAS_DA_C = [REF.secaoCReprovada, REF.secaoCGps, REF.secaoCEntradas, REF.secaoCModem]
 export const DETALHES_DA_C = [REF.reprovado, REF.gpsReprovado, REF.entradasReprovadas, REF.modemReprovado]
+// o pacote 13 · o quadro de cada item relido que deu certo (30 a 33), e, pra cada quadro
+// da releitura, o item e o detalhe de onde ela parte — o caso que monta o mundo (o 29 é o
+// da Alimentação, o que a referência desenha)
+export const RELIDO_DO_ITEM = { 'c-alimentacao': REF.alimentacaoRelida, 'c-gps': REF.gpsRelido, 'c-entradas': REF.entradasRelidas, 'c-modem': REF.modemRelido }
+export const ITEM_DA_RELEITURA = { [REF.relendo]: 'c-alimentacao', ...Object.fromEntries(Object.entries(RELIDO_DO_ITEM).map(([id, m]) => [m, id])) }
+const DETALHE_DO_ITEM = { 'c-alimentacao': REF.reprovado, 'c-gps': REF.gpsReprovado, 'c-entradas': REF.entradasReprovadas, 'c-modem': REF.modemReprovado }
+export const detalheDaReleitura = (momento) => DETALHE_DO_ITEM[ITEM_DA_RELEITURA[momento]] ?? null
+// o veredito do item relido que deu certo, ao lado do check (textos.md · 30 a 33)
+export const VEREDITO_DO_RELIDO = { 'c-alimentacao': T.dentroDaFaixa, 'c-gps': T.dentroDaFaixa, 'c-entradas': T.conforme, 'c-modem': T.sinalBom }
 // o pacote 10 · as cinco fotos da Montagem: o 07 é o Módulo, e cada item seguinte
 // tem o seu quadro, com os de antes fotografados (17 a 20)
 export const MOMENTO_DA_FOTO = {
@@ -163,7 +178,9 @@ const fotosDeB = () => Object.fromEntries(itensDa('B').map((i) => [i.id, HORA]))
 // pronto-para-fechar (o ciclo completo, as fotos tiradas e o servidor que não
 // respondeu), o 14 na sessão do herói homologada, com a localização negada
 // (localizacao-negada é caso do celular, e não diz ativo). No fluxo, o estado único.
-export function mundoDe({ unico, est, semente }) {
+// Relido (o pacote 13, o Reler o módulo do detalhe): os casos da C devolvem a `releitura`
+// do mock, o valor depois do conserto — a releitura lê o módulo inteiro, e todo item da C volta atualizado.
+export function mundoDe({ unico, est, semente, relido = false }) {
   const receita = est ? RECEITAS[`T13/${est}`] : null
   if (receita) {
     const casoId = receita.casos[0]
@@ -185,7 +202,7 @@ export function mundoDe({ unico, est, semente }) {
     // o 14: o Finalizar tocado, com a localização negada (HU-T13-7: o relatório vai sem ela)
     if (est === REF.semLocalizacao) registro = { ...registro, homologada: true, homologadaAs: HORA }
     const semLocalizacao = caso.permissao === 'localizacao' && caso.resposta === 'negada'
-    return { sessao, etapas, fila: [...M.filaSaida], casosConsumidos: [], registro, casos: [casoId], semLocalizacao }
+    return { sessao, etapas, fila: [...M.filaSaida], casosConsumidos: [], registro, casos: [casoId], semLocalizacao, relido }
   }
   const sessao = unico.sessao?.ativoId ? unico.sessao : semente.sessao
   const proprias = unico.etapas
@@ -196,7 +213,7 @@ export function mundoDe({ unico, est, semente }) {
   return {
     sessao, etapas, fila: [...M.filaSaida, ...unico.fila], casosConsumidos: unico.casosConsumidos,
     registro: guardado ? { ...registroVazio(sessao.ativoId), ...guardado } : registroVazio(sessao.ativoId),
-    casos: [], semLocalizacao: false,
+    casos: [], semLocalizacao: false, relido,
   }
 }
 
@@ -237,16 +254,18 @@ export function registroDoQuadro(momento, base, ck) {
 // módulo da sessão que a declara (o pacote 10: o can-estatico-bateria baixa a
 // alimentação do M2C-0301, e não mais a bateria da CAN), contra a faixa da
 // bateria do modelo do ativo ──
+// o caso depois do Reler o módulo (o pacote 13): o que a `releitura` devolve, por cima
+const relidoDo = (mundo, caso) => (mundo.relido && caso.releitura ? { ...caso, ...caso.releitura } : caso)
 function alimentacaoDoCaso(mundo) {
   const { moduloSerial } = mundo.sessao
   const k = Object.keys(M.casos).find((x) => M.casos[x].alimentacao != null && M.casos[x].moduloSerial === moduloSerial)
-  return k && !mundo.casosConsumidos.includes(k) ? M.casos[k].alimentacao : null
+  return k && !mundo.casosConsumidos.includes(k) ? relidoDo(mundo, M.casos[k]).alimentacao : null
 }
 // o pacote 12 · os casos da Seção C que só a coluna monta (o herói no fluxo não muda):
 // o GPS fraco, a entrada que não bate e o modem sem sinal, no módulo da sessão
 function casoDaC(mundo, campo) {
   const k = mundo.casos.find((x) => M.casos[x]?.[campo] != null && M.casos[x].moduloSerial === mundo.sessao.moduloSerial)
-  return k ? M.casos[k] : null
+  return k ? relidoDo(mundo, M.casos[k]) : null
 }
 function lidoDoSinal(mundo, id) {
   const { ativoId } = mundo.sessao
@@ -324,7 +343,8 @@ function secaoFFalhando(mundo) {
 // tipo: leitura (sem seta) · tocar (com seta, e o destino) · feito · ressalva
 // destino: { tela } (a tela que resolve) · 'item' (a câmera do app, 07) · 'reprovado' (o 09)
 const base = (item, c) => ({ id: item.id, secao: item.secao, nome: item.rotulo, tipo: 'leitura', ...c })
-const lido = (item, valor) => base(item, { estado: 'ok', valor })
+const lido = (item, valor, leitura) => base(item, { estado: 'ok', valor, ...(leitura ? { leitura } : {}) })
+const MODEM_NA_REDE = M.diagnostico.modulo.find((l) => l.id === 'modem').heroi
 const naoSeAplica = (item) => base(item, { estado: 'nsa', valor: T.vazio, apagado: true })
 // o automático que falta leva à tela que resolve, pelo `origem` do mock (a entrega do checklist)
 const TELA_DA_ORIGEM = { conectar: 'T05', ativo: 'T06', can: 'T07', configurar: 'T09', calibracao: 'T10' }
@@ -389,7 +409,8 @@ function itemC(mundo, item) {
     const p = partes(r.lido)
     if (!p || !Number.isFinite(p.num)) return reprovou(item, T.vazio, null)
     const valor = item.id === 'c-gps' ? T.satelites(p.texto) : [p.texto, p.unidade].filter(Boolean).join(' ')
-    return dentro(sinal.faixa, p.num) ? lido(item, valor) : reprovou(item, valor, { sinal, ...p })
+    // dentro da faixa, a leitura fica no item: o detalhe relido a desenha (o pacote 13, 30 e 31)
+    return dentro(sinal.faixa, p.num) ? lido(item, valor, { sinal, ...p }) : reprovou(item, valor, { sinal, ...p })
   }
   if (item.id === 'c-entradas') {
     if (etapas.ativo?.ativoId !== mundo.sessao.ativoId) return falta(item)
@@ -398,6 +419,8 @@ function itemC(mundo, item) {
     if (caso) {
       const [entrada] = Object.keys(caso.entradas).filter((k) => k !== 'esperado')
       const valor = T.entradaLida(T.entradas[entrada], caso.entradas[entrada])
+      // relida e batendo com o esperado (o pacote 13, 32): conforme, e o detalhe diz o lido
+      if (caso.entradas[entrada] === caso.entradas.esperado) return lido(item, T.conforme, { texto: valor })
       return reprovou(item, valor, { texto: valor, frase: T.esperadoDaEntrada(caso.entradas.esperado) })
     }
     return L.entradasUsadas <= L.entradasTotal ? lido(item, T.conforme) : reprovou(item, `${L.entradasUsadas} ${T.de(L.entradasTotal)}`, null)
@@ -406,6 +429,8 @@ function itemC(mundo, item) {
   if (!passou(etapas.preChecagem)) return falta(item)
   // o modem sem sinal (o pacote 12, o caso da T07/07): a palavra e o porquê, sem régua
   const modem = casoDaC(mundo, 'modem')
+  // relido na rede (o pacote 13, 33): o que o diagnóstico lê no módulo que está bem (o `heroi` da T07)
+  if (modem && modem.modem === MODEM_NA_REDE) return lido(item, T.sinalBom, { texto: modem.modem })
   if (modem) return reprovou(item, modem.modem, { texto: modem.modem, frase: T.semAlcance })
   return dentro(L.modemFaixa, L.modemDbm) ? lido(item, T.sinalBom) : reprovou(item, T.vazio, null)
 }

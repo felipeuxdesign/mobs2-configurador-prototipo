@@ -33,6 +33,11 @@
 | `26-estado-modem-reprovado` | estado | tocar na linha vermelha do modem: sem sinal e o que conferir · *padrão até o PM decidir* | `modem-sem-sinal` |
 | `27-estado-secao-e-com-correcao-solicitada` | estado | o cartão não passou e a correção foi pedida: o cartão vermelho com as duas linhas · *padrão até o PM decidir* | `identificador-divergente` |
 | `28-estado-finalizar-com-a-secao-e-falhando` | estado | finalizar com o cartão reprovado e a correção pedida: registra com a falha e o nome · *padrão até o PM decidir* | `identificador-divergente` |
+| `29-momento-relendo-o-modulo` | momento | tocar em Reler o módulo, no detalhe de um item reprovado: o botão diz Relendo o módulo, ali mesmo | `can-estatico-bateria` |
+| `30-momento-alimentacao-relida` | momento | releu e deu certo: 13,8 V dentro da faixa, relido às 14:42, e Voltar ao checklist | `can-estatico-bateria` |
+| `31-momento-gps-relido` | momento | releu e deu certo: 9 satélites dentro da faixa | `gps-fraco` |
+| `32-momento-entradas-relidas` | momento | releu e deu certo: ignição ligada, conforme | `entrada-ignicao` |
+| `33-momento-modem-relido` | momento | releu e deu certo: na rede, sinal bom | `modem-sem-sinal` |
 
 - no protótipo · a nossa versão da linha *11-momento-homologado*, antes desta entrega: | `11-momento-homologado` | momento | tocar em `Finalizar instalação`, com o que bloqueia resolvido (T13·3) | `checklist` |
 

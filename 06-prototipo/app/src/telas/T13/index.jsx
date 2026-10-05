@@ -30,8 +30,12 @@
 //   39; o primário sai de primarioDaCamera). Nenhuma referência desenha este
 //   quadro e o visor fica sem frase (G25), e a URL sai do momento; nenhum
 //   estado da coluna chega nele.
-// · O automático reprovado: o nível do item (09) mostra o motivo e o caminho,
-//   Refazer o diagnóstico → T07 (T13·2). Nada se marca à mão.
+// · O automático reprovado: o nível do item (09) mostra o motivo e o que conferir, e
+//   relê o módulo ali mesmo (o pacote 13): Reler o módulo vira Relendo o módulo…
+//   (29) e, deu certo, a mesma tela fica positiva, com o valor novo, o relido e o
+//   veredito, e um botão só, Voltar ao checklist (30 a 33); não deu, o valor novo,
+//   ainda vermelho, e o Reler o módulo de novo. A releitura lê o módulo inteiro: a C
+//   volta atualizada. Não leva à T07, e nada muda de tela sozinho. Nada se marca à mão.
 // · Finalizar instalação acende quando o que bloqueia fecha (A a E); o toque
 //   gera o relatório na fila (HU-T13-7) e o homologado aparece depois (T13·3):
 //   o veredito e o relatório no topo — com a localização negada, o relatório
@@ -58,10 +62,12 @@ import { useVoltar } from '../../estado/voltar.js'
 import { useEncerrar } from '../../estado/encerrar.jsx'
 import { NEGADA, APAGADO, permissaoDoEstado, camera as cameraDa, primarioDaCamera, voltaDasConfiguracoes } from '../../estado/camera.js'
 import { RECEITAS } from '../../estado/receitas.js'
+import { RITMOS } from '../../estado/ritmos.js'
+import { EM_QUADRO } from '../../estado/quadro.js'
 import { SEMENTES } from '../../estado/sementes.js'
 import { M } from '../../dados/mock.js'
 import {
-  REF, SECOES, SECAO_DO_MOMENTO, MOMENTO_DA_FOTO, FOTO_DO_MOMENTO, LISTAS_DA_C, DETALHES_DA_C, mundoDe, checklist, nivelDoItem, primeiroPendente, proximoPendente, momentoDaSecao,
+  REF, SECOES, SECAO_DO_MOMENTO, MOMENTO_DA_FOTO, FOTO_DO_MOMENTO, LISTAS_DA_C, DETALHES_DA_C, RELIDO_DO_ITEM, ITEM_DA_RELEITURA, VEREDITO_DO_RELIDO, detalheDaReleitura, mundoDe, checklist, nivelDoItem, primeiroPendente, proximoPendente, momentoDaSecao,
   instrumentoDoItem, filaDoFinalizar, nomeDaSecao, rotuloDoNivel, itemDe, ativoDe, registroDoQuadro, cicloConcluido,
 } from './checklist.js'
 import { InstrumentoDoItem } from './pecas.jsx'
@@ -96,7 +102,10 @@ function comQuadro(base, momento) {
 function quadroInicial({ momento, est, ck }) {
   // deFeitos: quantos estavam feitos quando o nível do item abriu (a barra parte dali na volta, C12·36)
   // dialogoDe: qual seção não passou, a F (10) ou a E com a correção pedida (28, o pacote 12)
-  const q = { aberta: null, item: null, naoConforme: false, texto: '', fotoProblema: null, dialogo: false, dialogoDe: 'F', ciente: false, deFeitos: null }
+  // releitura: o Reler o módulo do detalhe (o pacote 13) · 'relendo' (29) ou 'relido' (30 a 33)
+  const q = { aberta: null, item: null, naoConforme: false, texto: '', fotoProblema: null, dialogo: false, dialogoDe: 'F', ciente: false, deFeitos: null, releitura: null }
+  const daReleitura = ITEM_DA_RELEITURA[est ?? momento]
+  if (daReleitura) return { ...q, item: daReleitura, releitura: (est ?? momento) === REF.relendo ? 'relendo' : 'relido' }
   if (DETALHES_DA_C.includes(est)) return { ...q, item: ck.porSecao.C.find((c) => c.estado === 'reprovado')?.id ?? null }
   if (LISTAS_DA_C.includes(est)) return { ...q, aberta: 'C' }
   if (est === REF.secaoECorrecao) return { ...q, aberta: 'E' }
@@ -112,7 +121,12 @@ function quadroInicial({ momento, est, ck }) {
 
 export default function T13({ momento, estado: est }) {
   const { estado: unico, despachar } = useEstado()
-  const base = comQuadro(mundoDe({ unico, est, semente: SEMENTES.T13 }), est ? null : momento)
+  // o caso que monta o mundo (o pacote 13): o do detalhe de onde a releitura parte, que fica
+  // enquanto a tela vive — o Reler o módulo e o Voltar ao checklist seguem no ônibus do caso,
+  // e a URL sai do estado da coluna · relido, os casos da C devolvem a `releitura` do mock
+  const [fixo] = useState(() => (DETALHES_DA_C.includes(est) ? est : detalheDaReleitura(est ?? momento)))
+  const [relido, setRelido] = useState(() => !!ITEM_DA_RELEITURA[est ?? momento] && (est ?? momento) !== REF.relendo)
+  const base = comQuadro(mundoDe({ unico, est: fixo ?? est, semente: SEMENTES.T13, relido }), est || fixo ? null : momento)
   const [registro, setRegistro] = useState(() => registroDoQuadro(momento, base, checklist(base)))
   const mundo = comRegistro(base, registro)
   const ck = checklist(mundo)
@@ -128,7 +142,7 @@ export default function T13({ momento, estado: est }) {
   // o que a tela resolve vai pro estado único (etapas.checklist), e o relatório,
   // pra fila (M.filaSaida + estado.fila) — só no fluxo
   function gravar(novo) {
-    if (est) return
+    if (est || fixo) return
     const e = vivo.current
     const m = comRegistro(comQuadro(mundoDe({ unico: e, est: null, semente: SEMENTES.T13 }), momento), novo)
     const etapas = { ...e.etapas, checklist: { ...novo, pendentes: checklist(m).pendentesDoMenu } }
@@ -196,9 +210,28 @@ export default function T13({ momento, estado: est }) {
   }
   function voltarAoChecklist() {
     const s = itemDe(q.item).secao
-    setQ({ ...q, item: null, naoConforme: false, fotoProblema: null, aberta: s })
+    setQ({ ...q, item: null, naoConforme: false, fotoProblema: null, aberta: s, releitura: null })
     irQuadro(quadroDasSecoes(s))
   }
+  // Reler o módulo (o pacote 13): o botão diz Relendo o módulo…, ali mesmo, o tempo do
+  // Relendo… da T10; aí o módulo inteiro relido. O 29 desenha a Alimentação: nos outros três,
+  // a URL sai do momento, como o não conforme das fotos
+  function relerModulo() {
+    setQ({ ...q, releitura: 'relendo' })
+    irQuadro(q.item === ITEM_DA_RELEITURA[REF.relendo] ? REF.relendo : null)
+  }
+  useEffect(() => {
+    if (EM_QUADRO || q.releitura !== 'relendo') return undefined
+    const relogio = setTimeout(() => {
+      // deu certo: a mesma tela, positiva (30 a 33); não deu, o valor novo, ainda vermelho, e o Reler de novo
+      const depois = checklist(comRegistro(comQuadro(mundoDe({ unico: vivo.current, est: fixo ?? est, semente: SEMENTES.T13, relido: true }), null), registro))
+      const passou = depois.porSecao.C.find((c) => c.id === q.item)?.estado === 'ok'
+      setRelido(true)
+      setQ((x) => ({ ...x, releitura: passou ? 'relido' : null }))
+      irQuadro(passou ? RELIDO_DO_ITEM[q.item] : null)
+    }, RITMOS.relerModuloMs)
+    return () => clearTimeout(relogio)
+  }, [q.releitura]) // eslint-disable-line react-hooks/exhaustive-deps
   // Tirar foto e Salvar com ressalva: o item resolvido, e o próximo por fazer
   function responder(como) {
     const id = q.item
@@ -240,7 +273,9 @@ export default function T13({ momento, estado: est }) {
   const cancelar = () => setQ({ ...q, dialogo: false })
 
   // o voltar do Android (logica.md, T13·6): num estado da coluna o app está parado, e a peça não escuta
-  useVoltar(q.dialogo ? cancelar : q.item ? voltarAoChecklist : voltarAoMenu)
+  // relendo o módulo, nada: a releitura não para no meio (como a da CAN na T07)
+  const relendo = q.item != null && q.releitura === 'relendo'
+  useVoltar(relendo ? null : q.dialogo ? cancelar : q.item ? voltarAoChecklist : voltarAoMenu)
 
   // ── o que se mostra ──
   const { sessao } = mundo
@@ -328,17 +363,23 @@ export default function T13({ momento, estado: est }) {
     // o nível do item automático reprovado (09, o pacote 11): a tela que ajuda a consertar — a
     // leitura com a régua, e o que conferir (a peça da folha 6, a mesma da T05/04), sem o traço
     // vermelho (a falha já está na régua) · sem a barrinha: no detalhe não tem o que percorrer
+    // · relido e dentro (o pacote 13, 30 a 33): sem o O que conferir e sem o vermelho, o check
+    // com o relido e o veredito, e um botão só · relendo (29): o primário desligado e o link apagado
     const c = ck.porSecao[nivel.item.secao].find((x) => x.id === q.item)
+    const positivo = q.releitura === 'relido' && c.estado === 'ok'
     const instrumento = c.leitura ? instrumentoDoItem(c) : null
     miolo = (
       <>
         <Segmentado rotulo={rotuloDoNivel(nivel.secao)} />
         <h1 className="t13-titulo-item">{nivel.item.pergunta ?? nivel.item.rotulo}</h1>
-        {instrumento && <InstrumentoDoItem rotulo={T.lidoNoModulo} {...instrumento} />}
-        {CONFERIR_DO_REPROVADO[q.item] && <OQueConferir rotulo={T.oQueConferir} causas={CONFERIR_DO_REPROVADO[q.item]} />}
+        {instrumento && <InstrumentoDoItem rotulo={T.lidoNoModulo} {...instrumento} relido={positivo ? T.relido(HORA, VEREDITO_DO_RELIDO[c.id]) : undefined} />}
+        {!positivo && CONFERIR_DO_REPROVADO[q.item] && <OQueConferir rotulo={T.oQueConferir} causas={CONFERIR_DO_REPROVADO[q.item]} />}
       </>
     )
-    rodape = <Rodape primario={T.refazerDiagnostico} aoPrimario={() => ir('T07')} link={T.voltarChecklist} aoLink={voltarAoChecklist} />
+    rodape = positivo
+      ? <Rodape primario={T.voltarChecklist} aoPrimario={voltarAoChecklist} primarioTrocaTexto />
+      : <Rodape primario={relendo ? T.relendoModulo : T.relerModulo} aoPrimario={relerModulo} primarioDesabilitado={relendo} primarioTrocaTexto
+          link={T.voltarChecklist} aoLink={voltarAoChecklist} linkDesabilitado={relendo} />
   } else {
     // as seções: o título com a contagem, a barra, o veredito (homologado) e os seis cartões
     miolo = (
@@ -376,7 +417,8 @@ export default function T13({ momento, estado: est }) {
     <div className="t13">
       <BarraDoSistema fundo="faixa" />
       <fieldset className="t13-topo" role="presentation" disabled={dialogo.montado}>
-        <Faixa serial={sessao.moduloSerial} placa={ativoDe(sessao.ativoId)?.placa} acao={T.encerrar} aoEncerrar={enc.encerrar} />
+        {/* relendo o módulo, o ENCERRAR fica apagado e não faz nada, como na releitura da CAN (lei 17) */}
+        <Faixa serial={sessao.moduloSerial} placa={ativoDe(sessao.ativoId)?.placa} acao={T.encerrar} aoEncerrar={enc.encerrar} acaoDesabilitada={relendo} />
       </fieldset>
       <div className="t13-corpo">
         <div className="t13-conteudo" inert={dialogo.montado ? '' : undefined}>

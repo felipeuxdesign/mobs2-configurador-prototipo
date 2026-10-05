@@ -40,7 +40,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `09-estado-item-reprovado`
 
-`M2C-0301` · `QJF-2C61` · `ENCERRAR` · `C · HARDWARE` · `Alimentação` · `LIDO NO MÓDULO` · `10,9` · `V` · `10,0` · `12,0 — 15,0` · `16,0` · `1,1 V abaixo do mínimo` · `O QUE CONFERIR` · `1 · Bateria do ônibus` · `— carga e terminais` · `2 · Cabo de alimentação` · `— encaixe firme` · `3 · Ponto de ligação` · `— direto na bateria, sem queda` · `Refazer o diagnóstico` · `Voltar ao checklist`
+`M2C-0301` · `QJF-2C61` · `ENCERRAR` · `C · HARDWARE` · `Alimentação` · `LIDO NO MÓDULO` · `10,9` · `V` · `10,0` · `12,0 — 15,0` · `16,0` · `1,1 V abaixo do mínimo` · `O QUE CONFERIR` · `1 · Bateria do ônibus` · `— carga e terminais` · `2 · Cabo de alimentação` · `— encaixe firme` · `3 · Ponto de ligação` · `— direto na bateria, sem queda` · `Reler o módulo` · `Voltar ao checklist`
 
 ## `10-estado-finalizar-com-a-secao-f-falhando`
 
@@ -92,7 +92,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `22-estado-gps-reprovado`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `C · HARDWARE` · `GPS e antena` · `LIDO NO MÓDULO` · `4` · `satélites` · `0` · `6 ou mais` · `12` · `2 abaixo do mínimo` · `O QUE CONFERIR` · `1 · Antena GPS` · `— conectada e firme` · `2 · Céu aberto` · `— sem teto nem metal por cima` · `3 · Cabo da antena` · `— sem dobra nem corte` · `Refazer o diagnóstico` · `Voltar ao checklist`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `C · HARDWARE` · `GPS e antena` · `LIDO NO MÓDULO` · `4` · `satélites` · `0` · `6 ou mais` · `12` · `2 abaixo do mínimo` · `O QUE CONFERIR` · `1 · Antena GPS` · `— conectada e firme` · `2 · Céu aberto` · `— sem teto nem metal por cima` · `3 · Cabo da antena` · `— sem dobra nem corte` · `Reler o módulo` · `Voltar ao checklist`
 
 ## `23-estado-secao-c-com-entradas-reprovadas`
 
@@ -100,7 +100,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `24-estado-entradas-reprovadas`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `C · HARDWARE` · `Entradas digitais` · `LIDO NO MÓDULO` · `ignição desligada` · `esperado: ligada, com a chave virada` · `O QUE CONFERIR` · `1 · Chave do ônibus` · `— virada na ignição` · `2 · Fio da ignição` · `— no pino certo do chicote` · `3 · Fusível da ignição` · `— inteiro` · `Refazer o diagnóstico` · `Voltar ao checklist`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `C · HARDWARE` · `Entradas digitais` · `LIDO NO MÓDULO` · `ignição desligada` · `esperado: ligada, com a chave virada` · `O QUE CONFERIR` · `1 · Chave do ônibus` · `— virada na ignição` · `2 · Fio da ignição` · `— no pino certo do chicote` · `3 · Fusível da ignição` · `— inteiro` · `Reler o módulo` · `Voltar ao checklist`
 
 ## `25-estado-secao-c-com-modem-reprovado`
 
@@ -108,7 +108,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `26-estado-modem-reprovado`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `C · HARDWARE` · `Modem e sinal` · `LIDO NO MÓDULO` · `sem sinal` · `o módulo não alcança a rede da operadora` · `O QUE CONFERIR` · `1 · Chip SIM` · `— encaixado e ativo` · `2 · Antena do modem` · `— conectada` · `3 · Cobertura` · `— teste num lugar aberto` · `Refazer o diagnóstico` · `Voltar ao checklist`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `C · HARDWARE` · `Modem e sinal` · `LIDO NO MÓDULO` · `sem sinal` · `o módulo não alcança a rede da operadora` · `O QUE CONFERIR` · `1 · Chip SIM` · `— encaixado e ativo` · `2 · Antena do modem` · `— conectada` · `3 · Cobertura` · `— teste num lugar aberto` · `Reler o módulo` · `Voltar ao checklist`
 
 ## `27-estado-secao-e-com-correcao-solicitada`
 
@@ -117,3 +117,23 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `28-estado-finalizar-com-a-secao-e-falhando`
 
 `M2C-0312` · `PCX-9A17` · `ENCERRAR` · `A Seção E não passou` · `O cartão do motorista não bate com o cadastro, e a correção já foi pedida. A instalação fica registrada com a seção falhando — e com o seu nome.` · `Estou ciente · Rafael Vieira, 14:30` · `Finalizar instalação` · `Cancelar`
+
+## `29-momento-relendo-o-modulo`
+
+`M2C-0301` · `QJF-2C61` · `ENCERRAR` · `C · HARDWARE` · `Alimentação` · `LIDO NO MÓDULO` · `10,9` · `V` · `10,0` · `12,0 — 15,0` · `16,0` · `1,1 V abaixo do mínimo` · `O QUE CONFERIR` · `1 · Bateria do ônibus` · `— carga e terminais` · `2 · Cabo de alimentação` · `— encaixe firme` · `3 · Ponto de ligação` · `— direto na bateria, sem queda` · `Relendo o módulo…` · `Voltar ao checklist`
+
+## `30-momento-alimentacao-relida`
+
+`M2C-0301` · `QJF-2C61` · `ENCERRAR` · `C · HARDWARE` · `Alimentação` · `LIDO NO MÓDULO` · `13,8` · `V` · `10,0` · `12,0 — 15,0` · `16,0` · `relido às 14:42 · dentro da faixa` · `Voltar ao checklist`
+
+## `31-momento-gps-relido`
+
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `C · HARDWARE` · `GPS e antena` · `LIDO NO MÓDULO` · `9` · `satélites` · `0` · `6 ou mais` · `12` · `relido às 14:42 · dentro da faixa` · `Voltar ao checklist`
+
+## `32-momento-entradas-relidas`
+
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `C · HARDWARE` · `Entradas digitais` · `LIDO NO MÓDULO` · `ignição ligada` · `relido às 14:42 · conforme` · `Voltar ao checklist`
+
+## `33-momento-modem-relido`
+
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `C · HARDWARE` · `Modem e sinal` · `LIDO NO MÓDULO` · `na rede` · `relido às 14:42 · sinal bom` · `Voltar ao checklist`

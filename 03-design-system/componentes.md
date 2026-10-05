@@ -343,6 +343,18 @@ Um rótulo com duas ideias separadas por **·** — *sem rede · 3 tentativas fe
 
 **No protótipo** · o RV no centro do círculo, medido na tela (o diretor, 04/10): o avatar da tira (32) leva 1 de recheio embaixo, e não os 2 do pacote 5, que deixavam as letras 1 px altas na tela; o da folha da conta (52) leva a própria letra à esquerda (1) e 1,5 embaixo · medido no print a 2x: o da tira no centro exato, e o da conta a 0,25 px · `app/src/ds/chrome/Avatar.css`.
 
+## Item reprovado ganha a seta
+
+Numa lista de leituras que o app confere sozinho, **o que passou é leitura**: o check, o valor, e nada mais, sem seta — a linha já diz tudo. **O que reprovou fica vermelho e ganha a seta**: o xis, o valor em vermelho, e o toque abre o detalhe, com o que conferir. A seção do item ganha o xis e a contagem cai. Na T13, a Seção C com a Alimentação, o GPS, as entradas ou o modem reprovados (a 16, 21, 23 e 25).
+
+**No protótipo** · já era assim desde o pacote 10: o reprovado é a linha de leitura do `ItemDoChecklist` com o valor em `--vermelho` (`ds-item-ck-valor-falha`) e a seta, e só ela toca; a que passou fica sem `aoTocar`.
+
+## Reler no lugar
+
+Quando o técnico relê alguma coisa depois de consertar, **a releitura acontece na própria tela**: o botão `Reler…` vira *Relendo…*, desligado, e o resultado fica ali mesmo, com **relido às 14:42** e o veredito, ao lado do check pequeno. Deu certo, sai o que estava vermelho e fica um botão pra seguir; não deu, fica o valor novo, ainda vermelho, e o botão volta a ser `Reler…`. **Sem toast, e nada muda de tela sozinho**: quem decide seguir é o técnico. Na calibração (T10) e no detalhe de um item reprovado da Seção C (T13/29 a 33).
+
+**No protótipo** · a T13 usa as peças que existem: o `Rodape` com o `primarioTrocaTexto` (o texto troca no lugar) e o `linkDesabilitado`, e o instrumento do item com a variante `relido` (`app/src/telas/T13/pecas.jsx`): sem a falha no poço, o rótulo em `--tinta-secundaria`, a marca branca da `Escala`, e o check de `--glifo-confere` com o texto de 13 em 700, descido `--traco-borda`, como o `ReguaDiferenca` confere da T10 · o relido diz a hora do relógio parado, *14:30*, como a T10 · o rodapé de um botão só fecha em `--rodape-pe-com-botao` (32), a regra da peça: as referências 30 a 33 deixaram o pé de 24 do rodapé com link (pro arquiteto) · o tempo do *Relendo o módulo…* é o do *Relendo…* da T10, 1 s (`RITMOS.relerModuloMs`).
+
 ## No protótipo · o movimento das peças (C12)
 
 Anotação de construção do C12. O movimento é da peça, e vale onde ela está: a tela só liga o gatilho. As regras do app inteiro estão no `movimento.md`; o mapa de cada peça pro arquivo está no `06-prototipo/app/src/ds/MAPA.md`. Nenhuma peça nova de desenho: as quatro de baixo sem desenho próprio moram no chrome e nas linhas.

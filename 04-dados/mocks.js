@@ -1204,6 +1204,11 @@
   CASOS["entrada-ignicao"] = { moduloSerial: "M2C-0417", entradas: { ignicao: "desligada", esperado: "ligada" } }; /* T13/23 e 24 */
   CASOS["evento-nao-chega-de-novo"] = Object.assign({}, CASOS["evento-sem-resposta"], { tentativasQueEstouram: 2 }); /* T14/09 · ao contrário do "evento-sem-resposta", aqui a 2ª tentativa TAMBÉM estoura, e aparece o confira a conexão do módulo */
   CASOS["fila-parada"] = { fila: { paradaHa: "32 min", esperando: 2 } }; /* T04/16 · o aviso depois de 30 min parada */
+  /* pacote 13 · o que cada caso devolve quando o técnico toca em Reler o módulo, depois de consertar */
+  CASOS["can-estatico-bateria"].releitura = { alimentacao: "13,8 V" }; /* T13/30 */
+  CASOS["gps-fraco"].releitura = { gps: "9 satélites" }; /* T13/31 */
+  CASOS["entrada-ignicao"].releitura = { entradas: { ignicao: "ligada", esperado: "ligada" } }; /* T13/32 */
+  CASOS["modem-sem-sinal"].releitura = { modem: "na rede" }; /* T13/33 */
 
   /* protótipo C9 (T10) · AC-08 — o hodômetro estático do a-22, o mesmo que a
      T10 calibra no módulo sem pulsos (T10/04): bruto 121.003.000 m ÷ fatorEnvio

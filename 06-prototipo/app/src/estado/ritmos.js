@@ -17,6 +17,7 @@ export const RITMOS = {
   cronometroCodigoMs: 1000,   // cronômetro do código (T01) · 1 s real vale 1 s de prazo e de reenvio (T01·1)
   semearGravandoMs: 1000,     // semear da calibração (T10) · Gravando no módulo… (T10 animacao.md, a entrega de 25/09)
   semearRelendoMs: 1000,      // semear da calibração (T10) · Relendo…, e aí o tambor rola e a tela vira o semeado ou o não confere
+  relerModuloMs: 1000,        // o detalhe do item reprovado (T13, o pacote 13) · Relendo o módulo…, o mesmo tempo do Relendo… da T10, e aí a tela fica positiva
   // busca da T05 · a busca de novo (o Procurar de novo, a otimização do design): o quadro da busca da
   // T05/00 fica na tela 1,2 s, e a lista volta. O número é do arquiteto (a última entrega, o
   // animacao.md da T05 e o movimento.md): 400 ms passaria sem o técnico ver que buscou
