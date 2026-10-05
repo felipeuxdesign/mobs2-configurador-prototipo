@@ -1,5 +1,24 @@
 # Registro de mudanças
 
+## 2026-10-05 · o pacote 23 — o reler que não resolve, e as famílias na coluna
+
+- **o reler que não resolve** (T13/34 a 37): o valor novo, ainda vermelho, e no lugar da frase de baixo o xis pequeno com *relido às 14:41 · ainda…* e o que ainda falta · o *O que conferir* continua, e o botão volta a ser *Reler o módulo* · é o *não confere* da calibração · sem ele, o técnico via a mesma tela e não sabia se o app tinha relido
+- **o mock em sequência**: cada caso ganhou `releituras`, uma lista · a 1ª ainda reprova, a 2ª passa · o mesmo caso chega no *não resolvido* e no *relido*, um atrás do outro
+- **as famílias na coluna do palco**: o que nasce de outro quadro fica **recuado embaixo dele**, sem linhas · a ordem conta a história, o detalhe, o *não resolvido*, o *relido* · os nomes na coluna ficam curtos · a **cena 05** do palco mostra a T13 inteira, e a cena 02 passou a recuar o firmware
+- **a T02 entra na coluna**: a busca sem resultado, a busca que esconde a escolha, a empresa escolhida e a unidade escolhida, recuados embaixo do seu estado · antes ninguém conseguia ver esses momentos pelo palco
+- **o índice limpo**: os títulos das últimas rodadas voltaram pro padrão *T13 · …*
+- **176 → 180 referências** · 83 → 87 momentos
+
+- **no protótipo** (o gate em `06-prototipo/para-o-arquiteto/gate-pacote23.md`, as folhas lado a lado em `pacote23/`):
+  - o mundo conta as releituras, e os casos da C devolvem a N-ésima das `releituras` · o não resolvido é a variante `naoResolvido` do instrumento, com o xis do não confere da T10;
+  - a coluna recua um nível o que tem `depoisDe`, e a coluna longa (a T13, 20 linhas) tem linhas de 30, como a cena 05 · com 32, a última passava do pé do celular;
+  - o endereço aceita o momento da família no `estado`: o link copiado dele reabre o quadro (antes, a T07/06 e a T14/06 não reabriam);
+  - a T02 monta o momento aberto pela coluna, com o termo da busca dele;
+  - os roteiros novos `familias.mjs` e o `reler.mjs` com os dois toques · o `mov-t13` toca no nome curto.
+- **os desvios nomeados** (o gate, §3):
+  - o relido e o não resolvido dizem 14:30, o relógio parado · as referências dizem 14:42 e 14:41;
+  - a demo pelo fluxo não chega na Seção C reprovada: nenhum módulo da busca é de um caso da C · os dois toques se veem pelo endereço do 29.
+
 ## 2026-10-05 · o pacote 13 — o detalhe relê o módulo ali mesmo
 
 - **o botão do detalhe de um item reprovado é `Reler o módulo`**, nos quatro: Alimentação (T13/09), GPS (22), Entradas (24) e Modem (26) · antes era *Refazer o diagnóstico*, que levava pra T07 — e a T07 depois de configurado mostra o módulo numa linha só, *7 de 7*, e relê só a CAN · o técnico consertava, voltava, e via uma tela dizendo que estava tudo certo, sem ter relido nada

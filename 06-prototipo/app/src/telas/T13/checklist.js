@@ -64,16 +64,25 @@ export const REF = {
   gpsRelido: '31-momento-gps-relido',
   entradasRelidas: '32-momento-entradas-relidas',
   modemRelido: '33-momento-modem-relido',
+  // o pacote 23 · o reler que não resolve: o valor novo, ainda vermelho, e o xis com o que ainda falta
+  alimentacaoNaoResolvida: '34-momento-alimentacao-nao-resolvida',
+  gpsNaoResolvido: '35-momento-gps-nao-resolvido',
+  entradasNaoResolvidas: '36-momento-entradas-nao-resolvidas',
+  modemNaoResolvido: '37-momento-modem-nao-resolvido',
 }
 // a Seção C aberta com um item reprovado (a lista) e o detalhe dele, que vem logo
 // depois na coluna (o pacote 11 e o 12: o `depoisDe` do índice)
 export const LISTAS_DA_C = [REF.secaoCReprovada, REF.secaoCGps, REF.secaoCEntradas, REF.secaoCModem]
 export const DETALHES_DA_C = [REF.reprovado, REF.gpsReprovado, REF.entradasReprovadas, REF.modemReprovado]
-// o pacote 13 · o quadro de cada item relido que deu certo (30 a 33), e, pra cada quadro
-// da releitura, o item e o detalhe de onde ela parte — o caso que monta o mundo (o 29 é o
-// da Alimentação, o que a referência desenha)
+// o pacote 13 e o 23 · o quadro de cada item relido que deu certo (30 a 33) e do que não
+// resolveu (34 a 37), e, pra cada quadro da releitura, o item, quantas releituras ele já
+// teve (o mock em sequência: a 1ª ainda reprova, a 2ª passa) e o detalhe de onde ela parte —
+// o caso que monta o mundo (o 29 é o da Alimentação, a primeira, o que a referência desenha)
 export const RELIDO_DO_ITEM = { 'c-alimentacao': REF.alimentacaoRelida, 'c-gps': REF.gpsRelido, 'c-entradas': REF.entradasRelidas, 'c-modem': REF.modemRelido }
-export const ITEM_DA_RELEITURA = { [REF.relendo]: 'c-alimentacao', ...Object.fromEntries(Object.entries(RELIDO_DO_ITEM).map(([id, m]) => [m, id])) }
+export const NAO_RESOLVIDO_DO_ITEM = { 'c-alimentacao': REF.alimentacaoNaoResolvida, 'c-gps': REF.gpsNaoResolvido, 'c-entradas': REF.entradasNaoResolvidas, 'c-modem': REF.modemNaoResolvido }
+const doQuadro = (mapa, vezes) => Object.fromEntries(Object.entries(mapa).map(([id, m]) => [m, { item: id, vezes }]))
+export const RELEITURA_DO_QUADRO = { [REF.relendo]: { item: 'c-alimentacao', vezes: 0 }, ...doQuadro(NAO_RESOLVIDO_DO_ITEM, 1), ...doQuadro(RELIDO_DO_ITEM, 2) }
+export const ITEM_DA_RELEITURA = Object.fromEntries(Object.entries(RELEITURA_DO_QUADRO).map(([m, r]) => [m, r.item]))
 const DETALHE_DO_ITEM = { 'c-alimentacao': REF.reprovado, 'c-gps': REF.gpsReprovado, 'c-entradas': REF.entradasReprovadas, 'c-modem': REF.modemReprovado }
 export const detalheDaReleitura = (momento) => DETALHE_DO_ITEM[ITEM_DA_RELEITURA[momento]] ?? null
 // o veredito do item relido que deu certo, ao lado do check (textos.md · 30 a 33)
@@ -178,9 +187,10 @@ const fotosDeB = () => Object.fromEntries(itensDa('B').map((i) => [i.id, HORA]))
 // pronto-para-fechar (o ciclo completo, as fotos tiradas e o servidor que não
 // respondeu), o 14 na sessão do herói homologada, com a localização negada
 // (localizacao-negada é caso do celular, e não diz ativo). No fluxo, o estado único.
-// Relido (o pacote 13, o Reler o módulo do detalhe): os casos da C devolvem a `releitura`
-// do mock, o valor depois do conserto — a releitura lê o módulo inteiro, e todo item da C volta atualizado.
-export function mundoDe({ unico, est, semente, relido = false }) {
+// As releituras (o pacote 13 e o 23, o Reler o módulo do detalhe): depois de N, os casos da C
+// devolvem a N-ésima das `releituras` do mock (a 1ª ainda reprova, a 2ª passa) — a releitura lê
+// o módulo inteiro, e todo item da C volta atualizado.
+export function mundoDe({ unico, est, semente, releituras = 0 }) {
   const receita = est ? RECEITAS[`T13/${est}`] : null
   if (receita) {
     const casoId = receita.casos[0]
@@ -202,7 +212,7 @@ export function mundoDe({ unico, est, semente, relido = false }) {
     // o 14: o Finalizar tocado, com a localização negada (HU-T13-7: o relatório vai sem ela)
     if (est === REF.semLocalizacao) registro = { ...registro, homologada: true, homologadaAs: HORA }
     const semLocalizacao = caso.permissao === 'localizacao' && caso.resposta === 'negada'
-    return { sessao, etapas, fila: [...M.filaSaida], casosConsumidos: [], registro, casos: [casoId], semLocalizacao, relido }
+    return { sessao, etapas, fila: [...M.filaSaida], casosConsumidos: [], registro, casos: [casoId], semLocalizacao, releituras }
   }
   const sessao = unico.sessao?.ativoId ? unico.sessao : semente.sessao
   const proprias = unico.etapas
@@ -213,7 +223,7 @@ export function mundoDe({ unico, est, semente, relido = false }) {
   return {
     sessao, etapas, fila: [...M.filaSaida, ...unico.fila], casosConsumidos: unico.casosConsumidos,
     registro: guardado ? { ...registroVazio(sessao.ativoId), ...guardado } : registroVazio(sessao.ativoId),
-    casos: [], semLocalizacao: false, relido,
+    casos: [], semLocalizacao: false, releituras,
   }
 }
 
@@ -254,8 +264,13 @@ export function registroDoQuadro(momento, base, ck) {
 // módulo da sessão que a declara (o pacote 10: o can-estatico-bateria baixa a
 // alimentação do M2C-0301, e não mais a bateria da CAN), contra a faixa da
 // bateria do modelo do ativo ──
-// o caso depois do Reler o módulo (o pacote 13): o que a `releitura` devolve, por cima
-const relidoDo = (mundo, caso) => (mundo.relido && caso.releitura ? { ...caso, ...caso.releitura } : caso)
+// o caso depois de N Reler o módulo (o pacote 13 e o 23): o que a N-ésima releitura devolve, por
+// cima · passada a lista, a última
+function relidoDo(mundo, caso) {
+  const lista = caso.releituras ?? []
+  if (!mundo.releituras || !lista.length) return caso
+  return { ...caso, ...lista[Math.min(mundo.releituras, lista.length) - 1] }
+}
 function alimentacaoDoCaso(mundo) {
   const { moduloSerial } = mundo.sessao
   const k = Object.keys(M.casos).find((x) => M.casos[x].alimentacao != null && M.casos[x].moduloSerial === moduloSerial)
@@ -421,7 +436,7 @@ function itemC(mundo, item) {
       const valor = T.entradaLida(T.entradas[entrada], caso.entradas[entrada])
       // relida e batendo com o esperado (o pacote 13, 32): conforme, e o detalhe diz o lido
       if (caso.entradas[entrada] === caso.entradas.esperado) return lido(item, T.conforme, { texto: valor })
-      return reprovou(item, valor, { texto: valor, frase: T.esperadoDaEntrada(caso.entradas.esperado) })
+      return reprovou(item, valor, { texto: valor, frase: T.esperadoDaEntrada(caso.entradas.esperado), ainda: T.entradaAinda(T.entradas[entrada], caso.entradas[entrada]) })
     }
     return L.entradasUsadas <= L.entradasTotal ? lido(item, T.conforme) : reprovou(item, `${L.entradasUsadas} ${T.de(L.entradasTotal)}`, null)
   }
@@ -431,7 +446,7 @@ function itemC(mundo, item) {
   const modem = casoDaC(mundo, 'modem')
   // relido na rede (o pacote 13, 33): o que o diagnóstico lê no módulo que está bem (o `heroi` da T07)
   if (modem && modem.modem === MODEM_NA_REDE) return lido(item, T.sinalBom, { texto: modem.modem })
-  if (modem) return reprovou(item, modem.modem, { texto: modem.modem, frase: T.semAlcance })
+  if (modem) return reprovou(item, modem.modem, { texto: modem.modem, frase: T.semAlcance, ainda: T.ainda(modem.modem) })
   return dentro(L.modemFaixa, L.modemDbm) ? lido(item, T.sinalBom) : reprovou(item, T.vazio, null)
 }
 
@@ -600,7 +615,8 @@ export const proximoPendente = (ck, id) => {
 // ── o item reprovado (09): o instrumento pela regra da T13·5 e a frase ──
 export function instrumentoDoItem(c) {
   // o que não é número (o pacote 12 · as entradas e o modem): o valor escrito e o porquê, sem régua
-  if (!c.leitura.sinal) return { texto: c.leitura.texto, frase: c.leitura.frase }
+  // `ainda`: o que ainda falta, na frase do não resolvido (o pacote 23, 34 a 37)
+  if (!c.leitura.sinal) return { texto: c.leitura.texto, frase: c.leitura.frase, ainda: c.leitura.ainda }
   const { sinal, texto, unidade, num, casas } = c.leitura
   const f = sinal.faixa
   const e = escalaDo(sinal.id, f)
@@ -613,6 +629,7 @@ export function instrumentoDoItem(c) {
     escala: { min: e.min, max: e.max, valor: num, faixa: { de: f.min, ate: f.max ?? e.max }, divisoes: contagem ? (e.max - e.min) / 2 : Math.round(e.max - e.min), fortes: [f.min, f.max ?? e.max] },
     legendas: { min: decimal(e.min, casas), faixa: f.max == null ? T.ouMais(decimal(f.min, casas)) : T.faixa(decimal(f.min, casas), decimal(f.max, casas)), max: decimal(e.max, casas) },
     frase: dif != null ? T.abaixo(decimal(dif, casas), contagem ? null : unidade) : null,
+    ainda: dif != null ? T.ainda(T.abaixo(decimal(dif, casas), contagem ? null : unidade)) : null,
   }
 }
 

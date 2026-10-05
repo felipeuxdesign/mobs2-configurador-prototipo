@@ -136,6 +136,9 @@ export const T = {
   relendoModulo: 'Relendo o módulo…',
   relido: (hora, veredito) => `relido às ${hora} · ${veredito}`,
   dentroDaFaixa: 'dentro da faixa',
+  // o pacote 23 · o reler que não resolve (34 a 37): o que ainda falta, depois do relido às
+  ainda: (falta) => `ainda ${falta}`,
+  entradaAinda: (entrada, valor) => `${entrada} ainda ${valor}`,
 
   // o diálogo da Seção F (10)
   secaoFNaoPassou: 'A Seção F não passou',

@@ -78,13 +78,20 @@ export default function T02({ momento, estado, outraSessao }) {
   // e não com a que foi tocada antes (medido na revisão da entrega de 24/09; vai ao
   // diretor, porque guardar a escolha pede gravá-la no estado único já no toque, e hoje
   // quem grava o contexto é o primário, ou mudar o palco)
-  const [mundo, setMundo] = useState(() => mundoAoAbrir(estado, momento, app.contexto))
-  const [caso, setCaso] = useState(() => inicioDoMundo(mundoAoAbrir(estado, momento, app.contexto), estado, momento, app.contexto))
-  const [busca, setBusca] = useState(momento === SEM_RESULTADO ? TERMO_DA_03 : momento === ESCONDE ? TERMO_DA_04 : '')
+  // O pacote 23 · as famílias na coluna: o 03 e o 04 embaixo do 02, o 07 embaixo do 05 e o 09
+  // embaixo do 06 chegam como estado. O quadro é o do momento, com o termo da busca dele, e
+  // parado, como todo estado da coluna (o `estado` cru diz que nada anda nem se grava)
+  const doMomento = /^\d\d-momento-/.test(estado ?? '')
+  const est = doMomento ? null : estado
+  const mom = doMomento ? estado : momento
+  const termoDo = (m) => (m === SEM_RESULTADO ? TERMO_DA_03 : m === ESCONDE ? TERMO_DA_04 : '')
+  const [mundo, setMundo] = useState(() => mundoAoAbrir(est, mom, app.contexto))
+  const [caso, setCaso] = useState(() => inicioDoMundo(mundoAoAbrir(est, mom, app.contexto), est, mom, app.contexto))
+  const [busca, setBusca] = useState(() => termoDo(mom))
   const [estadoAberto, setEstadoAberto] = useState(estado)
   if (estado !== estadoAberto) {
-    const m = mundoAoAbrir(estado, momento, app.contexto)
-    setEstadoAberto(estado); setMundo(m); setBusca(''); setCaso(inicioDoMundo(m, estado, momento, app.contexto))
+    const m = mundoAoAbrir(est, mom, app.contexto)
+    setEstadoAberto(estado); setMundo(m); setBusca(doMomento ? termoDo(mom) : ''); setCaso(inicioDoMundo(m, est, mom, app.contexto))
   }
   const naEmpresa = caso.passo === 'empresas'
   const todas = naEmpresa ? [] : unidadesDa(mundo, caso.empresaId) ?? []

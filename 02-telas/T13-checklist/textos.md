@@ -137,3 +137,19 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `33-momento-modem-relido`
 
 `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `C · HARDWARE` · `Modem e sinal` · `LIDO NO MÓDULO` · `na rede` · `relido às 14:42 · sinal bom` · `Voltar ao checklist`
+
+## `34-momento-alimentacao-nao-resolvida`
+
+`M2C-0301` · `QJF-2C61` · `ENCERRAR` · `C · HARDWARE` · `Alimentação` · `LIDO NO MÓDULO` · `11,4` · `V` · `10,0` · `12,0 — 15,0` · `16,0` · `relido às 14:41 · ainda 0,6 V abaixo do mínimo` · `O QUE CONFERIR` · `1 · Bateria do ônibus` · `— carga e terminais` · `2 · Cabo de alimentação` · `— encaixe firme` · `3 · Ponto de ligação` · `— direto na bateria, sem queda` · `Reler o módulo` · `Voltar ao checklist`
+
+## `35-momento-gps-nao-resolvido`
+
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `C · HARDWARE` · `GPS e antena` · `LIDO NO MÓDULO` · `5` · `satélites` · `0` · `6 ou mais` · `12` · `relido às 14:41 · ainda 1 abaixo do mínimo` · `O QUE CONFERIR` · `1 · Antena GPS` · `— conectada e firme` · `2 · Céu aberto` · `— sem teto nem metal por cima` · `3 · Cabo da antena` · `— sem dobra nem corte` · `Reler o módulo` · `Voltar ao checklist`
+
+## `36-momento-entradas-nao-resolvidas`
+
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `C · HARDWARE` · `Entradas digitais` · `LIDO NO MÓDULO` · `ignição desligada` · `relido às 14:41 · ignição ainda desligada` · `O QUE CONFERIR` · `1 · Chave do ônibus` · `— virada na ignição` · `2 · Fio da ignição` · `— no pino certo do chicote` · `3 · Fusível da ignição` · `— inteiro` · `Reler o módulo` · `Voltar ao checklist`
+
+## `37-momento-modem-nao-resolvido`
+
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `C · HARDWARE` · `Modem e sinal` · `LIDO NO MÓDULO` · `sem sinal` · `relido às 14:41 · ainda sem sinal` · `O QUE CONFERIR` · `1 · Chip SIM` · `— encaixado e ativo` · `2 · Antena do modem` · `— conectada` · `3 · Cobertura` · `— teste num lugar aberto` · `Reler o módulo` · `Voltar ao checklist`

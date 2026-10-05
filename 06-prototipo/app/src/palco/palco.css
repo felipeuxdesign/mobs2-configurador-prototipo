@@ -64,6 +64,9 @@ body { background: var(--fundo-faixa); overflow: hidden; }
    a tinta e a letra são as do rótulo de 10 (lei 11: o quadro usa --marca-limite, abaixo do piso de texto, PALCO-A15) */
 .coluna-grupo-nome { font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--tinta-apagada); padding: var(--e-10) 0 var(--e-2); }
 .coluna-linha { height: var(--palco-linha-coluna); display: flex; align-items: center; gap: var(--e-10); text-align: left; }
+/* o pacote 23 · o que nasce de outro quadro fica recuado embaixo dele, sem linhas ligando (palco.md, a cena 05) */
+.coluna-linha-recuo { padding-left: var(--palco-recuo-coluna); }
+.coluna-longa .coluna-linha { height: var(--palco-linha-coluna-longa); }
 .coluna-linha:active .coluna-nome { color: var(--tinta); }
 .coluna-nome { font-size: var(--t-secundario); font-weight: 500; color: var(--tinta-apagada); }
 .coluna-linha-aberta .coluna-nome { font-weight: 700; color: var(--tinta); }

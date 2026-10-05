@@ -23,6 +23,8 @@
   --palco-painel: 280px;
   --palco-painel-cabeca: 68px;                                 /* o cabeçalho do painel, por dentro; a linha de baixo é o topo do corpo (quadro 04: 68 + 1) */
   --palco-linha-coluna: var(--poco-32);                        /* as linhas da coluna têm 32 */
+  --palco-linha-coluna-longa: var(--poco-30);                  /* o pacote 23 · a coluna longa (a T13, 20 linhas), como a cena 05 desenha: com 32 ela passa do pé do celular */
+  --palco-recuo-coluna: calc(var(--poco-24) + var(--e-10));    /* o pacote 23 · o recuo da família: o poço embaixo do nome de cima (24 + 10 = 34) */
   --palco-linha-painel: var(--poco-34);                        /* as do painel, 34 */
   --palco-botao-voltar: var(--poco-34);
   --palco-x: 36px;

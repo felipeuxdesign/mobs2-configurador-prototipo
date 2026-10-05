@@ -15,9 +15,12 @@ export function lerUrl() {
   const q = new URLSearchParams(window.location.search)
   const tela = NOMES[q.get('tela')] ? q.get('tela') : 'T01'
   const valido = (tipo, nome) => nome && REFERENCIAS.some((r) => r.tela === tela && r.tipo === tipo && r.nome === nome)
+  // o momento da família, na coluna (`coluna` e `depoisDe`, o pacote 23), abre como estado: a coluna
+  // o escreve no `estado`, e o link copiado dele reabre o mesmo quadro, parado
+  const daColuna = (nome) => nome && REFERENCIAS.some((r) => r.tela === tela && r.tipo === 'momento' && r.coluna === true && !!r.depoisDe && r.nome === nome)
   return {
     tela,
-    estado: valido('estado', q.get('estado')) ? q.get('estado') : null,
+    estado: valido('estado', q.get('estado')) || daColuna(q.get('estado')) ? q.get('estado') : null,
     momento: valido('momento', q.get('momento')) ? q.get('momento') : null,
     print: q.get('print') === '1',
     textos: q.get('textos') === '1',

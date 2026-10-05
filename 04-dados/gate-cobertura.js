@@ -755,17 +755,20 @@ chk("p3: a Seção E se chama Ciclo de testes", M.checklist.secoes.filter(functi
     parseInt(C["fila-parada"].fila.paradaHa, 10) > 30 && C["fila-parada"].fila.esperando > 0);
 })();
 
-/* ── o pacote 13 · o que cada caso da Seção C devolve no Reler o módulo: passa ── */
+/* ── os pacotes 13 e 23 · o que cada caso da Seção C devolve a cada Reler o módulo: a 1ª ainda reprova, a 2ª passa ── */
 (function () {
   var C = M.casos, num = function (t) { return Number(String(t).split(" ")[0].replace(",", ".")); };
   var a02 = M.ativos.filter(function (a) { return a.id === C["can-estatico-bateria"].ativoId; })[0];
   var bat = M.modelosAtivo.filter(function (m) { return m.id === a02.modeloAtivoId; })[0].sinaisCan.filter(function (x) { return x.id === "bateria"; })[0].faixa;
   var naRede = M.diagnostico.modulo.filter(function (l) { return l.id === "modem"; })[0].heroi;
-  chk("p13: os quatro casos da C têm a releitura, e cada uma passa (T13/30 a 33)",
-    num(C["can-estatico-bateria"].releitura.alimentacao) >= bat.min && num(C["can-estatico-bateria"].releitura.alimentacao) <= bat.max &&
-    num(C["gps-fraco"].releitura.gps) >= C["gps-fraco"].gpsMinimo &&
-    C["entrada-ignicao"].releitura.entradas.ignicao === C["entrada-ignicao"].releitura.entradas.esperado &&
-    C["modem-sem-sinal"].releitura.modem === naRede);
+  var passa = {
+    "can-estatico-bateria": function (r) { return num(r.alimentacao) >= bat.min && num(r.alimentacao) <= bat.max; },
+    "gps-fraco": function (r) { return num(r.gps) >= C["gps-fraco"].gpsMinimo; },
+    "entrada-ignicao": function (r) { return r.entradas.ignicao === r.entradas.esperado; },
+    "modem-sem-sinal": function (r) { return r.modem === naRede; }
+  };
+  chk("p23: os quatro casos da C têm duas releituras, a 1ª ainda reprova e a 2ª passa (T13/34 a 37, 30 a 33)",
+    Object.keys(passa).every(function (k) { var l = C[k].releituras; return l && l.length === 2 && !passa[k](l[0]) && passa[k](l[1]); }));
 })();
 
 console.log(falhas ? "\nGATE REPROVADO — " + falhas + " falha(s)" : "\nGATE APROVADO — todas as âncoras recomputadas conferem");

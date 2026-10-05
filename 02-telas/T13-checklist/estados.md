@@ -38,6 +38,10 @@
 | `31-momento-gps-relido` | momento | releu e deu certo: 9 satélites dentro da faixa | `gps-fraco` |
 | `32-momento-entradas-relidas` | momento | releu e deu certo: ignição ligada, conforme | `entrada-ignicao` |
 | `33-momento-modem-relido` | momento | releu e deu certo: na rede, sinal bom | `modem-sem-sinal` |
+| `34-momento-alimentacao-nao-resolvida` | momento | releu e não resolveu: 11,4 V, relido às 14:41, ainda 0,6 V abaixo do mínimo | `can-estatico-bateria` |
+| `35-momento-gps-nao-resolvido` | momento | releu e não resolveu: 5 satélites, ainda 1 abaixo do mínimo | `gps-fraco` |
+| `36-momento-entradas-nao-resolvidas` | momento | releu e não resolveu: ignição ainda desligada | `entrada-ignicao` |
+| `37-momento-modem-nao-resolvido` | momento | releu e não resolveu: ainda sem sinal | `modem-sem-sinal` |
 
 - no protótipo · a nossa versão da linha *11-momento-homologado*, antes desta entrega: | `11-momento-homologado` | momento | tocar em `Finalizar instalação`, com o que bloqueia resolvido (T13·3) | `checklist` |
 

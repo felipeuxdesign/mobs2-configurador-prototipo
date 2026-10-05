@@ -18,7 +18,9 @@ export const REFERENCIAS = indice.itens
 // da coluna, o estado continua abrindo pelo endereço
 // os estados da coluna, e o que nasce de dentro de um estado, logo depois dele (`depoisDe`, no
 // indice.json): o momento (o complemento do pacote 6, com `coluna` verdadeiro) e, desde o pacote 11,
-// o estado também — a T13/09, o detalhe, depois da T13/16, a lista · abre parado, como os estados
+// o estado também — a T13/09, o detalhe, depois da T13/16, a lista · abre parado, como os estados ·
+// o pacote 23: a família em cadeia (o detalhe, o não resolvido, o relido), cada um depois do anterior,
+// e a coluna os recua um nível (Coluna.jsx)
 export const estadosDa = (tela) => {
   const naColuna = REFERENCIAS.filter((r) => r.tela === tela && (r.tipo === 'estado' ? r.coluna !== false : r.coluna === true && !!r.depoisDe))
   const filhosDe = (id) => naColuna.filter((r) => r.depoisDe === id)

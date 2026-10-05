@@ -33,8 +33,9 @@
 // · O automático reprovado: o nível do item (09) mostra o motivo e o que conferir, e
 //   relê o módulo ali mesmo (o pacote 13): Reler o módulo vira Relendo o módulo…
 //   (29) e, deu certo, a mesma tela fica positiva, com o valor novo, o relido e o
-//   veredito, e um botão só, Voltar ao checklist (30 a 33); não deu, o valor novo,
-//   ainda vermelho, e o Reler o módulo de novo. A releitura lê o módulo inteiro: a C
+//   veredito, e um botão só, Voltar ao checklist (30 a 33); não deu (o pacote 23), o
+//   valor novo, ainda vermelho, o xis com o relido e o que ainda falta, e o Reler o
+//   módulo de novo (34 a 37). O mock em sequência: a 1ª releitura ainda reprova, a 2ª passa. A releitura lê o módulo inteiro: a C
 //   volta atualizada. Não leva à T07, e nada muda de tela sozinho. Nada se marca à mão.
 // · Finalizar instalação acende quando o que bloqueia fecha (A a E); o toque
 //   gera o relatório na fila (HU-T13-7) e o homologado aparece depois (T13·3):
@@ -67,7 +68,7 @@ import { EM_QUADRO } from '../../estado/quadro.js'
 import { SEMENTES } from '../../estado/sementes.js'
 import { M } from '../../dados/mock.js'
 import {
-  REF, SECOES, SECAO_DO_MOMENTO, MOMENTO_DA_FOTO, FOTO_DO_MOMENTO, LISTAS_DA_C, DETALHES_DA_C, RELIDO_DO_ITEM, ITEM_DA_RELEITURA, VEREDITO_DO_RELIDO, detalheDaReleitura, mundoDe, checklist, nivelDoItem, primeiroPendente, proximoPendente, momentoDaSecao,
+  REF, SECOES, SECAO_DO_MOMENTO, MOMENTO_DA_FOTO, FOTO_DO_MOMENTO, LISTAS_DA_C, DETALHES_DA_C, RELIDO_DO_ITEM, NAO_RESOLVIDO_DO_ITEM, RELEITURA_DO_QUADRO, VEREDITO_DO_RELIDO, detalheDaReleitura, mundoDe, checklist, nivelDoItem, primeiroPendente, proximoPendente, momentoDaSecao,
   instrumentoDoItem, filaDoFinalizar, nomeDaSecao, rotuloDoNivel, itemDe, ativoDe, registroDoQuadro, cicloConcluido,
 } from './checklist.js'
 import { InstrumentoDoItem } from './pecas.jsx'
@@ -102,10 +103,10 @@ function comQuadro(base, momento) {
 function quadroInicial({ momento, est, ck }) {
   // deFeitos: quantos estavam feitos quando o nível do item abriu (a barra parte dali na volta, C12·36)
   // dialogoDe: qual seção não passou, a F (10) ou a E com a correção pedida (28, o pacote 12)
-  // releitura: o Reler o módulo do detalhe (o pacote 13) · 'relendo' (29) ou 'relido' (30 a 33)
+  // releitura: o Reler o módulo do detalhe (o pacote 13 e o 23) · 'relendo' (29), 'naoResolvido' (34 a 37) ou 'relido' (30 a 33)
   const q = { aberta: null, item: null, naoConforme: false, texto: '', fotoProblema: null, dialogo: false, dialogoDe: 'F', ciente: false, deFeitos: null, releitura: null }
-  const daReleitura = ITEM_DA_RELEITURA[est ?? momento]
-  if (daReleitura) return { ...q, item: daReleitura, releitura: (est ?? momento) === REF.relendo ? 'relendo' : 'relido' }
+  const daReleitura = RELEITURA_DO_QUADRO[est ?? momento]
+  if (daReleitura) return { ...q, item: daReleitura.item, releitura: ['relendo', 'naoResolvido', 'relido'][daReleitura.vezes] }
   if (DETALHES_DA_C.includes(est)) return { ...q, item: ck.porSecao.C.find((c) => c.estado === 'reprovado')?.id ?? null }
   if (LISTAS_DA_C.includes(est)) return { ...q, aberta: 'C' }
   if (est === REF.secaoECorrecao) return { ...q, aberta: 'E' }
@@ -123,10 +124,11 @@ export default function T13({ momento, estado: est }) {
   const { estado: unico, despachar } = useEstado()
   // o caso que monta o mundo (o pacote 13): o do detalhe de onde a releitura parte, que fica
   // enquanto a tela vive — o Reler o módulo e o Voltar ao checklist seguem no ônibus do caso,
-  // e a URL sai do estado da coluna · relido, os casos da C devolvem a `releitura` do mock
+  // e a URL sai do estado da coluna · releituras: quantas o técnico já fez — os casos da C devolvem
+  // a N-ésima das `releituras` do mock (o 34 a 37 abrem com uma, o 30 a 33 com duas)
   const [fixo] = useState(() => (DETALHES_DA_C.includes(est) ? est : detalheDaReleitura(est ?? momento)))
-  const [relido, setRelido] = useState(() => !!ITEM_DA_RELEITURA[est ?? momento] && (est ?? momento) !== REF.relendo)
-  const base = comQuadro(mundoDe({ unico, est: fixo ?? est, semente: SEMENTES.T13, relido }), est || fixo ? null : momento)
+  const [releituras, setReleituras] = useState(() => RELEITURA_DO_QUADRO[est ?? momento]?.vezes ?? 0)
+  const base = comQuadro(mundoDe({ unico, est: fixo ?? est, semente: SEMENTES.T13, releituras }), est || fixo ? null : momento)
   const [registro, setRegistro] = useState(() => registroDoQuadro(momento, base, checklist(base)))
   const mundo = comRegistro(base, registro)
   const ck = checklist(mundo)
@@ -214,21 +216,23 @@ export default function T13({ momento, estado: est }) {
     irQuadro(quadroDasSecoes(s))
   }
   // Reler o módulo (o pacote 13): o botão diz Relendo o módulo…, ali mesmo, o tempo do
-  // Relendo… da T10; aí o módulo inteiro relido. O 29 desenha a Alimentação: nos outros três,
-  // a URL sai do momento, como o não conforme das fotos
+  // Relendo… da T10; aí o módulo inteiro relido. O 29 desenha a primeira da Alimentação: nos
+  // outros três, e na segunda, a URL sai do momento, como o não conforme das fotos
   function relerModulo() {
     setQ({ ...q, releitura: 'relendo' })
-    irQuadro(q.item === ITEM_DA_RELEITURA[REF.relendo] ? REF.relendo : null)
+    irQuadro(q.item === RELEITURA_DO_QUADRO[REF.relendo].item && releituras === 0 ? REF.relendo : null)
   }
   useEffect(() => {
     if (EM_QUADRO || q.releitura !== 'relendo') return undefined
     const relogio = setTimeout(() => {
-      // deu certo: a mesma tela, positiva (30 a 33); não deu, o valor novo, ainda vermelho, e o Reler de novo
-      const depois = checklist(comRegistro(comQuadro(mundoDe({ unico: vivo.current, est: fixo ?? est, semente: SEMENTES.T13, relido: true }), null), registro))
+      // deu certo: a mesma tela, positiva (30 a 33); não deu, o valor novo, ainda vermelho, o xis
+      // com o que ainda falta, e o Reler de novo (34 a 37)
+      const n = releituras + 1
+      const depois = checklist(comRegistro(comQuadro(mundoDe({ unico: vivo.current, est: fixo ?? est, semente: SEMENTES.T13, releituras: n }), null), registro))
       const passou = depois.porSecao.C.find((c) => c.id === q.item)?.estado === 'ok'
-      setRelido(true)
-      setQ((x) => ({ ...x, releitura: passou ? 'relido' : null }))
-      irQuadro(passou ? RELIDO_DO_ITEM[q.item] : null)
+      setReleituras(n)
+      setQ((x) => ({ ...x, releitura: passou ? 'relido' : 'naoResolvido' }))
+      irQuadro((passou ? RELIDO_DO_ITEM : NAO_RESOLVIDO_DO_ITEM)[q.item])
     }, RITMOS.relerModuloMs)
     return () => clearTimeout(relogio)
   }, [q.releitura]) // eslint-disable-line react-hooks/exhaustive-deps
@@ -367,12 +371,15 @@ export default function T13({ momento, estado: est }) {
     // com o relido e o veredito, e um botão só · relendo (29): o primário desligado e o link apagado
     const c = ck.porSecao[nivel.item.secao].find((x) => x.id === q.item)
     const positivo = q.releitura === 'relido' && c.estado === 'ok'
+    // relido e ainda reprovado (o pacote 23): o xis com o que ainda falta, também enquanto relê de novo
+    const aindaFalta = releituras > 0 && c.estado === 'reprovado'
     const instrumento = c.leitura ? instrumentoDoItem(c) : null
     miolo = (
       <>
         <Segmentado rotulo={rotuloDoNivel(nivel.secao)} />
         <h1 className="t13-titulo-item">{nivel.item.pergunta ?? nivel.item.rotulo}</h1>
-        {instrumento && <InstrumentoDoItem rotulo={T.lidoNoModulo} {...instrumento} relido={positivo ? T.relido(HORA, VEREDITO_DO_RELIDO[c.id]) : undefined} />}
+        {instrumento && <InstrumentoDoItem rotulo={T.lidoNoModulo} {...instrumento} relido={positivo ? T.relido(HORA, VEREDITO_DO_RELIDO[c.id]) : undefined}
+          naoResolvido={aindaFalta && instrumento.ainda ? T.relido(HORA, instrumento.ainda) : undefined} />}
         {!positivo && CONFERIR_DO_REPROVADO[q.item] && <OQueConferir rotulo={T.oQueConferir} causas={CONFERIR_DO_REPROVADO[q.item]} />}
       </>
     )

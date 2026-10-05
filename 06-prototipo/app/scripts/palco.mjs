@@ -62,6 +62,8 @@ const QUADROS = [
   { ref: '02-num-estado', url: '?tela=T07&estado=04-estado-firmware-nao-homologado' },
   { ref: '03-tela-com-muitos-estados', url: '?tela=T07' },
   { ref: '04-painel-aberto', url: '?tela=T07&painel=1' },
+  // o pacote 23 · as famílias na coluna: a T13 inteira, num estado, com o recuo (o GPS reprovado)
+  { ref: '05-coluna-com-familias', url: '?tela=T13&estado=22-estado-gps-reprovado' },
 ]
 // a linha normal do painel, que o 00 desenha com a T07: o painel aberto numa tela que não é a T07
 const AUX = { ref: 'painel-noutra-tela', url: '?tela=T04&painel=1' }
@@ -85,6 +87,8 @@ const NOTAS = {
   // o pacote 3 (D2): a coluna lista os estados com o campo `coluna` do indice.json — na T04, 4 dos 7, como o quadro 01
   'coluna-no-fluxo': 'a folha desenha 3 linhas da coluna da T04, e a coluna tem 4 — as do campo coluna do indice.json, como o quadro 01 (o pacote 3, D2: o Sem conexão é a quarta); e ' + MARCADOR,
   'coluna-num-estado': 'a folha desenha 3 linhas da coluna da T04, e a coluna tem 4 — as do campo coluna do indice.json, como o quadro 01 (o pacote 3, D2: o Sem conexão é a quarta); e ' + MARCADOR + '; e o Undo2 do Lucide no Voltar ao fluxo (G5)',
+  // o pacote 23 · a cena 05: a T13 com o recuo, as 20 linhas de 30 da coluna longa
+  '05-coluna-com-familias/coluna': MARCADOR,
   'coluna-T07': 'a lista dos grupos: o nome do grupo na tinta e na letra do rótulo de 10, e não em --marca-limite e 1,4 (lei 11, PALCO-A15, PALCO-V4); e ' + MARCADOR,
 }
 const notaDe = (nome, nomePeca) => NOTAS[`${nome}/${nomePeca}`] ?? NOTAS[nomePeca]

@@ -31,3 +31,5 @@
   font-size: var(--t-secundario); font-weight: 700; color: var(--tinta);
 }
 .t13-instrumento-relido .ds-glifo { width: var(--glifo-confere); height: var(--glifo-confere); position: relative; top: var(--traco-borda); }
+/* o não resolvido (o pacote 23, 34 a 37): o mesmo, com o xis e a frase em vermelho, o não confere da T10/10 */
+.t13-instrumento-nao-resolvido { color: var(--vermelho); }

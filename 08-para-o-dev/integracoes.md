@@ -20,7 +20,7 @@ O que o protótipo finge, e o produto faz de verdade. Pra cada integração, a t
 | as três travas (serial, modelo, firmware) vêm dos casos | a trava sai do que o módulo responde contra o cadastro e a matriz de capacidades |
 | o firmware atualiza em 1 s (o quadro de 62%) e relê | a atualização real, com o tempo do módulo — e, sem rede no módulo, primeiro grava a conexão, isolada, pra ele ganhar rede |
 | a CAN chega com os valores do mock, depois que o bloco do ativo é gravado | a leitura dos sinais do ônibus pelo módulo, com a tradução da CAN do modelo |
-| o `Reler o módulo` do item reprovado no checklist espera 1 s e devolve a `releitura` do caso (13,8 V, 9 satélites, ignição ligada, na rede) | o módulo é lido de novo inteiro — alimentação, GPS, entradas e modem —, e todo item da Seção C se atualiza com o que voltou; o que não passou continua vermelho |
+| o `Reler o módulo` do item reprovado no checklist espera 1 s e devolve a próxima das `releituras` do caso: a 1ª ainda reprova (11,4 V, 5 satélites, ignição desligada, sem sinal), a 2ª passa (13,8 V, 9 satélites, ignição ligada, na rede) | o módulo é lido de novo inteiro — alimentação, GPS, entradas e modem —, e todo item da Seção C se atualiza com o que voltou; o que não passou continua vermelho |
 
 ## A gravação no módulo (a cadeia)
 

@@ -1,6 +1,6 @@
 {
   "telas": 15,
-  "referencias": 176,
+  "referencias": 180,
   "itens": [
     {
       "id": "T01/00-tela",
@@ -315,7 +315,11 @@
       "como": "digitar na busca um nome que não existe",
       "caso": "lista-longa-garagens",
       "html": "02-telas/T02-selecionar-contexto/referencias/html/03-momento-busca-sem-resultado.html",
-      "png": "02-telas/T02-selecionar-contexto/referencias/png/03-momento-busca-sem-resultado.png"
+      "png": "02-telas/T02-selecionar-contexto/referencias/png/03-momento-busca-sem-resultado.png",
+      "coluna": true,
+      "depoisDe": "T02/02-estado-lista-longa-com-busca",
+      "rotulo": "Busca sem resultado",
+      "rotuloOrigem": "proposto"
     },
     {
       "id": "T02/04-momento-busca-esconde-a-escolha",
@@ -327,7 +331,11 @@
       "como": "com uma unidade escolhida, digitar uma busca que esconde ela",
       "caso": "lista-longa-garagens",
       "html": "02-telas/T02-selecionar-contexto/referencias/html/04-momento-busca-esconde-a-escolha.html",
-      "png": "02-telas/T02-selecionar-contexto/referencias/png/04-momento-busca-esconde-a-escolha.png"
+      "png": "02-telas/T02-selecionar-contexto/referencias/png/04-momento-busca-esconde-a-escolha.png",
+      "coluna": true,
+      "depoisDe": "T02/02-estado-lista-longa-com-busca",
+      "rotulo": "Busca esconde a escolha",
+      "rotuloOrigem": "proposto"
     },
     {
       "id": "T02/05-estado-escolher-a-empresa",
@@ -369,7 +377,11 @@
       "como": "tocar numa empresa da lista — ou voltar pelo Trocar de empresa, com a atual marcada",
       "caso": "empresas",
       "html": "02-telas/T02-selecionar-contexto/referencias/html/07-momento-empresa-escolhida.html",
-      "png": "02-telas/T02-selecionar-contexto/referencias/png/07-momento-empresa-escolhida.png"
+      "png": "02-telas/T02-selecionar-contexto/referencias/png/07-momento-empresa-escolhida.png",
+      "coluna": true,
+      "depoisDe": "T02/05-estado-escolher-a-empresa",
+      "rotulo": "Empresa escolhida",
+      "rotuloOrigem": "proposto"
     },
     {
       "id": "T02/08-estado-uma-empresa-ja-marcada",
@@ -396,7 +408,11 @@
       "como": "tocar numa unidade, pra quem tem várias empresas",
       "caso": "empresas · ucs · uos",
       "html": "02-telas/T02-selecionar-contexto/referencias/html/09-momento-unidade-escolhida-com-trocar-empresa.html",
-      "png": "02-telas/T02-selecionar-contexto/referencias/png/09-momento-unidade-escolhida-com-trocar-empresa.png"
+      "png": "02-telas/T02-selecionar-contexto/referencias/png/09-momento-unidade-escolhida-com-trocar-empresa.png",
+      "coluna": true,
+      "depoisDe": "T02/06-estado-unidades-com-trocar-empresa",
+      "rotulo": "Unidade escolhida",
+      "rotuloOrigem": "proposto"
     },
     {
       "id": "T03/00-tela",
@@ -1716,8 +1732,8 @@
       "html": "02-telas/T13-checklist/referencias/html/09-estado-item-reprovado.html",
       "png": "02-telas/T13-checklist/referencias/png/09-estado-item-reprovado.png",
       "coluna": true,
-      "rotulo": "Item reprovado",
-      "rotuloOrigem": "proposto",
+      "rotulo": "Alimentação reprovada",
+      "rotuloOrigem": "quadro",
       "depoisDe": "T13/16-estado-secao-c-com-item-reprovado"
     },
     {
@@ -1810,8 +1826,8 @@
       "html": "02-telas/T13-checklist/referencias/html/16-estado-secao-c-com-item-reprovado.html",
       "png": "02-telas/T13-checklist/referencias/png/16-estado-secao-c-com-item-reprovado.png",
       "coluna": true,
-      "rotulo": "Seção C com item reprovado",
-      "rotuloOrigem": "proposto"
+      "rotulo": "Seção C · alimentação",
+      "rotuloOrigem": "quadro"
     },
     {
       "id": "T13/17-momento-foto-da-antena",
@@ -1873,8 +1889,8 @@
       "html": "02-telas/T13-checklist/referencias/html/21-estado-secao-c-com-gps-reprovado.html",
       "png": "02-telas/T13-checklist/referencias/png/21-estado-secao-c-com-gps-reprovado.png",
       "coluna": true,
-      "rotulo": "Seção C com GPS reprovado",
-      "rotuloOrigem": "proposto"
+      "rotulo": "Seção C · GPS",
+      "rotuloOrigem": "quadro"
     },
     {
       "id": "T13/22-estado-gps-reprovado",
@@ -1890,7 +1906,7 @@
       "coluna": true,
       "depoisDe": "T13/21-estado-secao-c-com-gps-reprovado",
       "rotulo": "GPS reprovado",
-      "rotuloOrigem": "proposto"
+      "rotuloOrigem": "quadro"
     },
     {
       "id": "T13/23-estado-secao-c-com-entradas-reprovadas",
@@ -1904,8 +1920,8 @@
       "html": "02-telas/T13-checklist/referencias/html/23-estado-secao-c-com-entradas-reprovadas.html",
       "png": "02-telas/T13-checklist/referencias/png/23-estado-secao-c-com-entradas-reprovadas.png",
       "coluna": true,
-      "rotulo": "Seção C com entradas reprovadas",
-      "rotuloOrigem": "proposto"
+      "rotulo": "Seção C · entradas",
+      "rotuloOrigem": "quadro"
     },
     {
       "id": "T13/24-estado-entradas-reprovadas",
@@ -1921,7 +1937,7 @@
       "coluna": true,
       "depoisDe": "T13/23-estado-secao-c-com-entradas-reprovadas",
       "rotulo": "Entradas reprovadas",
-      "rotuloOrigem": "proposto"
+      "rotuloOrigem": "quadro"
     },
     {
       "id": "T13/25-estado-secao-c-com-modem-reprovado",
@@ -1935,8 +1951,8 @@
       "html": "02-telas/T13-checklist/referencias/html/25-estado-secao-c-com-modem-reprovado.html",
       "png": "02-telas/T13-checklist/referencias/png/25-estado-secao-c-com-modem-reprovado.png",
       "coluna": true,
-      "rotulo": "Seção C com modem reprovado",
-      "rotuloOrigem": "proposto"
+      "rotulo": "Seção C · modem",
+      "rotuloOrigem": "quadro"
     },
     {
       "id": "T13/26-estado-modem-reprovado",
@@ -1952,7 +1968,7 @@
       "coluna": true,
       "depoisDe": "T13/25-estado-secao-c-com-modem-reprovado",
       "rotulo": "Modem reprovado",
-      "rotuloOrigem": "proposto"
+      "rotuloOrigem": "quadro"
     },
     {
       "id": "T13/27-estado-secao-e-com-correcao-solicitada",
@@ -1966,8 +1982,8 @@
       "html": "02-telas/T13-checklist/referencias/html/27-estado-secao-e-com-correcao-solicitada.html",
       "png": "02-telas/T13-checklist/referencias/png/27-estado-secao-e-com-correcao-solicitada.png",
       "coluna": true,
-      "rotulo": "Seção E com correção solicitada",
-      "rotuloOrigem": "proposto"
+      "rotulo": "Seção E · correção pedida",
+      "rotuloOrigem": "quadro"
     },
     {
       "id": "T13/28-estado-finalizar-com-a-secao-e-falhando",
@@ -1982,7 +1998,7 @@
       "png": "02-telas/T13-checklist/referencias/png/28-estado-finalizar-com-a-secao-e-falhando.png",
       "coluna": true,
       "rotulo": "Finalizar com a Seção E falhando",
-      "rotuloOrigem": "proposto"
+      "rotuloOrigem": "quadro"
     },
     {
       "id": "T13/29-momento-relendo-o-modulo",
@@ -2008,9 +2024,9 @@
       "html": "02-telas/T13-checklist/referencias/html/30-momento-alimentacao-relida.html",
       "png": "02-telas/T13-checklist/referencias/png/30-momento-alimentacao-relida.png",
       "coluna": true,
-      "depoisDe": "T13/09-estado-item-reprovado",
+      "depoisDe": "T13/34-momento-alimentacao-nao-resolvida",
       "rotulo": "Alimentação relida",
-      "rotuloOrigem": "proposto"
+      "rotuloOrigem": "quadro"
     },
     {
       "id": "T13/31-momento-gps-relido",
@@ -2024,9 +2040,9 @@
       "html": "02-telas/T13-checklist/referencias/html/31-momento-gps-relido.html",
       "png": "02-telas/T13-checklist/referencias/png/31-momento-gps-relido.png",
       "coluna": true,
-      "depoisDe": "T13/22-estado-gps-reprovado",
+      "depoisDe": "T13/35-momento-gps-nao-resolvido",
       "rotulo": "GPS relido",
-      "rotuloOrigem": "proposto"
+      "rotuloOrigem": "quadro"
     },
     {
       "id": "T13/32-momento-entradas-relidas",
@@ -2040,9 +2056,9 @@
       "html": "02-telas/T13-checklist/referencias/html/32-momento-entradas-relidas.html",
       "png": "02-telas/T13-checklist/referencias/png/32-momento-entradas-relidas.png",
       "coluna": true,
-      "depoisDe": "T13/24-estado-entradas-reprovadas",
+      "depoisDe": "T13/36-momento-entradas-nao-resolvidas",
       "rotulo": "Entradas relidas",
-      "rotuloOrigem": "proposto"
+      "rotuloOrigem": "quadro"
     },
     {
       "id": "T13/33-momento-modem-relido",
@@ -2056,9 +2072,73 @@
       "html": "02-telas/T13-checklist/referencias/html/33-momento-modem-relido.html",
       "png": "02-telas/T13-checklist/referencias/png/33-momento-modem-relido.png",
       "coluna": true,
-      "depoisDe": "T13/26-estado-modem-reprovado",
+      "depoisDe": "T13/37-momento-modem-nao-resolvido",
       "rotulo": "Modem relido",
-      "rotuloOrigem": "proposto"
+      "rotuloOrigem": "quadro"
+    },
+    {
+      "id": "T13/34-momento-alimentacao-nao-resolvida",
+      "tela": "T13",
+      "pasta": "T13-checklist",
+      "tipo": "momento",
+      "nome": "34-momento-alimentacao-nao-resolvida",
+      "titulo": "T13 · a alimentação não resolvida",
+      "como": "releu e não resolveu: 11,4 V, relido às 14:41, ainda 0,6 V abaixo do mínimo",
+      "caso": "can-estatico-bateria",
+      "html": "02-telas/T13-checklist/referencias/html/34-momento-alimentacao-nao-resolvida.html",
+      "png": "02-telas/T13-checklist/referencias/png/34-momento-alimentacao-nao-resolvida.png",
+      "coluna": true,
+      "depoisDe": "T13/09-estado-item-reprovado",
+      "rotulo": "Alimentação não resolvida",
+      "rotuloOrigem": "quadro"
+    },
+    {
+      "id": "T13/35-momento-gps-nao-resolvido",
+      "tela": "T13",
+      "pasta": "T13-checklist",
+      "tipo": "momento",
+      "nome": "35-momento-gps-nao-resolvido",
+      "titulo": "T13 · o GPS não resolvido",
+      "como": "releu e não resolveu: 5 satélites, ainda 1 abaixo do mínimo",
+      "caso": "gps-fraco",
+      "html": "02-telas/T13-checklist/referencias/html/35-momento-gps-nao-resolvido.html",
+      "png": "02-telas/T13-checklist/referencias/png/35-momento-gps-nao-resolvido.png",
+      "coluna": true,
+      "depoisDe": "T13/22-estado-gps-reprovado",
+      "rotulo": "GPS não resolvido",
+      "rotuloOrigem": "quadro"
+    },
+    {
+      "id": "T13/36-momento-entradas-nao-resolvidas",
+      "tela": "T13",
+      "pasta": "T13-checklist",
+      "tipo": "momento",
+      "nome": "36-momento-entradas-nao-resolvidas",
+      "titulo": "T13 · as entradas não resolvidas",
+      "como": "releu e não resolveu: ignição ainda desligada",
+      "caso": "entrada-ignicao",
+      "html": "02-telas/T13-checklist/referencias/html/36-momento-entradas-nao-resolvidas.html",
+      "png": "02-telas/T13-checklist/referencias/png/36-momento-entradas-nao-resolvidas.png",
+      "coluna": true,
+      "depoisDe": "T13/24-estado-entradas-reprovadas",
+      "rotulo": "Entradas não resolvidas",
+      "rotuloOrigem": "quadro"
+    },
+    {
+      "id": "T13/37-momento-modem-nao-resolvido",
+      "tela": "T13",
+      "pasta": "T13-checklist",
+      "tipo": "momento",
+      "nome": "37-momento-modem-nao-resolvido",
+      "titulo": "T13 · o modem não resolvido",
+      "como": "releu e não resolveu: ainda sem sinal",
+      "caso": "modem-sem-sinal",
+      "html": "02-telas/T13-checklist/referencias/html/37-momento-modem-nao-resolvido.html",
+      "png": "02-telas/T13-checklist/referencias/png/37-momento-modem-nao-resolvido.png",
+      "coluna": true,
+      "depoisDe": "T13/26-estado-modem-reprovado",
+      "rotulo": "Modem não resolvido",
+      "rotuloOrigem": "quadro"
     },
     {
       "id": "T14/00-tela",

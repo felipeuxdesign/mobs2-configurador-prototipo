@@ -257,7 +257,7 @@ export default [
   { palco: 'Finalizar com a Seção F falhando' },
   { chega: 'T13', estado: ESTADOS[1] },
   ...PARADA,
-  { palco: 'Item reprovado' },
+  { palco: 'Alimentação reprovada' },   // o pacote 23: o nome curto da coluna
   { chega: 'T13', estado: ESTADOS[0] },
   ...PARADA,
   { palco: 'Voltar ao fluxo' },

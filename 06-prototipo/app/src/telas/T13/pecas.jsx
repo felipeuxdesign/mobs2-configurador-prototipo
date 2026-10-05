@@ -15,11 +15,15 @@ import './pecas.css'
 // Relido e dentro (o pacote 13, T13/30 a 33 · a regra *reler no lugar* do componentes.md): o
 // mesmo instrumento sem a falha — o traço de baixo do poço, o rótulo na tinta secundária, a marca
 // branca — e, no lugar da frase, o check pequeno com *relido às · o veredito*, como o relido da T10.
-export function InstrumentoDoItem({ rotulo, valor, unidade, escala, legendas, frase, texto, relido }) {
+// Relido e ainda fora (o pacote 23, T13/34 a 37): o instrumento em falha, como antes, e no lugar da
+// frase o xis pequeno com *relido às · o que ainda falta*, em vermelho — o não confere da T10/10.
+export function InstrumentoDoItem({ rotulo, valor, unidade, escala, legendas, frase, texto, relido, naoResolvido }) {
   const caixa = `t13-instrumento ds-caixa-poco ${relido ? '' : 'ds-caixa-falha'}`
   const pe = relido
     ? <span className="t13-instrumento-relido"><Glifo estado="ok" poco={24} />{relido}</span>
-    : frase && <span className="t13-instrumento-frase">{frase}</span>
+    : naoResolvido
+      ? <span className="t13-instrumento-relido t13-instrumento-nao-resolvido"><Glifo estado="xis" poco={24} />{naoResolvido}</span>
+      : frase && <span className="t13-instrumento-frase">{frase}</span>
   const rot = <span className={`t13-instrumento-rotulo ${relido ? 't13-instrumento-rotulo-relido' : ''}`}>{rotulo}</span>
   if (texto != null) {
     return (
