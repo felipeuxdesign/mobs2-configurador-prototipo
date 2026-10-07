@@ -63,9 +63,9 @@ export default [
   { chega: 'T11', momento: null },
   { naoVe: 'nada vai pro módulo · só o diagnóstico sobe' },
   { toca: 'ENCERRAR' },                 // fechada a folha, o ENCERRAR responde de novo: o diálogo
-  { ve: 'Encerrar sem homologar?' },
+  { ve: 'Encerrar antes de terminar?' },
   { toca: 'Continuar a instalação' },
-  { naoVe: 'Encerrar sem homologar?' },
+  { naoVe: 'Encerrar antes de terminar?' },
   ...abreAFolha,
   { tocaFora: 'Outras ações', anima: fecha },
   { chega: 'T11', momento: null },

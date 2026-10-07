@@ -3,7 +3,7 @@
 // têm saída própria; o Esc faz o mesmo que o link de saída do rodapé (chega), ou
 // não faz nada (fica): a tela sem saída desenhada, os processos que não podem
 // parar, o diálogo sem X nem Cancelar e o estado aberto pela coluna do palco.
-// O diálogo Encerrar sem homologar? (decisão 36), no menu e por cima de outra
+// O diálogo Encerrar antes de terminar? (decisão 36), no menu e por cima de outra
 // tela, fecha pelo voltar, como o Continuar a instalação — antes da saída da tela.
 const esc = { tecla: 'Escape' }
 export default [
@@ -18,10 +18,10 @@ export default [
   { chega: 'T01', momento: null },
   { ve: 'Esqueci a senha' },
   { abre: '?tela=T01&momento=04-momento-nao-recebi-o-codigo' },
-  { ve: 'Conferir e reenviar' },
+  { ve: 'Reenviar o código' },
   esc,
   { chega: 'T01', momento: '03-momento-recuperar-digitar-codigo' },
-  { naoVe: 'Conferir e reenviar' },
+  { naoVe: 'Reenviar o código' },
   esc,
   { chega: 'T01', momento: null },
   { abre: '?tela=T01&momento=08-momento-recuperar-nova-senha' },
@@ -141,11 +141,11 @@ export default [
   // o diálogo do ENCERRAR antes de homologar (13): o voltar faz o Continuar a instalação,
   // e o aviso do acesso, que esperava o menu ficar sem nada por cima, entra depois
   { abre: '?tela=T04&momento=13-momento-encerrar-antes-de-homologar' },
-  { ve: 'Encerrar sem homologar?' },
+  { ve: 'Encerrar antes de terminar?' },
   { naoVe: 'Seu acesso vence em 2 dias' },
   esc,
   { chega: 'T04', momento: null },
-  { naoVe: 'Encerrar sem homologar?' },
+  { naoVe: 'Encerrar antes de terminar?' },
   { ve: 'Seu acesso vence em 2 dias' },
   esc,
   { naoVe: 'Seu acesso vence em 2 dias' },
@@ -221,9 +221,9 @@ export default [
   // com o diálogo do ENCERRAR por cima, o voltar fecha só o diálogo, e a T07 fica
   { abre: '?tela=T07' },
   { toca: 'ENCERRAR' },
-  { ve: 'Encerrar sem homologar?' },
+  { ve: 'Encerrar antes de terminar?' },
   esc,
-  { naoVe: 'Encerrar sem homologar?' },
+  { naoVe: 'Encerrar antes de terminar?' },
   { fica: 'T07', ms: 500 },
   esc,
   { chega: 'T04' },

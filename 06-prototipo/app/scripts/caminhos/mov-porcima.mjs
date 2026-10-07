@@ -5,7 +5,7 @@
 // aberta, o Trocar de empresa, o Encerrar a sessão das folhas do módulo e do ativo), o véu fica
 // aceso, parado — nada anima nele —, a folha desce em 150 enquanto o diálogo nasce em 150; no
 // Cancelar, o mesmo movimento ao contrário: o diálogo some em 150 enquanto a folha sobe em 200
-// (C12·6). Na folha do módulo o véu começa embaixo da faixa, e o do Encerrar sem homologar?
+// (C12·6). Na folha do módulo o véu começa embaixo da faixa, e o do Encerrar antes de terminar?
 // cobre a faixa: o véu que já estava fica, e só o pedaço novo, em cima, esmaece em 150. O
 // arraste da lei 20 (o painel segue o dedo, e volta em 200 ou desce em 150). O foco é um só
 // (C12·21): o olho e o checkbox não acendem nem apagam campo nenhum; o traço de 2 é desenhado
@@ -108,13 +108,13 @@ export default [
   { naoVe: 'Trocar recarrega os ativos' },
   ...entendi,
 
-  // ── T04 · a folha do módulo vira o Encerrar sem homologar?: o véu cresce pra cima da faixa ──
+  // ── T04 · a folha do módulo vira o Encerrar antes de terminar?: o véu cresce pra cima da faixa ──
   { abre: '?tela=T04&momento=10-momento-folha-modulo-conectado' },
   { ve: 'TRAVADO NA SESSÃO' },
   { quieto: true },
   { toca: 'Encerrar a sessão', anima: [FOLHA_DESCE, ...DIALOGO, { prop: 'opacity', ms: 150, curva: C, em: 'ds-veu-cresce-pedaco' }], naoAnima: VEU_PARADO },
   { chega: 'T04', momento: '13-momento-encerrar-antes-de-homologar' },
-  { ve: 'Encerrar sem homologar?' },
+  { ve: 'Encerrar antes de terminar?' },
   { naoVe: 'TRAVADO NA SESSÃO' },
   { dorme: 250 },
   { quieto: true },                                           // no fim da troca, o véu é um só: nada ficou animando
@@ -122,17 +122,17 @@ export default [
   // o Continuar a instalação: a folha não volta — o diálogo e o véu esmaecem juntos, e o técnico fica no menu
   { toca: 'Continuar a instalação', anima: [DIALOGO[0], VEU_SAI] },
   { chega: 'T04', momento: null },
-  { naoVe: 'Encerrar sem homologar?' },
+  { naoVe: 'Encerrar antes de terminar?' },
   ...entendi,
   // o mesmo, pela folha do ativo
   { toca: 'ATIVO SELECIONADO, RKT-8H42', anima: [FOLHA_SOBE, VEU_SOBE] },
   { ve: 'Ativo da sessão' },
   { dorme: 300 },
   { toca: 'Encerrar a sessão', anima: [FOLHA_DESCE, ...DIALOGO], naoAnima: VEU_PARADO },
-  { ve: 'Encerrar sem homologar?' },
+  { ve: 'Encerrar antes de terminar?' },
   { dorme: 250 },
   esc,
-  { naoVe: 'Encerrar sem homologar?' },
+  { naoVe: 'Encerrar antes de terminar?' },
   { dorme: 250 },
 
   // ── o arraste da folha (lei 20): o painel segue o dedo, só por transform; antes do limite volta em 200, depois desce em 150 ──
@@ -146,16 +146,16 @@ export default [
   { dorme: 250 },
   { quieto: true },
 
-  // ── o Encerrar sem homologar? por cima de outra tela: nasce em 150 com o véu, e some igual ──
+  // ── o Encerrar antes de terminar? por cima de outra tela: nasce em 150 com o véu, e some igual ──
   { abre: '?tela=T12' },
   { ve: 'ENCERRAR' },
   { quieto: true },
   { toca: 'ENCERRAR', anima: [...DIALOGO, { prop: 'opacity', ms: 150, curva: C, em: 'ds-veu ds-veu-dialogo' }] },
-  { ve: 'Encerrar sem homologar?' },
+  { ve: 'Encerrar antes de terminar?' },
   { dorme: 250 },
   { quieto: true },
   { toca: 'Continuar a instalação', anima: [DIALOGO[0], VEU_SAI] },
-  { naoVe: 'Encerrar sem homologar?' },
+  { naoVe: 'Encerrar antes de terminar?' },
   { chega: 'T12' },
 
   // ── a folha Outras ações da T11 e a do login: sobem em 200 com o véu, e descem em 150 ──
@@ -169,10 +169,10 @@ export default [
   { abre: '?tela=T01&momento=03-momento-recuperar-digitar-codigo' },
   { quieto: true },
   { toca: 'Não recebi o código', anima: [FOLHA_SOBE, VEU_SOBE] },
-  { ve: 'Mandar para o e-mail' },
+  { ve: 'Usar outro dado' },
   { dorme: 300 },
   { toca: 'Fechar', anima: [FOLHA_DESCE, VEU_SAI] },
-  { naoVe: 'Mandar para o e-mail' },
+  { naoVe: 'Usar outro dado' },
 
   // ── o foco é um só (C12·21) e o traço de 2 não tira nada do lugar (C12·22): o login ──
   { abre: '?tela=T01' },
@@ -202,14 +202,17 @@ export default [
   { digita: '482911', em: 'Digite o código' },
   { mesmoLugar: true },
   { toca: 'Confirmar' },                                      // errado: as seis ficam com o traço vermelho, e o cartão em falha
-  { ve: 'Código não confere' },
+  { ve: 'Código inválido' },
   { mesmoLugar: true },
-  // o canal escolhido (T01/02): o traço lima troca de cartão, e nada sai do lugar
+  // o canal escolhido (T01/02): o traço lima troca de aba. A rodada 3: a aba troca o
+  // conteúdo da primeira etapa — o e-mail não tem o seletor de país (a 21) —, e o
+  // telefone volta como estava, no mesmo lugar
   { abre: '?tela=T01&momento=02-momento-recuperar-escolher-canal' },
   { marcaLugar: true },
   { toca: 'E-MAIL' },
-  { mesmoLugar: true },
-  { toca: 'MENSAGEM' },
+  { chega: 'T01', momento: '21-momento-o-e-mail-como-canal' },
+  { toca: 'TELEFONE' },
+  { chega: 'T01', momento: '02-momento-recuperar-escolher-canal' },
   { mesmoLugar: true },
   // a busca da lista longa (T02/03) e o campo do painel (T10): o foco do próprio campo acende, sem tirar nada do lugar
   { abre: '?tela=T02&momento=03-momento-busca-sem-resultado' },
@@ -242,7 +245,7 @@ export default [
   { abre: '?tela=T04&momento=10-momento-folha-modulo-conectado' },
   { toca: 'Encerrar a sessão' },
   { quieto: true },
-  { ve: 'Encerrar sem homologar?' },
+  { ve: 'Encerrar antes de terminar?' },
   { toca: 'Continuar a instalação' },
   { quieto: true },
   { abre: '?tela=T01' },
@@ -253,7 +256,7 @@ export default [
   // ── T04/14 · o Trocar de empresa da folha, com a sessão aberta: o mesmo véu, parado ──
   ...ATE_A_FOLHA_DA_EMPRESA,
   { toca: 'Trocar de empresa', anima: [FOLHA_DESCE, ...DIALOGO], naoAnima: VEU_PARADO },
-  { ve: 'é encerrada antes da troca, sem homologar.' },
+  { ve: 'é encerrada antes da troca, sem terminar a instalação.' },
   { dorme: 250 },
   { toca: 'Cancelar', anima: [DIALOGO[0], FOLHA_SOBE], naoAnima: VEU_PARADO },
   { ve: 'Trocar de empresa' },

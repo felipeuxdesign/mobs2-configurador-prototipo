@@ -11,7 +11,7 @@
 // come 5 embaixo, como o link do rodapé (T04/09, 13, T13/10), e a de 44, 4.
 // `margem`: o ar em volta da caixa, 16 (T01, T13), 20 (os diálogos da folha da
 // T04, 06 e 09) ou 24 (o aviso do acesso, sem saída, sobre o menu inteiro, T04/12;
-// o Encerrar sem homologar?, T04/13 e por cima de cada tela com a faixa; outro
+// o Encerrar antes de terminar?, T04/13 e por cima de cada tela com a faixa; outro
 // usuário no aparelho, T01/18, sobre a T02), dentro do Veu (de 'dialogo'). Nasce esmaecendo e crescendo de 98% a 100% em 150ms.
 // Pro leitor (G15): diálogo modal, com o nome no título que já se vê.
 import { useContext, useId } from 'react'

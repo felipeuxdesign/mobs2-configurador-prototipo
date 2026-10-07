@@ -9,7 +9,7 @@
 // · usePresenca(aberto) → { montado, visivel } — uma coisa só por cima (a folha do login, o
 //   diálogo da senha alterada, o aviso de outra sessão da T02, a folha Outras ações da T11).
 // · usePorCima(qual) + <PorCima camada lugar>{a folha ou o diálogo de `qual`}</PorCima> — as
-//   coisas que se revezam no mesmo véu (o menu, T04, e o Encerrar sem homologar? de toda tela
+//   coisas que se revezam no mesmo véu (o menu, T04, e o Encerrar antes de terminar? de toda tela
 //   com a faixa). `qual` é o nome do que está por cima agora, ou null. O véu fica, parado,
 //   quando uma coisa dá lugar a outra (a folha que vira diálogo, C12·27 e C12·43): a que sai
 //   faz o movimento de sair e a que entra, o de entrar, ao mesmo tempo. A volta é o mesmo
@@ -18,7 +18,7 @@
 //   guarda o último desenho de cada um), mudo pro leitor e sem toque, fora do fluxo, por baixo
 //   do que entra, até acabar de sair. `lugar` é a caixa em volta do véu (a classe da tela que
 //   diz onde o véu começa), de cada coisa; quando ela cresce na troca (a folha do módulo, que
-//   deixa a faixa acesa, vira o Encerrar sem homologar?, que a cobre, T04/10 → 13), o véu que
+//   deixa a faixa acesa, vira o Encerrar antes de terminar?, que a cobre, T04/10 → 13), o véu que
 //   já estava fica, e só o pedaço novo esmaece, junto com o diálogo.
 //
 // O ciclo de cada coisa: entra montada fechada, e abre no mesmo quadro, logo depois de o

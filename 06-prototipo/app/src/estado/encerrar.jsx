@@ -1,9 +1,9 @@
 // O ENCERRAR da faixa (decisão 36, logica.md · ENCERRAR), numa peça só pras
 // telas com a faixa (T04 a T15): antes de homologar, ele pede confirmação — o
-// diálogo *Encerrar sem homologar?* (T04/13) —, e depois de homologar vai
+// diálogo *Encerrar antes de terminar?* (T04/13) —, e depois de homologar vai
 // direto, pros passos do encerramento da T16.
 //   Continuar a instalação   o principal (D-51): fecha, e o técnico fica onde estava
-//   Encerrar sem homologar   a sessão abortada da T16, os 4 passos (T16/03)
+//   Encerrar mesmo assim     a sessão abortada da T16, os 4 passos (T16/03)
 // O voltar do Android, com o diálogo aberto, fecha o diálogo, como o Continuar
 // (O voltar do Android · numa folha ou num diálogo): ele vale antes do da tela
 // (useVoltar · porCima). O movimento é o dos diálogos, pela presença de tudo o
@@ -31,11 +31,12 @@ import './encerrar.css'
 // a sessão abortada, os 4 passos (T16/03, G23)
 export const ENCERRAR_SEM_HOMOLOGAR = '03-momento-encerrando-sem-homologar'
 
+// a rodada 3 do retorno do PM (T04/13): 'homologada' só na T16, e nada de 'gravado' como resultado
 const TX = {
-  titulo: 'Encerrar sem homologar?',
-  frase: 'A instalação ainda não foi homologada. O módulo fica seguro, e o que já foi gravado fica nele.',
+  titulo: 'Encerrar antes de terminar?',
+  frase: 'A instalação ainda não terminou. O módulo fica seguro, e o que já foi enviado fica nele.',
   continuar: 'Continuar a instalação',
-  semHomologar: 'Encerrar sem homologar',
+  semHomologar: 'Encerrar mesmo assim',
 }
 
 // O que fica atrás do véu é inerte (G25): as irmãs do lugar por cima, na tela.

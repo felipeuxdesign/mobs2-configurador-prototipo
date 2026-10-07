@@ -31,6 +31,8 @@ O app conduz a instalação em sequência e prova cada passo:
 7. **Roda o ciclo de testes** com o ônibus parado: ignição ligada, rotação, cartão do motorista e ignição desligada, cada um só quando se aplica — a cada passo, o app diz o que o técnico tem que fazer, e o técnico confere o cartão lido com o número impresso.
 8. **Fecha o checklist** de 28 itens — o app confere o que consegue sozinho, e o técnico fotografa o resto e testa o bip do leitor — e encerra a sessão: o módulo reinicia sozinho, o autoteste confere sete assertivas, e só aí a instalação é homologada.
 
+Antes de tudo, o login: o técnico recupera o acesso sem ligar pra ninguém, e o app nunca revela se uma conta existe — ele digita o telefone ou o e-mail, e a resposta é sempre a mesma.
+
 Nenhuma tela expõe comando, sintaxe ou parâmetro técnico: o técnico responde perguntas de negócio, e o app fala com o módulo.
 
 ## O protótipo
@@ -45,7 +47,7 @@ No celular, o app ocupa a tela inteira.
 
 ## Como foi construído
 
-Cada tela, momento e estado tem uma referência desenhada, em HTML e PNG — 188 ao todo. O protótipo foi construído contra elas e comparado pixel a pixel; toda diferença que sobrou tem um nome e um motivo registrados.
+Cada tela, momento e estado tem uma referência desenhada, em HTML e PNG — 191 ao todo. O protótipo foi construído contra elas e comparado pixel a pixel; toda diferença que sobrou tem um nome e um motivo registrados.
 
 O código não inventa nada: o comportamento vem da ficha de cada tela, os textos do `textos.md` dela, os valores dos tokens. Além das referências, o protótipo é verificado por 45 roteiros que tocam o app como o técnico — inclusive o caminho completo, com e sem horímetro — e por um gate que confere a coerência dos dados de exemplo.
 
@@ -53,7 +55,7 @@ O código não inventa nada: o comportamento vem da ficha de cada tela, os texto
 
 | telas | momentos | estados | referências | histórias de usuário | casos de dados | decisões registradas |
 |---|---|---|---|---|---|---|
-| 15 | 94 | 79 | 188 | 109 | 62 | 54 |
+| 15 | 97 | 79 | 191 | 109 | 62 | 54 |
 
 ## O repositório
 

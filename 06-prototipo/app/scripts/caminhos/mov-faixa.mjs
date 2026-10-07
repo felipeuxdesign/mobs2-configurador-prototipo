@@ -106,8 +106,8 @@ export default [
   { desligado: 'ENCERRAR' },
   { chega: 'T10', momento: '01-momento-hodometro-semeado', ms: 4000 },
   { naoAnima: SEM_PISCAR },
-  { toca: 'ENCERRAR' },   // aceso de novo, com o pressionado de sempre: o diálogo Encerrar sem homologar?
-  { ve: 'Encerrar sem homologar?' },
+  { toca: 'ENCERRAR' },   // aceso de novo, com o pressionado de sempre: o diálogo Encerrar antes de terminar?
+  { ve: 'Encerrar antes de terminar?' },
 
   // ── a vitrine: as duas peças, tocáveis ──
   { abre: '?vitrine=1&especime=mov-faixa-encerra' },

@@ -292,7 +292,7 @@ export default function T07({ momento, estado: est }) {
   // menu; na trava (02 a 05), o Procurar outro módulo
   const processo = corre || relendo || q.atualizando != null
   useVoltar(processo ? null : q.can || passou ? voltarAoMenu : procurarOutro)
-  // o ENCERRAR (decisão 36): antes de homologar, o diálogo Encerrar sem homologar? por cima
+  // o ENCERRAR (decisão 36): antes de homologar, o diálogo Encerrar antes de terminar? por cima
   const enc = useEncerrar()
 
   // ── o topo: a faixa quando a sessão aparece ──

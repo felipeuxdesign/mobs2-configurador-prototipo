@@ -7,3 +7,5 @@
 **O que foi descartado.** O pedido ao gestor, com as duas telas dele — estão na fileira de descarte do canvas.
 
 **A consequência.** Enquanto os 60 s do reenvio correm, as duas saídas ficam em espera, e a folha mostra só a contagem. A HU-T01-8 está marcada com a mudança em `01-produto/historias.md`.
+
+**Mudou no retorno do PM (06/10, rodada 3).** As duas saídas são *Reenviar o código*, pro mesmo dado, e *Usar outro dado*, que volta pra primeira etapa — o outro contato não aparece mais. A espera dos 60 s vale pras duas.

@@ -22,7 +22,7 @@ export const FechaPeloVeu = createContext(null)
 // enquanto outra entra — o véu vira a caixa do que sai, que fica fora do fluxo,
 // por baixo do que entra (.ds-veu-troca), e continua aceso, parado. `corte`: na
 // troca em que o véu cresce pra cima (a folha do módulo, sob a faixa, vira o
-// Encerrar sem homologar?, que cobre a faixa, T04/10 → 13), os px de cima que
+// Encerrar antes de terminar?, que cobre a faixa, T04/10 → 13), os px de cima que
 // ele ainda não cobria: o resto fica como estava, e só esse pedaço esmaece, no
 // tempo do diálogo. No fim da troca, o véu é um só de novo, igual.
 export function Veu({ de = 'folha', visivel = true, aoTocarFora, troca = false, corte = null, children }) {

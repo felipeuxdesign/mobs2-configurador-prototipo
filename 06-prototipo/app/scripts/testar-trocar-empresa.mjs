@@ -70,9 +70,9 @@ chk('trocar de unidade sem a sessão: direto pra T03', T04.depoisDoTrocar(null, 
 
 // ── os textos (textos.md da T04) e o diálogo, que a tela monta com eles ──
 chk('o 14 diz Trocar de unidade, a frase da unidade e Trocar de empresa', ['Trocar de unidade', 'Trocar recarrega os ativos e o pacote desta unidade.', 'Trocar de empresa'].every((t) => secao('14-estado-folha-trocar-de-unidade-com-empresa').includes('`' + t + '`')))
-chk('o 09 diz é encerrada antes da troca, sem homologar.', secao('09-estado-folha-trocar-de-garagem-com-modulo-conectado').includes('`é encerrada antes da troca, sem homologar.`'))
+chk('o 09 diz é encerrada antes da troca, sem terminar a instalação. (a rodada 3)', secao('09-estado-folha-trocar-de-garagem-com-modulo-conectado').includes('`é encerrada antes da troca, sem terminar a instalação.`'))
 chk('a tela monta o diálogo com Trocar de empresa no título, a mesma frase e o mesmo primário',
-  tela.includes("deEmpresa ? 'Trocar de empresa' : 'Trocar de unidade'") && tela.includes('é encerrada antes da troca, sem homologar.') && tela.includes('primario="Encerrar a sessão e trocar"'))
+  tela.includes("deEmpresa ? 'Trocar de empresa' : 'Trocar de unidade'") && tela.includes('é encerrada antes da troca, sem terminar a instalação.') && tela.includes('primario="Encerrar a sessão e trocar"'))
 chk('o link da folha é o Trocar de empresa, e toca o trocarDeEmpresa', tela.includes('<Link aoTocar={trocarDeEmpresa}>Trocar de empresa</Link>'))
 chk('a troca leva o contexto de agora, e segue o momento do destino (a T02/07)', tela.includes('depoisDoTrocar(sessao, alvo, mundo.contexto)') && tela.includes('destinoDaTroca(alvo, mundo.contexto)') && tela.includes('ir(vai.tela, vai.momento ? { momento: vai.momento } : {})'))
 

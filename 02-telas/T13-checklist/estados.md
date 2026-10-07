@@ -4,7 +4,7 @@
 
 | Referência | Tipo | Como se chega · o que causa | Caso do mock |
 |---|---|---|---|
-| `00-tela` | tela | a entrada da tela | sessão M2C-0417 + RKT-8H42 · 31 itens |
+| `00-tela` | tela | a entrada da tela | sessão M2C-0417 + RKT-8H42 · 28 itens |
 | `01-momento-a-identificacao-aberta` | momento | tocar na seção | derivado do fluxo |
 | `02-momento-b-montagem-aberta` | momento | tocar na seção | derivado do fluxo |
 | `03-momento-c-hardware-aberta` | momento | tocar na seção | derivado do fluxo |
@@ -30,7 +30,7 @@
 | `25-estado-secao-c-com-modem-reprovado` | estado | o modem sem sinal reprova: a linha vermelha e a seta · *padrão até o PM decidir* | `modem-sem-sinal` |
 | `26-estado-modem-reprovado` | estado | tocar na linha vermelha do modem: sem sinal e o que conferir · *padrão até o PM decidir* | `modem-sem-sinal` |
 | `29-momento-relendo-o-modulo` | momento | tocar em Reler o módulo, no detalhe de um item reprovado: o botão diz Relendo o módulo, ali mesmo | `can-estatico-bateria` |
-| `30-momento-alimentacao-relida` | momento | releu e deu certo: 13,8 V dentro da faixa, relido às 14:42, e Voltar ao checklist | `can-estatico-bateria` |
+| `30-momento-alimentacao-relida` | momento | releu e deu certo: 24,3 V dentro da faixa, relido às 14:42, e Voltar ao checklist | `can-estatico-bateria` |
 | `31-momento-gps-relido` | momento | releu e deu certo: 9 satélites dentro da faixa | `gps-fraco` |
 | `32-momento-entradas-relidas` | momento | releu e deu certo: ignição ligada, conforme | `entrada-ignicao` |
 | `33-momento-modem-relido` | momento | releu e deu certo: na rede, sinal bom | `modem-sem-sinal` |

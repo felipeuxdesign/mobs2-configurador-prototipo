@@ -29,7 +29,7 @@
 // · 'Encerrar o ciclo' fecha a captura, e os pendentes ficam pendentes na
 //   Seção E; 'Ir para o checklist' sai com o ciclo aberto — os dois → T13
 //   (T14·2). 'Voltar ao checklist' → T13 · 'Voltar ao menu' → T04 (T14·4).
-//   ENCERRAR → antes de homologar, o diálogo Encerrar sem homologar? por cima
+//   ENCERRAR → antes de homologar, o diálogo Encerrar antes de terminar? por cima
 //   da tela (decisão 36), e a sessão abortada (G23). O voltar do Android
 //   (o Esc) faz o mesmo que o link de saída do rodapé (logica.md).
 // · O ciclo fica gravado em etapas.ciclo: os passos pelo id do item da Seção E,
@@ -225,7 +225,7 @@ export default function T14({ momento, estado: est }) {
     return { ...f, resposta, passos, parado: false }
   })
   // o ENCERRAR (decisão 36, src/estado/encerrar.jsx): antes de homologar, o diálogo
-  // Encerrar sem homologar? por cima desta tela; depois de homologar, direto, pra T16
+  // Encerrar antes de terminar? por cima desta tela; depois de homologar, direto, pra T16
   const enc = useEncerrar()
 
   // ── o quadro ──

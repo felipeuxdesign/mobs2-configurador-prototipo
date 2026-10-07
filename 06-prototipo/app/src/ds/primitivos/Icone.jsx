@@ -33,6 +33,16 @@ function OlhoSenhaRiscado() {
   )
 }
 
+// a rodada 3 do retorno do PM · T01/04 e 11: a seta que volta, do *Usar outro dado*
+// (volta pra primeira etapa) — o desenho da referência, traço 1,8
+function VoltarEtapa() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M10 6l-6 6 6 6" /><path d="M4 12h12a4 4 0 0 1 4 4v2" />
+    </svg>
+  )
+}
+
 export const ICONES = {
   // ferramentas (folha 3)
   conectar: [Radio, 'acao'], ativo: [Truck, 'acao'], can: [Activity, 'acao'], configurar: [Settings, 'acao'],
@@ -69,6 +79,7 @@ export const ICONES = {
   // a otimização do design · T01/16 e a folha 6: o xis de limpar do usuário
   // lembrado, de 18, com o traço 2 da referência (--traco-limpar)
   limpar: [X, 'limpar'],
+  'voltar-etapa': [VoltarEtapa, 'acao'],
 }
 
 // tam: o lado do ícone, por token (--icone-*)

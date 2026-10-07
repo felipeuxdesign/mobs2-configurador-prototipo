@@ -66,11 +66,14 @@ chk("ressalvadas = 2 (1 aprovada + 1 aguardando)", ressalvadas.length === 2 &&
   ressalvadas.map(function (i) { return i.id + ":" + i.estado; }).join(" · "));
 var heroi = M.instalacoes.find(function (i) { return i.ativoId === "a-01"; });
 var heroiAtivo = M.ativos.find(function (a) { return a.id === "a-01"; });
-chk("herói RKT-8H42 · VL06 CAN-BT · M2C-0417 · aprovado, história completa",
+chk("herói RKT-8H42 · VL06 CAN-BT · M2C-0417 · aprovado, história completa · 28 itens, o autoteste em três contadores",
   heroiAtivo && heroiAtivo.placa === "RKT-8H42" && heroiAtivo.moduloSerial === "M2C-0417" &&
   heroi && heroi.estado === "aprovada" && heroi.etapas &&
-  heroi.etapas.cadeia.length === 6 && heroi.etapas.autoteste.passaram === 8 &&
-  heroi.etapas.checklist.concluidos === heroi.etapas.checklist.itens);
+  heroi.etapas.cadeia.length === 6 && heroi.etapas.autoteste.aprovadas === 5 && heroi.etapas.autoteste.naoSeAplicam === 1 && heroi.etapas.autoteste.pendentes === 1 && heroi.etapas.checklist.itens === 28 && heroi.etapas.checklist.concluidos === heroi.etapas.checklist.itens);
+/* rodada 3 do retorno do PM (06/10): os 12 resumos de instalação com 28 itens e os três contadores do autoteste */
+chk("rodada 3: os resumos das instalações com 28 itens e o autoteste em três contadores", M.instalacoes.filter(function (i) { return i.resumo; }).every(function (i) {
+  return i.resumo.checklist === "28/28" && /^\d+ aprovadas? · \d+ não se aplicam? · \d+ pendentes?$/.test(i.resumo.autoteste); }),
+  M.instalacoes.filter(function (i) { return i.resumo; }).length + " resumos");
 
 /* ── Gate de cobertura temporal ── */
 var offsets = M.instalacoes.map(function (i) { return i.diasAtras; });
@@ -127,8 +130,8 @@ chk("casos apontam para ativos/módulos reais", OBRIGATORIOS.every(function (k) 
   if (c.moduloSerial && !M.modulos.some(function (m) { return m.serial === c.moduloSerial; }) && k !== "serial-nao-cadastrado") return false;
   return true;
 }));
-chk("autoteste: 8 assertivas nomeadas", M.autotesteAssertivas.length === 8 &&
-  M.autotesteAssertivas.indexOf(M.casos["autoteste-falhando"].assertiva) >= 0);
+chk("06/10: o autoteste do encerramento tem 7 assertivas, e o caso bloqueado falha nos contadores", M.autotesteEncerramento.length === 7 && M.autotesteEncerramento.some(function (x) { return x.id === M.casos["autoteste-falhando"].falhou; }) &&
+  M.casos["autoteste-falhando"].aprovadas + M.casos["autoteste-falhando"].naoSeAplicam + M.casos["autoteste-falhando"].pendentes === 6);
 
 /* ── C10 · T06 ── */
 chk("C10: frota em todos os 24 ativos, únicas", M.ativos.every(function (a) { return /^\d{4}$/.test(a.frota); }) &&
@@ -148,8 +151,13 @@ chk("P·C1 credenciais: reenvios da hora abaixo do teto", rec.reenviosNaHora < l
 chk("P·C1 DDIs: o telefone tem os dígitos que a máscara do DDI pede", (function () {
   var d = M.ddis.find(function (x) { return x.codigo === cred.contato.telefone.ddi; });
   return !!d && (d.mascara.match(/#/g) || []).length === cred.contato.telefone.numero.length; })());
-chk("P·C1 DDIs: três países, máscaras de comprimentos distintos", M.ddis.length === 3 &&
-  M.ddis.map(function (d) { return (d.mascara.match(/#/g) || []).length; }).filter(function (v, i, a) { return a.indexOf(v) === i; }).length === 3);
+chk("rodada 3: seis países, cada um com a sigla e a máscara, e o Brasil como padrão", M.ddis.length === 6 &&
+  M.ddis.every(function (d) { return /^[A-Z]{2}$/.test(d.sigla) && /#/.test(d.mascara); }) && rec.ddiPadrao === "+55" && M.ddis.some(function (d) { return d.codigo === rec.ddiPadrao; }));
+chk("rodada 3: as três frases fixas da recuperação", rec.respostaEnvio === "Se houver conta com este dado, o código foi enviado." &&
+  rec.mensagemCodigo === "Código inválido ou vencido" && rec.textoFixo === "O dado precisa ser o mesmo do cadastro.");
+chk("rodada 3: o que vem digitado na primeira etapa — o telefone incompleto (faltam 2), o completo e o e-mail", (function () {
+  var d = M.ddis.find(function (x) { return x.codigo === rec.ddiPadrao; }); var n = (d.mascara.match(/#/g) || []).length;
+  return rec.digitado.telefone.length === n && rec.digitado.telefoneIncompleto.length === n - 2 && rec.digitado.telefone.indexOf(rec.digitado.telefoneIncompleto) === 0 && /@/.test(rec.digitado.email); })());
 chk("P·C1 sessão de acesso: aberta dentro da validade, aviso antes do fim", (function () {
   var a = M.situacao.sessaoAcesso; return a.abertaDiasAtras < a.validadeDias && a.avisoNoDia <= a.validadeDias; })(),
   "restam " + (M.situacao.sessaoAcesso.validadeDias - M.situacao.sessaoAcesso.abertaDiasAtras) + " de " + M.situacao.sessaoAcesso.validadeDias + " dias");

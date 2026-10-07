@@ -40,7 +40,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `09-estado-folha-trocar-de-garagem-com-modulo-conectado`
 
-`GARAGEM VÁRZEA` · `RV` · `Menu` · `Trocar de unidade` · `A sessão de configuração do` · `M2C-0417` · `é encerrada antes da troca, sem homologar.` · `O que já foi gravado fica no módulo.` · `Encerrar a sessão e trocar` · `Cancelar`
+`GARAGEM VÁRZEA` · `RV` · `Menu` · `Trocar de unidade` · `A sessão de configuração do` · `M2C-0417` · `é encerrada antes da troca, sem terminar a instalação.` · `O que já foi enviado fica no módulo.` · `Encerrar a sessão e trocar` · `Cancelar`
 
 ## `10-momento-folha-modulo-conectado`
 
@@ -56,7 +56,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `13-momento-encerrar-antes-de-homologar`
 
-`GARAGEM VÁRZEA` · `RV` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Menu` · `CONECTAR MÓDULO` · `M2C-0417` · `ATIVO SELECIONADO` · `RKT-8H42` · `Diagnóstico do módulo` · `Configurar módulo` · `Calibração` · `Conferir configuração` · `Finalizar com checklist` · `Últimas instalações` · `2` · `Fila de saída` · `Encerrar sem homologar?` · `A instalação ainda não foi homologada. O módulo fica seguro, e o que já foi gravado fica nele.` · `Continuar a instalação` · `Encerrar sem homologar`
+`GARAGEM VÁRZEA` · `RV` · `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Menu` · `CONECTAR MÓDULO` · `M2C-0417` · `ATIVO SELECIONADO` · `RKT-8H42` · `Diagnóstico do módulo` · `Configurar módulo` · `Calibração` · `Conferir configuração` · `Finalizar com checklist` · `Últimas instalações` · `2` · `Fila de saída` · `Encerrar antes de terminar?` · `A instalação ainda não terminou. O módulo fica seguro, e o que já foi enviado fica nele.` · `Continuar a instalação` · `Encerrar mesmo assim`
 
 ## `14-estado-folha-trocar-de-unidade-com-empresa`
 

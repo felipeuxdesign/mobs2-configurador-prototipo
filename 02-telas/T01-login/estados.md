@@ -6,8 +6,8 @@
 |---|---|---|---|
 | `00-tela` | tela | a entrada da tela | nenhuma sessão · usuário r.vieira preenchido |
 | `01-estado-usuario-ou-senha-incorretos` | estado | Entrar com senha de menos de 8 caracteres · a senha é apagada e o cursor vai pra ela; o usuário fica | `credenciais` |
-| `02-momento-recuperar-escolher-canal` | momento | `Esqueci a senha` | derivado do fluxo |
-| `03-momento-recuperar-digitar-codigo` | momento | escolher o canal | `credenciais.recuperacao` |
+| `02-momento-recuperar-escolher-canal` | momento | `Esqueci a senha` · a primeira etapa, com o telefone fora do formato: *Faltam 2 números.* e o botão desligado | `recuperacao.digitado` |
+| `03-momento-recuperar-digitar-codigo` | momento | `Enviar o código`, com o dado no formato | `credenciais.recuperacao` |
 | `04-momento-nao-recebi-o-codigo` | momento | `Não recebi o código` | derivado do fluxo |
 | `05-momento-codigo-errado` | momento | digitar um código diferente de 482913 | `credenciais.recuperacao` |
 | `06-estado-codigo-expirado` | estado | o código passa de 10 minutos | `recuperacao.limites.validadeMin` |
@@ -16,14 +16,17 @@
 | `09-momento-senha-alterada` | momento | a nova senha cumpre os seis requisitos | derivado do fluxo |
 | `10-momento-senha-visivel` | momento | tocar no olho — a senha aparece por extenso e o olho vira o riscado | `credenciais.senha` |
 | `11-momento-nao-recebi-reenvio-liberado` | momento | os 60 s do reenvio zeram | `recuperacao.limites.reenvioSeg` |
-| `12-momento-codigo-reenviado` | momento | tocar em *Conferir e reenviar* | `recuperacao.limites` |
-| `13-momento-codigo-no-e-mail` | momento | tocar em *Mandar para o e-mail* | `credenciais.contato` |
+| `12-momento-codigo-reenviado` | momento | tocar em *Reenviar o código* | `recuperacao.limites` |
+| `13-momento-codigo-no-e-mail` | momento | o código de novo, pro e-mail: o *Usar outro dado*, o e-mail como canal e o `Enviar o código` | `recuperacao.digitado` |
 | `14-estado-login-sem-conexao` | estado | `Entrar` sem internet | `sem-conexao-no-login` |
 | `15-estado-primeiro-acesso` | estado | nenhum usuário lembrado — o app acabou de ser instalado, ou o técnico não marcou Lembrar | `primeiro-acesso` |
 | `16-estado-usuario-lembrado` | estado | o técnico marcou Lembrar meu usuário num login anterior | `usuario-lembrado` |
 | `17-estado-teto-de-envios` | estado | pedir um código depois dos 3 envios da hora | `teto-de-envios` |
 | `18-estado-outro-usuario-no-aparelho` | estado | entrar com um usuário diferente do da sessão anterior | `outro-usuario` |
 | `19-momento-entrando` | momento | tocar em `Entrar` · 1,2s antes do menu | derivado do fluxo |
+| `20-momento-telefone-no-formato-certo` | momento | o telefone completo: o botão liga | `recuperacao.digitado` |
+| `21-momento-o-e-mail-como-canal` | momento | o e-mail escolhido como canal: sem o seletor de país | `recuperacao.digitado` |
+| `22-momento-o-seletor-de-pais` | momento | tocar no país: o seletor, com busca, o Brasil (+55) já escolhido | `ddis` |
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.
 

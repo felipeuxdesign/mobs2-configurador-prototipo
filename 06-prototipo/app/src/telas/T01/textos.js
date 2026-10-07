@@ -31,25 +31,36 @@ export const TX = {
   de: (total) => `de ${total}`,
   voltarLogin: 'Voltar ao login',
 
-  // 02 · o canal
+  // 02 · 20 · 21 · a primeira etapa (a rodada 3 do retorno do PM): o técnico escolhe o
+  // canal e digita o dado — nenhum contato do cadastro aparece, nem mascarado
   depois: 'Depois: o código · a nova senha',
   tituloCanal: ['Para onde mandamos', 'o código?'],
-  mensagem: 'MENSAGEM',
+  telefone: 'TELEFONE',
   email: 'E-MAIL',
+  // o motivo colado no campo, enquanto o formato está errado: 'Faltam 2 números.' (a 02).
+  // O singular não tem referência: a mesma frase, no número (G25, pro arquiteto)
+  faltam: (n) => (n === 1 ? 'Falta 1 número.' : `Faltam ${n} números.`),
+  // os nomes pro leitor de tela do seletor e dos campos, que se veem pela sigla e pelo título
+  paisRotulo: (pais, codigo) => `País: ${pais}, ${codigo}`,
+  campoTelefone: 'Telefone',
+  campoEmail: 'E-mail',
+  // 22 · o seletor de país, com busca
+  pais: 'País',
+  buscarPais: 'Buscar país',
   valePorMinutos: (min) => `Vale por ${min} minutos`,
   restaEnvio: (n) => `resta ${n} envio nesta hora`,
   enviarCodigo: 'Enviar o código',
 
-  // 03 · 05 · 06 · 07 · 12 · 13 · o código
-  mandamos: (contato) => `Mandamos para ${contato}`,
-  mandamosOutro: (contato) => `Mandamos outro para ${contato}`,
+  // 03 · 05 · 06 · 07 · 12 · 13 · 17 · o código. A resposta ao envio é sempre a mesma,
+  // exista a conta ou não, e a mesma mensagem vale pro código errado e pro vencido
+  // (a rodada 3): os textos vêm do mock (credenciais.recuperacao), como o textos.md
+  respostaEnvio: 'Se houver conta com este dado, o código foi enviado.',
+  invalido: ['Código inválido', 'ou vencido'], // o texto é leitura nossa: o PM pediu a mesma mensagem, sem dar o texto
   digite: 'Digite o código',
-  naoConfere: 'Código não confere',
   valePor: 'VALE POR',
   tentativasRestantes: 'TENTATIVAS RESTANTES',
   naTerceira: 'na terceira, o código expira',
-  expirouFrase: 'o código expirou — peça um novo',
-  expirou: 'O CÓDIGO EXPIROU',
+  pecaNovoFrase: 'peça um código novo',
   // a espera do reenvio, no resto do recuperar, se chama "reenviar em" (decisão 31)
   reenviarEm: (seg, n) => `Reenviar em ${seg} s · resta ${n} envio nesta hora`,
   reenviarEmUltimo: (seg) => `Reenviar em ${seg} s · este foi o último envio desta hora`,
@@ -67,10 +78,13 @@ export const TX = {
   enviarOutro: 'Enviar outro código',
 
   // 04 · 11 · a folha: duas saídas (decisão 32). A espera é a contagem no
-  // lugar da seta (o minSeg do reenvio), não mais texto na linha (decisão 31)
+  // lugar da seta (o minSeg do reenvio), não mais texto na linha (decisão 31).
+  // A rodada 3: reenviar pro mesmo dado, ou voltar pra primeira etapa
   fechar: 'Fechar',
-  conferirReenviar: 'Conferir e reenviar',
-  mandarEmail: 'Mandar para o e-mail',
+  reenviarCodigo: 'Reenviar o código',
+  paraOMesmo: 'para o mesmo dado',
+  usarOutro: 'Usar outro dado',
+  voltaPrimeira: 'volta pra primeira etapa',
 
   // 08 · a senha nova
   seisItens: 'Os seis itens marcam sozinhos',

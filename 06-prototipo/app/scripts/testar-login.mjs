@@ -36,21 +36,21 @@ chk('17 · a receita é o caso teto-de-envios', RECEITAS[`T01/${TETO}`]?.casos?.
 chk('17 · os envios do caso esgotam o teto da hora (3 de 3)', R.restamEnvios(R.enviosDoTeto()) === 0 && R.enviosDoTeto() === R.LIM.tetoPorHora, `${R.enviosDoTeto()} de ${R.LIM.tetoPorHora}`)
 const teto = TX.acabaram(R.LIM.tetoPorHora, R.liberaAs())
 chk('17 · a linha do reenvio diz os 3 envios e a hora do caso, como o textos.md', teto === 'Os 3 envios desta hora acabaram · libera às 15:12' && naSecao(TETO, teto), teto)
-chk('17 · o resto do quadro é o do 03: Mandamos para o telefone, o código do mock e o Confirmar',
-  naSecao(TETO, TX.mandamos(R.TELEFONE), TX.digite, TX.valePor, TX.naoRecebi, TX.confirmar, TX.voltarLogin, ...R.REC.codigo.split('')))
+chk('17 · o resto do quadro é o do 03: a resposta de sempre, o código do mock e o Confirmar',
+  naSecao(TETO, TX.respostaEnvio, TX.digite, TX.valePor, TX.naoRecebi, TX.confirmar, TX.voltarLogin, ...R.REC.codigo.split('')))
 chk('12 e 13 · depois do último envio da hora, a espera ainda corre: Reenviar em 60 s · este foi o último envio desta hora',
   naSecao('12-momento-codigo-reenviado', TX.reenviarEmUltimo(R.REENVIO_CHEIO)) && naSecao('13-momento-codigo-no-e-mail', TX.reenviarEmUltimo(R.REENVIO_CHEIO)) && R.restamEnvios(R.REC.reenviosNaHora + 1) === 0)
 chk('a tela escreve o teto quando a espera zera sem envio na hora — também no expirado e nas tentativas esgotadas',
   (login.match(/: teto\b/g) ?? []).length === 3 && login.includes('TX.acabaram(LIM.tetoPorHora, liberaAs())'))
 
 // o Enviar o código do canal: com envio, um código novo; no teto, o que já foi, que segue valendo
-const base = { quadro: 'canal', canal: 'telefone', canalDoCodigo: 'telefone', envios: R.REC.reenviosNaHora, digitos: '', erros: 0, erroVisivel: false, prazo: 300, reenvio: 0, folha: false, outro: true }
+const base = { quadro: 'canal', canal: 'telefone', canalDoCodigo: 'telefone', envios: R.REC.reenviosNaHora, digitos: '', erros: 0, erroVisivel: false, prazo: 300, reenvio: 0, folha: false }
 const novo = { digitos: R.REC.codigo, erros: 0, erroVisivel: false, prazo: R.PRAZO_CHEIO, reenvio: R.REENVIO_CHEIO, folha: false, canalDoCodigo: 'telefone' }
 const comEnvio = R.depoisDoEnviar(base, novo)
-chk('Enviar o código com envio na hora: um código novo, o prazo e o reenvio cheios, Mandamos para', comEnvio.quadro === 'codigo' && comEnvio.prazo === R.PRAZO_CHEIO && comEnvio.reenvio === R.REENVIO_CHEIO && !comEnvio.outro && comEnvio.envios === base.envios)
+chk('Enviar o código com envio na hora: um código novo, o prazo e o reenvio cheios', comEnvio.quadro === 'codigo' && comEnvio.prazo === R.PRAZO_CHEIO && comEnvio.reenvio === R.REENVIO_CHEIO && comEnvio.envios === base.envios)
 const noTeto = R.depoisDoEnviar({ ...base, envios: R.enviosDoTeto(), canal: 'email' }, { ...novo, canalDoCodigo: 'email' })
 chk('Enviar o código no teto: nenhum envio, o código que já foi segue valendo — o prazo de onde estava e os dígitos do mock (a 17)',
-  noTeto.quadro === 'codigo' && noTeto.prazo === base.prazo && noTeto.reenvio === 0 && noTeto.envios === R.enviosDoTeto() && noTeto.digitos === R.REC.codigo && !noTeto.outro)
+  noTeto.quadro === 'codigo' && noTeto.prazo === base.prazo && noTeto.reenvio === 0 && noTeto.envios === R.enviosDoTeto() && noTeto.digitos === R.REC.codigo)
 chk('no teto, o destino é o do código que já foi, e não o cartão tocado agora', noTeto.canal === 'telefone')
 const morto = R.depoisDoEnviar({ ...base, envios: R.enviosDoTeto(), prazo: 0, digitos: '' }, novo)
 chk('no teto, o código que já morreu volta morto, com o teto na linha', morto.prazo === 0 && morto.digitos === '' && !R.codigoVivo(morto))
@@ -61,11 +61,19 @@ chk('12 e 13 · o primário com as células vazias diz Digite o código, como o 
 chk('a tela: incompleto, Digite o código, apagado e desabilitado; os seis dígitos, Confirmar',
   login.includes('primario = incompleto ? TX.digiteCodigo : TX.confirmar') && login.includes('primarioDesabilitado = incompleto'))
 
-// ── a folha do Não recebi no canal e-mail ──
-chk('no canal e-mail, a folha confere o e-mail: Conferir e reenviar, com o e-mail',
-  login.includes("const noEmail = s.canal === 'email'") && login.includes('detalhe={contatoDo(s.canal)}') && R.contatoDo('email') === R.EMAIL)
-chk('a segunda linha (trocar pro celular) não tem texto no textos.md, e fica fora: nenhum texto inventado',
-  login.includes('{!noEmail && <LinhaDeOpcao icone="email"') && !/celular/i.test(md.split('## `')[0] + secao('04-momento-nao-recebi-o-codigo').join(' ') + secao('11-momento-nao-recebi-reenvio-liberado').join(' ')))
+// ── a rodada 3 do retorno do PM: nenhum contato em tela, e a primeira etapa com o dado digitado ──
+const corpo = md.split('## `').slice(1).join(' ')
+chk('nenhum contato mascarado no textos.md nem na tela', !/•/.test(corpo) && !/•|mascarar/.test(login))
+chk('a resposta ao envio é sempre a mesma, nas sete telas do código', ['03-momento-recuperar-digitar-codigo', '05-momento-codigo-errado', '06-estado-codigo-expirado', '07-estado-tentativas-esgotadas', '12-momento-codigo-reenviado', '13-momento-codigo-no-e-mail', TETO].every((r) => naSecao(r, TX.respostaEnvio)) && TX.respostaEnvio === M.credenciais.recuperacao.respostaEnvio)
+chk('a mesma mensagem pro errado e pro vencido: Código inválido / ou vencido', ['05-momento-codigo-errado', '06-estado-codigo-expirado', '07-estado-tentativas-esgotadas'].every((r) => naSecao(r, TX.invalido.join(' / '))) && TX.invalido.join(' ') === M.credenciais.recuperacao.mensagemCodigo)
+const br = R.ddiDo(R.DDI_PADRAO)
+chk('02 · o telefone incompleto: (81) 98765-43, Faltam 2 números., o botão desligado', R.formatar(br.mascara, R.DIGITADO.telefoneIncompleto) === '(81) 98765-43' && TX.faltam(R.faltamNumeros(br.mascara, R.DIGITADO.telefoneIncompleto)) === 'Faltam 2 números.' && !R.dadoPronto({ canal: 'telefone', ddi: R.DDI_PADRAO, telefone: R.DIGITADO.telefoneIncompleto }) && naSecao('02-momento-recuperar-escolher-canal', 'Faltam 2 números.', '(81) 98765-43', 'BR', '+55'))
+chk('20 · o telefone no formato: (81) 98765-4321, o botão ligado', R.formatar(br.mascara, R.DIGITADO.telefone) === '(81) 98765-4321' && R.dadoPronto({ canal: 'telefone', ddi: R.DDI_PADRAO, telefone: R.DIGITADO.telefone }) && naSecao('20-momento-telefone-no-formato-certo', '(81) 98765-4321'))
+chk('21 · o e-mail, sem o seletor', R.dadoPronto({ canal: 'email', email: R.DIGITADO.email }) && naSecao('21-momento-o-e-mail-como-canal', R.DIGITADO.email) && !naSecao('21-momento-o-e-mail-como-canal', '+55'))
+const lista = R.paisesDa(R.DDI_PADRAO).map((d) => d.pais)
+chk('22 · os seis países, o Brasil primeiro e o resto em ordem de nome, como a 22', lista.join(',') === 'Brasil,Argentina,Chile,Paraguai,Portugal,Uruguai' && naSecao('22-momento-o-seletor-de-pais', TX.pais, TX.buscarPais, ...lista), lista.join(', '))
+chk('22 · a busca filtra, e a máscara muda com o país (o número que sobra sai)', R.paisesDa(R.DDI_PADRAO, 'port').map((d) => d.pais).join() === 'Portugal' && R.soDigitos(R.DIGITADO.telefone, R.ddiDo('+351').mascara).length === 9)
+chk('04 e 11 · a folha: Reenviar o código, para o mesmo dado · Usar outro dado, volta pra primeira etapa', ['04-momento-nao-recebi-o-codigo', '11-momento-nao-recebi-reenvio-liberado'].every((r) => naSecao(r, TX.reenviarCodigo, TX.paraOMesmo, TX.usarOutro, TX.voltaPrimeira)) && login.includes('aoTocar={usarOutroDado}'))
 
 // ── outro usuário no aparelho (T01/18) ──
 const caso = M.casos[R.CASO_OUTRO_USUARIO]

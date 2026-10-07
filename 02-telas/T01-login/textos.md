@@ -12,27 +12,27 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `02-momento-recuperar-escolher-canal`
 
-`RECUPERAR ACESSO` · `1` · `de 3` · `Depois: o código · a nova senha` · `Para onde mandamos` · `o código?` · `MENSAGEM` · `(81) •••••-8675` · `E-MAIL` · `r•••••@atlsul.com.br` · `Vale por 10 minutos` · `resta 1 envio nesta hora` · `Enviar o código` · `Voltar ao login`
+`RECUPERAR ACESSO` · `1` · `de 3` · `Depois: o código · a nova senha` · `Para onde mandamos / o código?` · `TELEFONE` · `E-MAIL` · `BR` · `+55` · `(81) 98765-43` · `Faltam 2 números.` · `O dado precisa ser o mesmo do cadastro.` · `Vale por 10 minutos` · `resta 1 envio nesta hora` · `Enviar o código` · `Voltar ao login`
 
 ## `03-momento-recuperar-digitar-codigo`
 
-`RECUPERAR ACESSO` · `2` · `de 3` · `Mandamos para (81) •••••-8675` · `Digite o código` · `4` · `8` · `2` · `9` · `1` · `3` · `VALE POR` · `9:41` · `Reenviar em 44 s · resta 1 envio nesta hora` · `Não recebi o código` · `Confirmar` · `Voltar ao login`
+`RECUPERAR ACESSO` · `2` · `de 3` · `Se houver conta com este dado, o código foi enviado.` · `Digite o código` · `4` · `8` · `2` · `9` · `1` · `3` · `VALE POR` · `9:41` · `Reenviar em 44 s · resta 1 envio nesta hora` · `Não recebi o código` · `Confirmar` · `Voltar ao login`
 
 ## `04-momento-nao-recebi-o-codigo`
 
-`Não recebi o código` · `Conferir e reenviar` · `(81) •••••-8675` · `0:44` · `Mandar para o e-mail` · `r•••••@atlsul.com.br` · `0:44`
+`Não recebi o código` · `Reenviar o código` · `para o mesmo dado` · `0:44` · `Usar outro dado` · `volta pra primeira etapa` · `0:44`
 
 ## `05-momento-codigo-errado`
 
-`RECUPERAR ACESSO` · `2` · `de 3` · `Mandamos para (81) •••••-8675` · `Código não confere` · `4` · `8` · `2` · `9` · `1` · `1` · `TENTATIVAS RESTANTES` · `2` · `na terceira, o código expira` · `Ainda vale por 9:28 · reenviar em 44 s` · `Não recebi o código` · `Tentar de novo` · `Voltar ao login`
+`RECUPERAR ACESSO` · `2` · `de 3` · `Se houver conta com este dado, o código foi enviado.` · `Código inválido / ou vencido` · `4` · `8` · `2` · `9` · `1` · `1` · `TENTATIVAS RESTANTES` · `2` · `na terceira, o código expira` · `Ainda vale por 9:28 · reenviar em 44 s` · `Não recebi o código` · `Tentar de novo` · `Voltar ao login`
 
 ## `06-estado-codigo-expirado`
 
-`RECUPERAR ACESSO` · `2` · `de 3` · `Mandamos para (81) •••••-8675` · `Digite o código` · `O CÓDIGO EXPIROU` · `0:00` · `Peça um código novo · resta 1 envio nesta hora` · `Não recebi o código` · `Enviar outro código` · `Voltar ao login`
+`RECUPERAR ACESSO` · `2` · `de 3` · `Se houver conta com este dado, o código foi enviado.` · `Código inválido / ou vencido` · `VALE POR` · `0:00` · `Peça um código novo · resta 1 envio nesta hora` · `Não recebi o código` · `Enviar outro código` · `Voltar ao login`
 
 ## `07-estado-tentativas-esgotadas`
 
-`RECUPERAR ACESSO` · `2` · `de 3` · `Mandamos para (81) •••••-8675` · `Código não confere` · `4` · `8` · `2` · `9` · `1` · `1` · `TENTATIVAS RESTANTES` · `0` · `o código expirou — peça um novo` · `Reenvio liberado · resta 1 envio nesta hora` · `Não recebi o código` · `Enviar outro código` · `Voltar ao login`
+`RECUPERAR ACESSO` · `2` · `de 3` · `Se houver conta com este dado, o código foi enviado.` · `Código inválido / ou vencido` · `4` · `8` · `2` · `9` · `1` · `1` · `TENTATIVAS RESTANTES` · `0` · `peça um código novo` · `Reenvio liberado · resta 1 envio nesta hora` · `Não recebi o código` · `Enviar outro código` · `Voltar ao login`
 
 ## `08-momento-recuperar-nova-senha`
 
@@ -48,15 +48,15 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `11-momento-nao-recebi-reenvio-liberado`
 
-`Não recebi o código` · `Conferir e reenviar` · `(81) •••••-8675` · `Mandar para o e-mail` · `r•••••@atlsul.com.br`
+`Não recebi o código` · `Reenviar o código` · `para o mesmo dado` · `Usar outro dado` · `volta pra primeira etapa`
 
 ## `12-momento-codigo-reenviado`
 
-`RECUPERAR ACESSO` · `2` · `de 3` · `Mandamos outro para (81) •••••-8675` · `Digite o código` · `VALE POR` · `10:00` · `Reenviar em 60 s · este foi o último envio desta hora` · `Não recebi o código` · `Digite o código` · `Voltar ao login`
+`RECUPERAR ACESSO` · `2` · `de 3` · `Se houver conta com este dado, o código foi enviado.` · `Digite o código` · `VALE POR` · `10:00` · `Reenviar em 60 s · este foi o último envio desta hora` · `Não recebi o código` · `Digite o código` · `Voltar ao login`
 
 ## `13-momento-codigo-no-e-mail`
 
-`RECUPERAR ACESSO` · `2` · `de 3` · `Mandamos para r•••••@atlsul.com.br` · `Digite o código` · `VALE POR` · `10:00` · `Reenviar em 60 s · este foi o último envio desta hora` · `Não recebi o código` · `Digite o código` · `Voltar ao login`
+`RECUPERAR ACESSO` · `2` · `de 3` · `Se houver conta com este dado, o código foi enviado.` · `Digite o código` · `VALE POR` · `10:00` · `Reenviar em 60 s · este foi o último envio desta hora` · `Não recebi o código` · `Digite o código` · `Voltar ao login`
 
 ## `14-estado-login-sem-conexao`
 
@@ -72,7 +72,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `17-estado-teto-de-envios`
 
-`RECUPERAR ACESSO` · `2` · `de 3` · `Mandamos para (81) •••••-8675` · `Digite o código` · `4` · `8` · `2` · `9` · `1` · `3` · `VALE POR` · `9:41` · `Os 3 envios desta hora acabaram · libera às 15:12` · `Não recebi o código` · `Confirmar` · `Voltar ao login`
+`RECUPERAR ACESSO` · `2` · `de 3` · `Se houver conta com este dado, o código foi enviado.` · `Digite o código` · `4` · `8` · `2` · `9` · `1` · `3` · `VALE POR` · `9:41` · `Os 3 envios desta hora acabaram · libera às 15:12` · `Não recebi o código` · `Confirmar` · `Voltar ao login`
 
 ## `18-estado-outro-usuario-no-aparelho`
 
@@ -81,3 +81,15 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `19-momento-entrando`
 
 `Entrar` · `CONFIGURADOR` · `USUÁRIO` · `SENHA` · `Lembrar meu usuário` · `Entrando…` · `Esqueci a senha`
+
+## `20-momento-telefone-no-formato-certo`
+
+`RECUPERAR ACESSO` · `1` · `de 3` · `Depois: o código · a nova senha` · `Para onde mandamos / o código?` · `TELEFONE` · `E-MAIL` · `BR` · `+55` · `(81) 98765-4321` · `O dado precisa ser o mesmo do cadastro.` · `Vale por 10 minutos` · `resta 1 envio nesta hora` · `Enviar o código` · `Voltar ao login`
+
+## `21-momento-o-e-mail-como-canal`
+
+`RECUPERAR ACESSO` · `1` · `de 3` · `Depois: o código · a nova senha` · `Para onde mandamos / o código?` · `TELEFONE` · `E-MAIL` · `rafael.vieira@atlsul.com.br` · `O dado precisa ser o mesmo do cadastro.` · `Vale por 10 minutos` · `resta 1 envio nesta hora` · `Enviar o código` · `Voltar ao login`
+
+## `22-momento-o-seletor-de-pais`
+
+`País` · `Buscar país` · `Brasil` · `+55` · `Argentina` · `+54` · `Chile` · `+56` · `Paraguai` · `+595` · `Portugal` · `+351` · `Uruguai` · `+598`

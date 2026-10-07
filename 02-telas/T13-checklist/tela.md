@@ -6,7 +6,7 @@ Fechar a homologação: o que o app já provou sozinho, e o que o técnico ainda
 |---|---|
 | **Elemento-assinatura** | o placar por seção — automático e manual separados — enchendo até o veredito |
 | **Chrome** | faixa de sessão |
-| **Semente no protótipo** | sessão M2C-0417 + RKT-8H42 · 31 itens |
+| **Semente no protótipo** | sessão M2C-0417 + RKT-8H42 · 28 itens |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
 | **Momentos · estados** | 30 · 10 — ver `estados.md` |
 

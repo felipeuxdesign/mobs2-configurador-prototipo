@@ -1,8 +1,7 @@
-// As regras da T01, todas lidas do mock (M.credenciais): o Entrar, o contato
-// com a máscara do DDI, os passos da recuperação e os seis requisitos da senha
-// nova. Funções puras: mesma entrada, mesma saída.
+// As regras da T01, todas lidas do mock (M.credenciais): o Entrar, o dado que o
+// técnico digita, com a máscara do país, os passos da recuperação e os seis
+// requisitos da senha nova. Funções puras: mesma entrada, mesma saída.
 import { M } from '../../dados/mock.js'
-import { mascararTelefone, mascararEmail } from '../../dados/formato.js'
 
 export const CRED = M.credenciais
 export const REC = CRED.recuperacao
@@ -73,13 +72,43 @@ export const depoisDoXis = (s) => ({ ...s, usuario: '', lembrado: false, foco: '
 // o que o Entrar que entra guarda: com a caixa marcada, o identificador; sem ela, nada
 export const lembradoDepoisDoEntrar = (s) => (s.lembrar ? s.usuario.trim() : null)
 
-// o contato, mascarado em todo o recuperar acesso (decisão 31): o telefone pela
-// máscara do DDI dele (HU-T01-6), o e-mail pela primeira letra e o domínio.
-// Derivados do contato do mock, nunca digitados (formato.js)
-const ddi = M.ddis.find((d) => d.codigo === CRED.contato.telefone.ddi)
-export const TELEFONE = mascararTelefone(ddi.mascara, CRED.contato.telefone.numero)
-export const EMAIL = mascararEmail(CRED.contato.email)
-export const contatoDo = (canal) => (canal === 'telefone' ? TELEFONE : EMAIL)
+// A primeira etapa (a rodada 3 do retorno do PM): nenhum contato do cadastro aparece,
+// nem mascarado — mostrar parte dele antes de qualquer digitação confirma que a conta
+// existe. O técnico escolhe Telefone ou E-mail e digita o dado; o servidor confere. O
+// que vem digitado ao abrir é o das referências (D-21): o telefone incompleto da 02, o
+// completo da 20, o e-mail da 21 (recuperacao.digitado)
+export const DIGITADO = REC.digitado
+// o seletor de país (a 22): os seis do mock, com o Brasil (+55) já escolhido; na lista, o
+// escolhido primeiro e o resto em ordem de nome, como a 22 desenha
+export const DDI_PADRAO = REC.ddiPadrao
+export const ddiDo = (codigo) => M.ddis.find((d) => d.codigo === codigo)
+export const paisesDa = (escolhido, busca = '') => {
+  const q = busca.trim().toLowerCase()
+  const achou = (d) => !q || d.pais.toLowerCase().includes(q) || d.codigo.includes(q) || d.sigla.toLowerCase() === q
+  const resto = M.ddis.filter((d) => d.codigo !== escolhido).sort((a, b) => a.pais.localeCompare(b.pais, 'pt'))
+  return [ddiDo(escolhido), ...resto].filter(achou)
+}
+// a máscara do país, que muda com ele: os dígitos entram nos '#', e o que vem depois
+// do último dígito digitado não aparece — '(81) 98765-43' com nove dos onze
+const casas = (mascara) => [...mascara].filter((c) => c === '#').length
+export const soDigitos = (texto, mascara) => texto.replace(/\D/g, '').slice(0, casas(mascara))
+export function formatar(mascara, digitos) {
+  let n = 0, saida = ''
+  for (const c of mascara) {
+    if (n >= digitos.length) break
+    if (c === '#') { saida += digitos[n]; n += 1 } else saida += c
+  }
+  return saida
+}
+// quantos números faltam pro formato do país: o motivo colado no campo, e o botão desligado
+export const faltamNumeros = (mascara, digitos) => casas(mascara) - digitos.length
+// o e-mail no formato: algo, a arroba, o domínio com ponto
+export const emailValido = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
+// o dado da primeira etapa, pronto pra enviar: no telefone, os números todos do país;
+// no e-mail, o formato. Fora do formato, o Enviar o código fica desligado
+export const dadoPronto = (s) => (s.canal === 'telefone' ? faltamNumeros(ddiDo(s.ddi).mascara, s.telefone) === 0 : emailValido(s.email))
+// o momento da primeira etapa: o telefone fora do formato (a 02), no formato (a 20), o e-mail (a 21)
+export const momentoDoCanal = (s, REF) => (s.canal === 'email' ? REF.email : dadoPronto(s) ? REF.formatoCerto : REF.canal)
 
 // os limites em segundos (a tela conta a partir daqui, sem relógio: T01·1)
 export const PRAZO_CHEIO = LIM.validadeMin * 60
@@ -105,11 +134,11 @@ export const codigoVivo = (s) => s.erros < LIM.tentativas && s.prazo > 0
 // não conta no teto (T01·2) — pro canal escolhido; sem envio na hora (o teto, a 17:
 // *pedir um código depois dos 3 envios da hora*), nada é enviado: volta o código
 // que já foi, que segue valendo, com os dígitos do mock (D-21, como a 17 desenha),
-// o prazo e o reenvio de onde estavam. Pro mesmo contato ("Mandamos para"); o canal
-// fica o que o código já tinha. O código que já morreu volta morto, com o teto na linha
+// o prazo e o reenvio de onde estavam. O canal fica o que o código já tinha. O código
+// que já morreu volta morto, com o teto na linha
 export function depoisDoEnviar(s, novo) {
-  if (restamEnvios(s.envios) > 0) return { ...s, quadro: 'codigo', ...novo, outro: false }
-  return { ...s, quadro: 'codigo', folha: false, outro: false, canal: s.canalDoCodigo ?? s.canal, ...(codigoVivo(s) ? { digitos: REC.codigo, erroVisivel: false } : {}) }
+  if (restamEnvios(s.envios) > 0) return { ...s, quadro: 'codigo', ...novo }
+  return { ...s, quadro: 'codigo', folha: false, canal: s.canalDoCodigo ?? s.canal, ...(codigoVivo(s) ? { digitos: REC.codigo, erroVisivel: false } : {}) }
 }
 
 // Outro usuário no aparelho (HU-T01-4, a última entrega · T01/18, o caso

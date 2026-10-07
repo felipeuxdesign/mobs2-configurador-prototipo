@@ -70,6 +70,16 @@ export const TX = {
   },
   deN: (feito, total) => `${feito} de ${total}`,
   blocosRelidos: (n) => `${n} blocos relidos`,
+  // a rodada 3 do retorno do PM (T12/01, 04, 05): a configuração em passos — o requisito
+  // conta a limpeza como passo —, a calibração do ônibus sem nada a calibrar, e o
+  // autoteste nos três contadores, embaixo do nome, nunca 'N de N'
+  passos: (n) => `${n} passos`,
+  nadaACalibrar: 'nada a calibrar',
+  contadores: (a, ns, p) => [
+    `${a} ${a === 1 ? 'aprovada' : 'aprovadas'}`,
+    `${ns} ${ns === 1 ? 'não se aplica' : 'não se aplicam'}`,
+    `${p} ${p === 1 ? 'pendente' : 'pendentes'}`,
+  ].join(' · '),
   e: ' e ', // as grandezas da calibração: 'hodômetro e horímetro' (o pacote 2, decisão 52)
   voltarAsInstalacoes: 'Voltar às instalações',
 }

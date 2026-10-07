@@ -4,36 +4,64 @@
 // a senha alterada e o login. Da última entrega: o primário diz Digite o código com
 // as células vazias (12, 13); o teto de 3 envios na hora (17) — a espera do último
 // envio zera e a linha diz até quando, e pedir o código de novo traz o que já foi,
-// que segue valendo —; e a folha do canal e-mail, que confere o e-mail.
+// que segue valendo. A rodada 3 do retorno do PM: nenhum contato em tela, nem
+// mascarado — a primeira etapa com o dado digitado (o telefone com o seletor de país,
+// o e-mail), a resposta ao envio sempre a mesma, e a folha com Reenviar o código e
+// Usar outro dado, que volta pra primeira etapa.
+const RESPOSTA = 'Se houver conta com este dado, o código foi enviado.'
 const ATE_O_CODIGO = [
   { abre: '' },
   { chega: 'T01', momento: null },
   { toca: 'Esqueci a senha' },
+  // a primeira etapa abre no telefone, com o Brasil, e o número que falta (a 02)
   { chega: 'T01', momento: '02-momento-recuperar-escolher-canal' },
   { ve: 'RECUPERAR ACESSO' },
   { ve: 'Depois: o código · a nova senha' },
-  { ve: '(81) •••••-8675' },
-  { ve: 'r•••••@atlsul.com.br' },
+  { ve: 'Faltam 2 números.' },
+  { ve: 'O dado precisa ser o mesmo do cadastro.' },
+  { desligado: 'Enviar o código' },
+  { naoVe: '•' },
   { ve: 'Vale por 10 minutos' },
   { ve: 'resta 1 envio nesta hora' },
-  // o canal: tocar só marca (R-14); quem avança é o Enviar o código
+  // o e-mail: sem o seletor de país, e o botão ligado (a 21); de volta ao telefone
   { marca: 'E-MAIL' },
-  { fica: 'T01', ms: 400 },
+  { chega: 'T01', momento: '21-momento-o-e-mail-como-canal' },
+  { naoVe: '+55' },
+  { marca: 'TELEFONE' },
   { chega: 'T01', momento: '02-momento-recuperar-escolher-canal' },
-  { marca: 'MENSAGEM' },
-  { fica: 'T01', ms: 400 },
+  // o seletor de país (a 22): com busca; o país troca a máscara, e o Brasil volta
+  { toca: 'País: Brasil, +55' },
+  { chega: 'T01', momento: '22-momento-o-seletor-de-pais' },
+  { ve: 'Buscar país' },
+  { ve: 'Uruguai' },
+  { digita: 'port', em: 'Buscar país' },
+  { naoVe: 'Uruguai' },
+  { toca: 'Portugal' },
+  { chega: 'T01', momento: '20-momento-telefone-no-formato-certo' },
+  { ve: '+351' },
+  { toca: 'País: Portugal, +351' },
+  { chega: 'T01', momento: '22-momento-o-seletor-de-pais' },
+  { toca: 'Brasil' },
   { chega: 'T01', momento: '02-momento-recuperar-escolher-canal' },
+  { ve: 'Faltam 2 números.' },
+  { fica: 'T01', ms: 400 },  // a folha do país acaba de sair: o fundo deixa de ser inerte
+  // os números que faltam: o formato certo liga o botão (a 20)
+  { digita: '81987654321', em: 'Telefone' },
+  { chega: 'T01', momento: '20-momento-telefone-no-formato-certo' },
+  { naoVe: 'Faltam' },
   { toca: 'Enviar o código' },
   { chega: 'T01', momento: '03-momento-recuperar-digitar-codigo' },
-  { ve: 'Mandamos para (81) •••••-8675' },
+  { ve: RESPOSTA },
   { ve: 'Digite o código' },
   { ve: 'VALE POR' },
   { ve: 'resta 1 envio nesta hora' },
   // a folha: as duas saídas esperam os 60 s do reenvio, com a contagem no lugar da seta
   { toca: 'Não recebi o código' },
   { chega: 'T01', momento: '04-momento-nao-recebi-o-codigo' },
-  { ve: 'Conferir e reenviar' },
-  { ve: 'Mandar para o e-mail' },
+  { ve: 'Reenviar o código' },
+  { ve: 'para o mesmo dado' },
+  { ve: 'Usar outro dado' },
+  { ve: 'volta pra primeira etapa' },
   { ve: '0:5' },
   // zerou com a folha aberta: a seta entra e as linhas acendem (a 11)
   { chega: 'T01', momento: '11-momento-nao-recebi-reenvio-liberado', ms: 70000, entre: [50000, 62000] },
@@ -41,15 +69,15 @@ const ATE_O_CODIGO = [
 ]
 
 export default [
-  // 1ª passada: Conferir e reenviar → o código de novo, o prazo cheio, pro mesmo contato
+  // 1ª passada: Reenviar o código → o código de novo, o prazo cheio, pro mesmo dado
   ...ATE_O_CODIGO,
-  { toca: 'Conferir e reenviar' },
+  { toca: 'Reenviar o código' },
   { chega: 'T01', momento: '12-momento-codigo-reenviado' },
-  { ve: 'Mandamos outro para (81) •••••-8675' },
+  { ve: RESPOSTA },
   { ve: '10:00' },
   { ve: 'Reenviar em 60 s · este foi o último envio desta hora' },
   { ve: 'Reenviar em 59 s · este foi o último envio desta hora', entre: [500, 1600] },
-  { naoVe: 'Conferir e reenviar' },
+  { naoVe: 'Reenviar o código' },
   // o reenvio chega com as células vazias: o Confirmar espera os seis dígitos (T01·6),
   // dizendo o que falta (a última entrega, 12 e 13)
   { desligado: 'Digite o código' },
@@ -62,32 +90,45 @@ export default [
   { toca: 'Voltar ao login' },
   { chega: 'T01', momento: null },
   { toca: 'Esqueci a senha' },
-  { chega: 'T01', momento: '02-momento-recuperar-escolher-canal' },
+  { chega: 'T01', momento: '20-momento-telefone-no-formato-certo' },
   { naoVe: 'resta 1 envio nesta hora' },
   { toca: 'Enviar o código' },
   { chega: 'T01', momento: '03-momento-recuperar-digitar-codigo' },
-  { ve: 'Mandamos para (81) •••••-8675' },
-  { naoVe: 'Mandamos outro' },
+  { ve: RESPOSTA },
   { ve: 'Os 3 envios desta hora acabaram · libera às 15:12' },
   { naoVe: '10:00' },
   { toca: 'Confirmar' },
   { chega: 'T01', momento: '08-momento-recuperar-nova-senha' },
   { ve: 'Crie a nova senha' },
-  // 2ª passada: Mandar para o e-mail → o código certo → a senha nova → senha alterada → o login
+  // 2ª passada: Usar outro dado → a primeira etapa → o e-mail → o código no e-mail →
+  // o código certo → a senha nova → senha alterada → o login
   ...ATE_O_CODIGO,
-  { toca: 'Mandar para o e-mail' },
+  { toca: 'Usar outro dado' },
+  { chega: 'T01', momento: '20-momento-telefone-no-formato-certo' },
+  { ve: 'Para onde mandamos' },
+  { marca: 'E-MAIL' },
+  { chega: 'T01', momento: '21-momento-o-e-mail-como-canal' },
+  { toca: 'Enviar o código' },
   { chega: 'T01', momento: '13-momento-codigo-no-e-mail' },
-  { ve: 'Mandamos para r•••••@atlsul.com.br' },
+  { ve: RESPOSTA },
   { ve: '10:00' },
   { ve: 'Reenviar em 60 s · este foi o último envio desta hora' },
   { desligado: 'Digite o código' },
-  // no canal e-mail, a folha confere o e-mail (a última entrega); a segunda linha,
-  // trocar pro celular, ainda não tem texto, e fica fora
   { toca: 'Não recebi o código' },
   { chega: 'T01', momento: '04-momento-nao-recebi-o-codigo' },
-  { ve: 'Conferir e reenviar' },
-  { naoVe: 'Mandar para o e-mail' },
+  { ve: 'Reenviar o código' },
+  { ve: 'Usar outro dado' },
+  { naoVe: '@' },
   { toca: 'Fechar' },
+  { chega: 'T01', momento: '13-momento-codigo-no-e-mail' },
+  { fica: 'T01', ms: 400 },  // a folha acaba de sair: o fundo deixa de ser inerte
+  // o código errado: a mesma mensagem do vencido (a 05)
+  { digita: '482911', em: 'Digite o código' },
+  { toca: 'Confirmar' },
+  { chega: 'T01', momento: '05-momento-codigo-errado' },
+  { ve: 'Código inválido' },
+  { ve: 'ou vencido' },
+  { toca: 'Tentar de novo' },
   { chega: 'T01', momento: '13-momento-codigo-no-e-mail' },
   { digita: '48291', em: 'Digite o código' },
   { desligado: 'Digite o código' },
@@ -145,24 +186,27 @@ export default [
   { toca: 'Entrar' },
   { chega: 'T02' },
 
-  // 3ª passada: o e-mail escolhido no canal, com envio na hora — a folha confere o
-  // e-mail, e as linhas esperam os 60 s, como no telefone
+  // 3ª passada: o e-mail escolhido na primeira etapa, com envio na hora — o código
+  // com o código do mock, a resposta de sempre, e a folha sem contato nenhum
   { abre: '' },
   { chega: 'T01', momento: null },
   { toca: 'Esqueci a senha' },
   { chega: 'T01', momento: '02-momento-recuperar-escolher-canal' },
   { marca: 'E-MAIL' },
+  { chega: 'T01', momento: '21-momento-o-e-mail-como-canal' },
+  { digita: 'rafael.vieira@atlsul', em: 'E-mail' },
+  { desligado: 'Enviar o código' },
+  { digita: 'rafael.vieira@atlsul.com.br', em: 'E-mail' },
   { toca: 'Enviar o código' },
   { chega: 'T01', momento: '03-momento-recuperar-digitar-codigo' },
-  { ve: 'Mandamos para r•••••@atlsul.com.br' },
+  { ve: RESPOSTA },
   { ve: 'resta 1 envio nesta hora' },
   { ve: 'Confirmar' },
   { toca: 'Não recebi o código' },
   { chega: 'T01', momento: '04-momento-nao-recebi-o-codigo' },
-  { ve: 'Conferir e reenviar' },
+  { ve: 'Reenviar o código' },
   { ve: '0:5' },
-  { naoVe: 'Mandar para o e-mail' },
-  { naoVe: '(81) •••••-8675' },
+  { naoVe: '•' },
   { toca: 'Fechar' },
   { chega: 'T01', momento: '03-momento-recuperar-digitar-codigo' },
 ]

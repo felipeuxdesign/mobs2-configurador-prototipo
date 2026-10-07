@@ -16,7 +16,7 @@
 //   com o horário — a única tela com a palavra (a rodada 1) —, ou a homologação
 //   bloqueada com a causa (05, HU-T16-5), e o Voltar ao menu aceso.
 // · Antes de homologar (ENCERRAR → 03, G23): os 4 passos da sessão abortada —
-//   quem pediu já confirmou, no diálogo Encerrar sem homologar? (decisão 36) ou
+//   quem pediu já confirmou, no diálogo Encerrar antes de terminar? (decisão 36) ou
 //   num dos do menu —, e depois a encerrada sem homologar (04). Quando quem
 //   pediu foi um diálogo do menu (sair da conta, trocar de unidade ou de
 //   empresa), o destino

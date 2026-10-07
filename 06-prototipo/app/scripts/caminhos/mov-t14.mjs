@@ -177,9 +177,9 @@ export default [
   { ve: 'Rotação\n0 rpm · ligue o motor' },
   { quieto: true },
 
-  // ── D3 · a velocidade com tacógrafo digital: pela sessão do KNB-5H39 com o M2C-0335 (o a-09, ma-02, que tem
-  // tacografoDigital), o passo da velocidade entra depois da rotação, e o ciclo tem sete passos.
-  // Nenhuma referência o desenha — o herói não tem —: monta pelo dado ──
+  // ── D3 · o caminhão com tacógrafo digital: pela sessão do KNB-5H39 com o M2C-0335 (o a-09, ma-02, que tem
+  // tacografoDigital). Desde o retorno do PM (06/10, a rodada 3: a velocidade saiu da CAN do mock, e só aparece
+  // como opcional da T10), o ciclo não tem a velocidade: os quatro passos de todo ônibus ──
   { abre: '?tela=T05&momento=01-momento-nenhum-escolhido' },
   { toca: 'M2C-0335' },   // o módulo do M2C-0335, num ativo de tacógrafo (o caso dele é do a-04, e não vale aqui)
   { dorme: 250 },
@@ -206,16 +206,16 @@ export default [
   { dorme: 300 },
   { toca: 'Fazer o ciclo de testes', anima: TROCA },
   { chega: 'T14' },
-  { ve: '2 de 5 passos' },
-  { ve: 'Ignição ligada\nRotação\nVelocidade\nCartão do motorista\nIgnição desligada' },
+  { ve: '2 de 4 passos' },
+  { ve: 'Ignição ligada\nRotação\nCartão do motorista\nIgnição desligada' },
+  { naoVe: 'Velocidade' },
   { ve: 'FILA DRENADA', entre: [2400, 3300] },
   { dorme: 300 },
   { toca: 'Disparar evento de teste', anima: [TEXTO, EVENTO] },
-  { ve: '3 de 5 passos', entre: [8000, 10500] },
-  { chega: 'T14', momento: M08, entre: [4500, 8000] },   // o cartão, depois da velocidade: o módulo lê aos 60 s do prazo
+  { chega: 'T14', momento: M08, entre: [8000, 14000] },   // o cartão, depois da rotação: o módulo lê aos 60 s do prazo
   { toca: 'Confere com o cartão' },
   { chega: 'T14', momento: M05, entre: [2500, 4500] },
-  { ve: '5 de 5 passos' },
+  { ve: '4 de 4 passos' },
   { dorme: 300 },
   { quieto: true },
 

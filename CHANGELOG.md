@@ -1,5 +1,25 @@
 # Registro de mudanças
 
+## 2026-10-08 · a rodada 3 do retorno do PM — o acabamento
+
+- **T01 · a recuperação de senha**: nenhum contato mascarado em tela nenhuma · a primeira etapa com *Telefone* ou *E-mail* e o dado digitado, o seletor de país com busca (Brasil, +55, já escolhido), o motivo colado no campo e o botão desligado enquanto o formato estiver errado, e *O dado precisa ser o mesmo do cadastro.* · a resposta sempre igual: *Se houver conta com este dado, o código foi enviado.* · a mesma mensagem pro código errado e pro vencido: *Código inválido ou vencido* · o *Não recebi* com *Reenviar o código* e *Usar outro dado* · três telas novas (20, 21 e 22) · a nova senha já mostrava os seis requisitos marcando sozinhos
+- **T04 · as palavras**: *Encerrar antes de terminar?* (a 13) e *sem terminar a instalação* (a 09) · *homologada* só na T16 · *o que já foi enviado fica no módulo*
+- **T12 · o resumo da instalação com os números de agora**: 8 de 8, *6 passos*, *nada a calibrar*, 4 de 4, 28 de 28, e o autoteste com os três contadores
+- **o mock**: os 12 resumos de instalação, os seis países com máscara, as frases fixas da recuperação, e os contatos que nunca aparecem em tela
+- **a lista final do PM passa no app inteiro**: 14 de 14, nas 191 telas
+- **as sobras das três rodadas, nos documentos e no mock**: o caso da homologação bloqueada saiu de *7 de 8* pros três contadores · o índice da T16 aponta pra lista das sete assertivas · a lista antiga de oito ficou marcada como legado, que nenhuma tela mostra · a velocidade saiu dos catálogos de CAN · o resumo da instalação do herói em 28 itens · as fichas da T01, T04, T05, T07, T09, T11, T12 e T13, a lógica do protótipo, as histórias e o domínio descrevendo as telas como elas são agora · o gate confere o herói com 28 itens e os três contadores
+- **188 → 191 referências** · 15 telas, 79 estados, 97 momentos
+
+- **no protótipo** (o gate em `06-prototipo/para-o-arquiteto/gate-rodada3.md`, as folhas lado a lado em `rodada3/` · o push das três rodadas e do complemento, cada um no seu commit):
+  - **a T01**: a primeira etapa com as abas *TELEFONE* e *E-MAIL*, o seletor de país (a folha da 22, com a busca; o escolhido primeiro, o resto em ordem de nome), o campo com a máscara do país, o motivo colado embaixo e o `Enviar o código` desligado fora do formato · a resposta de sempre no lugar do *Mandamos para* · *Código inválido / ou vencido* no errado, no vencido (com o *VALE POR 0:00*) e nas tentativas esgotadas (*peça um código novo*) · a folha com *Reenviar o código* e *Usar outro dado* — o envio depois dele é um reenvio, e gasta um envio da hora · nenhuma máscara de contato no código (`regras.js`);
+  - **a T04 e todo diálogo de encerrar**: *Encerrar antes de terminar?* · *Encerrar mesmo assim* · a troca de unidade *sem terminar a instalação* e *o que já foi enviado* (a peça é uma só, `estado/encerrar.jsx`);
+  - **a T12**: *6 passos*, *nada a calibrar*, *28 de 28* e o autoteste com os três contadores embaixo do nome, na variante do porquê da linha de checagem;
+  - **o design system**: só o ícone `voltar-etapa`, o desenho da referência do *Usar outro dado* · nenhuma peça, nenhuma variante, nenhum token;
+  - **o mock**: o que vem digitado na primeira etapa, como as referências desenham (`recuperacao.digitado`), e a sigla de cada país (`ddis[].sigla`) · o gate confere os resumos com 28 itens e os três contadores, os seis países, as três frases fixas e o que vem digitado;
+  - **os documentos**: a ficha e os estados da T01, a nota da T12, a lógica (as linhas da T01, a CAN sem velocidade, o checklist de 28), o nome do diálogo de encerrar nas notas de todas as telas, o `o-que-o-produto-ainda-decide.md` (a pergunta das pistas, e as duas leituras nossas), as decisões 31, 32 e 36, o README;
+  - **os roteiros**: o `recuperar` refeito pela primeira etapa nova, o seletor e o *Usar outro dado*; os textos novos nos que passam pela folha e pelo diálogo de encerrar.
+- **os desvios nomeados** (o gate, §3): a T01/22, a 04 e a 11 desenham o véu sobre o vazio, e o app sobre a tela de onde a folha nasceu, como em toda folha · a T12/04 e 05 seguem com as três linhas que o resumo da i-02 sustenta · o singular *Falta 1 número.* e o e-mail fora do formato sem motivo escrito não têm referência · a T04/06 ainda diz *sem homologar* no `textos.md`.
+
 ## 2026-10-08 · o complemento da rodada 2 — a lista final do PM
 
 A lista *"Antes de devolver, confira"* do PM, rodada no app inteiro, pegou dois pontos da rodada 2:

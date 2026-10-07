@@ -8,7 +8,7 @@
 // O painel do palco pega o Esc antes, na captura, e para aí (palco/Painel.jsx).
 //
 // `porCima` (decisão 36, src/estado/encerrar.jsx): o que abre por cima da tela
-// — o diálogo *Encerrar sem homologar?*, que toda tela com a faixa abre — fecha
+// — o diálogo *Encerrar antes de terminar?*, que toda tela com a faixa abre — fecha
 // pelo voltar antes da tela, como o Cancelar: enquanto ele está aberto, o voltar
 // da tela espera, e só o de cima responde (o último que abriu). O Esc que ele
 // atendeu não chega a mais ninguém, na ordem que for.

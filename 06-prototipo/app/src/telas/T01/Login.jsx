@@ -9,7 +9,9 @@
 // fora do print (T01·1); no print e num estado aberto pela coluna, fica parado.
 // O prazo e o reenvio descem juntos, e a folha mostra o reenvio como contagem
 // no lugar da seta, com as duas saídas desabilitadas até zerar (decisões 31 e
-// 32). O contato aparece mascarado em todo o recuperar (regras.js).
+// 32). Nenhum contato do cadastro aparece, nem mascarado (a rodada 3 do retorno
+// do PM): o técnico escolhe o canal e digita o dado, e a resposta ao envio é
+// sempre a mesma, exista a conta ou não (regras.js).
 //
 // A entrada (a otimização do design): o Entrar diz o que falta — Digite o
 // usuário, Digite a senha, Entrar —, e o usuário lembrado tem o xis dentro do
@@ -29,18 +31,18 @@ import { filaDoMundo } from '../../estado/fila.js'
 import { naFila } from '../T04/dados.js'
 import {
   BarraDoSistema, Rodape, Veu, Folha, Dialogo, Frase, LinhaDeOpcao, CartaoDeOpcoes,
-  Marca, Campo, Codigo, Requisito, Requisitos, LinkConteudo, SoIcone, Checkbox, Segmentado, Aviso,
+  Marca, Campo, Codigo, Requisito, Requisitos, LinkConteudo, SoIcone, Checkbox, Segmentado, Aviso, Busca,
   useTrocaDeQuadro,
 } from '../../ds/index.js'
 import { TX } from './textos.js'
 import {
-  REC, LIM, PASSOS, segmentosDo, TELEFONE, EMAIL, contatoDo,
+  REC, LIM, PASSOS, segmentosDo, DIGITADO, DDI_PADRAO, ddiDo, paisesDa, soDigitos, formatar, faltamNumeros, dadoPronto, momentoDoCanal,
   PRAZO_CHEIO, REENVIO_CHEIO, PRAZO_NO_REENVIO_LIBERADO, restamEnvios, requisitosDa, senhaSalvavel,
   enviosDoTeto, liberaAs, depoisDoEnviar, outraSessaoAoEntrar, tecnicoDo,
   redeDoCaso, depoisDoEntrar, oQueFalta, CASO_PRIMEIRO_ACESSO, CASO_LEMBRADO, lembradoDoCaso,
   entradaDoLembrado, entradaDoFluxo, depoisDoXis, lembradoDepoisDoEntrar,
 } from './regras.js'
-import { CartaoCanal, CartaoDoCodigo, LinhaConferido, CampoSenhaNova } from './pecas.jsx'
+import { AbaDoCanal, SeletorDoPais, CampoDoDado, LinhaPais, CartaoDoCodigo, LinhaConferido, CampoSenhaNova } from './pecas.jsx'
 // a presença da folha e do diálogo (entra fechado e abre; sai fechando antes de desmontar) é a do que vem por cima
 import { usePresenca } from '../../ds/chrome/PorCima.jsx'
 import { respostaDoToque } from '../../ds/chrome/Troca.jsx'
@@ -51,7 +53,7 @@ export const REF = {
   senhaVisivel: '10-momento-senha-visivel', // tocar no olho: a senha por extenso e o olho riscado
   entrada: '00-tela',
   incorretos: '01-estado-usuario-ou-senha-incorretos',
-  canal: '02-momento-recuperar-escolher-canal',
+  canal: '02-momento-recuperar-escolher-canal',        // a primeira etapa: o telefone fora do formato, o botão desligado (a rodada 3)
   codigo: '03-momento-recuperar-digitar-codigo',
   naoRecebi: '04-momento-nao-recebi-o-codigo',
   errado: '05-momento-codigo-errado',
@@ -60,14 +62,17 @@ export const REF = {
   senha: '08-momento-recuperar-nova-senha',
   alterada: '09-momento-senha-alterada',
   liberado: '11-momento-nao-recebi-reenvio-liberado', // a folha quando os 60 s do reenvio zeram
-  reenviado: '12-momento-codigo-reenviado',           // Conferir e reenviar: outro código, pro mesmo contato
-  noEmail: '13-momento-codigo-no-e-mail',             // Mandar para o e-mail: o código vai pro e-mail
+  reenviado: '12-momento-codigo-reenviado',           // Reenviar o código: outro código, pro mesmo dado
+  noEmail: '13-momento-codigo-no-e-mail',             // o código de novo, pro e-mail (o reenvio, ou o Usar outro dado no e-mail)
   semConexao: '14-estado-login-sem-conexao',           // Entrar sem internet: o aviso, e os campos ficam (o mundo real)
   primeiroAcesso: '15-estado-primeiro-acesso',         // nada lembrado: os dois campos vazios, o foco no usuário (a otimização)
   lembrado: '16-estado-usuario-lembrado',              // o usuário lembrado, com o xis, a caixa marcada e o foco na senha
   teto: '17-estado-teto-de-envios',                    // os 3 envios da hora acabaram: o código enviado segue valendo (a última entrega)
   entrando: '19-momento-entrando',                     // a espera do Entrar com internet: o primário desligado diz Entrando… (o pacote 5)
   outroUsuario: '18-estado-outro-usuario-no-aparelho', // outro usuário entrou: o diálogo sobre as unidades da T02, como a 18 desenha (index.jsx, a última entrega)
+  formatoCerto: '20-momento-telefone-no-formato-certo', // o telefone com os números todos do país: o botão liga (a rodada 3)
+  email: '21-momento-o-e-mail-como-canal',             // o e-mail como canal, sem o seletor de país
+  seletor: '22-momento-o-seletor-de-pais',             // o seletor de país, com busca, o Brasil já escolhido
 }
 
 // um código novo, com o prazo e o reenvio cheios. O primeiro envio chega com o
@@ -83,11 +88,14 @@ export function inicial(momento, estado, usuario, situacao = null) {
   const base = {
     quadro: 'entrada',
     usuario, senha: M.credenciais.senha, mostrar: false, lembrar: false, lembrado: false, foco: 'senha', erroEntrada: false, semConexao: false,
-    // canal: o do cartão escolhido no 02; canalDoCodigo: pra onde foi o último código (o teto o mostra de volta)
+    // canal: a aba escolhida na primeira etapa; canalDoCodigo: pra onde foi o último código (o teto o mantém)
     canal: 'telefone', canalDoCodigo: 'telefone', envios: REC.reenviosNaHora,
-    // outro: o último envio foi pro mesmo contato ("Mandamos outro para", a 12);
+    // o dado digitado (a rodada 3): o país, o telefone em dígitos e o e-mail — ao abrir,
+    // os das referências (D-21); seletor: a folha do país aberta, com a busca;
+    // outroDado: o técnico voltou pelo Usar outro dado, e o Enviar o código é um reenvio
+    ddi: DDI_PADRAO, telefone: DIGITADO.telefoneIncompleto, email: DIGITADO.email, seletor: false, busca: '', outroDado: false,
     // momentoCodigo: o momento do quadro do código, pra onde a folha volta
-    outro: false, momentoCodigo: REF.codigo,
+    momentoCodigo: REF.codigo,
     ...codigoNovo(),
     novaSenha: REC.novaSenha, dialogo: false,
   }
@@ -96,12 +104,15 @@ export function inicial(momento, estado, usuario, situacao = null) {
     // o Entrar sem internet: o aviso, com os campos como estavam, de onde o caso diz (a 14)
     case REF.semConexao: { const d = depoisDoEntrar(base, redeDoCaso()); return d === 'T02' ? base : d }
     case REF.canal: return { ...base, quadro: 'canal' }
+    case REF.formatoCerto: return { ...base, quadro: 'canal', telefone: DIGITADO.telefone }
+    case REF.email: return { ...base, quadro: 'canal', canal: 'email' }
+    case REF.seletor: return { ...base, quadro: 'canal', seletor: true }
     case REF.codigo: return { ...base, quadro: 'codigo' }
     case REF.naoRecebi: return { ...base, quadro: 'codigo', folha: true }
     // os 60 s do reenvio zeraram com a folha aberta: o prazo andou o mesmo tanto (9:00, atrás do véu)
     case REF.liberado: return { ...base, quadro: 'codigo', folha: true, reenvio: 0, prazo: PRAZO_NO_REENVIO_LIBERADO }
     // o reenvio gastou um envio da hora: o prazo e o reenvio cheios, as células vazias
-    case REF.reenviado: return { ...base, quadro: 'codigo', ...codigoNovo(''), envios: base.envios + 1, outro: true, momentoCodigo: REF.reenviado }
+    case REF.reenviado: return { ...base, quadro: 'codigo', ...codigoNovo(''), envios: base.envios + 1, momentoCodigo: REF.reenviado }
     case REF.noEmail: return { ...base, quadro: 'codigo', ...codigoNovo(''), canal: 'email', canalDoCodigo: 'email', envios: base.envios + 1, momentoCodigo: REF.noEmail }
     // os 3 envios da hora acabaram (o caso teto-de-envios): o código do mock enviado,
     // que segue valendo, e o reenvio já zerado — a linha diz até quando (a 17)
@@ -165,7 +176,10 @@ export function Login({ momento, estado, irMomento }) {
   // o que vem por cima: a folha sobe em 200 e sai em 150; o diálogo, 150 e 150
   const folha = usePresenca(folhaAberta)
   const dialogo = usePresenca(s.dialogo && s.quadro === 'senha')
-  const veu = folha.visivel ? 'folha' : dialogo.visivel ? 'dialogo' : null
+  // o seletor de país (a 22): a folha sobre a primeira etapa
+  const seletorAberto = s.seletor && s.quadro === 'canal'
+  const seletor = usePresenca(seletorAberto)
+  const veu = folha.visivel || seletor.visivel ? 'folha' : dialogo.visivel ? 'dialogo' : null
 
   // C12 · o movimento fino. Os quatro quadros (a entrada, o canal, o código, a senha)
   // são páginas pro técnico: quando o quadro troca depois de a tela abrir, o conteúdo
@@ -233,20 +247,32 @@ export function Login({ momento, estado, irMomento }) {
     setTimeout(() => document.getElementById(idUsuario)?.focus(), 0)
   }
   // saindo da entrada, o aviso que ficou volta com ela, na troca de quadro, e não esmaece de novo
-  const esqueci = () => { muda({ quadro: 'canal', canal: 'telefone', avisoSurge: false }); irMomento(REF.canal) }
+  const esqueci = () => { const x = { ...s, quadro: 'canal', canal: 'telefone', avisoSurge: false }; setS(x); irMomento(momentoDoCanal(x, REF)) }
+  // a primeira etapa (a rodada 3): o canal e o dado mudam o momento — o telefone fora do
+  // formato (a 02), no formato (a 20), o e-mail (a 21). O país troca a máscara, e o
+  // número que não cabe no país novo perde o que sobra
+  const naEtapa = (parcial) => { const x = { ...s, ...parcial }; setS(x); irMomento(momentoDoCanal(x, REF)) }
+  const abrirSeletor = () => { muda({ seletor: true, busca: '' }); irMomento(REF.seletor) }
+  const fecharSeletor = () => naEtapa({ seletor: false, busca: '' })
+  const escolherPais = (codigo) => naEtapa({ ddi: codigo, telefone: soDigitos(s.telefone, ddiDo(codigo).mascara), seletor: false, busca: '' })
   // o primeiro envio não conta no teto; só o reenvio conta (T01·2). Sem envio na
-  // hora, nada vai: volta o código que já foi, com o teto na linha (regras.js · depoisDoEnviar, a 17)
-  const enviarCodigo = () => { setS((x) => ({ ...depoisDoEnviar(x, { ...codigoNovo(), canalDoCodigo: x.canal }), momentoCodigo: REF.codigo })); irMomento(REF.codigo) }
+  // hora, nada vai: volta o código que já foi, com o teto na linha (regras.js · depoisDoEnviar, a 17).
+  // Depois do Usar outro dado, o envio é um reenvio: gasta um envio da hora, como a 13 desenha
+  const enviarCodigo = () => {
+    if (s.outroDado) { reenviar(s.canal); return }
+    setS((x) => ({ ...depoisDoEnviar(x, { ...codigoNovo(), canalDoCodigo: x.canal }), momentoCodigo: REF.codigo })); irMomento(REF.codigo)
+  }
   // o reenvio fecha a folha e volta pro código: o prazo em 10:00, as células vazias
-  // e o cursor na primeira. Pro mesmo contato, "Mandamos outro para" (a 12); pro
-  // e-mail, "Mandamos para" o e-mail (a 13). "Enviar outro código" (06, 07) é o
-  // mesmo reenvio, pro mesmo contato
+  // e o cursor na primeira (a 12; no e-mail, a 13). "Enviar outro código" (06, 07) é o
+  // mesmo reenvio, pro mesmo dado. A resposta é sempre a mesma: nenhum contato aparece
   const reenviar = (canal = s.canal) => {
-    const outro = canal === s.canal
-    const m = outro ? REF.reenviado : REF.noEmail
-    setS((x) => ({ ...x, ...codigoNovo(''), canal, canalDoCodigo: canal, envios: x.envios + 1, outro, momentoCodigo: m }))
+    const m = canal === 'email' ? REF.noEmail : REF.reenviado
+    setS((x) => ({ ...x, quadro: 'codigo', ...codigoNovo(''), canal, canalDoCodigo: canal, envios: x.envios + 1, outroDado: false, momentoCodigo: m }))
     irMomento(m)
   }
+  // o Usar outro dado (a 04, a 11): fecha a folha e volta pra primeira etapa, com o
+  // dado como o técnico deixou; o envio dali espera o mesmo reenvio, e é um reenvio
+  const usarOutroDado = () => naEtapa({ quadro: 'canal', folha: false, outroDado: true })
   const digitar = (digitos) => { muda({ digitos, erroVisivel: false }); if (s.erroVisivel) irMomento(s.momentoCodigo) }
   const confirmar = () => {
     if (s.digitos === REC.codigo) { muda({ quadro: 'senha', novaSenha: REC.novaSenha, folha: false }); irMomento(REF.senha); return }
@@ -310,14 +336,40 @@ export function Login({ momento, estado, irMomento }) {
   }
 
   function Canal() {
+    // a primeira etapa (a rodada 3 do retorno do PM): as duas abas, o dado e o texto
+    // fixo. O telefone tem o seletor de país, com o Brasil já escolhido, e a máscara
+    // do país; enquanto o formato estiver errado, o motivo colado no campo, em
+    // vermelho, e o Enviar o código desligado (a lei 17). O e-mail, sem o seletor
+    const ddi = ddiDo(s.ddi)
+    const falta = s.canal === 'telefone' ? faltamNumeros(ddi.mascara, s.telefone) : 0
+    const pronto = dadoPronto(s)
     return (
       <>
         <div className="tela-miolo t01-miolo t01-miolo-passo">
           {cabecaDoPasso('canal', TX.depois)}
           <h1 id={idTitulo} className="t01-titulo">{TX.tituloCanal[0]}<br />{TX.tituloCanal[1]}</h1>
-          <div className="t01-canais" role="radiogroup" aria-labelledby={idTitulo}>
-            <CartaoCanal tipo="telefone" rotulo={TX.mensagem} contato={TELEFONE} escolhido={s.canal === 'telefone'} aoTocar={() => muda({ canal: 'telefone' })} />
-            <CartaoCanal tipo="email" rotulo={TX.email} contato={EMAIL} escolhido={s.canal === 'email'} aoTocar={() => muda({ canal: 'email' })} />
+          <div className="t01-etapa">
+            <div className="t01-abas" role="radiogroup" aria-labelledby={idTitulo}>
+              <AbaDoCanal rotulo={TX.telefone} escolhido={s.canal === 'telefone'} aoTocar={() => naEtapa({ canal: 'telefone' })} />
+              <AbaDoCanal rotulo={TX.email} escolhido={s.canal === 'email'} aoTocar={() => naEtapa({ canal: 'email' })} />
+            </div>
+            <div className="t01-dado-grupo">
+              {s.canal === 'telefone' ? (
+                <div className="t01-dado-com-motivo">
+                  <div className="t01-dado-linha">
+                    <SeletorDoPais sigla={ddi.sigla} codigo={ddi.codigo} rotulo={TX.paisRotulo(ddi.pais, ddi.codigo)} aoTocar={abrirSeletor} />
+                    <CampoDoDado tipo="telefone" rotulo={TX.campoTelefone} valor={formatar(ddi.mascara, s.telefone)} falha={falta > 0}
+                      aoMudar={(v) => naEtapa({ telefone: soDigitos(v, ddi.mascara) })} />
+                  </div>
+                  {falta > 0 && <span className="t01-motivo" role="status">{TX.faltam(falta)}</span>}
+                </div>
+              ) : (
+                <div className="t01-dado-linha">
+                  <CampoDoDado tipo="email" rotulo={TX.campoEmail} valor={s.email} aoMudar={(v) => naEtapa({ email: v })} />
+                </div>
+              )}
+              <span className="t01-texto-fixo">{REC.textoFixo}</span>
+            </div>
           </div>
           <div className="t01-legenda-dupla">
             <span className="t01-legenda-dupla-fato">{TX.valePorMinutos(LIM.validadeMin)}</span>
@@ -325,24 +377,50 @@ export function Login({ momento, estado, irMomento }) {
             <span className="t01-legenda-dupla-resta">{restam ? TX.restaEnvio(restam) : ''}</span>
           </div>
         </div>
-        <Rodape lugar="login" primario={TX.enviarCodigo} aoPrimario={enviarCodigo} link={TX.voltarLogin} aoLink={aoLogin} />
+        <Rodape lugar="login" primario={TX.enviarCodigo} aoPrimario={enviarCodigo} primarioDesabilitado={!pronto} link={TX.voltarLogin} aoLink={aoLogin} />
       </>
     )
   }
 
+  function SeletorDePais() {
+    // a folha do país (a 22): a busca e os seis do mock, o escolhido primeiro, com o check
+    const lista = paisesDa(s.ddi, s.busca)
+    return (
+      <div className="t01-sobre">
+        <Veu de="folha" visivel={seletor.visivel}>
+          <Folha titulo={TX.pais} rotuloFechar={TX.fechar} aoFechar={fecharSeletor} aberta={seletor.visivel}>
+            <div className="t01-seletor">
+              <Busca dica={TX.buscarPais} valor={s.busca} aoMudar={(v) => muda({ busca: v })} />
+              {lista.length > 0 && (
+                <CartaoDeOpcoes>
+                  {lista.map((d) => (
+                    <LinhaPais key={d.codigo} pais={d.pais} codigo={d.codigo} escolhido={d.codigo === s.ddi} aoTocar={() => escolherPais(d.codigo)} />
+                  ))}
+                </CartaoDeOpcoes>
+              )}
+            </div>
+          </Folha>
+        </Veu>
+      </div>
+    )
+  }
+
   function PassoCodigo() {
-    // o título diz a falha do código (R-03, a exceção declarada da T01); o expirado não
-    const titulo = errado || esgotado ? TX.naoConfere : TX.digite
+    // o título diz a falha do código (R-03, a exceção declarada da T01): a mesma mensagem
+    // pro errado e pro vencido (a rodada 3), em duas linhas, como a 05, a 06 e a 07
+    const invalido = errado || esgotado || expirado
+    const titulo = invalido ? <>{TX.invalido[0]}<br />{TX.invalido[1]}</> : TX.digite
+    const rotuloCelulas = invalido ? TX.invalido.join(' ') : TX.digite
     let cartao, legenda, primario, aoPrimario, primarioDesabilitado = false
     // sem envio na hora, a linha do reenvio diz que os envios acabaram e até
     // quando (a 17, a última entrega); o código enviado segue valendo
     const teto = TX.acabaram(LIM.tetoPorHora, liberaAs())
     if (esgotado) {
-      cartao = <CartaoDoCodigo falha rotulo={TX.tentativasRestantes} numero={LIM.tentativas - s.erros} frase={TX.expirouFrase} />
+      cartao = <CartaoDoCodigo falha rotulo={TX.tentativasRestantes} numero={LIM.tentativas - s.erros} frase={TX.pecaNovoFrase} />
       legenda = restam ? TX.reenvioLiberado(restam) : teto
       primario = TX.enviarOutro; aoPrimario = () => reenviar(); primarioDesabilitado = !restam
     } else if (expirado) {
-      cartao = <CartaoDoCodigo numeroFalha rotulo={TX.expirou} numero={minSeg(s.prazo)} />
+      cartao = <CartaoDoCodigo numeroFalha rotulo={TX.valePor} numero={minSeg(s.prazo)} />
       legenda = restam ? TX.pecaNovo(restam) : teto
       primario = TX.enviarOutro; aoPrimario = () => reenviar(); primarioDesabilitado = !restam
     } else if (errado) {
@@ -361,11 +439,11 @@ export function Login({ momento, estado, irMomento }) {
     return (
       <>
         <div className="tela-miolo t01-miolo t01-miolo-passo">
-          {cabecaDoPasso('codigo', <span className="t01-destino">{(s.outro ? TX.mandamosOutro : TX.mandamos)(contatoDo(s.canal))}</span>)}
+          {cabecaDoPasso('codigo', <span className="t01-destino">{TX.respostaEnvio}</span>)}
           <h1 className="t01-titulo">{titulo}</h1>
           <div className="t01-codigo-grupo">
             <Codigo celulas={REC.codigo.length} digitos={expirado ? '' : s.digitos} focado={vivo && !errado} errado={!vivo ? esgotado : errado}
-              focoEm={expirado ? REC.codigo.length - 1 : undefined} rotulo={titulo} aoDigitar={vivo ? digitar : undefined} />
+              focoEm={expirado ? REC.codigo.length - 1 : undefined} rotulo={rotuloCelulas} aoDigitar={vivo ? digitar : undefined} />
             {cartao}
           </div>
           <span className="t01-legenda">{legenda}</span>
@@ -384,18 +462,14 @@ export function Login({ momento, estado, irMomento }) {
     // Com o teto da hora atingido, a contagem para em 0:00 e as saídas não
     // liberam — não há texto nem desenho pro teto (G25)
     const espera = liberada ? null : minSeg(s.reenvio)
-    // no canal e-mail, a folha inverte (a última entrega): conferir o e-mail, e trocar
-    // pro celular. A segunda linha não tem texto no textos.md — nenhuma referência
-    // desenha a folha do e-mail —, e fica fora até ele chegar (pro arquiteto): o
-    // cartão fica com a primeira, Conferir e reenviar, com o e-mail
-    const noEmail = s.canal === 'email'
+    // a rodada 3: reenviar pro mesmo dado, ou voltar pra primeira etapa — nenhum contato na folha
     return (
       <div className="t01-sobre">
         <Veu de="folha" visivel={folha.visivel}>
           <Folha titulo={TX.naoRecebi} rotuloFechar={TX.fechar} aoFechar={fecharFolha} aberta={folha.visivel}>
             <CartaoDeOpcoes>
-              <LinhaDeOpcao icone="reenviar" titulo={TX.conferirReenviar} detalhe={contatoDo(s.canal)} espera={espera} aoTocar={() => reenviar()} />
-              {!noEmail && <LinhaDeOpcao icone="email" titulo={TX.mandarEmail} detalhe={EMAIL} espera={espera} aoTocar={() => reenviar('email')} />}
+              <LinhaDeOpcao icone="reenviar" titulo={TX.reenviarCodigo} detalhe={TX.paraOMesmo} espera={espera} aoTocar={() => reenviar()} />
+              <LinhaDeOpcao icone="voltar-etapa" titulo={TX.usarOutro} detalhe={TX.voltaPrimeira} espera={espera} aoTocar={usarOutroDado} />
             </CartaoDeOpcoes>
           </Folha>
         </Veu>
@@ -441,13 +515,13 @@ export function Login({ momento, estado, irMomento }) {
 
   // a tela de onde a folha ou o diálogo nasceu fica atrás do véu (G25) e, como
   // eles são modais (aria-modal, G15), inerte: nem o toque nem o leitor chegam nela
-  const porCima = folha.montado || dialogo.montado
+  const porCima = folha.montado || dialogo.montado || seletor.montado
 
   // O voltar do Android (logica.md): o link de saída de cada passo do recuperar,
   // o Voltar ao login; na folha Não recebi o código, o X. Na entrada, que não tem
   // saída desenhada (pendencias.md), e no diálogo Senha alterada, que não tem X
   // nem Cancelar (HU-T01-10), não faz nada; nem com a folha descendo
-  useVoltar(folhaAberta ? fecharFolha : porCima || s.quadro === 'entrada' ? null : aoLogin)
+  useVoltar(folhaAberta ? fecharFolha : seletorAberto ? fecharSeletor : porCima || s.quadro === 'entrada' ? null : aoLogin)
   return (
     <div className="t01">
       <BarraDoSistema fundo="pagina" veu={veu} />
@@ -458,6 +532,7 @@ export function Login({ momento, estado, irMomento }) {
         {s.quadro === 'senha' && PassoSenha()}
       </div>
       {folha.montado && NaoRecebi()}
+      {seletor.montado && SeletorDePais()}
       {dialogo.montado && SenhaAlterada()}
     </div>
   )

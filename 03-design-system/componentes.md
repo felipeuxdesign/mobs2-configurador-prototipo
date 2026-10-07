@@ -374,6 +374,10 @@ Nenhuma peça nova, e nenhum token. Duas variantes e um ajuste, que vão ao arqu
 - **o rodapé** (`Rodape`): sem o primário, só com o link — as ações moram nas linhas, e o rodapé fica com a saída (T11/00 e 05)
 - **a legenda do rodapé**: 4 de margem por cima do vão, no app inteiro — a 6 + 4 + 8 do botão com o link (T05/01, T07/05), e a 4 + 8 na junta (o checklist) · as referências mediam 4 a mais que a peça
 
+
+## No protótipo · a rodada 3 do retorno do PM
+
+Nenhuma peça nova, nenhuma variante, nenhum token. A primeira etapa da recuperação (T01/02, 20, 21, 22) é montada com peças da própria T01 (`telas/T01/pecas.jsx`: a aba do canal, o seletor de país, o campo do dado, a linha do país) sobre as do design system (a caixa de poço, a `Folha`, a `Busca`, o cartão de opções). O ícone `voltar-etapa` entrou no `Icone`, o desenho da referência do *Usar outro dado* (T01/04 e 11). O autoteste da T12 usa a variante `recebimento` da linha de checagem, a do porquê embaixo do nome.
 ## No protótipo · o movimento das peças (C12)
 
 Anotação de construção do C12. O movimento é da peça, e vale onde ela está: a tela só liga o gatilho. As regras do app inteiro estão no `movimento.md`; o mapa de cada peça pro arquivo está no `06-prototipo/app/src/ds/MAPA.md`. Nenhuma peça nova de desenho: as quatro de baixo sem desenho próprio moram no chrome e nas linhas.
@@ -381,7 +385,7 @@ Anotação de construção do C12. O movimento é da peça, e vale onde ela est�
 | Peça | O movimento | Telas que usam, medido |
 |---|---|---|
 | a troca (sem desenho, folha 2) | entre telas e entre quadros, só o conteúdo esmaece em 150ms, e só num toque ou no voltar · o processo que espera a troca (C12·2, C12·4, C12·35) | as 15 · o quadro que troca inteiro: T01 T02 T03 T05 T06 T10 T12 T13 T14 T16 |
-| a presença (sem desenho, folha 2) | a folha e o diálogo nascem e somem sempre do mesmo jeito · no mesmo véu, a folha e o diálogo se revezam com o véu parado (C12·27, C12·43) | T01 T02 T04 T11 T13 e o *Encerrar sem homologar?* de toda tela |
+| a presença (sem desenho, folha 2) | a folha e o diálogo nascem e somem sempre do mesmo jeito · no mesmo véu, a folha e o diálogo se revezam com o véu parado (C12·27, C12·43) | T01 T02 T04 T11 T13 e o *Encerrar antes de terminar?* de toda tela |
 | a lista que se reorganiza (sem desenho, folha 4) | o que fica desliza em 150ms, o que sai esmaece por cima, o que volta esmaece no lugar, e nenhuma altura anima (C12·10) | T02 T06 T13 T15 |
 | o foco do campo (sem desenho, folha 6) | um foco só · o traço de 2 por cima da borda de 1, a capa em 150ms, e nada sai do lugar (C12·21, C12·22) | T01 T02 T06 T10 T13 |
 | primário | com o mesmo texto, acende por uma camada em 150ms · com outro texto, o texto esmaece no lugar e o roxo troca direto · o que se desabilita não mostra o roxo, e só o afundar solta (C12·8, C12·23, C12·18) | as 15 |

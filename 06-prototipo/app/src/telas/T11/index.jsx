@@ -192,7 +192,7 @@ export default function T11({ momento, estado: est }) {
   const abrirOutras = () => ir('T11', { momento: REF.outras })
   const fecharOutras = () => ir('T11')
   // o ENCERRAR (decisão 36, src/estado/encerrar.jsx): antes de homologar, o diálogo
-  // Encerrar sem homologar? por cima desta tela; depois de homologar, direto, pra T16
+  // Encerrar antes de terminar? por cima desta tela; depois de homologar, direto, pra T16
   const enc = useEncerrar()
 
   // O voltar do Android (logica.md): no computador, o Esc — o mesmo que o link

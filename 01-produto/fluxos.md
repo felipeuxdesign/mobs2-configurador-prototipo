@@ -42,11 +42,11 @@ flowchart TD
 | encerrar | ENCERRAR antes de homologar | a sessão abortada: 4 passos, sem confirmação |
 | encerrar | uma assertiva falha | a homologação bloqueia; o encerramento não |
 
-No protótipo (decisão 36): o *sem confirmação* do ENCERRAR antes de homologar é de antes da decisão 36 — agora o diálogo *Encerrar sem homologar?* vem antes: `Continuar a instalação` fecha e deixa o técnico na tela; `Encerrar sem homologar` roda os 4 passos da sessão abortada. Depois de homologar, o ENCERRAR vai direto (`06-prototipo/logica.md` · ENCERRAR).
+No protótipo (decisão 36): o *sem confirmação* do ENCERRAR antes de homologar é de antes da decisão 36 — agora o diálogo *Encerrar antes de terminar?* vem antes: `Continuar a instalação` fecha e deixa o técnico na tela; `Encerrar mesmo assim` roda os 4 passos da sessão abortada. Depois de homologar, o ENCERRAR vai direto (`06-prototipo/logica.md` · ENCERRAR).
 
 No protótipo (decisão 44): a sessão nasce na conexão, mas **a faixa desce na T07**, quando as sete linhas do módulo passam sem trava — é o que as referências desenham. Numa trava, o módulo fica em cima do título, sem faixa (`02-telas/T07-diagnostico-do-modulo/tela.md` · Chrome). Vale pro `conectado · a faixa da sessão desce` do diagrama e pro *a faixa desce* do *Em palavras*.
 
-No protótipo (procurar outro módulo): na T07, `Procurar outro módulo` volta à busca da T05, com nada escolhido (`T05/01`) · na T09, a sessão já está aberta, e ele abre o diálogo *Encerrar sem homologar?*.
+No protótipo (procurar outro módulo): na T07, `Procurar outro módulo` volta à busca da T05, com nada escolhido (`T05/01`) · na T09, a sessão já está aberta, e ele abre o diálogo *Encerrar antes de terminar?*.
 
 No protótipo (o painel do palco): a T07 fica só no caminho, depois da T05 · as consultas do painel são a T15, a T11 e a T12 (`06-prototipo/palco/referencias/html/04-painel-aberto.html`). A seta pontilhada do menu pra T07, no diagrama, é o cartão *Diagnóstico do módulo*.
 

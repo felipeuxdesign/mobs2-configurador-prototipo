@@ -55,7 +55,7 @@ export default function T12({ momento, estado: est }) {
   const voltarAsInstalacoes = () => ir('T12')
   const voltarAoMenu = () => ir('T04')
   // o ENCERRAR (decisão 36, src/estado/encerrar.jsx): antes de homologar, o diálogo
-  // Encerrar sem homologar? por cima desta tela; depois de homologar, direto, pra T16
+  // Encerrar antes de terminar? por cima desta tela; depois de homologar, direto, pra T16
   const enc = useEncerrar()
 
   // o voltar do Android: o Esc faz o que a saída do rodapé faz; num estado da coluna, a peça não escuta
@@ -91,8 +91,8 @@ export default function T12({ momento, estado: est }) {
         <Grupo rotulo={TX.aInstalacao} secao>
           <Lista>
             {linhas.map((l, n) => (
-              <LinhaChecagem key={l.titulo} variante="dupla" estado={l.ok ? 'aprovada' : 'reprovada'} titulo={l.titulo} valor={l.valor}
-                causa={l.causa} divisoria={n < linhas.length - 1} />
+              <LinhaChecagem key={l.titulo} variante={l.porque ? 'recebimento' : 'dupla'} estado={l.ok ? 'aprovada' : 'reprovada'} titulo={l.titulo}
+                valor={l.valor} porque={l.porque} causa={l.causa} divisoria={n < linhas.length - 1} />
             ))}
           </Lista>
         </Grupo>

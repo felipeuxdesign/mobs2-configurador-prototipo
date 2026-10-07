@@ -8,7 +8,7 @@
 //   com o conteúdo do par, e as duas pré-condições — os pinos e o espaço,
 //   calculado sobre o que vai ser gravado. Se não cabe (06) ou as cercas passam do
 //   limite do módulo (07), a gravação não começa, e o Procurar outro módulo abre o
-//   diálogo Encerrar sem homologar? (a sessão está aberta: o módulo não troca).
+//   diálogo Encerrar antes de terminar? (a sessão está aberta: o módulo não troca).
 //   Na manutenção, o escolher o bloco (08): as cercas, as únicas com texto pro
 //   reenvio (G25). Aberta com a cadeia em curso (o Retomar da T16), segue dela;
 //   concluída, abre concluída. O endereço acompanha o quadro (05, 08).
@@ -30,7 +30,7 @@
 //   a recuperação, até a Conexão gravar; nela, o ENCERRAR não faz nada (G23).
 //   Continuar a gravação retoma do mesmo bloco. Antes de gravar (05 a 08) e
 //   depois da Conexão, o ENCERRAR é o de sempre: antes de homologar, o diálogo
-//   Encerrar sem homologar? por cima da tela (decisão 36), e a sessão abortada;
+//   Encerrar antes de terminar? por cima da tela (decisão 36), e a sessão abortada;
 //   depois, o encerramento. Na cadeia curta, ele fica apagado, como o voltar
 //   (lei 17): a recuperação não se aplica, e o processo termina sozinho.
 // · Os estados da coluna, parados, pela receita: o 01 pelo caso bloco-recusado,
@@ -252,7 +252,7 @@ export default function T09({ momento, estado: est }) {
   }
   const voltarAoMenu = () => ir('T04')
   // o ENCERRAR de sempre (decisão 36, src/estado/encerrar.jsx): antes de homologar,
-  // o diálogo Encerrar sem homologar? por cima desta tela; depois, direto, pra T16.
+  // o diálogo Encerrar antes de terminar? por cima desta tela; depois, direto, pra T16.
   // O Procurar outro módulo das travas do envio é o mesmo diálogo: com a sessão
   // aberta, o módulo não troca (a resposta do arquiteto ao gate do pacote 1)
   const enc = useEncerrar()

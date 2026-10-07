@@ -31,8 +31,8 @@
 .t01-lembrar { flex-shrink: 0; display: flex; flex-direction: column; margin: var(--e-8) 0; }
 
 /* ── a recuperação · 02 a 08, 12 e 13 ── */
-/* o contato mascarado fica numa linha só; se não couber, reticências (decisão 31):
- * no cartão do canal (02) e no "Mandamos para" (03 a 07, 12 e 13) */
+/* a resposta ao envio fica numa linha só; se não couber, reticências (decisão 31):
+ * 03 a 07, 12, 13 e 17 */
 .t01-destino { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .t01-miolo-passo { padding: var(--e-36) var(--e-20) 0 var(--e-20); gap: var(--passo-folga); }
 /* O link "Não recebi o código" fecha o miolo com o desenho de 44 e o toque de
@@ -48,22 +48,52 @@
   letter-spacing: var(--ls-titulo-proc); line-height: var(--entrelinha-titulo-proc);
 }
 
-/* 02 · os dois canais crescem até a sobra; cada um do tamanho do que diz.
- * O poço é a caixa de poço do design system (caixas.css) */
-.t01-canais { flex-grow: 1; display: flex; flex-direction: column; gap: var(--e-10); }
-.t01-canal.ds-tocavel {
-  flex-grow: 1; flex-direction: column; align-items: center; justify-content: center; gap: var(--e-6); text-align: center;
-}
-/* o escolhido: o traço de 2 desenhado por cima da borda de 1 (C12·22), sem mudar o tamanho do cartão */
-.t01-canal.t01-canal-escolhido {
+/* 02 · 20 · 21 · a primeira etapa (a rodada 3 do retorno do PM): as duas abas, o dado e o
+ * texto fixo, na sobra entre o título e a legenda. Nenhum token novo: as medidas da
+ * referência caem nos que já existem, pelo valor (o gate da rodada 3) */
+.t01-etapa { flex-grow: 1; min-height: 0; display: flex; flex-direction: column; gap: var(--e-14); }
+.t01-abas { flex-shrink: 0; display: flex; gap: var(--e-8); }
+.t01-aba.ds-tocavel { flex: 1; height: var(--botao-secundario); justify-content: center; }
+/* a escolhida: o traço de 2 desenhado por cima da borda de 1 (C12·22), sem mudar o tamanho */
+.t01-aba.t01-aba-escolhida {
   border-bottom-color: var(--lima);
   box-shadow: inset 0 calc(var(--traco-borda) - var(--traco-destaque)) 0 var(--lima);
 }
-.t01-canal-rotulo { font-size: var(--t-rotulo-topo); font-weight: 700; letter-spacing: var(--ls-rotulo-topo); color: var(--tinta-apagada); }
-.t01-canal-escolhido .t01-canal-rotulo { color: var(--lima); }
-.t01-canal-contato { max-width: 100%; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.t01-canal-contato-telefone { font-size: var(--n-cartao); color: var(--tinta); }
-.t01-canal-contato-email { font-size: var(--t-contato-email); color: var(--tinta-forte); }
+.t01-aba-rotulo { font-size: var(--t-rotulo-topo); font-weight: 700; letter-spacing: var(--ls-rotulo-topo); color: var(--tinta-apagada); }
+.t01-aba-escolhida .t01-aba-rotulo { color: var(--lima); }
+
+.t01-dado-grupo { flex-shrink: 0; display: flex; flex-direction: column; gap: var(--e-10); }
+.t01-dado-com-motivo { display: flex; flex-direction: column; gap: var(--e-6); }
+.t01-dado-linha { display: flex; gap: var(--e-8); }
+.t01-pais.ds-tocavel { flex: 0 0 auto; width: auto; height: var(--alvo-primario); padding: 0 var(--e-12); gap: var(--e-8); }
+.t01-pais-sigla { font-size: var(--t-rotulo-topo); font-weight: 700; letter-spacing: var(--ls-rotulo-topo); color: var(--tinta-apagada); }
+.t01-pais-codigo { font-size: var(--t-botao); font-weight: 700; color: var(--tinta); }
+.t01-dado { flex: 1; min-width: 0; height: var(--alvo-primario); padding: 0 var(--e-12); display: flex; align-items: center; }
+/* fora do formato: o traço de 2 em vermelho, por cima da borda de 1, e a capa do foco fora */
+.t01-dado.t01-dado-falha {
+  border-bottom-color: var(--vermelho);
+  box-shadow: inset 0 calc(var(--traco-borda) - var(--traco-destaque)) 0 var(--vermelho);
+}
+.t01-dado.t01-dado-falha::after { display: none; }
+.t01-dado-entrada {
+  flex-grow: 1; min-width: 0; margin: 0; padding: 0; background: transparent; border: 0; outline: none;
+  color: var(--tinta); font-family: inherit; font-size: var(--t-botao); font-weight: 700;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.t01-motivo { font-size: var(--t-legenda); font-weight: 600; color: var(--vermelho); }
+.t01-texto-fixo { font-size: var(--t-secundario); font-weight: 500; color: var(--tinta-secundaria); }
+
+/* 22 · o seletor de país: a busca e os países, num cartão de opções */
+.t01-seletor { display: flex; flex-direction: column; gap: var(--e-10); }
+.t01-linha-pais.ds-tocavel {
+  gap: var(--e-10); height: var(--alvo-min);
+  border-bottom: var(--traco-borda) solid var(--divisoria);
+}
+.t01-linha-pais.ds-tocavel:last-child { border-bottom: 0; }
+.t01-linha-pais-nome { flex: 1; font-size: var(--t-link); font-weight: 600; color: var(--tinta-forte); }
+.t01-linha-pais-escolhida .t01-linha-pais-nome { color: var(--tinta); }
+.t01-linha-pais-codigo { font-size: var(--t-corpo); font-weight: 700; color: var(--tinta-secundaria); }
+.t01-linha-pais-marca { width: var(--glifo-30); display: flex; justify-content: center; }
 
 .t01-legenda-dupla { flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding-bottom: var(--e-6); font-size: var(--t-legenda); }
 .t01-legenda-dupla-fato { font-weight: 500; color: var(--tinta-apagada); }

@@ -7,3 +7,5 @@
 **O que foi descartado.** Confirmar sempre, também depois de homologar: seria um toque a mais no fim de todo trabalho, sem risco nenhum a evitar.
 
 **A consequência.** Uma tela nova, o diálogo sobre o menu, e a regra reescrita na lógica. O `Encerrar a sessão` das folhas do módulo e do ativo abre o mesmo diálogo; as folhas de sair da conta e de trocar de unidade, que já confirmam, passam a dizer *sem homologar*. Todo caminho que encerra antes de homologar avisa, e nenhum pergunta duas vezes.
+
+**As palavras mudaram no retorno do PM (06/10, rodada 3):** *homologada* só na T16. O diálogo diz *Encerrar antes de terminar?* e *A instalação ainda não terminou.*, com *Encerrar mesmo assim*; a folha de trocar de unidade diz *sem terminar a instalação*. A regra é a mesma. A folha de sair da conta (T04/06) ainda diz *sem homologar* no `textos.md`: fica pro arquiteto.

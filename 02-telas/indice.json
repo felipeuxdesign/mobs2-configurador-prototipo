@@ -1,6 +1,6 @@
 {
   "telas": 15,
-  "referencias": 188,
+  "referencias": 191,
   "itens": [
     {
       "id": "T01/00-tela",
@@ -265,6 +265,42 @@
       "caso": "",
       "html": "02-telas/T01-login/referencias/html/19-momento-entrando.html",
       "png": "02-telas/T01-login/referencias/png/19-momento-entrando.png"
+    },
+    {
+      "id": "T01/20-momento-telefone-no-formato-certo",
+      "tela": "T01",
+      "pasta": "T01-login",
+      "tipo": "momento",
+      "nome": "20-momento-telefone-no-formato-certo",
+      "titulo": "T01 · o telefone no formato certo",
+      "como": "a primeira etapa: o telefone completo, o botão liga",
+      "caso": "",
+      "html": "02-telas/T01-login/referencias/html/20-momento-telefone-no-formato-certo.html",
+      "png": "02-telas/T01-login/referencias/png/20-momento-telefone-no-formato-certo.png"
+    },
+    {
+      "id": "T01/21-momento-o-e-mail-como-canal",
+      "tela": "T01",
+      "pasta": "T01-login",
+      "tipo": "momento",
+      "nome": "21-momento-o-e-mail-como-canal",
+      "titulo": "T01 · o e-mail como canal",
+      "como": "a primeira etapa pelo e-mail: sem o seletor de país",
+      "caso": "",
+      "html": "02-telas/T01-login/referencias/html/21-momento-o-e-mail-como-canal.html",
+      "png": "02-telas/T01-login/referencias/png/21-momento-o-e-mail-como-canal.png"
+    },
+    {
+      "id": "T01/22-momento-o-seletor-de-pais",
+      "tela": "T01",
+      "pasta": "T01-login",
+      "tipo": "momento",
+      "nome": "22-momento-o-seletor-de-pais",
+      "titulo": "T01 · o seletor de país",
+      "como": "o seletor de país, com busca · o Brasil, +55, já escolhido · a máscara muda com o país",
+      "caso": "",
+      "html": "02-telas/T01-login/referencias/html/22-momento-o-seletor-de-pais.html",
+      "png": "02-telas/T01-login/referencias/png/22-momento-o-seletor-de-pais.png"
     },
     {
       "id": "T02/00-tela",
@@ -2479,7 +2515,7 @@
       "nome": "02-momento-instalacao-homologada",
       "titulo": "T16 · a instalação homologada",
       "como": "o autoteste passa: Instalação homologada, com horário · a única tela com \"homologada\"",
-      "caso": "autotesteAssertivas",
+      "caso": "autotesteEncerramento",
       "html": "02-telas/T16-sessao/referencias/html/02-momento-instalacao-homologada.html",
       "png": "02-telas/T16-sessao/referencias/png/02-momento-instalacao-homologada.png"
     },
@@ -2545,7 +2581,7 @@
       "nome": "07-momento-autoteste-correndo",
       "titulo": "T16 Autoteste correndo",
       "como": "as assertivas acendem em ordem · 400ms cada",
-      "caso": "autotesteAssertivas",
+      "caso": "autotesteEncerramento",
       "html": "02-telas/T16-sessao/referencias/html/07-momento-autoteste-correndo.html",
       "png": "02-telas/T16-sessao/referencias/png/07-momento-autoteste-correndo.png"
     },

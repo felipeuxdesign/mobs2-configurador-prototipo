@@ -59,7 +59,7 @@ O que o app entrega ao gestor não é "configuração enviada". É **prova de qu
 | **Cadeia** | A sequência ordenada de T09. Ordem canônica única. |
 | **Read-back** | Releitura que confirma o que foi escrito. Sem ele nada é sucesso. |
 | **Arraste** | Blocos que um reenvio obriga a reenviar junto. |
-| **Autoteste de instalação** | Reinício + releitura no encerramento. Prova 8 assertivas. |
+| **Autoteste de instalação** | Reinício + releitura no encerramento. Prova 7 assertivas, contadas em aprovadas, não se aplicam e pendentes (retorno do PM, 06/10). |
 | **Assertiva** | Cada item do autoteste, com o valor lido em tela. |
 | **Ciclo de testes** | Com a ignição ligada e o ônibus parado: a rotação, as entradas, o cartão e o evento de teste (T14). |
 | **Fila de saída** | Evidências aguardando envio. Feedback **por item**. |
@@ -152,7 +152,7 @@ Não há flag de permissão. Não há confirmação em dois passos. Não há esc
 |---|---|---|
 | Serial não cadastrado | T07 | nomeia pela letra, bloqueia, **registra no M2** |
 | Modelo/variante sem suporte v1 | T07 | nomeia pelo cadastro, bloqueia, registra |
-| Firmware não homologado | T07 | atualiza, se o módulo tem rede, e relê o diagnóstico; sem rede, grava só a conexão → atualiza → relê |
+| Firmware fora da lista | T07 | atualiza, se o módulo tem rede, e relê o diagnóstico; sem rede, grava só a conexão → atualiza → relê |
 | Conteúdo não cabe no módulo | T09 | no envio, sobre o que vai ser gravado — bloqueia (mesmo cálculo da publicação no M2) |
 | Cercas demais pro módulo | T09 | no envio, sobre o que vai ser gravado · **dois limites**: regiões E posições |
 | ID não reconhecido no destino | T13 · Seção F | trava com rede; **sem rede vira aviso**, e a Seção F confere quando a rede voltar |
@@ -262,7 +262,7 @@ Erro nomeia **causa e ação**: falha de rede → reenvio automático · recusa 
 
 | HU | Promessa |
 |---|---|
-| HU-T05-1 | Busco dispositivos (sem fio ou cabo, conforme a variante); vazio explica alimentação, cabo, distância |
+| HU-T05-1 | Busco dispositivos sem fio; vazio explica alimentação e distância |
 | HU-T05-2 | Conectar só conecta: a sessão abre, a faixa desce, e o diagnóstico vem em seguida |
 | HU-T05-3 | Falha de comunicação mostra uma causa única com 3 coisas a checar: cabo, alimentação, cadastro |
 | HU-T05-4 | Perda de link mostra Reconectar e preserva o estado da etapa |
@@ -288,8 +288,8 @@ No protótipo (decisão 44), a HU-T05-2: a sessão nasce na conexão, mas **a fa
 | HU | Promessa |
 |---|---|
 | HU-T07-1 | Logo depois de conectar, vejo o módulo: serial, firmware, alimentação, GPS, entradas, modem e SIM |
-| HU-T07-2 | Serial fora do cadastro, modelo sem suporte e firmware não homologado travam — cada um com a sua mensagem |
-| HU-T07-3 | Firmware não homologado oferece atualizar quando o módulo tem rede; sem rede, o app grava só a conexão, e então atualiza |
+| HU-T07-2 | Serial fora do cadastro, modelo sem suporte e firmware fora da lista travam — cada um com a sua mensagem |
+| HU-T07-3 | Firmware fora da lista oferece atualizar quando o módulo tem rede; sem rede, o app grava só a conexão, e então atualiza |
 | HU-T07-4 | O resto só informa, com o ícone de informação: eu sigo, e o checklist registra |
 | HU-T07-5 | A CAN aparece depois que o bloco do ativo é gravado, com a lista do modelo; sinal sem leitura ou fora do esperado aparece na própria linha |
 | HU-T07-6 | Ler de novo relê a CAN inteira |
@@ -327,8 +327,8 @@ No protótipo (decisão 44), a HU-T05-2: a sessão nasce na conexão, mas **a fa
 | HU | Promessa |
 |---|---|
 | HU-T11-1 | A conferência compara o conteúdo de cada bloco — o módulo não guarda versão |
-| HU-T11-2 | Vejo as cercas, em regiões, a APN, os eventos e o leitor, cada um com o que está no módulo e no cadastro |
-| HU-T11-3 | O Extended ID — os cartões e iButtons gravados no módulo — aparece só pra leitura |
+| HU-T11-2 | Vejo as cercas, em regiões, a rede do módulo, os eventos e o leitor, cada um com o que está no módulo e no cadastro |
+| HU-T11-3 | ~~O Extended ID aparece só pra leitura~~ · saiu no retorno do PM (06/10) |
 | HU-T11-4 | Corrigir reenvia um bloco por vez: o primeiro que diverge, na ordem da cadeia |
 | HU-T11-5 | Depois de reenviar um bloco, os que dependem dele ficam marcados *revisar em seguida* |
 | HU-T11-6 | As outras ações dizem o efeito: reenviar os 5 blocos ou apenas registrar o diagnóstico |

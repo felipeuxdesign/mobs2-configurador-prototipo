@@ -26,7 +26,7 @@ Encerrar a sessão de configuração provando que a configuração sobreviveu ao
   - no protótipo · a nossa versão desta linha, antes desta entrega: encerrada: `Voltar ao menu` → o menu sem sessão; o voltar faz o mesmo
 - ENCERRAR antes de homologar → os 4 passos da sessão abortada, sem confirmação
   - no protótipo · a nossa versão desta linha, antes desta entrega: ENCERRAR antes de homologar → os 4 passos da sessão abortada, sem confirmação, e a *Sessão encerrada* sem homologar. Pelos diálogos do menu (`Encerrar a sessão e sair`, `Encerrar a sessão e trocar`), os 4 passos seguem pro destino deles (G23)
-  - **no protótipo** (decisão 36): quem chega aqui já confirmou — no diálogo *Encerrar sem homologar?*, aberto pelo ENCERRAR por cima da tela de onde ele veio, ou num dos diálogos do menu. Os 4 passos em si não perguntam de novo
+  - **no protótipo** (decisão 36): quem chega aqui já confirmou — no diálogo *Encerrar antes de terminar?*, aberto pelo ENCERRAR por cima da tela de onde ele veio, ou num dos diálogos do menu. Os 4 passos em si não perguntam de novo
 - no protótipo · as nossas linhas, que saíram do pacote desta entrega e continuam valendo:
   - sessão interrompida: `Retomar` → a cadeia da T09, no bloco que parou; `Descartar` → o menu sem sessão, sem item de fila (T16·5); o voltar não faz nada (T16·6)
   - no encerramento e no autoteste, o voltar não faz nada

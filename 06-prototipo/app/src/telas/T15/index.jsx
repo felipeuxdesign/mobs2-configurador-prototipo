@@ -24,7 +24,7 @@
 //   deles vira o SUBINDO AGORA: o progresso e o tamanho só existem no f-04 do
 //   mock. O item reenviado mora no estado único (`reenviados`, estado/fila.js),
 //   e sair da tela não o desfaz (HU-T15-2) · ENCERRAR, antes de homologar, abre
-//   o diálogo Encerrar sem homologar? (decisão 36), e a sessão abortada da T16
+//   o diálogo Encerrar antes de terminar? (decisão 36), e a sessão abortada da T16
 //   (G23); depois de homologar, os passos do encerramento.
 // · A notificação local da fila parada (HU-T15-6, o tela.md de 25/09) não se
 //   constrói: nenhuma referência a desenha, e ela é do sistema, fora da tela.
@@ -69,7 +69,7 @@ export default function T15({ estado: est }) {
   const voltarAoMenu = () => ir('T04')
   // G23: antes de homologar, a sessão abortada (T16/03); depois, o encerramento (T16)
   // o ENCERRAR (decisão 36, src/estado/encerrar.jsx): antes de homologar, o diálogo
-  // Encerrar sem homologar? por cima desta tela; depois de homologar, direto, pra T16
+  // Encerrar antes de terminar? por cima desta tela; depois de homologar, direto, pra T16
   const enc = useEncerrar()
   // o voltar do Android (logica.md): o mesmo que a saída do rodapé, o Voltar ao
   // menu. Num estado da coluna, o app está parado, e a peça não escuta

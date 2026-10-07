@@ -2,7 +2,7 @@
 // primário passa pelos 4 passos da sessão abortada da T16 e segue pro destino
 // gravado — o login com a fila preservada, ou a sincronização da unidade nova.
 // Os dois já são a confirmação deles, e dizem *sem homologar* (decisão 36): o
-// Encerrar sem homologar? não aparece no caminho — nenhum pergunta duas vezes.
+// Encerrar antes de terminar? não aparece no caminho — nenhum pergunta duas vezes.
 const LOGIN_ATE_O_MENU = [
   { chega: 'T01', momento: null },
   { digita: 'Varzea26', em: 'SENHA' },
@@ -46,7 +46,7 @@ const SESSAO_ABERTA = [
 // os 4 passos, sem outra confirmação, e o app segue sozinho pro destino
 const OS_QUATRO_PASSOS = [
   { chega: 'T16', momento: '03-momento-encerrando-sem-homologar', ms: 1000 },
-  { naoVe: 'Encerrar sem homologar?', ms: 300 },
+  { naoVe: 'Encerrar antes de terminar?', ms: 300 },
   { ve: 'Sem homologar · só o que deixa o módulo seguro' },
   { ve: 'Encerrando · não desconecte' },
 ]
@@ -102,10 +102,10 @@ export default [
   { ve: 'Trocar recarrega os ativos e o pacote desta unidade.' },
   { ve: 'Trocar de empresa' },   // o herói tem três empresas: a folha dele tem o Trocar de empresa (decisão 37, revista; o quadro da T04/14)
   { toca: 'Garagem Ibura' },
-  { ve: 'A sessão de configuração do M2C-0417 é encerrada antes da troca, sem homologar.' },
-  { ve: 'O que já foi gravado fica no módulo.' },
+  { ve: 'A sessão de configuração do M2C-0417 é encerrada antes da troca, sem terminar a instalação.' },
+  { ve: 'O que já foi enviado fica no módulo.' },
   { toca: 'Cancelar' },
-  { naoVe: 'é encerrada antes da troca, sem homologar.' },
+  { naoVe: 'é encerrada antes da troca, sem terminar a instalação.' },
   { ve: 'Trocar recarrega os ativos e o pacote desta unidade.' },
   { toca: 'Garagem Ibura' },
   { toca: 'Encerrar a sessão e trocar' },

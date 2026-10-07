@@ -124,7 +124,7 @@ export default [
   { quieto: true },
   { toca: 'E-MAIL', naoAnima: [MIOLO] },                       // o canal só marca: nada troca de quadro
   { dorme: 200 },
-  { toca: 'MENSAGEM', naoAnima: [MIOLO] },
+  { toca: 'TELEFONE', naoAnima: [MIOLO] },
   { dorme: 200 },
   { toca: 'Voltar ao login', anima: [MIOLO, RODAPE] },
   { chega: 'T01', momento: null },
@@ -132,6 +132,11 @@ export default [
   { dorme: 200 },
   { quieto: true },                                             // o aviso volta com o quadro, sem esmaecer de novo
   { toca: 'Esqueci a senha', anima: [MIOLO, RODAPE] },
+  { dorme: 200 },
+  // a rodada 3: o telefone completo liga o Enviar o código, no mesmo quadro (a 02 → a 20)
+  { digita: '81987654321', em: 'Telefone' },
+  { chega: 'T01', momento: '20-momento-telefone-no-formato-certo' },
+  { naoAnima: [MIOLO] },
   { dorme: 200 },
   // ── T01·5 · o cronômetro: o número troca no lugar, 1 s por segundo, e nada se move ──
   { toca: 'Enviar o código', anima: [MIOLO, RODAPE] },
@@ -174,7 +179,7 @@ export default [
     { digita: '482911', em: 'Digite o código' },
     { dorme: 200 },
     { toca: 'Confirmar', anima: [TEXTO], naoAnima: [MIOLO] },
-    { ve: 'Código não confere' },
+    { ve: 'Código inválido' },
     { dorme: 200 },
     { toca: 'Tentar de novo', anima: [TEXTO], naoAnima: [MIOLO, ...ROXO] },
     { dorme: 200 },
@@ -207,7 +212,7 @@ export default [
   { dorme: 200 },
   // o código errado: o título, o cartão e as células trocam no lugar, e só o texto do primário esmaece
   { toca: 'Confirmar', anima: [TEXTO], naoAnima: [MIOLO] },
-  { ve: 'Código não confere' },
+  { ve: 'Código inválido' },
   { dorme: 200 },
   { toca: 'Tentar de novo', anima: [TEXTO], naoAnima: [MIOLO, ...ROXO] },   // o Digite o código apagado não fica com o roxo
   { desligado: 'Digite o código' },
@@ -262,6 +267,8 @@ export default [
   { quieto: true },
   { toca: 'Esqueci a senha' },
   { quieto: true },
+  { digita: '81987654321', em: 'Telefone' },
+  { chega: 'T01', momento: '20-momento-telefone-no-formato-certo' },
   { toca: 'Enviar o código' },
   { quieto: true },
   { ve: '9:59', entre: [600, 1400] },

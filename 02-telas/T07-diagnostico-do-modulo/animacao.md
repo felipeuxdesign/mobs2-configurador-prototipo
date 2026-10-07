@@ -10,7 +10,7 @@ Vale o `03-design-system/movimento.md`. Entre telas, só o conteúdo esmaece em 
 | linha do módulo ou da CAN | a leitura chega | o poço troca pro estado — check, informação ou falha — e o valor aparece no lugar · 600ms por linha, também nos sinais da CAN no `Ler de novo` | 150ms | esmaece | troca direta, mesmo ritmo |
 | contador do título | cada linha que fecha certa | a contagem sobe no lugar, ao lado do título — `4 de 7` na ref. 11 | — | — | igual |
 | aviso da trava | a sétima linha fecha na trava | o aviso esmaece no lugar e empurra o bloco do módulo pra baixo | 150ms | desacelera | aparece |
-| sinais da CAN ao vivo | a CAN lida, com o motor ligado (ref. 01) | rotação, temperatura, consumo e alternador trocam o número no lugar a cada leitura, pela lista `leituras` do mock, **sem transição** · velocidade, hodômetro, combustível e ré ficam parados — o ônibus está parado | 1s | — | param no último valor · parados também no print, na coluna do palco e no `Ler de novo` |
+| sinais da CAN ao vivo | a CAN lida, com o motor ligado (ref. 01) | rotação, temperatura, consumo e alternador trocam o número no lugar a cada leitura, pela lista `leituras` do mock, **sem transição** · hodômetro e combustível ficam parados — o ônibus está parado | 1s | — | param no último valor · parados também no print, na coluna do palco e no `Ler de novo` |
 
 - no protótipo (o pacote 9): a CAN ao vivo lê a lista `leituras` de cada sinal no mock, uma por segundo (`ritmos.js` · `canAoVivoMs`), e percorre a lista em ordem; o número troca sem transição (a peça não esmaece quando só o valor muda) · com reduzir movimento, no print, num estado da coluna e no `Ler de novo`, parados
 

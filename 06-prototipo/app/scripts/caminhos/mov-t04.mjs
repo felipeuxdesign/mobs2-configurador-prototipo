@@ -6,7 +6,7 @@
 // 200 e desce em 150, com o véu — no X, tocando fora, arrastando e no voltar (lei 20) —; o diálogo
 // nasce e some em 150, de 98% a 100%; e a folha que vira diálogo deixa o véu aceso, parado: a
 // folha desce em 150 enquanto o diálogo nasce, e no Cancelar o diálogo some enquanto a folha sobe
-// de novo em 200 (C12·27, C12·43); no Encerrar sem homologar?, só o pedaço novo do véu, em cima,
+// de novo em 200 (C12·27, C12·43); no Encerrar antes de terminar?, só o pedaço novo do véu, em cima,
 // esmaece. Os toques que levam a outra tela esmaecem o conteúdo dela em 150, e o topo troca
 // direto (C12·2, C12·3). Pela URL, no palco, num estado e no print, o menu abre parado; com
 // reduzir movimento, tudo direto.
@@ -116,7 +116,7 @@ export default [
   { dorme: 300 },
   { toca: 'Fechar' },
   { dorme: 250 },
-  // o módulo → o Encerrar sem homologar?: o véu cresce pra cima da faixa, e só o pedaço novo esmaece
+  // o módulo → o Encerrar antes de terminar?: o véu cresce pra cima da faixa, e só o pedaço novo esmaece
   { toca: 'CONECTAR MÓDULO, M2C-0417', anima: [FOLHA_SOBE, VEU_SOBE] },
   { chega: 'T04', momento: '10-momento-folha-modulo-conectado' },
   { dorme: 300 },
@@ -133,11 +133,11 @@ export default [
   { chega: 'T04', momento: '11-momento-folha-ativo-da-sessao' },
   { dorme: 300 },
   { toca: 'Encerrar a sessão', anima: [FOLHA_DESCE, ...DIALOGO, PEDACO], naoAnima: VEU_PARADO },
-  { ve: 'Encerrar sem homologar?' },
+  { ve: 'Encerrar antes de terminar?' },
   { dorme: 250 },
   esc,
   { anima: [DIALOGO[0], VEU_SAI] },
-  { naoVe: 'Encerrar sem homologar?' },
+  { naoVe: 'Encerrar antes de terminar?' },
   { dorme: 250 },
   // ── o ENCERRAR da faixa (13, a prosa): o diálogo nasce em 150 com o véu, e some igual ──
   { toca: 'ENCERRAR', anima: [...DIALOGO, esmaece('ds-veu ds-veu-dialogo')], naoAnima: TOPO_PARADO },
@@ -262,7 +262,7 @@ export default [
   { ve: 'Trocar de empresa' },
   { dorme: 300 },
   { toca: 'Trocar de empresa', anima: [FOLHA_DESCE, ...DIALOGO], naoAnima: VEU_PARADO },
-  { ve: 'é encerrada antes da troca, sem homologar.' },
+  { ve: 'é encerrada antes da troca, sem terminar a instalação.' },
   { dorme: 250 },
   { quieto: true },
   { toca: 'Cancelar', anima: [DIALOGO[0], FOLHA_SOBE], naoAnima: VEU_PARADO },

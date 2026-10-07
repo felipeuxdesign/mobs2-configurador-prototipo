@@ -250,7 +250,7 @@
     "Porta aberta em movimento", "Ré acionada", "Botão de pânico", "Bateria baixa", "Entrada em cerca", "Saída de cerca"];
   /* As regiões são do ativo (ativoId). O tambemAtivos é a mesma cerca usada por outro ônibus da
      mesma garagem: o PCX-9A17 (a-03, a queda da T09/02 e 03) usa as do herói. O pacote conta
-     REGIÕES, não ônibus — a uo-01 continua com 4, e o herói com os 31 itens (gate da errata).
+     REGIÕES, não ônibus — a uo-01 continua com 4, e o herói com os 28 itens (30 no mock) (gate da errata).
      As regiões de um ativo: as do ativoId dele mais as em que ele está no tambemAtivos. */
   var CERCAS = {
     areas: [
@@ -328,7 +328,7 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
       nota: "confere em até 24 h", bloqueia: false }
   ];
 
-  /* Autoteste — as 8 assertivas canônicas (T13/T12). */
+  /* LEGADO · a lista de bancada de antes do retorno do PM (06/10) · NÃO aparece em tela: a T16 usa AUTOTESTE_ENCERRAMENTO (as sete), e a T12 mostra os três contadores */
   var AUTOTESTE_ASSERTIVAS = [
     "Posição GPS válida",
     "Ignição liga",
@@ -366,48 +366,47 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
         ],
         calibracao: { semeadas: [], puladas: [], nadaACalibrar: true },
         cicloDinamico: { completo: true, passos: ["Ignição ligada", "Rotação", "Cartão do motorista", "Ignição desligada"], confirmados: 4 },
-        checklist: { itens: 31, concluidos: 31 },
-        autoteste: { assertivas: 8, passaram: 8 },
+        checklist: { itens: 28, concluidos: 28 }, autoteste: { aprovadas: 5, naoSeAplicam: 1, pendentes: 1 },
         recebimento: { confirmado: true, hora: "11:47" }
       } },
     { id: "i-02", ativoId: "a-03", moduloSerial: "M2C-0312", diasAtras: 1,  hora: "16:05",
       estado: "aguardando-validacao", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "31/31", autoteste: "8/8", recebimento: "confirmado" } },
+      resumo: { blocos: "6/6", checklist: "28/28", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado" } },
     { id: "i-03", ativoId: "a-12", moduloSerial: "M2C-0402", diasAtras: 2,  hora: "10:22",
       estado: "aguardando-validacao",
       ressalva: { item: "Fixação da antena", justificativa: "Suporte original quebrado — fixada com abraçadeira reforçada" },
-      resumo: { blocos: "6/6", checklist: "31/31", autoteste: "8/8", recebimento: "confirmado" } },
+      resumo: { blocos: "6/6", checklist: "28/28", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado" } },
     { id: "i-04", ativoId: "a-19", moduloSerial: "M2C-0466", diasAtras: 4,  hora: "09:40",
       estado: "aprovada",
       ressalva: { item: "Foto do painel", justificativa: "Vidro do painel trincado — foto lateral autorizada pelo gestor" },
-      resumo: { blocos: "6/6", checklist: "31/31", autoteste: "8/8", recebimento: "confirmado" } },
+      resumo: { blocos: "6/6", checklist: "28/28", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado" } },
     { id: "i-05", ativoId: "a-14", moduloSerial: "M2C-0423", diasAtras: 6,  hora: "15:12",
       estado: "reprovada", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "31/31", autoteste: "7/8", assertivaFalhou: "Ignição desliga", recebimento: "confirmado" } },
+      resumo: { blocos: "6/6", checklist: "28/28", autoteste: "4 aprovadas · 1 não se aplica · 1 pendente", assertivaFalhou: "Contadores", recebimento: "confirmado" } },
     { id: "i-06", ativoId: "a-06", moduloSerial: "M2C-0362", diasAtras: 9,  hora: "13:58",
       estado: "falha-recebimento-reconhecida", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "31/31", autoteste: "8/8", recebimento: "não confirmado — falha reconhecida pelo técnico" } },
+      resumo: { blocos: "6/6", checklist: "28/28", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "não confirmado — falha reconhecida pelo técnico" } },
     { id: "i-07", ativoId: "a-16", moduloSerial: "M2C-0438", diasAtras: 13, hora: "08:31",
       estado: "aprovada-reprocessamento", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "31/31", autoteste: "8/8", recebimento: "confirmado após reprocessamento" } },
+      resumo: { blocos: "6/6", checklist: "28/28", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado após reprocessamento" } },
     { id: "i-08", ativoId: "a-02", moduloSerial: "M2C-0301", diasAtras: 17, hora: "14:03",
       estado: "aprovada", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "31/31", autoteste: "8/8", recebimento: "confirmado" } },
+      resumo: { blocos: "6/6", checklist: "28/28", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado" } },
     { id: "i-09", ativoId: "a-20", moduloSerial: "M2C-0472", diasAtras: 22, hora: "10:47",
       estado: "aguardando-validacao", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "31/31", autoteste: "8/8", recebimento: "confirmado" } },
+      resumo: { blocos: "6/6", checklist: "28/28", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado" } },
     { id: "i-10", ativoId: "a-09", moduloSerial: "M2C-0371", diasAtras: 27, hora: "16:55",
       estado: "aprovada", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "31/31", autoteste: "8/8", recebimento: "confirmado" } },
+      resumo: { blocos: "6/6", checklist: "28/28", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado" } },
     { id: "i-11", ativoId: "a-13", moduloSerial: "M2C-0411", diasAtras: 33, hora: "09:18",
       estado: "aprovada", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "31/31", autoteste: "8/8", recebimento: "confirmado" } },
+      resumo: { blocos: "6/6", checklist: "28/28", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado" } },
     { id: "i-12", ativoId: "a-22", moduloSerial: "M2C-0480", diasAtras: 39, hora: "11:36",
       estado: "aprovada", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "31/31", autoteste: "8/8", recebimento: "confirmado" } },
+      resumo: { blocos: "6/6", checklist: "28/28", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado" } },
     { id: "i-13", ativoId: "a-17", moduloSerial: "M2C-0445", diasAtras: 44, hora: "15:29",
       estado: "aprovada", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "31/31", autoteste: "8/8", recebimento: "confirmado" } }
+      resumo: { blocos: "6/6", checklist: "28/28", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado" } }
   ]);
 
   /* ── C22 · T12 · A REGRA dos três critérios — não é campo por instalação.
@@ -637,8 +636,8 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
       saida: "escalonar ao gestor: é erro de projeto de instalação",
       meioAtual: "sem fio", /* a configuração é só sem fio (retorno do PM, 06/10) */
       consumidores: ["leitor serial", "sensor de porta"] },
-    "can-fora-esperado": { ativoId: "a-02", sinal: "velocidade",
-      lido: "0 km/h", esperado: "maior que zero com o motor ligado" },
+    "can-fora-esperado": { ativoId: "a-02", sinal: "temperatura",
+      lido: "215 °C", esperado: "-40 a 120 °C" } /* a velocidade não aparece fora da T10 (retorno do PM, 06/10) */,
     "grandeza-indisponivel": { modeloAtivoId: "ma-02", grandeza: "horímetro",
       motivo: "A leitura desta linha não fornece horímetro. Use o valor do painel na próxima revisão." },
     /* protótipo C11 (T11) · o que a T11 lê destes dois casos (G9, T11-V1,
@@ -681,7 +680,7 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
        volta zerado. Mesmo ativo, mesma consequência: bloqueia a homologação,
        não o encerramento (HU-T16-5). */
     "autoteste-falhando": { instalacaoId: "i-05", ativoId: "a-14",
-      assertiva: "Ignição desliga", passaram: 7, total: 8,
+      falhou: "contadores", aprovadas: 4, naoSeAplicam: 1, pendentes: 1, /* T16/05 · as sete do encerramento, em três contadores (retorno do PM, 06/10) */
       efeito: "bloqueia a homologação, não o encerramento",
       noEncerramento: { assertiva: "contadores", lido: "0 km",
         causa: "o módulo voltou com a leitura zerada" } },
@@ -752,7 +751,7 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
      lê GPS pela CAN, ma-03 (máquina, gateway) não tem Velocidade nem
      Combustível. `lido` é a leitura NOMINAL do sinal estático com o módulo
      são; os casos abaixo sobrescrevem por ativo.
-     ⚠ casos["can-fora-esperado"] (velocidade 0 km/h) é sinal DINÂMICO: não
+     ⚠ casos["can-fora-esperado"] (era a velocidade; desde o retorno do PM é a temperatura, 215 °C) é sinal: não
      pode reprovar em T07 — fica intacto, reservado ao ciclo dinâmico (T14). */
   /* C11.9 · o DOMÍNIO é a categoria, o SINAL é a grandeza: "Velocidade →
      Velocidade" e "Motor/Rotação → Rotação" repetiam (craft §2). Movimento e
@@ -768,7 +767,6 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
       { id: "ignicao",     dominio: "Geral",            rotulo: "Ignição",              fase: "estatico", esperado: "ligada",            lido: "ligada" },
       { id: "hodometro",   dominio: "Geral",            rotulo: "Hodômetro",            fase: "estatico", esperado: null,                lido: "184.320 km" },
       { id: "alternador",  dominio: "Sistema elétrico", rotulo: "Tensão do alternador", fase: "dinamico", esperado: "13,5 a 14,8 V", soInforma: true },
-      { id: "velocidade",  dominio: "Movimento",        rotulo: "Velocidade",           fase: "dinamico", esperado: "acima de 0 km/h" },
       { id: "satelites",   dominio: "GPS",              rotulo: "Satélites",            fase: "estatico", esperado: "4 ou mais",         lido: "9" },
       { id: "posicao",     dominio: "GPS",              rotulo: "Posição",              fase: "estatico", esperado: "fixa",              lido: "fixa" },
       { id: "rotacao",     dominio: "Motor",            rotulo: "Rotação",              fase: "dinamico", esperado: "600 a 2.500 rpm" },
@@ -779,7 +777,6 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
     "ma-02": [
       { id: "ignicao",     dominio: "Geral",            rotulo: "Ignição",              fase: "estatico", esperado: "ligada",            lido: "ligada" },
       { id: "hodometro",   dominio: "Geral",            rotulo: "Hodômetro",            fase: "estatico", esperado: null,                lido: "96.410 km" },
-      { id: "velocidade",  dominio: "Movimento",        rotulo: "Velocidade",           fase: "dinamico", esperado: "acima de 0 km/h" },
       { id: "rotacao",     dominio: "Motor",            rotulo: "Rotação",              fase: "dinamico", esperado: "600 a 2.200 rpm" },
       { id: "temperatura", dominio: "Motor",            rotulo: "Temperatura",          fase: "estatico", esperado: "−40 a 120 °C",      lido: "29 °C" },
       { id: "oleo",        dominio: "Motor",            rotulo: "Temperatura do óleo",  fase: "estatico", esperado: "−40 a 150 °C",      lido: "27 °C" },
@@ -885,7 +882,7 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
   };
   /* O módulo NÃO guarda versão (o PM, decisão 49): a cadeia declara o CONTEÚDO de cada bloco,
      com as mesmas palavras da conferência (T11) — é o que a T09 mostra em cada elo. */
-  CADEIA.conteudo = { ativo: "OF-1621", cercas: "4 regiões", leitor: "sem fio", eventos: "intervalo 30 s", conexao: "m2m.mobs2.br" };
+  CADEIA.conteudo = { ativo: "OF-1621", cercas: "4 regiões", leitor: "sem fio", eventos: "intervalo 30 s", conexao: "o servidor da Mobs2" }; /* sem endereço em tela (retorno do PM, 06/10) */
   CADEIA.leituraFinal = { redeDoModulo: "Mobs2 dados", servidor: "principal" };
   CASOS["bloco-recusado"] = { ativoId: "a-02", moduloSerial: "M2C-0301", bloco: "cercas",
     motivo: "O módulo não confirmou os pontos das áreas." };
@@ -982,7 +979,7 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
   };
 
   /* C17 · T13 — O CHECKLIST DE HOMOLOGAÇÃO, tudo ADITIVO (âncoras do gate
-     intactas). O que entra aqui é a LISTA e a NATUREZA dos 31 itens — e nada
+     intactas). O que entra aqui é a LISTA e a NATUREZA dos 30 itens — e nada
      além: nenhum valor lido é declarado, porque todos já existem na obra
      (cadeia, cercas, identificadores, presets, calibração, fila). Item que
      precisasse de número novo seria item inventado.
@@ -1141,8 +1138,7 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
      ⚠ Campo NOVO em vez de preencher `lido`: `lido` está documentado como a
      leitura do sinal ESTÁTICO, e T07 deriva a fase estática dele — preencher
      `lido` no dinâmico mudaria T07, que está fora deste cycle. Um campo, um
-     consumidor (T14). O caso `can-fora-esperado` (a-02, velocidade 0 km/h)
-     sobrepõe estes valores: é ele que finalmente ganha consumidor, reservado
+     consumidor (T14). O caso `can-fora-esperado` (a-02, a temperatura fora) sobrepõe estes valores: é ele que finalmente ganha consumidor, reservado
      ao ciclo dinâmico desde o C11. */
   var LIDO_DINAMICO = {
     "ma-01": { alternador: "14,1 V", re: "acendeu", rotacao: "980 rpm", consumo: "1,8 L/h" }, /* parado, em marcha lenta (decisão 54) */
@@ -1172,8 +1168,7 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
      cartão), NÃO é o herói, e é Várzea — sem troca de UO. Custo declarado:
      M2C-0312 perde o link na checagem 6 de T05 (reconecta com um toque) e
      cai uma vez no bloco Leitor de T09 (retoma com um toque); nenhum dos
-     dois trava o ciclo. Descartados: a-01 (herói), a-02 (já carrega a
-     velocidade fora do esperado), a-04 (fica com o evento sem resposta —
+     dois trava o ciclo. Descartados: a-01 (herói), a-02 (já carrega a temperatura fora do esperado), a-04 (fica com o evento sem resposta —
      duas falhas na mesma tela não se leem), a-05/a-10 (travam em T05),
      a-06 (não selecionável), a-07/a-08 (sem módulo), a-09 (ma-02, e é o
      ativo que fecha a instalação). */
@@ -1182,7 +1177,7 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
      (constante DECLARADA, não moeda): a 1ª tentativa estoura, a 2ª confirma
      — e é essa a razão de campo do `Disparar novamente`, o técnico ainda no
      veículo resolvendo na hora em vez de descobrir no relatório dias depois.
-     ⚠ a-04 e não a-02: a velocidade fora do esperado já é de a-02, e prazo
+     ⚠ a-04 e não a-02: a temperatura fora do esperado já é de a-02, e prazo
      estourado + sinal reprovado na mesma tela não se leem limpos. a-04 é
      ma-01, Várzea, e o conflito de pinos dele é o RESOLVÍVEL — T06 oferece o
      leitor sem fio e o fluxo segue. */
@@ -1401,11 +1396,19 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
       /* C4.1 (D-21) · o destino da recuperação e a senha nova nascem
          PREENCHIDOS na tela — dado é dado, vive aqui, não no JSX (Lei 8).
          contato: e-mail e telefone cadastrados do usuário; o DDI aponta
-         para a entrada de ddis (mascarados em tela: r•••••@… · •••••-8675).
+         para a entrada de ddis · NUNCA aparecem em tela, nem mascarados: o técnico digita o dado, e o servidor confere (retorno do PM, 06/10).
          novaSenha: atende os 6 requisitos (≥10, caixa mista, número,
          especial, sem sequência nem o usuário) e difere da senha atual. */
       contato: { email: "r.vieira@atlsul.com.br", telefone: { ddi: "+55", numero: "81987158675" } },
       recuperacao: {
+      ddiPadrao: "+55", /* o seletor abre com o Brasil escolhido, e tem busca */
+      respostaEnvio: "Se houver conta com este dado, o código foi enviado.", /* sempre a mesma, exista a conta ou não */
+      mensagemCodigo: "Código inválido ou vencido", /* a mesma pro errado e pro vencido · o texto é leitura nossa */
+      textoFixo: "O dado precisa ser o mesmo do cadastro.",
+      /* protótipo · rodada 3 (D-21): o que o técnico digita na primeira etapa, como as
+         referências desenham — o telefone incompleto da 02 (faltam 2 números), o completo
+         da 20 e o e-mail da 21. Não é o contato do cadastro: o servidor confere. */
+      digitado: { telefoneIncompleto: "819876543", telefone: "81987654321", email: "rafael.vieira@atlsul.com.br" },
         codigo: "482913",
         novaSenha: "Garagem!Ibura27",
         limites: { validadeMin: 10, tentativas: 3, reenvioSeg: 60, tetoPorHora: 3 },
@@ -1438,10 +1441,14 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
        é fixa. Três países com máscaras E comprimentos distintos, para a
        troca de DDI ter efeito visível (reaplica e avisa); a quantidade de
        dígitos deriva da contagem de # na máscara. */
+    /* protótipo · rodada 3: a sigla do país, que o seletor mostra antes do código (T01/02, 20: BR) */
     ddis: [
-      { codigo: "+55",  pais: "Brasil",    mascara: "(##) #####-####" },
-      { codigo: "+595", pais: "Paraguai",  mascara: "### ### ###" },
-      { codigo: "+54",  pais: "Argentina", mascara: "## ####-####" }
+      { codigo: "+55",  pais: "Brasil",    sigla: "BR", mascara: "(##) #####-####" },
+      { codigo: "+595", pais: "Paraguai",  sigla: "PY", mascara: "### ### ###" },
+      { codigo: "+54",  pais: "Argentina", sigla: "AR", mascara: "## ####-####" },
+      { codigo: "+56",  pais: "Chile",     sigla: "CL", mascara: "# #### ####" },
+      { codigo: "+351", pais: "Portugal",  sigla: "PT", mascara: "### ### ###" },
+      { codigo: "+598", pais: "Uruguai",   sigla: "UY", mascara: "## ### ###" }
     ],
 
     modelosAtivo: MODELOS_ATIVO,

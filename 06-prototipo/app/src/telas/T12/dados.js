@@ -171,6 +171,7 @@ function diagnosticoDe(e) {
 const ateUltimo = (nomes) => (nomes.length > 1 ? `${nomes.slice(0, -1).join(', ')}${TX.e}${nomes.at(-1)}` : nomes[0])
 function calibracaoDe(i) {
   const cal = i.etapas.calibracao
+  if (cal.nadaACalibrar) return TX.nadaACalibrar // a rodada 3: o ônibus do herói não tem o que calibrar
   if (cal.grandezas) return ateUltimo(cal.grandezas)
   const modelo = M.ativos.find((a) => a.id === i.ativoId)?.modeloAtivoId
   const ids = M.calibracao.porModelo[modelo]?.calibraveis ?? []
@@ -190,23 +191,29 @@ export function linhasDoDetalhe(i) {
   if (e) {
     const relidos = e.cadeia.filter((b) => b.readBack === 'confirmado').length
     const diag = diagnosticoDe(e)
+    const a = e.autoteste
     return [
       contagem(E.diagnostico, diag.conferiram, diag.linhas),
-      { titulo: E.configuracao, valor: TX.blocosRelidos(relidos), ok: relidos === e.cadeia.length },
+      { titulo: E.configuracao, valor: TX.passos(relidos), ok: relidos === e.cadeia.length },
       { titulo: E.calibracao, valor: calibracaoDe(i), ok: true },
       contagem(E.ciclo, e.cicloDinamico.confirmados, e.cicloDinamico.passos.length),
       contagem(E.checklist, e.checklist.concluidos, e.checklist.itens),
-      contagem(E.autoteste, e.autoteste.passaram, e.autoteste.assertivas),
+      autoteste(TX.contadores(a.aprovadas, a.naoSeAplicam, a.pendentes), a.falhou),
     ]
   }
   const r = i.resumo
-  const [bf, bt] = par(r.blocos), [cf, ct] = par(r.checklist), [af, at] = par(r.autoteste)
+  const [bf, bt] = par(r.blocos), [cf, ct] = par(r.checklist)
   return [
-    bf === bt ? { titulo: E.configuracao, valor: TX.blocosRelidos(bf), ok: true } : contagem(E.configuracao, bf, bt),
+    bf === bt ? { titulo: E.configuracao, valor: TX.passos(bf), ok: true } : contagem(E.configuracao, bf, bt),
     contagem(E.checklist, cf, ct),
-    // a assertiva que falhou (i-05) embaixo do nome, como a causa da reprovada
-    contagem(E.autoteste, af, at, af < at && r.assertivaFalhou ? { causa: r.assertivaFalhou } : {}),
+    // os três contadores vêm escritos no resumo do mock; a assertiva que falhou (i-05), como a causa
+    autoteste(r.autoteste, r.assertivaFalhou),
   ]
+}
+// o autoteste (a rodada 3 do retorno do PM, T12/01, 04, 05): os três contadores embaixo do
+// nome, sem valor à direita — a linha do porquê, como o que o servidor recebeu
+function autoteste(contadores, falhou) {
+  return { titulo: TX.etapas.autoteste, porque: contadores, ok: !falhou, ...(falhou ? { causa: falhou } : {}) }
 }
 
 // ── o mundo de cada estado da coluna, pela receita (receitas.js) ──

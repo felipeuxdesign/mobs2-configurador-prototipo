@@ -28,7 +28,7 @@
 //   quadro da referência em que o passo está (calibracao.js, quadroDe).
 // · Os estados da coluna, parados, pelo dado da receita (calibracao.js): o 02
 //   e o 03 no a-09, o 04 no a-22 (G21), o 10 no caso releitura-nao-confere.
-// · ENCERRAR, antes de homologar, abre o diálogo Encerrar sem homologar? por
+// · ENCERRAR, antes de homologar, abre o diálogo Encerrar antes de terminar? por
 //   cima da tela (decisão 36), que leva à sessão abortada da T16 (G23); depois,
 //   o encerramento. O voltar do sistema é o Voltar ao menu em todo passo —
 //   também onde o link do rodapé é o Pular (tela.md) —, e no semear, nada.
@@ -261,7 +261,7 @@ function Calibracao({ momento, estado: est }) {
   // ── os toques ──
   const mudaPasso = (x, mudanca) => setFluxo((f) => ({ ...f, passos: { ...f.passos, [x]: { ...f.passos[x], ...mudanca } } }))
   // o ENCERRAR (decisão 36, src/estado/encerrar.jsx): antes de homologar, o diálogo
-  // Encerrar sem homologar? por cima desta tela; depois de homologar, direto, pra T16
+  // Encerrar antes de terminar? por cima desta tela; depois de homologar, direto, pra T16
   const enc = useEncerrar()
   const focar = (v) => setFluxo((f) => (f.focado === v ? f : { ...f, focado: v }))
   function semear() {

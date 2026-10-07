@@ -12,8 +12,8 @@ Comparar o que o módulo tem gravado com o que o cadastro manda — em linguagem
 
 ## O que se toca
 
-- as linhas: **Cercas, APN, Extended ID, Eventos e Leitor** · as cercas contam regiões (decisão 50) · a APN aparece (decisão 51)
-- o **Extended ID é só leitura**, com o ícone de informação: o app mostra os cartões e iButtons que estão no módulo, e não grava (decisão 45) · o contador conta as quatro que se comparam
+- as linhas: **Cercas, Rede do módulo, Eventos e Leitor** · as cercas contam regiões (decisão 50) · a rede do módulo aparece (decisão 51)
+- o Extended ID **saiu** no retorno do PM (06/10): cartão é assunto da plataforma web · o contador conta as quatro que se comparam
 - `Corrigir as cercas` → T09, a manutenção, com **o primeiro bloco que diverge, na ordem da cadeia** — um bloco por vez (decisão 53)
   - no protótipo · a nossa versão desta linha, antes desta entrega: `Corrigir as N divergências` levava à cadeia da T09, a de sempre, que regravava os seis blocos — a T09 não tinha desenho da cadeia só dos divergentes (G25). Com a decisão 53, sai: o `Corrigir` reenvia um bloco só, e o rótulo diz qual
   - no protótipo (o pacote 2, D2): o `Corrigir` e o `Revisar` passam à T09 o modo e o bloco pelo estado único — `etapas.ativo.modo = 'manutencao'` e `etapas.ativo.bloco` —, e a T09 abre no escolher o bloco (`08`) com ele escolhido; `Reenviar …` liga a cadeia curta (`09`), e o `Voltar ao menu` dela leva ao menu, de onde o `Conferir configuração` reabre a conferência, que pede o próximo. A conferência guarda os blocos já reenviados (`etapas.conferencia.reenviados`) e lê o que a T09 acabou de reenviar (`etapas.cadeia.reenviado`, que ela limpa a cada pedido). **A mudança mínima na T09, nomeada:** ela lê o bloco do estado (uma linha) e ganha o texto do reenvio do leitor, dos eventos e da conexão — *Reenviar o leitor*, *Reenviando só o leitor.*, *apaga só o leitor · o resto fica como está*, e os dos eventos e da conexão —, pela gramática dos das cercas, sem referência; com texto, essas três linhas do `08` deixam de ficar inertes (o `Ativo` continua). A volta passa pelo menu, e não direto à conferência: o fim da cadeia curta só tem o `Voltar ao menu` (padrão, pro arquiteto)
@@ -35,7 +35,7 @@ Comparar o que o módulo tem gravado com o que o cadastro manda — em linguagem
   - no protótipo · a coluna do nome: a folha 4 e as cinco referências medem 96 (o *Extended ID*), e o token `--conferencia-nome` diz 74 — os tokens não mudam neste pacote. O nome fica do tamanho dele, numa linha, nunca menos que o token, e o valor, alinhado à direita, cai no mesmo pixel (desvio nomeado; pro arquiteto: o token a 96)
 - o conteúdo que o app não reconhece (`01`, só pela coluna): o caso `indice-nao-classificado`, no par da semente — as linhas conferem, com o check, e o cabeçalho diz *NÃO BATE COM O CADASTRO · 1 a mais*: o 1 é o conteúdo fora de todos os blocos, a posição que o caso traz; a nota diz o que é; o rodapé é o do quadro sem divergência: `Reenviar os 5 blocos` e `Apenas registrar o diagnóstico`
 - o `ENCERRAR` é o de toda tela com sessão: antes de homologar, a sessão abortada da T16 (G23); depois, o encerramento
-  - **no protótipo** (decisão 36): antes de homologar, o ENCERRAR abre o diálogo *Encerrar sem homologar?* por cima desta tela, e o `Continuar a instalação` deixa o técnico nela — a resposta do arquiteto de 26/09 · o `Encerrar sem homologar` roda os 4 passos da T16 · a conferência continua correndo embaixo do diálogo, porque o técnico ainda não decidiu nada (padrão do protótipo, pro arquiteto; a alternativa é pausar)
+  - **no protótipo** (decisão 36): antes de homologar, o ENCERRAR abre o diálogo *Encerrar antes de terminar?* por cima desta tela, e o `Continuar a instalação` deixa o técnico nela — a resposta do arquiteto de 26/09 · o `Encerrar mesmo assim` roda os 4 passos da T16 · a conferência continua correndo embaixo do diálogo, porque o técnico ainda não decidiu nada (padrão do protótipo, pro arquiteto; a alternativa é pausar)
 - o voltar do Android faz o mesmo que a saída do rodapé (`logica.md`): no `02` e na `05`, o `Voltar ao menu`; na `01`, o `Apenas registrar o diagnóstico`; na `00`, o link é o `Outras ações`, que não sai da tela, e ele não faz nada · com a folha *Outras ações* aberta (`03`), fecha a folha
 
 Corrigido no C11 pelas referências e pelas decisões do C0 (G1): a leitura ao abrir, o que diverge e o valor de cada linha, o que o `Só registrar` grava e o voltar. Na entrega do checklist: o par do que não bate, o 01 com os blocos conferindo e o *1 a mais*, o relógio que vira check ou xis e o veredito que espera a última linha. Na rodada 3 (decisão 53, pacote 2): as cinco linhas, com o Extended ID só leitura e fora da contagem, o `Corrigir` de um bloco por vez e o *revisar em seguida* (`05`); sai a versão ilegível (`04`), com a linha de condição e a legenda do arraste.
@@ -93,8 +93,8 @@ As diferenças da tela contra a folha viraram variante nomeada da peça (G11): o
 ## Histórias de usuário
 
 - **HU-T11-1** — A conferência compara o conteúdo de cada bloco — o módulo não guarda versão
-- **HU-T11-2** — Vejo as cercas, em regiões, a APN, os eventos e o leitor, cada um com o que está no módulo e no cadastro
-- **HU-T11-3** — O Extended ID — os cartões e iButtons gravados no módulo — aparece só pra leitura
+- **HU-T11-2** — Vejo as cercas, em regiões, a rede do módulo, os eventos e o leitor, cada um com o que está no módulo e no cadastro
+- **HU-T11-3** — ~~O Extended ID aparece só pra leitura~~ · saiu no retorno do PM (06/10): cartão é assunto da plataforma web
 - **HU-T11-4** — Corrigir reenvia um bloco por vez: o primeiro que diverge, na ordem da cadeia
 - **HU-T11-5** — Depois de reenviar um bloco, os que dependem dele ficam marcados *revisar em seguida*
 - **HU-T11-6** — As outras ações dizem o efeito: reenviar os 5 blocos ou apenas registrar o diagnóstico

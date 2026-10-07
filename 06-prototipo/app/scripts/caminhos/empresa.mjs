@@ -195,8 +195,8 @@ export default [
   ...A_FOLHA,
   { toca: 'Trocar de empresa' },
   { chega: 'T04', momento: FOLHA },
-  { ve: 'é encerrada antes da troca, sem homologar.' },
-  { ve: 'O que já foi gravado fica no módulo.' },
+  { ve: 'é encerrada antes da troca, sem terminar a instalação.' },
+  { ve: 'O que já foi enviado fica no módulo.' },
   { ve: 'Encerrar a sessão e trocar' },
   // o Cancelar fecha o diálogo e volta à folha, com a sessão aberta
   { toca: 'Cancelar' },
@@ -207,7 +207,7 @@ export default [
   { ve: 'Encerrar a sessão e trocar' },
   { toca: 'Encerrar a sessão e trocar' },
   { chega: 'T16', momento: '03-momento-encerrando-sem-homologar', ms: 1000 },
-  { naoVe: 'Encerrar sem homologar?', ms: 300 },
+  { naoVe: 'Encerrar antes de terminar?', ms: 300 },
   { ve: 'Sem homologar · só o que deixa o módulo seguro' },
   // depois dos 4 passos, a T02/07, com a atual marcada (MUDA: ia ao 05)
   ...NO_07.map((p) => (p.chega ? { ...p, ms: 20000 } : p)),

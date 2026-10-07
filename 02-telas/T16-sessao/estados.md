@@ -5,13 +5,13 @@
 | Referência | Tipo | Como se chega · o que causa | Caso do mock |
 |---|---|---|---|
 | `00-tela` | tela | a entrada da tela | sessão M2C-0417 + RKT-8H42 homologada |
+| `01-momento-reiniciando-o-modulo` | momento | o passo do reinício: automático, sem ação do técnico | `autotesteEncerramento` |
+| `02-momento-instalacao-homologada` | momento | o autoteste passa: a instalação homologada, com horário | `autotesteEncerramento` |
 | `03-momento-encerrando-sem-homologar` | momento | ENCERRAR antes de homologar | derivado do fluxo |
 | `04-momento-encerrada-sem-homologar` | momento | os 4 passos terminam | derivado do fluxo |
-| `06-estado-sessao-interrompida` | estado | a sessão caiu e volta oferecida | `sessao-interrompida` |
-| `07-momento-autoteste-correndo` | momento | as assertivas acendem em ordem · 400ms cada | `autotesteAssertivas` |
-| `01-momento-reiniciando-o-modulo` | momento | o passo do reinício: automático, sem ação do técnico | `autotesteEncerramento` |
-| `02-momento-instalacao-homologada` | momento | o autoteste passa: a instalação homologada, com horário | `autotesteAssertivas` |
 | `05-estado-homologacao-bloqueada` | estado | uma assertiva falha: a homologação bloqueada | `autoteste-falhando` |
+| `06-estado-sessao-interrompida` | estado | a sessão caiu e volta oferecida | `sessao-interrompida` |
+| `07-momento-autoteste-correndo` | momento | as assertivas acendem em ordem · 400ms cada | `autotesteEncerramento` |
 | `08-momento-reconectando-no-reinicio` | momento | a conexão cai no reinício: reconectando, nunca falha | `autotesteEncerramento` |
 
 

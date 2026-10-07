@@ -236,7 +236,7 @@ export default [
   // passos, um a cada 600 ms, com o reinício automático, e o autoteste
   { toca: 'Encerrar sessão' },
   { chega: 'T16', momento: null },
-  { naoVe: 'Encerrar sem homologar?' },
+  { naoVe: 'Encerrar antes de terminar?' },
   { ve: 'Encerrar sessão' },
   { ve: 'Encerrando · não desconecte' },
   { ve: 'Contadores e estado' },

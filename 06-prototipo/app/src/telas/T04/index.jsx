@@ -96,7 +96,7 @@ export default function T04({ momento, estado: est }) {
 
   // O ENCERRAR da faixa e o Encerrar a sessão das folhas do módulo e do ativo
   // (decisão 36, src/estado/encerrar.jsx): antes de homologar, o diálogo
-  // Encerrar sem homologar? por cima do menu — o momento 13, que tem endereço:
+  // Encerrar antes de terminar? por cima do menu — o momento 13, que tem endereço:
   // a URL abre e fecha (G20), e o Continuar a instalação volta ao quadro do
   // menu. Depois de homologar, direto, pros passos do encerramento.
   const enc = useEncerrar({ aberto: sobre === 'encerrar', aoAbrir: () => abrir('encerrar'), aoFechar: fechar })
@@ -281,8 +281,8 @@ export default function T04({ momento, estado: est }) {
       <Dialogo titulo={deEmpresa ? 'Trocar de empresa' : 'Trocar de unidade'} primario="Encerrar a sessão e trocar"
         aoPrimario={() => trocarEncerrando(alvo)}
         saida="Cancelar" aoSair={() => setTrocarPara(null)} margem={20}>
-        <Frase>A sessão de configuração do <Destaque>{sessao?.moduloSerial}</Destaque> é encerrada antes da troca, sem homologar.</Frase>
-        <Frase>O que já foi gravado fica no módulo.</Frase>
+        <Frase>A sessão de configuração do <Destaque>{sessao?.moduloSerial}</Destaque> é encerrada antes da troca, sem terminar a instalação.</Frase>
+        <Frase>O que já foi enviado fica no módulo.</Frase>
       </Dialogo>
     )
   } else if (sobre === 'encerrar') {

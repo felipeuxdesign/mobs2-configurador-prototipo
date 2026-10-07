@@ -76,7 +76,7 @@ export default function T06({ momento, estado: est }) {
   const escolherOutro = () => { setEscolhido(null); setMarcado(null); ir('T06') }
   const voltarAoMenu = () => ir('T04')
   // o ENCERRAR (decisão 36, src/estado/encerrar.jsx): antes de homologar, o diálogo
-  // Encerrar sem homologar? por cima desta tela; depois de homologar, direto, pra T16
+  // Encerrar antes de terminar? por cima desta tela; depois de homologar, direto, pra T16
   const enc = useEncerrar()
 
   // a busca filtra ao digitar; a placa de um ônibus de outro pacote abre a trava dele (T06·5 a)

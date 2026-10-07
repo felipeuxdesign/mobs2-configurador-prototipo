@@ -8,7 +8,7 @@
 // antes de --folha-arraste-limite (56), volta, no subir da folha (200); passando,
 // fecha, no fechar da folha (150). O arraste que começa em cima de uma linha
 // tocável não toca nela: a Garagem Ibura não troca de unidade, o Encerrar a
-// sessão não encerra, o Conferir e reenviar não reenvia.
+// sessão não encerra, o Reenviar o código não reenvia, o Usar outro dado não volta.
 const volta = [{ prop: 'transform', ms: 200, em: 'ds-folha' }]
 const fecha = [{ prop: 'transform', ms: 150, em: 'ds-folha' }, { prop: 'opacity', ms: 150, em: 'ds-veu' }]
 const esc = { tecla: 'Escape' }
@@ -20,45 +20,45 @@ const abre = (endereco, folha, dentro) => [{ abre: endereco }, { ve: dentro }, {
 export default [
   // ── T01 · Não recebi o código (a folha de opções da recuperação) ──
   // esperando o reenvio (04): as linhas estão desabilitadas, e a folha arrasta igual
-  ...abre('?tela=T01&momento=04-momento-nao-recebi-o-codigo', 'Não recebi o código', 'Conferir e reenviar'),
+  ...abre('?tela=T01&momento=04-momento-nao-recebi-o-codigo', 'Não recebi o código', 'Reenviar o código'),
   { arrasta: 'Não recebi o código', dy: 6 },                       // menos que a folga: é toque, o painel fica
-  { ve: 'Conferir e reenviar' },
+  { ve: 'Reenviar o código' },
   { arrasta: 'Não recebi o código', dy: 40, anima: volta },        // antes do limite: volta
   { fica: 'T01', ms: 300 },
   { chega: 'T01', momento: '04-momento-nao-recebi-o-codigo' },
-  { ve: 'Mandar para o e-mail' },
+  { ve: 'Usar outro dado' },
   { arrasta: 'Não recebi o código', dy: 120, anima: fecha },       // passou do limite: fecha
   { chega: 'T01', momento: '03-momento-recuperar-digitar-codigo' },
-  { naoVe: 'Mandar para o e-mail' },
+  { naoVe: 'Usar outro dado' },
   // tocar fora
   { toca: 'Não recebi o código' },
   { chega: 'T01', momento: '04-momento-nao-recebi-o-codigo' },
-  { ve: 'Mandar para o e-mail' },
+  { ve: 'Usar outro dado' },
   { tocaFora: 'Não recebi o código', anima: fecha },
   { chega: 'T01', momento: '03-momento-recuperar-digitar-codigo' },
-  { naoVe: 'Mandar para o e-mail' },
+  { naoVe: 'Usar outro dado' },
   // o voltar
   { toca: 'Não recebi o código' },
-  { ve: 'Mandar para o e-mail' },
+  { ve: 'Usar outro dado' },
   esc,
   { chega: 'T01', momento: '03-momento-recuperar-digitar-codigo' },
-  { naoVe: 'Mandar para o e-mail' },
+  { naoVe: 'Usar outro dado' },
   // o xis
   { toca: 'Não recebi o código' },
-  { ve: 'Mandar para o e-mail' },
+  { ve: 'Usar outro dado' },
   { toca: 'Fechar' },
   { chega: 'T01', momento: '03-momento-recuperar-digitar-codigo' },
-  { naoVe: 'Mandar para o e-mail' },
+  { naoVe: 'Usar outro dado' },
   // reenvio liberado (11): as linhas acesas; o arraste que começa numa delas não reenvia
-  ...abre('?tela=T01&momento=11-momento-nao-recebi-reenvio-liberado', 'Não recebi o código', 'Conferir e reenviar'),
-  { arrasta: 'Não recebi o código', de: 'Conferir e reenviar', dy: 40, anima: volta },
+  ...abre('?tela=T01&momento=11-momento-nao-recebi-reenvio-liberado', 'Não recebi o código', 'Reenviar o código'),
+  { arrasta: 'Não recebi o código', de: 'Reenviar o código', dy: 40, anima: volta },
   { fica: 'T01', ms: 300 },
   { chega: 'T01', momento: '11-momento-nao-recebi-reenvio-liberado' },
-  { ve: 'Mandar para o e-mail' },
-  { arrasta: 'Não recebi o código', de: 'Mandar para o e-mail', dy: 120, anima: fecha },
-  { naoVe: 'Mandar para o e-mail' },
-  { naoVe: 'Mandamos outro para' },                                // não reenviou (T01/12 e 13)
-  { naoVe: 'Mandamos para r' },
+  { ve: 'Usar outro dado' },
+  { arrasta: 'Não recebi o código', de: 'Usar outro dado', dy: 120, anima: fecha },
+  { naoVe: 'Usar outro dado' },
+  { chega: 'T01', momento: '03-momento-recuperar-digitar-codigo' }, // não reenviou (T01/12 e 13)
+  { naoVe: 'Para onde mandamos' },                                 // nem voltou pra primeira etapa
 
   // ── T04 · Conta ──
   ...abre('?tela=T04&momento=05-momento-folha-conta', 'Conta', 'Sair da conta'),
@@ -111,11 +111,11 @@ export default [
   ...abre('?tela=T04&momento=10-momento-folha-modulo-conectado', 'Módulo conectado', 'TRAVADO NA SESSÃO'),
   { arrasta: 'Módulo conectado', de: 'Encerrar a sessão', dy: 40, anima: volta },
   { fica: 'T04', ms: 300 },
-  { naoVe: 'Encerrar sem homologar?' },
+  { naoVe: 'Encerrar antes de terminar?' },
   { arrasta: 'Módulo conectado', de: 'Encerrar a sessão', dy: 120, anima: fecha },
   { fica: 'T04', ms: 300 },
   { naoVe: 'TRAVADO NA SESSÃO' },
-  { naoVe: 'Encerrar sem homologar?' },
+  { naoVe: 'Encerrar antes de terminar?' },
   ...entendi,
   { toca: 'CONECTAR MÓDULO' },
   { ve: 'TRAVADO NA SESSÃO' },
@@ -144,12 +144,12 @@ export default [
 
   // ── com reduzir movimento, o painel segue o dedo igual, e a volta e o fecho são diretos ──
   { reduzir: true },
-  ...abre('?tela=T01&momento=04-momento-nao-recebi-o-codigo', 'Não recebi o código', 'Conferir e reenviar'),
+  ...abre('?tela=T01&momento=04-momento-nao-recebi-o-codigo', 'Não recebi o código', 'Reenviar o código'),
   { arrasta: 'Não recebi o código', dy: 40 },
   { quieto: true },
-  { ve: 'Mandar para o e-mail' },
+  { ve: 'Usar outro dado' },
   { arrasta: 'Não recebi o código', dy: 120 },
-  { naoVe: 'Mandar para o e-mail' },
+  { naoVe: 'Usar outro dado' },
   { chega: 'T01', momento: '03-momento-recuperar-digitar-codigo' },
   { reduzir: false },
 

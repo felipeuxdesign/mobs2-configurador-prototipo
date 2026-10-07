@@ -23,8 +23,11 @@ O que **não é de desenho** e o produto ainda decide. O protótipo seguiu o pad
 | T06 | no conflito de pinos com saída, `Usar leitor sem fio` resolve ali, ou a saída é reconectar o módulo sem fio? | **decidido no retorno do PM (06/10)**: a configuração é só sem fio, e o conflito é sempre erro de projeto de instalação — o estado com saída saiu (a rodada 2) |
 | T01 | o `Entrar` espera o servidor: qual é o tempo limite, e o que a tela diz quando ele estoura? | o protótipo espera 1,2 s (*Entrando…*, o primário desabilitado, como o semear da T10) e entra sempre; sem tempo limite, porque o servidor é de mentira (decisão do diretor, 27/09) |
 | T05 | o tempo-limite da conexão: quanto o app espera o módulo responder antes do *não respondeu*? | 15 s (o pacote 7) · o protótipo simula 1,2 s (*Conectando ao …*, o primário desligado) |
-| T01 | o celular e o e-mail do técnico aparecem mascarados antes do login? | mascarados: `(81) •••••-8675` e `r•••••@atlsul.com.br` |
-| T01 | a espera de 60 s do reenvio vale também pra trocar de canal? | vale: qualquer envio novo espera |
+| T01 | o celular e o e-mail do técnico aparecem mascarados antes do login? | **decidido no retorno do PM (06/10)**: não aparecem, nem mascarados · o técnico digita o dado, e o servidor confere (o contato fica no cadastro, nunca em tela) |
+| T01 | o texto da mensagem única do código | **leitura nossa**: *Código inválido ou vencido* · o PM pediu a mesma mensagem pro errado e pro vencido, sem dar o texto |
+| T01 | as pistas em volta da mensagem | **pergunta pro PM**: a mensagem é a mesma, mas o código errado ainda mostra *Ainda vale por 9:28*, e o vencido mostra o relógio em 0:00 · se a intenção for não dar pista nenhuma, sai uma linha |
+| T01 | o *Não recebi o código* sem o outro contato | **leitura nossa**: *Usar outro dado*, que volta pra primeira etapa, no lugar de mandar pro outro contato, que não aparece mais |
+| T01 | a espera de 60 s do reenvio vale também pro *Usar outro dado*? | vale: qualquer envio novo espera — o envio depois do *Usar outro dado* é um reenvio, e gasta um envio da hora |
 | T15 | depois de quanto tempo a fila parada vira notificação? | 30 min · desenhado: o aviso sobre o menu, T04/16 (o pacote 12) |
 | T06 | a frase da trava de fora do pacote é `Pertence a {unidade}.`: com a unidade do mock sai `Pertence a Pátio Caruaru.`, e a da referência já vinha sem crase (`a Garagem Ibura`, T06-N4). A frase leva o artigo da unidade (`à Garagem`, `ao Pátio`)? | o texto como está, com o nome da unidade do mock |
 | T13 | o mínimo de satélites do GPS | **decidido no retorno do PM (06/10)**: o critério é a antena (conectada, em curto, desconectada) · os satélites são informação |

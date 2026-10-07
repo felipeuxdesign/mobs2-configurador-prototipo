@@ -207,7 +207,7 @@ export default function T13({ momento, estado: est }) {
   const momentoDaFoto = (id, m = REF.responder) => (MOMENTO_DA_FOTO[id] ? (m === REF.responder ? MOMENTO_DA_FOTO[id] : null) : m)
   const quadroDasSecoes = (aberta, c = ck) => (aberta ? momentoDaSecao(aberta, c, homologada) : homologada ? REF.registrado : null)
   // o ENCERRAR (decisão 36, src/estado/encerrar.jsx): antes de homologar, o diálogo
-  // Encerrar sem homologar? por cima desta tela; depois de homologar, direto, pra T16
+  // Encerrar antes de terminar? por cima desta tela; depois de homologar, direto, pra T16
   const enc = useEncerrar({ homologada })
   const voltarAoMenu = () => ir('T04')
 

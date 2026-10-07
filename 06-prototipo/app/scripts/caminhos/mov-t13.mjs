@@ -16,7 +16,7 @@
 //     Fotografar o problema que desabilita no toque não mostra o roxo (C12·18);
 //   · o veredito (T13·5): no Finalizar, esmaece em 150 no lugar, a barra completa e o texto do
 //     primário troca no lugar;
-//   · o Encerrar sem homologar? nasce e some em 150 com o véu (a peça, C12·43);
+//   · o Encerrar antes de terminar? nasce e some em 150 com o véu (a peça, C12·43);
 //   · a ciência (T13·6) só se alcança num estado da coluna, parado: a prova é o espécime
 //     mov-check-ciencia (mov-check, C12·13).
 //   · a Seção D lida bloco a bloco (a rodada 1 do retorno do PM, a 38): ao entrar no checklist, ela
@@ -208,12 +208,12 @@ export default [
   { dorme: 400 },
   { quieto: true },
 
-  // ── o Encerrar sem homologar? (decisão 36): nasce e some em 150, com o véu ──
+  // ── o Encerrar antes de terminar? (decisão 36): nasce e some em 150, com o véu ──
   { toca: 'ENCERRAR', anima: [DIALOGO] },
-  { ve: 'Encerrar sem homologar?' },
+  { ve: 'Encerrar antes de terminar?' },
   { dorme: 250 },
   { toca: 'Continuar a instalação', anima: [DIALOGO], naoAnima: [MIOLO] },
-  { naoVe: 'Encerrar sem homologar?' },
+  { naoVe: 'Encerrar antes de terminar?' },
   { dorme: 250 },
   { quieto: true },
 

@@ -7,3 +7,5 @@
 **O que foi descartado.** O contato inteiro, pela privacidade. E o *reenviar em 44 s* no texto da linha, que ainda podia quebrar.
 
 **A consequência.** Ninguém vê o contato do técnico sem ser ele, e a espera se lê como o cronômetro do app. O mascaramento está nas pendências pro PM confirmar.
+
+**Superada no retorno do PM (06/10, rodada 3).** Nenhum contato aparece em tela, nem mascarado: mostrar parte dele antes de qualquer digitação confirma que a conta existe. O técnico escolhe *Telefone* ou *E-mail* e digita o dado, e a resposta ao envio é sempre a mesma (`02-telas/T01-login/tela.md`).

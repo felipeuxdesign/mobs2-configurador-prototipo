@@ -43,7 +43,7 @@ Cada uma aponta pra pasta da tela que a atende — lá, a ficha, os estados e a 
 
 ## T05 · Conectar módulo · `02-telas/T05-conectar-modulo/`
 
-- **HU-T05-1** — Busco dispositivos (sem fio ou cabo, conforme a variante); vazio explica alimentação, cabo, distância
+- **HU-T05-1** — Busco dispositivos sem fio; vazio explica alimentação e distância
 - **HU-T05-2** — Conectar só conecta: a sessão abre, a faixa desce, e o diagnóstico vem em seguida
 - **HU-T05-3** — Falha de comunicação mostra uma causa única com 3 coisas a checar: cabo, alimentação, cadastro
 - **HU-T05-4** — Perda de link mostra Reconectar e preserva o estado da etapa
@@ -65,8 +65,8 @@ No protótipo (decisão 44), a HU-T05-2: a sessão nasce na conexão, mas **a fa
 ## T07 · Diagnóstico do módulo · `02-telas/T07-diagnostico-do-modulo/`
 
 - **HU-T07-1** — Logo depois de conectar, vejo o módulo: serial, firmware, alimentação, GPS, entradas, modem e SIM
-- **HU-T07-2** — Serial fora do cadastro, modelo sem suporte e firmware não homologado travam — cada um com a sua mensagem
-- **HU-T07-3** — Firmware não homologado oferece atualizar quando o módulo tem rede; sem rede, o app grava só a conexão, e então atualiza
+- **HU-T07-2** — Serial fora do cadastro, modelo sem suporte e firmware fora da lista travam — cada um com a sua mensagem
+- **HU-T07-3** — Firmware fora da lista oferece atualizar quando o módulo tem rede; sem rede, o app grava só a conexão, e então atualiza
 - **HU-T07-4** — O resto só informa, com o ícone de informação: eu sigo, e o checklist registra
 - **HU-T07-5** — A CAN aparece depois que o bloco do ativo é gravado, com a lista do modelo; sinal sem leitura ou fora do esperado aparece na própria linha
 - **HU-T07-6** — Ler de novo relê a CAN inteira
@@ -98,8 +98,8 @@ No protótipo (decisão 44), a HU-T05-2: a sessão nasce na conexão, mas **a fa
 ## T11 · Conferir configuração · `02-telas/T11-conferir-configuracao/`
 
 - **HU-T11-1** — A conferência compara o conteúdo de cada bloco — o módulo não guarda versão
-- **HU-T11-2** — Vejo as cercas, em regiões, a APN, os eventos e o leitor, cada um com o que está no módulo e no cadastro
-- **HU-T11-3** — O Extended ID — os cartões e iButtons gravados no módulo — aparece só pra leitura
+- **HU-T11-2** — Vejo as cercas, em regiões, a rede do módulo, os eventos e o leitor, cada um com o que está no módulo e no cadastro
+- **HU-T11-3** — ~~O Extended ID aparece só pra leitura~~ · saiu no retorno do PM (06/10): cartão é assunto da plataforma web
 - **HU-T11-4** — Corrigir reenvia um bloco por vez: o primeiro que diverge, na ordem da cadeia
 - **HU-T11-5** — Depois de reenviar um bloco, os que dependem dele ficam marcados *revisar em seguida*
 - **HU-T11-6** — As outras ações dizem o efeito: reenviar os 5 blocos ou apenas registrar o diagnóstico
