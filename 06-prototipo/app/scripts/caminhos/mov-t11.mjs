@@ -93,8 +93,13 @@ export default [
   { dorme: 250 },
 
   // ── o 02 pelo endereço: o primeiro aos 400 ──
+  // o complemento da rodada 3: o Outras ações desligado da leitura acende no mesmo lugar, embaixo do
+  // Voltar ao menu (o mesmoLugar guarda o texto dele), e abre a folha
   { abre: `?tela=T11&momento=${CONFERE}` },
   { quieto: true },
+  { ve: 'Voltar ao menu\nOutras ações' },
+  { desligado: 'Voltar ao menu' },
+  { desligado: 'Outras ações' },
   { marcaLugar: true },
   { ve: '1 de 4', entre: [100, 520] },
   { anima: [GLIFO] },
@@ -103,6 +108,13 @@ export default [
   { dorme: 250 },
   { quieto: true },
   { mesmoLugar: true },
+  { naoVe: 'As ações liberam quando a leitura terminar.' },
+  { ve: 'Voltar ao menu\nOutras ações' },
+  { toca: 'Outras ações' },
+  { ve: 'Apenas registrar o diagnóstico' },
+  { tecla: 'Escape' },
+  { dorme: 400 },
+  { naoVe: 'Apenas registrar o diagnóstico' },
 
   // ── com reduzir movimento: em ordem, no mesmo ritmo, sem o esmaecer; a palavra e a cor entram direto ──
   { reduzir: true },

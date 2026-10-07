@@ -1,0 +1,64 @@
+{
+  "janela": [
+    360,
+    800
+  ],
+  "medidas": [
+    {
+      "momento": "04-momento-conferindo",
+      "origem": "referencia",
+      "primario": {
+        "y": 666,
+        "h": 56,
+        "texto": "Voltar ao menu"
+      },
+      "link": {
+        "y": 728,
+        "h": 40,
+        "texto": "Outras ações"
+      }
+    },
+    {
+      "momento": "04-momento-conferindo",
+      "origem": "app",
+      "primario": {
+        "y": 665,
+        "h": 56,
+        "texto": "Voltar ao menu"
+      },
+      "link": {
+        "y": 729,
+        "h": 44,
+        "texto": "Outras ações"
+      }
+    },
+    {
+      "momento": "02-momento-tudo-confere",
+      "origem": "referencia",
+      "primario": {
+        "y": 667,
+        "h": 56,
+        "texto": "Voltar ao menu"
+      },
+      "link": {
+        "y": 729,
+        "h": 44,
+        "texto": "Outras ações"
+      }
+    },
+    {
+      "momento": "02-momento-tudo-confere",
+      "origem": "app",
+      "primario": {
+        "y": 665,
+        "h": 56,
+        "texto": "Voltar ao menu"
+      },
+      "link": {
+        "y": 729,
+        "h": 44,
+        "texto": "Outras ações"
+      }
+    }
+  ]
+}

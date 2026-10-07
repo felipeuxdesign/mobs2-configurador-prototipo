@@ -115,3 +115,10 @@ Os textos exatos de cada referência estão em `textos.md`. Copie de lá — nun
 - **sem o Extended ID**: cartão é assunto da plataforma web
 - **a *APN* vira *Rede do módulo***: *uma rede antiga* no módulo, *a rede da Mobs2* no cadastro · os valores são leitura nossa: o PM mandou trocar os endereços sem dizer por quê
 - **no protótipo · a rodada 2:** a ação de cada bloco mora na linha (a variante `embaixo` da linha de conferência): *Corrigir este bloco* no que diverge, *Enviar agora* no que espera revisão — os dois levam à manutenção da T09, um bloco por vez · o rodapé fica só com a saída (o rodapé sem primário) · no *Conferindo*, o *Voltar ao menu* e o *Outras ações* já aparecem, desligados, com a frase em cima · a *Rede do módulo* mostra o nome do cadastro (`conexoes.exibir`), nunca o endereço · o efeito do *Reenviar os 5 blocos* quebra em duas linhas na folha
+
+## O Outras ações no tudo confere (ajuste, 08/10)
+
+- **a 02, *tudo confere*, tem o *Outras ações* embaixo do *Voltar ao menu*** · o rodapé fica igual ao da leitura (a 04), só que aceso: o que estava desligado durante a leitura acende no mesmo lugar
+- na 01, o conteúdo desconhecido, as duas opções da folha já aparecem direto no rodapé · na 00, o *Outras ações* já estava
+- **no protótipo · o complemento da rodada 3:** o rodapé da 02 é o `Rodape` com o primário e o link, fechando no botão (`pe="botao"`), como o da 04 · no caso que confere, o *Outras ações* da leitura é o mesmo link, desabilitado, e acende no mesmo lugar; as caixas do primário e do link foram medidas diretamente antes e depois da leitura · ele abre a mesma folha da 03 (*Reenviar os 5 blocos*, *Apenas registrar o diagnóstico*) por cima da 02, sem quadro próprio: a URL fica no 02, e o voltar do Android e o X fecham a folha · nenhuma referência desenha a folha sobre a 02
+- **o reenvio depois de tudo confere:** limpa o avanço da cadeia anterior e abre o que vai ser gravado (T09/05), mesmo se os seis passos já estavam concluídos · o técnico toca *Gravar no módulo* e a cadeia corre de novo · a sessão e o modo do vínculo continuam os mesmos

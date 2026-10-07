@@ -172,3 +172,9 @@ Os textos exatos de cada referência estão em `textos.md`. Copie de lá — nun
 - **a foto do Painel (a 20) é do caminhão coletor**, que calibra: a quinta foto da Montagem dele
 - **as legendas do rodapé ficam a 12px do botão**, como o design system pede
 - **no protótipo · a rodada 2:** nada mudou na regra — o Painel já era condicionado à calibração —, e o herói, que agora não calibra, mostra 4 fotos e 28 itens · o 20 pelo endereço abre na sessão do caminhão coletor, o ativo da garagem que calibra, como a T16/01 abre no par da referência
+
+## A linha da Montagem (ajuste, 08/10)
+
+- **a Montagem no formato das outras seções**: o nome à esquerda, o estado à direita (*foto a tirar*, *com ressalva*), uma linha só de 44px, com o quadradinho de 30 e a seta, como a lei 23 manda pro checklist · antes ela empilhava o nome e o estado em 50px, e destoava das outras
+- o motivo da ressalva (*suporte trincado*) sai da linha e continua nas telas onde é anotado e revisto: a 08 e a 15
+- **no protótipo · o complemento da rodada 3:** a Montagem usa a linha de leitura de 44 do `ItemDoChecklist`, com duas variantes (`componentes.md`): `icone` (a câmera no poço de 30, no lugar do glifo) e `valorDeEstado` (o estado à direita, em 13 e `--tinta-secundaria`) · *foto a tirar* tem a seta e abre a câmera do item (07, 17 a 20); *com ressalva* tem o check e não toca; a foto tirada, só o check, sem texto (G25: nenhum texto aprovado diz de onde ela veio; nenhuma referência desenha a linha); o Leitor que não se aplica, o traço · a causa saiu da linha (`causaDa` saiu do `checklist.js`), e o `textos.js` diz só *com ressalva*

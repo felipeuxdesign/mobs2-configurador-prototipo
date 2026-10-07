@@ -27,6 +27,10 @@
 // · `embaixo`: o que a linha abre embaixo dela — a pergunta com as duas respostas (40) e o campo
 //   do que aconteceu (42) —, a 40 da esquerda (o poço e o vão) e 12 no pé; o traço de baixo
 //   passa pro bloco inteiro
+// O complemento da rodada 3 (T13/02 e 12, a Montagem no formato das outras seções, lei 23):
+// · `icone` na leitura: o ícone no poço de 30 no lugar do glifo (a câmera da foto a tirar)
+// · `valorDeEstado`: o valor é o estado do item, não um dado lido — em --t-secundario e
+//   --tinta-secundaria (*foto a tirar*, *com ressalva*)
 import { Tocavel } from '../primitivos/Tocavel.jsx'
 import { Poco } from '../primitivos/Poco.jsx'
 import { Glifo } from '../primitivos/Glifo.jsx'
@@ -39,7 +43,7 @@ function GlifoDoItem({ estado, nomeGlifo }) {
   return <Glifo estado={GLIFO[estado] ?? 'ok'} poco={26} nome={nomeGlifo} className={`ds-item-ck-glifo ds-item-ck-glifo-${estado}`} />
 }
 
-export function ItemDoChecklist({ tipo = 'leitura', estado = 'ok', icone, nome, valor, legenda, linhas, apagado = false, divisoria = true, aoTocar, rotulo, nomeGlifo, acao, embaixo }) {
+export function ItemDoChecklist({ tipo = 'leitura', estado = 'ok', icone, nome, valor, legenda, linhas, apagado = false, divisoria = true, aoTocar, rotulo, nomeGlifo, acao, embaixo, valorDeEstado = false }) {
   if (embaixo) {
     return (
       <div className={`ds-item-ck-bloco ${divisoria ? '' : 'ds-item-ck-sem-divisoria'}`}>
@@ -53,7 +57,7 @@ export function ItemDoChecklist({ tipo = 'leitura', estado = 'ok', icone, nome, 
   if (tipo === 'leitura') {
     const linha = (
       <>
-        <Poco tam={30}><GlifoDoItem estado={estado} nomeGlifo={nomeGlifo} /></Poco>
+        <Poco tam={30}>{icone ? <Icone nome={icone} tam={16} cor="secundaria" /> : <GlifoDoItem estado={estado} nomeGlifo={nomeGlifo} />}</Poco>
         {linhas
           ? (
             <span className="ds-item-ck-pilha">
@@ -62,7 +66,7 @@ export function ItemDoChecklist({ tipo = 'leitura', estado = 'ok', icone, nome, 
             </span>
           )
           : <span className="ds-item-ck-nome">{nome}</span>}
-        {acao ?? (valor != null && <span className={`ds-item-ck-valor ${apagado ? 'ds-item-ck-valor-apagado' : ''} ${estado === 'reprovado' ? 'ds-item-ck-valor-falha' : ''}`}>{valor}</span>)}
+        {acao ?? (valor != null && <span className={`ds-item-ck-valor ${apagado ? 'ds-item-ck-valor-apagado' : ''} ${estado === 'reprovado' ? 'ds-item-ck-valor-falha' : ''} ${valorDeEstado ? 'ds-item-ck-valor-estado' : ''}`}>{valor}</span>)}
       </>
     )
     if (!aoTocar) return <div className={classes}>{linha}</div>

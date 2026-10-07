@@ -378,6 +378,15 @@ Nenhuma peça nova, e nenhum token. Duas variantes e um ajuste, que vão ao arqu
 ## No protótipo · a rodada 3 do retorno do PM
 
 Nenhuma peça nova, nenhuma variante, nenhum token. A primeira etapa da recuperação (T01/02, 20, 21, 22) é montada com peças da própria T01 (`telas/T01/pecas.jsx`: a aba do canal, o seletor de país, o campo do dado, a linha do país) sobre as do design system (a caixa de poço, a `Folha`, a `Busca`, o cartão de opções). O ícone `voltar-etapa` entrou no `Icone`, o desenho da referência do *Usar outro dado* (T01/04 e 11). O autoteste da T12 usa a variante `recebimento` da linha de checagem, a do porquê embaixo do nome.
+## No protótipo · o complemento da rodada 3
+
+Nenhuma peça nova, e nenhum token. Duas variantes da leitura do item do checklist (`ItemDoChecklist`), pela Montagem no formato das outras seções (T13/02 e 12, lei 23), que vão ao arquiteto pra folha 7:
+
+- **`icone` na leitura:** o ícone no poço de 30, no lugar do glifo (a câmera da *foto a tirar*), com a seta, porque a linha abre a câmera
+- **`valorDeEstado`:** o valor à direita é o estado do item, não um dado lido — em `--t-secundario` (13) e `--tinta-secundaria`, como a referência desenha (*foto a tirar*, *com ressalva*)
+
+Os tipos `tocar`, `feito` e `ressalva` (os de 50, empilhados) deixaram de ser usados na Montagem; os espécimes da folha 7 na vitrine ainda os mostram. O `tocar` continua nos itens pendentes e reprovados das outras seções.
+
 ## No protótipo · o movimento das peças (C12)
 
 Anotação de construção do C12. O movimento é da peça, e vale onde ela está: a tela só liga o gatilho. As regras do app inteiro estão no `movimento.md`; o mapa de cada peça pro arquivo está no `06-prototipo/app/src/ds/MAPA.md`. Nenhuma peça nova de desenho: as quatro de baixo sem desenho próprio moram no chrome e nas linhas.

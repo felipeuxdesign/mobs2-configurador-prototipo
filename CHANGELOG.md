@@ -1,5 +1,14 @@
 # Registro de mudanças
 
+## 2026-10-08 · o complemento da rodada 3 — dois ajustes de desenho
+
+- **T13 · a linha da Montagem no formato das outras seções**: o nome à esquerda, o estado à direita, uma linha de 44px (a 02 e a 12) · antes ela empilhava os dois textos em 50px e destoava · o motivo da ressalva continua na 08 e na 15
+- **T11/02 · o *Outras ações* no tudo confere**: embaixo do *Voltar ao menu*, no mesmo lugar da leitura · no fluxo do herói, o link desligado da leitura sumia no fim; agora ele só acende
+- **no protótipo · o fechamento da `comp3`**: a Montagem usa a leitura de 44, com a câmera e a seta nos pendentes, e *com ressalva* à direita, sem a causa na lista · o *Outras ações* da 02 abre a mesma folha por cima dela · o reenvio limpa o avanço da cadeia anterior, mesmo concluída, e volta ao *Gravar no módulo* · no caso que confere, a leitura usa o mesmo link desabilitado da tela final: o primário e o link mantêm suas caixas no lugar · as fichas, a lógica, as variantes e os três roteiros acompanham · a etiqueta do palco identifica o complemento
+- **os desvios nomeados**: a T11/02 lê *o servidor da Mobs2* de `conexoes.exibir`, onde a referência diz *a rede da Mobs2* (a divergência já registrada na rodada 2) · o rodapé da T11/02 e 04 mantém a peça de toque aprovada, com alto 13 e vão 8, onde a referência desenha 14 e 6 · na leitura que confere (04), *Outras ações* é um link de 44, desabilitado em `--tinta-apagada`, onde a referência desenha um texto de 40 em `--marca`: a geometria fica igual à 02, sem deslocamento ao acender · a folha sobre a 02 não tem referência própria
+- **o GIF do README**: já regravado na rodada 3 (`629a879`), conferido com os dados atuais · a rota não passa pela T11 nem pela T13, então este complemento não exige outra gravação
+- **a validação do fechamento**: `checar`, as 213 conferências do mock e o build aprovados · 191 referências sem erro, as seis da T11 reconferidas no fim, 114 espécimes iguais à base e seis roteiros aprovados (`mov-t11`, `checklist`, `mov-t13`, `conferencia`, `heroi`, `readme`) · gate e quatro folhas lado a lado em `06-prototipo/para-o-arquiteto/gate-complemento-rodada3.md` e `complemento-rodada3/`
+
 ## 2026-10-08 · a rodada 3 do retorno do PM — o acabamento
 
 - **T01 · a recuperação de senha**: nenhum contato mascarado em tela nenhuma · a primeira etapa com *Telefone* ou *E-mail* e o dado digitado, o seletor de país com busca (Brasil, +55, já escolhido), o motivo colado no campo e o botão desligado enquanto o formato estiver errado, e *O dado precisa ser o mesmo do cadastro.* · a resposta sempre igual: *Se houver conta com este dado, o código foi enviado.* · a mesma mensagem pro código errado e pro vencido: *Código inválido ou vencido* · o *Não recebi* com *Reenviar o código* e *Usar outro dado* · três telas novas (20, 21 e 22) · a nova senha já mostrava os seis requisitos marcando sozinhos

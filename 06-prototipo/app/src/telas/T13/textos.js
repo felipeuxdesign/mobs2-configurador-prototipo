@@ -60,9 +60,9 @@ export const T = {
   naoConfere: 'não confere',   // o cartão que o técnico disse que não confere (T14/10)
   aFazer: 'a fazer',
   vazio: '—',
-  // B: a foto por fazer (o Painel também, decisão 52) e a ressalva com a causa
+  // B: a foto por fazer (o Painel também, decisão 52) e a ressalva, sem a causa (o complemento da rodada 3)
   fotoATirar: 'foto a tirar',
-  comRessalva: (causa) => `com ressalva · ${causa}`,
+  comRessalva: 'com ressalva',
   // E: a ação da seção, a única
   fazerCiclo: 'Fazer o ciclo de testes',
   osPassos: (n) => `até ${n} passos, com o ônibus parado`,

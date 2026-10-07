@@ -376,7 +376,7 @@ export default function T13({ momento, estado: est }) {
       const daE = s.id === 'E' && itemDaE(c, divisoria)
       if (daE) return daE
       return (
-        <ItemDoChecklist key={c.id} tipo={c.tipo} estado={c.estado} icone={c.icone} nome={c.nome} valor={c.valor} legenda={c.legenda} linhas={c.linhas} apagado={!!c.apagado}
+        <ItemDoChecklist key={c.id} tipo={c.tipo} estado={c.estado} icone={c.icone} nome={c.nome} valor={c.valor} legenda={c.legenda} linhas={c.linhas} apagado={!!c.apagado} valorDeEstado={!!c.valorDeEstado}
           divisoria={divisoria} nomeGlifo={NOME_DO_ITEM[c.estado]} aoTocar={c.tipo === 'tocar' || c.destino ? () => tocarItem(c) : undefined} />
       )
     })

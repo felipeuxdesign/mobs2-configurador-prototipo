@@ -12,7 +12,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `02-momento-tudo-confere`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Conferir configuração` · `CONFERE COM O CADASTRO` · `4` · `de 4` · `Cercas` · `4 regiões` · `Rede do módulo` · `a rede da Mobs2` · `Eventos` · `intervalo 30 s` · `Leitor` · `leitor sem fio` · `Voltar ao menu`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Conferir configuração` · `CONFERE COM O CADASTRO` · `4` · `de 4` · `Cercas` · `4 regiões` · `Rede do módulo` · `a rede da Mobs2` · `Eventos` · `intervalo 30 s` · `Leitor` · `leitor sem fio` · `Voltar ao menu` · `Outras ações`
 
 ## `03-momento-outras-acoes`
 

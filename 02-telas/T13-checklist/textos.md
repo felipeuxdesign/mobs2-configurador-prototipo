@@ -52,7 +52,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `12-momento-b-com-ressalva`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `18` · `de 28` · `A · Identificação` · `o app confere sozinho` · `4` · `de 4` · `B · Montagem` · `você fotografa 4 itens` · `1` · `de 4` · `Módulo` · `com ressalva · suporte trincado` · `Antena GPS` · `foto a tirar` · `Chicote` · `foto a tirar` · `Leitor` · `foto a tirar` · `C · Hardware` · `o app confere sozinho` · `4` · `de 4` · `D · Configuração` · `o app confere sozinho` · `9` · `de 9` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 5` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 2` · `Faltam 8 itens obrigatórios` · `Finalizar instalação` · `Voltar ao menu`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `18` · `de 28` · `A · Identificação` · `o app confere sozinho` · `4` · `de 4` · `B · Montagem` · `você fotografa 4 itens` · `1` · `de 4` · `Módulo` · `com ressalva` · `Antena GPS` · `foto a tirar` · `Chicote` · `foto a tirar` · `Leitor` · `foto a tirar` · `C · Hardware` · `o app confere sozinho` · `4` · `de 4` · `D · Configuração` · `o app confere sozinho` · `9` · `de 9` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 5` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 2` · `Faltam 8 itens obrigatórios` · `Finalizar instalação` · `Voltar ao menu`
 
 ## `13-momento-e-resolvida`
 

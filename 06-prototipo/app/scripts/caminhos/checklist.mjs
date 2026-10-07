@@ -70,9 +70,11 @@ export default [
   { ve: 'KNB-5H39' },
   { ve: 'Painel com hodômetro e horímetro legíveis' },
   { ve: '5 de 5' },
-  // o 12: a ressalva com o check e a causa, sem seta; a foto por fazer abre a câmera do app
+  // o 12: a ressalva com o check, sem seta; a foto por fazer abre a câmera do app · o complemento da
+  // rodada 3: a linha de 44, o estado à direita, e a causa sai da linha (fica na 08 e na 15)
   { abre: '?tela=T13&momento=12-momento-b-com-ressalva' },
-  { ve: 'com ressalva · suporte trincado' },
+  { ve: 'Módulo\ncom ressalva\nAntena GPS\nfoto a tirar' },
+  { naoVe: 'suporte trincado' },
   { ve: 'você fotografa 4 itens' },
   { naoToca: 'Módulo' },
   { toca: 'Antena GPS' },
@@ -118,7 +120,7 @@ export default [
   { ve: 'Antena GPS posicionada e livre' },
   { toca: 'Voltar ao checklist' },
   { chega: 'T13', momento: '12-momento-b-com-ressalva' },
-  { ve: 'com ressalva · suporte trincado' },
+  { ve: 'Módulo\ncom ressalva\nAntena GPS\nfoto a tirar' },
   { ve: 'você fotografa 4 itens' },
   { ve: 'Faltam 8 itens obrigatórios' },   // a rodada 2: as 3 fotos que faltam na B e os 5 passos da E (a F não bloqueia)
   // escrever primeiro e fotografar depois: o 08 pela URL já tem o que aconteceu

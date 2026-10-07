@@ -127,7 +127,10 @@ export default function T11({ momento, estado: est }) {
 
   // a folha Outras ações (03): a URL abre e fecha (G20); só com o que ainda diverge
   const outrasPedida = est == null && naoBatem > 0 && momento === REF.outras
-  const outras = usePresenca(outrasPedida)
+  // no tudo confere (02, o complemento da rodada 3), o Outras ações aceso abre a mesma folha por
+  // cima da 02, sem quadro próprio: a URL fica no 02
+  const [outrasNoConfere, setOutrasNoConfere] = useState(false)
+  const outras = usePresenca(outrasPedida || outrasNoConfere)
 
   // a leitura: uma linha a cada 400 ms, na ordem da tela; parada no print, na
   // coluna e na folha aberta pelo endereço (o 03 é um quadro depois da leitura)
@@ -174,12 +177,15 @@ export default function T11({ momento, estado: est }) {
     } } })
     ir('T09')
   }
-  // Reenviar os 5 blocos: a cadeia inteira da T09, com o modo que o vínculo decidiu
+  // Reenviar os 5 blocos: a cadeia inteira da T09, com o modo que o vínculo decidiu.
+  // O avanço anterior sai, inclusive quando já estava concluído: é um novo envio, não uma retomada.
   const reenviar = () => {
+    let ativoDoReenvio = etapas.ativo
     if ('modoDoVinculo' in anotada) {
       const { bloco: _bloco, ...ativo } = etapas.ativo ?? {}
-      despachar({ tipo: 'mesclar', parcial: { etapas: { ...etapas, ativo: { ...ativo, modo: anotada.modoDoVinculo } } } })
+      ativoDoReenvio = { ...ativo, modo: anotada.modoDoVinculo }
     }
+    despachar({ tipo: 'mesclar', parcial: { etapas: { ...etapas, ativo: ativoDoReenvio, cadeia: null } } })
     ir('T09')
   }
   // só registra o que a leitura achou, no estado único (G25: nenhum item na fila)
@@ -189,8 +195,8 @@ export default function T11({ momento, estado: est }) {
     ir('T04')
   }
   const voltar = () => ir('T04')
-  const abrirOutras = () => ir('T11', { momento: REF.outras })
-  const fecharOutras = () => ir('T11')
+  const abrirOutras = () => (bate ? setOutrasNoConfere(true) : ir('T11', { momento: REF.outras }))
+  const fecharOutras = () => (outrasNoConfere ? setOutrasNoConfere(false) : ir('T11'))
   // o ENCERRAR (decisão 36, src/estado/encerrar.jsx): antes de homologar, o diálogo
   // Encerrar antes de terminar? por cima desta tela; depois de homologar, direto, pra T16
   const enc = useEncerrar()
@@ -199,7 +205,7 @@ export default function T11({ momento, estado: est }) {
   // de saída do rodapé; com a folha aberta, fecha a folha. Com o Outras ações no
   // link, que não sai da tela, não faz nada. Num estado da coluna, a peça não escuta.
   const linkSai = !bate && !soReenviar && naoBatem === 0
-  useVoltar(outrasPedida ? fecharOutras : bate || linkSai ? voltar : soReenviar ? registrar : null)
+  useVoltar(outrasPedida || outrasNoConfere ? fecharOutras : bate || linkSai ? voltar : soReenviar ? registrar : null)
 
   // o veredito: quantas não batem de 4; quantas ficam pra revisar; no 01, quantos
   // conteúdos a mais. Enquanto lê, a caixa espera no lugar, neutra, com a contagem
@@ -219,10 +225,11 @@ export default function T11({ momento, estado: est }) {
   // O rodapé (decisão 53, lei 19 · a rodada 2 do retorno do PM): a ação de cada bloco mora na linha
   // dele — o *Corrigir este bloco* do que diverge (00), o *Enviar agora* do que espera revisão (05) —, e o
   // rodapé fica só com a saída: o Outras ações, ou o Voltar ao menu. Enquanto lê (04), as ações já estão
-  // lá, desligadas, com a frase que diz quando liberam
+  // lá, desligadas, com a frase que diz quando liberam · na *tudo confere* (02, o complemento da rodada 3),
+  // o rodapé é o da leitura, aceso: o Voltar ao menu e, embaixo, o Outras ações, no mesmo lugar
   let rodape
-  if (lendo) rodape = <Rodape legenda={T.acoesLiberam} primario={T.voltar} primarioDesabilitado primarioTrocaTexto explicacao={T.outrasAcoes} pe="botao" />
-  else if (bate) rodape = <Rodape primario={T.voltar} aoPrimario={voltar} />
+  if (lendo) rodape = <Rodape legenda={T.acoesLiberam} primario={T.voltar} primarioDesabilitado primarioTrocaTexto link={bate ? T.outrasAcoes : undefined} linkDesabilitado explicacao={bate ? undefined : T.outrasAcoes} pe="botao" />
+  else if (bate) rodape = <Rodape primario={T.voltar} aoPrimario={voltar} link={T.outrasAcoes} aoLink={abrirOutras} pe="botao" />
   else if (soReenviar) rodape = <Rodape legenda={T.preservaConexao} primario={T.reenviar(blocos)} aoPrimario={reenviar} link={T.registrar} aoLink={registrar} />
   else rodape = naoBatem ? <Rodape link={T.outrasAcoes} aoLink={abrirOutras} /> : <Rodape link={T.voltar} aoLink={voltar} />
   // a ação na linha: o bloco que diverge se corrige; o que espera revisão se envia agora · o nome pro

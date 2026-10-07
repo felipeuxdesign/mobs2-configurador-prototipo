@@ -1,0 +1,55 @@
+{
+  "referencias": 191,
+  "semErro": true,
+  "zero": 38,
+  "quadros": [
+    {
+      "tela": "T11",
+      "ref": "02-momento-tudo-confere",
+      "html": {
+        "fino": 0.63,
+        "estrutural": 0.17
+      },
+      "png": {
+        "fino": 1.46,
+        "estrutural": 0.68
+      }
+    },
+    {
+      "tela": "T11",
+      "ref": "04-momento-conferindo",
+      "html": {
+        "fino": 0.55,
+        "estrutural": 0.15
+      },
+      "png": {
+        "fino": 1.44,
+        "estrutural": 0.57
+      }
+    },
+    {
+      "tela": "T13",
+      "ref": "02-momento-b-montagem-aberta",
+      "html": {
+        "fino": 0.05,
+        "estrutural": 0.03
+      },
+      "png": {
+        "fino": 1.91,
+        "estrutural": 0.61
+      }
+    },
+    {
+      "tela": "T13",
+      "ref": "12-momento-b-com-ressalva",
+      "html": {
+        "fino": 0.06,
+        "estrutural": 0.04
+      },
+      "png": {
+        "fino": 1.95,
+        "estrutural": 0.64
+      }
+    }
+  ]
+}

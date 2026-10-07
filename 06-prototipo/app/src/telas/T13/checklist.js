@@ -408,26 +408,20 @@ function itemA(mundo, item) {
   return vinculado ? lido(item, ativoDe(sessao.ativoId)?.placa) : falta(item)
 }
 
-// a causa da ressalva, na linha: a primeira oração da justificativa, com a
-// minúscula no começo ('Suporte trincado; fixei…' → 'suporte trincado', T13/12)
-export function causaDa(justificativa) {
-  const [primeira] = String(justificativa ?? '').split(/[;.—]/)
-  const t = primeira.trim()
-  return t ? t.charAt(0).toLowerCase() + t.slice(1) : null
-}
-
 // B · o Painel é foto a tirar, como os outros quatro (decisão 52); sem calibração na
-// sessão ele nem aparece (D4 · itensDeB)
+// sessão ele nem aparece (D4 · itensDeB). O complemento da rodada 3: a linha no formato
+// das outras seções (lei 23) — a leitura de 44, o nome à esquerda e o estado à direita
+// (*foto a tirar*, com a câmera no poço e a seta; *com ressalva*, com o check) · o motivo
+// da ressalva sai da linha e fica onde é anotado e revisto (08 e 15)
 function itemB(mundo, item) {
   const { registro } = mundo
-  const b = (c) => base(item, { tipo: 'feito', pergunta: item.pergunta, ...c })
+  const b = (c) => base(item, { pergunta: item.pergunta, ...c })
   // sem leitor no ônibus, não se aplica (o mock): o traço, sem frase (G25)
   if (item.condicao === 'leitor' && !modeloDe(mundo.sessao.ativoId)?.leitor) return b({ estado: 'nsa' })
-  const ressalva = registro.ressalvas[item.id]
-  if (ressalva) { const causa = causaDa(ressalva.justificativa); return b({ estado: 'ressalva', tipo: 'ressalva', legenda: causa ? T.comRessalva(causa) : undefined }) }
+  if (registro.ressalvas[item.id]) return b({ estado: 'ressalva', valor: T.comRessalva, valorDeEstado: true })
   // a foto tirada aqui: o check, e nenhum texto aprovado diz de onde ela veio (G25)
   if (registro.fotos[item.id]) return b({ estado: 'ok' })
-  return b({ estado: 'pendente', tipo: 'tocar', icone: 'camera', legenda: T.fotoATirar, destino: 'item' })
+  return b({ estado: 'pendente', icone: 'camera', valor: T.fotoATirar, valorDeEstado: true, destino: 'item' })
 }
 
 function itemC(mundo, item) {

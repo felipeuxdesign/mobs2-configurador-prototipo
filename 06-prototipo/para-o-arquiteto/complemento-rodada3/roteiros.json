@@ -1,0 +1,32 @@
+[
+  {
+    "roteiro": "mov-t11",
+    "exit": 0,
+    "linha": "mov-t11: OK, 151 passos (27.3 s)"
+  },
+  {
+    "roteiro": "checklist",
+    "exit": 0,
+    "linha": "checklist: OK, 155 passos (8.0 s)"
+  },
+  {
+    "roteiro": "mov-t13",
+    "exit": 0,
+    "linha": "mov-t13: OK, 340 passos (72.1 s)"
+  },
+  {
+    "roteiro": "conferencia",
+    "exit": 0,
+    "linha": "conferencia: OK, 173 passos (45.3 s)"
+  },
+  {
+    "roteiro": "heroi",
+    "exit": 0,
+    "linha": "heroi: OK, 239 passos (58.0 s)"
+  },
+  {
+    "roteiro": "readme",
+    "exit": 0,
+    "linha": "readme: OK, 65 passos (53.2 s)"
+  }
+]
