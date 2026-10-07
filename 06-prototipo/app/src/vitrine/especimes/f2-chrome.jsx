@@ -90,17 +90,17 @@ export const especimes = [
         <CartaoDeOpcoes>{opcoes}</CartaoDeOpcoes>
       </Folha>
     ) },
-  // a última entrega · a folha Outras ações (T11/03, decisão 40): a folha de opções sem o puxador, como a T11/03
-  // desenha, com a linha de opção com o efeito. Fora da folha 2 (semBancada); a folha tem os 360 da tela — a
+  // a folha Outras ações (T11/03): com puxador e a mesma densidade da folha do código,
+  // com o efeito inteiro. Fora da folha 2 (semBancada); a folha tem os 360 da tela — a
   // moldura de recheio 0 corta a borda de 1 de cada lado, e a conta é a da T11/03
-  { id: 'f2-folha-outras-acoes', folha: 2, chrome: true, semBancada: true, rotulo: 'folha com opções · sem o puxador',
+  { id: 'f2-folha-outras-acoes', folha: 2, chrome: true, semBancada: true, rotulo: 'folha com opções · Outras ações',
     legenda: 'fora da folha · a folha Outras ações, com o efeito embaixo de cada ação (T11/03)',
     render: () => (
       <div style={{ margin: '0 calc(var(--traco-borda) * -1)' }}>
-        <Folha titulo="Outras ações" rotuloFechar="Fechar" puxador={false}>
+        <Folha titulo="Outras ações" rotuloFechar="Fechar">
           <CartaoDeOpcoes>
-            <LinhaDeOpcao variante="efeito" icone="reenviar" titulo="Reenviar os 5 blocos" detalhe="a cadeia inteira, preservando a conexão" />
-            <LinhaDeOpcao variante="efeito" icone="diagnostico" titulo="Apenas registrar o diagnóstico" detalhe="nada é gravado · só o diagnóstico sobe" />
+            <LinhaDeOpcao variante="efeito" icone="reenviar" titulo="Reenviar os 5 blocos" detalhe="Mantém a rede do módulo. Apaga só a configuração." />
+            <LinhaDeOpcao variante="efeito" icone="diagnostico" titulo="Apenas registrar o diagnóstico" detalhe="nada vai pro módulo · só o diagnóstico sobe" />
           </CartaoDeOpcoes>
         </Folha>
       </div>
@@ -114,12 +114,12 @@ export const especimes = [
   // a última entrega · a folha Outras ações (T11/03, decisão 40): a linha de opção com o efeito embaixo. Fora
   // da folha 6 (semBancada), com os textos da T11/03; o cartão tem os 328 da tela (16 de cada lado da moldura)
   { id: 'f6-linha-opcao-efeito', folha: 6, chrome: true, semBancada: true, rotulo: 'linha de opção · com o efeito',
-    legenda: 'fora da folha · o poço de 32, o que faz, o efeito embaixo e a seta (T11/03)',
+    legenda: 'fora da folha · o poço de 30, o que faz, o efeito embaixo e a seta (T11/03)',
     render: () => (
       <div style={naTela}>
         <CartaoDeOpcoes>
-          <LinhaDeOpcao variante="efeito" icone="reenviar" titulo="Reenviar os 5 blocos" detalhe="a cadeia inteira, preservando a conexão" />
-          <LinhaDeOpcao variante="efeito" icone="diagnostico" titulo="Apenas registrar o diagnóstico" detalhe="nada é gravado · só o diagnóstico sobe" />
+          <LinhaDeOpcao variante="efeito" icone="reenviar" titulo="Reenviar os 5 blocos" detalhe="Mantém a rede do módulo. Apaga só a configuração." />
+          <LinhaDeOpcao variante="efeito" icone="diagnostico" titulo="Apenas registrar o diagnóstico" detalhe="nada vai pro módulo · só o diagnóstico sobe" />
         </CartaoDeOpcoes>
       </div>
     ) },

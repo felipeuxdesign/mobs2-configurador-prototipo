@@ -1,0 +1,676 @@
+[
+  {
+    "source": "app",
+    "sheet": {
+      "x": 0,
+      "y": 530,
+      "width": 360,
+      "height": 270,
+      "padding": "18px 16px 32px",
+      "gap": "14px",
+      "minHeight": "auto",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "whiteSpace": "normal"
+    },
+    "header": {
+      "x": 16,
+      "y": 563,
+      "width": 328,
+      "height": 44
+    },
+    "card": {
+      "x": 16,
+      "y": 621,
+      "width": 328,
+      "height": 147
+    },
+    "headerToCard": 14,
+    "rows": [
+      {
+        "x": 29,
+        "y": 622,
+        "width": 302,
+        "height": 73,
+        "padding": "10px 0px",
+        "gap": "12px",
+        "minHeight": "72px",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "whiteSpace": "normal",
+        "texts": [
+          {
+            "text": "Reenviar os 5 blocos",
+            "x": 71,
+            "y": 632,
+            "width": 232,
+            "height": 19,
+            "padding": "0px",
+            "gap": "normal",
+            "minHeight": "auto",
+            "fontSize": "16px",
+            "fontWeight": "600",
+            "whiteSpace": "normal",
+            "overflow": false
+          },
+          {
+            "text": "Mantém a rede do módulo. Apaga só a configuração.",
+            "x": 71,
+            "y": 653,
+            "width": 232,
+            "height": 31,
+            "padding": "0px",
+            "gap": "normal",
+            "minHeight": "auto",
+            "fontSize": "13px",
+            "fontWeight": "500",
+            "whiteSpace": "normal",
+            "overflow": false
+          }
+        ],
+        "icon": {
+          "x": 29,
+          "y": 643,
+          "width": 30,
+          "height": 30
+        },
+        "arrow": {
+          "x": 315,
+          "y": 650,
+          "width": 16,
+          "height": 16
+        }
+      },
+      {
+        "x": 29,
+        "y": 695,
+        "width": 302,
+        "height": 72,
+        "padding": "10px 0px",
+        "gap": "12px",
+        "minHeight": "72px",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "whiteSpace": "normal",
+        "texts": [
+          {
+            "text": "Apenas registrar o diagnóstico",
+            "x": 71,
+            "y": 705,
+            "width": 232,
+            "height": 19,
+            "padding": "0px",
+            "gap": "normal",
+            "minHeight": "auto",
+            "fontSize": "16px",
+            "fontWeight": "600",
+            "whiteSpace": "normal",
+            "overflow": false
+          },
+          {
+            "text": "nada vai pro módulo · só o diagnóstico sobe",
+            "x": 71,
+            "y": 726,
+            "width": 232,
+            "height": 31,
+            "padding": "0px",
+            "gap": "normal",
+            "minHeight": "auto",
+            "fontSize": "13px",
+            "fontWeight": "500",
+            "whiteSpace": "normal",
+            "overflow": false
+          }
+        ],
+        "icon": {
+          "x": 29,
+          "y": 716,
+          "width": 30,
+          "height": 30
+        },
+        "arrow": {
+          "x": 315,
+          "y": 723,
+          "width": 16,
+          "height": 16
+        }
+      }
+    ]
+  },
+  {
+    "source": "referencia",
+    "sheet": {
+      "x": 0,
+      "y": 530,
+      "width": 360,
+      "height": 270,
+      "padding": "18px 16px 32px",
+      "gap": "14px",
+      "minHeight": "auto",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "whiteSpace": "normal"
+    },
+    "header": {
+      "x": 16,
+      "y": 563,
+      "width": 328,
+      "height": 44
+    },
+    "card": {
+      "x": 16,
+      "y": 621,
+      "width": 328,
+      "height": 147
+    },
+    "headerToCard": 14,
+    "rows": [
+      {
+        "x": 29,
+        "y": 622,
+        "width": 302,
+        "height": 73,
+        "padding": "10px 0px",
+        "gap": "12px",
+        "minHeight": "72px",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "whiteSpace": "normal",
+        "texts": [
+          {
+            "text": "Reenviar os 5 blocos",
+            "x": 71,
+            "y": 632,
+            "width": 232,
+            "height": 19,
+            "padding": "0px",
+            "gap": "normal",
+            "minHeight": "auto",
+            "fontSize": "16px",
+            "fontWeight": "600",
+            "whiteSpace": "normal",
+            "overflow": false
+          },
+          {
+            "text": "Mantém a rede do módulo. Apaga só a configuração.",
+            "x": 71,
+            "y": 653,
+            "width": 232,
+            "height": 31,
+            "padding": "0px",
+            "gap": "normal",
+            "minHeight": "auto",
+            "fontSize": "13px",
+            "fontWeight": "500",
+            "whiteSpace": "normal",
+            "overflow": false
+          }
+        ],
+        "icon": {
+          "x": 29,
+          "y": 643,
+          "width": 30,
+          "height": 30
+        },
+        "arrow": {
+          "x": 315,
+          "y": 650,
+          "width": 16,
+          "height": 16
+        }
+      },
+      {
+        "x": 29,
+        "y": 695,
+        "width": 302,
+        "height": 72,
+        "padding": "10px 0px",
+        "gap": "12px",
+        "minHeight": "72px",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "whiteSpace": "normal",
+        "texts": [
+          {
+            "text": "Apenas registrar o diagnóstico",
+            "x": 71,
+            "y": 705,
+            "width": 232,
+            "height": 19,
+            "padding": "0px",
+            "gap": "normal",
+            "minHeight": "auto",
+            "fontSize": "16px",
+            "fontWeight": "600",
+            "whiteSpace": "normal",
+            "overflow": false
+          },
+          {
+            "text": "nada vai pro módulo · só o diagnóstico sobe",
+            "x": 71,
+            "y": 726,
+            "width": 232,
+            "height": 31,
+            "padding": "0px",
+            "gap": "normal",
+            "minHeight": "auto",
+            "fontSize": "13px",
+            "fontWeight": "500",
+            "whiteSpace": "normal",
+            "overflow": false
+          }
+        ],
+        "icon": {
+          "x": 29,
+          "y": 716,
+          "width": 30,
+          "height": 30
+        },
+        "arrow": {
+          "x": 315,
+          "y": 723,
+          "width": 16,
+          "height": 16
+        }
+      }
+    ]
+  },
+  {
+    "source": "T01",
+    "sheet": {
+      "x": 0,
+      "y": 531,
+      "width": 360,
+      "height": 269,
+      "padding": "18px 16px 32px",
+      "gap": "14px",
+      "minHeight": "auto",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "whiteSpace": "normal"
+    },
+    "header": {
+      "x": 16,
+      "y": 564,
+      "width": 328,
+      "height": 44
+    },
+    "card": {
+      "x": 16,
+      "y": 622,
+      "width": 328,
+      "height": 146
+    },
+    "headerToCard": 14,
+    "rows": [
+      {
+        "x": 29,
+        "y": 623,
+        "width": 302,
+        "height": 72,
+        "padding": "10px 0px",
+        "gap": "12px",
+        "minHeight": "72px",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "whiteSpace": "normal",
+        "texts": [
+          {
+            "text": "Reenviar o código",
+            "x": 71,
+            "y": 640.25,
+            "width": 218.05,
+            "height": 19,
+            "padding": "0px",
+            "gap": "normal",
+            "minHeight": "auto",
+            "fontSize": "16px",
+            "fontWeight": "600",
+            "whiteSpace": "normal",
+            "overflow": false
+          },
+          {
+            "text": "para o mesmo dado",
+            "x": 71,
+            "y": 661.25,
+            "width": 218.05,
+            "height": 15.5,
+            "padding": "0px",
+            "gap": "normal",
+            "minHeight": "auto",
+            "fontSize": "13px",
+            "fontWeight": "500",
+            "whiteSpace": "nowrap",
+            "overflow": false
+          }
+        ],
+        "icon": {
+          "x": 29,
+          "y": 643.5,
+          "width": 30,
+          "height": 30
+        },
+        "arrow": {
+          "x": 301.05,
+          "y": 649.5,
+          "width": 29.95,
+          "height": 18
+        }
+      },
+      {
+        "x": 29,
+        "y": 695,
+        "width": 302,
+        "height": 72,
+        "padding": "10px 0px",
+        "gap": "12px",
+        "minHeight": "72px",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "whiteSpace": "normal",
+        "texts": [
+          {
+            "text": "Usar outro dado",
+            "x": 71,
+            "y": 712.75,
+            "width": 218.05,
+            "height": 19,
+            "padding": "0px",
+            "gap": "normal",
+            "minHeight": "auto",
+            "fontSize": "16px",
+            "fontWeight": "600",
+            "whiteSpace": "normal",
+            "overflow": false
+          },
+          {
+            "text": "volta pra primeira etapa",
+            "x": 71,
+            "y": 733.75,
+            "width": 218.05,
+            "height": 15.5,
+            "padding": "0px",
+            "gap": "normal",
+            "minHeight": "auto",
+            "fontSize": "13px",
+            "fontWeight": "500",
+            "whiteSpace": "nowrap",
+            "overflow": false
+          }
+        ],
+        "icon": {
+          "x": 29,
+          "y": 716,
+          "width": 30,
+          "height": 30
+        },
+        "arrow": {
+          "x": 301.05,
+          "y": 722,
+          "width": 29.95,
+          "height": 18
+        }
+      }
+    ]
+  },
+  {
+    "source": "especime-folha",
+    "sheet": {
+      "x": 0,
+      "y": 1,
+      "width": 360,
+      "height": 270,
+      "padding": "18px 16px 32px",
+      "gap": "14px",
+      "minHeight": "0px",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "whiteSpace": "normal"
+    },
+    "header": {
+      "x": 16,
+      "y": 34,
+      "width": 328,
+      "height": 44
+    },
+    "card": {
+      "x": 16,
+      "y": 92,
+      "width": 328,
+      "height": 147
+    },
+    "headerToCard": 14,
+    "rows": [
+      {
+        "x": 29,
+        "y": 93,
+        "width": 302,
+        "height": 73,
+        "padding": "10px 0px",
+        "gap": "12px",
+        "minHeight": "72px",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "whiteSpace": "normal",
+        "texts": [
+          {
+            "text": "Reenviar os 5 blocos",
+            "x": 71,
+            "y": 103,
+            "width": 232,
+            "height": 19,
+            "padding": "0px",
+            "gap": "normal",
+            "minHeight": "auto",
+            "fontSize": "16px",
+            "fontWeight": "600",
+            "whiteSpace": "normal",
+            "overflow": false
+          },
+          {
+            "text": "Mantém a rede do módulo. Apaga só a configuração.",
+            "x": 71,
+            "y": 124,
+            "width": 232,
+            "height": 31,
+            "padding": "0px",
+            "gap": "normal",
+            "minHeight": "auto",
+            "fontSize": "13px",
+            "fontWeight": "500",
+            "whiteSpace": "normal",
+            "overflow": false
+          }
+        ],
+        "icon": {
+          "x": 29,
+          "y": 114,
+          "width": 30,
+          "height": 30
+        },
+        "arrow": {
+          "x": 315,
+          "y": 121,
+          "width": 16,
+          "height": 16
+        }
+      },
+      {
+        "x": 29,
+        "y": 166,
+        "width": 302,
+        "height": 72,
+        "padding": "10px 0px",
+        "gap": "12px",
+        "minHeight": "72px",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "whiteSpace": "normal",
+        "texts": [
+          {
+            "text": "Apenas registrar o diagnóstico",
+            "x": 71,
+            "y": 176,
+            "width": 232,
+            "height": 19,
+            "padding": "0px",
+            "gap": "normal",
+            "minHeight": "auto",
+            "fontSize": "16px",
+            "fontWeight": "600",
+            "whiteSpace": "normal",
+            "overflow": false
+          },
+          {
+            "text": "nada vai pro módulo · só o diagnóstico sobe",
+            "x": 71,
+            "y": 197,
+            "width": 232,
+            "height": 31,
+            "padding": "0px",
+            "gap": "normal",
+            "minHeight": "auto",
+            "fontSize": "13px",
+            "fontWeight": "500",
+            "whiteSpace": "normal",
+            "overflow": false
+          }
+        ],
+        "icon": {
+          "x": 29,
+          "y": 187,
+          "width": 30,
+          "height": 30
+        },
+        "arrow": {
+          "x": 315,
+          "y": 194,
+          "width": 16,
+          "height": 16
+        }
+      }
+    ]
+  },
+  {
+    "source": "especime-opcao",
+    "sheet": null,
+    "header": null,
+    "card": {
+      "x": 16,
+      "y": 1,
+      "width": 328,
+      "height": 147
+    },
+    "headerToCard": null,
+    "rows": [
+      {
+        "x": 29,
+        "y": 2,
+        "width": 302,
+        "height": 73,
+        "padding": "10px 0px",
+        "gap": "12px",
+        "minHeight": "72px",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "whiteSpace": "normal",
+        "texts": [
+          {
+            "text": "Reenviar os 5 blocos",
+            "x": 71,
+            "y": 12,
+            "width": 232,
+            "height": 19,
+            "padding": "0px",
+            "gap": "normal",
+            "minHeight": "auto",
+            "fontSize": "16px",
+            "fontWeight": "600",
+            "whiteSpace": "normal",
+            "overflow": false
+          },
+          {
+            "text": "Mantém a rede do módulo. Apaga só a configuração.",
+            "x": 71,
+            "y": 33,
+            "width": 232,
+            "height": 31,
+            "padding": "0px",
+            "gap": "normal",
+            "minHeight": "auto",
+            "fontSize": "13px",
+            "fontWeight": "500",
+            "whiteSpace": "normal",
+            "overflow": false
+          }
+        ],
+        "icon": {
+          "x": 29,
+          "y": 23,
+          "width": 30,
+          "height": 30
+        },
+        "arrow": {
+          "x": 315,
+          "y": 30,
+          "width": 16,
+          "height": 16
+        }
+      },
+      {
+        "x": 29,
+        "y": 75,
+        "width": 302,
+        "height": 72,
+        "padding": "10px 0px",
+        "gap": "12px",
+        "minHeight": "72px",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "whiteSpace": "normal",
+        "texts": [
+          {
+            "text": "Apenas registrar o diagnóstico",
+            "x": 71,
+            "y": 85,
+            "width": 232,
+            "height": 19,
+            "padding": "0px",
+            "gap": "normal",
+            "minHeight": "auto",
+            "fontSize": "16px",
+            "fontWeight": "600",
+            "whiteSpace": "normal",
+            "overflow": false
+          },
+          {
+            "text": "nada vai pro módulo · só o diagnóstico sobe",
+            "x": 71,
+            "y": 106,
+            "width": 232,
+            "height": 31,
+            "padding": "0px",
+            "gap": "normal",
+            "minHeight": "auto",
+            "fontSize": "13px",
+            "fontWeight": "500",
+            "whiteSpace": "normal",
+            "overflow": false
+          }
+        ],
+        "icon": {
+          "x": 29,
+          "y": 96,
+          "width": 30,
+          "height": 30
+        },
+        "arrow": {
+          "x": 315,
+          "y": 103,
+          "width": 16,
+          "height": 16
+        }
+      }
+    ]
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "T11": {
+    "htmlPct": 2,
+    "estruturalPct": 0,
+    "folhaPct": 0.01,
+    "folhaPixels": 32
+  },
+  "nota": "A referência da T11 tem fundo vazio atrás do véu; o app mantém a conferência visível. Esse desvio já era registrado na ficha. A região da folha é comparada separadamente."
+}

@@ -29,18 +29,16 @@ export function CartaoDeOpcoes({ children }) {
 // um texto só. Aberta já esperando ou já liberada, nada anima.
 //
 // variante 'efeito' (a última entrega · a folha Outras ações, T11/03, decisão 40,
-// G11): a linha da ação que tem o efeito escrito embaixo — 58 no mínimo
-// (--linha-com-porque), com 8 em cima e embaixo e 10 entre as partes, o ícone
-// de 16 no poço de 32 (o poço na linha), o que ela faz em 15/600 e o efeito em
-// 12 ('a cadeia inteira, preservando a conexão'), e a seta em
-// --tinta-secundaria, como a T11/03 desenha. O `detalhe` é o efeito. Sem ela, a
-// linha de 72 das folhas 2 e 6.
+// G11): a linha da ação que tem o efeito escrito embaixo. Usa a mesma densidade
+// da folha do código: 72 no mínimo, recheio 10, folga 12, ícone de 18 no poço
+// de 30, título em 16/600 e efeito em 13/500. O efeito pode quebrar linha,
+// inteiro, e a seta fica em --tinta-secundaria. Não há variante compacta.
 export function LinhaDeOpcao({ icone, titulo, detalhe, aoTocar, rotulo, forcaToque = false, espera, variante }) {
   if (espera === undefined) {
     const efeito = variante === 'efeito'
     return (
       <Tocavel className={`ds-linha-opcao ${efeito ? 'ds-linha-opcao-efeito' : ''} ${forcaToque ? 'ds-forca-toque' : ''}`} rotulo={rotulo} aoTocar={aoTocar}>
-        <Poco tam={efeito ? 32 : 30}><Icone nome={icone} tam={efeito ? 16 : 18} cor="secundaria" /></Poco>
+        <Poco tam={30}><Icone nome={icone} tam={18} cor="secundaria" /></Poco>
         <span className="ds-linha-opcao-textos">
           <span className="ds-linha-opcao-titulo">{titulo}</span>
           <span className="ds-linha-opcao-detalhe">{detalhe}</span>

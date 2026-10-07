@@ -1,5 +1,12 @@
 # Registro de mudanças
 
+## 2026-10-07 · a folha Outras ações com a densidade da folha do código
+
+- **T11/03 · padronização aprovada pelo diretor na conversa após o complemento da rodada 3**: saiu a densidade compacta da folha *Outras ações*. As opções seguem a *Não recebi o código*: mínimo 72, recheio vertical 10, vão 12, poço 30/ícone 18, título 16/600 e efeito 13/500, a 2 do título. Os efeitos continuam completos, com quebra de linha. O puxador e as margens externas permanecem iguais.
+- **referência e protótipo juntos**: HTML e PNG normativos atualizados; a variante `efeito` usa a densidade comum e mantém apenas a quebra de texto e a seta secundária. O HTML fixa a seta em 16, como o componente, sem encolher no flex. A ficha, os componentes, o mapa e os espécimes acompanham; as descrições antigas sem puxador foram alinhadas ao puxador que já voltou na rodada 3. O token de 58 fica no recebimento da T12; nenhum token, dado ou fluxo foi acrescentado.
+- **a entrega para a IA do design**: prompt, print do protótipo e medidas em `06-prototipo/para-o-arquiteto/padronizacao-folha-t11/`; gate em `gate-padronizacao-folha-t11.md`. Os pacotes e gates anteriores continuam históricos. O GIF fica como está: o percurso não passa pela T11.
+- **validação**: as opções renderizam em 73 e 72, com os títulos em uma linha e os efeitos em duas, sem corte; a folha mede 270, com o mesmo recheio e vão da T01. `checar` (incluindo 213 conferências do mock), build e o roteiro `conferencia` (173 passos) aprovados. A comparação final da folha e o registro do ciclo ficam no gate.
+
 ## 2026-10-08 · o complemento da rodada 3 — dois ajustes de desenho
 
 - **T13 · a linha da Montagem no formato das outras seções**: o nome à esquerda, o estado à direita, uma linha de 44px (a 02 e a 12) · antes ela empilhava os dois textos em 50px e destoava · o motivo da ressalva continua na 08 e na 15

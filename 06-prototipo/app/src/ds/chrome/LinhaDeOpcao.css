@@ -5,11 +5,6 @@
   border-bottom: var(--traco-borda) solid var(--divisoria);
 }
 .ds-linha-opcao:last-child { border-bottom: 0; }
-/* a última entrega · T11/03 (G11): a linha da ação com o efeito embaixo — 58, 8 em cima e embaixo, 10 entre as partes,
- * o que faz em 15 e o efeito em 12 */
-.ds-linha-opcao.ds-linha-opcao-efeito { gap: var(--e-10); min-height: var(--linha-com-porque); padding: var(--e-8) 0; }
-.ds-linha-opcao-efeito .ds-linha-opcao-titulo { font-size: var(--t-link); }
-.ds-linha-opcao-efeito .ds-linha-opcao-detalhe { font-size: var(--t-legenda); }
 .ds-linha-opcao-textos { flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--e-2); }
 .ds-linha-opcao-titulo { font-size: var(--t-destaque); font-weight: 600; color: var(--tinta); }
 /* o destino numa linha só; se não couber, reticências (folhas 2 e 6, decisão 31) */
@@ -17,6 +12,9 @@
   font-size: var(--t-secundario); font-weight: 500; color: var(--tinta-secundaria);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
+/* Outras ações segue a densidade da folha do código: 72 no mínimo, recheio 10,
+ * folga 12 e textos 16/13. O efeito fica inteiro; a linha cresce se precisar. */
+.ds-linha-opcao-efeito .ds-linha-opcao-detalhe { white-space: normal; overflow: visible; text-overflow: clip; }
 
 /* G11 · T01/04 e 11 — a linha que espera o reenvio: apagada, com a contagem no
  * lugar da seta; ao liberar, a seta entra e a linha acende, esmaecendo em

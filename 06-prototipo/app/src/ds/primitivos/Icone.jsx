@@ -70,7 +70,7 @@ export const ICONES = {
   // não mais o CameraOff do Lucide
   'camera-negada': [riscado(Camera), 'acao'],
   // a última entrega · T11/03: o registrar o diagnóstico, na folha Outras
-  // ações, no poço de 32 da linha de opção com o efeito — o file-text do
+  // ações, no poço de 30 da linha de opção com o efeito — o file-text de 18 do
   // Lucide, traço 1,8 (o Reenviar os 5 blocos usa o `reenviar`)
   diagnostico: [FileText, 'acao'],
   // a entrega do checklist · T13/05: o ciclo dinâmico, no poço de 32 da ação
