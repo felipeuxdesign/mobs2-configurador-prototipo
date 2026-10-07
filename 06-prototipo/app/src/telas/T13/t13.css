@@ -38,3 +38,8 @@
 
 /* por cima: o véu cobre o corpo, abaixo da faixa acesa (T13/10) */
 .t13-sobre { position: absolute; inset: 0; display: flex; flex-direction: column; }
+
+/* a pergunta do bip (a rodada 1, T13/40): 14/600 em --tinta, em cima das duas respostas */
+.t13-pergunta-bip { font-size: var(--t-corpo); font-weight: 600; color: var(--tinta); }
+/* o campo do que aconteceu, na linha do item da E (T13/42): 64 de altura, como a referência */
+.t13 .ds-item-ck-embaixo .ds-campo-texto-poco { min-height: calc(var(--alvo-min) + var(--e-16)); }

@@ -54,7 +54,7 @@
 //   (C12·23); o diálogo da Seção F nasce e some com o véu. Nada anima ao abrir.
 import { Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import {
-  BarraDoSistema, Faixa, CabecalhoConteudo, BarraDoChecklist, SecoesDoChecklist, SecaoDoChecklist, ItemDoChecklist, VereditoDoChecklist,
+  BarraDoSistema, Faixa, CabecalhoConteudo, BarraDoChecklist, SecoesDoChecklist, SecaoDoChecklist, ItemDoChecklist, VereditoDoChecklist, CampoTexto,
   Segmentado, Justificativa, OQueConferir, Rodape, Veu, Dialogo, Frase, VisorCamera, FotoProva,
   useTrocaDeQuadro, useReorganiza, usePresenca,
 } from '../../ds/index.js'
@@ -68,17 +68,19 @@ import { EM_QUADRO } from '../../estado/quadro.js'
 import { SEMENTES } from '../../estado/sementes.js'
 import { M } from '../../dados/mock.js'
 import {
-  REF, SECOES, SECAO_DO_MOMENTO, MOMENTO_DA_FOTO, FOTO_DO_MOMENTO, LISTAS_DA_C, DETALHES_DA_C, RELIDO_DO_ITEM, NAO_RESOLVIDO_DO_ITEM, RELEITURA_DO_QUADRO, VEREDITO_DO_RELIDO, detalheDaReleitura, mundoDe, checklist, nivelDoItem, primeiroPendente, proximoPendente, momentoDaSecao,
+  REF, SECOES, SECAO_DO_MOMENTO, MOMENTO_DA_FOTO, FOTO_DO_MOMENTO, LISTAS_DA_C, DETALHES_DA_C, RELIDO_DO_ITEM, NAO_RESOLVIDO_DO_ITEM, RELEITURA_DO_QUADRO, VEREDITO_DO_RELIDO, detalheDaReleitura,
+  BIP_DO_MOMENTO, MOMENTO_DO_BIP, D_NO_QUADRO_38, mundoDe, checklist, nivelDoItem, primeiroPendente, proximoPendente, momentoDaSecao,
   instrumentoDoItem, filaDoFinalizar, nomeDaSecao, rotuloDoNivel, itemDe, ativoDe, registroDoQuadro, cicloConcluido,
 } from './checklist.js'
 import { InstrumentoDoItem } from './pecas.jsx'
+import { BotaoDaLinha, RespostasDaLinha } from '../comum/BotaoDaLinha.jsx'
 import { T } from './textos.js'
 import './t13.css'
 
 const HORA = M.HORA_NOMINAL
 // o nome do glifo pro leitor, pelo estado do dado (G15, as legendas da folha 3)
-const NOME_DA_SECAO = { aprovada: 'aprovado', pendente: 'ainda não', aguarda: 'ainda não', reprovada: 'falha' }
-const NOME_DO_ITEM = { ok: 'aprovado', ressalva: 'aprovado', nsa: 'não se aplica', pendente: 'ainda não', aguarda: 'ainda não', reprovado: 'falha' }
+const NOME_DA_SECAO = { aprovada: 'aprovado', pendente: 'ainda não', aguarda: 'ainda não', reprovada: 'falha', lendo: 'lendo' }
+const NOME_DO_ITEM = { ok: 'aprovado', ressalva: 'aprovado', nsa: 'não se aplica', pendente: 'ainda não', aguarda: 'ainda não', reprovado: 'falha', lendo: 'lendo' }
 // o que conferir no nível do item reprovado, por item (textos.md · 09, o pacote 11)
 const CONFERIR_DO_REPROVADO = { 'c-alimentacao': T.conferirAlimentacao, 'c-gps': T.conferirGps, 'c-entradas': T.conferirEntradas, 'c-modem': T.conferirModem }
 
@@ -102,17 +104,16 @@ function comQuadro(base, momento) {
 // da foto do problema (decisão 39)
 function quadroInicial({ momento, est, ck }) {
   // deFeitos: quantos estavam feitos quando o nível do item abriu (a barra parte dali na volta, C12·36)
-  // dialogoDe: qual seção não passou, a F (10) ou a E com a correção pedida (28, o pacote 12)
   // releitura: o Reler o módulo do detalhe (o pacote 13 e o 23) · 'relendo' (29), 'naoResolvido' (34 a 37) ou 'relido' (30 a 33)
-  const q = { aberta: null, item: null, naoConforme: false, texto: '', fotoProblema: null, dialogo: false, dialogoDe: 'F', ciente: false, deFeitos: null, releitura: null }
+  // bip: o teste do bip enquanto ele não foi respondido (a rodada 1) · 'tocando' (39) ou 'esperando' (40)
+  const q = { aberta: null, item: null, naoConforme: false, texto: '', fotoProblema: null, dialogo: false, ciente: false, deFeitos: null, releitura: null, bip: null }
   const daReleitura = RELEITURA_DO_QUADRO[est ?? momento]
   if (daReleitura) return { ...q, item: daReleitura.item, releitura: ['relendo', 'naoResolvido', 'relido'][daReleitura.vezes] }
   if (DETALHES_DA_C.includes(est)) return { ...q, item: ck.porSecao.C.find((c) => c.estado === 'reprovado')?.id ?? null }
   if (LISTAS_DA_C.includes(est)) return { ...q, aberta: 'C' }
-  if (est === REF.secaoECorrecao) return { ...q, aberta: 'E' }
   if (est === REF.secaoF) return { ...q, dialogo: true }
-  if (est === REF.finalizarComE) return { ...q, dialogo: true, dialogoDe: 'E' }
-  if (SECAO_DO_MOMENTO[momento]) return { ...q, aberta: SECAO_DO_MOMENTO[momento] }
+  const bip = BIP_DO_MOMENTO[momento]
+  if (SECAO_DO_MOMENTO[momento]) return { ...q, aberta: SECAO_DO_MOMENTO[momento], bip: bip === 'tocando' || bip === 'esperando' ? bip : null }
   if (momento === REF.responder) return { ...q, item: primeiroPendente(ck) }
   if (FOTO_DO_MOMENTO[momento]) return { ...q, item: FOTO_DO_MOMENTO[momento] }
   if (momento === REF.naoConforme) return { ...q, item: primeiroPendente(ck), naoConforme: true, texto: M.checklist.exemploJustificativa }
@@ -130,7 +131,12 @@ export default function T13({ momento, estado: est }) {
   const [releituras, setReleituras] = useState(() => RELEITURA_DO_QUADRO[est ?? momento]?.vezes ?? 0)
   const base = comQuadro(mundoDe({ unico, est: fixo ?? est, semente: SEMENTES.T13, releituras }), est || fixo ? null : momento)
   const [registro, setRegistro] = useState(() => registroDoQuadro(momento, base, checklist(base)))
-  const mundo = comRegistro(base, registro)
+  // a Seção D lida bloco a bloco (a rodada 1, T13/38): ao entrar no checklist no fluxo, ela começa
+  // vazia e enche no ritmo do diagnóstico; o 38 pela URL, com três lidos · null, toda lida (o print,
+  // a coluna, os outros quadros, e depois do Finalizar)
+  const [dLidos, setDLidos] = useState(() => (momento === REF.dSendoLida ? D_NO_QUADRO_38
+    : EM_QUADRO || est || momento || base.registro.homologada ? null : 0))
+  const mundo = { ...comRegistro(base, registro), dLidos }
   const ck = checklist(mundo)
   const [q, setQ] = useState(() => quadroInicial({ momento, est, ck }))
   // a permissão da câmera do item: a do caso do estado da coluna; no fluxo, concedida
@@ -159,16 +165,34 @@ export default function T13({ momento, estado: est }) {
   }
   // abrir o checklist uma vez já conta pro menu (T04·2); o 11, o 12 e o 13 pela URL gravam o que os toques gravariam
   useEffect(() => { gravar(registro) }, []) // eslint-disable-line react-hooks/exhaustive-deps
-  // o 27 (o pacote 12): o quadro mostra a lista já rolada, a D no topo do miolo e a E aberta embaixo
+  // os quadros que a referência desenha com a lista já rolada (a rodada 1): aberta pela URL, a seção
+  // que não cabe embaixo leva a lista até a seção de antes dela no topo do miolo — a D (04, 38) com a
+  // C no topo, a E (05, 13, 39 a 42) com a D
   useLayoutEffect(() => {
-    if (est !== REF.secaoECorrecao) return
+    if (!momento || !q.aberta || est) return
     const miolo = document.querySelector('.t13 .tela-miolo')
-    const d = miolo?.querySelectorAll('.ds-secao-ck')[SECOES.findIndex((x) => x.id === 'D')]
-    if (d) miolo.scrollTop += d.getBoundingClientRect().top - miolo.getBoundingClientRect().top
+    const cartoes = miolo?.querySelectorAll('.ds-secao-ck')
+    const i = SECOES.findIndex((x) => x.id === q.aberta)
+    if (!cartoes?.[i] || i < 1) return
+    if (cartoes[i].getBoundingClientRect().bottom <= miolo.getBoundingClientRect().bottom) return
+    miolo.scrollTop += cartoes[i - 1].getBoundingClientRect().top - miolo.getBoundingClientRect().top
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
-  // a volta ao checklist homologado reabre no quadro dele: a URL segue (G20)
+  // a D enchendo: um item a cada RITMOS.diagnosticoLinhaMs, até a última
+  const totalD = ck.porSecao.D.length
   useEffect(() => {
-    if (!est && homologada && !momento) despachar({ tipo: 'ir', tela: 'T13', momento: REF.homologado })
+    if (EM_QUADRO || dLidos == null) return undefined
+    const t = setTimeout(() => setDLidos((n) => (n == null || n + 1 >= totalD ? null : n + 1)), RITMOS.diagnosticoLinhaMs)
+    return () => clearTimeout(t)
+  }, [dLidos, totalD])
+  // o bip tocando: o buzzer aciona por cerca de 1 s (RITMOS.bipMs), e a pergunta aparece (40)
+  useEffect(() => {
+    if (EM_QUADRO || q.bip !== 'tocando') return undefined
+    const t = setTimeout(() => { setQ((x) => ({ ...x, bip: 'esperando' })); irQuadro(q.aberta === 'E' ? REF.bipEsperando : null) }, RITMOS.bipMs)
+    return () => clearTimeout(t)
+  }, [q.bip]) // eslint-disable-line react-hooks/exhaustive-deps
+  // a volta ao checklist registrado reabre no quadro dele: a URL segue (G20)
+  useEffect(() => {
+    if (!est && homologada && !momento) despachar({ tipo: 'ir', tela: 'T13', momento: REF.registrado })
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── os toques ──
@@ -181,7 +205,7 @@ export default function T13({ momento, estado: est }) {
   // Módulo, e os outros quatro têm o seu (17 a 20); o não conforme deles não tem
   // referência, e a URL sai do momento
   const momentoDaFoto = (id, m = REF.responder) => (MOMENTO_DA_FOTO[id] ? (m === REF.responder ? MOMENTO_DA_FOTO[id] : null) : m)
-  const quadroDasSecoes = (aberta, c = ck) => (aberta ? momentoDaSecao(aberta, c, homologada) : homologada ? REF.homologado : null)
+  const quadroDasSecoes = (aberta, c = ck) => (aberta ? momentoDaSecao(aberta, c, homologada) : homologada ? REF.registrado : null)
   // o ENCERRAR (decisão 36, src/estado/encerrar.jsx): antes de homologar, o diálogo
   // Encerrar sem homologar? por cima desta tela; depois de homologar, direto, pra T16
   const enc = useEncerrar({ homologada })
@@ -252,26 +276,34 @@ export default function T13({ momento, estado: est }) {
       irQuadro(quadroDasSecoes(s, depois))
     }
   }
-  function homologar(ciencia) {
+  // o Finalizar (a rodada 1 do retorno do PM): o checklist registrado, aguardando o autoteste — a
+  // homologação é da T16, depois do encerramento · `homologada` guarda o nome de antes
+  function registrar(ciencia) {
     const novo = { ...registro, homologada: true, homologadaAs: HORA, ciencia }
     setRegistro(novo)
     setHomologouAgora(true)
     gravar(novo)
     // o diálogo sai como estava, com a ciência marcada; o veredito surge embaixo dele
     setQ({ ...q, dialogo: false, aberta: null, item: null, deFeitos: null })
-    irQuadro(REF.homologado)
+    irQuadro(REF.registrado)
   }
-  // a E falhando com a correção pedida pede a ciência primeiro; depois, a F (o pacote 12)
-  const finalizar = () => (ck.falhandoE ? setQ({ ...q, dialogo: true, dialogoDe: 'E', ciente: false })
-    : ck.falhandoF ? setQ({ ...q, dialogo: true, dialogoDe: 'F', ciente: false }) : homologar(null))
-  // com a E falhando, a instalação fica registrada, sem homologar (o que o PM decide · o
-  // pacote 12): o registro guarda a ciência, e o técnico volta ao menu — nenhuma referência
-  // desenha o depois (G25)
-  function registrarComFalha(ciencia) {
-    const novo = { ...registro, registradaComFalha: 'E', ciencia }
+  // com a Seção F falhando, a ciência primeiro (10)
+  const finalizar = () => (ck.falhandoF ? setQ({ ...q, dialogo: true, ciente: false }) : registrar(null))
+  // o bip do leitor (a rodada 1, 39 a 42): o Testar bip toca por cerca de 1 s e pergunta; Ouvi
+  // confere, Não ouvi é não conforme, com o campo do que aconteceu · a URL segue (G20)
+  const testarBip = () => { setQ((x) => ({ ...x, bip: 'tocando' })); irQuadro(q.aberta === 'E' ? REF.bipTocando : null) }
+  function responderBip(bip) {
+    const novo = { ...registro, bip }
     setRegistro(novo)
     gravar(novo)
-    ir('T04')
+    setQ((x) => ({ ...x, bip: null }))
+    irQuadro(q.aberta === 'E' ? MOMENTO_DO_BIP[bip] : null)
+  }
+  // o que aconteceu, no item não conforme da E (o bip não ouvido, o cartão que não confere)
+  function justificar(id, texto) {
+    const novo = { ...registro, justificativas: { ...registro.justificativas, [id]: texto } }
+    setRegistro(novo)
+    gravar(novo)
   }
   // o diálogo sai como estava (a ciência marcada continua desenhada até sumir); o Finalizar abre sem ela
   const cancelar = () => setQ({ ...q, dialogo: false })
@@ -302,6 +334,35 @@ export default function T13({ momento, estado: est }) {
   // aberto desde o começo (o 10, pela coluna), parado
   const dialogo = usePresenca(q.dialogo)
 
+  // o item da E que o técnico responde aqui (a rodada 1): o bip — o Testar bip à direita, e a
+  // pergunta com as duas respostas embaixo (40) —, e o não conforme com o campo do que aconteceu
+  // (o bip não ouvido, 42; o cartão que não confere, sem referência, G25)
+  function itemDaE(c, divisoria) {
+    const fonte = itemDe(c.id).fonte
+    const campo = (
+      <CampoTexto rotulo={T.oQueAconteceu} valor={registro.justificativas?.[c.id] ?? ''} aoMudar={(texto) => justificar(c.id, texto)} placeholder={T.conteOQueAconteceu} />
+    )
+    if (c.estado === 'naoConforme') {
+      return <ItemDoChecklist key={c.id} estado="reprovado" nome={c.nome} valor={c.valor} divisoria={divisoria} nomeGlifo={NOME_DO_ITEM.reprovado} embaixo={campo} />
+    }
+    if (fonte !== 'bip' || c.estado !== 'pendente') return null
+    const botao = (
+      <BotaoDaLinha tam="teste" letra="secundario" desabilitado={q.bip === 'tocando'} aoTocar={testarBip}>
+        {q.bip === 'tocando' ? T.tocando : T.testarBip}
+      </BotaoDaLinha>
+    )
+    const pergunta = q.bip === 'esperando' && (
+      <>
+        <span className="t13-pergunta-bip">{T.ouviuOBip}</span>
+        <RespostasDaLinha>
+          <BotaoDaLinha aoTocar={() => responderBip('ouvi')}>{T.ouviBotao}</BotaoDaLinha>
+          <BotaoDaLinha aoTocar={() => responderBip('naoOuvi')}>{T.naoOuviBotao}</BotaoDaLinha>
+        </RespostasDaLinha>
+      </>
+    )
+    return <ItemDoChecklist key={c.id} estado="pendente" nome={c.nome} acao={botao} divisoria={divisoria} nomeGlifo={NOME_DO_ITEM.pendente} embaixo={pergunta || undefined} />
+  }
+
   // os itens da seção aberta: a ação da seção primeiro (a E), e a última sem o traço de baixo
   function itensDa(s) {
     const linhas = []
@@ -312,6 +373,8 @@ export default function T13({ momento, estado: est }) {
       if (c.acao) {
         return <ItemDoChecklist key="acao" tipo="tocar" icone={c.icone} nome={c.nome} legenda={c.legenda} divisoria={divisoria} aoTocar={() => ir(c.destino.tela)} />
       }
+      const daE = s.id === 'E' && itemDaE(c, divisoria)
+      if (daE) return daE
       return (
         <ItemDoChecklist key={c.id} tipo={c.tipo} estado={c.estado} icone={c.icone} nome={c.nome} valor={c.valor} legenda={c.legenda} linhas={c.linhas} apagado={!!c.apagado}
           divisoria={divisoria} nomeGlifo={NOME_DO_ITEM[c.estado]} aoTocar={c.tipo === 'tocar' || c.destino ? () => tocarItem(c) : undefined} />
@@ -378,7 +441,7 @@ export default function T13({ momento, estado: est }) {
       <>
         <Segmentado rotulo={rotuloDoNivel(nivel.secao)} />
         <h1 className="t13-titulo-item">{nivel.item.pergunta ?? nivel.item.rotulo}</h1>
-        {instrumento && <InstrumentoDoItem rotulo={T.lidoNoModulo} {...instrumento} relido={positivo ? T.relido(HORA, VEREDITO_DO_RELIDO[c.id]) : undefined}
+        {instrumento && <InstrumentoDoItem rotulo={T.lidoNoModulo} {...instrumento} relido={positivo ? T.relido(HORA, VEREDITO_DO_RELIDO[c.id](c)) : undefined}
           naoResolvido={aindaFalta && instrumento.ainda ? T.relido(HORA, instrumento.ainda) : undefined} />}
         {!positivo && CONFERIR_DO_REPROVADO[q.item] && <OQueConferir rotulo={T.oQueConferir} causas={CONFERIR_DO_REPROVADO[q.item]} />}
       </>
@@ -395,8 +458,8 @@ export default function T13({ momento, estado: est }) {
         {/* na volta do nível do item, a barra parte do que tinha quando o item abriu (C12·36) */}
         <BarraDoChecklist feitos={ck.feitos} total={ck.total} de={q.deFeitos ?? undefined} className="t13-barra" />
         {homologada && (
-          <VereditoDoChecklist titulo={T.homologadaAs(registro.homologadaAs ?? HORA)} surge={homologouAgora}
-            relatorio={mundo.semLocalizacao ? T.semLocalizacao : T.relatorioLeva(M.checklist.evidencias)} />
+          <VereditoDoChecklist titulo={<>{T.registrado}<br />{T.aguardandoAutoteste}</>} surge={homologouAgora}
+            relatorio={mundo.semLocalizacao ? T.semLocalizacao : T.proximoPasso} />
         )}
         <SecoesDoChecklist aberta={q.aberta}>
           {ck.secoes.map((s) => (
@@ -413,7 +476,7 @@ export default function T13({ momento, estado: est }) {
       ? <Rodape primario={T.encerrarSessao} aoPrimario={() => ir('T16')} primarioTrocaTexto link={T.voltarMenu} aoLink={voltarAoMenu} />
       : (
         // 'Faltam N itens' explica o primário apagado; com 1, no singular (Falta 1 item, proposta)
-        <Rodape legenda={ck.faltam > 0 ? T.faltam(ck.faltam) : undefined} legendaJunta primario={T.finalizar} primarioDesabilitado={ck.bloqueiam > 0}
+        <Rodape legenda={ck.motivo ?? undefined} legendaJunta primario={T.finalizar} primarioDesabilitado={ck.bloqueiam > 0}
           primarioTrocaTexto aoPrimario={finalizar} link={T.voltarMenu} aoLink={voltarAoMenu} />
       )
   }
@@ -436,11 +499,11 @@ export default function T13({ momento, estado: est }) {
         {dialogo.montado && (
           <div className="t13-sobre">
             <Veu de="dialogo" visivel={dialogo.visivel}>
-              <Dialogo titulo={q.dialogoDe === 'E' ? T.secaoENaoPassou : T.secaoFNaoPassou} primario={T.finalizar}
-                aoPrimario={() => (q.dialogoDe === 'E' ? registrarComFalha : homologar)({ nome: unico.tecnico.nome, as: HORA })}
+              <Dialogo titulo={T.secaoFNaoPassou} primario={T.finalizar}
+                aoPrimario={() => registrar({ nome: unico.tecnico.nome, as: HORA })}
                 saida={T.cancelar} aoSair={cancelar} ciencia={T.ciente(unico.tecnico.nome, HORA)} ciente={q.ciente}
                 aoMudarCiencia={(ciente) => setQ((x) => ({ ...x, ciente }))} margem={16} aberto={dialogo.visivel}>
-                <Frase>{q.dialogoDe === 'E' ? T.cartaoRegistrado : T.registradaFalhando}</Frase>
+                <Frase>{T.registradaFalhando}</Frase>
               </Dialogo>
             </Veu>
           </div>

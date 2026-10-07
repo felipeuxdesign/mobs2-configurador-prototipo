@@ -6,7 +6,8 @@
 // regra dos critérios (criteriosRegra.porEstado), sem o porquê — a PCX-9A17,
 // aguardando o gestor, com os dois conformes; a RVM-1E54, da falha reconhecida,
 // com os dois ausentes. O resumo da i-01 (o pacote 2): Diagnóstico 7 de 7, a
-// calibração do hodômetro e do horímetro, o Ciclo de testes 6 de 6 e o
+// calibração do hodômetro e do horímetro, o Ciclo de testes 4 de 4 (a rodada 1 do retorno do PM: o
+// mock da i-01 tem os 4 passos novos · a referência, da rodada 3, ainda diz 6 de 6) e o
 // Checklist 31 de 31. O recebimento deixou de ser a sétima etapa. Os estados 04 e 05
 // abrem pela coluna, parados: a PCX-9A17 com o recebimento do caso, e o
 // status geral 'aguardando validação'.
@@ -18,7 +19,7 @@ export default [
   { naoVe: 'Viagens' },
   // o pacote 1: o resumo diz o Diagnóstico do módulo (7 de 7, das linhas do diagnóstico do mock) e o checklist de 31
   { ve: 'A INSTALAÇÃO\nDiagnóstico\n7 de 7' },
-  { ve: 'Calibração\nhodômetro e horímetro\nCiclo de testes\n6 de 6\nChecklist\n31 de 31' },
+  { ve: 'Calibração\nhodômetro e horímetro\nCiclo de testes\n4 de 4\nChecklist\n31 de 31' },
   { naoVe: 'com foto' },
   { naoVe: 'Pré-checagem' },
   { ve: 'Autoteste\n8 de 8' },

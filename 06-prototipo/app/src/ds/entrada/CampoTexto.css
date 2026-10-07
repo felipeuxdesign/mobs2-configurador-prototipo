@@ -18,3 +18,5 @@
   color: var(--tinta); font-family: inherit; font-size: var(--t-corpo); font-weight: 500;
   line-height: var(--entrelinha-texto-livre);
 }
+/* a rodada 1 do retorno do PM (T13/42): o que o campo vazio pede */
+.ds-campo-texto-entrada::placeholder { color: var(--marca-limite); opacity: 1; }

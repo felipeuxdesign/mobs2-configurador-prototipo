@@ -13,12 +13,13 @@ export const REF = {
   estourado: '02-estado-prazo-estourado',
   segundaFalha: '09-estado-segunda-falha-do-evento',   // o pacote 12: o evento que não chega nas duas tentativas
   fora: '03-estado-dinamico-fora-do-esperado',
-  identificador: '04-estado-identificador-divergente',
   concluido: '05-momento-ciclo-concluido',
-  corrigida: '06-momento-correcao-solicitada',
-  // o pacote 6: a vez da porta e a do cartão, quadros do meio do ciclo
-  vezDaPorta: '07-momento-vez-da-porta',
-  vezDoCartao: '08-momento-vez-do-cartao',
+  // a rodada 1 do retorno do PM (06/10): o cartão em três momentos — a vez dele é a 00, o módulo
+  // leu (08), e a resposta do técnico: não confere (10) ou confere, e a vez da ignição desligada (11)
+  leuCartao: '08-momento-o-modulo-leu-o-cartao',
+  naoConfere: '10-momento-cartao-nao-confere',
+  vezDaIgnicao: '11-momento-vez-da-ignicao-desligada',
+  semLeitor: '12-estado-ativo-sem-leitor',
 }
 export const CASO_SEM_RESPOSTA = 'evento-sem-resposta'
 // o pacote 12 (T14/09): o mesmo par, e a 2ª tentativa também estoura (`tentativasQueEstouram`)
@@ -28,7 +29,8 @@ export const CASO_DE_NOVO = 'evento-nao-chega-de-novo'
 // ignição ligada — o can-fora-esperado (a velocidade em 0) saiu da T14: com o
 // ônibus parado, a velocidade só entra com tacógrafo digital, e o a-02 não tem
 export const CASO_MOTOR = 'motor-desligado-no-ciclo'
-export const CASO_IDENTIFICADOR = 'identificador-divergente'
+// a rodada 1 do retorno do PM: o ativo sem leitor (T14/12), o ciclo em 3 passos · só pela coluna
+export const CASO_SEM_LEITOR = 'sem-leitor'
 const CASO_PENDENCIAS = 'modulo-com-pendencias'
 
 // a chave de um passo, pra ler o caso: o título sem acento e em caixa baixa —
@@ -36,10 +38,11 @@ const CASO_PENDENCIAS = 'modulo-com-pendencias'
 // `passo` do motor-desligado-no-ciclo
 const chaveDe = (titulo) => titulo.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
 
-// os passos canônicos: os seis da Seção E do checklist, que são os da i-01
-// (mocks.js, PASSOS_CICLO, decisão 54) — com o id do item, que é como o checklist os lê
+// os passos canônicos: os da Seção E do checklist que o ciclo prova, que são os da i-01
+// (mocks.js, PASSOS_CICLO) — com o id do item, que é como o checklist os lê, e a condição
+// (a rodada 1 do retorno do PM: no máximo quatro, cada um só quando se aplica · o bip é do checklist)
 const CANONICOS = M.checklist.itens.filter((i) => i.secao === 'E' && i.origem === 'ciclo')
-  .map((i) => ({ id: i.id, titulo: i.pergunta, chave: chaveDe(i.pergunta) }))
+  .map((i) => ({ id: i.id, titulo: i.pergunta, chave: chaveDe(i.pergunta), condicao: i.condicao }))
 // o passo da velocidade (D3 do pacote 2): entra depois da rotação, só quando o
 // modelo do ativo tem tacógrafo digital (tacografoDigital). Nenhuma referência o
 // desenha — o herói não tem —, e ele se monta pelo dado: o nome é o do sinal da
@@ -53,17 +56,24 @@ export const ID_VELOCIDADE = `e-${SINAL_DO_TACOGRAFO}`
 export const ativoDe = (id) => M.ativos.find((a) => a.id === id)
 const modeloDe = (ativoId) => M.modelosAtivo.find((m) => m.id === ativoDe(ativoId)?.modeloAtivoId)
 
-// os passos do par: os seis, e a velocidade depois da rotação com tacógrafo digital
-export function passosDo(par) {
-  const modelo = modeloDe(par.ativoId)
-  if (!modelo?.tacografoDigital) return CANONICOS
-  const sinal = modelo.sinaisCan?.find((s) => s.id === SINAL_DO_TACOGRAFO)
-  if (!sinal) return CANONICOS
-  const em = CANONICOS.findIndex((p) => p.chave === DEPOIS_DE) + 1
-  const velocidade = { id: ID_VELOCIDADE, titulo: sinal.rotulo, chave: SINAL_DO_TACOGRAFO }
-  return [...CANONICOS.slice(0, em), velocidade, ...CANONICOS.slice(em)]
+// a condição de cada passo, no modelo do ativo (a rodada 1 do retorno do PM): a rotação só se o
+// ativo lê rotação (o sinal na CAN do modelo); o cartão só se há leitor — e o caso sem-leitor o tira
+const VALE = {
+  rotacao: (modelo) => !!modelo?.sinaisCan?.some((s) => s.id === 'rotacao'),
+  leitor: (modelo, semLeitor) => !semLeitor && !!modelo?.leitor,
 }
-// os passos do herói (o print, a vitrine): os seis
+// os passos do par: os que se aplicam, e a velocidade depois da rotação com tacógrafo digital
+export function passosDo(par, { semLeitor = false } = {}) {
+  const modelo = modeloDe(par.ativoId)
+  const valem = CANONICOS.filter((p) => !p.condicao || VALE[p.condicao]?.(modelo, semLeitor))
+  if (!modelo?.tacografoDigital) return valem
+  const sinal = modelo.sinaisCan?.find((s) => s.id === SINAL_DO_TACOGRAFO)
+  if (!sinal) return valem
+  const em = valem.findIndex((p) => p.chave === DEPOIS_DE) + 1
+  const velocidade = { id: ID_VELOCIDADE, titulo: sinal.rotulo, chave: SINAL_DO_TACOGRAFO }
+  return [...valem.slice(0, em), velocidade, ...valem.slice(em)]
+}
+// os passos do herói (o print, a vitrine): os quatro
 export const PASSOS = CANONICOS
 export const PRAZO = M.ciclo.prazoEventoSeg
 export const EVENTO = M.ciclo.evento
@@ -71,9 +81,9 @@ export const EVENTO = M.ciclo.evento
 // o tique do prazo: 1 s real vale RITMOS.prazoFator s de prazo, então um segundo
 // de prazo passa a cada 250 ms. O processo inteiro anda nesse tique.
 export const TIQUE_MS = 1000 / RITMOS.prazoFator
-// o passo k (1 a 6) acende a k × cicloPassoMs do disparo (T14·1): os quatro que
-// a semente não traz, a +9, +12, +15 e +18 s — no tique do prazo, 36, 48, 60 e 72
-// (com a velocidade, sete passos: o último a +21 s)
+// o passo k acende a k × cicloPassoMs do disparo (T14·1): no tique do prazo, 12 por passo
+// (a ignição desligada do herói, o 4º, a +12 s, o tique 48) · o cartão é do técnico: a vez dele
+// começa no disparo, e o módulo lê no tique do passo seguinte (+3 s) — a 00 e a 08, nos 60%
 export const tiqueDoPasso = (i) => ((i + 1) * RITMOS.cicloPassoMs) / TIQUE_MS
 // o quadro da 00: o instante antes de o evento chegar (120 − 24 = 96, o 1:36)
 export const QUADRO_00 = EVENTO.recebidoAosSeg
@@ -94,18 +104,15 @@ export const parDoCaso = (k) => {
   return { ativoId: c.ativoId, moduloSerial: c.moduloSerial ?? ativoDe(c.ativoId).moduloSerial }
 }
 
-// o cartão do caso identificador-divergente: o que o leitor leu (exemplos) e o
-// que o cadastro espera (o cartão, em M.identificadores)
-function cartaoDoCaso() {
-  const c = M.casos[CASO_IDENTIFICADOR]
-  const ex = c.exemplos.find((e) => e.cartaoId === c.cartaoId)
-  const cartao = M.identificadores.cartoes.find((x) => x.id === c.cartaoId)
-  return { cartaoId: c.cartaoId, lido: ex.lido, esperado: cartao.codigoEsperado }
-}
+// o que o módulo leu no cartão do motorista (T14/08, 'leu 9412857'): o número do primeiro
+// cartão do mock (M.identificadores, o 0009412857), como o leitor o manda, sem os zeros à
+// esquerda — o mock não declara o lido (o gate da rodada 1, pro arquiteto) · o app não
+// compara com cadastro nenhum: quem confere é o técnico, com o número impresso no cartão
+export const CARTAO_LIDO = M.identificadores.cartoes[0].codigoEsperado.replace(/^0+/, '')
 
-// os casos que valem neste par (o da faixa, G28). O motor desligado e o cartão
-// que não bate são fato do veículo e do cadastro: valem toda vez. O evento sem
-// resposta vale uma vez por sessão (G21): a 1ª tentativa estoura, a 2ª confirma.
+// os casos que valem neste par (o da faixa, G28). O motor desligado é fato do
+// veículo: vale toda vez. O evento sem resposta vale uma vez por sessão (G21): a 1ª
+// tentativa estoura, a 2ª confirma.
 export function casosDoPar(par, consumidos = []) {
   const bate = (k) => {
     const c = M.casos[k]
@@ -114,7 +121,6 @@ export function casosDoPar(par, consumidos = []) {
   return {
     semResposta: bate(CASO_SEM_RESPOSTA) && !consumidos.includes(CASO_SEM_RESPOSTA),
     motor: bate(CASO_MOTOR) ? M.casos[CASO_MOTOR] : null,
-    cartao: bate(CASO_IDENTIFICADOR) ? cartaoDoCaso() : null,
   }
 }
 
@@ -125,41 +131,48 @@ export function filaDoModulo(serial) {
   return p.moduloSerial === serial ? { mensagens: p.mensagens, diagnostico: p.diagnostico } : M.ciclo.mensagensGuardadas
 }
 
-// o passo do cartão é o Cartão do motorista (T14/04): com o caso de identificador, ele reprova
-const ehCartao = (p) => p.titulo === T.cartao
-// o veredito de um passo quando ele acontece: reprovado no passo que o motor
-// desligado prova (a rotação, `passo` do caso) e no cartão que não bate; aprovado nos outros
-export function veredito(p, casos) {
+// o passo do cartão, o da ignição desligada (a vez que explica a espera, T14/10 e 11)
+export const CHAVE = { cartao: 'cartao do motorista', ignicaoDesligada: 'ignicao desligada' }
+const ehCartao = (p) => p.chave === CHAVE.cartao
+// o veredito de um passo quando ele acontece: reprovado no passo que o motor desligado
+// prova (a rotação, `passo` do caso); o cartão não tem veredito do app — o módulo lê
+// ('lido'), e quem confere é o técnico (a resposta, `cartao`); aprovado nos outros
+export function veredito(p, casos, cartao = null) {
   if (casos.motor && p.chave === casos.motor.passo) return 'reprovada'
-  if (casos.cartao && ehCartao(p)) return 'reprovada'
+  if (ehCartao(p)) return cartao ?? 'lido'
   return 'aprovada'
 }
-// a causa embaixo do passo reprovado: '0 rpm · ligue o motor' (03) ou o lido e o esperado do cartão (04)
+// a causa embaixo do passo reprovado: '0 rpm · ligue o motor' (03)
 export function causaDo(p, casos) {
   if (casos.motor && p.chave === casos.motor.passo) return T.causaDoPasso(casos.motor)
-  if (casos.cartao && ehCartao(p)) return T.leu(casos.cartao)
   return undefined
 }
 
+// o tique em que um passo acontece: o seu, e o cartão, o do passo seguinte (o módulo lê
+// 3 s depois de ele virar a vez); a ignição desligada depois do cartão, 3 s depois da resposta
+export const tiqueDe = (lista, i, respondidoEm = null) => {
+  const p = lista[i]
+  if (ehCartao(p)) return tiqueDoPasso(i + 1)
+  const cartao = lista.findIndex(ehCartao)
+  if (cartao >= 0 && i > cartao) return respondidoEm == null ? Infinity : Math.max(tiqueDoPasso(i), respondidoEm + RITMOS.cicloPassoMs / TIQUE_MS + 1)
+  return tiqueDoPasso(i)
+}
 // os passos num tique do prazo: os que a semente traz feitos (T14·1), os que já
-// aconteceram, e o resto por fazer. O cartão do caso de identificador reprova na vez
-// dele, depois da ré e da porta (o pacote 6: a 04 e a 06 na ordem certa)
-export const passosAte = (passos, casos, tique) => passos.map((p, i) =>
-  (i < RITMOS.cicloPassosNaEntrada || tique >= tiqueDoPasso(i) ? veredito(p, casos) : 'pendente'))
-export const passosNaEntrada = (passos, casos) => passosAte(passos, casos, 0)
-// o tique em que um passo acontece, pela chave (a 04, a 06, a 07 e a 08 param ali)
-export const tiqueDe = (passos, chave) => tiqueDoPasso(passos.findIndex((p) => p.chave === chave))
+// aconteceram, e o resto por fazer
+export const passosAte = (lista, casos, tique, resposta = {}) => lista.map((p, i) =>
+  (i < RITMOS.cicloPassosNaEntrada || tique >= tiqueDe(lista, i, resposta.em) ? veredito(p, casos, resposta.cartao) : 'pendente'))
+export const passosNaEntrada = (lista, casos) => passosAte(lista, casos, 0)
 // a T14/01 desenha a fila com 45% por sair (o quadro do meio da drenagem, o pacote 6)
 export const FILA_NO_QUADRO_01 = 0.45
-export const CHAVE = { re: 're acionada', porta: 'porta aberta', cartao: 'cartao do motorista' }
 // O passo da vez (o pacote 6, a T14 na gramática do poço): o primeiro por fazer, depois do
-// disparo, com o quadrado de agora e a ação do técnico; antes do disparo e na falha do motor
-// (o ciclo não anda sem ele), nenhum
+// disparo, com o quadrado de agora e a ação do técnico — o cartão lido também é a vez, até a
+// resposta; antes do disparo e na falha do motor (o ciclo não anda sem ele), nenhum
 export function passoDaVez(passos, casos, disparado) {
   if (!disparado || (casos.motor && passos.includes('reprovada'))) return -1
-  return passos.indexOf('pendente')
+  const lido = passos.indexOf('lido')
+  return lido >= 0 ? lido : passos.indexOf('pendente')
 }
-// todos os passos feitos (o 02 e o 05)
-export const passosFeitos = (passos, casos) => passos.map((p) => veredito(p, casos))
+// todos os passos feitos (o 02, o 05 e o 12): o cartão, conferido
+export const passosFeitos = (lista, casos) => lista.map((p) => veredito(p, casos, 'aprovada'))
 // os passos gravados em etapas.ciclo (pelo id), na ordem do par
-export const passosDoRegistro = (reg, passos) => passos.map((p) => reg.passos?.[p.id] ?? 'pendente')
+export const passosDoRegistro = (reg, lista) => lista.map((p) => reg.passos?.[p.id] ?? 'pendente')

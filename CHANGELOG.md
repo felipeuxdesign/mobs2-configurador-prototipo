@@ -1,5 +1,33 @@
 # Registro de mudanças
 
+## 2026-10-07 · a rodada 1 do retorno do PM — o que decide se a instalação passa
+
+O PM revisou o protótipo (06/10) com um critério: **o app só valida o que o Virloc realmente responde, com o técnico parado**. A rodada 1 cobre as telas que decidem quando uma instalação é aprovada.
+
+- **T14 · o ciclo**: no máximo 4 passos, sem ré e porta · o cartão em três momentos: *passe o cartão*, *o módulo leu 9412857*, *Confere com o cartão* ou *Não confere* · a ignição desligada explica a espera · o ativo sem leitor, com 3 passos · **saíram** o identificador divergente, a correção solicitada e a vez da porta
+- **T16 · a sessão**: a *Instalação homologada* mora aqui, com horário · as sete assertivas na ordem do PM, com três contadores (aprovadas, não se aplicam, pendentes) · o evento do cartão pendente não bloqueia · o reinício é automático, e a conexão que cai diz *Reconectando…*
+- **T13 · o checklist**: 29 itens no herói · a A com 4, a D bloco a bloco e começando vazia, a E com o bip, a F com 2 · a alimentação na faixa do modelo, 9,0 a 32,0 V (exemplo até a bancada) · o GPS pela antena · os cinco estados do bip · o fim é *Checklist registrado · aguardando autoteste* · **saiu** o caminho da correção do cartão, com a correção na fila da T15
+- **T09 · a configuração**: cada bloco termina em *confere* · as duas redações da limpeza · *O módulo falou com o servidor* · não se sai do meio · o *não cabe* nomeia o que estourou · 127 contadores e 6.143 pontos no VL06
+- **T07**: só o valor da alimentação, 24,3 V no herói · o resto da T07 é da rodada 2
+- **o mock e o gate**: o checklist novo, as capacidades do PM, os casos das falhas e do servidor · duas âncoras novas, e as do cartão comparado com o cadastro saíram
+- **as palavras**: nenhuma tela da rodada diz *feita* ou *gravado* como resultado, nem *m2m.mobs2.br*, nem *homologada* fora da T16
+- **180 → 185 referências** · 15 telas, 76 estados, 94 momentos
+
+- **no protótipo** (o gate em `06-prototipo/para-o-arquiteto/gate-rodada1.md`, as folhas lado a lado em `rodada1/` · commit local, sem push até a rodada 3):
+  - os 26 arquivos do `APAGAR.txt` saíram, e nada no app, nos roteiros ou nos documentos vivos aponta pra eles (os gates antigos ficam como registro);
+  - **a T14**: o cartão lido espera a resposta na própria linha (`BotaoDaLinha`, peça das telas); o *Confere* leva à ignição desligada 3 s depois, nunca antes da vez dela no ciclo; o *Não confere* vira não conforme no checklist · o `sem-leitor` monta o 12, com 3 passos;
+  - **a T13**: a D lida bloco a bloco ao entrar, no ritmo do diagnóstico; o bip toca 1 s (`RITMOS.bipMs`) e pergunta; o Finalizar registra, e a ciência só abre com a F reprovada · a F confere depois do Finalizar, como a 11 e a 13 desenham;
+  - **a T09**: a Conexão relida leva ao *conferindo* do servidor (11), um bloco depois, e à cadeia concluída · o `servidor-ainda-nao` monta o 12, só pela coluna;
+  - **a T16**: o reinício corre sozinho, com *Reiniciando o módulo…* no primário · o 01 e o 08 abrem parados pelo endereço, no par da referência (KNB-5H39) · os contadores das assertivas, embaixo do título;
+  - cinco variantes de peças que já existem (o item e a seção do checklist, o campo de texto, a cadeia, o encerramento) e uma peça das telas · nenhuma peça nova no design system, nenhum token;
+  - os espécimes do pedido de correção (`mov-registro-linha` e `mov-registro-link`) saíram com ele · a variante segue na `LinhaTocavel` e no `Link`, sem uso;
+  - os roteiros refeitos pro fluxo novo: `mov-t09`, `mov-t13`, `mov-t14`, `mov-t16`, `sessao`, `checklist`, `heroi`, `heroi-sem-horimetro`, `abortada`, `familias`, `reler`, `recebido`, `readme` e `mov-porcima`.
+- **os desvios nomeados** (o gate, §3):
+  - a hora: o protótipo diz 14:30, o relógio parado · as referências dizem 14:41 e 14:42;
+  - o *Ciclo de testes 4 de 4* na T12/01: o mock da i-01 tem os 4 passos novos, e a referência, da rodada 3, ainda diz 6 de 6;
+  - o rodapé de um botão só fecha em 32, a regra da peça (T09/01, 02 · T13/30 a 33);
+  - as referências da T13 rolam além do fim da lista (04, 05, 13, 39, 41).
+
 ## 2026-10-05 · o pacote 23 — o reler que não resolve, e as famílias na coluna
 
 - **o reler que não resolve** (T13/34 a 37): o valor novo, ainda vermelho, e no lugar da frase de baixo o xis pequeno com *relido às 14:41 · ainda…* e o que ainda falta · o *O que conferir* continua, e o botão volta a ser *Reler o módulo* · é o *não confere* da calibração · sem ele, o técnico via a mesma tela e não sabia se o app tinha relido

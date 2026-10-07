@@ -22,13 +22,15 @@ export const T = {
   fotosTiradas: (n) => (n === 1 ? '1 foto tirada' : `${n} fotos tiradas`),
   voceFazCiclo: 'você faz o ciclo parado',
   cicloPassou: 'o ciclo passou',
-  cartaoNaoPassou: 'o cartão não passou',   // a E com a correção de cadastro pedida (o pacote 12, T13/27)
+  lendoDoModulo: 'lendo do módulo',   // a Seção D enchendo (a rodada 1, T13/38)
   esperaServidor: 'espera o servidor · não bloqueia',
   servidorConfirmou: 'o servidor confirmou',
 
-  // o veredito do homologado
-  homologadaAs: (hora) => `Instalação homologada às ${hora}`,
-  relatorioLeva: (n) => `o relatório leva ${n} evidências, o local e o seu nome`,
+  // o fim (a rodada 1 do retorno do PM, T13/11 e 14): o checklist registrado, aguardando o
+  // autoteste, e o próximo passo · a homologação é da T16
+  registrado: 'Checklist registrado',
+  aguardandoAutoteste: 'aguardando autoteste',
+  proximoPasso: 'O próximo passo é encerrar a sessão. O autoteste roda durante o encerramento.',
   semLocalizacao: 'o relatório vai sem localização',
 
   // os valores dos itens que são palavra (textos.md)
@@ -41,40 +43,36 @@ export const T = {
   entradaLida: (entrada, valor) => `${entrada} ${valor}`,
   esperadoDaEntrada: (valor) => `esperado: ${valor}, com a chave virada`,
   semAlcance: 'o módulo não alcança a rede da operadora',
-  // o cartão que não bate, com a correção pedida (T13/27)
-  leuEspera: (lido, esperado) => `leu ${lido} · o cadastro espera ${esperado}`,
-  correcaoSolicitada: (hora) => `correção solicitada às ${hora}`,
-  feita: 'feita',
-  gravada: 'gravada',
-  gravado: 'gravado',
-  // D · o Extended ID, só leitura (decisão 45): o que está no módulo (T13/04, '3 cartões ·
-  // 1 iButton'); sem nenhum, só informando, e não é divergência (D5)
-  extendedId: (cartoes, ibuttons) => {
-    if (!cartoes && !ibuttons) return 'nenhum cartão no módulo'
-    const partes = []
-    if (cartoes) partes.push(cartoes === 1 ? '1 cartão' : `${cartoes} cartões`)
-    if (ibuttons) partes.push(ibuttons === 1 ? '1 iButton' : `${ibuttons} iButtons`)
-    return partes.join(' · ')
-  },
-  // D · o horímetro pulado na calibração (D1): resolvido, sem bloquear
-  naoCalibrado: 'não calibrado',
+  // a rodada 1 do retorno do PM: o pacote de sincronização (A), a antena (C), a D lida, a F e o bip (E)
+  dataDoPacote: (data, hora) => `${data.slice(8, 10)}/${data.slice(5, 7)} ${hora}`,
+  antena: (estado) => `antena ${estado}`,
+  antenaConectada: 'conectada',
+  lendo: 'lendo',
+  esperando: 'esperando',
+  naoChegou: 'não chegou',
+  testarBip: 'Testar bip',
+  tocando: 'Tocando…',
+  ouviuOBip: 'Você ouviu o bip?',
+  ouviBotao: 'Ouvi',
+  naoOuviBotao: 'Não ouvi',
+  ouvi: 'ouvi',
+  naoOuvi: 'não ouvi',
+  naoConfere: 'não confere',   // o cartão que o técnico disse que não confere (T14/10)
   aFazer: 'a fazer',
-  esperaEnvio: 'espera o envio',
   vazio: '—',
   // B: a foto por fazer (o Painel também, decisão 52) e a ressalva com a causa
   fotoATirar: 'foto a tirar',
   comRessalva: (causa) => `com ressalva · ${causa}`,
   // E: a ação da seção, a única
   fazerCiclo: 'Fazer o ciclo de testes',
-  osPassos: (n) => `os ${n} passos, com o ônibus parado`,
-  // F depois de homologar: nenhuma referência da entrega desenha a F aberta
-  // com o servidor confirmado; ficam as palavras do C10 (T13/06 de antes: 12
-  // subiram · 31 de 31 · na fila), com o número do mock (G25, pro arquiteto)
-  subiram: (n) => `${n} subiram`,
+  osPassos: (n) => `até ${n} passos, com o ônibus parado`,
 
   // o rodapé
-  // no singular, *1 item*, com o verbo junto (o singular do `Faltam N itens`: proposta do protótipo, pro arquiteto)
-  faltam: (n) => (n === 1 ? 'Falta 1 item' : `Faltam ${n} itens`),
+  // o motivo do Finalizar desligado (a rodada 1): quantos obrigatórios faltam — no singular, *Falta 1
+  // item obrigatório* (proposta do protótipo) —, a seção ainda lida, a seção com um item reprovado
+  faltam: (n) => (n === 1 ? 'Falta 1 item obrigatório' : `Faltam ${n} itens obrigatórios`),
+  secaoSendoLida: (id) => `A Seção ${id} ainda está sendo lida`,
+  secaoComReprovado: (id) => `A Seção ${id} tem um item reprovado`,
   finalizar: 'Finalizar instalação',
   encerrarSessao: 'Encerrar sessão',
   voltarMenu: 'Voltar ao menu',
@@ -118,8 +116,8 @@ export const T = {
   // as causas das outras três (o pacote 12, padrão até o PM decidir)
   conferirGps: [
     { titulo: '1 · Antena GPS', texto: '— conectada e firme' },
-    { titulo: '2 · Céu aberto', texto: '— sem teto nem metal por cima' },
-    { titulo: '3 · Cabo da antena', texto: '— sem dobra nem corte' },
+    { titulo: '2 · Cabo da antena', texto: '— sem dobra nem corte' },
+    { titulo: '3 · Conector da antena', texto: '— encaixado e rosqueado' },
   ],
   conferirEntradas: [
     { titulo: '1 · Chave do ônibus', texto: '— virada na ignição' },
@@ -143,9 +141,6 @@ export const T = {
   // o diálogo da Seção F (10)
   secaoFNaoPassou: 'A Seção F não passou',
   registradaFalhando: 'A instalação fica registrada com ela falhando — e com o seu nome.',
-  // o diálogo da Seção E (o pacote 12, T13/28): o cartão com a correção pedida
-  secaoENaoPassou: 'A Seção E não passou',
-  cartaoRegistrado: 'O cartão do motorista não bate com o cadastro, e a correção já foi pedida. A instalação fica registrada com a seção falhando — e com o seu nome.',
   ciente: (nome, hora) => `Estou ciente · ${nome}, ${hora}`,
   cancelar: 'Cancelar',
 }

@@ -134,8 +134,8 @@ No protótipo (decisão 44), a HU-T05-2: a sessão nasce na conexão, mas **a fa
 - **HU-T14-2** — Disparo o evento de teste por botão, com o cronômetro dos 120 s em destaque
 - **HU-T14-3** — Antes do cronômetro vejo a fila do módulo drenando; o botão fica indisponível com motivo
 - **HU-T14-4** — Vejo 3 linhas de estado: disparado · recebido · campos conferidos. E posso disparar novamente
-- **HU-T14-5** — No teste do identificador vejo o código lido ao lado do esperado, em formato de negócio
-- **HU-T14-6** — Divergindo, a tela oferece solicitar correção de cadastro já com os dois valores anexados
+- **HU-T14-5** — No teste do cartão vejo o código que o módulo leu, e confiro com o número do cartão
+- **HU-T14-6** — Não conferindo, o item vira não conforme e pede justificativa no checklist
 - **HU-T14-7** — Vejo o tempo decorrido e o que ainda falta capturar; encerrar leva direto ao checklist
 - **HU-T14-8** — A velocidade só entra no ciclo quando o ônibus tem tacógrafo digital
 

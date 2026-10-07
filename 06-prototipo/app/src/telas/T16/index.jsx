@@ -2,19 +2,19 @@
 // configuração sobreviveu ao desligar, e devolver a sessão que caiu no meio.
 // · Com a sessão homologada (o ENCERRAR de toda tela, a T13): os passos 1 a 7
 //   correm em "Encerrar sessão", um a cada RITMOS.encerramentoPassoMs, desde o
-//   passo 1 (G27); a 00 é o quadro com a releitura correndo. O passo 2 reinicia
-//   por comando quando o driver suporta; senão pede o corte (01, T16·1), e o
-//   módulo volta sozinho no mesmo ritmo. O passo que corre leva a legenda
-//   dele embaixo do nome (as 8 legendas do tela.md, a entrega de 25/09); o 2,
-//   só no corte (T16·7). Ao fechar o 7, a sessão sai do estado
+//   passo 1 (G27); a 00 é o quadro com a releitura correndo. O passo 2, o reinício,
+//   é automático (a rodada 1 do retorno do PM): *Reiniciando o módulo…*, e *de volta*;
+//   a conexão que cai nele diz *Reconectando…*, nunca falha (a 08, só pelo endereço:
+//   nenhum caso derruba a conexão). O passo que corre leva a legenda dele embaixo
+//   do nome. Ao fechar o 7, a sessão sai do estado
 //   único, e a aberta sobe e revela a faixa "sem sessão" (C12·25, na peça); a tela
-//   passa pra "Sessão encerrada" (a troca de quadro, C12·4), onde as 8 assertivas
-//   acendem, uma a cada RITMOS.autotesteAssertivaMs — o autoteste correndo (07, o
-//   pacote 5): a contagem ao lado do título, a da vez com o quadrado de agora e
-//   *lendo*, as seguintes com o relógio e o traço, sem o veredito, e o Voltar ao
-//   menu no lugar, desligado. Na última, o quadro troca (C12·4) pro fim: a prova
-//   (ou o bloqueio) e o Voltar ao menu aceso (02, 05). A falha de uma
-//   assertiva fecha a sessão do mesmo jeito e bloqueia a homologação (05, HU-T16-5).
+//   passa pra "Sessão encerrada" (a troca de quadro, C12·4), onde as sete assertivas
+//   acendem, uma a cada RITMOS.autotesteAssertivaMs — o autoteste correndo (07): os
+//   três contadores das que já acenderam, a da vez com o quadrado de agora e
+//   *conferindo*, as seguintes com o relógio e o traço, e o Voltar ao menu no lugar,
+//   desligado. Na última, o quadro troca (C12·4) pro fim: a *Instalação homologada*,
+//   com o horário — a única tela com a palavra (a rodada 1) —, ou a homologação
+//   bloqueada com a causa (05, HU-T16-5), e o Voltar ao menu aceso.
 // · Antes de homologar (ENCERRAR → 03, G23): os 4 passos da sessão abortada —
 //   quem pediu já confirmou, no diálogo Encerrar sem homologar? (decisão 36) ou
 //   num dos do menu —, e depois a encerrada sem homologar (04). Quando quem
@@ -46,7 +46,7 @@ import { RITMOS } from '../../estado/ritmos.js'
 import { M } from '../../dados/mock.js'
 import {
   REF, CASO_FALHA, CASO_INTERROMPIDA, REINICIO, AUTOTESTE, QUADRO_00, QUADRO_03, QUADRO_07, SEGUROS, TOTAL_ASSERTIVAS, CAUSA,
-  placaDe, moduloDoAtivo, pedeOCorte, parDoCorte, passosEncerrando, passosAbortando, blocosRelidos, assertivas,
+  placaDe, moduloDoAtivo, parDoReinicio, passosEncerrando, passosAbortando, blocosRelidos, assertivas, contadoresDas,
   interrompida,
 } from './dados.js'
 import { T, PASSOS } from './textos.js'
@@ -74,10 +74,10 @@ function inicio(momento, est, unico) {
   const par = parDe(unico.sessao)
   // a prova da sessão encerrada: os 6 blocos relidos (decisão 49 · o módulo não guarda versão)
   const versao = blocosRelidos()
-  if (momento === REF.corte) {
-    // o 01 é a sessão de um módulo que não reinicia por comando (T16·1)
+  if (momento === REF.reiniciando || momento === REF.reconectando) {
+    // o 01 e o 08 (a rodada 1): o reinício, no par que a referência desenha, parados
     const uoId = unico.contexto.uoId ?? M.contextoAtivo.uoId
-    return { fase: 'encerrando', par: parDoCorte(uoId) ?? par, k: REINICIO, versao }
+    return { fase: 'encerrando', par: parDoReinicio(uoId) ?? par, k: REINICIO, versao, reconectando: momento === REF.reconectando, parado: true }
   }
   if (momento === REF.encerrada) return { fase: 'encerrada', par, versao }
   // a 07 pelo endereço: o autoteste parado nos Pontos de cerca, como todo momento
@@ -153,9 +153,6 @@ export default function T16({ momento, estado: est }) {
         return
       }
       setFluxo(n)
-      const corte = pedeOCorte(f.par.moduloSerial)
-      if (n.fase === 'encerrando' && corte && n.k === REINICIO && m !== REF.corte) despachar({ tipo: 'ir', tela: 'T16', momento: REF.corte })
-      if (n.fase === 'encerrando' && n.k > REINICIO && m === REF.corte) despachar({ tipo: 'ir', tela: 'T16' })
       // ao fechar o 7, a sessão acaba: sai do estado único, e a faixa fica sem sessão
       if (f.fase === 'encerrando' && n.fase === 'autoteste') {
         despachar({ tipo: 'mesclar', parcial: fim })
@@ -214,15 +211,17 @@ export default function T16({ momento, estado: est }) {
   let miolo
   let rodape
   if (fase === 'encerrando') {
-    const corte = pedeOCorte(par.moduloSerial) && fluxo.k === REINICIO
+    // o reinício (a rodada 1): o primário apagado diz *Reiniciando o módulo…*, ou *Reconectando…*,
+    // e o texto troca no lugar (C12·23)
+    const reiniciando = fluxo.k === REINICIO
     miolo = (
       <>
         <CabecalhoConteudo titulo={T.encerrar} contagem={fluxo.k + 1} unidade={T.deTotal(PASSOS.length)} />
-        <Encerramento justo={corte} passos={passosEncerrando(fluxo.k, pedeOCorte(par.moduloSerial))} />
+        <Encerramento justo={reiniciando} passos={passosEncerrando(fluxo.k, !!fluxo.reconectando)} />
       </>
     )
-    // o corte troca o texto do primário apagado no lugar (C12·23): Aguardando o módulo voltar, e de volta
-    rodape = <Rodape primario={corte ? T.aguardandoOModulo : T.encerrandoNaoDesconecte} primarioDesabilitado primarioTrocaTexto explicacao={T.saidaAutoteste} />
+    const primario = reiniciando ? (fluxo.reconectando ? T.reconectandoRodape : T.reiniciandoOModulo) : T.encerrandoNaoDesconecte
+    rodape = <Rodape primario={primario} primarioDesabilitado primarioTrocaTexto explicacao={T.saidaAutoteste} />
   } else if (fase === 'abortando') {
     miolo = (
       <>
@@ -239,33 +238,33 @@ export default function T16({ momento, estado: est }) {
     const reprovadas = lista.filter((a) => a.estado === 'reprovada')
     const falha = reprovadas.length > 0
     const ultima = lista.length - 1
-    // T16·3 (a): o contador da falha é o total menos as reprovadas; na que passa não há contador (G24)
-    const contador = falha && pronta ? { contagem: TOTAL_ASSERTIVAS - reprovadas.length, unidade: T.deTotal(TOTAL_ASSERTIVAS) } : {}
-    // O veredito que espera a prova (C12·44, o retorno do diretor de 26/09 sobre a C12·35): a
-    // prova, ou o bloqueio, fica no lugar desde a primeira assertiva, neutra, com a contagem das
-    // que já acenderam (1 de 8 …); na última, a palavra e a cor entram em 150 (a peça sabe)
-    // O autoteste correndo (07, o pacote 5, lei 24): sem o veredito — a contagem do
-    // andamento ao lado do título, a da vez com o quadrado de agora e *lendo*, as
-    // seguintes com o relógio e o traço. O fim é outro quadro (a troca, C12·4)
-    const contagem = pronta ? contador : { contagem: acesas, unidade: T.deTotal(TOTAL_ASSERTIVAS) }
+    // os três contadores das que já acenderam (a rodada 1): nunca *x de y*
     const linha = (a, i) => {
-      if (pronta || i < acesas) return { estado: a.estado, glifo: a.glifo, nomeGlifo: a.nomeGlifo, valor: a.valor }
-      if (i === acesas) return { estado: 'agora', valor: T.lendo }
+      if (pronta || i < acesas) return { estado: a.estado, glifo: a.glifo, nomeGlifo: a.nomeGlifo, valor: a.valor, porque: a.porque }
+      if (i === acesas) return { estado: 'agora', valor: T.conferindo }
       return { estado: 'ainda-nao', glifo: 'relogio', nomeGlifo: ESTADOS.espera.nome, valor: T.aindaNao }
     }
+    const contadores = contadoresDas(lista.slice(0, acesas))
     miolo = (
       <>
-        <CabecalhoConteudo titulo={T.encerrada} {...contagem} />
-        {pronta && !falha && <Prova tipo="sessao" rotulo={T.sobreviveu} versao={fluxo.versao} legenda={T.relidoDoModulo} desenha={!!fluxo.desenha && !EM_QUADRO && est == null} />}
+        <CabecalhoConteudo titulo={T.encerrada} />
+        {pronta && !falha && <Prova tipo="sessao" rotulo={T.homologada} versao={T.as(M.HORA_NOMINAL)} legenda={T.sobreviveu} desenha={!!fluxo.desenha && !EM_QUADRO && est == null} />}
+        <p className="t16-contadores">
+          {contadores.map((c, k) => (
+            <Fragment key={c.texto}>{k > 0 && ' · '}<strong>{c.n}</strong> {c.texto}</Fragment>
+          ))}
+        </p>
         <Lista>
           {lista.map((a, i) => (
-            <LinhaChecagem key={a.id} variante="dupla" titulo={a.titulo} {...linha(a, i)}
-              divisoria={i < ultima} folgaFim={i === ultima ? 'assertiva' : false} />
+            /* a de 50, e a com o porquê embaixo, de 58 (o reset que não se aplica, o cartão pendente) */
+            <LinhaChecagem key={a.id} variante={a.porque && (pronta || i < acesas) ? 'recebimento' : 'dupla'} titulo={a.titulo} {...linha(a, i)}
+              className={!pronta && i > acesas ? 't16-assertiva-espera' : (pronta || i < acesas) && a.estado === 'nao-se-aplica' ? 't16-assertiva-nsa' : undefined}
+              divisoria={i < ultima} />
           ))}
         </Lista>
         {pronta && (falha
           ? <Aviso tom="falha" bloqueio titulo={T.bloqueada} frase={CAUSA[reprovadas[0].id]} />
-          : <span className="t16-nota">{T.notaPlataforma}</span>)}
+          : <span className="t16-nota">{T.notaCartao}</span>)}
       </>
     )
     // o Voltar ao menu fica no lugar, apagado e desabilitado, com o mesmo texto, e acende

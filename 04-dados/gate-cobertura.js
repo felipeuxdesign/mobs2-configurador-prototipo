@@ -40,16 +40,7 @@ chk("presetsEvento com intervaloRastreamentoSeg", M.presetsEvento.length >= 1 &&
   M.presetsEvento.map(function (p) { return p.id + "=" + p.intervaloRastreamentoSeg + "s"; }).join(" "));
 chk("todo modeloAtivo referencia preset válido", M.modelosAtivo.every(function (m) { return M.presetsEvento.some(function (p) { return p.id === m.presetEventoId; }); }));
 chk("identificadores: cartões + índices alocados", M.identificadores.cartoes.length >= 3 && M.identificadores.indicesAlocados.length >= 3);
-var idv = M.casos["identificador-divergente"] || null;
-/* caso pode viver como exemplos dentro de um caso único */
-var divTipos = [];
-Object.keys(M.casos).forEach(function (k) {
-  var c = M.casos[k];
-  if (c && c.tipoDivergencia) divTipos.push(c.tipoDivergencia);
-  if (c && c.exemplos) c.exemplos.forEach(function (e) { divTipos.push(e.tipo); });
-});
-chk("divergência de identificador: zeros à esquerda E prefixo",
-  divTipos.indexOf("zeros à esquerda") >= 0 && divTipos.indexOf("prefixo") >= 0, divTipos.join(" · "));
+/* saiu no retorno do PM (06/10): o app não compara o cartão com o cadastro, quem confere é o técnico (T14/08) */
 
 /* ── Matriz de capacidades ── */
 var fwForaMatriz = M.modulos.filter(function (mod) {
@@ -124,7 +115,7 @@ var OBRIGATORIOS = ["serial-nao-cadastrado", "modelo-sem-driver", "firmware-fora
   "conflito-pinos-resolvivel", "conflito-pinos-sem-saida", "can-fora-esperado",
   "grandeza-indisponivel", "diff-divergente",
   "indice-nao-classificado", "autoteste-falhando", "sessao-interrompida",
-  "identificador-divergente",
+  /* retorno do PM, 06/10 */ "sem-leitor", "servidor-ainda-nao",
   /* PM · rodadas 1 e 2 */ "modem-sem-sinal", "firmware-sem-rede-no-modulo", "modulo-em-outro-ativo",
   "modulo-ja-deste-ativo", "sem-conexao-no-menu"];
 OBRIGATORIOS.forEach(function (k) { chk("caso: " + k, !!M.casos[k]); });
@@ -176,15 +167,13 @@ chk("P·C1 calibração: as diferenças da T10 derivam do mock (297.997 · 108 �
 chk("P·C1 calibração: calibráveis e indisponíveis não se cruzam, em todo modelo", Object.keys(M.calibracao.porModelo).every(function (k) {
   var m = M.calibracao.porModelo[k]; return m.indisponiveis.every(function (i) { return m.calibraveis.indexOf(i.grandeza) < 0; }); }));
 chk("P·C1 calibração: todo modelo de ativo tem regra de calibração", M.modelosAtivo.every(function (m) { return !!M.calibracao.porModelo[m.id]; }));
-/* pacote 2 (02/10): a A perde o chassi e a E ganha o sexto passo (decisão 54) — a soma segue 31 */
-chk("P·C1 checklist: 31 itens = 3 + 5 + 4 + 10 + 6 + 3", M.checklist.itens.length === 31 &&
-  JSON.stringify(M.checklist.secoes.map(function (s) { return M.checklist.itens.filter(function (i) { return i.secao === s.id; }).length; })) === "[3,5,4,10,6,3]",
-  M.checklist.secoes.map(function (s) { return s.id + " " + M.checklist.itens.filter(function (i) { return i.secao === s.id; }).length; }).join(" · "));
+chk("06/10: o checklist tem 30 itens no mock — a A com 4, a D com 10 (as pendências só com o ID reescrito), a E com 5 (o bip só com buzzer), a F com 2", (function (I) { var n = function (s) { return I.filter(function (x) { return x.secao === s; }).length; }; return I.length === 30 && n("A") === 4 && n("D") === 10 && n("E") === 5 && n("F") === 2; })(M.checklist.itens));
+chk("06/10: o herói mostra 29 — a D sem as pendências, e a E com o bip", M.checklist.itens.filter(function (x) { return x.condicao !== "reescritaId"; }).length === 29 && M.checklist.itens.some(function (x) { return x.id === "e-bip" && x.condicao === "buzzer"; }));
 chk("P·C1 checklist: todo item aponta uma seção que existe", M.checklist.itens.every(function (i) { return M.checklist.secoes.some(function (s) { return s.id === i.secao; }); }));
 chk("P·C1 ciclo: o evento chega e confere dentro do prazo (24 < 33 < 120 s)", (function () {
   var c = M.ciclo; return 0 < c.evento.recebidoAosSeg && c.evento.recebidoAosSeg < c.evento.conferidoAosSeg && c.evento.conferidoAosSeg < c.prazoEventoSeg; })());
 chk("P·C1 ciclo: a fila do módulo tem mensagens e diagnóstico", M.ciclo.mensagensGuardadas.mensagens > 0 && M.ciclo.mensagensGuardadas.diagnostico > 0);
-chk("P·C1 autoteste de encerramento: 8 assertivas, 1 condicional", M.autotesteEncerramento.length === 8 &&
+chk("P·C1 autoteste de encerramento: 7 assertivas, 1 condicional (retorno do PM, 06/10)", M.autotesteEncerramento.length === 7 &&
   M.autotesteEncerramento.filter(function (a) { return a.condicional; }).length === 1);
 chk("P·C1 critérios: a regra cobre todo estado de instalação", M.instalacoes.every(function (i) { return !!M.criteriosRegra.porEstado[i.estado]; }));
 chk("P·C1 pacotes: os limiares batem com as três idades (1d ok · 4d aviso · 8d bloqueio)", M.pacotes.every(function (p) {
@@ -250,9 +239,8 @@ chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência n
   chk("P·C5 · T04 a folha da garagem no 08: uma evidência subindo", fila.filter(function (f) { return f.estado === "enviando"; }).length === 1);
   var manuais = M.checklist.secoes.filter(function (s) { return s.natureza === "manual" || s.natureza === "dinamico"; }).map(function (s) { return s.id; });
   var abertos = M.checklist.itens.filter(function (i) { return manuais.indexOf(i.secao) >= 0; });
-  /* pacote 2 (02/10): a E com 6 passos dá 5 + 6 = 11, o mesmo 'Faltam 11 itens' da T13/00; a T04/04 do pacote
-     (que só mudou na barra) ainda desenha 10 — diferença com nome, pro arquiteto */
-  chk("P·C5 · T04 o contador do checklist: B + E, os que o técnico resolve (T04·2 b · 5 + 6 = 11)", manuais.join("") === "BE" && abertos.length === 11, abertos.length);
+  /* retorno do PM (06/10): a E com 5 — os 4 passos e o bip — dá 5 + 5 = 10, o que a T04/04 desenha */
+  chk("P·C5 · T04 o contador do checklist: B + E, os que o técnico resolve (T04·2 b · 5 + 5 = 10)", manuais.join("") === "BE" && abertos.length === 10, abertos.length);
   var ac = M.situacao.sessaoAcesso;
   chk("P·C5 · T04 a folha da conta: restam 2 de 7 dias, já no aviso", ac.validadeDias - ac.abertaDiasAtras === 2 && ac.validadeDias === 7 && ac.abertaDiasAtras >= ac.avisoNoDia);
   chk("P·C5 · T04 a folha da garagem: só o Pátio Caruaru passa do limite (8 > 7)", M.pacotes.filter(function (p) { return p.diasAtras > p.limiares.bloqueioDias; }).map(function (p) { return p.uoId; }).join(",") === "uo-03");
@@ -326,9 +314,9 @@ chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência n
   var modelo = M.modelos.filter(function (m) { return m.id === mod.modeloId; })[0];
   var conteudo = M.modelosAtivo.filter(function (m) { return m.id === heroi.modeloAtivoId; })[0].conteudoRegistros;
   var regioes = M.cercas.regioes.filter(function (r) { return r.ativoId === heroi.id; }).length;
-  chk("P·C6 · T05 a pré-checagem do herói aprova pelo cadastro (T05/05: VL06 CAN-BT · 2.3.5 · 128 de 192 · 4 de 4)",
+  chk("P·C6 · T05 a pré-checagem do herói aprova pelo cadastro (VL06 CAN-BT · 2.3.5 · 96 de 127 · 4 de 4 · a capacidade do PM, 06/10)",
     modelo.driverV1 && l.firmwares.indexOf(mod.firmware) >= 0 && l.can && conteudo <= l.capacidadeRegistros && regioes <= l.regioesMax &&
-    [modelo.nome + " " + mod.variante, mod.firmware, conteudo + " de " + l.capacidadeRegistros, regioes + " de " + l.regioesMax].join(" · ") === "VL06 CAN-BT · 2.3.5 · 128 de 192 · 4 de 4");
+    [modelo.nome + " " + mod.variante, mod.firmware, conteudo + " de " + l.capacidadeRegistros, regioes + " de " + l.regioesMax].join(" · ") === "VL06 CAN-BT · 2.3.5 · 96 de 127 · 4 de 4");
   var at = M.casos["firmware-fora-matriz"].atualizacao;
   chk("P·C6 · T05 a atualização do firmware tem o quadro da 10 entre 0 e 100 (62%)", !!at && at.quadroPct > 0 && at.quadroPct < 100, at && at.quadroPct + "%");
 })();
@@ -503,15 +491,12 @@ chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência n
   chk("P·C10 · T14 o 03: o caso motor-desligado-no-ciclo zera um sinal dinâmico do modelo do ativo, fora da faixa, e reprova o passo dele (rotação → Rotação, '0 rpm · ligue o motor')",
     !!smd && smd.fase === "dinamico" && !!smd.faixa && Number(md.lido.split(" ")[0]) < smd.faixa.min && passos.indexOf(C.passoDoSinal[md.passo]) >= 0,
     md.passo + " " + md.lido + " → " + C.passoDoSinal[md.passo]);
-  var id = M.casos["identificador-divergente"], ex = id.exemplos.filter(function (e) { return e.cartaoId === id.cartaoId; })[0];
-  var cartao = um(M.identificadores.cartoes, id.cartaoId);
-  chk("P·C10 · T14 o 04: o cartão do caso foi lido diferente do que o cadastro espera, e o esperado é o do cartão (9412857 × 0009412857)",
-    !!ex && !!cartao && ex.esperado === cartao.codigoEsperado && ex.lido !== ex.esperado, ex && ex.lido + " × " + ex.esperado);
+  /* retorno do PM (06/10): o 04 saiu — o técnico confere o cartão com o número impresso; a 12 é o ativo sem leitor */
   var ativo = function (i) { return um(M.ativos, i); };
-  var sr = M.casos["evento-sem-resposta"], a3 = ativo(id.ativoId);
-  chk("P·C10 · T14 a faixa dos três estados é o par do cadastro (a-04 × M2C-0335, a-02 × M2C-0301 · QJF-2C61, a-03), e o identificador cai num ativo com leitor de cartão",
+  var sr = M.casos["evento-sem-resposta"], sl = M.casos["sem-leitor"];
+  chk("P·C10 · T14 a faixa dos estados é o par do cadastro (a-04 × M2C-0335, a-02 × M2C-0301 · QJF-2C61), e o sem-leitor é o herói, cujo leitor o caso tira",
     !!ativo(sr.ativoId) && ativo(sr.ativoId).moduloSerial === sr.moduloSerial && sr.tentativa === 1 && amd.moduloSerial === "M2C-0301" && amd.placa === "QJF-2C61" &&
-    !!a3 && !!a3.moduloSerial && um(M.modelosAtivo, a3.modeloAtivoId).leitor.tipo === "cartao-serial");
+    sl.ativoId === "a-01" && sl.leitor === false && !!um(M.modelosAtivo, ativo(sl.ativoId).modeloAtivoId).leitor);
 })();
 
 /* ── P·C11 · T11 · conferir configuração: o par que confere (AC-17) e o que a tela lê dos dois casos ── */
@@ -580,9 +565,10 @@ chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência n
   chk("P·C10 · T13 T13·5: o modem em −110 a −50 dá a faixa de 16,7% a 83,3% e o marcador em 65% (T13/03); o GPS em 0–12 dá 75% (o 56,3% da referência é desvio)",
     pos(L.modemFaixa.min, -110, -50) === 16.7 && pos(L.modemFaixa.max, -110, -50) === 83.3 && pos(L.modemDbm, -110, -50) === 65 && pos(Number(sat.lido), 0, 12) === 75);
   var iso = M.casos["can-estatico-bateria"], lido = Number(iso.alimentacao.split(" ")[0].replace(",", "."));
-  chk("P·C10 · T13 o 09 e o 16, e a T07/12, pelo caso can-estatico-bateria (o pacote 10): a alimentação do M2C-0301, o módulo do a-02, abaixo do mínimo, '1,1 V abaixo', o marcador a 15% de 10–16, e ela é o 1º item de C",
-    um(M.ativos, iso.ativoId).moduloSerial === iso.moduloSerial && !("bateria" in (iso.lidos || {})) &&
-    lido < bat.faixa.min && (bat.faixa.min - lido).toFixed(1) === "1.1" && pos(lido, 10, 16) === 15 &&
+  /* a rodada 1 do retorno do PM: a alimentação é a do fio do equipamento, contra a faixa do VL06 (9,0 a 32,0 V), na régua de 5 a 35 */
+  var ft = um(M.modelos, M.modulos.filter(function (m) { return m.serial === iso.moduloSerial; })[0].modeloId).faixaTensao;
+  chk("P·C10 · T13 o 09 e o 16, e a T07/12, pelo caso can-estatico-bateria: a alimentação do M2C-0301 abaixo da faixa do VL06, '0,6 V abaixo', o marcador a 11,3% de 5–35, e ela é o 1º item de C",
+    um(M.ativos, iso.ativoId).moduloSerial === iso.moduloSerial && lido < ft[0] && (ft[0] - lido).toFixed(1) === "0.6" && pos(lido, 5, 35) === 11.3 &&
     CK.itens.filter(function (i) { return i.secao === "C"; })[0].id === "c-alimentacao", iso.ativoId + " · " + iso.moduloSerial + " · " + iso.alimentacao);
   var pf = M.casos["pronto-para-fechar"], a09 = um(M.ativos, pf.ativoId);
   chk("P·C10 · T13 o 10 pelo caso pronto-para-fechar (G21): o par é o do cadastro (KNB-5H39 × M2C-0371), e o servidor não respondeu",
@@ -616,9 +602,13 @@ chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência n
     E: 0, F: desta.length
   };
   var feitos = Object.keys(conta).reduce(function (s, k) { return s + conta[k]; }, 0);
-  chk("P·C10 · T13 a 00: 17 de 31 pela semente (A 3 · B 0 · C 4 · D 10 · E 0 · F 0) e 'Faltam 11 itens' (B 5 + E 6)",
-    conta.A === 3 && conta.B === 0 && conta.D === 10 && feitos === 17 && da("B").length - conta.B + da("E").length - conta.E === 11,
-    Object.keys(conta).map(function (k) { return k + " " + conta[k]; }).join(" · ") + " = " + feitos);
+  /* a rodada 1 do retorno do PM: o herói mostra 29 — a A com 4, a D com 9 (sem as pendências), a E com 5 —, e a semente
+     traz feitos a A, a C e a D: 17 de 29, e Faltam 10 itens obrigatórios (B 5 + E 5) */
+  var doHeroi = CK.itens.filter(function (i) { return i.condicao !== "reescritaId"; });
+  var n29 = function (sec) { return doHeroi.filter(function (i) { return i.secao === sec; }).length; };
+  chk("P·C10 · T13 a 00: 17 de 29 pela semente (A 4 · C 4 · D 9) e 'Faltam 10 itens obrigatórios' (B 5 + E 5)",
+    doHeroi.length === 29 && n29("A") + n29("C") + n29("D") === 17 && n29("B") + n29("E") === 10,
+    ["A", "B", "C", "D", "E", "F"].map(function (k) { return k + " " + n29(k); }).join(" · "));
 })();
 
 /* ── P·C11 · T16 · sessão: o que o encerramento, o autoteste e os dois estados leem (nenhum campo novo, T16-A18) ── */
@@ -627,12 +617,13 @@ chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência n
   var ativo = function (id) { return um(M.ativos, id); };
   var modelo = function (serial) { var m = M.modulos.filter(function (x) { return x.serial === serial; })[0]; return m && um(M.modelos, m.modeloId); };
   var E = M.autotesteEncerramento;
-  chk("P·C11 · T16 as 8 assertivas na ordem da 02 e da 05, com os três valores fixos (fechado · restaurado · na fila)",
-    E.map(function (a) { return a.rotulo; }).join(" · ") === "Configuração · Contadores · Identificadores · Faixa de contadores · Pontos de cerca · Canal de programação · Repouso do módulo · ID na plataforma" &&
-    E.filter(function (a) { return a.valor; }).map(function (a) { return a.valor; }).join(" · ") === "fechado · restaurado · na fila");
-  chk("P·C11 · T16 só a #8 (ID na plataforma) não bloqueia, e só a #4 (faixa) é condicional",
-    E.filter(function (a) { return a.bloqueia === false; }).map(function (a) { return a.id; }).join(",") === "plataforma" &&
-    E.filter(function (a) { return a.condicional; }).map(function (a) { return a.id; }).join(",") === "faixa");
+  /* a rodada 1 do retorno do PM: as sete, nesta ordem, com os valores fixos · o reset de leitura é a condicional, e o evento do cartão não bloqueia */
+  chk("P·C11 · T16 as 7 assertivas na ordem da 02 e da 05, com os valores fixos (confere · fechado · restaurado · pendente)",
+    E.map(function (a) { return a.rotulo; }).join(" · ") === "Configuração · Contadores · Reset de leitura · ID no cadastro · Canal de programação · Repouso do módulo · Evento do cartão" &&
+    E.filter(function (a) { return a.valor; }).map(function (a) { return a.valor; }).join(" · ") === "confere · fechado · restaurado · pendente");
+  chk("P·C11 · T16 só o evento do cartão não bloqueia, e só o reset de leitura é condicional",
+    E.filter(function (a) { return a.bloqueia === false; }).map(function (a) { return a.id; }).join(",") === "cartao" &&
+    E.filter(function (a) { return a.condicional; }).map(function (a) { return a.id; }).join(",") === "reset");
   var heroi = ativo("a-01");
   var varzeaCorte = M.ativos.filter(function (a) { return a.uoId === M.contextoAtivo.uoId && a.moduloSerial && modelo(a.moduloSerial).reinicioPorComando === false; });
   chk("P·C11 · T16 T16·1: o herói (VL06) reinicia por comando, e em Várzea só o KNB-5H39 × M2C-0371 (VL08) pede o corte — a 01",
@@ -646,8 +637,10 @@ chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência n
   chk("P·C11 · T16 T16·2: o herói tem 4 regiões (a assertiva de cercas se aplica pelo dado; o texto vai ao diretor) e o a-14 da 05, nenhuma",
     M.cercas.regioes.filter(function (r) { return r.ativoId === heroi.id; }).length === 4 && M.cercas.regioes.filter(function (r) { return r.ativoId === "a-14"; }).length === 0);
   var af = M.casos["autoteste-falhando"], ne = af.noEncerramento;
-  chk("P·C11 · T16 a 05: a assertiva que falha no encerramento é uma das 8 e bloqueia, com o lido do caso ('Contadores · 0 km'), e o '7 de 8' é o total menos ela (T16·3)",
-    !!um(E, ne.assertiva) && um(E, ne.assertiva).bloqueia !== false && ne.lido === "0 km" && E.length - 1 === 7 && !!ativo(af.ativoId).moduloSerial,
+  /* a rodada 1: três contadores, nunca '7 de 8' — com a falha, 4 aprovadas · 1 não se aplica · 1 pendente */
+  chk("P·C11 · T16 a 05: a assertiva que falha no encerramento é uma das 7 e bloqueia, com o lido do caso ('Contadores · 0 km'), e sobram 4 aprovadas",
+    !!um(E, ne.assertiva) && um(E, ne.assertiva).bloqueia !== false && ne.lido === "0 km" &&
+    E.filter(function (a) { return a.id !== ne.assertiva && !a.condicional && a.bloqueia !== false; }).length === 4 && !!ativo(af.ativoId).moduloSerial,
     um(E, ne.assertiva) && um(E, ne.assertiva).rotulo + " · " + ne.lido);
   var si = M.casos["sessao-interrompida"], Cd = M.cadeia;
   chk("P·C11 · T16 a 06: o par é o do cadastro (QAH-1M67 × M2C-0411), de hoje, e o bloco depois dos 3 confirmados é o do ponto de retomada (Leitor, 'Bloco 4 de 6')",
@@ -723,7 +716,7 @@ chk("PM: o diagnóstico tem 7 linhas, e as 3 travas existem como casos", M.diagn
 chk("PM: o modo sai do vínculo — a manutenção é um caso, a instalação é o padrão", M.casos["modulo-ja-deste-ativo"].modo === "manutencao");
 
 /* ── PM · rodada 3 (decisões 52 a 54) ── */
-chk("r3: o checklist tem 31 itens — a A com 3, sem o chassi, e a E com os 6 passos", M.checklist.itens.length === 31 && M.checklist.itens.filter(function (x) { return x.secao === "A"; }).length === 3 && M.checklist.itens.filter(function (x) { return x.secao === "E"; }).length === 6);
+/* r3: o checklist de 31 itens saiu no retorno do PM (06/10) — a conferência dele é a "06/10: o checklist tem 30 itens no mock" */
 chk("r3: o Painel é foto a tirar, só quando houve calibração", M.checklist.itens.filter(function (x) { return x.id === "b-painel-legivel" && x.foto && x.condicao === "calibracao" && !x.herda; }).length === 1);
 chk("r3: os critérios do servidor sem viagem", JSON.stringify(M.criteriosRegra).indexOf("viage") < 0);
 chk("r3: o horímetro é opcional onde existe", M.modelosAtivo.every(function (m) { var c = M.calibracao.porModelo[m.id]; return !c || c.calibraveis.indexOf("horimetro") < 0 || (c.opcionais || []).indexOf("horimetro") >= 0; }));
@@ -742,15 +735,14 @@ chk("p3: a Seção E se chama Ciclo de testes", M.checklist.secoes.filter(functi
 /* ── o pacote 12 · os casos das pendências desenhadas (padrão até o PM decidir) ── */
 (function () {
   var C = M.casos, heroiSerial = M.ativos.filter(function (a) { return a.id === "a-01"; })[0].moduloSerial;
-  var sat = M.modelosAtivo.filter(function (m) { return m.id === "ma-01"; })[0].sinaisCan.filter(function (x) { return x.id === "satelites"; })[0];
-  chk("p12: o gps-fraco é o módulo do herói, abaixo do mínimo do caso, e o nominal passa dele (T13/21, 22)",
-    C["gps-fraco"].moduloSerial === heroiSerial && Number(C["gps-fraco"].gps.split(" ")[0]) < C["gps-fraco"].gpsMinimo && Number(String(sat.lido).split(" ")[0]) >= C["gps-fraco"].gpsMinimo);
+  /* retorno do PM (06/10): o critério é a antena, e os satélites são informação */
+  chk("p12: o gps-fraco é o módulo do herói, com a antena desconectada (T13/21, 22)",
+    C["gps-fraco"].moduloSerial === heroiSerial && C["gps-fraco"].antena === "desconectada");
   chk("p12: a entrada-ignicao é o módulo do herói, e o lido difere do esperado (T13/23, 24)",
     C["entrada-ignicao"].moduloSerial === heroiSerial && C["entrada-ignicao"].entradas.ignicao !== C["entrada-ignicao"].entradas.esperado);
   chk("p12: o evento-nao-chega-de-novo é o par do evento-sem-resposta, com as duas tentativas estourando (T14/09)",
     C["evento-nao-chega-de-novo"].ativoId === C["evento-sem-resposta"].ativoId && C["evento-nao-chega-de-novo"].moduloSerial === C["evento-sem-resposta"].moduloSerial && C["evento-nao-chega-de-novo"].tentativasQueEstouram === 2);
-  chk("p12: a correção do identificador-divergente tem a hora do pedido, e o cartão do caso tem exemplo (T13/27, 28, T15/05)",
-    /^\d\d:\d\d$/.test(C["identificador-divergente"].correcaoSolicitada) && C["identificador-divergente"].exemplos.some(function (e) { return e.cartaoId === C["identificador-divergente"].cartaoId; }));
+  /* retorno do PM (06/10): a correção do identificador saiu, com o caso */
   chk("p12: a fila-parada passa dos 30 min das pendências, e tem envios esperando (T04/16)",
     parseInt(C["fila-parada"].fila.paradaHa, 10) > 30 && C["fila-parada"].fila.esperando > 0);
 })();
@@ -758,16 +750,17 @@ chk("p3: a Seção E se chama Ciclo de testes", M.checklist.secoes.filter(functi
 /* ── os pacotes 13 e 23 · o que cada caso da Seção C devolve a cada Reler o módulo: a 1ª ainda reprova, a 2ª passa ── */
 (function () {
   var C = M.casos, num = function (t) { return Number(String(t).split(" ")[0].replace(",", ".")); };
-  var a02 = M.ativos.filter(function (a) { return a.id === C["can-estatico-bateria"].ativoId; })[0];
-  var bat = M.modelosAtivo.filter(function (m) { return m.id === a02.modeloAtivoId; })[0].sinaisCan.filter(function (x) { return x.id === "bateria"; })[0].faixa;
+  /* retorno do PM (06/10): a alimentação é a do fio do equipamento, contra a faixa do modelo do módulo (VL06: 9,0 a 32,0 V) */
+  var mod = M.modulos.filter(function (m) { return m.serial === C["can-estatico-bateria"].moduloSerial; })[0];
+  var ft = M.modelos.filter(function (m) { return m.id === mod.modeloId; })[0].faixaTensao, bat = { min: ft[0], max: ft[1] };
   var naRede = M.diagnostico.modulo.filter(function (l) { return l.id === "modem"; })[0].heroi;
   var passa = {
     "can-estatico-bateria": function (r) { return num(r.alimentacao) >= bat.min && num(r.alimentacao) <= bat.max; },
-    "gps-fraco": function (r) { return num(r.gps) >= C["gps-fraco"].gpsMinimo; },
+    "gps-fraco": function (r) { return r.antena === "conectada"; },
     "entrada-ignicao": function (r) { return r.entradas.ignicao === r.entradas.esperado; },
     "modem-sem-sinal": function (r) { return r.modem === naRede; }
   };
-  chk("p23: os quatro casos da C têm duas releituras, a 1ª ainda reprova e a 2ª passa (T13/34 a 37, 30 a 33)",
+  chk("p23: os quatro casos (a alimentação contra a faixa do VL06, o GPS pela antena) da C têm duas releituras, a 1ª ainda reprova e a 2ª passa (T13/34 a 37, 30 a 33)",
     Object.keys(passa).every(function (k) { var l = C[k].releituras; return l && l.length === 2 && !passa[k](l[0]) && passa[k](l[1]); }));
 })();
 

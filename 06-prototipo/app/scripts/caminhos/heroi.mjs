@@ -57,7 +57,7 @@ export default [
   { ve: 'Serial no cadastro' },
   { ve: 'VL06 CAN-BT' },
   { ve: '2.3.5' },
-  { ve: '13,8 V' },
+  { ve: '24,3 V' },   // a rodada 1 do retorno do PM: o herói é um ônibus de 24 V
   { ve: 'fixo · 9 satélites' },
   { ve: 'ignição ligada' },
   { ve: 'na rede' },
@@ -83,22 +83,26 @@ export default [
   { chega: 'T09', momento: '05-momento-o-que-vai-ser-gravado' },
   { ve: 'RKT-8H42' },
   { ve: 'ocupação de pinos confere' },
-  { ve: 'cabe no módulo · 128 de 192 registros' },
+  { ve: 'cabe no módulo · 96 de 127 contadores' },
   { ve: 'OF-1621' },
   { ve: '4 regiões' },
   { ve: 'sem fio' },
   { ve: 'intervalo 30 s' },
-  { ve: 'm2m.mobs2.br' },
+  { ve: 'o servidor da Mobs2' },
   { fica: 'T09', ms: 600 },
   { naoVe: 'gravando' },
   // a cadeia grava e relê os seis blocos, um por segundo, da Limpeza à Conexão
   { toca: 'Gravar no módulo' },
   { chega: 'T09', momento: null },
   { desligado: 'Gravando · não interrompa' },
-  { chega: 'T09', momento: '04-momento-cadeia-concluida', entre: [5000, 8500] },
-  { ve: 'GRAVADO E RELIDO' },
-  { ve: '6 blocos' },
-  { ve: 'o módulo devolveu os seis blocos' },
+  // a rodada 1: depois da Conexão, o módulo prova que falou com o servidor (11), e a cadeia fecha (04)
+  { chega: 'T09', momento: '11-momento-conferindo-o-servidor', entre: [5000, 8500] },
+  { ve: 'O módulo falou com o servidor\nconferindo' },
+  { chega: 'T09', momento: '04-momento-cadeia-concluida', entre: [500, 1800] },
+  { ve: 'O módulo falou com o servidor\nsim' },
+  { ve: 'CONFERIDO NO MÓDULO' },
+  { ve: '6 passos' },
+  { ve: 'o módulo devolveu os seis passos' },
   { toca: 'Voltar ao menu' },
   { chega: 'T04' },
   // a CAN lida (D2): depois da cadeia, o Diagnóstico do módulo abre na 01, parado; é ele
@@ -155,53 +159,67 @@ export default [
   // a calibração aponta o ciclo (decisão 35): o caminho anda em linha — calibra, ciclo, checklist
   { ve: 'Voltar ao menu' },
   { toca: 'Fazer o ciclo de testes' },
-  // o ciclo de testes (decisão 54): seis passos, com o ônibus parado; a fila do módulo drena em 3 s,
-  // e o disparo acende
+  // o ciclo de testes (a rodada 1 do retorno do PM): no máximo quatro passos, com o ônibus parado; a
+  // fila do módulo drena em 3 s, e o disparo acende
   { chega: 'T14' },
   { ve: 'Ciclo de testes' },
   { ve: 'FILA DRENANDO' },
   { ve: '6 mensagens e 2 de diagnóstico saindo do módulo' },
-  { ve: '2 de 6 passos' },   // a semente traz 2 feitos (cicloPassosNaEntrada)
-  { ve: 'Ignição ligada\nRotação\nRé acionada\nPorta aberta\nCartão do motorista\nIgnição desligada' },
+  { ve: '2 de 4 passos' },   // a semente traz 2 feitos (cicloPassosNaEntrada)
+  { ve: 'Ignição ligada\nRotação\nCartão do motorista\nIgnição desligada' },
+  { naoVe: 'Ré acionada' },
   { naoVe: 'Velocidade' },   // o herói não tem tacógrafo digital (D3)
   { toca: 'Disparar evento de teste', entre: [2000, 4500] },
-  // disparado (1 s real vale 4 s de prazo): o evento chega aos 24 s do prazo (6 s reais) e os
-  // campos conferem aos 33 (8,25 s); os passos 3 a 6 acendem a +9, +12, +15 e +18 s (T14·1)
+  // disparado (1 s real vale 4 s de prazo): o evento chega aos 24 s do prazo e os campos conferem aos
+  // 33; o cartão é a vez (passe o cartão), e o módulo o lê aos 48 (a 08)
+  { ve: 'passe o cartão' },
   { ve: 'O EVENTO CHEGOU EM', entre: [5000, 7500] },
   { ve: '0:24' },
   { ve: '6 de 6', entre: [1000, 3500] },
-  { ve: '3 de 6 passos', entre: [0, 1800] },
-  { ve: '4 de 6 passos', entre: [2400, 3600] },
-  { ve: '5 de 6 passos', entre: [2400, 3600] },
-  { chega: 'T14', momento: '05-momento-ciclo-concluido', entre: [2400, 3600] },
-  { ve: '6 de 6 passos' },
+  { chega: 'T14', momento: '08-momento-o-modulo-leu-o-cartao', entre: [2000, 5000] },
+  { ve: 'leu 9412857' },
+  { ve: 'Não confere' },
+  // o técnico confere com o número do cartão: a vez da ignição desligada, com a espera explicada (11)
+  { toca: 'Confere com o cartão' },
+  { chega: 'T14', momento: '11-momento-vez-da-ignicao-desligada' },
+  { ve: '3 de 4 passos' },
+  { ve: 'O módulo leva alguns segundos para perceber que a ignição foi desligada.' },
+  { chega: 'T14', momento: '05-momento-ciclo-concluido', entre: [2500, 4500] },
+  { ve: '4 de 4 passos' },
   { ve: '14:30:24' },
-  // o checklist numa estrutura só (decisão 34): o título com a contagem, a barra e os seis cartões.
-  // Depois do ciclo, 23 de 31: a E resolvida, e as cinco fotos de B por fazer (o Painel é foto a
-  // tirar, decisão 52)
+  // o checklist (a rodada 1): a D começa vazia e enche lendo do módulo; o Finalizar diz por que está
+  // desligado. Depois do ciclo, 21 de 29: falta o bip da E e as cinco fotos de B, e o servidor
+  // confirma a F depois do Finalizar (como a 11 desenha)
   { toca: 'Ir para o checklist' },
   { chega: 'T13', momento: null },
-  { ve: '23' },
-  { ve: 'de 31' },
-  { ve: 'o ciclo passou' },
-  { ve: 'você fotografa 5 itens' },
-  { ve: 'Faltam 5 itens' },
+  { ve: 'A Seção D ainda está sendo lida' },
   { desligado: 'Finalizar instalação' },
-  // a E aberta: os seis passos dizem confere, e não há ação (13); tocar de novo fecha
+  { ve: 'Faltam 6 itens obrigatórios', entre: [3000, 7500] },
+  { ve: '21' },
+  { ve: 'de 29' },
+  { ve: 'você fotografa 5 itens' },
+  // a E aberta: os quatro passos conferem, e o bip se responde aqui (39 a 41)
   { toca: 'E · Ciclo de testes' },
-  { chega: 'T13', momento: '13-momento-e-resolvida' },
-  { ve: 'confere' },
-  { ve: 'Ignição desligada' },
+  { chega: 'T13', momento: '05-momento-e-teste-dinamico-aberta' },
   { naoToca: 'Fazer o ciclo de testes' },
   { naoToca: 'Ignição ligada' },   // sem seta, é leitura (Lei 16)
+  { toca: 'Testar bip' },
+  { chega: 'T13', momento: '39-momento-bip-tocando' },
+  { desligado: 'Tocando…' },
+  { chega: 'T13', momento: '40-momento-bip-esperando-resposta', entre: [500, 2000] },
+  { ve: 'Você ouviu o bip?' },
+  { toca: 'Ouvi' },
+  { chega: 'T13', momento: '41-momento-bip-ouvido' },
+  { ve: 'ouvi' },
+  { ve: 'o ciclo passou' },
   { toca: 'E · Ciclo de testes' },
   { chega: 'T13', momento: null },
-  // a D: o hodômetro e o horímetro calibrados
+  // a D: um bloco por linha, e depois o autoteste, o canal protegido e o ID no cadastro
   { toca: 'D · Configuração' },
   { chega: 'T13', momento: '04-momento-d-configuracao-aberta' },
-  { ve: '482.317 km' },
-  { ve: '9.640 h' },
-  { naoVe: 'não calibrado' },
+  { ve: 'Canal de programação\nprotegido' },
+  { ve: 'ID no cadastro' },
+  { naoVe: 'Hodômetro' },
   { toca: 'D · Configuração' },
   { chega: 'T13', momento: null },
   { dorme: 250 },
@@ -236,28 +254,31 @@ export default [
   { naoToca: 'Painel' },
   { naoVe: 'Faltam' },
   { toca: 'Finalizar instalação' },
-  // o homologado: o veredito e o relatório no topo, e o servidor confirmou
-  { chega: 'T13', momento: '11-momento-homologado' },
-  { ve: 'Instalação homologada às 14:30' },
-  { ve: 'o relatório leva 12 evidências, o local e o seu nome' },
+  // o fim (a rodada 1): o checklist registrado, aguardando o autoteste — a homologação é da T16
+  { chega: 'T13', momento: '11-momento-aguardando-autoteste' },
+  { ve: 'Checklist registrado' },
+  { ve: 'aguardando autoteste' },
+  { ve: 'O próximo passo é encerrar a sessão. O autoteste roda durante o encerramento.' },
+  { naoVe: 'homologada' },
   { ve: 'o app conferiu' },
   { ve: 'o servidor confirmou' },
   { ve: 'RKT-8H42' },
-  // ENCERRAR, depois de homologar: direto, sem o diálogo (decisão 36) — os sete passos,
-  // um a cada 600 ms, e o autoteste
-  { toca: 'ENCERRAR' },
+  // o Encerrar sessão, depois do checklist registrado: direto, sem o diálogo (decisão 36) — os sete
+  // passos, um a cada 600 ms, com o reinício automático, e o autoteste
+  { toca: 'Encerrar sessão' },
   { chega: 'T16', momento: null },
   { naoVe: 'Encerrar sem homologar?' },
   { ve: 'Encerrar sessão' },
   { ve: 'Encerrando · não desconecte' },
   { ve: 'Contadores e estado' },
   { ve: 'Autoteste' },
-  // cada passo que corre diz o que faz, embaixo do nome (as 8 legendas do tela.md, a entrega de 25/09)
+  // cada passo que corre diz o que faz, embaixo do nome
   { ve: 'Grava os contadores e o estado no módulo, pra nada se perder no reinício.' },
-  // o herói reinicia por comando: o passo 2 corre sem pedir o corte (T16·1, T16·7)
   { naoVe: 'Grava os contadores e o estado no módulo', entre: [0, 1000] },
-  { naoVe: 'Desligue e ligue a alimentação do módulo.' },
-  { ve: 'Ele lê de volta o que ficou gravado. É isto que prova que a configuração sobreviveu ao reinício.' },
+  // o reinício é automático (a rodada 1): o técnico não faz nada
+  { ve: 'O módulo reinicia sozinho. Leva alguns segundos.' },
+  { desligado: 'Reiniciando o módulo…' },
+  { ve: 'Ele lê de volta a configuração que está no módulo. É isto que prova que ela sobreviveu ao reinício.' },
   { ve: 'Devolve o módulo ao repouso que ele tinha antes da sessão.' },
   { ve: 'Fecha o canal que o app abriu no módulo. Ele fecha sempre, mesmo sem homologar.' },
   { ve: 'Guarda o que foi feito aqui, pra ir ao servidor junto com a instalação.' },
@@ -267,15 +288,16 @@ export default [
   { ve: 'Sem sessão de configuração' },
   { naoVe: 'ENCERRAR' },
   { ve: 'Sessão encerrada' },
-  // o autoteste correndo (07, o pacote 5): as oito assertivas acendem a 400 ms, sem o veredito, e o
-  // Voltar ao menu desligado; com a última, o quadro troca pro fim (02): a prova e o Voltar ao menu aceso
-  { naoVe: 'A CONFIGURAÇÃO SOBREVIVEU AO REINÍCIO' },
+  // o autoteste correndo: as sete assertivas acendem a 400 ms, com os três contadores; com a última,
+  // a instalação homologada (02), a única tela com a palavra, e o Voltar ao menu aceso
+  { naoVe: 'INSTALAÇÃO HOMOLOGADA' },
   { desligado: 'Voltar ao menu' },
-  { ve: 'A CONFIGURAÇÃO SOBREVIVEU AO REINÍCIO', entre: [2000, 5000] },
-  { chega: 'T16', momento: '02-momento-sessao-encerrada' },
-  { ve: 'O ID na plataforma confirma quando a evidência subir.' },
-  { ve: '6 blocos' },
-  { ve: 'relido do módulo depois de desligar e ligar' },
+  { ve: 'INSTALAÇÃO HOMOLOGADA', entre: [2000, 5000] },
+  { chega: 'T16', momento: '02-momento-instalacao-homologada' },
+  { ve: 'às 14:30' },
+  { ve: 'a configuração sobreviveu ao reinício' },
+  { ve: '5 aprovadas · 1 não se aplica · 1 pendente' },
+  { ve: 'O evento do cartão confere quando chegar ao servidor, em até 24 h. Ele não impede a homologação.' },
   { toca: 'Voltar ao menu' },
   { chega: 'T04', momento: '01-momento-sem-modulo' },
   { ve: 'Sem sessão de configuração' },

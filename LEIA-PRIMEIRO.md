@@ -4,7 +4,7 @@
 
 O app que técnicos de campo usam para **instalar e homologar rastreadores em ônibus** — conectar o módulo, gravar a configuração, calibrar, rodar o ciclo de testes e fechar o checklist, com **a evidência gerada pelo sistema, nunca digitada**.
 
-Esta pasta é a fonte única do produto. O design está **fechado e medido**: 15 telas, 87 momentos e 78 estados, um design system que cobre todo desenho que se repete, e o gabarito visual de cada um.
+Esta pasta é a fonte única do produto. O design está **fechado e medido**: 15 telas, 94 momentos e 76 estados, um design system que cobre todo desenho que se repete, e o gabarito visual de cada um.
 
 ## Quem é você
 

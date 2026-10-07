@@ -1,0 +1,15 @@
+/* o botão de dentro da linha (BotaoDaLinha.jsx): o fundo da divisória, a borda do poço, o texto em --tinta */
+.t-botao-linha {
+  display: flex; align-items: center; justify-content: center; white-space: nowrap;
+  background: var(--divisoria); border: var(--traco-borda) solid var(--borda-poco); border-radius: var(--raio);
+  font-weight: 700; color: var(--tinta);
+  touch-action: manipulation; user-select: none;
+  transition: transform var(--mov-solta) var(--mov-curva);
+}
+.t-botao-linha:active:not(:disabled) { transform: scale(var(--escala-toque)); transition: none; }
+.t-botao-linha:disabled { color: var(--tinta-apagada); }
+.t-botao-linha-resposta { flex: 1; height: var(--e-40); }
+.t-botao-linha-teste { flex-shrink: 0; height: var(--poco-30); padding: 0 var(--e-12); }
+.t-botao-linha-letra-secundario { font-size: var(--t-secundario); }
+.t-botao-linha-letra-corpo { font-size: var(--t-corpo); }
+.t-respostas-linha { display: flex; gap: var(--e-8); }

@@ -72,7 +72,7 @@ export default [
   { dorme: 300 },
   { naoAnima: [{ prop: 'transform', em: 'ds-faixa' }] },
   // a sem sessão da T16 pelo endereço: parada, sem a aberta por cima
-  { abre: '?tela=T16&momento=02-momento-sessao-encerrada' },
+  { abre: '?tela=T16&momento=02-momento-instalacao-homologada' },
   { ve: 'Sem sessão de configuração' },
   { naoAnima: [{ prop: 'transform', em: 'ds-faixa' }] },
   { abre: '?tela=T16&print=1' },

@@ -19,6 +19,8 @@
 //   · o Encerrar sem homologar? nasce e some em 150 com o véu (a peça, C12·43);
 //   · a ciência (T13·6) só se alcança num estado da coluna, parado: a prova é o espécime
 //     mov-check-ciencia (mov-check, C12·13).
+//   · a Seção D lida bloco a bloco (a rodada 1 do retorno do PM, a 38): ao entrar no checklist, ela
+//     enche no ritmo do diagnóstico, e a barra avança com o que é lido — é o processo; acabou, nada anda.
 // A tela abre parada pela URL, em cada momento e estado, e no print. Com reduzir, nada anda.
 const C = 'cubic-bezier(0.2, 0.8, 0.2, 1)'
 const esmaece = (em, ms = 150) => ({ prop: 'opacity', ms, em, curva: C })
@@ -48,16 +50,19 @@ const M08 = '08-momento-nao-conforme-com-justificativa'
 const M15 = '15-momento-problema-fotografado'
 const MOMENTOS = [
   '01-momento-a-identificacao-aberta', M02, '03-momento-c-hardware-aberta', '04-momento-d-configuracao-aberta',
-  '05-momento-e-teste-dinamico-aberta', '06-momento-f-servidor-aberta', M07, M08, '11-momento-homologado',
+  '05-momento-e-teste-dinamico-aberta', '06-momento-f-servidor-aberta', M07, M08, '11-momento-aguardando-autoteste',
   '12-momento-b-com-ressalva', '13-momento-e-resolvida', M15,
   '17-momento-foto-da-antena', '18-momento-foto-do-chicote', '19-momento-foto-do-leitor', '20-momento-foto-do-painel',
 ]
-const ESTADOS = ['09-estado-item-reprovado', '10-estado-finalizar-com-a-secao-f-falhando', '14-estado-homologado-sem-localizacao', '16-estado-secao-c-com-item-reprovado']
+const ESTADOS = ['09-estado-item-reprovado', '10-estado-finalizar-com-a-secao-f-falhando', '14-estado-aguardando-autoteste-sem-localizacao', '16-estado-secao-c-com-item-reprovado']
 const PARADA = [{ quieto: true }, { dorme: 700 }, { quieto: true }]
+// a D lida bloco a bloco ao entrar (a 38): um a cada 600 ms, e depois a tela fica parada
+const D_LIDA = [{ ve: 'lendo do módulo' }, { naoVe: 'lendo do módulo', ms: 9000 }, { dorme: 400 }]
 
 export default [
   // ── abre parada: pela URL, em cada momento e em cada estado, e no print ──
   { abre: '?tela=T13' },
+  ...D_LIDA,
   ...PARADA,
   ...MOMENTOS.flatMap((m) => [{ abre: `?tela=T13&momento=${m}` }, ...PARADA]),
   ...ESTADOS.flatMap((e) => [{ abre: `?tela=T13&estado=${e}` }, ...PARADA]),
@@ -68,6 +73,7 @@ export default [
 
   // ── a seção abre no lugar: não é troca de quadro (T13·1, C12·46) ──
   { abre: '?tela=T13' },
+  ...D_LIDA,
   { quieto: true },
   { toca: 'B · Montagem', anima: SECAO, naoAnima: [MIOLO] },
   { chega: 'T13', momento: M02 },
@@ -89,7 +95,9 @@ export default [
   { toca: 'Módulo', anima: TROCA, naoAnima: [BARRA] },
   { chega: 'T13', momento: M07 },
   { ve: 'Módulo fixado e posicionado' },
-  { dorme: 250 },
+  // (a rodada 1) o 13 abre rolado, como a referência: o item abre no topo, e o indicador de rolagem
+  // fica os 900 da --rolagem-espera e some em 300, como em toda rolagem
+  { dorme: 1400 },
   { quieto: true },
   { toca: 'Tirar foto', anima: TROCA, naoAnima: [TEXTO_NASCE] },
   { ve: 'Antena GPS posicionada e livre' },
@@ -155,8 +163,8 @@ export default [
   // ── o Finalizar (T13·5): o veredito esmaece no lugar, a barra completa, o texto do primário troca;
   // a B aberta fecha (as de baixo dela sobem, a peça) ──
   { toca: 'Finalizar instalação', anima: [VEREDITO, BARRA, TEXTO, ...FECHA], naoAnima: [MIOLO] },
-  { chega: 'T13', momento: '11-momento-homologado' },
-  { ve: 'Instalação homologada às 14:30' },
+  { chega: 'T13', momento: '11-momento-aguardando-autoteste' },
+  { ve: 'Checklist registrado' },   // a rodada 1 do retorno do PM: a homologação é da T16
   { dorme: 400 },
   { quieto: true },
   // com as seções fechadas: o espaço do veredito abre direto, e nenhuma seção desliza (C12·9 (a),
@@ -182,7 +190,7 @@ export default [
   { chega: 'T13', momento: null },
   { dorme: 300 },
   { toca: 'Finalizar instalação', anima: [VEREDITO, BARRA, TEXTO], naoAnima: [MIOLO, { prop: 'transform', em: 'ds-secao-ck' }, { prop: 'transform', em: 'ds-icone' }] },
-  { chega: 'T13', momento: '11-momento-homologado' },
+  { chega: 'T13', momento: '11-momento-aguardando-autoteste' },
   { dorme: 400 },
   { quieto: true },
 
@@ -247,7 +255,7 @@ export default [
   { chega: 'T13', momento: M02 },
   { toca: 'Finalizar instalação' },
   { quieto: true },
-  { chega: 'T13', momento: '11-momento-homologado' },
+  { chega: 'T13', momento: '11-momento-aguardando-autoteste' },
   { reduzir: false },
 
   // ── o palco (a janela larga): o estado da coluna e a volta ao fluxo abrem parados ──

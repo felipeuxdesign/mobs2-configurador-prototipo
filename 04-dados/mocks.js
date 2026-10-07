@@ -91,10 +91,10 @@
       fabricante: "Mercedes-Benz", modelo: "OF-1621",
       traducaoCan: "urbano v3",
       mapaContadores: { declarado: true, versao: "v2" },
-      conteudoRegistros: 128,
+      conteudoRegistros: 96, /* T09/05: 96 de 127 contadores */
       metodoVelocidade: "gps",
       presetEventoId: "pe-urbano",
-      leitor: { tipo: "cartao-serial", buzzerNoFio: false },
+      leitor: { tipo: "cartao-serial", buzzerNoFio: false, buzzer: true }, /* o leitor do herói tem buzzer: a Seção E mostra o bip */
       leituraCan: "barramento" },
     { id: "ma-02", nome: "Caminhão coletor 17.230",
       tacografoDigital: true, /* a velocidade só entra no ciclo com tacógrafo digital (decisão 54) */
@@ -145,7 +145,7 @@
      Várzea, um toque na lista de T05) e em M2C-0438. VC07 nunca abre sessão
      (trava em T05, sem driver), então o valor dele não tem consumidor. */
   var MODELOS_MODULO = [
-    { id: "vl06", nome: "VL06", variantes: ["FULL", "ECO", "CAN-BT", "CAN"], driverV1: true,  reinicioPorComando: true },
+    { id: "vl06", nome: "VL06", variantes: ["FULL", "ECO", "CAN-BT", "CAN"], driverV1: true,  reinicioPorComando: true, faixaTensao: [9.0, 32.0] /* exemplo até a bancada (retorno do PM, 06/10) */ },
     { id: "vl08", nome: "VL08", variantes: ["STD"], driverV1: true,  reinicioPorComando: false },
     { id: "vc07", nome: "VC07", variantes: ["STD"], driverV1: false, reinicioPorComando: false }
   ];
@@ -154,11 +154,12 @@
      roda 2.4.1, que NÃO está aqui → caminho de atualização (T05).
      VC07 não tem linha: sem driver, o bloqueio acontece antes da matriz. */
   var MATRIZ_CAPACIDADES = [
-    { modeloId: "vl06", variante: "FULL",   firmwares: ["2.2.0", "2.3.5"], can: true,  semFio: true,  pulsos: true,  regioesMax: 4, posicoesPorRegiao: 2, capacidadeRegistros: 192 },
-    { modeloId: "vl06", variante: "ECO",    firmwares: ["2.2.0"],          can: false, semFio: false, pulsos: true,  regioesMax: 2, posicoesPorRegiao: 2, capacidadeRegistros: 96 },
-    { modeloId: "vl06", variante: "CAN-BT", firmwares: ["2.3.5"],          can: true,  semFio: true,  pulsos: false, regioesMax: 4, posicoesPorRegiao: 2, capacidadeRegistros: 192 },
-    { modeloId: "vl06", variante: "CAN",    firmwares: ["2.3.5"],          can: true,  semFio: false, pulsos: false, regioesMax: 4, posicoesPorRegiao: 2, capacidadeRegistros: 192 },
-    { modeloId: "vl08", variante: "STD",    firmwares: ["3.0.2", "3.1.0"], can: true,  semFio: true,  pulsos: true,  regioesMax: 6, posicoesPorRegiao: 3, capacidadeRegistros: 384 }
+  /* retorno do PM (06/10): a capacidade é em contadores · o VL06 guarda 127 e 6.143 pontos de cerca, o VL08 guarda 192 */
+    { modeloId: "vl06", variante: "FULL",   firmwares: ["2.2.0", "2.3.5"], can: true,  semFio: true,  pulsos: true,  regioesMax: 4, posicoesPorRegiao: 2, capacidadeRegistros: 127, pontosCercaMax: 6143 },
+    { modeloId: "vl06", variante: "ECO",    firmwares: ["2.2.0"],          can: false, semFio: false, pulsos: true,  regioesMax: 2, posicoesPorRegiao: 2, capacidadeRegistros: 127, pontosCercaMax: 6143 },
+    { modeloId: "vl06", variante: "CAN-BT", firmwares: ["2.3.5"],          can: true,  semFio: true,  pulsos: false, regioesMax: 4, posicoesPorRegiao: 2, capacidadeRegistros: 127, pontosCercaMax: 6143 },
+    { modeloId: "vl06", variante: "CAN",    firmwares: ["2.3.5"],          can: true,  semFio: false, pulsos: false, regioesMax: 4, posicoesPorRegiao: 2, capacidadeRegistros: 127, pontosCercaMax: 6143 },
+    { modeloId: "vl08", variante: "STD",    firmwares: ["3.0.2", "3.1.0"], can: true,  semFio: true,  pulsos: true,  regioesMax: 6, posicoesPorRegiao: 3, capacidadeRegistros: 192 }
   ];
 
   /* ── 20 módulos cadastrados (o vínculo módulo↔ativo vive no ativo). ── */
@@ -274,7 +275,7 @@
   /* Identificadores: cartões com a string ESPERADA + mapa de índices.
      A divergência por zeros à esquerda / prefixo é o caso mais
      representativo do produto (falhava no último item do ciclo, sem
-     diagnóstico) — vive em casos["identificador-divergente"]. */
+     diagnóstico). O caso "identificador-divergente" saiu no retorno do PM (06/10). */
   var IDENTIFICADORES = {
     cartoes: [
       { id: "id-01", rotulo: "Cartão do motorista 041", codigoEsperado: "0009412857" },
@@ -314,18 +315,17 @@
      repetir em cada linha é ruído, não dado (o encurtamento que o diretor
      autorizou para os contadores, aplicado às três). Maior rótulo agora:
      "Canal de programação", 172 em 180. */
-  var AUTOTESTE_ENCERRAMENTO = [
+var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · três contadores, nunca "x de y" · o cartão pendente não bloqueia */
     { id: "configuracao",    rotulo: "Configuração", fonte: "versao" },
     { id: "contadores",      rotulo: "Contadores", fonte: "contador" },
-    { id: "identificadores", rotulo: "Identificadores", fonte: "identificadores" },
-    { id: "faixa",           rotulo: "Faixa de contadores", fonte: "faixa", condicional: true,
-      motivo: "a leitura da CAN não foi refeita" },
-    { id: "cercas",          rotulo: "Pontos de cerca", fonte: "cercas",
-      motivoSemCercas: "nenhuma cerca neste ativo" },
+    { id: "reset",           rotulo: "Reset de leitura", fonte: "reset", condicional: true,
+      motivo: "o reset de leitura não foi usado" },
+    { id: "id-cadastro",     rotulo: "ID no cadastro", fonte: "idCadastro", valor: "confere",
+      nota: "e as pendências registradas" },
     { id: "canal",           rotulo: "Canal de programação", fonte: "canal", valor: "fechado" },
     { id: "repouso",         rotulo: "Repouso do módulo", fonte: "repouso", valor: "restaurado" },
-    { id: "plataforma",      rotulo: "ID na plataforma", fonte: "plataforma", valor: "na fila",
-      nota: "confirma quando a evidência subir", bloqueia: false }
+    { id: "cartao",          rotulo: "Evento do cartão", fonte: "cartaoServidor", valor: "pendente",
+      nota: "confere em até 24 h", bloqueia: false }
   ];
 
   /* Autoteste — as 8 assertivas canônicas (T13/T12). */
@@ -365,7 +365,7 @@
           { bloco: "conexao", hora: "10:26", readBack: "confirmado" }
         ],
         calibracao: { semeadas: ["hodometro", "horimetro"], puladas: [], valorPainel: "482.317 km" },
-        cicloDinamico: { completo: true, passos: ["Ignição ligada", "Rotação", "Ré acionada", "Porta aberta", "Cartão do motorista", "Ignição desligada"], confirmados: 6 },
+        cicloDinamico: { completo: true, passos: ["Ignição ligada", "Rotação", "Cartão do motorista", "Ignição desligada"], confirmados: 4 },
         checklist: { itens: 31, concluidos: 31 },
         autoteste: { assertivas: 8, passaram: 8 },
         recebimento: { confirmado: true, hora: "11:47" }
@@ -450,7 +450,7 @@
     modulo: [
       { id: "serial",      rotulo: "Serial no cadastro", heroi: "VL06 CAN-BT",        trava: "serial-nao-cadastrado", travaModelo: "modelo-sem-driver" },
       { id: "firmware",    rotulo: "Firmware",           heroi: "2.3.5",              trava: "firmware-fora-matriz" },
-      { id: "alimentacao", rotulo: "Alimentação",        heroi: "13,8 V" },
+      { id: "alimentacao", rotulo: "Alimentação",        heroi: "24,3 V" }, /* o herói é um ônibus de 24 V (retorno do PM, 06/10) */
       { id: "gps",         rotulo: "GPS",                heroi: "fixo · 9 satélites" },
       { id: "entradas",    rotulo: "Entradas digitais",  heroi: "ignição ligada" },
       { id: "modem",       rotulo: "Modem",              heroi: "na rede",            informa: "modem-sem-sinal" },
@@ -618,10 +618,9 @@
     "firmware-fora-matriz": { moduloSerial: "M2C-0451", ativoId: "a-18",
       firmwareDisponivel: "2.3.5" },
     "conteudo-nao-cabe": { ativoId: "a-10", moduloSerial: "M2C-0394",
-      conteudoRegistros: 128, capacidadeRegistros: 96 },
+      conteudoRegistros: 131, capacidadeRegistros: 127, dimensao: "contadores" }, /* T09/06: São 131 contadores. Este módulo guarda 127. */
     "pool-esgotado": { ativoId: "a-05",
-      regioesUsadas: 4, regioesMax: 4, posicoesUsadas: 8, posicoesMax: 8,
-      regiaoSolicitada: "Terminal Cosme e Damião" },
+      dimensao: "pontos", pontosCerca: 6410, pontosCercaMax: 6143 }, /* T09/07: As cercas têm 6.410 pontos. Este módulo guarda 6.143. · o "5 regiões, cabem 4" saiu: o cadastro já impede (retorno do PM, 06/10) */
     "ativo-fora-pacote": { ativoId: "a-24", pacoteId: "pac-uo-01",
       motivo: "Pertence a Garagem Ibura." },
     /* C10 (D8) · ocupadoPor "sensor de porta" é ENTRADA DIGITAL (checagem #5
@@ -687,14 +686,7 @@
       efeito: "bloqueia a homologação, não o encerramento",
       noEncerramento: { assertiva: "contadores", lido: "0 km",
         causa: "o módulo voltou com a leitura zerada" } },
-    "identificador-divergente": {
-      /* o caso mais representativo do produto: falhava no último item do
-         ciclo, sem diagnóstico — o app mostra lido × esperado em formato
-         de negócio (HU-T14-5) */
-      exemplos: [
-        { cartaoId: "id-01", esperado: "0009412857", lido: "9412857", tipo: "zeros à esquerda" },
-        { cartaoId: "id-03", esperado: "PE-0033120", lido: "0033120", tipo: "prefixo" }
-      ] },
+    /* "identificador-divergente" saiu no retorno do PM (06/10): o técnico confere o cartão com o número impresso, o app não compara com cadastro */
     /* C16 (HU-T16-6) · +o último bloco confirmado POR READ-BACK — é o que a retomada mostra e o que faz o TEMPO
        DECORRIDO existir de verdade (13:05 → 14:30 = 1h25; o zero estrutural
        do C12.6 morre aqui). 3 confirmados = limpeza · ativo · cercas, e o
@@ -863,7 +855,7 @@
   CASOS["sem-conexao-no-menu"] = { tela: "T04", rede: false };
   /* PM · rodada 3 — os casos novos */
   CASOS["cercas-reenviadas"] = { ativoId: "a-01", moduloSerial: "M2C-0417", modo: "manutencao", reenviado: "cercas" }; /* T11/05 · os dependentes vêm do arraste: o leitor e os eventos */
-  CASOS["can-estatico-bateria"] = { ativoId: "a-02", moduloSerial: "M2C-0301", alimentacao: "10,9 V", lidos: { hodometro: "201.115 km" } }; /* T13/09 · o item da bateria reprovado — o nome é do executor (gate da errata) */
+  CASOS["can-estatico-bateria"] = { ativoId: "a-02", moduloSerial: "M2C-0301", alimentacao: "8,4 V", lidos: { hodometro: "201.115 km" } }; /* T13/09 · o item da bateria reprovado — o nome é do executor (gate da errata) */
   CASOS["motor-desligado-no-ciclo"] = { ativoId: "a-02", passo: "rotacao", lido: "0 rpm" }; /* T14/03 · o motor tem que estar ligado */ /* T04/15 · só o Últimas instalações depende da rede */
   /* ⚠ NÃO é falha — é COERÊNCIA, e por isso ficou em a-09 quando o domínio
      saiu: o hodômetro que T07 lê é o mesmo que T10 calibra (bruto 87.604.000 m
@@ -1043,6 +1035,7 @@
       { id: "a-serial",    secao: "A", rotulo: "Serial do módulo",  fonte: "serial",   origem: "conectar" },
       { id: "a-firmware",  secao: "A", rotulo: "Firmware",          fonte: "firmware", origem: "conectar" },
       { id: "a-ativo",     secao: "A", rotulo: "Ativo vinculado",   fonte: "ativo",    origem: "ativo" },
+      { id: "a-pacote",    secao: "A", rotulo: "Pacote de sincronização", fonte: "pacote", origem: "sincronizar" }, /* retorno do PM, 06/10: a A tem 4 itens */
 
       /* ⚠ O RÓTULO É O OBJETO; O VERBO É A RESPOSTA. `fixado`, `posicionado`,
          `protegido` e `livre` diziam a MESMA asserção cinco vezes — "está
@@ -1063,25 +1056,26 @@
         pergunta: "Painel com hodômetro e horímetro legíveis", enquadre: "Enquadre o painel, com os números legíveis",
         foto: true, condicao: "calibracao" },
 
-      { id: "c-alimentacao", secao: "C", rotulo: "Alimentação",       fonte: "alimentacao", origem: "can" },
-      { id: "c-gps",         secao: "C", rotulo: "GPS e antena",      fonte: "gps",         origem: "conectar" },
+      { id: "c-alimentacao", secao: "C", rotulo: "Alimentação",       fonte: "alimentacao", origem: "conectar" }, /* a tensão do fio de alimentação do equipamento, contra a faixa do modelo */
+      { id: "c-gps",         secao: "C", rotulo: "GPS e antena",      fonte: "antena",      origem: "conectar" }, /* o critério é a antena: conectada, em curto, desconectada · os satélites são informação */
       { id: "c-entradas",    secao: "C", rotulo: "Entradas digitais", fonte: "entradas",    origem: "ativo" },
       { id: "c-modem",       secao: "C", rotulo: "Modem e sinal",     fonte: "modem",       origem: "conectar" },
 
-      { id: "d-limpeza",   secao: "D", rotulo: "Limpeza",              fonte: "bloco:limpeza", origem: "configurar" },
-      { id: "d-ativo",     secao: "D", rotulo: "Tradução da CAN",      fonte: "bloco:ativo",   origem: "configurar" },
-      { id: "d-cercas",    secao: "D", rotulo: "Cercas",               fonte: "bloco:cercas",  origem: "configurar" },
-      { id: "d-extended",  secao: "D", rotulo: "Extended ID",          fonte: "identificadores", origem: "conectar" }, /* só leitura: a v1 não grava cartões */
-      { id: "d-eventos",   secao: "D", rotulo: "Eventos",              fonte: "bloco:eventos", origem: "configurar" },
-      { id: "d-conexao",   secao: "D", rotulo: "APN",                  fonte: "bloco:conexao", origem: "configurar" },
-      { id: "d-servidor",  secao: "D", rotulo: "Endereço",             fonte: "servidor",      origem: "configurar" },
-      { id: "d-leitor",    secao: "D", rotulo: "Leitor",               fonte: "bloco:leitor",  origem: "configurar" }, /* o módulo não guarda versão (decisão 49) */
-      { id: "d-hodometro", secao: "D", rotulo: "Hodômetro",            fonte: "cal:hodometro", origem: "calibracao" },
-      { id: "d-horimetro", secao: "D", rotulo: "Horímetro",            fonte: "cal:horimetro", origem: "calibracao" },
+/* retorno do PM, 06/10: uma linha por bloco, cada uma confere ou não confere · depois, o autoteste, o canal protegido e o ID com o cadastro ·
+         as pendências só aparecem quando o ID foi reescrito · a D começa vazia e enche conforme lê (T13/38) · sem hodômetro e horímetro */
+      { id: "d-limpeza",    secao: "D", rotulo: "Limpeza",               fonte: "bloco:limpeza", origem: "configurar" },
+      { id: "d-ativo",      secao: "D", rotulo: "Ativo",                 fonte: "bloco:ativo",   origem: "configurar" },
+      { id: "d-cercas",     secao: "D", rotulo: "Cercas",                fonte: "bloco:cercas",  origem: "configurar" },
+      { id: "d-leitor",     secao: "D", rotulo: "Leitor",                fonte: "bloco:leitor",  origem: "configurar", condicao: "leitor" },
+      { id: "d-eventos",    secao: "D", rotulo: "Eventos",               fonte: "bloco:eventos", origem: "configurar" },
+      { id: "d-conexao",    secao: "D", rotulo: "Conexão",               fonte: "bloco:conexao", origem: "configurar" },
+      { id: "d-autoteste",  secao: "D", rotulo: "Autoteste",             fonte: "autoteste-modulo", origem: "conectar" },
+      { id: "d-canal",      secao: "D", rotulo: "Canal de programação",  fonte: "canal",         origem: "configurar", valor: "protegido" },
+      { id: "d-id",         secao: "D", rotulo: "ID no cadastro",        fonte: "idCadastro",    origem: "configurar" },
+      { id: "d-pendencias", secao: "D", rotulo: "Pendências registradas", fonte: "pendencias",   origem: "configurar", condicao: "reescritaId" },
 
-      { id: "f-evidencias", secao: "F", rotulo: "Evidências",      fonte: "fila:Evidências da instalação", origem: "fila" },
-      { id: "f-checklist",  secao: "F", rotulo: "Checklist",       fonte: "fila:Checklist de homologação", origem: "fila" },
-      { id: "f-plataforma", secao: "F", rotulo: "ID na plataforma", fonte: "plataforma",                   origem: "fila" }
+{ id: "f-posicao", secao: "F", rotulo: "Posição",         fonte: "servidor:posicao", origem: "servidor" }, /* esperando · confere · não chegou */
+      { id: "f-evento",  secao: "F", rotulo: "Evento de teste", fonte: "servidor:evento",  origem: "servidor" }  /* a fila de envio é da T15 */
     ]
   };
   /* Os cinco de E são os passos CANÔNICOS do ciclo dinâmico — referência ao
@@ -1090,11 +1084,15 @@
      ⚠ UM ÚNICO ENCURTAMENTO, medido: `Movimento detectado` pede 164,7 e a
      faixa do rótulo dentro do contêiner é 144. O passo canônico segue
      inteiro em `pergunta`; só a coluna encurta. */
-  var E_ENCURTA = {}; /* o "Movimento detectado" saiu (ciclo parado); "Cartão do motorista" cabe inteiro na coluna */
+  var E_ENCURTA = {};
+  var E_CONDICAO = { "Rotação": "rotacao", "Cartão do motorista": "leitor" }; /* retorno do PM, 06/10: cada item só quando se aplica */ /* o "Movimento detectado" saiu (ciclo parado); "Cartão do motorista" cabe inteiro na coluna */
   PASSOS_CICLO.forEach(function (p, i) {
     CHECKLIST.itens.splice(CHECKLIST.itens.filter(function (x) { return x.secao < "E"; }).length + i, 0,
-      { id: "e-" + (i + 1), secao: "E", rotulo: E_ENCURTA[p] || p, pergunta: p, fonte: "ciclo", origem: "ciclo" });
+      { id: "e-" + (i + 1), secao: "E", rotulo: E_ENCURTA[p] || p, pergunta: p, fonte: "ciclo", origem: "ciclo", condicao: E_CONDICAO[p] });
   });
+  /* o bip do leitor é respondido no checklist, com o Testar bip (T13/05, 39 a 42), e não no ciclo · antes da ignição desligada · só com buzzer */
+  CHECKLIST.itens.splice(CHECKLIST.itens.filter(function (x) { return x.secao < "E"; }).length + PASSOS_CICLO.length - 1, 0,
+    { id: "e-bip", secao: "E", rotulo: "Bip do leitor", pergunta: "Você ouviu o bip?", fonte: "bip", origem: "checklist", condicao: "buzzer", respostas: ["Ouvi", "Não ouvi"] });
   /* C17 · caso ADITIVO — O ATIVO QUE CHEGA PRONTO PARA FECHAR. Sem ele, com
      T14 em placeholder, `Finalizar`, a ciência da Seção F e o estado
      finalizado seriam INALCANÇÁVEIS: a tela onde a instalação fecha
@@ -1187,8 +1185,6 @@
      duas falhas na mesma tela não se leem), a-05/a-10 (travam em T05),
      a-06 (não selecionável), a-07/a-08 (sem módulo), a-09 (ma-02, e é o
      ativo que fecha a instalação). */
-  CASOS["identificador-divergente"].ativoId = "a-03";
-  CASOS["identificador-divergente"].cartaoId = "id-01"; CASOS["identificador-divergente"].correcaoSolicitada = "14:30"; /* T13/27, T13/28 e T15/05 · o pedido feito na T14/06 */
 
   /* O evento de teste que não volta no prazo. Mesma forma do `conexao-falha`
      (constante DECLARADA, não moeda): a 1ª tentativa estoura, a 2ª confirma
@@ -1200,15 +1196,17 @@
      leitor sem fio e o fluxo segue. */
   CASOS["evento-sem-resposta"] = { ativoId: "a-04", moduloSerial: "M2C-0335", tentativa: 1 };
   /* pacote 12 · os casos das telas que eram pendência · padrão até o PM decidir */
-  CASOS["gps-fraco"] = { moduloSerial: "M2C-0417", gps: "4 satélites", gpsMinimo: 6 }; /* T13/21 e 22 · o mínimo de satélites é padrão até o PM decidir */
+  CASOS["gps-fraco"] = { moduloSerial: "M2C-0417", antena: "desconectada", satelites: 0 }; /* T13/21 e 22 · o critério é a antena; os satélites são informação (retorno do PM, 06/10) */
   CASOS["entrada-ignicao"] = { moduloSerial: "M2C-0417", entradas: { ignicao: "desligada", esperado: "ligada" } }; /* T13/23 e 24 */
   CASOS["evento-nao-chega-de-novo"] = Object.assign({}, CASOS["evento-sem-resposta"], { tentativasQueEstouram: 2 }); /* T14/09 · ao contrário do "evento-sem-resposta", aqui a 2ª tentativa TAMBÉM estoura, e aparece o confira a conexão do módulo */
   CASOS["fila-parada"] = { fila: { paradaHa: "32 min", esperando: 2 } }; /* T04/16 · o aviso depois de 30 min parada */
   /* pacotes 13 e 23 · o que cada caso devolve a cada Reler o módulo: a 1ª releitura ainda reprova (o não resolvido), a 2ª passa (o relido) */
-  CASOS["can-estatico-bateria"].releituras = [{ alimentacao: "11,4 V" }, { alimentacao: "13,8 V" }]; /* T13/30 */
-  CASOS["gps-fraco"].releituras = [{ gps: "5 satélites" }, { gps: "9 satélites" }]; /* T13/31 */
+  CASOS["can-estatico-bateria"].releituras = [{ alimentacao: "8,8 V" }, { alimentacao: "24,3 V" }]; /* T13/30 */
+  CASOS["gps-fraco"].releituras = [{ antena: "desconectada", satelites: 0 }, { antena: "conectada", satelites: 9 }]; /* T13/31 */
   CASOS["entrada-ignicao"].releituras = [{ entradas: { ignicao: "desligada", esperado: "ligada" } }, { entradas: { ignicao: "ligada", esperado: "ligada" } }]; /* T13/32 */
   CASOS["modem-sem-sinal"].releituras = [{ modem: "sem sinal" }, { modem: "na rede" }]; /* T13/33 */
+  CASOS["sem-leitor"] = { ativoId: "a-01", leitor: false }; /* T14/12 · o ativo sem leitor: o ciclo em 3 passos, sem o cartão (retorno do PM, 06/10) */
+  CASOS["servidor-ainda-nao"] = { moduloSerial: "M2C-0417", falouComServidor: false, causas: ["chip", "antena", "endereço"] }; /* T09/12 · a prova vem do próprio módulo (retorno do PM, 06/10) */
 
   /* protótipo C9 (T10) · AC-08 — o hodômetro estático do a-22, o mesmo que a
      T10 calibra no módulo sem pulsos (T10/04): bruto 121.003.000 m ÷ fatorEnvio
@@ -1229,7 +1227,8 @@
      A frase da causa ("devia passar de zero") é texto, do textos.md (G9). */
   /* pacote 2 (decisão 54): o ciclo é parado — a rotação pede o motor ligado (T14/03), e a velocidade só entra com
      tacógrafo digital (o passo dela não vem daqui). Era { velocidade: "Movimento detectado", re: … }, que o merge deixou. */
-  CICLO.passoDoSinal = { rotacao: "Rotação", re: "Ré acionada" };
+  /* retorno do PM (06/10): a ré e a porta saíram do ciclo — fica só a rotação */
+  CICLO.passoDoSinal = { rotacao: "Rotação" };
 
   /* protótipo C11 (T12) · AC-16 — os grupos por idade da lista das últimas
      instalações (T12·1 a, T12-A4): HOJE, ONTEM, ESTE MÊS e MAIS DE UM MÊS saem

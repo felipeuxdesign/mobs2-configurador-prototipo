@@ -30,3 +30,11 @@
 /* o glifo pelo dado: o que o técnico resolve em --tinta-secundaria, o que espera o servidor em --marca-limite */
 .ds-item-ck .ds-glifo.ds-item-ck-glifo-pendente { color: var(--tinta-secundaria); }
 .ds-item-ck .ds-glifo.ds-item-ck-glifo-aguarda { color: var(--marca-limite); }
+
+/* a rodada 1 do retorno do PM (T13/38 a 42): o bloco da linha com o que ela abre embaixo — a 40 da
+ * esquerda (o poço de 30 e o vão de 10), o vão de 8 e 12 no pé, e o traço de baixo do bloco inteiro ·
+ * o lendo (a Seção D): o quadrado de agora e o valor em --tinta */
+.ds-item-ck-bloco { display: flex; flex-direction: column; flex-shrink: 0; border-bottom: var(--traco-borda) solid var(--divisoria); }
+.ds-item-ck-bloco.ds-item-ck-sem-divisoria { border-bottom: 0; }
+.ds-item-ck-embaixo { display: flex; flex-direction: column; gap: var(--e-8); padding: 0 0 var(--e-12) calc(var(--poco-30) + var(--e-10)); }
+.ds-item-ck .ds-glifo.ds-item-ck-glifo-lendo { color: var(--tinta); }

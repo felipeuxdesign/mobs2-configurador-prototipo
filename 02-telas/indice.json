@@ -1,6 +1,6 @@
 {
   "telas": 15,
-  "referencias": 180,
+  "referencias": 185,
   "itens": [
     {
       "id": "T01/00-tela",
@@ -1256,18 +1256,18 @@
       "rotuloOrigem": "proposto"
     },
     {
-      "id": "T09/07-estado-cercas-demais-pro-modulo",
+      "id": "T09/07-estado-pontos-de-cerca-demais",
       "tela": "T09",
       "pasta": "T09-configurar-modulo",
       "tipo": "estado",
-      "nome": "07-estado-cercas-demais-pro-modulo",
-      "titulo": "T09 · cercas demais pro módulo",
-      "como": "o cadastro tem mais cercas do que o módulo guarda",
+      "nome": "07-estado-pontos-de-cerca-demais",
+      "titulo": "T09 · pontos de cerca demais",
+      "como": "as cercas têm mais pontos do que o módulo guarda: As cercas têm 6.410 pontos. Este módulo guarda 6.143.",
       "caso": "pool-esgotado",
-      "html": "02-telas/T09-configurar-modulo/referencias/html/07-estado-cercas-demais-pro-modulo.html",
-      "png": "02-telas/T09-configurar-modulo/referencias/png/07-estado-cercas-demais-pro-modulo.png",
+      "html": "02-telas/T09-configurar-modulo/referencias/html/07-estado-pontos-de-cerca-demais.html",
+      "png": "02-telas/T09-configurar-modulo/referencias/png/07-estado-pontos-de-cerca-demais.png",
       "coluna": true,
-      "rotulo": "Cercas demais pro módulo",
+      "rotulo": "Pontos de cerca demais",
       "rotuloOrigem": "proposto"
     },
     {
@@ -1305,6 +1305,33 @@
       "caso": "",
       "html": "02-telas/T09-configurar-modulo/referencias/html/10-momento-manutencao-concluida.html",
       "png": "02-telas/T09-configurar-modulo/referencias/png/10-momento-manutencao-concluida.png"
+    },
+    {
+      "id": "T09/11-momento-conferindo-o-servidor",
+      "tela": "T09",
+      "pasta": "T09-configurar-modulo",
+      "tipo": "momento",
+      "nome": "11-momento-conferindo-o-servidor",
+      "titulo": "T09 · conferindo se o módulo falou com o servidor",
+      "como": "a Conexão gravada: o módulo falou com o servidor? conferindo · a prova vem do próprio módulo",
+      "caso": "heroi",
+      "html": "02-telas/T09-configurar-modulo/referencias/html/11-momento-conferindo-o-servidor.html",
+      "png": "02-telas/T09-configurar-modulo/referencias/png/11-momento-conferindo-o-servidor.png"
+    },
+    {
+      "id": "T09/12-estado-o-modulo-ainda-nao-falou-com-o-servidor",
+      "tela": "T09",
+      "pasta": "T09-configurar-modulo",
+      "tipo": "estado",
+      "nome": "12-estado-o-modulo-ainda-nao-falou-com-o-servidor",
+      "titulo": "T09 · o módulo ainda não falou com o servidor",
+      "como": "a prova não veio: ainda não, com o que conferir: chip, antena e endereço",
+      "caso": "servidor-ainda-nao",
+      "html": "02-telas/T09-configurar-modulo/referencias/html/12-estado-o-modulo-ainda-nao-falou-com-o-servidor.html",
+      "png": "02-telas/T09-configurar-modulo/referencias/png/12-estado-o-modulo-ainda-nao-falou-com-o-servidor.png",
+      "coluna": true,
+      "rotulo": "Ainda não falou com o servidor",
+      "rotuloOrigem": "proposto"
     },
     {
       "id": "T10/00-tela",
@@ -1752,16 +1779,16 @@
       "rotuloOrigem": "proposto"
     },
     {
-      "id": "T13/11-momento-homologado",
+      "id": "T13/11-momento-aguardando-autoteste",
       "tela": "T13",
       "pasta": "T13-checklist",
       "tipo": "momento",
-      "nome": "11-momento-homologado",
-      "titulo": "T13 · homologado",
-      "como": "tudo passa",
+      "nome": "11-momento-aguardando-autoteste",
+      "titulo": "T13 · aguardando autoteste",
+      "como": "tocar em Finalizar instalação: Checklist registrado, aguardando autoteste · o próximo passo é encerrar a sessão",
       "caso": "checklist",
-      "html": "02-telas/T13-checklist/referencias/html/11-momento-homologado.html",
-      "png": "02-telas/T13-checklist/referencias/png/11-momento-homologado.png"
+      "html": "02-telas/T13-checklist/referencias/html/11-momento-aguardando-autoteste.html",
+      "png": "02-telas/T13-checklist/referencias/png/11-momento-aguardando-autoteste.png"
     },
     {
       "id": "T13/12-momento-b-com-ressalva",
@@ -1788,18 +1815,18 @@
       "png": "02-telas/T13-checklist/referencias/png/13-momento-e-resolvida.png"
     },
     {
-      "id": "T13/14-estado-homologado-sem-localizacao",
+      "id": "T13/14-estado-aguardando-autoteste-sem-localizacao",
       "tela": "T13",
       "pasta": "T13-checklist",
       "tipo": "estado",
-      "nome": "14-estado-homologado-sem-localizacao",
-      "titulo": "T13 · homologado sem localizacao",
-      "como": "finalizar com a localização negada",
+      "nome": "14-estado-aguardando-autoteste-sem-localizacao",
+      "titulo": "T13 · aguardando autoteste, sem localização",
+      "como": "finalizar sem a localização do celular: Checklist registrado, aguardando autoteste · o relatório vai sem localização",
       "caso": "localizacao-negada",
-      "html": "02-telas/T13-checklist/referencias/html/14-estado-homologado-sem-localizacao.html",
-      "png": "02-telas/T13-checklist/referencias/png/14-estado-homologado-sem-localizacao.png",
+      "html": "02-telas/T13-checklist/referencias/html/14-estado-aguardando-autoteste-sem-localizacao.html",
+      "png": "02-telas/T13-checklist/referencias/png/14-estado-aguardando-autoteste-sem-localizacao.png",
       "coluna": true,
-      "rotulo": "Homologado sem localização",
+      "rotulo": "Registrado sem localização",
       "rotuloOrigem": "proposto"
     },
     {
@@ -1971,36 +1998,6 @@
       "rotuloOrigem": "quadro"
     },
     {
-      "id": "T13/27-estado-secao-e-com-correcao-solicitada",
-      "tela": "T13",
-      "pasta": "T13-checklist",
-      "tipo": "estado",
-      "nome": "27-estado-secao-e-com-correcao-solicitada",
-      "titulo": "T13 · a seção e com a correção solicitada",
-      "como": "o cartão não passou e a correção foi pedida: o cartão vermelho com as duas linhas",
-      "caso": "identificador-divergente",
-      "html": "02-telas/T13-checklist/referencias/html/27-estado-secao-e-com-correcao-solicitada.html",
-      "png": "02-telas/T13-checklist/referencias/png/27-estado-secao-e-com-correcao-solicitada.png",
-      "coluna": true,
-      "rotulo": "Seção E · correção pedida",
-      "rotuloOrigem": "quadro"
-    },
-    {
-      "id": "T13/28-estado-finalizar-com-a-secao-e-falhando",
-      "tela": "T13",
-      "pasta": "T13-checklist",
-      "tipo": "estado",
-      "nome": "28-estado-finalizar-com-a-secao-e-falhando",
-      "titulo": "T13 · finalizar com a seção e falhando",
-      "como": "finalizar com o cartão reprovado e a correção pedida: registra com a falha e o nome",
-      "caso": "identificador-divergente",
-      "html": "02-telas/T13-checklist/referencias/html/28-estado-finalizar-com-a-secao-e-falhando.html",
-      "png": "02-telas/T13-checklist/referencias/png/28-estado-finalizar-com-a-secao-e-falhando.png",
-      "coluna": true,
-      "rotulo": "Finalizar com a Seção E falhando",
-      "rotuloOrigem": "quadro"
-    },
-    {
       "id": "T13/29-momento-relendo-o-modulo",
       "tela": "T13",
       "pasta": "T13-checklist",
@@ -2141,13 +2138,73 @@
       "rotuloOrigem": "quadro"
     },
     {
+      "id": "T13/38-momento-secao-d-sendo-lida",
+      "tela": "T13",
+      "pasta": "T13-checklist",
+      "tipo": "momento",
+      "nome": "38-momento-secao-d-sendo-lida",
+      "titulo": "T13 · a Seção D sendo lida",
+      "como": "abrir o checklist: a Seção D começa vazia e enche conforme cada item é lido do módulo · o Finalizar diz por que está desligado",
+      "caso": "heroi",
+      "html": "02-telas/T13-checklist/referencias/html/38-momento-secao-d-sendo-lida.html",
+      "png": "02-telas/T13-checklist/referencias/png/38-momento-secao-d-sendo-lida.png"
+    },
+    {
+      "id": "T13/39-momento-bip-tocando",
+      "tela": "T13",
+      "pasta": "T13-checklist",
+      "tipo": "momento",
+      "nome": "39-momento-bip-tocando",
+      "titulo": "T13 · o bip tocando",
+      "como": "tocar em Testar bip: o app aciona o buzzer por cerca de 1 segundo · o botão diz Tocando",
+      "caso": "heroi",
+      "html": "02-telas/T13-checklist/referencias/html/39-momento-bip-tocando.html",
+      "png": "02-telas/T13-checklist/referencias/png/39-momento-bip-tocando.png"
+    },
+    {
+      "id": "T13/40-momento-bip-esperando-resposta",
+      "tela": "T13",
+      "pasta": "T13-checklist",
+      "tipo": "momento",
+      "nome": "40-momento-bip-esperando-resposta",
+      "titulo": "T13 · o bip esperando resposta",
+      "como": "o bip tocou: Você ouviu o bip? Ouvi ou Não ouvi · o Testar bip continua, pra tocar de novo",
+      "caso": "heroi",
+      "html": "02-telas/T13-checklist/referencias/html/40-momento-bip-esperando-resposta.html",
+      "png": "02-telas/T13-checklist/referencias/png/40-momento-bip-esperando-resposta.png"
+    },
+    {
+      "id": "T13/41-momento-bip-ouvido",
+      "tela": "T13",
+      "pasta": "T13-checklist",
+      "tipo": "momento",
+      "nome": "41-momento-bip-ouvido",
+      "titulo": "T13 · o bip ouvido",
+      "como": "tocar em Ouvi: o bip confere",
+      "caso": "heroi",
+      "html": "02-telas/T13-checklist/referencias/html/41-momento-bip-ouvido.html",
+      "png": "02-telas/T13-checklist/referencias/png/41-momento-bip-ouvido.png"
+    },
+    {
+      "id": "T13/42-momento-bip-nao-ouvido",
+      "tela": "T13",
+      "pasta": "T13-checklist",
+      "tipo": "momento",
+      "nome": "42-momento-bip-nao-ouvido",
+      "titulo": "T13 · o bip não ouvido",
+      "como": "tocar em Não ouvi: não conforme, com o campo de justificativa",
+      "caso": "heroi",
+      "html": "02-telas/T13-checklist/referencias/html/42-momento-bip-nao-ouvido.html",
+      "png": "02-telas/T13-checklist/referencias/png/42-momento-bip-nao-ouvido.png"
+    },
+    {
       "id": "T14/00-tela",
       "tela": "T14",
       "pasta": "T14-ciclo-dinamico",
       "tipo": "tela",
       "nome": "00-tela",
       "titulo": "T14 Ciclo dinamico",
-      "como": "entrada",
+      "como": "a vez do cartão: ignição e rotação feitas, passe o cartão",
       "caso": "",
       "html": "02-telas/T14-ciclo-dinamico/referencias/html/00-tela.html",
       "png": "02-telas/T14-ciclo-dinamico/referencias/png/00-tela.png"
@@ -2195,21 +2252,6 @@
       "rotuloOrigem": "proposto"
     },
     {
-      "id": "T14/04-estado-identificador-divergente",
-      "tela": "T14",
-      "pasta": "T14-ciclo-dinamico",
-      "tipo": "estado",
-      "nome": "04-estado-identificador-divergente",
-      "titulo": "T14 · identificador divergente",
-      "como": "o cartão lido não bate",
-      "caso": "identificador-divergente",
-      "html": "02-telas/T14-ciclo-dinamico/referencias/html/04-estado-identificador-divergente.html",
-      "png": "02-telas/T14-ciclo-dinamico/referencias/png/04-estado-identificador-divergente.png",
-      "coluna": true,
-      "rotulo": "Identificador divergente",
-      "rotuloOrigem": "proposto"
-    },
-    {
       "id": "T14/05-momento-ciclo-concluido",
       "tela": "T14",
       "pasta": "T14-ciclo-dinamico",
@@ -2222,44 +2264,16 @@
       "png": "02-telas/T14-ciclo-dinamico/referencias/png/05-momento-ciclo-concluido.png"
     },
     {
-      "id": "T14/06-momento-correcao-solicitada",
+      "id": "T14/08-momento-o-modulo-leu-o-cartao",
       "tela": "T14",
       "pasta": "T14-ciclo-dinamico",
       "tipo": "momento",
-      "nome": "06-momento-correcao-solicitada",
-      "titulo": "T14 · identificador · correcao solicitada",
-      "como": "tocar em `Solicitar correção de cadastro` no identificador divergente",
-      "caso": "identificador-divergente",
-      "html": "02-telas/T14-ciclo-dinamico/referencias/html/06-momento-correcao-solicitada.html",
-      "png": "02-telas/T14-ciclo-dinamico/referencias/png/06-momento-correcao-solicitada.png",
-      "coluna": true,
-      "depoisDe": "T14/04-estado-identificador-divergente",
-      "rotulo": "Correção solicitada",
-      "rotuloOrigem": "proposto"
-    },
-    {
-      "id": "T14/07-momento-vez-da-porta",
-      "tela": "T14",
-      "pasta": "T14-ciclo-dinamico",
-      "tipo": "momento",
-      "nome": "07-momento-vez-da-porta",
-      "titulo": "T14 Vez da porta",
-      "como": "depois da ré · abra a porta · o evento já chegou",
+      "nome": "08-momento-o-modulo-leu-o-cartao",
+      "titulo": "T14 · o módulo leu o cartão",
+      "como": "passar o cartão: o módulo leu 9412857 · o técnico confere com o número do cartão: Confere com o cartão ou Não confere",
       "caso": "ciclo",
-      "html": "02-telas/T14-ciclo-dinamico/referencias/html/07-momento-vez-da-porta.html",
-      "png": "02-telas/T14-ciclo-dinamico/referencias/png/07-momento-vez-da-porta.png"
-    },
-    {
-      "id": "T14/08-momento-vez-do-cartao",
-      "tela": "T14",
-      "pasta": "T14-ciclo-dinamico",
-      "tipo": "momento",
-      "nome": "08-momento-vez-do-cartao",
-      "titulo": "T14 Vez do cartao",
-      "como": "depois da porta · passe o cartão",
-      "caso": "ciclo",
-      "html": "02-telas/T14-ciclo-dinamico/referencias/html/08-momento-vez-do-cartao.html",
-      "png": "02-telas/T14-ciclo-dinamico/referencias/png/08-momento-vez-do-cartao.png"
+      "html": "02-telas/T14-ciclo-dinamico/referencias/html/08-momento-o-modulo-leu-o-cartao.html",
+      "png": "02-telas/T14-ciclo-dinamico/referencias/png/08-momento-o-modulo-leu-o-cartao.png"
     },
     {
       "id": "T14/09-estado-segunda-falha-do-evento",
@@ -2274,6 +2288,45 @@
       "png": "02-telas/T14-ciclo-dinamico/referencias/png/09-estado-segunda-falha-do-evento.png",
       "coluna": true,
       "rotulo": "Segunda falha do evento",
+      "rotuloOrigem": "proposto"
+    },
+    {
+      "id": "T14/10-momento-cartao-nao-confere",
+      "tela": "T14",
+      "pasta": "T14-ciclo-dinamico",
+      "tipo": "momento",
+      "nome": "10-momento-cartao-nao-confere",
+      "titulo": "T14 · o cartão não confere",
+      "como": "tocar em Não confere: o cartão vira não conforme, com a justificativa no checklist, e a ignição desligada entra na vez",
+      "caso": "ciclo",
+      "html": "02-telas/T14-ciclo-dinamico/referencias/html/10-momento-cartao-nao-confere.html",
+      "png": "02-telas/T14-ciclo-dinamico/referencias/png/10-momento-cartao-nao-confere.png"
+    },
+    {
+      "id": "T14/11-momento-vez-da-ignicao-desligada",
+      "tela": "T14",
+      "pasta": "T14-ciclo-dinamico",
+      "tipo": "momento",
+      "nome": "11-momento-vez-da-ignicao-desligada",
+      "titulo": "T14 · a vez da ignição desligada",
+      "como": "o cartão confere: a vez da ignição desligada, com \"o módulo leva alguns segundos para perceber\"",
+      "caso": "ciclo",
+      "html": "02-telas/T14-ciclo-dinamico/referencias/html/11-momento-vez-da-ignicao-desligada.html",
+      "png": "02-telas/T14-ciclo-dinamico/referencias/png/11-momento-vez-da-ignicao-desligada.png"
+    },
+    {
+      "id": "T14/12-estado-ativo-sem-leitor",
+      "tela": "T14",
+      "pasta": "T14-ciclo-dinamico",
+      "tipo": "estado",
+      "nome": "12-estado-ativo-sem-leitor",
+      "titulo": "T14 · o ativo sem leitor",
+      "como": "o ativo sem leitor: o ciclo em 3 passos, sem o cartão",
+      "caso": "sem-leitor",
+      "html": "02-telas/T14-ciclo-dinamico/referencias/html/12-estado-ativo-sem-leitor.html",
+      "png": "02-telas/T14-ciclo-dinamico/referencias/png/12-estado-ativo-sem-leitor.png",
+      "coluna": true,
+      "rotulo": "Ativo sem leitor",
       "rotuloOrigem": "proposto"
     },
     {
@@ -2349,21 +2402,6 @@
       "rotuloOrigem": "proposto"
     },
     {
-      "id": "T15/05-estado-correcao-na-fila",
-      "tela": "T15",
-      "pasta": "T15-fila-de-saida",
-      "tipo": "estado",
-      "nome": "05-estado-correcao-na-fila",
-      "titulo": "T15 · a correção de cadastro na fila",
-      "como": "o pedido de correção sobe pela fila, como as evidências",
-      "caso": "identificador-divergente",
-      "html": "02-telas/T15-fila-de-saida/referencias/html/05-estado-correcao-na-fila.html",
-      "png": "02-telas/T15-fila-de-saida/referencias/png/05-estado-correcao-na-fila.png",
-      "coluna": true,
-      "rotulo": "Correção na fila",
-      "rotuloOrigem": "proposto"
-    },
-    {
       "id": "T16/00-tela",
       "tela": "T16",
       "pasta": "T16-sessao",
@@ -2376,28 +2414,28 @@
       "png": "02-telas/T16-sessao/referencias/png/00-tela.png"
     },
     {
-      "id": "T16/01-momento-pede-o-corte-de-alimentacao",
+      "id": "T16/01-momento-reiniciando-o-modulo",
       "tela": "T16",
       "pasta": "T16-sessao",
       "tipo": "momento",
-      "nome": "01-momento-pede-o-corte-de-alimentacao",
-      "titulo": "T16 · pede o corte de alimentacao",
-      "como": "o passo do corte",
+      "nome": "01-momento-reiniciando-o-modulo",
+      "titulo": "T16 · reiniciando o módulo",
+      "como": "o passo do reinício: automático, \"Reiniciando o módulo…\", sem ação do técnico",
       "caso": "autotesteEncerramento",
-      "html": "02-telas/T16-sessao/referencias/html/01-momento-pede-o-corte-de-alimentacao.html",
-      "png": "02-telas/T16-sessao/referencias/png/01-momento-pede-o-corte-de-alimentacao.png"
+      "html": "02-telas/T16-sessao/referencias/html/01-momento-reiniciando-o-modulo.html",
+      "png": "02-telas/T16-sessao/referencias/png/01-momento-reiniciando-o-modulo.png"
     },
     {
-      "id": "T16/02-momento-sessao-encerrada",
+      "id": "T16/02-momento-instalacao-homologada",
       "tela": "T16",
       "pasta": "T16-sessao",
       "tipo": "momento",
-      "nome": "02-momento-sessao-encerrada",
-      "titulo": "T16 Sessao encerrada",
-      "como": "o autoteste passa",
+      "nome": "02-momento-instalacao-homologada",
+      "titulo": "T16 · a instalação homologada",
+      "como": "o autoteste passa: Instalação homologada, com horário · a única tela com \"homologada\"",
       "caso": "autotesteAssertivas",
-      "html": "02-telas/T16-sessao/referencias/html/02-momento-sessao-encerrada.html",
-      "png": "02-telas/T16-sessao/referencias/png/02-momento-sessao-encerrada.png"
+      "html": "02-telas/T16-sessao/referencias/html/02-momento-instalacao-homologada.html",
+      "png": "02-telas/T16-sessao/referencias/png/02-momento-instalacao-homologada.png"
     },
     {
       "id": "T16/03-momento-encerrando-sem-homologar",
@@ -2424,18 +2462,18 @@
       "png": "02-telas/T16-sessao/referencias/png/04-momento-encerrada-sem-homologar.png"
     },
     {
-      "id": "T16/05-estado-assertiva-falhando",
+      "id": "T16/05-estado-homologacao-bloqueada",
       "tela": "T16",
       "pasta": "T16-sessao",
       "tipo": "estado",
-      "nome": "05-estado-assertiva-falhando",
-      "titulo": "T16 · assertiva falhando",
-      "como": "uma assertiva falha",
+      "nome": "05-estado-homologacao-bloqueada",
+      "titulo": "T16 · a homologação bloqueada",
+      "como": "uma assertiva falha: a homologação fica bloqueada, com a causa",
       "caso": "autoteste-falhando",
-      "html": "02-telas/T16-sessao/referencias/html/05-estado-assertiva-falhando.html",
-      "png": "02-telas/T16-sessao/referencias/png/05-estado-assertiva-falhando.png",
+      "html": "02-telas/T16-sessao/referencias/html/05-estado-homologacao-bloqueada.html",
+      "png": "02-telas/T16-sessao/referencias/png/05-estado-homologacao-bloqueada.png",
       "coluna": true,
-      "rotulo": "Assertiva falhando",
+      "rotulo": "Homologação bloqueada",
       "rotuloOrigem": "proposto"
     },
     {
@@ -2464,6 +2502,18 @@
       "caso": "autotesteAssertivas",
       "html": "02-telas/T16-sessao/referencias/html/07-momento-autoteste-correndo.html",
       "png": "02-telas/T16-sessao/referencias/png/07-momento-autoteste-correndo.png"
+    },
+    {
+      "id": "T16/08-momento-reconectando-no-reinicio",
+      "tela": "T16",
+      "pasta": "T16-sessao",
+      "tipo": "momento",
+      "nome": "08-momento-reconectando-no-reinicio",
+      "titulo": "T16 · reconectando no reinício",
+      "como": "a conexão cai enquanto o módulo reinicia: Reconectando…, nunca falha",
+      "caso": "autotesteEncerramento",
+      "html": "02-telas/T16-sessao/referencias/html/08-momento-reconectando-no-reinicio.html",
+      "png": "02-telas/T16-sessao/referencias/png/08-momento-reconectando-no-reinicio.png"
     }
   ]
 }

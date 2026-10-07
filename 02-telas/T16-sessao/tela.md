@@ -12,12 +12,16 @@ Encerrar a sessão de configuração provando que a configuração sobreviveu ao
 
 ## O que se toca
 
-- a legenda de cada passo, enquanto ele corre: *Contadores e estado* — Grava os contadores e o estado no módulo, pra nada se perder no reinício · *Reinício do módulo* — Desligue e ligue a alimentação do módulo. Ele volta sozinho em alguns segundos · *Releitura completa* — Ele lê de volta o que ficou gravado. É isto que prova que a configuração sobreviveu ao reinício · *Repouso do módulo* — Devolve o módulo ao repouso que ele tinha antes da sessão · *Canal de programação* — Fecha o canal que o app abriu no módulo. Ele fecha sempre, mesmo sem homologar · *Registro da sessão* — Guarda o que foi feito aqui, pra ir ao servidor junto com a instalação · *Desconexão* — Solta o Bluetooth. O módulo fica livre pra outro aparelho · *Autoteste* — Confere as assertivas uma por uma, cada uma com o valor lido
+- a legenda de cada passo, enquanto ele corre: *Contadores e estado* — Grava os contadores e o estado no módulo, pra nada se perder no reinício · *Reinício do módulo* — O módulo reinicia sozinho; leva alguns segundos · *Releitura completa* — Ele lê de volta o que ficou gravado. É isto que prova que a configuração sobreviveu ao reinício · *Repouso do módulo* — Devolve o módulo ao repouso que ele tinha antes da sessão · *Canal de programação* — Fecha o canal que o app abriu no módulo. Ele fecha sempre, mesmo sem homologar · *Registro da sessão* — Guarda o que foi feito aqui, pra ir ao servidor junto com a instalação · *Desconexão* — Solta o Bluetooth. O módulo fica livre pra outro aparelho · *Autoteste* — Confere as assertivas uma por uma, cada uma com o valor lido
   - **no protótipo:** cada legenda aparece embaixo do nome do passo que corre, no lugar que a peça do encerramento tem (a folha 5 · *a legenda só no passo que corre*), com o ponto final das três que as referências desenham (`00`, `01`, `03`); nos 4 passos da sessão abortada, as dos quatro que rodam. O passo 2 só leva a legenda no corte (T16·1): ela manda desligar a alimentação, e o módulo que reinicia por comando não pede isso — no herói, o passo 2 corre sem legenda, e o texto do reinício por comando vai ao arquiteto (T16·7). A do *Autoteste* fica no dado e não aparece: o passo 8 é a *Sessão encerrada* (T16·4). A palavra da direita enquanto corre (como *relendo* e *fechando*) continua sem texto nos passos 1, 2, 4, 6 e 7 (G25)
 - `ENCERRAR` na faixa → o encerramento corre
   - no protótipo · a nossa versão desta linha, antes desta entrega: `ENCERRAR` na faixa → o encerramento corre: com a sessão homologada, os passos 1 a 7, um a cada 600 ms; ao fechar o 7, a faixa fica sem sessão e a tela passa pra *Sessão encerrada*, onde as 8 assertivas acendem a 400 ms, e a prova e o `Voltar ao menu` entram com a última (T16·4)
-- no passo do corte: o técnico desliga e religa a alimentação
-  - no protótipo · a nossa versão desta linha, antes desta entrega: no passo do corte, só quando o driver não reinicia por comando (T16·1): o técnico desliga e religa a alimentação; no protótipo, o módulo volta sozinho no ritmo do passo
+- **o reinício é automático** (retorno do PM, 06/10): *Reiniciando o módulo…*, depois *de volta* · o técnico não faz nada · se a conexão com o celular cair nesse intervalo, *Reconectando…* (a 08), nunca falha
+- **as sete assertivas, nesta ordem**: a configuração confere depois do reinício · os contadores semeados sobreviveram · o reset de leitura (só quando foi usado; senão, *não se aplica*, com o motivo) · o ID confere com o cadastro, e as pendências registradas · o canal de programação fechado · o repouso do módulo restaurado · o evento do cartão chega ao servidor · saíram o Extended ID e os pontos de cerca
+- **três contadores separados**: *aprovadas*, *não se aplicam* e *pendentes* · nunca *7 de 8* · *não se aplica* mostra o motivo e não conta como aprovada · quando uma falha, ela aparece em vermelho na lista, e a homologação fica bloqueada com a causa (a 05)
+- **o evento do cartão fica pendente**, *confere em até 24 h*, e não impede a homologação: depende do servidor
+- **a homologação mora aqui**: *Instalação homologada*, com horário, é o resultado do autoteste sem falha (a 02) · é a única tela do app com essa palavra
+- **no protótipo · a rodada 1 do retorno do PM:** o reinício corre no encerramento, *reiniciando* e a legenda, com o primário *Reiniciando o módulo…* e o passo no espaçamento justo (como a 01 desenha) · o 01 e o 08 abrem pelo endereço no KNB-5H39 × M2C-0371, o par que a referência desenha (`parDoReinicio`); no fluxo, todo reinício é automático e nenhum caso derruba a conexão, então o *Reconectando…* só se vê pelo endereço da 08 · a sessão encerrada mostra a prova *INSTALAÇÃO HOMOLOGADA · às 14:30 · a configuração sobreviveu ao reinício* (o relógio parado; a referência diz 14:42, pro arquiteto), os três contadores (`contadoresDas`: só os que têm alguma, das que já acenderam, 13/600 com o número em 700) e as sete assertivas — a de 50, e a com o porquê embaixo, de 58 (o reset que não se aplica, o cartão pendente) · no autoteste correndo, a da vez diz *conferindo*
 - encerrada: `Voltar ao menu`
   - no protótipo · a nossa versão desta linha, antes desta entrega: encerrada: `Voltar ao menu` → o menu sem sessão; o voltar faz o mesmo
 - ENCERRAR antes de homologar → os 4 passos da sessão abortada, sem confirmação
@@ -60,7 +64,7 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - linha do histórico
 - a lista de garagens
 - encerrando
-- pede o corte
+- reiniciando
 - sem homologar
 - com contador
 - linha de opção
@@ -91,7 +95,7 @@ Anotação de construção, medida no código e nas referências. A lista de cim
 - aviso
 - nota tracejada
 - encerrando
-- pede o corte
+- reiniciando
 - sem homologar
 - com contador
 - prova da sessão

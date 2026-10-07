@@ -8,12 +8,12 @@
 | `01-momento-antes-do-disparo` | momento | a fila do módulo ainda drenando | `ciclo.mensagensGuardadas` |
 | `02-estado-prazo-estourado` | estado | o evento não chega em 2:00 | `evento-sem-resposta` |
 | `03-estado-dinamico-fora-do-esperado` | estado | a rotação não aparece: o motor está desligado | `motor-desligado-no-ciclo` |
-| `04-estado-identificador-divergente` | estado | o cartão lido não bate | `identificador-divergente` |
 | `05-momento-ciclo-concluido` | momento | os seis passos e o evento | `ciclo` |
-| `06-momento-correcao-solicitada` | momento | tocar em `Solicitar correção de cadastro` no identificador divergente | `identificador-divergente` |
-| `07-momento-vez-da-porta` | momento | depois da ré · abra a porta · o evento já chegou | `ciclo` |
-| `08-momento-vez-do-cartao` | momento | depois da porta · passe o cartão | `ciclo` |
 | `09-estado-segunda-falha-do-evento` | estado | o evento não chega pela segunda vez: confira a conexão do módulo · *padrão até o PM decidir* | `evento-nao-chega-de-novo` |
+| `08-momento-o-modulo-leu-o-cartao` | momento | passar o cartão: o módulo leu 9412857 · Confere com o cartão ou Não confere | `ciclo` |
+| `10-momento-cartao-nao-confere` | momento | tocar em Não confere: não conforme, com a justificativa no checklist | `ciclo` |
+| `11-momento-vez-da-ignicao-desligada` | momento | o cartão confere: a vez da ignição desligada, com a explicação | `ciclo` |
+| `12-estado-ativo-sem-leitor` | estado | o ativo sem leitor: 3 passos | `sem-leitor` |
 
 - no protótipo · a nossa versão da linha *01-momento-antes-do-disparo*, antes desta entrega: | `01-momento-antes-do-disparo` | momento | a entrada da tela: a fila do módulo ainda drenando (G27) | `ciclo.mensagensGuardadas` |
 

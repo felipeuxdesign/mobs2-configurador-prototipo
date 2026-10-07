@@ -76,11 +76,11 @@ const OS_QUATRO_PASSOS = [
   { ve: 'Sem sessão de configuração' },
   { naoVe: 'ENCERRAR' },
   { ve: 'SEM HOMOLOGAR' },
-  { ve: 'A instalação continua aberta. O que foi gravado fica no módulo.' },
+  { ve: 'A instalação continua aberta. O que foi enviado fica no módulo.' },   // a rodada 1: enviado, não gravado
   { ve: 'restaurado' },
   { ve: 'fechado' },
   { ve: 'na fila' },
-  { ve: 'feita' },
+  { ve: 'desconectado' },   // a Desconexão (a rodada 1)
   // o que não rodou é uma frase só, sem o rótulo em caixa alta (otimizacao300000000 · T16/04)
   { ve: 'Não rodaram: contadores, reinício, releitura e o autoteste.' },
   { naoVe: 'NÃO RODARAM' },

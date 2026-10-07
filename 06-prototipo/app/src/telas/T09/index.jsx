@@ -59,9 +59,9 @@
 //     acende com o texto da saída: o texto novo esmaece no lugar, e o roxo troca
 //     direto (C12·23, a peça · o conserto de 27/09); o que se apaga (retomar)
 //     perde o roxo de uma vez (C12·18), e o texto novo esmaece no lugar (C12·23).
-import { Fragment, useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import {
-  BarraDoSistema, Faixa, CabecalhoConteudo, Precondicao, Aviso, Cadeia, Prova, Rodape, Lista, LinhaEscolha,
+  BarraDoSistema, Faixa, CabecalhoConteudo, Precondicao, Aviso, Cadeia, Prova, Rodape, Lista, LinhaEscolha, OQueConferir,
   useFimDaTroca, useTrocaDeQuadro,
 } from '../../ds/index.js'
 import { useEstado } from '../../estado/estado.jsx'
@@ -71,10 +71,11 @@ import { SEMENTES } from '../../estado/sementes.js'
 import { EM_QUADRO } from '../../estado/quadro.js'
 import { RITMOS } from '../../estado/ritmos.js'
 import { M } from '../../dados/mock.js'
+import { milhar } from '../../dados/formato.js'
 import {
-  REF, CASO_RECUSA, CASO_QUEDA, CASO_NAO_CABE, CASO_POOL, ORDEM, TOTAL, CONEXAO, QUADRO_00, CURTA,
+  REF, CASO_RECUSA, CASO_QUEDA, CASO_NAO_CABE, CASO_POOL, CASO_SERVIDOR, ORDEM, TOTAL, CONEXAO, QUADRO_00, CURTA,
   BLOCOS_DA_MANUTENCAO, BLOCO_DA_MANUTENCAO, rotuloDe, placaDe, parDoCaso, paradaDoCaso, casoDoPar,
-  conteudoDo, envioDo, travaDo, emManutencao, ficam, elosDo, elosDaCurta,
+  conteudoNaTela, envioDo, travaDo, emManutencao, ficam, elosDo, elosDaCurta,
 } from './cadeia.js'
 import { T } from './textos.js'
 import './t09.css'
@@ -85,7 +86,7 @@ const parDaSessao = (s) => (s?.ativoId ? { ativoId: s.ativoId, moduloSerial: s.m
 // o caso de cada estado da coluna (a receita)
 const CASO_DO_ESTADO = {
   [REF.recusado]: CASO_RECUSA, [REF.queda]: CASO_QUEDA, [REF.recuperacao]: CASO_QUEDA,
-  [REF.naoCabe]: CASO_NAO_CABE, [REF.cercasDemais]: CASO_POOL,
+  [REF.naoCabe]: CASO_NAO_CABE, [REF.cercasDemais]: CASO_POOL, [REF.semServidor]: CASO_SERVIDOR,
 }
 
 // O quadro em que a tela abre. Num estado da coluna, o do caso, parado (a
@@ -107,7 +108,12 @@ function inicio(momento, est, unico) {
     return { par: parDoCaso(CASO_QUEDA), confirmados: ORDEM.indexOf(p.bloco), fase: est === REF.queda ? 'pausado' : 'recuperacao', parou: p.parou }
   }
   if (est === REF.naoCabe || est === REF.cercasDemais) return { par: parDoCaso(CASO_DO_ESTADO[est]), confirmados: 0, fase: 'antes', parou: null }
+  // a 12 (a rodada 1): a cadeia conferida, e o módulo do caso ainda não falou com o servidor — o caso
+  // diz só o módulo, que é o do herói: o ônibus é o da semente
+  if (est === REF.semServidor) return { par: { ativoId: SEMENTES.T09.sessao.ativoId, moduloSerial: M.casos[CASO_SERVIDOR].moduloSerial }, confirmados: TOTAL, fase: 'semServidor', parou: null }
   const par = parDaSessao(unico.sessao)
+  // a 11: a Conexão gravada, e o módulo conferindo se falou com o servidor
+  if (momento === REF.conferindoServidor) return { par, confirmados: TOTAL, fase: 'servidor', parou: null }
   if (momento === REF.concluida) return { par, confirmados: TOTAL, fase: 'concluida', parou: null }
   if (momento === REF.antes) return { par, confirmados: 0, fase: 'antes', parou: null }
   if (momento === REF.escolher) return { par, confirmados: 0, fase: 'escolher', parou: null, bloco }
@@ -151,7 +157,7 @@ export default function T09({ momento, estado: est }) {
   // a cadeia anda um bloco por batida; para no print, num estado da coluna e
   // fora da gravação. Quando o par da faixa é o de um caso, a cadeia para no
   // bloco dele, uma vez só (G21): a recusa ou a queda do link. A curta anda os dois dela
-  const correndo = !EM_QUADRO && est == null && (fluxo.fase === 'gravando' || fluxo.fase === 'curta')
+  const correndo = !EM_QUADRO && est == null && (fluxo.fase === 'gravando' || fluxo.fase === 'curta' || fluxo.fase === 'servidor')
   // a cadeia só corre depois da troca que a trouxe (G27); ao retomar, logo
   const fimDaTroca = useFimDaTroca()
   useEffect(() => {
@@ -163,6 +169,8 @@ export default function T09({ momento, estado: est }) {
         setFluxo({ ...f, confirmados, fase: confirmados >= CURTA ? 'curtaFeita' : 'curta' })
         return
       }
+      // a rodada 1: o módulo prova que falou com o servidor, um bloco depois da Conexão
+      if (f.fase === 'servidor') { setFluxo({ ...f, fase: 'concluida' }); return }
       if (f.fase !== 'gravando') return
       const caso = casoDoPar(f.par, u.casosConsumidos)
       const parada = caso ? paradaDoCaso(caso) : null
@@ -172,7 +180,7 @@ export default function T09({ momento, estado: est }) {
         return
       }
       const confirmados = f.confirmados + 1
-      setFluxo({ ...f, confirmados, fase: confirmados >= TOTAL ? 'concluida' : 'gravando' })
+      setFluxo({ ...f, confirmados, fase: confirmados >= TOTAL ? 'servidor' : 'gravando' })
     }
     let ligada = true, relogio = null
     fimDaTroca().then(() => { if (ligada) relogio = setInterval(batida, RITMOS.cadeiaBlocoMs) })
@@ -197,12 +205,19 @@ export default function T09({ momento, estado: est }) {
   // o último relido: a URL passa a dizer 04 — e, na cadeia curta, 10 (o pacote 5)
   useEffect(() => {
     if (est != null) return
-    const m = fluxo.fase === 'concluida' ? REF.concluida : fluxo.fase === 'curtaFeita' ? REF.reenviado : null
+    const m = fluxo.fase === 'concluida' ? REF.concluida : fluxo.fase === 'curtaFeita' ? REF.reenviado : fluxo.fase === 'servidor' ? REF.conferindoServidor : null
     if (m && vivo.current.momento !== m) despachar({ tipo: 'ir', tela: 'T09', momento: m })
   }, [fluxo.fase, est, despachar])
 
   // a troca de quadro (C12·4): o que vai ser gravado → a cadeia, o escolher → a curta
   useTrocaDeQuadro(quadro)
+  // a cadeia concluída e o servidor (a rodada 1): o quadro que a URL abre já rolado até o fim, como a
+  // 04 e a 12 desenham — a prova e o que conferir à vista
+  useLayoutEffect(() => {
+    if (fluxo.fase !== 'concluida' && fluxo.fase !== 'semServidor') return
+    const miolo = document.querySelector('.t09 .tela-miolo')
+    if (miolo) miolo.scrollTop = miolo.scrollHeight
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // os toques. Num estado da coluna o celular não toca; se tocasse, o quadro
   // vira fluxo na sessão do caso, e a recusa e a queda ficam consumidas (G21)
@@ -244,7 +259,7 @@ export default function T09({ momento, estado: est }) {
   const PRENDE = ['gravando', 'recusado', 'pausado']
   function encerrar() {
     const { fase } = vivo.current.fluxo
-    if (fase === 'recuperacao' || fase === 'curta') return // G23 · lei 17: ali o ENCERRAR não faz nada
+    if (fase === 'recuperacao' || fase === 'curta' || fase === 'servidor') return // G23 · lei 17: ali o ENCERRAR não faz nada
     if (PRENDE.includes(fase)) { recuperar(); return }
     // antes de gravar, e depois da Conexão: o ENCERRAR de cima
     enc.encerrar()
@@ -256,9 +271,9 @@ export default function T09({ momento, estado: est }) {
   // correndo (00), recusado (01), pausado (02) —, a recuperação, como o Voltar ao menu
   // com a cadeia parada; na recuperação, que só oferece continuar, e na cadeia curta,
   // que termina sozinha, não faz nada
-  useVoltar(PRENDE.includes(fase) ? recuperar : fase === 'recuperacao' || fase === 'curta' ? null : voltarAoMenu)
+  useVoltar(PRENDE.includes(fase) ? recuperar : fase === 'recuperacao' || fase === 'curta' || fase === 'servidor' ? null : voltarAoMenu)
 
-  const conteudo = conteudoDo(par)
+  const conteudo = conteudoNaTela(par)
   const bloco = ORDEM[k]
   const parada = fase === 'recusado' || fase === 'pausado' || fase === 'recuperacao'
   const pinos = <Precondicao>{T.pinos}</Precondicao>
@@ -276,7 +291,7 @@ export default function T09({ momento, estado: est }) {
       <>
         <CabecalhoConteudo titulo={T.titulo} />
         {trava === 'nao-cabe' && <Aviso tom="falha" glifo="xis" titulo={T.naoCabeTitulo} frase={T.naoCabeFrase(envio.registros, envio.capacidade)} />}
-        {trava === 'cercas-demais' && <Aviso tom="falha" glifo="xis" titulo={T.cercasDemaisTitulo} frase={T.cercasDemaisFrase(envio.fora)} />}
+        {trava === 'cercas-demais' && <Aviso tom="falha" glifo="xis" titulo={T.naoCabeTitulo} frase={T.pontosDemaisFrase(milhar(envio.pontos), milhar(envio.pontosMax))} />}
         {pinos}
         {/* o espaço: na trava dele (06), a linha não aparece — o aviso já diz os números (o pacote 3) */}
         {envio.cabe && <Precondicao estado="ok">{T.cabe(envio.registros, envio.capacidade)}</Precondicao>}
@@ -336,12 +351,14 @@ export default function T09({ momento, estado: est }) {
         {/* no 01, a linha dos pinos vem logo depois do aviso, como na 06 (o pacote 3) */}
         {fase === 'recusado' && pinos}
         <Cadeia elos={elosDo(fluxo, conteudo)} justa={fase === 'recusado'} altura={altura} />
-        {fase === 'concluida' && <Prova surge={aoVivo && !abriuConcluida} rotulo={T.gravadoERelido} versao={T.blocos(TOTAL)} legenda={T.devolveu(TOTAL)} />}
+        {fase === 'concluida' && <Prova surge={aoVivo && !abriuConcluida} rotulo={T.conferidoNoModulo} versao={T.passos(TOTAL)} legenda={T.devolveu(TOTAL)} />}
+        {fase === 'semServidor' && <OQueConferir rotulo={T.oQueConferir} causas={T.conferirServidor} />}
       </>
     )
-    if (fase === 'gravando') rodape = <Rodape {...mov} primario={T.gravandoNaoInterrompa} primarioDesabilitado explicacao={T.saidaVolta} />
-    else if (fase === 'recusado') rodape = <Rodape {...mov} primario={T.tentarDeNovo} aoPrimario={retomar} link={T.voltar} aoLink={recuperar} />
-    else if (fase === 'pausado') rodape = <Rodape {...mov} primario={T.reconectar} aoPrimario={retomar} link={T.voltar} aoLink={recuperar} />
+    // a rodada 1: não se sai do meio — no recusado e na queda, só o Tentar de novo e o Reconectar
+    if (fase === 'gravando' || fase === 'servidor') rodape = <Rodape {...mov} primario={T.gravandoNaoInterrompa} primarioDesabilitado explicacao={T.saidaVolta} />
+    else if (fase === 'recusado') rodape = <Rodape {...mov} primario={T.tentarDeNovo} aoPrimario={retomar} />
+    else if (fase === 'pausado') rodape = <Rodape {...mov} primario={T.reconectar} aoPrimario={retomar} />
     else if (fase === 'recuperacao') rodape = <Rodape {...mov} primario={T.continuar} aoPrimario={retomar} />
     else rodape = <Rodape {...mov} primario={T.voltar} aoPrimario={voltarAoMenu} />
   }

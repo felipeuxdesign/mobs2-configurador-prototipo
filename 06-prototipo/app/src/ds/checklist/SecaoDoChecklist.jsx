@@ -26,7 +26,8 @@ import { Glifo } from '../primitivos/Glifo.jsx'
 import { Icone } from '../primitivos/Icone.jsx'
 import './SecaoDoChecklist.css'
 
-const GLIFO = { aprovada: 'ok', pendente: 'espera', aguarda: 'relogio', reprovada: 'xis' }
+// a rodada 1 do retorno do PM: `lendo`, a Seção D enchendo enquanto o módulo é lido (T13/38), com o quadrado de agora
+const GLIFO = { aprovada: 'ok', pendente: 'espera', aguarda: 'relogio', reprovada: 'xis', lendo: 'agora' }
 
 export function SecaoDoChecklist({ estado = 'pendente', titulo, quemAge, feitos, de, aberta = false, aoTocar, rotulo, nomeGlifo, children }) {
   // só a abertura por um toque esmaece os itens, nunca a abertura da tela

@@ -42,11 +42,12 @@ export const especimes = [
         ...PASSOS.slice(3).map(espera),
       ]} />
     ) },
-  { id: 'f5-pede-o-corte', folha: 5, rotulo: 'pede o corte', legenda: 'é com você · o único passo em que ele age',
+  // a rodada 1 do retorno do PM: o reinício é automático — o pede o corte saiu da folha
+  { id: 'f5-reiniciando', folha: 5, rotulo: 'reiniciando', legenda: 'o reinício é automático · o técnico não faz nada, e a conexão que cai diz reconectando',
     render: () => (
       <Encerramento justo passos={[
-        { estado: 'ok', nome: PASSOS[0], situacao: 'gravados' },
-        { estado: 'energia', nome: PASSOS[1], situacao: 'é com você', legenda: 'Desligue e ligue a alimentação do módulo. Ele volta sozinho em alguns segundos.' },
+        { estado: 'ok', nome: PASSOS[0], situacao: 'confere' },
+        { estado: 'agora', nome: PASSOS[1], situacao: 'reiniciando', legenda: 'O módulo reinicia sozinho. Leva alguns segundos.' },
         ...PASSOS.slice(2).map(espera),
       ]} />
     ) },

@@ -60,9 +60,11 @@ export default [
   olha(1400),
   { toca: 'Gravar no módulo' },
   { chega: 'T09', momento: null },
-  { chega: 'T09', momento: '04-momento-cadeia-concluida', entre: [5000, 8500] },
-  { ve: '6 blocos' },
-  { ve: 'o módulo devolveu os seis blocos' },
+  // (a rodada 1 do retorno do PM) a Conexão relida, o módulo confere que falou com o servidor
+  { chega: 'T09', momento: '11-momento-conferindo-o-servidor', entre: [5000, 8500] },
+  { chega: 'T09', momento: '04-momento-cadeia-concluida', entre: [700, 1400] },
+  { ve: '6 passos' },
+  { ve: 'o módulo devolveu os seis passos' },
   olha(2500),
   // (o pacote 9) a CAN lida ao vivo: os sinais do motor ligado trocam o número a cada segundo
   { abre: '?tela=T07&momento=01-momento-can-lida' },
@@ -71,7 +73,7 @@ export default [
   olha(3600),
   // e o fim da visita: o encerramento, o autoteste e o traço do veredito se desenhando
   { abre: '?tela=T16' },
-  { chega: 'T16', momento: '02-momento-sessao-encerrada', ms: 15000 },
-  { ve: 'A CONFIGURAÇÃO SOBREVIVEU AO REINÍCIO' },
+  { chega: 'T16', momento: '02-momento-instalacao-homologada', ms: 15000 },
+  { ve: 'INSTALAÇÃO HOMOLOGADA' },
   olha(2500),
 ]

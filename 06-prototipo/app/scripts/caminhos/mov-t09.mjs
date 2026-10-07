@@ -10,7 +10,9 @@
 //     ganha o quadrado de agora no mesmo tique (T09·1 — a peça o esmaece em 150, o desvio de toda
 //     tela com o glifo, que vai ao fechamento);
 //   · cada elo diz o conteúdo do bloco (OF-1621, 4 regiões, sem fio…), nunca a versão (decisão 49);
-//   · a cadeia que conclui (04): a prova (6 blocos) esmaece no lugar em 150 (Prova · surge, C12·9), e o
+//   · a Conexão relida: o módulo confere se falou com o servidor (11, a rodada 1 do retorno do PM), um
+//     bloco depois; todo elo relido diz *confere*;
+//   · a cadeia que conclui (04): a prova (6 passos) esmaece no lugar em 150 (Prova · surge, C12·9), e o
 //     primário acende com o Voltar ao menu: o texto novo esmaece no lugar, e o roxo troca direto, sem
 //     camada (C12·23, a peça · o conserto de 27/09); a altura dos elos troca direto (G24);
 //   · a recuperação (tentar sair antes de a Conexão gravar: o ENCERRAR, o voltar): o aviso esmaece no
@@ -37,9 +39,10 @@ const PARADA = [{ quieto: true }, { dorme: 700 }, { quieto: true }]
 const CONCLUIDA = '04-momento-cadeia-concluida'
 const ANTES = '05-momento-o-que-vai-ser-gravado'
 const ESCOLHER = '08-momento-manutencao-escolher-o-bloco'
+const SERVIDOR = '11-momento-conferindo-o-servidor'
 const REENVIANDO = '09-momento-manutencao-reenviando'
 const ESTADOS = ['01-estado-bloco-recusado', '02-estado-queda-na-cadeia', '03-estado-recuperacao-ate-a-conexao-gravar',
-  '06-estado-a-configuracao-nao-cabe', '07-estado-cercas-demais-pro-modulo']
+  '06-estado-a-configuracao-nao-cabe', '07-estado-pontos-de-cerca-demais', '12-estado-o-modulo-ainda-nao-falou-com-o-servidor']
 
 export default [
   // ── abre parada: no print, nos estados da coluna e nos momentos pelo endereço ──
@@ -54,24 +57,24 @@ export default [
   // as travas do envio, pelo caso: o elemento que falhou diz o número, e o aviso, o que fazer
   { abre: `?tela=T09&estado=${ESTADOS[3]}` },
   { ve: 'NÃO CABE NO MÓDULO' },
-  { ve: 'São 128 registros, e o módulo guarda 96.' }, // pacote 3: os números no aviso
+  { ve: 'São 131 contadores. Este módulo guarda 127.' }, // a rodada 1: contadores, os números do caso
   { ve: 'Cercas\nnenhuma' },
   { ve: 'Leitor\nno fio branco' },
   { ve: 'Procurar outro módulo' },
   { abre: `?tela=T09&estado=${ESTADOS[4]}` },
-  { ve: 'CERCAS DEMAIS PRO MÓDULO' },
-  { ve: 'O Terminal Cosme e Damião ficaria de fora.' }, // pacote 3: o elo numa linha, e quem fica de fora no aviso
-  { ve: '5 regiões, cabem 4' },
+  { ve: 'NÃO CABE NO MÓDULO' },
+  { ve: 'As cercas têm 6.410 pontos. Este módulo guarda 6.143.' }, // a rodada 1: os pontos de cerca
+  { ve: 'Cercas\nnão cabe' },
   { abre: `?tela=T09&momento=${CONCLUIDA}` },
   ...PARADA,
-  { ve: 'GRAVADO E RELIDO\n6 blocos' },
+  { ve: 'CONFERIDO NO MÓDULO\n6 passos' },
 
   // ── pelo endereço: a tela abre parada no que vai ser gravado, e o endereço diz o 05 ──
   { abre: '?tela=T09' },
   { chega: 'T09', momento: ANTES },
   { quieto: true },
   { ve: 'Limpeza\nprimeiro' },
-  { ve: 'cabe no módulo · 128 de 192 registros' },
+  { ve: 'cabe no módulo · 96 de 127 contadores' },
   { fica: 'T09', ms: 1300 },                                     // nada grava antes do toque
   { quieto: true },
   { naoVe: 'gravando' },
@@ -81,11 +84,11 @@ export default [
   { ve: 'Limpeza\ngravando' },
   { ve: 'Ativo\ngravando', entre: DO_TOQUE },                     // a Limpeza relida
   { anima: [GLIFO, TRILHO] },                                    // o check no poço, e o trilho que acende
-  { ve: 'Limpeza\nfeita' },
+  { ve: 'Limpeza\nconfere' },
   { ve: 'Cercas\ngravando', entre: BLOCO },
-  { ve: 'Ativo\nOF-1621' },
+  { ve: 'Ativo\nconfere' },
   { ve: 'Leitor\ngravando', entre: BLOCO },
-  { ve: 'Cercas\n4 regiões' },
+  { ve: 'Cercas\nconfere' },
   { dorme: 400 },
   { quieto: true },                                              // acabou, nada fica vivo (C12·19)
 
@@ -112,14 +115,18 @@ export default [
   { toca: 'Continuar a gravação', naoAnima: SEM_ROXO },
   { ve: 'Eventos\ngravando', entre: BLOCO },                     // o Leitor, relido a 1 s do retomar
   { anima: [GLIFO, TRILHO] },
-  { ve: 'Leitor\nsem fio' },
+  { ve: 'Leitor\nconfere' },
   { ve: 'Conexão\ngravando', entre: BLOCO },
-  // a Conexão relida: a cadeia conclui — o check, a prova no lugar e o primário que acende
+  // a Conexão relida: o módulo confere se falou com o servidor (a rodada 1), um bloco depois
+  { chega: 'T09', momento: SERVIDOR, entre: BLOCO },
+  { ve: 'O módulo falou com o servidor\nconferindo' },
+  { desligado: 'Gravando · não interrompa' },
+  // falou: a cadeia conclui — o check, a prova no lugar e o primário que acende
   { chega: 'T09', momento: CONCLUIDA, entre: BLOCO },
   { anima: [GLIFO, esmaece('ds-prova'), TEXTO], naoAnima: [ACENDE, ...TROCA] },   // o endereço que passa ao 04 não é troca
-  { ve: 'GRAVADO E RELIDO\n6 blocos' },
-  { ve: 'Eventos\nintervalo 30 s' },
-  { ve: 'Conexão\nm2m.mobs2.br' },
+  { ve: 'CONFERIDO NO MÓDULO\n6 passos' },
+  { ve: 'O módulo falou com o servidor\nsim' },
+  { ve: 'Eventos\nconfere' },
   { dorme: 250 },
   { quieto: true },
   // a saída: a troca entre telas (o topo muda no menu: só o miolo esmaece)
@@ -154,7 +161,8 @@ export default [
   { ve: 'Cercas\ngravando', entre: DO_TOQUE },                   // a limpeza só das cercas, relida
   { anima: [GLIFO, TRILHO] },
   { ve: 'Reenviando só as cercas.' },
-  { ve: 'Limpeza\nfeita\napaga só as cercas · o resto fica como está' },
+  { ve: 'Limpeza\nconfere' },
+  { ve: 'Apaga só esta parte.' },
   { ve: 'Ativo, Leitor, Eventos e Conexão ficam como estão.' },
   { desligado: 'ENCERRAR' },                                      // a curta termina sozinha: o ENCERRAR apagado (lei 17)
   { tecla: 'Escape' },
@@ -197,8 +205,12 @@ export default [
   { palco: 'A configuração não cabe' },
   { chega: 'T09', estado: ESTADOS[3] },
   ...PARADA,
-  { palco: 'Cercas demais pro módulo' },
+  { palco: 'Pontos de cerca demais' },
   { chega: 'T09', estado: ESTADOS[4] },
+  ...PARADA,
+  { palco: 'Ainda não falou com o servidor' },   // a rodada 1: só pela coluna
+  { chega: 'T09', estado: ESTADOS[5] },
+  { ve: 'O módulo falou com o servidor\nainda não' },
   ...PARADA,
   { palco: 'Voltar ao fluxo' },
   { chega: 'T09', estado: null },

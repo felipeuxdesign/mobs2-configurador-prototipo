@@ -5,17 +5,17 @@
 | Referência | Tipo | Como se chega · o que causa | Caso do mock |
 |---|---|---|---|
 | `00-tela` | tela | a entrada da tela | sessão M2C-0417 + RKT-8H42 homologada |
-| `01-momento-pede-o-corte-de-alimentacao` | momento | o passo do corte | `autotesteEncerramento` |
-| `02-momento-sessao-encerrada` | momento | o autoteste passa | `autotesteAssertivas` |
 | `03-momento-encerrando-sem-homologar` | momento | ENCERRAR antes de homologar | derivado do fluxo |
 | `04-momento-encerrada-sem-homologar` | momento | os 4 passos terminam | derivado do fluxo |
-| `05-estado-assertiva-falhando` | estado | uma assertiva falha | `autoteste-falhando` |
 | `06-estado-sessao-interrompida` | estado | a sessão caiu e volta oferecida | `sessao-interrompida` |
 | `07-momento-autoteste-correndo` | momento | as assertivas acendem em ordem · 400ms cada | `autotesteAssertivas` |
+| `01-momento-reiniciando-o-modulo` | momento | o passo do reinício: automático, sem ação do técnico | `autotesteEncerramento` |
+| `02-momento-instalacao-homologada` | momento | o autoteste passa: a instalação homologada, com horário | `autotesteAssertivas` |
+| `05-estado-homologacao-bloqueada` | estado | uma assertiva falha: a homologação bloqueada | `autoteste-falhando` |
+| `08-momento-reconectando-no-reinicio` | momento | a conexão cai no reinício: reconectando, nunca falha | `autotesteEncerramento` |
 
-- no protótipo · a nossa versão da linha *01-momento-pede-o-corte-de-alimentacao*, antes desta entrega: | `01-momento-pede-o-corte-de-alimentacao` | momento | o passo do corte, na sessão do KNB-5H39 · M2C-0371, pelo endereço (T16·1) | `modelos · vl08 · reinicioPorComando: false` |
 
-- no protótipo · a nossa versão da linha *02-momento-sessao-encerrada*, antes desta entrega: | `02-momento-sessao-encerrada` | momento | o autoteste passa | `autotesteEncerramento` |
+- no protótipo · antes desta entrega, o 02 era a sessão encerrada (*o autoteste passa*, do `autotesteEncerramento`) · a rodada 1 do retorno do PM o trocou pela instalação homologada, com horário, e o 01 e o 05 mudaram de nome com ele
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.
 

@@ -27,12 +27,14 @@ O que **não é de desenho** e o produto ainda decide. O protótipo seguiu o pad
 | T01 | a espera de 60 s do reenvio vale também pra trocar de canal? | vale: qualquer envio novo espera |
 | T15 | depois de quanto tempo a fila parada vira notificação? | 30 min · desenhado: o aviso sobre o menu, T04/16 (o pacote 12) |
 | T06 | a frase da trava de fora do pacote é `Pertence a {unidade}.`: com a unidade do mock sai `Pertence a Pátio Caruaru.`, e a da referência já vinha sem crase (`a Garagem Ibura`, T06-N4). A frase leva o artigo da unidade (`à Garagem`, `ao Pátio`)? | o texto como está, com o nome da unidade do mock |
-| T13 | o mínimo de satélites do GPS | 6 · desenhado: T13/21 e 22 |
+| T13 | o mínimo de satélites do GPS | **decidido no retorno do PM (06/10)**: o critério é a antena (conectada, em curto, desconectada) · os satélites são informação |
 | T13 | o critério de cada entrada digital | a ignição ligada, com a chave virada · desenhado: T13/23 e 24 |
 | T13 | as causas de cada falha da Seção C, no *O que conferir* | as desenhadas: bateria, cabo, ponto de ligação · antena, céu aberto, cabo da antena · chip, antena do modem, cobertura · chave, fio da ignição, fusível |
-| T13 · T15 | o pedido de correção de cadastro aparece na fila e no checklist? | sim · desenhado: T15/05 e T13/27 |
-| T13 | dá pra finalizar com o pedido de correção aberto? | sim, registrada com a Seção E falhando e o nome do técnico, sem homologar · desenhado: T13/28 |
-| T14 | depois da correção do cadastro, o que o técnico refaz? | só o cartão, na tela de sempre: os outros passos continuam valendo (a vez do cartão, T14/08) |
+| T13 · T15 | o pedido de correção de cadastro aparece na fila e no checklist? | **decidido no retorno do PM (06/10)**: a correção saiu · o técnico confere o cartão com o número impresso |
+| T13 | dá pra finalizar com o pedido de correção aberto? | **decidido no retorno do PM (06/10)**: a correção saiu · a ciência do técnico é só da Seção F |
+| T14 | depois da correção do cadastro, o que o técnico refaz? | **decidido no retorno do PM (06/10)**: a correção saiu · Não confere vira não conforme, com justificativa |
+| T07 · T13 | a faixa de tensão do VL06 | **exemplo até a bancada**: 9,0 a 32,0 V (o PM autorizou valor de exemplo) |
+| T13 | o tempo do pulso do bip | **exemplo até a bancada**: cerca de 1 segundo |
 | T14 | os passos de uma visita valem pra outra? por quanto tempo? | valem, sem prazo |
 
 ## Validar no aparelho

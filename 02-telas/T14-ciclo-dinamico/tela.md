@@ -14,7 +14,10 @@ Com a ignição ligada e o ônibus parado, deixar o app provar o que o módulo l
 
 - **no protótipo · o pacote 12:** a 09 monta pelo `evento-nao-chega-de-novo`, só pela coluna, com a 2ª tentativa estourada; a frase da segunda falha é a linha em falha do `Prazo` (`detalhe` com `tom: 'falha'`) · o `Solicitar correção de cadastro` põe o pedido na fila de saída (`estado/fila.js` · `itemDeCorrecao`)
 - `Disparar evento de teste` desliga o primário, que diz *Aguardando o evento* · **o `Encerrar o ciclo` só acende quando o evento chega ou o prazo estoura** — o toque duplo não encerra o ciclo
-- **seis passos, com o ônibus parado** (decisão 54): ignição ligada, rotação, ré, porta, cartão do motorista e ignição desligada · a velocidade só entra com tacógrafo digital — o herói não tem
+- **no máximo quatro passos, com o ônibus parado** (decisão 54, revista no retorno do PM de 06/10): ignição ligada, rotação (só se o ativo lê rotação), cartão do motorista (só se há leitor) e ignição desligada · **a ré e a porta saíram**: não dizem nada sobre a instalação · sem leitor, são 3 passos (a 12) · a velocidade só entra com tacógrafo digital — o herói não tem
+- **o cartão em três momentos**: *passe o cartão* → *o módulo leu 9412857* → `Confere com o cartão` ou `Não confere` (a 08) · o app **não compara com cadastro nenhum**: quem confere é o técnico, com o número impresso no cartão · `Não confere` vira não conforme, com a justificativa no checklist (a 10)
+- **a ignição desligada explica a espera**: *O módulo leva alguns segundos para perceber que a ignição foi desligada.* (a 11) · sem isso o técnico acha que travou
+- **no protótipo · a rodada 1 do retorno do PM:** os passos saem da Seção E do mock com a condição de cada um (`condicao`: a rotação pela CAN do modelo, o cartão pelo leitor; o caso `sem-leitor` tira o leitor, a 12) · o cartão é a vez desde o disparo (*passe o cartão*, a 00); o módulo lê 3 s depois (`ciclo.js` · `tiqueDe`: o tique do passo seguinte, o 60% da 00 e da 08) e espera a resposta — o lido é o número do primeiro cartão do mock sem os zeros à esquerda, *9412857* (`CARTAO_LIDO`: o mock não declara o lido, pro arquiteto) · `Confere com o cartão` e `Não confere` são o botão de dentro da linha (`telas/comum/BotaoDaLinha.jsx`, peça das telas, pro arquiteto pôr na folha 6) · a resposta leva a ignição desligada à vez, com a espera explicada embaixo, e ela confirma 3 s depois · o cartão respondido conta como passo feito (*3 de 4* na 10) · a URL segue: 08, 10, 11 e 05 · o `etapas.ciclo.cartao` grava o lido e a resposta, e a T13 lê o não confere como não conforme, com o campo do que aconteceu
 - a fila do módulo drena → `Disparar evento de teste` acende
   - no protótipo · a nossa versão desta linha, antes desta entrega: a tela entra no quadro `01`: a fila do módulo drenando, o prazo cheio e o disparo indisponível com o motivo (G27). A fila drena em 3 s (`movimento.md`), e o `Disparar evento de teste` acende; esse quadro não tem referência e junta as peças que existem (G25)
 - disparado → o prazo de 2:00 começa: 1 s real vale 4 s de prazo
@@ -25,8 +28,6 @@ Com a ignição ligada e o ônibus parado, deixar o app provar o que o módulo l
 - `Encerrar o ciclo` → T13, e fecha a captura: os pendentes ficam pendentes na Seção E · `Ir para o checklist` → T13, com o ciclo aberto (T14·2). Voltar à T14 com o ciclo aberto retoma os passos que já valem, e o evento se dispara de novo
 - prazo estourado: `Disparar outro evento` — os passos continuam valendo
   - no protótipo · a nossa versão desta linha, antes desta entrega: prazo estourado (`evento-sem-resposta`, uma vez por sessão): `Disparar outro evento` — os passos continuam valendo, e a segunda tentativa confirma
-- identificador divergente: `Solicitar correção de cadastro` → o link vira o registro, *Correção solicitada às 14:30*, e deixa de ser tocável
-  - no protótipo (a emenda que estava na linha antiga do design — pra o arquiteto ver): → o link vira o registro no mesmo lugar e do mesmo tamanho, com o relógio, *Correção solicitada às 14:30* (a hora do protótipo), e deixa de ser tocável — é o momento `06`, do caso `identificador-divergente`. Pro leitor de tela, o registro é um aviso de status, não um botão
 - ciclo concluído: `Ir para o checklist` → T13 · `Voltar ao menu` → T04 (T14·4) · o complemento do pacote 6: *Ir*, e não *Voltar*, serve pras duas portas de entrada, a calibração e o checklist
 - `ENCERRAR` → a sessão abortada antes de homologar (G23)
   - **no protótipo** (decisão 36): antes de homologar, o ENCERRAR abre o diálogo *Encerrar sem homologar?* por cima desta tela, e o `Continuar a instalação` deixa o técnico nela — a resposta do arquiteto de 26/09 · o `Encerrar sem homologar` roda os 4 passos da T16 · o ciclo continua correndo embaixo do diálogo, porque o técnico ainda não decidiu nada (padrão do protótipo, pro arquiteto; a alternativa é pausar)
@@ -90,8 +91,8 @@ Medido no código do C10, no fechamento do C10 e do C11 (G10), com os nomes das 
 - **HU-T14-2** — Disparo o evento de teste por botão, com o cronômetro dos 120 s em destaque
 - **HU-T14-3** — Antes do cronômetro vejo a fila do módulo drenando; o botão fica indisponível com motivo
 - **HU-T14-4** — Vejo 3 linhas de estado: disparado · recebido · campos conferidos. E posso disparar novamente
-- **HU-T14-5** — No teste do identificador vejo o código lido ao lado do esperado, em formato de negócio
-- **HU-T14-6** — Divergindo, a tela oferece solicitar correção de cadastro já com os dois valores anexados
+- **HU-T14-5** — No teste do cartão vejo o código que o módulo leu, e confiro com o número do cartão
+- **HU-T14-6** — Não conferindo, o item vira não conforme e pede justificativa no checklist
 - **HU-T14-7** — Vejo o tempo decorrido e o que ainda falta capturar; encerrar leva direto ao checklist
 - **HU-T14-8** — A velocidade só entra no ciclo quando o ônibus tem tacógrafo digital
 

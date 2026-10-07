@@ -8,7 +8,7 @@ Gravar no módulo o que ele precisa: todos os blocos, na instalação nova; um b
 | **Chrome** | faixa de sessão · a linha dos pinos embaixo do título |
 | **Semente no protótipo** | sessão M2C-0417 + RKT-8H42 · os blocos do mock |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 5 · 5 — ver `estados.md` |
+| **Momentos · estados** | 6 · 6 — ver `estados.md` |
 
 ## O que se toca
 
@@ -31,6 +31,16 @@ Gravar no módulo o que ele precisa: todos os blocos, na instalação nova; um b
 - tentar sair no meio → a recuperação, até a Conexão gravar
   - no protótipo · a nossa versão desta linha, antes desta entrega: tentar sair no meio — o `ENCERRAR`, ou o `Voltar ao menu` com a cadeia parada — → a recuperação, até a Conexão gravar; nela, o `ENCERRAR` fica **desabilitado e em tinta apagada**, como o voltar do Android, que ali não faz nada (a lei 17, decisão do diretor de 25/09 — no lugar do aceso que não fazia nada, G23), e `Continuar a gravação` retoma do mesmo bloco. Depois da Conexão, o `ENCERRAR` é o de toda tela com sessão
 - o voltar do sistema (no computador, o Esc) é o mesmo tentar sair: antes de a Conexão gravar, abre a recuperação; na recuperação, não faz nada; na cadeia concluída, faz o `Voltar ao menu` (`06-prototipo/logica.md` · O voltar do Android) · com o pacote 1, antes de a cadeia começar — no que vai ser gravado, nas travas do envio e na escolha do bloco (05 a 08) —, ele faz o `Voltar ao menu` do rodapé, e o ENCERRAR é o de toda tela com sessão (decisão 36)
+
+## A configuração (retorno do PM, 06/10)
+
+- **cada bloco termina em *confere***: aguardando, gravando, conferindo, confere, não confere · sem *feita*
+- **a limpeza com duas redações**: na nova instalação, *Apaga a configuração anterior, inclusive a rede do módulo. A rede será gravada de novo no último passo.* · na manutenção, *Apaga só esta parte. A rede do módulo continua.* · o técnico não escolhe escopo, e não existe limpeza de fábrica
+- **dentro da Conexão, *O módulo falou com o servidor***: conferindo (a 11), sim (a 04), *ainda não* com o que conferir: chip, antena e endereço (a 12) · a prova vem do próprio módulo, não depende do servidor
+- **não se sai do meio**: no bloco recusado e na queda, depois da limpeza total, só *Tentar de novo* e *Reconectar* · o *Voltar ao menu* volta quando a Conexão estiver gravada e conferida
+- **o *não cabe* nomeia o que estourou**: *São 131 contadores. Este módulo guarda 127.* (a 06) · *As cercas têm 6.410 pontos. Este módulo guarda 6.143.* (a 07) · o VL06 guarda 127 contadores e 6.143 pontos
+- a prova da cadeia conta *6 passos*
+- **no protótipo · a rodada 1 do retorno do PM:** a Conexão mostra *o servidor da Mobs2* na T09 (`conteudoNaTela`; o `conteudoDo` continua com a APN pra conferência da T11, que é da rodada 2) · o envio lê o caso do par quando há: *131 de 127 contadores* (`conteudo-nao-cabe`) e *6.410 de 6.143 pontos* (`pool-esgotado`) · depois do último bloco, a fase *servidor* (a 11) dura um bloco e fecha a cadeia (a 04, *sim*); o *ainda não* (a 12) só pela coluna, pelo caso `servidor-ainda-nao`, que é do módulo do herói · a linha *O módulo falou com o servidor* é o `extra` do elo da Conexão (a peça da cadeia) · depois da recusa, os que nem começaram levam o traço · no recusado e na queda, o rodapé só com o primário, que fecha em 32 (a regra da peça; as referências 01 e 02 deixaram o pé de 24, pro arquiteto) · aberta pela URL, a 04 e a 12 vêm roladas até o fim, como a referência
 
 ## Peças do design system que esta tela usa
 

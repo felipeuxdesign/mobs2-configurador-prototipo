@@ -27,7 +27,7 @@ export const T = {
   naFila: (placa) => `${placa} · na fila`,
   recebida: (placa) => `${placa} · recebida`,
   haMin: (n) => `há ${n} min`,
-  agora: 'agora',   // o que entrou na fila agora, às 14:30 (o pedido de correção, T15/05)
+  agora: 'agora',   // o que entrou na fila agora, às 14:30
   ontem: (hora) => `ontem ${hora}`,
   // o recebido de mais de um dia: o dia e a hora (a 00, '10/03, 10:05' — a resposta
   // do arquiteto de 26/09). A 02 ainda diz 'ontem 10:05' pro mesmo f-08: desvio nomeado

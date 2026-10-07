@@ -82,7 +82,7 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 | segmentado | um segmento por passo · **só onde se percorre** — nas fotos da Montagem sim, no detalhe de um item automático não | T01 T10 T13 |
 | a pré-condição dos pinos | a primeira linha da configuração, embaixo do título | T09 |
 | encerrando | a legenda só no passo que corre | T16 |
-| pede o corte | é com você · o único passo em que ele age | T16 |
+| reiniciando | o reinício é automático · o técnico não faz nada, e a conexão que cai diz reconectando | T16 |
 | sem homologar | só os quatro que deixam o módulo seguro · os pulados com traço | T16 |
 | a barra do checklist | o que já passou, em lima · o número fica no título | T13 |
 | cronômetro | o prazo drena | T14 |
@@ -127,7 +127,7 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 | item de tocar | a câmera e a seta · abre a foto | T13 |
 | item feito | o check e de onde veio · sem seta | T11 T12 T13 T15 |
 | item com ressalva | passou, mas diz a ressalva embaixo | T11 T12 T13 T16 |
-| o veredito | o topo do checklist homologado · o relatório embaixo | T13 |
+| o veredito | o topo do checklist registrado, aguardando autoteste · o próximo passo embaixo | T13 |
 | a ação da seção | uma linha só com seta · o resto é leitura | T13 |
 | a câmera do app | a mesma na calibração e no checklist | T13 |
 | foto · tirada | vira o registro no lugar, e deixa de ser tocável · diz onde mais ela vale | T13 |
@@ -235,7 +235,7 @@ Cada linha é um espécime de moldura das folhas, e a folha 3 soma quatro linhas
 | a pré-condição dos pinos | a primeira linha da configuração, embaixo do título · a variante da linha de condição da conferência saiu com a T11/04 (decisão 53) | T09 |
 | segmentado | um segmento por passo · **só onde se percorre** — nas fotos da Montagem sim, no detalhe de um item automático não · variante: folga 8, a da recuperação do acesso (T01) · variante: o passo atual já feito, alto como o atual e lima apagado (T10) · variante: o atual com falha, o passo atual reprovado, alto como o atual e em vermelho (T13 · sem uso desde o pacote 11: o detalhe do item automático perdeu a barrinha) · variante: só o cabeçalho, com o rótulo, sem o contador e sem os segmentos (T13/09, o pacote 11) | T01 T10 T13 |
 | encerrando | a legenda só no passo que corre · variante: pausa, o bloco em que a sessão interrompida parou, a pausa no poço, o nome e o 'parou aqui' em --tinta, e o trilho de baixo na divisória (T16) | T16 |
-| pede o corte | é com você · o único passo em que ele age | T16 |
+| reiniciando | o reinício é automático · o técnico não faz nada, e a conexão que cai diz reconectando | T16 |
 | sem homologar | só os quatro que deixam o módulo seguro · os pulados com traço, o desenho da folha 5 (o espécime f5-sem-homologar e a T16/03) · o *pulado* é o passo que o encerrar sem homologar pula, e não o *não se aplica*, que é só da assertiva do autoteste (T16/02 e 05), nem o traço *—* do passo que ainda não chegou (T16/00 e 01) — otimizacao300000000 · pro leitor de tela, o traço do pulado fica mudo (`aria-hidden`, como na T16/03, que não dá nome a ele), e a situação ao lado diz *pulado* | T16 |
 | cronômetro | o prazo drena · variante: estourado, o número em vermelho, e sem o que resta a escala fica sem o preenchido, com o marcador no zero (T14) · variante: o detalhe em lista, as frases do estado uma por linha, na entrelinha da legenda (T14) · variante: uma frase em falha, em --vermelho e 700, a segunda falha do evento (T14/09, o pacote 12) | T14 |
 | a barra do checklist | o que já passou, em lima · o número fica no título · 6 de altura, o lima em 55% (`--lima-barra-checklist`, a 7ª transparência com nome), calada pro leitor de tela, que lê o título · quando um item passa, o lima avança por transform em 300 (T13) | T13 |
@@ -278,7 +278,7 @@ Cada linha é um espécime de moldura das folhas, e a folha 3 soma quatro linhas
 | item de tocar | a câmera e a seta · abre a foto · 50, o ícone no poço de 32, o nome e a legenda empilhados, e o item inteiro é o toque · variante: o automático que falta, com o ícone da ferramenta da tela que resolve, *a fazer* e a seta pro `origem` do mock (T13) · variante: o reprovado sem leitura, com o X vermelho no poço e a seta pra tela que resolve (T13) · as duas sem desenho na entrega (G25) · o reprovado com a leitura é o item de leitura (o pacote 10) | T13 |
 | item feito | o check e de onde veio · sem seta · 50, o check no poço de 32 · variante: sem legenda, a foto tirada no checklist, só com o nome — nenhum texto diz de onde ela veio (T13, G25) · variante: não se aplica, o traço no poço no lugar do check — a foto de uma condição que o ativo não tem (T13) · o Painel sem calibração não aparece, e a B fica com 4 (decisão 52, a D4 do pacote 2) | T13 |
 | item com ressalva | passou, mas diz a ressalva embaixo · *com ressalva · a causa*, e a causa é a primeira oração da justificativa, com a minúscula (T13/12) | T13 |
-| o veredito | o topo do checklist homologado · o relatório embaixo · o cartão de 58, o check lima no poço de 32 · variante: surge, o que nasce do toque no `Finalizar instalação` esmaece no lugar em 150; aberto já homologado, parado (T13/11 e 14) | T13 |
+| o veredito | o topo do checklist registrado, aguardando autoteste · o próximo passo embaixo (a rodada 1 do retorno do PM) · o cartão de 58, o check lima no poço de 32 · variante: surge, o que nasce do toque no `Finalizar instalação` esmaece no lugar em 150; aberto já homologado, parado (T13/11 e 14) | T13 |
 | a câmera do app | a do checklist · a folha 7 do pacote 2 desenha o quadro com *Enquadre o módulo e o ponto de fixação* · variante: sem a permissão, só a câmera riscada, porque o `textos.md` não tem a frase do item (T13, G25) · a da calibração e a variante com a frase do que falta (T10/06 e 11) saíram com a decisão 52 | T13 |
 
 ### Folha 8 · calibracao
@@ -355,6 +355,17 @@ Quando o técnico relê alguma coisa depois de consertar, **a releitura acontece
 
 **No protótipo** · a T13 usa as peças que existem: o `Rodape` com o `primarioTrocaTexto` (o texto troca no lugar) e o `linkDesabilitado`, e o instrumento do item com a variante `relido` (`app/src/telas/T13/pecas.jsx`): sem a falha no poço, o rótulo em `--tinta-secundaria`, a marca branca da `Escala`, e o check de `--glifo-confere` com o texto de 13 em 700, descido `--traco-borda`, como o `ReguaDiferenca` confere da T10 · o relido e o não resolvido dizem a hora do relógio parado, *14:30*, como a T10 · o não resolvido (o pacote 23) é a variante `naoResolvido` do mesmo instrumento: o poço em falha, como antes, e o xis de `--glifo-confere` com o texto de 13 em 700, em `--vermelho`, como o `ReguaDiferenca` não confere da T10/10 · o rodapé de um botão só fecha em `--rodape-pe-com-botao` (32), a regra da peça: as referências 30 a 33 deixaram o pé de 24 do rodapé com link (pro arquiteto) · o tempo do *Relendo o módulo…* é o do *Relendo…* da T10, 1 s (`RITMOS.relerModuloMs`).
 
+## No protótipo · as variantes da rodada 1 do retorno do PM
+
+Nenhuma peça nova no design system, e nenhum token. As telas da rodada pediram cinco variantes de peças que já existem, e uma peça das telas — as seis vão ao arquiteto, pra entrarem nas folhas:
+
+- **o item do checklist** (`ItemDoChecklist`): o estado `lendo`, com o quadrado de agora e o valor em `--tinta` (a Seção D lida, T13/38) · `acao`, o que o técnico toca na própria linha, no lugar do valor (o `Testar bip`) · `embaixo`, o que a linha abre embaixo dela, a 40 da esquerda e 12 no pé, com o traço do bloco inteiro (a pergunta do bip, T13/40; o campo do que aconteceu, T13/42)
+- **o cartão da seção** (`SecaoDoChecklist`): o estado `lendo`, com o quadrado de agora (T13/38)
+- **o campo de texto** (`CampoTexto`): `placeholder`, o que o campo vazio pede, em `--marca-limite` (*Conte o que aconteceu*, T13/42)
+- **a cadeia** (`Cadeia`): `extra` no elo, a linha que ele confere depois de gravado, embaixo da descrição — o traço da divisória em cima, a 8, o nome em 13/600 `--tinta-forte` e o valor em 13/700 (*O módulo falou com o servidor*, T09/04, 11 e 12)
+- **o encerramento** (`Encerramento`): o reinício automático usa o `agora` de sempre, com a legenda; o `energia` (o *é com você* do corte) ficou sem uso
+- **o botão de dentro da linha**, peça das telas (`app/src/telas/comum/BotaoDaLinha.jsx`): a resposta do técnico na própria linha — 40 de alto, os dois lado a lado a 8 (o `Confere com o cartão` e o `Não confere`, T14/08, em 13; o `Ouvi` e o `Não ouvi`, T13/40, em 14), e 30, do tamanho do texto (o `Testar bip`) · o fundo `--divisoria`, a borda `--borda-poco`, o texto `--tinta` em 700 · no toque afunda, como o secundário
+
 ## No protótipo · o movimento das peças (C12)
 
 Anotação de construção do C12. O movimento é da peça, e vale onde ela está: a tela só liga o gatilho. As regras do app inteiro estão no `movimento.md`; o mapa de cada peça pro arquivo está no `06-prototipo/app/src/ds/MAPA.md`. Nenhuma peça nova de desenho: as quatro de baixo sem desenho próprio moram no chrome e nas linhas.
@@ -381,4 +392,4 @@ Anotação de construção do C12. O movimento é da peça, e vale onde ela est�
 | justificativa | o campo que abre esmaece em 150ms, e o que fecha sai esmaecendo por cima (C12·47, C12·6) | T13 |
 | encerramento | a legenda que passa ao passo que corre esmaece em 150ms; o espaço muda direto (C12·9) | T16 |
 
-Os espécimes de movimento, tocáveis, ficam na vitrine, fora da bancada: `mov-troca`, `mov-troca-quadro`, `mov-porcima`, `mov-registro-linha`, `mov-registro-link`, `mov-listas-*`, `mov-check-*`, `mov-faixa-*` e os dos instrumentos (`mov-escala-baixa`, `mov-prazo-drena`, `mov-semear`, `mov-barra-checklist`) · o `mov-leitura-chega`, o `mov-leitura-fora` e o `mov-mostrador` saem com as peças. O movimento que não tem porta no palco se prova neles (C12·13).
+Os espécimes de movimento, tocáveis, ficam na vitrine, fora da bancada: `mov-troca`, `mov-troca-quadro`, `mov-porcima`, `mov-listas-*`, `mov-check-*`, `mov-faixa-*` e os dos instrumentos (`mov-escala-baixa`, `mov-prazo-drena`, `mov-semear`, `mov-barra-checklist`) · o `mov-leitura-chega`, o `mov-leitura-fora` e o `mov-mostrador` saem com as peças. O movimento que não tem porta no palco se prova neles (C12·13).

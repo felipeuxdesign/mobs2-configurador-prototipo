@@ -5,17 +5,19 @@
 // contagens saem das listas do mock e da lista dos passos.
 import { M } from '../../dados/mock.js'
 import { milhar } from '../../dados/formato.js'
-import { regioesDoAtivo } from '../../dados/regioes.js'
 import { ESTADOS } from '../../ds/index.js'
 import { conteudoDo } from '../T09/cadeia.js'
 import { PASSOS, T } from './textos.js'
 
 export const REF = {
-  corte: '01-momento-pede-o-corte-de-alimentacao',
-  encerrada: '02-momento-sessao-encerrada',
+  // a rodada 1 do retorno do PM: o reinício automático (01) e a conexão que cai nele (08); a
+  // instalação homologada (02) e a homologação bloqueada (05)
+  reiniciando: '01-momento-reiniciando-o-modulo',
+  reconectando: '08-momento-reconectando-no-reinicio',
+  encerrada: '02-momento-instalacao-homologada',
   semHomologar: '03-momento-encerrando-sem-homologar',
   encerradaSemHomologar: '04-momento-encerrada-sem-homologar',
-  falhando: '05-estado-assertiva-falhando',
+  falhando: '05-estado-homologacao-bloqueada',
   interrompida: '06-estado-sessao-interrompida',
   autoteste: '07-momento-autoteste-correndo', // as assertivas acendendo, sem o veredito (o pacote 5, lei 24)
 }
@@ -24,7 +26,7 @@ export const CASO_INTERROMPIDA = 'sessao-interrompida'
 
 // ── os passos ──
 const indice = (id) => PASSOS.findIndex((p) => p.id === id)
-export const REINICIO = indice('reinicio')     // o passo 2, que pode pedir o corte
+export const REINICIO = indice('reinicio')     // o passo 2, o reinício automático
 export const AUTOTESTE = indice('autoteste')   // o passo 8: ao fechar o 7, a tela passa pra Sessão encerrada (T16·4)
 export const QUADRO_00 = indice('releitura')   // a 00: dois feitos, a releitura correndo
 // os quatro que deixam o módulo seguro, e rodam sem homologar (os 4 passos da sessão abortada, G23)
@@ -38,30 +40,26 @@ const modeloDoModulo = (serial) => {
   const mod = M.modulos.find((m) => m.serial === serial)
   return mod ? M.modelos.find((m) => m.id === mod.modeloId) : null
 }
-// T16·1 (a): o passo 2 reinicia por comando quando o driver suporta; senão, o
-// app pede o corte de alimentação (mocks.js · reinicioPorComando). O herói é
-// um VL06, que reinicia por comando: o corte nunca aparece no caminho dele.
-export const pedeOCorte = (serial) => modeloDoModulo(serial)?.reinicioPorComando === false
-// A sessão do 01: na garagem do contexto, o ônibus cujo módulo não reinicia
-// por comando — em Várzea, o KNB-5H39 com o M2C-0371, como a referência mostra.
-// Ele não está na lista da T05, então o 01 se alcança pelo endereço (G20).
-export function parDoCorte(uoId) {
-  const a = M.ativos.find((x) => x.uoId === uoId && x.moduloSerial && pedeOCorte(x.moduloSerial))
+// O 01 e o 08 (a rodada 1): a referência desenha o reinício no KNB-5H39 com o M2C-0371 — na
+// garagem do contexto, o ônibus cujo módulo não reinicia por comando (o mock ainda diz
+// reinicioPorComando) —, e o protótipo abre os dois nele, pelo endereço. No fluxo, todo reinício
+// é automático, e o passo corre dentro do encerramento, sem quadro próprio
+const reiniciaPorComando = (serial) => modeloDoModulo(serial)?.reinicioPorComando !== false
+export function parDoReinicio(uoId) {
+  const a = M.ativos.find((x) => x.uoId === uoId && x.moduloSerial && !reiniciaPorComando(x.moduloSerial))
   return a ? { ativoId: a.id, moduloSerial: a.moduloSerial } : null
 }
-
 // ── a cadeia do encerramento ──
-// Com a sessão homologada: os passos 1 a 7 correm, um por vez (`k` é o que
-// corre), cada um com a legenda dele embaixo do nome (o tela.md, a entrega de
-// 25/09 · a peça só mostra a legenda no passo que corre); o 8, o autoteste, é
-// a tela seguinte (T16·4). O passo 2 vira o corte quando o módulo não
-// reinicia por comando, e o passo baixa pro justo, como a 01 desenha (G11);
-// no reinício por comando, ele corre sem legenda (T16·7, textos.js).
-export function passosEncerrando(k, corte) {
+// Com o checklist registrado: os passos 1 a 7 correm, um por vez (`k` é o que
+// corre), cada um com a legenda dele embaixo do nome (o tela.md · a peça só mostra a
+// legenda no passo que corre); o 8, o autoteste, é a tela seguinte (T16·4). O passo 2,
+// o reinício, é automático (a rodada 1); com a conexão caída (`reconectando`), ele diz
+// *reconectando* e a legenda da queda (a 08)
+export function passosEncerrando(k, reconectando = false) {
   return PASSOS.map((p, i) => {
     if (i < k) return { estado: 'ok', nome: p.nome, situacao: p.feito ?? '' }
     if (i === k) {
-      if (corte && i === REINICIO) return { estado: 'energia', nome: p.nome, situacao: T.corte.corre, legenda: T.corte.legenda }
+      if (reconectando && i === REINICIO) return { estado: 'agora', nome: p.nome, situacao: T.reconectando.corre, legenda: T.reconectando.legenda }
       return { estado: 'agora', nome: p.nome, situacao: p.corre ?? '', legenda: p.legenda }
     }
     return { estado: 'espera', nome: p.nome, situacao: T.aindaNao }
@@ -93,11 +91,11 @@ export const blocosRelidos = () => T.blocos(ORDEM.length)
 // blocos, e o nome sai quando a vitrine importar o blocosRelidos
 export const versaoCompleta = blocosRelidos
 
-// ── as 8 assertivas do encerramento (M.autotesteEncerramento), cada uma com o
-// valor lido — nunca um OK agregado (HU-T16-4) ──
+// ── as sete assertivas do encerramento (M.autotesteEncerramento, a rodada 1 do retorno do PM),
+// cada uma com o valor lido — nunca um OK agregado (HU-T16-4) ──
 const ENC = M.autotesteEncerramento
-// a 07 (o pacote 5): o autoteste parado nos Pontos de cerca — quatro prontas, a da vez lendo (4 de 8)
-export const QUADRO_07 = ENC.findIndex((a) => a.id === 'cercas')
+// a 07 (o pacote 5): o autoteste parado no ID no cadastro — três prontas, a da vez conferindo
+export const QUADRO_07 = ENC.findIndex((a) => a.id === 'id-cadastro')
 export const TOTAL_ASSERTIVAS = ENC.length
 const AINDA_NAO = ESTADOS.espera.nome
 
@@ -109,8 +107,6 @@ function contadores(ativoId) {
   if (!painel) return null
   return M.calibracao.grandezas.filter((g) => painel[g.id] != null).map((g) => `${milhar(painel[g.id])} ${g.unidade}`).join(' · ')
 }
-// as telas leem só a contagem de regiões por ativo (src/dados/regioes.js, o pacote 3 · D1): no herói, 4
-export const cercasAplicam = (ativoId) => regioesDoAtivo(ativoId).length > 0
 
 // A falha do autoteste (HU-T16-5): no ativo do caso, a assertiva do
 // noEncerramento volta com o valor lido do caso — no a-14, 'Contadores · 0 km'.
@@ -125,19 +121,11 @@ export function assertivas(ativoId) {
   return ENC.map((a) => {
     const base = { id: a.id, titulo: a.rotulo }
     if (falha && falha.assertiva === a.id) return { ...base, estado: 'reprovada', valor: falha.lido }
-    // #4, a faixa de contadores, é condicional: a T16 continua 'não se aplica',
-    // mesmo com a CAN refeita, como as referências desenham (T08·3)
-    if (a.condicional) return { ...base, estado: 'nao-se-aplica', glifo: 'traco-circulo', valor: T.naoSeAplica }
-    if (a.fonte === 'cercas') {
-      // T16·2 (a): o a-01 tem 4 regiões, e a assertiva se aplica pelo dado. Mas
-      // o texto dela não está no textos.md, e texto novo é do diretor (G25):
-      // até o vai, a linha fica como a referência, 'não se aplica'. No ônibus
-      // sem cerca, não se aplica de verdade (motivoSemCercas). `cercasAplicam`
-      // diz qual dos dois é: com o texto aprovado, a linha passa a ler dele.
-      return { ...base, estado: 'nao-se-aplica', glifo: 'traco-circulo', valor: T.naoSeAplica, aplicaPeloDado: cercasAplicam(ativoId) }
-    }
-    // #8 não bloqueia (R1): depende do servidor, e espera na fila — o relógio, 'ainda não'
-    if (a.bloqueia === false) return { ...base, estado: 'ainda-nao', glifo: 'relogio', nomeGlifo: AINDA_NAO, valor: a.valor }
+    // o reset de leitura (a rodada 1): só quando foi usado; senão, não se aplica, com o motivo — e
+    // não conta como aprovada
+    if (a.condicional) return { ...base, estado: 'nao-se-aplica', glifo: 'traco-circulo', valor: T.naoSeAplica, porque: a.motivo }
+    // o evento do cartão não bloqueia (R1): depende do servidor — pendente, confere em até 24 h
+    if (a.bloqueia === false) return { ...base, estado: 'ainda-nao', glifo: 'relogio', nomeGlifo: AINDA_NAO, valor: a.valor, porque: a.nota }
     if (a.fonte === 'versao') return { ...base, estado: 'aprovada', valor: T.confere }
     if (a.fonte === 'contador') {
       // revisão C11: sem o contador lido, a assertiva não aprova — espera, com o
@@ -146,19 +134,18 @@ export function assertivas(ativoId) {
       const lido = contadores(ativoId)
       return lido ? { ...base, estado: 'aprovada', valor: lido } : { ...base, estado: 'ainda-nao', valor: T.aindaNao }
     }
-    if (a.fonte === 'identificadores') {
-      // a errata do pacote 1 (T16/02): a limpeza nunca apaga os identificadores (CADEIA.escopos, nos
-      // dois escopos), e o autoteste confere que eles continuam lá — 'Extended ID · preservado'. O
-      // rótulo do mock continua 'Identificadores' (o gate confere), e a T16/05, que a errata não
-      // refez, ainda desenha 'Identificadores · 3 de 3': a assertiva é uma só, e diz o mesmo nas
-      // duas (desvio nomeado, pro arquiteto). Se algum escopo apagasse, voltaria a contagem
-      const preservados = Object.values(M.cadeia.escopos).every((e) => e.mantem.includes('identificadores'))
-      return preservados
-        ? { ...base, titulo: T.extendedId, estado: 'aprovada', valor: T.preservado }
-        : { ...base, estado: 'aprovada', valor: T.deTotalIdentificadores(M.identificadores.indicesAlocados.length, M.identificadores.cartoes.length) }
-    }
-    return { ...base, estado: 'aprovada', valor: a.valor } // o fato é o próprio estado do módulo: fechado, restaurado
+    return { ...base, estado: 'aprovada', valor: a.valor } // o fato é o próprio estado do módulo: confere, fechado, restaurado
   })
+}
+// os três contadores separados (a rodada 1): aprovadas, não se aplicam e pendentes — das que já
+// acenderam; cada um só quando tem alguma · nunca *7 de 8*
+export function contadoresDas(lista) {
+  const n = (e) => lista.filter((a) => a.estado === e).length
+  return [
+    { n: n('aprovada'), texto: T.aprovadas(n('aprovada')) },
+    { n: n('nao-se-aplica'), texto: T.naoSeAplicam(n('nao-se-aplica')) },
+    { n: n('ainda-nao'), texto: T.pendentes(n('ainda-nao')) },
+  ].filter((c) => c.n > 0)
 }
 // a causa de cada assertiva que pode reprovar: só a dos contadores tem texto aprovado
 export const CAUSA = { contadores: T.causaContadores }
@@ -178,7 +165,7 @@ export function interrompida() {
   const conteudo = conteudoDo({ ativoId: c.ativoId, moduloSerial: c.moduloSerial })
   const gravados = ORDEM.slice(0, c.confirmados).filter((b) => b !== LIMPEZA && T.comArtigo[b]).map((b) => T.comArtigo[b])
   const blocos = ORDEM.map((b, i) => {
-    if (i < c.confirmados) return { estado: 'ok', nome: ROTULOS[b], situacao: b === LIMPEZA ? T.feita : conteudo[b] }
+    if (i < c.confirmados) return { estado: 'ok', nome: ROTULOS[b], situacao: b === LIMPEZA ? T.confereBloco : conteudo[b] }
     if (i === c.confirmados) return { estado: 'pausa', nome: ROTULOS[b], situacao: T.parouAqui, legenda: gravados.length > 1 ? T.jaGravados(gravados) : undefined }
     return { estado: 'espera', nome: ROTULOS[b], situacao: T.aindaNao }
   })

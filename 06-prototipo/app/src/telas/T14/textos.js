@@ -5,7 +5,8 @@
 // caso motor-desligado-no-ciclo (T14/03, decisão 54).
 import { minSeg } from '../../dados/formato.js'
 
-// o que o técnico faz pra o passo reprovado passar, pelo `passo` do caso (T14/03)
+// o que o técnico faz pra o passo reprovado passar, pelo `passo` do caso (T14/03) · a rodada 1
+// do retorno do PM: o cartão em três momentos (a vez, o lido e a resposta) e a espera da ignição
 const O_QUE_FAZER = { rotacao: 'ligue o motor' }
 
 export const T = {
@@ -30,13 +31,18 @@ export const T = {
   naoChegou: 'não chegou',
   campos: 'campos conferidos',
   conferidos: (campos) => `${campos} de ${campos}`,
-  // os passos: a causa do passo que o motor desligado reprova, e o teste do cartão
+  // os passos: a causa do passo que o motor desligado reprova, e o cartão (T14/08 e 10)
   causaDoPasso: (caso) => `${caso.lido} · ${O_QUE_FAZER[caso.passo]}`,
-  cartao: 'Cartão do motorista',
-  leu: (cartao) => `leu ${cartao.lido} · o cadastro espera ${cartao.esperado}`,
+  leu: (lido) => `leu ${lido}`,
+  confereComOCartao: 'Confere com o cartão',
+  naoConfere: 'Não confere',
+  naoConfereValor: 'não confere',
+  justifique: 'justifique no checklist',
+  // a ignição desligada explica a espera (T14/10 e 11)
+  esperaDaIgnicao: 'O módulo leva alguns segundos para perceber que a ignição foi desligada.',
   // o passo da vez (o pacote 6): a ação do técnico, pela chave do passo; o que não tem
   // texto aprovado (a velocidade do tacógrafo) fica só com o quadrado (G25)
-  acao: { 're acionada': 'engate a ré', 'porta aberta': 'abra a porta', 'cartao do motorista': 'passe o cartão', 'ignicao desligada': 'desligue a ignição' },
+  acao: { 'cartao do motorista': 'passe o cartão', 'ignicao desligada': 'desligue a ignição' },
   // o rodapé
   aguardandoEvento: 'Aguardando o evento',
   disparar: 'Disparar evento de teste',
@@ -44,6 +50,4 @@ export const T = {
   encerrarCiclo: 'Encerrar o ciclo',
   irAoChecklist: 'Ir para o checklist',
   voltarAoMenu: 'Voltar ao menu',
-  solicitar: 'Solicitar correção de cadastro',
-  solicitada: (hora) => `Correção solicitada às ${hora}`,
 }

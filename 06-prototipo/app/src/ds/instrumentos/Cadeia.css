@@ -33,3 +33,14 @@
 .ds-cadeia-curta .ds-cadeia-elo-ultimo { min-height: var(--ds-cadeia-elo); }
 /* a cadeia que fecha o miolo (T09/05 a 07): o último elo sem o fecho, que só faria o quadro rolar */
 .ds-cadeia-sem-fecho .ds-cadeia-elo-ultimo .ds-cadeia-texto { padding-bottom: 0; }
+
+/* a rodada 1 do retorno do PM (T09/04, 11, 12): a linha que o elo confere depois de gravado, embaixo da
+ * descrição — a 8 dela, o traço da divisória em cima e 8 de recheio · o nome em 13/600 --tinta-forte, o
+ * valor em 13/700 --tinta, e em --vermelho quando ainda não */
+.ds-cadeia-extra {
+  display: flex; align-items: baseline; justify-content: space-between; gap: var(--e-10);
+  margin-top: var(--e-8); padding-top: var(--e-8); border-top: var(--traco-borda) solid var(--divisoria);
+}
+.ds-cadeia-extra-nome { font-size: var(--t-secundario); font-weight: 600; color: var(--tinta-forte); }
+.ds-cadeia-extra-valor { font-size: var(--t-secundario); font-weight: 700; color: var(--tinta); }
+.ds-cadeia-extra-valor.ds-cadeia-extra-falha { color: var(--vermelho); }

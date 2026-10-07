@@ -16,11 +16,16 @@ export const REF = {
   concluida: '04-momento-cadeia-concluida',
   antes: '05-momento-o-que-vai-ser-gravado',
   naoCabe: '06-estado-a-configuracao-nao-cabe',
-  cercasDemais: '07-estado-cercas-demais-pro-modulo',
+  cercasDemais: '07-estado-pontos-de-cerca-demais',
   escolher: '08-momento-manutencao-escolher-o-bloco',
   reenviando: '09-momento-manutencao-reenviando',
   reenviado: '10-momento-manutencao-concluida', // a cadeia curta fechada: o bloco relido (o pacote 5)
+  // a rodada 1 do retorno do PM: depois da Conexão, o módulo prova que falou com o servidor —
+  // conferindo (11), sim (04) ou ainda não, com o que conferir (12)
+  conferindoServidor: '11-momento-conferindo-o-servidor',
+  semServidor: '12-estado-o-modulo-ainda-nao-falou-com-o-servidor',
 }
+export const CASO_SERVIDOR = 'servidor-ainda-nao'
 export const CASO_RECUSA = 'bloco-recusado'
 export const CASO_QUEDA = 'queda-na-cadeia'
 export const CASO_NAO_CABE = 'conteudo-nao-cabe'
@@ -76,9 +81,7 @@ function linhaDoModulo(serial) {
 // limite (o caso fala a língua da pré-checagem de antes: regioesUsadas 4 e a
 // regiaoSolicitada, o Terminal Cosme e Damião — 5 regiões, T09/07)
 export function regioesDo(ativoId) {
-  const pool = M.casos[CASO_POOL]
-  if (pool?.ativoId === ativoId) return { total: pool.regioesUsadas + [pool.regiaoSolicitada].length, fora: pool.regiaoSolicitada }
-  return { total: regioesDoAtivo(ativoId).length, fora: null }
+  return { total: regioesDoAtivo(ativoId).length }
 }
 
 // O conteúdo de cada bloco no par (decisão 49, a errata do pacote 1: o do caso,
@@ -98,6 +101,8 @@ export function conteudoDo(par) {
     conexao: M.conexoes[0]?.apn,
   }
 }
+// o que a T09 mostra (a rodada 1): a Conexão é o servidor da Mobs2 — nenhuma tela da rodada diz o endereço
+export const conteudoNaTela = (par) => ({ ...conteudoDo(par), conexao: T.servidorDaMobs2 })
 
 // O envio (decisão 47, HU-T09-2 e 4): o espaço calculado sobre o que vai ser
 // gravado — os registros que o modelo do ativo pede contra os que a variante do
@@ -107,15 +112,19 @@ export function conteudoDo(par) {
 // (pool-esgotado, T09/07). Sem linha na matriz (o módulo que trava no
 // diagnóstico, e nunca chega aqui), nada trava.
 export function envioDo(par) {
+  // a rodada 1 do retorno do PM: a capacidade é em contadores (o VL06 guarda 127) e em pontos de cerca
+  // (6.143) · o caso do par, quando há, declara o que estourou (131 contadores; 6.410 pontos)
   const modelo = modeloDoAtivo(par.ativoId)
   const linha = linhaDoModulo(par.moduloSerial)
-  const reg = regioesDo(par.ativoId)
-  const registros = modelo?.conteudoRegistros
-  const capacidade = linha?.capacidadeRegistros
+  const doPar = (k) => (M.casos[k]?.ativoId === par.ativoId ? M.casos[k] : null)
+  const naoCabe = doPar(CASO_NAO_CABE); const pool = doPar(CASO_POOL)
+  const registros = naoCabe?.conteudoRegistros ?? modelo?.conteudoRegistros
+  const capacidade = naoCabe?.capacidadeRegistros ?? linha?.capacidadeRegistros
+  const pontos = pool?.pontosCerca ?? null
+  const pontosMax = pool?.pontosCercaMax ?? linha?.pontosCercaMax
   return {
     registros, capacidade, cabe: capacidade == null || registros <= capacidade,
-    regioes: reg.total, regioesMax: linha?.regioesMax, fora: reg.fora,
-    cercasCabem: linha == null || reg.total <= linha.regioesMax,
+    pontos, pontosMax, cercasCabem: pontos == null || pontosMax == null || pontos <= pontosMax,
   }
 }
 // a trava do envio: o espaço primeiro (06), as cercas depois (07)
@@ -134,7 +143,7 @@ export const BLOCO_DA_MANUTENCAO = REENVIAVEIS[0]
 export const ficam = (bloco) => T.ficamComoEstao(BLOCOS_DA_MANUTENCAO.filter((b) => b !== bloco).map((b) => rotulos[b]))
 
 // o valor do bloco confirmado: o conteúdo relido, ou "feita" na limpeza
-const valorFeito = (b, conteudo) => (b === LIMPEZA ? T.feita : conteudo[b])
+// o bloco confirmado (a rodada 1): todo bloco termina em confere
 // o nome pro leitor de tela segue o estado do dado (G15): o traço e o relógio dos
 // que ainda vão gravar dizem "ainda não", não "não se aplica"; e o bloco em que a
 // cadeia pausou diz "parou", seja o sem-sinal da queda (02, 03), seja a pausa de
@@ -151,23 +160,26 @@ const PAROU = ESTADOS.pausa.nome
 //   recuperacao · o mesmo quadro parado, com a saída presa até a Conexão (03)
 //   concluida   · os seis relidos (04)
 export function elosDo({ confirmados: k, fase, parou }, conteudo, envio) {
+  const servidor = fase === 'servidor' || fase === 'semServidor' || fase === 'concluida'
   return ORDEM.map((b, i) => {
     const base = { nome: rotulos[b], descricao: T.descricao[b] }
     if (fase === 'antes') {
-      if (b === 'cercas' && envio && !envio.cercasCabem) {
-        return { ...base, estado: 'xis', valor: T.cercasNaoCabem, descricao: T.cercasDemais(envio.regioes, envio.regioesMax) }
-      }
+      if (b === 'cercas' && envio && !envio.cercasCabem) return { ...base, estado: 'xis', valor: T.cercasNaoCabem }
       return { ...base, estado: 'relogio', valor: b === LIMPEZA ? T.primeiro : conteudo[b], nomeGlifo: AINDA_NAO }
     }
-    if (i < k) return { ...base, estado: 'ok', valor: valorFeito(b, conteudo) }
-    if (fase === 'gravando') return i === k ? { ...base, estado: 'agora', valor: T.gravando } : { ...base, estado: 'espera', valor: conteudo[b] }
+    // a Conexão, depois de gravada: o módulo falou com o servidor? (11, 04, 12)
+    if (servidor && b === CONEXAO) {
+      const extra = { nome: T.falouComServidor, valor: fase === 'servidor' ? T.conferindo : fase === 'semServidor' ? T.aindaNao : T.sim, tom: fase === 'semServidor' ? 'falha' : null }
+      return fase === 'servidor' ? { ...base, estado: 'agora', valor: T.conferindo, extra } : { ...base, estado: 'ok', valor: T.confere, extra }
+    }
+    if (i < k) return { ...base, estado: 'ok', valor: T.confere }
+    if (fase === 'gravando') return i === k ? { ...base, estado: 'agora', valor: T.gravando } : { ...base, estado: 'espera', valor: T.aguardando }
     if (i === k) {
-      if (parou === 'recusa') return { ...base, estado: 'xis', valor: T.recusado, descricao: T.causa[b] ?? null }
-      // o link caiu (02, 03) · ou o técnico tentou sair no meio (a recuperação no fluxo, G25)
+      if (parou === 'recusa') return { ...base, estado: 'xis', valor: T.naoConfere, descricao: T.causa[b] ?? null }
       return { ...base, estado: parou === 'queda' ? 'sem-sinal-neutro' : 'pausa', valor: T.pausado, nomeGlifo: PAROU }
     }
-    if (fase === 'recusado') return { nome: rotulos[b], estado: 'traco', descricao: T.naoAlcancado, nomeGlifo: AINDA_NAO }
-    return { ...base, estado: 'traco', valor: T.pendente, nomeGlifo: AINDA_NAO }
+    // depois da recusa, os que nem começaram levam o traço (a 01); com a cadeia pausada, o relógio
+    return { ...base, estado: fase === 'recusado' ? 'traco' : 'espera', valor: T.aguardando, nomeGlifo: AINDA_NAO }
   })
 }
 
@@ -176,9 +188,9 @@ export function elosDo({ confirmados: k, fase, parou }, conteudo, envio) {
 export const CURTA = 2
 export function elosDaCurta(k, bloco, conteudo) {
   return [LIMPEZA, bloco].map((b, i) => {
-    const base = { nome: rotulos[b], descricao: b === LIMPEZA ? T.limpezaSo[bloco] : T.descricao[b] }
-    // a curta fechada (a 10, o pacote 5): o bloco diz que foi relido, aceso
-    if (i < k) return b !== LIMPEZA && k > 1 ? { ...base, estado: 'ok', valor: T.relido[bloco], valorAceso: true } : { ...base, estado: 'ok', valor: valorFeito(b, conteudo) }
+    const base = { nome: rotulos[b], descricao: b === LIMPEZA ? T.limpezaDaManutencao : T.descricao[b] }
+    // a curta fechada (a 10): o bloco confere, como todo bloco (a rodada 1)
+    if (i < k) return { ...base, estado: 'ok', valor: T.confere }
     if (i === k) return { ...base, estado: 'agora', valor: T.gravando }
     return { ...base, estado: 'espera', valor: conteudo[b] }
   })

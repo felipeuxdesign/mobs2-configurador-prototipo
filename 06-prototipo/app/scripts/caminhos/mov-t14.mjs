@@ -9,11 +9,10 @@
 //   · a barra do prazo (T14·1, C12·40): cada tique de 250 ms é um trecho linear, o marcador e o
 //     preenchido juntos, só por transform; o número troca no lugar (T14·2). Com reduzir, o número
 //     troca e a barra salta, no mesmo ritmo;
-//   · o passo do veículo (T14·3, C12·12): o relógio vira check esmaecendo, a +9, +12 e +15 s do
-//     disparo; o sexto, a +18 s, entra com a troca do ciclo concluído (decisão 54: seis passos);
-//   · o evento que chega (T14·4): o relógio vira o horário, esmaecendo;
-//   · o pedido de correção (T14·5, C12·19): o link vira o registro no lugar, esmaecendo, e nada
-//     fica animando depois — pela sessão do PCX-9A17 (o caso identificador-divergente, G28).
+//   · o passo do veículo (T14·3, C12·12): o relógio vira check esmaecendo · a rodada 1 do retorno do
+//     PM: quatro passos — o cartão é a vez desde o disparo, o módulo o lê (a 08) e espera a resposta
+//     do técnico; o Confere leva à ignição desligada (a 11), que entra com a troca do ciclo concluído;
+//   · o evento que chega (T14·4): o relógio vira o horário, esmaecendo.
 // A tela abre parada pela URL no 05 e em cada estado, e no print; pelo endereço sem momento (a
 // entrada é a 01) e no 06, o processo corre (G27), sem animar a entrada.
 const C = 'cubic-bezier(0.2, 0.8, 0.2, 1)'
@@ -29,8 +28,9 @@ const PRAZO = [{ prop: 'transform', ms: 250, curva: 'linear', em: 'ds-escala-agu
 const SEM_LARGURA = [{ prop: 'width', em: 'ds-escala' }, { prop: 'left', em: 'ds-escala' }]
 const NUMERO_PARADO = [{ prop: 'opacity', em: 'ds-prazo' }, { prop: 'transform', em: 'ds-prazo' }]
 const M05 = '05-momento-ciclo-concluido'
-const M06 = '06-momento-correcao-solicitada'
-const ESTADOS = ['02-estado-prazo-estourado', '03-estado-dinamico-fora-do-esperado', '04-estado-identificador-divergente']
+const M08 = '08-momento-o-modulo-leu-o-cartao'
+const M11 = '11-momento-vez-da-ignicao-desligada'
+const ESTADOS = ['02-estado-prazo-estourado', '03-estado-dinamico-fora-do-esperado', '12-estado-ativo-sem-leitor']
 const PARADA = [{ quieto: true }, { dorme: 700 }, { quieto: true }]
 // o pacote 6: a fila que drena, a linha fina da 01, em 3 s, linear, só por transform
 const FILA = { prop: 'transform', ms: 3000, em: 'ds-prazo-fila-resta' }
@@ -40,11 +40,13 @@ export default [
   { abre: `?tela=T14&momento=${M05}` },
   ...PARADA,
   ...ESTADOS.flatMap((e) => [{ abre: `?tela=T14&estado=${e}` }, ...PARADA]),
-  ...['', '&momento=01-momento-antes-do-disparo', `&momento=${M05}`, `&momento=${M06}`, ...ESTADOS.map((e) => `&estado=${e}`)]
+  ...['', '&momento=01-momento-antes-do-disparo', `&momento=${M05}`, `&momento=${M08}`, `&momento=${M11}`, ...ESTADOS.map((e) => `&estado=${e}`)]
     .flatMap((q) => [{ abre: `?tela=T14${q}&print=1` }, ...PARADA]),
-  // o 06 pela URL: o prazo corre dali, sem animar a entrada
-  { abre: `?tela=T14&momento=${M06}` },
-  { quieto: true },
+  // o 08 pela URL: parado até a resposta; o Confere leva à 11, e o ciclo corre dali, sem animar a entrada
+  { abre: `?tela=T14&momento=${M08}` },
+  ...PARADA,
+  { toca: 'Confere com o cartão', naoAnima: [MIOLO] },
+  { chega: 'T14', momento: M11 },
   // o 01 pela URL: a fila drena dali (G27) — só a linha da fila anda, a entrada não anima
   { abre: '?tela=T14&momento=01-momento-antes-do-disparo' },
   { anima: [FILA], naoAnima: [esmaece('tela-miolo')] },
@@ -63,11 +65,11 @@ export default [
   { quieto: true },
   // o disparo: o texto do primário troca no lugar, e o disparado pelo app vira a hora
   // (o pacote 6) o primário desliga e diz Aguardando o evento: o toque duplo não encerra o ciclo;
-  // e o passo da vez, a ré, ganha o quadrado de agora e a ação
+  // e o passo da vez, o cartão, ganha o quadrado de agora e a ação (a rodada 1)
   { toca: 'Disparar evento de teste', anima: [TEXTO, EVENTO], naoAnima: [MIOLO] },
   { desligado: 'Aguardando o evento' },
   { naoVe: 'Encerrar o ciclo' },
-  { ve: 'engate a ré' },
+  { ve: 'passe o cartão' },
   // o prazo drena contínuo: um trecho linear por tique, só por transform; o número troca no lugar
   { ve: '1:59', entre: [100, 450] },
   { anima: PRAZO, naoAnima: [...SEM_LARGURA, ...NUMERO_PARADO] },
@@ -80,19 +82,20 @@ export default [
   // (o pacote 9) o preenchido para na chegada, e o marcador branco segue o tempo, só por transform
   { dorme: 400 },
   { anima: [{ prop: 'transform', em: 'ds-escala-agulha' }], naoAnima: SEM_LARGURA },
-  // os passos do veículo: o check esmaece no poço (T14·3)
-  { ve: '3 de 6 passos', entre: [1000, 3200] },
-  { anima: [CHECK] },
-  { ve: 'abra a porta' },       // a vez passa pra porta, no mesmo tique
-  { naoVe: 'engate a ré' },
-  { ve: '4 de 6 passos', entre: [2400, 3600] },
-  { anima: [CHECK] },
-  { ve: '5 de 6 passos', entre: [2400, 3600] },
-  { anima: [CHECK] },
+  // o cartão (a rodada 1): o módulo lê aos 48 s do prazo (12 s reais), e espera o técnico
+  { chega: 'T14', momento: M08, entre: [3500, 7000] },
+  { ve: 'leu 9412857' },
+  { naoVe: 'passe o cartão' },
+  { dorme: 300 },
+  // o Confere: o check esmaece no poço do cartão, e a ignição desligada é a vez, com a espera explicada
+  { toca: 'Confere com o cartão', anima: [CHECK], naoAnima: [MIOLO] },
+  { chega: 'T14', momento: M11 },
+  { ve: '3 de 4 passos' },
+  { ve: 'O módulo leva alguns segundos para perceber que a ignição foi desligada.' },
   // o ciclo conclui: o rodapé troca inteiro, e o conteúdo esmaece; o último passo entra com a troca
-  { chega: 'T14', momento: M05, entre: [2400, 3600] },
+  { chega: 'T14', momento: M05, entre: [2500, 4500] },
   { anima: TROCA, naoAnima: [CHECK, TEXTO_NASCE] },
-  { ve: '6 de 6 passos' },
+  { ve: '4 de 4 passos' },
   { dorme: 300 },
   { quieto: true },
   { toca: 'Ir para o checklist', anima: TROCA },
@@ -111,45 +114,6 @@ export default [
   { ve: '1:58', entre: [150, 350] },
   { quieto: true },
   { reduzir: false },
-
-  // ── o pedido de correção (T14·5): pela sessão do PCX-9A17, o cartão do caso identificador-divergente ──
-  { abre: '?tela=T05&momento=01-momento-nenhum-escolhido' },
-  { toca: 'M2C-0417' },
-  { dorme: 250 },
-  { toca: 'Conectar ao M2C-0417' },
-  { chega: 'T07' },   // a conexão abre o diagnóstico (pacote 1); com as sete passadas, o Selecionar ativo
-  { toca: 'Selecionar ativo', ms: 12000 },
-  { chega: 'T06', momento: null },
-  { toca: 'PCX-9A17' },
-  { dorme: 250 },
-  { toca: 'Usar este ativo' },
-  { chega: 'T06', momento: '01-momento-confirmar-o-veiculo' },
-  { dorme: 300 },
-  { toca: 'Vincular o módulo' },
-  { chega: 'T09', momento: '05-momento-o-que-vai-ser-gravado' },
-  { dorme: 400 },
-  { toca: 'Voltar ao menu', ms: 20000 },
-  { chega: 'T04' },
-  { toca: 'Entendi' },   // o 5º dia do acesso: o aviso na primeira chegada ao menu (T04/12)
-  { dorme: 400 },
-  { toca: 'Finalizar com checklist' },
-  { chega: 'T13' },
-  { dorme: 300 },
-  { toca: 'E · Ciclo de testes' },
-  { dorme: 300 },
-  { toca: 'Fazer o ciclo de testes', anima: TROCA },
-  { chega: 'T14' },
-  { ve: 'FILA DRENADA', entre: [2400, 3300] },
-  { dorme: 300 },
-  { toca: 'Disparar evento de teste', anima: [TEXTO, EVENTO] },
-  { ve: 'Solicitar correção de cadastro' },
-  { dorme: 400 },
-  { toca: 'Solicitar correção de cadastro', anima: [esmaece('ds-link-registro-texto')], naoAnima: [MIOLO] },
-  { chega: 'T14', momento: M06 },
-  { ve: 'Correção solicitada às 14:30' },
-  { dorme: 300 },
-  // o registro sem resto (C12·19): acabou, nada fica animando no rodapé
-  { naoAnima: [{ prop: 'opacity', em: 'ds-link' }, { prop: 'opacity', em: 'ds-rodape' }] },
 
   // ── o prazo que estoura e o Disparar outro evento (C12·4): pela sessão do KHT-4B08, o caso
   // evento-sem-resposta (G28) — a revisão de 27/09: a troca dos dois só se media no estado da coluna ──
@@ -199,14 +163,19 @@ export default [
   { ve: 'O EVENTO CHEGOU EM', entre: [4500, 6500] },
   { anima: [EVENTO] },
   { ve: 'Encerrar o ciclo' },   // o evento chegou: o Encerrar o ciclo acende
-  { chega: 'T14', momento: M05, entre: [1000, 3500] },
+  // o cartão, lido na 1ª tentativa, segue esperando o técnico: os passos continuam valendo
+  { chega: 'T14', momento: M08 },
+  // o Confere: o prazo recomeçou no Disparar outro, e a ignição desligada não vem antes da vez dela
+  // no ciclo (os 48 do prazo, 12 s do disparo): uns 5,7 s depois do toque
+  { toca: 'Confere com o cartão' },
+  { chega: 'T14', momento: M05, entre: [5000, 6500] },
   { anima: TROCA, naoAnima: [CHECK] },
   { dorme: 300 },
   { quieto: true },
 
   // ── o motor desligado (T14/03, o caso motor-desligado-no-ciclo): a rotação zerada reprova e pede o motor ──
   { abre: '?tela=T14&estado=03-estado-dinamico-fora-do-esperado' },
-  { ve: '1 de 6 passos' },
+  { ve: '1 de 4 passos' },
   { ve: 'Rotação\n0 rpm · ligue o motor' },
   { quieto: true },
 
@@ -239,14 +208,16 @@ export default [
   { dorme: 300 },
   { toca: 'Fazer o ciclo de testes', anima: TROCA },
   { chega: 'T14' },
-  { ve: '2 de 7 passos' },
-  { ve: 'Ignição ligada\nRotação\nVelocidade\nRé acionada\nPorta aberta\nCartão do motorista\nIgnição desligada' },
+  { ve: '2 de 5 passos' },
+  { ve: 'Ignição ligada\nRotação\nVelocidade\nCartão do motorista\nIgnição desligada' },
   { ve: 'FILA DRENADA', entre: [2400, 3300] },
   { dorme: 300 },
   { toca: 'Disparar evento de teste', anima: [TEXTO, EVENTO] },
-  { ve: '3 de 7 passos', entre: [8000, 10500] },
-  { chega: 'T14', momento: M05, entre: [10000, 13500] },
-  { ve: '7 de 7 passos' },
+  { ve: '3 de 5 passos', entre: [8000, 10500] },
+  { chega: 'T14', momento: M08, entre: [4500, 8000] },   // o cartão, depois da velocidade: o módulo lê aos 60 s do prazo
+  { toca: 'Confere com o cartão' },
+  { chega: 'T14', momento: M05, entre: [2500, 4500] },
+  { ve: '5 de 5 passos' },
   { dorme: 300 },
   { quieto: true },
 
@@ -257,8 +228,9 @@ export default [
   { palco: 'Prazo estourado' },
   { chega: 'T14', estado: ESTADOS[0] },
   ...PARADA,
-  { palco: 'Identificador divergente' },
+  { palco: 'Ativo sem leitor' },   // a rodada 1: o ciclo em 3 passos, sem o cartão
   { chega: 'T14', estado: ESTADOS[2] },
+  { ve: '3 de 3 passos' },
   ...PARADA,
   { palco: 'Voltar ao fluxo' },
   { chega: 'T14', estado: null },

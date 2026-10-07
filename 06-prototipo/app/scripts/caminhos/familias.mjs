@@ -10,15 +10,17 @@ export default [
   { chega: 'T13', estado: '22-estado-gps-reprovado' },
   { palco: 'Alimentação não resolvida' },
   { chega: 'T13', estado: '34-momento-alimentacao-nao-resolvida' },
-  { ve: 'relido às 14:30 · ainda 0,6 V abaixo do mínimo' },
+  { ve: 'relido às 14:30 · ainda 0,2 V abaixo do mínimo' },   // a rodada 1: 8,8 V na 1ª releitura, contra os 9,0 do VL06
   { palco: 'Modem relido' },
   { chega: 'T13', estado: '33-momento-modem-relido' },
   { ve: 'relido às 14:30 · sinal bom' },
-  { palco: 'Seção E · correção pedida' },
-  { chega: 'T13', estado: '27-estado-secao-e-com-correcao-solicitada' },
+  // a rodada 1 do retorno do PM: a correção do cartão saiu, e o homologado sem localização é o aguardando autoteste
+  { palco: 'Registrado sem localização' },
+  { chega: 'T13', estado: '14-estado-aguardando-autoteste-sem-localizacao' },
+  { ve: 'o relatório vai sem localização' },
   { abre: '?tela=T13&estado=35-momento-gps-nao-resolvido' },
   { chega: 'T13', estado: '35-momento-gps-nao-resolvido' },
-  { ve: 'relido às 14:30 · ainda 1 abaixo do mínimo' },
+  { ve: 'relido às 14:30 · ainda desconectada' },   // a rodada 1: o GPS pela antena
   { abre: '?tela=T02&estado=02-estado-lista-longa-com-busca' },
   { chega: 'T02', estado: '02-estado-lista-longa-com-busca' },
   { palco: 'Busca sem resultado' },

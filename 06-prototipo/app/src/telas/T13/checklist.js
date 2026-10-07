@@ -43,21 +43,20 @@ export const REF = {
   naoConforme: '08-momento-nao-conforme-com-justificativa',
   reprovado: '09-estado-item-reprovado',
   secaoF: '10-estado-finalizar-com-a-secao-f-falhando',
-  homologado: '11-momento-homologado',
+  // a rodada 1 do retorno do PM: o fim é o checklist registrado, aguardando o autoteste (a homologação é da T16)
+  registrado: '11-momento-aguardando-autoteste',
   comRessalva: '12-momento-b-com-ressalva',
   eResolvida: '13-momento-e-resolvida',
-  semLocalizacao: '14-estado-homologado-sem-localizacao',
+  semLocalizacao: '14-estado-aguardando-autoteste-sem-localizacao',
   problemaFotografado: '15-momento-problema-fotografado',
   secaoCReprovada: '16-estado-secao-c-com-item-reprovado',
-  // o pacote 12 · as outras três falhas da C (a lista e o detalhe) e o pedido de correção
+  // o pacote 12 · as outras três falhas da C (a lista e o detalhe)
   secaoCGps: '21-estado-secao-c-com-gps-reprovado',
   gpsReprovado: '22-estado-gps-reprovado',
   secaoCEntradas: '23-estado-secao-c-com-entradas-reprovadas',
   entradasReprovadas: '24-estado-entradas-reprovadas',
   secaoCModem: '25-estado-secao-c-com-modem-reprovado',
   modemReprovado: '26-estado-modem-reprovado',
-  secaoECorrecao: '27-estado-secao-e-com-correcao-solicitada',
-  finalizarComE: '28-estado-finalizar-com-a-secao-e-falhando',
   // o pacote 13 · o detalhe relê o módulo ali mesmo: relendo (só de referência) e os quatro relidos
   relendo: '29-momento-relendo-o-modulo',
   alimentacaoRelida: '30-momento-alimentacao-relida',
@@ -69,7 +68,18 @@ export const REF = {
   gpsNaoResolvido: '35-momento-gps-nao-resolvido',
   entradasNaoResolvidas: '36-momento-entradas-nao-resolvidas',
   modemNaoResolvido: '37-momento-modem-nao-resolvido',
+  // a rodada 1 do retorno do PM: a Seção D lida bloco a bloco (38) e o bip do leitor (39 a 42)
+  dSendoLida: '38-momento-secao-d-sendo-lida',
+  bipTocando: '39-momento-bip-tocando',
+  bipEsperando: '40-momento-bip-esperando-resposta',
+  bipOuvido: '41-momento-bip-ouvido',
+  bipNaoOuvido: '42-momento-bip-nao-ouvido',
 }
+// o bip de cada quadro: tocando, esperando a resposta, ouvido, não ouvido
+export const BIP_DO_MOMENTO = { [REF.bipTocando]: 'tocando', [REF.bipEsperando]: 'esperando', [REF.bipOuvido]: 'ouvi', [REF.bipNaoOuvido]: 'naoOuvi' }
+export const MOMENTO_DO_BIP = Object.fromEntries(Object.entries(BIP_DO_MOMENTO).map(([m, b]) => [b, m]))
+// quantos itens da D o 38 desenha lidos (Limpeza, Ativo e Cercas), com o Leitor lendo
+export const D_NO_QUADRO_38 = 3
 // a Seção C aberta com um item reprovado (a lista) e o detalhe dele, que vem logo
 // depois na coluna (o pacote 11 e o 12: o `depoisDe` do índice)
 export const LISTAS_DA_C = [REF.secaoCReprovada, REF.secaoCGps, REF.secaoCEntradas, REF.secaoCModem]
@@ -86,7 +96,8 @@ export const ITEM_DA_RELEITURA = Object.fromEntries(Object.entries(RELEITURA_DO_
 const DETALHE_DO_ITEM = { 'c-alimentacao': REF.reprovado, 'c-gps': REF.gpsReprovado, 'c-entradas': REF.entradasReprovadas, 'c-modem': REF.modemReprovado }
 export const detalheDaReleitura = (momento) => DETALHE_DO_ITEM[ITEM_DA_RELEITURA[momento]] ?? null
 // o veredito do item relido que deu certo, ao lado do check (textos.md · 30 a 33)
-export const VEREDITO_DO_RELIDO = { 'c-alimentacao': T.dentroDaFaixa, 'c-gps': T.dentroDaFaixa, 'c-entradas': T.conforme, 'c-modem': T.sinalBom }
+// (a rodada 1: o GPS relido diz os satélites, que ficam como informação — *relido às · 9 satélites*)
+export const VEREDITO_DO_RELIDO = { 'c-alimentacao': () => T.dentroDaFaixa, 'c-gps': (c) => T.satelites(c.leitura?.satelites ?? 0), 'c-entradas': () => T.conforme, 'c-modem': () => T.sinalBom }
 // o pacote 10 · as cinco fotos da Montagem: o 07 é o Módulo, e cada item seguinte
 // tem o seu quadro, com os de antes fotografados (17 a 20)
 export const MOMENTO_DA_FOTO = {
@@ -98,6 +109,7 @@ export const MOMENTO_DA_FOTO = {
 export const FOTO_DO_MOMENTO = Object.fromEntries(Object.entries(MOMENTO_DA_FOTO).map(([id, m]) => [m, id]))
 export const SECAO_DO_MOMENTO = {
   [REF.A]: 'A', [REF.B]: 'B', [REF.C]: 'C', [REF.D]: 'D', [REF.E]: 'E', [REF.F]: 'F', [REF.comRessalva]: 'B', [REF.eResolvida]: 'E',
+  [REF.dSendoLida]: 'D', [REF.bipTocando]: 'E', [REF.bipEsperando]: 'E', [REF.bipOuvido]: 'E', [REF.bipNaoOuvido]: 'E',
 }
 
 const CK = M.checklist
@@ -110,6 +122,8 @@ const moduloDe = (serial) => M.modulos.find((m) => m.serial === serial)
 const modeloDe = (ativoId) => M.modelosAtivo.find((m) => m.id === ativoDe(ativoId)?.modeloAtivoId)
 const grandezaDe = (id) => M.calibracao.grandezas.find((g) => g.id === id)
 const sinalDe = (ativoId, id) => modeloDe(ativoId)?.sinaisCan.find((s) => s.id === id)
+// o modelo do módulo da sessão (VL06, VL08): a faixa de tensão do fio de alimentação (a rodada 1)
+const modeloDoModulo = (serial) => M.modelos.find((m) => m.id === moduloDe(serial)?.modeloId)
 const HORA = M.HORA_NOMINAL
 
 // o nome da seção no cartão ('A · Identificação'), e o rótulo de topo do nível
@@ -127,6 +141,7 @@ export const rotuloDoNivel = (s) => caixaAlta(nomeDaSecao(s))
 // referência, e a URL sai do momento
 export function momentoDaSecao(s, ck, homologada) {
   if (homologada) return null
+  if (s === 'E' && ck.bip && MOMENTO_DO_BIP[ck.bip]) return MOMENTO_DO_BIP[ck.bip]
   if (s === 'B' && ck.porSecao.B.some((c) => c.estado === 'ressalva')) return REF.comRessalva
   if (s === 'E' && ck.secoes.find((x) => x.id === 'E').estado === 'aprovada') return REF.eResolvida
   return { A: REF.A, B: REF.B, C: REF.C, D: REF.D, E: REF.E, F: REF.F }[s]
@@ -154,27 +169,14 @@ function etapasDoCaminho(ativoId, moduloSerial) {
 }
 const daSemente = (etapas) => etapas.preChecagem == null
 
-// o ciclo que a T14 grava quando os seis passos e o evento fecham (T14/05):
-// o 13 aberto pela URL é o fluxo depois disso (G20), e a coluna do 10 e do 14 chega com ele
+// o ciclo que a T14 grava quando os passos e o evento fecham (T14/05): o 13 aberto pela URL é
+// o fluxo depois disso (G20), e a coluna do 10 e do 14 chega com ele · o cartão, conferido
 export function cicloConcluido(ativoId, moduloSerial) {
-  const passos = Object.fromEntries(itensDa('E').map((i) => [i.id, 'aprovada']))
+  const doCiclo = itensDa('E').filter((i) => i.origem === 'ciclo')
+  const passos = Object.fromEntries(doCiclo.map((i) => [i.id, 'aprovada']))
   return {
-    ativoId, moduloSerial, passos, feitos: itensDa('E').length, total: itensDa('E').length,
-    evento: 'conferido', tentativa: 1, cartao: null, correcao: null, concluido: true, fechado: false,
-  }
-}
-// o ciclo do cartão que não bate, com a correção de cadastro pedida (T14/06): os
-// outros passos valem, e o cartão fica reprovado, com o que leu e o que o
-// cadastro espera, até o técnico refazer só ele, na vez do cartão (T14/08)
-const ehCartao = (i) => i.pergunta === T14.cartao
-function cicloComCorrecao(ativoId, moduloSerial, caso) {
-  const c = cicloConcluido(ativoId, moduloSerial)
-  const item = itensDa('E').find(ehCartao)
-  const ex = caso.exemplos.find((e) => e.cartaoId === caso.cartaoId)
-  const leitura = { lido: ex.lido, esperado: ex.esperado }
-  return {
-    ...c, passos: { ...c.passos, [item.id]: 'reprovada' }, feitos: c.total - 1, concluido: false,
-    cartao: { cartaoId: caso.cartaoId, estado: 'reprovada', ...leitura }, correcao: { solicitadaAs: caso.correcaoSolicitada, ...leitura },
+    ativoId, moduloSerial, passos, feitos: doCiclo.length, total: doCiclo.length,
+    evento: 'conferido', tentativa: 1, cartao: null, concluido: true, fechado: false,
   }
 }
 // as fotos de B tiradas: o que bloqueia fechou (o 10, o 14 e o 11 pela URL)
@@ -199,18 +201,13 @@ export function mundoDe({ unico, est, semente, releituras = 0 }) {
     const sessao = { ...semente.sessao, ativoId: a.id, moduloSerial: a.moduloSerial }
     const etapas = { ...etapasDoCaminho(a.id, a.moduloSerial) }
     let registro = registroVazio(a.id)
-    // o 27 e o 28 (o pacote 12): o ciclo do PCX-9A17 com o cartão que não bate e a
-    // correção pedida (o caso identificador-divergente, correcaoSolicitada); no 28, as
-    // fotos de B tiradas, e só a E falha
-    if (est === REF.secaoECorrecao || est === REF.finalizarComE) etapas.ciclo = cicloComCorrecao(a.id, a.moduloSerial, caso)
-    if (est === REF.finalizarComE) registro = { ...registro, fotos: fotosDeB() }
     if (est === REF.secaoF || est === REF.semLocalizacao) {
       // o ciclo completo pro Finalizar acender, e as fotos de B tiradas: o que bloqueia fechou (o caso)
       etapas.ciclo = cicloConcluido(a.id, a.moduloSerial)
       registro = { ...registro, fotos: fotosDeB() }
     }
-    // o 14: o Finalizar tocado, com a localização negada (HU-T13-7: o relatório vai sem ela)
-    if (est === REF.semLocalizacao) registro = { ...registro, homologada: true, homologadaAs: HORA }
+    // o 14: o Finalizar tocado, com a localização negada (HU-T13-7: o relatório vai sem ela) · o bip ouvido
+    if (est === REF.semLocalizacao) registro = { ...registro, homologada: true, homologadaAs: HORA, bip: 'ouvi' }
     const semLocalizacao = caso.permissao === 'localizacao' && caso.resposta === 'negada'
     return { sessao, etapas, fila: [...M.filaSaida], casosConsumidos: [], registro, casos: [casoId], semLocalizacao, releituras }
   }
@@ -228,8 +225,12 @@ export function mundoDe({ unico, est, semente, releituras = 0 }) {
 }
 
 // o que a T13 grava em etapas.checklist (logica.md · os contadores do menu)
+// · `homologada` (o nome de antes): o Finalizar tocado — desde a rodada 1 do retorno do PM, o
+//   checklist registrado, aguardando o autoteste; quem homologa é a T16
+// · `bip`: o teste do bip do leitor (a rodada 1) — null, 'ouvi' ou 'naoOuvi' · `justificativas`:
+//   o que o técnico escreveu no item não conforme da E (o bip não ouvido, o cartão que não confere)
 export function registroVazio(ativoId) {
-  return { ativoId, aberto: true, fotos: {}, ressalvas: {}, pendentes: null, homologada: false, homologadaAs: null, ciencia: null }
+  return { ativoId, aberto: true, fotos: {}, ressalvas: {}, pendentes: null, homologada: false, homologadaAs: null, ciencia: null, bip: null, justificativas: {} }
 }
 
 // o quadro que a URL pede (G20): o fluxo depois dos toques que levam lá — o 11,
@@ -238,11 +239,15 @@ export function registroVazio(ativoId) {
 // ciclo que a T14 fechou
 export function registroDoQuadro(momento, base, ck) {
   const r = base.registro
-  if (momento === REF.homologado && !r.homologada) {
+  if (momento === REF.registrado && !r.homologada) {
     const fotos = { ...r.fotos }
     for (const c of ck.porSecao.B) if (c.estado === 'pendente') fotos[c.id] = HORA
-    return { ...r, fotos, homologada: true, homologadaAs: HORA }
+    return { ...r, fotos, homologada: true, homologadaAs: HORA, bip: r.bip ?? 'ouvi' }
   }
+  // o 13 (a rodada 1): a E resolvida, com o bip ouvido · o 41 e o 42: o bip respondido; o 42 com o campo vazio
+  if (momento === REF.eResolvida && !r.bip) return { ...r, bip: 'ouvi' }
+  if (momento === REF.bipOuvido) return { ...r, bip: 'ouvi' }
+  if (momento === REF.bipNaoOuvido) return { ...r, bip: 'naoOuvi' }
   if (momento === REF.comRessalva && !Object.keys(r.ressalvas).length) {
     const id = ck.porSecao.B.find((c) => c.estado === 'pendente')?.id
     if (id) return { ...r, ressalvas: { ...r.ressalvas, [id]: { justificativa: CK.exemploJustificativa, as: HORA, foto: HORA } } }
@@ -305,6 +310,11 @@ const dentro = (f, v) => v >= f.min && (f.max == null || v <= f.max)
 // herói), os satélites de 0 a 12 (a escala da T07). As posições saem da conta.
 export function escalaDo(id, faixa) {
   if (id === 'satelites') return { min: 0, max: 12 }
+  // a alimentação (a rodada 1): a faixa do modelo do módulo, de 5 em 5 pra fora — 9 a 32 V na régua de 5 a 35
+  if (id === 'alimentacao') {
+    const min = Math.floor(faixa.min / 5) * 5; const max = Math.ceil(faixa.max / 5) * 5
+    return { min: min === faixa.min ? min - 5 : min, max: max === faixa.max ? max + 5 : max, passo: 5 }
+  }
   const w = faixa.max - faixa.min
   if (id === 'bateria') return { min: faixa.min - (2 * w) / 3, max: faixa.max + w / 3 }
   return { min: faixa.min, max: faixa.max ?? faixa.min }
@@ -339,18 +349,13 @@ function passoDoCiclo(mundo, item) {
   return c.passos?.[item.id] ?? 'pendente'
 }
 // F · a fila desta sessão (G22): os itens do ativo criados depois da abertura
-function filaDaSessao(mundo) {
-  const { ativoId, abertaAs } = mundo.sessao
-  return mundo.fila.filter((f) => f.ativoId === ativoId && f.diasAtras === 0 && f.criadoAs >= abertaAs)
-}
 // F falha quando o servidor diz que não: o ativo que ficou sem resposta
 // (pronto-para-fechar), o evento de teste que não chegou no prazo (T14/02: 'A
 // Seção F reprova.') ou um item desta sessão que o servidor recusou
 function secaoFFalhando(mundo) {
   const pf = M.casos['pronto-para-fechar']
   if (pf && pf.ativoId === mundo.sessao.ativoId && pf.recebimento === 'sem resposta') return true
-  if (cicloDaSessao(mundo)?.evento === 'nao-chegou') return true
-  return filaDaSessao(mundo).some((f) => /^erro/.test(f.estado))
+  return cicloDaSessao(mundo)?.evento === 'nao-chegou'
 }
 
 // ── cada item: o estado, o tipo da linha e o que ela diz ──
@@ -359,7 +364,8 @@ function secaoFFalhando(mundo) {
 // destino: { tela } (a tela que resolve) · 'item' (a câmera do app, 07) · 'reprovado' (o 09)
 const base = (item, c) => ({ id: item.id, secao: item.secao, nome: item.rotulo, tipo: 'leitura', ...c })
 const lido = (item, valor, leitura) => base(item, { estado: 'ok', valor, ...(leitura ? { leitura } : {}) })
-const MODEM_NA_REDE = M.diagnostico.modulo.find((l) => l.id === 'modem').heroi
+const LINHA_DO_DIAGNOSTICO = (id) => M.diagnostico.modulo.find((l) => l.id === id)
+const MODEM_NA_REDE = LINHA_DO_DIAGNOSTICO('modem').heroi
 const naoSeAplica = (item) => base(item, { estado: 'nsa', valor: T.vazio, apagado: true })
 // o automático que falta leva à tela que resolve, pelo `origem` do mock (a entrega do checklist)
 const TELA_DA_ORIGEM = { conectar: 'T05', ativo: 'T06', can: 'T07', configurar: 'T09', calibracao: 'T10' }
@@ -384,6 +390,11 @@ function itemA(mundo, item) {
   const vinculado = etapas.ativo?.ativoId === sessao.ativoId
   if (item.id === 'a-serial') return conectado ? lido(item, sessao.moduloSerial) : falta(item)
   if (item.id === 'a-firmware') return conectado ? lido(item, moduloDe(sessao.moduloSerial)?.firmware) : falta(item)
+  // o pacote de sincronização (a rodada 1): o da unidade da sessão, com a data e a hora dele
+  if (item.id === 'a-pacote') {
+    const p = M.pacotes.find((x) => x.uoId === (mundo.uoId ?? M.contextoAtivo.uoId))
+    return p ? lido(item, T.dataDoPacote(p.data, p.hora)) : falta(item)
+  }
   return vinculado ? lido(item, ativoDe(sessao.ativoId)?.placa) : falta(item)
 }
 
@@ -412,20 +423,27 @@ function itemB(mundo, item) {
 function itemC(mundo, item) {
   const { etapas } = mundo
   const L = M.leituraNominalModulo
-  if (item.id === 'c-alimentacao' || item.id === 'c-gps') {
-    if (!etapas.can?.lida) return falta(item)
-    const r = lidoDoSinal(mundo, item.id === 'c-alimentacao' ? 'bateria' : 'satelites')
-    if (!r) return naoSeAplica(item)
-    if (item.id === 'c-alimentacao') r.lido = alimentacaoDoCaso(mundo) ?? r.lido
-    // o GPS fraco (o pacote 12): o lido e o mínimo de satélites do caso, padrão até o PM decidir
-    const gps = item.id === 'c-gps' ? casoDaC(mundo, 'gps') : null
-    if (gps) r.lido = gps.gps
-    const sinal = gps ? { ...r.sinal, faixa: { min: gps.gpsMinimo, max: null } } : r.sinal
-    const p = partes(r.lido)
+  // a alimentação (a rodada 1 do retorno do PM): a tensão que o módulo lê no fio de alimentação,
+  // contra a faixa do modelo do módulo (o VL06, 9,0 a 32,0 V) · o herói, a do diagnóstico (24,3 V)
+  if (item.id === 'c-alimentacao') {
+    if (!passou(etapas.preChecagem)) return falta(item)
+    const ft = modeloDoModulo(mundo.sessao.moduloSerial)?.faixaTensao
+    if (!ft) return naoSeAplica(item)
+    const p = partes(alimentacaoDoCaso(mundo) ?? LINHA_DO_DIAGNOSTICO('alimentacao').heroi)
     if (!p || !Number.isFinite(p.num)) return reprovou(item, T.vazio, null)
-    const valor = item.id === 'c-gps' ? T.satelites(p.texto) : [p.texto, p.unidade].filter(Boolean).join(' ')
-    // dentro da faixa, a leitura fica no item: o detalhe relido a desenha (o pacote 13, 30 e 31)
+    const sinal = { id: 'alimentacao', faixa: { min: ft[0], max: ft[1] } }
+    const valor = [p.texto, p.unidade].filter(Boolean).join(' ')
     return dentro(sinal.faixa, p.num) ? lido(item, valor, { sinal, ...p }) : reprovou(item, valor, { sinal, ...p })
+  }
+  // o GPS (a rodada 1): o critério é a antena — conectada, em curto ou desconectada —, e os satélites
+  // ficam como informação · o herói, conectada, com os satélites do diagnóstico
+  if (item.id === 'c-gps') {
+    if (!passou(etapas.preChecagem)) return falta(item)
+    const caso = casoDaC(mundo, 'antena')
+    const antena = caso?.antena ?? T.antenaConectada
+    const satelites = caso?.satelites ?? partes(LINHA_DO_DIAGNOSTICO('gps').heroi.split('·').pop().trim()).num
+    const leitura = { texto: antena, frase: T.satelites(satelites), satelites, ainda: T.ainda(antena) }
+    return antena === T.antenaConectada ? lido(item, T.antena(antena), leitura) : reprovou(item, T.antena(antena), leitura)
   }
   if (item.id === 'c-entradas') {
     if (etapas.ativo?.ativoId !== mundo.sessao.ativoId) return falta(item)
@@ -455,72 +473,50 @@ function itemC(mundo, item) {
 // regiões, a APN, os eventos e o leitor; a tradução da CAN, gravada · o Extended ID,
 // só leitura (decisão 45), o que está no módulo — sem cartões, D5 · a calibração:
 // o valor de partida que pôs no módulo (o do painel), ou, pulado, 'não calibrado' (D1)
-function extendedIdDo(moduloSerial) {
-  // o que está no módulo: o do cadastro do módulo, se o mock declarar; senão, o único
-  // Extended ID declarado, o do diff-divergente (o mesmo que a T11/02 desenha no herói)
-  return moduloDe(moduloSerial)?.extendedId ?? M.leituraNominalModulo.extendedId ?? M.casos['diff-divergente']?.extendedId ?? null
-}
 function itemD(mundo, item) {
-  const { sessao, etapas } = mundo
+  // a rodada 1 do retorno do PM: uma linha por bloco, cada uma confere · depois, o autoteste do
+  // próprio módulo, o canal de programação protegido e o ID que confere com o cadastro
+  const { etapas } = mundo
   const conf = confirmadosDaCadeia(etapas)
   const { ordem } = M.cadeia
   const gravou = (bloco) => conf > ordem.indexOf(bloco)
-  const modelo = modeloDe(sessao.ativoId)
   const [tipo, alvo] = String(item.fonte).split(':')
-  if (tipo === 'bloco') {
-    if (!gravou(alvo)) return falta(item)
-    if (alvo === 'limpeza') return lido(item, T.feita)
-    if (alvo === 'ativo') return lido(item, T.gravada)
-    return lido(item, conteudoDo(sessao)[alvo] ?? T.vazio)
-  }
-  if (item.fonte === 'servidor') return gravou('conexao') ? lido(item, T.gravado) : falta(item)
-  if (item.fonte === 'identificadores') {
-    if (!passou(etapas.preChecagem)) return falta(item)
-    const x = extendedIdDo(sessao.moduloSerial)
-    return lido(item, x ? T.extendedId(x.cartoes ?? 0, x.ibuttons ?? 0) : T.vazio)
-  }
-  // cal:<grandeza> · o valor de partida que a calibração da sessão pôs no módulo: o do painel
-  const g = alvo
-  if (!M.calibracao.porModelo[modelo?.id]?.calibraveis.includes(g)) return naoSeAplica(item)
-  if (pulada(mundo, g)) return lido(item, T.naoCalibrado)
-  const semeada = calibracaoDa(mundo)?.semeadas?.[g]
-  const painel = semeada?.painel ?? null
-  if (painel == null) return falta(item)
-  return lido(item, `${milhar(painel)} ${grandezaDe(g).unidade}`)
+  if (tipo === 'bloco') return gravou(alvo) ? lido(item, T.confere) : falta(item)
+  if (item.fonte === 'autoteste-modulo') return passou(etapas.preChecagem) ? lido(item, T.confere) : falta(item)
+  if (item.fonte === 'canal') return gravou('conexao') ? lido(item, item.valor) : falta(item)
+  return gravou('conexao') ? lido(item, T.confere) : falta(item)
 }
 
 // E · leitura só: o passo aprovado diz 'confere'; o que falta, 'a fazer'. A
 // ação da seção é uma só, o Fazer o ciclo de testes (T13·4, HU-T13-8)
 function itemE(mundo, item) {
+  // o bip do leitor (a rodada 1): respondido aqui, com o Testar bip — ouvido confere; não ouvido
+  // é não conforme, com o campo do que aconteceu
+  if (item.fonte === 'bip') {
+    const bip = mundo.registro.bip
+    if (bip === 'ouvi') return base(item, { estado: 'ok', valor: T.ouvi, bip })
+    if (bip === 'naoOuvi') return base(item, { estado: 'naoConforme', valor: T.naoOuvi, bip })
+    return base(item, { estado: 'pendente', bip: null })
+  }
   const passo = passoDoCiclo(mundo, item)
   if (passo === 'aprovada') return lido(item, T.confere)
-  // o cartão que não bate, com a correção pedida (o pacote 12, T13/27): a linha
-  // vermelha com o que leu e a hora do pedido; a seta leva à T14, onde o técnico
-  // refaz só o cartão (a vez do cartão, T14/08)
-  const c = cicloDaSessao(mundo)
-  if (passo === 'reprovada' && ehCartao(item) && c?.correcao) {
-    return base(item, {
-      estado: 'reprovado', destino: { tela: 'T14' }, correcao: true,
-      linhas: [{ texto: T.leuEspera(c.correcao.lido, c.correcao.esperado), tom: 'falha' }, { texto: T.correcaoSolicitada(c.correcao.solicitadaAs) }],
-    })
+  // o cartão que o técnico disse que não confere (T14/10): não conforme, com a justificativa aqui
+  if (passo === 'reprovada' && cicloDaSessao(mundo)?.cartao?.resposta === 'reprovada') {
+    return base(item, { estado: 'naoConforme', valor: T.naoConfere, cartao: true })
   }
-  return base(item, { estado: passo === 'reprovada' ? 'reprovado' : 'pendente', valor: T.aFazer, apagado: true })
+  // *a fazer* em --tinta (a rodada 1: as referências acenderam o que o técnico ainda faz)
+  return base(item, { estado: passo === 'reprovada' ? 'reprovado' : 'pendente', valor: T.aFazer })
 }
 
 // F · leitura só, sem ação: espera o servidor. Homologado, o relatório está na
 // fila e ela confere (G22); nenhuma referência desenha os itens assim, e ficam
 // os valores do C10, com o número do mock
-function itemF(mundo, item, total, feitosSemF) {
-  if (secaoFFalhando(mundo)) return base(item, { estado: 'reprovado', valor: T.vazio, apagado: true })
-  const fila = filaDaSessao(mundo)
-  const doTipo = (fonte) => fila.filter((f) => `fila:${f.tipo}` === fonte)
-  const subiu = doTipo(itemDe('f-evidencias').fonte).length > 0
-  const esperando = base(item, { estado: 'aguarda', valor: T.esperaEnvio, apagado: true })
-  if (item.id === 'f-evidencias') return subiu ? lido(item, T.subiram(CK.evidencias)) : esperando
-  if (item.id === 'f-checklist') return doTipo(item.fonte).length ? lido(item, `${feitosSemF} ${T.de(total)}`) : esperando
-  // o ID na plataforma: confirma quando a evidência subir (autotesteEncerramento)
-  const plataforma = M.autotesteEncerramento.find((a) => a.fonte === 'plataforma')
-  return subiu ? lido(item, plataforma.valor) : esperando
+function itemF(mundo, item) {
+  // a rodada 1 do retorno do PM: a posição e o evento de teste — esperando, confere ou não chegou ·
+  // como as referências desenham, o servidor confirma depois do Finalizar (a 11: *o servidor
+  // confirmou*); antes, esperando, mesmo com o ciclo feito (a 13); o prazo estourado, não chegou
+  if (secaoFFalhando(mundo)) return base(item, { estado: 'reprovado', valor: T.naoChegou })
+  return mundo.registro.homologada ? lido(item, T.confere) : base(item, { estado: 'aguarda', valor: T.esperando, apagado: true })
 }
 
 // quem age, embaixo do nome da seção (a entrega do checklist, decisão 34): o
@@ -533,50 +529,64 @@ function itemF(mundo, item, total, feitosSemF) {
 // sem nenhuma, a linha fica sem ela (G25)
 function quemAgeDa(s, itens, homologada) {
   const feitos = itens.filter(resolvido).length
-  if (s.natureza === 'automatico') return homologada ? T.appConferiu : T.appConfere
+  if (s.natureza === 'automatico') return itens.some((c) => c.estado === 'lendo' || (c.estado === 'aguarda' && c.lendo)) ? T.lendoDoModulo : homologada ? T.appConferiu : T.appConfere
   if (s.natureza === 'manual') {
     if (itens.some((c) => c.estado === 'pendente')) return T.voceFotografa(itens.length)
     const fotos = itens.filter((c) => c.estado === 'ok' || c.estado === 'ressalva').length
     return fotos ? T.fotosTiradas(fotos) : null
   }
-  if (s.natureza === 'dinamico') {
-    if (itens.some((c) => c.correcao)) return T.cartaoNaoPassou
-    return feitos === itens.length ? T.cicloPassou : T.voceFazCiclo
-  }
+  if (s.natureza === 'dinamico') return feitos === itens.length ? T.cicloPassou : T.voceFazCiclo
   return feitos === itens.length ? T.servidorConfirmou : T.esperaServidor
 }
 
 // ── o checklist inteiro: os itens, as seções, a contagem e o que falta ──
-export const resolvido = (c) => c.estado === 'ok' || c.estado === 'ressalva' || c.estado === 'nsa'
+// o não conforme da E (o bip não ouvido, o cartão que não confere · a rodada 1) está respondido:
+// conta como feito, com o xis e o que aconteceu, e não reprova a seção
+export const resolvido = (c) => c.estado === 'ok' || c.estado === 'ressalva' || c.estado === 'nsa' || c.estado === 'naoConforme'
 // os itens de B que existem nesta sessão: o Painel só quando houve calibração (D4 —
 // sem ela, a B tem 4, e o total, 30)
 export const itensDeB = (mundo) => itensDa('B').filter((i) => i.condicao !== 'calibracao' || calibrada(mundo))
-const itensDaSessao = (mundo, s) => (s === 'B' ? itensDeB(mundo) : itensDa(s))
+// a rodada 1 do retorno do PM: cada item só quando se aplica — o leitor, o buzzer dele, a rotação
+// na CAN do modelo do ativo, e as pendências só com o ID reescrito (nenhuma sessão do mock reescreve)
+const CONDICAO = {
+  leitor: (mundo) => !!modeloDe(mundo.sessao.ativoId)?.leitor,
+  buzzer: (mundo) => !!modeloDe(mundo.sessao.ativoId)?.leitor?.buzzer,
+  rotacao: (mundo) => !!modeloDe(mundo.sessao.ativoId)?.sinaisCan?.some((x) => x.id === 'rotacao'),
+  reescritaId: () => false,
+}
+const seAplica = (mundo, i) => !i.condicao || !CONDICAO[i.condicao] || CONDICAO[i.condicao](mundo)
+const itensDaSessao = (mundo, s) => (s === 'B' ? itensDeB(mundo) : itensDa(s).filter((i) => seAplica(mundo, i)))
+// quantos passos o ciclo da T14 tem nesta sessão (a ação da E: *até 4 passos*)
+const passosDoCiclo = (mundo) => itensDaSessao(mundo, 'E').filter((i) => i.origem === 'ciclo').length
 export function checklist(mundo) {
   const porSecao = {}
-  for (const s of ['A', 'B', 'C', 'D', 'E']) {
+  for (const s of ['A', 'B', 'C', 'D', 'E', 'F']) {
     porSecao[s] = itensDaSessao(mundo, s).map((item) => (
-      s === 'A' ? itemA(mundo, item) : s === 'B' ? itemB(mundo, item) : s === 'C' ? itemC(mundo, item) : s === 'D' ? itemD(mundo, item) : itemE(mundo, item)
+      s === 'A' ? itemA(mundo, item) : s === 'B' ? itemB(mundo, item) : s === 'C' ? itemC(mundo, item) : s === 'D' ? itemD(mundo, item)
+        : s === 'E' ? itemE(mundo, item) : itemF(mundo, item)
     ))
   }
-  const total = Object.values(porSecao).flat().length + itensDa('F').length
-  const semF = Object.values(porSecao).flat()
-  // o checklist que sobe (f-checklist) leva o que estava resolvido e a própria Seção F
-  const fItens = itensDa('F')
-  const feitosAntes = semF.filter(resolvido).length
-  porSecao.F = fItens.map((item) => itemF(mundo, item, total, feitosAntes + fItens.length))
+  // a Seção D lida bloco a bloco ao abrir o checklist (a rodada 1, T13/38): `dLidos` diz quantos já
+  // chegaram — o seguinte está lendo, e os outros esperam; null, todos lidos
+  if (mundo.dLidos != null) {
+    porSecao.D = porSecao.D.map((c, i) => (c.estado !== 'ok' || i < mundo.dLidos ? c
+      : i === mundo.dLidos ? { ...c, estado: 'lendo', valor: T.lendo, leitura: undefined }
+        : { ...c, estado: 'aguarda', valor: T.vazio, apagado: true, lendo: true }))
+  }
+  const total = Object.values(porSecao).flat().length
   const homologada = !!mundo.registro.homologada
   const secoes = SECOES.map((s) => {
     const itens = porSecao[s.id]
     const feitos = itens.filter(resolvido).length
     let estado
     if (itens.some((c) => c.estado === 'reprovado')) estado = 'reprovada'
+    else if (itens.some((c) => c.estado === 'lendo' || c.lendo)) estado = 'lendo'
     else if (feitos === itens.length) estado = 'aprovada'
     else estado = s.natureza === 'servidor' ? 'aguarda' : 'pendente'
-    // a E tem uma ação só, enquanto falta passo: Fazer o ciclo de testes → T14
-    // (com a correção pedida, a ação é a seta do cartão, que leva à T14 · o pacote 12)
-    const acao = s.natureza === 'dinamico' && feitos < itens.length && !itens.some((c) => c.correcao)
-      ? { nome: T.fazerCiclo, legenda: T.osPassos(itens.length), icone: 'ciclo', destino: { tela: 'T14' } }
+    // a E tem uma ação só, enquanto falta passo do ciclo: Fazer o ciclo de testes → T14
+    const faltaPasso = itens.some((c) => c.estado !== 'ok' && c.estado !== 'naoConforme' && itemDe(c.id).origem === 'ciclo')
+    const acao = s.natureza === 'dinamico' && faltaPasso
+      ? { nome: T.fazerCiclo, legenda: T.osPassos(passosDoCiclo(mundo)), icone: 'ciclo', destino: { tela: 'T14' } }
       : null
     return { ...s, itens, feitos, total: itens.length, estado, quemAge: quemAgeDa(s, itens, homologada), acao }
   })
@@ -585,11 +595,15 @@ export function checklist(mundo) {
   const faltam = secoes.filter((s) => s.bloqueia).reduce((n, s) => n + s.total - s.feitos, 0)
   // o contador do menu (T04·2): B e E, os que o técnico resolve, ainda por resolver
   const pendentesDoMenu = secoes.filter((s) => s.natureza === 'manual' || s.natureza === 'dinamico').reduce((n, s) => n + s.total - s.feitos, 0)
-  // a E falhando com a correção pedida (o pacote 12): o cartão conta no Faltam, mas não
-  // segura o Finalizar, que abre o diálogo da ciência (T13/28, padrão até o PM decidir)
-  const falhandoE = porSecao.E.some((c) => c.correcao)
-  const bloqueiam = faltam - (falhandoE ? 1 : 0)
-  return { secoes, porSecao, feitos, total, faltam, bloqueiam, pendentesDoMenu, falhandoF: secaoFFalhando(mundo), falhandoE }
+  // o Finalizar desligado diz por quê (a rodada 1 do retorno do PM): a D ainda sendo lida, um item
+  // automático reprovado (a seção dele), ou quantos obrigatórios faltam
+  const lendo = secoes.find((x) => x.estado === 'lendo' && x.natureza === 'automatico')
+  const comReprovado = secoes.find((x) => x.bloqueia && x.natureza === 'automatico' && x.estado === 'reprovada')
+  const motivo = lendo ? T.secaoSendoLida(lendo.id) : comReprovado ? T.secaoComReprovado(comReprovado.id) : faltam > 0 ? T.faltam(faltam) : null
+  const bloqueiam = faltam + (lendo || comReprovado ? 1 : 0)
+  // o bip (a rodada 1): o momento da E aberta segue o estado dele
+  const bip = porSecao.E.find((c) => itemDe(c.id).fonte === 'bip')?.bip ?? null
+  return { secoes, porSecao, feitos, total, faltam, bloqueiam, motivo, pendentesDoMenu, falhandoF: secaoFFalhando(mundo), bip }
 }
 
 // ── o nível do item manual (07, 08): a posição, os segmentos e o que vem depois ──
@@ -626,7 +640,7 @@ export function instrumentoDoItem(c) {
   const contagem = sinal.id === 'satelites'
   return {
     valor: texto, unidade,
-    escala: { min: e.min, max: e.max, valor: num, faixa: { de: f.min, ate: f.max ?? e.max }, divisoes: contagem ? (e.max - e.min) / 2 : Math.round(e.max - e.min), fortes: [f.min, f.max ?? e.max] },
+    escala: { min: e.min, max: e.max, valor: num, faixa: { de: f.min, ate: f.max ?? e.max }, divisoes: contagem ? (e.max - e.min) / 2 : e.passo ? (e.max - e.min) / e.passo : Math.round(e.max - e.min), fortes: [f.min, f.max ?? e.max] },
     legendas: { min: decimal(e.min, casas), faixa: f.max == null ? T.ouMais(decimal(f.min, casas)) : T.faixa(decimal(f.min, casas), decimal(f.max, casas)), max: decimal(e.max, casas) },
     frase: dif != null ? T.abaixo(decimal(dif, casas), contagem ? null : unidade) : null,
     ainda: dif != null ? T.ainda(T.abaixo(decimal(dif, casas), contagem ? null : unidade)) : null,
@@ -637,7 +651,8 @@ export function instrumentoDoItem(c) {
 // criado agora (14:30), o que a Seção F desta sessão lê (G22) ──
 export function filaDoFinalizar(mundo) {
   const { ativoId } = mundo.sessao
-  const tipos = ['f-evidencias', 'f-checklist'].map((id) => itemDe(id).fonte.replace(/^fila:/, ''))
+  // as evidências e o checklist (os tipos da fila do mock · a fila de envio é da T15, a rodada 1)
+  const tipos = M.tiposFila.filter((t) => /^(Evidências|Checklist)/.test(t.tipo)).map((t) => t.tipo)
   return tipos.map((tipo, i) => ({
     id: `sessao-${ativoId}-${i + 1}`, tipo, ativoId, diasAtras: 0, data: M.diasAntes(0), criadoAs: HORA, estado: 'na-fila',
   }))

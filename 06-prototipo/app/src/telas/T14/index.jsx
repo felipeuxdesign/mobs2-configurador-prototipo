@@ -8,19 +8,21 @@
 //   fila drenada antes do disparo não tem referência: junta as peças que
 //   existem, G25). No print (EM_QUADRO), sem momento, a tela fica parada na 00.
 // · O disparo: o prazo de 2:00 (M.ciclo.prazoEventoSeg) drena no tique do prazo
-//   (1 s real vale 4 s de prazo). Os passos são os seis da Seção E — ignição
-//   ligada, rotação, ré, porta, cartão do motorista e ignição desligada — e, com
-//   tacógrafo digital no modelo, a velocidade depois da rotação (D3, ciclo.js).
-//   A semente traz 2 passos feitos, e os outros acendem sozinhos a +9, +12, +15
-//   e +18 s (T14·1). O evento chega depois de
-//   M.ciclo.evento.recebidoAosSeg — a 00 é o instante antes, 1:36 — e o número
-//   passa a ser o tempo que ele levou, com a barra parada no que restava; os
-//   campos conferem depois de conferidoAosSeg ('6 de 6', AC-09). Os seis
-//   passos e o evento → 05-momento-ciclo-concluido.
+//   (1 s real vale 4 s de prazo). Os passos (a rodada 1 do retorno do PM, 06/10): no
+//   máximo quatro, com o ônibus parado, cada um só quando se aplica — ignição ligada,
+//   rotação (se o ativo lê rotação), cartão do motorista (se há leitor) e ignição
+//   desligada; com tacógrafo digital no modelo, a velocidade depois da rotação (D3). A
+//   semente traz 2 passos feitos. O evento chega depois de recebidoAosSeg e o número
+//   passa a ser o tempo que ele levou; os campos conferem depois de conferidoAosSeg.
+// · O cartão em três momentos: a vez dele (a 00, *passe o cartão*), o módulo leu
+//   (a 08: *leu 9412857*, com Confere com o cartão e Não confere) e a resposta do
+//   técnico — o app não compara com cadastro nenhum. Não confere vira não conforme,
+//   com a justificativa no checklist (a 10); confere, a vez da ignição desligada (a
+//   11), que explica a espera. Os passos e o evento → 05-momento-ciclo-concluido.
 // · Os estados da coluna, parados, pela receita (G21), cada um na sessão do
 //   caso: o 02 (evento-sem-resposta, o fim do prazo), o 03 (motor-desligado-no-ciclo,
-//   a rotação zerada reprova e pede o motor ligado) e o 04 (identificador-divergente,
-//   o passo do cartão reprova com o lido e o esperado). No fluxo, o
+//   a rotação zerada reprova e pede o motor ligado), o 09 (a segunda falha) e o 12
+//   (sem-leitor: o ciclo em 3 passos, concluído). No fluxo, o
 //   caso vale quando o par da faixa é o dele (G28); o evento sem resposta, uma
 //   vez por sessão: 'Disparar outro evento' tenta de novo, e os passos continuam
 //   valendo.
@@ -30,10 +32,8 @@
 //   ENCERRAR → antes de homologar, o diálogo Encerrar sem homologar? por cima
 //   da tela (decisão 36), e a sessão abortada (G23). O voltar do Android
 //   (o Esc) faz o mesmo que o link de saída do rodapé (logica.md).
-// · 'Solicitar correção de cadastro' (04) → o link vira o registro no mesmo
-//   lugar, 'Correção solicitada às 14:30', e deixa de ser tocável (06).
 // · O ciclo fica gravado em etapas.ciclo: os passos pelo id do item da Seção E,
-//   o evento, o cartão, a correção pedida e se a captura foi fechada. Voltar à
+//   o evento, o cartão (o lido e a resposta) e se a captura foi fechada. Voltar à
 //   T14 com o ciclo aberto retoma os passos que já valem; o evento se dispara de novo.
 // · O movimento (C12): a fila que drena, o prazo que estoura e o ciclo que conclui
 //   trocam o desenho, e o conteúdo esmaece (C12·4); o disparo troca o texto do
@@ -42,17 +42,17 @@
 //   anima ao abrir.
 import { Fragment, useEffect, useRef, useState } from 'react'
 import { BarraDoSistema, Faixa, CabecalhoConteudo, Prazo, BlocoEvento, Lista, LinhaChecagem, Rodape, ESTADOS, useTrocaDeQuadro } from '../../ds/index.js'
+import { BotaoDaLinha, RespostasDaLinha } from '../comum/BotaoDaLinha.jsx'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
 import { useEncerrar } from '../../estado/encerrar.jsx'
 import { EM_QUADRO } from '../../estado/quadro.js'
 import { RITMOS } from '../../estado/ritmos.js'
 import { M } from '../../dados/mock.js'
-import { itemDeCorrecao } from '../../estado/fila.js'
 import { minSeg } from '../../dados/formato.js'
 import {
-  REF, CASO_SEM_RESPOSTA, CASO_DE_NOVO, CASO_MOTOR, CASO_IDENTIFICADOR, PRAZO, EVENTO, TIQUE_MS, QUADRO_00, quadro05,
-  tiqueDoPasso, horaDoRecebido, ativoDe, parDaSessao, parDoCaso, casosDoPar, filaDoModulo, veredito, causaDo,
+  REF, CASO_SEM_RESPOSTA, CASO_DE_NOVO, CASO_MOTOR, CASO_SEM_LEITOR, PRAZO, EVENTO, TIQUE_MS, quadro05,
+  horaDoRecebido, ativoDe, parDaSessao, parDoCaso, casosDoPar, filaDoModulo, veredito, causaDo, CARTAO_LIDO,
   passosDo, passosNaEntrada, passosFeitos, passosDoRegistro, passosAte, tiqueDe, CHAVE, passoDaVez, FILA_NO_QUADRO_01,
 } from './ciclo.js'
 import { T } from './textos.js'
@@ -63,45 +63,46 @@ import './t14.css'
 // 'drenada' (o disparo acende) · 'correndo' (o prazo drena) · 'estourado' (o
 // prazo acabou sem o evento) · 'concluido'. tique: os segundos de prazo desde o disparo.
 function inicio(momento, est, unico) {
-  const doCaso = { [REF.estourado]: CASO_SEM_RESPOSTA, [REF.segundaFalha]: CASO_DE_NOVO, [REF.fora]: CASO_MOTOR, [REF.identificador]: CASO_IDENTIFICADOR }[est]
-    ?? (momento === REF.corrigida || est === REF.corrigida ? CASO_IDENTIFICADOR : null)
+  const doCaso = { [REF.estourado]: CASO_SEM_RESPOSTA, [REF.segundaFalha]: CASO_DE_NOVO, [REF.fora]: CASO_MOTOR, [REF.semLeitor]: CASO_SEM_LEITOR }[est] ?? null
   const par = doCaso ? parDoCaso(doCaso) : parDaSessao(unico.sessao)
   // num estado da coluna, o caso vale sempre (a receita); no fluxo, uma vez por sessão
   const casos = casosDoPar(par, est ? [] : unico.casosConsumidos)
-  // os passos do par: os seis, e a velocidade com tacógrafo digital (D3)
-  const lista = passosDo(par)
-  const base = { par, casos, lista, tentativa: 1, correcao: false }
+  // os passos do par: os que se aplicam, e a velocidade com tacógrafo digital (D3) · a 12, sem o cartão
+  const lista = passosDo(par, { semLeitor: doCaso === CASO_SEM_LEITOR })
+  // resposta: o que o técnico disse do cartão ('aprovada' · 'reprovada') e o tique em que disse
+  const base = { par, casos, lista, tentativa: 1, resposta: { cartao: null, em: null } }
+  const cartao = lista.findIndex((p) => p.chave === CHAVE.cartao)
+  const lido = cartao >= 0 ? tiqueDe(lista, cartao) : null
   if (est === REF.estourado) return { ...base, fase: 'estourado', tique: PRAZO, passos: passosFeitos(lista, casos) }
   // a 09 (o pacote 12): a 2ª tentativa também estourou — as que estouram vêm do caso
   if (est === REF.segundaFalha) {
     const estouram = M.casos[CASO_DE_NOVO].tentativasQueEstouram
     return { ...base, casos: { ...casos, estouram }, tentativa: estouram, fase: 'estourado', tique: PRAZO, passos: passosFeitos(lista, casos) }
   }
-  // o pacote 6: o identificador (04, 06) para na vez da ignição — a ré e a porta feitas, o
-  // cartão reprovado na vez dele; os outros estados, no quadro da 00
-  // a 06 também abre pela coluna, parada, logo depois da 04 (o complemento do pacote 6: `depoisDe`)
-  const corrigida = momento === REF.corrigida || est === REF.corrigida
-  if (est === REF.identificador || corrigida) {
-    const tique = tiqueDe(lista, CHAVE.cartao)
-    return { ...base, fase: 'correndo', tique, passos: passosAte(lista, casos, tique), correcao: corrigida }
+  // a 12: o ativo sem leitor, os 3 passos feitos e o evento conferido
+  if (est === REF.semLeitor) return { ...base, fase: 'concluido', tique: quadro05(lista), passos: passosFeitos(lista, casos) }
+  // o 03 e os outros estados: o instante antes de o evento chegar (1:36)
+  if (est != null) return { ...base, fase: 'correndo', tique: EVENTO.recebidoAosSeg, passos: passosNaEntrada(lista, casos) }
+  // o cartão (a rodada 1): a 08, o módulo leu · a 10 e a 11, a resposta e a vez da ignição desligada,
+  // 3 s depois — pela URL, parados até o toque
+  if (lido != null && momento === REF.leuCartao) return { ...base, fase: 'correndo', tique: lido, passos: passosAte(lista, casos, lido), parado: true }
+  if (lido != null && (momento === REF.naoConfere || momento === REF.vezDaIgnicao)) {
+    const resposta = { cartao: momento === REF.naoConfere ? 'reprovada' : 'aprovada', em: lido }
+    const tique = lido + RITMOS.cicloPassoMs / TIQUE_MS
+    return { ...base, resposta, fase: 'correndo', tique, passos: passosAte(lista, casos, tique, resposta), parado: true }
   }
-  if (est != null) return { ...base, fase: 'correndo', tique: QUADRO_00, passos: passosNaEntrada(lista, casos) }
-  // a 07 e a 08 (o pacote 6): a vez da porta e a do cartão, pela URL, paradas
-  if (momento === REF.vezDaPorta || momento === REF.vezDoCartao) {
-    const tique = tiqueDe(lista, momento === REF.vezDaPorta ? CHAVE.re : CHAVE.porta)
-    return { ...base, fase: 'correndo', tique, passos: passosAte(lista, casos, tique), parado: true }
-  }
-  if (momento === REF.concluido) return { ...base, fase: 'concluido', tique: quadro05(lista), passos: passosFeitos(lista, casos) }
+  if (momento === REF.concluido) return { ...base, resposta: { cartao: 'aprovada', em: lido }, fase: 'concluido', tique: quadro05(lista), passos: passosFeitos(lista, casos) }
   if (EM_QUADRO) {
+    // a 00 (a rodada 1): a vez do cartão, com o evento já chegado e conferido, no instante antes de o módulo ler
     return momento === REF.antes
       ? { ...base, fase: 'drenando', tique: 0, passos: passosNaEntrada(lista, casos) }
-      : { ...base, fase: 'correndo', tique: QUADRO_00, passos: passosNaEntrada(lista, casos) }
+      : { ...base, fase: 'correndo', tique: lido ?? EVENTO.recebidoAosSeg, passos: passosAte(lista, casos, (lido ?? 1) - 1), parado: true }
   }
   // no fluxo, a entrada é a 01 (G27). Com o ciclo deste par já gravado, os passos
-  // que valem ficam, e a correção pedida também; o ciclo concluído abre concluído
+  // que valem ficam; o ciclo concluído abre concluído
   const salvo = unico.etapas.ciclo
   if (salvo && salvo.ativoId === par.ativoId && salvo.moduloSerial === par.moduloSerial) {
-    const retomado = { ...base, passos: passosDoRegistro(salvo, lista), correcao: !!salvo.correcao }
+    const retomado = { ...base, passos: passosDoRegistro(salvo, lista), resposta: salvo.cartao?.resposta ? { cartao: salvo.cartao.resposta, em: 0 } : base.resposta }
     return salvo.concluido ? { ...retomado, fase: 'concluido', tique: quadro05(lista) } : { ...retomado, fase: 'drenando', tique: 0 }
   }
   return { ...base, fase: 'drenando', tique: 0, passos: passosNaEntrada(lista, casos) }
@@ -112,15 +113,16 @@ const semResposta = (f) => (f.casos.semResposta && f.tentativa === 1) || f.tenta
 const recebido = (f) => !semResposta(f) && (f.fase === 'concluido' || (f.fase === 'correndo' && f.tique > EVENTO.recebidoAosSeg))
 const conferido = (f) => !semResposta(f) && (f.fase === 'concluido' || (f.fase === 'correndo' && f.tique > EVENTO.conferidoAosSeg))
 // o quadro chegou ao fim do que acontece sozinho: o evento conferido e nenhum passo por fazer
-const assentado = (f) => conferido(f) && !f.passos.includes('pendente')
+// nem esperando a resposta do técnico (o cartão lido)
+const assentado = (f) => conferido(f) && !f.passos.includes('pendente') && !f.passos.includes('lido')
 
 // um tique do prazo: os passos que chegaram na hora acendem; o prazo acaba sem
-// o evento (02), ou os seis passos e o evento fecham o ciclo (05). O passo
-// reprovado (a rotação zerada, o cartão que não bate) segura o ciclo aberto
+// o evento (02), ou os passos e o evento fecham o ciclo (05). O passo reprovado (a
+// rotação zerada, o cartão que não confere) segura o ciclo aberto; o cartão lido espera o técnico
 function avancar(f) {
   if (f.fase !== 'correndo' || assentado(f)) return f
   const tique = f.tique + 1
-  const passos = f.passos.map((e, i) => (e === 'pendente' && tique >= tiqueDoPasso(i) ? veredito(f.lista[i], f.casos) : e))
+  const passos = f.passos.map((e, i) => (e === 'pendente' && tique >= tiqueDe(f.lista, i, f.resposta.em) ? veredito(f.lista[i], f.casos, f.resposta.cartao) : e))
   const g = { ...f, tique, passos }
   if (semResposta(g) && tique >= PRAZO) return { ...g, tique: PRAZO, fase: 'estourado' }
   if (assentado(g) && passos.every((e) => e === 'aprovada')) return { ...g, fase: 'concluido' }
@@ -132,19 +134,22 @@ function avancar(f) {
 // e-velocidade, que a E não tem), os feitos e o total do par, o evento ('antes'
 // · 'disparado' · 'recebido' · 'conferido' · 'nao-chegou'), a tentativa, o
 // cartão e a correção do caso de identificador, o motor desligado (o passo e o
-// lido do caso), e se o ciclo concluiu ou a captura foi fechada
+// lido do caso), e se o ciclo concluiu ou a captura foi fechada · o cartão (a rodada 1): o
+// que o módulo leu e a resposta do técnico — não confere vira não conforme, que pede a
+// justificativa no checklist
 function registro(f, fechado = false) {
   const evento = f.fase === 'estourado' ? 'nao-chegou' : conferido(f) ? 'conferido' : recebido(f) ? 'recebido'
     : f.fase === 'correndo' ? 'disparado' : 'antes'
-  const { cartao, motor } = f.casos
+  const { motor } = f.casos
+  const i = f.lista.findIndex((p) => p.chave === CHAVE.cartao)
+  const lido = i >= 0 && f.passos[i] !== 'pendente'
   return {
     ativoId: f.par.ativoId, moduloSerial: f.par.moduloSerial,
-    passos: Object.fromEntries(f.lista.map((p, i) => [p.id, f.passos[i]])),
+    passos: Object.fromEntries(f.lista.map((p, k) => [p.id, f.passos[k] === 'lido' ? 'pendente' : f.passos[k]])),
     feitos: f.passos.filter((e) => e === 'aprovada').length, total: f.lista.length,
     evento, tentativa: f.tentativa,
-    cartao: cartao ? { cartaoId: cartao.cartaoId, estado: 'reprovada', lido: cartao.lido, esperado: cartao.esperado } : null,
+    cartao: lido ? { lido: CARTAO_LIDO, resposta: f.resposta.cartao } : null,
     motor: motor ? { passo: motor.passo, lido: motor.lido } : null,
-    correcao: f.correcao && cartao ? { solicitadaAs: M.HORA_NOMINAL, lido: cartao.lido, esperado: cartao.esperado } : null,
     concluido: f.fase === 'concluido', fechado,
   }
 }
@@ -178,11 +183,17 @@ export default function T14({ momento, estado: est }) {
     if (!u.casosConsumidos.includes(CASO_SEM_RESPOSTA)) despachar({ tipo: 'mesclar', parcial: { casosConsumidos: [...u.casosConsumidos, CASO_SEM_RESPOSTA] } })
   }, [fluxo.fase, est, despachar])
 
-  // os seis passos e o evento: a URL passa a dizer 05
+  // a URL segue o quadro (G20): o módulo leu o cartão (08), a resposta (10, 11) e os passos e o evento (05)
+  const iCartao = fluxo.lista.findIndex((p) => p.chave === CHAVE.cartao)
+  const doQuadro = fluxo.fase === 'concluido' ? REF.concluido
+    : fluxo.fase !== 'correndo' || iCartao < 0 ? null
+      : fluxo.passos[iCartao] === 'lido' ? REF.leuCartao
+        : fluxo.resposta.cartao === 'reprovada' ? REF.naoConfere
+          : fluxo.resposta.cartao === 'aprovada' && fluxo.passos.includes('pendente') ? REF.vezDaIgnicao : null
   useEffect(() => {
-    if (est != null || fluxo.fase !== 'concluido') return
-    if (vivo.current.momento !== REF.concluido) despachar({ tipo: 'ir', tela: 'T14', momento: REF.concluido })
-  }, [fluxo.fase, est, despachar])
+    if (est != null || !doQuadro || vivo.current.momento === doQuadro) return
+    despachar({ tipo: 'ir', tela: 'T14', momento: doQuadro })
+  }, [doQuadro, est, despachar])
 
   // o ciclo fica gravado no estado único a cada fato novo (etapas.ciclo)
   const fato = JSON.stringify(registro(fluxo))
@@ -206,20 +217,19 @@ export default function T14({ momento, estado: est }) {
   const dispararOutro = () => setFluxo((f) => ({ ...f, fase: 'correndo', tique: 0, tentativa: f.tentativa + 1 }))
   const encerrarCiclo = () => sair('T13', true)   // fecha a captura: os pendentes ficam pendentes na Seção E (T14·2)
   const irAoChecklist = () => sair('T13', false)  // sai com o ciclo aberto (T14·2)
-  // o pedido sobe pela fila de saída, como as evidências (o pacote 12, T15/05); num estado da coluna, nada se grava
-  const solicitarCorrecao = () => {
-    setFluxo((f) => ({ ...f, correcao: true }))
-    const u = vivo.current.unico
-    const item = itemDeCorrecao(fluxo.par.ativoId, M.HORA_NOMINAL)
-    if (est == null && !(u.fila ?? []).some((x) => x.id === item.id)) despachar({ tipo: 'mesclar', parcial: { fila: [...(u.fila ?? []), item] } })
-    ir('T14', { momento: REF.corrigida })
-  }
+  // a resposta do técnico ao cartão lido (T14/08): o veredito do passo, e a ignição desligada 3 s depois
+  // (o quadro aberto pela URL, parado, volta a correr com o toque)
+  const responder = (cartao) => setFluxo((f) => {
+    const resposta = { cartao, em: f.tique }
+    const passos = f.passos.map((e, i) => (e === 'lido' ? veredito(f.lista[i], f.casos, cartao) : e))
+    return { ...f, resposta, passos, parado: false }
+  })
   // o ENCERRAR (decisão 36, src/estado/encerrar.jsx): antes de homologar, o diálogo
   // Encerrar sem homologar? por cima desta tela; depois de homologar, direto, pra T16
   const enc = useEncerrar()
 
   // ── o quadro ──
-  const { par, casos, fase, tique, passos, correcao, tentativa } = fluxo
+  const { par, casos, fase, tique, passos, tentativa, resposta } = fluxo
   // O desenho de cada fase (C12·4, G26 · T14 01 → 00): o antes do disparo (a fila saindo do
   // módulo, com a frase dela no prazo e a espera no rodapé), o prazo (a fila drenada, o disparo
   // e o prazo correndo), o prazo estourado (a frase da Seção F e o disparar outro) e o ciclo
@@ -236,9 +246,8 @@ export default function T14({ momento, estado: est }) {
   const total = fluxo.lista.length
   // o passo da vez (o pacote 6): o quadrado de agora e a ação do técnico
   const vez = passoDaVez(passos, casos, fase === 'correndo')
-  // o cartão que não bate já reprovou: o link do rodapé vira o pedido de correção (04, 06)
-  const cartaoReprovado = !!casos.cartao && fluxo.lista.some((p, i) => p.chave === CHAVE.cartao && passos[i] === 'reprovada')
-  const aprovados = passos.filter((e) => e === 'aprovada').length
+  // os passos feitos: os aprovados, e o cartão respondido — o que não confere também está feito (a 10, *3 de 4*)
+  const aprovados = passos.filter((e, i) => e === 'aprovada' || (e === 'reprovada' && fluxo.lista[i].chave === CHAVE.cartao)).length
   // o que resta do prazo; depois que o evento chega, a barra fica no que restava
   const restante = chegou ? PRAZO - EVENTO.recebidoAosSeg : disparado ? Math.max(0, PRAZO - tique) : PRAZO
 
@@ -269,22 +278,50 @@ export default function T14({ momento, estado: est }) {
   )
 
   // os passos do par: o reprovado leva a causa embaixo, com o recheio justo (4,
-  // a 03 e a 04). No prazo estourado, a última linha leva a folga do pé do cartão (40, folha 4)
+  // a 03). No prazo estourado, a última linha leva a folga do pé do cartão (40, folha 4).
+  // O cartão (a rodada 1): lido, o que o módulo leu à direita e as duas respostas embaixo (08);
+  // não confere, o xis, *não confere* e *justifique no checklist* (10) · a ignição desligada da
+  // vez, depois do cartão, explica a espera embaixo (10, 11)
   const lista = (
     <Lista recheio="passos">
       {fluxo.lista.map((p, i) => {
         const e = passos[i]
         const ultima = i === fluxo.lista.length - 1
         const causa = e === 'reprovada' ? causaDo(p, casos) : undefined
+        // o que vai embaixo da linha (as respostas, a espera explicada) é irmão dela, com a divisória
+        // por baixo: a linha do passo é sempre a mesma peça, e o check que chega esmaece no poço (C12·12)
+        const comExtra = (props, extra) => (
+          <Fragment key={p.id}>
+            <LinhaChecagem variante="passo" titulo={p.titulo} estado="agora" divisoria={false} {...props} />
+            <div className={ultima ? undefined : 't14-passo-extra-divisoria'}>{extra}</div>
+          </Fragment>
+        )
+        if (i === vez && e === 'lido') {
+          return comExtra({ valor: T.leu(CARTAO_LIDO) }, (
+            <RespostasDaLinha className="t14-respostas">
+              <BotaoDaLinha letra="secundario" aoTocar={() => responder('aprovada')}>{T.confereComOCartao}</BotaoDaLinha>
+              <BotaoDaLinha letra="secundario" aoTocar={() => responder('reprovada')}>{T.naoConfere}</BotaoDaLinha>
+            </RespostasDaLinha>
+          ))
+        }
         if (i === vez) {
-          return <LinhaChecagem key={p.id} variante="passo" titulo={p.titulo} estado="agora" valor={T.acao[p.chave]} divisoria={!ultima} />
+          // a ignição desligada depois do cartão respondido: a espera explicada embaixo
+          const explica = p.chave === CHAVE.ignicaoDesligada && resposta.cartao != null
+          if (!explica) return <Fragment key={p.id}><LinhaChecagem variante="passo" titulo={p.titulo} estado="agora" valor={T.acao[p.chave]} divisoria={!ultima} /></Fragment>
+          return comExtra({ valor: T.acao[p.chave] }, <span className="t14-explica">{T.esperaDaIgnicao}</span>)
+        }
+        if (p.chave === CHAVE.cartao && e === 'reprovada') {
+          return (
+            <Fragment key={p.id}><LinhaChecagem variante="passo" titulo={p.titulo} estado="reprovada" valor={T.naoConfereValor}
+              causa={T.justifique} recheioCausa="justo" className="t14-cartao-nao-confere" divisoria={!ultima} /></Fragment>
+          )
         }
         return (
-          <LinhaChecagem key={p.id} variante="passo" titulo={p.titulo}
+          <Fragment key={p.id}><LinhaChecagem variante="passo" titulo={p.titulo}
             estado={e === 'pendente' ? 'ainda-nao' : e}
             glifo={e === 'pendente' ? 'relogio' : undefined} nomeGlifo={e === 'pendente' ? ESTADOS.espera.nome : undefined}
             causa={causa} recheioCausa={causa ? 'justo' : undefined}
-            divisoria={!ultima} folgaFim={ultima && estourado} />
+            divisoria={!ultima} folgaFim={ultima && estourado} /></Fragment>
         )
       })}
     </Lista>
@@ -292,10 +329,8 @@ export default function T14({ momento, estado: est }) {
 
   // O voltar do Android (logica.md): no computador, o Esc — o mesmo que o link de
   // saída do rodapé: 'Ir para o checklist' (sai com o ciclo aberto, T14·2) e, no
-  // ciclo concluído, 'Voltar ao menu'. Com o caso de identificador, o link do
-  // rodapé é o pedido de correção, que não sai: o voltar não faz nada (como o menu
-  // da T04). Num estado da coluna, o celular não toca, e a peça não escuta.
-  useVoltar(fase === 'concluido' ? () => ir('T04') : cartaoReprovado && fase === 'correndo' ? null : irAoChecklist)
+  // ciclo concluído, 'Voltar ao menu'. Num estado da coluna, o celular não toca, e a peça não escuta.
+  useVoltar(fase === 'concluido' ? () => ir('T04') : irAoChecklist)
 
   let rodape
   if (fase === 'drenando') {
@@ -313,11 +348,6 @@ export default function T14({ momento, estado: est }) {
   } else if (fase === 'concluido') {
     // o complemento do pacote 6: Ir para o checklist, que vale pras duas portas de entrada (a calibração e o checklist)
     rodape = <Rodape primario={T.irAoChecklist} aoPrimario={() => ir('T13')} link={T.voltarAoMenu} aoLink={() => ir('T04')} />
-  } else if (cartaoReprovado) {
-    rodape = (
-      <Rodape primario={T.encerrarCiclo} aoPrimario={encerrarCiclo} primarioTrocaTexto primarioAcende
-        link={correcao ? T.solicitada(M.HORA_NOMINAL) : T.solicitar} aoLink={solicitarCorrecao} linkRegistrado={correcao} />
-    )
   } else {
     rodape = <Rodape primario={T.encerrarCiclo} aoPrimario={encerrarCiclo} primarioTrocaTexto primarioAcende link={T.irAoChecklist} aoLink={irAoChecklist} />
   }

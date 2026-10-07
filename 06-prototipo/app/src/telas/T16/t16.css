@@ -20,3 +20,14 @@
 
 /* a nota solta embaixo do cartão das assertivas (T16/02): a frase de 12, apagada */
 .t16-nota { font-size: var(--t-legenda); font-weight: 500; line-height: var(--entrelinha-legenda); color: var(--tinta-apagada); }
+
+/* os três contadores (a rodada 1, T16/02, 05 e 07): 13/600 em --tinta-apagada, o número em 700 e --tinta */
+.t16-contadores { margin: 0; font-size: var(--t-secundario); font-weight: 600; color: var(--tinta-apagada); }
+.t16-contadores strong { font-weight: 700; color: var(--tinta); }
+
+/* as assertivas (a rodada 1, T16/07 e 02): a que ainda não chegou fica apagada — o título em
+ * --tinta-apagada, o relógio e o traço em --marca —, e o *não se aplica* em --tinta-apagada */
+.t16 .ds-checagem.t16-assertiva-espera .ds-checagem-titulo { color: var(--tinta-apagada); }
+.t16 .ds-checagem.t16-assertiva-espera .ds-checagem-valor,
+.t16 .ds-checagem.t16-assertiva-espera .ds-glifo-cor-secundaria { color: var(--marca); }
+.t16 .ds-checagem.t16-assertiva-nsa .ds-checagem-valor { color: var(--tinta-apagada); }

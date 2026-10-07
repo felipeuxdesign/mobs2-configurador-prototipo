@@ -15,10 +15,8 @@
 | `08-momento-nao-conforme-com-justificativa` | momento | marcar não conforme | `checklist.itens · B` |
 | `09-estado-item-reprovado` | estado | tocar na linha vermelha da Seção C (a 16): a leitura, a faixa e o que conferir  | `can-estatico-bateria` |
 | `10-estado-finalizar-com-a-secao-f-falhando` | estado | `Finalizar` com a Seção F falhando | `secaoF` |
-| `11-momento-homologado` | momento | tudo passa | `checklist` |
 | `12-momento-b-com-ressalva` | momento | salvar um item como não conforme, com a justificativa | derivado do fluxo |
 | `13-momento-e-resolvida` | momento | voltar do ciclo de testes com os seis passos feitos | derivado do fluxo |
-| `14-estado-homologado-sem-localizacao` | estado | finalizar com a localização negada | `localizacao-negada` |
 | `15-momento-problema-fotografado` | momento | fotografar o problema depois de marcar Não está conforme | derivado do fluxo |
 | `16-estado-secao-c-com-item-reprovado` | estado | um item automático reprova: o xis, a leitura e a seta pro detalhe (a 09) | `can-estatico-bateria` |
 | `17-momento-foto-da-antena` | momento | o 2º item da Montagem · a frase da câmera vem do mock | o caminho feliz |
@@ -31,8 +29,6 @@
 | `24-estado-entradas-reprovadas` | estado | tocar na linha vermelha das entradas: qual não bate e o que conferir · *padrão até o PM decidir* | `entrada-ignicao` |
 | `25-estado-secao-c-com-modem-reprovado` | estado | o modem sem sinal reprova: a linha vermelha e a seta · *padrão até o PM decidir* | `modem-sem-sinal` |
 | `26-estado-modem-reprovado` | estado | tocar na linha vermelha do modem: sem sinal e o que conferir · *padrão até o PM decidir* | `modem-sem-sinal` |
-| `27-estado-secao-e-com-correcao-solicitada` | estado | o cartão não passou e a correção foi pedida: o cartão vermelho com as duas linhas · *padrão até o PM decidir* | `identificador-divergente` |
-| `28-estado-finalizar-com-a-secao-e-falhando` | estado | finalizar com o cartão reprovado e a correção pedida: registra com a falha e o nome · *padrão até o PM decidir* | `identificador-divergente` |
 | `29-momento-relendo-o-modulo` | momento | tocar em Reler o módulo, no detalhe de um item reprovado: o botão diz Relendo o módulo, ali mesmo | `can-estatico-bateria` |
 | `30-momento-alimentacao-relida` | momento | releu e deu certo: 13,8 V dentro da faixa, relido às 14:42, e Voltar ao checklist | `can-estatico-bateria` |
 | `31-momento-gps-relido` | momento | releu e deu certo: 9 satélites dentro da faixa | `gps-fraco` |
@@ -42,8 +38,15 @@
 | `35-momento-gps-nao-resolvido` | momento | releu e não resolveu: 5 satélites, ainda 1 abaixo do mínimo | `gps-fraco` |
 | `36-momento-entradas-nao-resolvidas` | momento | releu e não resolveu: ignição ainda desligada | `entrada-ignicao` |
 | `37-momento-modem-nao-resolvido` | momento | releu e não resolveu: ainda sem sinal | `modem-sem-sinal` |
+| `11-momento-aguardando-autoteste` | momento | tocar em Finalizar: Checklist registrado, aguardando autoteste | `heroi` |
+| `14-estado-aguardando-autoteste-sem-localizacao` | estado | finalizar sem a localização do celular: aguardando autoteste | `sem-localizacao` |
+| `38-momento-secao-d-sendo-lida` | momento | abrir o checklist: a Seção D começa vazia e enche conforme lê | `heroi` |
+| `39-momento-bip-tocando` | momento | tocar em Testar bip: o app aciona o buzzer por cerca de 1 segundo · o botão diz Tocando | `heroi` |
+| `40-momento-bip-esperando-resposta` | momento | o bip tocou: Você ouviu o bip? Ouvi ou Não ouvi · o Testar bip continua, pra tocar de novo | `heroi` |
+| `41-momento-bip-ouvido` | momento | tocar em Ouvi: o bip confere | `heroi` |
+| `42-momento-bip-nao-ouvido` | momento | tocar em Não ouvi: não conforme, com o campo de justificativa | `heroi` |
 
-- no protótipo · a nossa versão da linha *11-momento-homologado*, antes desta entrega: | `11-momento-homologado` | momento | tocar em `Finalizar instalação`, com o que bloqueia resolvido (T13·3) | `checklist` |
+- no protótipo · antes desta entrega, o 11 era o checklist homologado (tocar em `Finalizar instalação`, com o que bloqueia resolvido, T13·3, do `checklist`) · a rodada 1 do retorno do PM o trocou pelo registrado, aguardando autoteste, e o 14 mudou de nome com ele
 
 - no protótipo · a nossa versão da linha *10-estado-finalizar-com-a-secao-f-falhando*, antes desta entrega: | `10-estado-finalizar-com-a-secao-f-falhando` | estado | `Finalizar` com a Seção F falhando — o servidor não respondeu | `pronto-para-fechar` (C10, T13-A2) |
 

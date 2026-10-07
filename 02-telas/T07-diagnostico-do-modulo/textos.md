@@ -4,7 +4,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `00-tela`
 
-`M2C-0417` · `sem ativo` · `ENCERRAR` · `Diagnóstico do módulo` · `7` · `de 7` · `O MÓDULO` · `Serial no cadastro` · `VL06 CAN-BT` · `Firmware` · `2.3.5` · `Alimentação` · `13,8 V` · `GPS` · `fixo · 9 satélites` · `Entradas digitais` · `ignição ligada` · `Modem` · `na rede` · `SIM` · `ativo` · `A CAN` · `AGUARDANDO A CONFIGURAÇÃO DO ATIVO` · `A CAN aparece depois que o bloco do ativo for gravado.` · `Selecionar ativo` · `Voltar ao menu`
+`M2C-0417` · `sem ativo` · `ENCERRAR` · `Diagnóstico do módulo` · `7` · `de 7` · `O MÓDULO` · `Serial no cadastro` · `VL06 CAN-BT` · `Firmware` · `2.3.5` · `Alimentação` · `24,3 V` · `GPS` · `fixo · 9 satélites` · `Entradas digitais` · `ignição ligada` · `Modem` · `na rede` · `SIM` · `ativo` · `A CAN` · `AGUARDANDO A CONFIGURAÇÃO DO ATIVO` · `A CAN aparece depois que o bloco do ativo for gravado.` · `Selecionar ativo` · `Voltar ao menu`
 
 ## `01-momento-can-lida`
 
@@ -12,19 +12,19 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `02-estado-serial-nao-cadastrado`
 
-`M2C-0999` · `Diagnóstico do módulo` · `4` · `de 7` · `SERIAL FORA DO CADASTRO` · `Peça ao gestor pra cadastrar o M2C-0999.` · `O MÓDULO` · `Serial no cadastro` · `não está no cadastro` · `M2C-0999` · `Firmware` · `sem cadastro` · `Alimentação` · `13,8 V` · `GPS` · `fixo · 9 satélites` · `Entradas digitais` · `sem cadastro` · `Modem` · `na rede` · `SIM` · `ativo` · `A CAN` · `AGUARDANDO A CONFIGURAÇÃO DO ATIVO` · `A CAN aparece depois que o bloco do ativo for gravado.` · `Procurar outro módulo`
+`M2C-0999` · `Diagnóstico do módulo` · `4` · `de 7` · `SERIAL FORA DO CADASTRO` · `Peça ao gestor pra cadastrar o M2C-0999.` · `O MÓDULO` · `Serial no cadastro` · `não está no cadastro` · `M2C-0999` · `Firmware` · `sem cadastro` · `Alimentação` · `24,3 V` · `GPS` · `fixo · 9 satélites` · `Entradas digitais` · `sem cadastro` · `Modem` · `na rede` · `SIM` · `ativo` · `A CAN` · `AGUARDANDO A CONFIGURAÇÃO DO ATIVO` · `A CAN aparece depois que o bloco do ativo for gravado.` · `Procurar outro módulo`
 
 ## `03-estado-modelo-sem-suporte`
 
-`M2C-0497 · OHL-6V07` · `Diagnóstico do módulo` · `4` · `de 7` · `MODELO SEM SUPORTE` · `O app ainda não configura o VC07 STD.` · `O MÓDULO` · `Serial no cadastro` · `modelo sem suporte nesta versão` · `VC07 STD` · `Firmware` · `sem cadastro` · `Alimentação` · `13,8 V` · `GPS` · `fixo · 9 satélites` · `Entradas digitais` · `sem cadastro` · `Modem` · `na rede` · `SIM` · `ativo` · `A CAN` · `AGUARDANDO A CONFIGURAÇÃO DO ATIVO` · `A CAN aparece depois que o bloco do ativo for gravado.` · `Procurar outro módulo`
+`M2C-0497 · OHL-6V07` · `Diagnóstico do módulo` · `4` · `de 7` · `MODELO SEM SUPORTE` · `O app ainda não configura o VC07 STD.` · `O MÓDULO` · `Serial no cadastro` · `modelo sem suporte nesta versão` · `VC07 STD` · `Firmware` · `sem cadastro` · `Alimentação` · `24,3 V` · `GPS` · `fixo · 9 satélites` · `Entradas digitais` · `sem cadastro` · `Modem` · `na rede` · `SIM` · `ativo` · `A CAN` · `AGUARDANDO A CONFIGURAÇÃO DO ATIVO` · `A CAN aparece depois que o bloco do ativo for gravado.` · `Procurar outro módulo`
 
 ## `04-estado-firmware-nao-homologado`
 
-`M2C-0451 · QTM-5S79` · `Diagnóstico do módulo` · `6` · `de 7` · `O MÓDULO` · `Serial no cadastro` · `VL06 FULL` · `Firmware` · `homologadas 2.2.0 e 2.3.5` · `2.4.1` · `Alimentação` · `13,8 V` · `GPS` · `fixo · 9 satélites` · `Entradas digitais` · `ignição ligada` · `Modem` · `na rede` · `SIM` · `ativo` · `A CAN` · `AGUARDANDO A CONFIGURAÇÃO DO ATIVO` · `A CAN aparece depois que o bloco do ativo for gravado.` · `Atualizar firmware` · `Procurar outro módulo`
+`M2C-0451 · QTM-5S79` · `Diagnóstico do módulo` · `6` · `de 7` · `O MÓDULO` · `Serial no cadastro` · `VL06 FULL` · `Firmware` · `homologadas 2.2.0 e 2.3.5` · `2.4.1` · `Alimentação` · `24,3 V` · `GPS` · `fixo · 9 satélites` · `Entradas digitais` · `ignição ligada` · `Modem` · `na rede` · `SIM` · `ativo` · `A CAN` · `AGUARDANDO A CONFIGURAÇÃO DO ATIVO` · `A CAN aparece depois que o bloco do ativo for gravado.` · `Atualizar firmware` · `Procurar outro módulo`
 
 ## `05-estado-firmware-sem-rede-no-modulo`
 
-`M2C-0451 · QTM-5S79` · `Diagnóstico do módulo` · `5` · `de 7` · `O MÓDULO` · `Serial no cadastro` · `VL06 FULL` · `Firmware` · `homologadas 2.2.0 e 2.3.5` · `2.4.1` · `Alimentação` · `13,8 V` · `GPS` · `fixo · 9 satélites` · `Entradas digitais` · `ignição ligada` · `Modem` · `sem ela, o firmware não atualiza` · `sem rede` · `SIM` · `ativo` · `A CAN` · `AGUARDANDO A CONFIGURAÇÃO DO ATIVO` · `A CAN aparece depois que o bloco do ativo for gravado.` · `Com a conexão gravada, o firmware atualiza pelo módulo.` · `Gravar a conexão` · `Procurar outro módulo`
+`M2C-0451 · QTM-5S79` · `Diagnóstico do módulo` · `5` · `de 7` · `O MÓDULO` · `Serial no cadastro` · `VL06 FULL` · `Firmware` · `homologadas 2.2.0 e 2.3.5` · `2.4.1` · `Alimentação` · `24,3 V` · `GPS` · `fixo · 9 satélites` · `Entradas digitais` · `ignição ligada` · `Modem` · `sem ela, o firmware não atualiza` · `sem rede` · `SIM` · `ativo` · `A CAN` · `AGUARDANDO A CONFIGURAÇÃO DO ATIVO` · `A CAN aparece depois que o bloco do ativo for gravado.` · `Com a conexão gravada, o firmware atualiza pelo módulo.` · `Gravar a conexão` · `Procurar outro módulo`
 
 ## `06-momento-atualizando-o-firmware`
 
@@ -32,7 +32,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `07-estado-modem-sem-sinal`
 
-`M2C-0417` · `sem ativo` · `ENCERRAR` · `Diagnóstico do módulo` · `6` · `de 7` · `O MÓDULO` · `Serial no cadastro` · `VL06 CAN-BT` · `Firmware` · `2.3.5` · `Alimentação` · `13,8 V` · `GPS` · `fixo · 9 satélites` · `Entradas digitais` · `ignição ligada` · `Modem` · `dá pra seguir · o checklist registra` · `sem sinal` · `SIM` · `ativo` · `A CAN` · `AGUARDANDO A CONFIGURAÇÃO DO ATIVO` · `A CAN aparece depois que o bloco do ativo for gravado.` · `Selecionar ativo` · `Voltar ao menu`
+`M2C-0417` · `sem ativo` · `ENCERRAR` · `Diagnóstico do módulo` · `6` · `de 7` · `O MÓDULO` · `Serial no cadastro` · `VL06 CAN-BT` · `Firmware` · `2.3.5` · `Alimentação` · `24,3 V` · `GPS` · `fixo · 9 satélites` · `Entradas digitais` · `ignição ligada` · `Modem` · `dá pra seguir · o checklist registra` · `sem sinal` · `SIM` · `ativo` · `A CAN` · `AGUARDANDO A CONFIGURAÇÃO DO ATIVO` · `A CAN aparece depois que o bloco do ativo for gravado.` · `Selecionar ativo` · `Voltar ao menu`
 
 ## `08-estado-sinal-da-can-sem-leitura`
 
@@ -48,8 +48,8 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `11-momento-lendo`
 
-`Diagnóstico do módulo` · `4` · `de 7` · `O MÓDULO` · `Serial no cadastro` · `VL06 CAN-BT` · `Firmware` · `2.3.5` · `Alimentação` · `13,8 V` · `GPS` · `fixo · 9 satélites` · `Entradas digitais` · `lendo` · `Modem` · `—` · `SIM` · `—` · `A CAN` · `AGUARDANDO A CONFIGURAÇÃO DO ATIVO` · `A CAN aparece depois que o bloco do ativo for gravado.` · `Lendo · não saia da tela`
+`Diagnóstico do módulo` · `4` · `de 7` · `O MÓDULO` · `Serial no cadastro` · `VL06 CAN-BT` · `Firmware` · `2.3.5` · `Alimentação` · `24,3 V` · `GPS` · `fixo · 9 satélites` · `Entradas digitais` · `lendo` · `Modem` · `—` · `SIM` · `—` · `A CAN` · `AGUARDANDO A CONFIGURAÇÃO DO ATIVO` · `A CAN aparece depois que o bloco do ativo for gravado.` · `Lendo · não saia da tela`
 
 ## `12-estado-alimentacao-abaixo-da-faixa`
 
-`M2C-0301` · `sem ativo` · `ENCERRAR` · `Diagnóstico do módulo` · `6` · `de 7` · `O MÓDULO` · `Serial no cadastro` · `VL06 FULL` · `Firmware` · `2.3.5` · `Alimentação` · `dá pra seguir · o checklist registra` · `10,9 V` · `GPS` · `fixo · 9 satélites` · `Entradas digitais` · `ignição ligada` · `Modem` · `na rede` · `SIM` · `ativo` · `A CAN` · `AGUARDANDO A CONFIGURAÇÃO DO ATIVO` · `A CAN aparece depois que o bloco do ativo for gravado.` · `Selecionar ativo` · `Voltar ao menu`
+`M2C-0301` · `sem ativo` · `ENCERRAR` · `Diagnóstico do módulo` · `6` · `de 7` · `O MÓDULO` · `Serial no cadastro` · `VL06 FULL` · `Firmware` · `2.3.5` · `Alimentação` · `dá pra seguir · o checklist registra` · `8,4 V` · `GPS` · `fixo · 9 satélites` · `Entradas digitais` · `ignição ligada` · `Modem` · `na rede` · `SIM` · `ativo` · `A CAN` · `AGUARDANDO A CONFIGURAÇÃO DO ATIVO` · `A CAN aparece depois que o bloco do ativo for gravado.` · `Selecionar ativo` · `Voltar ao menu`

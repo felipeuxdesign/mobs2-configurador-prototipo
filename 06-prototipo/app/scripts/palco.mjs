@@ -88,7 +88,7 @@ const NOTAS = {
   'coluna-no-fluxo': 'a folha desenha 3 linhas da coluna da T04, e a coluna tem 4 — as do campo coluna do indice.json, como o quadro 01 (o pacote 3, D2: o Sem conexão é a quarta); e ' + MARCADOR,
   'coluna-num-estado': 'a folha desenha 3 linhas da coluna da T04, e a coluna tem 4 — as do campo coluna do indice.json, como o quadro 01 (o pacote 3, D2: o Sem conexão é a quarta); e ' + MARCADOR + '; e o Undo2 do Lucide no Voltar ao fluxo (G5)',
   // o pacote 23 · a cena 05: a T13 com o recuo, as 20 linhas de 30 da coluna longa
-  '05-coluna-com-familias/coluna': MARCADOR,
+  '05-coluna-com-familias/coluna': 'a coluna da T13 tem 18 linhas desde a rodada 1 do retorno do PM, e cabe com as de 32 do palco.md; a cena 05 desenha as 20 de antes, com 30 · a coluna de antes, na nota dos textos; e ' + MARCADOR,
   'coluna-T07': 'a lista dos grupos: o nome do grupo na tinta e na letra do rótulo de 10, e não em --marca-limite e 1,4 (lei 11, PALCO-A15, PALCO-V4); e ' + MARCADOR,
 }
 const notaDe = (nome, nomePeca) => NOTAS[`${nome}/${nomePeca}`] ?? NOTAS[nomePeca]
@@ -99,7 +99,11 @@ const DEPOIS_DE = 'a coluna põe o Atualizando o firmware logo depois do Firmwar
 const ALIMENTACAO = 'a coluna da T07 tem a Alimentação abaixo da faixa, o estado novo do pacote 10, no grupo O MÓDULO; nenhuma cena do palco a desenha ainda'
 // o pacote 12 pôs a T04/16, a fila parada, na coluna da T04, e o quadro 01 ainda não a desenha
 const FILA_PARADA = 'a coluna da T04 tem a Fila parada, o estado novo do pacote 12; o quadro 01 desenha a coluna sem ela'
+// a rodada 1 do retorno do PM (07/10) tirou da coluna da T13 a correção do cartão (a 27 e a 28), e o
+// homologado sem localização virou o aguardando autoteste: a cena 05 ainda desenha a coluna de antes
+const RODADA_1 = 'a rodada 1 do retorno do PM tirou a Seção E · correção pedida e o Finalizar com a Seção E falhando, e o Homologado sem localização virou o Registrado sem localização; a cena 05 ainda desenha a coluna de antes'
 const NOTAS_TEXTO = {
+  '05-coluna-com-familias/coluna': RODADA_1,
   '01-no-fluxo/coluna': FILA_PARADA,
   '02-num-estado/coluna': ALIMENTACAO,
   '03-tela-com-muitos-estados/coluna': DEPOIS_DE + '; e ' + ALIMENTACAO,

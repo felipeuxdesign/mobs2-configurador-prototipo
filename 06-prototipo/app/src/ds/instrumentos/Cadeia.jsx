@@ -50,6 +50,9 @@ export function Cadeia({ elos, justa = false, altura, curta = false, semFecho = 
                 <span className={`ds-cadeia-valor ${e.valorAceso ? 'ds-cadeia-valor-aceso' : ''}`}>{e.valor}</span>
               </div>
               {e.descricao != null && <span className="ds-cadeia-descricao">{emLinhas(e.descricao)}</span>}
+              {/* a rodada 1 do retorno do PM (T09/04, 11, 12): o que o elo confere depois de gravado — a linha
+                  embaixo da descrição, com o traço de cima (*O módulo falou com o servidor*, na Conexão) */}
+              {e.extra && <div className="ds-cadeia-extra"><span className="ds-cadeia-extra-nome">{e.extra.nome}</span><span className={`ds-cadeia-extra-valor ${e.extra.tom === 'falha' ? 'ds-cadeia-extra-falha' : ''}`}>{e.extra.valor}</span></div>}
             </div>
           </div>
         )

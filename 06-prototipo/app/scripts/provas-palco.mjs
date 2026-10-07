@@ -438,7 +438,7 @@ async function telasDoAcabamento() {
   const endereco = (t, ref) => { const q = new URLSearchParams({ print: '1', tela: t }); const m = ref.match(/^\d\d-(estado|momento)-/); if (m) q.set(m[1], ref); return `${BASE}?${q}` }
   const refHtml = (t, ref) => 'file://' + resolve(raiz, '02-telas', pasta[t], 'referencias/html', ref + '.html')
   const t16 = []
-  for (const ref of ['00-tela', '01-momento-pede-o-corte-de-alimentacao', '02-momento-sessao-encerrada', '03-momento-encerrando-sem-homologar', '04-momento-encerrada-sem-homologar', '05-estado-assertiva-falhando', '06-estado-sessao-interrompida']) {
+  for (const ref of ['00-tela', '01-momento-reiniciando-o-modulo', '02-momento-instalacao-homologada', '03-momento-encerrando-sem-homologar', '04-momento-encerrada-sem-homologar', '05-estado-homologacao-bloqueada', '06-estado-sessao-interrompida']) {
     await abre(endereco('T16', ref), { pronto: `!!${ACHA_MIOLO_APP}` }); const a = await avalia(MEDE_VAOS(ACHA_MIOLO_APP))
     await abre(refHtml('T16', ref)); const h = await avalia(MEDE_VAOS(ACHA_MIOLO_REF))
     t16.push({ ref: `T16/${ref}`, app: a, referencia: h, passa: !a.erro && a.vaos.length > 0 && a.vaos.every((v) => perto(v, NORMA.t16Vao)) })

@@ -9,7 +9,8 @@ import { useFocoDoCampo } from './foco.js'
 import './TracoFoco.css'
 import './CampoTexto.css'
 
-export function CampoTexto({ rotulo, valor = '', aoMudar, focado = false, id }) {
+// `placeholder` (a rodada 1 do retorno do PM, T13/42): o que o campo vazio pede, em --marca-limite
+export function CampoTexto({ rotulo, valor = '', aoMudar, focado = false, id, placeholder }) {
   const gerado = useId()
   const idCampo = id ?? gerado
   const foco = useFocoDoCampo(focado)
@@ -22,6 +23,7 @@ export function CampoTexto({ rotulo, valor = '', aoMudar, focado = false, id }) 
           className="ds-campo-texto-entrada"
           rows={1}
           value={valor}
+          placeholder={placeholder}
           onChange={aoMudar ? (e) => aoMudar(e.target.value) : undefined}
           readOnly={!aoMudar}
           onFocus={foco.aoFocar}

@@ -40,7 +40,7 @@ login → a Viação Atlântico Sul → a unidade Várzea → sincroniza o pacot
 → o ônibus RKT-8H42 → confirma o vínculo: placa, frota, fabricante e modelo
 → o que vai ser gravado: a limpeza primeiro, e o espaço cabe → a cadeia grava e relê os blocos
 → a CAN do ônibus aparece no diagnóstico → calibra o hodômetro, e o horímetro se quiser
-→ o ciclo de testes, parado: os seis passos sozinhos, o evento chega → o checklist fecha → ENCERRAR → a faixa sobe → menu sem sessão
+→ o ciclo de testes, parado: os quatro passos (a rodada 1 do retorno do PM), o técnico confere o cartão lido, o evento chega → o checklist registra, aguardando autoteste → ENCERRAR → o reinício automático e o autoteste → a instalação homologada (T16/02) → a faixa sobe → menu sem sessão
 ```
 
 O roteiro `app/scripts/caminhos/heroi.mjs` prova o caminho só por toque, do login ao menu sem sessão, sem pulo do palco (`node scripts/caminho.mjs heroi`, 209 passos até o pacote 1). Com a empresa antes da unidade (a otimização 400), a unidade Várzea vem depois da empresa: o Entrar abre as três empresas do herói (T02/05), e o roteiro escolhe a Viação (07), `Ver as unidades` e a Várzea (09). Na primeira chegada ao menu, o roteiro vê o aviso do acesso nascer parado, com o menu atrás sem toque, e toca `Entendi`; na volta ao menu sem sessão, no fim, o aviso não aparece de novo. Na calibração, o roteiro digita o número do painel do mock, fotografa e semeia — o botão dizendo o que falta, e o *Gravando no módulo…* e o *Relendo…* no ritmo —, no hodômetro e no horímetro, com o `Voltar ao menu` e o `ENCERRAR` desabilitados enquanto o semear corre; a calibração completa aponta o ciclo, e o `Fazer o ciclo dinâmico` abre a T14 (decisão 35: calibra, ciclo, checklist, em linha); o `Voltar ao checklist` do ciclo concluído leva ao checklist, em 24 de 31 e com a E resolvida (a E aberta, o 13, e fechada de novo), e o checklist fecha com as quatro fotos de B — a B cresce no lugar, e o Painel vem herdado da calibração — e o `Finalizar instalação`, com o veredito e o relatório no topo. Esse é o roteiro do pacote 1: com o pacote 2, a calibração semeia sem fotografar, com o horímetro e sem ele (`Pular o horímetro`), o `Fazer o ciclo de testes` abre o ciclo de seis passos, e o Painel se fotografa na B, com as outras quatro — o roteiro se refaz no ciclo que constrói o pacote, e o aceite pede os dois caminhos.
@@ -67,7 +67,7 @@ Pular direto pra uma tela pelo painel monta o estado mínimo que ela precisa pra
 | T10 · Calibração | sessão M2C-0417 + RKT-8H42 · hodômetro 184.320 no módulo, 482.317 no painel |
 | T11 · Conferir configuração | M2C-0438 + ONK-8Q90 · caso diff-divergente · a Garagem Ibura, a unidade do ONK-8Q90, com o pacote dela (G21) |
 | T12 · Últimas instalações | sessão M2C-0417 + RKT-8H42 · unidade Várzea · cinco instalações (a 00 desenha a sessão aberta, G21) |
-| T13 · Checklist | sessão M2C-0417 + RKT-8H42 · 31 itens |
+| T13 · Checklist | sessão M2C-0417 + RKT-8H42 · 29 itens (a rodada 1 do retorno do PM) |
 | T14 · Ciclo de testes | sessão M2C-0417 + RKT-8H42 · fila com 6 mensagens e 2 de diagnóstico |
 | T15 · Fila de saída | fila com dois itens · um com erro |
 | T16 · Sessão | sessão M2C-0417 + RKT-8H42 homologada |
@@ -89,7 +89,7 @@ O roteiro `app/scripts/caminhos/portas.mjs` prova as portas e a R-14 nas três l
 
 ## ENCERRAR
 
-- **depois de homologar:** os passos do encerramento, o corte de alimentação que o técnico faz quando o driver não reinicia por comando, e o autoteste (T16·1). O passo que corre diz o que faz, na legenda embaixo do nome (as 8 do `tela.md` da T16); o passo 2 só leva a dele no corte, porque ela manda desligar a alimentação (T16·7). O herói é um VL06, que reinicia por comando; o corte aparece na sessão do KNB-5H39 · M2C-0371, que se abre pelo endereço do momento. Ao fechar o sétimo passo, a sessão sai do estado único e a tela passa pra *Sessão encerrada*, onde as oito assertivas acendem uma a uma; a prova e o `Voltar ao menu` entram com a última (T16·4)
+- **depois de homologar** (a rodada 1 do retorno do PM: depois do checklist registrado, aguardando o autoteste): os passos do encerramento, com o reinício automático do módulo (*reiniciando*, e *Reconectando…* se a conexão cair, nunca falha), e o autoteste, que homologa (T16·1). O passo que corre diz o que faz, na legenda embaixo do nome (as 8 do `tela.md` da T16)
 - **antes de homologar:** o ENCERRAR abre o diálogo *Encerrar sem homologar?* — `Continuar a instalação` é o principal, e fecha · `Encerrar sem homologar` roda a sessão abortada, 4 passos. Um toque sem querer não perde a instalação (decisão 36). Depois do `Encerrar sem homologar`, os 4 passos terminam na *Sessão encerrada* sem homologar; dos diálogos do menu (`Encerrar a sessão e sair`, `Encerrar a sessão e trocar`), o destino fica gravado no estado único e, depois dos 4 passos, o app segue pra ele — o login com a fila preservada, ou a sincronização da unidade nova (G23)
 - **todo caminho que encerra a sessão antes de homologar avisa que a instalação não é homologada**: o ENCERRAR da faixa e o `Encerrar a sessão` das folhas do módulo e do ativo abrem o diálogo · as folhas de sair da conta e de trocar de unidade já são a confirmação delas, e dizem *é encerrada antes, sem homologar* — nenhum caminho pergunta duas vezes
 - **nos processos, o ENCERRAR faz o mesmo que o voltar do Android.** Onde o voltar não faz nada — a releitura da CAN, o semear da T10, a releitura do módulo no detalhe da T13 (o pacote 13) —, o ENCERRAR fica desabilitado e em tinta apagada (lei 17). Na cadeia da T09, antes de a Conexão gravar, ele abre a recuperação, como o voltar. No encerramento da T16, a faixa já não mostra o ENCERRAR
@@ -103,7 +103,7 @@ O roteiro `app/scripts/caminhos/portas.mjs` prova as portas e a R-14 nas três l
   - **o movimento** é o dos diálogos (movimento.md): o véu e a caixa esmaecem, e a caixa cresce de 98% a 100%, em 150ms, na entrada e na saída; pelo endereço ou no print, nasce aberto, parado
   - **onde o ENCERRAR está desabilitado** (a releitura da CAN na T07, o semear da T10, a recuperação da T09) nada muda, e na cadeia da T09 antes de a Conexão gravar ele continua abrindo a recuperação. Os diálogos de sair e de trocar não passam pelo *Encerrar sem homologar?*: já são a confirmação, e dizem *é encerrada antes, sem homologar* e *é encerrada antes da troca, sem homologar.*
 
-Os roteiros provam: `heroi.mjs`, o depois de homologar, direto, sem o diálogo · `sessao.mjs`, o corte de alimentação pelo endereço do momento, com a legenda de cada passo que corre · `abortada.mjs`, o antes — o diálogo por cima da T06 e da T07, do menu (o `13`, pelo ENCERRAR da faixa e pelo `Encerrar a sessão` das folhas do módulo e do ativo) e do checklist (T13); o `Continuar a instalação` fecha e o técnico fica, o voltar também, e o `Encerrar sem homologar` roda os 4 passos, com a legenda de cada um e o traço do pulado mudo pro leitor de tela (nenhum nome diz *não se aplica* na `03`) · `sair.mjs`, os dois diálogos do menu, com o *sem homologar*, e os destinos deles, sem outra pergunta no caminho · `portas.mjs`, o diálogo no fim de cada porta · `voltar.mjs`, o voltar com o diálogo aberto no menu e na T07. Com o pacote 1, os roteiros que passavam pela pré-checagem, pela T07 antiga e pela T08 se medem de novo.
+Os roteiros provam: `heroi.mjs`, o depois de homologar, direto, sem o diálogo · `sessao.mjs`, o reinício automático e a reconexão pelo endereço do momento (a rodada 1: o corte saiu), com a legenda de cada passo que corre · `abortada.mjs`, o antes — o diálogo por cima da T06 e da T07, do menu (o `13`, pelo ENCERRAR da faixa e pelo `Encerrar a sessão` das folhas do módulo e do ativo) e do checklist (T13); o `Continuar a instalação` fecha e o técnico fica, o voltar também, e o `Encerrar sem homologar` roda os 4 passos, com a legenda de cada um e o traço do pulado mudo pro leitor de tela (nenhum nome diz *não se aplica* na `03`) · `sair.mjs`, os dois diálogos do menu, com o *sem homologar*, e os destinos deles, sem outra pergunta no caminho · `portas.mjs`, o diálogo no fim de cada porta · `voltar.mjs`, o voltar com o diálogo aberto no menu e na T07. Com o pacote 1, os roteiros que passavam pela pré-checagem, pela T07 antiga e pela T08 se medem de novo.
 
 ## Os contadores do menu (T04·1, T04·2)
 
@@ -123,7 +123,7 @@ A fila é **do aparelho**, não da unidade: a HU-T01-4 diz que a fila de outro u
 - **o menu e a fila do aparelho:** o cartão *Fila de saída* do menu conta os pendentes da unidade ativa, e o diálogo *Sair da conta*, a fila do mock inteira (Os contadores do menu). Com a decisão 42, o *da unidade ativa* do cartão ficou sem razão — a regra é da T04, e não mudou aqui
 
 O roteiro `app/scripts/caminhos/fila.mjs` prova o reenvio, a ordem da lista e o contador que continua 3, a volta pelo menu com o cartão da Fila de saída igual, e a conta do diálogo (`node scripts/caminho.mjs fila`).
-- **o pacote 12 · a correção na fila** (T15/05): a fila do 01 com o pedido de correção do PCX-9A17, *agora*, no topo da lista, o mais novo · **a fila parada** (T04/16, `fila-parada`): depois de 30 min, o diálogo sobre o menu, no molde do acesso vencendo — *A fila está parada há 32 min*, `Ver a fila` (leva à T15) e `Agora não` · só pela coluna: no protótipo o relógio não anda
+- **a correção na fila** (o pacote 12, T15/05) saiu na rodada 1 do retorno do PM: o técnico confere o cartão com o número impresso, e o app não compara com cadastro nenhum · **a fila parada** (T04/16, `fila-parada`): depois de 30 min parada, o diálogo sobre o menu, com *A fila está parada há 32 min*, `Ver a fila` e `Agora não`
 
 ## A escolha do ativo (T06·1 a T06·5)
 
@@ -170,6 +170,7 @@ A T08 saiu inteira, e a releitura mora na própria T07: com o bloco do ativo gra
 - **as saídas:** `Encerrar o ciclo` fecha a captura, e os pendentes ficam pendentes na Seção E; `Ir para o checklist` sai com o ciclo aberto — os dois → T13 (T14·2). Concluído, `Ir para o checklist` → T13 e `Voltar ao menu` → T04 (T14·4). `Solicitar correção de cadastro` vira o registro no mesmo lugar, com a hora do protótipo e os dois valores anexados
 - **o que fica gravado:** `etapas.ciclo` guarda o par, os passos pelo id do item da Seção E (`aprovada`, `reprovada` ou `pendente`), quantos foram feitos, o evento (`antes`, `disparado`, `recebido`, `conferido` ou `nao-chegou`) e a tentativa, o cartão e a correção pedida (o lido, o esperado e 14:30), se o ciclo concluiu e se a captura foi fechada. Voltar à T14 com o ciclo aberto, no mesmo par, retoma os passos que já valem e a correção; o evento se dispara de novo. Concluído, ela abre concluída
 - **o pacote 12 · a segunda falha do evento** (T14/09, `evento-nao-chega-de-novo`): o mesmo par do `evento-sem-resposta`, e a 2ª tentativa também estoura · embaixo do *A Seção F reprova*, em vermelho, *Segunda vez sem chegar: confira a conexão do módulo.* · só pela coluna: no fluxo, o par segue o `evento-sem-resposta`, e a 2ª confirma · **o pedido de correção** (`Solicitar correção de cadastro`) sobe pela fila de saída, como as evidências (*Correção de cadastro*, T15/05)
+- **a rodada 1 do retorno do PM:** no máximo quatro passos, cada um só quando se aplica (a ignição ligada, a rotação, o cartão, a ignição desligada · a ré e a porta saíram) · o cartão em três momentos: a vez (*passe o cartão*, a 00), o módulo leu (a 08: *leu 9412857*, com `Confere com o cartão` e `Não confere`) e a resposta — o não confere vira não conforme, com o que aconteceu no checklist (a 10); o confere leva à ignição desligada, que explica a espera (a 11) · o ativo sem leitor, 3 passos (a 12, `sem-leitor`) · saíram o identificador divergente, a correção solicitada e a vez da porta
 
 ## O checklist (T13·1 a T13·6)
 
@@ -182,7 +183,7 @@ A T08 saiu inteira, e a releitura mora na própria T07: com o bloco do ativo gra
 - **cada item lê a etapa que o produziu:** A, a sessão, `etapas.preChecagem` e `etapas.ativo` · B, as fotos e ressalvas do próprio checklist e a foto de `etapas.calibracao` · C, `etapas.can` (o lido do caso do ativo, se não foi consumido, ou o nominal) e a leitura nominal do módulo (`leituraNominalModulo`, AC-13) · D, `etapas.cadeia` e `etapas.calibracao` · E, `etapas.ciclo` · F, a fila desta sessão
 - **a semente:** pular pro checklist pelo palco semeia só a sessão; sem o diagnóstico gravado, o checklist lê o que as telas T05 a T10 gravariam no caminho do herói — o diagnóstico aprovado, o vínculo (e o chassi, que a T13 mostra até o pacote 2), a CAN lida, os seis blocos relidos e o hodômetro semeado com a foto. A, C e D resolvidas, o Painel herdado, B e E por fazer, F esperando: 19 de 31, `Faltam 9 itens`, como a entrega de 25/09 desenha. No caminho do herói, o checklist abre depois do ciclo: 24 de 31, `Faltam 4 itens` (13)
 - **a Seção F (G22):** conta só os itens da fila do ativo criados depois da abertura da sessão, pelos tipos da fila (AC-14). O que o herói subiu às 09:14 e 09:15 é da instalação de antes, e não conta. Antes do Finalizar, nada desta sessão está na fila, e ela espera. O `Finalizar instalação` gera o relatório (HU-T13-7) — as evidências e o checklist — na fila, às 14:30, e a Seção F conta ele: 3 de 3, *o servidor confirmou*. Aberta assim, nenhuma referência a desenha, e os itens ficam com os valores do C10, do mock: `12 subiram`, `31 de 31`, o ID na plataforma `na fila` (G25). Ela falha quando o servidor diz que não: o evento de teste que não chegou (T14/02), um item desta sessão recusado, ou o ativo do `pronto-para-fechar`, sem resposta — o X na seção e nos três itens
-- **o Finalizar (T13·3):** acende quando A a E estão resolvidas; o toque grava `etapas.checklist.homologada` e a hora, gera o relatório e mostra o homologado (11): o veredito no topo, embaixo da barra — *Instalação homologada às 14:30* e *o relatório leva 12 evidências, o local e o seu nome* (`checklist.evidencias`) —, que esmaece no lugar em 150 ms, e o `Encerrar sessão` no rodapé. Com a localização negada (14, o caso `localizacao-negada`), o relatório diz *o relatório vai sem localização*; nada no mock nega a localização no fluxo, e o 14 só abre pela coluna, parado. Com a Seção F falhando, o toque abre o diálogo da ciência (10); marcado o `Estou ciente`, o Finalizar do diálogo homologa, e a ciência fica gravada com o nome e a hora
+- **o Finalizar (T13·3):** acende quando A a E estão resolvidas; o toque grava `etapas.checklist.homologada` e a hora, gera o relatório e mostra o homologado (11): o veredito no topo, embaixo da barra — *Instalação homologada às 14:30* e *o relatório leva 12 evidências, o local e o seu nome* (`checklist.evidencias`) —, que esmaece no lugar em 150 ms, e o `Encerrar sessão` no rodapé · **a rodada 1 do retorno do PM:** o 11 é o checklist registrado, *Checklist registrado · aguardando autoteste*, com o próximo passo embaixo, e a homologação, com a hora, é da T16 (02) · a ciência (10) só com a Seção F reprovada (*não chegou*); esperando o servidor, o Finalizar registra direto. Com a localização negada (14, o caso `localizacao-negada`), o relatório diz *o relatório vai sem localização*; nada no mock nega a localização no fluxo, e o 14 só abre pela coluna, parado. Com a Seção F falhando, o toque abre o diálogo da ciência (10); marcado o `Estou ciente`, o Finalizar do diálogo homologa, e a ciência fica gravada com o nome e a hora
 - **o que fica gravado:** `etapas.checklist` guarda o ativo, que foi aberto, as fotos tiradas e as ressalvas (a justificativa, a hora e a hora da foto do problema, decisão 39), a conta do menu (`pendentes`), se homologou e quando, e a ciência. Voltar ao checklist no mesmo ativo reabre o que foi resolvido; homologado, ele abre no 11
 - **a URL de cada quadro:** as seções fechadas, a tela (00), ou o 11 no homologado · a seção aberta, o momento dela (01 a 06), a B com ressalva no 12 e a E resolvida no 13; homologado, a seção aberta não tem referência, e a URL sai do momento. Aberto pela URL, o quadro é o fluxo depois dos toques que levam lá (G20), e grava o que eles gravariam: o 11, as fotos de B, o ciclo e o Finalizar; o 12, o primeiro item de B salvo com a ressalva de exemplo (`checklist.exemploJustificativa`) e a foto do problema; o 08 e o 15, o primeiro item de B por fazer com a caixa marcada e o texto de exemplo — o 15 com o problema fotografado às 14:30; o 13, o ciclo que a T14 fecha (`etapas.ciclo` concluído)
 - **o nível do item:** o rótulo de topo é o nome curto da seção, em toda tela (*B · MONTAGEM*, 07, 08, 15 e 17 a 20; *C · HARDWARE*, 09 · o pacote 10). Na B, a frase da câmera é o `enquadre` do item, e cada uma das cinco fotos tem o seu quadro: o Módulo no 07, e a antena, o chicote, o leitor e o painel do 17 ao 20, com as de antes fotografadas; o `Tirar foto` leva de uma à outra pela URL, e o `Depois:` some no Painel, o último
@@ -192,6 +193,7 @@ O roteiro `app/scripts/caminhos/checklist.mjs` prova a estrutura por toque (`nod
 - **o pacote 12 · as pendências desenhadas, padrão até o PM decidir:** as outras três falhas da C, cada uma com a lista (a linha vermelha e a seta) e o detalhe logo depois na coluna — o GPS com a régua dos satélites e o mínimo do caso (`gps-fraco`, 6: *6 ou mais*, *2 abaixo do mínimo*), as entradas e o modem sem régua, o valor escrito e o porquê (`entrada-ignicao`, `modem-sem-sinal`), cada um com o seu *O que conferir* · os três casos só valem no estado da coluna: o herói, no fluxo, passa · **o cartão com a correção pedida** (`identificador-divergente`, `correcaoSolicitada`): a E diz *o cartão não passou*, os outros passos *confere*, e o cartão é a linha vermelha com o que leu e a hora do pedido, com a seta pra T14, onde ele refaz só o cartão (a vez do cartão, T14/08) · o cartão conta no *Faltam*, mas não segura o `Finalizar`: o toque abre *A Seção E não passou*, com a ciência, e a instalação fica registrada com a E falhando e o nome, sem homologar (T13/28) — o que vem depois não tem referência, e o protótipo volta ao menu
 - **o pacote 13 · o detalhe relê o módulo ali mesmo:** `Reler o módulo` vira *Relendo o módulo…* por 1 s (o 29), com o link e o ENCERRAR apagados e o voltar sem fazer nada · aí os casos da C devolvem a `releitura` do mock (`mundoDe` · `relido`) e a C inteira volta atualizada · deu certo, a mesma tela fica positiva (30 a 33): o valor novo, o check com *relido às 14:30 ·* e o veredito, e só o `Voltar ao checklist`, que volta à C do mesmo ônibus · não deu, o detalhe com o valor novo e o `Reler o módulo` de novo · não vai mais à T07, e nada muda de tela sozinho
 - **o pacote 23 · o reler que não resolve:** o mock em sequência, `releituras`: o 1º `Reler o módulo` devolve a 1ª, que ainda reprova — o detalhe com o valor novo, ainda vermelho, e o xis com *relido às 14:30 ·* e o que ainda falta (34 a 37), o *O que conferir* e o botão de novo · o 2º devolve a 2ª, que passa (30 a 33) · relendo de novo, o xis fica na tela até o resultado
+- **a rodada 1 do retorno do PM · o checklist novo:** 29 itens no herói (30 no mock: as pendências só com o ID reescrito, e nenhuma sessão reescreve) · cada item só quando se aplica (`condicao`: o leitor, o buzzer dele, a rotação na CAN, o ID reescrito) · a A com o pacote de sincronização da unidade, *11/03 07:10* no herói (a referência estimou *06/10 06:55*, pro arquiteto) · a C: a alimentação do fio contra a faixa do modelo do módulo (o VL06, 9,0 a 32,0 V, na régua de 5 a 35), e o GPS pela antena, com os satélites de informação · a D uma linha por bloco, todas *confere*, e depois o autoteste do módulo, o canal *protegido* e o ID no cadastro; ao entrar no checklist no fluxo ela começa vazia e enche no ritmo do diagnóstico (600 ms por item, o 38 com três lidos) · a E com o bip: `Testar bip` toca 1 s (`RITMOS.bipMs`), pergunta *Você ouviu o bip?*, e `Ouvi` confere; `Não ouvi` é não conforme, com o campo do que aconteceu — conta como feito e não reprova a seção (o mesmo pro cartão que não confere na T14) · a F: a posição confere com o evento recebido, e o evento de teste com ele conferido; *esperando* antes, *não chegou* se o prazo estourou · o `Finalizar` desligado diz por quê: a seção ainda sendo lida, a seção com um item reprovado, ou *Faltam N itens obrigatórios* · o fim é o *Checklist registrado · aguardando autoteste*, com o próximo passo, e o `Encerrar sessão` · aberta pela URL, a seção que não cabe leva a lista até a seção de antes dela no topo, até onde a lista deixa (a 04, a 05, a 13, a 38 e o bip)
 
 ## O voltar do Android
 
@@ -228,7 +230,7 @@ Nos processos que não podem parar, ele **não sai**:
 | T10 | o `Voltar ao menu`, em todo passo (00 a 05, 08, 10) e na calibração completa (09), embaixo do `Fazer o ciclo de testes` · no meio do semear (*Gravando no módulo…*, *Relendo…*), nada: o semear não para, e o `Voltar ao menu` fica desabilitado (a decisão do diretor de 25/09) · a câmera da calibração (06 e 11) saiu com a decisão 52 |
 | T11 | o que diverge (00, e o 04, que abre só pela coluna), nada: o link é o `Outras ações`, que não sai da tela · na folha *Outras ações* (03), fecha, como o X · o conteúdo que o app não reconhece (01, só pela coluna), o `Apenas registrar o diagnóstico` · tudo confere (02), o `Voltar ao menu` |
 | T12 | na lista (00, 02, 03), o `Voltar ao menu` · no detalhe (01), o `Voltar às instalações` |
-| T13 | nas seções, fechadas ou com uma aberta, e no homologado (00 a 06, 11 a 13), o `Voltar ao menu` · no nível do item (07 a 09 e 15, e o item com a câmera sem a permissão, que não tem endereço), o `Voltar ao checklist` · no diálogo da ciência (10), o `Cancelar` · o homologado sem localização (14) abre só pela coluna, parado |
+| T13 | nas seções, fechadas ou com uma aberta, e no registrado (00 a 06, 11 a 13 · a rodada 1: o 11 é o aguardando autoteste), o `Voltar ao menu` · no nível do item (07 a 09 e 15, e o item com a câmera sem a permissão, que não tem endereço), o `Voltar ao checklist` · no diálogo da ciência (10), o `Cancelar` · o aguardando autoteste sem localização (14) abre só pela coluna, parado |
 | T14 | com o ciclo aberto (00 a 03), o `Ir para o checklist` · no ciclo concluído (05), o `Voltar ao menu` · com o caso de identificador correndo (04, 06), nada |
 | T15 | o `Voltar ao menu` (00 a 04) |
 | T16 | no encerramento (00, 01), no autoteste e na sessão abortando (03), nada · encerrada (02, 04, 05), o `Voltar ao menu` · interrompida (06), nada |
@@ -309,7 +311,7 @@ Quatro estados que vêm do celular, e não do módulo nem do ativo. Nenhum trava
 
 A **localização negada** não tem tela: nada trava, e o relatório do checklist sai sem a geolocalização, com a linha dizendo *sem localização*.
 
-- **no protótipo**, nada no fluxo lê a localização, então nada trava. O relatório é o que o `Finalizar instalação` põe na fila (as evidências e o checklist, HU-T13-7). O caso `localizacao-negada` (a entrega do checklist) monta o homologado sem localização (T13/14): o veredito diz *o relatório vai sem localização*, no lugar de *o relatório leva 12 evidências, o local e o seu nome*. Ele abre só pela coluna, parado e sem toque: nada no mock nega a localização no fluxo, como nos outros estados do celular (o checklist · o Finalizar)
+- **no protótipo**, nada no fluxo lê a localização, então nada trava. O relatório é o que o `Finalizar instalação` põe na fila (as evidências e o checklist, HU-T13-7). O caso `localizacao-negada` (a entrega do checklist) monta o aguardando autoteste sem localização (T13/14, o nome da rodada 1 do retorno do PM): o veredito diz *o relatório vai sem localização*, no lugar de *o relatório leva 12 evidências, o local e o seu nome*. Ele abre só pela coluna, parado e sem toque: nada no mock nega a localização no fluxo, como nos outros estados do celular (o checklist · o Finalizar)
 
 ## O teclado (regra 10)
 
@@ -341,7 +343,7 @@ Uma estrutura só em todas as telas da T13: o título com a contagem, a barra fi
 - a contagem vem do mock: no caminho feliz, ao abrir o checklist depois do ciclo, são 24 de 31 · antes do ciclo, 19 de 31, porque o Painel já vem da calibração e a F espera o servidor
 - item pendente leva à tela que resolve, pelo campo `origem` de cada item do mock
 - a E tem uma ação só, *Fazer o ciclo de testes*, que abre a T14 · a F não tem ação: espera o servidor
-- o homologado mostra o veredito e o relatório no topo · com a localização negada, o relatório vai sem ela
+- o registrado mostra o veredito e o próximo passo no topo (a rodada 1: *aguardando autoteste*; a homologação é da T16) · com a localização negada, o relatório vai sem ela
 
 ## O próximo passo depois da calibração
 
@@ -470,6 +472,7 @@ O que não é de desenho e o produto ainda decide segue um padrão — a lista e
 | `T09/08-momento-manutencao-escolher-o-bloco` | `Configurar módulo`, numa manutenção |
 | `T09/09-momento-manutencao-reenviando` | `Reenviar`, com um bloco escolhido |
 | `T09/10-momento-manutencao-concluida` | a cadeia curta da manutenção fecha · as cercas relidas |
+| `T09/11-momento-conferindo-o-servidor` | o módulo falou com o servidor? conferindo |
 | `T10/01-momento-hodometro-semeado` | `Semear o hodômetro` |
 | `T10/05-momento-hodometro-digitado` | digitar o valor do painel |
 | `T10/06-momento-gravando-no-modulo` | tocar em `Semear o hodômetro` · 1s |
@@ -488,7 +491,7 @@ O que não é de desenho e o produto ainda decide segue um padrão — a lista e
 | `T13/06-momento-f-servidor-aberta` | tocar na seção |
 | `T13/07-momento-responder-item` | tocar num item manual |
 | `T13/08-momento-nao-conforme-com-justificativa` | marcar não conforme |
-| `T13/11-momento-homologado` | tudo passa |
+| `T13/11-momento-aguardando-autoteste` | tocar em Finalizar: Checklist registrado, aguardando autoteste |
 | `T13/12-momento-b-com-ressalva` | salvar um item como não conforme, com a justificativa |
 | `T13/13-momento-e-resolvida` | voltar do ciclo de testes com os seis passos feitos |
 | `T13/15-momento-problema-fotografado` | fotografar o problema depois de marcar Não está conforme |
@@ -505,16 +508,22 @@ O que não é de desenho e o produto ainda decide segue um padrão — a lista e
 | `T13/35-momento-gps-nao-resolvido` | a 1ª releitura ainda reprova: 5 satélites, *ainda 1 abaixo do mínimo* · na coluna, logo depois da 22 |
 | `T13/36-momento-entradas-nao-resolvidas` | a 1ª releitura ainda reprova: *ignição ainda desligada* · na coluna, logo depois da 24 |
 | `T13/37-momento-modem-nao-resolvido` | a 1ª releitura ainda reprova: *ainda sem sinal* · na coluna, logo depois da 26 |
+| `T13/38-momento-secao-d-sendo-lida` | abrir o checklist: a Seção D começa vazia e enche conforme lê |
+| `T13/39-momento-bip-tocando` | tocar em Testar bip: o app aciona o buzzer por cerca de 1 segundo · o botão diz Tocando |
+| `T13/40-momento-bip-esperando-resposta` | o bip tocou: Você ouviu o bip? Ouvi ou Não ouvi · o Testar bip continua, pra tocar de novo |
+| `T13/41-momento-bip-ouvido` | tocar em Ouvi: o bip confere |
+| `T13/42-momento-bip-nao-ouvido` | tocar em Não ouvi: não conforme, com o campo de justificativa |
 | `T14/01-momento-antes-do-disparo` | a fila do módulo ainda drenando |
 | `T14/05-momento-ciclo-concluido` | os seis passos e o evento |
-| `T14/06-momento-correcao-solicitada` | tocar em `Solicitar correção de cadastro` no identificador divergente |
-| `T14/07-momento-vez-da-porta` | depois da ré · abra a porta · o evento já chegou |
-| `T14/08-momento-vez-do-cartao` | depois da porta · passe o cartão |
-| `T16/01-momento-pede-o-corte-de-alimentacao` | o passo do corte |
-| `T16/02-momento-sessao-encerrada` | o autoteste passa |
+| `T14/08-momento-o-modulo-leu-o-cartao` | passar o cartão: o módulo leu 9412857 · Confere com o cartão ou Não confere |
+| `T14/10-momento-cartao-nao-confere` | tocar em Não confere: não conforme, com a justificativa no checklist |
+| `T14/11-momento-vez-da-ignicao-desligada` | o cartão confere: a vez da ignição desligada, com a explicação |
+| `T16/01-momento-reiniciando-o-modulo` | o passo do reinício: automático, sem ação do técnico |
+| `T16/02-momento-instalacao-homologada` | o autoteste passa: a instalação homologada, com horário |
 | `T16/03-momento-encerrando-sem-homologar` | ENCERRAR antes de homologar |
 | `T16/04-momento-encerrada-sem-homologar` | os 4 passos terminam |
 | `T16/07-momento-autoteste-correndo` | as assertivas acendem em ordem · 400ms cada |
+| `T16/08-momento-reconectando-no-reinicio` | a conexão cai no reinício: reconectando, nunca falha |
 
 - **no protótipo** · a nossa versão das linhas da T13, antes desta entrega: o `11` é tocar em `Finalizar instalação`, com A a E resolvidas (T13·3) · o `12` é salvar um item como não conforme, com a justificativa, e voltar à Seção B · o `13` é voltar do ciclo com os passos feitos, e tocar na Seção E
 
@@ -568,7 +577,8 @@ O que não é de desenho e o produto ainda decide segue um padrão — a lista e
 | `T09/02-estado-queda-na-cadeia` | o link cai no meio da cadeia | `queda-na-cadeia` |
 | `T09/03-estado-recuperacao-ate-a-conexao-gravar` | tentar sair antes da Conexão gravar | derivado do fluxo |
 | `T09/06-estado-a-configuracao-nao-cabe` | o que vai ser gravado passa do espaço do módulo | `conteudo-nao-cabe` |
-| `T09/07-estado-cercas-demais-pro-modulo` | o cadastro tem mais cercas do que o módulo guarda | `pool-esgotado` |
+| `T09/07-estado-pontos-de-cerca-demais` | o cadastro tem mais cercas do que o módulo guarda | `pool-esgotado` |
+| `T09/12-estado-o-modulo-ainda-nao-falou-com-o-servidor` | a Conexão gravada e conferida, e o módulo ainda não falou com o servidor: o que conferir, chip, antena e endereço | `servidor-ainda-nao` |
 | `T10/02-estado-rotacao-caminhao-coletor` | o modelo calibra rotação e velocidade | `calibracao.porModelo · ma-02 · KNB-5H39` |
 | `T10/03-estado-ja-semeado` | o hodômetro já foi semeado antes | `calibracao` |
 | `T10/04-estado-modulo-sem-pulsos` | o módulo não recebe pulsos | `grandeza-indisponivel` |
@@ -581,7 +591,7 @@ O que não é de desenho e o produto ainda decide segue um padrão — a lista e
 | `T12/05-estado-criterio-pendente` | o servidor não respondeu à consulta | `criterio-pendente` |
 | `T13/09-estado-item-reprovado` | um item automático reprova — a alimentação do módulo abaixo da faixa | `can-estatico-bateria` |
 | `T13/10-estado-finalizar-com-a-secao-f-falhando` | `Finalizar` com a Seção F falhando — o servidor não respondeu | `pronto-para-fechar` (T13-A2) |
-| `T13/14-estado-homologado-sem-localizacao` | finalizar com a localização negada | `localizacao-negada` |
+| `T13/14-estado-aguardando-autoteste-sem-localizacao` | finalizar com a localização negada | `localizacao-negada` |
 | `T13/16-estado-secao-c-com-item-reprovado` | um item automático reprova: o xis, a leitura e a seta pro detalhe (a 09) | `can-estatico-bateria` |
 | `T13/21-estado-secao-c-com-gps-reprovado` | o GPS reprova: a linha vermelha, 4 satélites e a seta pro detalhe | `gps-fraco` |
 | `T13/22-estado-gps-reprovado` | tocar na linha vermelha do GPS: a régua dos satélites e o que conferir | `gps-fraco` |
@@ -589,18 +599,15 @@ O que não é de desenho e o produto ainda decide segue um padrão — a lista e
 | `T13/24-estado-entradas-reprovadas` | tocar na linha vermelha das entradas: qual não bate e o que conferir | `entrada-ignicao` |
 | `T13/25-estado-secao-c-com-modem-reprovado` | o modem sem sinal reprova: a linha vermelha e a seta | `modem-sem-sinal` |
 | `T13/26-estado-modem-reprovado` | tocar na linha vermelha do modem: sem sinal e o que conferir | `modem-sem-sinal` |
-| `T13/27-estado-secao-e-com-correcao-solicitada` | o cartão não passou e a correção foi pedida: o cartão vermelho com as duas linhas | `identificador-divergente` |
-| `T13/28-estado-finalizar-com-a-secao-e-falhando` | finalizar com o cartão reprovado e a correção pedida: registra com a falha e o nome | `identificador-divergente` |
 | `T14/02-estado-prazo-estourado` | o evento não chega em 2:00 | `evento-sem-resposta` |
 | `T14/03-estado-dinamico-fora-do-esperado` | a rotação não aparece: o motor está desligado | `motor-desligado-no-ciclo` |
-| `T14/04-estado-identificador-divergente` | o cartão lido não bate | `identificador-divergente` |
 | `T14/09-estado-segunda-falha-do-evento` | o evento não chega pela segunda vez: confira a conexão do módulo | `evento-nao-chega-de-novo` |
+| `T14/12-estado-ativo-sem-leitor` | o ativo sem leitor: o ciclo em 3 passos, sem o cartão | `sem-leitor` |
 | `T15/01-estado-sem-erro` | a fila sem erros | `filaSaida` |
 | `T15/02-estado-dois-erros` | dois itens recusados | `filaSaida` |
 | `T15/03-estado-fila-vazia` | nada esperando envio | `filaSaida` |
 | `T15/04-estado-secao-f-em-re-checagem` | a Seção F esperando o servidor | `secaoF · RVM-1E54` |
-| `T15/05-estado-correcao-na-fila` | o pedido de correção sobe pela fila, como as evidências | `identificador-divergente` |
-| `T16/05-estado-assertiva-falhando` | uma assertiva falha | `autoteste-falhando` |
+| `T16/05-estado-homologacao-bloqueada` | uma assertiva falha | `autoteste-falhando` |
 | `T16/06-estado-sessao-interrompida` | a sessão caiu e volta oferecida | `sessao-interrompida` |
 
 - **no protótipo** · a nossa versão de duas linhas, antes desta entrega: `T10/10` · o limite é a granularidade mais o decorrido do mock, 100 + 40 = 140 m (HU-T10-5; o comentário do caso diz 120 m, e os dois dão *não confere*: vai pro arquiteto) · `T12/02` · o caso é `instalacoes` + `instalacoes-vazia` (a consulta da unidade que volta vazia, sem sessão, C11)

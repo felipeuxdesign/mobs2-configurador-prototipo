@@ -14,48 +14,51 @@ export default [
   { abre: '?tela=T13&momento=02-momento-b-montagem-aberta' },
   { dorme: 100 },
   { quieto: true },
-  { abre: '?tela=T13&momento=11-momento-homologado' },
+  { abre: '?tela=T13&momento=11-momento-aguardando-autoteste' },
   { dorme: 100 },
   { quieto: true },
-  { ve: 'Instalação homologada às 14:30' },
+  { ve: 'Checklist registrado' },   // a rodada 1 do retorno do PM: a homologação é da T16
+  { naoVe: 'homologada' },
   // tocar num cartão: os itens esmaecem e a seta gira pra cima (transform e opacity, 200 ms)
   { toca: 'D · Configuração', anima: [{ prop: 'opacity', ms: 200, em: 'ds-secao-ck-corpo' }, { prop: 'transform', ms: 200, em: 'ds-icone' }] },
-  { chega: 'T13', momento: null },   // homologado, a seção aberta não tem referência
-  { ve: 'intervalo 30 s' },
+  { chega: 'T13', momento: null },   // registrado, a seção aberta não tem referência
+  { ve: 'Canal de programação\nprotegido' },
   { naoToca: 'Eventos' },   // sem seta, é leitura (Lei 16)
   { dorme: 250 },
   // trocar de uma aberta pra outra, e fechar: a lista não pula debaixo do dedo
   { toca: 'F · Servidor' },
-  { naoVe: 'intervalo 30 s' },
-  { ve: '12 subiram' },
+  { naoVe: 'Canal de programação' },
+  { ve: 'Posição\nconfere' },   // a rodada 1: a posição e o evento de teste, confirmados depois do Finalizar
   { dorme: 250 },
   { toca: 'F · Servidor' },
-  { naoVe: '12 subiram' },
-  { chega: 'T13', momento: '11-momento-homologado' },
+  { naoVe: 'Posição' },
+  { chega: 'T13', momento: '11-momento-aguardando-autoteste' },
   // com o reduzir movimento, a troca é direta
   { reduzir: true },
   { toca: 'A · Identificação' },
   { quieto: true },
   { ve: 'Serial do módulo' },
   { toca: 'A · Identificação' },
-  { chega: 'T13', momento: '11-momento-homologado' },
+  { chega: 'T13', momento: '11-momento-aguardando-autoteste' },
   { reduzir: false },
   // o 13 pela URL grava o ciclo que a T14 fecha: abrir a B não desfaz a E resolvida
   { abre: '?tela=T13&momento=13-momento-e-resolvida' },
-  { ve: '23' },
+  { ve: '22' },   // a rodada 1: 22 de 29, a E com os quatro passos e o bip ouvido
   { toca: 'B · Montagem' },
   { chega: 'T13', momento: '02-momento-b-montagem-aberta' },
   { ve: 'o ciclo passou' },
-  { ve: 'Faltam 5 itens' },
-  // a D pelo conteúdo: as cercas em regiões, o Extended ID só leitura, a APN e o leitor, sem a versão
+  { ve: 'Faltam 5 itens obrigatórios' },
+  // a D (a rodada 1): um bloco por linha, cada um confere, e depois o autoteste, o canal e o ID
   { abre: '?tela=T13&momento=04-momento-d-configuracao-aberta' },
-  { ve: '4 regiões' },
-  { ve: '3 cartões · 1 iButton' },
-  { ve: 'm2m.mobs2.br' },
-  { ve: '9.640 h' },
-  { naoToca: 'Extended ID' },
-  // a A com 3: o chassi saiu
+  { ve: 'Limpeza\nconfere' },
+  { ve: 'Autoteste\nconfere' },
+  { ve: 'Canal de programação\nprotegido' },
+  { ve: 'ID no cadastro\nconfere' },
+  { naoVe: 'Extended ID' },
+  { naoVe: 'Hodômetro' },
+  // a A com 4: o pacote de sincronização entrou (a rodada 1), e o chassi saiu
   { abre: '?tela=T13&momento=01-momento-a-identificacao-aberta' },
+  { ve: 'Pacote de sincronização' },
   { naoVe: 'Chassi' },
   // o Painel é foto a tirar, como os outros quatro (decisão 52)
   { abre: '?tela=T13&momento=02-momento-b-montagem-aberta' },
@@ -116,7 +119,7 @@ export default [
   { chega: 'T13', momento: '12-momento-b-com-ressalva' },
   { ve: 'com ressalva · suporte trincado' },
   { ve: 'você fotografa 5 itens' },
-  { ve: 'Faltam 10 itens' },
+  { ve: 'Faltam 9 itens obrigatórios' },   // a rodada 1: as 4 fotos de B e os 5 passos da E (a F não bloqueia)
   // escrever primeiro e fotografar depois: o 08 pela URL já tem o que aconteceu
   { abre: '?tela=T13&momento=08-momento-nao-conforme-com-justificativa' },
   { toca: 'Fotografar o problema' },
@@ -179,7 +182,7 @@ export default [
   { dorme: 250 },
   { toca: 'E · Ciclo de testes' },
   { dorme: 250 },
-  { ve: 'os 6 passos, com o ônibus parado' },
+  { ve: 'até 4 passos, com o ônibus parado' },
   { ve: 'Cartão do motorista' },
   { toca: 'Fazer o ciclo de testes' },
   { chega: 'T14' },

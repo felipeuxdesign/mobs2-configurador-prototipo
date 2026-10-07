@@ -59,7 +59,7 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - linha do histórico
 - a lista de garagens
 - encerrando
-- pede o corte
+- reiniciando
 - sem homologar
 - com contador
 - linha de opção

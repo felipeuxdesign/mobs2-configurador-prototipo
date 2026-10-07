@@ -4,31 +4,31 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `00-tela`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `17` · `de 31` · `A · Identificação` · `o app confere sozinho` · `3` · `de 3` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `4` · `de 4` · `D · Configuração` · `o app confere sozinho` · `10` · `de 10` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 6` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 3` · `Faltam 11 itens` · `Finalizar instalação` · `Voltar ao menu`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `17` · `de 29` · `A · Identificação` · `o app confere sozinho` · `4` · `de 4` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `4` · `de 4` · `D · Configuração` · `o app confere sozinho` · `9` · `de 9` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 5` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 2` · `Faltam 10 itens obrigatórios` · `Finalizar instalação` · `Voltar ao menu`
 
 ## `01-momento-a-identificacao-aberta`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `17` · `de 31` · `A · Identificação` · `o app confere sozinho` · `3` · `de 3` · `Serial do módulo` · `M2C-0417` · `Firmware` · `2.3.5` · `Ativo vinculado` · `RKT-8H42` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `4` · `de 4` · `D · Configuração` · `o app confere sozinho` · `10` · `de 10` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 6` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 3` · `Faltam 11 itens` · `Finalizar instalação` · `Voltar ao menu`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `17` · `de 29` · `A · Identificação` · `o app confere sozinho` · `4` · `de 4` · `Serial do módulo` · `M2C-0417` · `Firmware` · `2.3.5` · `Ativo vinculado` · `RKT-8H42` · `Pacote de sincronização` · `06/10 06:55` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `4` · `de 4` · `D · Configuração` · `o app confere sozinho` · `9` · `de 9` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 5` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 2` · `Faltam 10 itens obrigatórios` · `Finalizar instalação` · `Voltar ao menu`
 
 ## `02-momento-b-montagem-aberta`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `17` · `de 31` · `A · Identificação` · `o app confere sozinho` · `3` · `de 3` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `Módulo` · `foto a tirar` · `Antena GPS` · `foto a tirar` · `Chicote` · `foto a tirar` · `Leitor` · `foto a tirar` · `Painel` · `foto a tirar` · `C · Hardware` · `o app confere sozinho` · `4` · `de 4` · `D · Configuração` · `o app confere sozinho` · `10` · `de 10` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 6` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 3` · `Faltam 11 itens` · `Finalizar instalação` · `Voltar ao menu`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `17` · `de 29` · `A · Identificação` · `o app confere sozinho` · `4` · `de 4` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `Módulo` · `foto a tirar` · `Antena GPS` · `foto a tirar` · `Chicote` · `foto a tirar` · `Leitor` · `foto a tirar` · `Painel` · `foto a tirar` · `C · Hardware` · `o app confere sozinho` · `4` · `de 4` · `D · Configuração` · `o app confere sozinho` · `9` · `de 9` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 5` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 2` · `Faltam 10 itens obrigatórios` · `Finalizar instalação` · `Voltar ao menu`
 
 ## `03-momento-c-hardware-aberta`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `17` · `de 31` · `A · Identificação` · `o app confere sozinho` · `3` · `de 3` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `4` · `de 4` · `Alimentação` · `13,8 V` · `GPS e antena` · `9 satélites` · `Entradas digitais` · `conforme` · `Modem e sinal` · `sinal bom` · `D · Configuração` · `o app confere sozinho` · `10` · `de 10` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 6` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 3` · `Faltam 11 itens` · `Finalizar instalação` · `Voltar ao menu`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `17` · `de 29` · `A · Identificação` · `o app confere sozinho` · `4` · `de 4` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `4` · `de 4` · `Alimentação` · `24,3 V` · `GPS e antena` · `antena conectada` · `Entradas digitais` · `conforme` · `Modem e sinal` · `sinal bom` · `D · Configuração` · `o app confere sozinho` · `9` · `de 9` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 5` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 2` · `Faltam 10 itens obrigatórios` · `Finalizar instalação` · `Voltar ao menu`
 
 ## `04-momento-d-configuracao-aberta`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `17` · `de 31` · `A · Identificação` · `o app confere sozinho` · `3` · `de 3` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `4` · `de 4` · `D · Configuração` · `o app confere sozinho` · `10` · `de 10` · `Limpeza` · `feita` · `Tradução da CAN` · `gravada` · `Cercas` · `4 regiões` · `Extended ID` · `3 cartões · 1 iButton` · `Eventos` · `intervalo 30 s` · `APN` · `m2m.mobs2.br` · `Endereço` · `gravado` · `Leitor` · `sem fio` · `Hodômetro` · `482.317 km` · `Horímetro` · `9.640 h` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 6` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 3` · `Faltam 11 itens` · `Finalizar instalação` · `Voltar ao menu`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `17` · `de 29` · `A · Identificação` · `o app confere sozinho` · `4` · `de 4` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `4` · `de 4` · `D · Configuração` · `o app confere sozinho` · `9` · `de 9` · `Limpeza` · `confere` · `Ativo` · `confere` · `Cercas` · `confere` · `Leitor` · `confere` · `Eventos` · `confere` · `Conexão` · `confere` · `Autoteste` · `confere` · `Canal de programação` · `protegido` · `ID no cadastro` · `confere` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 5` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 2` · `Faltam 10 itens obrigatórios` · `Finalizar instalação` · `Voltar ao menu`
 
 ## `05-momento-e-teste-dinamico-aberta`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `17` · `de 31` · `A · Identificação` · `o app confere sozinho` · `3` · `de 3` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `4` · `de 4` · `D · Configuração` · `o app confere sozinho` · `10` · `de 10` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 6` · `Fazer o ciclo de testes` · `os 6 passos, com o ônibus parado` · `Ignição ligada` · `a fazer` · `Rotação` · `a fazer` · `Ré acionada` · `a fazer` · `Porta aberta` · `a fazer` · `Cartão do motorista` · `a fazer` · `Ignição desligada` · `a fazer` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 3` · `Faltam 11 itens` · `Finalizar instalação` · `Voltar ao menu`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `17` · `de 29` · `A · Identificação` · `o app confere sozinho` · `4` · `de 4` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `4` · `de 4` · `D · Configuração` · `o app confere sozinho` · `9` · `de 9` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 5` · `Fazer o ciclo de testes` · `até 4 passos, com o ônibus parado` · `Ignição ligada` · `a fazer` · `Rotação` · `a fazer` · `Cartão do motorista` · `a fazer` · `Bip do leitor` · `Testar bip` · `Ignição desligada` · `a fazer` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 2` · `Faltam 10 itens obrigatórios` · `Finalizar instalação` · `Voltar ao menu`
 
 ## `06-momento-f-servidor-aberta`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `17` · `de 31` · `A · Identificação` · `o app confere sozinho` · `3` · `de 3` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `4` · `de 4` · `D · Configuração` · `o app confere sozinho` · `10` · `de 10` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 6` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 3` · `Evidências` · `espera o envio` · `Checklist` · `espera o envio` · `ID na plataforma` · `espera o envio` · `Faltam 11 itens` · `Finalizar instalação` · `Voltar ao menu`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `17` · `de 29` · `A · Identificação` · `o app confere sozinho` · `4` · `de 4` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `4` · `de 4` · `D · Configuração` · `o app confere sozinho` · `9` · `de 9` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 5` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 2` · `Posição` · `esperando` · `Evento de teste` · `esperando` · `Faltam 10 itens obrigatórios` · `Finalizar instalação` · `Voltar ao menu`
 
 ## `07-momento-responder-item`
 
@@ -40,27 +40,27 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `09-estado-item-reprovado`
 
-`M2C-0301` · `QJF-2C61` · `ENCERRAR` · `C · HARDWARE` · `Alimentação` · `LIDO NO MÓDULO` · `10,9` · `V` · `10,0` · `12,0 — 15,0` · `16,0` · `1,1 V abaixo do mínimo` · `O QUE CONFERIR` · `1 · Bateria do ônibus` · `— carga e terminais` · `2 · Cabo de alimentação` · `— encaixe firme` · `3 · Ponto de ligação` · `— direto na bateria, sem queda` · `Reler o módulo` · `Voltar ao checklist`
+`M2C-0301` · `QJF-2C61` · `ENCERRAR` · `C · HARDWARE` · `Alimentação` · `LIDO NO MÓDULO` · `8,4` · `V` · `5,0` · `9,0 — 32,0` · `35,0` · `0,6 V abaixo do mínimo` · `O QUE CONFERIR` · `1 · Bateria do ônibus` · `— carga e terminais` · `2 · Cabo de alimentação` · `— encaixe firme` · `3 · Ponto de ligação` · `— direto na bateria, sem queda` · `Reler o módulo` · `Voltar ao checklist`
 
 ## `10-estado-finalizar-com-a-secao-f-falhando`
 
 `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `A Seção F não passou` · `A instalação fica registrada com ela falhando — e com o seu nome.` · `Estou ciente · Rafael Vieira, 14:30` · `Finalizar instalação` · `Cancelar`
 
-## `11-momento-homologado`
+## `11-momento-aguardando-autoteste`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `31` · `de 31` · `Instalação homologada às 14:30` · `o relatório leva 12 evidências, o local e o seu nome` · `A · Identificação` · `o app conferiu` · `3` · `de 3` · `B · Montagem` · `5 fotos tiradas` · `5` · `de 5` · `C · Hardware` · `o app conferiu` · `4` · `de 4` · `D · Configuração` · `o app conferiu` · `10` · `de 10` · `E · Ciclo de testes` · `o ciclo passou` · `6` · `de 6` · `F · Servidor` · `o servidor confirmou` · `3` · `de 3` · `Encerrar sessão` · `Voltar ao menu`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `29` · `de 29` · `Checklist registrado` · `aguardando autoteste` · `O próximo passo é encerrar a sessão. O autoteste roda durante o encerramento.` · `A · Identificação` · `o app conferiu` · `4` · `de 4` · `B · Montagem` · `5 fotos tiradas` · `5` · `de 5` · `C · Hardware` · `o app conferiu` · `4` · `de 4` · `D · Configuração` · `o app conferiu` · `9` · `de 9` · `E · Ciclo de testes` · `o ciclo passou` · `5` · `de 5` · `F · Servidor` · `o servidor confirmou` · `2` · `de 2` · `Encerrar sessão` · `Voltar ao menu`
 
 ## `12-momento-b-com-ressalva`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `18` · `de 31` · `A · Identificação` · `o app confere sozinho` · `3` · `de 3` · `B · Montagem` · `você fotografa 5 itens` · `1` · `de 5` · `Módulo` · `com ressalva · suporte trincado` · `Antena GPS` · `foto a tirar` · `Chicote` · `foto a tirar` · `Leitor` · `foto a tirar` · `Painel` · `foto a tirar` · `C · Hardware` · `o app confere sozinho` · `4` · `de 4` · `D · Configuração` · `o app confere sozinho` · `10` · `de 10` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 6` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 3` · `Faltam 10 itens` · `Finalizar instalação` · `Voltar ao menu`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `18` · `de 29` · `A · Identificação` · `o app confere sozinho` · `4` · `de 4` · `B · Montagem` · `você fotografa 5 itens` · `1` · `de 5` · `Módulo` · `com ressalva · suporte trincado` · `Antena GPS` · `foto a tirar` · `Chicote` · `foto a tirar` · `Leitor` · `foto a tirar` · `Painel` · `foto a tirar` · `C · Hardware` · `o app confere sozinho` · `4` · `de 4` · `D · Configuração` · `o app confere sozinho` · `9` · `de 9` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 5` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 2` · `Faltam 9 itens obrigatórios` · `Finalizar instalação` · `Voltar ao menu`
 
 ## `13-momento-e-resolvida`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `23` · `de 31` · `A · Identificação` · `o app confere sozinho` · `3` · `de 3` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `4` · `de 4` · `D · Configuração` · `o app confere sozinho` · `10` · `de 10` · `E · Ciclo de testes` · `o ciclo passou` · `6` · `de 6` · `Ignição ligada` · `confere` · `Rotação` · `confere` · `Ré acionada` · `confere` · `Porta aberta` · `confere` · `Cartão do motorista` · `confere` · `Ignição desligada` · `confere` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 3` · `Faltam 5 itens` · `Finalizar instalação` · `Voltar ao menu`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `22` · `de 29` · `A · Identificação` · `o app confere sozinho` · `4` · `de 4` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `4` · `de 4` · `D · Configuração` · `o app confere sozinho` · `9` · `de 9` · `E · Ciclo de testes` · `o ciclo passou` · `5` · `de 5` · `Ignição ligada` · `confere` · `Rotação` · `confere` · `Cartão do motorista` · `confere` · `Bip do leitor` · `ouvi` · `Ignição desligada` · `confere` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 2` · `Faltam 5 itens obrigatórios` · `Finalizar instalação` · `Voltar ao menu`
 
-## `14-estado-homologado-sem-localizacao`
+## `14-estado-aguardando-autoteste-sem-localizacao`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `31` · `de 31` · `Instalação homologada às 14:30` · `o relatório vai sem localização` · `A · Identificação` · `o app conferiu` · `3` · `de 3` · `B · Montagem` · `5 fotos tiradas` · `5` · `de 5` · `C · Hardware` · `o app conferiu` · `4` · `de 4` · `D · Configuração` · `o app conferiu` · `10` · `de 10` · `E · Ciclo de testes` · `o ciclo passou` · `6` · `de 6` · `F · Servidor` · `o servidor confirmou` · `3` · `de 3` · `Encerrar sessão` · `Voltar ao menu`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `29` · `de 29` · `Checklist registrado` · `aguardando autoteste` · `o relatório vai sem localização` · `A · Identificação` · `o app conferiu` · `4` · `de 4` · `B · Montagem` · `5 fotos tiradas` · `5` · `de 5` · `C · Hardware` · `o app conferiu` · `4` · `de 4` · `D · Configuração` · `o app conferiu` · `9` · `de 9` · `E · Ciclo de testes` · `o ciclo passou` · `5` · `de 5` · `F · Servidor` · `o servidor confirmou` · `2` · `de 2` · `Encerrar sessão` · `Voltar ao menu`
 
 ## `15-momento-problema-fotografado`
 
@@ -68,7 +68,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `16-estado-secao-c-com-item-reprovado`
 
-`M2C-0301` · `QJF-2C61` · `ENCERRAR` · `Checklist` · `14` · `de 30` · `A · Identificação` · `o app confere sozinho` · `3` · `de 3` · `B · Montagem` · `você fotografa 4 itens` · `0` · `de 4` · `C · Hardware` · `o app confere sozinho` · `3` · `de 4` · `Alimentação` · `10,9 V` · `GPS e antena` · `9 satélites` · `Entradas digitais` · `conforme` · `Modem e sinal` · `sinal bom` · `D · Configuração` · `o app confere sozinho` · `8` · `de 10` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 6` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 3` · `Faltam 13 itens` · `Finalizar instalação` · `Voltar ao menu`
+`M2C-0301` · `QJF-2C61` · `ENCERRAR` · `Checklist` · `15` · `de 25` · `A · Identificação` · `o app confere sozinho` · `4` · `de 4` · `B · Montagem` · `você fotografa 4 itens` · `0` · `de 4` · `C · Hardware` · `o app confere sozinho` · `3` · `de 4` · `Alimentação` · `8,4 V` · `GPS e antena` · `antena conectada` · `Entradas digitais` · `conforme` · `Modem e sinal` · `sinal bom` · `D · Configuração` · `o app confere sozinho` · `8` · `de 8` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 3` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 2` · `A Seção C tem um item reprovado` · `Finalizar instalação` · `Voltar ao menu`
 
 ## `17-momento-foto-da-antena`
 
@@ -88,15 +88,15 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `21-estado-secao-c-com-gps-reprovado`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `16` · `de 31` · `A · Identificação` · `o app confere sozinho` · `3` · `de 3` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `3` · `de 4` · `Alimentação` · `13,8 V` · `GPS e antena` · `4 satélites` · `Entradas digitais` · `conforme` · `Modem e sinal` · `sinal bom` · `D · Configuração` · `o app confere sozinho` · `10` · `de 10` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 6` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 3` · `Faltam 12 itens` · `Finalizar instalação` · `Voltar ao menu`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `16` · `de 29` · `A · Identificação` · `o app confere sozinho` · `4` · `de 4` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `3` · `de 4` · `Alimentação` · `24,3 V` · `GPS e antena` · `antena desconectada` · `Entradas digitais` · `conforme` · `Modem e sinal` · `sinal bom` · `D · Configuração` · `o app confere sozinho` · `9` · `de 9` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 5` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 2` · `A Seção C tem um item reprovado` · `Finalizar instalação` · `Voltar ao menu`
 
 ## `22-estado-gps-reprovado`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `C · HARDWARE` · `GPS e antena` · `LIDO NO MÓDULO` · `4` · `satélites` · `0` · `6 ou mais` · `12` · `2 abaixo do mínimo` · `O QUE CONFERIR` · `1 · Antena GPS` · `— conectada e firme` · `2 · Céu aberto` · `— sem teto nem metal por cima` · `3 · Cabo da antena` · `— sem dobra nem corte` · `Reler o módulo` · `Voltar ao checklist`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `C · HARDWARE` · `GPS e antena` · `LIDO NO MÓDULO` · `desconectada` · `0 satélites` · `O QUE CONFERIR` · `1 · Antena GPS` · `— conectada e firme` · `2 · Cabo da antena` · `— sem dobra nem corte` · `3 · Conector da antena` · `— encaixado e rosqueado` · `Reler o módulo` · `Voltar ao checklist`
 
 ## `23-estado-secao-c-com-entradas-reprovadas`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `16` · `de 31` · `A · Identificação` · `o app confere sozinho` · `3` · `de 3` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `3` · `de 4` · `Alimentação` · `13,8 V` · `GPS e antena` · `9 satélites` · `Entradas digitais` · `ignição desligada` · `Modem e sinal` · `sinal bom` · `D · Configuração` · `o app confere sozinho` · `10` · `de 10` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 6` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 3` · `Faltam 12 itens` · `Finalizar instalação` · `Voltar ao menu`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `16` · `de 29` · `A · Identificação` · `o app confere sozinho` · `4` · `de 4` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `3` · `de 4` · `Alimentação` · `24,3 V` · `GPS e antena` · `antena conectada` · `Entradas digitais` · `ignição desligada` · `Modem e sinal` · `sinal bom` · `D · Configuração` · `o app confere sozinho` · `9` · `de 9` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 5` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 2` · `A Seção C tem um item reprovado` · `Finalizar instalação` · `Voltar ao menu`
 
 ## `24-estado-entradas-reprovadas`
 
@@ -104,31 +104,23 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `25-estado-secao-c-com-modem-reprovado`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `16` · `de 31` · `A · Identificação` · `o app confere sozinho` · `3` · `de 3` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `3` · `de 4` · `Alimentação` · `13,8 V` · `GPS e antena` · `9 satélites` · `Entradas digitais` · `conforme` · `Modem e sinal` · `sem sinal` · `D · Configuração` · `o app confere sozinho` · `10` · `de 10` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 6` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 3` · `Faltam 12 itens` · `Finalizar instalação` · `Voltar ao menu`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `16` · `de 29` · `A · Identificação` · `o app confere sozinho` · `4` · `de 4` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `3` · `de 4` · `Alimentação` · `24,3 V` · `GPS e antena` · `antena conectada` · `Entradas digitais` · `conforme` · `Modem e sinal` · `sem sinal` · `D · Configuração` · `o app confere sozinho` · `9` · `de 9` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 5` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 2` · `A Seção C tem um item reprovado` · `Finalizar instalação` · `Voltar ao menu`
 
 ## `26-estado-modem-reprovado`
 
 `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `C · HARDWARE` · `Modem e sinal` · `LIDO NO MÓDULO` · `sem sinal` · `o módulo não alcança a rede da operadora` · `O QUE CONFERIR` · `1 · Chip SIM` · `— encaixado e ativo` · `2 · Antena do modem` · `— conectada` · `3 · Cobertura` · `— teste num lugar aberto` · `Reler o módulo` · `Voltar ao checklist`
 
-## `27-estado-secao-e-com-correcao-solicitada`
-
-`M2C-0312` · `PCX-9A17` · `ENCERRAR` · `Checklist` · `22` · `de 31` · `A · Identificação` · `o app confere sozinho` · `3` · `de 3` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `4` · `de 4` · `D · Configuração` · `o app confere sozinho` · `10` · `de 10` · `E · Ciclo de testes` · `o cartão não passou` · `5` · `de 6` · `Ignição ligada` · `confere` · `Rotação` · `confere` · `Ré acionada` · `confere` · `Porta aberta` · `confere` · `Cartão do motorista` · `leu 9412857 · o cadastro espera 0009412857` · `correção solicitada às 14:30` · `Ignição desligada` · `confere` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 3` · `Faltam 6 itens` · `Finalizar instalação` · `Voltar ao menu`
-
-## `28-estado-finalizar-com-a-secao-e-falhando`
-
-`M2C-0312` · `PCX-9A17` · `ENCERRAR` · `A Seção E não passou` · `O cartão do motorista não bate com o cadastro, e a correção já foi pedida. A instalação fica registrada com a seção falhando — e com o seu nome.` · `Estou ciente · Rafael Vieira, 14:30` · `Finalizar instalação` · `Cancelar`
-
 ## `29-momento-relendo-o-modulo`
 
-`M2C-0301` · `QJF-2C61` · `ENCERRAR` · `C · HARDWARE` · `Alimentação` · `LIDO NO MÓDULO` · `10,9` · `V` · `10,0` · `12,0 — 15,0` · `16,0` · `1,1 V abaixo do mínimo` · `O QUE CONFERIR` · `1 · Bateria do ônibus` · `— carga e terminais` · `2 · Cabo de alimentação` · `— encaixe firme` · `3 · Ponto de ligação` · `— direto na bateria, sem queda` · `Relendo o módulo…` · `Voltar ao checklist`
+`M2C-0301` · `QJF-2C61` · `ENCERRAR` · `C · HARDWARE` · `Alimentação` · `LIDO NO MÓDULO` · `8,4` · `V` · `5,0` · `9,0 — 32,0` · `35,0` · `0,6 V abaixo do mínimo` · `O QUE CONFERIR` · `1 · Bateria do ônibus` · `— carga e terminais` · `2 · Cabo de alimentação` · `— encaixe firme` · `3 · Ponto de ligação` · `— direto na bateria, sem queda` · `Relendo o módulo…` · `Voltar ao checklist`
 
 ## `30-momento-alimentacao-relida`
 
-`M2C-0301` · `QJF-2C61` · `ENCERRAR` · `C · HARDWARE` · `Alimentação` · `LIDO NO MÓDULO` · `13,8` · `V` · `10,0` · `12,0 — 15,0` · `16,0` · `relido às 14:42 · dentro da faixa` · `Voltar ao checklist`
+`M2C-0301` · `QJF-2C61` · `ENCERRAR` · `C · HARDWARE` · `Alimentação` · `LIDO NO MÓDULO` · `24,3` · `V` · `5,0` · `9,0 — 32,0` · `35,0` · `relido às 14:42 · dentro da faixa` · `Voltar ao checklist`
 
 ## `31-momento-gps-relido`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `C · HARDWARE` · `GPS e antena` · `LIDO NO MÓDULO` · `9` · `satélites` · `0` · `6 ou mais` · `12` · `relido às 14:42 · dentro da faixa` · `Voltar ao checklist`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `C · HARDWARE` · `GPS e antena` · `LIDO NO MÓDULO` · `conectada` · `relido às 14:42 · 9 satélites` · `Voltar ao checklist`
 
 ## `32-momento-entradas-relidas`
 
@@ -140,11 +132,11 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `34-momento-alimentacao-nao-resolvida`
 
-`M2C-0301` · `QJF-2C61` · `ENCERRAR` · `C · HARDWARE` · `Alimentação` · `LIDO NO MÓDULO` · `11,4` · `V` · `10,0` · `12,0 — 15,0` · `16,0` · `relido às 14:41 · ainda 0,6 V abaixo do mínimo` · `O QUE CONFERIR` · `1 · Bateria do ônibus` · `— carga e terminais` · `2 · Cabo de alimentação` · `— encaixe firme` · `3 · Ponto de ligação` · `— direto na bateria, sem queda` · `Reler o módulo` · `Voltar ao checklist`
+`M2C-0301` · `QJF-2C61` · `ENCERRAR` · `C · HARDWARE` · `Alimentação` · `LIDO NO MÓDULO` · `8,8` · `V` · `5,0` · `9,0 — 32,0` · `35,0` · `relido às 14:41 · ainda 0,2 V abaixo do mínimo` · `O QUE CONFERIR` · `1 · Bateria do ônibus` · `— carga e terminais` · `2 · Cabo de alimentação` · `— encaixe firme` · `3 · Ponto de ligação` · `— direto na bateria, sem queda` · `Reler o módulo` · `Voltar ao checklist`
 
 ## `35-momento-gps-nao-resolvido`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `C · HARDWARE` · `GPS e antena` · `LIDO NO MÓDULO` · `5` · `satélites` · `0` · `6 ou mais` · `12` · `relido às 14:41 · ainda 1 abaixo do mínimo` · `O QUE CONFERIR` · `1 · Antena GPS` · `— conectada e firme` · `2 · Céu aberto` · `— sem teto nem metal por cima` · `3 · Cabo da antena` · `— sem dobra nem corte` · `Reler o módulo` · `Voltar ao checklist`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `C · HARDWARE` · `GPS e antena` · `LIDO NO MÓDULO` · `desconectada` · `relido às 14:41 · ainda desconectada` · `O QUE CONFERIR` · `1 · Antena GPS` · `— conectada e firme` · `2 · Cabo da antena` · `— sem dobra nem corte` · `3 · Conector da antena` · `— encaixado e rosqueado` · `Reler o módulo` · `Voltar ao checklist`
 
 ## `36-momento-entradas-nao-resolvidas`
 
@@ -153,3 +145,23 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `37-momento-modem-nao-resolvido`
 
 `M2C-0417` · `RKT-8H42` · `ENCERRAR` · `C · HARDWARE` · `Modem e sinal` · `LIDO NO MÓDULO` · `sem sinal` · `relido às 14:41 · ainda sem sinal` · `O QUE CONFERIR` · `1 · Chip SIM` · `— encaixado e ativo` · `2 · Antena do modem` · `— conectada` · `3 · Cobertura` · `— teste num lugar aberto` · `Reler o módulo` · `Voltar ao checklist`
+
+## `38-momento-secao-d-sendo-lida`
+
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `11` · `de 29` · `A · Identificação` · `o app confere sozinho` · `4` · `de 4` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `4` · `de 4` · `D · Configuração` · `lendo do módulo` · `3` · `de 9` · `Limpeza` · `confere` · `Ativo` · `confere` · `Cercas` · `confere` · `Leitor` · `lendo` · `Eventos` · `—` · `Conexão` · `—` · `Autoteste` · `—` · `Canal de programação` · `—` · `ID no cadastro` · `—` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 5` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 2` · `A Seção D ainda está sendo lida` · `Finalizar instalação` · `Voltar ao menu`
+
+## `39-momento-bip-tocando`
+
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `17` · `de 29` · `A · Identificação` · `o app confere sozinho` · `4` · `de 4` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `4` · `de 4` · `D · Configuração` · `o app confere sozinho` · `9` · `de 9` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 5` · `Fazer o ciclo de testes` · `até 4 passos, com o ônibus parado` · `Ignição ligada` · `a fazer` · `Rotação` · `a fazer` · `Cartão do motorista` · `a fazer` · `Bip do leitor` · `Tocando…` · `Ignição desligada` · `a fazer` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 2` · `Faltam 10 itens obrigatórios` · `Finalizar instalação` · `Voltar ao menu`
+
+## `40-momento-bip-esperando-resposta`
+
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `17` · `de 29` · `A · Identificação` · `o app confere sozinho` · `4` · `de 4` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `4` · `de 4` · `D · Configuração` · `o app confere sozinho` · `9` · `de 9` · `E · Ciclo de testes` · `você faz o ciclo parado` · `0` · `de 5` · `Fazer o ciclo de testes` · `até 4 passos, com o ônibus parado` · `Ignição ligada` · `a fazer` · `Rotação` · `a fazer` · `Cartão do motorista` · `a fazer` · `Bip do leitor` · `Testar bip` · `Você ouviu o bip?` · `Ouvi` · `Não ouvi` · `Ignição desligada` · `a fazer` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 2` · `Faltam 10 itens obrigatórios` · `Finalizar instalação` · `Voltar ao menu`
+
+## `41-momento-bip-ouvido`
+
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `18` · `de 29` · `A · Identificação` · `o app confere sozinho` · `4` · `de 4` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `4` · `de 4` · `D · Configuração` · `o app confere sozinho` · `9` · `de 9` · `E · Ciclo de testes` · `você faz o ciclo parado` · `1` · `de 5` · `Fazer o ciclo de testes` · `até 4 passos, com o ônibus parado` · `Ignição ligada` · `a fazer` · `Rotação` · `a fazer` · `Cartão do motorista` · `a fazer` · `Bip do leitor` · `ouvi` · `Ignição desligada` · `a fazer` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 2` · `Faltam 9 itens obrigatórios` · `Finalizar instalação` · `Voltar ao menu`
+
+## `42-momento-bip-nao-ouvido`
+
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Checklist` · `18` · `de 29` · `A · Identificação` · `o app confere sozinho` · `4` · `de 4` · `B · Montagem` · `você fotografa 5 itens` · `0` · `de 5` · `C · Hardware` · `o app confere sozinho` · `4` · `de 4` · `D · Configuração` · `o app confere sozinho` · `9` · `de 9` · `E · Ciclo de testes` · `você faz o ciclo parado` · `1` · `de 5` · `Fazer o ciclo de testes` · `até 4 passos, com o ônibus parado` · `Ignição ligada` · `a fazer` · `Rotação` · `a fazer` · `Cartão do motorista` · `a fazer` · `Bip do leitor` · `não ouvi` · `O QUE ACONTECEU` · `Conte o que aconteceu` · `Ignição desligada` · `a fazer` · `F · Servidor` · `espera o servidor · não bloqueia` · `0` · `de 2` · `Faltam 9 itens obrigatórios` · `Finalizar instalação` · `Voltar ao menu`

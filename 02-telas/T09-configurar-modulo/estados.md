@@ -11,10 +11,12 @@
 | `04-momento-cadeia-concluida` | momento | o último bloco relido | `cadeia` |
 | `05-momento-o-que-vai-ser-gravado` | momento | `Configurar módulo`, numa instalação nova | derivado do fluxo |
 | `06-estado-a-configuracao-nao-cabe` | estado | o que vai ser gravado passa do espaço do módulo | `conteudo-nao-cabe` |
-| `07-estado-cercas-demais-pro-modulo` | estado | o cadastro tem mais cercas do que o módulo guarda | `pool-esgotado` |
 | `08-momento-manutencao-escolher-o-bloco` | momento | `Configurar módulo`, numa manutenção | `modulo-ja-deste-ativo` |
 | `09-momento-manutencao-reenviando` | momento | `Reenviar`, com um bloco escolhido | `modulo-ja-deste-ativo` |
 | `10-momento-manutencao-concluida` | momento | a cadeia curta da manutenção fecha · as cercas relidas | derivado do fluxo |
+| `07-estado-pontos-de-cerca-demais` | estado | as cercas têm mais pontos do que o módulo guarda | `pool-esgotado` |
+| `11-momento-conferindo-o-servidor` | momento | o módulo falou com o servidor? conferindo | `heroi` |
+| `12-estado-o-modulo-ainda-nao-falou-com-o-servidor` | estado | ainda não, com o que conferir | `servidor-ainda-nao` |
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.
 

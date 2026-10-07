@@ -8,7 +8,7 @@ Ver o que ainda vai subir pro servidor, e o que precisa do técnico.
 | **Chrome** | sem faixa ou com, conforme a sessão |
 | **Semente no protótipo** | fila com dois itens · um com erro |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 0 · 5 — ver `estados.md` |
+| **Momentos · estados** | 0 · 4 — ver `estados.md` |
 
 - no protótipo · a nossa versão da linha *Semente no protótipo*, antes desta entrega: | **Semente no protótipo** | a seleção f-10, f-02 e f-08 (G21): dois itens esperando envio, um deles com erro, e uma recebida — a fila inteira da Ibura, com a faixa da sessão do herói (T15-A2) |
 
@@ -59,7 +59,7 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - cadeia concluída
 - cadeia recusada
 - encerrando
-- pede o corte
+- reiniciando
 - sem homologar
 - com contador
 - linha de opção

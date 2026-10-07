@@ -10,7 +10,8 @@
 // arraste da lei 20 (o painel segue o dedo, e volta em 200 ou desce em 150). O foco é um só
 // (C12·21): o olho e o checkbox não acendem nem apagam campo nenhum; o traço de 2 é desenhado
 // por cima da borda de 1 (C12·22): o foco, o escolhido e a falha não tiram texto nenhum do lugar.
-// O registro sem resto (C12·19), na vitrine. Com reduzir movimento, tudo direto.
+// O registro sem resto (C12·19) saiu com o pedido de correção (a rodada 1 do retorno do PM): a
+// variante segue na LinhaTocavel e no Link, sem quem a use. Com reduzir movimento, tudo direto.
 const C = 'cubic-bezier(0.2, 0.8, 0.2, 1)'
 const FOLHA_SOBE = { prop: 'transform', ms: 200, curva: C, em: 'ds-folha' }
 const FOLHA_DESCE = { prop: 'transform', ms: 150, curva: C, em: 'ds-folha' }
@@ -257,19 +258,5 @@ export default [
   { toca: 'Cancelar', anima: [DIALOGO[0], FOLHA_SOBE], naoAnima: VEU_PARADO },
   { ve: 'Trocar de empresa' },
   { dorme: 250 },
-  { quieto: true },
-
-  // ── o registro sem resto (C12·19), na vitrine: esmaece em 150, e depois nada fica animando ──
-  { abre: '?vitrine=1&especime=mov-registro-linha' },
-  { quieto: true },
-  { toca: 'Solicitar correção de cadastro', anima: [{ prop: 'opacity', ms: 150, curva: C, em: 'ds-linha-tocavel-registro-texto' }] },
-  { ve: 'Correção solicitada às 14:30' },
-  { dorme: 300 },
-  { quieto: true },
-  { abre: '?vitrine=1&especime=mov-registro-link' },
-  { quieto: true },
-  { toca: 'Solicitar correção de cadastro', anima: [{ prop: 'opacity', ms: 150, curva: C, em: 'ds-link-registro-texto' }] },
-  { ve: 'Correção solicitada às 14:30' },
-  { dorme: 300 },
   { quieto: true },
 ]

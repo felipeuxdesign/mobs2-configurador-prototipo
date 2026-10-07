@@ -13,10 +13,8 @@
 // do tela.md tira o ponto de todas. Onde a pasta ainda não tem o texto (a
 // palavra que corre nos passos 1, 2, 4, 6 e 7, e o feito da releitura), o
 // passo fica sem ele (G25) e o texto vai ao arquiteto.
-// · O passo 2 só leva legenda no corte (T16·1): a única legenda dele é a do
-//   corte, `T.corte.legenda`, e pedir o corte a quem reinicia por comando
-//   mandaria o técnico desligar o módulo à toa. No reinício por comando, o
-//   passo corre sem legenda, e o texto dele vai ao arquiteto (T16·7).
+// · O passo 2, o reinício (a rodada 1 do retorno do PM): automático — *reiniciando*, com a
+//   legenda dele, e *de volta* depois; se a conexão cai no meio, *reconectando* (a 08), nunca falha
 // · A legenda do Autoteste fica no dado e não aparece: o passo 8 é a tela
 //   seguinte, a Sessão encerrada (T16·4), e nenhuma referência o desenha
 //   correndo na cadeia.
@@ -24,13 +22,16 @@
 // (dominio.md §4.2, decisão 26).
 export const PASSOS = [
   {
-    id: 'contadores', nome: 'Contadores e estado', feito: 'gravados',
+    id: 'contadores', nome: 'Contadores e estado', feito: 'confere',
     legenda: 'Grava os contadores e o estado no módulo, pra nada se perder no reinício.',
   },
-  { id: 'reinicio', nome: 'Reinício do módulo', feito: 'voltou' },
+  {
+    id: 'reinicio', nome: 'Reinício do módulo', feito: 'de volta', corre: 'reiniciando',
+    legenda: 'O módulo reinicia sozinho. Leva alguns segundos.',
+  },
   {
     id: 'releitura', nome: 'Releitura completa', corre: 'relendo',
-    legenda: 'Ele lê de volta o que ficou gravado. É isto que prova que a configuração sobreviveu ao reinício.',
+    legenda: 'Ele lê de volta a configuração que está no módulo. É isto que prova que ela sobreviveu ao reinício.',
   },
   {
     id: 'repouso', nome: 'Repouso do módulo', feito: 'restaurado', seguro: true,
@@ -45,7 +46,7 @@ export const PASSOS = [
     legenda: 'Guarda o que foi feito aqui, pra ir ao servidor junto com a instalação.',
   },
   {
-    id: 'desconexao', nome: 'Desconexão', feito: 'feita', seguro: true,
+    id: 'desconexao', nome: 'Desconexão', feito: 'desconectado', seguro: true,
     legenda: 'Solta o Bluetooth. O módulo fica livre pra outro aparelho.',
   },
   { id: 'autoteste', nome: 'Autoteste', legenda: 'Confere as assertivas uma por uma, cada uma com o valor lido.' },
@@ -64,46 +65,48 @@ export const T = {
   lendo: 'lendo',                // a assertiva da vez, no autoteste (a 07, o pacote 5)                 // o passo que ainda não chegou
   pulado: 'pulado',              // sem homologar: o que não roda
   semHomologar: 'Sem homologar · só o que deixa o módulo seguro',
-  // o corte de alimentação (T16·1: só quando o driver não reinicia por comando);
-  // a legenda é a do passo 2 no tela.md, e só vale no corte (T16·7)
-  corte: { corre: 'é com você', legenda: 'Desligue e ligue a alimentação do módulo. Ele volta sozinho em alguns segundos.' },
+  // a conexão que cai no reinício (a rodada 1, a 08): o app reconecta sozinho
+  reconectando: { corre: 'reconectando', legenda: 'A conexão caiu no reinício. O app reconecta sozinho.' },
 
   // o rodapé enquanto corre
   encerrandoNaoDesconecte: 'Encerrando · não desconecte',
-  aguardandoOModulo: 'Aguardando o módulo voltar',
+  reiniciandoOModulo: 'Reiniciando o módulo…',
+  reconectandoRodape: 'Reconectando…',
   saidaAutoteste: 'A saída volta quando o autoteste terminar',
   saidaDesconectar: 'A saída volta quando o módulo desconectar',
 
-  // a sessão encerrada: a prova e as assertivas
-  sobreviveu: 'A CONFIGURAÇÃO SOBREVIVEU AO REINÍCIO',
-  relidoDoModulo: 'relido do módulo depois de desligar e ligar',
+  // a sessão encerrada (a rodada 1 do retorno do PM): a homologação mora aqui, com o horário · a
+  // única tela com a palavra *homologada* · as sete assertivas em três contadores, nunca *x de y*
+  homologada: 'INSTALAÇÃO HOMOLOGADA',
+  as: (hora) => `às ${hora}`,
+  sobreviveu: 'a configuração sobreviveu ao reinício',
   confere: 'confere',
   naoSeAplica: 'não se aplica',
-  deTotalIdentificadores: (lidos, total) => `${lidos} de ${total}`,
-  // a errata do pacote 1 (T16/02): a assertiva dos identificadores, preservados pela limpeza
-  extendedId: 'Extended ID',
-  preservado: 'preservado',
-  // a prova da sessão encerrada: os blocos relidos, no lugar da versão (decisão 49)
+  aprovadas: (n) => (n === 1 ? 'aprovada' : 'aprovadas'),
+  naoSeAplicam: (n) => (n === 1 ? 'não se aplica' : 'não se aplicam'),
+  pendentes: (n) => (n === 1 ? 'pendente' : 'pendentes'),
+  conferindo: 'conferindo',
+  notaCartao: 'O evento do cartão confere quando chegar ao servidor, em até 24 h. Ele não impede a homologação.',
+  // a prova da cadeia na interrompida (decisão 49)
   blocos: (n) => `${n} blocos`,
-  notaPlataforma: 'O ID na plataforma confirma quando a evidência subir.',
   bloqueada: 'A HOMOLOGAÇÃO FICA BLOQUEADA',
   causaContadores: 'Os contadores voltaram zerados — o módulo perdeu a leitura no reinício. A sessão fechou, mas a instalação não pode ser aprovada assim.',
 
   // a sessão encerrada sem homologar
   semHomologarRotulo: 'SEM HOMOLOGAR',
-  continuaAberta: 'A instalação continua aberta. O que foi gravado fica no módulo.',
+  continuaAberta: 'A instalação continua aberta. O que foi enviado fica no módulo.',
   // a nota do que não rodou é uma frase só, sem o rótulo em caixa alta (otimizacao300000000 · T16/04)
   naoRodaram: 'Não rodaram: contadores, reinício, releitura e o autoteste.',
 
   // a sessão interrompida
   iniciada: (placa, serial, quando, hora) => `${placa} · ${serial} · iniciada ${quando} às ${hora}`,
   hoje: 'hoje',
-  feita: 'feita',                // a limpeza confirmada, como na T09
+  confereBloco: 'confere',        // a limpeza confirmada, como na T09 (a rodada 1: cada bloco termina em confere)
   parouAqui: 'parou aqui',
   // o que já foi gravado (decisão 49): os blocos confirmados com o artigo, sem a limpeza
   comArtigo: { ativo: 'o ativo', cercas: 'as cercas' },
   // (só o plural tem texto: um bloco só, sem legenda — G25)
-  jaGravados: (blocos) => `${blocos.slice(0, -1).join(', ')} e ${blocos[blocos.length - 1]} já estão gravados`,
+  jaGravados: (blocos) => `${blocos.slice(0, -1).join(', ')} e ${blocos[blocos.length - 1]} já conferem`,
   retomar: 'Retomar',
   descartar: 'Descartar',
 

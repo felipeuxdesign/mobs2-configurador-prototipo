@@ -356,7 +356,7 @@ export default [
   esc,
   { chega: 'T04' },
 
-  // ── T13 · nas seções e no homologado, o Voltar ao menu; no item, o Voltar ao checklist ──
+  // ── T13 · nas seções e no registrado (aguardando autoteste), o Voltar ao menu; no item, o Voltar ao checklist ──
   { abre: '?tela=T13' },
   esc,
   { chega: 'T04' },
@@ -374,17 +374,17 @@ export default [
   { chega: 'T13', momento: '02-momento-b-montagem-aberta' },
   esc,
   { chega: 'T04' },
-  // a estrutura nova (decisão 34): a E resolvida e o homologado fazem o Voltar ao menu; o homologado sem localização é da coluna, parado
+  // a estrutura nova (decisão 34): a E resolvida e o registrado fazem o Voltar ao menu (a rodada 1: o checklist registrado, aguardando autoteste); o sem localização é da coluna, parado
   { abre: '?tela=T13&momento=13-momento-e-resolvida' },
   esc,
   { chega: 'T04' },
-  { abre: '?tela=T13&momento=11-momento-homologado' },
+  { abre: '?tela=T13&momento=11-momento-aguardando-autoteste' },
   esc,
   { chega: 'T04' },
-  { abre: '?tela=T13&estado=14-estado-homologado-sem-localizacao' },
+  { abre: '?tela=T13&estado=14-estado-aguardando-autoteste-sem-localizacao' },
   esc,
   { fica: 'T13', ms: 500 },
-  { chega: 'T13', estado: '14-estado-homologado-sem-localizacao' },
+  { chega: 'T13', estado: '14-estado-aguardando-autoteste-sem-localizacao' },
 
   // ── T14 · o Ir para o checklist; no ciclo concluído, o Voltar ao menu ──
   { abre: '?tela=T14' },
@@ -416,7 +416,7 @@ export default [
   { chega: 'T16', momento: '07-momento-autoteste-correndo' },
   esc,
   { fica: 'T16', ms: 1500 },
-  { chega: 'T16', momento: '02-momento-sessao-encerrada' },
+  { chega: 'T16', momento: '02-momento-instalacao-homologada' },
   esc,
   { chega: 'T04' },
   { ve: 'Sem sessão de configuração' },

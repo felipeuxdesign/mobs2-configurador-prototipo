@@ -4,7 +4,7 @@
 import { M } from '../../dados/mock.js'
 import { decimal } from '../../dados/formato.js'
 import { RECEITAS } from '../../estado/receitas.js'
-import { comoEsta, itemDeCorrecao } from '../../estado/fila.js'
+import { comoEsta } from '../../estado/fila.js'
 import { T } from './textos.js'
 
 // os nomes das referências (02-telas/T15-fila-de-saida/referencias)
@@ -13,7 +13,6 @@ export const REF = {
   doisErros: '02-estado-dois-erros',
   vazia: '03-estado-fila-vazia',
   secaoF: '04-estado-secao-f-em-re-checagem',
-  correcao: '05-estado-correcao-na-fila',
 }
 
 // G21 · a semente da 00: a seleção [f-10, f-02, f-08] — a fila do aparelho na
@@ -39,13 +38,6 @@ export const rotuloCurto = (tipo) => M.tiposFila?.find((t) => t.tipo === tipo)?.
 export function quadroDoEstado(est) {
   const r = RECEITAS[`T15/${est}`]
   if (!r) return null
-  // o 05 (o pacote 12): a fila do 01 com o pedido de correção do caso identificador-divergente,
-  // criado na hora do pedido (correcaoSolicitada) — no topo da lista, o mais novo
-  if (est === REF.correcao) {
-    const c = M.casos[r.casos[0]]
-    const base = M.casos['fila-sem-erro'].itens.map(itemDoMock)
-    return { itens: [...base, itemDeCorrecao(c.ativoId, c.correcaoSolicitada)], ultimoEnvioAs: null, semSessao: false, secaoF: null }
-  }
   const comSecaoF = (r.dados ?? []).includes('secaoF')
   const caso = M.casos[r.aditivo ?? r.casos?.[0]]
   if (!caso) return null

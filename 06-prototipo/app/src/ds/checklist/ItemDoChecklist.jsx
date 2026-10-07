@@ -21,20 +21,35 @@
 //   nsa (o traço, não se aplica)
 // icone (tocar): o nome do Icone; sem ele, o glifo do `estado` no poço.
 // divisoria: o traço de baixo — quem monta a seção decide (a última não tem).
+// A rodada 1 do retorno do PM (T13/38 a 42), três variantes da leitura, sem desenho novo:
+// · estado `lendo`: o quadrado de agora no poço e o valor em --tinta (a Seção D lida bloco a bloco)
+// · `acao`: no lugar do valor, o que o técnico toca na própria linha (o Testar bip, 05 e 39 a 40)
+// · `embaixo`: o que a linha abre embaixo dela — a pergunta com as duas respostas (40) e o campo
+//   do que aconteceu (42) —, a 40 da esquerda (o poço e o vão) e 12 no pé; o traço de baixo
+//   passa pro bloco inteiro
 import { Tocavel } from '../primitivos/Tocavel.jsx'
 import { Poco } from '../primitivos/Poco.jsx'
 import { Glifo } from '../primitivos/Glifo.jsx'
 import { Icone } from '../primitivos/Icone.jsx'
 import './ItemDoChecklist.css'
 
-const GLIFO = { ok: 'ok', pendente: 'espera', aguarda: 'relogio', reprovado: 'xis', nsa: 'traco' }
+const GLIFO = { ok: 'ok', pendente: 'espera', aguarda: 'relogio', reprovado: 'xis', nsa: 'traco', lendo: 'agora' }
 
 function GlifoDoItem({ estado, nomeGlifo }) {
   return <Glifo estado={GLIFO[estado] ?? 'ok'} poco={26} nome={nomeGlifo} className={`ds-item-ck-glifo ds-item-ck-glifo-${estado}`} />
 }
 
-export function ItemDoChecklist({ tipo = 'leitura', estado = 'ok', icone, nome, valor, legenda, linhas, apagado = false, divisoria = true, aoTocar, rotulo, nomeGlifo }) {
-  const classes = `ds-item-ck ds-item-ck-${tipo === 'leitura' ? 'leitura' : 'dupla'} ${linhas ? 'ds-item-ck-com-linhas' : ''} ${divisoria ? '' : 'ds-item-ck-sem-divisoria'}`
+export function ItemDoChecklist({ tipo = 'leitura', estado = 'ok', icone, nome, valor, legenda, linhas, apagado = false, divisoria = true, aoTocar, rotulo, nomeGlifo, acao, embaixo }) {
+  if (embaixo) {
+    return (
+      <div className={`ds-item-ck-bloco ${divisoria ? '' : 'ds-item-ck-sem-divisoria'}`}>
+        <ItemDoChecklist tipo={tipo} estado={estado} icone={icone} nome={nome} valor={valor} legenda={legenda} apagado={apagado}
+          divisoria={false} rotulo={rotulo} nomeGlifo={nomeGlifo} acao={acao} />
+        <div className="ds-item-ck-embaixo">{embaixo}</div>
+      </div>
+    )
+  }
+  const classes = `ds-item-ck ds-item-ck-${tipo === 'leitura' ? 'leitura' : 'dupla'} ${linhas ? 'ds-item-ck-com-linhas' : ''} ${divisoria ? '' : 'ds-item-ck-sem-divisoria'} ${estado === 'lendo' ? 'ds-item-ck-lendo' : ''}`
   if (tipo === 'leitura') {
     const linha = (
       <>
@@ -47,7 +62,7 @@ export function ItemDoChecklist({ tipo = 'leitura', estado = 'ok', icone, nome, 
             </span>
           )
           : <span className="ds-item-ck-nome">{nome}</span>}
-        {valor != null && <span className={`ds-item-ck-valor ${apagado ? 'ds-item-ck-valor-apagado' : ''} ${estado === 'reprovado' ? 'ds-item-ck-valor-falha' : ''}`}>{valor}</span>}
+        {acao ?? (valor != null && <span className={`ds-item-ck-valor ${apagado ? 'ds-item-ck-valor-apagado' : ''} ${estado === 'reprovado' ? 'ds-item-ck-valor-falha' : ''}`}>{valor}</span>)}
       </>
     )
     if (!aoTocar) return <div className={classes}>{linha}</div>

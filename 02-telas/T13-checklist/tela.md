@@ -8,7 +8,7 @@ Fechar a homologação: o que o app já provou sozinho, e o que o técnico ainda
 | **Chrome** | faixa de sessão |
 | **Semente no protótipo** | sessão M2C-0417 + RKT-8H42 · 31 itens |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 25 · 12 — ver `estados.md` |
+| **Momentos · estados** | 30 · 10 — ver `estados.md` |
 
 ## O que se toca
 
@@ -34,7 +34,7 @@ Fechar a homologação: o que o app já provou sozinho, e o que o técnico ainda
   - no protótipo · a T08 saiu com o pacote 1 (decisão 44): a origem `can` leva à T07, o Diagnóstico do módulo, que lê o módulo e a CAN (`Ler de novo`) · o botão do item reprovado (09) leva à T07 também, e com o pacote 2 diz `Refazer o diagnóstico` — sai o desvio nomeado do `Refazer a leitura da CAN` · **o pacote 13:** o botão é `Reler o módulo`, e não leva mais à T07 — relê ali mesmo
 - na E, uma ação só: *Fazer o ciclo de testes* → T14 · os seis passos são leitura, e depois do ciclo dizem *confere*
 - o item não conforme salvo com justificativa aparece com o check e *com ressalva · a causa*
-- homologado: o veredito no topo — *Instalação homologada às 14:30* — e o relatório embaixo · com a localização negada, *o relatório vai sem localização*
+- o fim: *Checklist registrado · aguardando autoteste* no topo, e o próximo passo embaixo · com a localização negada, *o relatório vai sem localização* (a 14) · a homologação é da T16
 - `Finalizar instalação` só acende com 100% de A, C, D, E e das fotos da B · a F não bloqueia
 - item manual sem a permissão da câmera → o visor com a câmera riscada (a variante que a T10/11 desenhava até a decisão 52; a T10/11 saiu, e a variante fica só do checklist), e o `Tirar foto` vira `Abrir as configurações` — permitida lá, a câmera abre na volta · com o *Não está conforme* marcado, também: desde a decisão 39, a ressalva exige a foto do problema, e a foto do problema precisa da câmera (antes, o `Não conforme` continuava, porque a ressalva não precisava dela) · nenhuma referência desenha este quadro e o `textos.md` não tem a frase do que falta pro item, então o visor fica só com a câmera riscada (G25), e a URL sai do momento (sem a referência, o 07 e o 08 não o desenham); no protótipo, nenhum estado da coluna chega nele, e ele se vê na vitrine (`f7-visor-sem-permissao-item`). O primário, em todos os casos (o `Tirar foto`, o `Abrir as configurações`, o `Fotografar o problema`, o *Conte o que aconteceu* apagado e o `Salvar com ressalva`), sai de uma função só, provada no node (`app/src/estado/camera.js` · `primarioDaCamera`, `app/scripts/testar-camera.mjs`)
 - **no protótipo, o que a entrega não desenha** (G25, pro arquiteto): o automático que falta tem o ícone da ferramenta da tela que resolve e *a fazer*, com a seta · a foto tirada no checklist fica só com o nome, sem dizer de onde veio · com 1 foto por fazer, ou 1 tirada, o singular (a resposta do arquiteto de 26/09): *você fotografa 1 item*, *1 foto tirada* (até ela, o cartão ficava sem quem age) · a F aberta depois de homologar mostra os valores do C10 (`12 subiram`, `31 de 31`, `na fila`) · (o pacote 10: o item reprovado e o nome curto no nível do item saíram desta lista — a 16 desenha o reprovado, e o nome curto vale em toda tela)
@@ -55,6 +55,17 @@ Fechar a homologação: o que o app já provou sozinho, e o que o técnico ainda
 - **o item reprovado (T13·5), a escala:** a alimentação (o pacote 10: lida no módulo, contra a faixa da bateria do modelo do ativo) com a faixa esperada entre 1/3 e 5/6 da barra (10 a 16 V no herói), no nível do item reprovado. As posições saem da conta
 - **o voltar (T13·6):** nas seções e no homologado, faz o `Voltar ao menu`; no nível do item, o `Voltar ao checklist`, que volta à seção do item aberta; no diálogo, o `Cancelar`
 
+## O checklist novo (retorno do PM, 06/10)
+
+- **A · Identificação, 4 itens**: o serial, o firmware, o ativo vinculado e o pacote de sincronização, com a data dele
+- **C · Hardware**: a alimentação é a tensão que o módulo lê no fio de alimentação, contra a faixa do modelo (o herói em 24,3 V) · o GPS mostra a antena: *conectada*, *em curto* ou *desconectada*; os satélites ficam como informação
+- **D · Configuração, uma linha por bloco**: Limpeza, Ativo, Cercas, Leitor, Eventos e Conexão, cada uma com *confere* ou *não confere* · depois, o autoteste, o canal de programação protegido e o ID confere com o cadastro · as pendências registradas só aparecem quando o ID foi reescrito · **começa vazia e enche conforme cada item é lido** (a 38) · sem hodômetro e horímetro
+- **E · Ciclo de testes, no máximo 5**, cada um só quando se aplica: ignição liga, rotação, cartão, bip do leitor, ignição desliga · o ciclo da T14 preenche os passos; o bip é respondido aqui, com o `Testar bip`
+- **F · Servidor, 2 itens**: Posição e Evento de teste, *esperando*, *confere* ou *não chegou* · a fila de envio é da T15
+- **o Finalizar fica desligado** enquanto houver item automático de A, C ou D incompleto, **com o motivo escrito embaixo**
+- **o fim é *Checklist registrado · aguardando autoteste*** (a 11): *O próximo passo é encerrar a sessão. O autoteste roda durante o encerramento.* · a palavra *homologada* só aparece na T16
+- **no protótipo · a rodada 1 do retorno do PM:** como a `logica.md` diz (O checklist · a rodada 1) · as peças ganharam variantes, sem desenho novo: a linha do item com o *lendo* (o quadrado de agora), a ação à direita (o `Testar bip`) e o que ela abre embaixo (a pergunta com as duas respostas, o campo do que aconteceu), o cartão da seção com o *lendo*, e o campo de texto com o que ele pede vazio · o `Testar bip`, o `Ouvi` e o `Não ouvi` são o botão de dentro da linha (`telas/comum/BotaoDaLinha.jsx`, pro arquiteto pôr na folha 6) · *a fazer* da E em `--tinta`, como as referências novas · **as referências desenham a lista rolada além do fim** (a D ou a C no topo e o vazio embaixo da F, na 05, 13, 39 e 41) — o protótipo rola até onde a lista deixa, como no pacote 12 · o campo do que aconteceu tem 64 (`--alvo-min` + 16), como a 42
+
 ## Peças do design system que esta tela usa
 
 Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-design-system/`. Construa com o componente — nunca redesenhe.
@@ -74,7 +85,7 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 - seção recolhida
 - segmentado
 - encerrando
-- pede o corte
+- reiniciando
 - sem homologar
 - a barra do checklist
 - com contador

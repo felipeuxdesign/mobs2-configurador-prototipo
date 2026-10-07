@@ -15,12 +15,12 @@ Medido no código do protótipo (`06-prototipo/app/src/telas/<tela>/`), em 03/10
 | T05 · Conectar módulo | `modelos`, `modulos`, `naBuscaForaCadastro`, `situacao` | `bluetooth-desligado`, `bluetooth-sem-permissao`, `busca-vazia`, `conexao-falha` |
 | T07 · Diagnóstico do módulo | `diagnostico`, `ativos`, `cadeia`, `matrizCapacidades`, `modelos`, `modelosAtivo`, `modulos`, `situacao` | `serial-nao-cadastrado`, `modelo-sem-driver`, `firmware-fora-matriz`, `firmware-sem-rede-no-modulo`, `modem-sem-sinal`, `can-estatico-ausente`, `can-estatico-isolado`, `can-estatico-bateria` |
 | T06 · Selecionar ativo | `ativos`, `empresa`, `matrizCapacidades`, `modelosAtivo`, `modulos`, `pacotes`, `uos`, `contextoAtivo` | `ativo-fora-pacote`, `conflito-pinos-resolvivel`, `conflito-pinos-sem-saida`, `modulo-em-outro-ativo`, `modulo-ja-deste-ativo` |
-| T09 · Configurar módulo | `cadeia`, `ativos`, `conexoes`, `matrizCapacidades`, `modelosAtivo`, `modulos`, `presetsEvento` | `bloco-recusado`, `queda-na-cadeia`, `conteudo-nao-cabe`, `pool-esgotado` |
+| T09 · Configurar módulo | `cadeia`, `ativos`, `conexoes`, `matrizCapacidades`, `modelosAtivo`, `modulos`, `presetsEvento` | `bloco-recusado`, `queda-na-cadeia`, `conteudo-nao-cabe`, `pool-esgotado`, `servidor-ainda-nao` |
 | T10 · Calibração | `calibracao`, `ativos`, `matrizCapacidades`, `modulos` | `grandeza-indisponivel`, `releitura-nao-confere` |
-| T14 · Ciclo de testes | `ciclo`, `checklist`, `identificadores`, `ativos`, `modelosAtivo` | `evento-sem-resposta`, `identificador-divergente`, `motor-desligado-no-ciclo`, `evento-nao-chega-de-novo` |
-| T13 · Checklist | `checklist`, `cadeia`, `calibracao`, `autotesteEncerramento`, `filaSaida`, `leituraNominalModulo`, `ativos`, `modelosAtivo`, `modulos` | `can-estatico-bateria`, `diff-divergente`, `localizacao-negada`, `pronto-para-fechar`, `gps-fraco`, `entrada-ignicao`, `modem-sem-sinal`, `identificador-divergente` |
+| T14 · Ciclo de testes | `ciclo`, `checklist`, `identificadores`, `ativos`, `modelosAtivo` | `evento-sem-resposta`, `sem-leitor`, `motor-desligado-no-ciclo`, `evento-nao-chega-de-novo` |
+| T13 · Checklist | `checklist`, `cadeia`, `calibracao`, `autotesteEncerramento`, `filaSaida`, `leituraNominalModulo`, `ativos`, `modelosAtivo`, `modulos` | `can-estatico-bateria`, `diff-divergente`, `localizacao-negada`, `pronto-para-fechar`, `gps-fraco`, `entrada-ignicao`, `modem-sem-sinal` |
 | T16 · Sessão | `cadeia`, `autotesteEncerramento`, `calibracao`, `identificadores`, `ativos`, `modelos`, `modulos`, `contextoAtivo` | `autoteste-falhando`, `sessao-interrompida` |
-| T15 · Fila de saída | `filaSaida`, `tiposFila`, `secaoF`, `criteriosRegra`, `ativos` | `fila-vazia`, `identificador-divergente` |
+| T15 · Fila de saída | `filaSaida`, `tiposFila`, `secaoF`, `criteriosRegra`, `ativos` | `fila-vazia` |
 | T11 · Conferir configuração | `cadeia`, `conexoes`, `modelosAtivo`, `modulos`, `pacotes`, `presetsEvento`, `situacao`, `ativos` | `cercas-reenviadas`, `indice-nao-classificado` |
 | T12 · Últimas instalações | `instalacoes`, `criteriosRegra`, `diagnostico`, `calibracao`, `tecnico`, `ativos`, `contextoAtivo` | `criterio-indisponivel`, `criterio-pendente`, `instalacoes-sem-rede` |
 
@@ -35,7 +35,7 @@ Medido no código do protótipo (`06-prototipo/app/src/telas/<tela>/`), em 03/10
 | `modulos`, `modelos`, `matrizCapacidades`, `seriaisForaCadastro`, `naBuscaForaCadastro` | o cadastro dos módulos e o que cada modelo suporta — e o que o módulo informa na busca |
 | `diagnostico`, `leituraNominalModulo`, `dominiosCan` | o que o módulo e a CAN respondem na leitura |
 | `cadeia` (a ordem dos 6 blocos, o `conteudo`, os escopos da limpeza) | o que se grava no módulo, e como se confere (read-back) |
-| `calibracao`, `ciclo`, `checklist`, `autotesteEncerramento` | as regras da calibração, do ciclo de testes, do checklist de 31 itens e do autoteste |
+| `calibracao`, `ciclo`, `checklist`, `autotesteEncerramento` | as regras da calibração, do ciclo de testes, do checklist de 29 itens no herói e do autoteste, com 7 assertivas |
 | `instalacoes`, `criteriosRegra`, `filaSaida`, `tiposFila`, `secaoF` | o histórico de instalações, o que o servidor recebeu, e a fila de envio do aparelho |
 | `situacao` | o mundo do aparelho: a rede, o Bluetooth, os módulos por perto |
 | `casos` | não existe no produto: são as condições do mundo que o protótipo encena (veja `testes-prontos.md`) |
