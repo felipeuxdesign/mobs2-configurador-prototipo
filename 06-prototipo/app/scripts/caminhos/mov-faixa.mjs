@@ -22,7 +22,7 @@ const PARADOS = [...BARRA, { prop: 'transform', em: 'ds-rodape' }]
 // o ENCERRAR que se apaga e volta: nada na faixa, nem a camada do pressionado soltando por cima
 const SEM_PISCAR = [{ prop: 'opacity', em: 'ds-chrome-camadas' }, { prop: 'transform', em: 'ds-faixa' }, { prop: 'opacity', em: 'ds-faixa' }]
 // o diagnóstico do herói: os 150 da troca e sete linhas, uma a cada 600 ms (RITMOS.diagnosticoLinhaMs), do toque à faixa
-const DIAG = [3900, 5200]
+const DIAG = [4500, 5800]   // a rodada 2: nove linhas (o chip e as mensagens)
 // os sete passos do encerramento, um a cada 600 ms (RITMOS.encerramentoPassoMs), do abre à sem sessão
 const PASSOS = [3700, 4700]
 
@@ -40,7 +40,7 @@ export default [
   { ve: 'ENCERRAR', entre: DIAG },
   { anima: [DESCE, MIOLO], naoAnima: BARRA },
   { naoVe: 'M2C-0417 · RKT-8H42' },   // o rótulo do topo sai: o serial está na faixa
-  { ve: '7 de 7' },
+  { ve: '8 de 8' },
   { dorme: 300 },
   { quieto: true },
   // a faixa que nasceu segue a outra tela parada: o topo não se move entre telas (C12·3)

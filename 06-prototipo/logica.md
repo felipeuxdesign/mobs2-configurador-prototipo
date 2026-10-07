@@ -265,7 +265,7 @@ No protótipo, o relógio parado faz do *uma vez por dia* uma vez só:
 
 ## O diagnóstico do módulo
 
-Depois de conectar, o diagnóstico lê o módulo: o serial, o firmware, a alimentação, o GPS, as entradas, o modem e o SIM. **Três linhas travam a instalação** — o serial fora do cadastro, o modelo sem suporte e o firmware não homologado. O firmware tem `Atualizar`; sem rede no módulo, `Gravar a conexão` grava só a conexão, isolada — a sessão já existe, e a conexão não depende do ativo —, e o firmware atualiza por ela. `Procurar outro módulo` volta pra lista da T05, sem nada escolhido. **As outras só informam**: o app segue, e o checklist registra. A CAN só aparece com o ativo — até o bloco do ativo ser gravado, ela espera. Depois, `Ler de novo` relê a CAN inteira. Os dados vêm de `diagnostico` no mock.
+Depois de conectar, o diagnóstico lê o módulo: o serial, o firmware, a alimentação, o GPS, as entradas, o modem e o SIM. **Três linhas travam a instalação** — o serial fora do cadastro, o modelo sem suporte e o firmware fora da lista. O firmware tem `Atualizar`; sem rede no módulo, `Gravar a conexão` grava só a conexão, isolada — a sessão já existe, e a conexão não depende do ativo —, e o firmware atualiza por ela. `Procurar outro módulo` volta pra lista da T05, sem nada escolhido. **As outras só informam**: o app segue, e o checklist registra. A CAN só aparece com o ativo — até o bloco do ativo ser gravado, ela espera. Depois, `Ler de novo` relê a CAN inteira. Os dados vêm de `diagnostico` no mock.
 
 - **no protótipo, a faixa** (o padrão aprovado no gate do pacote 1, até a errata): as sete linhas acendem uma a cada 600ms (`movimento.md`), ainda sem a faixa; passando sem trava, a faixa desce, e a tela é a 00 — *7 de 7*, `Selecionar ativo` e `Voltar ao menu`. O modem sem sinal (07) só informa: a faixa desce também, com *6 de 7*. Nas travas (02 a 05) e na atualização do firmware (06), a faixa não desce, e o módulo fica em cima do título — *M2C-0999 · fora do cadastro*, ou o serial e a placa do cadastro
 - **`Procurar outro módulo`**, nas travas, leva à T05/01, a lista sem nada escolhido (o padrão aprovado no gate)
@@ -561,13 +561,12 @@ O que não é de desenho e o produto ainda decide segue um padrão — a lista e
 | `T05/16-estado-bluetooth-desligado` | o Bluetooth do celular está desligado | `bluetooth-desligado` |
 | `T05/17-estado-bluetooth-sem-permissao` | o técnico negou a permissão do Bluetooth | `bluetooth-sem-permissao` |
 | `T06/04-estado-fora-do-pacote` | o ônibus não está no pacote | `ativo-fora-pacote` |
-| `T06/05-estado-conflito-de-pinos-resolvivel` | pinos ocupados, com saída | `conflito-pinos-resolvivel` |
 | `T06/06-estado-conflito-de-pinos-sem-saida` | pinos ocupados, sem saída | `conflito-pinos-sem-saida` |
 | `T06/10-estado-modulo-em-outro-ativo` | o módulo já está vinculado a outro ativo | `modulo-em-outro-ativo` |
 | `T06/11-estado-modulo-ja-deste-ativo` | o módulo já é deste ativo — manutenção | `modulo-ja-deste-ativo` |
 | `T07/02-estado-serial-nao-cadastrado` | o serial não está no cadastro | `serial-nao-cadastrado` |
 | `T07/03-estado-modelo-sem-suporte` | o modelo do módulo sem suporte nesta versão | `modelo-sem-driver` |
-| `T07/04-estado-firmware-nao-homologado` | o firmware não é homologado | `firmware-fora-matriz` |
+| `T07/04-estado-firmware-fora-da-lista` | o firmware não é homologado | `firmware-fora-matriz` |
 | `T07/05-estado-firmware-sem-rede-no-modulo` | o firmware não é homologado e o módulo está sem rede | `firmware-sem-rede-no-modulo` |
 | `T07/07-estado-modem-sem-sinal` | o modem sem sinal — só informa | `modem-sem-sinal` |
 | `T07/08-estado-sinal-da-can-sem-leitura` | um sinal da CAN não chega | `can-estatico-ausente` |

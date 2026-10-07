@@ -286,7 +286,7 @@ export default [
   { chega: 'T04' },
 
   // ── T10 · o Voltar ao menu, em todo passo — também onde o link do rodapé é o Pular o horímetro
-  //    (01 e 08: o voltar nunca pula); no semear, nada (a decisão do diretor de 25/09: o semear
+  //    (08: o voltar nunca pula); no semear, nada (a decisão do diretor de 25/09: o semear
   //    não para); na calibração completa, o Voltar ao menu, embaixo do Fazer o ciclo de testes ──
   { abre: '?tela=T10' },
   esc,
@@ -313,7 +313,7 @@ export default [
   esc,
   { chega: 'T04' },
   { abre: '?tela=T10&momento=01-momento-hodometro-semeado' },
-  { ve: 'Pular o horímetro' },
+  { ve: 'Calibrar a rotação' },   // a rodada 2: o caminhão coletor, com a rotação ainda por calibrar
   esc,
   { chega: 'T04' },
   { abre: '?tela=T10&momento=08-momento-horimetro' },

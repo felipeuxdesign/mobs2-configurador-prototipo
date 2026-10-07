@@ -37,7 +37,7 @@ const M06 = '06-momento-atualizando-o-firmware'
 const M10 = '10-momento-relendo-a-can'
 const M11 = '11-momento-lendo'
 const LISTA_T05 = '01-momento-nenhum-escolhido'
-const ESTADOS = ['02-estado-serial-nao-cadastrado', '03-estado-modelo-sem-suporte', '04-estado-firmware-nao-homologado',
+const ESTADOS = ['02-estado-serial-nao-cadastrado', '03-estado-modelo-sem-suporte', '04-estado-firmware-fora-da-lista',
   '05-estado-firmware-sem-rede-no-modulo', '07-estado-modem-sem-sinal', '12-estado-alimentacao-abaixo-da-faixa', '08-estado-sinal-da-can-sem-leitura', '09-estado-sinal-da-can-fora-do-esperado']
 // da lista da T05 (a busca, sem nada escolhido) até o Conectar: a troca entre telas leva à T07
 const CONECTA = (serial) => [
@@ -53,40 +53,46 @@ export default [
   // ── abre parada: pela URL, a 01 e cada estado ──
   { abre: '?tela=T07' },
   ...PARADA,
-  { ve: '7 de 7' },
+  { ve: '8 de 8' },
   { ve: 'ENCERRAR' },
   { abre: `?tela=T07&momento=${M01}` },
   ...PARADA,
-  { ve: '15 de 15' },
+  { ve: '14 de 14' },
   ...ESTADOS.flatMap((e) => [{ abre: `?tela=T07&estado=${e}` }, ...PARADA]),
   // no print, cada quadro de referência: nada se move, nem os dois processos (06, 10)
   ...['', `&momento=${M01}`, `&momento=${M06}`, `&momento=${M10}`, `&momento=${M11}`, ...ESTADOS.map((e) => `&estado=${e}`)]
     .flatMap((q) => [{ abre: `?tela=T07${q}&print=1` }, ...PARADA]),
-  { ve: '14 de 15' },
+  { ve: '13 de 14' },
 
   // ── a chegada da T05, o herói: as sete no ritmo, e a faixa desce ──
   ...CONECTA('M2C-0417'),
   // o quadro de começo: sem a faixa, nada em cima do título (a 11, o pacote 5), a primeira lendo, o rodapé sem saída
   { naoVe: 'M2C-0417 · RKT-8H42' },
   { naoVe: 'ENCERRAR' },
-  { ve: '0 de 7' },
+  { ve: '0 de 8' },
   { desligado: 'Lendo · não saia da tela' },
   // a primeira: os 150 da troca + 600, contados do toque (as quatro conferências de cima levam uns 300)
-  { ve: '1 de 7', entre: [200, 1000] },
+  { ve: '1 de 8', entre: [200, 1000] },
   { anima: [GLIFO, VALOR] },
   { ve: 'VL06 CAN-BT' },
-  { ve: '2 de 7', entre: LINHA },
+  { ve: '2 de 8', entre: LINHA },
   { anima: [GLIFO, VALOR] },
   { ve: '2.3.5' },
-  { ve: '3 de 7', entre: LINHA },
-  { ve: '4 de 7', entre: LINHA },
-  { ve: '5 de 7', entre: LINHA },
-  { ve: '6 de 7', entre: LINHA },
+  { ve: '3 de 8', entre: LINHA },
+  { ve: '4 de 8', entre: LINHA },
+  { ve: '5 de 8', entre: LINHA },
+  { ve: '6 de 8', entre: LINHA },
+  { ve: '7 de 8', entre: LINHA },
+  // a oitava, o número do chip (a rodada 2 do retorno do PM): a contagem fecha em 8
+  { ve: '8 de 8', entre: LINHA },
+  { ve: '8955 0312 4567 8901' },
   { naoVe: 'ENCERRAR' },
-  // a sétima: a faixa desce, o miolo acompanha, a barra fica; o primário diz Selecionar ativo
+  // a nona, as mensagens, só informam e não contam: com ela, a faixa desce, o miolo acompanha, a barra
+  // fica; o primário diz Selecionar ativo
   { ve: 'ENCERRAR', entre: LINHA },
   { anima: [DESCE, MIOLO, GLIFO, TEXTO], naoAnima: BARRA },
-  { ve: '7 de 7' },
+  { ve: '8 de 8' },
+  { ve: '0 mensagens ainda não enviadas' },
   { ve: 'sem ativo' },
   { naoVe: 'M2C-0417 · RKT-8H42' },   // o rótulo de cima sai: o serial está na faixa
   { dorme: 400 },
@@ -108,10 +114,11 @@ export default [
   { fica: 'T07', ms: 300 },
   { ve: 'não está no cadastro', ms: 2000 },
   { naoVe: 'SERIAL FORA DO CADASTRO' },
-  // a sétima fecha na trava: o aviso abre a tela com o porquê, esmaecendo no lugar (Aviso · surge, 150)
-  { ve: '4 de 7', ms: 6000 },
+  // fechada a leitura na trava: o aviso abre a tela com o porquê, esmaecendo no lugar (Aviso · surge, 150)
+  // a nona fecha na trava (a rodada 2: as mensagens são a última, e não contam): o aviso abre a tela
+  { ve: 'SERIAL FORA DO CADASTRO', ms: 8000 },
   { anima: [esmaece('ds-aviso ds-caixa-poco ds-caixa-falha')] },
-  { ve: 'SERIAL FORA DO CADASTRO' },
+  { ve: '5 de 8' },   // o número do chip também passa
   { ve: 'Peça ao gestor pra cadastrar o M2C-0999.' },
   { dorme: 400 },
   { quieto: true },
@@ -138,14 +145,14 @@ export default [
   { tecla: 'Escape' },
   { fica: 'T07', ms: 300 },
   { chega: 'T07', momento: null, entre: [300, 1200] },
-  { ve: '0 de 7' },
-  { ve: '1 de 7', entre: LINHA },
-  { ve: '2 de 7', entre: LINHA },
+  { ve: '0 de 8' },
+  { ve: '1 de 8', entre: LINHA },
+  { ve: '2 de 8', entre: LINHA },
   { ve: '2.3.5' },   // o firmware disponível, depois da atualização (o caso consumido)
-  { naoVe: 'homologadas 2.2.0 e 2.3.5' },
-  { ve: 'ENCERRAR', ms: 4000 },
+  { naoVe: 'na lista: 2.2.0 e 2.3.5' },
+  { ve: 'ENCERRAR', ms: 5000 },
   { anima: [DESCE, MIOLO], naoAnima: BARRA },
-  { ve: '7 de 7' },
+  { ve: '8 de 8' },
   { ve: 'M2C-0451' },
   { dorme: 400 },
   { quieto: true },
@@ -158,13 +165,13 @@ export default [
   { chega: 'T07', momento: M10 },
   { desligado: 'Lendo · não saia da tela' },
   { desligado: 'ENCERRAR' },
-  { ve: '7 de 15' },
-  { ve: '8 de 15', entre: LINHA },
+  { ve: '8 de 14' },
+  { ve: '9 de 14', entre: LINHA },
   { tecla: 'Escape' },
   { fica: 'T07', ms: 300 },
-  { ve: '10 de 15', ms: 2000 },
+  { ve: '11 de 14', ms: 2000 },
   { chega: 'T07', momento: M01, ms: 6000 },
-  { ve: '15 de 15' },
+  { ve: '14 de 14' },
   { dorme: 400 },
   { quieto: true },
   // lida: o voltar é o Voltar ao menu
@@ -173,10 +180,10 @@ export default [
   // o 10 pela URL: abre no quadro dele (a temperatura lendo), e segue dali
   { abre: `?tela=T07&momento=${M10}` },
   { quieto: true },
-  { ve: '10 de 15' },
-  { ve: '11 de 15', entre: [300, 900] },
+  { ve: '11 de 14' },
+  { ve: '12 de 14', entre: [300, 900] },
   { chega: 'T07', momento: M01, ms: 4000 },
-  { ve: '15 de 15' },
+  { ve: '14 de 14' },
 
   // ── pelo menu, o diagnóstico feito fica: nasce parado ──
   { abre: '?tela=T07' },
@@ -189,7 +196,7 @@ export default [
   { chega: 'T07', momento: null },
   { dorme: 250 },
   { quieto: true },
-  { ve: '7 de 7' },
+  { ve: '8 de 8' },
   { ve: 'ENCERRAR' },
   { dorme: 700 },
   { quieto: true },
@@ -216,20 +223,22 @@ export default [
   { dorme: 250 },
   { toca: 'Diagnóstico do módulo', anima: TROCA },
   { chega: 'T07', momento: M01 },
-  { dorme: 250 },
+  // a lista se ajusta ao abrir, e o indicador de rolagem pode aparecer: fica os 900 da --rolagem-espera e
+  // some em 300, como em toda rolagem
+  { dorme: 1400 },
   { quieto: true },
   { ve: 'Conferido na conexão' },
-  { ve: '15 de 15' },
+  { ve: '14 de 14' },
 
   // ── com reduzir movimento: o mesmo ritmo, e nada anda ──
   { reduzir: true },
   ...CONECTA('M2C-0417').map((p) => (p.toca ? { toca: p.toca } : p)),
   { quieto: true },
-  { ve: '1 de 7', entre: [400, 900] },
+  { ve: '1 de 8', entre: [400, 900] },
   { quieto: true },
-  { ve: '4 de 7', ms: 3000 },
+  { ve: '4 de 8', ms: 3000 },
   { quieto: true },
-  { ve: 'ENCERRAR', ms: 3000 },
+  { ve: 'ENCERRAR', ms: 4000 },
   { quieto: true },
   { reduzir: false },
 
@@ -249,5 +258,5 @@ export default [
   { palco: 'Voltar ao fluxo' },
   { chega: 'T07', estado: null },
   ...PARADA,
-  { ve: '7 de 7' },
+  { ve: '8 de 8' },
 ]

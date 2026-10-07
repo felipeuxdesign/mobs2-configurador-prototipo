@@ -1,6 +1,6 @@
 {
   "telas": 15,
-  "referencias": 185,
+  "referencias": 188,
   "itens": [
     {
       "id": "T01/00-tela",
@@ -844,6 +844,36 @@
       "rotuloOrigem": "proposto"
     },
     {
+      "id": "T05/18-estado-pareando",
+      "tela": "T05",
+      "pasta": "T05-conectar-modulo",
+      "tipo": "estado",
+      "nome": "18-estado-pareando",
+      "titulo": "T05 · pareando",
+      "como": "a primeira conexão com um VL06: o celular pede a confirmação do pareamento",
+      "caso": "pareando",
+      "coluna": true,
+      "html": "02-telas/T05-conectar-modulo/referencias/html/18-estado-pareando.html",
+      "png": "02-telas/T05-conectar-modulo/referencias/png/18-estado-pareando.png",
+      "rotulo": "Pareando",
+      "rotuloOrigem": "proposto"
+    },
+    {
+      "id": "T05/19-estado-reconectando",
+      "tela": "T05",
+      "pasta": "T05-conectar-modulo",
+      "tipo": "estado",
+      "nome": "19-estado-reconectando",
+      "titulo": "T05 · reconectando",
+      "como": "a conexão caiu por ficar parada: o app reconecta sozinho, sem linguagem de erro",
+      "caso": "reconectando",
+      "coluna": true,
+      "html": "02-telas/T05-conectar-modulo/referencias/html/19-estado-reconectando.html",
+      "png": "02-telas/T05-conectar-modulo/referencias/png/19-estado-reconectando.png",
+      "rotulo": "Reconectando",
+      "rotuloOrigem": "proposto"
+    },
+    {
       "id": "T06/00-tela",
       "tela": "T06",
       "pasta": "T06-selecionar-ativo",
@@ -880,21 +910,6 @@
       "png": "02-telas/T06-selecionar-ativo/referencias/png/04-estado-fora-do-pacote.png",
       "coluna": true,
       "rotulo": "Fora do pacote",
-      "rotuloOrigem": "proposto"
-    },
-    {
-      "id": "T06/05-estado-conflito-de-pinos-resolvivel",
-      "tela": "T06",
-      "pasta": "T06-selecionar-ativo",
-      "tipo": "estado",
-      "nome": "05-estado-conflito-de-pinos-resolvivel",
-      "titulo": "T06 · conflito de pinos resolvivel",
-      "como": "pinos ocupados, com saída",
-      "caso": "conflito-pinos-resolvivel",
-      "html": "02-telas/T06-selecionar-ativo/referencias/html/05-estado-conflito-de-pinos-resolvivel.html",
-      "png": "02-telas/T06-selecionar-ativo/referencias/png/05-estado-conflito-de-pinos-resolvivel.png",
-      "coluna": true,
-      "rotulo": "Pinos em conflito, com saída",
       "rotuloOrigem": "proposto"
     },
     {
@@ -1023,18 +1038,18 @@
       "grupo": "modulo"
     },
     {
-      "id": "T07/04-estado-firmware-nao-homologado",
+      "id": "T07/04-estado-firmware-fora-da-lista",
       "tela": "T07",
       "pasta": "T07-diagnostico-do-modulo",
       "tipo": "estado",
-      "nome": "04-estado-firmware-nao-homologado",
-      "titulo": "T07 · o firmware não homologado",
+      "nome": "04-estado-firmware-fora-da-lista",
+      "titulo": "T07 · firmware fora da lista",
       "como": "o firmware não é homologado",
       "caso": "firmware-fora-matriz",
-      "html": "02-telas/T07-diagnostico-do-modulo/referencias/html/04-estado-firmware-nao-homologado.html",
-      "png": "02-telas/T07-diagnostico-do-modulo/referencias/png/04-estado-firmware-nao-homologado.png",
+      "html": "02-telas/T07-diagnostico-do-modulo/referencias/html/04-estado-firmware-fora-da-lista.html",
+      "png": "02-telas/T07-diagnostico-do-modulo/referencias/png/04-estado-firmware-fora-da-lista.png",
       "coluna": true,
-      "rotulo": "Firmware não homologado",
+      "rotulo": "Firmware fora da lista",
       "rotuloOrigem": "quadro",
       "grupo": "modulo"
     },
@@ -1066,7 +1081,7 @@
       "html": "02-telas/T07-diagnostico-do-modulo/referencias/html/06-momento-atualizando-o-firmware.html",
       "png": "02-telas/T07-diagnostico-do-modulo/referencias/png/06-momento-atualizando-o-firmware.png",
       "coluna": true,
-      "depoisDe": "T07/04-estado-firmware-nao-homologado",
+      "depoisDe": "T07/04-estado-firmware-fora-da-lista",
       "rotulo": "Atualizando o firmware",
       "rotuloOrigem": "quadro",
       "grupo": "modulo"
@@ -1156,6 +1171,22 @@
       "png": "02-telas/T07-diagnostico-do-modulo/referencias/png/12-estado-alimentacao-abaixo-da-faixa.png",
       "coluna": true,
       "rotulo": "Alimentação abaixo da faixa",
+      "rotuloOrigem": "proposto",
+      "grupo": "modulo"
+    },
+    {
+      "id": "T07/13-estado-sessao-anterior-mal-encerrada",
+      "tela": "T07",
+      "pasta": "T07-diagnostico-do-modulo",
+      "tipo": "estado",
+      "nome": "13-estado-sessao-anterior-mal-encerrada",
+      "titulo": "T07 · a sessão anterior mal encerrada",
+      "como": "o canal de programação encontrado aberto: o app fechou o acesso que ficou aberto, e pode seguir · as mensagens que o módulo guardou",
+      "caso": "modulo-com-pendencias",
+      "coluna": true,
+      "html": "02-telas/T07-diagnostico-do-modulo/referencias/html/13-estado-sessao-anterior-mal-encerrada.html",
+      "png": "02-telas/T07-diagnostico-do-modulo/referencias/png/13-estado-sessao-anterior-mal-encerrada.png",
+      "rotulo": "Sessão anterior mal encerrada",
       "rotuloOrigem": "proposto",
       "grupo": "modulo"
     },
@@ -1341,7 +1372,7 @@
       "nome": "00-tela",
       "titulo": "T10 Calibracao",
       "como": "entrada",
-      "caso": "",
+      "caso": "calibracao",
       "html": "02-telas/T10-calibracao/referencias/html/00-tela.html",
       "png": "02-telas/T10-calibracao/referencias/png/00-tela.png"
     },
@@ -1410,7 +1441,7 @@
       "nome": "05-momento-hodometro-digitado",
       "titulo": "T10 · hodometro digitado · falta a foto",
       "como": "digitar o valor do painel",
-      "caso": "calibracao.painel · a-01",
+      "caso": "calibracao",
       "html": "02-telas/T10-calibracao/referencias/html/05-momento-hodometro-digitado.html",
       "png": "02-telas/T10-calibracao/referencias/png/05-momento-hodometro-digitado.png"
     },
@@ -1422,7 +1453,7 @@
       "nome": "06-momento-gravando-no-modulo",
       "titulo": "T10 Gravando no modulo",
       "como": "tocar em `Semear o hodômetro` · 1s",
-      "caso": "",
+      "caso": "calibracao",
       "html": "02-telas/T10-calibracao/referencias/html/06-momento-gravando-no-modulo.html",
       "png": "02-telas/T10-calibracao/referencias/png/06-momento-gravando-no-modulo.png"
     },
@@ -1434,7 +1465,7 @@
       "nome": "07-momento-relendo",
       "titulo": "T10 Relendo",
       "como": "depois de gravar · 1s, e o tambor rola",
-      "caso": "",
+      "caso": "calibracao",
       "html": "02-telas/T10-calibracao/referencias/html/07-momento-relendo.html",
       "png": "02-telas/T10-calibracao/referencias/png/07-momento-relendo.png"
     },
@@ -1446,7 +1477,7 @@
       "nome": "08-momento-horimetro",
       "titulo": "T10 · horimetro · entrada",
       "como": "`Calibrar o horímetro`",
-      "caso": "calibracao.painel · a-01 · horimetro",
+      "caso": "calibracao",
       "html": "02-telas/T10-calibracao/referencias/html/08-momento-horimetro.html",
       "png": "02-telas/T10-calibracao/referencias/png/08-momento-horimetro.png"
     },
@@ -1458,7 +1489,7 @@
       "nome": "09-momento-calibracao-completa",
       "titulo": "T10 · horimetro semeado · calibracao completa",
       "como": "`Semear o horímetro`, com a releitura conferindo",
-      "caso": "",
+      "caso": "calibracao",
       "html": "02-telas/T10-calibracao/referencias/html/09-momento-calibracao-completa.html",
       "png": "02-telas/T10-calibracao/referencias/png/09-momento-calibracao-completa.png"
     },
@@ -1470,11 +1501,26 @@
       "nome": "10-estado-releitura-nao-confere",
       "titulo": "T10 · releitura nao confere",
       "como": "a releitura passa da tolerância: 500 m a menos, e o limite é 120 m",
-      "caso": "releitura-nao-confere",
+      "caso": "calibracao",
       "html": "02-telas/T10-calibracao/referencias/html/10-estado-releitura-nao-confere.html",
       "png": "02-telas/T10-calibracao/referencias/png/10-estado-releitura-nao-confere.png",
       "coluna": true,
       "rotulo": "Releitura não confere",
+      "rotuloOrigem": "proposto"
+    },
+    {
+      "id": "T10/11-estado-nada-a-calibrar",
+      "tela": "T10",
+      "pasta": "T10-calibracao",
+      "tipo": "estado",
+      "nome": "11-estado-nada-a-calibrar",
+      "titulo": "T10 · nada a calibrar neste ativo",
+      "como": "o ônibus: rotação e hodômetro vêm direto do veículo · segue pro ciclo de testes",
+      "caso": "heroi",
+      "coluna": true,
+      "html": "02-telas/T10-calibracao/referencias/html/11-estado-nada-a-calibrar.html",
+      "png": "02-telas/T10-calibracao/referencias/png/11-estado-nada-a-calibrar.png",
+      "rotulo": "Nada a calibrar",
       "rotuloOrigem": "proposto"
     },
     {
@@ -1887,7 +1933,7 @@
       "tipo": "momento",
       "nome": "19-momento-foto-do-leitor",
       "titulo": "T13 · foto do leitor",
-      "como": "o 4º item da Montagem · só com leitor",
+      "como": "a quarta e última foto da Montagem do ônibus · o painel só entra quando houve calibração",
       "caso": "",
       "html": "02-telas/T13-checklist/referencias/html/19-momento-foto-do-leitor.html",
       "png": "02-telas/T13-checklist/referencias/png/19-momento-foto-do-leitor.png"
@@ -1898,9 +1944,9 @@
       "pasta": "T13-checklist",
       "tipo": "momento",
       "nome": "20-momento-foto-do-painel",
-      "titulo": "T13 · foto do painel",
-      "como": "o 5º item da Montagem · só quando houve calibração",
-      "caso": "",
+      "titulo": "T13 · a foto do painel",
+      "como": "só quando houve calibração: o caminhão coletor, a quinta foto da Montagem · o ônibus não calibra e não tem essa foto",
+      "caso": "calibracao",
       "html": "02-telas/T13-checklist/referencias/html/20-momento-foto-do-painel.html",
       "png": "02-telas/T13-checklist/referencias/png/20-momento-foto-do-painel.png"
     },

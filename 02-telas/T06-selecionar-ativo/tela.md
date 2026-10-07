@@ -8,7 +8,7 @@ Escolher o ônibus que está na frente do técnico e vincular o módulo a ele, n
 | **Chrome** | faixa de sessão |
 | **Semente no protótipo** | sessão M2C-0417 · dez ônibus no pacote |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 3 · 5 — ver `estados.md` |
+| **Momentos · estados** | 3 · 4 — ver `estados.md` |
 
 ## O que se toca
 
@@ -38,7 +38,7 @@ Escolher o ônibus que está na frente do técnico e vincular o módulo a ele, n
 
 - a lista são os ônibus do pacote da unidade do contexto, na ordem do mock — na Várzea, os 10 (G9); o conteúdo rola entre a faixa e o rodapé (G16)
 - a confirmação checa nesta ordem: o pacote, os pinos e o vínculo (T06·3, com o vínculo no lugar do chassi, pela decisão 46). O ônibus que não é caso abre o vínculo novo, a `01`
-- conflito de pinos com saída: `Usar leitor sem fio` resolve no lugar — a sessão passa a sem fio e o mesmo ônibus segue pra confirmação (T06·4). O conflito vale quando o módulo da faixa, o ônibus e o meio da sessão são os do caso (G28)
+- conflito de pinos: sempre a trava (06), sem saída no lugar — o conflito com saída saiu na rodada 2 do retorno do PM. O conflito vale quando o módulo da faixa e o ônibus são os do caso (G28)
 - o voltar do sistema (no computador, o Esc) faz o mesmo que o link de saída do rodapé: na lista e na busca sem resultado (08), o `Voltar ao menu`; na confirmação e nos avisos do vínculo (10, 11), o `Escolher outro`, que volta à lista. Nas travas sem link (04, 06), o `Escolher outro` do primário, a saída que elas têm (`06-prototipo/logica.md` · O voltar do Android)
 - no protótipo, a folga antes do rodapé (a proposta do protótipo, que o arquiteto aceitou): a lista do pacote, o último grupo do miolo que rola, não tem mais a margem de 16 embaixo, que somava com o recheio do miolo 32 no fim da rolagem; ficam os 16 do recheio. Na rolagem 0 não muda nenhum pixel (as dez referências de então, na base). Na confirmação, que não rola, o último bloco segue com os 16 dele e cresce até ali, como as referências desenham: os dados do modelo (01, 10 e 11) e a trava (04 a 06) — tirar a margem moveria o desenho
 
@@ -109,3 +109,8 @@ No acerto do design system pelo medido (G10), a lista ficou só com os nomes das
 ## Textos
 
 Os textos exatos de cada referência estão em `textos.md`. Copie de lá — nunca redigite.
+
+## O conflito de pinos (retorno do PM, 06/10)
+
+- **o conflito é sempre erro de projeto de instalação** (a 06): sem cabo, trocar o meio de conexão nunca resolve, e o técnico não escolhe o leitor · o estado com saída, *Usar leitor sem fio*, saiu
+- **no protótipo · a rodada 2:** o caso de pinos é só o `conflito-pinos-sem-saida`, e o par da faixa decide (G28), sem olhar o meio da sessão · saíram a trava com saída, o `Usar leitor sem fio` e o caso `conflito-pinos-resolvivel`

@@ -1,5 +1,38 @@
 # Registro de mudanças
 
+## 2026-10-07 · a rodada 2 do retorno do PM — o fluxo de apoio
+
+- **T05 · conectar**: só sem fio · o *Pareando*, na primeira conexão com um VL06 (*Confirme no celular. É só na primeira vez com este módulo.*) · o *Reconectando*, quando a conexão cai por ficar parada, sem linguagem de erro
+- **T06 · vínculo**: saiu o conflito de pinos com saída (*Usar leitor sem fio*): sem cabo, trocar o meio nunca resolve · o conflito é sempre erro de projeto de instalação
+- **T07 · diagnóstico**: o número do chip e as mensagens no módulo (só informação) · a alimentação com a faixa do modelo · o GPS pela antena · o alternador só informação, sem a ré · o firmware *fora da lista* · a sessão anterior mal encerrada (a 13)
+- **T11 · conferir**: *Corrigir este bloco* em cada divergência · *Enviar agora* em cada dependente · o reenvio dos 5 blocos como último recurso, com o escopo · as ações desde o *Conferindo* · sem o Extended ID · a *APN* virou *Rede do módulo*
+- **T10 · calibração**: o ônibus não calibra nada (*Nada a calibrar neste ativo*, a 11) · o caminhão coletor é o exemplo que calibra · a velocidade opcional, só com tacógrafo · a contagem só dos obrigatórios
+- **T15 · fila**: o conflito não é recusa (*recebida · em conflito, o gestor foi avisado*) · o *servidor recusou* com uma causa que o técnico resolve: o pacote vencido
+- **o mock e o gate**: o diagnóstico com 9 linhas, o conflito de pinos sem fio, a calibração por modelo, os casos do pareando, do reconectando e da sessão mal encerrada · três âncoras novas
+- **o efeito dominó da calibração no checklist**: o Painel só entra na Montagem quando houve calibração, e o ônibus não calibra → **o herói tem 4 fotos e 28 itens** (era 29 na rodada 1) · o ônibus da bateria fraca, 3 fotos e 24 itens · **a foto do Painel (T13/20) passou pro caminhão coletor**, que calibra
+- **a T10/04 corrigida**: o módulo sem pulsos é de um caminhão coletor, com tacógrafo e horímetro · a rotação e a velocidade não se aplicam (não lê pulsos), o horímetro fica opcional
+- **as legendas a 12px do botão em todo o app**: as 18 do rodapé do checklist, a da T05/01 e a da T07/05 estavam a 8px
+- **185 → 188 referências** · 15 telas, 79 estados, 94 momentos
+
+- **no protótipo** (o gate em `06-prototipo/para-o-arquiteto/gate-rodada2.md`, as folhas lado a lado em `rodada2/` · commit local, sem push até a rodada 3):
+  - os 4 arquivos do `APAGAR.txt` saíram, e nada vivo aponta pra eles;
+  - **a T05**: a 18 e a 19 abrem pela coluna, paradas: o quadro do *Conectando* com a frase da espera, neutra;
+  - **a T06**: um caso de pinos só, sempre a trava, e o par da faixa decide sem olhar o meio;
+  - **a T07**: a leitura passa pelas 9 linhas e conta as 8 · a faixa, os satélites e as mensagens embaixo do nome · o caso `modulo-com-pendencias` monta a 13 (no fluxo, conectar no M2C-0362);
+  - **a T10**: a tela pelo endereço é o caminhão coletor · o herói, no fluxo, cai no *Nada a calibrar* e vai direto ao ciclo · a contagem e os segmentos só dos obrigatórios, e o *Depois:* com os opcionais juntos;
+  - **a T11**: a ação na própria linha, *Corrigir este bloco* e *Enviar agora*, com o nome do bloco pro leitor de tela · o rodapé só com a saída · o botão guarda o lugar enquanto a linha não foi lida, e nada muda de lugar;
+  - **a T15**: o recebido em conflito na semente da 00, depois dos recebidos, e fora do contador do menu;
+  - **a T13**: o 20 pelo endereço abre na sessão do caminhão, o ativo que calibra;
+  - **o design system**: a variante `embaixo` da linha de checagem, o rodapé sem primário e a legenda a 4 de margem por cima do vão · nenhuma peça nova, nenhum token;
+  - **o mock**: o bruto do horímetro do caminhão (2.950 h) e o `releitura-nao-confere` no caminhão (87.711,5 km), como as referências desenham;
+  - **o gate do mock**: as nossas conferências acertadas ao mock novo (a calibração por modelo, a fila com 11, a T11 sem o Extended ID, a bateria fora da CAN, o checklist de 28);
+  - **os roteiros**: o `heroi` passa pelo *Nada a calibrar*; o `heroi-sem-horimetro`, que perdeu a premissa, prova o caminho pelo menu e pelo checklist · o `mov-t10` é o caminhão · o `conferencia` toca a ação de cada linha, o leitor antes dos eventos (o leitor arrasta os eventos).
+- **os desvios nomeados** (o gate, §3):
+  - a T07: as referências desenham a alimentação e as mensagens com 54 e o GPS com 50; a 12 traz a linha do firmware com 64; a 13 abre rolada, com o módulo VL06 CAN-BT onde o mock diz VL06 CAN;
+  - a T10/00 diz *lido do módulo*, e a 03 diz *semeado há 27 dias* pro mesmo caminhão: segue o mock;
+  - a T15/00: o recebido do meio com 62 (a 01 desenha 50) e o f-11 do mock no RVM-1E54, onde a 00 desenha QAH-1M67;
+  - a T12/01 (da rodada 3): o *Diagnóstico 8 de 8* e a Calibração sem valor, pelo mock novo da i-01.
+
 ## 2026-10-07 · a rodada 1 do retorno do PM — o que decide se a instalação passa
 
 O PM revisou o protótipo (06/10) com um critério: **o app só valida o que o Virloc realmente responde, com o técnico parado**. A rodada 1 cobre as telas que decidem quando uma instalação é aprovada.

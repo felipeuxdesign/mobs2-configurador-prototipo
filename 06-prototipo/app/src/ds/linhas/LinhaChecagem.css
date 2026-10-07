@@ -141,3 +141,7 @@
 .ds-checagem-recebimento.ds-checagem-pendente .ds-checagem-valor { color: var(--tinta-secundaria); }
 .ds-checagem-recebimento.ds-checagem-reprovada .ds-checagem-valor { color: var(--vermelho); }
 .ds-checagem-recebimento .ds-glifo-traco { background: var(--marca-limite); }
+
+/* a rodada 2 do retorno do PM · a ação embaixo do par (T11/00, 05): a 6 do par, e a linha com 10 em cima e embaixo */
+.ds-checagem-embaixo { display: flex; margin-top: var(--e-6); }
+.ds-checagem.ds-checagem-com-embaixo { height: auto; padding: var(--e-10) 0; }

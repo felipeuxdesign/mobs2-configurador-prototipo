@@ -150,14 +150,11 @@ export default [
   { toca: 'Tirar foto', anima: TROCA },
   { ve: 'Leitor posicionado' },
   { dorme: 250 },
-  // o Painel é foto a tirar, como os outros quatro (decisão 52)
-  { toca: 'Tirar foto', anima: TROCA },
-  { ve: 'Painel com hodômetro e horímetro legíveis' },
-  { dorme: 250 },
-  // o último: a volta às seções, e a barra avança do que tinha quando o item abriu (C12·36, C12·37)
+  // o último (a rodada 2: o Leitor — o ônibus não calibra, e o Painel não entra): a volta às seções, e a
+  // barra avança do que tinha quando o item abriu (C12·36, C12·37)
   { toca: 'Tirar foto', anima: [...TROCA, BARRA], naoAnima: [esmaece('ds-glifo')] },   // o check entra com a troca
   { chega: 'T13', momento: '12-momento-b-com-ressalva' },
-  { ve: '5 de 5' },
+  { ve: '4 de 4' },
   { dorme: 400 },
   { quieto: true },
   // ── o Finalizar (T13·5): o veredito esmaece no lugar, a barra completa, o texto do primário troca;
@@ -181,10 +178,8 @@ export default [
   { toca: 'Tirar foto' },
   { dorme: 250 },
   { toca: 'Tirar foto' },
-  { dorme: 250 },
-  { toca: 'Tirar foto' },
   { chega: 'T13', momento: M02 },
-  { ve: '5 de 5' },
+  { ve: '4 de 4' },
   { dorme: 400 },
   { toca: 'B · Montagem', anima: FECHA },
   { chega: 'T13', momento: null },
@@ -209,7 +204,7 @@ export default [
   { tecla: 'Escape' },
   { anima: [...TROCA, BARRA] },
   { chega: 'T13', momento: M02 },
-  { ve: 'você fotografa 5 itens' },
+  { ve: 'você fotografa 4 itens' },
   { dorme: 400 },
   { quieto: true },
 
@@ -250,8 +245,7 @@ export default [
   { toca: 'Tirar foto' },
   { toca: 'Tirar foto' },
   { toca: 'Tirar foto' },
-  { toca: 'Tirar foto' },
-  { toca: 'Tirar foto' },
+  { toca: 'Tirar foto' },   // as quatro da B (a rodada 2: sem o Painel)
   { chega: 'T13', momento: M02 },
   { toca: 'Finalizar instalação' },
   { quieto: true },

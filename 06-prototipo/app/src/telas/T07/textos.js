@@ -29,11 +29,18 @@ export const T = {
   naoEstaNoCadastro: 'não está no cadastro',
   modeloSemSuporte: 'modelo sem suporte nesta versão',
   semCadastro: 'sem cadastro',
-  homologadas: (lista) => `homologadas ${lista.join(' e ')}`,
+  naLista: (lista) => `na lista: ${lista.join(' e ')}`,   // a rodada 2: o firmware fora da lista (04, 05)
 
   // o que só informa (05, 07)
   semElaNaoAtualiza: 'sem ela, o firmware não atualiza',
   semRede: 'sem rede',
+  // a rodada 2 do retorno do PM: o que só informa — as mensagens no módulo e o alternador da CAN
+  soInformacao: 'só informação',
+  faixa: (f) => `faixa ${f}`,   // a faixa de operação do modelo, embaixo da alimentação
+  mensagens: (n) => `${n} mensagens ainda não enviadas`,
+  // a sessão anterior mal encerrada (13): o canal de programação encontrado aberto
+  malEncerradaTitulo: 'SESSÃO ANTERIOR MAL ENCERRADA',
+  malEncerradaFrase: 'O app fechou o acesso que ficou aberto. Pode seguir.',
   daPraSeguir: 'dá pra seguir · o checklist registra',
 
   // a CAN (08, 09)
@@ -50,7 +57,7 @@ export const T = {
   voltarAoMenu: 'Voltar ao menu',
   procurarOutro: 'Procurar outro módulo',
   atualizarFirmware: 'Atualizar firmware',
-  comConexaoGravada: 'Com a conexão gravada, o firmware atualiza pelo módulo.',
+  comConexaoGravada: 'Com a conexão conferida, o firmware atualiza pelo módulo.',
   gravarConexao: 'Gravar a conexão',
   atualizando: 'Atualizando · não desconecte',
   recomeca: 'O diagnóstico recomeça quando terminar',

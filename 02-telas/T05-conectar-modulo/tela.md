@@ -8,7 +8,7 @@ Achar o módulo e conectar. O que ele informa vem logo depois, no diagnóstico.
 | **Chrome** | sem faixa — a sessão nasce no diagnóstico, quando o módulo passa |
 | **Semente no protótipo** | quatro módulos por perto · M2C-0417 é o do herói |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 5 · 4 — ver `estados.md` |
+| **Momentos · estados** | 5 · 6 — ver `estados.md` |
 
 - no protótipo · a linha *Chrome*, pelo padrão aprovado: a sessão nasce na conexão, aqui, mas a faixa não desce nesta tela — desce na T07, quando as sete linhas passam sem trava (veja *conectado → T07*, embaixo). Nenhuma das sete referências da T05 tem a faixa
 
@@ -91,3 +91,10 @@ Corrigida no C6 pelo medido (G10, T05-A14). A T05 se constrói em dois ciclos: a
 ## Textos
 
 Os textos exatos de cada referência estão em `textos.md`. Copie de lá — nunca redigite.
+
+## A conexão (retorno do PM, 06/10)
+
+- **só sem fio**: nenhuma tela oferece cabo nem *reconectar por cabo*
+- **pareando** (a 18): só na primeira conexão com um VL06 · *Confirme no celular. É só na primeira vez com este módulo.* · o VL08 não precisa
+- **reconectando** (a 19): a conexão sem fio cai depois de cerca de 30 segundos parada · *A conexão caiu por ficar parada. O app reconecta sozinho.* · texto neutro, nunca falha
+- **no protótipo · a rodada 2:** a 18 e a 19 abrem pela coluna, paradas (os casos `pareando` e `reconectando`, no herói): o quadro do *Conectando*, com a frase da espera embaixo da lista, neutra (12/500 em `--tinta-secundaria`, a 4 + 8 do botão), e o primário que diz *Pareando com o …* ou *Reconectando ao …* · no fluxo, a conexão do herói não pareia nem cai · a T05/04 ainda diz *1 · Cabo e conector* no *O que conferir*: é o cabo de alimentação do módulo, e não o de programação — fica, e vai ao arquiteto

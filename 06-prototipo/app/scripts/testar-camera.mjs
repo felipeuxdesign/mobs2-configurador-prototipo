@@ -28,7 +28,8 @@ let falhas = 0; const chk = (n, ok, d) => { console.log((ok ? 'OK     ' : 'FALHA
 // mock nega a câmera (o camera-sem-permissao saiu com a T10/11, decisão 52)
 const negadores = Object.entries(M.casos).filter(([, c]) => c?.permissao === 'camera' && c?.resposta === 'negada').map(([id]) => id)
 chk('nenhum caso do mock nega a câmera (o camera-sem-permissao saiu)', negadores.length === 0 && !M.casos['camera-sem-permissao'], negadores.join(', '))
-chk('a T10/11 saiu do indice.json', !indice.some((r) => r.id.startsWith('T10/11')))
+// a T10/11 de hoje (a rodada 2 do retorno do PM) é o nada a calibrar, e não a câmera de antes
+chk('a câmera sem a permissão saiu do indice.json (a T10/11 de hoje é o nada a calibrar)', !indice.some((r) => r.id === 'T10/11-estado-camera-sem-permissao'))
 const negam = indice.filter((r) => r.tipo === 'estado').map((r) => r.id).filter((id) => permissaoDoEstado(RECEITAS[id], M.casos) === NEGADA)
 chk('nenhum estado do indice.json abre sem a câmera', negam.length === 0, negam.join(', '))
 // a função continua lendo o caso: um caso que negue a câmera, apontado pela receita, a nega

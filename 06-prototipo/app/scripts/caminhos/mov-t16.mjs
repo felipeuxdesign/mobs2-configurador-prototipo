@@ -146,7 +146,7 @@ export default [
   { quieto: true },
   { ve: '2 aprovadas', entre: ASSERTIVA },
   { quieto: true },
-  { toca: 'Voltar ao menu', entre: [2000, 3000] },
+  { toca: 'Voltar ao menu', entre: [1900, 3000] },
   { chega: 'T04' },
   { quieto: true },
   { abre: `?tela=T16&momento=${M01}` },

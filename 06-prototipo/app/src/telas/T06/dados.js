@@ -11,7 +11,6 @@ import { pacoteDaGaragem } from '../../dados/garagens.js'
 export const REF = {
   confirmar: '01-momento-confirmar-o-veiculo',
   fora: '04-estado-fora-do-pacote',
-  resolvivel: '05-estado-conflito-de-pinos-resolvivel',
   semSaida: '06-estado-conflito-de-pinos-sem-saida',
   semResultado: '08-momento-busca-sem-resultado', // a busca que não acha nenhum ônibus do pacote (a entrega de 25/09)
   esconde: '09-momento-busca-esconde-a-escolha',  // a busca que acha outros ônibus e esconde o marcado (a otimização do design)
@@ -76,20 +75,13 @@ export function dadosDoModelo(ativo) {
 // ── as checagens, na ordem: pacote → pinos → vínculo (T06·3, com o vínculo no
 // lugar do chassi, decisão 46) ──
 
-// os dois casos de pinos do mock. O conflito vale quando o par da faixa e o
-// meio da sessão são os do caso (G28: quem decide é o par módulo × ativo)
-const CASOS_PINOS = ['conflito-pinos-resolvivel', 'conflito-pinos-sem-saida']
+// o caso de pinos do mock. O conflito vale quando o par da faixa é o do caso (G28: quem decide é o
+// par módulo × ativo) · a rodada 2 do retorno do PM: a configuração é só sem fio, e o conflito é
+// sempre erro de projeto de instalação — trocar o meio nunca resolve, e o com saída (05) saiu
+const CASO_PINOS = 'conflito-pinos-sem-saida'
 function conflitoDe(ativoId, sessao) {
-  for (const k of CASOS_PINOS) {
-    const c = M.casos[k]
-    if (c && c.ativoId === ativoId && c.moduloSerial === sessao.moduloSerial && c.meioAtual === sessao.meio) return c
-  }
-  return null
-}
-// a saída sem fio existe quando a variante do módulo tem sem fio na matriz
-function moduloTemSemFio(serial) {
-  const m = moduloDe(serial)
-  return Boolean(m && M.matrizCapacidades.find((c) => c.modeloId === m.modeloId && c.variante === m.variante)?.semFio)
+  const c = M.casos[CASO_PINOS]
+  return c && c.ativoId === ativoId && c.moduloSerial === sessao.moduloSerial ? c : null
 }
 
 const PASSOS = ['pacote', 'pinos', 'vinculo']
@@ -107,7 +99,7 @@ export function avaliar(ativo, { uoId, sessao }, desde = 'pacote', vinculo = nul
   if (i <= 0 && ativo.uoId !== uoId) return { passo: 'fora', garagem: uoDe(ativo.uoId).nome }
   if (i <= 1) {
     const caso = conflitoDe(ativo.id, sessao)
-    if (caso) return { passo: moduloTemSemFio(sessao.moduloSerial) ? 'resolvivel' : 'sem-saida', caso }
+    if (caso) return { passo: 'sem-saida', caso }
   }
   if (vinculo?.vinculadoAoAtivoId) return { passo: 'outro-ativo', caso: vinculo, onde: ativoDe(vinculo.vinculadoAoAtivoId) }
   if (vinculo?.modo === 'manutencao') return { passo: 'ja-deste', caso: vinculo }
@@ -136,7 +128,6 @@ export function mundoDoEstado(est, base) {
       const c = M.casos['ativo-fora-pacote']
       return { ativoId: c.ativoId, desde: 'pacote', uoId: pacoteDe(c.pacoteId).uoId, sessao: base.sessao }
     }
-    case REF.resolvivel: return pinos('conflito-pinos-resolvivel')
     case REF.semSaida: return pinos('conflito-pinos-sem-saida')
     case REF.outroAtivo: return vinculo('modulo-em-outro-ativo')
     case REF.jaDeste: return vinculo('modulo-ja-deste-ativo')

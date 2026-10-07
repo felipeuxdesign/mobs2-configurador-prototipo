@@ -91,7 +91,8 @@ export const filaToda = (unico) => filaDoMundo(unico)
 
 // T04·1 (b) · o contador do menu: o que ainda não chegou, só da garagem ativa
 export function pendentesDaGaragem(fila, uoId) {
-  return fila.filter((f) => f.estado !== 'recebida' && ativo(f.ativoId)?.uoId === uoId).length
+  // a rodada 2 do retorno do PM: o recebido em conflito também chegou — o servidor aceitou, e avisou o gestor
+  return fila.filter((f) => f.estado !== 'recebida' && f.estado !== 'recebida-em-conflito' && ativo(f.ativoId)?.uoId === uoId).length
 }
 // T04·1 (b) · o diálogo de sair: o que está na fila, de todas as garagens
 export const naFila = (fila) => fila.filter((f) => f.estado === 'na-fila').length

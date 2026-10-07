@@ -13,7 +13,8 @@ export const T = {
   rotuloDosErros: { 1: 'UM PRECISA DE VOCÊ', 2: 'DUAS COM ERRO' },
   ressincronizar: 'Ressincronizar e reenviar',
   entre: ' · ',                                              // o tipo e a placa, no título do item
-  recusou: (motivo) => ['o servidor recusou', motivo],   // duas linhas de verdade (o pacote 6)     // T15·1 (a): só com mais de um erro no cartão
+  recusou: (motivo) => ['o servidor recusou', motivo],
+  recusouFrase: (motivo) => `O servidor recusou: ${motivo}.`,   // a recusa sozinha, numa frase (00, a rodada 2)   // duas linhas de verdade (o pacote 6)     // T15·1 (a): só com mais de um erro no cartão
   semRede: (tentativas, proxima) => `sem rede · ${tentativas} tentativas feitas, próxima às ${proxima}`,
   soAPrimeira: 'Só a primeira precisa de você. A segunda reenvia sozinha.',
   // o cartão do topo sem erro: o item que sobe agora (01)
@@ -26,6 +27,8 @@ export const T = {
   naFilaERecebidas: 'NA FILA E RECEBIDAS',                   // embaixo do item que sobe (01)
   naFila: (placa) => `${placa} · na fila`,
   recebida: (placa) => `${placa} · recebida`,
+  // a rodada 2 do retorno do PM: o conflito não é recusa — recebida, em conflito, e o aviso do mock (00)
+  recebidaEmConflito: (placa, aviso) => `${placa} · recebida · em conflito,\n${aviso}`,   // duas linhas de verdade
   haMin: (n) => `há ${n} min`,
   agora: 'agora',   // o que entrou na fila agora, às 14:30
   ontem: (hora) => `ontem ${hora}`,

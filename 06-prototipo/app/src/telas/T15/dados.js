@@ -21,7 +21,9 @@ export const REF = {
 // contexto são os da semente (a Várzea do herói) sem contradição — o T15-A2
 // fechou. Mora aqui porque o sementes.js não é deste ciclo de tela; o gate
 // confere que ela é a fila da uo-02 (P·C11 · T15), que é de onde os três vêm.
-export const SELECAO_DA_SEMENTE = ['f-10', 'f-02', 'f-08']
+// a rodada 2 do retorno do PM: e o f-11, o recebido em conflito (o conflito não é recusa: o servidor
+// aceita os dois registros e avisa o gestor) — a 00 desenha os quatro
+export const SELECAO_DA_SEMENTE = ['f-10', 'f-02', 'f-08', 'f-11']
 
 const itemDoMock = (id) => M.filaSaida.find((f) => f.id === id)
 const ativo = (id) => M.ativos.find((a) => a.id === id)
@@ -65,6 +67,8 @@ export function quadroDoFluxo(unico) {
 // na fila e depois o que já foi recebido, do mais novo pro mais velho. O
 // contador conta todos os itens mostrados, pendentes e recebidos (T15·2 a).
 const ORDEM_DO_ERRO = { 'erro-recusa': 0, 'erro-rede': 1 }
+// o recebido, e o recebido em conflito (a rodada 2): os dois estão no servidor, e nada pede o técnico
+const RECEBIDAS = ['recebida', 'recebida-em-conflito']
 const minutos = (hhmm) => { const [h, m] = hhmm.split(':').map(Number); return h * 60 + m }
 // o mais novo primeiro: menos dias atrás e, no mesmo dia, a hora mais tarde — a de
 // entrar na fila, pra quem espera, e a de confirmação, pra quem foi recebido
@@ -79,14 +83,17 @@ export function grupos(itens) {
   const comHora = (f, hora) => ({ f, hora })
   const naFila = itens.filter((f) => f.estado === 'na-fila').map((f) => comHora(f, criadoDe(f))).sort(maisNovo)
   const recebidas = itens.filter((f) => f.estado === 'recebida').map((f) => comHora(f, confirmadoDe(f))).sort(maisNovo)
-  return { total: itens.length, erros, enviando, lista: [...naFila, ...recebidas].map((x) => x.f) }
+  // o recebido em conflito (a rodada 2) vem depois dos recebidos, como a 00 desenha
+  const emConflito = itens.filter((f) => f.estado === 'recebida-em-conflito').map((f) => comHora(f, confirmadoDe(f))).sort(maisNovo)
+  return { total: itens.length, erros, enviando, lista: [...naFila, ...recebidas, ...emConflito].map((x) => x.f) }
 }
 
 // o título de um item: o rótulo curto e a placa ('Evidências · KJC-7N23')
 export const tituloDoItem = (f) => `${rotuloCurto(f.tipo)}${T.entre}${placaDe(f.ativoId)}`
 
 // T15·1 (a) · a causa da recusa: o prefixo só com mais de um erro no cartão (estados.md)
-export const causaDaRecusa = (f, nErros) => (nErros > 1 ? T.recusou(f.motivo) : f.motivo)
+// · a rodada 2: sozinha, a recusa é uma frase — *O servidor recusou: o pacote de sincronização venceu.* (00)
+export const causaDaRecusa = (f, nErros) => (nErros > 1 ? T.recusou(f.motivo) : T.recusouFrase(f.motivo))
 export const causaDaRede = (f) => T.semRede(f.tentativas, f.proximaTentativaAs)
 
 // o item que sobe agora: o progresso e o tamanho, com a vírgula sem Intl
@@ -99,11 +106,12 @@ const diaMes = (data) => { const [, mes, dia] = data.split('-'); return { dia, m
 // hoje, a hora; ontem, 'ontem' com a hora; antes, o dia e a hora ('10/03, 10:05')
 export function linhaDaLista(f) {
   const placa = placaDe(f.ativoId)
-  if (f.estado === 'recebida') {
+  if (RECEBIDAS.includes(f.estado)) {
     const dias = diasDe(f)
     const quando = dias === 0 ? confirmadoDe(f) : dias === 1 ? T.ontem(confirmadoDe(f))
       : f.data ? T.naData(diaMes(f.data), confirmadoDe(f)) : T.haDias(dias)
-    return { estado: 'ok', nomeGlifo: 'feito', titulo: rotuloCurto(f.tipo), legenda: T.recebida(placa), quando }
+    const legenda = f.estado === 'recebida-em-conflito' ? T.recebidaEmConflito(placa, f.aviso) : T.recebida(placa)
+    return { estado: 'ok', nomeGlifo: 'feito', titulo: rotuloCurto(f.tipo), legenda, quando }
   }
   // na fila: há quanto tempo está parado, de criadoAs até as 14:30 (mocks.js · fila de saída)
   const parado = minutos(M.HORA_NOMINAL) - minutos(criadoDe(f))

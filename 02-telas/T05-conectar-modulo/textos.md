@@ -41,3 +41,11 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 ## `17-estado-bluetooth-sem-permissao`
 
 `Conectar módulo` · `sem permissão` · `Falta a permissão do Bluetooth` · `O app usa só pra achar os módulos por perto. Sem ela, a busca não começa.` · `Permitir` · `Voltar ao menu`
+
+## `18-estado-pareando`
+
+`Conectar módulo` · `5` · `encontrados` · `Escolha o que está na sua mão.` · `M2C-0417` · `VL06 · CAN-BT` · `M2C-0362` · `VL06 · CAN` · `M2C-0394` · `VL06 · ECO` · `M2C-0335` · `VL06 · CAN-BT` · `M2C-0999` · `VL06 · CAN-BT` · `Confirme no celular. É só na primeira vez com este módulo.` · `Pareando com o M2C-0417…` · `Procurar de novo`
+
+## `19-estado-reconectando`
+
+`Conectar módulo` · `5` · `encontrados` · `Escolha o que está na sua mão.` · `M2C-0417` · `VL06 · CAN-BT` · `M2C-0362` · `VL06 · CAN` · `M2C-0394` · `VL06 · ECO` · `M2C-0335` · `VL06 · CAN-BT` · `M2C-0999` · `VL06 · CAN-BT` · `A conexão caiu por ficar parada. O app reconecta sozinho.` · `Reconectando ao M2C-0417…` · `Procurar de novo`

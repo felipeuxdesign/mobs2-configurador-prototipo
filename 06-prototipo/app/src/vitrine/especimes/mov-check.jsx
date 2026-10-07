@@ -179,8 +179,8 @@ function BotaoQueDizOQueFalta() {
 }
 
 // ── o veredito que espera a prova (C12·35, o retorno do diretor de 26/09 · T11): a caixa no lugar desde o começo,
-// neutra, com a contagem das que se comparam; a palavra e a cor entram quando a quinta linha acende (o pacote 2,
-// decisão 53: as cinco linhas, o Extended ID só leitura e fora da contagem; a versão lida no módulo saiu do 02) ──
+// neutra, com a contagem das que se comparam; a palavra e a cor entram quando a quarta linha acende (a rodada 2 do
+// retorno do PM: as quatro linhas, sem o Extended ID; a versão lida no módulo saiu do 02) ──
 const SESSAO_T11 = SEMENTES.T11.sessao
 function Conferencia({ confere = false, lida = false }) {
   const par = parDoCaso(confere ? CASO_CONFERE : CASO_DIFF)
@@ -239,7 +239,7 @@ export const especimes = [
     legenda: 'o toque desabilita sem o roxo por cima · o texto novo esmaece no lugar, em 150',
     render: () => <BotaoQueDizOQueFalta /> },
   { id: 'mov-check-veredito', folha: 4, chrome: true, semBancada: true, rotulo: 'o veredito que espera a prova',
-    legenda: 'bancada · confere: a caixa diz CONFERINDO, a contagem acompanha, e a palavra, a cor e o poço entram na quinta linha',
+    legenda: 'bancada · confere: a caixa diz CONFERINDO, a contagem acompanha, e a palavra, a cor e o poço entram na quarta linha',
     render: () => <div style={naTela}><ComAbrirDeNovo fim={<Conferencia lida />}><Conferencia /></ComAbrirDeNovo></div> },
   { id: 'mov-check-veredito-confere', folha: 4, chrome: true, semBancada: true, rotulo: 'o veredito que confere',
     legenda: 'o traço cinza vira lima por uma camada, e a palavra entra no mesmo tique',

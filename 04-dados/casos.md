@@ -16,14 +16,13 @@ Cada caso de `mocks.js` → a tela e o estado que ele produz. **O estado se mont
 | `can-estatico-isolado` | `T07/09-estado-sinal-da-can-fora-do-esperado` |
 | `cercas-reenviadas` | `T11/05-estado-revisar-em-seguida` |
 | `conexao-falha` | `T05/04-estado-conexao-falhou` |
-| `conflito-pinos-resolvivel` | `T06/05-estado-conflito-de-pinos-resolvivel` |
 | `conflito-pinos-sem-saida` | `T06/06-estado-conflito-de-pinos-sem-saida` |
 | `conteudo-nao-cabe` | `T09/06-estado-a-configuracao-nao-cabe` |
 | `criterio-indisponivel` | `T12/04-estado-criterio-indisponivel` |
 | `criterio-pendente` | `T12/05-estado-criterio-pendente` |
 | `diff-divergente` | `T11/02-momento-tudo-confere` |
 | `evento-sem-resposta` | `T14/02-estado-prazo-estourado` |
-| `firmware-fora-matriz` | `T07/04-estado-firmware-nao-homologado` · `T07/06-momento-atualizando-o-firmware` |
+| `firmware-fora-matriz` | `T07/04-estado-firmware-fora-da-lista` · `T07/06-momento-atualizando-o-firmware` |
 | `firmware-sem-rede-no-modulo` | `T07/05-estado-firmware-sem-rede-no-modulo` |
 | `grandeza-indisponivel` | `T10/04-estado-modulo-sem-pulsos` |
 | `i-01` | `T12/01-momento-detalhe-da-instalacao` |

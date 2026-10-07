@@ -14,6 +14,8 @@
 | `07-momento-conectado` | momento | o módulo responde: o traço lima se desenha embaixo da linha, e o botão diz *Conectado ao M2C-0417*, antes da T07 | `modulos` |
 | `16-estado-bluetooth-desligado` | estado | o Bluetooth do celular está desligado | `bluetooth-desligado` |
 | `17-estado-bluetooth-sem-permissao` | estado | o técnico negou a permissão do Bluetooth | `bluetooth-sem-permissao` |
+| `18-estado-pareando` | estado | a primeira conexão com um VL06: Confirme no celular | `pareando` |
+| `19-estado-reconectando` | estado | a conexão caiu por ficar parada: reconectando | `reconectando` |
 
 - no protótipo · a nossa versão da linha *03-estado-nenhum-encontrado*, antes desta entrega: | `03-estado-nenhum-encontrado` | estado | nenhum módulo responde | `busca-vazia` (com a duração, AC-18) |
 

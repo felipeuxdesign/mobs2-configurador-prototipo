@@ -335,7 +335,7 @@ O ícone que abre uma linha de texto — *ocupação de pinos confere* na T09, *
 
 ## Duas ideias numa linha
 
-Um rótulo com duas ideias separadas por **·** — *sem rede · 3 tentativas feitas* — fica numa linha só quando cabe. **Quando não cabe, quebra no ·, em duas linhas de verdade**, uma ideia em cada, e o · sai: *apaga a configuração anterior* / *preserva o serial e os contadores* na T09, *o servidor recusou* / *instalação encerrada por outro usuário* na T15. Nunca deixar o navegador decidir a quebra: ele parte a ideia no meio e deixa palavra sozinha. Rótulo não leva ponto final; frase completa, como os avisos, leva.
+Um rótulo com duas ideias separadas por **·** — *sem rede · 3 tentativas feitas* — fica numa linha só quando cabe. **Quando não cabe, quebra no ·, em duas linhas de verdade**, uma ideia em cada, e o · sai: *Checklist registrado* / *aguardando autoteste* na T13, *o servidor recusou* / *o pacote de sincronização venceu* na T15. Nunca deixar o navegador decidir a quebra: ele parte a ideia no meio e deixa palavra sozinha. Rótulo não leva ponto final; frase completa, como os avisos, leva.
 
 **No protótipo** · o texto com duas ideias vem como lista, uma por item, e a peça quebra entre elas com `emLinhas` (`06-prototipo/app/src/ds/primitivos/linhas.jsx`) · na Cadeia (a descrição da Limpeza) e no CartaoAcao (a recusa da T15/02).
 
@@ -365,6 +365,14 @@ Nenhuma peça nova no design system, e nenhum token. As telas da rodada pediram 
 - **a cadeia** (`Cadeia`): `extra` no elo, a linha que ele confere depois de gravado, embaixo da descrição — o traço da divisória em cima, a 8, o nome em 13/600 `--tinta-forte` e o valor em 13/700 (*O módulo falou com o servidor*, T09/04, 11 e 12)
 - **o encerramento** (`Encerramento`): o reinício automático usa o `agora` de sempre, com a legenda; o `energia` (o *é com você* do corte) ficou sem uso
 - **o botão de dentro da linha**, peça das telas (`app/src/telas/comum/BotaoDaLinha.jsx`): a resposta do técnico na própria linha — 40 de alto, os dois lado a lado a 8 (o `Confere com o cartão` e o `Não confere`, T14/08, em 13; o `Ouvi` e o `Não ouvi`, T13/40, em 14), e 30, do tamanho do texto (o `Testar bip`) · o fundo `--divisoria`, a borda `--borda-poco`, o texto `--tinta` em 700 · no toque afunda, como o secundário
+
+## No protótipo · as variantes da rodada 2 do retorno do PM
+
+Nenhuma peça nova, e nenhum token. Duas variantes e um ajuste, que vão ao arquiteto pras folhas:
+
+- **a linha de checagem** (`LinhaChecagem`): `embaixo`, a ação do técnico na própria linha, embaixo do par — a 6 dele, alinhada ao nome, com o poço no meio do bloco inteiro e 10 em cima e embaixo (*Corrigir este bloco* e *Enviar agora*, T11/00 e 05, com o botão de dentro da linha da rodada 1)
+- **o rodapé** (`Rodape`): sem o primário, só com o link — as ações moram nas linhas, e o rodapé fica com a saída (T11/00 e 05)
+- **a legenda do rodapé**: 4 de margem por cima do vão, no app inteiro — a 6 + 4 + 8 do botão com o link (T05/01, T07/05), e a 4 + 8 na junta (o checklist) · as referências mediam 4 a mais que a peça
 
 ## No protótipo · o movimento das peças (C12)
 

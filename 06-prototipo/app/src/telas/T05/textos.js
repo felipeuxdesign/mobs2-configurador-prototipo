@@ -14,6 +14,9 @@ export const TX = {
   conectarAo: (serial) => `Conectar ao ${serial}`,
   // 06 · conectando (o pacote 6): a espera da conexão, no primário desligado
   conectandoAo: (serial) => `Conectando ao ${serial}…`,
+  // 18 e 19 · as esperas da conexão (a rodada 2 do retorno do PM): a frase embaixo do primário, neutra
+  pareando: { legenda: 'Confirme no celular. É só na primeira vez com este módulo.', primario: (serial) => `Pareando com o ${serial}…` },
+  reconectando: { legenda: 'A conexão caiu por ficar parada. O app reconecta sozinho.', primario: (serial) => `Reconectando ao ${serial}…` },
   // 07 · conectado (o pacote 9): o módulo respondeu, e o traço se desenha embaixo da linha
   conectadoAo: (serial) => `Conectado ao ${serial}`,
   procurarDeNovo: 'Procurar de novo',

@@ -243,8 +243,8 @@
   /* errata do pacote 1 · as coleções que o pacote conta (decisão 45): as conexões da empresa e os
      eventos embarcados do preset. O gate recomputa o contem de cada pacote a partir delas. */
   var CONEXOES = [
-    { id: "cx-01", nome: "Servidor principal", apn: "m2m.mobs2.br" },
-    { id: "cx-02", nome: "Servidor de contingência", apn: "m2m.mobs2.br" }
+    { id: "cx-01", nome: "Servidor principal", apn: "m2m.mobs2.br", exibir: "o servidor da Mobs2" }, /* a tela mostra o exibir, nunca o endereço (retorno do PM, 06/10) */
+    { id: "cx-02", nome: "Servidor de contingência", apn: "m2m.mobs2.br", exibir: "o servidor da Mobs2" }
   ];
   var EVENTOS_EMBARCADOS = ["Ignição ligada", "Ignição desligada", "Excesso de velocidade", "Freada brusca", "Aceleração brusca", "Curva brusca",
     "Porta aberta em movimento", "Ré acionada", "Botão de pânico", "Bateria baixa", "Entrada em cerca", "Saída de cerca"];
@@ -364,7 +364,7 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
           { bloco: "eventos", hora: "10:21", readBack: "confirmado" },
           { bloco: "conexao", hora: "10:26", readBack: "confirmado" }
         ],
-        calibracao: { semeadas: ["hodometro", "horimetro"], puladas: [], valorPainel: "482.317 km" },
+        calibracao: { semeadas: [], puladas: [], nadaACalibrar: true },
         cicloDinamico: { completo: true, passos: ["Ignição ligada", "Rotação", "Cartão do motorista", "Ignição desligada"], confirmados: 4 },
         checklist: { itens: 31, concluidos: 31 },
         autoteste: { assertivas: 8, passaram: 8 },
@@ -450,18 +450,20 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
     modulo: [
       { id: "serial",      rotulo: "Serial no cadastro", heroi: "VL06 CAN-BT",        trava: "serial-nao-cadastrado", travaModelo: "modelo-sem-driver" },
       { id: "firmware",    rotulo: "Firmware",           heroi: "2.3.5",              trava: "firmware-fora-matriz" },
-      { id: "alimentacao", rotulo: "Alimentação",        heroi: "24,3 V" }, /* o herói é um ônibus de 24 V (retorno do PM, 06/10) */
-      { id: "gps",         rotulo: "GPS",                heroi: "fixo · 9 satélites" },
+      { id: "alimentacao", rotulo: "Alimentação",        heroi: "24,3 V", faixa: "9,0 a 32,0 V" }, /* a faixa vem do modelo (matriz) · exemplo até a bancada */ /* o herói é um ônibus de 24 V (retorno do PM, 06/10) */
+      { id: "gps",         rotulo: "GPS",                heroi: "antena conectada", info: "9 satélites" }, /* o critério é a antena: conectada, em curto, desconectada */
       { id: "entradas",    rotulo: "Entradas digitais",  heroi: "ignição ligada" },
       { id: "modem",       rotulo: "Modem",              heroi: "na rede",            informa: "modem-sem-sinal" },
-      { id: "sim",         rotulo: "SIM",                heroi: "ativo" }
+      { id: "sim",         rotulo: "SIM",                heroi: "ativo" },
+      { id: "chip",        rotulo: "Número do chip",     heroi: "8955 0312 4567 8901" }, /* o técnico confere com o impresso no chip (retorno do PM, 06/10) */
+      { id: "mensagens",   rotulo: "Mensagens no módulo", heroi: "0 mensagens ainda não enviadas", soInforma: true } /* não conta nem bloqueia */
     ],
-    canAguarda: "A CAN aparece depois que o bloco do ativo for gravado.",
+    canAguarda: "A CAN aparece depois que o bloco do ativo for conferido.",
     can: { modeloAtivoId: "ma-01", sinais: [
       { id: "rotacao", rotulo: "Rotação", lido: "980 rpm", leituras: ["980 rpm", "992 rpm", "975 rpm", "988 rpm"] }, { id: "velocidade", rotulo: "Velocidade", lido: "0 km/h" },
       { id: "hodometro", rotulo: "Hodômetro", lido: "184.320 km" }, { id: "temperatura", rotulo: "Temperatura", lido: "31 °C", esperado: "−40 a 120", leituras: ["31 °C", "31 °C", "32 °C", "31 °C"] },
       { id: "combustivel", rotulo: "Combustível", lido: "62%" }, { id: "consumo", rotulo: "Consumo", lido: "1,8 L/h", leituras: ["1,8 L/h", "1,9 L/h", "1,8 L/h", "1,7 L/h"] },
-      { id: "alternador", rotulo: "Alternador", lido: "14,1 V", leituras: ["14,1 V", "14,0 V", "14,2 V", "14,1 V"] }, { id: "re", rotulo: "Ré", lido: "desligada" } ] }
+      { id: "alternador", rotulo: "Alternador", lido: "14,1 V", leituras: ["14,1 V", "14,0 V", "14,2 V", "14,1 V"], soInforma: true } ] } /* o alternador fica só como leitura informativa · a ré saiu (retorno do PM, 06/10) */
   };
 
   /* ── Pacote de sincronização — um por UO, em TRÊS idades (T03).
@@ -505,10 +507,12 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
     /* C19 · motivo ENCURTADO, medido: a frase do servidor dá 585,7 na faixa
        de 296 do Checagem (três linhas), e `O servidor recusou o pacote` é o
        que a coluna da direita já diz em `recusado`. Original do servidor,
-       para procedência: "O servidor recusou o pacote: esta instalação consta
-       encerrada por outro usuário." */
+       para procedência: o conflito de instalação deixou de ser recusa no retorno
+       do PM (06/10) — agora é o pacote vencido. */
     { id: "f-10", tipo: "Evidências da instalação",  ativoId: "a-14", diasAtras: 0, criadoAs: "12:05", estado: "erro-recusa",
-      reenvio: "manual", motivo: "instalação encerrada por outro usuário" }
+      reenvio: "manual", motivo: "o pacote de sincronização venceu" }, /* retorno do PM (06/10): uma causa que o técnico resolve com o Ressincronizar · leitura nossa */
+    { id: "f-11", tipo: "Evidências da instalação",  ativoId: "a-06", diasAtras: 0, criadoAs: "14:00", estado: "recebida-em-conflito", confirmadoAs: "14:12",
+      aviso: "o gestor foi avisado" } /* o conflito não é recusa: o servidor aceita os dois registros e avisa o gestor · sem reenvio */
   ]);
   var SECAO_F = { emRecheck: true, ativoId: "a-06", instalacaoId: "i-06",
     motivo: "Confirmação de recebimento pendente desde a falha reconhecida" };
@@ -573,7 +577,7 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
        do hodômetro é calibracao.tolerancia.hodometro.desvio = 120 m — então
        não confere, e a tela pede "Semear de novo". A foto continua valendo:
        ela prova o painel, não o módulo. relidoBruto em metros, como bruto. */
-    "releitura-nao-confere": { ativoId: "a-01", grandeza: "hodometro", relidoBruto: 482316500 },
+    "releitura-nao-confere": { ativoId: "a-09", grandeza: "hodometro", relidoBruto: 87711500 }, /* rodada 2: o caminhão coletor é o exemplo que calibra — 500 m a menos que os 87.712 do painel (T10/10) */
     /* T02 · a lista longa. A empresa do herói tem 3 unidades (o gate trava
        isso), e a busca só aparece com MAIS DE 6 — então a lista longa vive
        num caso: a mesma empresa, num mundo com 9 unidades em 3 regiões.
@@ -628,16 +632,12 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
        transmissão) da matriz de T06. Linhas físicas diferentes, dois
        assuntos — não fundir. meioAtual (D-39): o meio é como o módulo foi
        ENCONTRADO, fato da sessão, não capacidade da variante. */
-    "conflito-pinos-resolvivel": { ativoId: "a-04", moduloSerial: "M2C-0335",
-      recurso: "leitor", fio: "fio branco", ocupadoPor: "sensor de porta",
-      saida: "oferecer leitor sem fio",
-      meioAtual: "cabo",
-      consumidores: ["leitor serial", "cabo de programação"] },
+    /* "conflito-pinos-resolvivel" saiu no retorno do PM (06/10): sem cabo, trocar o meio nunca resolve */
     "conflito-pinos-sem-saida": { ativoId: "a-11", moduloSerial: "M2C-0389",
       recurso: "leitor", fio: "fio branco", ocupadoPor: "sensor de porta",
-      saida: "escalonar ao gestor — este módulo não tem opção sem fio",
-      meioAtual: "cabo",
-      consumidores: ["leitor serial", "cabo de programação"] },
+      saida: "escalonar ao gestor: é erro de projeto de instalação",
+      meioAtual: "sem fio", /* a configuração é só sem fio (retorno do PM, 06/10) */
+      consumidores: ["leitor serial", "sensor de porta"] },
     "can-fora-esperado": { ativoId: "a-02", sinal: "velocidade",
       lido: "0 km/h", esperado: "maior que zero com o motor ligado" },
     "grandeza-indisponivel": { modeloAtivoId: "ma-02", grandeza: "horímetro",
@@ -654,12 +654,12 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
     "diff-divergente": { ativoId: "a-16", moduloSerial: "M2C-0438",
       divergencias: [
         { bloco: "cercas",  noModulo: "3 regiões",         noCadastro: "4 regiões" },
-        { bloco: "conexao", rotulo: "APN", noModulo: "m2m.antiga.br", noCadastro: "m2m.mobs2.br" },
+        { bloco: "conexao", rotulo: "Rede do módulo", noModulo: "uma rede antiga", noCadastro: "a rede da Mobs2" }, /* retorno do PM (06/10): APN vira rede do módulo, sem endereços na tela */
         { bloco: "eventos", noModulo: "intervalo 60 s",    noCadastro: "intervalo 30 s" },
         { bloco: "leitor",  noModulo: "leitor no fio branco", noCadastro: "leitor sem fio" }
       ],
-      /* o Extended ID não diverge: é só leitura (decisão 45) — a conferência mostra o que está no módulo */
-      extendedId: { cartoes: 3, ibuttons: 1, somenteLeitura: true } },
+      /* o Extended ID saiu da conferência (retorno do PM, 06/10): cartão é assunto da plataforma web */
+      }, 
     "indice-nao-classificado": { ativoId: "a-16", moduloSerial: "M2C-0438",
       posicao: 7, motivo: "Conteúdo gravado que o app não reconhece — não pertence a nenhum bloco." },
     /* protótipo C11 (T11) · AC-17 — o par que CONFERE (T11/02, T11·1 a): a
@@ -768,10 +768,8 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
     "ma-01": [
       { id: "ignicao",     dominio: "Geral",            rotulo: "Ignição",              fase: "estatico", esperado: "ligada",            lido: "ligada" },
       { id: "hodometro",   dominio: "Geral",            rotulo: "Hodômetro",            fase: "estatico", esperado: null,                lido: "184.320 km" },
-      { id: "bateria",     dominio: "Sistema elétrico", rotulo: "Tensão da bateria",    fase: "estatico", esperado: "12,0 a 15,0 V",     lido: "13,8 V" },
-      { id: "alternador",  dominio: "Sistema elétrico", rotulo: "Tensão do alternador", fase: "dinamico", esperado: "13,5 a 14,8 V" },
+      { id: "alternador",  dominio: "Sistema elétrico", rotulo: "Tensão do alternador", fase: "dinamico", esperado: "13,5 a 14,8 V", soInforma: true },
       { id: "velocidade",  dominio: "Movimento",        rotulo: "Velocidade",           fase: "dinamico", esperado: "acima de 0 km/h" },
-      { id: "re",          dominio: "Movimento",        rotulo: "Ré",                   fase: "dinamico", esperado: "acende ao engatar" },
       { id: "satelites",   dominio: "GPS",              rotulo: "Satélites",            fase: "estatico", esperado: "4 ou mais",         lido: "9" },
       { id: "posicao",     dominio: "GPS",              rotulo: "Posição",              fase: "estatico", esperado: "fixa",              lido: "fixa" },
       { id: "rotacao",     dominio: "Motor",            rotulo: "Rotação",              fase: "dinamico", esperado: "600 a 2.500 rpm" },
@@ -782,7 +780,6 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
     "ma-02": [
       { id: "ignicao",     dominio: "Geral",            rotulo: "Ignição",              fase: "estatico", esperado: "ligada",            lido: "ligada" },
       { id: "hodometro",   dominio: "Geral",            rotulo: "Hodômetro",            fase: "estatico", esperado: null,                lido: "96.410 km" },
-      { id: "bateria",     dominio: "Sistema elétrico", rotulo: "Tensão da bateria",    fase: "estatico", esperado: "24,0 a 29,0 V",     lido: "27,1 V" },
       { id: "velocidade",  dominio: "Movimento",        rotulo: "Velocidade",           fase: "dinamico", esperado: "acima de 0 km/h" },
       { id: "rotacao",     dominio: "Motor",            rotulo: "Rotação",              fase: "dinamico", esperado: "600 a 2.200 rpm" },
       { id: "temperatura", dominio: "Motor",            rotulo: "Temperatura",          fase: "estatico", esperado: "−40 a 120 °C",      lido: "29 °C" },
@@ -792,7 +789,6 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
     "ma-03": [
       { id: "ignicao",     dominio: "Geral",            rotulo: "Ignição",              fase: "estatico", esperado: "ligada",            lido: "ligada" },
       { id: "horimetro",   dominio: "Geral",            rotulo: "Horímetro",            fase: "estatico", esperado: null,                lido: "4.812 h" },
-      { id: "bateria",     dominio: "Sistema elétrico", rotulo: "Tensão da bateria",    fase: "estatico", esperado: "12,0 a 15,0 V",     lido: "12,9 V" },
       { id: "satelites",   dominio: "GPS",              rotulo: "Satélites",            fase: "estatico", esperado: "4 ou mais",         lido: "7" },
       { id: "rotacao",     dominio: "Motor",            rotulo: "Rotação",              fase: "dinamico", esperado: "800 a 2.200 rpm" },
       { id: "temperatura", dominio: "Motor",            rotulo: "Temperatura",          fase: "estatico", esperado: "−40 a 120 °C",      lido: "34 °C" }
@@ -931,11 +927,8 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
         rotuloCampo: "Horas no painel",       fatorEnvio: 3600 }
     ],
     porModelo: {
-      "ma-01": { calibraveis: ["hodometro", "horimetro"], opcionais: ["horimetro"],
-        indisponiveis: [{ grandeza: "rotacao", motivo: "já vem da CAN" },
-                        { grandeza: "velocidade", motivo: "não precisa" }] },
-      "ma-02": { calibraveis: ["rotacao", "velocidade", "hodometro"],
-        indisponiveis: [{ grandeza: "horimetro", motivo: "sem horímetro" }] },
+      "ma-01": { calibraveis: [], nadaACalibrar: "Rotação e hodômetro vêm direto do veículo." }, /* o ônibus lê tudo pela CAN: T10/11 (retorno do PM, 06/10) */
+      "ma-02": { calibraveis: ["hodometro", "rotacao", "velocidade", "horimetro"], opcionais: ["velocidade", "horimetro"] }, /* o exemplo que calibra · a velocidade só com tacógrafo digital, o horímetro do compactador · a contagem só dos obrigatórios */
       "ma-03": { calibraveis: ["horimetro"], opcionais: ["horimetro"],
         indisponiveis: [{ grandeza: "rotacao", motivo: "já vem da CAN" }] }
     },
@@ -970,7 +963,7 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
        exatamente a diferença que a calibração corrige. */
     painel: {
       "a-01": { hodometro: 482317, horimetro: 9640 },
-      "a-09": { hodometro: 87712 },
+      "a-09": { hodometro: 87712, horimetro: 3120 },
       "a-22": { hodometro: 121480 }
     },
     /* leitura BRUTA do contador do módulo, na unidade de ENVIO (metros,
@@ -978,7 +971,7 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
        nunca ajuste anterior + delta. NUNCA renderizado. */
     bruto: {
       "a-01": { hodometro: 184320000, horimetro: 30744000 },
-      "a-09": { hodometro: 87604000 },
+      "a-09": { hodometro: 87604000, horimetro: 10620000 }, /* rodada 2: o caminhão coletor ganhou horímetro · 2.950 h no módulo, o número da T10/08 (o bruto em segundos, fatorEnvio 3600) */
       "a-22": { hodometro: 121003000 }
     },
     /* última calibração conhecida, em dias atrás (0 = hoje; ausente = nunca) */
@@ -1207,6 +1200,8 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
   CASOS["modem-sem-sinal"].releituras = [{ modem: "sem sinal" }, { modem: "na rede" }]; /* T13/33 */
   CASOS["sem-leitor"] = { ativoId: "a-01", leitor: false }; /* T14/12 · o ativo sem leitor: o ciclo em 3 passos, sem o cartão (retorno do PM, 06/10) */
   CASOS["servidor-ainda-nao"] = { moduloSerial: "M2C-0417", falouComServidor: false, causas: ["chip", "antena", "endereço"] }; /* T09/12 · a prova vem do próprio módulo (retorno do PM, 06/10) */
+  CASOS["pareando"] = { moduloSerial: "M2C-0417", modeloId: "vl06", primeiraConexao: true }; /* T05/18 · só VL06, só na primeira vez · o VL08 não pareia */
+  CASOS["reconectando"] = { moduloSerial: "M2C-0417", quedaPorInatividade: true, segundosParado: 30 }; /* T05/19 · reconectando, nunca falha */
 
   /* protótipo C9 (T10) · AC-08 — o hodômetro estático do a-22, o mesmo que a
      T10 calibra no módulo sem pulsos (T10/04): bruto 121.003.000 m ÷ fatorEnvio

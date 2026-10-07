@@ -14,8 +14,11 @@
 //     elas, 500 no total, C12·33); quando ele para, a diferença encolhe e esmaece em 300 (T10·5,
 //     C12·34); no fim dos 300, o veredito assenta — o confere entra na régua em 150, e no mesmo quadro
 //     o poço acende, o alvo diz que cumpriu, o segmento fica feito e o primário acende (o texto novo esmaece);
-//   · o Pular o horímetro (D1 do pacote 2): do semeado (01) e do passo do horímetro (08), a calibração
-//     segue pro ciclo, a troca entre telas, e a etapa guarda o horímetro pulado.
+//   · o Pular o horímetro (D1 do pacote 2): do passo do horímetro (08), a calibração segue pro ciclo,
+//     a troca entre telas, e a etapa guarda o horímetro pulado.
+// A rodada 2 do retorno do PM: a tela pelo endereço é o caminhão coletor (o KNB-5H39), que calibra o
+// hodômetro e a rotação, com a velocidade e o horímetro opcionais. Depois do hodômetro vem a rotação,
+// que espera o motor ligado (o mock não traz o que o motor lê): o horímetro se prova pelo endereço da 08.
 // A tela abre parada pela URL, em cada momento e estado, no print e no palco. Com reduzir movimento,
 // tudo direto, e o semear no mesmo ritmo.
 const C = 'cubic-bezier(0.2, 0.8, 0.2, 1)'
@@ -26,7 +29,7 @@ const TEXTO = esmaece('ds-primario-texto')
 const ACENDE = esmaece('ds-primario-antes')
 const SEM_ROXO = [{ prop: 'opacity', em: 'ds-primario-desabilitado' }, { prop: 'opacity', em: 'ds-primario-antes' }]   // C12·18
 const RODA = { prop: 'transform', ms: 300, em: 'ds-roda-fita', curva: C }
-const ROLA = [{ ...RODA, atraso: 0 }, { ...RODA, atraso: 40 }, { ...RODA, atraso: 200 }]   // as seis do hodômetro
+const ROLA = [{ ...RODA, atraso: 0 }, { ...RODA, atraso: 40 }, { ...RODA, atraso: 160 }]   // as cinco do hodômetro do caminhão (87.712)
 const SAI = [{ prop: 'transform', ms: 300, em: 'ds-regua-sai', curva: C }, { prop: 'opacity', ms: 300, em: 'ds-regua-sai', curva: C }]
 const ENTRA = esmaece('ds-regua-entra')
 const PARADA = [{ quieto: true }, { dorme: 700 }, { quieto: true }]
@@ -35,7 +38,7 @@ const M = {
   horimetro: '08-momento-horimetro', completa: '09-momento-calibracao-completa',
 }
 const ESTADOS = ['02-estado-rotacao-caminhao-coletor', '03-estado-ja-semeado', '04-estado-modulo-sem-pulsos',
-  '10-estado-releitura-nao-confere']
+  '10-estado-releitura-nao-confere', '11-estado-nada-a-calibrar']
 
 export default [
   // ── abre parada: no print, pela URL em cada momento e em cada estado da coluna ──
@@ -56,7 +59,7 @@ export default [
   { anima: [TRACO] },
   { mesmoLugar: true },
   // o primário diz o que falta: com o número, o Semear acende (decisão 52) e o texto novo esmaece no lugar (C12·23)
-  { digita: '482317', em: 'O PAINEL MOSTRA' },
+  { digita: '87712', em: 'O PAINEL MOSTRA' },
   { anima: [TEXTO] },
   { ve: 'Semear o hodômetro' },
   { chega: 'T10', momento: M.digitado },
@@ -81,9 +84,9 @@ export default [
   { anima: ROLA, naoAnima: [...SAI, ACENDE, ENTRA, ...TROCA] },   // o endereço que passa ao 01 não é troca
   { desligado: 'Relendo…' },
   { desligado: 'ENCERRAR' },
-  { ve: 'diferença de 297.997 km' },
+  { ve: 'diferença de 108 km' },
   { dorme: 300 },
-  { anima: [{ ...RODA, atraso: 200 }], naoAnima: [...SAI, ENTRA] },   // aos ~350: a última rodinha rola, e a régua espera
+  { anima: [{ ...RODA, atraso: 160 }], naoAnima: [...SAI, ENTRA] },   // aos ~350: a última rodinha rola, e a régua espera
   // o tambor parou (500): a diferença encolhe e esmaece em 300, e o veredito ainda não
   { dorme: 250 },
   { anima: SAI, naoAnima: [RODA, ACENDE, ENTRA] },
@@ -93,20 +96,26 @@ export default [
   { anima: [ENTRA, TEXTO], naoAnima: [ACENDE] },
   { ve: 'relido às 14:30 · confere com o painel' },
   { ve: 'o mesmo que o módulo agora conta' },
-  { ve: '482.317' },
+  { ve: '87.712' },
   { dorme: 400 },
   { quieto: true },                                               // o tambor acabou (500), e nada fica vivo
-  // o passo seguinte (C12·4): o título, o miolo e o rodapé trocam inteiros
-  { toca: 'Calibrar o horímetro', anima: TROCA, naoAnima: [TEXTO, ACENDE, RODA] },   // o poço do passo novo nasce parado
-  { chega: 'T10', momento: M.horimetro },
-  { ve: 'Opcional · o último passo' },
+  // o passo seguinte (C12·4): o título, o miolo e o rodapé trocam inteiros · a rodada 2: a rotação, que
+  // espera o motor ligado
+  { toca: 'Calibrar a rotação', anima: TROCA, naoAnima: [TEXTO, ACENDE, RODA] },   // o poço do passo novo nasce parado
+  { chega: 'T10', momento: null },
+  { ve: 'Rotação' },
+  { ve: '2 de 2' },
+  { ve: 'Depois: Velocidade e horímetro, opcionais' },
+  { desligado: 'Ligue o motor' },
   { dorme: 250 },
   { quieto: true },
 
-  // ── o horímetro, até a calibração completa ──
+  // ── o horímetro, pelo endereço da 08, até a calibração completa ──
+  { abre: `?tela=T10&momento=${M.horimetro}` },
+  { quieto: true },
   { ve: 'Opcional · o último passo' },
   { ve: 'Pular o horímetro' },
-  { digita: '9640', em: 'O PAINEL MOSTRA' },
+  { digita: '3120', em: 'O PAINEL MOSTRA' },
   { anima: [TEXTO] },
   { dorme: 250 },
   { toca: 'Semear o horímetro', anima: [TEXTO], naoAnima: SEM_ROXO },
@@ -116,7 +125,7 @@ export default [
   { naoVe: 'Calibração completa', ms: 100 },
   { ve: 'Calibração completa', entre: [520, 900] },               // a legenda assenta junto com o veredito, no fim da régua (~720)
   { anima: [ENTRA, TEXTO], naoAnima: [ACENDE] },
-  { ve: '9.640' },
+  { ve: '3.120' },
   { ve: 'Voltar ao menu' },
   { dorme: 400 },
   { quieto: true },
@@ -124,11 +133,12 @@ export default [
   { toca: 'Fazer o ciclo de testes', anima: TROCA },
   { chega: 'T14' },
 
-  // ── o Pular o horímetro (D1): do semeado e do passo do horímetro, segue pro ciclo ──
+  // ── o Pular o horímetro (D1): do passo do horímetro, segue pro ciclo · do semeado (01), a rotação ainda
+  // falta, e o link é o Voltar ao menu (a rodada 2) ──
   { abre: `?tela=T10&momento=${M.semeado}` },
   { quieto: true },
-  { toca: 'Pular o horímetro', anima: TROCA },
-  { chega: 'T14' },
+  { naoVe: 'Pular o horímetro' },
+  { ve: 'Calibrar a rotação' },
   { abre: `?tela=T10&momento=${M.horimetro}` },
   { quieto: true },
   { toca: 'Pular o horímetro', anima: TROCA },
@@ -140,7 +150,7 @@ export default [
   { quieto: true },
   { foca: 'O PAINEL MOSTRA' },
   { quieto: true },
-  { digita: '482317', em: 'O PAINEL MOSTRA' },
+  { digita: '87712', em: 'O PAINEL MOSTRA' },
   { quieto: true },
   { toca: 'Semear o hodômetro' },
   { quieto: true },
@@ -150,9 +160,9 @@ export default [
   { quieto: true },
   { ve: 'O MÓDULO CONTA AGORA', entre: [0, 300] },               // o veredito assenta logo
   { quieto: true },
-  { toca: 'Calibrar o horímetro' },
+  { toca: 'Calibrar a rotação' },
   { quieto: true },
-  { chega: 'T10', momento: M.horimetro },
+  { chega: 'T10', momento: null },
   { reduzir: false },
 
   // ── o palco (a janela larga): o estado da coluna, a volta ao fluxo e o pulo abrem parados ──
@@ -164,6 +174,10 @@ export default [
   ...PARADA,
   { palco: 'Já semeado' },
   { chega: 'T10', estado: ESTADOS[1] },
+  ...PARADA,
+  { palco: 'Nada a calibrar' },   // a rodada 2: o ônibus do herói
+  { chega: 'T10', estado: ESTADOS[4] },
+  { ve: 'Rotação e hodômetro vêm direto do veículo.' },
   ...PARADA,
   { palco: 'Voltar ao fluxo' },
   { chega: 'T10', estado: null },

@@ -14,10 +14,6 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 `M2C-0417` · `sem ativo` · `ENCERRAR` · `Confirmar o vínculo` · `FORA DO PACOTE DESTA UO` · `ONK-8Q90` · `frota 1048 · Caminhão coletor 17.230` · `Pertence a Garagem Ibura.` · `Acione o cadastro no M2.` · `Escolher outro`
 
-## `05-estado-conflito-de-pinos-resolvivel`
-
-`M2C-0335` · `sem ativo` · `ENCERRAR` · `Confirmar o vínculo` · `CONFLITO NO FIO BRANCO` · `KHT-4B08` · `frota 1012 · Ônibus urbano OF-1621` · `O sensor de porta já ocupa o fio branco.` · `Com o leitor sem fio, os dois funcionam.` · `Usar leitor sem fio` · `Escolher outro`
-
 ## `06-estado-conflito-de-pinos-sem-saida`
 
 `M2C-0389` · `sem ativo` · `ENCERRAR` · `Confirmar o vínculo` · `ERRO DE PROJETO DE INSTALAÇÃO` · `PGE-6K41` · `frota 1033 · Ônibus urbano OF-1621` · `O fio branco é do sensor de porta, e este módulo não tem leitor sem fio.` · `Acione o gestor.` · `Escolher outro`

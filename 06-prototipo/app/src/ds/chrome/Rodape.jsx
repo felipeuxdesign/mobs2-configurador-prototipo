@@ -33,6 +33,8 @@ import './Rodape.css'
 // corre — o semear da calibração — fica no lugar, desabilitado de verdade e em
 // --tinta-apagada (a lei 17, Link): o toque não faz nada, e o leitor ouve
 // desabilitado (a regra 12).
+// sem `primario` (a rodada 2 do retorno do PM · T11/00 e 05): o rodapé só com o link — as ações
+// moram nas linhas, e o rodapé fica com a saída
 // `primarioAcende` e `primarioTrocaTexto` (C12 · o movimento fino): passam ao
 // Primario o acender por camada (C12·8) e o texto que esmaece no lugar (C12·23);
 // quem liga é a tela, onde a linha dela pede. Sem eles, o primário troca direto.
@@ -43,8 +45,10 @@ export function Rodape({ primario, aoPrimario, primarioDesabilitado = false, pri
   return (
     <div className={`ds-rodape ${fechaNoBotao ? 'ds-rodape-fecha-botao' : ''} ${lugar === 'login' ? 'ds-rodape-login' : ''} ${comLink ? 'ds-rodape-com-link' : ''}`}>
       {legenda && <span className={`ds-rodape-legenda ${legendaJunta ? 'ds-rodape-legenda-junta' : ''}`}>{legenda}</span>}
-      <Primario desabilitado={primarioDesabilitado} inerte={primarioInerte} aoTocar={aoPrimario} rotulo={rotuloPrimario}
-        acende={primarioAcende} trocaTexto={primarioTrocaTexto}>{primario}</Primario>
+      {primario != null && (
+        <Primario desabilitado={primarioDesabilitado} inerte={primarioInerte} aoTocar={aoPrimario} rotulo={rotuloPrimario}
+          acende={primarioAcende} trocaTexto={primarioTrocaTexto}>{primario}</Primario>
+      )}
       {link && <Link className="ds-rodape-link" aoTocar={aoLink} rotulo={rotuloLink} registrado={linkRegistrado} desabilitado={linkDesabilitado}>{link}</Link>}
       {explicacao && <span className="ds-rodape-explicacao">{explicacao}</span>}
     </div>

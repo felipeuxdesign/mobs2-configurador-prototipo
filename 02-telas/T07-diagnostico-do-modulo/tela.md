@@ -8,7 +8,7 @@ Ver o que o módulo informa e o que a CAN do modelo lê — logo depois da conex
 | **Chrome** | faixa de sessão · nas travas, o módulo em cima do título, sem faixa — a sessão não nasce |
 | **Semente no protótipo** | sessão M2C-0417, sem ativo · o módulo do herói, com os sete itens certos |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 4 · 8 — ver `estados.md` |
+| **Momentos · estados** | 4 · 9 — ver `estados.md` |
 
 ## O que se toca
 
@@ -26,7 +26,7 @@ Ver o que o módulo informa e o que a CAN do modelo lê — logo depois da conex
   - no protótipo · com o ativo já na sessão e antes da cadeia (o menu depois da T06), a 00 mostra a placa na faixa e o rodapé só com `Voltar ao menu`: o `Selecionar ativo` não cabe com o ativo preso na sessão, e nenhuma referência desenha esse quadro (gate do pacote 1, NOVA-5)
 - **só três coisas travam**: serial não cadastrado, modelo sem suporte e firmware não homologado — sinal, GPS e alimentação só informam, e o checklist registra
   - no protótipo · as três travas são fatos do cadastro e valem toda vez que o módulo conecta: o serial fora de `M.modulos` (02), o modelo sem `driverV1` (03) e o firmware fora da matriz da variante (04, *homologadas …* de `matrizCapacidades.firmwares`). Com o serial travado, o firmware e as entradas ficam *sem cadastro*, com o relógio apagado. O serial e o firmware vêm do cadastro do módulo conectado; a alimentação, o GPS, as entradas, o modem e o SIM, do `heroi` de `M.diagnostico.modulo` (o único conjunto do mock, que as referências 02 a 05 repetem). O que só informa é o estado `informa` da linha de checagem (a peça nova da folha 4): o modem sem sinal (07, pela linha marcada com `informa` no mock) e o modem sem rede do 05. No fluxo, só as travas acontecem, pelo serial (o M2C-0999 da T05/01 é a porta, a errata); o modem sem sinal e os sinais da CAN caem no par do herói e abrem só pela coluna (D1). O `motivo` do `modelo-sem-driver` fica sem leitor: o texto é o do `textos.md`. O link que cai no meio da leitura não tem caso no mock desde que a pré-checagem saiu: não se constrói
-- no firmware não homologado: `Atualizar firmware` · com o módulo sem rede, `Gravar a conexão` primeiro
+- no firmware fora da lista: `Atualizar firmware` · com o módulo sem rede, `Gravar a conexão` primeiro
 - depois da configuração, o módulo vira uma linha — *Conferido na conexão* — e a tela fica pra CAN do modelo
   - no protótipo · a CAN aparece lida (01) quando a cadeia já passou do bloco do ativo (`etapas.cadeia.confirmados` ≥ 2, D2), na manutenção com o vínculo feito (`etapas.ativo.modo` ou `sessao.modo`) ou depois de lida aqui pro mesmo ativo; o herói chega pelo `Diagnóstico do módulo` do menu, e o endereço passa a dizer a 01. Fica gravado `etapas.can` `{ lida: true, reprovados }`, com o nome de hoje, e mais o `ativoId`. A linha do módulo diz o que a conexão conferiu (*7 de 7*), e o contador soma os dois: 7 + os sinais. A caixa *Aguardando* nunca dá lugar às linhas na frente do técnico: a T07 volta já lida. A 01 e a 10 pela URL põem na sessão o ativo previsto do módulo (o RKT-8H42), pra faixa e o menu dizerem o mesmo
 - a lista da CAN vem do modelo do ativo: rotação, velocidade, hodômetro e horímetro, quando o modelo tem, e os sinais que ele traz a mais
@@ -80,8 +80,18 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 
 Os textos exatos de cada referência estão em `textos.md`. Copie de lá — nunca redigite.
 
+## O diagnóstico (retorno do PM, 06/10)
+
+- **o módulo tem 8 linhas que contam**: serial, firmware, alimentação, GPS, entradas, modem, SIM e o **número do chip**, que o técnico confere com o impresso no chip · e **as mensagens no módulo**, só informação, que não contam nem bloqueiam: *12 mensagens ainda não enviadas*
+- **a alimentação é a do equipamento**: o valor lido pelo módulo, com a faixa de operação do modelo embaixo (*faixa 9,0 a 32,0 V*, exemplo até a bancada) · sem bateria interna
+- **o GPS é a antena**: *conectada*, *em curto* ou *desconectada* · os satélites ficam como informação
+- **a CAN tem 6 sinais que contam** · o alternador fica, só como leitura informativa · a ré saiu · o total é 14
+- **a sessão anterior mal encerrada** (a 13): quando o canal de programação é encontrado aberto, *O app fechou o acesso que ficou aberto. Pode seguir.*
+- o firmware que trava é o **fora da lista** (a 04)
+
 ## No protótipo · a medição (o pacote 3)
 
 Construída em `06-prototipo/app/src/telas/T07/` (`index.jsx`, `diagnostico.js`, `textos.js`, `t07.css`), com as peças do design system: a linha de checagem nas variantes `diagnostico` (o módulo, 50) e `longa` (a CAN, 44 · lei 23, o pacote 3), com o estado `informa`; o aviso de falha nas travas do serial e do modelo; a lista em cartão, a nota com rótulo no tom `aguarda` (a caixa da CAN: 10 · 12, a frase de 12 em 400 na entrelinha de 1,5), o cabeçalho com contador, a faixa, a barra do sistema e o rodapé. O rótulo de topo fica sempre em 12, com a letra de 1,2 (`--t-legenda`, `--ls-rotulo-topo-fora`), como as cinco referências que o desenham. As onze referências, contra o HTML e contra o PNG (`node scripts/tela.mjs todos T07`): 00 0,04% · 1,35% · 01 0,05% · 1,26% · 02 0,04% · 1,96% · 03 0,04% · 1,98% · 04 0,04% · 1,93% · 05 0,04% · 2,35% · 06 0,03% · 1,7% · 07 0,04% · 1,53% · 08 0,05% · 1,33% · 09 0,05% · 1,37% · 10 0,13% · 1,23%. O que sobra tem nome: os glifos do Lucide no poço (G5: a folha 3 desenha o círculo de 9, e o Lucide o de 10), em todas, e no poço do aviso da 02 e da 03; e, na 10, o ENCERRAR apagado (NOVA-9). Os textos conferem nas onze (`node scripts/textos.mjs T07`). O movimento: `node scripts/caminho.mjs mov-t07`.
 
 O aviso das travas (02, 03) é o desenho do *processo parado* da lista de peças — o mesmo `Aviso` de falha. A lista traz peças que nenhuma das onze referências desenha (o topo do menu inteiro, faixa · sem ação, linha do histórico, a lista de garagens, encerrando, pede o corte, sem homologar, linha de opção, lista com contagem, item feito, linha da fila, linha da re-checagem): vale o que as referências desenham, e a diferença vai ao arquiteto.
+- **no protótipo · a rodada 2:** a leitura passa pelas 9 linhas, um por tique, e o contador conta as 8 que contam (*8 de 8*) · a frase embaixo do nome é a `nota` da linha (a faixa do modelo, os satélites, *só informação*, as mensagens), antes da causa · as mensagens e o alternador levam o i no poço · a alimentação e as mensagens têm 54, e o GPS, 50, como as referências desenham · o caso `modulo-com-pendencias` (o M2C-0362) monta a 13: o aviso neutro em cima, quando a leitura termina, e as 12 mensagens na linha delas · o firmware que trava diz *na lista: …*

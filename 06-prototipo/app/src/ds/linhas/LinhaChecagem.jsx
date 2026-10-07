@@ -123,12 +123,15 @@ const glifoDoPoco = (variante, estado, tam) => (variante === 'recebimento' && es
 // O título e as cores trocam direto (C12·8), e a linha que cresce com a causa
 // cresce direto (Lei 3, C12·9). `acende` (da T11, C11) não é mais preciso: a
 // peça acende sozinha, e a propriedade fica aceita, sem efeito.
+// A rodada 2 do retorno do PM · `embaixo` — a ação do técnico na própria linha, embaixo do par
+// (T11/00 *Corrigir este bloco*, T11/05 *Enviar agora*): a 6 do par, alinhada ao nome; o poço
+// fica no meio do bloco inteiro, e a linha cresce com 10 em cima e embaixo
 const nasce = (c) => (c.nasce ? 'ds-checagem-nasce' : '')
 
 export function LinhaChecagem({
   estado = 'aprovada', variante = 'compacta', titulo, causa, nota, porque, valor, tom,
   glifo, nomeGlifo, divisoria = true, folgaFim = false, lendo = false, recheioCausa, valorQuebra = false,
-  par, valorAceso = false, acende = false, className = '',
+  par, valorAceso = false, acende = false, className = '', embaixo,
 }) {
   const tam = POCO[variante]
   const neutro = tom === 'neutro' && estado === 'parou'
@@ -149,7 +152,8 @@ export function LinhaChecagem({
     causa || nota ? 'ds-checagem-com-causa' : '', divisoria ? '' : 'ds-checagem-sem-divisoria',
     folgaFim === true ? 'ds-checagem-folga-fim' : folgaFim ? `ds-checagem-fim-${folgaFim}` : '', lendo ? 'ds-checagem-lendo' : '',
     relogio ? 'ds-checagem-lendo-relogio' : '', par ? 'ds-checagem-com-par' : '', valorAceso ? 'ds-checagem-valor-aceso' : '',
-    recheioCausa && (causa || nota) ? `ds-checagem-recheio-${recheioCausa}` : '', valorQuebra ? 'ds-checagem-valor-quebra' : '', className,
+    recheioCausa && (causa || nota) ? `ds-checagem-recheio-${recheioCausa}` : '', valorQuebra ? 'ds-checagem-valor-quebra' : '',
+    embaixo ? 'ds-checagem-com-embaixo' : '', className,
   ].filter(Boolean).join(' ')
   return (
     <div className={classes}>
@@ -164,6 +168,7 @@ export function LinhaChecagem({
         {nota && <span key={cNota.vez} className={`ds-checagem-causa ds-checagem-nota ${nasce(cNota)}`}>{nota}</span>}
         {par && <span key={cModulo.vez} className={`ds-checagem-par ds-checagem-par-modulo ${nasce(cModulo)}`} aria-hidden={esperaModulo ? 'true' : undefined}>{par.modulo}</span>}
         {par?.cadastro != null && <span className="ds-checagem-par ds-checagem-par-cadastro">{par.cadastro}</span>}
+        {embaixo && <span className="ds-checagem-embaixo">{embaixo}</span>}
       </span>
       {valor != null && <span key={cValor.vez} className={`ds-checagem-valor ${nasce(cValor)}`}>{valor}</span>}
     </div>

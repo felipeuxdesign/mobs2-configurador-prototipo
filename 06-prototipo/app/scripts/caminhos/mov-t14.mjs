@@ -127,9 +127,7 @@ export default [
   { toca: 'KHT-4B08' },
   { dorme: 250 },
   { toca: 'Usar este ativo' },
-  { ve: 'CONFLITO NO FIO BRANCO' },
-  { dorme: 250 },
-  { toca: 'Usar leitor sem fio' },
+  // a rodada 2 do retorno do PM: sem o conflito com saída, o par vai direto ao vínculo novo
   { chega: 'T06', momento: '01-momento-confirmar-o-veiculo' },
   { dorme: 300 },
   { toca: 'Vincular o módulo' },

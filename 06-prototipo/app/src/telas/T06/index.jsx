@@ -6,8 +6,8 @@
 // confirmação do vínculo (R-14; T06·1 b, o T06-N3), que checa, nesta ordem, o
 // pacote, os pinos e o vínculo (T06·3, com o vínculo no lugar do chassi):
 //   · fora do pacote → a trava, sem pedir cadastro (04)
-//   · o par da faixa é um caso de pinos → a trava com ou sem saída (05, 06);
-//     'Usar leitor sem fio' resolve no lugar: a sessão passa a sem fio (T06·4 a)
+//   · o par da faixa é o caso de pinos → a trava, erro de projeto de instalação (06) ·
+//     a rodada 2 do retorno do PM: sem cabo, trocar o meio nunca resolve, e o com saída (05) saiu
 //   · o vínculo: o módulo fica neste ativo (01) — o escolhido em cima e os dados
 //     do modelo embaixo, placa, frota, fabricante e modelo, sem chassi —; o
 //     módulo em outro ativo, com o aviso (10); o módulo que já é deste ativo, a
@@ -39,7 +39,6 @@ import { useVoltar } from '../../estado/voltar.js'
 import { useEncerrar } from '../../estado/encerrar.jsx'
 import { SEMENTES } from '../../estado/sementes.js'
 import { M } from '../../dados/mock.js'
-import { caixaAlta } from '../../dados/formato.js'
 import {
   REF, ativoDe, modeloDe, doPacote, contagemDoPacote, ativoDoModulo, filtrar, placaDeOutroPacote,
   avaliar, mundoDoEstado, dadosDoModelo,
@@ -143,11 +142,6 @@ export default function T06({ momento, estado: est }) {
     } })
     ir('T09')
   }
-  // 'Usar leitor sem fio' (T06·4 a): a sessão passa a sem fio, e o mesmo ônibus segue pra confirmação
-  const usarSemFio = () => {
-    despachar({ tipo: 'mesclar', parcial: { sessao: { ...sessao, meio: 'sem-fio' } } })
-    ir('T06', { momento: REF.confirmar })
-  }
 
   const faixa = (
     <Faixa serial={sessao.moduloSerial} placa="sem ativo" semAtivo acao="ENCERRAR" aoEncerrar={enc.encerrar} />
@@ -185,13 +179,12 @@ export default function T06({ momento, estado: est }) {
     const titulo = <CabecalhoConteudo titulo="Confirmar o vínculo" />
     const { passo } = prova
 
-    if (passo === 'fora' || passo === 'resolvivel' || passo === 'sem-saida') {
-      // ── 04 · 05 · 06 · a trava mora no escolhido ──
+    if (passo === 'fora' || passo === 'sem-saida') {
+      // ── 04 · 06 · a trava mora no escolhido (o 05, com saída, saiu na rodada 2 do retorno do PM) ──
       const detalhe = `frota ${ativo.frota} · ${modeloDe(ativo).nome}`
       const { caso } = prova
       const trava = {
         fora: { rotulo: 'FORA DO PACOTE DESTA UO', falha: true, motivo: [`Pertence a ${prova.garagem}.`, 'Acione o cadastro no M2.'] },
-        resolvivel: caso && { rotulo: `CONFLITO NO ${caixaAlta(caso.fio)}`, tom: 'neutro', motivo: [`O ${caso.ocupadoPor} já ocupa o ${caso.fio}.`, 'Com o leitor sem fio, os dois funcionam.'] },
         'sem-saida': caso && { rotulo: 'ERRO DE PROJETO DE INSTALAÇÃO', falha: true, motivo: [`O ${caso.fio} é do ${caso.ocupadoPor}, e este módulo não tem leitor sem fio.`, 'Acione o gestor.'] },
       }[passo]
       miolo = (
@@ -201,9 +194,7 @@ export default function T06({ momento, estado: est }) {
             identidade={ativo.placa} detalhe={detalhe} motivo={trava.motivo} />
         </>
       )
-      rodape = passo === 'resolvivel'
-        ? <Rodape primario="Usar leitor sem fio" aoPrimario={usarSemFio} link="Escolher outro" aoLink={escolherOutro} />
-        : <Rodape primario="Escolher outro" aoPrimario={escolherOutro} />
+      rodape = <Rodape primario="Escolher outro" aoPrimario={escolherOutro} />
     } else {
       // ── 01 · 10 · 11 · o vínculo: o escolhido em cima, a frota sem o modelo, e os dados do modelo embaixo ──
       // o estado muda o conteúdo: o aviso do vínculo entra antes do escolhido (10, 11), e a frase

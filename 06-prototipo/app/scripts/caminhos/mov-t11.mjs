@@ -5,12 +5,11 @@
 //     o relógio só liga depois da troca entre telas (C12·35 b): pelo menu, o primeiro aos 550
 //     (150 + 400); pelo endereço, aos 400;
 //   · as linhas de conferência (T11·3): o glifo esmaece no poço em 150, e na 00 a linha do módulo
-//     junto (C12·29) — no Extended ID, o que está no módulo; com reduzir, em ordem, no mesmo
-//     ritmo, sem o esmaecer (G26);
+//     junto (C12·29); com reduzir, em ordem, no mesmo ritmo, sem o esmaecer (G26);
 //   · o veredito (T11·1, C12·35 a, o retorno do diretor de 26/09): a caixa dele está no lugar desde
 //     que a tela abre, neutra, com a contagem acompanhando as quatro que se comparam (1 de 4 … 3 de 4,
-//     nada conta de zero; na linha do Extended ID, só leitura, ela não sobe — o pacote 2, decisão 53);
-//     na quinta linha, a palavra e a cor entram em 150 — a palavra por opacity, o cinza do traço sai
+//     nada conta de zero · a rodada 2 do retorno do PM: o Extended ID saiu, e são quatro linhas);
+//     na quarta linha, a palavra e a cor entram em 150 — a palavra por opacity, o cinza do traço sai
 //     por uma camada, o xis esmaece no poço (a versão lida no módulo saiu do 02). Nada muda de lugar
 //     nem de altura (o marcaLugar / mesmoLugar), e o veredito só fala no fim.
 // Nascida lida — no print, num estado da coluna, na folha aberta pelo endereço —, parada. A folha
@@ -49,16 +48,18 @@ export default [
   { naoVe: 'NÃO BATE COM O CADASTRO' },
   { naoVe: '1 de 4' },
   { naoOuve: 'NÃO BATE' },
+  // a rodada 2: as ações já estão lá enquanto lê, desligadas, com a frase que diz quando liberam (a 04)
+  { ve: 'As ações liberam quando a leitura terminar.' },
+  { desligado: 'Voltar ao menu' },
   { ve: '1 de 4', entre: [100, 520] },                     // as cercas, aos 400 da montagem
   { anima: [GLIFO, MODULO] },                               // o xis no poço, e a linha do módulo junto
   { naoVe: 'NÃO BATE COM O CADASTRO' },
-  { ve: '2 de 4', entre: LINHA },                           // a APN
+  { ve: '2 de 4', entre: LINHA },                           // a rede do módulo
   { anima: [GLIFO, MODULO] },
-  // o Extended ID, 400 depois: o i no poço e o que está no módulo — só leitura, a contagem não sobe
-  { ve: '3 de 4', entre: [700, 960] },                      // os eventos, 400 depois dele
+  { ve: '3 de 4', entre: LINHA },                           // os eventos, 400 depois dela
   { anima: [GLIFO, MODULO] },
   { naoVe: 'NÃO BATE COM O CADASTRO' },
-  // a quinta linha, o leitor: o veredito entra no lugar — a palavra, a cor do traço por camada, o xis no poço
+  // a quarta linha, o leitor: o veredito entra no lugar — a palavra, a cor do traço por camada, o xis no poço
   { ve: 'NÃO BATE COM O CADASTRO', entre: LINHA },
   { anima: [...CHEGA_NAO_BATE, MODULO] },
   { ve: '4 de 4' },
@@ -66,7 +67,8 @@ export default [
   { dorme: 250 },
   { quieto: true },
   { mesmoLugar: true },                                     // nada mudou de lugar nem de altura
-  { ve: 'Corrigir as cercas' },
+  { ve: 'Corrigir este bloco' },                            // a rodada 2: a ação mora na linha
+  { naoVe: 'As ações liberam quando a leitura terminar.' },
 
   // ── o 02 pelo menu: a troca entre telas, e o relógio só depois dela (C12·35 b) ──
   { abre: '?tela=T04' },
@@ -79,7 +81,7 @@ export default [
   { naoVe: 'CONFERE COM O CADASTRO' },
   { ve: '1 de 4', entre: [100, 400] },                      // aos 550 do toque: 150 da troca + 400
   { anima: [GLIFO] },
-  { ve: '3 de 4', entre: [1000, 1400] },                    // a quarta linha (o Extended ID não conta)
+  { ve: '3 de 4', entre: [650, 1000] },                     // a terceira linha (a rodada 2: sem o Extended ID)
   { ve: 'CONFERE COM O CADASTRO', entre: LINHA },
   { anima: CHEGA_CONFERE },                                 // o lima do traço por camada
   { naoVe: 'igual à do cadastro' },                         // a versão lida no módulo saiu (o pacote 2)
@@ -96,7 +98,7 @@ export default [
   { marcaLugar: true },
   { ve: '1 de 4', entre: [100, 520] },
   { anima: [GLIFO] },
-  { ve: 'CONFERE COM O CADASTRO', entre: [1300, 1800] },
+  { ve: 'CONFERE COM O CADASTRO', entre: [950, 1450] },
   { anima: CHEGA_CONFERE },
   { dorme: 250 },
   { quieto: true },
@@ -110,7 +112,7 @@ export default [
   { quieto: true },
   { ve: '2 de 4', entre: LINHA },
   { quieto: true },
-  { ve: '3 de 4', entre: [700, 1000] },
+  { ve: '3 de 4', entre: LINHA },
   { quieto: true },
   { ve: 'NÃO BATE COM O CADASTRO', entre: LINHA },
   { quieto: true },
@@ -122,7 +124,7 @@ export default [
   { chega: 'T11', momento: CONFERE },
   { ve: '1 de 4', entre: [200, 560] },
   { quieto: true },
-  { ve: 'CONFERE COM O CADASTRO', entre: [1300, 1900] },
+  { ve: 'CONFERE COM O CADASTRO', entre: [950, 1550] },
   { quieto: true },
   { reduzir: false },
 

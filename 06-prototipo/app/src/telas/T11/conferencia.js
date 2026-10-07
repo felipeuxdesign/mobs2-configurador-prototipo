@@ -26,19 +26,17 @@ export const CASO_REENVIADAS = 'cercas-reenviadas'    // a 05: as cercas reenvia
 const { ordem, rotulos, arraste } = M.cadeia
 // os blocos que a cadeia grava depois da limpeza: os 5 do Reenviar os 5 blocos
 export const BLOCOS_DA_CADEIA = ordem.slice(1)
-// O Extended ID (decisão 45 e 53): os cartões e iButtons que estão no módulo. É
-// só leitura — o app não grava cartões —, não é bloco da cadeia e não se compara
-export const EXTENDED_ID = 'extendedId'
 // as cinco linhas, na ordem da decisão 53 e das cinco referências (a ordem de
 // leitura; a de correção é a da cadeia, M.cadeia.ordem)
-export const LINHAS = ['cercas', 'conexao', EXTENDED_ID, 'eventos', 'leitor']
+// a rodada 2 do retorno do PM: o Extended ID saiu da conferência (cartão é assunto da plataforma web)
+export const LINHAS = ['cercas', 'conexao', 'eventos', 'leitor']
 // as que se comparam: as quatro que a cadeia grava — o contador conta só elas
 export const COMPARADAS = LINHAS.filter((b) => ordem.includes(b))
 
-// o rótulo de cada linha: o que o caso dá ao bloco (a Conexão é a APN, decisão
-// 51), senão o da cadeia; o Extended ID, o do textos.md
+// o rótulo de cada linha: o que o caso dá ao bloco (a Conexão é a Rede do módulo, a rodada 2 do
+// retorno do PM), senão o da cadeia
 const ROTULO_DO_CASO = Object.fromEntries(M.casos[CASO_DIFF].divergencias.filter((d) => d.rotulo).map((d) => [d.bloco, d.rotulo]))
-export const rotuloDe = (b) => (b === EXTENDED_ID ? T.extendedId : ROTULO_DO_CASO[b] ?? rotulos[b])
+export const rotuloDe = (b) => ROTULO_DO_CASO[b] ?? rotulos[b]
 
 // o par do caso; o caso que não declara par mora no par da semente da tela (M2C-0438 + ONK-8Q90)
 const SEMENTE = SEMENTES.T11.sessao
@@ -123,17 +121,10 @@ export function cadastroDo(par, sessao) {
   const preset = M.presetsEvento.find((p) => p.id === modelo?.presetEventoId)
   return {
     cercas: T.regioes(regioesDoAtivo(par.ativoId).length),
-    conexao: M.conexoes[0]?.apn ?? null,
+    conexao: M.conexoes[0]?.exibir ?? null,   // a rodada 2: a tela mostra o nome, nunca o endereço
     eventos: preset ? T.intervalo(preset.intervaloRastreamentoSeg) : null,
     leitor: sessao?.meio === 'sem-fio' ? T.leitorSemFio : null,
   }
-}
-
-// O Extended ID que está no módulo: o do cadastro do módulo, se o mock declarar;
-// senão, o único declarado, o do diff-divergente — o mesmo que a 02 e a 05
-// desenham no herói (como o item D da T13 lê)
-export function extendedIdDo(par) {
-  return M.modulos.find((m) => m.serial === par.moduloSerial)?.extendedId ?? M.casos[CASO_DIFF].extendedId ?? { cartoes: 0, ibuttons: 0 }
 }
 
 // A conferência inteira, pronta pra desenhar: as cinco linhas, quantas não batem,
@@ -149,17 +140,11 @@ export function conferenciaDo({ par, sessao, divergem, reenviados = [], naoRecon
   const s = situacaoDas(divergem, reenviados)
   const cadastro = cadastroDo(par, sessao)
   const modulo = moduloDo(par)
-  const xid = extendedIdDo(par)
   const contam = (estado) => COMPARADAS.filter((b) => s[b].estado === estado).length
   const naoBatem = contam('diverge')
   const aRevisar = contam('revisar')
   const linhas = LINHAS.map((b) => {
     const titulo = rotuloDe(b)
-    if (b === EXTENDED_ID) {
-      return naoBatem > 0
-        ? { id: b, titulo, estado: 'informa', par: { modulo: T.extendedIdNoModulo(xid.cartoes, xid.ibuttons), cadastro: T.soLeitura } }
-        : { id: b, titulo, estado: 'informa', valor: T.extendedIdValor(xid.cartoes, xid.ibuttons) }
-    }
     const { estado, por } = s[b]
     if (estado === 'diverge') return { id: b, titulo, estado: 'diverge', par: { modulo: T.noModulo(modulo[b]), cadastro: T.noCadastro(cadastro[b]) } }
     if (estado === 'revisar') return { id: b, titulo, estado: 'pendente', par: { modulo: T.revisarEmSeguida, cadastro: T.porque[`${b}:${por}`] } }

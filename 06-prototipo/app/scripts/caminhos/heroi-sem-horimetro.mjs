@@ -1,7 +1,7 @@
-// O pacote 2 (D1) · o caminho do herói sem o horímetro: o mesmo do heroi.mjs, do login às 14:30 ao
-// encerramento, mas na calibração, semeado o hodômetro, o técnico toca Pular o horímetro — a
-// calibração fica concluída e segue pro ciclo de testes; no checklist, a Seção D diz o Horímetro
-// não calibrado, conta como resolvido e não bloqueia (a T13 lê etapas.calibracao.puladas).
+// O pacote 2 (D1) · o caminho do herói sem o horímetro — desde a rodada 2 do retorno do PM, o ônibus
+// não calibra nada (T10/11), e não há horímetro pra pular. O roteiro passou a provar o outro caminho
+// que sobra: o mesmo do heroi.mjs, do login ao encerramento, mas do *Nada a calibrar* o técnico volta
+// ao menu, abre o checklist e faz o ciclo pela Seção E — e o checklist fecha do mesmo jeito.
 export default [
   { abre: '' },
   { chega: 'T01', momento: null },
@@ -52,7 +52,7 @@ export default [
   { ve: 'Diagnóstico do módulo' },
   { desligado: 'Lendo · não saia da tela' },
   { ve: 'ENCERRAR', entre: [3500, 6500] },
-  { ve: '7 de 7' },
+  { ve: '8 de 8' },
   { ve: 'M2C-0417' },   // o serial na faixa: o rótulo de cima sai quando ela desce
   { ve: 'sem ativo' },
   { naoVe: 'M2C-0417 · RKT-8H42' },
@@ -60,11 +60,12 @@ export default [
   { ve: 'VL06 CAN-BT' },
   { ve: '2.3.5' },
   { ve: '24,3 V' },   // a rodada 1 do retorno do PM: o herói é um ônibus de 24 V
-  { ve: 'fixo · 9 satélites' },
+  { ve: 'antena conectada' },   // a rodada 2: o GPS é a antena, e os satélites embaixo, informação
+  { ve: '9 satélites' },
   { ve: 'ignição ligada' },
   { ve: 'na rede' },
   { ve: 'AGUARDANDO A CONFIGURAÇÃO DO ATIVO' },
-  { ve: 'A CAN aparece depois que o bloco do ativo for gravado.' },
+  { ve: 'A CAN aparece depois que o bloco do ativo for conferido.' },
   { toca: 'Selecionar ativo' },
   { chega: 'T06', momento: null },
   { ve: 'M2C-0417' },
@@ -113,42 +114,25 @@ export default [
   { chega: 'T07', momento: '01-momento-can-lida' },
   { ve: 'RKT-8H42' },
   { ve: 'Conferido na conexão' },
-  { ve: '15 de 15' },
+  { ve: '14 de 14' },
   { ve: 'A CAN · ÔNIBUS URBANO OF-1621' },
   { ve: '980 rpm' },
   { ve: '184.320 km' },
   { ve: 'Ler de novo' },
   { toca: 'Voltar ao menu' },
   { chega: 'T04' },
-  // a calibração (decisão 52, o pacote 2): o número do painel digitado acende o Semear — a foto
-  // do painel é da Seção B do checklist. O hodômetro, e depois o horímetro, opcional, até a
-  // calibração completa, que aponta o ciclo de testes (decisão 35)
+  // a calibração (a rodada 2): nada a calibrar — o técnico volta ao menu, e chega ao ciclo pelo checklist
   { toca: 'Calibração' },
   { chega: 'T10', momento: null },
-  { ve: 'O MÓDULO CONTA' },
-  { ve: '184.320' },
-  { ve: 'lido do módulo às 14:30' },   // o relógio parado, como as referências (a entrega do checklist)
-  { ve: 'Depois: Horímetro, opcional' },
-  { desligado: 'Digite o que o painel mostra' },
-  { digita: '482317', em: 'O PAINEL MOSTRA' },   // calibracao.painel · a-01 · hodômetro
-  { chega: 'T10', momento: '05-momento-hodometro-digitado' },
-  { ve: 'diferença de 297.997 km' },
-  { ve: 'é este que vai para o módulo' },
-  { naoVe: 'Fotografar o painel' },   // decisão 52: a foto é da Seção B
-  { toca: 'Semear o hodômetro' },
-  { desligado: 'Gravando no módulo…' },
-  { desligado: 'Voltar ao menu' },   // o semear não para (a decisão do diretor de 25/09)
-  { desligado: 'ENCERRAR' },   // e o ENCERRAR faz o mesmo que o voltar: apagado (a lei 17)
-  { desligado: 'Relendo…', entre: [500, 1500] },
-  { chega: 'T10', momento: '01-momento-hodometro-semeado', entre: [700, 1500] },
-  { ve: 'O MÓDULO CONTA AGORA' },
-  { ve: 'relido às 14:30 · confere com o painel' },
-  // D1: o horímetro é opcional — pular segue pro ciclo, sem a calibração completa
-  { ve: 'Pular o horímetro' },
-  { ve: 'Calibrar o horímetro' },
-  { toca: 'Pular o horímetro' },
-  // o ciclo de testes (a rodada 1 do retorno do PM): no máximo quatro passos, com o ônibus parado; a
-  // fila do módulo drena em 3 s, e o disparo acende
+  { ve: 'Nada a calibrar' },
+  { toca: 'Voltar ao menu' },
+  { chega: 'T04' },
+  { toca: 'Finalizar com checklist' },
+  { chega: 'T13' },
+  { dorme: 300 },
+  { toca: 'E · Ciclo de testes' },
+  { dorme: 300 },
+  { toca: 'Fazer o ciclo de testes' },
   { chega: 'T14' },
   { ve: 'Ciclo de testes' },
   { ve: 'FILA DRENANDO' },
@@ -176,16 +160,16 @@ export default [
   { ve: '4 de 4 passos' },
   { ve: '14:30:24' },
   // o checklist (a rodada 1): a D começa vazia e enche lendo do módulo; o Finalizar diz por que está
-  // desligado. Depois do ciclo, 21 de 29: falta o bip da E e as cinco fotos de B, e o servidor
+  // desligado. Depois do ciclo, 21 de 28 (a rodada 2): falta o bip da E e as quatro fotos de B, e o servidor
   // confirma a F depois do Finalizar (como a 11 desenha)
   { toca: 'Ir para o checklist' },
   { chega: 'T13', momento: null },
   { ve: 'A Seção D ainda está sendo lida' },
   { desligado: 'Finalizar instalação' },
-  { ve: 'Faltam 6 itens obrigatórios', entre: [3000, 7500] },
+  { ve: 'Faltam 5 itens obrigatórios', entre: [3000, 7500] },
   { ve: '21' },
-  { ve: 'de 29' },
-  { ve: 'você fotografa 5 itens' },
+  { ve: 'de 28' },
+  { ve: 'você fotografa 4 itens' },
   // a E aberta: os quatro passos conferem, e o bip se responde aqui (39 a 41)
   { toca: 'E · Ciclo de testes' },
   { chega: 'T13', momento: '05-momento-e-teste-dinamico-aberta' },
@@ -230,16 +214,13 @@ export default [
   { chega: 'T13', momento: '19-momento-foto-do-leitor' },
   { ve: 'Leitor posicionado' },
   { toca: 'Tirar foto' },
-  { chega: 'T13', momento: '20-momento-foto-do-painel' },
-  { ve: 'Painel com hodômetro e horímetro legíveis' },
-  { toca: 'Tirar foto' },
-  // sem próximo por fazer, volta à Seção B aberta: 5 de 5, e as fotos tiradas
+  // sem próximo por fazer, volta à Seção B aberta: 4 de 4, e as fotos tiradas (a rodada 2: sem o Painel)
   { chega: 'T13', momento: '02-momento-b-montagem-aberta' },
   { ve: 'B · Montagem' },
-  { ve: '5 de 5' },
-  { ve: '5 fotos tiradas' },
+  { ve: '4 de 4' },
+  { ve: '4 fotos tiradas' },
   { naoToca: 'Módulo' },   // a foto tirada fica tirada: sem seta, não se toca
-  { naoToca: 'Painel' },
+  { naoVe: 'Painel' },
   { naoVe: 'Faltam' },
   { toca: 'Finalizar instalação' },
   // o fim (a rodada 1): o checklist registrado, aguardando o autoteste — a homologação é da T16

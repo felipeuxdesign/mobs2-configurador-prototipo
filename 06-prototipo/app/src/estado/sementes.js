@@ -4,6 +4,8 @@
 import { M } from '../dados/mock.js'
 
 const HEROI = { moduloSerial: 'M2C-0417', ativoId: 'a-01' }
+// as linhas do diagnóstico que contam (a rodada 2 do retorno do PM: as mensagens no módulo só informam)
+const CONTAM = M.diagnostico.modulo.filter((l) => !l.soInforma).length
 const pacote = (id) => { const p = M.pacotes.find((x) => x.id === id); return { id: p.id, diasAtras: p.diasAtras, hora: p.hora } }
 const sessao = (ativoId = HEROI.ativoId, moduloSerial = HEROI.moduloSerial) => ({ moduloSerial, ativoId, saude: 'ok', abertaAs: M.HORA_NOMINAL, meio: 'sem-fio' })
 const varzea = { uoId: 'uo-01', pacote: pacote('pac-uo-01') }
@@ -22,9 +24,11 @@ export const SEMENTES = {
   T06: { contexto: varzea, sessao: sessao(null) },
   // a T07 (o pacote 1): a sessão do herói, ainda sem ativo, e o diagnóstico do módulo dele feito — os
   // sete certos (tela.md); pela URL, a tela abre no 00, parada
-  T07: { contexto: varzea, sessao: sessao(null), etapas: { preChecagem: { checagens: M.diagnostico.modulo.length, passaram: M.diagnostico.modulo.length, aprovadas: M.diagnostico.modulo.length, moduloSerial: HEROI.moduloSerial } } },
+  T07: { contexto: varzea, sessao: sessao(null), etapas: { preChecagem: { checagens: CONTAM, passaram: CONTAM, aprovadas: CONTAM, moduloSerial: HEROI.moduloSerial } } },
   T09: { contexto: varzea, sessao: sessao() },
-  T10: { contexto: varzea, sessao: sessao() },
+  // a T10 pelo endereço (a rodada 2 do retorno do PM): o caminhão coletor, o exemplo que calibra — o
+  // ônibus do herói não calibra nada, e no fluxo cai no *Nada a calibrar* (a 11)
+  T10: { contexto: varzea, sessao: sessao('a-09', 'M2C-0371') },
   T11: { contexto: { uoId: 'uo-02', pacote: pacote('pac-uo-02') }, sessao: sessao('a-16', 'M2C-0438') },
   T12: { contexto: varzea, sessao: sessao() },
   T13: { contexto: varzea, sessao: sessao() },

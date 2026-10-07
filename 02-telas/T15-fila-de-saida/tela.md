@@ -108,3 +108,9 @@ As variantes nomeadas (G11), declaradas na peça: o cartão que pede ação **co
 ## Textos
 
 Os textos exatos de cada referência estão em `textos.md`. Copie de lá — nunca redigite.
+
+## A fila (retorno do PM, 06/10)
+
+- **o conflito não é recusa**: o servidor aceita os dois registros e avisa o gestor · o item aparece como *recebida · em conflito, o gestor foi avisado*, sem botão de reenvio (a 00)
+- **o *servidor recusou* tem uma causa que o técnico resolve**: *o pacote de sincronização venceu*, e o *Ressincronizar e reenviar* baixa um pacote novo · a causa é leitura nossa: o PM pediu pra combinar com o produto
+- **no protótipo · a rodada 2:** a semente da 00 ganhou o f-11, o recebido em conflito: vai depois dos recebidos, com o aviso do mock embaixo, em duas linhas, e não conta como *não chegou* (nem no menu da T04) · sozinha, a recusa é uma frase: *O servidor recusou: …* · o f-11 do mock é do a-06 (RVM-1E54), e a 00 desenha QAH-1M67 — segue o mock

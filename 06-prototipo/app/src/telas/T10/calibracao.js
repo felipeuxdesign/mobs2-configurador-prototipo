@@ -38,6 +38,13 @@ export const REF = {
   horimetro: '08-momento-horimetro',
   completa: '09-momento-calibracao-completa',
   naoConfere: '10-estado-releitura-nao-confere',
+  nadaACalibrar: '11-estado-nada-a-calibrar',
+}
+// o ativo cujo modelo não calibra nada (a rodada 2 do retorno do PM: o ônibus lê rotação e hodômetro da
+// CAN): a frase do cadastro, ou null
+export function nadaACalibrar(ativoId) {
+  const a = ativoDe(ativoId)
+  return (a && C.porModelo[a.modeloAtivoId]?.nadaACalibrar) ?? null
 }
 
 const C = M.calibracao
@@ -57,7 +64,7 @@ export function grandezasDoPar(ativoId, moduloSerial) {
   if (!pm) return { calibraveis: [], opcionais: [], naoSeAplicam: [], doModulo: false }
   const derrubadas = lePulsos(moduloSerial) ? [] : pm.calibraveis.filter((g) => grandezaDe(g).natureza === 'ajuste')
   const motivo = {}
-  for (const i of pm.indisponiveis) motivo[i.grandeza] = { motivo: i.motivo, doModulo: false }
+  for (const i of pm.indisponiveis ?? []) motivo[i.grandeza] = { motivo: i.motivo, doModulo: false }
   for (const g of derrubadas) motivo[g] = { motivo: C.motivoSemPulsos, doModulo: true }
   const naoSeAplicam = C.grandezas.filter((g) => motivo[g.id]).map((g) => ({ id: g.id, nome: g.rotulo, ...motivo[g.id] }))
   const calibraveis = pm.calibraveis.filter((g) => !derrubadas.includes(g))
@@ -106,8 +113,9 @@ export function mundoDoEstado(est, uoId) {
   let ativo = null
   let caso = null
   if (est === REF.coletor) {
-    // calibracao.porModelo · o modelo calibra rotação e velocidade: o primeiro ônibus dele na garagem, com o módulo que lê pulsos
-    ativo = daUo.find((a) => grandezasDoPar(a.id, a.moduloSerial).calibraveis[0] && grandezaDe(grandezasDoPar(a.id, a.moduloSerial).calibraveis[0]).natureza === 'ajuste')
+    // calibracao.porModelo · o modelo calibra a rotação: o primeiro ativo dele na garagem, com o módulo que
+    // lê pulsos (a rodada 2: o caminhão coletor, depois do hodômetro)
+    ativo = daUo.find((a) => grandezasDoPar(a.id, a.moduloSerial).calibraveis.some((g) => grandezaDe(g).natureza === 'ajuste'))
   } else if (est === REF.jaSemeado) {
     // calibracao.ultimas · o hodômetro já foi semeado antes: o primeiro ônibus da garagem semeado há 1 dia ou mais
     ativo = daUo.find((a) => semeadoHa(a.id, 'hodometro') != null)
@@ -115,6 +123,9 @@ export function mundoDoEstado(est, uoId) {
     // o caso do modelo sem a grandeza (grandeza-indisponivel) + calibracao.bruto: o ativo desse modelo cujo módulo não lê pulsos
     const c = M.casos[receita.casos[0]]
     ativo = Object.keys(C.bruto).map(ativoDe).find((a) => a.modeloAtivoId === c.modeloAtivoId && !lePulsos(a.moduloSerial))
+  } else if (est === REF.nadaACalibrar) {
+    // a 11 (a rodada 2): calibracao.porModelo · o primeiro ônibus da garagem cujo modelo não calibra nada (o do herói)
+    ativo = daUo.find((a) => nadaACalibrar(a.id) != null)
   } else if (est === REF.naoConfere) {
     // o caso releitura-nao-confere: o ativo e a grandeza dele, e o que o módulo releu
     caso = M.casos[receita.casos[0]]

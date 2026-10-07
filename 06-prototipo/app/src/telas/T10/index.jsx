@@ -61,14 +61,15 @@ import { SEMENTES } from '../../estado/sementes.js'
 import { M } from '../../dados/mock.js'
 import { milhar } from '../../dados/formato.js'
 import {
-  REF, grandezaDe, ativoDe, grandezasDoPar, moduloConta, painelMostra, semeadoHa, releitura, mundoDoEstado, digitos, quadroDe,
+  REF, grandezaDe, ativoDe, grandezasDoPar, nadaACalibrar, moduloConta, painelMostra, semeadoHa, releitura, mundoDoEstado, digitos, quadroDe,
 } from './calibracao.js'
 import { T } from './textos.js'
 import './t10.css'
 
 const HORA = M.HORA_NOMINAL
-// o módulo foi gravado: o segmento do passo acende (01 e 10), alto como o atual (08 e 09)
-const GRAVADO = ['semeada', 'nao-confere']
+// o módulo foi gravado e conferiu: o segmento do passo acende (01), alto como o atual (08 e 09) · a
+// rodada 2: o não confere (10) fica no segmento atual, branco — gravou, mas não conferiu
+const GRAVADO = ['semeada']
 const passoVazio = () => ({ digitado: '', fase: 'pronta', relido: null })
 // o tempo de um token de movimento, em ms (com reduzir movimento, 0)
 function duracao(token) {
@@ -113,6 +114,12 @@ function inicio({ momento, est, mundo, ordem, etapa, ativoId }) {
   const passos = Object.fromEntries(ordem.map((g) => [g, passoVazio()]))
   const f = { atual: 0, passos, focado: false, concluida: false, puladas: [] }
   if (est) {
+    // a 02 (a rodada 2): o passo da rotação, com o que vem antes dela feito
+    if (est === REF.coletor) {
+      const i = ordem.findIndex((g) => grandezaDe(g).natureza === 'ajuste')
+      ordem.slice(0, i).forEach((g) => { passos[g] = { ...passoVazio(), fase: 'semeada' } })
+      f.atual = Math.max(0, i)
+    }
     const c = est === REF.naoConfere ? mundo?.caso : null
     if (c && passos[c.grandeza]) {
       const painel = painelMostra(ativoId, c.grandeza)
@@ -142,8 +149,11 @@ function inicio({ momento, est, mundo, ordem, etapa, ativoId }) {
     if (momento === REF.relendo) passos.hodometro = { ...passos.hodometro, fase: 'relendo' }
     if (momento === REF.semeado) semeia('hodometro')
   }
-  if ([REF.horimetro, REF.completa].includes(momento) && hor > 0 && ordem.slice(0, hor).every(temPainel)) {
-    ordem.slice(0, hor).forEach(semeia)
+  // a 08 e a 09: os passos de antes, feitos — os de número, semeados com o do mock; os de ajuste (a rotação,
+  // a velocidade, que o motor ligado lê e o mock não traz), feitos sem número (a rodada 2: o caminhão)
+  const semeiaOuFaz = (x) => (temPainel(x) ? semeia(x) : (passos[x] = { ...passoVazio(), fase: 'semeada' }))
+  if ([REF.horimetro, REF.completa].includes(momento) && hor > 0 && ordem.slice(0, hor).some(temPainel)) {
+    ordem.slice(0, hor).forEach(semeiaOuFaz)
     passos.horimetro = passoVazio()
     f.atual = hor
     if (momento === REF.completa && temPainel('horimetro')) semeia('horimetro')
@@ -151,12 +161,56 @@ function inicio({ momento, est, mundo, ordem, etapa, ativoId }) {
   return f
 }
 
-export default function T10({ momento, estado: est }) {
-  const { estado: unico, despachar } = useEstado()
+// a sessão do quadro: a do caso, num estado da coluna; no fluxo, a do estado único; sem ela, a semente
+function sessaoDoQuadro(est, unico) {
   const mundo = est ? mundoDoEstado(est, SEMENTES.T10.contexto.uoId) : null
   const sessao = mundo
     ? { ...SEMENTES.T10.sessao, ativoId: mundo.ativoId, moduloSerial: mundo.moduloSerial }
     : (unico.sessao?.ativoId ? unico.sessao : SEMENTES.T10.sessao)
+  return { mundo, sessao }
+}
+
+// A rodada 2 do retorno do PM: o ativo cujo modelo não calibra nada (o ônibus lê rotação e hodômetro da
+// CAN) não tem passo — a tela diz *Nada a calibrar neste ativo*, com a frase do cadastro, e aponta o ciclo
+// (a 11). No fluxo, o herói chega aqui: o Fazer o ciclo de testes grava a calibração concluída, sem nada
+// semeado, e a T13 não pede o Painel (ele só entra quando houve calibração)
+export default function T10(props) {
+  const { estado: unico } = useEstado()
+  const { sessao } = sessaoDoQuadro(props.estado, unico)
+  const frase = nadaACalibrar(sessao.ativoId)
+  return frase ? <NadaACalibrar {...props} sessao={sessao} frase={frase} /> : <Calibracao {...props} />
+}
+
+function NadaACalibrar({ estado: est, sessao, frase }) {
+  const { estado: unico, despachar } = useEstado()
+  const enc = useEncerrar()
+  const ir = (tela) => despachar({ tipo: 'ir', tela })
+  function seguir(tela) {
+    if (!est) {
+      const { ativoId, moduloSerial } = sessao
+      despachar({ tipo: 'mesclar', parcial: { etapas: { ...unico.etapas, calibracao: { ativoId, moduloSerial, passo: null, painel: {}, semeadas: {}, puladas: [], concluida: true, nadaACalibrar: true } } } })
+    }
+    ir(tela)
+  }
+  useVoltar(() => ir('T04'))
+  return (
+    <div className="t10">
+      <BarraDoSistema fundo="faixa" />
+      <Faixa serial={sessao.moduloSerial} placa={ativoDe(sessao.ativoId)?.placa} acao={T.encerrar} aoEncerrar={enc.encerrar} />
+      <div className="tela-miolo t10-miolo">
+        <span className="t10-rotulo">{T.rotulo}</span>
+        <h1 className="t10-titulo">{T.nadaACalibrar[0]}<br />{T.nadaACalibrar[1]}</h1>
+        <span className="t10-frase">{frase}</span>
+      </div>
+      <Rodape primario={T.cicloDeTestes} aoPrimario={() => seguir('T14')} link={T.voltar} aoLink={() => ir('T04')} />
+      {enc.sobre}
+    </div>
+  )
+}
+
+function Calibracao({ momento, estado: est }) {
+  const { estado: unico, despachar } = useEstado()
+  const { mundo, sessao } = sessaoDoQuadro(est, unico)
   const { ativoId, moduloSerial } = sessao
   const par = grandezasDoPar(ativoId, moduloSerial)
   const ordem = mundo ? mundo.ordem : par.calibraveis
@@ -260,15 +314,24 @@ export default function T10({ momento, estado: est }) {
 
   // ── o segmentado: um segmento por passo; o gravado fica lima apagado e alto ──
   const gravado = (x) => GRAVADO.includes(fluxo.passos[x]?.fase) && assentou(x)
-  const segmentos = ordem.map((x, i) => {
+  const segmentos = ordem.filter((x) => !par.opcionais.includes(x)).map((x) => {
     if (gravado(x)) return 'atual-feito'
-    return i === fluxo.atual ? 'atual' : 'pendente'
+    return x === ordem[fluxo.atual] ? 'atual' : 'pendente'
   })
   const todas = ordem.length > 0 && ordem.every((x) => fluxo.passos[x]?.fase === 'semeada' && assentou(x))
   const opcional = (x) => par.opcionais.includes(x)
-  const restantes = ordem.slice(fluxo.atual + 1).map((x) => (opcional(x) ? T.opcional(grandezaDe(x).rotulo) : grandezaDe(x).rotulo))
+  // a rodada 2 do retorno do PM: a contagem e os segmentos são só dos obrigatórios (*1 de 2*, *2 de 2*), e
+  // no passo opcional a contagem fica no último obrigatório (T10/08: *2 de 2*); o *Depois:* diz tudo o que
+  // falta — os obrigatórios, um a um, e os opcionais juntos (*Rotação · velocidade e horímetro, opcionais*)
+  const obrigatorios = ordem.filter((x) => !opcional(x))
+  const contagem = Math.max(1, obrigatorios.filter((x) => ordem.indexOf(x) <= fluxo.atual).length)
+  const minuscula = (s) => s.charAt(0).toLowerCase() + s.slice(1)
+  const faltam = ordem.slice(fluxo.atual + 1)
+  const partes = faltam.filter((x) => !opcional(x)).map((x) => grandezaDe(x).rotulo)
+  const opcionaisQueFaltam = faltam.filter(opcional).map((x) => grandezaDe(x).rotulo)
+  if (opcionaisQueFaltam.length) partes.push(T.opcionais(opcionaisQueFaltam.map((n, i) => (partes.length || i ? minuscula(n) : n))))
   let legenda
-  if (restantes.length) legenda = T.depois(est === REF.jaSemeado ? restantes : restantes.slice(0, 1))
+  if (partes.length) legenda = T.depois(partes.map((n, i) => (i ? minuscula(n) : n)))
   else if (todas) legenda = T.completa
   else if (opcional(g)) legenda = T.ultimoOpcional
 
@@ -338,7 +401,7 @@ export default function T10({ momento, estado: est }) {
       <BarraDoSistema fundo="faixa" />
       <Faixa serial={moduloSerial} placa={ativoDe(ativoId)?.placa} acao={T.encerrar} aoEncerrar={enc.encerrar} acaoDesabilitada={semeando} />
       <div className="tela-miolo t10-miolo" onAnimationEnd={assentar}>
-        <Segmentado rotulo={T.rotulo} contagem={String(fluxo.atual + 1)} total={T.deTotal(ordem.length)} segmentos={segmentos} legenda={legenda} />
+        <Segmentado rotulo={T.rotulo} contagem={String(contagem)} total={T.deTotal(obrigatorios.length)} segmentos={segmentos} legenda={legenda} />
         <h1 className="t10-titulo">{gr.rotulo}</h1>
         {/* a chave é a grandeza: o tambor rola no semear, não na troca de passo */}
         <ValorEmPoco key={g} rotulo={poco.rotulo} valor={poco.valor} unidade={gr.unidade} tom={poco.tom} />

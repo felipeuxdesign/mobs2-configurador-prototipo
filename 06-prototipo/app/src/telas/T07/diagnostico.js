@@ -41,7 +41,12 @@ export const REF = {
 
 // ── o módulo: as sete linhas ──
 export const LINHAS = D.modulo
-export const TOTAL = LINHAS.length
+// a rodada 2 do retorno do PM: o módulo tem 9 linhas — as 8 que contam, com o número do chip, e as
+// mensagens no módulo, que só informam (`soInforma`): a leitura passa pelas 9 (LIDAS), e o contador
+// conta as 8 (TOTAL) · na CAN, o alternador também só informa
+export const LIDAS = LINHAS.length
+export const TOTAL = LINHAS.filter((l) => !l.soInforma).length
+export const conta = (l) => !l.soInforma
 // o quadro que a 06 desenha: o serial lido, o firmware atualizando, as cinco seguintes esperando
 export const LINHA_FIRMWARE = LINHAS.findIndex((l) => l.id === 'firmware')
 
@@ -58,6 +63,7 @@ export const meioDe = (serial) => M.situacao.porPerto.find((p) => p.serial === s
 // ── os casos ──
 export const CASO_FIRMWARE = 'firmware-fora-matriz'
 export const CASO_SEM_REDE = 'firmware-sem-rede-no-modulo'
+export const CASO_MAL_ENCERRADA = 'modulo-com-pendencias'
 // o módulo de um caso: o serial dele, o do caso de base, ou o do ativo dele
 export function serialDoCaso(id) {
   const c = M.casos[id]
@@ -120,10 +126,12 @@ export function avisoDaTrava(c) {
 // a regra do cadastro em cada linha; as outras dizem o que o módulo leu (o heroi do mock)
 const REGRA = {
   serial: (c, f) => (!c.modulo ? reprova(c.serial, T.naoEstaNoCadastro) : f.semDriver ? reprova(nomeDoModelo(c), T.modeloSemSuporte) : ok(nomeDoModelo(c))),
-  firmware: (c, f) => (f.semCadastro ? semCadastro() : f.firmwareFora ? reprova(c.firmware, T.homologadas(c.matriz.firmwares)) : ok(c.firmware)),
+  firmware: (c, f) => (f.semCadastro ? semCadastro() : f.firmwareFora ? reprova(c.firmware, T.naLista(c.matriz.firmwares)) : ok(c.firmware)),
   entradas: (c, f, l) => (f.semCadastro ? semCadastro() : ok(l.heroi)),
 }
-const lido = (c, f, l) => ok(l.heroi)
+// o que o módulo leu, com o que fica embaixo do nome (a rodada 2): a faixa do modelo na alimentação,
+// os satélites no GPS · as mensagens no módulo só informam: o i no poço, a frase embaixo, sem valor
+const lido = (c, f, l) => (l.soInforma ? { ...ok(undefined), glifo: 'info', nota: l.heroi, soInforma: true } : { ...ok(l.heroi), nota: l.faixa ? T.faixa(l.faixa) : l.info })
 
 // o que o caso muda na linha dele: a linha que o mock marca com `informa`, e o
 // modem do módulo sem rede (o caso diz modemSemRede)
@@ -131,7 +139,10 @@ const linhaQueInforma = (k) => LINHAS.find((l) => l.informa === k)?.id
 const NA_LINHA = {
   'modem-sem-sinal': (caso, k) => ({ [linhaQueInforma(k)]: informa(caso.modem, T.daPraSeguir) }),
   [CASO_SEM_REDE]: (caso) => (caso.modemSemRede ? { modem: informa(T.semRede, T.semElaNaoAtualiza) } : {}),
-  'can-estatico-bateria': (caso) => ({ alimentacao: informa(caso.alimentacao, T.daPraSeguir) }),
+  'can-estatico-bateria': (caso) => ({ alimentacao: { ...informa(caso.alimentacao, T.daPraSeguir), nota: T.faixa(LINHAS.find((l) => l.id === 'alimentacao').faixa) } }),
+  // a sessão anterior mal encerrada (a 13, a rodada 2): o canal ficou aberto, o app o fecha, e as
+  // mensagens que o módulo guardou aparecem na linha delas
+  [CASO_MAL_ENCERRADA]: (caso) => ({ mensagens: { ...ok(undefined), glifo: 'info', nota: T.mensagens(caso.mensagens), soInforma: true } }),
 }
 
 // o resultado de cada uma das sete, quando termina
@@ -160,7 +171,7 @@ export const NA_CAN = {
 }
 export function leituraDaCan(sinais, casos = []) {
   const troca = Object.assign({}, ...casos.filter((k) => NA_CAN[k]).map((k) => NA_CAN[k](M.casos[k])))
-  return sinais.map((s) => ({ id: s.id, titulo: s.rotulo, ...(troca[s.id] ?? ok(s.lido)) }))
+  return sinais.map((s) => ({ id: s.id, titulo: s.rotulo, ...(troca[s.id] ?? (s.soInforma ? { ...ok(s.lido), glifo: 'info', nota: T.soInformacao, soInforma: true } : ok(s.lido))) }))
 }
 
 // D2 · a CAN lida: com o bloco do ativo gravado (a cadeia passou dele), ou na

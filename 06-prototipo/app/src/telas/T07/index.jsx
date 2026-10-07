@@ -65,7 +65,7 @@ import { SEMENTES } from '../../estado/sementes.js'
 import { M } from '../../dados/mock.js'
 import { T } from './textos.js'
 import {
-  REF, TOTAL, LINHA_FIRMWARE, QUADRO_11, CASO_FIRMWARE, CASO_SEM_REDE, QUADRO_10, CAN_AGUARDA, NA_CAN,
+  REF, TOTAL, LIDAS, LINHA_FIRMWARE, CASO_MAL_ENCERRADA, QUADRO_11, CASO_FIRMWARE, CASO_SEM_REDE, QUADRO_10, CAN_AGUARDA, NA_CAN,
   ativoDe, ativoPrevisto, serialDoCaso, casosDoEstado, casosDoModulo, contextoDe, rotuloDeTopo, faltas, avisoDaTrava,
   resultados, sinaisDoModelo, tituloDaCan, leituraDaCan, canLidaNoFluxo, sessaoDo,
 } from './diagnostico.js'
@@ -74,6 +74,10 @@ import './t07.css'
 // com reduzir movimento (o --mov-lento vale 0), a CAN ao vivo para no último valor
 const reduzMovimento = () => (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--mov-lento')) || 0) === 0
 
+// as linhas do módulo que as referências da rodada 2 desenham com 54, com a frase embaixo do nome:
+// a alimentação e as mensagens (o GPS, com os satélites embaixo, fica nos 50 — o desvio, no gate)
+const ALTAS = ['alimentacao', 'mensagens']
+
 // a lista da T05, sem nada escolhido: aonde o Procurar outro módulo leva
 const T05_LISTA = '01-momento-nenhum-escolhido'
 
@@ -81,7 +85,7 @@ const T05_LISTA = '01-momento-nenhum-escolhido'
 // da sessão; null = sem ativo), se a CAN está lida (o módulo numa linha só),
 // quantas das sete já terminaram, a porcentagem do firmware que atualiza, quantos
 // sinais da CAN a releitura já leu (null = todos), e os casos que valem
-const quadro = (q) => ({ serial: undefined, ativoId: undefined, can: false, feitas: TOTAL, atualizando: null, lidos: null, casos: [], ...q })
+const quadro = (q) => ({ serial: undefined, ativoId: undefined, can: false, feitas: LIDAS, atualizando: null, lidos: null, casos: [], ...q })
 
 // o diagnóstico deste módulo já está no estado único (a semente da T07 o traz:
 // o módulo do herói, com os sete certos)
@@ -104,7 +108,7 @@ function inicio(momento, unico) {
   // agora. Com o ativo na sessão (o pulo do palco pra uma tela de depois, que semeia só a sessão),
   // o módulo já passou: a faixa, que já estava lá, não some
   const corre = !EM_QUADRO && !s.ativoId && !conferido(unico.etapas.preChecagem, s.moduloSerial)
-  return quadro({ feitas: corre ? 0 : TOTAL, casos: casosDoModulo(s.moduloSerial, unico.casosConsumidos) })
+  return quadro({ feitas: corre ? 0 : LIDAS, casos: casosDoModulo(s.moduloSerial, unico.casosConsumidos) })
 }
 
 // os estados da coluna, montados pela receita e parados: o módulo do caso, na
@@ -149,17 +153,20 @@ export default function T07({ momento, estado: est }) {
   // quadrado de agora; as outras esperam, com o relógio apagado e o traço ──
   const c = contextoDe(serial, est != null ? [] : unico.casosConsumidos)
   const res = resultados(c, q.casos)
-  const corre = !q.can && q.atualizando == null && q.feitas < TOTAL
-  const concluido = !q.can && q.atualizando == null && q.feitas >= TOTAL
+  const corre = !q.can && q.atualizando == null && q.feitas < LIDAS
+  const concluido = !q.can && q.atualizando == null && q.feitas >= LIDAS
   const trava = res.some((r) => r.estado === 'reprovada')
   const passou = concluido && !trava
   const linhas = res.map((r, i) => {
-    if (q.atualizando != null && i === LINHA_FIRMWARE) return { ...r, estado: 'agora', valor: T.atualizandoPct(q.atualizando), causa: undefined, glifo: undefined }
+    if (q.atualizando != null && i === LINHA_FIRMWARE) return { ...r, estado: 'agora', valor: T.atualizandoPct(q.atualizando), causa: undefined, nota: undefined, glifo: undefined }
     if (i < q.feitas) return r
-    if (i === q.feitas && corre) return { ...r, estado: 'agora', valor: T.lendo, causa: undefined, glifo: undefined }
-    return { ...r, estado: 'ainda-nao', valor: T.vazio, causa: undefined, glifo: 'relogio' }
+    if (i === q.feitas && corre) return { ...r, estado: 'agora', valor: T.lendo, causa: undefined, nota: undefined, glifo: undefined }
+    // a que espera: o relógio e o traço · a das mensagens, o traço embaixo do nome; o número do
+    // chip, sem nada à direita (a rodada 2, como a 11 desenha)
+    const vazio = r.soInforma ? { valor: undefined, nota: T.vazio } : { valor: r.id === 'chip' ? undefined : T.vazio, nota: undefined }
+    return { ...r, estado: 'ainda-nao', ...vazio, causa: undefined, glifo: 'relogio' }
   })
-  const aprovadas = linhas.filter((l) => l.estado === 'aprovada').length
+  const aprovadas = linhas.filter((l) => l.estado === 'aprovada' && !l.soInforma).length
 
   // ── a CAN lida: o módulo numa linha só, com o que a conexão conferiu ──
   const sinais = q.can && ativo ? sinaisDoModelo(ativo.modeloAtivoId) : null
@@ -180,16 +187,17 @@ export default function T07({ momento, estado: est }) {
     const s = sinais[i]
     if (aoVivo && !relendo && r.estado === 'aprovada' && s?.leituras?.length) return { ...r, valor: s.leituras[leituraN % s.leituras.length] }
     if (!relendo || i < q.lidos) return r
-    if (i === q.lidos) return { ...r, estado: 'agora', valor: T.lendo, causa: undefined }
-    return { ...r, estado: 'ainda-nao', valor: T.vazio, causa: undefined, glifo: 'relogio' }
+    if (i === q.lidos) return { ...r, estado: 'agora', valor: T.lendo, causa: undefined, nota: undefined }
+    return { ...r, estado: 'ainda-nao', valor: T.vazio, causa: undefined, nota: undefined, glifo: 'relogio' }
   })
   // o que a conexão conferiu: no fluxo, o que ficou gravado pra este módulo; num estado, ou sem registro, os sete
   const pc = est == null && conferido(unico.etapas.preChecagem, serial) ? unico.etapas.preChecagem : null
   const modTotal = pc?.checagens ?? TOTAL
   const modAprovadas = pc?.aprovadas ?? pc?.passaram ?? TOTAL
 
-  const contagem = q.can ? modAprovadas + linhasCan.filter((l) => l.estado === 'aprovada').length : aprovadas
-  const total = q.can ? modTotal + linhasCan.length : TOTAL
+  // a CAN conta os sinais que contam: o alternador só informa (a rodada 2, 8 + 6 = 14)
+  const contagem = q.can ? modAprovadas + linhasCan.filter((l) => l.estado === 'aprovada' && !l.soInforma).length : aprovadas
+  const total = q.can ? modTotal + (leitura ?? []).filter((l) => !l.soInforma).length : TOTAL
 
   // ── os processos: uma linha por tick, depois da troca entre telas que trouxe
   // a tela (C12·35); param no print e num estado da coluna ──
@@ -202,7 +210,7 @@ export default function T07({ momento, estado: est }) {
       if (!ativa) return
       relogio = setInterval(() => setFluxo((f) => {
         if (f.can) return f.lidos == null ? f : { ...f, lidos: f.lidos + 1 >= linhasCan.length ? null : f.lidos + 1 }
-        return f.atualizando == null && f.feitas < TOTAL ? { ...f, feitas: f.feitas + 1 } : f
+        return f.atualizando == null && f.feitas < LIDAS ? { ...f, feitas: f.feitas + 1 } : f
       }), RITMOS.diagnosticoLinhaMs)
     })
     return () => { ativa = false; clearInterval(relogio) }
@@ -316,7 +324,8 @@ export default function T07({ momento, estado: est }) {
   // as linhas (lei 23, o pacote 3): o módulo na medida da linha de conferência, 50
   // ('diagnostico'); a CAN e o *Conferido na conexão*, na lista longa, 44 ('longa')
   const linha = (l, k, variante) => (
-    <LinhaChecagem key={k} variante={variante} estado={l.estado} titulo={l.titulo} valor={l.valor} causa={l.causa} glifo={l.glifo}
+    <LinhaChecagem key={k} variante={variante} estado={l.estado} titulo={l.titulo} valor={l.valor} causa={l.causa} nota={l.nota} glifo={l.glifo}
+      className={variante === 'diagnostico' && ALTAS.includes(l.id) ? 't07-linha-alta' : undefined}
       nomeGlifo={l.estado === 'ainda-nao' ? ESTADOS.espera.nome : undefined} />
   )
   // o pacote 3 · a trava sem saída escrita (o serial fora do cadastro, o modelo sem
@@ -339,6 +348,11 @@ export default function T07({ momento, estado: est }) {
           <CabecalhoConteudo titulo={T.titulo} contagem={contagem} unidade={T.de(total)} tom={contagem === total ? 'veredito' : 'neutro'} />
         </div>
         {aviso && <Aviso tom="falha" glifo="xis" titulo={aviso.titulo} frase={aviso.frase} surge={avisoVivo.current && !EM_QUADRO && est == null} />}
+        {/* a sessão anterior mal encerrada (a 13, a rodada 2): o app fechou o canal que ficou aberto,
+            e avisa, neutro, quando a leitura termina · pode seguir */}
+        {concluido && q.casos.includes(CASO_MAL_ENCERRADA) && (
+          <Aviso tom="neutro" glifo="info" mudo titulo={T.malEncerradaTitulo} frase={T.malEncerradaFrase} surge={avisoVivo.current && !EM_QUADRO && est == null} />
+        )}
         <div className="t07-secao">
           <span className="t07-rotulo-bloco">{T.oModulo}</span>
           <Lista>

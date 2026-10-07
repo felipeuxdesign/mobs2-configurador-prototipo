@@ -105,3 +105,13 @@ As diferenças da tela contra a folha viraram variante nomeada da peça (G11): o
 ## Textos
 
 Os textos exatos de cada referência estão em `textos.md`. Copie de lá — nunca redigite.
+
+## A conferência (retorno do PM, 06/10)
+
+- **cada divergência tem *Corrigir este bloco*** (a 00): abre a mesma lista da T09, só com aquele bloco, e a limpeza restrita à área dele
+- **cada dependente em *revisar em seguida* tem *Enviar agora***, com o motivo: *usa as cercas, que acabaram de mudar* (a 05)
+- **o *Reenviar os 5 blocos* é o último recurso**: fica em *Outras ações*, abaixo das ações por bloco, e diz o escopo: *Mantém a rede do módulo. Apaga só a configuração.* (a 01 e a 03) · saiu a frase *Reenviar os 5 blocos limpa*, que contradizia
+- **as ações aparecem desde o *Conferindo***, desligadas até a leitura terminar, com o motivo embaixo (a 04)
+- **sem o Extended ID**: cartão é assunto da plataforma web
+- **a *APN* vira *Rede do módulo***: *uma rede antiga* no módulo, *a rede da Mobs2* no cadastro · os valores são leitura nossa: o PM mandou trocar os endereços sem dizer por quê
+- **no protótipo · a rodada 2:** a ação de cada bloco mora na linha (a variante `embaixo` da linha de conferência): *Corrigir este bloco* no que diverge, *Enviar agora* no que espera revisão — os dois levam à manutenção da T09, um bloco por vez · o rodapé fica só com a saída (o rodapé sem primário) · no *Conferindo*, o *Voltar ao menu* e o *Outras ações* já aparecem, desligados, com a frase em cima · a *Rede do módulo* mostra o nome do cadastro (`conexoes.exibir`), nunca o endereço · o efeito do *Reenviar os 5 blocos* quebra em duas linhas na folha

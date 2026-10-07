@@ -9,12 +9,13 @@
 | `02-estado-rotacao-caminhao-coletor` | estado | o modelo calibra rotação e velocidade | `calibracao.porModelo · ma-02 · KNB-5H39` |
 | `03-estado-ja-semeado` | estado | o hodômetro já foi semeado antes | `calibracao` |
 | `04-estado-modulo-sem-pulsos` | estado | o módulo não recebe pulsos | `grandeza-indisponivel` |
-| `05-momento-hodometro-digitado` | momento | digitar o valor do painel | `calibracao.painel · a-01` |
+| `05-momento-hodometro-digitado` | momento | digitar o valor do painel | `calibracao` |
 | `06-momento-gravando-no-modulo` | momento | tocar em `Semear o hodômetro` · 1s | derivado do fluxo |
 | `07-momento-relendo` | momento | depois de gravar · 1s, e o tambor rola | derivado do fluxo |
-| `08-momento-horimetro` | momento | `Calibrar o horímetro` | `calibracao.painel · a-01 · horimetro` |
+| `08-momento-horimetro` | momento | `Calibrar o horímetro` | `calibracao` |
 | `09-momento-calibracao-completa` | momento | `Semear o horímetro`, com a releitura conferindo | derivado do fluxo |
-| `10-estado-releitura-nao-confere` | estado | a releitura passa da tolerância: 500 m a menos, e o limite é 120 m | `releitura-nao-confere` |
+| `10-estado-releitura-nao-confere` | estado | a releitura passa da tolerância: 500 m a menos, e o limite é 120 m | `calibracao` |
+| `11-estado-nada-a-calibrar` | estado | o ônibus: rotação e hodômetro vêm direto do veículo | `heroi` |
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.
 

@@ -112,7 +112,7 @@ chk("pool de índices esgotado nos DOIS limites", !!M.casos["pool-esgotado"] &&
 /* ── Casos obrigatórios ── */
 var OBRIGATORIOS = ["serial-nao-cadastrado", "modelo-sem-driver", "firmware-fora-matriz",
   "conteudo-nao-cabe", "pool-esgotado", "ativo-fora-pacote",
-  "conflito-pinos-resolvivel", "conflito-pinos-sem-saida", "can-fora-esperado",
+  "conflito-pinos-sem-saida", "can-fora-esperado",
   "grandeza-indisponivel", "diff-divergente",
   "indice-nao-classificado", "autoteste-falhando", "sessao-interrompida",
   /* retorno do PM, 06/10 */ "sem-leitor", "servidor-ainda-nao",
@@ -134,12 +134,7 @@ chk("autoteste: 8 assertivas nomeadas", M.autotesteAssertivas.length === 8 &&
 chk("C10: frota em todos os 24 ativos, únicas", M.ativos.every(function (a) { return /^\d{4}$/.test(a.frota); }) &&
   M.ativos.map(function (a) { return a.frota; }).filter(function (v, ix, arr) { return arr.indexOf(v) === ix; }).length === 24);
 chk("C10: leitor + leituraCan nos 3 modelos", M.modelosAtivo.every(function (m) { return m.leitor && m.leitor.tipo && (m.leituraCan === "barramento" || m.leituraCan === "gateway"); }));
-chk("C10: casos de pinos com consumidores e meioAtual; ocupadoPor intacto", ["conflito-pinos-resolvivel", "conflito-pinos-sem-saida"].every(function (k) {
-  var c = M.casos[k]; return c && c.consumidores && c.consumidores.length >= 2 && c.meioAtual === "cabo" && c.ocupadoPor === "sensor de porta"; }));
-chk("C10: resolvível fala sem fio, sem saída não", (function () {
-  function semFio(k) { var c = M.casos[k]; var mod = M.modulos.find(function (x) { return x.serial === c.moduloSerial; });
-    var l = M.matrizCapacidades.find(function (r) { return r.modeloId === mod.modeloId && r.variante === mod.variante; }); return !!(l && l.semFio); }
-  return semFio("conflito-pinos-resolvivel") === true && semFio("conflito-pinos-sem-saida") === false; })());
+chk("06/10: o conflito de pinos é só o sem saída, achado sem fio, com o sensor de porta no fio", (function (c) { return !M.casos["conflito-pinos-resolvivel"] && c && c.meioAtual === "sem fio" && c.ocupadoPor === "sensor de porta" && c.consumidores.indexOf("cabo de programação") < 0; })(M.casos["conflito-pinos-sem-saida"]));
 
 /* ── P·C1 · o que as telas leem e o gate ainda não conferia (gate C1) ── */
 var cred = M.credenciais, rec = cred.recuperacao, lim = rec.limites;
@@ -165,10 +160,8 @@ chk("P·C1 calibração: as diferenças da T10 derivam do mock (297.997 · 108 �
   return p["a-01"].hodometro - b["a-01"].hodometro / 1000 === 297997 && p["a-09"].hodometro - b["a-09"].hodometro / 1000 === 108 &&
     p["a-22"].hodometro - b["a-22"].hodometro / 1000 === 477; })());
 chk("P·C1 calibração: calibráveis e indisponíveis não se cruzam, em todo modelo", Object.keys(M.calibracao.porModelo).every(function (k) {
-  var m = M.calibracao.porModelo[k]; return m.indisponiveis.every(function (i) { return m.calibraveis.indexOf(i.grandeza) < 0; }); }));
+  var m = M.calibracao.porModelo[k]; return (m.indisponiveis || []).every(function (i) { return m.calibraveis.indexOf(i.grandeza) < 0; }); }));
 chk("P·C1 calibração: todo modelo de ativo tem regra de calibração", M.modelosAtivo.every(function (m) { return !!M.calibracao.porModelo[m.id]; }));
-chk("06/10: o checklist tem 30 itens no mock — a A com 4, a D com 10 (as pendências só com o ID reescrito), a E com 5 (o bip só com buzzer), a F com 2", (function (I) { var n = function (s) { return I.filter(function (x) { return x.secao === s; }).length; }; return I.length === 30 && n("A") === 4 && n("D") === 10 && n("E") === 5 && n("F") === 2; })(M.checklist.itens));
-chk("06/10: o herói mostra 29 — a D sem as pendências, e a E com o bip", M.checklist.itens.filter(function (x) { return x.condicao !== "reescritaId"; }).length === 29 && M.checklist.itens.some(function (x) { return x.id === "e-bip" && x.condicao === "buzzer"; }));
 chk("P·C1 checklist: todo item aponta uma seção que existe", M.checklist.itens.every(function (i) { return M.checklist.secoes.some(function (s) { return s.id === i.secao; }); }));
 chk("P·C1 ciclo: o evento chega e confere dentro do prazo (24 < 33 < 120 s)", (function () {
   var c = M.ciclo; return 0 < c.evento.recebidoAosSeg && c.evento.recebidoAosSeg < c.evento.conferidoAosSeg && c.evento.conferidoAosSeg < c.prazoEventoSeg; })());
@@ -230,7 +223,8 @@ chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência n
 (function () {
   var uoDe = function (id) { var a = M.ativos.filter(function (x) { return x.id === id; })[0]; return a && a.uoId; };
   var uo = M.contextoAtivo.uoId, fila = M.filaSaida;
-  var menu = fila.filter(function (f) { return f.estado !== "recebida" && uoDe(f.ativoId) === uo; });
+  /* rodada 2: o recebido em conflito também chegou (o servidor aceita os dois registros e avisa o gestor) */
+  var menu = fila.filter(function (f) { return f.estado !== "recebida" && f.estado !== "recebida-em-conflito" && uoDe(f.ativoId) === uo; });
   chk("P·C5 · T04 o contador do menu: o que não chegou, só da garagem ativa (T04·1 b · 2)", menu.length === 2,
     menu.map(function (f) { return f.id; }).join(","));
   var sair = fila.filter(function (f) { return f.estado === "na-fila"; });
@@ -308,8 +302,7 @@ chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência n
     return (!!modulo(p.serial) || M.seriaisForaCadastro.indexOf(p.serial) >= 0) && (p.meio === "sem-fio" || p.meio === "cabo"); }));
   chk("P·C6 · T05 por perto: variante sem sem fio na matriz ⇒ por cabo", perto.every(function (p) {
     var mod = modulo(p.serial); if (!mod) return true; var l = linha(mod); return !l || l.semFio || p.meio === "cabo"; }));
-  var cp = M.casos["conflito-pinos-resolvivel"], doCaso = perto.filter(function (p) { return p.serial === cp.moduloSerial; })[0];
-  chk("P·C6 · T05 por perto: o meio do M2C-0335 é o meioAtual do conflito-pinos-resolvivel", !!doCaso && doCaso.meio === cp.meioAtual, doCaso && doCaso.meio);
+  /* rodada 2: o conflito-pinos-resolvivel saiu (sem cabo, trocar o meio nunca resolve) — a conferência do meio dele saiu junto */
   var mod = modulo(heroi.moduloSerial), l = linha(mod);
   var modelo = M.modelos.filter(function (m) { return m.id === mod.modeloId; })[0];
   var conteudo = M.modelosAtivo.filter(function (m) { return m.id === heroi.modeloAtivoId; })[0].conteudoRegistros;
@@ -350,8 +343,9 @@ chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência n
     return { calibraveis: pm.calibraveis.filter(function (g) { return derrubadas.indexOf(g) < 0; }), derrubadas: derrubadas };
   };
   var p01 = doPar("a-01"), p09 = doPar("a-09"), p22 = doPar("a-22");
-  chk("P·C9 · T10 os passos: o herói 2 (hodômetro, horímetro) · o a-09 3 (rotação, velocidade, hodômetro) · o a-22 1 (só o hodômetro)",
-    p01.calibraveis.join(",") === "hodometro,horimetro" && p09.calibraveis.join(",") === "rotacao,velocidade,hodometro" && p22.calibraveis.join(",") === "hodometro",
+  /* rodada 2: o ônibus não calibra nada (T10/11); o caminhão coletor calibra os quatro, dois opcionais; o a-22 sem pulsos fica com o hodômetro e o horímetro */
+  chk("P·C9 · T10 os passos: o herói nenhum (nada a calibrar) · o a-09 4 (hodômetro, rotação, velocidade, horímetro) · o a-22 2 (hodômetro, horímetro)",
+    p01.calibraveis.join(",") === "" && !!C.porModelo["ma-01"].nadaACalibrar && p09.calibraveis.join(",") === "hodometro,rotacao,velocidade,horimetro" && p22.calibraveis.join(",") === "hodometro,horimetro",
     [p01, p09, p22].map(function (p) { return p.calibraveis.join("+"); }).join(" · "));
   chk("P·C9 · T10 o rótulo da caixa (T10·5): só o módulo do a-22 derruba grandezas (rotação e velocidade, 'não lê pulsos')",
     p01.derrubadas.length === 0 && p09.derrubadas.length === 0 && p22.derrubadas.join(",") === "rotacao,velocidade" && C.motivoSemPulsos === "não lê pulsos");
@@ -452,7 +446,8 @@ chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência n
   chk("P·C11 · T15 os três recortes existem e todo id deles está em filaSaida (AC-22)", RECORTES.every(function (k) {
     var c = M.casos[k]; return !!c && Array.isArray(c.itens) && c.itens.every(function (id) { return !!item(id); }); }));
   var se = M.casos["fila-sem-erro"].itens.map(item);
-  var varzea = F.filter(function (f) { return uo(f) === "uo-01"; }).map(function (f) { return f.id; }).sort().join(",");
+  /* rodada 2: o recebido em conflito (f-11) é da Várzea, e a 01 não o desenha — ele entra só na semente da 00 */
+  var varzea = F.filter(function (f) { return uo(f) === "uo-01" && f.estado !== "recebida-em-conflito"; }).map(function (f) { return f.id; }).sort().join(",");
   chk("P·C11 · T15 o 01 (fila-sem-erro) é a fila inteira da Várzea: 5 itens, um enviando com progresso e tamanho, nenhum erro",
     se.map(function (f) { return f.id; }).sort().join(",") === varzea && se.length === 5 &&
     se.filter(function (f) { return f.estado === "enviando" && f.progresso > 0 && f.tamanhoMb > 0; }).length === 1 &&
@@ -467,8 +462,8 @@ chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência n
   var ibura = F.filter(function (f) { return uo(f) === "uo-02"; }).map(function (f) { return f.id; }).sort().join(",");
   chk("P·C11 · T15 a semente da 00 (G21: a seleção f-10, f-02, f-08) é a fila inteira da Ibura, com uma recusa",
     ibura === "f-02,f-08,f-10" && item("f-10").estado === "erro-recusa", ibura);
-  chk("P·C11 · T15 a fila fica intocada: 10 itens, f-01 a f-10, na ordem",
-    F.length === 10 && F.every(function (f, i) { return f.id === "f-" + (i < 9 ? "0" : "") + (i + 1); }));
+  chk("P·C11 · T15 a fila fica intocada: 11 itens, f-01 a f-11, na ordem (a rodada 2 trouxe o f-11, o recebido em conflito)",
+    F.length === 11 && F.every(function (f, i) { return f.id === "f-" + (i < 9 ? "0" : "") + (i + 1); }));
 })();
 
 /* ── P·C10 · T14 · o ciclo dinâmico: os campos do evento (AC-09), o passo de cada sinal (AC-10) e os três casos que a T14 lê ── */
@@ -513,10 +508,11 @@ chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência n
      Extended ID só leitura, fora da conta; o Corrigir vai no primeiro que diverge na ordem da cadeia */
   var cmp = dd.divergencias.map(function (d) { return d.bloco; });
   var primeiro = Cd.ordem.filter(function (b) { return cmp.indexOf(b) >= 0; })[0];
-  chk("P·C11 · T11 a 00: as 4 que se comparam divergem ('4 de 4'), o cadastro é o conteúdo que a cadeia grava, o Extended ID é só leitura, e o Corrigir é o do primeiro na ordem da cadeia ('Corrigir as cercas')",
+  chk("P·C11 · T11 a 00: as 4 que se comparam divergem ('4 de 4'), o cadastro é o conteúdo que a cadeia grava, sem o Extended ID (a rodada 2), e o primeiro na ordem da cadeia é o das cercas",
+    /* rodada 2: a rede do módulo não mostra o endereço — o cadastro dela é "a rede da Mobs2" (leitura nossa do PM) */
     cmp.length === 4 && dd.divergencias.every(function (d) { var c = Cd.conteudo[d.bloco];
-      return !!c && (d.noCadastro === c || d.noCadastro === Cd.rotulos[d.bloco].toLowerCase() + " " + c); }) &&
-    !!dd.extendedId && dd.extendedId.somenteLeitura === true && primeiro === "cercas",
+      return !!c && (d.noCadastro === c || d.noCadastro === Cd.rotulos[d.bloco].toLowerCase() + " " + c || (d.bloco === "conexao" && d.noCadastro === "a rede da Mobs2")); }) &&
+    !dd.extendedId && primeiro === "cercas",
     dd.divergencias.map(function (d) { return (d.rotulo || Cd.rotulos[d.bloco]) + " " + d.noCadastro; }).join(" · ") + " · corrige " + primeiro);
   var a = ativo(cc.ativoId), mdl = M.modelosAtivo.filter(function (m) { return m.id === a.modeloAtivoId; })[0];
   var pe = M.presetsEvento.filter(function (p) { return p.id === mdl.presetEventoId; })[0];
@@ -558,10 +554,12 @@ chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência n
     L && (L.entradasUsadas + " de " + L.entradasTotal + " · " + L.modemDbm + " em " + L.modemFaixa.min + "…" + L.modemFaixa.max));
   // T13·5 (a): a escala do cartão com barra — bateria 10–16, satélites 0–12, modem −110 a −50 — dá as posições da T13/03
   var pos = function (x, a, b) { return Math.round(((x - a) / (b - a)) * 1000) / 10; };
-  var bat = um(um(M.modelosAtivo, "ma-01").sinaisCan, "bateria"), sat = um(um(M.modelosAtivo, "ma-01").sinaisCan, "satelites");
-  var nBat = Number(bat.lido.split(" ")[0].replace(",", "."));
-  chk("P·C10 · T13 T13·5: a alimentação do herói em 10–16 dá a faixa de 33,3% a 83,3% e o marcador em 63,3% (T13/03)",
-    pos(bat.faixa.min, 10, 16) === 33.3 && pos(bat.faixa.max, 10, 16) === 83.3 && pos(nBat, 10, 16) === 63.3);
+  var sat = um(um(M.modelosAtivo, "ma-01").sinaisCan, "satelites");
+  /* rodada 2: a tensão da bateria saiu da CAN no mock do PM — a alimentação é a do módulo, contra a faixa do
+     modelo (a rodada 1, 9,0 a 32,0 V); a conferência dela é a do diagnóstico, logo abaixo */
+  var alim = M.diagnostico.modulo.filter(function (l) { return l.id === "alimentacao"; })[0];
+  chk("P·C10 · T13 T13·5: a alimentação do herói (24,3 V) fica dentro da faixa do modelo (9,0 a 32,0 V)",
+    !!alim && alim.faixa === "9,0 a 32,0 V" && Number(alim.heroi.split(" ")[0].replace(",", ".")) >= 9 && Number(alim.heroi.split(" ")[0].replace(",", ".")) <= 32);
   chk("P·C10 · T13 T13·5: o modem em −110 a −50 dá a faixa de 16,7% a 83,3% e o marcador em 65% (T13/03); o GPS em 0–12 dá 75% (o 56,3% da referência é desvio)",
     pos(L.modemFaixa.min, -110, -50) === 16.7 && pos(L.modemFaixa.max, -110, -50) === 83.3 && pos(L.modemDbm, -110, -50) === 65 && pos(Number(sat.lido), 0, 12) === 75);
   var iso = M.casos["can-estatico-bateria"], lido = Number(iso.alimentacao.split(" ")[0].replace(",", "."));
@@ -590,7 +588,7 @@ chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência n
   var conta = {
     A: linha.firmwares.indexOf(mod.firmware) >= 0 ? da("A").length : 0,
     B: da("B").filter(function (i) { return i.herda === "calibracao"; }).length * (partida.length ? 1 : 0),
-    C: [nBat >= bat.faixa.min && nBat <= bat.faixa.max, Number(sat.lido) >= sat.faixa.min, L.entradasUsadas <= L.entradasTotal,
+    C: [(function (v) { return v >= 9 && v <= 32; })(Number(alim.heroi.split(" ")[0].replace(",", "."))), Number(sat.lido) >= sat.faixa.min, L.entradasUsadas <= L.entradasTotal,
       L.modemDbm >= L.modemFaixa.min && L.modemDbm <= L.modemFaixa.max].filter(Boolean).length,
     D: da("D").filter(function (i) {
       var f = String(i.fonte).split(":");
@@ -602,12 +600,13 @@ chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência n
     E: 0, F: desta.length
   };
   var feitos = Object.keys(conta).reduce(function (s, k) { return s + conta[k]; }, 0);
-  /* a rodada 1 do retorno do PM: o herói mostra 29 — a A com 4, a D com 9 (sem as pendências), a E com 5 —, e a semente
-     traz feitos a A, a C e a D: 17 de 29, e Faltam 10 itens obrigatórios (B 5 + E 5) */
-  var doHeroi = CK.itens.filter(function (i) { return i.condicao !== "reescritaId"; });
+  /* a rodada 1 do retorno do PM: o herói mostra 29 — a A com 4, a D com 9 (sem as pendências), a E com 5 · a rodada 2:
+     o ônibus não calibra, e o Painel sai da B — 28 —, e a semente traz feitos a A, a C e a D: 17 de 28, e Faltam 9
+     itens obrigatórios (B 4 + E 5) */
+  var doHeroi = CK.itens.filter(function (i) { return i.condicao !== "reescritaId" && i.condicao !== "calibracao"; });
   var n29 = function (sec) { return doHeroi.filter(function (i) { return i.secao === sec; }).length; };
-  chk("P·C10 · T13 a 00: 17 de 29 pela semente (A 4 · C 4 · D 9) e 'Faltam 10 itens obrigatórios' (B 5 + E 5)",
-    doHeroi.length === 29 && n29("A") + n29("C") + n29("D") === 17 && n29("B") + n29("E") === 10,
+  chk("P·C10 · T13 a 00: 17 de 28 pela semente (A 4 · C 4 · D 9) e 'Faltam 9 itens obrigatórios' (B 4 + E 5)",
+    doHeroi.length === 28 && n29("A") + n29("C") + n29("D") === 17 && n29("B") + n29("E") === 9,
     ["A", "B", "C", "D", "E", "F"].map(function (k) { return k + " " + n29(k); }).join(" · "));
 })();
 
@@ -711,12 +710,13 @@ chk("errata: a limpeza nunca apaga os identificadores", JSON.stringify(M).indexO
 chk("errata: o M2C-0999 tem o que informa na busca, e continua fora do cadastro", !!M.naBuscaForaCadastro["M2C-0999"] && M.seriaisForaCadastro.indexOf("M2C-0999") >= 0 && !M.modulos.some(function (m) { return m.serial === "M2C-0999"; }));
 chk("PM: o pacote sem cartões, 31 itens nos 5 grupos", M.pacotes.every(function (p) { return !("cartoes" in p.contem); }) &&
   (function (c) { return c.ativos + c.conexoes + c.modelosAtivo + c.eventos + c.cercas === 31; })(M.pacotes[0].contem));
-chk("PM: o diagnóstico tem 7 linhas, e as 3 travas existem como casos", M.diagnostico.modulo.length === 7 &&
+chk("06/10: o diagnóstico tem 9 linhas — 8 que contam, com o número do chip, e as mensagens, que só informam — e as 3 travas existem como casos", M.diagnostico.modulo.length === 9 && M.diagnostico.modulo.filter(function (l) { return !l.soInforma; }).length === 8 &&
   ["serial-nao-cadastrado", "modelo-sem-driver", "firmware-fora-matriz"].every(function (k) { return !!M.casos[k]; }));
 chk("PM: o modo sai do vínculo — a manutenção é um caso, a instalação é o padrão", M.casos["modulo-ja-deste-ativo"].modo === "manutencao");
 
 /* ── PM · rodada 3 (decisões 52 a 54) ── */
-/* r3: o checklist de 31 itens saiu no retorno do PM (06/10) — a conferência dele é a "06/10: o checklist tem 30 itens no mock" */
+chk("06/10: o checklist tem 30 itens no mock — a A com 4, a D com 10 (as pendências só com o ID reescrito), a E com 5 (o bip só com buzzer), a F com 2", (function (I) { var n = function (s) { return I.filter(function (x) { return x.secao === s; }).length; }; return I.length === 30 && n("A") === 4 && n("D") === 10 && n("E") === 5 && n("F") === 2; })(M.checklist.itens));
+chk("06/10: o herói mostra 28 — a D sem as pendências, a B sem o Painel (o ônibus não calibra), e a E com o bip", M.calibracao.porModelo["ma-01"].calibraveis.length === 0 && M.checklist.itens.filter(function (x) { return x.condicao !== "reescritaId" && x.condicao !== "calibracao"; }).length === 28 && M.checklist.itens.some(function (x) { return x.id === "e-bip" && x.condicao === "buzzer"; }));
 chk("r3: o Painel é foto a tirar, só quando houve calibração", M.checklist.itens.filter(function (x) { return x.id === "b-painel-legivel" && x.foto && x.condicao === "calibracao" && !x.herda; }).length === 1);
 chk("r3: os critérios do servidor sem viagem", JSON.stringify(M.criteriosRegra).indexOf("viage") < 0);
 chk("r3: o horímetro é opcional onde existe", M.modelosAtivo.every(function (m) { var c = M.calibracao.porModelo[m.id]; return !c || c.calibraveis.indexOf("horimetro") < 0 || (c.opcionais || []).indexOf("horimetro") >= 0; }));

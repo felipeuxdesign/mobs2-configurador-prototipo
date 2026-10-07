@@ -5,8 +5,8 @@
 //     o mesmo texto, acende por uma camada (C12·8, como o Ver as unidades da T02 — a revisão de 27/09);
 //   · a lista que a busca filtra: o que fica desliza pro lugar novo, o que sai esmaece por cima
 //     (a cópia), o que volta esmaece no lugar, em 150 (C12·10, useReorganiza);
-//   · a troca de quadro (C12·4): a lista que vira *Confirmar o vínculo*, e a volta, e a trava que
-//     o leitor sem fio resolve (05 → 01), e a placa de outro pacote que a busca acha (a trava 04): o
+//   · a troca de quadro (C12·4): a lista que vira *Confirmar o vínculo*, e a volta, e
+//     a placa de outro pacote que a busca acha (a trava 04 · o 05, com saída, saiu na rodada 2): o
 //     conteúdo esmaece em 150, como entre telas, sem a lista andar por cima. Os dados do modelo chegam
 //     com ele, e não esmaecem de novo por dentro;
 //   · o vínculo confirmado: `Vincular o módulo` leva à T09, no que vai ser gravado (05) — a
@@ -33,7 +33,7 @@ const DENTRO = [esmaece('ds-dados-modelo'), esmaece('ds-aviso')]
 
 const PARADA = [{ quieto: true }, { dorme: 600 }, { quieto: true }]
 const MOMENTOS = ['01-momento-confirmar-o-veiculo', '08-momento-busca-sem-resultado', '09-momento-busca-esconde-a-escolha']
-const ESTADOS = ['04-estado-fora-do-pacote', '05-estado-conflito-de-pinos-resolvivel', '06-estado-conflito-de-pinos-sem-saida',
+const ESTADOS = ['04-estado-fora-do-pacote', '06-estado-conflito-de-pinos-sem-saida',
   '10-estado-modulo-em-outro-ativo', '11-estado-modulo-ja-deste-ativo']
 
 export default [
@@ -128,7 +128,8 @@ export default [
   { toca: 'Vincular o módulo' },
   { chega: 'T09', momento: '05-momento-o-que-vai-ser-gravado' },
 
-  // ── a trava que o leitor sem fio resolve (05 → 01): pela sessão do M2C-0335, com cabo ──
+  // ── da T05 ao vínculo, por outro módulo: o M2C-0335 com o KHT-4B08 · a rodada 2 do retorno do PM: a
+  // configuração é só sem fio, e o conflito com saída (o 05) saiu — o par vai direto ao vínculo novo (01)
   // da T05, a conexão abre o diagnóstico (T07), e o Selecionar ativo dele abre a T06
   { abre: '?tela=T05&momento=01-momento-nenhum-escolhido' },
   { toca: 'M2C-0335' },
@@ -140,14 +141,9 @@ export default [
   { toca: 'KHT-4B08' },
   { dorme: 250 },
   { toca: 'Usar este ativo', anima: TROCA },
-  { ve: 'CONFLITO NO FIO BRANCO' },
-  // a régua rola a lista até o KHT-4B08 pra tocar, e a lista que vira a trava volta a rolagem
-  // a 0: o indicador de rolagem (R-15) aparece e some depois de --rolagem-espera (900) e do
-  // esmaecer dele (300); fora ele, nada anda
-  { dorme: 1300 },
-  { quieto: true },
-  { toca: 'Usar leitor sem fio', anima: TROCA, naoAnima: DENTRO },
   { chega: 'T06', momento: '01-momento-confirmar-o-veiculo' },
+  { naoVe: 'CONFLITO NO FIO BRANCO' },
+  { naoVe: 'Usar leitor sem fio' },
   { ve: 'O M2C-0335 fica neste ativo, na Viação Atlântico Sul.' },
   { dorme: 250 },
   { quieto: true },
@@ -179,7 +175,7 @@ export default [
   { toca: 'Escolher outro' },
   { quieto: true },
   { chega: 'T06', momento: null },
-  // a trava que o leitor sem fio resolve, direto
+  // o par do M2C-0335, direto ao vínculo (a rodada 2: sem o conflito com saída)
   { abre: '?tela=T05&momento=01-momento-nenhum-escolhido' },
   { toca: 'M2C-0335' },
   { toca: 'Conectar ao M2C-0335' },
@@ -188,9 +184,6 @@ export default [
   { chega: 'T06', momento: null },
   { toca: 'KHT-4B08' },
   { toca: 'Usar este ativo' },
-  { ve: 'CONFLITO NO FIO BRANCO' },
-  { quieto: true },
-  { toca: 'Usar leitor sem fio' },
   { ve: 'O M2C-0335 fica neste ativo, na Viação Atlântico Sul.' },
   { quieto: true },
   { toca: 'Vincular o módulo' },

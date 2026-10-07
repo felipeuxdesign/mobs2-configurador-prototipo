@@ -13,7 +13,7 @@ const ATE_A_FAIXA = [
   // a conexão abre o diagnóstico (T07, pacote 1): as sete passam, e a faixa desce
   { chega: 'T07', momento: null },
   { ve: 'ENCERRAR', ms: 12000 },
-  { ve: '7 de 7' },
+  { ve: '8 de 8' },
 ]
 const O_DIALOGO = [
   { ve: 'Encerrar sem homologar?' },

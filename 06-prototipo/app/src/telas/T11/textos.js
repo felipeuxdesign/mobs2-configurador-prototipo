@@ -11,13 +11,7 @@
 // o bloco com o artigo, como o rodapé escreve: 'Corrigir as cercas', 'Revisar o
 // leitor' (T11/00, 05). Os outros dois seguem a mesma gramática — nenhuma
 // referência os desenha (D2: depois do leitor, a conferência pede os eventos)
-const COM_ARTIGO = { cercas: 'as cercas', leitor: 'o leitor', eventos: 'os eventos', conexao: 'a APN' }
-// '3 cartões', '1 iButton': o número e o nome, no plural quando passa de um
-const conta = (n, um, varios) => `${n} ${n === 1 ? um : varios}`
-const partesDoExtendedId = (cartoes, ibuttons) => [
-  cartoes > 0 ? conta(cartoes, 'cartão', 'cartões') : null,
-  ibuttons > 0 ? conta(ibuttons, 'iButton', 'iButtons') : null,
-].filter(Boolean)
+const COM_ARTIGO = { cercas: 'as cercas', leitor: 'o leitor', eventos: 'os eventos', conexao: 'a rede do módulo' }
 
 export const T = {
   titulo: 'Conferir configuração',
@@ -39,7 +33,7 @@ export const T = {
   // têm texto (T11/05); o que não tem fica sem a segunda linha (G25)
   porque: {
     'eventos:cercas': 'dependem das cercas, que acabaram de mudar',
-    'leitor:cercas': 'usa os índices das cercas, que acabaram de mudar',
+    'leitor:cercas': 'usa as cercas, que acabaram de mudar',
   },
   // o par do bloco que não bate (T11/00): o valor é do caso
   noModulo: (valor) => `no módulo · ${valor}`,
@@ -49,23 +43,15 @@ export const T = {
   regioes: (n) => `${n} regiões`,
   leitorSemFio: 'leitor sem fio',
   intervalo: (seg) => `intervalo ${seg} s`,
-  // o Extended ID, só leitura (decisão 45 e 53): o que está no módulo. Com par na
-  // tela (T11/00), a frase inteira e o só leitura embaixo; nas outras, o valor
-  // curto à direita. Sem cartão nenhum (D5), só informa: nenhum cartão no módulo
-  extendedId: 'Extended ID',
-  extendedIdNoModulo: (cartoes, ibuttons) => {
-    const p = partesDoExtendedId(cartoes, ibuttons)
-    return p.length ? `${p.join(' e ')} no módulo` : 'nenhum cartão no módulo'
-  },
-  extendedIdValor: (cartoes, ibuttons) => {
-    const p = partesDoExtendedId(cartoes, ibuttons)
-    return p.length ? p.join(' · ') : 'nenhum cartão'
-  },
-  soLeitura: 'só leitura · o app não grava cartões',
   // o 01: o conteúdo fora de todos os blocos, e a legenda do reenviar
   naoReconhece: 'HÁ CONTEÚDO QUE O APP NÃO RECONHECE',
-  foraDosBlocos: (blocos) => `Fora de todos os blocos. Reenviar os ${blocos} blocos limpa.`,
-  preservaConexao: 'Reenviar preserva a conexão do módulo.',
+  foraDosBlocos: () => 'Fora de todos os blocos.',   // a rodada 2: saiu o *Reenviar os 5 blocos limpa*
+  preservaConexao: 'Mantém a rede do módulo. Apaga só a configuração.',
+  // a rodada 2 do retorno do PM: a ação de cada bloco mora na linha dele, e não mais no rodapé
+  corrigirEsteBloco: 'Corrigir este bloco',
+  enviarAgora: 'Enviar agora',
+  // a 04: as ações desde o conferindo, desligadas
+  acoesLiberam: 'As ações liberam quando a leitura terminar.',
   // o rodapé (decisão 53): um bloco por vez, o primeiro na ordem da cadeia
   corrigir: (bloco) => `Corrigir ${COM_ARTIGO[bloco]}`,
   revisar: (bloco) => `Revisar ${COM_ARTIGO[bloco]}`,
@@ -73,9 +59,9 @@ export const T = {
   // as outras duas, cada uma com o efeito embaixo (a folha T11/03); no 01, o
   // Reenviar é o principal, e o Apenas registrar, o link
   reenviar: (blocos) => `Reenviar os ${blocos} blocos`,
-  efeitoReenviar: 'a cadeia inteira, preservando a conexão',
+  efeitoReenviar: 'Mantém a rede do módulo. Apaga só a configuração.',
   registrar: 'Apenas registrar o diagnóstico',
-  efeitoRegistrar: 'nada é gravado · só o diagnóstico sobe',
+  efeitoRegistrar: 'nada vai pro módulo · só o diagnóstico sobe',
   // o xis da folha, pro leitor de tela (o aria-label da T11/03)
   fechar: 'Fechar',
   voltar: 'Voltar ao menu',

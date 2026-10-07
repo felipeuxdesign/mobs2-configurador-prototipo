@@ -80,6 +80,7 @@ import {
   conferenciaDo, comparadasAte, mundoQueConfere, QUADRO_04,
 } from './conferencia.js'
 import { T } from './textos.js'
+import { BotaoDaLinha } from '../comum/BotaoDaLinha.jsx'
 import './t11.css'
 
 // o nome do xis pro leitor segue o dado (G15): o bloco que não bate falhou na conferência
@@ -215,23 +216,32 @@ export default function T11({ momento, estado: est }) {
   else if (aRevisar) cabeca = <Aviso tom="neutro" glifo="relogio" titulo={T.revisarCabecalho} numero={aRevisar} {...espera} />
   else if (!bate) cabeca = <Aviso glifo="xis" titulo={T.naoBate} numero={naoReconhecidos} unidade={T.aMais} {...espera} />
 
-  // O rodapé (decisão 53, lei 19): um botão e um link
-  // enquanto lê, o Voltar ao menu desligado (o pacote 5, T11/04 · animacao.md, rodapé)
+  // O rodapé (decisão 53, lei 19 · a rodada 2 do retorno do PM): a ação de cada bloco mora na linha
+  // dele — o *Corrigir este bloco* do que diverge (00), o *Enviar agora* do que espera revisão (05) —, e o
+  // rodapé fica só com a saída: o Outras ações, ou o Voltar ao menu. Enquanto lê (04), as ações já estão
+  // lá, desligadas, com a frase que diz quando liberam
   let rodape
-  if (lendo) rodape = <Rodape primario={T.voltar} primarioDesabilitado primarioTrocaTexto />
+  if (lendo) rodape = <Rodape legenda={T.acoesLiberam} primario={T.voltar} primarioDesabilitado primarioTrocaTexto explicacao={T.outrasAcoes} pe="botao" />
   else if (bate) rodape = <Rodape primario={T.voltar} aoPrimario={voltar} />
-  else if (soReenviar) rodape = <Rodape primario={T.reenviar(blocos)} aoPrimario={reenviar} link={T.registrar} aoLink={registrar} />
-  else {
-    const primario = proximo.acao === 'corrigir' ? T.corrigir(proximo.bloco) : T.revisar(proximo.bloco)
-    rodape = naoBatem
-      ? <Rodape primario={primario} aoPrimario={() => reenviarUm(proximo.bloco)} link={T.outrasAcoes} aoLink={abrirOutras} />
-      : <Rodape primario={primario} aoPrimario={() => reenviarUm(proximo.bloco)} link={T.voltar} aoLink={voltar} />
+  else if (soReenviar) rodape = <Rodape legenda={T.preservaConexao} primario={T.reenviar(blocos)} aoPrimario={reenviar} link={T.registrar} aoLink={registrar} />
+  else rodape = naoBatem ? <Rodape link={T.outrasAcoes} aoLink={abrirOutras} /> : <Rodape link={T.voltar} aoLink={voltar} />
+  // a ação na linha: o bloco que diverge se corrige; o que espera revisão se envia agora · o nome pro
+  // leitor de tela leva o bloco (os botões repetem o texto) · enquanto a linha não foi lida, o botão
+  // guarda o lugar, invisível, e aparece no lugar quando ela chega: nada muda de lugar (o marcaLugar)
+  const acaoDa = (l, lida) => {
+    const texto = l.estado === 'diverge' ? T.corrigirEsteBloco : l.estado === 'pendente' ? T.enviarAgora : null
+    if (!texto) return undefined
+    return (
+      <span className={lida ? undefined : 't11-acao-espera'} aria-hidden={lida ? undefined : 'true'}>
+        <BotaoDaLinha tam="teste" letra="secundario" rotulo={`${texto}: ${l.titulo}`} desabilitado={!lida} aoTocar={() => reenviarUm(l.id)}>{texto}</BotaoDaLinha>
+      </span>
+    )
   }
 
   // a tela atrás do véu da folha fica inerte (G25); a faixa, acesa em cima dele, desabilitada
   const atras = outras.montado ? '' : undefined
   return (
-    <div className="t11">
+    <div className={`t11 ${lendo ? 't11-lendo' : ''}`}>
       <BarraDoSistema fundo="faixa" />
       <fieldset className="t11-topo" role="presentation" disabled={outras.montado}>
         <Faixa serial={par.moduloSerial} placa={ativoDe(par.ativoId)?.placa} acao={T.encerrar} aoEncerrar={enc.encerrar} />
@@ -244,13 +254,14 @@ export default function T11({ momento, estado: est }) {
             {/* o poço numa leitura em andamento (o pacote 5, componentes.md): a linha da vez com o
                 quadrado de agora e *conferindo*; as seguintes com o relógio e o traço */}
             {linhas.map((l, i) => (i === lidas
-              ? <LinhaChecagem key={l.id} variante="conferencia" estado="agora" titulo={l.titulo} valor={T.conferindoLinha} par={l.par} divisoria={i < nLinhas - 1} />
+              ? <LinhaChecagem key={l.id} variante="conferencia" estado="agora" titulo={l.titulo} valor={T.conferindoLinha} par={l.par} divisoria={i < nLinhas - 1}
+                embaixo={acaoDa(l, false)} />
               : <LinhaChecagem key={l.id} variante="conferencia" estado={l.estado} nomeGlifo={l.estado === 'diverge' ? NOME_DIVERGE : undefined}
-                titulo={l.titulo} valor={i > lidas ? T.vazio : l.valor} par={l.par} divisoria={i < nLinhas - 1} lendo={i > lidas} />
+                titulo={l.titulo} valor={i > lidas ? T.vazio : l.valor} par={l.par} divisoria={i < nLinhas - 1} lendo={i > lidas}
+                embaixo={acaoDa(l, i < lidas)} />
             ))}
           </Lista>
           {naoReconhecidos > 0 && <Nota tom="achado" titulo={T.naoReconhece} frase={T.foraDosBlocos(blocos)} />}
-          {soReenviar && <span className="t11-legenda">{T.preservaConexao}</span>}
         </div>
         {rodape}
       </div>

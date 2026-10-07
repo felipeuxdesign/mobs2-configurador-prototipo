@@ -195,3 +195,9 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | a linha que o elo confere depois de gravado | src/ds/instrumentos/Cadeia.jsx (`extra`) |
 | o botão de dentro da linha (peça das telas) | src/telas/comum/BotaoDaLinha.jsx (`tam`: resposta, teste · `letra`) |
 | o reinício automático | src/ds/instrumentos/Encerramento.jsx (`agora`, justo) · o espécime `f5-reiniciando` |
+
+## A rodada 2 do retorno do PM
+
+- `LinhaChecagem` · `embaixo`: a ação na própria linha, embaixo do par (T11/00 e 05, com o `BotaoDaLinha` de `src/telas/comum/`)
+- `Rodape` · sem `primario`: só o link (T11/00 e 05)
+- `Rodape.css` · a legenda a 4 de margem por cima do vão (T05/01, T07/05, o checklist)

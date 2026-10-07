@@ -18,3 +18,8 @@
   font-size: var(--t-titulo-proc); font-weight: 700;
   line-height: var(--entrelinha-titulo-proc); letter-spacing: var(--ls-titulo-proc);
 }
+
+/* o ativo que não calibra nada (a rodada 2 do retorno do PM, a 11): o rótulo da seção, o título em duas
+   linhas e a frase do cadastro, em --tinta-secundaria */
+.t10-rotulo { font-size: var(--t-rotulo-topo); font-weight: 700; letter-spacing: var(--ls-rotulo-topo); color: var(--tinta-secundaria); }
+.t10-frase { font-size: var(--t-link); font-weight: 500; line-height: var(--entrelinha-legenda); color: var(--tinta-secundaria); }

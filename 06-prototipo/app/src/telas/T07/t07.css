@@ -25,3 +25,9 @@
 /* o pacote 5 · a leitura do módulo (T07/11): as linhas que esperam ficam com o título
  * aceso, o relógio e o traço apagados, como a 11 desenha */
 .t07-lendo .ds-checagem-ainda-nao .ds-checagem-titulo { color: var(--tinta-forte); }
+
+/* a rodada 2 do retorno do PM: embaixo do nome, a faixa do modelo vem antes do que a linha informa
+   (a 12: *faixa 9,0 a 32,0 V* e *dá pra seguir · o checklist registra*) */
+.t07 .ds-checagem-titulo { order: -2; }
+.t07 .ds-checagem-nota { order: -1; line-height: normal; }
+.t07 .ds-checagem.ds-checagem-diagnostico.t07-linha-alta { height: auto; min-height: calc(var(--linha-dupla) + var(--e-4)); }

@@ -165,3 +165,10 @@ Contra a lista do design, entraram as de toque da folha 1 (o primário nos três
 ## Textos
 
 Os textos exatos de cada referência estão em `textos.md`. Copie de lá — nunca redigite.
+
+## A Montagem sem o Painel no ônibus (retorno do PM, 06/10 · rodada 2)
+
+- **o Painel só entra quando houve calibração** · como o ônibus não calibra nada (T10/11), **o herói tem 4 fotos na Montagem** — módulo, antena, chicote e leitor — e o checklist tem **28 itens** · o ônibus da bateria fraca, sem leitor, tem 3
+- **a foto do Painel (a 20) é do caminhão coletor**, que calibra: a quinta foto da Montagem dele
+- **as legendas do rodapé ficam a 12px do botão**, como o design system pede
+- **no protótipo · a rodada 2:** nada mudou na regra — o Painel já era condicionado à calibração —, e o herói, que agora não calibra, mostra 4 fotos e 28 itens · o 20 pelo endereço abre na sessão do caminhão coletor, o ativo da garagem que calibra, como a T16/01 abre no par da referência

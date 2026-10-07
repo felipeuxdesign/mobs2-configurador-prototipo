@@ -43,11 +43,11 @@ export default [
   { reduzir: false },
   // o 13 pela URL grava o ciclo que a T14 fecha: abrir a B não desfaz a E resolvida
   { abre: '?tela=T13&momento=13-momento-e-resolvida' },
-  { ve: '22' },   // a rodada 1: 22 de 29, a E com os quatro passos e o bip ouvido
+  { ve: '22' },   // 22 de 28 (a rodada 2: sem o Painel), a E com os quatro passos e o bip ouvido
   { toca: 'B · Montagem' },
   { chega: 'T13', momento: '02-momento-b-montagem-aberta' },
   { ve: 'o ciclo passou' },
-  { ve: 'Faltam 5 itens obrigatórios' },
+  { ve: 'Faltam 4 itens obrigatórios' },   // as 4 fotos da B (a rodada 2)
   // a D (a rodada 1): um bloco por linha, cada um confere, e depois o autoteste, o canal e o ID
   { abre: '?tela=T13&momento=04-momento-d-configuracao-aberta' },
   { ve: 'Limpeza\nconfere' },
@@ -60,19 +60,20 @@ export default [
   { abre: '?tela=T13&momento=01-momento-a-identificacao-aberta' },
   { ve: 'Pacote de sincronização' },
   { naoVe: 'Chassi' },
-  // o Painel é foto a tirar, como os outros quatro (decisão 52)
+  // o Painel só entra quando houve calibração (a rodada 2): o ônibus do herói não calibra, e a B tem 4
   { abre: '?tela=T13&momento=02-momento-b-montagem-aberta' },
-  { ve: 'você fotografa 5 itens' },
-  { naoVe: 'fotografado na calibração' },
-  { toca: 'Painel' },
+  { ve: 'você fotografa 4 itens' },
+  { naoVe: 'Painel' },
+  // o 20 pelo endereço é o caminhão coletor, que calibra: a quinta foto da Montagem dele
+  { abre: '?tela=T13&momento=20-momento-foto-do-painel' },
   { chega: 'T13', momento: '20-momento-foto-do-painel' },
+  { ve: 'KNB-5H39' },
   { ve: 'Painel com hodômetro e horímetro legíveis' },
-  { toca: 'Voltar ao checklist' },
-  { chega: 'T13', momento: '02-momento-b-montagem-aberta' },
+  { ve: '5 de 5' },
   // o 12: a ressalva com o check e a causa, sem seta; a foto por fazer abre a câmera do app
   { abre: '?tela=T13&momento=12-momento-b-com-ressalva' },
   { ve: 'com ressalva · suporte trincado' },
-  { ve: 'você fotografa 5 itens' },
+  { ve: 'você fotografa 4 itens' },
   { naoToca: 'Módulo' },
   { toca: 'Antena GPS' },
   { chega: 'T13', momento: '17-momento-foto-da-antena' },
@@ -118,8 +119,8 @@ export default [
   { toca: 'Voltar ao checklist' },
   { chega: 'T13', momento: '12-momento-b-com-ressalva' },
   { ve: 'com ressalva · suporte trincado' },
-  { ve: 'você fotografa 5 itens' },
-  { ve: 'Faltam 9 itens obrigatórios' },   // a rodada 1: as 4 fotos de B e os 5 passos da E (a F não bloqueia)
+  { ve: 'você fotografa 4 itens' },
+  { ve: 'Faltam 8 itens obrigatórios' },   // a rodada 2: as 3 fotos que faltam na B e os 5 passos da E (a F não bloqueia)
   // escrever primeiro e fotografar depois: o 08 pela URL já tem o que aconteceu
   { abre: '?tela=T13&momento=08-momento-nao-conforme-com-justificativa' },
   { toca: 'Fotografar o problema' },
@@ -150,9 +151,9 @@ export default [
   { aVista: 'Salvar com ressalva' },
   { janela: [360, 800] },
   { app: [360, 800] },
-  // ── o singular (a resposta do arquiteto de 26/09): Falta 1 item · o que ele fotografa conta os itens da seção (pacote 3), e fica 5 ──
+  // ── o singular (a resposta do arquiteto de 26/09): Falta 1 item · o que ele fotografa conta os itens da seção (pacote 3), e fica 4 ──
   { abre: '?tela=T13&momento=13-momento-e-resolvida' },
-  { ve: 'Faltam 5 itens' },
+  { ve: 'Faltam 4 itens' },
   { toca: 'B · Montagem' },
   { chega: 'T13', momento: '02-momento-b-montagem-aberta' },
   { toca: 'Módulo' },
@@ -163,17 +164,15 @@ export default [
   { ve: 'Chicote e emendas protegidos' },
   { toca: 'Tirar foto' },
   { ve: 'Leitor posicionado' },
-  { toca: 'Tirar foto' },
-  { ve: 'Painel com hodômetro e horímetro legíveis' },
   { toca: 'Voltar ao checklist' },
   { chega: 'T13', momento: '02-momento-b-montagem-aberta' },
-  { ve: 'você fotografa 5 itens' },
+  { ve: 'você fotografa 4 itens' },
   { ve: 'Falta 1 item' },
   { naoVe: 'você fotografa 1 itens' },
-  { toca: 'Painel' },
+  { toca: 'Leitor' },
   { toca: 'Tirar foto' },
   { chega: 'T13', momento: '02-momento-b-montagem-aberta' },
-  { ve: '5 fotos tiradas' },
+  { ve: '4 fotos tiradas' },
   { naoVe: 'Falta' },
   // a E: uma ação só, e os passos são leitura
   { abre: '?tela=T13&momento=05-momento-e-teste-dinamico-aberta' },

@@ -78,6 +78,8 @@ const M01 = '01-momento-nenhum-escolhido'
 const M02 = '02-momento-um-encontrado'
 const M05 = '05-momento-procurando'
 const M06 = '06-momento-conectando'
+// os casos das esperas da conexão (a rodada 2): o texto de cada uma é o TX[caso]
+const ESPERAS = ['pareando', 'reconectando']
 const M07 = '07-momento-conectado'
 
 // o quadro da busca: os módulos por perto, o escolhido (ou nenhum) e, se a
@@ -109,6 +111,10 @@ function quadroDoEstado(est) {
   if (celular) return celular
   if (casos.includes(CASO_BUSCA_VAZIA)) return vazia()
   if (casos.includes(CASO_CONEXAO)) return busca(pertoComFalha(), serialDaFalha(), true)
+  // a rodada 2 do retorno do PM: a espera da conexão com a frase dela embaixo do primário — o
+  // pareando (18, a primeira conexão com um VL06) e o reconectando (19, a conexão que caiu parada)
+  const espera = ESPERAS.find((e) => casos.includes(e))
+  if (espera) return { ...busca(porPerto(), M.casos[espera].moduloSerial), conectando: true, espera }
   return null
 }
 
@@ -275,6 +281,7 @@ export default function T05({ momento, estado: est }) {
       </>
     )
     if (q.conectado) rodape = <Rodape primario={TX.conectadoAo(escolhido)} primarioDesabilitado primarioTrocaTexto link={TX.procurarDeNovo} linkDesabilitado />
+    else if (q.conectando && q.espera) rodape = <Rodape legenda={TX[q.espera].legenda} primario={TX[q.espera].primario(escolhido)} primarioDesabilitado primarioTrocaTexto link={TX.procurarDeNovo} linkDesabilitado />
     else if (q.conectando) rodape = <Rodape primario={TX.conectandoAo(escolhido)} primarioDesabilitado primarioTrocaTexto link={TX.procurarDeNovo} linkDesabilitado />
     else if (trava) rodape = <Rodape primario={TX.tentarDeNovo} aoPrimario={tentarDeNovo} primarioTrocaTexto link={TX.procurarDeNovo} aoLink={procurar} />
     else if (escolhido) rodape = <Rodape primario={TX.conectarAo(escolhido)} aoPrimario={() => conectar()} primarioTrocaTexto link={TX.procurarDeNovo} aoLink={procurar} />
@@ -282,7 +289,7 @@ export default function T05({ momento, estado: est }) {
   }
 
   return (
-    <div className="t05">
+    <div className={`t05 ${q.espera ? 't05-espera' : ''}`}>
       <BarraDoSistema fundo="pagina" />
       <div className={`tela-miolo t05-miolo-busca ${q.fase === 'celular' ? 't05-miolo-celular' : ''}`}>{miolo}</div>
       <Fragment key={quadro}>{rodape}</Fragment>

@@ -67,7 +67,7 @@ import { RITMOS } from '../../estado/ritmos.js'
 import { EM_QUADRO } from '../../estado/quadro.js'
 import { SEMENTES } from '../../estado/sementes.js'
 import { M } from '../../dados/mock.js'
-import {
+import { sessaoDoQuadro,
   REF, SECOES, SECAO_DO_MOMENTO, MOMENTO_DA_FOTO, FOTO_DO_MOMENTO, LISTAS_DA_C, DETALHES_DA_C, RELIDO_DO_ITEM, NAO_RESOLVIDO_DO_ITEM, RELEITURA_DO_QUADRO, VEREDITO_DO_RELIDO, detalheDaReleitura,
   BIP_DO_MOMENTO, MOMENTO_DO_BIP, D_NO_QUADRO_38, mundoDe, checklist, nivelDoItem, primeiroPendente, proximoPendente, momentoDaSecao,
   instrumentoDoItem, filaDoFinalizar, nomeDaSecao, rotuloDoNivel, itemDe, ativoDe, registroDoQuadro, cicloConcluido,
@@ -129,7 +129,7 @@ export default function T13({ momento, estado: est }) {
   // a N-ésima das `releituras` do mock (o 34 a 37 abrem com uma, o 30 a 33 com duas)
   const [fixo] = useState(() => (DETALHES_DA_C.includes(est) ? est : detalheDaReleitura(est ?? momento)))
   const [releituras, setReleituras] = useState(() => RELEITURA_DO_QUADRO[est ?? momento]?.vezes ?? 0)
-  const base = comQuadro(mundoDe({ unico, est: fixo ?? est, semente: SEMENTES.T13, releituras }), est || fixo ? null : momento)
+  const base = comQuadro(mundoDe({ unico: est || fixo ? unico : sessaoDoQuadro(unico, momento, SEMENTES.T13), est: fixo ?? est, semente: SEMENTES.T13, releituras }), est || fixo ? null : momento)
   const [registro, setRegistro] = useState(() => registroDoQuadro(momento, base, checklist(base)))
   // a Seção D lida bloco a bloco (a rodada 1, T13/38): ao entrar no checklist no fluxo, ela começa
   // vazia e enche no ritmo do diagnóstico; o 38 pela URL, com três lidos · null, toda lida (o print,

@@ -8,7 +8,7 @@ Fazer o módulo contar igual ao painel do ônibus.
 | **Chrome** | faixa de sessão |
 | **Semente no protótipo** | sessão M2C-0417 + RKT-8H42 · hodômetro 184.320 no módulo, 482.317 no painel |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 6 · 4 — ver `estados.md` |
+| **Momentos · estados** | 6 · 5 — ver `estados.md` |
 
 ## O que se toca
 
@@ -97,3 +97,14 @@ Com a decisão 33, a lista do C9 saiu: a *foto · aguarda*, a linha tocável e o
 ## Textos
 
 Os textos exatos de cada referência estão em `textos.md`. Copie de lá — nunca redigite.
+
+## A calibração (retorno do PM, 06/10)
+
+- **o hodômetro só aparece quando a CAN do ativo não o entrega**: o ônibus lê o hodômetro pela CAN, então não calibra nada · *Nada a calibrar neste ativo* (a 11): *Rotação e hodômetro vêm direto do veículo.*
+- **o caminhão coletor é o exemplo que calibra**: o hodômetro (87.604 no módulo, 87.712 no painel) e a rotação, obrigatórios · a velocidade e o horímetro, opcionais
+- **a velocidade só com tacógrafo digital**, marcada *opcional*, fora da contagem · sem tacógrafo ela não aparece
+- **a contagem conta só os obrigatórios**: *1 de 2*, *2 de 2*
+- **o módulo sem pulsos** (a 04) é de um caminhão coletor: a rotação e a velocidade não se aplicam, porque o módulo não lê pulsos · o horímetro fica, opcional
+- mantidos: a digitação do que o painel mostra, o horímetro opcional, o módulo sem pulsos e a releitura que não confere
+- o caminhão ganhou horímetro pra as telas do horímetro, que o PM mandou manter, terem um veículo · leitura nossa
+- **no protótipo · a rodada 2:** a tela pelo endereço é o caminhão coletor (a semente: o KNB-5H39 com o M2C-0371) · o ativo cujo modelo não calibra nada abre o *Nada a calibrar neste ativo*, com a frase do cadastro (`porModelo.nadaACalibrar`), e o `Fazer o ciclo de testes` grava a calibração concluída sem nada semeado — no fluxo, o herói chega aqui · a contagem e os segmentos são só dos obrigatórios; no passo opcional, a contagem fica no último obrigatório · o *Depois:* diz tudo o que falta, com os opcionais juntos · o não confere fica no segmento atual (a 10) · a 08 e a 09 pelo endereço marcam a rotação e a velocidade feitas, sem número (o mock não traz o que o motor ligado lê) · o caso `releitura-nao-confere` passou ao caminhão (87.711,5 km), e o bruto do horímetro dele entrou no mock (2.950 h), como as referências desenham

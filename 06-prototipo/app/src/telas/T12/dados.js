@@ -157,7 +157,8 @@ const par = (s) => s.split('/').map(Number) // '6/6' → [6, 6]
 // dela nas etapas, no lugar da preChecagem. Quando ganhar, a linha lê dele
 function diagnosticoDe(e) {
   if (e.diagnostico) return e.diagnostico
-  const linhas = M.diagnostico.modulo
+  // a rodada 2 do retorno do PM: as mensagens no módulo só informam, e não contam
+  const linhas = M.diagnostico.modulo.filter((l) => !l.soInforma)
   const passou = e.preChecagem && e.preChecagem.passaram === e.preChecagem.checagens
   return { linhas: linhas.length, conferiram: passou ? linhas.filter((l) => l.heroi != null).length : 0 }
 }

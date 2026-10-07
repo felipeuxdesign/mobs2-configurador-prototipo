@@ -8,7 +8,7 @@
 | `01-momento-can-lida` | momento | a configuração do ativo gravada, voltando ao diagnóstico | derivado do fluxo |
 | `02-estado-serial-nao-cadastrado` | estado | o serial não está no cadastro | `serial-nao-cadastrado` |
 | `03-estado-modelo-sem-suporte` | estado | o modelo do módulo sem suporte nesta versão | `modelo-sem-driver` |
-| `04-estado-firmware-nao-homologado` | estado | o firmware não é homologado | `firmware-fora-matriz` |
+| `04-estado-firmware-fora-da-lista` | estado | o firmware não é homologado | `firmware-fora-matriz` |
 | `05-estado-firmware-sem-rede-no-modulo` | estado | o firmware não é homologado e o módulo está sem rede | `firmware-sem-rede-no-modulo` |
 | `06-momento-atualizando-o-firmware` | momento | `Atualizar firmware` | `firmware-fora-matriz` |
 | `07-estado-modem-sem-sinal` | estado | o modem sem sinal — só informa | `modem-sem-sinal` |
@@ -19,3 +19,4 @@
 | `12-estado-alimentacao-abaixo-da-faixa` | estado | a alimentação do módulo abaixo da faixa — só informa, como o modem | `can-estatico-bateria` |
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.
+| `13-estado-sessao-anterior-mal-encerrada` | estado | o canal encontrado aberto: o app fechou o acesso, e pode seguir | `modulo-com-pendencias` |

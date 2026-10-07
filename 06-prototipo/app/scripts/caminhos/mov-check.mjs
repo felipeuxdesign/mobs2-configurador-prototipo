@@ -94,7 +94,7 @@ export default [
   { toca: 'bancada · conta', anima: [esmaece('ds-primario-texto')] },
   { ve: 'Salvar com ressalva' },
 
-  // ── o veredito que espera a prova (T11/04, o pacote 5): a caixa diz CONFERINDO, a contagem, e a palavra na quinta ──
+  // ── o veredito que espera a prova (T11/04, o pacote 5): a caixa diz CONFERINDO, a contagem, e a palavra na quarta (a rodada 2: sem o Extended ID) ──
   V('mov-check-veredito'),
   { quieto: true },
   { ve: 'CONFERINDO' },                                                           // a caixa diz o que corre
@@ -104,9 +104,9 @@ export default [
   { ve: '1 de 4', entre: [300, 650] },                                             // a primeira linha, aos 400
   { anima: [GLIFO] },
   { ve: 'conferindo' },                                                            // a linha da vez, com o quadrado de agora
-  { ve: '3 de 4', entre: [1000, 1500] },                                           // a quarta linha: o Extended ID não conta (o pacote 2)
+  { ve: '3 de 4', entre: [650, 1000] },                                            // a terceira linha (a rodada 2: o Extended ID saiu)
   { naoVe: 'NÃO BATE COM O CADASTRO' },
-  { ve: 'NÃO BATE COM O CADASTRO', entre: [250, 600] },                            // a quinta: o veredito entra
+  { ve: 'NÃO BATE COM O CADASTRO', entre: [250, 600] },                            // a quarta: o veredito entra
   { anima: [esmaece('ds-aviso-titulo'), esmaece('ds-aviso-capa'), esmaece('ds-poco')] },  // a palavra, a cor do traço por camada, o poço com o xis
   { naoVe: 'CONFERINDO' },
   { ve: '4 de 4' },
@@ -121,7 +121,7 @@ export default [
   { quieto: true },
   { toca: 'bancada · confere' },
   { ve: '1 de 4', entre: [300, 650] },
-  { ve: 'CONFERE COM O CADASTRO', entre: [1400, 2100] },
+  { ve: 'CONFERE COM O CADASTRO', entre: [1000, 1700] },   // a quarta linha (a rodada 2: sem o Extended ID)
   { anima: [esmaece('ds-aviso-titulo'), esmaece('ds-aviso-capa')] },
   { naoVe: 'igual à do cadastro' },
 
@@ -147,7 +147,7 @@ export default [
   { toca: 'bancada · confere' },
   { ve: '1 de 4', entre: [300, 650] },
   { quieto: true },
-  { ve: '3 de 4', entre: [1000, 1500] },
+  { ve: '3 de 4', entre: [650, 1000] },   // a terceira linha (a rodada 2: o Extended ID saiu)
   { ve: 'NÃO BATE COM O CADASTRO', entre: [250, 600] },
   { quieto: true },
   { reduzir: false },

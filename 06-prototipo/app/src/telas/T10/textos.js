@@ -12,6 +12,8 @@ export const T = {
   depois: (nomes) => `Depois: ${nomes.join(' · ')}`,
   // o horímetro é opcional (decisão 52): o Depois: diz, e o passo dele também (T10/00 e 08)
   opcional: (nome) => `${nome}, opcional`,
+  // a rodada 2 do retorno do PM: os opcionais que faltam, juntos e fora da contagem (T10/00: *velocidade e horímetro, opcionais*)
+  opcionais: (nomes) => (nomes.length === 1 ? `${nomes[0]}, opcional` : `${nomes.slice(0, -1).join(', ')} e ${nomes[nomes.length - 1]}, opcionais`),
   ultimoOpcional: 'Opcional · o último passo',
   completa: 'Calibração completa',
 
@@ -49,7 +51,9 @@ export const T = {
   gravando: 'Gravando no módulo…',
   relendo: 'Relendo…',
   semearDeNovo: 'Semear de novo',
-  calibrar: { horimetro: 'Calibrar o horímetro' },
+  calibrar: { horimetro: 'Calibrar o horímetro', rotacao: 'Calibrar a rotação' },
+  // o ativo que não calibra nada (a 11, a rodada 2): o título em duas linhas, e a frase do cadastro do modelo
+  nadaACalibrar: ['Nada a calibrar', 'neste ativo'],
   // o opcional se pula (decisão 52, T10/01 e 08): o link no lugar do Voltar ao menu
   pular: { horimetro: 'Pular o horímetro' },
   // a calibração completa aponta o ciclo (T10/09 · decisões 35 e 54)

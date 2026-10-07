@@ -32,5 +32,16 @@
 
 /* a legenda solta embaixo da lista (01: o que o Reenviar preserva; 04: o que o Corrigir arrasta): não é a 'com legenda' do rodapé,
  * que fica a 12 do botão e centrada (T11-A14) — é o texto de 12 do conteúdo */
-.t11-legenda { font-size: var(--t-legenda); font-weight: 500; line-height: var(--entrelinha-legenda); color: var(--tinta-apagada); }
 
+
+/* a 04 (a rodada 2 do retorno do PM): as ações desde o conferindo, desligadas — a frase em cima, neutra
+   (12/500 em --tinta-secundaria, a 6 + 6 do botão), e o Outras ações apagado embaixo, no lugar da explicação */
+.t11 .ds-rodape-legenda { font-weight: 500; color: var(--tinta-secundaria); }
+/* a do 01, com o link: só os 4 de margem, sem o recheio de 6 */
+.t11 .ds-rodape.ds-rodape-com-link .ds-rodape-legenda { padding-bottom: 0; }
+.t11.t11-lendo .ds-rodape-explicacao { color: var(--marca); }
+/* a folha Outras ações (a 03, a rodada 2): o efeito do Reenviar quebra em duas linhas, como a referência
+   desenha — a frase inteira do escopo, e não as reticências da linha de opção */
+.t11 .ds-linha-opcao-efeito .ds-linha-opcao-detalhe { white-space: normal; }
+/* o botão da linha que ainda não foi lida: guarda o lugar, invisível (a rodada 2 · nada muda de lugar) */
+.t11-acao-espera { visibility: hidden; }

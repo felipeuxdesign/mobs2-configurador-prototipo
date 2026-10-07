@@ -13,7 +13,7 @@
 /* com o link embaixo do primário (decisão 38, folha 2 · a otimização do design): o alto de 13 e o
    vão de 8 — o link fica a 8 do primário, e a caixa dele, de 44, come 5 embaixo, pro lado livre:
    13 + 56 + 8 + 44 − 5 + 24 = 140, a altura de antes. Vale também no login (13 · 20 · 28) e com a
-   legenda em cima, que fica a 6 + 8 do botão (T05/01, T06/03, T14/01) ou a 8, junta (T13) */
+   legenda em cima, que fica a 6 + 4 + 8 do botão (T05/01, T07/05, T14/01) ou a 4 + 8, junta (T13) */
 .ds-rodape.ds-rodape-com-link { padding-top: var(--rodape-alto-com-link); gap: var(--e-8); }
 /* nada encosta, na área de toque (leis.md): a caixa do link é o desenho de 44, a 8 do primário, e
    o toque de 48 cresce só pra baixo, os 4 que faltam, dentro do pé — o texto não sai do lugar. Saiu
@@ -23,7 +23,10 @@
 .ds-rodape.ds-rodape-com-link .ds-link.ds-rodape-link::after { content: ''; position: absolute; left: 0; right: 0; top: 0; height: var(--alvo-min); }
 
 .ds-rodape-legenda { padding-bottom: var(--e-6); text-align: center; font-size: var(--t-legenda); font-weight: 600; color: var(--tinta-apagada); }
-/* C10 · T13 (G11): a legenda junta, só o vão do rodapé — 8 com o link (T13-A19, decisão 38) */
+/* a rodada 2 do retorno do PM: a legenda se afasta 4 do botão, no app inteiro — como as referências
+   medem, 4 de margem por cima do vão do rodapé: a T05/01 e a T07/05 com 6 + 4 + 8, o checklist com 4 + 8 = 12 */
+.ds-rodape.ds-rodape-com-link .ds-rodape-legenda { margin-bottom: var(--e-4); }
+/* C10 · T13 (G11): a legenda junta, sem o recheio de 6 — só os 4 e o vão do rodapé (T13-A19, decisão 38) */
 .ds-rodape-legenda.ds-rodape-legenda-junta { padding-bottom: 0; }
 .ds-rodape-explicacao {
   height: var(--e-40); display: flex; align-items: center; justify-content: center;

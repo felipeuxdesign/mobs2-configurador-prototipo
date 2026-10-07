@@ -43,7 +43,7 @@ export default [
   // o diagnóstico do módulo: as sete linhas acendem, e a faixa desce
   { chega: 'T07', momento: null },
   { ve: 'ENCERRAR', entre: [3500, 6500] },
-  { ve: '7 de 7' },
+  { ve: '8 de 8' },
   olha(1200),
   { toca: 'Selecionar ativo' },
   { chega: 'T06' },

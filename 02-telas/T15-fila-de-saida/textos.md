@@ -4,7 +4,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `00-tela`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Fila de saída` · `3` · `neste aparelho` · `UM PRECISA DE VOCÊ` · `Evidências · KJC-7N23` · `instalação encerrada por outro usuário` · `Ressincronizar e reenviar` · `O RESTO ANDA SOZINHO` · `Checklist` · `RSW-9L02 · na fila` · `há 18 min` · `Evidências` · `RSW-9L02 · recebida` · `10/03, 10:05` · `Voltar ao menu`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Fila de saída` · `4` · `neste aparelho` · `UM PRECISA DE VOCÊ` · `Evidências · KJC-7N23` · `O servidor recusou: o pacote de sincronização venceu.` · `Ressincronizar e reenviar` · `O RESTO ANDA SOZINHO` · `Checklist` · `RSW-9L02 · na fila` · `há 18 min` · `Evidências` · `RSW-9L02 · recebida` · `10/03, 10:05` · `Evidências` · `QAH-1M67 · recebida · em conflito,` · `o gestor foi avisado` · `14:12` · `Voltar ao menu`
 
 ## `01-estado-sem-erro`
 
@@ -12,7 +12,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `02-estado-dois-erros`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Fila de saída` · `4` · `neste aparelho` · `DUAS COM ERRO` · `Evidências · KJC-7N23` · `o servidor recusou` · `instalação encerrada por outro usuário` · `Ressincronizar e reenviar` · `Evidências · KWX-2T36` · `sem rede · 3 tentativas feitas, próxima às 14:32` · `Só a primeira precisa de você. A segunda reenvia sozinha.` · `O RESTO ANDA SOZINHO` · `Checklist` · `RSW-9L02 · na fila` · `há 18 min` · `Evidências` · `RSW-9L02 · recebida` · `ontem 10:05` · `Voltar ao menu`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Fila de saída` · `4` · `neste aparelho` · `DUAS COM ERRO` · `Evidências · KJC-7N23` · `o servidor recusou` · `o pacote de sincronização venceu` · `Ressincronizar e reenviar` · `Evidências · KWX-2T36` · `sem rede · 3 tentativas feitas, próxima às 14:32` · `Só a primeira precisa de você. A segunda reenvia sozinha.` · `O RESTO ANDA SOZINHO` · `Checklist` · `RSW-9L02 · na fila` · `há 18 min` · `Evidências` · `RSW-9L02 · recebida` · `ontem 10:05` · `Voltar ao menu`
 
 ## `03-estado-fila-vazia`
 
