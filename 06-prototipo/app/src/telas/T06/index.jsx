@@ -185,7 +185,8 @@ export default function T06({ momento, estado: est }) {
       const { caso } = prova
       const trava = {
         fora: { rotulo: 'FORA DO PACOTE DESTA UO', falha: true, motivo: [`Pertence a ${prova.garagem}.`, 'Acione o cadastro no M2.'] },
-        'sem-saida': caso && { rotulo: 'ERRO DE PROJETO DE INSTALAÇÃO', falha: true, motivo: [`O ${caso.fio} é do ${caso.ocupadoPor}, e este módulo não tem leitor sem fio.`, 'Acione o gestor.'] },
+        // o complemento da rodada 2: só o fio ocupado — sem *porta*, e sem o leitor sem fio, que sugeria a saída que saiu
+        'sem-saida': caso && { rotulo: 'ERRO DE PROJETO DE INSTALAÇÃO', falha: true, motivo: [`O ${caso.fio} já está ocupado.`, 'Acione o gestor.'] },
       }[passo]
       miolo = (
         <>

@@ -57,12 +57,12 @@ export default [
   { ve: 'ENCERRAR' },
   { abre: `?tela=T07&momento=${M01}` },
   ...PARADA,
-  { ve: '14 de 14' },
+  { ve: '13 de 13' },
   ...ESTADOS.flatMap((e) => [{ abre: `?tela=T07&estado=${e}` }, ...PARADA]),
   // no print, cada quadro de referência: nada se move, nem os dois processos (06, 10)
   ...['', `&momento=${M01}`, `&momento=${M06}`, `&momento=${M10}`, `&momento=${M11}`, ...ESTADOS.map((e) => `&estado=${e}`)]
     .flatMap((q) => [{ abre: `?tela=T07${q}&print=1` }, ...PARADA]),
-  { ve: '13 de 14' },
+  { ve: '12 de 13' },
 
   // ── a chegada da T05, o herói: as sete no ritmo, e a faixa desce ──
   ...CONECTA('M2C-0417'),
@@ -165,13 +165,13 @@ export default [
   { chega: 'T07', momento: M10 },
   { desligado: 'Lendo · não saia da tela' },
   { desligado: 'ENCERRAR' },
-  { ve: '8 de 14' },
-  { ve: '9 de 14', entre: LINHA },
+  { ve: '8 de 13' },
+  { ve: '9 de 13', entre: LINHA },
   { tecla: 'Escape' },
   { fica: 'T07', ms: 300 },
-  { ve: '11 de 14', ms: 2000 },
+  { ve: '10 de 13', ms: 2000 },
   { chega: 'T07', momento: M01, ms: 6000 },
-  { ve: '14 de 14' },
+  { ve: '13 de 13' },
   { dorme: 400 },
   { quieto: true },
   // lida: o voltar é o Voltar ao menu
@@ -180,10 +180,10 @@ export default [
   // o 10 pela URL: abre no quadro dele (a temperatura lendo), e segue dali
   { abre: `?tela=T07&momento=${M10}` },
   { quieto: true },
-  { ve: '11 de 14' },
-  { ve: '12 de 14', entre: [300, 900] },
+  { ve: '10 de 13' },
+  { ve: '11 de 13', entre: [300, 900] },
   { chega: 'T07', momento: M01, ms: 4000 },
-  { ve: '14 de 14' },
+  { ve: '13 de 13' },
 
   // ── pelo menu, o diagnóstico feito fica: nasce parado ──
   { abre: '?tela=T07' },
@@ -228,7 +228,7 @@ export default [
   { dorme: 1400 },
   { quieto: true },
   { ve: 'Conferido na conexão' },
-  { ve: '14 de 14' },
+  { ve: '13 de 13' },
 
   // ── com reduzir movimento: o mesmo ritmo, e nada anda ──
   { reduzir: true },

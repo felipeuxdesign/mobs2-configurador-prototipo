@@ -460,10 +460,9 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
     ],
     canAguarda: "A CAN aparece depois que o bloco do ativo for conferido.",
     can: { modeloAtivoId: "ma-01", sinais: [
-      { id: "rotacao", rotulo: "Rotação", lido: "980 rpm", leituras: ["980 rpm", "992 rpm", "975 rpm", "988 rpm"] }, { id: "velocidade", rotulo: "Velocidade", lido: "0 km/h" },
-      { id: "hodometro", rotulo: "Hodômetro", lido: "184.320 km" }, { id: "temperatura", rotulo: "Temperatura", lido: "31 °C", esperado: "−40 a 120", leituras: ["31 °C", "31 °C", "32 °C", "31 °C"] },
+      { id: "rotacao", rotulo: "Rotação", lido: "980 rpm", leituras: ["980 rpm", "992 rpm", "975 rpm", "988 rpm"] }, { id: "hodometro", rotulo: "Hodômetro", lido: "184.320 km" }, { id: "temperatura", rotulo: "Temperatura", lido: "31 °C", esperado: "−40 a 120", leituras: ["31 °C", "31 °C", "32 °C", "31 °C"] },
       { id: "combustivel", rotulo: "Combustível", lido: "62%" }, { id: "consumo", rotulo: "Consumo", lido: "1,8 L/h", leituras: ["1,8 L/h", "1,9 L/h", "1,8 L/h", "1,7 L/h"] },
-      { id: "alternador", rotulo: "Alternador", lido: "14,1 V", leituras: ["14,1 V", "14,0 V", "14,2 V", "14,1 V"], soInforma: true } ] } /* o alternador fica só como leitura informativa · a ré saiu (retorno do PM, 06/10) */
+      { id: "alternador", rotulo: "Alternador", lido: "14,1 V", leituras: ["14,1 V", "14,0 V", "14,2 V", "14,1 V"], soInforma: true } ] } /* o alternador fica só como leitura informativa · a ré e a velocidade saíram: a velocidade só aparece no T10 (retorno do PM, 06/10) */
   };
 
   /* ── Pacote de sincronização — um por UO, em TRÊS idades (T03).

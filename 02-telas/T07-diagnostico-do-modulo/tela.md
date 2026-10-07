@@ -85,7 +85,7 @@ Os textos exatos de cada referência estão em `textos.md`. Copie de lá — nun
 - **o módulo tem 8 linhas que contam**: serial, firmware, alimentação, GPS, entradas, modem, SIM e o **número do chip**, que o técnico confere com o impresso no chip · e **as mensagens no módulo**, só informação, que não contam nem bloqueiam: *12 mensagens ainda não enviadas*
 - **a alimentação é a do equipamento**: o valor lido pelo módulo, com a faixa de operação do modelo embaixo (*faixa 9,0 a 32,0 V*, exemplo até a bancada) · sem bateria interna
 - **o GPS é a antena**: *conectada*, *em curto* ou *desconectada* · os satélites ficam como informação
-- **a CAN tem 6 sinais que contam** · o alternador fica, só como leitura informativa · a ré saiu · o total é 14
+- **a CAN tem 5 sinais que contam** · o alternador fica, só como leitura informativa · **a ré e a velocidade saíram**: a velocidade só aparece como item opcional da T10 (a lista final do PM) · o total é 13
 - **a sessão anterior mal encerrada** (a 13): quando o canal de programação é encontrado aberto, *O app fechou o acesso que ficou aberto. Pode seguir.*
 - o firmware que trava é o **fora da lista** (a 04)
 

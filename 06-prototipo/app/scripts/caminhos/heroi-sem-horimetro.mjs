@@ -114,7 +114,7 @@ export default [
   { chega: 'T07', momento: '01-momento-can-lida' },
   { ve: 'RKT-8H42' },
   { ve: 'Conferido na conexão' },
-  { ve: '14 de 14' },
+  { ve: '13 de 13' },
   { ve: 'A CAN · ÔNIBUS URBANO OF-1621' },
   { ve: '980 rpm' },
   { ve: '184.320 km' },

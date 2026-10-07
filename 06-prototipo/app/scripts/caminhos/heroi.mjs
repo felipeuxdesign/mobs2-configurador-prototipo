@@ -112,7 +112,8 @@ export default [
   { chega: 'T07', momento: '01-momento-can-lida' },
   { ve: 'RKT-8H42' },
   { ve: 'Conferido na conexão' },
-  { ve: '14 de 14' },
+  { naoVe: 'Velocidade' },   // o complemento da rodada 2: a velocidade saiu da CAN (só a T10 a pede, opcional)
+  { ve: '13 de 13' },
   { ve: 'A CAN · ÔNIBUS URBANO OF-1621' },
   { ve: '980 rpm' },
   { ve: '184.320 km' },

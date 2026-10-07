@@ -1,5 +1,16 @@
 # Registro de mudanças
 
+## 2026-10-08 · o complemento da rodada 2 — a lista final do PM
+
+A lista *"Antes de devolver, confira"* do PM, rodada no app inteiro, pegou dois pontos da rodada 2:
+
+- **T07 · a velocidade saiu da CAN**: *"a velocidade só aparece como item opcional do T10"* · a CAN fica com 5 sinais que contam e o alternador, só informação · o total vai de 14 pra **13** (01, 08, 09 e 10)
+- **T06/06 · o texto do conflito**: *O fio branco já está ocupado.* · saiu o *"sensor de porta"* (*porta* não aparece em lugar nenhum) e o *"este módulo não tem leitor sem fio"*, que sugeria a saída que saiu · o rótulo em cima já diz que é erro de projeto de instalação
+- **o mock**: a velocidade fora da CAN do herói
+- os 12 itens da lista final do PM passam em todas as telas das rodadas 1 e 2
+
+- **no protótipo** (o gate em `06-prototipo/para-o-arquiteto/gate-complemento-rodada2.md`, as folhas em `complemento-rodada2/` · commit local, sem push): a CAN da T07 lê a lista do mock, e a velocidade saiu dela sozinha · os contadores em 13 · a frase da T06/06 deixou de montar o *sensor de porta* do caso · o `mov-t07`, o `heroi` e o `heroi-sem-horimetro` nos números novos
+
 ## 2026-10-07 · a rodada 2 do retorno do PM — o fluxo de apoio
 
 - **T05 · conectar**: só sem fio · o *Pareando*, na primeira conexão com um VL06 (*Confirme no celular. É só na primeira vez com este módulo.*) · o *Reconectando*, quando a conexão cai por ficar parada, sem linguagem de erro

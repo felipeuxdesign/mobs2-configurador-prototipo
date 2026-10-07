@@ -8,7 +8,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `01-momento-can-lida`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Diagnóstico do módulo` · `14` · `de 14` · `O MÓDULO` · `Conferido na conexão` · `8 de 8` · `A CAN · ÔNIBUS URBANO OF-1621` · `Rotação` · `980 rpm` · `Velocidade` · `0 km/h` · `Hodômetro` · `184.320 km` · `Temperatura` · `31 °C` · `Combustível` · `62%` · `Consumo` · `1,8 L/h` · `Alternador` · `só informação` · `14,1 V` · `Voltar ao menu` · `Ler de novo`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Diagnóstico do módulo` · `13` · `de 13` · `O MÓDULO` · `Conferido na conexão` · `8 de 8` · `A CAN · ÔNIBUS URBANO OF-1621` · `Rotação` · `980 rpm` · `Hodômetro` · `184.320 km` · `Temperatura` · `31 °C` · `Combustível` · `62%` · `Consumo` · `1,8 L/h` · `Alternador` · `só informação` · `14,1 V` · `Voltar ao menu` · `Ler de novo`
 
 ## `02-estado-serial-nao-cadastrado`
 
@@ -36,15 +36,15 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `08-estado-sinal-da-can-sem-leitura`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Diagnóstico do módulo` · `13` · `de 14` · `O MÓDULO` · `Conferido na conexão` · `8 de 8` · `A CAN · ÔNIBUS URBANO OF-1621` · `Rotação` · `sem leitura · ligação` · `—` · `Velocidade` · `0 km/h` · `Hodômetro` · `184.320 km` · `Temperatura` · `31 °C` · `Combustível` · `62%` · `Consumo` · `1,8 L/h` · `Alternador` · `só informação` · `14,1 V` · `Voltar ao menu` · `Ler de novo`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Diagnóstico do módulo` · `12` · `de 13` · `O MÓDULO` · `Conferido na conexão` · `8 de 8` · `A CAN · ÔNIBUS URBANO OF-1621` · `Rotação` · `sem leitura · ligação` · `—` · `Hodômetro` · `184.320 km` · `Temperatura` · `31 °C` · `Combustível` · `62%` · `Consumo` · `1,8 L/h` · `Alternador` · `só informação` · `14,1 V` · `Voltar ao menu` · `Ler de novo`
 
 ## `09-estado-sinal-da-can-fora-do-esperado`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Diagnóstico do módulo` · `13` · `de 14` · `O MÓDULO` · `Conferido na conexão` · `8 de 8` · `A CAN · ÔNIBUS URBANO OF-1621` · `Rotação` · `980 rpm` · `Velocidade` · `0 km/h` · `Hodômetro` · `184.320 km` · `Temperatura` · `fora do esperado · −40 a 120` · `215 °C` · `Combustível` · `62%` · `Consumo` · `1,8 L/h` · `Alternador` · `só informação` · `14,1 V` · `Voltar ao menu` · `Ler de novo`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Diagnóstico do módulo` · `12` · `de 13` · `O MÓDULO` · `Conferido na conexão` · `8 de 8` · `A CAN · ÔNIBUS URBANO OF-1621` · `Rotação` · `980 rpm` · `Hodômetro` · `184.320 km` · `Temperatura` · `fora do esperado · −40 a 120` · `215 °C` · `Combustível` · `62%` · `Consumo` · `1,8 L/h` · `Alternador` · `só informação` · `14,1 V` · `Voltar ao menu` · `Ler de novo`
 
 ## `10-momento-relendo-a-can`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Diagnóstico do módulo` · `11` · `de 14` · `O MÓDULO` · `Conferido na conexão` · `8 de 8` · `A CAN · ÔNIBUS URBANO OF-1621` · `Rotação` · `980 rpm` · `Velocidade` · `0 km/h` · `Hodômetro` · `184.320 km` · `Temperatura` · `lendo` · `Combustível` · `—` · `Consumo` · `—` · `Alternador` · `—` · `Lendo · não saia da tela`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Diagnóstico do módulo` · `10` · `de 13` · `O MÓDULO` · `Conferido na conexão` · `8 de 8` · `A CAN · ÔNIBUS URBANO OF-1621` · `Rotação` · `980 rpm` · `Hodômetro` · `184.320 km` · `Temperatura` · `lendo` · `Combustível` · `—` · `Consumo` · `—` · `Alternador` · `—` · `Lendo · não saia da tela`
 
 ## `11-momento-lendo`
 

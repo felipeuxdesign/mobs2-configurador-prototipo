@@ -113,4 +113,5 @@ Os textos exatos de cada referência estão em `textos.md`. Copie de lá — nun
 ## O conflito de pinos (retorno do PM, 06/10)
 
 - **o conflito é sempre erro de projeto de instalação** (a 06): sem cabo, trocar o meio de conexão nunca resolve, e o técnico não escolhe o leitor · o estado com saída, *Usar leitor sem fio*, saiu
+- **o texto do conflito** (a 06): *O fio branco já está ocupado.* · o rótulo em cima já diz que é erro de projeto de instalação · nada de *porta*, que o PM proíbe, nem de leitor sem fio, que sugeria a saída que saiu
 - **no protótipo · a rodada 2:** o caso de pinos é só o `conflito-pinos-sem-saida`, e o par da faixa decide (G28), sem olhar o meio da sessão · saíram a trava com saída, o `Usar leitor sem fio` e o caso `conflito-pinos-resolvivel`

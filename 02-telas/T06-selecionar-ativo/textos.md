@@ -16,7 +16,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `06-estado-conflito-de-pinos-sem-saida`
 
-`M2C-0389` · `sem ativo` · `ENCERRAR` · `Confirmar o vínculo` · `ERRO DE PROJETO DE INSTALAÇÃO` · `PGE-6K41` · `frota 1033 · Ônibus urbano OF-1621` · `O fio branco é do sensor de porta, e este módulo não tem leitor sem fio.` · `Acione o gestor.` · `Escolher outro`
+`M2C-0389` · `sem ativo` · `ENCERRAR` · `Confirmar o vínculo` · `ERRO DE PROJETO DE INSTALAÇÃO` · `PGE-6K41` · `frota 1033 · Ônibus urbano OF-1621` · `O fio branco já está ocupado.` · `Acione o gestor.` · `Escolher outro`
 
 ## `08-momento-busca-sem-resultado`
 
