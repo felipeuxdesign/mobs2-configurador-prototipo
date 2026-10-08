@@ -5,8 +5,8 @@
 // aberta, o Trocar de empresa, o Encerrar a sessão das folhas do módulo e do ativo), o véu fica
 // aceso, parado — nada anima nele —, a folha desce em 150 enquanto o diálogo nasce em 150; no
 // Cancelar, o mesmo movimento ao contrário: o diálogo some em 150 enquanto a folha sobe em 200
-// (C12·6). Na folha do módulo o véu começa embaixo da faixa, e o do Encerrar antes de terminar?
-// cobre a faixa: o véu que já estava fica, e só o pedaço novo, em cima, esmaece em 150. O
+// (C12·6). Desde 08/10, a folha do módulo já escurece o topo: ao trocar por Encerrar antes de terminar?,
+// o véu fica parado e nenhum pedaço extra esmaece. O
 // arraste da lei 20 (o painel segue o dedo, e volta em 200 ou desce em 150). O foco é um só
 // (C12·21): o olho e o checkbox não acendem nem apagam campo nenhum; o traço de 2 é desenhado
 // por cima da borda de 1 (C12·22): o foco, o escolhido e a falha não tiram texto nenhum do lugar.
@@ -18,8 +18,9 @@ const FOLHA_DESCE = { prop: 'transform', ms: 150, curva: C, em: 'ds-folha' }
 const VEU_SOBE = { prop: 'opacity', ms: 200, curva: C, em: 'ds-veu ds-veu-folha' }
 const VEU_SAI = { prop: 'opacity', ms: 150, curva: C, em: 'ds-veu ds-veu' }
 const DIALOGO = [{ prop: 'opacity', ms: 150, curva: C, em: 'ds-dialogo' }, { prop: 'transform', ms: 150, curva: C, em: 'ds-dialogo' }]
-// o véu da troca não anima nada: nem some, nem volta (o pedaço que cresce é outra coisa, ds-veu-cresce-pedaco)
+// o véu da troca não anima nada: nem some, nem volta
 const VEU_PARADO = [{ prop: 'opacity', em: 'ds-veu ds-veu' }]
+const PEDACO = { prop: 'opacity', ms: 150, curva: C, em: 'ds-veu-cresce-pedaco' }
 const TRACO = { prop: 'transform', ms: 150, curva: C, em: 'ds-traco-foco' }
 const esc = { tecla: 'Escape' }
 // no menu aberto pelo endereço, o aviso do acesso (T04/12) espera a primeira folha fechar
@@ -108,11 +109,11 @@ export default [
   { naoVe: 'Trocar recarrega os ativos' },
   ...entendi,
 
-  // ── T04 · a folha do módulo vira o Encerrar antes de terminar?: o véu cresce pra cima da faixa ──
+  // ── T04 · 08/10: a folha do módulo vira Encerrar antes de terminar? com o topo já escurecido ──
   { abre: '?tela=T04&momento=10-momento-folha-modulo-conectado' },
   { ve: 'TRAVADO NA SESSÃO' },
   { quieto: true },
-  { toca: 'Encerrar a sessão', anima: [FOLHA_DESCE, ...DIALOGO, { prop: 'opacity', ms: 150, curva: C, em: 'ds-veu-cresce-pedaco' }], naoAnima: VEU_PARADO },
+  { toca: 'Encerrar a sessão', anima: [FOLHA_DESCE, ...DIALOGO], naoAnima: [...VEU_PARADO, PEDACO] },
   { chega: 'T04', momento: '13-momento-encerrar-antes-de-homologar' },
   { ve: 'Encerrar antes de terminar?' },
   { naoVe: 'TRAVADO NA SESSÃO' },
@@ -128,7 +129,7 @@ export default [
   { toca: 'ATIVO SELECIONADO, RKT-8H42', anima: [FOLHA_SOBE, VEU_SOBE] },
   { ve: 'Ativo da sessão' },
   { dorme: 300 },
-  { toca: 'Encerrar a sessão', anima: [FOLHA_DESCE, ...DIALOGO], naoAnima: VEU_PARADO },
+  { toca: 'Encerrar a sessão', anima: [FOLHA_DESCE, ...DIALOGO], naoAnima: [...VEU_PARADO, PEDACO] },
   { ve: 'Encerrar antes de terminar?' },
   { dorme: 250 },
   esc,

@@ -2,6 +2,8 @@
 
 Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recortada da tela onde foi aprovada**. Construa cada uma como componente, uma vez, e use em todas as telas da lista.
 
+**Cobertura revista em 08/10/2026:** toda folha usa `--veu` sobre o fundo inteiro do app, inclusive tira, faixa e fundo da barra de status; a hora e os ícones oficiais ficam legíveis. Os diálogos do menu da T04 compartilham essa cobertura para preservar o véu nas trocas. A geometria de folhas e caixas não muda. Esta revisão não altera os diálogos fora da T04. [Gate do véu integral](../06-prototipo/para-o-arquiteto/gate-veu-integral.md).
+
 ## Folha 1 · fundamentos · `referencias/png/folha-1-fundamentos.png`
 
 | Peça | Regra | Telas que usam |
@@ -26,12 +28,12 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 | uma ação | quando só existe um caminho | T06 T09 T11 T12 T15 |
 | processo correndo | o primário diz o que acontece | T09 T16 |
 | com legenda | uma linha que explica a ação, a 12px do botão | T01 T05 T06 T10 T13 |
-| folha | sobe do rodapé · puxador · X | T04 |
+| folha | sobe do rodapé · puxador · X · véu sobre todo o fundo do app, incluindo tira, faixa e fundo da barra de status | T04 |
 | diálogo | só pra ação que encerra trabalho | T04 |
 | diálogo sem saída | quando o que aconteceu já está feito · uma ação só | T01 T04 |
 | diálogo com ciência | o técnico assina a decisão · o primário espera o check | T01 T13 T14 |
-| folha com opções | cada saída numa linha, com o que ela faz | T01 T04 |
-| barra do sistema sob o véu | escurece junto quando não há tira | T01 |
+| folha com opções | cada saída numa linha, com o que ela faz · o véu cobre todo o fundo do app | T01 T04 T11 |
+| barra do sistema sob o véu | escurece o fundo; mantém os ícones legíveis · com folha aberta, também no menu e sobre a faixa de sessão | T01 T04 T11 |
 
 ## Folha 3 · glifos icones poco · `referencias/png/folha-3-glifos-icones-poco.png`
 
@@ -185,7 +187,7 @@ O catálogo normativo acima contém **106 peças**, contadas linha a linha nas o
 | folha | sobe do rodapé · puxador · X · variante: folga 12 e uma frase embaixo do título, a de trocar de unidade (T04) · toda folha fecha no X, tocando no véu, fora dela, arrastando pra baixo e no voltar (lei 20, a última entrega): o toque fora e o arraste moram na peça, e chamam o mesmo fechar do X — o painel acompanha o dedo, só por transform, depois de 8 (`--folha-arraste-folga`); soltando depois de 56 (`--folha-arraste-limite`), desce de onde está e fecha, em 150; antes, volta ao lugar, em 200; o toque que virou arraste não chega na linha em que começou · o voltar é da tela que abriu a folha (T01/04 e 11, T04/05, 07, 10 e 11) · os dois números são proposta do protótipo | T01 T04 |
 | folha com opções | cada saída numa linha, com o que ela faz · fecha no xis, e como toda folha (lei 20) · a folha *Outras ações* usa o mesmo puxador da T01 e da T04 desde a rodada 3, e a mesma densidade da *Não recebi o código* (T01/04 e 11), por padronização solicitada pelo diretor: 72 no mínimo, 10 em cima e embaixo e 12 entre as partes · o painel arrasta de qualquer ponto; o puxador e as margens externas seguem a peça | T01 T11 |
 | diálogo | só pra ação que encerra trabalho · a saída a 8 do primário, com o desenho de 44 e o toque de 48 crescendo só pra baixo (decisão 38): a de sempre é o link do rodapé, que come 5 embaixo (T04/09, 13, T13/10), e a de 44 come 4, com as ações a 6 do texto (T04/06) · a confirmação fecha no `Cancelar` e no voltar; o toque no véu, fora da caixa, não fecha — o toque fora e o arraste da lei 20 são da folha (proposta do protótipo, pro arquiteto) | T04 |
-| diálogo sem saída | quando o que aconteceu já está feito · uma ação só · variante: margem 24, o ar em volta da caixa, com o véu embaixo da barra do sistema, cobrindo a tira e a faixa: o aviso do acesso sobre o menu inteiro (T04) | T01 T04 |
+| diálogo sem saída | quando o que aconteceu já está feito · uma ação só · variante: margem 24, o ar em volta da caixa; no menu da T04, o véu cobre todo o fundo, incluindo tira, faixa e fundo da barra de status, mantendo a caixa no mesmo lugar | T01 T04 |
 | diálogo com ciência | o técnico assina a decisão · o primário espera o check | T13 |
 
 ### Folha 3 · glifos icones poco

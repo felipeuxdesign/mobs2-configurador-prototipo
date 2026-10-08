@@ -22,7 +22,9 @@ Existem **45 arquivos** em [scripts/caminhos](../06-prototipo/app/scripts/caminh
 | [testar-consultas.mjs](../06-prototipo/app/scripts/testar-consultas.mjs) | Aprova 15 consultas pela coluna e URL, inércia após toque/Esc/tempo, cinco retornos e três entradas normais do painel. |
 | `portas.mjs`, `abortada.mjs`, `lembrar.mjs`, `recuperar.mjs`, `mov-<tela>.mjs` e os demais | Cenários reutilizáveis, com resultados de suas rodadas nos gates. Não têm aceite coletivo na versão atual apenas por estarem nesta pasta. |
 
-A evidência dessa rodada está no [gate de consultas paradas](../06-prototipo/para-o-arquiteto/gate-consultas-paradas.md). O ciclo atual de documentação e retorno do login tem a validação registrada no [gate atual](../06-prototipo/para-o-arquiteto/gate-documentacao-atual.md).
+A evidência dessa rodada está no [gate de consultas paradas](../06-prototipo/para-o-arquiteto/gate-consultas-paradas.md). A documentação e o retorno do login têm a validação registrada no [gate da recuperação](../06-prototipo/para-o-arquiteto/gate-documentacao-atual.md).
+
+O ajuste do véu integral das folhas foi conferido com `mov-t04` (283 passos), `folhas` (154), `mov-t11` (132) e `conferencia` (100), além da cobertura e do toque no topo em seis quadros. As 12 referências afetadas e três controles visuais não pioraram contra a base anterior. O roteiro `readme` foi usado para regravar o GIF. Resultados e limites no [gate do véu integral](../06-prototipo/para-o-arquiteto/gate-veu-integral.md); não houve execução coletiva dos 45 roteiros.
 
 **Antes de rodar o lote completo**, migre os trechos que ainda usam entradas sintéticas para navegar exemplos hoje parados. Isso inclui `empresa`, `voltar`, `teclado`, `reler`, `mov-t02`, `mov-t03`, `mov-listas`, `mov-faixa` e `mov-porcima`. A regra de produto continua nas fichas; os acessos antigos desses testes não constituem um fluxo alternativo aprovado.
 

@@ -17,9 +17,10 @@
 //   enquanto a folha sobe de novo em 200. O que sai continua desenhado como estava (a peça
 //   guarda o último desenho de cada um), mudo pro leitor e sem toque, fora do fluxo, por baixo
 //   do que entra, até acabar de sair. `lugar` é a caixa em volta do véu (a classe da tela que
-//   diz onde o véu começa), de cada coisa; quando ela cresce na troca (a folha do módulo, que
-//   deixa a faixa acesa, vira o Encerrar antes de terminar?, que a cobre, T04/10 → 13), o véu que
-//   já estava fica, e só o pedaço novo esmaece, junto com o diálogo.
+//   conserva a região de composição), de cada coisa. O fundo pode se estender acima dela
+//   por --veu-topo; a medida considera essa extensão. Na T04, folha e diálogo já cobrem
+//   todo o fundo, e a troca mantém o véu parado. Se outra composição ampliar o fundo,
+//   só o pedaço novo esmaece junto com o diálogo.
 //
 // O ciclo de cada coisa: entra montada fechada, e abre no mesmo quadro, logo depois de o
 // fechado ser calculado (a troca de classe vira a transição da peça); sai fechando, e desmonta
@@ -106,13 +107,16 @@ export function PorCima({ camada, lugar, children }) {
   const troca = Boolean(entra) && camadas.some((c) => c.fase === 'saindo')
   const lugarAgora = topo?.lugar
 
-  // o lugar que cresce na troca: o véu de antes fica, e o pedaço novo, em cima, esmaece
+  // Se o fundo pintado cresce na troca, só o pedaço novo esmaece.
   const caixa = useRef(null)
   const antes = useRef(null)
   const [corte, setCorte] = useState(null)
   useLayoutEffect(() => {
     const el = caixa.current
-    const agora = el ? { lugar: lugarAgora, top: el.offsetTop, bottom: el.offsetTop + el.offsetHeight } : null
+    const veuEl = el?.querySelector('.ds-veu')
+    const extensao = veuEl ? parseFloat(getComputedStyle(veuEl, '::before').height) || 0 : 0
+    // Mede o fundo pintado: folhas do menu já cobrem o topo inteiro (08/10).
+    const agora = el ? { lugar: lugarAgora, top: el.offsetTop + el.clientTop - extensao, bottom: el.offsetTop + el.offsetHeight } : null
     const a = antes.current
     antes.current = agora
     if (!troca) { if (corte != null) setCorte(null); return }

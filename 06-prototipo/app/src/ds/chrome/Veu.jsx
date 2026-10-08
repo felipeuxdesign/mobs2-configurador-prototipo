@@ -1,6 +1,7 @@
 // O véu (folha 2, por cima da tela): o fundo escuro atrás da folha e do
-// diálogo. Ocupa o que sobra embaixo do topo (flex-grow) e põe a folha no pé
-// ou o diálogo no meio. Esmaece junto: com a folha entra em 200ms, com o
+// diálogo. Conserva a região de composição (flex-grow), com a folha no pé
+// ou o diálogo no meio. --veu-topo estende só o fundo sobre o chrome.
+// Esmaece junto: com a folha entra em 200ms, com o
 // diálogo em 150ms, e sai em 150ms (movimento.md). A barra do sistema escurece
 // junto pelo `veu` dela.
 import { createContext, useRef } from 'react'
@@ -21,10 +22,9 @@ export const FechaPeloVeu = createContext(null)
 // A troca no mesmo véu (C12·27 · PorCima.jsx): `troca` diz que uma coisa sai
 // enquanto outra entra — o véu vira a caixa do que sai, que fica fora do fluxo,
 // por baixo do que entra (.ds-veu-troca), e continua aceso, parado. `corte`: na
-// troca em que o véu cresce pra cima (a folha do módulo, sob a faixa, vira o
-// Encerrar antes de terminar?, que cobre a faixa, T04/10 → 13), os px de cima que
-// ele ainda não cobria: o resto fica como estava, e só esse pedaço esmaece, no
-// tempo do diálogo. No fim da troca, o véu é um só de novo, igual.
+// troca em que o fundo pintado cresce pra cima, os px que ele ainda não cobria:
+// o resto fica como estava, e só esse pedaço esmaece no tempo do diálogo.
+// Na T04, folha e diálogo já cobrem todo o fundo, sem crescimento na troca.
 export function Veu({ de = 'folha', visivel = true, aoTocarFora, troca = false, corte = null, children }) {
   const daFolha = useRef(null)
   const fora = (e) => {

@@ -2,6 +2,8 @@
 
 Vale o `03-design-system/movimento.md`. Entre telas, só o conteúdo esmaece em 150ms — a barra do sistema e a faixa da sessão ficam paradas. Aqui está o que se move **dentro** desta tela.
 
+**Cobertura vigente · 08/10/2026:** o véu das folhas e dos diálogos desta tela escurece todo o fundo do app, incluindo tira, faixa e fundo da barra de status. A hora e os ícones oficiais ficam legíveis. O painel e a caixa conservam seus lugares; não há deslocamento do topo. [Gate do véu integral](../../06-prototipo/para-o-arquiteto/gate-veu-integral.md).
+
 | Elemento | Quando | O que muda | Tempo | Curva | Com reduzir movimento |
 |---|---|---|---|---|---|
 | contador da fila e do checklist | o número muda | troca no lugar, sem pular | — | — | igual |
@@ -14,7 +16,7 @@ Vale o `03-design-system/movimento.md`. Entre telas, só o conteúdo esmaece em 
 
 - no protótipo · a nossa versão da linha *folhas*, antes desta entrega: | folhas | tocar na unidade ou nas iniciais · com a sessão aberta, no cartão do módulo ou do ativo | o painel sobe de baixo e o véu esmaece; fechar desce | 200ms · fecha em 150ms | desacelera | aparece |
 
-- no protótipo · a nossa linha *folha que vira diálogo*, que saiu do pacote desta entrega (o protótipo segue com ela): | folha que vira diálogo (C12·27, C12·43) | tocar em Sair da conta, numa unidade com a sessão aberta, em Trocar de empresa ou em Encerrar a sessão; e o Cancelar | o véu fica aceso, parado: a folha desce enquanto o diálogo esmaece e cresce de 98% a 100%; no Cancelar, o diálogo esmaece enquanto a folha sobe de novo; onde o véu passa a cobrir a faixa (o 13), só o pedaço novo, em cima, esmaece | 150ms · a folha que volta sobe em 200ms | desacelera | troca direta |
+- no protótipo · a linha *folha que vira diálogo*, com cobertura revista em 08/10/2026: | folha que vira diálogo (C12·27, C12·43) | tocar em Sair da conta, numa unidade com a sessão aberta, em Trocar de empresa ou em Encerrar a sessão; e o Cancelar | o véu integral fica escuro, parado: a folha desce enquanto o diálogo esmaece e cresce de 98% a 100%; no Cancelar, o diálogo esmaece enquanto a folha sobe de novo; a tira e a faixa já estão cobertas, sem acrescentar um trecho superior ou clarear o topo | 150ms · a folha que volta sobe em 200ms | desacelera | troca direta |
 
 No protótipo: o diálogo *Encerrar antes de terminar?* (13) se move como todo diálogo (`movimento.md`): a caixa esmaece e cresce de 98% a 100% em 150ms, o véu esmaece junto, e fecha do mesmo jeito; com reduzir movimento, aparece. Aberto pelo endereço, nasce aberto, parado. É a mesma peça em toda tela com a faixa.
 

@@ -39,7 +39,7 @@ export const SOBRE = {
 }
 export const MOMENTO_DA_FOLHA = { conta: REF.conta, sair: REF.sair, garagem: REF.garagem, modulo: REF.modulo, ativo: REF.ativo, encerrar: REF.encerrar }
 // as folhas sobem do pé (os diálogos, não); as do módulo e do ativo abrem
-// embaixo da faixa, que fica acesa em cima do véu (T04/10, 11)
+// embaixo da faixa, com o fundo estendido sobre o topo (T04/10, 11)
 export const FOLHAS = ['conta', 'garagem', 'modulo', 'ativo']
 export const SOB_A_FAIXA = ['modulo', 'ativo']
 

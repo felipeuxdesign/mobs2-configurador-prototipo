@@ -131,6 +131,8 @@ O layout vai direto pro quadro final. O que muda de lugar na mesma vista vai do 
 
 ## Por cima da tela
 
+**Cobertura das folhas · 08/10/2026:** o véu escurece todo o fundo do app, inclusive tira, faixa e fundo da barra de status, sem deslocar o painel. A hora e os ícones oficiais continuam legíveis. No menu da T04, os diálogos compartilham essa cobertura; a caixa mantém o mesmo lugar. A revisão não muda a cobertura dos diálogos fora da T04. [Gate do véu integral](../06-prototipo/para-o-arquiteto/gate-veu-integral.md).
+
 | O quê | Como |
 |---|---|
 | **folha** | o painel sobe de baixo (translateY 100% → 0) em 200ms e o véu esmaece junto · fecha em 150ms |
@@ -141,7 +143,7 @@ O layout vai direto pro quadro final. O que muda de lugar na mesma vista vai do 
 | **pressionado · o checkbox** (C12·17) | a área de 48 sobe pra `--elevado`, por baixo do poço e do texto, como a linha tocável · solta em 100ms · parado, nada muda |
 | **pressionado · o resto** (C12) | o secundário afunda 2% · o ENCERRAR e a unidade da tira vão pra `--tinta` · no arraste da folha, o pressionado some |
 | **pressionado · o desabilitado** (C12·18) | o que se desabilita no próprio toque não mostra o pressionado: a camada sai direto · no primário, só o afundar solta, em 100ms |
-| **a folha que vira diálogo** (C12·27, C12·43) | o véu fica aceso, parado · a folha desce em 150ms enquanto o diálogo nasce em 150ms · no `Cancelar`, o diálogo some em 150ms enquanto a folha sobe de novo em 200ms · onde o véu passa a cobrir a faixa, só o pedaço novo esmaece · no `Continuar a instalação`, o diálogo e o véu saem juntos |
+| **a folha que vira diálogo** (T04 · C12·27, C12·43; cobertura revista em 08/10/2026) | o véu integral fica escuro, parado · a folha desce em 150ms enquanto o diálogo nasce em 150ms · no `Cancelar`, o diálogo some em 150ms enquanto a folha sobe de novo em 200ms · a tira e a faixa já estão cobertas: não entra um trecho novo nem há clarão no topo · no `Continuar a instalação`, o diálogo e o véu saem juntos |
 | **a presença** (C12) | toda folha e todo diálogo do app nascem e somem pela mesma peça · o que sai continua desenhado, mudo e sem toque, até acabar de sair · aberto desde o começo (pelo endereço, na coluna, no print), parado |
 
 ## A volta (C12·6)

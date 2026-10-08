@@ -105,7 +105,7 @@ export const especimes = [
         </Folha>
       </div>
     ) },
-  { id: 'f2-barra-veu', folha: 2, chrome: true, rotulo: 'barra do sistema sob o véu', legenda: 'escurece junto quando não há tira',
+  { id: 'f2-barra-veu', folha: 2, chrome: true, rotulo: 'barra do sistema sob o véu', legenda: 'escurece o fundo; mantém os ícones legíveis',
     render: () => <BarraDoSistema fundo="pagina" veu="folha" /> },
 
   // folha 6 · a linha de opção — a folha desenha o cartão duas vezes, um dentro do outro

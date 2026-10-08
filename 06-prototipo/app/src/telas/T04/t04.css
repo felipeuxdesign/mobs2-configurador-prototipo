@@ -12,8 +12,7 @@
 }
 
 /* o menu embaixo da barra: o topo, o título escondido e o miolo. Com a folha ou
- * o diálogo aberto, o título e o miolo ficam inertes, atrás do véu; o topo fica
- * desabilitado, e a faixa, quando o véu a cobre (05 a 09), inerte (index.jsx). */
+ * o diálogo aberto, o topo e o miolo ficam inertes atrás do véu (index.jsx). */
 .t04-fundo { flex-grow: 1; min-height: 0; display: flex; flex-direction: column; }
 
 /* o topo do menu mora num fieldset, que desabilita a tira e a faixa de uma vez
@@ -30,27 +29,24 @@
   padding: var(--e-14) var(--e-16) var(--e-24) var(--e-16);
 }
 
-/* por cima do menu, o véu cobre tudo abaixo da tira, que fica acesa, com a
- * linha de baixo dela: o --separador que as referências 05 a 09 desenham
- * logo embaixo da tira. No menu real, nesse ponto está a borda de cima da
- * faixa (--borda-rodape); a linha do véu passa por cima dela, e o véu começa
- * depois. O menu fica atrás do véu (G25). */
+/* A região de composição permanece abaixo da tira, com a linha das referências
+ * 05 a 09. --veu-topo estende só o fundo sobre a tira e essa linha, sem mover
+ * folha ou diálogo. A barra do sistema escurece pela própria peça. */
 .t04-sobre {
+  --veu-topo: calc(var(--tira-contexto) + var(--traco-borda));
   position: absolute; left: 0; right: 0; bottom: 0;
   top: calc(var(--barra-sistema) + var(--tira-contexto));
   border-top: var(--traco-borda) solid var(--separador);
   display: flex; flex-direction: column;
 }
 
-/* nas folhas do módulo e do ativo (T04/10, 11), o véu começa embaixo da faixa:
- * a tira e a faixa ficam acesas em cima dele, com a linha de baixo da faixa
- * (os 52 da faixa, a entrega do checklist), e o véu não traz a linha dele. */
-.t04-sobre-faixa { top: calc(var(--barra-sistema) + var(--tira-contexto) + var(--faixa-sessao)); border-top: 0; }
+/* Nas folhas do módulo e do ativo (T04/10, 11), a composição continua abaixo
+ * da faixa, sem borda extra. O fundo se estende sobre tira e faixa. */
+.t04-sobre-faixa { --veu-topo: calc(var(--tira-contexto) + var(--faixa-sessao)); top: calc(var(--barra-sistema) + var(--tira-contexto) + var(--faixa-sessao)); border-top: 0; }
 
-/* no aviso do acesso vencendo (T04/12), o véu começa embaixo da barra do
- * sistema: a tira e a faixa ficam atrás dele, com o menu, sem a linha de cima
- * (a de baixo da faixa fica sob o véu, como a referência desenha). */
-.t04-sobre-tudo { top: var(--barra-sistema); border-top: 0; }
+/* No aviso e no ENCERRAR, a composição já começa abaixo da barra do sistema,
+ * sem extensão ou borda extra. O diálogo conserva seu centro. */
+.t04-sobre-tudo { --veu-topo: 0; top: var(--barra-sistema); border-top: 0; }
 
 /* o Trocar de empresa no fim da folha de trocar de unidade (T04/14, decisão
  * 37): o link de 48 a 6 da lista, comendo 4 em cima e embaixo, como a

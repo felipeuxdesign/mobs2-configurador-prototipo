@@ -2,6 +2,8 @@
 
 O painel das ferramentas: o que está pronto pra usar, o que espera o quê.
 
+**Cobertura vigente · 08/10/2026:** nas folhas `05`, `07`, `08`, `10`, `11` e `14`, o véu escurece todo o fundo do app: menu, tira, faixa e fundo da barra de status. A hora e os ícones oficiais continuam legíveis. Os diálogos `06`, `09`, `12`, `13` e `16` usam a mesma cobertura, preservando o véu na troca com uma folha. Painéis e caixas mantêm suas posições, medidas e ações. As medições históricas abaixo que descrevem tira ou faixa acesas registram a versão anterior; vale agora o [gate do véu integral](../../06-prototipo/para-o-arquiteto/gate-veu-integral.md).
+
 | | |
 |---|---|
 | **Elemento-assinatura** | a grade de nove cartões em que cada ferramenta diz, no próprio cartão, o que falta pra ela funcionar |
@@ -52,7 +54,7 @@ O painel das ferramentas: o que está pronto pra usar, o que espera o quê.
   - no protótipo · a nossa versão desta linha, antes desta entrega: cartão de ferramenta em espera é desabilitado de verdade: o toque não faz nada, o motivo já está escrito nele, e pro leitor de tela ele é desabilitado (`logica.md` · Os cartões em espera)
 - `Últimas instalações` → T12 · ele depende só da rede do aparelho, não do módulo nem do ativo · sem rede, o cartão espera a conexão: fundo apagado e traço no poço — T04/15
   - no protótipo (decisão 48, construída): o herói começa com rede, e o cartão fica ligado, com o relógio de histórico. Sem rede, é sempre o desenho da `15`, *sem conexão*, com a sessão ou sem ela — o *espera conexão* saiu, porque o cartão não espera o módulo. No fluxo, a rede não cai: o `15` só abre pela coluna, montado pelo caso `sem-conexao-no-menu`, com a sessão do herói na faixa (M2C-0417 e RKT-8H42), como a referência desenha
-- no protótipo · a nossa linha, que saiu do pacote desta entrega (o protótipo segue com ela): com a folha ou o diálogo aberto, o menu não se toca — nem o que fica atrás do véu, nem a tira, que fica acesa em cima dele. Nas folhas do módulo e do ativo, o véu começa embaixo da faixa, e a faixa também fica acesa, sem se tocar. No aviso do acesso, o véu começa embaixo da barra do sistema, e a tira e a faixa ficam atrás dele (12)
+- no protótipo · cobertura revista em 08/10/2026: com uma folha ou diálogo aberto, o menu não se toca. O véu escurece o menu, a tira de contexto, a faixa de sessão e o fundo da barra de status; a hora e os ícones oficiais ficam legíveis acima dele. Isso vale também nas folhas do módulo e do ativo, no aviso do acesso e nos diálogos de sair, trocar e encerrar. O `ENCERRAR` permanece inerte enquanto a camada está aberta
 - no protótipo · a nossa linha, que saiu do pacote desta entrega (o protótipo segue com ela): a folha fecha pelo X, tocando no véu, fora dela, e pelo voltar do sistema (no computador, o Esc); o diálogo, pelo `Cancelar` e pelo voltar, que faz o mesmo que ele (`logica.md` · O voltar do Android); o aviso do acesso, pelo `Entendi` e pelo voltar. No menu, sem folha nem diálogo, o voltar não faz nada: ele não tem saída desenhada (`08-para-o-dev/o-que-o-produto-ainda-decide.md`)
   - no protótipo (lei 20, a última entrega): toda folha do menu também fecha arrastando pra baixo — o painel acompanha o dedo e, soltando depois de 56, fecha; antes, volta. O arraste que começa numa linha tocável não toca nela: a unidade não troca, o `Encerrar a sessão` não encerra, o `Sair da conta` não abre o diálogo. O toque fora agora é da peça, e o diálogo não fecha no toque fora (`06-prototipo/logica.md` · A folha que fecha)
 

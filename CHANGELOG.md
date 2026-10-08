@@ -1,5 +1,14 @@
 # Registro de mudanças
 
+## 2026-10-08 · o véu das folhas cobre o topo inteiro
+
+- **Ajuste autorizado pelo diretor na conversa:** as folhas da T04 e da T11 agora escurecem também a tira/faixa e o fundo da barra de status. A T01 já seguia esse padrão. A hora e os ícones oficiais continuam legíveis; painéis e caixas mantêm posições, tamanhos e conteúdo.
+- **No menu:** os diálogos que compartilham a camada das folhas usam a mesma cobertura integral. A troca entre folha e diálogo conserva o fundo escuro, sem clarão no topo ou entrada de um trecho novo. O topo fica inerte ao toque e ao leitor; tocar no véu superior fecha a folha e não aciona o ENCERRAR atrás. Os diálogos fora da T04 não mudaram.
+- **Referências e documentação juntas:** 12 pares HTML/PNG, legenda da folha 2 e da vitrine, fichas, leis, movimento, lógica, guias e README atualizados. Mock, tokens, textos do app, índice e censos preservados. A descrição da câmera em `logica.md` também recupera rótulos já vigentes que a checagem documental exigia; a regra da T13 não mudou.
+- **Validação:** `checar` e build aprovados; `mov-t04` (283 passos), `folhas` (154), `mov-t11` (132), `conferencia` (100) e `readme` (65) aprovados. Seis quadros comprovaram cobertura, inércia e toque no topo. As 12 referências conservam geometria e textos, com zero pixels alterados abaixo do topo em capturas frescas; a comparação do app e três controles não piorou contra a base.
+- **Desvios técnicos nomeados:** os PNGs antigos T04/DS tinham suavização subpixel diferente da captura atual, em cinza; foram regenerados nas dimensões originais. O GIF saiu a 2× com o retângulo em pixels CSS; o conversor passou a calcular a escala correta do recorte. O GIF final foi regravado no mesmo percurso e inspecionado: 150 quadros, 330×672, 36,07 s armazenados.
+- **Registro:** [gate do véu integral](06-prototipo/para-o-arquiteto/gate-veu-integral.md) e [prints e provas](06-prototipo/para-o-arquiteto/veu-integral/). Não foi executada a suíte completa nem comparadas as 191 referências; o aviso anterior do tamanho do bundle permanece.
+
 ## 2026-10-08 · documentação vigente e login depois da recuperação
 
 - **T01 · facilidade de demonstração pedida pelo diretor:** depois de salvar e tocar em *Entrar com a senha nova*, o login volta com o usuário mantido e a senha de exemplo do mock preenchida e escondida. O protótipo não guarda nem usa a senha nova digitada. Sair da conta continua devolvendo o login sem senha. O handler e os roteiros `recuperar` e `mov-t01` acompanham esse pedido; nenhum desenho ou texto da interface mudou.

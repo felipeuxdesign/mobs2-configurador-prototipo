@@ -1,8 +1,15 @@
 .ds-veu {
+  position: relative;
   flex-grow: 1; min-height: 0;
   display: flex; flex-direction: column; justify-content: flex-end;
   background: var(--veu);
   transition: opacity var(--mov-rapido) var(--mov-curva);
+}
+/* O fundo alcança o topo sem mudar o lugar da folha ou da caixa.
+ * A extensão vem das medidas do chrome da tela; a barra escurece pela sua API. */
+.ds-veu::before {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 100%;
+  height: var(--veu-topo, 0); background: var(--veu);
 }
 .ds-veu-dialogo { justify-content: center; }
 .ds-veu-folha:not(.ds-veu-oculto) { transition-duration: var(--mov-padrao); }
@@ -11,9 +18,8 @@
 /* A troca no mesmo véu (C12·27 · PorCima.jsx): o véu é a caixa do que sai, que fica fora do
  * fluxo e por baixo do que entra (z-index -1, dentro dele) — e continua aceso, parado. */
 .ds-veu-troca { position: relative; isolation: isolate; }
-/* O véu que cresce pra cima na troca (T04/10 → 13): o que ele já cobria fica igual, e o pedaço
- * novo de cima (--veu-corte, os px que faltavam) esmaece em --mov-rapido, junto com o diálogo.
- * No fim, o véu é um só de novo, com o mesmo fundo. */
+/* Se outra composição ampliar o fundo pintado, só o trecho novo esmaece.
+ * Na T04, a cobertura já é integral, e a troca não usa --veu-corte. */
 .ds-veu-cresce { background: linear-gradient(to bottom, transparent var(--veu-corte), var(--veu) var(--veu-corte)); }
 .ds-veu-cresce-pedaco {
   position: absolute; top: 0; left: 0; right: 0; height: var(--veu-corte); z-index: -1;

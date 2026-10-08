@@ -45,6 +45,8 @@ O protótipo roda no navegador e anda só por toque, do login ao encerramento. N
 
 No celular, o app ocupa a tela inteira.
 
+As folhas escurecem todo o fundo do app, incluindo a faixa de sessão e o fundo da barra de status, mantendo os ícones do Android legíveis. Os diálogos do menu usam a mesma cobertura, sem mudar de posição. [Registro do ajuste](06-prototipo/para-o-arquiteto/gate-veu-integral.md).
+
 ## Como foi construído
 
 Cada tela, momento e estado tem uma referência desenhada, em HTML e PNG — 191 ao todo. O protótipo foi construído contra elas e comparado pixel a pixel; toda diferença que sobrou tem um nome e um motivo registrados.
@@ -52,6 +54,8 @@ Cada tela, momento e estado tem uma referência desenhada, em HTML e PNG — 191
 O comportamento vem da ficha de cada tela, os textos do `textos.md` dela e as medidas dos tokens. O repositório contém 45 roteiros de navegação e um gate que confere os dados de exemplo. O caminho principal usa o ônibus sem calibração; o roteiro historicamente chamado `heroi-sem-horimetro` verifica a entrada no ciclo pelo checklist.
 
 A última rodada de navegação aprovou o caminho principal (239 passos), a conferência, a calibração pelo palco e as consultas paradas. Isso não significa que os 45 roteiros foram executados nessa rodada: alguns roteiros antigos ainda usam exemplos que agora abrem parados. O estado das verificações e a ordem de uso estão em [Testes para o dev](08-para-o-dev/testes-prontos.md).
+
+O ajuste posterior do véu integral passou pelos roteiros de menu, folhas e conferência e pela comparação das 12 referências afetadas. O GIF acima foi regravado com o mesmo percurso, incluindo o aviso do menu com a barra de status escurecida. [Validação do ajuste](06-prototipo/para-o-arquiteto/gate-veu-integral.md).
 
 **As tecnologias:** o protótipo é um app web em **React 18** com **Vite**, em JavaScript, sem biblioteca de componentes de fora: as peças são as do design system, construídas no próprio projeto, com os valores dos tokens em CSS. Os ícones são do **Lucide**, e a fonte é a **Barlow**. A comparação com as referências roda no **Chrome** sem tela, com o **pixelmatch** medindo a diferença pixel a pixel. Ele é publicado na **Vercel**.
 

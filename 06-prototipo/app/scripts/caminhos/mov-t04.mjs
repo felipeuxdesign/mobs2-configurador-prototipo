@@ -6,8 +6,8 @@
 // 200 e desce em 150, com o véu — no X, tocando fora, arrastando e no voltar (lei 20) —; o diálogo
 // nasce e some em 150, de 98% a 100%; e a folha que vira diálogo deixa o véu aceso, parado: a
 // folha desce em 150 enquanto o diálogo nasce, e no Cancelar o diálogo some enquanto a folha sobe
-// de novo em 200 (C12·27, C12·43); no Encerrar antes de terminar?, só o pedaço novo do véu, em cima,
-// esmaece. Os toques que levam a outra tela esmaecem o conteúdo dela em 150, e o topo troca
+// de novo em 200 (C12·27, C12·43). Desde 08/10, o véu cobre o topo também nas folhas:
+// ao trocar por Encerrar antes de terminar?, não há pedaço novo esmaecendo. Os toques que levam a outra tela esmaecem o conteúdo dela em 150, e o topo troca
 // direto (C12·2, C12·3). Pela URL, no palco, num estado e no print, o menu abre parado; com
 // reduzir movimento, tudo direto.
 const C = 'cubic-bezier(0.2, 0.8, 0.2, 1)'
@@ -116,11 +116,11 @@ export default [
   { dorme: 300 },
   { toca: 'Fechar' },
   { dorme: 250 },
-  // o módulo → o Encerrar antes de terminar?: o véu cresce pra cima da faixa, e só o pedaço novo esmaece
+  // 08/10 · módulo → Encerrar antes de terminar?: o topo já está coberto; o véu não cresce nem pisca
   { toca: 'CONECTAR MÓDULO, M2C-0417', anima: [FOLHA_SOBE, VEU_SOBE] },
   { chega: 'T04', momento: '10-momento-folha-modulo-conectado' },
   { dorme: 300 },
-  { toca: 'Encerrar a sessão', anima: [FOLHA_DESCE, ...DIALOGO, PEDACO], naoAnima: VEU_PARADO },
+  { toca: 'Encerrar a sessão', anima: [FOLHA_DESCE, ...DIALOGO], naoAnima: [...VEU_PARADO, PEDACO] },
   { chega: 'T04', momento: '13-momento-encerrar-antes-de-homologar' },
   { dorme: 250 },
   { quieto: true },
@@ -132,7 +132,7 @@ export default [
   { toca: 'ATIVO SELECIONADO, RKT-8H42', anima: [FOLHA_SOBE, VEU_SOBE] },
   { chega: 'T04', momento: '11-momento-folha-ativo-da-sessao' },
   { dorme: 300 },
-  { toca: 'Encerrar a sessão', anima: [FOLHA_DESCE, ...DIALOGO, PEDACO], naoAnima: VEU_PARADO },
+  { toca: 'Encerrar a sessão', anima: [FOLHA_DESCE, ...DIALOGO], naoAnima: [...VEU_PARADO, PEDACO] },
   { ve: 'Encerrar antes de terminar?' },
   { dorme: 250 },
   esc,

@@ -13,7 +13,8 @@ export default [
   { ve: '4 de 4' },
   { naoVe: 'Corrigir este bloco' },
   ...folha,
-  { desligado: 'ENCERRAR' },
+  // 08/10 · a faixa fica inerte atrás do véu de Outras ações, fora do toque e do leitor
+  { naoToca: 'ENCERRAR' },
   { toca: 'Fechar' },
   { naoVe: 'Reenviar os 5 blocos' },
   { toca: 'ENCERRAR' },

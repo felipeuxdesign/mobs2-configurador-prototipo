@@ -3,9 +3,8 @@
 .t11 { height: 100%; display: flex; flex-direction: column; background: var(--fundo-pagina); color: var(--tinta); }
 
 /* a faixa mora num fieldset, que a desabilita de uma vez quando a folha Outras
- * ações abre (T11/03, como a T04/10): ela fica acesa em cima do véu, sem o papel
- * do fieldset (role presentation) e sem o desenho dele. Desabilitada, nenhum
- * toque chega nela, e o leitor ouve o ENCERRAR desabilitado. */
+ * ações abre (T11/03, como a T04/10). Sem o papel ou desenho do fieldset,
+ * a faixa fica inerte atrás do véu, sem toque nem acesso pelo leitor. */
 .t11-topo { flex-shrink: 0; min-width: 0; margin: 0; padding: 0; border: 0; }
 .t11-topo:disabled { pointer-events: none; }
 
@@ -13,10 +12,11 @@
  * folha (G25). Tem o lugar que o miolo e o rodapé tinham, sem mudar nada. */
 .t11-corpo { flex-grow: 1; min-height: 0; display: flex; flex-direction: column; }
 
-/* por cima da tela, a folha Outras ações (T11/03): o véu começa embaixo da faixa,
- * que fica acesa com a linha de baixo dela (os 52 da faixa), como nas folhas do
- * módulo e do ativo do menu (T04/10, 11). O app (.app) é a caixa de posição. */
+/* Outras ações (T11/03): a composição permanece abaixo da faixa, e só o fundo
+ * se estende sobre ela. A barra do sistema escurece pela própria peça.
+ * O app (.app) é a caixa de posição. */
 .t11-sobre {
+  --veu-topo: var(--faixa-sessao);
   position: absolute; top: calc(var(--barra-sistema) + var(--faixa-sessao)); right: 0; bottom: 0; left: 0; z-index: 1;
   display: flex; flex-direction: column;
 }

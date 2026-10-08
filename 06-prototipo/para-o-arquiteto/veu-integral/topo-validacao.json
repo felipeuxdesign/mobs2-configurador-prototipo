@@ -1,0 +1,142 @@
+[
+  {
+    "ref": "T04/05-momento-folha-conta",
+    "altura_extensao": 53,
+    "inicio_pintura": 30,
+    "fim_barra": 30,
+    "barra_opacidade": "1",
+    "svg_opacidade": "1",
+    "topo_inerte": true,
+    "topo_desabilitado": true,
+    "toque_no_topo_vai_ao_veu": true,
+    "folha": {
+      "x": 0,
+      "y": 370,
+      "w": 360,
+      "h": 430
+    },
+    "app": {
+      "x": 540,
+      "y": 50,
+      "w": 360,
+      "h": 800
+    },
+    "toque_superior_fecha": true
+  },
+  {
+    "ref": "T04/10-momento-folha-modulo-conectado",
+    "altura_extensao": 104,
+    "inicio_pintura": 30,
+    "fim_barra": 30,
+    "barra_opacidade": "1",
+    "svg_opacidade": "1",
+    "topo_inerte": true,
+    "topo_desabilitado": true,
+    "toque_no_topo_vai_ao_veu": true,
+    "folha": {
+      "x": 0,
+      "y": 447.3125,
+      "w": 360,
+      "h": 352.6875
+    },
+    "app": {
+      "x": 540,
+      "y": 50,
+      "w": 360,
+      "h": 800
+    },
+    "toque_superior_fecha": true
+  },
+  {
+    "ref": "T04/11-momento-folha-ativo-da-sessao",
+    "altura_extensao": 104,
+    "inicio_pintura": 30,
+    "fim_barra": 30,
+    "barra_opacidade": "1",
+    "svg_opacidade": "1",
+    "topo_inerte": true,
+    "topo_desabilitado": true,
+    "toque_no_topo_vai_ao_veu": true,
+    "folha": {
+      "x": 0,
+      "y": 434.8125,
+      "w": 360,
+      "h": 365.1875
+    },
+    "app": {
+      "x": 540,
+      "y": 50,
+      "w": 360,
+      "h": 800
+    },
+    "toque_superior_fecha": true
+  },
+  {
+    "ref": "T04/06",
+    "altura_extensao": 53,
+    "inicio_pintura": 30,
+    "fim_barra": 30,
+    "barra_opacidade": "1",
+    "svg_opacidade": "1",
+    "topo_inerte": true,
+    "topo_desabilitado": true,
+    "toque_no_topo_vai_ao_veu": true,
+    "folha": null,
+    "app": {
+      "x": 540,
+      "y": 50,
+      "w": 360,
+      "h": 800
+    },
+    "toque_superior_preserva_confirmacao": true
+  },
+  {
+    "ref": "T11/folha-no-fluxo",
+    "altura_extensao": 52,
+    "inicio_pintura": 30,
+    "fim_barra": 30,
+    "barra_opacidade": "1",
+    "svg_opacidade": "1",
+    "topo_inerte": true,
+    "topo_desabilitado": true,
+    "toque_no_topo_vai_ao_veu": true,
+    "folha": {
+      "x": 0,
+      "y": 530,
+      "w": 360,
+      "h": 270
+    },
+    "app": {
+      "x": 540,
+      "y": 50,
+      "w": 360,
+      "h": 800
+    },
+    "toque_superior_fecha": true,
+    "encerrar_nao_acionado": true
+  },
+  {
+    "ref": "T11/03-consulta",
+    "altura_extensao": 52,
+    "inicio_pintura": 30,
+    "fim_barra": 30,
+    "barra_opacidade": "1",
+    "svg_opacidade": "1",
+    "topo_inerte": true,
+    "topo_desabilitado": true,
+    "toque_no_topo_vai_ao_veu": false,
+    "folha": {
+      "x": 0,
+      "y": 530,
+      "w": 360,
+      "h": 270
+    },
+    "app": {
+      "x": 540,
+      "y": 50,
+      "w": 360,
+      "h": 800
+    },
+    "continua_parada": true
+  }
+]

@@ -1,0 +1,190 @@
+{
+  "metodo": "HTML normativo antes/depois no mesmo Chrome do fotógrafo, fontes carregadas; 360×800 a2x; DS1440×4100 a1x no mesmo Chrome. Retângulos de todos os elementos e texto comparados; véu novo excluído da contagem.",
+  "escopo": "12 referências de tela + DS folha2; nenhuma geometria, texto de tela ou comportamento alterado.",
+  "limite": "Os PNGs T04 e DS antigos tinham rasterização de texto diferente da captura atual. A prova de zero pixels fora do topo compara renderizações frescas do mesmo HTML antes/depois, preservadas em app/prints/tmp/veu-superior-referencias.",
+  "telas": [
+    {
+      "id": "T04-05-momento-folha-conta",
+      "altura_veu_superior": 83,
+      "geometria_igual": true,
+      "texto_igual": true,
+      "retangulo_pixels_alterados": [
+        0,
+        0,
+        720,
+        166
+      ],
+      "pixels_alterados_abaixo_topo": 0,
+      "elementos_com_geometria_comparada": 50
+    },
+    {
+      "id": "T04-06-momento-folha-conta-sair-com-sessao-aberta",
+      "altura_veu_superior": 83,
+      "geometria_igual": true,
+      "texto_igual": true,
+      "retangulo_pixels_alterados": [
+        0,
+        0,
+        720,
+        166
+      ],
+      "pixels_alterados_abaixo_topo": 0,
+      "elementos_com_geometria_comparada": 30
+    },
+    {
+      "id": "T04-07-momento-folha-trocar-de-garagem",
+      "altura_veu_superior": 83,
+      "geometria_igual": true,
+      "texto_igual": true,
+      "retangulo_pixels_alterados": [
+        0,
+        0,
+        720,
+        166
+      ],
+      "pixels_alterados_abaixo_topo": 0,
+      "elementos_com_geometria_comparada": 57
+    },
+    {
+      "id": "T04-08-estado-folha-trocar-de-garagem-envio-em-andamento",
+      "altura_veu_superior": 83,
+      "geometria_igual": true,
+      "texto_igual": true,
+      "retangulo_pixels_alterados": [
+        0,
+        0,
+        720,
+        166
+      ],
+      "pixels_alterados_abaixo_topo": 0,
+      "elementos_com_geometria_comparada": 59
+    },
+    {
+      "id": "T04-09-estado-folha-trocar-de-garagem-com-modulo-conectado",
+      "altura_veu_superior": 83,
+      "geometria_igual": true,
+      "texto_igual": true,
+      "retangulo_pixels_alterados": [
+        0,
+        0,
+        720,
+        166
+      ],
+      "pixels_alterados_abaixo_topo": 0,
+      "elementos_com_geometria_comparada": 29
+    },
+    {
+      "id": "T04-10-momento-folha-modulo-conectado",
+      "altura_veu_superior": 134,
+      "geometria_igual": true,
+      "texto_igual": true,
+      "retangulo_pixels_alterados": [
+        0,
+        0,
+        720,
+        268
+      ],
+      "pixels_alterados_abaixo_topo": 0,
+      "elementos_com_geometria_comparada": 50
+    },
+    {
+      "id": "T04-11-momento-folha-ativo-da-sessao",
+      "altura_veu_superior": 134,
+      "geometria_igual": true,
+      "texto_igual": true,
+      "retangulo_pixels_alterados": [
+        0,
+        0,
+        720,
+        268
+      ],
+      "pixels_alterados_abaixo_topo": 0,
+      "elementos_com_geometria_comparada": 49
+    },
+    {
+      "id": "T04-12-estado-acesso-vencendo",
+      "altura_veu_superior": 30,
+      "geometria_igual": true,
+      "texto_igual": true,
+      "retangulo_pixels_alterados": [
+        0,
+        0,
+        720,
+        60
+      ],
+      "pixels_alterados_abaixo_topo": 0,
+      "elementos_com_geometria_comparada": 108
+    },
+    {
+      "id": "T04-13-momento-encerrar-antes-de-homologar",
+      "altura_veu_superior": 30,
+      "geometria_igual": true,
+      "texto_igual": true,
+      "retangulo_pixels_alterados": [
+        0,
+        0,
+        720,
+        60
+      ],
+      "pixels_alterados_abaixo_topo": 0,
+      "elementos_com_geometria_comparada": 109
+    },
+    {
+      "id": "T04-14-estado-folha-trocar-de-unidade-com-empresa",
+      "altura_veu_superior": 83,
+      "geometria_igual": true,
+      "texto_igual": true,
+      "retangulo_pixels_alterados": [
+        0,
+        0,
+        720,
+        166
+      ],
+      "pixels_alterados_abaixo_topo": 0,
+      "elementos_com_geometria_comparada": 59
+    },
+    {
+      "id": "T04-16-estado-fila-parada",
+      "altura_veu_superior": 30,
+      "geometria_igual": true,
+      "texto_igual": true,
+      "retangulo_pixels_alterados": [
+        0,
+        0,
+        720,
+        60
+      ],
+      "pixels_alterados_abaixo_topo": 0,
+      "elementos_com_geometria_comparada": 109
+    },
+    {
+      "id": "T11-03-momento-outras-acoes",
+      "altura_veu_superior": 82,
+      "geometria_igual": true,
+      "texto_igual": true,
+      "retangulo_pixels_alterados": [
+        0,
+        0,
+        720,
+        164
+      ],
+      "pixels_alterados_abaixo_topo": 0,
+      "elementos_com_geometria_comparada": 50
+    }
+  ],
+  "ds_folha2": {
+    "dimensao_png": [
+      1440,
+      4100
+    ],
+    "geometria_igual": true,
+    "elementos_com_geometria_comparada": 272,
+    "alteracao": "escurece junto quando não há tira → escurece o fundo; mantém os ícones legíveis",
+    "retangulo_pixels_alterados": [
+      906,
+      1990,
+      1089,
+      2003
+    ]
+  }
+}

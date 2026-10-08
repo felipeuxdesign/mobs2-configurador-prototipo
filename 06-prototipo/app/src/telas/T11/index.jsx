@@ -55,7 +55,7 @@
 //   homologar? (decisão 36), e a T16 sem homologar (G23).
 // · A folha Outras ações (lei 20) fecha no X, tocando fora, arrastando e no
 //   voltar do Android (o Esc), e a URL segue: o 03 com ela aberta (G20). O véu
-//   começa embaixo da faixa, que fica acesa e desabilitada, como a T11/03 desenha;
+//   mantém a composição abaixo da faixa, com o fundo estendido sobre o topo;
 //   a tela atrás do véu fica inerte (G25).
 // · O voltar do Android (logica.md): o link de saída do rodapé. No 02 e no revisar
 //   em seguida, o Voltar ao menu; no 01, o Apenas registrar o diagnóstico. Com o
@@ -245,12 +245,12 @@ export default function T11({ momento, estado: est }) {
     )
   }
 
-  // a tela atrás do véu da folha fica inerte (G25); a faixa, acesa em cima dele, desabilitada
+  // A tela e a faixa ficam inertes atrás do véu da folha (G25).
   const atras = outras.montado ? '' : undefined
   return (
     <div className={`t11 ${lendo ? 't11-lendo' : ''}`}>
-      <BarraDoSistema fundo="faixa" />
-      <fieldset className="t11-topo" role="presentation" disabled={outras.montado}>
+      <BarraDoSistema fundo="faixa" veu={outras.visivel ? 'folha' : null} />
+      <fieldset className="t11-topo" role="presentation" disabled={outras.montado} inert={atras}>
         <Faixa serial={par.moduloSerial} placa={ativoDe(par.ativoId)?.placa} acao={T.encerrar} aoEncerrar={enc.encerrar} />
       </fieldset>
       <div className="t11-corpo" inert={atras}>

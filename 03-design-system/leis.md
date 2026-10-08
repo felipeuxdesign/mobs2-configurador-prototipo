@@ -43,10 +43,12 @@ Cada lei tem o porquê. Uma lei sem motivo vira gosto, e gosto se discute; lei c
 | **Toque de 48** ◆ | todo tocável tem 48 de toque, e o primário 56. O desenho pode ser menor (o olho, o X, o link de 44): a área de toque cresce por fora, sem mudar o desenho | o polegar, com o arnês na outra mão |
 | **Nada encosta** ◆ | todo tocável — botão, checkbox, rádio, campo — a 8px de qualquer vizinho · poço a 6px da divisória · texto a 6px da borda · caixa a 6px da caixa vizinha · **área de toque a 8px de qualquer outra**: quando o desenho não deixa esse espaço, a área cresce só pro lado livre — o link do rodapé, pra baixo, com 44px e a 8px do botão; o avatar da conta, pra cima, e o ENCERRAR da faixa com 44px — e o que se vê não muda | peça encostada lê como uma peça só, e toque encostado cai no vizinho |
 | **Poço na linha** ◆ | linha de 38 leva poço de 24 · 44 leva 30 · 50 leva 32 — sempre no centro | o poço é da linha, não da divisória · vale pra linha de lista e pro cartão que age como linha; **não vale pro aviso**, que tem o poço dele |
-| **A barra do sistema sangra no primeiro andar** | a cor dela é a do que está logo embaixo; sob o véu, escurece junto | a tela começa na borda, não embaixo de uma faixa |
+| **A barra do sistema sangra no primeiro andar** | a cor dela é a do que está logo embaixo; com uma folha aberta, o fundo escurece junto com a tira, a faixa e o conteúdo; o desenho oficial da hora e dos ícones continua legível | a tela começa na borda, e o topo do app não parece disponível atrás da folha |
 | **Folga até o rodapé** | 16px no mínimo, em toda tela | o conteúdo não pode encostar nas ações |
 | **O marcador de escolha é um só** | poço de 24 no checkbox e na coluna do palco, 30 na linha de lista · quadrado vazado de 11, com borda `#4A4166`, no desmarcado · lima cheio de 11 no marcado | quatro versões do mesmo marcador liam como quatro peças diferentes |
 | **A faixa da sessão é uma peça só** | 52px com a linha de baixo, em toda tela · nunca encolhe quando o conteúdo passa da tela · no módulo em falha, a linha é vermelha, de 2px, nos mesmos 52 | desenhada de três jeitos, ela mudava de tamanho de uma tela pra outra |
+
+**Cobertura das folhas · revisão autorizada em 08/10/2026:** o `--veu` cobre todo o fundo do app, incluindo a tira de contexto, a faixa de sessão e o fundo da barra de status. O SVG oficial do Android permanece acima, legível; a folha conserva sua posição e suas medidas. Na T04, os diálogos `06`, `09`, `12`, `13` e `16` usam a mesma cobertura, para a troca entre folha e diálogo manter o véu contínuo. Esta revisão não altera os diálogos da T02, da T13 ou o ENCERRAR sobre outras telas. Ver [gate do véu integral](../06-prototipo/para-o-arquiteto/gate-veu-integral.md).
 
 ## Leis de produto
 

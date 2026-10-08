@@ -142,6 +142,8 @@ O catálogo tem **30 itens** (A=4, B=5, C=4, D=10, E=5, F=2). O herói tem **28 
 
 A, C e D conferem resultados automaticamente; B fotografa ou registra ressalva com justificativa **e foto do problema**. E combina os passos da T14 com o bip respondido aqui. Cartão ou bip não conforme precisa de justificativa e pode ficar resolvido com ressalva. F confere Posição e Evento de teste a partir do recebimento e conferência do evento, sem os antigos pedidos de correção.
 
+No item manual da T13, sem permissão para uma foto ainda não tirada, o primário é `Abrir as configurações`; ao voltar, a permissão é conferida de novo. Com `Não está conforme` marcado e a câmera permitida, `Fotografar o problema` continua disponível até a foto existir, com ou sem justificativa. Depois da foto, sem justificativa, `Conte o que aconteceu` fica apagado e desabilitado; com os dois, o primário é `Salvar com ressalva`. Desmarcado, volta ao `Tirar foto` quando a câmera está permitida. A ordem entre escrever e fotografar é livre.
+
 O automático reprovado abre seu detalhe e **Reler o módulo**: a primeira leitura do caso pode continuar reprovando, e a segunda passar. Alimentação vai de 8,4 para 8,8 e depois 24,3 V; GPS conserva a antena desconectada e depois a conecta. Nada volta sozinho para outra tela. Os resultados atualizam C.
 
 Finalizar exige A a E resolvidas. Se F falhou, pede ciência; aguardando, registra direto. O registro gera relatório e evidências na fila em memória, com a hora fixa, e mostra **Checklist registrado · aguardando autoteste**. A propriedade legada `homologada` sinaliza esse registro; a T16 ainda precisa comprovar a homologação. Câmera e foto do Painel são desta tela, não da T10.
@@ -158,6 +160,8 @@ No computador, Esc simula voltar. A camada aberta tem prioridade: folha ou diál
 
 X, véu, voltar e arraste fecham a folha. O arraste começa depois de 8px e fecha ao soltar além de 56px, pelos tokens; antes disso, volta. Arrastar uma linha não executa sua ação. A folha Outras ações da T11 usa o espaçamento aprovado da folha Não recebi o código: [gate da padronização](para-o-arquiteto/gate-padronizacao-folha-t11.md).
 
+Desde a revisão autorizada em **08/10/2026**, toda folha escurece o fundo inteiro do app: conteúdo, tira de contexto, faixa de sessão e fundo da barra de status. O SVG oficial da hora e dos ícones continua legível; as posições, medidas, ações e consultas paradas permanecem as mesmas. Na T04, os diálogos `06`, `09`, `12`, `13` e `16` compartilham a cobertura, e a troca entre folha e diálogo preserva o véu sem clarear o topo. Os diálogos da T02, da T13 e o ENCERRAR sobre outras telas não mudam neste ciclo. [Gate do véu integral](para-o-arquiteto/gate-veu-integral.md).
+
 ## O teclado (regra 10)
 
 A tela mantém campo e ação acima do teclado, adaptando o miolo que rola e o rodapé. O campo do painel abre teclado numérico. A medida do teclado vem da janela/viewport, sem um segundo desenho da tela. Regras e limitações são documentadas em [teclado.js](app/src/estado/teclado.js).
@@ -168,7 +172,7 @@ O app fica em retrato, inclusive na janela deitada. O palco adapta a moldura; o 
 
 ## Nenhum botão aceso que não faz nada (regra 12)
 
-Ações indisponíveis ficam desabilitadas de verdade e em tinta apagada. Permissão que o sistema não deixa solicitar de novo oferece Abrir as configurações. O protótipo simula as permissões e fotos; o produto precisa ligar essas ações ao Android e à câmera real.
+Ações indisponíveis ficam desabilitadas de verdade e em tinta apagada. Permissão que o sistema não deixa solicitar de novo oferece `Abrir as configurações`. O protótipo simula as permissões e fotos; o produto precisa ligar essas ações ao Android e à câmera real.
 
 ## A URL
 

@@ -110,7 +110,7 @@ export default function T04({ momento, estado: est }) {
   // folha sobe de novo (C12·27, C12·43). Aberto pela URL ou no print, nasce aberto, sem movimento.
   const folhaPedida = FOLHAS.includes(sobre) ? sobre : null
   const camada = usePorCima(sobre)
-  // as folhas do módulo e do ativo abrem embaixo da faixa, que fica acesa em cima do véu (T04/10, 11)
+  // A composição das folhas do módulo e do ativo permanece abaixo da faixa (T04/10, 11).
   const sobFaixa = SOB_A_FAIXA.includes(camada.topo)
 
   // O aviso do acesso vencendo (logica.md · O aviso do acesso, T04/12): no dia
@@ -290,8 +290,8 @@ export default function T04({ momento, estado: est }) {
     // e a faixa, como no aviso do acesso — o menu inteiro fica atrás dele
     porCima = enc.caixa
   }
-  // onde o véu começa, de cada coisa: embaixo da tira (05 a 09), embaixo da faixa
-  // (as folhas do módulo e do ativo, 10 e 11) ou embaixo da barra (o 13)
+  // A região de composição: abaixo da tira (05 a 09), da faixa (10, 11) ou
+  // da barra (13). O fundo cobre o topo em todas elas, sem deslocar as peças.
   const lugar = `t04-sobre ${SOB_A_FAIXA.includes(sobre) ? 't04-sobre-faixa' : ''} ${sobre === 'encerrar' ? 't04-sobre-tudo' : ''}`
   // o aviso do acesso: o véu cobre também a tira e a faixa (T04/12), e o
   // Entendi é o único jeito de fechar
@@ -307,8 +307,6 @@ export default function T04({ momento, estado: est }) {
       <Frase>Depois disso, ele pede a senha de novo — e pra isso precisa de rede.</Frase>
     </Dialogo>
   )
-  const doEncerrar = camada.topo === 'encerrar'
-
   // o voltar do Android (logica.md): o X da folha, o Cancelar do diálogo; no
   // aviso do acesso, o Entendi, que só fecha e é a única saída; no menu, que
   // não tem saída desenhada, nada. No diálogo do ENCERRAR (13), o Continuar a
@@ -322,22 +320,18 @@ export default function T04({ momento, estado: est }) {
   useVoltar(voltar)
 
   // O que fica atrás do véu (G25) é inerte: a folha e o diálogo são modais
-  // (aria-modal), e nem o toque nem o leitor chegam nele. O que fica aceso em
-  // cima do véu, como a referência desenha, fica desabilitado — o toque não faz
-  // nada, e o leitor ouve desabilitado (tela.md: com a folha ou o diálogo
-  // aberto, a tira não se toca): a tira, com toda folha e diálogo (05 a 11), e
-  // a faixa também nas folhas do módulo e do ativo, em que o véu começa
-  // embaixo dela (10, 11). Nas outras, a faixa fica atrás do véu, inerte. No
-  // aviso do acesso e no diálogo do ENCERRAR, o véu cobre a tira também (12,
-  // 13): o topo inteiro fica inerte.
+  // (aria-modal), e nem o toque nem o leitor chegam nele. Tira e faixa também
+  // ficam inertes até terminar o fechamento. A barra escurece seu fundo,
+  // mantendo o desenho do sistema legível, como na T01.
   const montado = camada.montado || aviso
   const atras = montado ? '' : undefined
-  const sobreTudo = aviso || doEncerrar
+  const veuDaBarra = camada.veu ? (FOLHAS.includes(camada.topo) ? 'folha' : 'dialogo')
+    : aviso && presencaDoAviso.veu ? 'dialogo' : null
   return (
     <div className="t04">
-      <BarraDoSistema fundo="tira" />
+      <BarraDoSistema fundo="tira" veu={veuDaBarra} />
       <div className="t04-fundo">
-        <fieldset className="t04-topo" role="presentation" disabled={montado} inert={sobreTudo ? '' : undefined}>
+        <fieldset className="t04-topo" role="presentation" disabled={montado} inert={atras}>
           <TopoDoMenu>
             <TiraDeContexto garagem={caixaAlta(uoDe(uoId).nome)} aoTrocarGaragem={() => abrir('garagem')}
               rotuloGaragem={`Trocar de unidade — ${uoDe(uoId).nome}`}

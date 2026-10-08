@@ -1,0 +1,92 @@
+[
+  {
+    "id": "T04/05-momento-folha-conta",
+    "html_atual": 0.85,
+    "html_base": 0.85,
+    "estrutural_atual": 0
+  },
+  {
+    "id": "T04/06-momento-folha-conta-sair-com-sessao-aberta",
+    "html_atual": 1.1,
+    "html_base": 1.1,
+    "estrutural_atual": 0
+  },
+  {
+    "id": "T04/07-momento-folha-trocar-de-garagem",
+    "html_atual": 1.02,
+    "html_base": 1.02,
+    "estrutural_atual": 0
+  },
+  {
+    "id": "T04/08-estado-folha-trocar-de-garagem-envio-em-andamento",
+    "html_atual": 1.02,
+    "html_base": 1.02,
+    "estrutural_atual": 0
+  },
+  {
+    "id": "T04/09-estado-folha-trocar-de-garagem-com-modulo-conectado",
+    "html_atual": 1.1,
+    "html_base": 1.1,
+    "estrutural_atual": 0
+  },
+  {
+    "id": "T04/10-momento-folha-modulo-conectado",
+    "html_atual": 0.77,
+    "html_base": 0.77,
+    "estrutural_atual": 0
+  },
+  {
+    "id": "T04/11-momento-folha-ativo-da-sessao",
+    "html_atual": 0.77,
+    "html_base": 0.77,
+    "estrutural_atual": 0.02
+  },
+  {
+    "id": "T04/12-estado-acesso-vencendo",
+    "html_atual": 0.04,
+    "html_base": 0.04,
+    "estrutural_atual": 0
+  },
+  {
+    "id": "T04/13-momento-encerrar-antes-de-homologar",
+    "html_atual": 0.03,
+    "html_base": 0.03,
+    "estrutural_atual": 0
+  },
+  {
+    "id": "T04/14-estado-folha-trocar-de-unidade-com-empresa",
+    "html_atual": 0.85,
+    "html_base": 0.85,
+    "estrutural_atual": 0
+  },
+  {
+    "id": "T04/16-estado-fila-parada",
+    "html_atual": 0.55,
+    "html_base": 0.55,
+    "estrutural_atual": 0.14
+  },
+  {
+    "id": "T11/03-momento-outras-acoes",
+    "html_atual": 2,
+    "html_base": 2.01,
+    "estrutural_atual": 0
+  },
+  {
+    "id": "T01/00-tela",
+    "html_atual": 0,
+    "html_base": 0,
+    "estrutural_atual": 0
+  },
+  {
+    "id": "T04/00-tela",
+    "html_atual": 0.06,
+    "html_base": 0.06,
+    "estrutural_atual": 0.06
+  },
+  {
+    "id": "T11/02-momento-tudo-confere",
+    "html_atual": 0.63,
+    "html_base": 0.63,
+    "estrutural_atual": 0.17
+  }
+]

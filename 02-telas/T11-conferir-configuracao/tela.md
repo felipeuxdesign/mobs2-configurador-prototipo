@@ -12,6 +12,7 @@ Comparar o que o módulo tem gravado com o que o cadastro manda — em linguagem
 
 ## O que se toca · regra vigente
 
+- **Cobertura da folha · 08/10/2026:** `Outras ações` escurece todo o fundo do app, incluindo a faixa de sessão e o fundo da barra de status. A hora e os ícones oficiais ficam legíveis. O `ENCERRAR` continua inerte; a folha mantém a posição, o espaçamento aprovado e as mesmas ações. O quadro `03` da coluna continua parado. A descrição histórica da faixa acesa abaixo é anterior a esta revisão. [Gate do véu integral](../../06-prototipo/para-o-arquiteto/gate-veu-integral.md).
 - A leitura compara **Cercas, Rede do módulo, Eventos e Leitor**, nessa ordem visual: quatro linhas, quatro no contador. O Extended ID não faz parte da T11 atual; a rede mostra o nome, nunca o endereço.
 - Cada linha divergente oferece **Corrigir este bloco** e leva à manutenção da T09 com aquele bloco escolhido. Os que dependem do reenviado ficam *revisar em seguida*, conforme o arraste do mock; o resultado da cadeia curta volta ao menu.
 - No herói, a leitura termina em **Tudo confere**, com **Voltar ao menu** e **Outras ações**. A folha também abre nessa situação. Enquanto a leitura corre, as ações do rodapé ficam desabilitadas.

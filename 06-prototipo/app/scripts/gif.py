@@ -20,9 +20,14 @@ FPS = opcao('--fps', 12); VEL = opcao('--vel', 1.5); LARG = opcao('--larg', 330)
 pasta, saida = args[0], args[1]
 ind = json.load(open(os.path.join(pasta, 'indice.json')))
 q = ind['quadros']; c = ind['celular']; ext = ind.get('formato', 'jpg')
+# O screencast pode sair em pixels físicos (2× no fotógrafo), enquanto o
+# retângulo do celular vem em pixels CSS. Converte o recorte para a imagem.
+primeiro = Image.open(os.path.join(pasta, f"q{q[0]['n']:05d}.{ext}"))
+janela = ind.get('janela', primeiro.size)
+escala_x = primeiro.width / janela[0]; escala_y = primeiro.height / janela[1]
 # o recorte: o celular com a moldura, e uma folga em volta, no fundo do palco
-caixa = (max(0, int(c['left']) - FOLGA), max(0, int(c['top']) - FOLGA),
-         int(c['right']) + FOLGA, int(c['bottom']) + FOLGA)
+caixa = (max(0, int((c['left'] - FOLGA) * escala_x)), max(0, int((c['top'] - FOLGA) * escala_y)),
+         int((c['right'] + FOLGA) * escala_x), int((c['bottom'] + FOLGA) * escala_y))
 # o filme começa no primeiro quadro com o app desenhado: antes dele, o palco ainda sem o
 # celular (a capa do GIF no GitHub é o primeiro quadro, e ele tem de ser o login)
 def desenhado(n):
