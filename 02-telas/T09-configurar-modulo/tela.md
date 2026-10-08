@@ -10,6 +10,10 @@ Gravar no módulo o que ele precisa: todos os blocos, na instalação nova; um b
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
 | **Momentos · estados** | 6 · 6 — ver `estados.md` |
 
+## As consultas da manutenção no palco
+
+Os momentos `08`, `09` e `10` ficam disponíveis **abaixo dos estados da coluna**, como *Manutenção · escolher o bloco*, *Manutenção · reenviando* e *Manutenção · concluída*. Cada opção mostra o próprio app no quadro existente, parado e sem toque; a cadeia não corre nessa consulta. Os três conservam a classificação de momento, as referências e os dados, sem acrescentar telas ou estados. O `Voltar ao fluxo` devolve a sessão, o quadro e o avanço de antes da primeira consulta. O fluxo normal e a manutenção já implementada permanecem iguais: o palco só dá acesso aos três desenhos para conferência, sem criar percurso alternativo.
+
 ## O que se toca
 
 - nas travas do envio, **o aviso diz o número e quem fica de fora** — *São 128 registros, e o módulo guarda 96*, *O Terminal Cosme e Damião ficaria de fora* —, e a linha da pré-condição que repetiria o aviso não aparece · no bloco recusado, a linha dos pinos vem logo depois do aviso, antes da cadeia

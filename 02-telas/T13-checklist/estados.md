@@ -1,5 +1,7 @@
 # T13 · estados e momentos
 
+**Regra vigente do palco · 07/10/2026:** o quadro `29`, *Alimentação · relendo*, também fica em **Estados desta tela**, recuado após *Item reprovado*. Abre parado pela coluna e pelo link antigo de momento: sem relógio de releitura, toque ou gravação no fluxo. Os resultados já existentes continuam na família. A referência permanece um momento e o comportamento real de releitura no produto continua o mesmo.
+
 **Momento** é aonde se chega tocando, no fluxo. **Estado** depende do mundo — do módulo, do ônibus, da rede —, e no palco abre pela coluna: é o próprio app montado pelo caso do mock, parado e sem toque.
 
 | Referência | Tipo | Como se chega · o que causa | Caso do mock |

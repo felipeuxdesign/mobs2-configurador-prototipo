@@ -8,8 +8,8 @@
 //    `Sincronizar` → T03. É o do Entrar da T01;
 //  · o de uma empresa só (o caso `uma-empresa`): `08` a lista com ela já marcada e
 //    o `Ver as unidades` aceso → `00` as unidades, com o nome dela em cima e sem o
-//    `Trocar de empresa` → `01` a escolhida → T03. A tela aberta pelo endereço, ou
-//    pelo pulo do palco, é a `00` (a semente da T02, src/estado/sementes.js);
+//    `Trocar de empresa` → `01` a escolhida → T03. As consultas 00 e 01 ficam paradas na coluna; a fotografia conserva essa
+//    semente. O painel e o endereço simples abrem as três empresas do herói.
 //  · o da lista longa (o caso `lista-longa-garagens`), de uma empresa só também:
 //    as nove unidades com a busca (o `02`, o `03` e o `04`, garagens.js).
 // Das outras duas empresas do herói, o mock traz só a contagem: elas se escolhem,

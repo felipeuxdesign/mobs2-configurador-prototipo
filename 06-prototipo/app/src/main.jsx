@@ -12,7 +12,7 @@ import { lerUrl, recarregou } from './palco/rotas.js'
 // recarregada, a página recomeça do login (rotas.js)
 const lido = lerUrl()
 const u = recarregou() && !lido.print ? { ...lido, tela: 'T01', estado: null, momento: null } : lido
-const inicial = semeado(u.tela, { estado: u.estado, momento: u.momento })
+const inicial = semeado(u.tela, { estado: u.estado, momento: u.momento, fluxo: !u.print })
 
 createRoot(document.getElementById('raiz')).render(
   <EstadoProvider inicial={inicial}>

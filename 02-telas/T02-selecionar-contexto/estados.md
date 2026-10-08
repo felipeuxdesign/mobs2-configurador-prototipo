@@ -1,5 +1,7 @@
 # T02 · estados e momentos
 
+**Regra vigente do palco · 07/10/2026:** o painel e `?tela=T02` abrem as três empresas do técnico, como o Entrar. Os exemplos de uma empresa só ficam em **Estados desta tela**, como *Uma empresa · unidades* (`00`) e *Uma empresa · unidade escolhida* (`01`), parados e sem toque. O link antigo do momento `01` também abre parado. A fotografia com `print=1` preserva a referência. Esta regra substitui as notas anteriores que descreviam a semente de uma empresa como percurso navegável; os tipos e as contagens permanecem iguais.
+
 **Momento** é aonde se chega tocando, no fluxo. **Estado** depende do mundo — do módulo, do ônibus, da rede —, e no palco abre pela coluna: é o próprio app montado pelo caso do mock, parado e sem toque.
 
 | Referência | Tipo | Como se chega · o que causa | Caso do mock |

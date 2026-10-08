@@ -1,5 +1,7 @@
 # T10 · Calibração
 
+**Regra vigente do palco · 07/10/2026:** o painel e `?tela=T10` abrem o ônibus RKT-8H42 + M2C-0417 em *Nada a calibrar neste ativo*, como no caminho normal. A calibração do caminhão KNB-5H39 + M2C-0371 fica em **Estados desta tela**: hodômetro (`00`), semeado (`01`), digitado (`05`), gravando (`06`), relendo (`07`), horímetro (`08`) e completa (`09`). Todos os exemplos abrem parados, inclusive pelos links antigos desses momentos. As regras de calibração do ativo da sessão e as fotografias com `print=1` continuam as mesmas. Esta regra substitui a entrada navegável do caminhão descrita nas notas anteriores; não cria referências, tipos ou contagens.
+
 Fazer o módulo contar igual ao painel do ônibus.
 
 | | |

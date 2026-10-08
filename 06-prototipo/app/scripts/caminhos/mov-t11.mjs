@@ -17,9 +17,7 @@
 const C = 'cubic-bezier(0.2, 0.8, 0.2, 1)'
 const esmaece = (em) => ({ prop: 'opacity', ms: 150, em, curva: C })
 const GLIFO = esmaece('ds-glifo')
-const MODULO = esmaece('ds-checagem-par-modulo')   // o que o módulo tem, na 00 (C12·29)
 const TROCA = [esmaece('tela-miolo'), esmaece('ds-rodape')]
-const CHEGA_NAO_BATE = [esmaece('ds-aviso-titulo'), esmaece('ds-aviso-capa'), GLIFO]
 const CHEGA_CONFERE = [esmaece('ds-aviso-titulo'), esmaece('ds-aviso-capa')]
 const LINHA = [300, 560]   // 400 por linha, medido a partir do passo de antes
 const PARADA = [{ quieto: true }, { dorme: 700 }, { quieto: true }]
@@ -40,35 +38,11 @@ export default [
   ...PARADA,
   { ve: 'NÃO BATE COM O CADASTRO' },
 
-  // ── a 00 pelo endereço: a tela abre parada, e a conferência corre dali (G27) ──
-  { abre: '?tela=T11' },
-  { quieto: true },
-  { marcaLugar: true },
-  // a caixa do veredito já está no lugar, neutra: o lugar da palavra reservado, sem texto, e nada conta de zero
-  { naoVe: 'NÃO BATE COM O CADASTRO' },
-  { naoVe: '1 de 4' },
-  { naoOuve: 'NÃO BATE' },
-  // a rodada 2: as ações já estão lá enquanto lê, desligadas, com a frase que diz quando liberam (a 04)
-  { ve: 'As ações liberam quando a leitura terminar.' },
-  { desligado: 'Voltar ao menu' },
-  { ve: '1 de 4', entre: [100, 520] },                     // as cercas, aos 400 da montagem
-  { anima: [GLIFO, MODULO] },                               // o xis no poço, e a linha do módulo junto
-  { naoVe: 'NÃO BATE COM O CADASTRO' },
-  { ve: '2 de 4', entre: LINHA },                           // a rede do módulo
-  { anima: [GLIFO, MODULO] },
-  { ve: '3 de 4', entre: LINHA },                           // os eventos, 400 depois dela
-  { anima: [GLIFO, MODULO] },
-  { naoVe: 'NÃO BATE COM O CADASTRO' },
-  // a quarta linha, o leitor: o veredito entra no lugar — a palavra, a cor do traço por camada, o xis no poço
-  { ve: 'NÃO BATE COM O CADASTRO', entre: LINHA },
-  { anima: [...CHEGA_NAO_BATE, MODULO] },
-  { ve: '4 de 4' },
-  { ouve: 'falha' },
-  { dorme: 250 },
-  { quieto: true },
-  { mesmoLugar: true },                                     // nada mudou de lugar nem de altura
-  { ve: 'Corrigir este bloco' },                            // a rodada 2: a ação mora na linha
-  { naoVe: 'As ações liberam quando a leitura terminar.' },
+  // O endereço simples usa o herói; o par divergente só abre como consulta parada.
+  { abre: '?tela=T11&estado=00-tela' },
+  ...PARADA,
+  { ve: 'NÃO BATE COM O CADASTRO' },
+  { naoToca: 'Corrigir este bloco' },
 
   // ── o 02 pelo menu: a troca entre telas, e o relógio só depois dela (C12·35 b) ──
   { abre: '?tela=T04' },
@@ -126,7 +100,7 @@ export default [
   { quieto: true },
   { ve: '3 de 4', entre: LINHA },
   { quieto: true },
-  { ve: 'NÃO BATE COM O CADASTRO', entre: LINHA },
+  { ve: 'CONFERE COM O CADASTRO', entre: LINHA },
   { quieto: true },
   { ve: '4 de 4' },
   { abre: '?tela=T04' },
@@ -144,7 +118,7 @@ export default [
   { abre: '?tela=T11&print=1' },
   { abre: '?tela=T11' },
   { janela: [1440, 900] },
-  { ve: 'NÃO BATE COM O CADASTRO', ms: 5000 },
+  { ve: 'CONFERE COM O CADASTRO', ms: 5000 },
   { dorme: 250 },
   { palco: 'Revisar em seguida' },
   { chega: 'T11', estado: ESTADOS[1] },
@@ -156,7 +130,7 @@ export default [
   { chega: 'T11', estado: null },
   { quieto: true },
   { ve: '1 de 4', entre: [150, 560] },
-  { ve: 'NÃO BATE COM O CADASTRO', ms: 5000 },
+  { ve: 'CONFERE COM O CADASTRO', ms: 5000 },
   { abre: '?tela=T04' },
   { palco: 'Telas do protótipo' },
   { dorme: 400 },   // o painel desliza da esquerda: o toque espera ele parar no lugar

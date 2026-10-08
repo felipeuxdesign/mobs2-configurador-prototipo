@@ -1,0 +1,97 @@
+[
+  {
+    "id": "T02/00-tela",
+    "consulta": "parada · toque/Esc/tempo bloqueados · link igual"
+  },
+  {
+    "id": "T02/01-momento-escolhida",
+    "consulta": "parada · toque/Esc/tempo bloqueados · link igual"
+  },
+  {
+    "id": "T09/08-momento-manutencao-escolher-o-bloco",
+    "consulta": "parada · toque/Esc/tempo bloqueados · link igual"
+  },
+  {
+    "id": "T09/09-momento-manutencao-reenviando",
+    "consulta": "parada · toque/Esc/tempo bloqueados · link igual"
+  },
+  {
+    "id": "T09/10-momento-manutencao-concluida",
+    "consulta": "parada · toque/Esc/tempo bloqueados · link igual"
+  },
+  {
+    "id": "T10/00-tela",
+    "consulta": "parada · toque/Esc/tempo bloqueados · link igual"
+  },
+  {
+    "id": "T10/01-momento-hodometro-semeado",
+    "consulta": "parada · toque/Esc/tempo bloqueados · link igual"
+  },
+  {
+    "id": "T10/05-momento-hodometro-digitado",
+    "consulta": "parada · toque/Esc/tempo bloqueados · link igual"
+  },
+  {
+    "id": "T10/06-momento-gravando-no-modulo",
+    "consulta": "parada · toque/Esc/tempo bloqueados · link igual"
+  },
+  {
+    "id": "T10/07-momento-relendo",
+    "consulta": "parada · toque/Esc/tempo bloqueados · link igual"
+  },
+  {
+    "id": "T10/08-momento-horimetro",
+    "consulta": "parada · toque/Esc/tempo bloqueados · link igual"
+  },
+  {
+    "id": "T10/09-momento-calibracao-completa",
+    "consulta": "parada · toque/Esc/tempo bloqueados · link igual"
+  },
+  {
+    "id": "T11/00-tela",
+    "consulta": "parada · toque/Esc/tempo bloqueados · link igual"
+  },
+  {
+    "id": "T11/03-momento-outras-acoes",
+    "consulta": "parada · toque/Esc/tempo bloqueados · link igual"
+  },
+  {
+    "id": "T13/29-momento-relendo-o-modulo",
+    "consulta": "parada · toque/Esc/tempo bloqueados · link igual"
+  },
+  {
+    "cadeiaConcluida": "consulta mantém 4 divergências e devolve os blocos concluídos"
+  },
+  {
+    "tela": "T02",
+    "retorno": "mesma sessão · mesmas etapas · mesmos casos · mesmo endereço"
+  },
+  {
+    "tela": "T09",
+    "retorno": "mesma sessão · mesmas etapas · mesmos casos · mesmo endereço"
+  },
+  {
+    "tela": "T10",
+    "retorno": "mesma sessão · mesmas etapas · mesmos casos · mesmo endereço"
+  },
+  {
+    "tela": "T11",
+    "retorno": "mesma sessão · mesmas etapas · mesmos casos · mesmo endereço"
+  },
+  {
+    "tela": "T13",
+    "retorno": "mesma sessão · mesmas etapas · mesmos casos · mesmo endereço"
+  },
+  {
+    "tela": "T02",
+    "painel": "entrada normal interativa"
+  },
+  {
+    "tela": "T10",
+    "painel": "entrada normal interativa"
+  },
+  {
+    "tela": "T11",
+    "painel": "entrada normal interativa"
+  }
+]

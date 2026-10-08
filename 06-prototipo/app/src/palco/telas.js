@@ -1,4 +1,4 @@
-// As 16 telas e o índice das 147 referências (02-telas/indice.json, lido de
+// As 15 telas e o índice das 191 referências (02-telas/indice.json, lido de
 // onde está). O painel em duas partes (decisão 25, G18, quadro 04).
 import indice from '../../../../02-telas/indice.json'
 
@@ -22,11 +22,14 @@ export const REFERENCIAS = indice.itens
 // o pacote 23: a família em cadeia (o detalhe, o não resolvido, o relido), cada um depois do anterior,
 // e a coluna os recua um nível (Coluna.jsx)
 export const estadosDa = (tela) => {
-  const naColuna = REFERENCIAS.filter((r) => r.tela === tela && (r.tipo === 'estado' ? r.coluna !== false : r.coluna === true && !!r.depoisDe))
+  const naColuna = REFERENCIAS.filter((r) => r.tela === tela && (r.tipo === 'estado' ? r.coluna !== false : r.coluna === true))
   const filhosDe = (id) => naColuna.filter((r) => r.depoisDe === id)
   const comFilhos = (r) => [r, ...filhosDe(r.id).flatMap(comFilhos)]
-  return naColuna.filter((r) => !r.depoisDe).flatMap(comFilhos)
+  const raizes = naColuna.filter((r) => !r.depoisDe)
+  return [...raizes.filter((r) => !r.colunaNoFim), ...raizes.filter((r) => r.colunaNoFim)].flatMap(comFilhos)
 }
+// Consultas de cenários especiais, sempre paradas; os tipos normativos continuam no índice.
+export const consultaDa = (tela, nome) => REFERENCIAS.some((r) => r.tela === tela && r.nome === nome && r.consulta === true)
 export const momentosDa = (tela) => REFERENCIAS.filter((r) => r.tela === tela && r.tipo === 'momento')
 // a regra dos seis (palco.md): com mais de seis estados na coluna, eles se agrupam — só a T07, pelo `grupo` do indice.json
 export const GRUPOS = { T07: [['modulo', 'O módulo'], ['can', 'A CAN']] }

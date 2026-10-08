@@ -40,7 +40,7 @@ Nenhuma tela expõe comando, sintaxe ou parâmetro técnico: o técnico responde
 O protótipo roda no navegador e anda só por toque, do login ao encerramento. No computador, o celular aparece em tamanho real dentro de um palco:
 
 - o quadrado no canto abre o painel com as 15 telas;
-- a coluna ao lado lista os estados da tela aberta — sem rede, módulo que não responde, pacote vencido —, cada um montado pelo seu caso nos dados de exemplo, e, logo depois de cada estado, o momento que nasce dele, quando há;
+- a coluna **Estados desta tela** oferece os exemplos parados — erros, manutenção, calibração do caminhão e outras condições —, montados pelos dados de exemplo. O toque não avança esses quadros; **Voltar ao fluxo** devolve o percurso guardado. O painel abre o contexto normal de cada tela;
 - cada tela, momento e estado tem um link próprio (`?tela=T07&estado=02-estado-serial-nao-cadastrado`).
 
 No celular, o app ocupa a tela inteira.

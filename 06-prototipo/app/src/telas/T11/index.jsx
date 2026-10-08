@@ -90,7 +90,7 @@ const SEMENTE = SEMENTES.T11.sessao
 // o par módulo × ativo da sessão; sem sessão, o da semente
 const parDaSessao = (s) => (s?.ativoId ? { ativoId: s.ativoId, moduloSerial: s.moduloSerial } : { ativoId: SEMENTE.ativoId, moduloSerial: SEMENTE.moduloSerial })
 
-// O endereço do 02 com a semente do painel (o par que diverge) pede outro
+// O endereço do 02 com a semente da referência (o par que diverge) pede outro
 // mundo: a sessão do herói, que confere (T11·1, G20). A tela ajusta o estado
 // único uma vez, ao montar, como a T04 faz com os momentos dela.
 // A 04 (o pacote 5) é a conferência do herói, que confere, parada no meio.
@@ -126,7 +126,7 @@ export default function T11({ momento, estado: est }) {
   const blocos = BLOCOS_DA_CADEIA.length
 
   // a folha Outras ações (03): a URL abre e fecha (G20); só com o que ainda diverge
-  const outrasPedida = est == null && naoBatem > 0 && momento === REF.outras
+  const outrasPedida = naoBatem > 0 && (est === REF.outras || (est == null && momento === REF.outras))
   // no tudo confere (02, o complemento da rodada 3), o Outras ações aceso abre a mesma folha por
   // cima da 02, sem quadro próprio: a URL fica no 02
   const [outrasNoConfere, setOutrasNoConfere] = useState(false)

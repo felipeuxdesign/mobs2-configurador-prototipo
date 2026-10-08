@@ -1,10 +1,12 @@
 # T10 · estados e momentos
 
+**Regra vigente do palco · 07/10/2026:** o painel e `?tela=T10` abrem o ônibus RKT-8H42 + M2C-0417 em *Nada a calibrar neste ativo*, como no caminho normal. A calibração do caminhão KNB-5H39 + M2C-0371 fica em **Estados desta tela**: hodômetro (`00`), semeado (`01`), digitado (`05`), gravando (`06`), relendo (`07`), horímetro (`08`) e completa (`09`). Todos os exemplos abrem parados, inclusive pelos links antigos desses momentos. As regras de calibração do ativo da sessão e as fotografias com `print=1` continuam as mesmas. Esta regra substitui a entrada navegável do caminhão descrita nas notas anteriores; não cria referências, tipos ou contagens.
+
 **Momento** é aonde se chega tocando, no fluxo. **Estado** depende do mundo — do módulo, do ônibus, da rede —, e no palco abre pela coluna: é o próprio app montado pelo caso do mock, parado e sem toque.
 
 | Referência | Tipo | Como se chega · o que causa | Caso do mock |
 |---|---|---|---|
-| `00-tela` | tela | a entrada da tela | sessão M2C-0417 + RKT-8H42 · hodômetro 184.320 no módulo, 482.317 no painel |
+| `00-tela` | tela | a entrada da calibração do caminhão | sessão M2C-0371 + KNB-5H39 · hodômetro 87.604 no módulo, 87.712 no painel |
 | `01-momento-hodometro-semeado` | momento | `Semear o hodômetro` | `calibracao` |
 | `02-estado-rotacao-caminhao-coletor` | estado | o modelo calibra rotação e velocidade | `calibracao.porModelo · ma-02 · KNB-5H39` |
 | `03-estado-ja-semeado` | estado | o hodômetro já foi semeado antes | `calibracao` |

@@ -67,6 +67,8 @@ import { T } from './textos.js'
 import './t10.css'
 
 const HORA = M.HORA_NOMINAL
+// As referências da calibração consultadas como estado mantêm o relógio e as ações parados.
+const consultaDeCalibracao = (est) => est === REF.tela || Object.values(REF).some((r) => r === est && r.includes('-momento-'))
 // o módulo foi gravado e conferiu: o segmento do passo acende (01), alto como o atual (08 e 09) · a
 // rodada 2: o não confere (10) fica no segmento atual, branco — gravou, mas não conferiu
 const GRAVADO = ['semeada']
@@ -163,6 +165,7 @@ function inicio({ momento, est, mundo, ordem, etapa, ativoId }) {
 
 // a sessão do quadro: a do caso, num estado da coluna; no fluxo, a do estado único; sem ela, a semente
 function sessaoDoQuadro(est, unico) {
+  if (consultaDeCalibracao(est)) return { mundo: null, sessao: SEMENTES.T10.sessao }
   const mundo = est ? mundoDoEstado(est, SEMENTES.T10.contexto.uoId) : null
   const sessao = mundo
     ? { ...SEMENTES.T10.sessao, ativoId: mundo.ativoId, moduloSerial: mundo.moduloSerial }
@@ -214,7 +217,8 @@ function Calibracao({ momento, estado: est }) {
   const { ativoId, moduloSerial } = sessao
   const par = grandezasDoPar(ativoId, moduloSerial)
   const ordem = mundo ? mundo.ordem : par.calibraveis
-  const [fluxo, setFluxo] = useState(() => inicio({ momento, est, mundo, ordem, etapa: unico.etapas.calibracao, ativoId }))
+  const consulta = consultaDeCalibracao(est)
+  const [fluxo, setFluxo] = useState(() => inicio({ momento: consulta ? est : momento, est: consulta ? null : est, mundo, ordem, etapa: consulta ? null : unico.etapas.calibracao, ativoId }))
   const vivo = useRef(unico)
   vivo.current = unico
   const relogios = useRef([])

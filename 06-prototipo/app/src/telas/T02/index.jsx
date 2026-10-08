@@ -19,8 +19,8 @@
 //    as unidades espera: o mock traz só a contagem delas
 //  · uma empresa só (o caso uma-empresa): 08-estado-uma-empresa-ja-marcada (a lista
 //    com ela marcada e o Ver as unidades aceso) → 00-tela (as unidades, com o nome
-//    dela em cima e sem o Trocar de empresa) → 01-momento-escolhida → T03. A tela
-//    aberta pelo endereço, ou pelo pulo do palco, é a 00 (a semente da T02)
+//    dela em cima e sem o Trocar de empresa) → 01-momento-escolhida → T03. A coluna
+//    consulta os quadros 00 e 01 parados; o painel abre as empresas do herói
 //  · a lista longa (o caso lista-longa-garagens, de uma empresa só):
 //    02-estado-lista-longa-com-busca (9 unidades, mais que o limite sem busca, e a
 //    busca aparece; ela filtra por nome ou cidade) · 03-momento-busca-sem-resultado (a

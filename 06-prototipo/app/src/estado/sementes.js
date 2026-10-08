@@ -1,6 +1,6 @@
-// As sementes (logica.md, G21): pular direto pra uma tela pelo painel monta o
+// As sementes (logica.md, G21): a fotografia e as consultas usam o
 // estado mínimo que ela precisa. Só ids e valores lidos de M — nada digitado.
-// Onde a semente escrita contradiz a 00 da referência, vale a referência (G21).
+// Estas sementes preservam as referências (G21); semeado({ fluxo: true }) monta a entrada normal do palco para T02, T10 e T11.
 import { M } from '../dados/mock.js'
 
 const HEROI = { moduloSerial: 'M2C-0417', ativoId: 'a-01' }

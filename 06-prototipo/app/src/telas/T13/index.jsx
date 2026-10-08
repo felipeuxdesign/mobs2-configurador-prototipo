@@ -247,7 +247,7 @@ export default function T13({ momento, estado: est }) {
     irQuadro(q.item === RELEITURA_DO_QUADRO[REF.relendo].item && releituras === 0 ? REF.relendo : null)
   }
   useEffect(() => {
-    if (EM_QUADRO || q.releitura !== 'relendo') return undefined
+    if (EM_QUADRO || est != null || q.releitura !== 'relendo') return undefined
     const relogio = setTimeout(() => {
       // deu certo: a mesma tela, positiva (30 a 33); não deu, o valor novo, ainda vermelho, o xis
       // com o que ainda falta, e o Reler de novo (34 a 37)

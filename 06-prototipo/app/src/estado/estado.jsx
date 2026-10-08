@@ -5,6 +5,7 @@
 import { createContext, useContext, useReducer } from 'react'
 import { M } from '../dados/mock.js'
 import { SEMENTES } from './sementes.js'
+import { consultaDa } from '../palco/telas.js'
 
 export function estadoVazio() {
   return {
@@ -40,10 +41,13 @@ export function estadoVazio() {
 
 // Pular direto pra uma tela (o painel, a URL) monta o estado mínimo dela (G21).
 export function semeado(tela, extra = {}) {
-  const base = estadoVazio(), s = SEMENTES[tela] ?? {}
+  const base = estadoVazio()
+  // A fotografia conserva a semente da referência. O palco abre o caminho normal.
+  const normal = extra.fluxo && !extra.estado && !extra.momento
+  const s = normal && (tela === 'T10' || tela === 'T11') ? SEMENTES.T09 : SEMENTES[tela] ?? {}
   return {
     ...base,
-    contexto: s.contexto ?? base.contexto,
+    contexto: normal && tela === 'T02' ? { ...base.contexto, empresas: { caso: 'heroi', atual: null } } : s.contexto ?? base.contexto,
     sessao: s.sessao ?? base.sessao,
     etapas: { ...base.etapas, ...s.etapas },
     tela: { ...base.tela, id: tela, momento: extra.momento ?? null, estado: extra.estado ?? null },
@@ -55,10 +59,14 @@ function reduzir(estado, acao) {
     // os pulos do palco trocam o estado inteiro: a geração sobe, e a tela remonta do zero
     case 'recomecar': return { ...estadoVazio(), geracao: estado.geracao + 1 }
     case 'ir': return { ...estado, antes: null, tela: { id: acao.tela, momento: acao.momento ?? null, estado: acao.estado ?? null, folha: null } }
-    case 'pular': return { ...semeado(acao.tela), geracao: estado.geracao + 1 }
+    case 'pular': return { ...semeado(acao.tela, { fluxo: true }), geracao: estado.geracao + 1 }
     // abrir um estado guarda o instante; trocar de estado não troca o instante guardado
-    case 'abrir-estado': return { ...estado, geracao: estado.geracao + 1, antes: estado.antes ?? { ...estado, antes: null }, tela: { ...estado.tela, estado: acao.estado, momento: null } }
-    case 'voltar-ao-fluxo': return { ...(estado.antes ?? semeado(estado.tela.id)), geracao: estado.geracao + 1 }
+    case 'abrir-estado': {
+      const consulta = consultaDa(estado.tela.id, acao.estado)
+      const quadro = consulta ? semeado(estado.tela.id, { estado: acao.estado }) : estado
+      return { ...quadro, geracao: estado.geracao + 1, antes: estado.antes ?? { ...estado, antes: null }, tela: { ...quadro.tela, estado: acao.estado, momento: null } }
+    }
+    case 'voltar-ao-fluxo': return { ...(estado.antes ?? semeado(estado.tela.id, { fluxo: true })), geracao: estado.geracao + 1 }
     case 'mesclar': return { ...estado, ...acao.parcial }
     default: return estado
   }

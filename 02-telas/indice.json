@@ -312,7 +312,11 @@
       "como": "Ver as unidades, com uma empresa só — o nome dela fica em cima das unidades",
       "caso": "`uma-empresa`",
       "html": "02-telas/T02-selecionar-contexto/referencias/html/00-tela.html",
-      "png": "02-telas/T02-selecionar-contexto/referencias/png/00-tela.png"
+      "png": "02-telas/T02-selecionar-contexto/referencias/png/00-tela.png",
+      "coluna": true,
+      "consulta": true,
+      "rotulo": "Uma empresa · unidades",
+      "colunaNoFim": true
     },
     {
       "id": "T02/01-momento-escolhida",
@@ -324,7 +328,11 @@
       "como": "tocar numa unidade, com uma empresa só",
       "caso": "uma-empresa",
       "html": "02-telas/T02-selecionar-contexto/referencias/html/01-momento-escolhida.html",
-      "png": "02-telas/T02-selecionar-contexto/referencias/png/01-momento-escolhida.png"
+      "png": "02-telas/T02-selecionar-contexto/referencias/png/01-momento-escolhida.png",
+      "coluna": true,
+      "consulta": true,
+      "rotulo": "Uma empresa · unidade escolhida",
+      "colunaNoFim": true
     },
     {
       "id": "T02/02-estado-lista-longa-com-busca",
@@ -1347,7 +1355,11 @@
       "como": "`Configurar módulo`, numa manutenção",
       "caso": "modulo-ja-deste-ativo",
       "html": "02-telas/T09-configurar-modulo/referencias/html/08-momento-manutencao-escolher-o-bloco.html",
-      "png": "02-telas/T09-configurar-modulo/referencias/png/08-momento-manutencao-escolher-o-bloco.png"
+      "png": "02-telas/T09-configurar-modulo/referencias/png/08-momento-manutencao-escolher-o-bloco.png",
+      "coluna": true,
+      "consulta": true,
+      "rotulo": "Manutenção · escolher o bloco",
+      "colunaNoFim": true
     },
     {
       "id": "T09/09-momento-manutencao-reenviando",
@@ -1359,7 +1371,11 @@
       "como": "`Reenviar`, com um bloco escolhido",
       "caso": "modulo-ja-deste-ativo",
       "html": "02-telas/T09-configurar-modulo/referencias/html/09-momento-manutencao-reenviando.html",
-      "png": "02-telas/T09-configurar-modulo/referencias/png/09-momento-manutencao-reenviando.png"
+      "png": "02-telas/T09-configurar-modulo/referencias/png/09-momento-manutencao-reenviando.png",
+      "coluna": true,
+      "consulta": true,
+      "rotulo": "Manutenção · reenviando",
+      "colunaNoFim": true
     },
     {
       "id": "T09/10-momento-manutencao-concluida",
@@ -1371,7 +1387,11 @@
       "como": "a cadeia curta da manutenção fecha · as cercas relidas",
       "caso": "",
       "html": "02-telas/T09-configurar-modulo/referencias/html/10-momento-manutencao-concluida.html",
-      "png": "02-telas/T09-configurar-modulo/referencias/png/10-momento-manutencao-concluida.png"
+      "png": "02-telas/T09-configurar-modulo/referencias/png/10-momento-manutencao-concluida.png",
+      "coluna": true,
+      "consulta": true,
+      "rotulo": "Manutenção · concluída",
+      "colunaNoFim": true
     },
     {
       "id": "T09/11-momento-conferindo-o-servidor",
@@ -1410,7 +1430,11 @@
       "como": "entrada",
       "caso": "calibracao",
       "html": "02-telas/T10-calibracao/referencias/html/00-tela.html",
-      "png": "02-telas/T10-calibracao/referencias/png/00-tela.png"
+      "png": "02-telas/T10-calibracao/referencias/png/00-tela.png",
+      "coluna": true,
+      "consulta": true,
+      "rotulo": "Caminhão · hodômetro",
+      "colunaNoFim": true
     },
     {
       "id": "T10/01-momento-hodometro-semeado",
@@ -1422,7 +1446,11 @@
       "como": "`Semear o hodômetro`",
       "caso": "calibracao",
       "html": "02-telas/T10-calibracao/referencias/html/01-momento-hodometro-semeado.html",
-      "png": "02-telas/T10-calibracao/referencias/png/01-momento-hodometro-semeado.png"
+      "png": "02-telas/T10-calibracao/referencias/png/01-momento-hodometro-semeado.png",
+      "coluna": true,
+      "consulta": true,
+      "rotulo": "Caminhão · hodômetro semeado",
+      "colunaNoFim": true
     },
     {
       "id": "T10/02-estado-rotacao-caminhao-coletor",
@@ -1479,7 +1507,11 @@
       "como": "digitar o valor do painel",
       "caso": "calibracao",
       "html": "02-telas/T10-calibracao/referencias/html/05-momento-hodometro-digitado.html",
-      "png": "02-telas/T10-calibracao/referencias/png/05-momento-hodometro-digitado.png"
+      "png": "02-telas/T10-calibracao/referencias/png/05-momento-hodometro-digitado.png",
+      "coluna": true,
+      "consulta": true,
+      "rotulo": "Caminhão · hodômetro digitado",
+      "colunaNoFim": true
     },
     {
       "id": "T10/06-momento-gravando-no-modulo",
@@ -1491,7 +1523,11 @@
       "como": "tocar em `Semear o hodômetro` · 1s",
       "caso": "calibracao",
       "html": "02-telas/T10-calibracao/referencias/html/06-momento-gravando-no-modulo.html",
-      "png": "02-telas/T10-calibracao/referencias/png/06-momento-gravando-no-modulo.png"
+      "png": "02-telas/T10-calibracao/referencias/png/06-momento-gravando-no-modulo.png",
+      "coluna": true,
+      "consulta": true,
+      "rotulo": "Caminhão · gravando",
+      "colunaNoFim": true
     },
     {
       "id": "T10/07-momento-relendo",
@@ -1503,7 +1539,11 @@
       "como": "depois de gravar · 1s, e o tambor rola",
       "caso": "calibracao",
       "html": "02-telas/T10-calibracao/referencias/html/07-momento-relendo.html",
-      "png": "02-telas/T10-calibracao/referencias/png/07-momento-relendo.png"
+      "png": "02-telas/T10-calibracao/referencias/png/07-momento-relendo.png",
+      "coluna": true,
+      "consulta": true,
+      "rotulo": "Caminhão · relendo",
+      "colunaNoFim": true
     },
     {
       "id": "T10/08-momento-horimetro",
@@ -1515,7 +1555,11 @@
       "como": "`Calibrar o horímetro`",
       "caso": "calibracao",
       "html": "02-telas/T10-calibracao/referencias/html/08-momento-horimetro.html",
-      "png": "02-telas/T10-calibracao/referencias/png/08-momento-horimetro.png"
+      "png": "02-telas/T10-calibracao/referencias/png/08-momento-horimetro.png",
+      "coluna": true,
+      "consulta": true,
+      "rotulo": "Caminhão · horímetro",
+      "colunaNoFim": true
     },
     {
       "id": "T10/09-momento-calibracao-completa",
@@ -1527,7 +1571,11 @@
       "como": "`Semear o horímetro`, com a releitura conferindo",
       "caso": "calibracao",
       "html": "02-telas/T10-calibracao/referencias/html/09-momento-calibracao-completa.html",
-      "png": "02-telas/T10-calibracao/referencias/png/09-momento-calibracao-completa.png"
+      "png": "02-telas/T10-calibracao/referencias/png/09-momento-calibracao-completa.png",
+      "coluna": true,
+      "consulta": true,
+      "rotulo": "Caminhão · calibração completa",
+      "colunaNoFim": true
     },
     {
       "id": "T10/10-estado-releitura-nao-confere",
@@ -1569,7 +1617,11 @@
       "como": "entrada",
       "caso": "",
       "html": "02-telas/T11-conferir-configuracao/referencias/html/00-tela.html",
-      "png": "02-telas/T11-conferir-configuracao/referencias/png/00-tela.png"
+      "png": "02-telas/T11-conferir-configuracao/referencias/png/00-tela.png",
+      "coluna": true,
+      "consulta": true,
+      "rotulo": "Não bate com o cadastro",
+      "colunaNoFim": true
     },
     {
       "id": "T11/01-estado-conteudo-que-o-app-nao-reconhece",
@@ -1608,7 +1660,11 @@
       "como": "tocar em Outras ações, no rodapé da conferência",
       "caso": "",
       "html": "02-telas/T11-conferir-configuracao/referencias/html/03-momento-outras-acoes.html",
-      "png": "02-telas/T11-conferir-configuracao/referencias/png/03-momento-outras-acoes.png"
+      "png": "02-telas/T11-conferir-configuracao/referencias/png/03-momento-outras-acoes.png",
+      "coluna": true,
+      "consulta": true,
+      "rotulo": "Divergência · outras ações",
+      "colunaNoFim": true
     },
     {
       "id": "T11/04-momento-conferindo",
@@ -2089,7 +2145,11 @@
       "como": "tocar em Reler o módulo, no detalhe de um item reprovado: o botão diz Relendo o módulo, ali mesmo",
       "caso": "can-estatico-bateria",
       "html": "02-telas/T13-checklist/referencias/html/29-momento-relendo-o-modulo.html",
-      "png": "02-telas/T13-checklist/referencias/png/29-momento-relendo-o-modulo.png"
+      "png": "02-telas/T13-checklist/referencias/png/29-momento-relendo-o-modulo.png",
+      "coluna": true,
+      "consulta": true,
+      "rotulo": "Alimentação · relendo",
+      "depoisDe": "T13/09-estado-item-reprovado"
     },
     {
       "id": "T13/30-momento-alimentacao-relida",

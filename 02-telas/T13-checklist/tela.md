@@ -1,5 +1,7 @@
 # T13 · Checklist
 
+**Regra vigente do palco · 07/10/2026:** o quadro `29`, *Alimentação · relendo*, também fica em **Estados desta tela**, recuado após *Item reprovado*. Abre parado pela coluna e pelo link antigo de momento: sem relógio de releitura, toque ou gravação no fluxo. Os resultados já existentes continuam na família. A referência permanece um momento e o comportamento real de releitura no produto continua o mesmo.
+
 Fechar a homologação: o que o app já provou sozinho, e o que o técnico ainda precisa provar.
 
 | | |

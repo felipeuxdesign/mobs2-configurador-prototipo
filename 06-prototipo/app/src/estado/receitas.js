@@ -56,6 +56,8 @@ export const RECEITAS = {
   'T10/04-estado-modulo-sem-pulsos': { casos: ['grandeza-indisponivel'], dados: ['calibracao.bruto'] },
   'T10/11-estado-nada-a-calibrar': { dados: ['calibracao.porModelo'], obs: 'o ônibus lê rotação e hodômetro da CAN: nada a calibrar, e o ciclo de testes direto (a rodada 2 do retorno do PM) · no fluxo, o herói chega aqui' },
   'T10/10-estado-releitura-nao-confere': { casos: ['releitura-nao-confere'], obs: 'a releitura 500 m abaixo, e a tolerância é 120 m: não confere, e Semear de novo (entrega do design de 25/09)' },
+  'T11/00-tela': { casos: ['diff-divergente'], obs: 'consulta parada do par divergente; independe da cadeia do fluxo guardado' },
+  'T11/03-momento-outras-acoes': { casos: ['diff-divergente'], obs: 'a folha do exemplo divergente, parada sobre a conferência' },
   'T11/01-estado-conteudo-que-o-app-nao-reconhece': { casos: ['indice-nao-classificado'], obs: 'as quatro que se comparam conferem, o Extended ID só informa, e o conteúdo fora dos blocos é 1 a mais (entrega do checklist; o pacote 2)' },
   'T11/05-estado-revisar-em-seguida': { casos: ['cercas-reenviadas'], obs: 'o herói (RKT-8H42 + M2C-0417) depois de reenviar as cercas numa manutenção: elas conferem, e o leitor e os eventos ficam revisar em seguida, pelo arraste — Revisar o leitor (o pacote 2, decisão 53)' },
   'T12/02-estado-nenhuma-instalacao': { dados: ['instalacoes'], aditivo: 'instalacoes-vazia' },

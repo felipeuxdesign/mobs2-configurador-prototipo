@@ -39,7 +39,7 @@ login → a Viação Atlântico Sul → a unidade Várzea → sincroniza o pacot
 → o diagnóstico do módulo: as sete linhas conferem, e a faixa desce · a CAN espera o ativo
 → o ônibus RKT-8H42 → confirma o vínculo: placa, frota, fabricante e modelo
 → o que vai ser gravado: a limpeza primeiro, e o espaço cabe → a cadeia grava e relê os blocos
-→ a CAN do ônibus aparece no diagnóstico → calibra o hodômetro, e o horímetro se quiser
+→ a CAN do ônibus aparece no diagnóstico → Nada a calibrar neste ativo → o ciclo de testes
 → o ciclo de testes, parado: os quatro passos (a rodada 1 do retorno do PM), o técnico confere o cartão lido, o evento chega → o checklist registra, aguardando autoteste → ENCERRAR → o reinício automático e o autoteste → a instalação homologada (T16/02) → a faixa sobe → menu sem sessão
 ```
 
@@ -64,15 +64,25 @@ Pular direto pra uma tela pelo painel monta o estado mínimo que ela precisa pra
 | T06 · Selecionar ativo | sessão M2C-0417 · dez ônibus no pacote |
 | T07 · Diagnóstico do módulo | sessão M2C-0417, ainda sem ativo · as sete linhas do módulo · a CAN espera o ativo |
 | T09 · Configurar módulo | sessão M2C-0417 + RKT-8H42 · instalação nova · abre no que vai ser gravado |
-| T10 · Calibração | sessão M2C-0417 + RKT-8H42 · hodômetro 184.320 no módulo, 482.317 no painel |
-| T11 · Conferir configuração | M2C-0438 + ONK-8Q90 · caso diff-divergente · a Garagem Ibura, a unidade do ONK-8Q90, com o pacote dela (G21) |
+| T10 · Calibração | sessão M2C-0417 + RKT-8H42 · Nada a calibrar neste ativo |
+| T11 · Conferir configuração | M2C-0417 + RKT-8H42 · caso `conferencia-confere` · unidade Várzea · a leitura chega ao `02`, Tudo confere |
 | T12 · Últimas instalações | sessão M2C-0417 + RKT-8H42 · unidade Várzea · cinco instalações (a 00 desenha a sessão aberta, G21) |
 | T13 · Checklist | sessão M2C-0417 + RKT-8H42 · 28 itens (o retorno do PM) |
 | T14 · Ciclo de testes | sessão M2C-0417 + RKT-8H42 · fila com 6 mensagens e 2 de diagnóstico |
 | T15 · Fila de saída | fila com dois itens · um com erro |
 | T16 · Sessão | sessão M2C-0417 + RKT-8H42 homologada |
 
-- **no protótipo** (a otimização 400): a semente da T02 é a `T02/00` — o mundo de uma empresa só, o caso `uma-empresa`, já confirmada: as unidades da Viação, com o nome dela em cima e sem o `Trocar de empresa` (`app/src/estado/sementes.js`) —, e não as três empresas do herói que a linha diz: a `00` é do caso `uma-empresa` (a `estados.md` da T02), e o endereço dela é o da tela, `?tela=T02`, o mesmo do pulo, que a régua fotografa. O herói chega às três empresas dele (o `T02/05`) pelo `Entrar` da T01. O pulo pra T04, e o `07` e o `09` da T02 pelo endereço, abrem o mundo do herói (desvio nomeado, pro arquiteto: a semente ser o herói, o `05`, com a `00` fotografada por um endereço do mundo `uma-empresa`, ou a linha dizer a `00`)
+- **histórico, substituído pelas consultas paradas de 07/10/2026** (a otimização 400): a semente da T02 é a `T02/00` — o mundo de uma empresa só, o caso `uma-empresa`, já confirmada: as unidades da Viação, com o nome dela em cima e sem o `Trocar de empresa` (`app/src/estado/sementes.js`) —, e não as três empresas do herói que a linha diz: a `00` é do caso `uma-empresa` (a `estados.md` da T02), e o endereço dela é o da tela, `?tela=T02`, o mesmo do pulo, que a régua fotografa. O herói chega às três empresas dele (o `T02/05`) pelo `Entrar` da T01. O pulo pra T04, e o `07` e o `09` da T02 pelo endereço, abrem o mundo do herói (desvio nomeado, pro arquiteto: a semente ser o herói, o `05`, com a `00` fotografada por um endereço do mundo `uma-empresa`, ou a linha dizer a `00`)
+
+## As consultas paradas · sem percursos especiais no palco
+
+A T11 escolhida no painel abre a semente normal do herói; pelo menu, usa a sessão em curso. O exemplo divergente M2C-0438 + ONK-8Q90 (`diff-divergente`) fica na opção **Não bate com o cadastro**, abaixo dos estados da coluna, montado na referência `00-tela`, já lido e sem toque. A referência continua sendo tela, e as contagens não mudam.
+
+Na T09, a coluna acrescenta **Manutenção · escolher o bloco**, **Manutenção · reenviando** e **Manutenção · concluída**, depois dos estados. São os momentos `08`, `09` e `10`, montados nos quadros das referências, com o par do herói e as cercas, parados e sem toque. Continuam sendo momentos: o acesso de consulta não cria estados nem um caminho alternativo.
+
+A T02 entra nas três empresas do técnico; o exemplo de uma empresa fica nos quadros 00 e 01 da coluna. A T10 entra no ônibus sem calibração; os sete quadros do caminhão (00, 01, 05–09) ficam parados na coluna. O quadro T13/29, relendo a Alimentação, entra na família do item reprovado e não avança com o tempo. A T07/06 e os resultados T13/30–37 já eram consultas paradas. Nenhum caso ou referência foi acrescentado.
+
+Ao abrir a primeira opção da coluna, o palco guarda o fluxo inteiro — sessão, quadro e avanço. Trocar entre consultas conserva esse primeiro retorno; tocar no app parado não altera nada. **Voltar ao fluxo** restaura o que estava guardado. Num endereço que já abre uma consulta parada, sem fluxo anterior, o retorno usa a semente normal da tela. Os links antigos dos momentos especiais marcados como `consulta` abrem parados fora do print. Os momentos normais e as ações reais do produto mantêm seu comportamento. O palco preserva o estado global; escolhas locais que a tela não grava continuam sujeitas às limitações já documentadas.
 
 ## As portas naturais
 
@@ -153,12 +163,12 @@ A T08 saiu inteira, e a releitura mora na própria T07: com o bloco do ativo gra
 ## A conferência (T11·1, T11·2)
 
 - **o pacote 2** (decisão 53, a construir): o que segue é o protótipo do pacote 1. A conferência passa a ter cinco linhas — Cercas, APN, Extended ID (só leitura, fora da contagem), Eventos e Leitor —, o `Corrigir` reenvia um bloco por vez e deixa os que dependem *revisar em seguida* (T11/05), a 04 sai, e o *igual à do cadastro* do 02 também (As ações da conferência, abaixo)
-- **o que diverge:** só o par do caso `diff-divergente` (M2C-0438 + ONK-8Q90, a semente do painel), e ele abre na 00 com os cinco blocos não batendo — cada um com o par: *no módulo*, o `noModulo` do caso, e *no cadastro*, o `noCadastro`. A T11 aberta pelo menu com a sessão do herói (o par do caso `conferencia-confere`) não acha divergência e vai pro **02, tudo confere** (T11·1). O endereço do 02 monta esse par, com a unidade dele
+- **o que diverge:** só o par do caso `diff-divergente` (M2C-0438 + ONK-8Q90), disponível como consulta parada *Não bate com o cadastro* na coluna, que monta a referência 00 — cada divergência com o par: *no módulo*, o `noModulo` do caso, e *no cadastro*, o `noCadastro`. A T11 aberta pelo painel ou pelo menu com a sessão do herói (o par do caso `conferencia-confere`) não acha divergência e vai pro **02, tudo confere** (T11·1). O endereço do 02 monta esse par, com a unidade dele. A rodada 2 compara quatro blocos, sem o Extended ID
 - **depois de regravar:** `Corrigir as N divergências` e `Reenviar os 5 blocos` (a última entrega, decisão 40; antes, `Regravar os cinco blocos`) levam à T09; com a cadeia concluída, `etapas.cadeia` registra os seis blocos relidos, e a T11 reaberta com a mesma sessão abre em tudo confere (T11·2) · no *Reenviar os 5 blocos*, o avanço anterior é limpo antes de abrir a T09/05: mesmo depois de tudo confere, o novo envio começa pelo *Gravar no módulo*, sem aproveitar os seis passos antigos
 - **o valor de cada linha:** o que o cadastro manda — o do caso, no par do `diff-divergente`; nos outros, o cadastro do próprio par: a tradução do modelo, as regiões do ativo, o meio da sessão, o intervalo do preset de eventos (G9)
 - **a leitura:** ao abrir, sobre o desenho do quadro a que ela chega — a 00 quando diverge, o 02 quando confere (G27) —, cada bloco entra com o relógio no poço e vira check ou xis, um a cada 400 ms; o que o módulo tem espera a leitura chegar no bloco. **O veredito espera a última linha** (a decisão do diretor de 25/09, C12·35 b): o cabeçalho com a contagem e, no 02, o *igual à do cadastro* ficam no lugar e entram esmaecendo quando a quinta linha acende. Num estado da coluna, e no print, ela nasce lida
 - **o voltar:** faz a saída do rodapé — no 02, o `Voltar ao menu` (com a folha *Outras ações* aberta por cima dele, fecha a folha · o complemento da rodada 3); na 01, o `Apenas registrar o diagnóstico`, o link dela; na 00 e na 04, o link é o `Outras ações`, que não sai da tela, e o voltar não faz nada (a última entrega; antes, na 00, o `Só registrar`); com a folha aberta (03), fecha a folha
-- **o conteúdo que o app não reconhece** (o 01) abre só pela coluna, com o caso `indice-nao-classificado`: os cinco blocos conferem, e o cabeçalho diz *NÃO BATE COM O CADASTRO · 1 a mais* — um conteúdo fora de todos os blocos, a posição que o caso traz. O par da semente é o mesmo dos dois casos, e a semente abre na 00
+- **o conteúdo que o app não reconhece** (o 01) abre só pela coluna, com o caso `indice-nao-classificado`: os blocos conferem, e o cabeçalho diz *NÃO BATE COM O CADASTRO · 1 a mais* — um conteúdo fora de todos os blocos, a posição que o caso traz. Ele mantém o par do caso M2C-0438 + ONK-8Q90; a semente normal do painel é o herói e chega ao 02
 - **o que fica gravado:** `Apenas registrar o diagnóstico` (antes, `Só registrar o diagnóstico`) põe em `etapas.conferencia` os blocos que não bateram e a hora, 14:30, e volta ao menu; nenhum item entra na fila (G25)
 
 ## O ciclo de testes (T14·1 a T14·4)
@@ -502,7 +512,7 @@ O que não é de desenho e o produto ainda decide segue um padrão — a lista e
 | `T13/18-momento-foto-do-chicote` | o 3º item da Montagem |
 | `T13/19-momento-foto-do-leitor` | o 4º item da Montagem · só com leitor |
 | `T13/20-momento-foto-do-painel` | o 5º item da Montagem · só quando houve calibração |
-| `T13/29-momento-relendo-o-modulo` | tocar em `Reler o módulo` no detalhe da Alimentação reprovada · 1 s, e o relido · só de referência, fora da coluna |
+| `T13/29-momento-relendo-o-modulo` | tocar em `Reler o módulo` no detalhe da Alimentação reprovada · 1 s, e o relido · consulta parada da coluna, depois do item reprovado |
 | `T13/30-momento-alimentacao-relida` | a releitura deu certo: 13,8 V dentro da faixa · na coluna, logo depois da 09 |
 | `T13/31-momento-gps-relido` | a releitura deu certo: 9 satélites · na coluna, logo depois da 22 |
 | `T13/32-momento-entradas-relidas` | a releitura deu certo: ignição ligada · na coluna, logo depois da 24 |

@@ -96,6 +96,12 @@ const CASO_DO_ESTADO = {
 // modo: o que vai ser gravado (05) ou o escolher o bloco (08).
 //   fase · antes · escolher · gravando · recusado · pausado · recuperacao · concluida · curta · curtaFeita
 function inicio(momento, est, unico) {
+  // A manutenção da coluna consulta o caso inteiro, sem herdar bloco ou avanço do fluxo.
+  const consultas = { [REF.escolher]: ['escolher', 0], [REF.reenviando]: ['curta', 1], [REF.reenviado]: ['curtaFeita', CURTA] }
+  if (consultas[est]) {
+    const [fase, confirmados] = consultas[est]
+    return { par: parDoCaso('modulo-ja-deste-ativo'), confirmados, fase, parou: null, bloco: BLOCO_DA_MANUTENCAO }
+  }
   // o pacote 2 (D2, a mudança mínima): o bloco que a conferência (T11) pede vem escolhido, pelo estado
   const pedido = unico.etapas.ativo?.bloco
   const bloco = pedido && T.reenviar[pedido] ? pedido : BLOCO_DA_MANUTENCAO

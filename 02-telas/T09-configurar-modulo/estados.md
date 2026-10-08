@@ -11,13 +11,15 @@
 | `04-momento-cadeia-concluida` | momento | o último bloco relido | `cadeia` |
 | `05-momento-o-que-vai-ser-gravado` | momento | `Configurar módulo`, numa instalação nova | derivado do fluxo |
 | `06-estado-a-configuracao-nao-cabe` | estado | o que vai ser gravado passa do espaço do módulo | `conteudo-nao-cabe` |
-| `08-momento-manutencao-escolher-o-bloco` | momento | `Configurar módulo`, numa manutenção | `modulo-ja-deste-ativo` |
-| `09-momento-manutencao-reenviando` | momento | `Reenviar`, com um bloco escolhido | `modulo-ja-deste-ativo` |
-| `10-momento-manutencao-concluida` | momento | a cadeia curta da manutenção fecha · as cercas relidas | derivado do fluxo |
+| `08-momento-manutencao-escolher-o-bloco` | momento | `Configurar módulo`, numa manutenção, ou a ação de um bloco na T11 · também consultável parado na coluna | `modulo-ja-deste-ativo` |
+| `09-momento-manutencao-reenviando` | momento | `Reenviar`, com um bloco escolhido · também consultável parado na coluna | `modulo-ja-deste-ativo` |
+| `10-momento-manutencao-concluida` | momento | a cadeia curta da manutenção fecha · as cercas relidas · também consultável parado na coluna | derivado do fluxo |
 | `07-estado-pontos-de-cerca-demais` | estado | as cercas têm mais pontos do que o módulo guarda | `pool-esgotado` |
 | `11-momento-conferindo-o-servidor` | momento | o módulo falou com o servidor? conferindo | `heroi` |
 | `12-estado-o-modulo-ainda-nao-falou-com-o-servidor` | estado | ainda não, com o que conferir | `servidor-ainda-nao` |
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.
+
+No protótipo, os momentos **08, 09 e 10 também são consultas paradas na coluna**, abaixo dos seis estados, na ordem: *Manutenção · escolher o bloco*, *Manutenção · reenviando* e *Manutenção · concluída*. Reutilizam os quadros e o par das referências (M2C-0417 + RKT-8H42), com as cercas escolhidas, sendo reenviadas ou concluídas. Pela coluna, não recebem toque nem deixam a cadeia avançar; o `Voltar ao fluxo` restaura a sessão, o quadro e o avanço anteriores à primeira consulta. Continuam classificados como momentos: não há estado novo nem fluxo alternativo. O caminho normal de configuração e os acessos da manutenção já existentes ficam preservados; abrir um momento pelo seu endereço de fluxo continua seguindo a regra dele.
 
 - no protótipo · o pacote 1 (02/10): a `00` é a tela da régua — no print, `?tela=T09` fica no quadro da cadeia correndo; fora do print, o mesmo endereço é o app vivo na semente (*abre no que vai ser gravado*), e a URL passa a dizer o `05`. A `00` se alcança no fluxo, no `Gravar no módulo` · o `08` e o `09` pelo endereço são a sessão da semente, o par do caso `modulo-ja-deste-ativo` (o herói); no fluxo, o `08` vem do modo que a T06 grava · o `06` e o `07` abrem pela coluna, montados pelo caso; no fluxo, valem toda vez que o par da faixa é o do caso, porque são a regra do cadastro (`tela.md` · No protótipo · o pacote 1)
