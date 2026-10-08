@@ -10,26 +10,28 @@ Uma pasta por tela. Dentro de cada uma, sempre os mesmos cinco itens:
 | `textos.md` | os textos exatos de cada referência, na ordem |
 | `referencias/` | `html/` e `png/` com o mesmo nome · **o número diz a ordem, a palavra diz o tipo** |
 
-**Tela** é a entrada. **Momento** é aonde se chega tocando. **Estado** depende do mundo — módulo, ônibus, rede — e no palco abre pela coluna.
+**Tela** é a referência da entrada ou do quadro base. **Momento** é aonde se chega tocando. **Estado** depende do mundo — módulo, ônibus, rede. Esses tipos classificam as referências; não determinam sozinhos os acessos do palco.
+
+No protótipo, **Estados desta tela** também oferece momentos e quadros base como consultas paradas, conforme `indice.json` (`coluna`, `consulta`, `depoisDe` e `colunaNoFim`). A consulta preserva o desenho e não recebe toque, relógio ou gravação. **Voltar ao fluxo** restaura o percurso anterior. O painel e o endereço simples abrem a entrada normal; a fotografia com `print=1` conserva o gabarito. As regras atuais de cada tela vêm antes das notas históricas de construção.
 
 | Tela | Pasta | Momentos | Estados |
 |---|---|---|---|
-| T01 · Login | `T01-login/` | 10 | 8 |
+| T01 · Login | `T01-login/` | 14 | 8 |
 | T02 · Selecionar contexto | `T02-selecionar-contexto/` | 5 | 4 |
 | T03 · Sincronizar | `T03-sincronizar/` | 1 | 3 |
-| T04 · Menu | `T04-menu/` | 8 | 7 |
-| T05 · Conectar módulo | `T05-conectar-modulo/` | 2 | 4 |
-| T06 · Selecionar ativo | `T06-selecionar-ativo/` | 3 | 5 |
-| T07 · Diagnóstico do módulo | `T07-diagnostico-do-modulo/` | 3 | 7 |
-| T09 · Configurar módulo | `T09-configurar-modulo/` | 4 | 5 |
-| T10 · Calibração | `T10-calibracao/` | 4 | 4 |
-| T11 · Conferir configuração | `T11-conferir-configuracao/` | 2 | 2 |
+| T04 · Menu | `T04-menu/` | 8 | 8 |
+| T05 · Conectar módulo | `T05-conectar-modulo/` | 5 | 6 |
+| T06 · Selecionar ativo | `T06-selecionar-ativo/` | 3 | 4 |
+| T07 · Diagnóstico do módulo | `T07-diagnostico-do-modulo/` | 4 | 9 |
+| T09 · Configurar módulo | `T09-configurar-modulo/` | 6 | 6 |
+| T10 · Calibração | `T10-calibracao/` | 6 | 5 |
+| T11 · Conferir configuração | `T11-conferir-configuracao/` | 3 | 2 |
 | T12 · Últimas instalações | `T12-ultimas-instalacoes/` | 1 | 4 |
-| T13 · Checklist | `T13-checklist/` | 12 | 3 |
-| T14 · Ciclo de testes | `T14-ciclo-dinamico/` | 3 | 3 |
+| T13 · Checklist | `T13-checklist/` | 30 | 10 |
+| T14 · Ciclo de testes | `T14-ciclo-dinamico/` | 5 | 4 |
 | T15 · Fila de saída | `T15-fila-de-saida/` | 0 | 4 |
-| T16 · Sessão | `T16-sessao/` | 4 | 2 |
+| T16 · Sessão | `T16-sessao/` | 6 | 2 |
 
-`indice.json` lista as 142 referências com tela, tipo, nome, título, como se chega, caso do mock e os caminhos do HTML e do PNG. **É o que o palco lê pra montar a coluna.**
+`indice.json` lista as 191 referências (15 telas, 97 momentos e 79 estados) com tela, tipo, nome, título, como se chega, caso do mock e os caminhos do HTML e do PNG. **É o que o palco lê pra montar a coluna.**
 
 **As referências são gabarito, nunca peça do app.** O HTML existe pra você ler um valor exato e pra comparar o seu print com o PNG. O app se constrói com os componentes do design system.

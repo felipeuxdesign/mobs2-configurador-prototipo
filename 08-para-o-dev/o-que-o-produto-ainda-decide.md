@@ -1,53 +1,68 @@
 # O que o produto ainda decide
 
-O que **não é de desenho** e o produto ainda decide. O protótipo seguiu o padrão ao lado de cada linha, e mudar é uma linha. Desde o pacote 12, o que tinha tela está desenhado com o padrão (*desenhado: …*): se o PM reprovar, muda uma tela.
+Conferido em **08/10/2026** contra as fichas de [02-telas](../02-telas/), o [mock](../04-dados/mocks.js) e a implementação do [protótipo](../06-prototipo/app/src/telas/). Esta página separa perguntas de produto, decisões já aprovadas e limites da demonstração. O comportamento simulado ao lado de uma pergunta não fecha a decisão do produto.
+
+As notas de pacotes anteriores explicam a construção; as regras vigentes nas fichas e o retorno do PM de 06/10 as substituem. Resolver uma pergunta pode exigir dados, integração, comportamento e documentação: não é necessariamente trocar uma linha ou uma tela.
+
+## Já definido
+
+| Onde | Regra vigente | Fonte |
+|---|---|---|
+| T05 · T06 · T09 | A configuração é só sem fio. Não há opção de conexão por cabo; conflito de pinos é erro de projeto de instalação, bloqueia e deve ser escalonado. Trocar o leitor em campo não resolve a trava. | [Integrações](integracoes.md#o-módulo-sem-fio), [T06](../02-telas/T06-selecionar-ativo/tela.md) |
+| T01 | Celular e e-mail do cadastro não aparecem antes do login, nem mascarados. O técnico informa o dado e o servidor confere. `Usar outro dado` volta à primeira etapa; o novo envio respeita a espera de 60 s e a contagem de reenvios. | [T01](../02-telas/T01-login/tela.md), [histórias de T01](../01-produto/historias.md) |
+| T07 · T13 | O GPS confere pelo estado da antena: conectada, em curto ou desconectada. Satélites só informam; não há mínimo de satélites que aprove o item. | [T07](../02-telas/T07-diagnostico-do-modulo/tela.md), [T13](../02-telas/T13-checklist/tela.md) |
+| T13 · T14 · T15 | O técnico confere o código lido com o número impresso no cartão. O app não compara com cadastro de cartões e não oferece pedido de correção de cadastro. `Não confere` vira não conforme, com justificativa no checklist. | [T14](../02-telas/T14-ciclo-dinamico/tela.md), [T13](../02-telas/T13-checklist/tela.md) |
+| T13 · T14 | O ciclo tem até quatro passos aplicáveis: ignição ligada, rotação, cartão e ignição desligada. Ré, porta e velocidade saíram do ciclo; o bip do leitor é testado e respondido na T13. | [T14](../02-telas/T14-ciclo-dinamico/tela.md), [histórias de T14](../01-produto/historias.md) |
+| T14 | No concluído, `Ir para o checklist` é a ação principal e `Voltar ao menu` é a secundária. Os botões preservam os resultados; nenhum homologa ou encerra a sessão. Mantidos na revisão de 08/10. | [T14](../02-telas/T14-ciclo-dinamico/tela.md), [fluxos](../01-produto/fluxos.md) |
+| T13 · T16 | A T13 registra o checklist e aguarda autoteste. A T16 homologa depois do reinício automático e da releitura sem falha. O evento do cartão pode ficar pendente por até 24 h sem impedir a homologação. | [T13](../02-telas/T13-checklist/tela.md), [T16](../02-telas/T16-sessao/tela.md) |
+| T02 | Nas unidades de quem tem mais de uma empresa, o voltar do sistema faz o mesmo que `Trocar de empresa`; na lista de empresas, não escolhe uma saída. Resposta do arquiteto de 26/09. | [T02](../02-telas/T02-selecionar-contexto/tela.md) |
 
 ## As perguntas abertas
 
-| Onde | A pergunta | Enquanto isso |
+| Onde | A pergunta | Comportamento ou exemplo atual do protótipo |
 |---|---|---|
-| T09 | `Tentar de novo` regrava a cadeia inteira ou do bloco recusado pra frente? | do bloco recusado |
-| T14 | quantas vezes pode disparar o evento antes de a Seção F reprovar de vez? | sem limite |
-| T13 | como trocar uma foto ruim de um item já respondido? | foto tirada fica tirada |
-| T13 | o voltar do Android numa seção aberta do checklist fecha a seção ou sai da tela? | faz o `Voltar ao menu` desenhado (T13·6, G20) |
-| T07 | ler a CAN de novo pode reprovar item do checklist que estava conforme? | não reprova |
-| T12 | a *falha reconhecida* tem ação, ou é só registro? | só registro |
-| T11 | `Só registrar o diagnóstico` registra onde, e o diagnóstico sobe pra plataforma como, se a fila não tem esse tipo de envio (HU-T11-7, T11-V4)? | fica na sessão, com os blocos que não bateram e a hora, e volta ao menu; nenhum item entra na fila (G25) · **em parte, pela decisão 40 (26/09):** a ação agora é `Apenas registrar o diagnóstico`, e o efeito escrito embaixo dela é *nada é gravado · só o diagnóstico sobe*; como ele sobe, se a fila não tem esse tipo de envio, segue aberto |
-| T16 | de que ponto a sessão interrompida retoma? | do último passo confirmado: o `Retomar` reabre a cadeia no bloco seguinte a ele, o que parou (o Leitor, `Bloco 4 de 6`, T16·5) |
-| T16 | o voltar do Android na sessão interrompida faz o quê? | nada: `Retomar` e `Descartar` são atos, e o voltar não escolhe no lugar do técnico (T16·6, G20) |
-| T01 · T02 · T04 | o voltar do Android no login, na escolha da unidade e no menu, que não têm saída desenhada, faz o quê — fecha o app, como o Android faz na primeira tela? | nada: a tela não oferece o caminho, e o voltar não inventa (`06-prototipo/logica.md` · O voltar do Android, G25) · **na T02, respondida pelo arquiteto (26/09):** o que o protótipo propôs — nas unidades de quem tem mais de uma empresa (`06`), o mesmo que o `Trocar de empresa`; nas empresas (`05`), nada |
-| T05 | o voltar do Android na busca (00, 01, 02, 04), em que o rodapé só oferece o `Procurar de novo` e nenhuma saída pro menu, faz o quê? | nada: o link não sai da tela (G25) |
-| T16 | o `Descartar` da sessão interrompida fica registrado onde (HU-T16-7)? | em lugar nenhum: volta ao menu sem sessão e sem item de fila, porque o registro do descarte não tem dado (T16·5, G25) |
-| todas | o app respeita a fonte aumentada do Android? | trava o tamanho |
-| T14 | se o evento falhar de novo: *confira a conexão do módulo* | aparece na segunda falha · desenhado: T14/09 (o pacote 12) |
-| T06 | no conflito de pinos com saída, `Usar leitor sem fio` resolve ali, ou a saída é reconectar o módulo sem fio? | **decidido no retorno do PM (06/10)**: a configuração é só sem fio, e o conflito é sempre erro de projeto de instalação — o estado com saída saiu (a rodada 2) |
-| T01 | o `Entrar` espera o servidor: qual é o tempo limite, e o que a tela diz quando ele estoura? | o protótipo espera 1,2 s (*Entrando…*, o primário desabilitado, como o semear da T10) e entra sempre; sem tempo limite, porque o servidor é de mentira (decisão do diretor, 27/09) |
-| T05 | o tempo-limite da conexão: quanto o app espera o módulo responder antes do *não respondeu*? | 15 s (o pacote 7) · o protótipo simula 1,2 s (*Conectando ao …*, o primário desligado) |
-| T01 | o celular e o e-mail do técnico aparecem mascarados antes do login? | **decidido no retorno do PM (06/10)**: não aparecem, nem mascarados · o técnico digita o dado, e o servidor confere (o contato fica no cadastro, nunca em tela) |
-| T01 | o texto da mensagem única do código | **leitura nossa**: *Código inválido ou vencido* · o PM pediu a mesma mensagem pro errado e pro vencido, sem dar o texto |
-| T01 | as pistas em volta da mensagem | **pergunta pro PM**: a mensagem é a mesma, mas o código errado ainda mostra *Ainda vale por 9:28*, e o vencido mostra o relógio em 0:00 · se a intenção for não dar pista nenhuma, sai uma linha |
-| T01 | o *Não recebi o código* sem o outro contato | **leitura nossa**: *Usar outro dado*, que volta pra primeira etapa, no lugar de mandar pro outro contato, que não aparece mais |
-| T01 | a espera de 60 s do reenvio vale também pro *Usar outro dado*? | vale: qualquer envio novo espera — o envio depois do *Usar outro dado* é um reenvio, e gasta um envio da hora |
-| T15 | depois de quanto tempo a fila parada vira notificação? | 30 min · desenhado: o aviso sobre o menu, T04/16 (o pacote 12) |
-| T06 | a frase da trava de fora do pacote é `Pertence a {unidade}.`: com a unidade do mock sai `Pertence a Pátio Caruaru.`, e a da referência já vinha sem crase (`a Garagem Ibura`, T06-N4). A frase leva o artigo da unidade (`à Garagem`, `ao Pátio`)? | o texto como está, com o nome da unidade do mock |
-| T13 | o mínimo de satélites do GPS | **decidido no retorno do PM (06/10)**: o critério é a antena (conectada, em curto, desconectada) · os satélites são informação |
-| T13 | o critério de cada entrada digital | a ignição ligada, com a chave virada · desenhado: T13/23 e 24 |
-| T13 | as causas de cada falha da Seção C, no *O que conferir* | as desenhadas: bateria, cabo, ponto de ligação · antena, céu aberto, cabo da antena · chip, antena do modem, cobertura · chave, fio da ignição, fusível |
-| T13 · T15 | o pedido de correção de cadastro aparece na fila e no checklist? | **decidido no retorno do PM (06/10)**: a correção saiu · o técnico confere o cartão com o número impresso |
-| T13 | dá pra finalizar com o pedido de correção aberto? | **decidido no retorno do PM (06/10)**: a correção saiu · a ciência do técnico é só da Seção F |
-| T14 | depois da correção do cadastro, o que o técnico refaz? | **decidido no retorno do PM (06/10)**: a correção saiu · Não confere vira não conforme, com justificativa |
-| T07 · T13 | a faixa de tensão do VL06 | **exemplo até a bancada**: 9,0 a 32,0 V (o PM autorizou valor de exemplo) |
-| T13 | o tempo do pulso do bip | **exemplo até a bancada**: cerca de 1 segundo |
-| T14 | os passos de uma visita valem pra outra? por quanto tempo? | valem, sem prazo |
-| T15 | a causa do *servidor recusou* | **leitura nossa**: *o pacote de sincronização venceu*, a única que o *Ressincronizar e reenviar* resolve · o PM pediu pra combinar com o produto |
-| T11 | o valor da *rede do módulo* | **leitura nossa**: *uma rede antiga* e *a rede da Mobs2* · o PM mandou trocar os endereços sem dizer por quê |
+| T09 | `Tentar de novo` regrava a cadeia inteira ou do bloco recusado para a frente? | Retoma do bloco recusado. A política real de falha e retomada precisa ser aprovada. |
+| T14 | Quantas vezes pode disparar o evento antes de a Seção F reprovar de vez? | Permite disparar outro evento sem limite; a segunda falha também tem a referência parada `09`. |
+| T14 | Qual orientação e ação devem existir depois de o evento falhar novamente? | A referência `09` orienta conferir a conexão do módulo. O quadro não define um limite de tentativas para o produto. |
+| T14 | Os passos de uma visita valem para outra? Por quanto tempo? | Resultados do mesmo par ativo/módulo são preservados em memória, sem prazo. Não é uma política de validade entre visitas reais. |
+| T13 | Como trocar uma foto ruim de um item já respondido? | Foto tirada fica como registro, sem opção de substituir. |
+| T13 | O voltar do Android numa seção aberta fecha a seção ou sai da tela? | Faz o `Voltar ao menu` desenhado. |
+| T07 · T13 | Ler a CAN de novo pode reprovar um item do checklist que estava conforme? | A releitura simulada não cria uma nova reprovação. Falta definir o efeito de uma leitura real que volte diferente. |
+| T12 | A falha reconhecida tem ação ou é só registro? | Só registro. |
+| T11 | Como o diagnóstico registrado chega à plataforma, e quais são as confirmações, falhas e regras de reenvio? | `Apenas registrar o diagnóstico` guarda o resultado em `etapas.conferencia` e volta ao menu. `tiposFila` já declara `Diagnóstico`; o protótipo não cria um item desse tipo nem envia o registro. |
+| T16 | De que ponto a sessão interrompida retoma, e como esse ponto é persistido no aparelho? | O exemplo `sessao-interrompida` guarda os blocos confirmados e reabre a T09 no bloco seguinte, o Leitor. Não há armazenamento durável. |
+| T16 | O voltar do Android na sessão interrompida faz o quê? | Nada: não escolhe entre `Retomar` e `Descartar` no lugar do técnico. |
+| T16 | Onde fica registrado o `Descartar` da sessão interrompida, exigido pela HU-T16-7? | Volta ao menu sem sessão; não cria registro de descarte nem item de fila. |
+| T01 · T04 | O voltar do Android no login e no menu fecha o app, como na primeira tela do Android? | Nada: essas telas não oferecem saída desenhada, e o protótipo não inventa uma. A regra da T02 já está respondida acima. |
+| T05 | O voltar do Android na busca, quando o rodapé só oferece `Procurar de novo`, faz o quê? | Nada: o link não sai da tela. |
+| todas | O app respeita a fonte aumentada do Android? | Os tamanhos são fixos na demonstração; o comportamento acessível no aparelho precisa ser validado. |
+| T01 | Qual é o tempo limite do login real, e o que a tela diz quando ele estoura? | Com rede, espera 1,2 s. Senha com menos de oito caracteres gera erro; a simulação aceita a que atinge o mínimo do mock. Sem rede, mostra o aviso sem essa espera. Não há servidor nem tempo limite real. |
+| T05 | Quanto tempo a conexão real espera o módulo responder antes de `não respondeu`? | O pacote 7 descreveu 15 s; o protótipo simula 1,2 s. Confirmar o limite da integração. |
+| T01 | Qual é o texto definitivo da mensagem única para código errado ou vencido? | O PM pediu a mesma mensagem. O exemplo adotado é `Código inválido ou vencido`; não inventar outra mensagem na implementação. |
+| T01 | As pistas de tempo devem continuar ao redor da mensagem única? | O errado mostra o prazo restante; o vencido mostra 0:00. Se a intenção for não distinguir as situações, essa apresentação precisa de decisão do PM. |
+| T15 | Depois de quanto tempo a fila parada vira notificação local? | O exemplo usa 30 min; o aviso sobre o menu é a referência T04/16. O protótipo não implementa uma notificação do Android. |
+| T06 | A frase `Pertence a {unidade}.` deve receber o artigo da unidade, como `à Garagem` e `ao Pátio`? | Mantém o texto aprovado com o nome da unidade do mock, sem ajustar a gramática por conta própria. |
+| T13 | Qual é o critério real de cada entrada digital? | O exemplo da ignição espera a chave ligada, como nas referências `23` e `24`. Validar as demais entradas com o equipamento. |
+| T13 | Quais causas devem aparecer em `O que conferir` para cada falha da Seção C? | As causas aprovadas estão no [textos.md da T13](../02-telas/T13-checklist/textos.md). Alimentação confere o fio do equipamento; GPS confere a antena. Validar causas e ações reais sem trocar os textos por conta própria. |
+| T07 · T13 | Qual é a faixa de tensão do VL06 comprovada na bancada? | 9,0 a 32,0 V é exemplo autorizado pelo PM, ainda sujeito à confirmação no equipamento. |
+| T13 | Quanto dura o pulso real do bip? | Cerca de 1 segundo é exemplo até a bancada. |
+| T15 | Quais causas reais de recusa do servidor exigem cada ação? | O exemplo `o pacote de sincronização venceu` é a recusa que `Ressincronizar e reenviar` resolve. O PM pediu combinar a regra com o produto. |
+| T11 | Que conteúdo de negócio deve identificar a rede do módulo na conferência? | Os exemplos aprovados são `uma rede antiga` e `a rede da Mobs2`; o PM pediu substituir os endereços. O significado real desses valores precisa do cadastro e da integração. |
+
+## Limitações e simulações do protótipo
+
+- **Diagnóstico da T11:** o tipo `Diagnóstico` existe no [mock](../04-dados/mocks.js), mas [registrar](../06-prototipo/app/src/telas/T11/index.jsx) só altera `etapas.conferencia`. Não há item na fila, upload nem confirmação do servidor. A ausência de envio não se explica pela ausência do tipo.
+- **Ciclo aberto ou fechado:** a [T14](../06-prototipo/app/src/telas/T14/index.jsx) grava `fechado: true` ao encerrar o ciclo e `fechado: false` ao sair para o checklist. A retomada lê os passos e `concluido`, mas não lê `fechado`; não há diferença implementada entre captura aberta e fechada. Preserva os resultados do mesmo par e, se ainda não concluiu, prepara um novo disparo. [Ficha da T14](../02-telas/T14-ciclo-dinamico/tela.md).
+- **Login simulado:** [regras.js](../06-prototipo/app/src/telas/T01/regras.js) verifica o mínimo de oito caracteres do mock; não valida credenciais num servidor. O `Entrar` pode mostrar erro e não entra sempre. A espera com rede é fixa em 1,2 s.
+- **Recuperação de senha · autorizado em 08/10:** depois de salvar e tocar em `Entrar com a senha nova`, [Login.jsx](../06-prototipo/app/src/telas/T01/Login.jsx) volta ao login com `M.credenciais.senha` preenchida e ocultada. Não salva a senha nova digitada nem altera a credencial do mock. É uma facilidade de demonstração solicitada pelo usuário, não uma regra de autenticação do produto.
+- **Consultas do palco:** exemplos especiais ficam parados em `Estados desta tela`, com retorno ao fluxo anterior. Eles não criam percursos alternativos de demonstração; os estados reais do produto continuam descritos nas fichas. [Regra do palco](../06-prototipo/palco.md).
+- **Persistência e integração:** estado e resultados ficam em memória; não há gravação durável, comunicação real com o módulo ou envio ao servidor. Os limites de produto precisam ser tratados pelas [integrações](integracoes.md).
+- **Marcar todos:** nenhum item do mock é manual sem foto; a ação não tem onde aparecer nesta demonstração. A HU-T13-1 continua descrevendo a condição de produto em que ela se aplica.
 
 ## Validar no aparelho
 
-- o roxo pressionado `#4A2A80`
-- o contraste da tinta apagada em campo
-- a altura útil com a navegação de três botões, que tira mais espaço que a barra de gestos
+- O roxo pressionado `#4A2A80`.
+- O contraste da tinta apagada em campo.
+- A altura útil com a navegação de três botões, que tira mais espaço que a barra de gestos.
 
-## Fora do protótipo
-
-- o **"marcar todos"** do checklist: nenhum item do mock é manual sem foto, então ele não tem onde aparecer. Nasce quando existir esse tipo de item
+As decisões já aprovadas não voltam a ser perguntas por aparecerem em uma nota antiga. As questões desta página também não autorizam redesenhar, mudar um texto ou inventar uma resposta antes da decisão correspondente.

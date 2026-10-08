@@ -6,13 +6,19 @@ Ver o que ainda vai subir pro servidor, e o que precisa do técnico.
 |---|---|
 | **Elemento-assinatura** | cada item com causa e ação — nada fica tentando sozinho em silêncio |
 | **Chrome** | sem faixa ou com, conforme a sessão |
-| **Semente no protótipo** | fila com dois itens · um com erro |
+| **Semente no protótipo** | fila com quatro itens · um com erro, um na fila e dois recebidos (um em conflito) |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
 | **Momentos · estados** | 0 · 4 — ver `estados.md` |
 
 - no protótipo · a nossa versão da linha *Semente no protótipo*, antes desta entrega: | **Semente no protótipo** | a seleção f-10, f-02 e f-08 (G21): dois itens esperando envio, um deles com erro, e uma recebida — a fila inteira da Ibura, com a faixa da sessão do herói (T15-A2) |
 
 - no protótipo · a nossa versão da linha *Chrome*, antes desta entrega: | **Chrome** | a faixa da sessão aberta ou a faixa sem sessão, conforme a sessão — toda referência tem faixa (T15-A16) |
+
+## Regra vigente · fila do aparelho
+
+A referência `00` e a entrada do protótipo mostram os quatro itens de `SELECAO_DA_SEMENTE` (`f-10`, `f-02`, `f-08` e `f-11`), mais os que a sessão criar no fluxo. O contador conta todos os mostrados. **Recebida em conflito** continua recebida: o servidor aceitou os registros e avisou o gestor; não é recusa nem pede reenvio ao técnico. A fila é do aparelho, independentemente da unidade ativa. As notas da semente de três itens, abaixo, precedem a inclusão do `f-11` no retorno do PM.
+
+Fontes: `04-dados/mocks.js`, `06-prototipo/app/src/telas/T15/dados.js` e referência `00`.
 
 ## O que se toca
 

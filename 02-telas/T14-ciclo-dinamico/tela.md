@@ -1,6 +1,6 @@
 # T14 · Ciclo de testes
 
-Com a ignição ligada e o ônibus parado, deixar o app provar o que o módulo lê: a rotação, as entradas, o cartão e o evento de teste.
+Com a ignição ligada e o ônibus parado, provar a ignição ligada, a rotação aplicável, o cartão do motorista e a ignição desligada, junto do recebimento e da conferência do evento de teste.
 
 | | |
 |---|---|
@@ -10,7 +10,23 @@ Com a ignição ligada e o ônibus parado, deixar o app provar o que o módulo l
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
 | **Momentos · estados** | 5 · 4 — ver `estados.md` |
 
-## O que se toca
+## O que se toca · regra vigente
+
+- São **quatro passos no herói**: Ignição ligada, Rotação, Cartão do motorista e Ignição desligada. Rotação exige o sinal do modelo; cartão exige leitor. Sem leitor, a referência `12` tem três passos. Ré e porta saíram no retorno do PM. O bip é respondido na T13, fora do ciclo desta tela.
+- A entrada normal prepara o disparo com a fila drenando (`01`), prazo cheio e **Disparar evento de teste** desabilitado. A fila drena em 3 s; a ação acende. A referência `00` é o instante da vez do cartão e não a entrada normal.
+- O disparo começa o prazo de 2:00: no protótipo, 1 s real vale 4 s de prazo. Até o evento chegar, o botão diz **Aguardando o evento**, desabilitado. O evento do mock chega aos 24 s do prazo e confere os seis campos aos 33 s. O preenchido para na chegada, mas o marcador acompanha o tique do processo.
+- A semente traz ignição ligada e rotação feitas. O cartão espera o módulo ler e a resposta do técnico: **Confere com o cartão** ou **Não confere**. O app não compara o cartão com o cadastro. Não conferindo, a T13 recebe o item não conforme para justificar. A ignição desligada é a vez seguinte e explica a espera.
+- Com o evento recebido e passos ainda pendentes, **Encerrar o ciclo** grava `fechado: true` e leva à T13; **Ir para o checklist** grava `fechado: false` e leva à T13. Ambos preservam os resultados. Na retomada atual, os passos salvos continuam valendo e o evento é disparado novamente; o campo `fechado` não produz uma retomada diferente no protótipo.
+- No prazo estourado, a ação principal é **Disparar outro evento**, com os passos preservados. A primeira falha do caso do fluxo vale uma vez por sessão; a segunda falha (`09`) é exemplo parado da coluna. A T14 atual não oferece pedido de correção de cadastro.
+- Concluído: **Ir para o checklist** → T13 e **Voltar ao menu** → T04. São os botões mantidos na revisão de 08/10. O voltar do sistema segue o link do rodapé: T13 durante o ciclo, T04 no concluído. Na consulta parada, não recebe toque nem voltar.
+- **ENCERRAR**, antes do checklist registrado, abre o diálogo de encerramento antecipado e segue aos quatro passos de saída da T16 após a confirmação.
+- `etapas.ciclo` grava o par ativo/módulo, os passos pelos IDs aplicáveis (`e-1` a `e-4` no herói), `feitos`, `total`, `evento`, `tentativa`, `cartao: { lido, resposta } | null`, `motor`, `concluido` e `fechado`. Não há `cartaoId`, `esperado` ou pedido de correção na resposta atual do cartão.
+
+Fontes: `04-dados/mocks.js` (passos canônicos, evento e casos), `06-prototipo/app/src/telas/T14/ciclo.js`, `index.jsx`, `textos.js`, `06-prototipo/app/src/estado/ritmos.js` e referências atuais `00`, `05`, `08`, `10`, `11` e `12`. O auxiliar ainda conserva uma condição legada para velocidade com tacógrafo, mas a velocidade foi retirada do ciclo na revisão final do PM; os modelos atuais não a fornecem à T14.
+
+## Histórico de construção · pacotes anteriores
+
+As notas abaixo conservam as decisões, medições e divergências de cada entrega. Passos de ré/porta, cinco/seis passos, comparação do cartão com cadastro, solicitação de correção e os formatos antigos do registro descrevem versões anteriores; a regra vigente acima as substitui.
 
 - **no protótipo · o pacote 12:** a 09 monta pelo `evento-nao-chega-de-novo`, só pela coluna, com a 2ª tentativa estourada; a frase da segunda falha é a linha em falha do `Prazo` (`detalhe` com `tom: 'falha'`) · o `Solicitar correção de cadastro` põe o pedido na fila de saída (`estado/fila.js` · `itemDeCorrecao`)
 - `Disparar evento de teste` desliga o primário, que diz *Aguardando o evento* · **o `Encerrar o ciclo` só acende quando o evento chega ou o prazo estoura** — o toque duplo não encerra o ciclo
@@ -87,14 +103,14 @@ Medido no código do C10, no fechamento do C10 e do C11 (G10), com os nomes das 
 
 ## Histórias de usuário
 
-- **HU-T14-1** — Com a ignição ligada e o ônibus parado, o ciclo prova a rotação, as entradas, o cartão e o evento de teste
+- **HU-T14-1** — Com o ônibus parado, o ciclo prova a ignição ligada, a rotação aplicável, o cartão, a ignição desligada e o evento de teste
 - **HU-T14-2** — Disparo o evento de teste por botão, com o cronômetro dos 120 s em destaque
 - **HU-T14-3** — Antes do cronômetro vejo a fila do módulo drenando; o botão fica indisponível com motivo
 - **HU-T14-4** — Vejo 3 linhas de estado: disparado · recebido · campos conferidos. E posso disparar novamente
 - **HU-T14-5** — No teste do cartão vejo o código que o módulo leu, e confiro com o número do cartão
 - **HU-T14-6** — Não conferindo, o item vira não conforme e pede justificativa no checklist
 - **HU-T14-7** — Vejo o tempo decorrido e o que ainda falta capturar; encerrar leva direto ao checklist
-- **HU-T14-8** — A velocidade só entra no ciclo quando o ônibus tem tacógrafo digital
+- **HU-T14-8** — ~~A velocidade só entra no ciclo quando o ônibus tem tacógrafo digital~~ · retirada do ciclo na rodada 3 de 06/10; segue como calibração opcional da T10 para o modelo com tacógrafo
 
 ## Textos
 

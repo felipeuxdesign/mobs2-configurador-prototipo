@@ -5,12 +5,20 @@ Ver o que o módulo informa e o que a CAN do modelo lê — logo depois da conex
 | | |
 |---|---|
 | **Elemento-assinatura** | as linhas do módulo e da CAN, cada uma com o seu estado no poço: o que trava em vermelho, o que só informa em cinza |
-| **Chrome** | faixa de sessão · nas travas, o módulo em cima do título, sem faixa — a sessão não nasce |
-| **Semente no protótipo** | sessão M2C-0417, sem ativo · o módulo do herói, com os sete itens certos |
+| **Chrome** | faixa de sessão · nas travas, o módulo em cima do título, sem faixa — a faixa não aparece |
+| **Semente no protótipo** | sessão M2C-0417, sem ativo · o módulo do herói, com os oito itens que contam certos e mensagens só informativas |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
 | **Momentos · estados** | 4 · 9 — ver `estados.md` |
 
-## O que se toca
+## Regra vigente · retorno do PM de 06/10/2026
+
+O módulo tem **nove linhas lidas**, das quais **oito contam**: número do chip incluído; mensagens no módulo só informam. A CAN do herói tem seis linhas, das quais cinco contam; o alternador só informa. A soma atual é **13**. A alimentação confronta a faixa do modelo do módulo (VL06: 9,0 a 32,0 V), e o GPS confere pela antena; os satélites são informativos. O caso de alimentação baixa declara 8,4 V, não 10,9 V. A leitura percorre `M.diagnostico.modulo` a cada 600 ms; `etapas.preChecagem` guarda a contagem calculada de oito, sem número fixo de sete. A sessão nasce na conexão da T05; a faixa aparece aqui depois da leitura sem trava.
+
+Fontes: `04-dados/mocks.js`, `06-prototipo/app/src/telas/T07/diagnostico.js`, `index.jsx` e referências atuais `00`, `01`, `11` e `12`.
+
+## Histórico de construção · ações dos pacotes anteriores
+
+As notas abaixo conservam as medições e as divergências de cada entrega. Sete linhas no módulo, alimentação de 10,9 V e contadores de sete descrevem o diagnóstico anterior; o retorno do PM e a regra vigente acima os substituem.
 
 - **a alimentação abaixo da faixa só informa**, como o modem sem sinal: a linha diz *dá pra seguir · o checklist registra*, e o *Selecionar ativo* continua aceso · o checklist reprova o item *Alimentação* da Seção C (a T13/16)
   - no protótipo · o pacote 10: o caso `can-estatico-bateria` muda a linha da Alimentação do M2C-0301, como o `modem-sem-sinal` muda a do Modem — *informa*, com o 10,9 V do caso e *dá pra seguir · o checklist registra*; o contador fica em 6 de 7, a faixa desce e o `Selecionar ativo` acende · o M2C-0301 não está entre os que a busca acha, e a 12 abre só pela coluna, parada

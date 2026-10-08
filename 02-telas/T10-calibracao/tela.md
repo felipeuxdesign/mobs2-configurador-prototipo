@@ -8,7 +8,7 @@ Fazer o módulo contar igual ao painel do ônibus.
 |---|---|
 | **Elemento-assinatura** | o tambor que rola do número do módulo até o número do painel |
 | **Chrome** | faixa de sessão |
-| **Semente no protótipo** | sessão M2C-0417 + RKT-8H42 · hodômetro 184.320 no módulo, 482.317 no painel |
+| **Semente no protótipo** | fluxo normal: M2C-0417 + RKT-8H42, Nada a calibrar · referência 00 e consultas: M2C-0371 + KNB-5H39, 87.604 km no módulo e 87.712 km no painel |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
 | **Momentos · estados** | 6 · 5 — ver `estados.md` |
 
@@ -62,7 +62,7 @@ Medido nas referências: toda peça abaixo está desenhada nas folhas de `03-des
 
 Anotação de construção, medida no código e nas referências. A lista de cima é a do design; esta é a que o protótipo usa, e a diferença entre as duas vai pro arquiteto. **Respondida pelo arquiteto (26/09):** vale esta, a medida.
 
-Medido nas referências da entrega do checklist (as da entrega de 25/09, decisão 33, com as horas no relógio parado, 14:30, e a 09 apontando o ciclo, decisão 35) e no código: as peças que a tela usa de fato. Revista pelo pacote 2 (decisão 52), com as 9 referências de hoje: saem as peças da foto e da câmera; o que o pacote acrescenta (o `Pular o horímetro`, o *Opcional · o último passo* e a *nota com rótulo* da lista de cima) se mede no ciclo que constrói o pacote. Construa com o componente — nunca redesenhe.
+Medido nas referências da entrega do checklist (as da entrega de 25/09, decisão 33, com as horas no relógio parado, 14:30, e a 09 apontando o ciclo, decisão 35) e no código: as peças que a tela usa de fato. Revista pelo pacote 2 (decisão 52), com as 9 referências daquele pacote (o índice atual tem 12): saem as peças da foto e da câmera; o que o pacote acrescenta (o `Pular o horímetro`, o *Opcional · o último passo* e a *nota com rótulo* da lista de cima) se mede no ciclo que constrói o pacote. Construa com o componente — nunca redesenhe.
 
 - primário · normal
 - primário · pressionado
@@ -109,4 +109,4 @@ Os textos exatos de cada referência estão em `textos.md`. Copie de lá — nun
 - **o módulo sem pulsos** (a 04) é de um caminhão coletor: a rotação e a velocidade não se aplicam, porque o módulo não lê pulsos · o horímetro fica, opcional
 - mantidos: a digitação do que o painel mostra, o horímetro opcional, o módulo sem pulsos e a releitura que não confere
 - o caminhão ganhou horímetro pra as telas do horímetro, que o PM mandou manter, terem um veículo · leitura nossa
-- **no protótipo · a rodada 2:** a tela pelo endereço é o caminhão coletor (a semente: o KNB-5H39 com o M2C-0371) · o ativo cujo modelo não calibra nada abre o *Nada a calibrar neste ativo*, com a frase do cadastro (`porModelo.nadaACalibrar`), e o `Fazer o ciclo de testes` grava a calibração concluída sem nada semeado — no fluxo, o herói chega aqui · a contagem e os segmentos são só dos obrigatórios; no passo opcional, a contagem fica no último obrigatório · o *Depois:* diz tudo o que falta, com os opcionais juntos · o não confere fica no segmento atual (a 10) · a 08 e a 09 pelo endereço marcam a rotação e a velocidade feitas, sem número (o mock não traz o que o motor ligado lê) · o caso `releitura-nao-confere` passou ao caminhão (87.711,5 km), e o bruto do horímetro dele entrou no mock (2.950 h), como as referências desenham
+- **histórico · a rodada 2, anterior à regra vigente do palco:** a tela pelo endereço era o caminhão coletor (a semente: o KNB-5H39 com o M2C-0371) · o ativo cujo modelo não calibra nada abre o *Nada a calibrar neste ativo*, com a frase do cadastro (`porModelo.nadaACalibrar`), e o `Fazer o ciclo de testes` grava a calibração concluída sem nada semeado — no fluxo, o herói chega aqui · a contagem e os segmentos são só dos obrigatórios; no passo opcional, a contagem fica no último obrigatório · o *Depois:* diz tudo o que falta, com os opcionais juntos · o não confere fica no segmento atual (a 10) · a 08 e a 09 pelo endereço marcam a rotação e a velocidade feitas, sem número (o mock não traz o que o motor ligado lê) · o caso `releitura-nao-confere` passou ao caminhão (87.711,5 km), e o bruto do horímetro dele entrou no mock (2.950 h), como as referências desenham

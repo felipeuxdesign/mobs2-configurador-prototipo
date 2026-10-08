@@ -4,7 +4,7 @@
 
 | Referência | Tipo | Como se chega · o que causa | Caso do mock |
 |---|---|---|---|
-| `00-tela` | tela | a entrada da tela | sessão M2C-0417, sem ativo · o módulo do herói, com os sete itens certos |
+| `00-tela` | tela | a entrada da tela | sessão M2C-0417, sem ativo · o módulo do herói, com os oito itens que contam certos e mensagens só informativas |
 | `01-momento-can-lida` | momento | a configuração do ativo gravada, voltando ao diagnóstico | derivado do fluxo |
 | `02-estado-serial-nao-cadastrado` | estado | o serial não está no cadastro | `serial-nao-cadastrado` |
 | `03-estado-modelo-sem-suporte` | estado | o modelo do módulo sem suporte nesta versão | `modelo-sem-driver` |
@@ -17,6 +17,6 @@
 | `10-momento-relendo-a-can` | momento | `Ler de novo` | derivado do fluxo |
 | `11-momento-lendo` | momento | a leitura correndo · 600ms por linha | derivado do fluxo |
 | `12-estado-alimentacao-abaixo-da-faixa` | estado | a alimentação do módulo abaixo da faixa — só informa, como o modem | `can-estatico-bateria` |
+| `13-estado-sessao-anterior-mal-encerrada` | estado | o canal encontrado aberto: o app fechou o acesso, e pode seguir | `modulo-com-pendencias` |
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.
-| `13-estado-sessao-anterior-mal-encerrada` | estado | o canal encontrado aberto: o app fechou o acesso, e pode seguir | `modulo-com-pendencias` |

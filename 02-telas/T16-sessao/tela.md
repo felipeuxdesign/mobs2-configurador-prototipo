@@ -1,14 +1,16 @@
 # T16 · Sessão
 
+**Regra vigente · retorno do PM de 06/10/2026:** a T13 registra o checklist; a homologação acontece aqui, depois do encerramento e do autoteste sem falha. São sete assertivas, com contadores separados de aprovadas, não se aplicam e pendentes; o evento do cartão pendente não impede a homologação. As notas de versões anteriores que falam em oito assertivas ou Extended ID descrevem a construção anterior e não a lista atual (`M.autotesteEncerramento`).
+
 Encerrar a sessão de configuração provando que a configuração sobreviveu ao desligar.
 
 | | |
 |---|---|
 | **Elemento-assinatura** | a cadeia do encerramento e o autoteste assertiva por assertiva, com o valor lido |
 | **Chrome** | faixa de sessão, até ela subir no fim |
-| **Semente no protótipo** | sessão M2C-0417 + RKT-8H42 homologada |
+| **Semente no protótipo** | sessão M2C-0417 + RKT-8H42 com o checklist registrado, pronta para o encerramento e autoteste |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 5 · 2 — ver `estados.md` |
+| **Momentos · estados** | 6 · 2 — ver `estados.md` |
 
 ## O que se toca
 

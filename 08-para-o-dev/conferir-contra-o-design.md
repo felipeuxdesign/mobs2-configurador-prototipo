@@ -1,27 +1,32 @@
 # Conferir contra o design
 
-As 154 referências — cada tela, momento e estado — estão em `02-telas/<tela>/referencias/`, em **HTML** e **PNG**, em 360 × 800. Elas valem pra qualquer tecnologia: são o gabarito da aparência.
+São **191 pares HTML/PNG** em [02-telas](../02-telas/), listados no [índice](../02-telas/indice.json): 15 entradas, 97 momentos e 79 estados. Cada referência desenha o app em **360 × 800**; o PNG a 2× tem 720 × 1600. Esse gabarito vale para a stack escolhida pelo time.
 
-## Como o protótipo foi medido
+## Como medir
 
-O protótipo foi comparado com as referências pixel a pixel, e é assim que o produto pode ser também:
+1. Renderize o app e o HTML da referência no mesmo navegador, na mesma escala. Isso permite separar diferenças de desenho da rasterização da fonte.
+2. Compare pixel a pixel. O protótipo usa `pixelmatch`, limiar 0,1; a meta contra o HTML é 0%. Toda diferença precisa de um nome e uma causa comprovada.
+3. Confira também o PNG aprovado. Ele carrega a rasterização do gerador do design; diferenças de fonte não autorizam mudar medidas, cores ou componentes.
 
-1. **Renderize a sua tela e o HTML da referência no mesmo navegador**, na mesma escala (360 × 800, a 2×). Assim a diferença de fonte entre geradores some, e o que sobra é desenho.
-2. **Compare pixel a pixel**, com uma tolerância fina (o protótipo usa o `pixelmatch`, limiar 0,1). A meta é 0%; toda diferença que sobra precisa de um nome, com o porquê.
-3. **O PNG é o gabarito final**, mas compare com ele só depois: ele carrega a rasterização do gerador do design (por isso o protótipo dá ~1–2% contra o PNG e ~0% contra o HTML).
+[tela.mjs](../06-prototipo/app/scripts/tela.mjs) reúne fotografia, comparação e textos; o cabeçalho documenta os argumentos. O fotógrafo atende à renderização, e os arquivos gerados ficam em `app/prints/`.
 
-O jeito do protótipo está em `06-prototipo/app/scripts/tela.mjs` (o cabeçalho explica), e o resultado da última rodada está em `06-prototipo/para-o-arquiteto/conferencia-final/` — cada referência ao lado do print, com o % de cada uma.
+## Qual evidência ler
 
-## O que já tem nome
+[conferencia-final](../06-prototipo/para-o-arquiteto/conferencia-final/) preserva uma rodada histórica; não é a comparação mais recente de todas as referências atuais. Consulte os gates por alteração:
 
-As diferenças que sobraram no protótipo, cada uma com o porquê, estão no `CHANGELOG.md` e nas notas *no protótipo* de cada `tela.md`. As mais comuns:
+- [Folha da T11](../06-prototipo/para-o-arquiteto/gate-padronizacao-folha-t11.md): espaçamento e referência aprovados.
+- [Consultas paradas](../06-prototipo/para-o-arquiteto/gate-consultas-paradas.md): 15 referências comparadas contra a base, sem piora; resultados e prints em [consultas-paradas](../06-prototipo/para-o-arquiteto/consultas-paradas/).
+- [Documentação e login após recuperação](../06-prototipo/para-o-arquiteto/gate-documentacao-atual.md): escopo e verificações deste ciclo.
 
-- **G5** · os glifos do Lucide desenham o círculo com outro raio que o gerador do design
-- **G9** · onde o mock e a referência discordam num número, vale o mock
-- **G25** · o que a referência não desenha (o menu atrás de uma folha, por exemplo), o protótipo desenha como o app de verdade faria
+A rodada de consultas paradas não executou a comparação completa das 191 referências nem a suíte completa de 45 roteiros. Veja o estado de cobertura em [testes-prontos.md](testes-prontos.md).
 
-## Os textos e o design system
+## Diferenças com nome
 
-- os textos de cada tela: o `textos.md` dela — o que está entre crases é o texto exato, na ordem em que aparece
-- as peças: as oito folhas em `03-design-system/referencias/`, e o `03-design-system/componentes.md` diz que tela usa cada uma
-- os valores: `03-design-system/tokens.css` — nunca um número solto
+O [CHANGELOG](../CHANGELOG.md), os gates e as notas *no protótipo* de cada ficha registram desvios. Entre os históricos recorrentes: **G5**, rasterização dos glifos; **G9**, dado do mock que diverge da estimativa da referência; **G25**, conteúdo ou comportamento sem desenho correspondente. Esses registros explicam situações medidas, sem dispensar a verificação de uma nova implementação.
+
+## Textos, peças e valores
+
+- Textos exatos: `textos.md` de cada tela.
+- Peças e variantes: [componentes.md](../03-design-system/componentes.md) e as [oito folhas](../03-design-system/referencias/). São 106 peças normativas; a vitrine do protótipo tem 114 espécimes comparáveis.
+- Medidas, cores e tamanhos: [tokens.css](../03-design-system/tokens.css), com 295 tokens distintos; [tokens.json](../03-design-system/tokens.json) é gerado do CSS.
+- Movimento: [movimento.md](../03-design-system/movimento.md) e cada `animacao.md`.

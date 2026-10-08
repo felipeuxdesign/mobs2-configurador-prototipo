@@ -6,7 +6,7 @@ Vale o `03-design-system/movimento.md`. Entre telas, só o conteúdo esmaece em 
 |---|---|---|---|---|---|
 | campo do painel | tocar no campo | o rótulo e o traço de baixo acendem em lima | 150ms | desacelera | troca direta |
 | semear | tocar em `Semear o hodômetro` | o botão desliga e diz *Gravando no módulo…* (ref. 06), depois *Relendo…* (ref. 07); no fim do *Relendo…* o tambor rola, e a tela vira o semeado ou o não confere | 1s + 1s | linear | troca direta |
-| tambor | semear | as rodinhas rolam de 184.320 até 482.317, uma depois da outra | 600ms no total | desacelera | mostra o número final |
+| tambor | semear | as rodinhas rolam do número lido ao digitado para o ativo da sessão (na referência do caminhão, de 87.604 até 87.712), uma depois da outra | 600ms no total | desacelera | mostra o número final |
 | régua da diferença | semear | a diferença encolhe até zero | 300ms | desacelera | troca direta |
 | troca de quadro (C12·4) | tocar em `Calibrar o …` | o passo seguinte é outro desenho: o conteúdo esmaece, como entre telas; a faixa e a barra ficam paradas; o rodapé entra com o quadro | 150ms | desacelera | troca direta |
 | botão primário (C12·18, C12·23) | digitar e semear | o texto diz o que falta e troca no lugar, esmaecendo; o `Semear` que o apaga perde o roxo de uma vez; no fim do semear, acende com o texto do passo seguinte, que esmaece no lugar, e o roxo troca direto (C12·23) | 150ms | desacelera | troca direta |

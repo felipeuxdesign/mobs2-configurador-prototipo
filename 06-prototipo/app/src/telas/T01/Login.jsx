@@ -285,8 +285,8 @@ export function Login({ momento, estado, irMomento }) {
   const abrirFolha = () => muda({ folha: true })
   const fecharFolha = () => { muda({ folha: false }); irMomento(errado || esgotado ? REF.errado : s.momentoCodigo) }
   const salvar = () => { muda({ dialogo: true }); irMomento(REF.alterada) }
-  // de volta à entrada, com o usuário e a senha vazia (T01·7 b)
-  const entrarComNova = () => { muda({ quadro: 'entrada', dialogo: false, senha: '', erroEntrada: false, semConexao: false, foco: 'senha', mostrar: false }); irMomento(null) }
+  // de volta à entrada com a senha do mock, para continuar a demonstração.
+  const entrarComNova = () => { muda({ quadro: 'entrada', dialogo: false, senha: M.credenciais.senha, erroEntrada: false, semConexao: false, foco: 'senha', mostrar: false }); irMomento(null) }
 
   // ── os quadros ──
   const cabecaDoPasso = (passo, legenda) => (

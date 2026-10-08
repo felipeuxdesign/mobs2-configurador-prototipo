@@ -244,9 +244,7 @@ export default [
   { dorme: 250 },
   { quieto: true },
   // ── o Entrar leva à T02: a troca entre telas ──
-  { digita: 'Varzea26', em: 'SENHA' },
-  { anima: [TEXTO] },                                        // Digite a senha → Entrar
-  { dorme: 200 },
+  // A senha do mock já voltou preenchida depois da recuperação (08/10).
   { toca: 'Entrar', anima: [TEXTO] },
   { desligado: 'Entrando…' },
   { chega: 'T02', entre: [800, 1700] },

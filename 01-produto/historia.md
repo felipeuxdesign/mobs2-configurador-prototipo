@@ -2,6 +2,8 @@
 
 A fonte desta página é o documento de requisitos do PM, *App Configurador — Requisitos v1* (19 a 21/08/2026). As decisões que vieram depois dele, no retorno do PM, estão em `07-decisoes/` (44 a 54).
 
+**Vigência da entrega (08/10/2026):** a regra atual incorpora as revisões de 06/10 descritas nas fichas de `02-telas/`. O ciclo passou a quatro passos com o veículo parado; ré e porta saíram. O ônibus do percurso normal não precisa calibrar. A T13 registra o checklist, e a T16 homologa depois do reinício automático e da releitura. As contagens e situações do v1 abaixo explicam a origem do problema, não o desenho atual.
+
 ## O problema
 
 O técnico de campo é **terceirizado, sem conhecimento prévio da lógica de programação do módulo**. Instala em pátio, obra e zona rural, muitas vezes sem rede, às vezes embaixo do ônibus. E o equipamento não avisa quando algo sai errado.
@@ -12,7 +14,7 @@ O técnico de campo é **terceirizado, sem conhecimento prévio da lógica de pr
 
 ## A tese
 
-**A verificação acontece enquanto o técnico ainda está no veículo**, em vez de a falha ser descoberta no relatório dias depois. O read-back de cada bloco gravado, o diagnóstico que confere o módulo antes de qualquer gravação, o ciclo de testes, o evento de teste que prova que o servidor recebe, o autoteste — um reinício e uma releitura — que prova que a configuração, a semente e os identificadores sobreviveram, e o checklist que só fecha com o que o sistema provou.
+**A verificação acontece enquanto o técnico ainda está no veículo**, em vez de a falha ser descoberta no relatório dias depois. O read-back de cada bloco gravado, o diagnóstico que confere o módulo antes de qualquer gravação, o ciclo de testes, o evento de teste que prova que o servidor recebe, o autoteste — um reinício e uma releitura — que prova que a configuração e os contadores sobreviveram, e o checklist que só fecha com o que o sistema provou. A homologação vem depois dessa prova, na T16.
 
 ## Os princípios
 

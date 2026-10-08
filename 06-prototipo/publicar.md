@@ -4,7 +4,7 @@
 
 1. **Validar local:** `npm run dev` — é onde se valida cada ciclo
 2. **Validar a versão de produção, ainda local:** `npm run build` e `npm run preview`. É essa que vai pro ar, e às vezes o que funciona no modo de desenvolvimento quebra no build
-3. **Subir pra Vercel:** o repositório conectado à Vercel. **Cada ciclo ganha um link de prévia próprio**, sem mexer no link oficial; o link oficial só muda quando o ciclo é aprovado
+3. **Subir pra Vercel:** o repositório está conectado à Vercel. Nesta entrega, o push aprovado em `main` atualiza o link oficial. Para revisar um ciclo antes disso, valide localmente ou use uma prévia de branch disponível no projeto da Vercel; não conte com um endereço novo só por trocar o nome do ciclo
 
 ## Tudo viaja dentro do build
 
@@ -17,7 +17,7 @@ Na Vercel não tem servidor nem pasta do lado. Então:
 ## O link tem que funcionar pra quem recebe
 
 - abre no computador e no celular — no celular, o modo janela estreita
-- os endereços diretos, como `?tela=T07&estado=01-estado-fora-da-faixa`, abrem certo
+- os endereços diretos, como `?tela=T07&estado=02-estado-serial-nao-cadastrado`, abrem certo
 - a etiqueta com a data e o ciclo aparece no canto do palco
 
 ## Na Vercel

@@ -1,5 +1,14 @@
 # Registro de mudanças
 
+## 2026-10-08 · documentação vigente e login depois da recuperação
+
+- **T01 · facilidade de demonstração pedida pelo diretor:** depois de salvar e tocar em *Entrar com a senha nova*, o login volta com o usuário mantido e a senha de exemplo do mock preenchida e escondida. O protótipo não guarda nem usa a senha nova digitada. Sair da conta continua devolvendo o login sem senha. O handler e os roteiros `recuperar` e `mov-t01` acompanham esse pedido; nenhum desenho ou texto da interface mudou.
+- **Documentação e README:** censo atual, percurso do ônibus sem calibração, consultas especiais paradas, nove linhas/oito verificações do módulo, quatro passos aplicáveis do ciclo, catálogo de 30 itens/28 no herói e homologação na T16. Domínio, histórias, fichas, design system, catálogo dos 62 casos, instruções do protótipo e guias do dev foram alinhados às fontes atuais. Contadores do menu e da fila são descritos pelos seus conjuntos reais.
+- **Histórico preservado:** a lógica acumulada até `188b17a` está em `06-prototipo/historico/logica-ate-consultas-paradas.md`; `logica.md` agora orienta a versão atual. Gates, decisões e resultados antigos permanecem identificados como históricos. A existência dos 45 roteiros não implica aceite completo na última versão.
+- **Pendências reais separadas das decisões aprovadas:** registrar na T11 ainda não enfileira/envia Diagnóstico, embora o tipo já exista; a T14 grava `fechado` mas não o usa na retomada. Esses limites estão documentados, sem alterar o produto por conta própria.
+- **Validação:** `checar` (incluindo 213 conferências do mock) e build aprovados; `mov-t01`, 311 passos, e `recuperar`, 223 passos, aprovados. A verificação do retorno confirmou senha do mock mascarada, usuário mantido, Entrar habilitado e destino T02. T01/00 em 0% contra HTML e 0,26% contra PNG. Censo, existência das 382 referências, 109 IDs e links locais conferidos; `git diff --check` sem achados.
+- **Registro:** [gate](06-prototipo/para-o-arquiteto/gate-documentacao-atual.md), [print e verificação](06-prototipo/para-o-arquiteto/retorno-login/). Mock, tokens, textos normativos e HTML/PNG de referência não mudaram. O GIF do caminho normal não passa pela recuperação e foi mantido. Não foi executada a suíte completa de 45 roteiros nem a comparação das 191 referências neste ciclo; o aviso anterior do tamanho do bundle permanece.
+
 ## 2026-10-08 · exemplos do palco como consultas paradas
 
 - **decisão do diretor na conversa**: preservar o fluxo normal e colocar os exemplos especiais em *Estados desta tela*, sem percursos alternativos de demonstração. A auditoria das 15 entradas encontrou três sementes de outro mundo: uma empresa na T02, caminhão na T10 e divergência na T11. O painel e o endereço simples agora abrem as três empresas do técnico, o ônibus sem calibração e a conferência do herói, respectivamente. As regras reais do ativo da sessão continuam as mesmas.

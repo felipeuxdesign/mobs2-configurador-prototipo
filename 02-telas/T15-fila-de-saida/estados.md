@@ -4,9 +4,9 @@
 
 | Referência | Tipo | Como se chega · o que causa | Caso do mock |
 |---|---|---|---|
-| `00-tela` | tela | a entrada da tela | fila com dois itens · um com erro |
+| `00-tela` | tela | a entrada da tela | fila com quatro itens · um com erro, um na fila e dois recebidos (um em conflito) |
 | `01-estado-sem-erro` | estado | a fila sem erros | `filaSaida` |
-| `02-estado-dois-erros` | estado | dois itens recusados | `filaSaida` |
+| `02-estado-dois-erros` | estado | uma recusa do servidor e uma falha de rede | `filaSaida` |
 | `03-estado-fila-vazia` | estado | nada esperando envio | `filaSaida` |
 | `04-estado-secao-f-em-re-checagem` | estado | a Seção F esperando o servidor | `secaoF · RVM-1E54` |
 
@@ -26,7 +26,7 @@ A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos fic
 
 - **o prefixo da recusa (T15·1 a):** `o servidor recusou ·` só aparece quando o cartão tem mais de um erro, como no `02`. Com um erro só, o cartão diz só a causa, como no `00`
 - **o rótulo do cartão** vem da contagem de erros: um, `UM PRECISA DE VOCÊ`; dois, `DUAS COM ERRO`. A legenda `Só a primeira precisa de você. A segunda reenvia sozinha.` só aparece com a recusa e o erro de rede juntos
-- **o contador** conta todos os itens mostrados, pendentes e recebidos (T15·2 a): 3 no `00`, 5 no `01`, 4 no `02`, 0 no `03` e no `04`. A Seção F não entra na conta: não é item de fila (HU-T15-5)
+- **o contador** conta todos os itens mostrados, pendentes e recebidos (T15·2 a): 4 no `00`, 5 no `01`, 4 no `02`, 0 no `03` e no `04`. A Seção F não entra na conta: não é item de fila (HU-T15-5)
 - **a sessão:** no `01` e no `02`, a sessão que o fluxo tem aberta, com ativo; sem ela, a do herói, como as referências desenham; no `03` e no `04`, nenhuma — a faixa sem sessão (T15-V1)
 - **a Seção F** aparece só no `04`, em seção à parte, com a janela da re-checagem (`confere em 24 h`). No fluxo e nos outros estados, nenhuma referência a desenha. A i-06, há 9 dias em re-checagem, contra a janela de 24 h, está com o PM (T15-A5)
 

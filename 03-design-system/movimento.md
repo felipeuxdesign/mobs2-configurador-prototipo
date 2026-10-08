@@ -92,7 +92,7 @@ Quando o título ou o rodapé trocam inteiros dentro da mesma tela, o conteúdo 
 **O gesto do app: o traço lima que se desenha da esquerda pra direita diz que algo se confirmou.** `scaleX` de 0 a 1, 300ms (`--mov-lento`), desacelerando, **uma vez só**, e só no fluxo — pela URL, no print e na coluna do palco, ele já aparece desenhado. Com reduzir movimento, aparece direto.
 
 - **T05/07** · a conexão confirmada: embaixo da linha do módulo, quando ele responde
-- **T16/02** · a visita fechada: embaixo da prova do veredito, quando a oitava assertiva passa
+- **T16/02** · a visita fechada: embaixo da prova do veredito, quando as sete assertivas terminam sem falha bloqueante
 
 Nunca durante uma espera: enquanto nada se confirmou, não tem traço.
 
@@ -108,7 +108,7 @@ Vale pro veredito da conferência da T11. O autoteste da T16 não tem veredito e
 - **Com reduzir movimento**, a prova e a contagem andam no mesmo ritmo, e a palavra e a cor entram direto.
 - **Nascido pronto** (no print, na coluna, pelo endereço), o veredito já está lá, parado.
 
-O homologado da T13 chega no `Finalizar instalação`: a barra completa em 300ms e o veredito esmaece em 150ms no lugar. O espaço dele abre direto.
+O checklist registrado da T13 chega no `Finalizar`: a barra completa em 300ms e o veredito esmaece em 150ms no lugar. O espaço dele abre direto.
 
 ## O que muda de lugar (C12)
 
@@ -123,7 +123,7 @@ O layout vai direto pro quadro final. O que muda de lugar na mesma vista vai do 
 
 ## A faixa (C12·24, C12·25)
 
-- **A faixa que nasce** (T07, quando as sete linhas do módulo passam sem trava — a sessão nasce na conexão; o padrão aprovado no gate do pacote 1, a R-05 no protótipo) desce de cima em 200ms, por baixo da barra do sistema. O que ela empurra vai de onde estava ao lugar novo só por deslocamento, no mesmo tempo.
+- **A faixa que nasce** (T07, quando as oito verificações do módulo passam sem trava; a linha de mensagens só informa — a sessão nasce na conexão; o padrão aprovado no gate do pacote 1, a R-05 no protótipo) desce de cima em 200ms, por baixo da barra do sistema. O que ela empurra vai de onde estava ao lugar novo só por deslocamento, no mesmo tempo.
 - **A faixa que encerra** (T16) sobe em 200ms e revela, embaixo, a faixa sem sessão, que já está no lugar. Nada do layout se move.
 - **A barra do sistema é do aparelho**: não se move, a cor troca direto, e ela fica por cima de tudo o que o app desenha.
 - **O ENCERRAR que se apaga** (lei 17) troca de tinta direto.
@@ -160,7 +160,7 @@ Mudam **no lugar**. O ritmo do protótipo é de apresentação: rápido o bastan
 | encerramento · cada passo | 600ms |
 | autoteste · cada assertiva | 400ms |
 | ciclo de testes · cada passo | 3s |
-| ciclo de testes · no protótipo | 3s · a semente traz 2 feitos, e o passo k acende a k × 3s do disparo (T14·1) · os +9, +12 e +15s de antes eram os do ciclo de cinco passos; com os seis do pacote 2 (decisão 54), se medem no ciclo que o constrói |
+| ciclo de testes · no protótipo | até quatro passos aplicáveis; a semente traz dois feitos. O módulo lê o cartão e espera `Confere com o cartão` ou `Não confere`; a ignição desligada vem depois da resposta, na cadência de 3s. O cálculo exato está em `T14/ciclo.js` (`tiqueDe`), e a saída atual em `T14/animacao.md`. |
 | ciclo de testes · a fila do módulo drenando, antes do disparo | 3s no total · depois, o `Disparar evento de teste` acende (T14-D11) |
 | prazo do evento | 1s real vale 4s de prazo |
 | sincronização do pacote | 4s no total |
@@ -181,7 +181,7 @@ Mudam **no lugar**. O ritmo do protótipo é de apresentação: rápido o bastan
 
 `transform` e `opacity`. **Proibido:** animar a entrada de uma tela, contar de zero ao abrir, mover o layout, animar em loop, e qualquer coisa que reaja ao mouse passando por cima. **O dado ao vivo não é loop:** o sinal que muda de verdade troca o número no lugar a cada leitura, sem transição — os sinais da CAN, na T07.
 
-**Abre parada (C12).** A tela que abre pelo endereço, pelo palco, num estado da coluna, no `Voltar ao fluxo`, no recarregar ou no print abre no quadro da referência, sem nada se mexendo. Nada conta de zero ao abrir, fora dos processos que a G27 declara, que acontecem agora (a baixa da T03 e o encerramento da T16). **No print, nada se move:** a tela nasce no quadro da referência.
+**Entrada sem animação (C12).** Abrir uma tela não anima sua entrada nem conta um valor de zero. As consultas de `Estados desta tela` e o modo de fotografia ficam parados. No percurso navegável, os processos declarados podem começar ou continuar: sincronização, diagnóstico, conferência, drenagem da fila e encerramento, conforme a ficha de cada tela. `Voltar ao fluxo` restaura o estado global guardado; processos e escolhas locais têm as limitações descritas em `06-prototipo/palco.md`. Recarregar volta ao login. **No print, nada se move:** a tela nasce no quadro da referência.
 
 **O indicador de rolagem (C12)** é do sistema, como a barra: aparece enquanto a tela rola e some em 300ms, 900ms depois de a rolagem parar.
 

@@ -10,7 +10,20 @@ Comparar o que o módulo tem gravado com o que o cadastro manda — em linguagem
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
 | **Momentos · estados** | 3 · 2 — ver `estados.md` |
 
-## O que se toca
+## O que se toca · regra vigente
+
+- A leitura compara **Cercas, Rede do módulo, Eventos e Leitor**, nessa ordem visual: quatro linhas, quatro no contador. O Extended ID não faz parte da T11 atual; a rede mostra o nome, nunca o endereço.
+- Cada linha divergente oferece **Corrigir este bloco** e leva à manutenção da T09 com aquele bloco escolhido. Os que dependem do reenviado ficam *revisar em seguida*, conforme o arraste do mock; o resultado da cadeia curta volta ao menu.
+- No herói, a leitura termina em **Tudo confere**, com **Voltar ao menu** e **Outras ações**. A folha também abre nessa situação. Enquanto a leitura corre, as ações do rodapé ficam desabilitadas.
+- **Reenviar os 5 blocos** abre um novo envio na T09 e limpa o avanço anterior da cadeia, mesmo se ela já estava concluída. A escolha de instalação ou manutenção que veio do vínculo é preservada.
+- **Apenas registrar o diagnóstico** guarda o resultado em `etapas.conferencia` e volta à T04. **No protótipo, não cria item na fila de saída**; a confirmação futura do servidor depende da integração do produto.
+- O quadro `00`, *Não bate com o cadastro*, e a folha `03`, *Divergência · outras ações*, são consultas paradas da coluna. A folha aberta por toque na conferência normal continua navegável e fecha pelos quatro gestos da lei 20.
+
+Fontes: `06-prototipo/app/src/telas/T11/index.jsx`, `conferencia.js`, `textos.js`, o índice e as referências atuais. A padronização da densidade da folha está registrada abaixo e continua vigente.
+
+## Histórico de construção · pacotes anteriores
+
+As notas abaixo conservam as decisões, medições e divergências de cada pacote. As descrições com Extended ID, APN como título, cinco linhas, ações únicas no rodapé e divergência como entrada navegável são anteriores à regra vigente acima.
 
 - as linhas: **Cercas, Rede do módulo, Eventos e Leitor** · as cercas contam regiões (decisão 50) · a rede do módulo aparece (decisão 51)
 - o Extended ID **saiu** no retorno do PM (06/10): cartão é assunto da plataforma web · o contador conta as quatro que se comparam
@@ -96,7 +109,7 @@ As diferenças da tela contra a folha viraram variante nomeada da peça (G11): o
 - **HU-T11-1** — A conferência compara o conteúdo de cada bloco — o módulo não guarda versão
 - **HU-T11-2** — Vejo as cercas, em regiões, a rede do módulo, os eventos e o leitor, cada um com o que está no módulo e no cadastro
 - **HU-T11-3** — ~~O Extended ID aparece só pra leitura~~ · saiu no retorno do PM (06/10): cartão é assunto da plataforma web
-- **HU-T11-4** — Corrigir reenvia um bloco por vez: o primeiro que diverge, na ordem da cadeia
+- **HU-T11-4** — Corrigir este bloco permite escolher qualquer linha divergente e reenviar aquele bloco por vez; os dependentes ficam para revisar conforme a cadeia
 - **HU-T11-5** — Depois de reenviar um bloco, os que dependem dele ficam marcados *revisar em seguida*
 - **HU-T11-6** — As outras ações dizem o efeito: reenviar os 5 blocos ou apenas registrar o diagnóstico
 - **HU-T11-7** — Índice que o firmware cria sozinho não é divergência; sem lista, vai para *não classificados*

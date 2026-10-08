@@ -129,7 +129,7 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 | item com ressalva | passou, mas diz a ressalva embaixo | T11 T12 T13 T16 |
 | o veredito | o topo do checklist registrado, aguardando autoteste · o próximo passo embaixo | T13 |
 | a ação da seção | uma linha só com seta · o resto é leitura | T13 |
-| a câmera do app | a mesma na calibração e no checklist | T13 |
+| a câmera do app | no checklist; a câmera saiu da calibração (decisão 52) | T13 |
 | foto · tirada | vira o registro no lugar, e deixa de ser tocável · diz onde mais ela vale | T13 |
 | bloco do evento | o que foi disparado e recebido | T14 |
 | linha da fila | o que sobe e quando | T15 |
@@ -152,7 +152,7 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 
 Anotação de construção. A tabela de cima é a do design; esta diz, só nas linhas em que o protótipo mediu diferente, o que o código usa — a regra com as variantes nomeadas (G11) e as telas que usam, corrigidas pelo medido no ciclo de cada tela (G10). A diferença vai pro arquiteto.
 
-Cada linha é um espécime de moldura das folhas, e a folha 3 soma quatro linhas pros seus 35 átomos: com as de cima, **119 peças** — as 107 do design (a contagem medida, linha a linha, na tabela de cima), as 10 que só o protótipo tem e as duas seções do checklist que a folha 4 ainda desenha, e que a tabela dela não tem (a entrega do checklist). Três das 107 entraram com o pacote 1, e o protótipo já as constrói, cada uma com o espécime da folha na bancada: a linha que só informa, os dados do modelo e a cadeia antes de gravar. Com o pacote 2 (as folhas 4 e 7 novas, decisões 52 e 53), sai a *foto · a tirar* da folha 7 — a foto do painel deixa a calibração —, e nenhuma peça entra: o Painel da Seção B é um *item de tocar*, como as outras fotos, e o Extended ID e o *revisar em seguida* da conferência são variantes da linha de conferência e do com contagem, a medir no ciclo que constrói o pacote. Com o complemento do pacote 11, entra o *o que conferir* (folha 6, logo depois do cartão que pede ação): o censo do design passa de 105 a 106 peças. O mapa de cada linha pro componente que a constrói está em `06-prototipo/app/src/ds/MAPA.md`.
+O catálogo normativo acima contém **106 peças**, contadas linha a linha nas oito tabelas. A vitrine do protótipo contém **114 espécimes comparáveis**: os estados, variantes e grupos de átomos são registrados separadamente para a bancada, e não representam 114 componentes independentes. As notas abaixo documentam as diferenças medidas e o histórico das variantes; o mapa de cada peça para o componente está em [MAPA.md](../06-prototipo/app/src/ds/MAPA.md). As contagens antigas de 107/119 pertencem aos ciclos anteriores e não são o censo atual.
 
 - **peça nova no protótipo:** a folha desenha, e o design ainda não tem linha
 - **em outra folha:** o espécime está desenhado nesta folha, e não na que o design diz
@@ -172,7 +172,7 @@ Cada linha é um espécime de moldura das folhas, e a folha 3 soma quatro linhas
 | Peça | Regra, medida | Telas que usam, medido |
 |---|---|---|
 | barra do sistema sem sessão | a cor da página — ela sangra no que vem embaixo | T01 T02 T03 T05 |
-| faixa · sessão aberta | LED lima, serial, placa e o ENCERRAR · 52 com a linha embaixo, em toda tela (a faixa é uma peça só) · o ENCERRAR com o desenho de 44, e não 48: no menu, a caixa fica a 8 da conta; o toque de 48 cresce só pra baixo, dentro da faixa (decisão 38) · variante: sem ativo, a placa apagada até o ônibus entrar na sessão (T06, e a T07/00 e 07) · variante: o ENCERRAR apagado, desabilitado de verdade, em --tinta-apagada e sem o pressionado, onde o voltar do Android não faz nada — a recuperação (T09/03) e o semear (T10), a lei 17 · a faixa nasce na T07, quando as sete linhas do módulo passam sem trava (a R-05 no protótipo): a T05 não tem faixa, e as travas da T07 (02 a 06) também não | T06 T07 T09 T10 T11 T12 T13 T14 T15 |
+| faixa · sessão aberta | LED lima, serial, placa e o ENCERRAR · 52 com a linha embaixo, em toda tela (a faixa é uma peça só) · o ENCERRAR com o desenho de 44, e não 48: no menu, a caixa fica a 8 da conta; o toque de 48 cresce só pra baixo, dentro da faixa (decisão 38) · variante: sem ativo, a placa apagada até o ônibus entrar na sessão (T06, e a T07/00 e 07) · variante: o ENCERRAR apagado, desabilitado de verdade, em --tinta-apagada e sem o pressionado, onde o voltar do Android não faz nada — a recuperação (T09/03) e o semear (T10), a lei 17 · a faixa nasce na T07, quando as oito verificações do módulo passam sem trava; a linha de mensagens só informa (a R-05 no protótipo): a T05 não tem faixa, e as travas da T07 (02 a 06) também não | T06 T07 T09 T10 T11 T12 T13 T14 T15 |
 | faixa · sem sessão | LED apagado · só o fato | T04 T12 T15 T16 |
 | faixa · módulo com falha | o serial sai · LED vermelho · a linha vermelha de 2 embaixo, nos mesmos 52 da faixa, também no menu, com a borda de cima (T04/03 · a entrega do checklist: saiu o traço por cima do C5) · no menu, o ENCERRAR de 44 desce 1, a diferença entre a linha de 2 e a de 1, e fica no mesmo lugar da faixa sem falha (T04/03, folha 2 · decisão 38) | T04 |
 | tira de contexto | só no menu · a unidade e a conta · a área de 48 da conta cresce só pra cima e pro lado: com o ENCERRAR de 44 logo embaixo, a caixa dela já fica a 8 dele, e saiu o recuo de 5 pra dentro do avatar, que o ENCERRAR de 48 pedia (decisão 38) | T04 |
@@ -305,7 +305,7 @@ Cada linha é um espécime de moldura das folhas, e a folha 3 soma quatro linhas
 | o lugar | **o do desenho oficial** — a barra inteira escalada pra 360 e cortada em 30 (`viewBox="0 12.90 412 34.33"`) · nada recolocado à mão |
 | a cor | **o branco do desenho oficial**, sobre o fundo da tela |
 
-**As barras são fixas** (lei 22): em cima, a barra oficial do Android, do kit do Material — o 9:30, o Wi-Fi, o sinal e a bateria —, escalada pra 360 de largura e cortada na altura de 30; o espaço da câmera fica reservado, sem desenhar. Embaixo, a navegação por gestos do Material — a pílula de 94×3,5px a 9px do pé — nas 142 telas, por cima de tudo, inclusive das folhas. O fundo das duas é o da tela. No componente, nenhuma propriedade.
+**As barras são fixas** (lei 22): em cima, a barra oficial do Android, do kit do Material — o 9:30, o Wi-Fi, o sinal e a bateria —, escalada pra 360 de largura e cortada na altura de 30; o espaço da câmera fica reservado, sem desenhar. Embaixo, a navegação por gestos do Material — a pílula de 94×3,5px a 9px do pé — nas 191 referências de tela da versão atual, por cima de tudo, inclusive das folhas. O fundo das duas é o da tela. No componente, nenhuma propriedade.
 
 Nunca na fonte do app, e nunca com ícone de notificação, operadora ou porcentagem — cada detalhe a mais é um que envelhece.
 
@@ -320,7 +320,7 @@ Toda lista que lê, confere ou grava **uma linha por vez** — a T07, a T09, a T
 | Estado | O poço | O valor |
 |---|---|---|
 | **esperando** | o relógio | um traço |
-| **agora** | o quadrado branco — 12px no poço de 32, 14px no de 34 | o verbo: *lendo*, *conferindo*, *gravando* · na T14, a ação do técnico: *engate a ré* |
+| **agora** | o quadrado branco — 12px no poço de 32, 14px no de 34 | o verbo: *lendo*, *conferindo*, *gravando* · na T14, a ação do técnico: *passe o cartão* |
 | **pronto** | o check, o xis ou o *i* da linha que só informa | o resultado |
 
 **A contagem do andamento mora onde mora a do resultado:** ao lado do título na T07 e na T16; dentro do veredito, neutro, na T11. Enquanto a leitura corre, o rodapé fica desligado e diz o que está acontecendo. **Na T14, o *agora* é uma ordem pro técnico:** o passo da vez diz o que ele tem que fazer no ônibus. Antes do disparo e na falha da rotação, sem quadrado.
@@ -403,7 +403,7 @@ Anotação de construção do C12. O movimento é da peça, e vale onde ela est�
 | glifo · o check que nasce | o glifo que troca depois de montar esmaece no poço em 150ms, com o que chega junto (C12·12) · o da T05 era a pré-checagem, que passa pro diagnóstico da T07 | T03 T07 T09 T11 T12 T14 T16 |
 | aviso | **surge:** o aviso que aparece depois de a tela abrir esmaece em 150ms · **aguarda:** o veredito que espera a prova, na caixa neutra com a contagem — com `aguardaTitulo`, ela diz o que corre (*CONFERINDO*, a T11/04, o pacote 5); na última linha, a palavra e a cor entram em 150ms (C12·9, C12·35) | T01 T03 T05 T09 T11 |
 | prova | **surge:** a prova sem lugar reservado esmaece em 150ms · **aguarda:** a legenda, ou a prova inteira com a contagem no lugar da versão (C12·9, C12·35) · a T16 deixou de usar: o autoteste correndo não tem veredito (a T16/07, o pacote 5) | T09 T11 |
-| faixa | **ausente:** a faixa que nasce desce em 200ms, e o que ela empurra acompanha — na T07, quando as sete linhas do módulo passam sem trava (a R-05 no protótipo; antes do pacote 1, na T05) · **revela:** a aberta sobe em 200ms e revela a sem sessão (C12·24, C12·25) | T07 T16 |
+| faixa | **ausente:** a faixa que nasce desce em 200ms, e o que ela empurra acompanha — na T07, quando as oito verificações do módulo passam sem trava; a linha de mensagens só informa (a R-05 no protótipo; antes do pacote 1, na T05) · **revela:** a aberta sobe em 200ms e revela a sem sessão (C12·24, C12·25) | T07 T16 |
 | escala | **segue:** um trecho linear por passo do processo, vezes `--mov-fator` · montar nunca anima (C12·15, C12·40) · o *corre*, a leitura que chegava na T07, saiu com ela | T03 T13 T14 |
 | tambor | rola na troca de valor: 300ms por rodinha, 40ms entre elas, a unidade primeiro · nunca ao montar (G29) · a peça saiu do design com a T07 antiga; o tambor fica dentro do *valor em poço* da calibração (folha 8) | T10 |
 | trilho | **acende:** o trilho do elo relido acende de cima pra baixo em 300ms, só na cadeia (C12·32) | T09 |

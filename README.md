@@ -29,11 +29,11 @@ O app conduz a instalação em sequência e prova cada passo:
 5. **Grava a configuração** em seis blocos, cada um conferido no módulo, e confere que o módulo falou com o servidor.
 6. **Calibra** só o que o veículo não entrega pela CAN: o ônibus não calibra nada, e o caminhão coletor calibra o hodômetro e a rotação, com a velocidade e o horímetro opcionais.
 7. **Roda o ciclo de testes** com o ônibus parado: ignição ligada, rotação, cartão do motorista e ignição desligada, cada um só quando se aplica — a cada passo, o app diz o que o técnico tem que fazer, e o técnico confere o cartão lido com o número impresso.
-8. **Fecha o checklist** de 28 itens — o app confere o que consegue sozinho, e o técnico fotografa o resto e testa o bip do leitor — e encerra a sessão: o módulo reinicia sozinho, o autoteste confere sete assertivas, e só aí a instalação é homologada.
+8. **Fecha o checklist** dos itens aplicáveis — 28 no ônibus do caminho principal, de um catálogo de 30. O app confere o que consegue sozinho, e o técnico fotografa o resto e testa o bip do leitor. Ao encerrar a sessão, o módulo reinicia sozinho, o autoteste confere sete assertivas, e só aí a instalação é homologada.
 
 Antes de tudo, o login: o técnico recupera o acesso sem ligar pra ninguém, e o app nunca revela se uma conta existe — ele digita o telefone ou o e-mail, e a resposta é sempre a mesma.
 
-Nenhuma tela expõe comando, sintaxe ou parâmetro técnico: o técnico responde perguntas de negócio, e o app fala com o módulo.
+As telas traduzem as ações em perguntas de negócio, e o app fala com o módulo. A APN é a exceção de dado técnico que o PM pediu para conferir.
 
 ## O protótipo
 
@@ -49,7 +49,9 @@ No celular, o app ocupa a tela inteira.
 
 Cada tela, momento e estado tem uma referência desenhada, em HTML e PNG — 191 ao todo. O protótipo foi construído contra elas e comparado pixel a pixel; toda diferença que sobrou tem um nome e um motivo registrados.
 
-O código não inventa nada: o comportamento vem da ficha de cada tela, os textos do `textos.md` dela, os valores dos tokens. Além das referências, o protótipo é verificado por 45 roteiros que tocam o app como o técnico — inclusive o caminho completo, com e sem horímetro — e por um gate que confere a coerência dos dados de exemplo.
+O comportamento vem da ficha de cada tela, os textos do `textos.md` dela e as medidas dos tokens. O repositório contém 45 roteiros de navegação e um gate que confere os dados de exemplo. O caminho principal usa o ônibus sem calibração; o roteiro historicamente chamado `heroi-sem-horimetro` verifica a entrada no ciclo pelo checklist.
+
+A última rodada de navegação aprovou o caminho principal (239 passos), a conferência, a calibração pelo palco e as consultas paradas. Isso não significa que os 45 roteiros foram executados nessa rodada: alguns roteiros antigos ainda usam exemplos que agora abrem parados. O estado das verificações e a ordem de uso estão em [Testes para o dev](08-para-o-dev/testes-prontos.md).
 
 **As tecnologias:** o protótipo é um app web em **React 18** com **Vite**, em JavaScript, sem biblioteca de componentes de fora: as peças são as do design system, construídas no próprio projeto, com os valores dos tokens em CSS. Os ícones são do **Lucide**, e a fonte é a **Barlow**. A comparação com as referências roda no **Chrome** sem tela, com o **pixelmatch** medindo a diferença pixel a pixel. Ele é publicado na **Vercel**.
 
@@ -70,7 +72,7 @@ O código não inventa nada: o comportamento vem da ficha de cada tela, os texto
 08-para-o-dev/       por onde começar a construir o produto
 ```
 
-A ordem de leitura de cada perfil está no [`LEIA-PRIMEIRO.md`](LEIA-PRIMEIRO.md), e o histórico de mudanças no [`CHANGELOG.md`](CHANGELOG.md). Quem vai desenvolver o produto começa por [`08-para-o-dev/`](08-para-o-dev/): o contrato de dados, as integrações com o módulo e o servidor, e os testes que já estão prontos.
+A ordem de leitura de cada perfil está no [`LEIA-PRIMEIRO.md`](LEIA-PRIMEIRO.md), e o histórico de mudanças no [`CHANGELOG.md`](CHANGELOG.md). Quem vai desenvolver o produto começa pelo [guia do dev](08-para-o-dev/README.md): o contrato de dados, as integrações com o módulo e o servidor, os testes e as decisões que ainda precisam de definição. O protótipo simula os equipamentos e serviços; transporte, autenticação, persistência sem rede e captura de evidências precisam ser implementados no produto.
 
 ## Rodar localmente
 
@@ -80,7 +82,16 @@ npm install
 npm run dev
 ```
 
-Abre em `http://localhost:5173`. As verificações ficam na mesma pasta: `npm run checar` e `npm run build`; com os fotógrafos rodando (`npm run fotografo` e `npm run fotografo:1`), `node scripts/tela.mjs todas` compara as 188 referências e `node scripts/caminho.mjs todos` roda os roteiros.
+Abre em `http://localhost:5173`. Na mesma pasta, rode `npm run checar` para conferir o mock e as regras locais, e `npm run build` para gerar o build.
+
+Para conferir a navegação atual, com o servidor aberto e um fotógrafo rodando (`npm run fotografo`), use:
+
+```bash
+node scripts/caminho.mjs heroi
+node scripts/testar-consultas.mjs
+```
+
+Para a comparação visual, com os fotógrafos nas escalas 2 e 1 (`npm run fotografo` e `npm run fotografo:1`, um terminal por processo), `node scripts/tela.mjs todas` compara as 191 referências. `node scripts/caminho.mjs todos` executa os 45 roteiros; consulte as limitações dos roteiros históricos em [Testes para o dev](08-para-o-dev/testes-prontos.md) antes de usar o lote como aceite.
 
 ## Propriedade e uso
 

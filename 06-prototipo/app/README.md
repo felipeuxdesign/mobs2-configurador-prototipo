@@ -1,31 +1,55 @@
-# app/
+# O protótipo navegável
 
-O protótipo navegável do App Configurador Mobs2 — Vite + React 18, em JavaScript. A estrutura e as regras estão em `../CLAUDE.md`; os ciclos, em `../ciclos.md`.
+Vite + React 18, em JavaScript. As regras estão em [CLAUDE.md](../CLAUDE.md), a navegação em [logica.md](../logica.md) e os acessos de apresentação em [palco.md](../palco.md). Para implementar o produto com serviços e equipamento reais, comece pelo [guia do dev](../../08-para-o-dev/README.md).
 
 ## Rodar
 
-```
-npm install        # uma vez
-npm run dev        # http://localhost:5173 — o palco com o celular
-npm run build      # a versão de produção, em dist/
-npm run preview    # abre o build em http://localhost:4173
+Execute nesta pasta:
+
+```bash
+npm install
+npm run dev        # http://localhost:5173
+npm run build      # gera dist/
+npm run preview    # http://localhost:4173
 ```
 
-## Conferir
+## Verificação local
 
+```bash
+npm run checar     # mock, tokens, receitas, regras locais e higiene do app
+npm run gate       # somente o contrato do mock
+npm run tokens     # gera tokens.json a partir do CSS normativo
 ```
-npm run checar     # o gate do mock, tokens.json = tokens.css, as sementes e as receitas, as contas do teclado e do retrato, os toques do login sem conexão, do Bluetooth e da câmera sem a permissão, e a higiene do código
-npm run gate       # só o gate do mock
-npm run tokens     # regenera 03-design-system/tokens.json a partir do tokens.css
-npm run print -- "http://localhost:5173/?print=1" prints/x.png      # 360 × 800 a 2×
+
+Com o servidor na porta 5173 e `npm run fotografo` aberto em outro terminal:
+
+```bash
+node scripts/caminho.mjs heroi
+node scripts/caminho.mjs conferencia
+node scripts/caminho.mjs familias
+node scripts/testar-consultas.mjs
+```
+
+O último script verifica os 15 exemplos especiais parados, os retornos ao percurso guardado e as três entradas normais do painel. Ele usa o Chrome do fotógrafo na escala 2. Os resultados do último aceite de navegação estão no [gate de consultas](../para-o-arquiteto/gate-consultas-paradas.md).
+
+Há 45 roteiros em `scripts/caminhos`. Alguns roteiros históricos ainda usam acessos sintéticos que foram substituídos por consultas paradas. Antes de usar `node scripts/caminho.mjs todos` como aceite, leia [testes-prontos.md](../../08-para-o-dev/testes-prontos.md); a última rodada não executou o lote inteiro.
+
+## Comparar o desenho
+
+Mantenha o servidor e os dois fotógrafos em terminais separados: `npm run fotografo` (escala 2) e `npm run fotografo:1` (escala 1). Reutilize processos já abertos.
+
+```bash
+node scripts/tela.mjs todos T11       # somente as referências da T11
+node scripts/tela.mjs todas           # 191 referências das 15 telas
+node scripts/especime.mjs todos       # 114 espécimes comparáveis da vitrine
+npm run print -- "http://localhost:5173/?tela=T01&print=1" prints/x.png
 npm run comparar -- prints/x.png ../../02-telas/T01-login/referencias/png/00-tela.png
-node scripts/caminho.mjs todos    # os roteiros de scripts/caminhos/, tocando como o técnico (o teclado e o retrato também)
-node scripts/aceso.mjs            # a régua do botão aceso que não faz nada (regra 12), em cada tela e momento, e nos lugares que nascem de um toque
-node scripts/provas-palco.mjs     # as provas da decisão 43 no protótipo rodando: a barra de status (30, e o que vem embaixo em y = 30) e a hora na Google Sans nas 147, a moldura, o centro e a coluna a 1440 × 900 e 1920 × 1080, o vão da T16 e a folga antes do rodapé da T06 e da T12 · e os quatro modos do palco (e a folha 00) lado a lado com os quadros, em ../para-o-arquiteto/palco/ (o scripts/provas-palco-lado-a-lado.py, com a PIL) · grava prints/tmp/relatorios/palco-provas.json e .txt
 ```
 
-`?print=1` mostra só a tela do app, sem o palco — é o que se compara com o PNG de referência.
+`?print=1` abre a referência congelada, sem o palco. O [guia de comparação](../../08-para-o-dev/conferir-contra-o-design.md) explica a diferença entre comparação com HTML e PNG e os desvios registrados. As ferramentas `aceso.mjs` e `provas-palco.mjs` continuam no repositório; seus pressupostos históricos devem ser conferidos antes de usá-las em novos acessos.
 
-## De fora da app
+## Fontes e publicação
 
-O mock (`04-dados/mocks.js`), os tokens (`03-design-system/tokens.css`), a fonte e a marca (`05-recursos/`) são lidos de onde estão — nunca copiados pra cá (`../publicar.md`). Na Vercel, "Include files outside the Root Directory" precisa estar ligado.
+O [mock](../../04-dados/mocks.js), os [tokens](../../03-design-system/tokens.css), as fontes e a marca em `05-recursos/` são consumidos das pastas de origem. A configuração de publicação está em [publicar.md](../publicar.md); na Vercel, incluir arquivos fora da Root Directory é obrigatório.
+
+Nenhuma integração real acontece aqui. Dados, leituras, envio, câmera e persistência são simulados; o palco, suas sementes e os tempos de apresentação não devem ser levados para o produto.

@@ -148,10 +148,15 @@ export default [
   { ve: 'Senha alterada' },
   { ve: 'A senha nova já vale. Os outros aparelhos saíram da sua conta.' },
   { toca: 'Entrar com a senha nova' },
-  // o login, com o usuário e a senha vazia
+  // o login volta preenchido com a senha do mock para a demonstração (08/10).
   { chega: 'T01', momento: null },
   { naoVe: 'Senha alterada' },
   { ve: 'Esqueci a senha' },
+  { ve: 'Entrar' },
+  { naoVe: 'Digite a senha' },
+  // Limpa a senha para continuar provando os campos vazios e o erro abaixo.
+  { digita: 'x', em: 'SENHA' },
+  { tecla: 'Backspace' },
   // o Entrar diz o que falta enquanto o técnico apaga e digita, apagado e desabilitado
   // enquanto falta (a otimização do design): a senha vazia, Digite a senha; o usuário
   // apagado, Digite o usuário, com a senha ou sem ela; os dois, Entrar

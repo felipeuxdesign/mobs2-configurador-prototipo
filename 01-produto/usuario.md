@@ -12,7 +12,7 @@ O que isso decide no desenho:
 - cada tela responde **uma pergunta de negócio** — *é este o ônibus?*, *o evento chegou?* —, nunca uma de protocolo: nenhuma tela mostra comando, código de entrada ou saída, índice de memória ou a palavra *script*, e o hardware é nomeado por cor e função
 - o app diz **o que falhou e a ação que resolve**, na mesma linha — e, onde a saída não é dele, diz a quem escalonar
 - **nada some em silêncio:** a fila diz o que ainda não subiu, a sessão interrompida é oferecida de volta, e a tela explica o que se perdeu e o que continua valendo
-- ele não perde o acesso no meio do pátio: a sessão de acesso só termina quando ele escolhe sair
+- a sessão de acesso não expira por inatividade: termina quando ele escolhe sair ou ao completar 7 dias, com aviso a partir do 5º; a fila e as evidências são preservadas
 
 ## Quem mais olha
 

@@ -54,18 +54,18 @@ Cada lei tem o porquê. Uma lei sem motivo vira gosto, e gosto se discute; lei c
 |---|---|
 | R-01 | **Só o tema escuro.** O claro é outro projeto, se um dia existir |
 | R-02 | Nome, saída e estado normal **nunca são lima** |
-| R-03 ◆ | O título da tela **nunca vira a falha**. Exceção declarada: no código de recuperação (T01), o título diz *Código não confere* |
-| R-04 | **Momento é fluxo; estado é coluna do palco** |
-| R-05 | A T05 não tem faixa de sessão: **a faixa aparece** quando o módulo conecta — é ali que a sessão nasce |
+| R-03 ◆ | O título da tela **nunca vira a falha**. Exceção declarada: no código de recuperação (T01), o título diz *Código inválido ou vencido*, a mensagem única do retorno do PM |
+| R-04 | **Momento é etapa do fluxo; estado depende do mundo.** A coluna do palco oferece ambos como consultas paradas quando o índice os inclui; isso não muda o tipo normativo da referência |
+| R-05 | A T05 não tem faixa de sessão: **a sessão nasce** quando o módulo conecta, e **a faixa aparece na T07** depois das verificações do diagnóstico sem trava |
 | R-06 | `Sair da conta` mora na folha da conta, nunca na faixa |
 | R-07 | O diagnóstico é **lista, na ordem**: o módulo primeiro, a CAN depois — a trava acende na própria linha, e o título fica |
 | R-08 | O processo que para é **aviso**, no formato único |
 | R-09 | A calibração mostra o número **rolando no lugar** — o tambor —, sem remontar a tela |
-| R-10 | No protótipo, os passos do ciclo de testes **acontecem sozinhos**, um a cada 3 segundos |
+| R-10 | No protótipo, as leituras do ciclo de testes seguem a cadência de 3 segundos; **o cartão espera a resposta do técnico**. A ignição desligada confirma depois dessa resposta. As consultas da coluna ficam paradas |
 | R-11 ◆ | Escolher e seguir com um módulo ou ônibus que é caso do mock **abre o estado dele** — a porta natural. Com a R-14, o estado aparece quando o técnico aperta o botão, não no toque da linha |
 | R-12 | Estados de toque: **normal, pressionado, desabilitado.** Sem hover. Sem foco de teclado no app |
 | R-13 | O palco fica **fora do app**. Comparar com a referência é trabalho do ciclo, não do palco |
 | R-14 ◆ | **Escolher numa lista marca; quem avança é o botão.** Tocar numa linha que tem o marcador de escolha (o quadrado) só marca — o quadrado lima surge — e acende o primário; é o primário que segue. Tocar em outra linha troca a marca. A linha com chevron (uma opção, uma consulta) age no toque. *Decisão do diretor, 24/09* |
 | R-15 ◆ | **O celular não mostra a barra de rolagem do navegador.** O que rola mostra o indicador do sistema: fino, por cima do conteúdo, sem ocupar lugar, enquanto rola, e some depois. *Decisão do diretor, 24/09* |
 
-**No protótipo · R-05** · a sessão nasce na conexão, e **a faixa desce na T07**, quando as sete linhas do módulo passam sem trava — é o que as referências desenham: a T07/00, 01 e 07 a 10 têm a faixa; as travas e o firmware, 02 a 06, não. Padrão aprovado pelo arquiteto no gate do pacote 1; a errata dele acerta a `logica.md`, a decisão 44 e a animação da T04.
+**No protótipo · R-05** · a sessão nasce na conexão, e **a faixa desce na T07**, quando as oito verificações do módulo passam sem trava; as mensagens no módulo só informam — é o que as referências desenham: a T07/00, 01 e 07 a 10 têm a faixa; as travas e o firmware, 02 a 06, não. Padrão aprovado pelo arquiteto no gate do pacote 1; a errata dele acerta a `logica.md`, a decisão 44 e a animação da T04.

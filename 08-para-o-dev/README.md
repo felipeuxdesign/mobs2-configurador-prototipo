@@ -1,37 +1,45 @@
 # Pro dev
 
-Esta pasta é pra quem vai construir o App Configurador de verdade. O protótipo em `06-prototipo/` é **uma forma de consumir as fontes deste repositório**, não a especificação: o produto se constrói das mesmas fontes, na stack que o time escolher. Aqui ninguém copia o que mora nas outras pastas — esta pasta aponta.
+Esta pasta orienta a construção do App Configurador no produto. O [protótipo navegável](https://configurador-mobs2-prototipo.vercel.app) permite experimentar o uso; comportamento, textos, medidas e referências estão nas fontes deste repositório. A stack fica a cargo do time.
+
+Censo conferido em 08/10/2026: **15 telas · 191 referências** (15 entradas, 97 momentos e 79 estados) · **109 histórias · 295 tokens · 106 peças de design · 54 decisões · 62 casos de mock**. A bancada do protótipo tem 114 espécimes, incluindo variantes. Os 45 roteiros existentes têm o estado de validação descrito em [testes-prontos.md](testes-prontos.md).
 
 ## Por onde começar, pela tarefa
 
 | Vai… | Leia, nesta ordem |
 |---|---|
-| **entender o produto** | `01-produto/historia.md` → `usuario.md` → `dominio.md` → `historias.md` (105 histórias) → `fluxos.md` |
-| **construir uma tela** | a ficha da tela em `02-telas/<tela>/` (`tela.md`, `estados.md`, `animacao.md`, `textos.md`) → as referências HTML e PNG dela → as peças que ela usa em `03-design-system/componentes.md` → `contrato-de-dados.md`, nesta pasta |
-| **montar o design system** | `03-design-system/tokens.css` (295 tokens; o `tokens.json` é gerado dele, em formato neutro) → `leis.md` (24 leis) → `componentes.md` (106 peças) → `movimento.md` → as oito folhas em `referencias/` |
-| **integrar com o módulo, a CAN e o servidor** | `integracoes.md`, nesta pasta → `04-dados/mocks.js` (o formato que cada integração tem que entregar) |
-| **testar** | `testes-prontos.md` e `conferir-contra-o-design.md`, nesta pasta |
-| **saber o porquê de uma escolha** | `07-decisoes/` (54 decisões, com o que foi descartado) |
-| **saber o que ainda está aberto** | `o-que-o-produto-ainda-decide.md`, nesta pasta |
+| **entender o produto** | [história](../01-produto/historia.md) → [usuário](../01-produto/usuario.md) → [domínio](../01-produto/dominio.md) → [109 histórias](../01-produto/historias.md) → [fluxos](../01-produto/fluxos.md) |
+| **construir uma tela** | a pasta dela em [02-telas](../02-telas/) (`tela.md`, `estados.md`, `animacao.md`, `textos.md`) → cada HTML e PNG da tela → [componentes](../03-design-system/componentes.md) → [contrato de dados](contrato-de-dados.md) |
+| **montar o design system** | [tokens.css](../03-design-system/tokens.css) → [tokens.json](../03-design-system/tokens.json), gerado do CSS → [leis](../03-design-system/leis.md) → [componentes](../03-design-system/componentes.md) → [movimento](../03-design-system/movimento.md) → [oito folhas de referência](../03-design-system/referencias/) |
+| **integrar módulo, CAN e servidor** | [integrações](integracoes.md) → [mock](../04-dados/mocks.js) → [gate do contrato](../04-dados/gate-cobertura.js) |
+| **testar** | [testes prontos](testes-prontos.md) → [conferir contra o design](conferir-contra-o-design.md) |
+| **entender uma escolha** | [54 decisões](../07-decisoes/README.md), observando as notas de decisões revistas ou superadas |
+| **conferir o que falta decidir** | [pendências e decisões já resolvidas](o-que-o-produto-ainda-decide.md) |
 
-## O que é norma, e o que é só do protótipo
+## O que é norma
 
-**É norma — o produto faz igual:**
-- o comportamento de cada tela, momento e estado · `02-telas/*/tela.md` e `estados.md`
-- os textos, exatos · `02-telas/*/textos.md` (o que está entre crases é o texto da tela; prontos pra virar arquivo de tradução)
-- os valores · `03-design-system/tokens.css` — nenhum valor solto
-- as leis visuais, de medida e de produto · `03-design-system/leis.md`
-- o movimento · `03-design-system/movimento.md` e cada `animacao.md`
-- as regras de negócio e as histórias · `01-produto/dominio.md` e `historias.md`
-- a aparência de cada tela · as 154 referências em `02-telas/*/referencias/`
+- Comportamento de cada tela, momento e estado: `tela.md` e `estados.md` em [02-telas](../02-telas/).
+- Textos exatos: o `textos.md` de cada tela. O que está entre crases é texto da interface.
+- Medidas, cores e tamanhos: [tokens.css](../03-design-system/tokens.css), sem valores soltos.
+- Leis visuais e de produto: [leis.md](../03-design-system/leis.md).
+- Movimento: [movimento.md](../03-design-system/movimento.md) e cada `animacao.md`.
+- Regras e histórias: [domínio](../01-produto/dominio.md) e [histórias](../01-produto/historias.md).
+- Aparência: os 191 pares HTML/PNG listados no [índice](../02-telas/indice.json).
 
-**É só do protótipo — não leve pro produto:**
-- os dados do mock: pessoas, placas, seriais, números (o **formato** é contrato; os **valores**, não)
-- os tempos dos processos: no produto, é o tempo real do módulo, da CAN e do servidor
-- o relógio parado em 14:30 (e o 9:30 da barra, que é desenho do Android)
-- as duas barras do sistema: são cenário, o aparelho desenha as dele (lei 22)
-- o palco inteiro: o quadrado, o painel, a coluna dos estados, a moldura do celular, as sementes e o `Recomeçar do login`
+Os documentos preservam o histórico das rodadas. Para implementar, observe as revisões do PM de 06/10 e as notas vigentes no início das fichas: seis passos antigos com ré e porta, calibração obrigatória no ônibus e comparação do cartão com cadastro foram substituídos. As regras atuais estão resumidas em [integrações](integracoes.md) e em [decisões já resolvidas](o-que-o-produto-ainda-decide.md#já-definido).
+
+## O que é só do protótipo
+
+- Pessoas, placas, seriais e números do mock: seus formatos e relações orientam o contrato; os valores são exemplos.
+- Cadências simuladas de processos. No produto, leituras e respostas vêm das integrações reais.
+- Relógio do produto congelado em 14:30; o 9:30 da barra é arte do Android.
+- Barras do sistema desenhadas: o aparelho apresenta as suas, conforme a lei 22.
+- Palco, painel, moldura do celular, sementes, coluna de consultas e `Recomeçar do login`.
+- Login com a senha de exemplo preenchida ao terminar a recuperação, para seguir a demonstração; não salva a nova senha.
+- Estado mantido em memória durante a navegação. O protótipo não implementa armazenamento durável nem envio real.
+
+No palco, o painel abre o contexto do caminho normal; exemplos especiais ficam em **Estados desta tela**, parados. Isso facilita a inspeção e não remove os estados que o produto precisa implementar quando a condição real acontecer. [Gate e validação dessa organização](../06-prototipo/para-o-arquiteto/gate-consultas-paradas.md).
 
 ## A stack
 
-É do time que vai construir. **Nada do que está neste repositório depende dela:** os tokens, os textos e as referências são formato neutro (CSS, Markdown, HTML e PNG), e o comportamento está escrito em linguagem de produto. O que ela decide está em `integracoes.md`.
+Os tokens, textos e referências usam CSS, JSON, Markdown, HTML e PNG; o comportamento é descrito em linguagem de produto. A implementação real ainda precisa conectar essas fontes ao módulo, ao servidor, às permissões e ao armazenamento do aparelho. Veja [integrações](integracoes.md) e [pendências](o-que-o-produto-ainda-decide.md).

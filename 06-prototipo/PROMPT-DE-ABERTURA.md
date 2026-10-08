@@ -1,5 +1,7 @@
 # Ciclo C0 · Estudo da pasta inteira
 
+> **Documento histórico do início da construção.** O protótipo já foi construído. As contagens e restrições de C0 abaixo registram aquele ciclo; para trabalhar na versão atual, comece pelo [LEIA-PRIMEIRO](../LEIA-PRIMEIRO.md), pelas leis e pelo [guia do dev](../08-para-o-dev/README.md). O censo atual é 15 telas e 191 referências (97 momentos e 79 estados).
+
 ## Neste ciclo você NÃO
 
 - escreve código, cria o projeto Vite ou instala qualquer pacote
