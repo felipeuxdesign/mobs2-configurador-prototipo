@@ -60,3 +60,8 @@ Nenhuma entrada viva do palco leva à manutenção (os exemplos são consultas p
 2. Padrões, pro arquiteto: o Reenviar da pergunta corre o dependente direto, sem folha (a pergunta é a confirmação); o deixado para depois diz *falta reenviar* no lugar dos botões; sair com dependente por decidir grava ele como *falta reenviar*; os textos sem referência (*Reenviando só o ativo.*, *Eventos conferem.*, *Conexão confere.*, *Reenviar a conexão*) seguem a gramática dos desenhados.
 3. Variantes aditivas de peça, só com tokens existentes, nenhuma peça existente muda: o item do checklist `espera` e `revisar`, o valor `forte` da linha de escolha. A pergunta pelos dependentes é peça da tela (T09/Pergunta.jsx), e o `BotaoDaLinha` ganhou o tamanho de 36. Pro arquiteto pôr nas folhas 3 e 7.
 4. O Reenviar da pergunta e o Deixar para depois têm 36 de desenho, como a referência; o toque não cresce a 48.
+
+## Complemento do 29
+
+Censo: 199 referências, sem mudança. As três fichas de animação do complemento são idênticas às do pacote 29 (diff vazio): já tinham entrado. Conferência no protótipo, pelo roteiro `reenvio`: a folha de confirmação sobe (`transform` 200 na `ds-folha`) e desce (150, com o véu); a pergunta pelos dependentes surge embaixo do check (`opacity` 150 na `t09-pergunta-surge`); o `Reenviar os eventos` acende no lugar quando o leitor fica para depois (`opacity` 150 na `t09-pergunta-acende`). O `Finalizar` da T13 reabre aceso depois do reenvio feito na T09, sem animar a entrada da tela.
+

@@ -1,5 +1,10 @@
 # Registro de mudanças
 
+## 2026-10-09 · complemento do 29: as animações
+
+- **As três fichas de animação do complemento** (T09, T11, T13) são idênticas às do pacote 29, que já entraram no commit dele: a folha de confirmação subindo em 200, a pergunta pelos dependentes surgindo embaixo do check, o `Reenviar os eventos` acendendo no lugar em 150, a contagem da T11 até 5 na ordem do script, a folha do `Corrigir este bloco`, e o `Finalizar` da T13 acendendo quando o último bloco pendente confere. As linhas em que a cópia do pacote difere das nossas são versões antigas das que o protótipo já detalha (a folha *Outras ações* com o véu integral, a seção que abre, a barra do checklist): ficaram as nossas. Nenhum arquivo mudou além deste registro e do gate.
+- **No protótipo**, conferido pelo roteiro `reenvio`: a folha sobe em 200 e desce em 150, a pergunta surge em 150 e o `Reenviar os eventos` acende em 150, na frente de quem olha. O `Finalizar` da T13 volta aceso quando a tela reabre depois do reenvio, que acontece na T09: a entrada de tela não anima (a lei), e o acender no lugar só se vê se o bloco conferir com o checklist aberto — o que o fluxo não faz. [Gate](06-prototipo/para-o-arquiteto/gate-ordem-do-script.md#complemento-do-29).
+
 ## 2026-10-09 · retorno do PM de 09/10: a ordem do script
 
 - **A regra:** o script tem uma ordem só — Limpeza, Ativo, Cercas, Leitor, Eventos, Conexão — e toda tela que lista, lê de volta ou reenvia blocos usa essa ordem · **o arrastado nunca é reenviado sozinho**: o app explica a consequência e pergunta por cada dependente, um por vez (o Ativo → os Eventos; as Cercas → o Leitor e os Eventos; o Leitor → os Eventos).
