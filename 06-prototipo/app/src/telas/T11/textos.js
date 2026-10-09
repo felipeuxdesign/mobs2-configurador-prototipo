@@ -11,7 +11,7 @@
 // o bloco com o artigo, como o rodapé escreve: 'Corrigir as cercas', 'Revisar o
 // leitor' (T11/00, 05). Os outros dois seguem a mesma gramática — nenhuma
 // referência os desenha (D2: depois do leitor, a conferência pede os eventos)
-const COM_ARTIGO = { cercas: 'as cercas', leitor: 'o leitor', eventos: 'os eventos', conexao: 'a rede do módulo' }
+const COM_ARTIGO = { ativo: 'o ativo', cercas: 'as cercas', leitor: 'o leitor', eventos: 'os eventos', conexao: 'a conexão' }
 
 export const T = {
   titulo: 'Conferir configuração',
@@ -29,12 +29,13 @@ export const T = {
   // o 05: quantas ficam pra revisar, no cabeçalho cinza, e a linha de cada uma
   revisarCabecalho: 'REVISAR EM SEGUIDA',
   revisarEmSeguida: 'revisar em seguida',
-  // o porquê de cada uma, pelo bloco que a marcou: só os do arraste das cercas
-  // têm texto (T11/05); o que não tem fica sem a segunda linha (G25)
-  porque: {
-    'eventos:cercas': 'dependem das cercas, que acabaram de mudar',
-    'leitor:cercas': 'usa as cercas, que acabaram de mudar',
-  },
+  // o porquê de cada uma vem do mock (M.motivosDependente, o retorno do PM de 09/10), e o
+  // revisar em seguida tem o Reenviar na linha
+  reenviarLinha: 'Reenviar',
+  // o Ativo (o retorno do PM de 09/10): o que o módulo traduz da CAN, com o modelo do ativo
+  traduzACan: (modelo) => `traduz a CAN do ${modelo}`,
+  // a Conexão que confere: o nome do cadastro, nunca o endereço
+  redeDaMobs2: 'a rede da Mobs2',
   // o par do bloco que não bate (T11/00): o valor é do caso
   noModulo: (valor) => `no módulo · ${valor}`,
   noCadastro: (valor) => `no cadastro · ${valor}`,
@@ -58,7 +59,8 @@ export const T = {
   outrasAcoes: 'Outras ações',
   // as outras duas, cada uma com o efeito embaixo (a folha T11/03); no 01, o
   // Reenviar é o principal, e o Apenas registrar, o link
-  reenviar: (blocos) => `Reenviar os ${blocos} blocos`,
+  // o retorno do PM de 09/10: *Reenviar tudo, menos a conexão* no lugar de *Reenviar os 5 blocos*
+  reenviar: () => 'Reenviar tudo, menos a conexão',
   efeitoReenviar: 'Mantém a rede do módulo. Apaga só a configuração.',
   registrar: 'Apenas registrar o diagnóstico',
   efeitoRegistrar: 'nada vai pro módulo · só o diagnóstico sobe',

@@ -13,3 +13,7 @@
 .t-botao-linha-letra-secundario { font-size: var(--t-secundario); }
 .t-botao-linha-letra-corpo { font-size: var(--t-corpo); }
 .t-respostas-linha { display: flex; gap: var(--e-8); }
+/* 'pergunta' (o retorno do PM de 09/10, T09/10, 14 e 15): o Reenviar de cada dependente, 36 de alto,
+ * 14/700 · desligado, o fundo da faixa, a borda da divisória e o texto em --marca, como a referência */
+.t-botao-linha-pergunta { flex-shrink: 0; height: var(--e-36); padding: 0 var(--e-14); }
+.t-botao-linha-pergunta:disabled { background: var(--fundo-faixa); border-color: var(--divisoria); color: var(--marca); }

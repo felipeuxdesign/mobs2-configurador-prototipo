@@ -44,3 +44,7 @@
 .t13-pergunta-bip { font-size: var(--t-corpo); font-weight: 600; color: var(--tinta); }
 /* o campo do que aconteceu, na linha do item da E (T13/42): 64 de altura, como a referência */
 .t13 .ds-item-ck-embaixo .ds-campo-texto-poco { min-height: calc(var(--alvo-min) + var(--e-16)); }
+
+/* o veredito do registrado (o retorno do PM de 09/10, a 11 e a 14): 12 de respiro em cima e embaixo — com o
+ * texto em várias linhas, ele não encosta nas bordas · da tela, não da peça (a folha 7 não mudou) */
+.t13 .ds-veredito-ck { padding-top: var(--e-12); padding-bottom: var(--e-12); box-sizing: border-box; }

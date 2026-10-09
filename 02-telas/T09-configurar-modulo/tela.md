@@ -149,3 +149,17 @@ A construção das dez referências, com as decisões aprovadas no gate do pacot
 ## Textos
 
 Os textos exatos de cada referência estão em `textos.md`. Copie de lá — nunca redigite.
+
+## O reenvio na manutenção (retorno do PM, 09/10)
+
+- **o arrastado nunca é reenviado sozinho**: reenviar um bloco não reenvia nenhum outro por conta própria · a ordem do envio continua a do script
+- **quem depende de quem**: o Ativo → os Eventos · as Cercas → o Leitor e os Eventos, nessa ordem · o Leitor → os Eventos · os Eventos e a Conexão → nada
+- **antes de enviar, a folha de confirmação** (a 13) nomeia a consequência: *Reenviar as cercas apaga os cartões gravados no módulo.* · *Reenviar as cercas* e *Cancelar* · a mesma folha abre do *Corrigir este bloco* da T11 (a 06)
+- **enviando** (a 09): a limpeza restrita e o bloco · *Leitor e Eventos precisam ser reenviados depois. Você confirma em seguida.* · nunca *ficam como estão* com dependente pendente
+- **depois de conferir, o app pergunta pelos dependentes, um por vez, na ordem do script** (a 10): *Reenviar o leitor* ou *Deixar para depois* · *Reenviar os eventos* só liga quando o leitor confere ou fica para depois · o Ativo pergunta pelos eventos (a 14), o Leitor também (a 15)
+- **"Deixar para depois" não some com a pendência**: o bloco fica *falta reenviar* aqui (a 16), e *revisar em seguida* na T11 e na Seção D da T13, com o motivo · enquanto houver, o *Finalizar* do checklist fica desligado
+- **no protótipo (construído, 09/10):** a lógica é a de [reenvio.js](../../06-prototipo/app/src/estado/reenvio.js), com quem depende de quem, os motivos e a consequência das cercas lidos do mock · a folha de confirmação ([FolhaDeConfirmacao.jsx](../../06-prototipo/app/src/telas/T09/FolhaDeConfirmacao.jsx)) é a folha com a frase e as duas ações do diálogo, sem peça nova, e o X alinhado ao topo do título de duas linhas · a pergunta pelos dependentes ([Pergunta.jsx](../../06-prototipo/app/src/telas/T09/Pergunta.jsx)) é peça da tela, com os tokens do cartão; o Reenviar dela é o `BotaoDaLinha` de 36 (`tam="pergunta"`)
+  - padrão, pro arquiteto: o Reenviar da pergunta corre a curta do dependente direto, sem folha (a pergunta já é a confirmação, e o próximo dependente aparece na pergunta seguinte, 15) · o deixado para depois mostra *falta reenviar* no lugar dos dois botões (nenhuma referência desenha esse meio) · sair pelo Voltar ao menu com dependente por decidir grava ele como *falta reenviar*
+  - padrão, pro arquiteto: os textos que nenhuma referência desenha seguem a gramática dos desenhados — *Reenviando só o ativo.*, *Eventos conferem.*, *Conexão confere.*, *Reenviar a conexão* · com os eventos ou a conexão, sem dependente, a curta conferida mantém o primário *Voltar ao menu*, e a frase de baixo é o *ficam como estão* sem os blocos que ainda faltam reenviar
+  - na manutenção, a lista abre mesmo com a cadeia gravada (o módulo já tem a configuração); só uma cadeia de instalação pela metade retoma · o Reenviar da Seção D da T13 e o da T11/05 abrem a lista com o bloco escolhido; o Corrigir este bloco da T11 abre já reenviando, depois da folha
+  - nenhuma entrada viva do palco leva à manutenção (os exemplos são consultas paradas desde 07/10): o roteiro `reenvio` semeia o vínculo de manutenção que a T06 gravaria e percorre o fluxo das cercas só com toques

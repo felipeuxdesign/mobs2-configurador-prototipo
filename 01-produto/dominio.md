@@ -8,7 +8,7 @@
 >
 > Status: `[PROPOSTO]` marca uma derivação ainda sem aprovação. As perguntas vigentes ficam em [`08-para-o-dev/o-que-o-produto-ainda-decide.md`](../08-para-o-dev/o-que-o-produto-ainda-decide.md). Trechos históricos nomeados não substituem a regra vigente de `02-telas/` e do mock.
 
-**Censo da entrega (08/10/2026):** 15 telas, 97 momentos e 79 estados — 191 referências HTML e 191 PNG —, 109 identificadores de histórias de usuário e 62 casos no mock. T08 saiu com a decisão 44; a numeração das demais telas foi preservada. O cadastro do checklist tem 30 itens possíveis, com condições por sessão; o herói apresenta 28, porque não calibra e não reescreve o ID. Fonte: `02-telas/indice.json`, `historias.md` e `04-dados/mocks.js`.
+**Censo da entrega (09/10/2026):** 15 telas, 103 momentos e 81 estados — 199 referências HTML e 199 PNG —, 109 identificadores de histórias de usuário e 63 casos no mock. T08 saiu com a decisão 44; a numeração das demais telas foi preservada. O cadastro do checklist tem 30 itens possíveis, com condições por sessão; o herói apresenta 28, porque não calibra e não reescreve o ID. Fonte: `02-telas/indice.json`, `historias.md` e `04-dados/mocks.js`.
 
 ---
 
@@ -217,7 +217,7 @@ Erro nomeia **causa e ação**: falha de rede → reenvio automático · recusa 
 ## 5. HUs mapeadas por tela
 
 > Numeração criada aqui (`HU-T<nn>-<n>`) — os requisitos têm critérios de aceite, não HUs numeradas.
-> O v1 citado como origem contava 52 quadros em 5 fluxos. A entrega atual tem 15 telas-mãe e 191 referências; o índice atual é `02-telas/indice.json`. A seção 6 preserva o agrupamento histórico, sem criar percursos alternativos no palco.
+> O v1 citado como origem contava 52 quadros em 5 fluxos. A entrega atual tem 15 telas-mãe e 199 referências; o índice atual é `02-telas/indice.json`. A seção 6 preserva o agrupamento histórico, sem criar percursos alternativos no palco.
 
 ### T01 — Login
 
@@ -419,7 +419,7 @@ Os requisitos v1 citavam "52 telas em 5 fluxos" sem enumerá-los. A tabela prese
 | 4 | **Conferência e diagnóstico** | T07 · T11 · T12 · T15 |
 | 5 | **Encerramento e homologação** | T13 · T16 (autoteste) |
 
-**A contagem antiga de 52 não é o censo desta entrega.** Para desenvolver, use as 191 referências do índice atual: 15 telas, 97 momentos e 79 estados. Exemplos especiais de contexto, manutenção, calibração e divergência ficam parados em *Estados desta tela*, com retorno ao fluxo anterior.
+**A contagem antiga de 52 não é o censo desta entrega.** Para desenvolver, use as 199 referências do índice atual: 15 telas, 103 momentos e 81 estados. Exemplos especiais de contexto, manutenção, calibração e divergência ficam parados em *Estados desta tela*, com retorno ao fluxo anterior.
 
 ---
 

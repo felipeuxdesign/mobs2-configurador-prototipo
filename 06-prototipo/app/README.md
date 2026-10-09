@@ -40,7 +40,7 @@ Mantenha o servidor e os dois fotógrafos em terminais separados: `npm run fotog
 
 ```bash
 node scripts/tela.mjs todos T11       # somente as referências da T11
-node scripts/tela.mjs todas           # 191 referências das 15 telas
+node scripts/tela.mjs todas           # 199 referências das 15 telas
 node scripts/especime.mjs todos       # 114 espécimes comparáveis da vitrine
 npm run print -- "http://localhost:5173/?tela=T01&print=1" prints/x.png
 npm run comparar -- prints/x.png ../../02-telas/T01-login/referencias/png/00-tela.png

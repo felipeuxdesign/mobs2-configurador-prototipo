@@ -2,7 +2,7 @@
 
 Esta pasta orienta a construção do App Configurador no produto. O [protótipo navegável](https://configurador-mobs2-prototipo.vercel.app) permite experimentar o uso; comportamento, textos, medidas e referências estão nas fontes deste repositório. A stack fica a cargo do time.
 
-Censo conferido em 08/10/2026: **15 telas · 191 referências** (15 entradas, 97 momentos e 79 estados) · **109 histórias · 295 tokens · 106 peças de design · 54 decisões · 62 casos de mock**. A bancada do protótipo tem 114 espécimes, incluindo variantes. Os 45 roteiros existentes têm o estado de validação descrito em [testes-prontos.md](testes-prontos.md).
+Censo conferido em 09/10/2026: **15 telas · 199 referências** (15 entradas, 103 momentos e 81 estados) · **109 histórias · 295 tokens · 106 peças de design · 54 decisões · 63 casos de mock**. A bancada do protótipo tem 114 espécimes, incluindo variantes. Os 45 roteiros existentes têm o estado de validação descrito em [testes-prontos.md](testes-prontos.md).
 
 ## Por onde começar, pela tarefa
 
@@ -24,7 +24,7 @@ Censo conferido em 08/10/2026: **15 telas · 191 referências** (15 entradas, 97
 - Leis visuais e de produto: [leis.md](../03-design-system/leis.md).
 - Movimento: [movimento.md](../03-design-system/movimento.md) e cada `animacao.md`.
 - Regras e histórias: [domínio](../01-produto/dominio.md) e [histórias](../01-produto/historias.md).
-- Aparência: os 191 pares HTML/PNG listados no [índice](../02-telas/indice.json).
+- Aparência: os 199 pares HTML/PNG listados no [índice](../02-telas/indice.json).
 
 Os documentos preservam o histórico das rodadas. Para implementar, observe as revisões do PM de 06/10 e as notas vigentes no início das fichas: seis passos antigos com ré e porta, calibração obrigatória no ônibus e comparação do cartão com cadastro foram substituídos. As regras atuais estão resumidas em [integrações](integracoes.md) e em [decisões já resolvidas](o-que-o-produto-ainda-decide.md#já-definido).
 

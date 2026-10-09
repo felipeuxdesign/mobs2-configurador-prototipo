@@ -26,10 +26,10 @@ O app conduz a instalação em sequência e prova cada passo:
 2. **Conecta** ao módulo sem fio, por Bluetooth — pareando na primeira vez e reconectando sozinho quando a conexão cai.
 3. **Diagnostica** o módulo: serial, firmware, alimentação contra a faixa do modelo, a antena do GPS, entradas, modem, SIM e o número do chip, e as mensagens que o módulo ainda guarda. Serial fora do cadastro, modelo sem suporte ou firmware fora da lista travam a instalação ali.
 4. **Vincula** o módulo ao ônibus, confirmado pela placa, frota, fabricante e modelo.
-5. **Grava a configuração** em seis blocos, cada um conferido no módulo, e confere que o módulo falou com o servidor.
+5. **Grava a configuração** em seis blocos, na ordem do script — Limpeza, Ativo, Cercas, Leitor, Eventos e Conexão —, cada um conferido no módulo, e confere que o módulo falou com o servidor. Na manutenção, reenvia um bloco por vez e nunca reenvia outro por conta própria: o app diz a consequência e pergunta por cada bloco que depende dele, um por vez.
 6. **Calibra** só o que o veículo não entrega pela CAN: o ônibus não calibra nada, e o caminhão coletor calibra o hodômetro e a rotação, com a velocidade e o horímetro opcionais.
 7. **Roda o ciclo de testes** com o ônibus parado: ignição ligada, rotação, cartão do motorista e ignição desligada, cada um só quando se aplica — a cada passo, o app diz o que o técnico tem que fazer, e o técnico confere o cartão lido com o número impresso.
-8. **Fecha o checklist** dos itens aplicáveis — 28 no ônibus do caminho principal, de um catálogo de 30. O app confere o que consegue sozinho, e o técnico fotografa o resto e testa o bip do leitor. Ao encerrar a sessão, o módulo reinicia sozinho, o autoteste confere sete assertivas, e só aí a instalação é homologada.
+8. **Fecha o checklist** dos itens que contam — 27 no ônibus do caminho principal, de um catálogo de 30; o autoteste roda ao encerrar e não conta, e o bloco deixado para depois numa manutenção trava o Finalizar. O app confere o que consegue sozinho, e o técnico fotografa o resto e testa o bip do leitor. Ao encerrar a sessão, o módulo reinicia sozinho, o autoteste confere sete assertivas, e só aí a instalação é homologada.
 
 Antes de tudo, o login: o técnico recupera o acesso sem ligar pra ninguém, e o app nunca revela se uma conta existe — ele digita o telefone ou o e-mail, e a resposta é sempre a mesma.
 
@@ -49,11 +49,11 @@ As folhas escurecem todo o fundo do app, incluindo a faixa de sessão e o fundo 
 
 ## Como foi construído
 
-Cada tela, momento e estado tem uma referência desenhada, em HTML e PNG — 191 ao todo. O protótipo foi construído contra elas e comparado pixel a pixel; toda diferença que sobrou tem um nome e um motivo registrados.
+Cada tela, momento e estado tem uma referência desenhada, em HTML e PNG — 199 ao todo. O protótipo foi construído contra elas e comparado pixel a pixel; toda diferença que sobrou tem um nome e um motivo registrados.
 
-O comportamento vem da ficha de cada tela, os textos do `textos.md` dela e as medidas dos tokens. O repositório contém 45 roteiros de navegação e um gate que confere os dados de exemplo. O caminho principal usa o ônibus sem calibração; o roteiro historicamente chamado `heroi-sem-horimetro` verifica a entrada no ciclo pelo checklist.
+O comportamento vem da ficha de cada tela, os textos do `textos.md` dela e as medidas dos tokens. O repositório contém 46 roteiros de navegação e um gate que confere os dados de exemplo. O caminho principal usa o ônibus sem calibração; o roteiro historicamente chamado `heroi-sem-horimetro` verifica a entrada no ciclo pelo checklist.
 
-A última rodada de navegação aprovou o caminho principal (239 passos), a conferência, a calibração pelo palco e as consultas paradas. Isso não significa que os 45 roteiros foram executados nessa rodada: alguns roteiros antigos ainda usam exemplos que agora abrem parados. O estado das verificações e a ordem de uso estão em [Testes para o dev](08-para-o-dev/testes-prontos.md).
+A última rodada (o retorno do PM de 09/10, a ordem do script) rodou os 46 roteiros: 37 aprovados, entre eles o caminho principal (239 passos), a conferência, o checklist e o fluxo das cercas inteiro na manutenção (`reenvio`, 64 passos). Os 10 que param são roteiros antigos que ainda usam exemplos que agora abrem parados (T02, T10, T13/29), e param igual no commit anterior. [Gate da rodada](06-prototipo/para-o-arquiteto/gate-ordem-do-script.md). O estado das verificações e a ordem de uso estão em [Testes para o dev](08-para-o-dev/testes-prontos.md).
 
 O ajuste posterior do véu integral passou pelos roteiros de menu, folhas e conferência e pela comparação das 12 referências afetadas. O GIF acima foi regravado com o mesmo percurso, incluindo o aviso do menu com a barra de status escurecida. [Validação do ajuste](06-prototipo/para-o-arquiteto/gate-veu-integral.md).
 
@@ -61,7 +61,7 @@ O ajuste posterior do véu integral passou pelos roteiros de menu, folhas e conf
 
 | telas | momentos | estados | referências | histórias de usuário | casos de dados | decisões registradas |
 |---|---|---|---|---|---|---|
-| 15 | 97 | 79 | 191 | 109 | 62 | 54 |
+| 15 | 103 | 81 | 199 | 109 | 63 | 54 |
 
 ## O repositório
 
@@ -95,7 +95,7 @@ node scripts/caminho.mjs heroi
 node scripts/testar-consultas.mjs
 ```
 
-Para a comparação visual, com os fotógrafos nas escalas 2 e 1 (`npm run fotografo` e `npm run fotografo:1`, um terminal por processo), `node scripts/tela.mjs todas` compara as 191 referências. `node scripts/caminho.mjs todos` executa os 45 roteiros; consulte as limitações dos roteiros históricos em [Testes para o dev](08-para-o-dev/testes-prontos.md) antes de usar o lote como aceite.
+Para a comparação visual, com os fotógrafos nas escalas 2 e 1 (`npm run fotografo` e `npm run fotografo:1`, um terminal por processo), `node scripts/tela.mjs todas` compara as 199 referências. `node scripts/caminho.mjs todos` executa os 45 roteiros; consulte as limitações dos roteiros históricos em [Testes para o dev](08-para-o-dev/testes-prontos.md) antes de usar o lote como aceite.
 
 ## Propriedade e uso
 

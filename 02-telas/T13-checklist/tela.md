@@ -8,13 +8,13 @@ Fechar a homologação: o que o app já provou sozinho, e o que o técnico ainda
 |---|---|
 | **Elemento-assinatura** | o placar por seção — automático e manual separados — enchendo até o veredito |
 | **Chrome** | faixa de sessão |
-| **Semente no protótipo** | sessão M2C-0417 + RKT-8H42 · 28 itens |
+| **Semente no protótipo** | sessão M2C-0417 + RKT-8H42 · 27 itens |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
 | **Momentos · estados** | 30 · 10 — ver `estados.md` |
 
 ## Regra vigente · retorno do PM e protótipo atual
 
-- O total é calculado por sessão. No herói sem calibração, a referência `00` tem **28 itens**: A 4, B 4, C 4, D 9, E 5 e F 2; são **17 de 28** resolvidos e **9 obrigatórios** por fazer. A foto do Painel só entra quando houve calibração; leitor, rotação e bip obedecem às condições do modelo. Não se usa 30 ou 31 como total fixo.
+- O total é calculado por sessão. No herói sem calibração, a referência `00` tem **27 itens**: A 4, B 4, C 4, D 8 (o Autoteste roda ao encerrar e não conta, 09/10), E 5 e F 2; são **16 de 27** resolvidos e **9 obrigatórios** por fazer. A foto do Painel só entra quando houve calibração; leitor, rotação e bip obedecem às condições do modelo. Não se usa 30 ou 31 como total fixo.
 - A **Alimentação** é o que o equipamento lê no fio, confrontado com `faixaTensao` do modelo do módulo (VL06: 9,0 a 32,0 V). **GPS e antena** confere pela antena conectada; *em curto* e *desconectada* reprovam. Os satélites são informação, sem mínimo que aprove esse item.
 - A **D** lê os seis blocos e depois o autoteste do módulo, o canal protegido e o ID no cadastro. As pendências só se aplicam com ID reescrito; o protótipo não tem sessão que faça essa reescrita. A leitura inicial preenche as linhas no lugar.
 - A **E** recebe os quatro passos aplicáveis da T14 e tem o **bip do leitor**, respondido aqui quando há buzzer. Cartão que não confere e bip não ouvido ficam não conformes, com o campo *O que aconteceu*. Não há ré ou porta no ciclo.
@@ -185,7 +185,7 @@ Os textos exatos de cada referência estão em `textos.md`. Copie de lá — nun
 
 ## A Montagem sem o Painel no ônibus (retorno do PM, 06/10 · rodada 2)
 
-- **o Painel só entra quando houve calibração** · como o ônibus não calibra nada (T10/11), **o herói tem 4 fotos na Montagem** — módulo, antena, chicote e leitor — e o checklist tem **28 itens** · o ônibus da bateria fraca, sem leitor, tem 3
+- **o Painel só entra quando houve calibração** · como o ônibus não calibra nada (T10/11), **o herói tem 4 fotos na Montagem** — módulo, antena, chicote e leitor — e o checklist tem **27 itens que contam** (o Autoteste da D roda ao encerrar e não conta, retorno do PM, 09/10) · o ônibus da bateria fraca, sem leitor, tem 3
 - **a foto do Painel (a 20) é do caminhão coletor**, que calibra: a quinta foto da Montagem dele
 - **as legendas do rodapé ficam a 12px do botão**, como o design system pede
 - **no protótipo · a rodada 2:** nada mudou na regra — o Painel já era condicionado à calibração —, e o herói, que agora não calibra, mostra 4 fotos e 28 itens · o 20 pelo endereço abre na sessão do caminhão coletor, o ativo da garagem que calibra, como a T16/01 abre no par da referência
@@ -201,3 +201,13 @@ Os textos exatos de cada referência estão em `textos.md`. Copie de lá — nun
 - o diálogo *A Seção F não passou* (a 10) escurece a tela inteira: a faixa da sessão, com o módulo, a placa e o ENCERRAR, e o fundo da barra de status, com a hora e os ícones por cima · antes o véu começava embaixo da faixa, e o ENCERRAR ficava aceso ao lado do diálogo
 - a força do véu é 32%, o padrão do Material 3 · a tela de origem — o checklist completo com a Seção F falhando — ainda não tem referência
 - **no protótipo:** o diálogo abre por cima da tela do checklist que já o abre, desenhada atrás · o fundo do véu se estende sobre a faixa (`--veu-topo`), sem mover a caixa, e a faixa fica inerte · a barra escurece pelo `veu` da `BarraDoSistema`
+
+## A Seção D no retorno do PM de 09/10
+
+- **o Autoteste da Seção D roda ao encerrar**: o autoteste só roda no encerramento, depois de *Finalizar* · até lá a linha mostra *roda ao encerrar*, com o relógio, e **não conta** · a D tem 8 itens que contam (7 no ônibus sem leitor), e o checklist do herói tem 27 (23 no ônibus da bateria)
+- **o bloco deixado para depois aparece na D como *revisar em seguida*** (a 43), com o motivo e o botão *Reenviar*, na ordem do script · enquanto houver bloco assim, o *Finalizar* fica desligado, com a causa embaixo: *Falta reenviar o leitor e os eventos.*
+- as seis linhas de blocos continuam na ordem do script: Limpeza, Ativo, Cercas, Leitor, Eventos, Conexão
+- **o aviso do checklist registrado** (a 11 e a 14) tem 12px de respiro em cima e embaixo · com o texto em várias linhas ele não encosta mais nas bordas
+- **no protótipo (construído, 09/10):** o Autoteste é o `conta: false` do mock — a linha `espera` do item (o relógio e o valor em `--tinta-secundaria`), fora do total, do feito da D e do que falta · o bloco deixado para depois é a linha `revisar` do item, com *revisar em seguida* em `--tinta`, o motivo e o `BotaoDaLinha` *Reenviar*, que abre a manutenção da T09 com o bloco escolhido · o Finalizar fica desligado com *Falta reenviar …* acima do *Faltam N itens* · o 43 abre com a D aberta, rolada como a 04 · o veredito do registrado ganhou os 12 de respiro (a 11 e a 14 voltaram a 0,04%)
+  - variantes da peça item do checklist (`espera`, `revisar`) e o valor `forte` da linha de escolha (T09/16): só com tokens que já existiam, nenhum token novo · pro arquiteto, entrarem na folha 7 e na 3
+  - a 43 fica a 2,5%: os 2px do deslocamento que a 04 já tinha, e o vão de 2 entre as linhas do item (a referência desenha 1, que não tem token)

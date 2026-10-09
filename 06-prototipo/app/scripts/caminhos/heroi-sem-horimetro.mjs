@@ -160,15 +160,15 @@ export default [
   { ve: '4 de 4 passos' },
   { ve: '14:30:24' },
   // o checklist (a rodada 1): a D começa vazia e enche lendo do módulo; o Finalizar diz por que está
-  // desligado. Depois do ciclo, 21 de 28 (a rodada 2): falta o bip da E e as quatro fotos de B, e o servidor
+  // desligado. Depois do ciclo, 20 de 27 (o retorno do PM de 09/10: o Autoteste da D não conta · a rodada 2): falta o bip da E e as quatro fotos de B, e o servidor
   // confirma a F depois do Finalizar (como a 11 desenha)
   { toca: 'Ir para o checklist' },
   { chega: 'T13', momento: null },
   { ve: 'A Seção D ainda está sendo lida' },
   { desligado: 'Finalizar instalação' },
   { ve: 'Faltam 5 itens obrigatórios', entre: [3000, 7500] },
-  { ve: '21' },
-  { ve: 'de 28' },
+  { ve: '20' },
+  { ve: 'de 27' },
   { ve: 'você fotografa 4 itens' },
   // a E aberta: os quatro passos conferem, e o bip se responde aqui (39 a 41)
   { toca: 'E · Ciclo de testes' },

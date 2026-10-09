@@ -94,22 +94,22 @@ export default [
   { toca: 'bancada · conta', anima: [esmaece('ds-primario-texto')] },
   { ve: 'Salvar com ressalva' },
 
-  // ── o veredito que espera a prova (T11/04, o pacote 5): a caixa diz CONFERINDO, a contagem, e a palavra na quarta (a rodada 2: sem o Extended ID) ──
+  // ── o veredito que espera a prova (T11/04, o pacote 5): a caixa diz CONFERINDO, a contagem, e a palavra na quinta (o retorno do PM de 09/10: os cinco blocos do script) ──
   V('mov-check-veredito'),
   { quieto: true },
   { ve: 'CONFERINDO' },                                                           // a caixa diz o que corre
   { naoVe: 'NÃO BATE COM O CADASTRO' },
-  { naoVe: '1 de 4' },                                                             // nada conta de zero
+  { naoVe: '1 de 5' },                                                             // nada conta de zero
   { toca: 'bancada · confere' },
-  { ve: '1 de 4', entre: [300, 650] },                                             // a primeira linha, aos 400
+  { ve: '1 de 5', entre: [300, 650] },                                             // a primeira linha, aos 400
   { anima: [GLIFO] },
   { ve: 'conferindo' },                                                            // a linha da vez, com o quadrado de agora
-  { ve: '3 de 4', entre: [650, 1000] },                                            // a terceira linha (a rodada 2: o Extended ID saiu)
+  { ve: '3 de 5', entre: [650, 1000] },                                            // a terceira linha (o Leitor, na ordem do script)
   { naoVe: 'NÃO BATE COM O CADASTRO' },
-  { ve: 'NÃO BATE COM O CADASTRO', entre: [250, 600] },                            // a quarta: o veredito entra
+  { ve: 'NÃO BATE COM O CADASTRO', entre: [650, 1000] },                           // a quinta: o veredito entra
   { anima: [esmaece('ds-aviso-titulo'), esmaece('ds-aviso-capa'), esmaece('ds-poco')] },  // a palavra, a cor do traço por camada, o poço com o xis
   { naoVe: 'CONFERINDO' },
-  { ve: '4 de 4' },
+  { ve: '4 de 5' },
   { dorme: 200 },
   { quieto: true },
   { toca: 'bancada · abre de novo', naoAnima: [{ prop: 'opacity' }] },             // nascida lida: o veredito, parado
@@ -120,8 +120,8 @@ export default [
   V('mov-check-veredito-confere'),
   { quieto: true },
   { toca: 'bancada · confere' },
-  { ve: '1 de 4', entre: [300, 650] },
-  { ve: 'CONFERE COM O CADASTRO', entre: [1000, 1700] },   // a quarta linha (a rodada 2: sem o Extended ID)
+  { ve: '1 de 5', entre: [300, 650] },
+  { ve: 'CONFERE COM O CADASTRO', entre: [1400, 2100] },   // a quinta linha (o retorno do PM de 09/10)
   { anima: [esmaece('ds-aviso-titulo'), esmaece('ds-aviso-capa')] },
   { naoVe: 'igual à do cadastro' },
 
@@ -145,10 +145,10 @@ export default [
   { quieto: true },
   V('mov-check-veredito'),
   { toca: 'bancada · confere' },
-  { ve: '1 de 4', entre: [300, 650] },
+  { ve: '1 de 5', entre: [300, 650] },
   { quieto: true },
-  { ve: '3 de 4', entre: [650, 1000] },   // a terceira linha (a rodada 2: o Extended ID saiu)
-  { ve: 'NÃO BATE COM O CADASTRO', entre: [250, 600] },
+  { ve: '3 de 5', entre: [650, 1000] },   // a terceira linha (o Leitor, na ordem do script)
+  { ve: 'NÃO BATE COM O CADASTRO', entre: [650, 1000] },
   { quieto: true },
   { reduzir: false },
 ]

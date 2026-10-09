@@ -13,6 +13,7 @@ Vale o `03-design-system/movimento.md`. Entre telas, só o conteúdo esmaece em 
 | botão primário (C12·23) | marcar a caixa, fotografar o problema, escrever o que aconteceu, e o `Finalizar instalação` | o texto do primário troca no lugar — `Tirar foto` → `Fotografar o problema` → `Conte o que aconteceu` → `Salvar com ressalva`, e `Finalizar instalação` → `Encerrar a sessão`; o roxo troca direto, e o que se desabilita no toque não mostra o roxo (C12·18) | 150ms | desacelera | troca direta |
 | veredito | tocar em `Finalizar instalação`, com o que bloqueia resolvido | o checklist fica registrado, aguardando autoteste, e o veredito aparece | 150ms | desacelera (C12·5) | aparece |
 | checkbox da ciência | marcar "Estou ciente" | o quadrado lima surge no poço e o `Finalizar instalação` acende, por uma camada (C12·8) | 150ms | desacelera | troca direta |
+| `Finalizar instalação` | o último bloco em *revisar em seguida* é reenviado e confere | a causa embaixo esmaece e o `Finalizar` acende no lugar (ref. 43) | 150ms | desacelera | troca direta |
 
 - no protótipo (C12·36): a linha *placar* saiu. O placar saiu com a estrutura nova (decisão 34), e a barra do checklist tomou o lugar dele: o movimento é o da linha *barra do checklist*. A linha de antes: | placar | um item conclui | a barra enche até o novo valor (scaleX) | 300ms | desacelera | salta pro valor |
 

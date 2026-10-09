@@ -4,7 +4,7 @@ Os casos, roteiros e comparações do protótipo ajudam a preparar o aceite do p
 
 ## Os casos do mock
 
-São **62 casos** em [mocks.js](../04-dados/mocks.js). Cada caso descreve uma condição de exemplo, e [casos.md](../04-dados/casos.md) relaciona as referências e receitas que a usam. O [índice](../02-telas/indice.json) lista **191 referências**, com sua classificação e os casos associados. Algumas condições complementares vêm das [receitas](../06-prototipo/app/src/estado/receitas.js); nem toda referência nasce de um caso exclusivo.
+São **63 casos** em [mocks.js](../04-dados/mocks.js). Cada caso descreve uma condição de exemplo, e [casos.md](../04-dados/casos.md) relaciona as referências e receitas que a usam. O [índice](../02-telas/indice.json) lista **199 referências**, com sua classificação e os casos associados. Algumas condições complementares vêm das [receitas](../06-prototipo/app/src/estado/receitas.js); nem toda referência nasce de um caso exclusivo.
 
 No produto, monte a condição real correspondente, abra a tela e confira os dados, ações e aparência. O palco deixa as consultas paradas para inspeção; isso não dispensa implementar a reação da tela à condição real.
 
@@ -25,6 +25,8 @@ Existem **45 arquivos** em [scripts/caminhos](../06-prototipo/app/scripts/caminh
 A evidência dessa rodada está no [gate de consultas paradas](../06-prototipo/para-o-arquiteto/gate-consultas-paradas.md). A documentação e o retorno do login têm a validação registrada no [gate da recuperação](../06-prototipo/para-o-arquiteto/gate-documentacao-atual.md).
 
 O ajuste do véu integral das folhas foi conferido com `mov-t04` (283 passos), `folhas` (154), `mov-t11` (132) e `conferencia` (100), além da cobertura e do toque no topo em seis quadros. As 12 referências afetadas e três controles visuais não pioraram contra a base anterior. O roteiro `readme` foi usado para regravar o GIF. Resultados e limites no [gate do véu integral](../06-prototipo/para-o-arquiteto/gate-veu-integral.md); não houve execução coletiva dos 45 roteiros.
+
+O retorno do PM de 09/10 (a ordem do script) rodou a suíte inteira, 46 roteiros: 37 aprovados, entre eles o novo `reenvio` (64 passos), que percorre o fluxo das cercas na manutenção — a folha de confirmação, o envio, a pergunta pelos dependentes, o Deixar para depois e o Finalizar travado no checklist. Os 10 que param (`empresa`, `mov-faixa`, `mov-listas`, `mov-porcima`, `mov-t02`, `mov-t03`, `recarregar`, `reler`, `teclado`, `voltar`) param no mesmo passo no commit anterior: usam exemplos que abrem parados desde 07/10. A vitrine passou inteira (114 espécimes, nenhum pior que a base). [Gate](../06-prototipo/para-o-arquiteto/gate-ordem-do-script.md).
 
 **Antes de rodar o lote completo**, migre os trechos que ainda usam entradas sintéticas para navegar exemplos hoje parados. Isso inclui `empresa`, `voltar`, `teclado`, `reler`, `mov-t02`, `mov-t03`, `mov-listas`, `mov-faixa` e `mov-porcima`. A regra de produto continua nas fichas; os acessos antigos desses testes não constituem um fluxo alternativo aprovado.
 

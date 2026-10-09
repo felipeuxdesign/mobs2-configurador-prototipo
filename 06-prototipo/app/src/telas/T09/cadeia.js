@@ -24,7 +24,29 @@ export const REF = {
   // conferindo (11), sim (04) ou ainda não, com o que conferir (12)
   conferindoServidor: '11-momento-conferindo-o-servidor',
   semServidor: '12-estado-o-modulo-ainda-nao-falou-com-o-servidor',
+  // o retorno do PM de 09/10: a folha de confirmação (13 as cercas, 17 o ativo, 18 o leitor), a
+  // pergunta pelos dependentes (10 as cercas, 14 o ativo, 15 o leitor) e o que ficou para depois (16)
+  folhaCercas: '13-momento-manutencao-folha-de-confirmacao',
+  ativoPergunta: '14-momento-manutencao-o-ativo-pergunta-pelos-eventos',
+  leitorPergunta: '15-momento-manutencao-o-leitor-pergunta-pelos-eventos',
+  faltaReenviar: '16-estado-manutencao-falta-reenviar',
+  folhaAtivo: '17-momento-manutencao-folha-do-ativo',
+  folhaLeitor: '18-momento-manutencao-folha-do-leitor',
 }
+// o quadro de cada momento da manutenção: a lista (com a folha aberta, 13, 17 e 18), a curta
+// correndo (09) e a curta conferida, com a pergunta (10, 14 e 15)
+export const QUADRO_DA_MANUTENCAO = {
+  [REF.escolher]: { fase: 'escolher', bloco: 'cercas' },
+  [REF.folhaCercas]: { fase: 'escolher', bloco: 'cercas', folha: 'cercas' },
+  [REF.folhaAtivo]: { fase: 'escolher', bloco: 'ativo', folha: 'ativo' },
+  [REF.folhaLeitor]: { fase: 'escolher', bloco: 'leitor', folha: 'leitor' },
+  [REF.reenviando]: { fase: 'curta', bloco: 'cercas' },
+  [REF.reenviado]: { fase: 'curtaFeita', bloco: 'cercas' },
+  [REF.ativoPergunta]: { fase: 'curtaFeita', bloco: 'ativo' },
+  [REF.leitorPergunta]: { fase: 'curtaFeita', bloco: 'leitor' },
+}
+export const MOMENTO_DA_FOLHA = { cercas: REF.folhaCercas, ativo: REF.folhaAtivo, leitor: REF.folhaLeitor }
+export const MOMENTO_DA_PERGUNTA = { cercas: REF.reenviado, ativo: REF.ativoPergunta, leitor: REF.leitorPergunta }
 export const CASO_SERVIDOR = 'servidor-ainda-nao'
 export const CASO_RECUSA = 'bloco-recusado'
 export const CASO_QUEDA = 'queda-na-cadeia'
@@ -132,15 +154,21 @@ export const travaDo = (envio) => (!envio.cabe ? 'nao-cabe' : !envio.cercasCabem
 
 // A manutenção (HU-T09-5, decisão 46): o modo vem do vínculo (etapas.ativo.modo,
 // que a T06 grava), e o caso modulo-ja-deste-ativo o abre pela coluna da T06 (D1).
-// Os blocos que se escolhem: os cinco depois da limpeza. Só as cercas têm texto
-// aprovado pro reenvio (T.reenviar), e o 08 abre com elas escolhidas; os outros
-// quatro ficam no lugar, inertes, até haver texto (G25)
+// Os blocos que se escolhem: os cinco depois da limpeza, na ordem do script. Desde o retorno
+// do PM de 09/10, todos se reenviam, um por vez (as referências desenham as cercas, o ativo e o
+// leitor; o dos eventos e o da conexão seguem a gramática deles), e o 08 abre com as cercas escolhidas
 export const emManutencao = (unico) => unico.etapas.ativo?.modo === 'manutencao'
 export const BLOCOS_DA_MANUTENCAO = ORDEM.filter((b) => b !== LIMPEZA)
 export const REENVIAVEIS = BLOCOS_DA_MANUTENCAO.filter((b) => T.reenviar[b])
-export const BLOCO_DA_MANUTENCAO = REENVIAVEIS[0]
-// a frase do que fica como está: os outros blocos, na ordem canônica
-export const ficam = (bloco) => T.ficamComoEstao(BLOCOS_DA_MANUTENCAO.filter((b) => b !== bloco).map((b) => rotulos[b]))
+// o escolhido de saída: as cercas, como a 08 desenha
+export const BLOCO_DA_MANUTENCAO = 'cercas'
+// embaixo da curta (09): com dependente, quem precisa ser reenviado depois (o retorno do PM de 09/10:
+// nunca *ficam como estão* com dependente pendente); sem, os outros blocos ficam como estão — menos os
+// que ainda faltam reenviar
+export function depoisDaCurta(bloco, dependentes, falta) {
+  if (dependentes.length) return T.dependemDepois(dependentes.map((b) => rotulos[b]))
+  return T.ficamComoEstao(BLOCOS_DA_MANUTENCAO.filter((b) => b !== bloco && !falta.includes(b)).map((b) => rotulos[b]))
+}
 
 // o valor do bloco confirmado: o conteúdo relido, ou "feita" na limpeza
 // o bloco confirmado (a rodada 1): todo bloco termina em confere

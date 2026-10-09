@@ -1,6 +1,6 @@
 # Os casos do mock
 
-O mock tem **62 casos**, contados nas chaves de `mocks.js.casos`. O índice contém 191 referências: algumas usam um caso, outras uma coleção, uma semente ou o resultado de um toque. IDs de ativo, modelo e pacote são dados, não casos adicionais.
+O mock tem **63 casos**, contados nas chaves de `mocks.js.casos`. O índice contém 199 referências: algumas usam um caso, outras uma coleção, uma semente ou o resultado de um toque. IDs de ativo, modelo e pacote são dados, não casos adicionais.
 
 ## Casos e referências declaradas
 
@@ -31,6 +31,7 @@ A tabela reúne declarações do [índice](../02-telas/indice.json) e das [recei
 | `entrada-ignicao` | [T13/23-estado-secao-c-com-entradas-reprovadas](../02-telas/T13-checklist/referencias/html/23-estado-secao-c-com-entradas-reprovadas.html) · [T13/24-estado-entradas-reprovadas](../02-telas/T13-checklist/referencias/html/24-estado-entradas-reprovadas.html) · [T13/32-momento-entradas-relidas](../02-telas/T13-checklist/referencias/html/32-momento-entradas-relidas.html) · [T13/36-momento-entradas-nao-resolvidas](../02-telas/T13-checklist/referencias/html/36-momento-entradas-nao-resolvidas.html) |
 | `evento-nao-chega-de-novo` | [T14/09-estado-segunda-falha-do-evento](../02-telas/T14-ciclo-dinamico/referencias/html/09-estado-segunda-falha-do-evento.html) |
 | `evento-sem-resposta` | [T14/02-estado-prazo-estourado](../02-telas/T14-ciclo-dinamico/referencias/html/02-estado-prazo-estourado.html) |
+| `falta-reenviar` | [T09/16-estado-manutencao-falta-reenviar](../02-telas/T09-configurar-modulo/referencias/html/16-estado-manutencao-falta-reenviar.html) · [T13/43-estado-secao-d-com-revisar-em-seguida](../02-telas/T13-checklist/referencias/html/43-estado-secao-d-com-revisar-em-seguida.html) |
 | `fila-dois-erros` | [T15/02-estado-dois-erros](../02-telas/T15-fila-de-saida/referencias/html/02-estado-dois-erros.html) |
 | `fila-parada` | [T04/16-estado-fila-parada](../02-telas/T04-menu/referencias/html/16-estado-fila-parada.html) |
 | `fila-sem-erro` | [T15/01-estado-sem-erro](../02-telas/T15-fila-de-saida/referencias/html/01-estado-sem-erro.html) |

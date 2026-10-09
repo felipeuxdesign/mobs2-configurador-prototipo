@@ -7,9 +7,9 @@
 //   · as linhas de conferência (T11·3): o glifo esmaece no poço em 150, e na 00 a linha do módulo
 //     junto (C12·29); com reduzir, em ordem, no mesmo ritmo, sem o esmaecer (G26);
 //   · o veredito (T11·1, C12·35 a, o retorno do diretor de 26/09): a caixa dele está no lugar desde
-//     que a tela abre, neutra, com a contagem acompanhando as quatro que se comparam (1 de 4 … 3 de 4,
-//     nada conta de zero · a rodada 2 do retorno do PM: o Extended ID saiu, e são quatro linhas);
-//     na quarta linha, a palavra e a cor entram em 150 — a palavra por opacity, o cinza do traço sai
+//     que a tela abre, neutra, com a contagem acompanhando os cinco blocos do script (1 de 5 … 4 de 5,
+//     nada conta de zero · o retorno do PM de 09/10: Ativo, Cercas, Leitor, Eventos e Conexão);
+//     na quinta linha, a palavra e a cor entram em 150 — a palavra por opacity, o cinza do traço sai
 //     por uma camada, o xis esmaece no poço (a versão lida no módulo saiu do 02). Nada muda de lugar
 //     nem de altura (o marcaLugar / mesmoLugar), e o veredito só fala no fim.
 // Nascida lida — no print, num estado da coluna, na folha aberta pelo endereço —, parada. A folha
@@ -31,7 +31,7 @@ export default [
     .flatMap((q) => [{ abre: `?tela=T11${q}&print=1` }, ...PARADA]),
   { abre: '?tela=T11&print=1' },
   { ve: 'NÃO BATE COM O CADASTRO' },
-  { ve: '4 de 4' },
+  { ve: '4 de 5' },
   { abre: `?tela=T11&estado=${ESTADOS[0]}` }, ...PARADA, { ve: 'NÃO BATE COM O CADASTRO' },
   { abre: `?tela=T11&estado=${ESTADOS[1]}` }, ...PARADA, { ve: 'REVISAR EM SEGUIDA' },
   { abre: `?tela=T11&momento=${OUTRAS}` },
@@ -53,9 +53,10 @@ export default [
   { dorme: 300 },
   { quieto: true },                                         // a troca acabou, e o primeiro bloco ainda não
   { naoVe: 'CONFERE COM O CADASTRO' },
-  { ve: '1 de 4', entre: [100, 400] },                      // aos 550 do toque: 150 da troca + 400
+  { ve: '1 de 5', entre: [100, 400] },                      // aos 550 do toque: 150 da troca + 400
   { anima: [GLIFO] },
-  { ve: '3 de 4', entre: [650, 1000] },                     // a terceira linha (a rodada 2: sem o Extended ID)
+  { ve: '3 de 5', entre: [650, 1000] },                     // a terceira linha (o Leitor, na ordem do script)
+  { ve: '4 de 5', entre: LINHA },
   { ve: 'CONFERE COM O CADASTRO', entre: LINHA },
   { anima: CHEGA_CONFERE },                                 // o lima do traço por camada
   { naoVe: 'igual à do cadastro' },                         // a versão lida no módulo saiu (o pacote 2)
@@ -75,9 +76,9 @@ export default [
   { desligado: 'Voltar ao menu' },
   { desligado: 'Outras ações' },
   { marcaLugar: true },
-  { ve: '1 de 4', entre: [100, 520] },
+  { ve: '1 de 5', entre: [100, 520] },
   { anima: [GLIFO] },
-  { ve: 'CONFERE COM O CADASTRO', entre: [950, 1450] },
+  { ve: 'CONFERE COM O CADASTRO', entre: [1350, 1850] },
   { anima: CHEGA_CONFERE },
   { dorme: 250 },
   { quieto: true },
@@ -94,23 +95,25 @@ export default [
   { reduzir: true },
   { abre: '?tela=T11' },
   { quieto: true },
-  { ve: '1 de 4', entre: [100, 520] },
+  { ve: '1 de 5', entre: [100, 520] },
   { quieto: true },
-  { ve: '2 de 4', entre: LINHA },
+  { ve: '2 de 5', entre: LINHA },
   { quieto: true },
-  { ve: '3 de 4', entre: LINHA },
+  { ve: '3 de 5', entre: LINHA },
+  { quieto: true },
+  { ve: '4 de 5', entre: LINHA },
   { quieto: true },
   { ve: 'CONFERE COM O CADASTRO', entre: LINHA },
   { quieto: true },
-  { ve: '4 de 4' },
+  { ve: '5 de 5' },
   { abre: '?tela=T04' },
   { toca: 'Entendi' },
   { toca: 'Conferir configuração' },
   { quieto: true },
   { chega: 'T11', momento: CONFERE },
-  { ve: '1 de 4', entre: [200, 560] },
+  { ve: '1 de 5', entre: [200, 560] },
   { quieto: true },
-  { ve: 'CONFERE COM O CADASTRO', entre: [950, 1550] },
+  { ve: 'CONFERE COM O CADASTRO', entre: [1350, 1950] },
   { quieto: true },
   { reduzir: false },
 
@@ -129,7 +132,7 @@ export default [
   { palco: 'Voltar ao fluxo' },
   { chega: 'T11', estado: null },
   { quieto: true },
-  { ve: '1 de 4', entre: [150, 560] },
+  { ve: '1 de 5', entre: [150, 560] },
   { ve: 'CONFERE COM O CADASTRO', ms: 5000 },
   { abre: '?tela=T04' },
   { palco: 'Telas do protótipo' },
@@ -137,5 +140,5 @@ export default [
   { palco: 'T11' },
   { chega: 'T11' },
   { quieto: true },
-  { ve: '1 de 4', entre: [150, 560] },
+  { ve: '1 de 5', entre: [150, 560] },
 ]

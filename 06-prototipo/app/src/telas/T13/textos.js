@@ -4,6 +4,10 @@
 // montar. Os nomes das seções ('A · Identificação') saem de M.checklist.secoes;
 // os dos itens, de M.checklist.itens (o rótulo); os títulos do nível do item,
 // das perguntas; o rótulo de topo do nível do item, da seção (AC-11).
+// o bloco com o artigo, na causa do Finalizar desligado (o retorno do PM de 09/10, a 43)
+const COM_ARTIGO = { ativo: 'o ativo', cercas: 'as cercas', leitor: 'o leitor', eventos: 'os eventos', conexao: 'a conexão' }
+const emLista = (nomes) => (nomes.length > 1 ? `${nomes.slice(0, -1).join(', ')} e ${nomes[nomes.length - 1]}` : nomes.join(''))
+
 export const T = {
   encerrar: 'ENCERRAR',
   titulo: 'Checklist',
@@ -71,6 +75,10 @@ export const T = {
   // o motivo do Finalizar desligado (a rodada 1): quantos obrigatórios faltam — no singular, *Falta 1
   // item obrigatório* (proposta do protótipo) —, a seção ainda lida, a seção com um item reprovado
   faltam: (n) => (n === 1 ? 'Falta 1 item obrigatório' : `Faltam ${n} itens obrigatórios`),
+  // o retorno do PM de 09/10 (a 43): o bloco deixado para depois na manutenção, na Seção D
+  revisarEmSeguida: 'revisar em seguida',
+  reenviar: 'Reenviar',
+  faltaReenviar: (blocos) => `Falta reenviar ${emLista(blocos.map((b) => COM_ARTIGO[b]))}.`,
   secaoSendoLida: (id) => `A Seção ${id} ainda está sendo lida`,
   secaoComReprovado: (id) => `A Seção ${id} tem um item reprovado`,
   finalizar: 'Finalizar instalação',

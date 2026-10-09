@@ -43,7 +43,7 @@ export default [
   { reduzir: false },
   // o 13 pela URL grava o ciclo que a T14 fecha: abrir a B não desfaz a E resolvida
   { abre: '?tela=T13&momento=13-momento-e-resolvida' },
-  { ve: '22' },   // 22 de 28 (a rodada 2: sem o Painel), a E com os quatro passos e o bip ouvido
+  { ve: '21' },   // 21 de 27 (o retorno do PM de 09/10: o Autoteste da D não conta · a rodada 2: sem o Painel), a E com os quatro passos e o bip ouvido
   { toca: 'B · Montagem' },
   { chega: 'T13', momento: '02-momento-b-montagem-aberta' },
   { ve: 'o ciclo passou' },
@@ -51,7 +51,7 @@ export default [
   // a D (a rodada 1): um bloco por linha, cada um confere, e depois o autoteste, o canal e o ID
   { abre: '?tela=T13&momento=04-momento-d-configuracao-aberta' },
   { ve: 'Limpeza\nconfere' },
-  { ve: 'Autoteste\nconfere' },
+  { ve: 'Autoteste\nroda ao encerrar' },   // o retorno do PM de 09/10: o autoteste roda no encerramento, e não conta
   { ve: 'Canal de programação\nprotegido' },
   { ve: 'ID no cadastro\nconfere' },
   { naoVe: 'Extended ID' },

@@ -10,6 +10,8 @@
 .ds-escolha-vencida .ds-escolha-nome { color: var(--tinta-apagada); }
 /* pacote 1 · a escolha do bloco (T09/08): o valor em --tinta-secundaria */
 .ds-escolha-valor-secundaria { color: var(--tinta-secundaria); }
+/* o que falta reenviar na manutenção (o retorno do PM de 09/10, T09/16): o valor em --tinta */
+.ds-escolha-valor-forte { color: var(--tinta); }
 
 /* ── C12 · o movimento fino ── */
 /* a vencida que se escolhe (C12·20): o quadrado no meio do poço, fora do fluxo, por

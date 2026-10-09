@@ -61,9 +61,13 @@
 //     perde o roxo de uma vez (C12·18), e o texto novo esmaece no lugar (C12·23).
 import { Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import {
-  BarraDoSistema, Faixa, CabecalhoConteudo, Precondicao, Aviso, Cadeia, Prova, Rodape, Lista, LinhaEscolha, OQueConferir,
+  BarraDoSistema, Faixa, CabecalhoConteudo, Precondicao, Aviso, Cadeia, Prova, Rodape, Lista, LinhaEscolha, OQueConferir, Veu,
   useFimDaTroca, useTrocaDeQuadro,
 } from '../../ds/index.js'
+import { usePresenca } from '../../ds/chrome/PorCima.jsx'
+import { dependentesDe, temDependente, motivoDe, faltaReenviarDe, comFalta, reenviado, manutencaoDoCaso } from '../../estado/reenvio.js'
+import { FolhaDeConfirmacao } from './FolhaDeConfirmacao.jsx'
+import { Pergunta } from './Pergunta.jsx'
 import { useEstado } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
 import { useEncerrar } from '../../estado/encerrar.jsx'
@@ -75,7 +79,8 @@ import { milhar } from '../../dados/formato.js'
 import {
   REF, CASO_RECUSA, CASO_QUEDA, CASO_NAO_CABE, CASO_POOL, CASO_SERVIDOR, ORDEM, TOTAL, CONEXAO, QUADRO_00, CURTA,
   BLOCOS_DA_MANUTENCAO, BLOCO_DA_MANUTENCAO, rotuloDe, placaDe, parDoCaso, paradaDoCaso, casoDoPar,
-  conteudoNaTela, envioDo, travaDo, emManutencao, ficam, elosDo, elosDaCurta,
+  conteudoNaTela, envioDo, travaDo, emManutencao, depoisDaCurta, elosDo, elosDaCurta,
+  QUADRO_DA_MANUTENCAO, MOMENTO_DA_FOLHA, MOMENTO_DA_PERGUNTA,
 } from './cadeia.js'
 import { T } from './textos.js'
 import './t09.css'
@@ -95,16 +100,25 @@ const CASO_DO_ESTADO = {
 // está (o Retomar da T16), a concluída, ou — nada gravado ainda — a entrada pelo
 // modo: o que vai ser gravado (05) ou o escolher o bloco (08).
 //   fase · antes · escolher · gravando · recusado · pausado · recuperacao · concluida · curta · curtaFeita
+// os confirmados de cada fase da curta: a 09 é o quadro de 1 (a limpeza feita, o bloco gravando)
+const CONFIRMADOS_DA_CURTA = { escolher: 0, curta: 1, curtaFeita: CURTA }
+function daManutencao(q, par, falta = null) {
+  return { par, confirmados: CONFIRMADOS_DA_CURTA[q.fase], fase: q.fase, parou: null, bloco: q.bloco, folha: q.folha ?? null, decisoes: {}, faltaFixa: falta }
+}
 function inicio(momento, est, unico) {
-  // A manutenção da coluna consulta o caso inteiro, sem herdar bloco ou avanço do fluxo.
-  const consultas = { [REF.escolher]: ['escolher', 0], [REF.reenviando]: ['curta', 1], [REF.reenviado]: ['curtaFeita', CURTA] }
-  if (consultas[est]) {
-    const [fase, confirmados] = consultas[est]
-    return { par: parDoCaso('modulo-ja-deste-ativo'), confirmados, fase, parou: null, bloco: BLOCO_DA_MANUTENCAO }
+  // A manutenção da coluna consulta o caso inteiro, sem herdar bloco ou avanço do fluxo (o retorno do
+  // PM de 09/10: a folha de cada bloco, a pergunta pelos dependentes e o que ficou para depois)
+  const parDaManutencao = parDoCaso('modulo-ja-deste-ativo')
+  if (QUADRO_DA_MANUTENCAO[est]) return daManutencao(QUADRO_DA_MANUTENCAO[est], parDaManutencao, [])
+  if (est === REF.faltaReenviar) {
+    const falta = manutencaoDoCaso('falta-reenviar').faltaReenviar
+    return daManutencao({ fase: 'escolher', bloco: falta[0].bloco }, parDaManutencao, falta)
   }
-  // o pacote 2 (D2, a mudança mínima): o bloco que a conferência (T11) pede vem escolhido, pelo estado
+  // o bloco que a conferência (T11) ou o checklist (T13) pede vem escolhido, pelo estado; sem pedido,
+  // o primeiro que ficou para depois, ou as cercas · `agora`: o técnico já confirmou na T11, e a curta corre
+  const falta = faltaReenviarDe(unico.etapas)
   const pedido = unico.etapas.ativo?.bloco
-  const bloco = pedido && T.reenviar[pedido] ? pedido : BLOCO_DA_MANUTENCAO
+  const bloco = pedido && T.reenviar[pedido] ? pedido : falta[0]?.bloco ?? BLOCO_DA_MANUTENCAO
   if (est === REF.recusado) {
     const p = paradaDoCaso(CASO_RECUSA)
     return { par: parDoCaso(CASO_RECUSA), confirmados: ORDEM.indexOf(p.bloco), fase: 'recusado', parou: p.parou }
@@ -118,20 +132,21 @@ function inicio(momento, est, unico) {
   // diz só o módulo, que é o do herói: o ônibus é o da semente
   if (est === REF.semServidor) return { par: { ativoId: SEMENTES.T09.sessao.ativoId, moduloSerial: M.casos[CASO_SERVIDOR].moduloSerial }, confirmados: TOTAL, fase: 'semServidor', parou: null }
   const par = parDaSessao(unico.sessao)
+  if (QUADRO_DA_MANUTENCAO[momento]) return daManutencao(QUADRO_DA_MANUTENCAO[momento], par)
+  if (emManutencao(unico) && pedido && unico.etapas.ativo?.agora) return daManutencao({ fase: 'curta', bloco }, par)
+  if (emManutencao(unico) && pedido) return daManutencao({ fase: 'escolher', bloco }, par)
   // a 11: a Conexão gravada, e o módulo conferindo se falou com o servidor
   if (momento === REF.conferindoServidor) return { par, confirmados: TOTAL, fase: 'servidor', parou: null }
   if (momento === REF.concluida) return { par, confirmados: TOTAL, fase: 'concluida', parou: null }
   if (momento === REF.antes) return { par, confirmados: 0, fase: 'antes', parou: null }
-  if (momento === REF.escolher) return { par, confirmados: 0, fase: 'escolher', parou: null, bloco }
-  // a 09: a limpeza feita, as cercas gravando
-  if (momento === REF.reenviando) return { par, confirmados: 1, fase: 'curta', parou: null, bloco }
-  // a 10: a cadeia curta fechada, os dois relidos
-  if (momento === REF.reenviado) return { par, confirmados: CURTA, fase: 'curtaFeita', parou: null, bloco }
   if (EM_QUADRO) return { par, confirmados: QUADRO_00, fase: 'gravando', parou: null }
   const gravados = unico.etapas.cadeia?.confirmados
+  // na manutenção, o módulo já tem a configuração: a cadeia gravada não é a entrada — a lista é (o
+  // retorno do PM de 09/10); só uma cadeia que ficou pela metade retoma
+  if (emManutencao(unico) && !(gravados > 0 && gravados < TOTAL)) return daManutencao({ fase: 'escolher', bloco }, par)
   if (gravados > 0) return { par, confirmados: Math.min(gravados, TOTAL), fase: gravados >= TOTAL ? 'concluida' : 'gravando', parou: null }
   return emManutencao(unico)
-    ? { par, confirmados: 0, fase: 'escolher', parou: null, bloco }
+    ? daManutencao({ fase: 'escolher', bloco }, par)
     : { par, confirmados: 0, fase: 'antes', parou: null }
 }
 
@@ -200,7 +215,10 @@ export default function T09({ momento, estado: est }) {
     if (est != null) return
     const u = vivo.current.unico
     if (fluxo.fase === 'curtaFeita') {
-      if (u.etapas.cadeia?.reenviado !== fluxo.bloco) despachar({ tipo: 'mesclar', parcial: { etapas: { ...u.etapas, cadeia: { ...(u.etapas.cadeia ?? {}), reenviado: fluxo.bloco } } } })
+      // o bloco conferido sai do que falta reenviar, e entra no que já foi (o retorno do PM de 09/10)
+      if (u.etapas.cadeia?.reenviado !== fluxo.bloco || faltaReenviarDe(u.etapas).some((x) => x.bloco === fluxo.bloco)) {
+        despachar({ tipo: 'mesclar', parcial: { etapas: { ...reenviado(u.etapas, fluxo.bloco), cadeia: { ...(u.etapas.cadeia ?? {}), reenviado: fluxo.bloco } } } })
+      }
       return
     }
     if (quadro !== 'cadeia' || fluxo.confirmados === 0) return
@@ -211,9 +229,17 @@ export default function T09({ momento, estado: est }) {
   // o último relido: a URL passa a dizer 04 — e, na cadeia curta, 10 (o pacote 5)
   useEffect(() => {
     if (est != null) return
-    const m = fluxo.fase === 'concluida' ? REF.concluida : fluxo.fase === 'curtaFeita' ? REF.reenviado : fluxo.fase === 'servidor' ? REF.conferindoServidor : null
+    // a curta conferida: a pergunta de cada bloco tem o seu quadro (10, 14, 15); a dos eventos e a da
+    // conexão, que nenhuma referência desenha, ficam no endereço da curta
+    const m = fluxo.fase === 'concluida' ? REF.concluida : fluxo.fase === 'curtaFeita' ? MOMENTO_DA_PERGUNTA[fluxo.bloco] ?? null : fluxo.fase === 'servidor' ? REF.conferindoServidor : null
     if (m && vivo.current.momento !== m) despachar({ tipo: 'ir', tela: 'T09', momento: m })
-  }, [fluxo.fase, est, despachar])
+  }, [fluxo.fase, fluxo.bloco, est, despachar])
+  // o pedido já confirmado (o `agora` da T11) vale uma vez: a curta já está correndo
+  useEffect(() => {
+    const u = vivo.current.unico
+    if (est == null && u.etapas.ativo?.agora) despachar({ tipo: 'mesclar', parcial: { etapas: { ...u.etapas, ativo: { ...u.etapas.ativo, agora: false } } } })
+    if (est == null && fluxo.fase === 'curta' && vivo.current.momento !== REF.reenviando) despachar({ tipo: 'ir', tela: 'T09', momento: REF.reenviando })
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // a troca de quadro (C12·4): o que vai ser gravado → a cadeia, o escolher → a curta
   useTrocaDeQuadro(quadro)
@@ -241,10 +267,33 @@ export default function T09({ momento, estado: est }) {
     setFluxo((f) => ({ ...f, fase: 'gravando', confirmados: 0, parou: null }))
     ir('T09')
   }
-  // Reenviar as cercas: a cadeia curta, pela limpeza só delas (09)
-  function reenviar() {
-    setFluxo((f) => ({ ...f, fase: 'curta', confirmados: 0, parou: null }))
+  // Reenviar um bloco: a cadeia curta, pela limpeza só dele (09) · nenhum outro vai junto
+  function reenviar(bloco) {
+    setFluxo((f) => ({ ...f, bloco: bloco ?? f.bloco, fase: 'curta', confirmados: 0, parou: null, folha: null, decisoes: {} }))
     ir('T09', { momento: REF.reenviando })
+  }
+  // O retorno do PM de 09/10: o bloco que tem dependente pede a confirmação antes (a folha, 13, 17 e
+  // 18); o que não tem vai direto. A folha confirmada reenvia; o Cancelar só fecha
+  function pedirReenvio() {
+    const { bloco: b } = vivo.current.fluxo
+    if (!temDependente(b)) { reenviar(b); return }
+    setFluxo((f) => ({ ...f, folha: b }))
+    ir('T09', { momento: MOMENTO_DA_FOLHA[b] })
+  }
+  const fecharFolha = () => { setFluxo((f) => ({ ...f, folha: null })); ir('T09', { momento: REF.escolher }) }
+  // a pergunta pelos dependentes (10, 14, 15): Reenviar corre a curta dele, sem folha — a pergunta é
+  // a confirmação; Deixar para depois marca *falta reenviar*, aqui, na T11 e na T13
+  const deixar = (b) => {
+    const de = vivo.current.fluxo.bloco
+    setFluxo((f) => ({ ...f, decisoes: { ...f.decisoes, [b]: 'depois' } }))
+    if (est == null) despachar({ tipo: 'mesclar', parcial: { etapas: comFalta(vivo.current.unico.etapas, [{ bloco: b, por: de }]) } })
+  }
+  // sair da pergunta não perde nada: o que não foi decidido vira pendência
+  function sairDaPergunta() {
+    const { bloco: de, decisoes } = vivo.current.fluxo
+    const abertos = dependentesDe(de).filter((b) => !decisoes[b]).map((b) => ({ bloco: b, por: de }))
+    if (abertos.length && est == null) despachar({ tipo: 'mesclar', parcial: { etapas: comFalta(vivo.current.unico.etapas, abertos) } })
+    ir('T04')
   }
   // Tentar de novo · Reconectar e seguir · Continuar a gravação: o mesmo bloco, de novo
   function retomar() {
@@ -277,7 +326,17 @@ export default function T09({ momento, estado: est }) {
   // correndo (00), recusado (01), pausado (02) —, a recuperação, como o Voltar ao menu
   // com a cadeia parada; na recuperação, que só oferece continuar, e na cadeia curta,
   // que termina sozinha, não faz nada
-  useVoltar(PRENDE.includes(fase) ? recuperar : fase === 'recuperacao' || fase === 'curta' || fase === 'servidor' ? null : voltarAoMenu)
+  useVoltar(fluxo.folha ? fecharFolha : PRENDE.includes(fase) ? recuperar : fase === 'recuperacao' || fase === 'curta' || fase === 'servidor' ? null
+    : fase === 'curtaFeita' ? sairDaPergunta : voltarAoMenu)
+  // o que ficou para depois: o do caso, numa consulta da coluna; o do estado único, no fluxo
+  const falta = fluxo.faltaFixa ?? faltaReenviarDe(unico.etapas)
+  const faltaDe = (b) => falta.find((x) => x.bloco === b)
+  // a folha de confirmação (13, 17, 18): sobe e desce como toda folha; a que fecha fica desenhada até sair
+  const folha = usePresenca(Boolean(fluxo.folha))
+  const ultimaFolha = useRef(fluxo.folha)
+  if (fluxo.folha) ultimaFolha.current = fluxo.folha
+  // a pergunta: nasce embaixo do check, ao vivo (a curta que acaba de conferir); pelo endereço, parada
+  const [abriuNaPergunta] = useState(() => fluxo.fase === 'curtaFeita')
 
   const conteudo = conteudoNaTela(par)
   const bloco = ORDEM[k]
@@ -308,35 +367,58 @@ export default function T09({ momento, estado: est }) {
       ? <Rodape primario={T.procurarOutro} aoPrimario={enc.encerrar} link={T.voltar} aoLink={voltarAoMenu} />
       : <Rodape primario={T.gravarNoModulo} aoPrimario={gravar} link={T.voltar} aoLink={voltarAoMenu} />
   } else if (fase === 'escolher') {
-    // ── a manutenção: escolher o bloco (08) ──
+    // ── a manutenção: escolher o bloco (08) · o que ficou para depois, marcado, com o motivo (16) ──
     const ultimo = BLOCOS_DA_MANUTENCAO.length - 1
+    const aviso = falta.length ? T.faltaReenviar(falta.map((x) => x.bloco)) : T.reenvieUm
     miolo = (
       <>
         <CabecalhoConteudo titulo={T.titulo} />
-        <Aviso tom="neutro" glifo="info" titulo={T.manutencao} frase={T.reenvieUm} />
+        <Aviso tom="neutro" glifo="info" titulo={T.manutencao} frase={aviso} />
         <Lista role="radiogroup" aria-label={T.titulo}>
-          {BLOCOS_DA_MANUTENCAO.map((b, i) => (
-            <LinhaEscolha key={b} nome={rotuloDe(b)} detalhe={T.descricao[b]} valor={conteudo[b]} valorTom="secundaria"
-              estado={b === fluxo.bloco ? 'escolhida' : 'disponivel'} inerte={!T.reenviar[b]}
-              aoTocar={() => setFluxo((f) => ({ ...f, bloco: b }))} divisoria={i < ultimo} />
-          ))}
+          {BLOCOS_DA_MANUTENCAO.map((b, i) => {
+            const f = faltaDe(b)
+            return (
+              <LinhaEscolha key={b} nome={rotuloDe(b)} detalhe={f ? motivoDe(b, f.por) : T.descricao[b]}
+                valor={f ? T.faltaReenviarValor : conteudo[b]} valorTom={f ? 'forte' : 'secundaria'}
+                estado={b === fluxo.bloco ? 'escolhida' : 'disponivel'}
+                aoTocar={() => setFluxo((x) => ({ ...x, bloco: b }))} divisoria={i < ultimo} />
+            )
+          })}
         </Lista>
       </>
     )
-    rodape = <Rodape primario={T.reenviar[fluxo.bloco]} aoPrimario={reenviar} link={T.voltar} aoLink={voltarAoMenu} />
+    rodape = <Rodape primario={T.reenviar[fluxo.bloco]} aoPrimario={pedirReenvio} link={T.voltar} aoLink={voltarAoMenu} />
   } else if (fase === 'curta' || fase === 'curtaFeita') {
-    // ── a manutenção: a cadeia curta (09) — a limpeza só do bloco, e o bloco ──
+    // ── a manutenção: a cadeia curta (09) — a limpeza só do bloco, e o bloco · conferida, a pergunta
+    // pelos dependentes, um por vez, na ordem do script (10, 14, 15) ──
+    const dependentes = dependentesDe(fluxo.bloco)
+    const decididos = (i) => dependentes.slice(0, i).every((b) => fluxo.decisoes[b] === 'depois')
+    const itens = dependentes.map((b, i) => {
+      const anterior = !decididos(i) ? dependentes[i - 1] : null
+      const motivo = motivoDe(b, fluxo.bloco)
+      return {
+        bloco: b, rotulo: rotuloDe(b), decisao: fluxo.decisoes[b] ?? null, liberado: decididos(i), acendeu: i > 0 && aoVivo,
+        motivo: anterior ? `${motivo} · ${T.liberaDepois(rotuloDe(anterior))}` : motivo,
+      }
+    })
+    const frase = fase === 'curta' ? T.reenviando[fluxo.bloco]
+      : dependentes.length ? T.confereComDependentes[fluxo.bloco](dependentes.length) : T.confereSo[fluxo.bloco]
     miolo = (
       <>
         <CabecalhoConteudo titulo={T.titulo} />
-        <Aviso tom="neutro" glifo="info" titulo={T.manutencao} frase={(fase === 'curta' ? T.reenviando : T.reenviado)[fluxo.bloco]} />
+        <Aviso tom="neutro" glifo="info" titulo={T.manutencao} frase={frase} />
         <Cadeia elos={elosDaCurta(k, fluxo.bloco, conteudo)} altura="correndo" curta />
-        <p className="t09-ficam">{ficam(fluxo.bloco)}</p>
+        {fase === 'curta' && <p className="t09-ficam">{depoisDaCurta(fluxo.bloco, dependentes, falta.map((x) => x.bloco))}</p>}
+        {fase === 'curtaFeita' && dependentes.length > 0 && (
+          <Pergunta itens={itens} surge={aoVivo && !abriuNaPergunta} aoReenviar={reenviar} aoDeixar={deixar} />
+        )}
       </>
     )
+    // conferida: com dependente, o Voltar ao menu vira link — sair não perde nada, o que ficar vira pendência
     rodape = fase === 'curta'
       ? <Rodape {...mov} primario={T.gravandoNaoInterrompa} primarioDesabilitado explicacao={T.saidaVolta} />
-      : <Rodape {...mov} primario={T.voltar} aoPrimario={voltarAoMenu} pe="link" />
+      : dependentes.length ? <Rodape link={T.voltar} aoLink={sairDaPergunta} />
+        : <Rodape {...mov} primario={T.voltar} aoPrimario={voltarAoMenu} pe="link" />
   } else {
     // ── a cadeia: correndo (00), parada (01, 02, 03) e concluída (04) ──
     const cabeca = fase === 'pausado' || fase === 'recuperacao'
@@ -371,15 +453,27 @@ export default function T09({ momento, estado: est }) {
 
   return (
     <div className="t09">
-      <BarraDoSistema fundo="faixa" veu={enc.veu} />
+      <BarraDoSistema fundo="faixa" veu={folha.visivel ? 'folha' : enc.veu} />
       {/* o ENCERRAR faz o mesmo que o voltar: antes de a Conexão gravar, abre a recuperação; na recuperação e na cadeia curta, fica apagado (a lei 17, diretor, 25/09) */}
-      <Faixa serial={par.moduloSerial} placa={placaDe(par.ativoId)} acao={T.encerrar} aoEncerrar={encerrar} acaoDesabilitada={fase === 'recuperacao' || fase === 'curta'} />
+      <div className="t09-topo" inert={folha.montado ? '' : undefined}>
+        <Faixa serial={par.moduloSerial} placa={placaDe(par.ativoId)} acao={T.encerrar} aoEncerrar={encerrar} acaoDesabilitada={fase === 'recuperacao' || fase === 'curta'} />
+      </div>
       {/* o miolo nasce com o quadro: as peças de dentro não esmaecem de novo por dentro da troca */}
-      <div key={`miolo·${quadro}`} className={`tela-miolo t09-miolo ${parada ? 't09-miolo-justo' : ''}`}>
+      <div key={`miolo·${quadro}`} className={`tela-miolo t09-miolo ${parada ? 't09-miolo-justo' : ''}`} inert={folha.montado ? '' : undefined}>
         {miolo}
       </div>
       {/* o rodapé nasce com o quadro: dentro da troca, o texto do primário não esmaece de novo */}
-      <Fragment key={`rodape·${quadro}`}>{rodape}</Fragment>
+      <div className="t09-pe" inert={folha.montado ? '' : undefined}>
+        <Fragment key={`rodape·${quadro}`}>{rodape}</Fragment>
+      </div>
+      {/* a folha de confirmação (o retorno do PM de 09/10): por cima da lista, que fica atrás do véu, inerte (G25) */}
+      {folha.montado && (
+        <div className="t09-sobre t-confirmacao">
+          <Veu de="folha" visivel={folha.visivel}>
+            <FolhaDeConfirmacao bloco={ultimaFolha.current} aberta={folha.visivel} aoConfirmar={() => reenviar(ultimaFolha.current)} aoFechar={fecharFolha} />
+          </Veu>
+        </div>
+      )}
       {enc.sobre}
     </div>
   )

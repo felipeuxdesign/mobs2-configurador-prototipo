@@ -63,6 +63,7 @@ import { useVoltar } from '../../estado/voltar.js'
 import { useEncerrar } from '../../estado/encerrar.jsx'
 import { NEGADA, APAGADO, permissaoDoEstado, camera as cameraDa, primarioDaCamera, voltaDasConfiguracoes } from '../../estado/camera.js'
 import { RECEITAS } from '../../estado/receitas.js'
+import { pedirReenvio } from '../../estado/reenvio.js'
 import { RITMOS } from '../../estado/ritmos.js'
 import { EM_QUADRO } from '../../estado/quadro.js'
 import { SEMENTES } from '../../estado/sementes.js'
@@ -80,7 +81,7 @@ import './t13.css'
 const HORA = M.HORA_NOMINAL
 // o nome do glifo pro leitor, pelo estado do dado (G15, as legendas da folha 3)
 const NOME_DA_SECAO = { aprovada: 'aprovado', pendente: 'ainda não', aguarda: 'ainda não', reprovada: 'falha', lendo: 'lendo' }
-const NOME_DO_ITEM = { ok: 'aprovado', ressalva: 'aprovado', nsa: 'não se aplica', pendente: 'ainda não', aguarda: 'ainda não', reprovado: 'falha', lendo: 'lendo' }
+const NOME_DO_ITEM = { ok: 'aprovado', ressalva: 'aprovado', nsa: 'não se aplica', pendente: 'ainda não', aguarda: 'ainda não', espera: 'ainda não', revisar: 'ainda não', reprovado: 'falha', lendo: 'lendo' }
 // o que conferir no nível do item reprovado, por item (textos.md · 09, o pacote 11)
 const CONFERIR_DO_REPROVADO = { 'c-alimentacao': T.conferirAlimentacao, 'c-gps': T.conferirGps, 'c-entradas': T.conferirEntradas, 'c-modem': T.conferirModem }
 
@@ -111,6 +112,8 @@ function quadroInicial({ momento, est, ck }) {
   if (daReleitura) return { ...q, item: daReleitura.item, releitura: ['relendo', 'naoResolvido', 'relido'][daReleitura.vezes] }
   if (DETALHES_DA_C.includes(est)) return { ...q, item: ck.porSecao.C.find((c) => c.estado === 'reprovado')?.id ?? null }
   if (LISTAS_DA_C.includes(est)) return { ...q, aberta: 'C' }
+  // o 43 (o retorno do PM de 09/10): a Seção D aberta, com o leitor e os eventos revisar em seguida
+  if (est === REF.dRevisar) return { ...q, aberta: 'D' }
   if (est === REF.secaoF) return { ...q, dialogo: true }
   const bip = BIP_DO_MOMENTO[momento]
   if (SECAO_DO_MOMENTO[momento]) return { ...q, aberta: SECAO_DO_MOMENTO[momento], bip: bip === 'tocando' || bip === 'esperando' ? bip : null }
@@ -167,9 +170,9 @@ export default function T13({ momento, estado: est }) {
   useEffect(() => { gravar(registro) }, []) // eslint-disable-line react-hooks/exhaustive-deps
   // os quadros que a referência desenha com a lista já rolada (a rodada 1): aberta pela URL, a seção
   // que não cabe embaixo leva a lista até a seção de antes dela no topo do miolo — a D (04, 38) com a
-  // C no topo, a E (05, 13, 39 a 42) com a D
+  // C no topo, a E (05, 13, 39 a 42) com a D · e o 43, a D com o revisar em seguida (o retorno do PM de 09/10)
   useLayoutEffect(() => {
-    if (!momento || !q.aberta || est) return
+    if (!q.aberta || (est ? est !== REF.dRevisar : !momento)) return
     const miolo = document.querySelector('.t13 .tela-miolo')
     const cartoes = miolo?.querySelectorAll('.ds-secao-ck')
     const i = SECOES.findIndex((x) => x.id === q.aberta)
@@ -197,6 +200,11 @@ export default function T13({ momento, estado: est }) {
 
   // ── os toques ──
   const ir = (tela, extra = {}) => despachar({ tipo: 'ir', tela, ...extra })
+  // o Reenviar do bloco deixado para depois (a 43): a manutenção da T09, com ele escolhido
+  const reenviarBloco = (bloco) => {
+    despachar({ tipo: 'mesclar', parcial: { etapas: pedirReenvio(unico.etapas, bloco) } })
+    ir('T09')
+  }
   const irQuadro = (m) => ir('T13', m ? { momento: m } : {})
   // o nível do item manual (07, 08): sem a permissão da câmera, o quadro não tem
   // referência, e a URL sai do momento (como a câmera da T10 e o item reprovado)
@@ -375,6 +383,14 @@ export default function T13({ momento, estado: est }) {
       }
       const daE = s.id === 'E' && itemDaE(c, divisoria)
       if (daE) return daE
+      // o bloco deixado para depois (o retorno do PM de 09/10, a 43): revisar em seguida, o motivo e o
+      // Reenviar, que leva à manutenção da T09 com o bloco escolhido
+      if (c.estado === 'revisar') {
+        const reenviar = (
+          <BotaoDaLinha tam="teste" letra="secundario" rotulo={`${T.reenviar}: ${c.nome}`} aoTocar={() => reenviarBloco(c.bloco)}>{T.reenviar}</BotaoDaLinha>
+        )
+        return <ItemDoChecklist key={c.id} estado="revisar" nome={c.nome} linhas={c.linhas} acao={reenviar} divisoria={divisoria} nomeGlifo={NOME_DO_ITEM.aguarda} />
+      }
       return (
         <ItemDoChecklist key={c.id} tipo={c.tipo} estado={c.estado} icone={c.icone} nome={c.nome} valor={c.valor} legenda={c.legenda} linhas={c.linhas} apagado={!!c.apagado} valorDeEstado={!!c.valorDeEstado}
           divisoria={divisoria} nomeGlifo={NOME_DO_ITEM[c.estado]} aoTocar={c.tipo === 'tocar' || c.destino ? () => tocarItem(c) : undefined} />

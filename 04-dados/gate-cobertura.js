@@ -66,13 +66,13 @@ chk("ressalvadas = 2 (1 aprovada + 1 aguardando)", ressalvadas.length === 2 &&
   ressalvadas.map(function (i) { return i.id + ":" + i.estado; }).join(" · "));
 var heroi = M.instalacoes.find(function (i) { return i.ativoId === "a-01"; });
 var heroiAtivo = M.ativos.find(function (a) { return a.id === "a-01"; });
-chk("herói RKT-8H42 · VL06 CAN-BT · M2C-0417 · aprovado, história completa · 28 itens, o autoteste em três contadores",
+chk("herói RKT-8H42 · VL06 CAN-BT · M2C-0417 · aprovado, história completa · 27 itens, o autoteste em três contadores",
   heroiAtivo && heroiAtivo.placa === "RKT-8H42" && heroiAtivo.moduloSerial === "M2C-0417" &&
   heroi && heroi.estado === "aprovada" && heroi.etapas &&
-  heroi.etapas.cadeia.length === 6 && heroi.etapas.autoteste.aprovadas === 5 && heroi.etapas.autoteste.naoSeAplicam === 1 && heroi.etapas.autoteste.pendentes === 1 && heroi.etapas.checklist.itens === 28 && heroi.etapas.checklist.concluidos === heroi.etapas.checklist.itens);
+  heroi.etapas.cadeia.length === 6 && heroi.etapas.autoteste.aprovadas === 5 && heroi.etapas.autoteste.naoSeAplicam === 1 && heroi.etapas.autoteste.pendentes === 1 && heroi.etapas.checklist.itens === 27 && heroi.etapas.checklist.concluidos === heroi.etapas.checklist.itens);
 /* rodada 3 do retorno do PM (06/10): os 12 resumos de instalação com 28 itens e os três contadores do autoteste */
-chk("rodada 3: os resumos das instalações com 28 itens e o autoteste em três contadores", M.instalacoes.filter(function (i) { return i.resumo; }).every(function (i) {
-  return i.resumo.checklist === "28/28" && /^\d+ aprovadas? · \d+ não se aplicam? · \d+ pendentes?$/.test(i.resumo.autoteste); }),
+chk("rodada 3: os resumos das instalações com 27 itens (09/10) e o autoteste em três contadores", M.instalacoes.filter(function (i) { return i.resumo; }).every(function (i) {
+  return i.resumo.checklist === "27/27" && /^\d+ aprovadas? · \d+ não se aplicam? · \d+ pendentes?$/.test(i.resumo.autoteste); }),
   M.instalacoes.filter(function (i) { return i.resumo; }).length + " resumos");
 
 /* ── Gate de cobertura temporal ── */
@@ -130,6 +130,10 @@ chk("casos apontam para ativos/módulos reais", OBRIGATORIOS.every(function (k) 
   if (c.moduloSerial && !M.modulos.some(function (m) { return m.serial === c.moduloSerial; }) && k !== "serial-nao-cadastrado") return false;
   return true;
 }));
+  chk("09/10: a conferência segue a ordem do script, com cinco blocos", (function () { var c = M.casos["diff-divergente"]; var o = c.ordem.join(","); var d = c.divergencias.map(function (x) { return x.bloco; }); return o === "ativo,cercas,leitor,eventos,conexao" && c.ordem.length === 5 && d.join(",") === c.ordem.filter(function (b) { return d.indexOf(b) >= 0; }).join(","); })());
+  chk("09/10: quem depende de quem, como o PM escreveu", M.dependentes && JSON.stringify(M.dependentes) === JSON.stringify({ ativo: ["eventos"], cercas: ["leitor", "eventos"], leitor: ["eventos"], eventos: [], conexao: [] }) && M.casos["falta-reenviar"] && M.casos["falta-reenviar"].faltaReenviar.join(",") === "leitor,eventos");
+chk("09/10: o herói mostra 27 — a D sem as pendências, a B sem o Painel (o ônibus não calibra), e a E com o bip", M.calibracao.porModelo["ma-01"].calibraveis.length === 0 && M.checklist.itens.filter(function (x) { return x.condicao !== "reescritaId" && x.condicao !== "calibracao" && x.conta !== false; }).length === 27 && M.checklist.itens.some(function (x) { return x.id === "e-bip" && x.condicao === "buzzer"; }));
+  chk("09/10: o Autoteste da D roda ao encerrar e não conta", M.checklist.itens.some(function (x) { return x.id === "d-autoteste" && x.conta === false && x.valor === "roda ao encerrar"; }));
 chk("06/10: o autoteste do encerramento tem 7 assertivas, e o caso bloqueado falha nos contadores", M.autotesteEncerramento.length === 7 && M.autotesteEncerramento.some(function (x) { return x.id === M.casos["autoteste-falhando"].falhou; }) &&
   M.casos["autoteste-falhando"].aprovadas + M.casos["autoteste-falhando"].naoSeAplicam + M.casos["autoteste-falhando"].pendentes === 6);
 
@@ -516,10 +520,13 @@ chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência n
      Extended ID só leitura, fora da conta; o Corrigir vai no primeiro que diverge na ordem da cadeia */
   var cmp = dd.divergencias.map(function (d) { return d.bloco; });
   var primeiro = Cd.ordem.filter(function (b) { return cmp.indexOf(b) >= 0; })[0];
-  chk("P·C11 · T11 a 00: as 4 que se comparam divergem ('4 de 4'), o cadastro é o conteúdo que a cadeia grava, sem o Extended ID (a rodada 2), e o primeiro na ordem da cadeia é o das cercas",
-    /* rodada 2: a rede do módulo não mostra o endereço — o cadastro dela é "a rede da Mobs2" (leitura nossa do PM) */
-    cmp.length === 4 && dd.divergencias.every(function (d) { var c = Cd.conteudo[d.bloco];
-      return !!c && (d.noCadastro === c || d.noCadastro === Cd.rotulos[d.bloco].toLowerCase() + " " + c || (d.bloco === "conexao" && d.noCadastro === "a rede da Mobs2")); }) &&
+  /* o retorno do PM de 09/10: a conferência tem os cinco blocos do script — o Ativo confere (traduz a CAN do
+     OF-1621) e os outros quatro divergem ('4 de 5'), na ordem do script; o cadastro é o conteúdo que a cadeia
+     grava, e a Conexão diz as duas coisas (rede e servidor da Mobs2, leitura nossa do PM) */
+  chk("P·C11 · T11 a 00 (09/10): cinco blocos na ordem do script, o Ativo confere e quatro divergem ('4 de 5'), o cadastro é o conteúdo que a cadeia grava, e o primeiro na ordem da cadeia é o das cercas",
+    dd.ordem.length === 5 && cmp.length === 4 && dd.confere.length === 1 && dd.confere[0].bloco === "ativo" &&
+    dd.divergencias.every(function (d) { var c = Cd.conteudo[d.bloco];
+      return !!c && (d.noCadastro === c || d.noCadastro === Cd.rotulos[d.bloco].toLowerCase() + " " + c || (d.bloco === "conexao" && d.noCadastro === "rede e servidor da Mobs2")); }) &&
     !dd.extendedId && primeiro === "cercas",
     dd.divergencias.map(function (d) { return (d.rotulo || Cd.rotulos[d.bloco]) + " " + d.noCadastro; }).join(" · ") + " · corrige " + primeiro);
   var a = ativo(cc.ativoId), mdl = M.modelosAtivo.filter(function (m) { return m.id === a.modeloAtivoId; })[0];

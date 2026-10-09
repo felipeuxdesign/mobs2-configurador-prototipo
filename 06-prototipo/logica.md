@@ -2,7 +2,7 @@
 
 Guia da versão de **08/10/2026**, conferido contra o código, o mock e as fichas das telas. Comportamento, textos e desenho continuam nas fontes normativas de [02-telas](../02-telas/README.md) e [03-design-system](../03-design-system/README.md). O [histórico até as consultas paradas](historico/logica-ate-consultas-paradas.md) preserva as anotações anteriores, incluindo regras já substituídas.
 
-Censo: **15 telas, 97 momentos, 79 estados e 191 pares HTML/PNG**. O produto tem 109 histórias, 295 tokens distintos, 106 peças normativas e 62 casos do mock. A vitrine tem 114 espécimes comparáveis; existem 45 roteiros, com a cobertura atual descrita em [testes-prontos.md](../08-para-o-dev/testes-prontos.md).
+Censo: **15 telas, 103 momentos, 81 estados e 199 pares HTML/PNG**. O produto tem 109 histórias, 295 tokens distintos, 106 peças normativas e 63 casos do mock. A vitrine tem 114 espécimes comparáveis; existem 45 roteiros, com a cobertura atual descrita em [testes-prontos.md](../08-para-o-dev/testes-prontos.md).
 
 ## O estado único
 
@@ -44,7 +44,7 @@ Login → empresa → unidade Várzea → sincronizar → menu
 → encerrar → reinício e autoteste → homologação na T16 → menu sem sessão
 ```
 
-O ônibus não calibra. Seu ciclo tem quatro passos, com cartão conferido pelo técnico. O checklist tem **28 itens aplicáveis**, de um catálogo de 30; o bip é testado ali. `Finalizar` registra o checklist, aguardando autoteste; o encerramento pode homologar somente depois da prova da T16.
+O ônibus não calibra. Seu ciclo tem quatro passos, com cartão conferido pelo técnico. O checklist tem **27 itens que contam**, de um catálogo de 30 (o Autoteste da D roda ao encerrar e não conta); o bip é testado ali. `Finalizar` registra o checklist, aguardando autoteste; o encerramento pode homologar somente depois da prova da T16.
 
 [heroi.mjs](app/scripts/caminhos/heroi.mjs) aprovou **239 passos** na rodada de consultas paradas. [heroi-sem-horimetro.mjs](app/scripts/caminhos/heroi-sem-horimetro.mjs) conserva o nome histórico, mas hoje entra no ciclo pela Seção E depois de voltar da calibração ao menu. A lista de verificações aprovadas e as limitações dos roteiros antigos estão em [testes-prontos.md](../08-para-o-dev/testes-prontos.md).
 
@@ -77,12 +77,13 @@ Essas sementes não acrescentam uma regra ao produto. O usuário real chega com 
 **Estados desta tela** inclui condições do mundo e exemplos especiais, todos parados. O painel abre o caminho normal; a coluna permite inspecionar:
 
 - T02/00–01: uma empresa.
-- T09/08–10: manutenção, escolhendo, reenviando e concluída.
+- T09/08–10, 13–15, 17 e 18: manutenção, escolhendo, a folha de confirmação de cada bloco, reenviando e a pergunta pelos dependentes.
+- T11/06: o Corrigir este bloco nas cercas do exemplo divergente, com a folha de confirmação.
 - T10/00, 01, 05–09: os sete quadros de calibração do caminhão.
 - T11/00 e 03: Não bate com o cadastro e sua folha.
 - T13/29: relendo depois de uma falha.
 
-As famílias T07/06 e T13/30–37 também ficam paradas pela coluna. A classificação normativa não muda: um momento oferecido para consulta continua momento no índice, sem inflar os 79 estados.
+As famílias T07/06 e T13/30–37 também ficam paradas pela coluna. A classificação normativa não muda: um momento oferecido para consulta continua momento no índice, sem inflar os 81 estados.
 
 A primeira consulta guarda o fluxo inteiro; trocar entre consultas conserva esse retorno. Toque, Esc e tempo não alteram o quadro. **Voltar ao fluxo** restaura o estado guardado; se não existe fluxo anterior, monta a entrada normal da tela. Links antigos dos 15 exemplos marcados como `consulta` abrem parados fora do print. Momentos normais continuam navegáveis; detalhes de família acessados por endereços antigos sem `consulta` conservam as limitações registradas no [palco](palco.md).
 
@@ -124,9 +125,20 @@ Limpeza e cinco blocos são enviados e relidos em ordem: Ativo, Cercas, Leitor, 
 
 ## A conferência (T11·1, T11·2)
 
-Compara quatro blocos: Cercas, Rede do módulo, Eventos e Leitor. A leitura usa 400 ms por linha; a contagem acompanha, e o veredito espera a última. O caminho normal do herói confere. O par divergente é exemplo parado da coluna, sem levar o palco a uma cadeia especial.
+Compara os cinco blocos do script, na ordem dele: Ativo (*traduz a CAN do OF-1621*), Cercas, Leitor, Eventos e Conexão (*a rede da Mobs2*; na divergência, *rede antiga, servidor da Mobs2*). A leitura usa 400 ms por linha; a contagem acompanha até 5, e o veredito espera a última. O caminho normal do herói confere. O par divergente é exemplo parado da coluna, sem levar o palco a uma cadeia especial.
 
-No produto, **Corrigir este bloco** permite escolher qualquer linha divergente e reenviar um bloco; dependentes ficam para revisar. **Reenviar os 5 blocos** limpa o avanço anterior antes da preparação da cadeia. **Apenas registrar o diagnóstico** salva `etapas.conferencia` e volta ao menu. Embora `tiposFila` já declare Diagnóstico, essa ação não cria item nem envia no protótipo; o upload real está pendente.
+No produto, **Corrigir este bloco** nunca envia mais de um bloco: com dependente, abre a folha de confirmação da T09 (a 06) e, confirmado, a curta da T09 já corre; sem, corre direto. O que ficou para depois numa manutenção aparece *revisar em seguida*, com o motivo do mock e o **Reenviar**, que abre a manutenção com o bloco escolhido. **Reenviar tudo, menos a conexão** limpa o avanço anterior antes da preparação da cadeia; no protótipo, ele leva à cadeia inteira da T09, que regrava também a Conexão (desvio nomeado: a cadeia sem a Conexão não tem referência). **Apenas registrar o diagnóstico** salva `etapas.conferencia` e volta ao menu. Embora `tiposFila` já declare Diagnóstico, essa ação não cria item nem envia no protótipo; o upload real está pendente.
+
+## O reenvio na manutenção (o retorno do PM de 09/10)
+
+O arrastado nunca é reenviado sozinho. Quem depende de quem é do mock (`M.dependentes`: o Ativo → os Eventos; as Cercas → o Leitor e os Eventos; o Leitor → os Eventos), e os motivos e a consequência também (`M.motivosDependente`, `M.consequenciaReenvio`). A lógica mora em [reenvio.js](app/src/estado/reenvio.js):
+
+- na lista da manutenção (T09/08), todo bloco se escolhe; o que tem dependente abre a **folha de confirmação** (13, 17, 18) antes de enviar; o Cancelar só fecha;
+- a curta reenvia só o bloco, e diz quem precisa ser reenviado depois (09); conferida, o app **pergunta por cada dependente, um por vez, na ordem do script** (10, 14, 15). O Reenviar de um só liga quando o de cima confere ou fica para depois; a pergunta é a confirmação, sem outra folha;
+- **Deixar para depois** e sair da pergunta com algo por decidir gravam `etapas.manutencao.faltaReenviar` (`{ bloco, por }`, na ordem do script). A T09 mostra *falta reenviar* na lista (16), a T11 mostra *revisar em seguida* (05), e a Seção D da T13 também (43), com o **Finalizar desligado** e a causa *Falta reenviar o leitor e os eventos.* Reenviar o bloco tira ele da lista;
+- na manutenção, a T09 abre na lista mesmo com a cadeia gravada; só uma cadeia de instalação pela metade retoma.
+
+Nenhuma entrada viva do palco leva à manutenção (os exemplos são consultas paradas). O roteiro [reenvio](app/scripts/caminhos/reenvio.mjs) semeia o vínculo de manutenção que a T06 gravaria e percorre o fluxo das cercas inteiro só com toques.
 
 ## O ciclo de testes (T14·1 a T14·4)
 
@@ -138,7 +150,7 @@ Antes de concluir, Encerrar o ciclo e Ir para o checklist levam à T13 com resul
 
 ## O checklist (T13·1 a T13·6)
 
-O catálogo tem **30 itens** (A=4, B=5, C=4, D=10, E=5, F=2). O herói tem **28 aplicáveis**: Painel exige calibração, e Pendências registradas exige ID reescrito. Leitor, rotação e bip também respeitam suas condições. A semente tem 17 resolvidos e nove obrigatórios por fazer; F não bloqueia.
+O catálogo tem **30 itens** (A=4, B=5, C=4, D=10, E=5, F=2). O herói tem **27 que contam**: Painel exige calibração, Pendências registradas exige ID reescrito, e o **Autoteste da D roda ao encerrar e não conta** (`conta: false`; a linha diz *roda ao encerrar*, com o relógio). Leitor, rotação e bip também respeitam suas condições. A semente tem 16 resolvidos e nove obrigatórios por fazer; F não bloqueia. O bloco deixado para depois numa manutenção desliga o Finalizar (o reenvio, acima).
 
 A, C e D conferem resultados automaticamente; B fotografa ou registra ressalva com justificativa **e foto do problema**. E combina os passos da T14 com o bip respondido aqui. Cartão ou bip não conforme precisa de justificativa e pode ficar resolvido com ressalva. F confere Posição e Evento de teste a partir do recebimento e conferência do evento, sem os antigos pedidos de correção.
 

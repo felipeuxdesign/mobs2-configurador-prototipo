@@ -6,7 +6,7 @@
 
 | Referência | Tipo | Como se chega · o que causa | Caso do mock |
 |---|---|---|---|
-| `00-tela` | tela | a entrada da tela | sessão M2C-0417 + RKT-8H42 · 28 itens |
+| `00-tela` | tela | a entrada da tela | sessão M2C-0417 + RKT-8H42 · 27 itens |
 | `01-momento-a-identificacao-aberta` | momento | tocar na seção | derivado do fluxo |
 | `02-momento-b-montagem-aberta` | momento | tocar na seção | derivado do fluxo |
 | `03-momento-c-hardware-aberta` | momento | tocar na seção | derivado do fluxo |
@@ -47,6 +47,7 @@
 | `40-momento-bip-esperando-resposta` | momento | o bip tocou: Você ouviu o bip? Ouvi ou Não ouvi · o Testar bip continua, pra tocar de novo | `heroi` |
 | `41-momento-bip-ouvido` | momento | tocar em Ouvi: o bip confere | `heroi` |
 | `42-momento-bip-nao-ouvido` | momento | tocar em Não ouvi: não conforme, com o campo de justificativa | `heroi` |
+| `43-estado-secao-d-com-revisar-em-seguida` | estado | o técnico deixou o leitor e os eventos para depois · o Finalizar fica desligado, com a causa | `falta-reenviar` |
 
 - no protótipo · antes desta entrega, o 11 era o checklist homologado (tocar em `Finalizar instalação`, com o que bloqueia resolvido, T13·3, do `checklist`) · a rodada 1 do retorno do PM o trocou pelo registrado, aguardando autoteste, e o 14 mudou de nome com ele
 

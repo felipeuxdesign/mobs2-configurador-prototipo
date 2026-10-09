@@ -7,6 +7,8 @@ import { regioesDoAtivo } from '../../dados/regioes.js'
 import { RECEITAS } from '../../estado/receitas.js'
 import { SEMENTES } from '../../estado/sementes.js'
 import { T } from './textos.js'
+import { BLOCOS_DO_SCRIPT, faltaReenviarDe, motivoDe, manutencaoDoCaso } from '../../estado/reenvio.js'
+import { conteudoDo } from '../T09/cadeia.js'
 
 export const REF = {
   naoReconhece: '01-estado-conteudo-que-o-app-nao-reconhece',
@@ -17,21 +19,23 @@ export const REF = {
   outras: '03-momento-outras-acoes',
   // o pacote 2 (decisão 53): reenviou um bloco, e os que dependem dele ficam pra revisar
   revisar: '05-estado-revisar-em-seguida',
+  // o retorno do PM de 09/10: o Corrigir este bloco com dependente abre a folha de confirmação da T09
+  confirmacao: '06-momento-folha-de-confirmacao',
 }
 export const CASO_DIFF = 'diff-divergente'            // a 00: as quatro que se comparam não batem (a semente)
 export const CASO_INDICE = 'indice-nao-classificado'  // a 01: o conteúdo fora de todos os blocos
 export const CASO_CONFERE = 'conferencia-confere'     // a 02: o par do herói, que confere (AC-17)
 export const CASO_REENVIADAS = 'cercas-reenviadas'    // a 05: as cercas reenviadas numa manutenção
 
-const { ordem, rotulos, arraste } = M.cadeia
+const { ordem, rotulos } = M.cadeia
 // os blocos que a cadeia grava depois da limpeza: os 5 do Reenviar os 5 blocos
 export const BLOCOS_DA_CADEIA = ordem.slice(1)
-// as cinco linhas, na ordem da decisão 53 e das cinco referências (a ordem de
-// leitura; a de correção é a da cadeia, M.cadeia.ordem)
-// a rodada 2 do retorno do PM: o Extended ID saiu da conferência (cartão é assunto da plataforma web)
-export const LINHAS = ['cercas', 'conexao', 'eventos', 'leitor']
-// as que se comparam: as quatro que a cadeia grava — o contador conta só elas
-export const COMPARADAS = LINHAS.filter((b) => ordem.includes(b))
+// as cinco linhas, na ordem do script (o retorno do PM de 09/10): Ativo, Cercas, Leitor, Eventos e
+// Conexão — no Conferindo, no Tudo confere e no Não bate com o cadastro, qualquer que seja a ordem em
+// que as divergências foram achadas · o Ativo compara o que o módulo traduz da CAN com o cadastro
+export const LINHAS = BLOCOS_DO_SCRIPT
+// as que se comparam: as cinco — o contador conta cinco blocos
+export const COMPARADAS = LINHAS
 
 // o rótulo de cada linha: o que o caso dá ao bloco (a Conexão é a Rede do módulo, a rodada 2 do
 // retorno do PM), senão o da cadeia
@@ -60,6 +64,8 @@ export function mundoDoEstado(est) {
     divergem: casos.flatMap((c) => divergentesDoCaso(M.casos[c])),
     naoReconhecidos: casos.filter((c) => c === CASO_INDICE && M.casos[c]?.posicao != null).length,
     reenviados: casos.map((c) => M.casos[c]?.reenviado).filter(Boolean),
+    // o que ficou para depois (o retorno do PM de 09/10): o leitor e os eventos do cercas-reenviadas
+    falta: casos.flatMap((c) => manutencaoDoCaso(c)?.faltaReenviar ?? []),
   }
 }
 const mesmoPar = (a, b) => a.ativoId === b.ativoId && a.moduloSerial === b.moduloSerial
@@ -82,22 +88,21 @@ export function divergenciasDo(par, etapas) {
 // conferência limpa a cada pedido). Com a cadeia inteira regravada, nenhum conta.
 export function reenviadosDa(etapas) {
   if (cadeiaConcluida(etapas)) return []
-  const feitos = etapas.conferencia?.reenviados ?? []
+  const feitos = [...(etapas.conferencia?.reenviados ?? []), ...(etapas.manutencao?.reenviados ?? [])]
   const agora = etapas.cadeia?.reenviado
-  return agora ? [...feitos, agora] : feitos
+  return agora && !feitos.includes(agora) ? [...feitos, agora] : feitos
 }
+// o que ficou para depois numa manutenção (estado/reenvio.js): revisar em seguida, com quem arrastou
+export const faltaDa = (etapas) => (cadeiaConcluida(etapas) ? [] : faltaReenviarDe(etapas))
 
 // A situação de cada linha que se compara: 'confere', 'diverge' ou 'revisar'.
-// Reenviar um bloco faz ele conferir, e marca pra revisar em seguida os que
-// dependem dele — o arraste do mock (M.cadeia.arraste: as cercas levam o leitor
-// e os eventos), na ordem em que foram reenviados. O que já está marcado guarda
-// quem o marcou (o porquê da linha).
-export function situacaoDas(divergem, reenviados) {
+// Reenviar um bloco faz ele conferir. O arrastado nunca é reenviado sozinho (o retorno do PM de
+// 09/10): a T09 pergunta por cada dependente, e o que o técnico deixa para depois (ou não decide)
+// fica *revisar em seguida* aqui, com quem o arrastou (o porquê da linha, M.motivosDependente).
+export function situacaoDas(divergem, reenviados, falta = []) {
   const s = Object.fromEntries(COMPARADAS.map((b) => [b, { estado: divergem.includes(b) ? 'diverge' : 'confere' }]))
-  for (const r of reenviados) {
-    if (s[r]) s[r] = { estado: 'confere' }
-    for (const d of arraste[r] ?? []) if (s[d] && s[d].estado !== 'revisar') s[d] = { estado: 'revisar', por: r }
-  }
+  for (const r of reenviados) if (s[r]) s[r] = { estado: 'confere' }
+  for (const f of falta) if (s[f.bloco]) s[f.bloco] = { estado: 'revisar', por: f.por }
   return s
 }
 
@@ -114,14 +119,18 @@ export function moduloDo(par) {
 // intervalo do preset de eventos do modelo e o meio da sessão. O leitor que não é
 // sem fio não tem texto aprovado e fica sem valor (G25).
 export function cadastroDo(par, sessao) {
+  // o Ativo: o que o módulo traduz da CAN, em palavras do técnico (o retorno do PM de 09/10)
+  const ativo = T.traduzACan(conteudoDo(par).ativo)
   if (mesmoPar(par, parDoCaso(CASO_DIFF))) {
-    return Object.fromEntries(M.casos[CASO_DIFF].divergencias.map((d) => [d.bloco, d.noCadastro]))
+    const c = M.casos[CASO_DIFF]
+    return { ativo, ...Object.fromEntries((c.confere ?? []).map((d) => [d.bloco, d.valor])), ...Object.fromEntries(c.divergencias.map((d) => [d.bloco, d.noCadastro])) }
   }
   const modelo = M.modelosAtivo.find((m) => m.id === ativoDe(par.ativoId)?.modeloAtivoId)
   const preset = M.presetsEvento.find((p) => p.id === modelo?.presetEventoId)
   return {
+    ativo,
     cercas: T.regioes(regioesDoAtivo(par.ativoId).length),
-    conexao: M.conexoes[0]?.exibir ?? null,   // a rodada 2: a tela mostra o nome, nunca o endereço
+    conexao: T.redeDaMobs2,   // a rodada 2: a tela mostra o nome, nunca o endereço
     eventos: preset ? T.intervalo(preset.intervaloRastreamentoSeg) : null,
     leitor: sessao?.meio === 'sem-fio' ? T.leitorSemFio : null,
   }
@@ -136,8 +145,8 @@ export function cadastroDo(par, sessao) {
 // · a de revisar em seguida: o relógio e o par — 'revisar em seguida' e o porquê;
 // · o Extended ID: o i, só leitura. Quando há par na tela (alguma diverge), ele
 //   diz o que está no módulo e que é só leitura (T11/00); senão, o valor à direita.
-export function conferenciaDo({ par, sessao, divergem, reenviados = [], naoReconhecidos = 0 }) {
-  const s = situacaoDas(divergem, reenviados)
+export function conferenciaDo({ par, sessao, divergem, reenviados = [], falta = [], naoReconhecidos = 0 }) {
+  const s = situacaoDas(divergem, reenviados, falta)
   const cadastro = cadastroDo(par, sessao)
   const modulo = moduloDo(par)
   const contam = (estado) => COMPARADAS.filter((b) => s[b].estado === estado).length
@@ -147,8 +156,9 @@ export function conferenciaDo({ par, sessao, divergem, reenviados = [], naoRecon
     const titulo = rotuloDe(b)
     const { estado, por } = s[b]
     if (estado === 'diverge') return { id: b, titulo, estado: 'diverge', par: { modulo: T.noModulo(modulo[b]), cadastro: T.noCadastro(cadastro[b]) } }
-    if (estado === 'revisar') return { id: b, titulo, estado: 'pendente', par: { modulo: T.revisarEmSeguida, cadastro: T.porque[`${b}:${por}`] } }
-    return { id: b, titulo, estado: 'aprovada', valor: cadastro[b] }
+    if (estado === 'revisar') return { id: b, titulo, estado: 'pendente', par: { modulo: T.revisarEmSeguida, cadastro: motivoDe(b, por) } }
+    // a Conexão que confere diz o nome do cadastro, *a rede da Mobs2*; a que diverge, as duas coisas (o par)
+    return { id: b, titulo, estado: 'aprovada', valor: b === 'conexao' ? T.redeDaMobs2 : cadastro[b] }
   })
   const proximo = ordem.find((b) => s[b] && s[b].estado !== 'confere')
   return {
@@ -159,8 +169,8 @@ export function conferenciaDo({ par, sessao, divergem, reenviados = [], naoRecon
 }
 
 // quantas das que se comparam a leitura já alcançou (o contador que acompanha as linhas)
-// o quadro da 04 (o pacote 5): a conferência parada nos Eventos — três lidas, 2 de 4
-export const QUADRO_04 = LINHAS.indexOf('eventos')
+// o quadro da 04 (o pacote 5 · o retorno do PM de 09/10): a conferência parada no Leitor — duas lidas, 2 de 5
+export const QUADRO_04 = LINHAS.indexOf('leitor')
 export const comparadasAte = (lidas) => LINHAS.slice(0, lidas).filter((b) => COMPARADAS.includes(b)).length
 
 // O endereço do 02 monta o par que confere (G20, T11·1): a sessão do herói, com

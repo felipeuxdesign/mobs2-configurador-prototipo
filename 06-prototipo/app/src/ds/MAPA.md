@@ -190,6 +190,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | o quê | onde |
 |---|---|
 | o item com o *lendo*, a ação à direita e o que abre embaixo | src/ds/checklist/ItemDoChecklist.jsx (`lendo`, `acao`, `embaixo`) |
+| o item que roda depois e o bloco deixado para depois (o retorno do PM de 09/10) | src/ds/checklist/ItemDoChecklist.jsx (`espera`: o Autoteste da D, *roda ao encerrar*, o relógio e o valor em --tinta-secundaria, fora da contagem · `revisar`: *revisar em seguida* em --tinta, o motivo e o Reenviar na `acao`, a 8 em cima e embaixo · T13/04, 43) · o valor `forte` da escolha (src/ds/linhas/LinhaEscolha.jsx, `valorTom="forte"`: o *falta reenviar* da T09/16) — só tokens que já existiam, pro arquiteto pôr nas folhas 3 e 7 |
 | o cartão da seção com o *lendo* | src/ds/checklist/SecaoDoChecklist.jsx |
 | o campo com o que ele pede vazio | src/ds/entrada/CampoTexto.jsx (`placeholder`) |
 | a linha que o elo confere depois de gravado | src/ds/instrumentos/Cadeia.jsx (`extra`) |

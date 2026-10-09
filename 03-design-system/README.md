@@ -10,7 +10,7 @@
 | [componentes.md](componentes.md) | 106 peças normativas nas oito folhas; em seção própria, as variantes medidas na construção do protótipo. |
 | [referencias/](referencias/) | Oito folhas do design system, em HTML e PNG. |
 
-**Censo atual:** 15 telas e 191 referências de tela, separadas das folhas de componentes. O catálogo normativo tem 106 peças; a vitrine do protótipo possui 114 espécimes comparáveis, incluindo estados e grupos de átomos. Peça, variante e espécime são contagens diferentes.
+**Censo atual:** 15 telas e 199 referências de tela, separadas das folhas de componentes. O catálogo normativo tem 106 peças; a vitrine do protótipo possui 114 espécimes comparáveis, incluindo estados e grupos de átomos. Peça, variante e espécime são contagens diferentes.
 
 As 25 cores nomeadas vêm do CSS: 6 fundos, 7 bordas, 4 tintas, 4 cores fora de texto e 4 de ação. **Toda medida é por dentro:** o poço de 24 tem 24, o botão de 56 tem 56, e a linha de 38 tem 38.
 

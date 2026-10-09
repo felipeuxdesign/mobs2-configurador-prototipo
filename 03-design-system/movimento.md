@@ -102,7 +102,7 @@ Vale pro veredito da conferência da T11. O autoteste da T16 não tem veredito e
 
 - **A caixa do veredito está no lugar desde o começo**, com a altura do quadro final. Nada muda de altura entre o começo e o fim.
 - **Enquanto a prova corre, a caixa fica neutra e diz o que corre** (a T11/04, o pacote 5): *CONFERINDO* em `--tinta-secundaria`, sem poço à vista, com o traço no `--borda-poco`. Quando o veredito final tem poço, o lugar dele já está guardado, invisível: nada muda de lugar.
-- **A contagem acompanha a prova** no lugar do número (*1 de 4* … *4 de 4*), em `--tinta`, com a unidade em `--tinta-secundaria`. Começa com a primeira linha e troca no lugar.
+- **A contagem acompanha a prova** no lugar do número (*1 de 5* … *5 de 5*, os cinco blocos do script na T11 desde o retorno do PM de 09/10), em `--tinta`, com a unidade em `--tinta-secundaria`. Começa com a primeira linha e troca no lugar.
 - **Na última linha, o veredito entra em 150ms:** a palavra, já na cor dela, a cor do traço por uma camada, e — quando não bate — o poço com o xis. O rodapé, desligado enquanto a prova corre, vira o do quadro.
 - **O leitor de tela só ouve o veredito no fim.**
 - **Com reduzir movimento**, a prova e a contagem andam no mesmo ritmo, e a palavra e a cor entram direto.

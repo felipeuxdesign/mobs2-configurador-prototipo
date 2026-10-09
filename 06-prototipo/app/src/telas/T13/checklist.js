@@ -28,6 +28,7 @@ import { M } from '../../dados/mock.js'
 import { milhar, decimal, caixaAlta } from '../../dados/formato.js'
 import { RECEITAS } from '../../estado/receitas.js'
 import { conteudoDo } from '../T09/cadeia.js'
+import { faltaReenviarDe, motivoDe, manutencaoDoCaso } from '../../estado/reenvio.js'
 import { T } from './textos.js'
 import { T as T14 } from '../T14/textos.js'
 
@@ -70,6 +71,8 @@ export const REF = {
   modemNaoResolvido: '37-momento-modem-nao-resolvido',
   // a rodada 1 do retorno do PM: a Seção D lida bloco a bloco (38) e o bip do leitor (39 a 42)
   dSendoLida: '38-momento-secao-d-sendo-lida',
+  // o retorno do PM de 09/10: o leitor e os eventos deixados para depois, revisar em seguida na D
+  dRevisar: '43-estado-secao-d-com-revisar-em-seguida',
   bipTocando: '39-momento-bip-tocando',
   bipEsperando: '40-momento-bip-esperando-resposta',
   bipOuvido: '41-momento-bip-ouvido',
@@ -210,6 +213,9 @@ export function mundoDe({ unico, est, semente, releituras = 0 }) {
     const a = caso.ativoId ? ativoDe(caso.ativoId) : ativoDe(semente.sessao.ativoId)
     const sessao = { ...semente.sessao, ativoId: a.id, moduloSerial: a.moduloSerial }
     const etapas = { ...etapasDoCaminho(a.id, a.moduloSerial) }
+    // o 43 (o retorno do PM de 09/10): as cercas reenviadas, o leitor e os eventos deixados para depois
+    const manutencao = manutencaoDoCaso(casoId)
+    if (manutencao) etapas.manutencao = manutencao
     let registro = registroVazio(a.id)
     if (est === REF.secaoF || est === REF.semLocalizacao) {
       // o ciclo completo pro Finalizar acender, e as fotos de B tiradas: o que bloqueia fechou (o caso)
@@ -485,8 +491,17 @@ function itemD(mundo, item) {
   const { ordem } = M.cadeia
   const gravou = (bloco) => conf > ordem.indexOf(bloco)
   const [tipo, alvo] = String(item.fonte).split(':')
-  if (tipo === 'bloco') return gravou(alvo) ? lido(item, T.confere) : falta(item)
-  if (item.fonte === 'autoteste-modulo') return passou(etapas.preChecagem) ? lido(item, T.confere) : falta(item)
+  // o retorno do PM de 09/10: o Autoteste roda no encerramento, depois de Finalizar — até lá a linha
+  // diz *roda ao encerrar*, com o relógio, e não conta (o `conta: false` do mock)
+  if (item.conta === false) return base(item, { estado: 'espera', valor: item.valor, naoConta: true })
+  if (tipo === 'bloco') {
+    // o bloco deixado para depois numa manutenção: revisar em seguida, com o motivo e o Reenviar (43)
+    const pendente = faltaReenviarDe(etapas).find((x) => x.bloco === alvo)
+    if (pendente && gravou(alvo)) {
+      return base(item, { estado: 'revisar', bloco: alvo, linhas: [{ texto: T.revisarEmSeguida, tom: 'forte' }, { texto: motivoDe(alvo, pendente.por) }] })
+    }
+    return gravou(alvo) ? lido(item, T.confere) : falta(item)
+  }
   if (item.fonte === 'canal') return gravou('conexao') ? lido(item, item.valor) : falta(item)
   return gravou('conexao') ? lido(item, T.confere) : falta(item)
 }
@@ -577,24 +592,26 @@ export function checklist(mundo) {
       : i === mundo.dLidos ? { ...c, estado: 'lendo', valor: T.lendo, leitura: undefined }
         : { ...c, estado: 'aguarda', valor: T.vazio, apagado: true, lendo: true }))
   }
-  const total = Object.values(porSecao).flat().length
+  // o que conta: tudo menos o Autoteste da D, que roda ao encerrar (o retorno do PM de 09/10)
+  const contam = (lista) => lista.filter((c) => !c.naoConta)
+  const total = contam(Object.values(porSecao).flat()).length
   const homologada = !!mundo.registro.homologada
   const secoes = SECOES.map((s) => {
     const itens = porSecao[s.id]
-    const feitos = itens.filter(resolvido).length
+    const feitos = contam(itens).filter(resolvido).length
     let estado
     if (itens.some((c) => c.estado === 'reprovado')) estado = 'reprovada'
     else if (itens.some((c) => c.estado === 'lendo' || c.lendo)) estado = 'lendo'
-    else if (feitos === itens.length) estado = 'aprovada'
+    else if (feitos === contam(itens).length) estado = 'aprovada'
     else estado = s.natureza === 'servidor' ? 'aguarda' : 'pendente'
     // a E tem uma ação só, enquanto falta passo do ciclo: Fazer o ciclo de testes → T14
     const faltaPasso = itens.some((c) => c.estado !== 'ok' && c.estado !== 'naoConforme' && itemDe(c.id).origem === 'ciclo')
     const acao = s.natureza === 'dinamico' && faltaPasso
       ? { nome: T.fazerCiclo, legenda: T.osPassos(passosDoCiclo(mundo)), icone: 'ciclo', destino: { tela: 'T14' } }
       : null
-    return { ...s, itens, feitos, total: itens.length, estado, quemAge: quemAgeDa(s, itens, homologada), acao }
+    return { ...s, itens, feitos, total: contam(itens).length, estado, quemAge: quemAgeDa(s, contam(itens), homologada), acao }
   })
-  const todos = secoes.flatMap((s) => s.itens)
+  const todos = contam(secoes.flatMap((s) => s.itens))
   const feitos = todos.filter(resolvido).length
   const faltam = secoes.filter((s) => s.bloqueia).reduce((n, s) => n + s.total - s.feitos, 0)
   // o contador do menu (T04·2): B e E, os que o técnico resolve, ainda por resolver
@@ -603,11 +620,14 @@ export function checklist(mundo) {
   // automático reprovado (a seção dele), ou quantos obrigatórios faltam
   const lendo = secoes.find((x) => x.estado === 'lendo' && x.natureza === 'automatico')
   const comReprovado = secoes.find((x) => x.bloqueia && x.natureza === 'automatico' && x.estado === 'reprovada')
-  const motivo = lendo ? T.secaoSendoLida(lendo.id) : comReprovado ? T.secaoComReprovado(comReprovado.id) : faltam > 0 ? T.faltam(faltam) : null
-  const bloqueiam = faltam + (lendo || comReprovado ? 1 : 0)
+  // o retorno do PM de 09/10: o bloco deixado para depois desliga o Finalizar, com a causa embaixo (43)
+  const aReenviar = porSecao.D.filter((c) => c.estado === 'revisar').map((c) => c.bloco)
+  const motivo = lendo ? T.secaoSendoLida(lendo.id) : comReprovado ? T.secaoComReprovado(comReprovado.id)
+    : aReenviar.length ? T.faltaReenviar(aReenviar) : faltam > 0 ? T.faltam(faltam) : null
+  const bloqueiam = faltam + (lendo || comReprovado || aReenviar.length ? 1 : 0)
   // o bip (a rodada 1): o momento da E aberta segue o estado dele
   const bip = porSecao.E.find((c) => itemDe(c.id).fonte === 'bip')?.bip ?? null
-  return { secoes, porSecao, feitos, total, faltam, bloqueiam, motivo, pendentesDoMenu, falhandoF: secaoFFalhando(mundo), bip }
+  return { secoes, porSecao, feitos, total, faltam, bloqueiam, motivo, pendentesDoMenu, falhandoF: secaoFFalhando(mundo), bip, aReenviar }
 }
 
 // ── o nível do item manual (07, 08): a posição, os segmentos e o que vem depois ──

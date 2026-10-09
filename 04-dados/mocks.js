@@ -250,7 +250,7 @@
     "Porta aberta em movimento", "Ré acionada", "Botão de pânico", "Bateria baixa", "Entrada em cerca", "Saída de cerca"];
   /* As regiões são do ativo (ativoId). O tambemAtivos é a mesma cerca usada por outro ônibus da
      mesma garagem: o PCX-9A17 (a-03, a queda da T09/02 e 03) usa as do herói. O pacote conta
-     REGIÕES, não ônibus — a uo-01 continua com 4, e o herói com os 28 itens (30 no mock) (gate da errata).
+     REGIÕES, não ônibus — a uo-01 continua com 4, e o herói com os 27 itens que contam (30 no mock · o Autoteste da D roda ao encerrar e não conta, retorno do PM, 09/10) (gate da errata).
      As regiões de um ativo: as do ativoId dele mais as em que ele está no tambemAtivos. */
   var CERCAS = {
     areas: [
@@ -366,47 +366,47 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
         ],
         calibracao: { semeadas: [], puladas: [], nadaACalibrar: true },
         cicloDinamico: { completo: true, passos: ["Ignição ligada", "Rotação", "Cartão do motorista", "Ignição desligada"], confirmados: 4 },
-        checklist: { itens: 28, concluidos: 28 }, autoteste: { aprovadas: 5, naoSeAplicam: 1, pendentes: 1 },
+        checklist: { itens: 27, concluidos: 27 }, autoteste: { aprovadas: 5, naoSeAplicam: 1, pendentes: 1 },
         recebimento: { confirmado: true, hora: "11:47" }
       } },
     { id: "i-02", ativoId: "a-03", moduloSerial: "M2C-0312", diasAtras: 1,  hora: "16:05",
       estado: "aguardando-validacao", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "28/28", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado" } },
+      resumo: { blocos: "6/6", checklist: "27/27", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado" } },
     { id: "i-03", ativoId: "a-12", moduloSerial: "M2C-0402", diasAtras: 2,  hora: "10:22",
       estado: "aguardando-validacao",
       ressalva: { item: "Fixação da antena", justificativa: "Suporte original quebrado — fixada com abraçadeira reforçada" },
-      resumo: { blocos: "6/6", checklist: "28/28", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado" } },
+      resumo: { blocos: "6/6", checklist: "27/27", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado" } },
     { id: "i-04", ativoId: "a-19", moduloSerial: "M2C-0466", diasAtras: 4,  hora: "09:40",
       estado: "aprovada",
       ressalva: { item: "Foto do painel", justificativa: "Vidro do painel trincado — foto lateral autorizada pelo gestor" },
-      resumo: { blocos: "6/6", checklist: "28/28", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado" } },
+      resumo: { blocos: "6/6", checklist: "27/27", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado" } },
     { id: "i-05", ativoId: "a-14", moduloSerial: "M2C-0423", diasAtras: 6,  hora: "15:12",
       estado: "reprovada", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "28/28", autoteste: "4 aprovadas · 1 não se aplica · 1 pendente", assertivaFalhou: "Contadores", recebimento: "confirmado" } },
+      resumo: { blocos: "6/6", checklist: "27/27", autoteste: "4 aprovadas · 1 não se aplica · 1 pendente", assertivaFalhou: "Contadores", recebimento: "confirmado" } },
     { id: "i-06", ativoId: "a-06", moduloSerial: "M2C-0362", diasAtras: 9,  hora: "13:58",
       estado: "falha-recebimento-reconhecida", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "28/28", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "não confirmado — falha reconhecida pelo técnico" } },
+      resumo: { blocos: "6/6", checklist: "27/27", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "não confirmado — falha reconhecida pelo técnico" } },
     { id: "i-07", ativoId: "a-16", moduloSerial: "M2C-0438", diasAtras: 13, hora: "08:31",
       estado: "aprovada-reprocessamento", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "28/28", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado após reprocessamento" } },
+      resumo: { blocos: "6/6", checklist: "27/27", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado após reprocessamento" } },
     { id: "i-08", ativoId: "a-02", moduloSerial: "M2C-0301", diasAtras: 17, hora: "14:03",
       estado: "aprovada", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "28/28", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado" } },
+      resumo: { blocos: "6/6", checklist: "27/27", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado" } },
     { id: "i-09", ativoId: "a-20", moduloSerial: "M2C-0472", diasAtras: 22, hora: "10:47",
       estado: "aguardando-validacao", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "28/28", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado" } },
+      resumo: { blocos: "6/6", checklist: "27/27", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado" } },
     { id: "i-10", ativoId: "a-09", moduloSerial: "M2C-0371", diasAtras: 27, hora: "16:55",
       estado: "aprovada", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "28/28", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado" } },
+      resumo: { blocos: "6/6", checklist: "27/27", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado" } },
     { id: "i-11", ativoId: "a-13", moduloSerial: "M2C-0411", diasAtras: 33, hora: "09:18",
       estado: "aprovada", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "28/28", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado" } },
+      resumo: { blocos: "6/6", checklist: "27/27", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado" } },
     { id: "i-12", ativoId: "a-22", moduloSerial: "M2C-0480", diasAtras: 39, hora: "11:36",
       estado: "aprovada", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "28/28", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado" } },
+      resumo: { blocos: "6/6", checklist: "27/27", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado" } },
     { id: "i-13", ativoId: "a-17", moduloSerial: "M2C-0445", diasAtras: 44, hora: "15:29",
       estado: "aprovada", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "28/28", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado" } }
+      resumo: { blocos: "6/6", checklist: "27/27", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado" } }
   ]);
 
   /* ── C22 · T12 · A REGRA dos três critérios — não é campo por instalação.
@@ -650,11 +650,15 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
        ma-02 (chave-de-contato; pe-rodoviario, 60 s · T11-A3): no par dele, a
        tela mostra o que o caso declara. */
     "diff-divergente": { ativoId: "a-16", moduloSerial: "M2C-0438",
+      /* a conferência segue a ORDEM DO SCRIPT: ativo, cercas, leitor, eventos, conexão (retorno do PM, 09/10) ·
+         o ativo confere: o módulo traduz a CAN do OF-1621 */
+      ordem: ["ativo", "cercas", "leitor", "eventos", "conexao"],
+      confere: [ { bloco: "ativo", valor: "traduz a CAN do OF-1621" } ],
       divergencias: [
         { bloco: "cercas",  noModulo: "3 regiões",         noCadastro: "4 regiões" },
-        { bloco: "conexao", rotulo: "Rede do módulo", noModulo: "uma rede antiga", noCadastro: "a rede da Mobs2" }, /* retorno do PM (06/10): APN vira rede do módulo, sem endereços na tela */
+        { bloco: "leitor",  noModulo: "leitor no fio branco", noCadastro: "leitor sem fio" },
         { bloco: "eventos", noModulo: "intervalo 60 s",    noCadastro: "intervalo 30 s" },
-        { bloco: "leitor",  noModulo: "leitor no fio branco", noCadastro: "leitor sem fio" }
+        { bloco: "conexao", rotulo: "Conexão", noModulo: "rede antiga, servidor da Mobs2", noCadastro: "rede e servidor da Mobs2" } /* o bloco se chama Conexão em T09, T11 e T13 · "rede do módulo" fica só como descrição (retorno do PM, 09/10) */
       ],
       /* o Extended ID saiu da conferência (retorno do PM, 06/10): cartão é assunto da plataforma web */
       }, 
@@ -846,7 +850,12 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
   CASOS["modulo-ja-deste-ativo"] = { moduloSerial: "M2C-0417", ativoId: "a-01", modo: "manutencao" }; /* T06/11 · T09/08-09 · o vínculo decide o modo */
   CASOS["sem-conexao-no-menu"] = { tela: "T04", rede: false };
   /* PM · rodada 3 — os casos novos */
-  CASOS["cercas-reenviadas"] = { ativoId: "a-01", moduloSerial: "M2C-0417", modo: "manutencao", reenviado: "cercas" }; /* T11/05 · os dependentes vêm do arraste: o leitor e os eventos */
+  /* QUEM DEPENDE DE QUEM (retorno do PM, 09/10): reenviar um bloco NUNCA reenvia outro sozinho · o app pergunta, um por vez, na ordem do script */
+  var DEPENDENTES = { ativo: ["eventos"], cercas: ["leitor", "eventos"], leitor: ["eventos"], eventos: [], conexao: [] };
+  var MOTIVOS_DEPENDENTE = { "cercas>leitor": "usa os cartões que as cercas apagaram", "cercas>eventos": "usam as cercas e o leitor", "ativo>eventos": "usam o ativo", "leitor>eventos": "usam o leitor" };
+  var CONSEQUENCIA_REENVIO = { cercas: { titulo: "Reenviar as cercas apaga os cartões gravados no módulo.", texto: "Depois das cercas, o leitor e os eventos precisam ser reenviados para o módulo voltar a ler cartão. Os cartões voltam pela plataforma web." } };
+  CASOS["cercas-reenviadas"] = { ativoId: "a-01", moduloSerial: "M2C-0417", modo: "manutencao", reenviado: "cercas", pendentes: ["leitor", "eventos"] }; /* T09/10 · T11/05 · os dependentes vêm de DEPENDENTES, na ordem do script */
+  CASOS["falta-reenviar"] = { ativoId: "a-01", moduloSerial: "M2C-0417", modo: "manutencao", reenviado: "cercas", faltaReenviar: ["leitor", "eventos"] }; /* T09/16 · deixados para depois · o Finalizar do checklist fica desligado */
   CASOS["can-estatico-bateria"] = { ativoId: "a-02", moduloSerial: "M2C-0301", alimentacao: "8,4 V", lidos: { hodometro: "201.115 km" } }; /* T13/09 · o item da bateria reprovado — o nome é do executor (gate da errata) */
   CASOS["motor-desligado-no-ciclo"] = { ativoId: "a-02", passo: "rotacao", lido: "0 rpm" }; /* T14/03 · o motor tem que estar ligado */ /* T04/15 · só o Últimas instalações depende da rede */
   /* ⚠ NÃO é falha — é COERÊNCIA, e por isso ficou em a-09 quando o domínio
@@ -1058,7 +1067,7 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
       { id: "d-leitor",     secao: "D", rotulo: "Leitor",                fonte: "bloco:leitor",  origem: "configurar", condicao: "leitor" },
       { id: "d-eventos",    secao: "D", rotulo: "Eventos",               fonte: "bloco:eventos", origem: "configurar" },
       { id: "d-conexao",    secao: "D", rotulo: "Conexão",               fonte: "bloco:conexao", origem: "configurar" },
-      { id: "d-autoteste",  secao: "D", rotulo: "Autoteste",             fonte: "autoteste-modulo", origem: "conectar" },
+      { id: "d-autoteste",  secao: "D", rotulo: "Autoteste",             fonte: "autoteste-encerramento", origem: "encerrar", valor: "roda ao encerrar", conta: false }, /* roda no encerramento, depois de Finalizar, e não conta (retorno do PM, 09/10) */
       { id: "d-canal",      secao: "D", rotulo: "Canal de programação",  fonte: "canal",         origem: "configurar", valor: "protegido" },
       { id: "d-id",         secao: "D", rotulo: "ID no cadastro",        fonte: "idCadastro",    origem: "configurar" },
       { id: "d-pendencias", secao: "D", rotulo: "Pendências registradas", fonte: "pendencias",   origem: "configurar", condicao: "reescritaId" },
@@ -1478,6 +1487,9 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
     secaoF: SECAO_F,
     ciclo: CICLO,
     casos: CASOS,
+    dependentes: DEPENDENTES,
+    motivosDependente: MOTIVOS_DEPENDENTE,
+    consequenciaReenvio: CONSEQUENCIA_REENVIO,
     dominiosCan: DOMINIOS_CAN,
     /* protótipo C11 (T15) · AC-14 */
     tiposFila: TIPOS_FILA,

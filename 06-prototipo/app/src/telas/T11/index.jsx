@@ -61,7 +61,7 @@
 //   em seguida, o Voltar ao menu; no 01, o Apenas registrar o diagnóstico. Com o
 //   Outras ações no link, ele não sai da tela, e o voltar não faz nada; com a
 //   folha aberta, fecha a folha.
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   BarraDoSistema, Faixa, CabecalhoConteudo, Aviso, Lista, LinhaChecagem, Nota, Rodape,
   Veu, Folha, CartaoDeOpcoes, LinhaDeOpcao, ESTADOS, useFimDaTroca,
@@ -76,11 +76,13 @@ import { M } from '../../dados/mock.js'
 // a presença da folha (entra fechada e sobe; sai descendo antes de desmontar) é a do que vem por cima
 import { usePresenca } from '../../ds/chrome/PorCima.jsx'
 import {
-  REF, LINHAS, BLOCOS_DA_CADEIA, ativoDe, mundoDoEstado, divergenciasDo, reenviadosDa,
+  REF, LINHAS, BLOCOS_DA_CADEIA, ativoDe, mundoDoEstado, divergenciasDo, reenviadosDa, faltaDa,
   conferenciaDo, comparadasAte, mundoQueConfere, QUADRO_04,
 } from './conferencia.js'
 import { T } from './textos.js'
 import { BotaoDaLinha } from '../comum/BotaoDaLinha.jsx'
+import { FolhaDeConfirmacao } from '../T09/FolhaDeConfirmacao.jsx'
+import { temDependente, pedirReenvio } from '../../estado/reenvio.js'
 import './t11.css'
 
 // o nome do xis pro leitor segue o dado (G15): o bloco que não bate falhou na conferência
@@ -119,6 +121,7 @@ export default function T11({ momento, estado: est }) {
     par, sessao, naoReconhecidos,
     divergem: doEstado ? doEstado.divergem : divergenciasDo(par, mundo.etapas),
     reenviados: doEstado ? doEstado.reenviados : reenviadosDa(mundo.etapas),
+    falta: doEstado ? doEstado.falta : faltaDa(mundo.etapas),
   })
   const { linhas, naoBatem, aRevisar, total, proximo, bate } = conf
   // sem nada pra reenviar um a um, só o conteúdo não reconhecido (o 01): o principal é o Reenviar
@@ -131,11 +134,19 @@ export default function T11({ momento, estado: est }) {
   // cima da 02, sem quadro próprio: a URL fica no 02
   const [outrasNoConfere, setOutrasNoConfere] = useState(false)
   const outras = usePresenca(outrasPedida || outrasNoConfere)
+  // a folha de confirmação do Corrigir este bloco (o retorno do PM de 09/10, a 06): a URL diz o 06
+  // enquanto ela está aberta; pelo endereço, a das cercas, como a referência desenha
+  const [confirmarBloco, setConfirmarBloco] = useState(null)
+  const confirmacaoPedida = naoBatem > 0 && (est === REF.confirmacao || (est == null && momento === REF.confirmacao))
+  const blocoDaFolha = confirmarBloco ?? (confirmacaoPedida ? 'cercas' : null)
+  const confirmacao = usePresenca(confirmacaoPedida)
+  const ultimaFolha = useRef(blocoDaFolha)
+  if (blocoDaFolha) ultimaFolha.current = blocoDaFolha
 
   // a leitura: uma linha a cada 400 ms, na ordem da tela; parada no print, na
   // coluna e na folha aberta pelo endereço (o 03 é um quadro depois da leitura)
   const nLinhas = LINHAS.length
-  const [nasceuLida] = useState(() => EM_QUADRO || est != null || outrasPedida)
+  const [nasceuLida] = useState(() => EM_QUADRO || est != null || outrasPedida || confirmacaoPedida)
   // a 04 pelo endereço: parada nos Eventos, como todo momento
   const [parada] = useState(() => est == null && momento === REF.conferindo)
   const [lidas, setLidas] = useState(() => (parada ? QUADRO_04 : nasceuLida ? nLinhas : 0))
@@ -153,7 +164,7 @@ export default function T11({ momento, estado: est }) {
   }, [lendo, nLinhas]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // a URL segue o quadro (G20): nada diverge é o 02; o que diverge, a 00, ou o 03 com a folha aberta
-  const quadro = parada ? REF.conferindo : bate ? REF.confere : outrasPedida ? REF.outras : null
+  const quadro = parada ? REF.conferindo : bate ? REF.confere : outrasPedida ? REF.outras : confirmacaoPedida ? REF.confirmacao : null
   useEffect(() => {
     if (est != null || !aplicado) return
     if ((momento ?? null) !== quadro) despachar({ tipo: 'ir', tela: 'T11', momento: quadro ?? undefined })
@@ -163,20 +174,24 @@ export default function T11({ momento, estado: est }) {
   const ir = (tela, extra = {}) => despachar({ tipo: 'ir', tela, ...extra })
   const etapas = unico.etapas
   const anotada = etapas.conferencia ?? {}
-  // Corrigir e Revisar (D2): um bloco por vez, pela manutenção da T09 — o modo e o
-  // bloco vão no registro do vínculo (etapas.ativo), e o modo que o vínculo tinha
-  // fica guardado pra cadeia inteira; o que a T09 reenviou antes entra na lista, e
-  // o lugar dela fica limpo pro próximo
-  const reenviarUm = (bloco) => {
-    const modoDoVinculo = 'modoDoVinculo' in anotada ? anotada.modoDoVinculo : etapas.ativo?.modo ?? null
-    despachar({ tipo: 'mesclar', parcial: { etapas: {
-      ...etapas,
-      ativo: { ...(etapas.ativo ?? {}), modo: 'manutencao', bloco },
-      cadeia: { ...(etapas.cadeia ?? {}), reenviado: null },
-      conferencia: { ...anotada, modoDoVinculo, reenviados: reenviadosDa(etapas) },
-    } } })
+  // Corrigir e Reenviar (D2 · o retorno do PM de 09/10): um bloco por vez, pela manutenção da T09 —
+  // o modo e o bloco vão no registro do vínculo (estado/reenvio.js · pedirReenvio); o que a T09
+  // reenviou antes entra na lista, e o lugar dela fica limpo pro próximo
+  const pedir = (bloco, opcoes) => {
+    const novo = pedirReenvio(etapas, bloco, opcoes)
+    despachar({ tipo: 'mesclar', parcial: { etapas: { ...novo, conferencia: { ...novo.conferencia, reenviados: reenviadosDa(etapas) } } } })
     ir('T09')
   }
+  // Corrigir este bloco nunca envia mais de um bloco: com dependente, a folha de confirmação primeiro
+  // (a 06); sem, a curta da T09 já corre
+  const corrigir = (bloco) => {
+    if (!temDependente(bloco)) { pedir(bloco, { agora: true }); return }
+    setConfirmarBloco(bloco)
+    ir('T11', { momento: REF.confirmacao })
+  }
+  const fecharConfirmacao = () => { setConfirmarBloco(null); ir('T11') }
+  // o Reenviar do revisar em seguida (a 05): a manutenção da T09, com o bloco escolhido
+  const reenviarUm = (bloco) => pedir(bloco)
   // Reenviar os 5 blocos: a cadeia inteira da T09, com o modo que o vínculo decidiu.
   // O avanço anterior sai, inclusive quando já estava concluído: é um novo envio, não uma retomada.
   const reenviar = () => {
@@ -205,7 +220,7 @@ export default function T11({ momento, estado: est }) {
   // de saída do rodapé; com a folha aberta, fecha a folha. Com o Outras ações no
   // link, que não sai da tela, não faz nada. Num estado da coluna, a peça não escuta.
   const linkSai = !bate && !soReenviar && naoBatem === 0
-  useVoltar(outrasPedida || outrasNoConfere ? fecharOutras : bate || linkSai ? voltar : soReenviar ? registrar : null)
+  useVoltar(confirmacaoPedida ? fecharConfirmacao : outrasPedida || outrasNoConfere ? fecharOutras : bate || linkSai ? voltar : soReenviar ? registrar : null)
 
   // o veredito: quantas não batem de 4; quantas ficam pra revisar; no 01, quantos
   // conteúdos a mais. Enquanto lê, a caixa espera no lugar, neutra, com a contagem
@@ -236,21 +251,22 @@ export default function T11({ momento, estado: est }) {
   // leitor de tela leva o bloco (os botões repetem o texto) · enquanto a linha não foi lida, o botão
   // guarda o lugar, invisível, e aparece no lugar quando ela chega: nada muda de lugar (o marcaLugar)
   const acaoDa = (l, lida) => {
-    const texto = l.estado === 'diverge' ? T.corrigirEsteBloco : l.estado === 'pendente' ? T.enviarAgora : null
+    const texto = l.estado === 'diverge' ? T.corrigirEsteBloco : l.estado === 'pendente' ? T.reenviarLinha : null
     if (!texto) return undefined
+    const aoTocar = l.estado === 'diverge' ? () => corrigir(l.id) : () => reenviarUm(l.id)
     return (
       <span className={lida ? undefined : 't11-acao-espera'} aria-hidden={lida ? undefined : 'true'}>
-        <BotaoDaLinha tam="teste" letra="secundario" rotulo={`${texto}: ${l.titulo}`} desabilitado={!lida} aoTocar={() => reenviarUm(l.id)}>{texto}</BotaoDaLinha>
+        <BotaoDaLinha tam="teste" letra="secundario" rotulo={`${texto}: ${l.titulo}`} desabilitado={!lida} aoTocar={aoTocar}>{texto}</BotaoDaLinha>
       </span>
     )
   }
 
   // A tela e a faixa ficam inertes atrás do véu da folha (G25).
-  const atras = outras.montado ? '' : undefined
+  const atras = outras.montado || confirmacao.montado ? '' : undefined
   return (
     <div className={`t11 ${lendo ? 't11-lendo' : ''}`}>
-      <BarraDoSistema fundo="faixa" veu={outras.visivel ? 'folha' : enc.veu} />
-      <fieldset className="t11-topo" role="presentation" disabled={outras.montado} inert={atras}>
+      <BarraDoSistema fundo="faixa" veu={outras.visivel || confirmacao.visivel ? 'folha' : enc.veu} />
+      <fieldset className="t11-topo" role="presentation" disabled={outras.montado || confirmacao.montado} inert={atras}>
         <Faixa serial={par.moduloSerial} placa={ativoDe(par.ativoId)?.placa} acao={T.encerrar} aoEncerrar={enc.encerrar} />
       </fieldset>
       <div className="t11-corpo" inert={atras}>
@@ -281,6 +297,14 @@ export default function T11({ momento, estado: est }) {
                 <LinhaDeOpcao variante="efeito" icone="diagnostico" titulo={T.registrar} detalhe={T.efeitoRegistrar} aoTocar={registrar} />
               </CartaoDeOpcoes>
             </Folha>
+          </Veu>
+        </div>
+      )}
+      {confirmacao.montado && (
+        <div className="t11-sobre t-confirmacao">
+          <Veu de="folha" visivel={confirmacao.visivel}>
+            <FolhaDeConfirmacao bloco={ultimaFolha.current} aberta={confirmacao.visivel}
+              aoConfirmar={() => pedir(ultimaFolha.current, { agora: true })} aoFechar={fecharConfirmacao} />
           </Veu>
         </div>
       )}

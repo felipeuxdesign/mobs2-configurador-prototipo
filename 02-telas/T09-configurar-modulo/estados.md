@@ -17,6 +17,12 @@
 | `07-estado-pontos-de-cerca-demais` | estado | as cercas têm mais pontos do que o módulo guarda | `pool-esgotado` |
 | `11-momento-conferindo-o-servidor` | momento | o módulo falou com o servidor? conferindo | `heroi` |
 | `12-estado-o-modulo-ainda-nao-falou-com-o-servidor` | estado | ainda não, com o que conferir | `servidor-ainda-nao` |
+| `13-momento-manutencao-folha-de-confirmacao` | momento | *Reenviar as cercas*, antes de enviar: a consequência, e o técnico confirma | `modulo-ja-deste-ativo` |
+| `14-momento-manutencao-o-ativo-pergunta-pelos-eventos` | momento | o ativo reenviado confere · o app pergunta pelos eventos | `modulo-ja-deste-ativo` |
+| `15-momento-manutencao-o-leitor-pergunta-pelos-eventos` | momento | o leitor reenviado confere · o app pergunta pelos eventos | `modulo-ja-deste-ativo` |
+| `16-estado-manutencao-falta-reenviar` | estado | o técnico deixou o leitor e os eventos para depois · a lista mostra o que falta e o motivo | `falta-reenviar` |
+| `17-momento-manutencao-folha-do-ativo` | momento | *Reenviar o ativo*, antes de enviar: os eventos dependem dele | `modulo-ja-deste-ativo` |
+| `18-momento-manutencao-folha-do-leitor` | momento | *Reenviar o leitor*, antes de enviar: os eventos dependem dele | `modulo-ja-deste-ativo` |
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.
 

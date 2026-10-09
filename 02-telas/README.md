@@ -32,6 +32,6 @@ No protótipo, **Estados desta tela** também oferece momentos e quadros base co
 | T15 · Fila de saída | `T15-fila-de-saida/` | 0 | 4 |
 | T16 · Sessão | `T16-sessao/` | 6 | 2 |
 
-`indice.json` lista as 191 referências (15 telas, 97 momentos e 79 estados) com tela, tipo, nome, título, como se chega, caso do mock e os caminhos do HTML e do PNG. **É o que o palco lê pra montar a coluna.**
+`indice.json` lista as 199 referências (15 telas, 103 momentos e 81 estados) com tela, tipo, nome, título, como se chega, caso do mock e os caminhos do HTML e do PNG. **É o que o palco lê pra montar a coluna.**
 
 **As referências são gabarito, nunca peça do app.** O HTML existe pra você ler um valor exato e pra comparar o seu print com o PNG. O app se constrói com os componentes do design system.

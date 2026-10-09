@@ -31,6 +31,8 @@
 //   { desligado: 'Conectar' }              espera o tocável com esse nome existir desabilitado (o primário apagado, o cartão em espera)
 //   { naoToca: 'M2C-0999' }                confere que nenhum tocável tem esse nome (o que a referência desenha sem toque)
 //   { dorme: 500 }
+//   { executa: 'código' }                  roda o código na página (o retorno do PM de 09/10: semear o que nenhuma
+//                                          entrada viva do palco grava, como o vínculo de manutenção que a T06 gravaria)
 // A folha que fecha (lei 20, a última entrega):
 //   { arrasta: 'Conta', dy: 120 }          arrasta a folha com esse título dy pra baixo, pelo puxador, com o botão
 //                                          apertado, e solta; no fim do arraste, antes de soltar, confere que o painel
@@ -416,6 +418,7 @@ async function passo(s, p) {
     if (r !== true) throw new Error('mesmo lugar: ' + r)
     return
   }
+  if (p.executa !== undefined) { await na(s, p.executa); return }
   if (p.dorme !== undefined) return dorme(p.dorme)
   throw new Error('passo desconhecido: ' + JSON.stringify(p))
 }

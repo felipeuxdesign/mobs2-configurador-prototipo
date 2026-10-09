@@ -10,6 +10,7 @@
 | `03-momento-outras-acoes` | momento | tocar em Outras ações, no rodapé da conferência | derivado do fluxo |
 | `04-momento-conferindo` | momento | a conferência correndo · 400ms por linha | `conferencia-confere` |
 | `05-estado-revisar-em-seguida` | estado | reenviou as cercas numa manutenção — o leitor e os eventos dependem delas | `cercas-reenviadas` |
+| `06-momento-folha-de-confirmacao` | momento | *Corrigir este bloco* nas cercas: a mesma folha da T09 | `diff-divergente` |
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.
 

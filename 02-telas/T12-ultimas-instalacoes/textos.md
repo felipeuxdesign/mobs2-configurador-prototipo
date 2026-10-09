@@ -8,7 +8,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `01-momento-detalhe-da-instalacao`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `RKT-8H42` · `aprovada` · `M2C-0417 · hoje, 11:47 · Rafael Vieira` · `O QUE O SERVIDOR RECEBEU` · `Posicionamento` · `3 posições em 1 min 12 s` · `conforme` · `Eventos` · `o teste chegou em 24 s` · `conforme` · `A INSTALAÇÃO` · `Diagnóstico` · `8 de 8` · `Configuração` · `6 passos` · `Calibração` · `nada a calibrar` · `Ciclo de testes` · `4 de 4` · `Checklist` · `28 de 28` · `Autoteste` · `5 aprovadas · 1 não se aplica · 1 pendente` · `Voltar às instalações`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `RKT-8H42` · `aprovada` · `M2C-0417 · hoje, 11:47 · Rafael Vieira` · `O QUE O SERVIDOR RECEBEU` · `Posicionamento` · `3 posições em 1 min 12 s` · `conforme` · `Eventos` · `o teste chegou em 24 s` · `conforme` · `A INSTALAÇÃO` · `Diagnóstico` · `8 de 8` · `Configuração` · `6 passos` · `Calibração` · `nada a calibrar` · `Ciclo de testes` · `4 de 4` · `Checklist` · `27 de 27` · `Autoteste` · `5 aprovadas · 1 não se aplica · 1 pendente` · `Voltar às instalações`
 
 ## `02-estado-nenhuma-instalacao`
 
@@ -20,8 +20,8 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `04-estado-criterio-indisponivel`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `PCX-9A17` · `aguardando validação` · `M2C-0312 · ontem, 16:05 · Rafael Vieira` · `O QUE O SERVIDOR RECEBEU` · `Posicionamento` · `3 posições em 1 min 12 s` · `conforme` · `Eventos` · `o pacote não declara a fila` · `indisponível` · `A INSTALAÇÃO` · `Diagnóstico` · `8 de 8` · `Configuração` · `6 passos` · `Calibração` · `nada a calibrar` · `Ciclo de testes` · `4 de 4` · `Checklist` · `28 de 28` · `Autoteste` · `5 aprovadas · 1 não se aplica · 1 pendente` · `Voltar às instalações`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `PCX-9A17` · `aguardando validação` · `M2C-0312 · ontem, 16:05 · Rafael Vieira` · `O QUE O SERVIDOR RECEBEU` · `Posicionamento` · `3 posições em 1 min 12 s` · `conforme` · `Eventos` · `o pacote não declara a fila` · `indisponível` · `A INSTALAÇÃO` · `Diagnóstico` · `8 de 8` · `Configuração` · `6 passos` · `Calibração` · `nada a calibrar` · `Ciclo de testes` · `4 de 4` · `Checklist` · `27 de 27` · `Autoteste` · `5 aprovadas · 1 não se aplica · 1 pendente` · `Voltar às instalações`
 
 ## `05-estado-criterio-pendente`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `PCX-9A17` · `aguardando validação` · `M2C-0312 · ontem, 16:05 · Rafael Vieira` · `O QUE O SERVIDOR RECEBEU` · `Posicionamento` · `sem resposta · confere por 24 h` · `pendente` · `Eventos` · `o teste chegou em 52 s` · `conforme` · `A INSTALAÇÃO` · `Diagnóstico` · `8 de 8` · `Configuração` · `6 passos` · `Calibração` · `nada a calibrar` · `Ciclo de testes` · `4 de 4` · `Checklist` · `28 de 28` · `Autoteste` · `5 aprovadas · 1 não se aplica · 1 pendente` · `Voltar às instalações`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `PCX-9A17` · `aguardando validação` · `M2C-0312 · ontem, 16:05 · Rafael Vieira` · `O QUE O SERVIDOR RECEBEU` · `Posicionamento` · `sem resposta · confere por 24 h` · `pendente` · `Eventos` · `o teste chegou em 52 s` · `conforme` · `A INSTALAÇÃO` · `Diagnóstico` · `8 de 8` · `Configuração` · `6 passos` · `Calibração` · `nada a calibrar` · `Ciclo de testes` · `4 de 4` · `Checklist` · `27 de 27` · `Autoteste` · `5 aprovadas · 1 não se aplica · 1 pendente` · `Voltar às instalações`

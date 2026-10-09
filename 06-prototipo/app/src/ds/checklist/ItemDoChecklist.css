@@ -12,6 +12,9 @@
 .ds-item-ck-pilha .ds-item-ck-nome { flex-grow: 0; }
 .ds-item-ck-linha { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-secundaria); }
 .ds-item-ck-linha.ds-item-ck-linha-falha { color: var(--vermelho); }
+/* o retorno do PM de 09/10 (T13/43): o bloco deixado para depois — a 8 em cima e embaixo, e o *revisar em seguida* em --tinta */
+.ds-item-ck.ds-item-ck-com-linhas.ds-item-ck-revisar { padding: var(--e-8) 0; }
+.ds-item-ck-pilha .ds-item-ck-linha.ds-item-ck-linha-forte { color: var(--tinta); }
 .ds-item-ck-leitura { height: var(--linha-padrao); }
 .ds-item-ck-dupla { height: var(--linha-dupla); }
 .ds-tocavel.ds-item-ck-tocar { padding: 0; }
@@ -32,6 +35,9 @@
 /* o glifo pelo dado: o que o técnico resolve em --tinta-secundaria, o que espera o servidor em --marca-limite */
 .ds-item-ck .ds-glifo.ds-item-ck-glifo-pendente { color: var(--tinta-secundaria); }
 .ds-item-ck .ds-glifo.ds-item-ck-glifo-aguarda { color: var(--marca-limite); }
+/* o que só acontece depois (o Autoteste, T13/04) e o bloco deixado para depois (T13/43): o relógio em --tinta-secundaria */
+.ds-item-ck .ds-glifo.ds-item-ck-glifo-espera, .ds-item-ck .ds-glifo.ds-item-ck-glifo-revisar { color: var(--tinta-secundaria); }
+.ds-item-ck-valor.ds-item-ck-valor-espera { color: var(--tinta-secundaria); }
 
 /* a rodada 1 do retorno do PM (T13/38 a 42): o bloco da linha com o que ela abre embaixo — a 40 da
  * esquerda (o poço de 30 e o vão de 10), o vão de 8 e 12 no pé, e o traço de baixo do bloco inteiro ·

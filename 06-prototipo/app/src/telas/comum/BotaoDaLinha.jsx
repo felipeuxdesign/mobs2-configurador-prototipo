@@ -8,6 +8,7 @@
 // toque afunda, como o secundário.
 // · `tam`: 'resposta' (40 de alto, os dois lado a lado, cada um com a metade) e
 //   'teste' (30 de alto, o Testar bip, do tamanho do texto, à direita do título).
+//   'pergunta' (36 de alto, o Reenviar de cada dependente na manutenção da T09, 10/14/15).
 // · `letra`: a das referências — 13 no cartão da T14, 14 no bip da T13.
 import './BotaoDaLinha.css'
 

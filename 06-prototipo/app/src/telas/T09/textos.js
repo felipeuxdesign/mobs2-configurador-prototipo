@@ -6,6 +6,9 @@
 import { caixaAlta, porExtenso } from '../../dados/formato.js'
 
 // 'Ativo, Leitor, Eventos e Conexão' — a lista dos rótulos, o último com o 'e'
+// o bloco com o artigo (o retorno do PM de 09/10, a 16: *Falta reenviar o leitor e os eventos.*)
+const COM_ARTIGO = { ativo: 'o ativo', cercas: 'as cercas', leitor: 'o leitor', eventos: 'os eventos', conexao: 'a conexão' }
+const porExtensoMaiusculo = (n) => { const t = porExtenso(n); return t.charAt(0).toUpperCase() + t.slice(1) }
 const emLista = (nomes) => (nomes.length > 1 ? `${nomes.slice(0, -1).join(', ')} e ${nomes[nomes.length - 1]}` : nomes.join(''))
 
 export const T = {
@@ -83,8 +86,35 @@ export const T = {
   reenvieUm: 'Reenvie um bloco por vez. A limpeza apaga só o que você escolher.',
   // o pacote 2 (D2): a conferência corrige um bloco por vez — as cercas, e depois o leitor, os eventos
   // e a conexão. Os textos desses três seguem a gramática dos das cercas: nenhuma referência os desenha
-  reenviar: { cercas: 'Reenviar as cercas', leitor: 'Reenviar o leitor', eventos: 'Reenviar os eventos', conexao: 'Reenviar a conexão' },
-  reenviando: { cercas: 'Reenviando só as cercas.', leitor: 'Reenviando só o leitor.', eventos: 'Reenviando só os eventos.', conexao: 'Reenviando só a conexão.' },
+  // o retorno do PM de 09/10: todo bloco se reenvia, um por vez · o do ativo é a letra da T09/17
+  reenviar: { ativo: 'Reenviar o ativo', cercas: 'Reenviar as cercas', leitor: 'Reenviar o leitor', eventos: 'Reenviar os eventos', conexao: 'Reenviar a conexão' },
+  reenviando: { ativo: 'Reenviando só o ativo.', cercas: 'Reenviando só as cercas.', leitor: 'Reenviando só o leitor.', eventos: 'Reenviando só os eventos.', conexao: 'Reenviando só a conexão.' },
+  // ── o retorno do PM de 09/10: o arrastado nunca é reenviado sozinho ──
+  // a folha de confirmação (13, 17, 18): a consequência, antes de enviar · a das cercas é do mock
+  // (M.consequenciaReenvio); a do ativo e a do leitor, a letra das referências
+  consequencia: {
+    ativo: { titulo: 'Reenviar o ativo pede reenviar os eventos depois.', texto: 'Os eventos usam o ativo. Depois do ativo, o app pergunta por eles.' },
+    leitor: { titulo: 'Reenviar o leitor pede reenviar os eventos depois.', texto: 'Os eventos usam o leitor. Depois do leitor, o app pergunta por eles.' },
+  },
+  cancelar: 'Cancelar',
+  fechar: 'Fechar',
+  // enviando (09): quem precisa ser reenviado depois — nunca *ficam como estão* com dependente pendente
+  dependemDepois: (rotulos) => `${emLista(rotulos)} precisam ser reenviados depois. Você confirma em seguida.`,
+  // depois de conferir (10, 14, 15): o bloco confere, e quantos dependem dele · sem dependente, só o confere
+  // (a letra das três referências; os outros seguem a gramática delas)
+  confereComDependentes: {
+    ativo: (n) => `Ativo confere. ${n === 1 ? 'Um bloco depende dele.' : `${porExtensoMaiusculo(n)} blocos dependem dele.`}`,
+    cercas: (n) => `Cercas conferem. ${n === 1 ? 'Um bloco depende delas.' : `${porExtensoMaiusculo(n)} blocos dependem delas.`}`,
+    leitor: (n) => `Leitor confere. ${n === 1 ? 'Um bloco depende dele.' : `${porExtensoMaiusculo(n)} blocos dependem dele.`}`,
+  },
+  confereSo: { ativo: 'Ativo confere.', cercas: 'Cercas conferem.', leitor: 'Leitor confere.', eventos: 'Eventos conferem.', conexao: 'Conexão confere.' },
+  // a pergunta por cada dependente, numerada, na ordem do script
+  numerado: (n, rotulo) => `${n} · ${rotulo}`,
+  liberaDepois: (rotulo) => `libera depois do ${rotulo.toLowerCase()}`,
+  deixarParaDepois: 'Deixar para depois',
+  // o que ficou para depois (16): na lista da manutenção, e no aviso
+  faltaReenviarValor: 'falta reenviar',
+  faltaReenviar: (blocos) => `Falta reenviar ${emLista(blocos.map((b) => COM_ARTIGO[b]))}.`,
   // a 10 (o pacote 5): a cadeia curta fechada — o das cercas é a letra da referência; os outros
   // três seguem a gramática dela, como os do reenviando
   reenviado: { cercas: 'As cercas foram reenviadas.', leitor: 'O leitor foi reenviado.', eventos: 'Os eventos foram reenviados.', conexao: 'A conexão foi reenviada.' },

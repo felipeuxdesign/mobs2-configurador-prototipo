@@ -20,7 +20,7 @@
 //     com o Continuar a gravação, do mesmo jeito (C12·23); o contador e a altura dos elos trocam direto (G24);
 //   · retomar: o primário se apaga direto, sem o roxo por cima (C12·18), e o texto novo esmaece no
 //     lugar (C12·23); a cadeia segue do mesmo bloco, no mesmo ritmo;
-//   · a cadeia curta da manutenção (09): a limpeza só das cercas e as cercas; o ENCERRAR fica apagado
+//   · a cadeia curta da manutenção (09): a limpeza só do bloco e o bloco (os eventos); o ENCERRAR fica apagado
 //     e o voltar não faz nada enquanto ela corre (lei 17); relidas, o primário acende com o Voltar ao menu;
 //   · a recusa e a queda não têm porta no palco (C12·13): a peça se prova na vitrine (mov-check).
 // A tela abre parada pela URL, em cada momento e estado, no print e no palco. Com reduzir
@@ -39,6 +39,14 @@ const PARADA = [{ quieto: true }, { dorme: 700 }, { quieto: true }]
 const CONCLUIDA = '04-momento-cadeia-concluida'
 const ANTES = '05-momento-o-que-vai-ser-gravado'
 const ESCOLHER = '08-momento-manutencao-escolher-o-bloco'
+// o vínculo de manutenção que a T06 grava, num módulo já configurado (o mesmo do reenvio.mjs)
+const MANUTENCAO = `
+  const el = document.querySelector('.t04'); const k = Object.keys(el).find((x) => x.startsWith('__reactFiber$'))
+  let f = el[k]; while (f && !(f.memoizedProps?.value?.despachar && f.memoizedProps.value.estado)) f = f.return
+  const { estado, despachar } = f.memoizedProps.value; const e = estado.etapas
+  despachar({ tipo: 'mesclar', parcial: { etapas: { ...e, ativo: { ...(e.ativo ?? {}), modo: 'manutencao' }, cadeia: { confirmados: 6 } } } })
+  despachar({ tipo: 'ir', tela: 'T09' })
+  return true`
 const SERVIDOR = '11-momento-conferindo-o-servidor'
 const REENVIANDO = '09-momento-manutencao-reenviando'
 const ESTADOS = ['01-estado-bloco-recusado', '02-estado-queda-na-cadeia', '03-estado-recuperacao-ate-a-conexao-gravar',
@@ -149,21 +157,26 @@ export default [
   { chega: 'T04' },
 
   // ── a manutenção: escolher o bloco (08) e a cadeia curta (09) ──
-  { abre: `?tela=T09&momento=${ESCOLHER}` },
+  // o retorno do PM de 09/10: a entrada viva é o vínculo de manutenção que a T06 grava (os exemplos dela são
+  // consultas paradas desde 07/10), semeado como no reenvio.mjs · os eventos não têm dependente: sem folha,
+  // e o resto fica como está · as cercas, com a folha e a pergunta pelos dependentes, são do reenvio.mjs
+  { abre: '?tela=T04' },
+  { chega: 'T04' },
+  { executa: MANUTENCAO },
   { chega: 'T09', momento: ESCOLHER },
   { quieto: true },
   { ve: 'MANUTENÇÃO\nReenvie um bloco por vez. A limpeza apaga só o que você escolher.' },
   { ve: 'Cercas\nas regiões geográficas\n4 regiões' },
-  { desligado: 'Ativo' },                                         // os blocos sem texto pro reenvio ficam inertes (G25)
-  { toca: 'Reenviar as cercas', anima: TROCA, naoAnima: [GLIFO] },
+  { toca: 'Eventos' },                                            // todo bloco se reenvia, um por vez
+  { toca: 'Reenviar os eventos', anima: TROCA, naoAnima: [GLIFO] },
   { chega: 'T09', momento: REENVIANDO },
   { ve: 'Limpeza\ngravando' },
-  { ve: 'Cercas\ngravando', entre: DO_TOQUE },                   // a limpeza só das cercas, relida
+  { ve: 'Eventos\ngravando', entre: DO_TOQUE },                  // a limpeza só dos eventos, relida
   { anima: [GLIFO, TRILHO] },
-  { ve: 'Reenviando só as cercas.' },
+  { ve: 'Reenviando só os eventos.' },
   { ve: 'Limpeza\nconfere' },
   { ve: 'Apaga só esta parte.' },
-  { ve: 'Ativo, Leitor, Eventos e Conexão ficam como estão.' },
+  { ve: 'Ativo, Cercas, Leitor e Conexão ficam como estão.' },
   { desligado: 'ENCERRAR' },                                      // a curta termina sozinha: o ENCERRAR apagado (lei 17)
   { tecla: 'Escape' },
   { fica: 'T09', ms: 300 },                                       // e o voltar não faz nada

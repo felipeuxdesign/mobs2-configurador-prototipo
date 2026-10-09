@@ -1,6 +1,6 @@
 # Conferir contra o design
 
-São **191 pares HTML/PNG** em [02-telas](../02-telas/), listados no [índice](../02-telas/indice.json): 15 entradas, 97 momentos e 79 estados. Cada referência desenha o app em **360 × 800**; o PNG a 2× tem 720 × 1600. Esse gabarito vale para a stack escolhida pelo time.
+São **199 pares HTML/PNG** em [02-telas](../02-telas/), listados no [índice](../02-telas/indice.json): 15 entradas, 103 momentos e 81 estados. Cada referência desenha o app em **360 × 800**; o PNG a 2× tem 720 × 1600. Esse gabarito vale para a stack escolhida pelo time.
 
 ## Como medir
 
@@ -19,7 +19,7 @@ São **191 pares HTML/PNG** em [02-telas](../02-telas/), listados no [índice](.
 - [Documentação e login após recuperação](../06-prototipo/para-o-arquiteto/gate-documentacao-atual.md): escopo e verificações deste ciclo.
 - [Véu integral das folhas](../06-prototipo/para-o-arquiteto/gate-veu-integral.md): cobertura do fundo inteiro, incluindo tira, faixa e fundo da barra de status, nas folhas da T01, T04 e T11; os diálogos da T04 compartilham a cobertura. Hora e ícones oficiais ficam legíveis; caixas e painéis conservam suas posições.
 
-A rodada de consultas paradas não executou a comparação completa das 191 referências nem a suíte completa de 45 roteiros. Veja o estado de cobertura em [testes-prontos.md](testes-prontos.md).
+A rodada de consultas paradas não executou a comparação completa das 199 referências nem a suíte completa de 45 roteiros. Veja o estado de cobertura em [testes-prontos.md](testes-prontos.md).
 
 ## Diferenças com nome
 
