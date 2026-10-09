@@ -116,7 +116,7 @@ export default function T15({ estado: est }) {
 
   return (
     <div className="t15">
-      <BarraDoSistema fundo="faixa" />
+      <BarraDoSistema fundo="faixa" veu={enc.veu} />
       {faixa}
       <div ref={lugar} className="tela-miolo">
         <CabecalhoConteudo titulo={T.titulo} contagem={total} unidade={T.nesteAparelho} />

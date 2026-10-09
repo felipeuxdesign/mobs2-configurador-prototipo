@@ -481,12 +481,12 @@ export default function T13({ momento, estado: est }) {
       )
   }
 
-  // Com o diálogo aberto, o que fica atrás do véu é inerte (G25), e a faixa,
-  // acesa em cima dele como a referência desenha (G12), fica desabilitada.
+  // Com o diálogo aberto, o que fica atrás do véu é inerte (G25): o véu cobre a tela
+  // inteira (T13/10, 09/10), a faixa e o fundo da barra também, e a faixa fica desabilitada.
   return (
     <div className="t13">
-      <BarraDoSistema fundo="faixa" />
-      <fieldset className="t13-topo" role="presentation" disabled={dialogo.montado}>
+      <BarraDoSistema fundo="faixa" veu={dialogo.visivel ? 'dialogo' : enc.veu} />
+      <fieldset className="t13-topo" role="presentation" disabled={dialogo.montado} inert={dialogo.montado ? '' : undefined}>
         {/* relendo o módulo, o ENCERRAR fica apagado e não faz nada, como na releitura da CAN (lei 17) */}
         <Faixa serial={sessao.moduloSerial} placa={ativoDe(sessao.ativoId)?.placa} acao={T.encerrar} aoEncerrar={enc.encerrar} acaoDesabilitada={relendo} />
       </fieldset>

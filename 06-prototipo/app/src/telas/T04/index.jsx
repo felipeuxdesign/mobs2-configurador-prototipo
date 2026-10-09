@@ -49,6 +49,9 @@ function ajusteDoMomento(momento, unico, est) {
   const a = {}
   if (momento === REF.semModulo && unico.sessao) a.sessao = null
   if (momento === REF.semAtivo && unico.sessao?.ativoId) a.sessao = { ...unico.sessao, ativoId: null }
+  // no print, a conta e a troca de garagem (05, 07) abrem sobre o menu sem sessão (o 01), a tela
+  // de onde a referência as tira (09/10); no fluxo, a folha abre sobre o menu que estava
+  if (EM_QUADRO && (momento === REF.conta || momento === REF.garagem) && unico.sessao) a.sessao = null
   const empresas = est ? null : mundoDoMenu(momento, unico.contexto)
   if (empresas) a.contexto = { ...unico.contexto, empresas }
   return Object.keys(a).length ? a : null
@@ -58,6 +61,8 @@ function ajusteDoMomento(momento, unico, est) {
 // "o link caiu", na sessão do herói; o 04, o 09 e o 15 (sem rede, com a faixa do
 // herói, como a referência desenha) também pedem a sessão inteira.
 function sessaoDoEstado(sessao, est) {
+  // no print, o 08 e o 14 abrem sobre o menu sem sessão, como a referência desenha (09/10)
+  if (EM_QUADRO && (est === REF.envio || est === REF.empresa)) return null
   const precisa = est === REF.falha || est === REF.checklist || est === REF.trocar || est === REF.semConexao
   const base = precisa && !sessao?.ativoId ? HEROI : sessao
   return est === REF.falha && M.casos['link-perdido'] ? { ...base, saude: 'falha' } : base

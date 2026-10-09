@@ -249,7 +249,7 @@ export default function T11({ momento, estado: est }) {
   const atras = outras.montado ? '' : undefined
   return (
     <div className={`t11 ${lendo ? 't11-lendo' : ''}`}>
-      <BarraDoSistema fundo="faixa" veu={outras.visivel ? 'folha' : null} />
+      <BarraDoSistema fundo="faixa" veu={outras.visivel ? 'folha' : enc.veu} />
       <fieldset className="t11-topo" role="presentation" disabled={outras.montado} inert={atras}>
         <Faixa serial={par.moduloSerial} placa={ativoDe(par.ativoId)?.placa} acao={T.encerrar} aoEncerrar={enc.encerrar} />
       </fieldset>

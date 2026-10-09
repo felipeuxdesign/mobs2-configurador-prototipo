@@ -233,7 +233,7 @@ export default function T06({ momento, estado: est }) {
 
   return (
     <div className="t06">
-      <BarraDoSistema />
+      <BarraDoSistema veu={enc.veu} />
       {faixa}
       <div ref={lugar} className="tela-miolo t06-miolo">{miolo}</div>
       <Fragment key={quadro}>{rodape}</Fragment>

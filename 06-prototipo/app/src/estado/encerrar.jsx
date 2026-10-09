@@ -18,8 +18,10 @@
 // véu piscar, C12·43). Nas outras telas, por
 // cima da própria tela, onde o ENCERRAR foi tocado, sem endereço (a referência
 // só desenha o do menu; a decisão padrão deste ciclo): o `sobre`, com o véu
-// embaixo da barra do sistema, cobrindo a faixa, como a T04/13 desenha, e o que
-// fica atrás dele inerte (G25) — nem o toque nem o leitor chegam lá.
+// embaixo da barra do sistema, cobrindo a faixa, como a T04/13 desenha, e o `veu`,
+// que a tela passa pra barra, pra o fundo dela escurecer junto (a peça diálogo, 09/10:
+// o véu cobre a tela inteira onde quer que o diálogo abra) — e o que fica atrás dele
+// inerte (G25): nem o toque nem o leitor chegam lá.
 //
 // Os textos são os da T04/13 (02-telas/T04-menu/textos.md), os mesmos em toda tela.
 import { useLayoutEffect, useRef, useState } from 'react'
@@ -82,5 +84,8 @@ export function useEncerrar({ aberto: pedido, aoAbrir, aoFechar, homologada } = 
     </Dialogo>
   )
   const sobre = camada.montado ? <PorCimaDaTela><PorCima camada={camada}>{caixa}</PorCima></PorCimaDaTela> : null
-  return { encerrar, aberto, fechar, caixa, sobre }
+  // a barra do sistema escurece junto (o véu cobre a tela inteira, até o fundo dela): a tela
+  // passa isto pro `veu` da BarraDoSistema. No menu, quem diz é o véu da T04
+  const veu = !pelaUrl && camada.veu ? 'dialogo' : null
+  return { encerrar, aberto, fechar, caixa, sobre, veu }
 }

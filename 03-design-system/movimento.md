@@ -131,7 +131,7 @@ O layout vai direto pro quadro final. O que muda de lugar na mesma vista vai do 
 
 ## Por cima da tela
 
-**Cobertura das folhas · 08/10/2026:** o véu escurece todo o fundo do app, inclusive tira, faixa e fundo da barra de status, sem deslocar o painel. A hora e os ícones oficiais continuam legíveis. No menu da T04, os diálogos compartilham essa cobertura; a caixa mantém o mesmo lugar. A revisão não muda a cobertura dos diálogos fora da T04. [Gate do véu integral](../06-prototipo/para-o-arquiteto/gate-veu-integral.md).
+**Cobertura das folhas · 08/10/2026:** o véu escurece todo o fundo do app, inclusive tira, faixa e fundo da barra de status, sem deslocar o painel. A hora e os ícones oficiais continuam legíveis. No menu da T04, os diálogos compartilham essa cobertura; a caixa mantém o mesmo lugar. Desde 09/10/2026, a mesma cobertura vale pra todo diálogo (T02, T13/10 e o *Encerrar antes de terminar?* de toda tela), e o véu é a cor do tema a 32%, com a tela de origem atrás; o movimento não muda. [Gate do véu integral](../06-prototipo/para-o-arquiteto/gate-veu-integral.md).
 
 | O quê | Como |
 |---|---|

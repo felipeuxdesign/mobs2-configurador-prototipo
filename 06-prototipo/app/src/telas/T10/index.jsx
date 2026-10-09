@@ -198,7 +198,7 @@ function NadaACalibrar({ estado: est, sessao, frase }) {
   useVoltar(() => ir('T04'))
   return (
     <div className="t10">
-      <BarraDoSistema fundo="faixa" />
+      <BarraDoSistema fundo="faixa" veu={enc.veu} />
       <Faixa serial={sessao.moduloSerial} placa={ativoDe(sessao.ativoId)?.placa} acao={T.encerrar} aoEncerrar={enc.encerrar} />
       <div className="tela-miolo t10-miolo">
         <span className="t10-rotulo">{T.rotulo}</span>
@@ -402,7 +402,7 @@ function Calibracao({ momento, estado: est }) {
 
   return (
     <div className="t10">
-      <BarraDoSistema fundo="faixa" />
+      <BarraDoSistema fundo="faixa" veu={enc.veu} />
       <Faixa serial={moduloSerial} placa={ativoDe(ativoId)?.placa} acao={T.encerrar} aoEncerrar={enc.encerrar} acaoDesabilitada={semeando} />
       <div className="tela-miolo t10-miolo" onAnimationEnd={assentar}>
         <Segmentado rotulo={T.rotulo} contagem={String(contagem)} total={T.deTotal(obrigatorios.length)} segmentos={segmentos} legenda={legenda} />

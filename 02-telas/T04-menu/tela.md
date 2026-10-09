@@ -144,3 +144,10 @@ Os textos exatos de cada referência estão em `textos.md`. Copie de lá — nun
 
 - **"homologada" só na T16**: o encerrar antes da hora diz *Encerrar antes de terminar?* e *A instalação ainda não terminou.* (a 13) · o trocar de unidade diz *sem terminar a instalação* (a 09)
 - **nada de "gravado" como resultado**: *o que já foi enviado fica no módulo*
+
+## O véu das folhas e dos diálogos (ajuste, 09/10)
+
+- **o véu cobre a tela inteira**: escurece também a tira de contexto, a faixa da sessão (módulo, placa e ENCERRAR) e o fundo da barra de status · a hora, a bateria, o Wi-Fi e a rede ficam por cima, legíveis · usa o `--veu` (`rgba(6, 5, 10, 0.32)`), sem mover nem redimensionar folhas e diálogos (a 05 a 14 e a 16)
+- **na troca entre folha e diálogo, o fundo continua escuro**, sem clarão
+- **atrás de cada folha e diálogo, a tela de onde ele saiu**, escurecida pelo véu a 32%, o padrão do Material 3: o menu sem sessão atrás da conta, da troca de garagem e da troca de unidade (a 05, 07, 08 e 14); o menu com a sessão atrás das outras (a 06, 09, 10 e 11)
+- **no protótipo:** o menu já ficava desenhado atrás do véu (G25); só o `--veu` mudou

@@ -47,7 +47,7 @@
   --lima-borda:        rgba(170, 239, 0, 0.6);   /* as bordas da faixa */
   --vermelho-faixa:    rgba(224, 106, 90, 0.18);
   --vermelho-borda:    rgba(224, 106, 90, 0.8);
-  --veu:               rgba(6, 5, 10, 0.72);     /* o fundo atrás de folha e diálogo */
+  --veu:               rgba(6, 5, 10, 0.32);     /* o véu atrás de folha e diálogo modais · a cor do tema a 32%, o padrão do Material 3 (ScrimOpacity = 0.32) · cobre a tela inteira, até o fundo da barra de status · atrás dele, a tela de onde a folha ou o diálogo saiu */
 
   /* ── tipo · Barlow 400 · 500 · 600 · 700 ────────────── */
   --fonte: 'Barlow', system-ui, sans-serif;

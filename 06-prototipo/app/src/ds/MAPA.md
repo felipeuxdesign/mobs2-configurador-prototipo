@@ -37,7 +37,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | diálogo sem saída | src/ds/chrome/Dialogo.jsx (sem saida; margem 24, o aviso do acesso sobre o menu inteiro — T04/12, entrega de 25/09) |
 | diálogo com ciência | src/ds/chrome/Dialogo.jsx (ciencia → primitivos/Checkbox.jsx) |
 | folha com opções | src/ds/chrome/Folha.jsx + LinhaDeOpcao.jsx (CartaoDeOpcoes · fecha no xis, e como toda folha, lei 20 · a folha Outras ações da T11/03 tem o puxador desde a rodada 3, como as folhas da T01 e da T04, e arrasta de qualquer ponto · LinhaDeOpcao variante 'efeito', com a mesma densidade da T01 por padronização solicitada pelo diretor: mínimo 72, recheio vertical 10, vão 12, poço 30 e ícone 18 · o puxador e as margens externas permanecem iguais · o espécime f2-folha-outras-acoes, fora da bancada) |
-| barra do sistema sob o véu | src/ds/chrome/BarraDoSistema.jsx (veu) |
+| barra do sistema sob o véu | src/ds/chrome/BarraDoSistema.jsx (veu · 'folha' ou 'dialogo', em toda tela com folha ou diálogo aberto: a T01, a T02, a T04, a T11, a T13 e, pelo `veu` que o `useEncerrar` devolve, o *Encerrar antes de terminar?* das T06 a T15 · 09/10) |
 
 ## Folha 3 · glifos icones poco
 

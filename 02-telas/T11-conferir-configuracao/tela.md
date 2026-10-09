@@ -139,3 +139,8 @@ Os textos exatos de cada referência estão em `textos.md`. Copie de lá — nun
 - **o reenvio depois de tudo confere:** limpa o avanço da cadeia anterior e abre o que vai ser gravado (T09/05), mesmo se os seis passos já estavam concluídos · o técnico toca *Gravar no módulo* e a cadeia corre de novo · a sessão e o modo do vínculo continuam os mesmos
 
 No palco (07/10/2026): a folha `03` do exemplo divergente é a consulta parada *Divergência · outras ações*. O endereço simples abre o herói; o `print=1` continua montando a referência. A folha aberta pelo Outras ações no fluxo que confere permanece interativa.
+
+## O véu da folha Outras ações (ajuste, 09/10)
+
+- **a folha *Outras ações* abre por cima da conferência** (a 00), escurecida pelo véu a 32%, o padrão do Material 3
+- **no protótipo:** a conferência já ficava desenhada atrás (G25); só o `--veu` mudou · o *Encerrar antes de terminar?* desta tela escurece também o fundo da barra

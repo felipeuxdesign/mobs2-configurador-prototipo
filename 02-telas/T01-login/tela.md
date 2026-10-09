@@ -156,3 +156,9 @@ Os textos exatos de cada referência estão em `textos.md`. Copie de lá — nun
 - **a mesma mensagem pro código errado e pro vencido**: *Código inválido ou vencido* (a 05, a 06 e a 07) · o texto é leitura nossa
 - **o *Não recebi o código***: *Reenviar o código* (pro mesmo dado) e *Usar outro dado* (volta pra primeira etapa) · leitura nossa
 - **a nova senha** (a 08) mostra os seis requisitos desde o início, e eles marcam sozinhos · confirmado, como o PM pediu
+
+## O véu do diálogo de outra sessão (ajuste, 09/10)
+
+- o diálogo *Outra sessão neste aparelho* (a 18) escurece também o fundo da barra de status, com a hora e os ícones por cima, como as folhas da T01
+- **atrás de cada folha e diálogo, a tela de onde ele saiu**, escurecida pelo véu a 32%: o código atrás do *Não recebi* (a 04 e 11), a nova senha atrás do *Senha alterada* (a 09), a primeira etapa atrás do seletor de país (a 22)
+- **no protótipo:** a T01 já desenhava a tela de origem atrás (G25); o `--veu` passou a 32% · a 18 mora na T02, e a barra dela escurece pelo `veu` da `BarraDoSistema` · a barra continua por cima do véu, com a hora branca

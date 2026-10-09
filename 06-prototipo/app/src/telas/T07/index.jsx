@@ -340,7 +340,7 @@ export default function T07({ momento, estado: est }) {
     // de topo, e as linhas que esperam com o título aceso — como a 11 desenha (o desvio
     // da 06 e da 10, que apagam o título, vai nomeado no gate do pacote 5)
     <div className={`t07 ${corre ? 't07-lendo' : ''}`}>
-      <BarraDoSistema fundo={comFaixa || corre ? 'faixa' : 'pagina'} />
+      <BarraDoSistema fundo={comFaixa || corre ? 'faixa' : 'pagina'} veu={enc.veu} />
       {faixa}
       <div className="tela-miolo t07-miolo">
         <div className="t07-cabeca">

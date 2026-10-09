@@ -195,3 +195,9 @@ Os textos exatos de cada referência estão em `textos.md`. Copie de lá — nun
 - **a Montagem no formato das outras seções**: o nome à esquerda, o estado à direita (*foto a tirar*, *com ressalva*), uma linha só de 44px, com o quadradinho de 30 e a seta, como a lei 23 manda pro checklist · antes ela empilhava o nome e o estado em 50px, e destoava das outras
 - o motivo da ressalva (*suporte trincado*) sai da linha e continua nas telas onde é anotado e revisto: a 08 e a 15
 - **no protótipo · o complemento da rodada 3:** a Montagem usa a linha de leitura de 44 do `ItemDoChecklist`, com duas variantes (`componentes.md`): `icone` (a câmera no poço de 30, no lugar do glifo) e `valorDeEstado` (o estado à direita, em 13 e `--tinta-secundaria`) · *foto a tirar* tem a seta e abre a câmera do item (07, 17 a 20); *com ressalva* tem o check e não toca; a foto tirada, só o check, sem texto (G25: nenhum texto aprovado diz de onde ela veio; nenhuma referência desenha a linha); o Leitor que não se aplica, o traço · a causa saiu da linha (`causaDa` saiu do `checklist.js`), e o `textos.js` diz só *com ressalva*
+
+## O véu do diálogo da Seção F (ajuste, 09/10)
+
+- o diálogo *A Seção F não passou* (a 10) escurece a tela inteira: a faixa da sessão, com o módulo, a placa e o ENCERRAR, e o fundo da barra de status, com a hora e os ícones por cima · antes o véu começava embaixo da faixa, e o ENCERRAR ficava aceso ao lado do diálogo
+- a força do véu é 32%, o padrão do Material 3 · a tela de origem — o checklist completo com a Seção F falhando — ainda não tem referência
+- **no protótipo:** o diálogo abre por cima da tela do checklist que já o abre, desenhada atrás · o fundo do véu se estende sobre a faixa (`--veu-topo`), sem mover a caixa, e a faixa fica inerte · a barra escurece pelo `veu` da `BarraDoSistema`

@@ -128,7 +128,7 @@ export default function T12({ momento, estado: est }) {
 
   return (
     <div className="t12">
-      <BarraDoSistema fundo="faixa" />
+      <BarraDoSistema fundo="faixa" veu={enc.veu} />
       {faixa}
       {miolo}
       {rodape}
