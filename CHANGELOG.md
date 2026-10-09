@@ -1,5 +1,14 @@
 # Registro de mudanças
 
+## 2026-10-09 · complemento do 28: o palco
+
+- **O pacote do arquiteto:** os 5 quadros do palco (HTML e PNG) com as telas de hoje dentro do celular (a T07/04, 01 e 00 e a T13/22) e a coluna de hoje · a T07 com o *Firmware fora da lista* e, no grupo O MÓDULO, a *Alimentação abaixo da faixa* e a *Sessão anterior mal encerrada* · a T13 sem a família da Seção E e com o *Registrado sem localização* · o quadro 00 com a moldura dos outros quadros · o título do HTML da T07/05.
+- **Índice:** o `indice.json` do pacote veio de uma cópia antiga, sem os campos do palco (`coluna`, `rotulo`, `consulta`…); entraram só os 4 títulos que mudaram (T07/05, T07/12, T13/10, T13/16). 191 referências, nenhuma entrou ou saiu.
+- **O palco:** a coluna já montava os nomes a partir do índice, e o código dela não mudou. A moldura do protótipo já era a do quadro 00 (borda de 8, cantos de 36 e 28, o fio claro por dentro, o escuro por fora e a sombra). O `palco.md` do pacote também era cópia antiga: entraram só os dois exemplos corrigidos (*Registrado sem localização*, *Seção C · alimentação*) e uma nota do complemento · a data do pé do painel (`versao.js`) passa a 09/10, que o ciclo do véu tinha deixado em 08/10.
+- **A régua do palco** (`scripts/palco.mjs`, `provas-palco.mjs`): o quadro 02 abre no `04-estado-firmware-fora-da-lista` (o endereço antigo `firmware-nao-homologado` não existia mais), o 00 mede a moldura nova (em escala), e saíram as notas que o pacote resolveu (a moldura antiga do 00, a Alimentação que nenhuma cena desenhava, a coluna da T13 de antes da rodada 1).
+- **Medido:** 47 conferências da moldura batem, e a moldura do 00 está a 0% · 25 peças sem erro · 6 textos: 1 confere e 5 com a diferença explicada (a Fila parada no 01, o *Atualizando o firmware* no 03 e no 04, o pé do painel no 04, a consulta *Alimentação · relendo* no 05 — os quadros ainda não desenham) · nenhuma tela do app mudou. A régua precisa do fotógrafo de escala 1: com o Chrome de linha de comando, a janela de 900 sai com 813 de altura útil, e o celular escala para 0,94.
+- **Fora do escopo, sem mexer:** `01-produto/fluxos.md` ainda diz *firmware não homologado* na linha do diagnóstico (doc de produto, fora da lista deste complemento).
+
 ## 2026-10-09 · o véu como o Material 3 oficial
 
 - **O pacote do arquiteto (substitui o 27, que não tinha sido aplicado):** o `--veu` passa de 72% a **32%**, a opacidade padrão do Material 3 (`ScrimOpacity = 0.32`), na cor do tema · `tokens.css` e `tokens.json` (295 tokens, nenhum novo) · atrás de cada folha e diálogo, a tela de onde ele saiu, escurecida, nunca um fundo vazio · o véu cobre a tela inteira, até o fundo da barra de status, com a hora e os ícones por cima.

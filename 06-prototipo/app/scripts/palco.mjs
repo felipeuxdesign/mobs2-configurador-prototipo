@@ -55,11 +55,11 @@ const MOLDURA = { tela: [360, 800], borda: 8, fora: [376, 816], raioFora: 36, ra
   sombras: 'rgba(255, 255, 255, 0.14) 0px 0px 0px 1px inset, rgba(0, 0, 0, 0.6) 0px 0px 0px 1px, rgba(0, 0, 0, 0.45) 0px 12px 24px 0px', coluna: 40 }
 
 // os quadros e o lugar do palco que cada um desenha · o pacote 1: a tela agrupada é a T07, o Diagnóstico do
-// módulo (O módulo e A CAN), e não mais a T05; o 02 é a T07 no Firmware não homologado (a T07 antiga e o
-// Fora da faixa saíram)
+// módulo (O módulo e A CAN), e não mais a T05; o 02 é a T07 no Firmware fora da lista (a T07 antiga e o
+// Fora da faixa saíram; o complemento do 28 trocou o nome)
 const QUADROS = [
   { ref: '01-no-fluxo', url: '?tela=T04' },
-  { ref: '02-num-estado', url: '?tela=T07&estado=04-estado-firmware-nao-homologado' },
+  { ref: '02-num-estado', url: '?tela=T07&estado=04-estado-firmware-fora-da-lista' },
   { ref: '03-tela-com-muitos-estados', url: '?tela=T07' },
   { ref: '04-painel-aberto', url: '?tela=T07&painel=1' },
   // o pacote 23 · as famílias na coluna: a T13 inteira, num estado, com o recuo (o GPS reprovado)
@@ -77,7 +77,6 @@ const NOTAS = {
   'inteiro': 'o quadro inteiro só informa: o celular a 90% com o PNG dentro (338,4 × 734,4, no topo a 82,8), o quadrado a 24 e sem etiqueta, contra o palco.md: o celular em tamanho real, rodando (376 × 816, no topo a 42) (G19, PALCO-A11, PALCO-A14)',
   '04-painel-aberto/inteiro': 'o quadro inteiro só informa: o celular a 90% com o PNG dentro (338,4 × 734,4, no topo a 82,8), o quadrado a 24 e sem etiqueta, contra o palco.md: o celular em tamanho real, rodando (376 × 816, no topo a 42) (G19, PALCO-A11, PALCO-A14); e o quadro põe o celular e a coluna 90 à direita com o painel aberto, e o palco não os mexe: o painel passa por cima (palco.md, o 00: "não se mexe quando o painel abre", PALCO-A10)',
   'moldura': 'o palco em escala (734/816) contra o quadro a 90% desenhado à mão: o quadro escala a borda, o canto e a sombra (7,2 · 32,4 · 10,8 e 21,6) e deixa o fio de luz e o contorno em 1, e o palco escala a silhueta inteira, os fios também (0,9), e cai em 734 e não 734,4 — a moldura em tamanho real é da conferência da moldura',
-  '00-componentes/moldura': 'a miniatura da folha 00 ainda desenha a moldura de antes do pacote 4 — o metal de 1,5 #3C3C43, o aro de 4 e o canto de 22 —, e o palco é a silhueta na escala dela (321/816): o pacote 4 trocou os textos da folha, e não o desenho da miniatura (divergência do pacote) — a moldura em tamanho real é da conferência da moldura',
   'quadrado': 'o LayoutGrid do Lucide contra os quatro quadrados desenhados à mão (G5)',
   'painel': 'o X e o RotateCcw do Lucide, no traço 1,8, contra os desenhados à mão no traço 2 (G5)',
   'coluna': MARCADOR,
@@ -88,26 +87,23 @@ const NOTAS = {
   'coluna-no-fluxo': 'a folha desenha 3 linhas da coluna da T04, e a coluna tem 4 — as do campo coluna do indice.json, como o quadro 01 (o pacote 3, D2: o Sem conexão é a quarta); e ' + MARCADOR,
   'coluna-num-estado': 'a folha desenha 3 linhas da coluna da T04, e a coluna tem 4 — as do campo coluna do indice.json, como o quadro 01 (o pacote 3, D2: o Sem conexão é a quarta); e ' + MARCADOR + '; e o Undo2 do Lucide no Voltar ao fluxo (G5)',
   // o pacote 23 · a cena 05: a T13 com o recuo, as 20 linhas de 30 da coluna longa
-  '05-coluna-com-familias/coluna': 'a coluna da T13 tem 18 linhas desde a rodada 1 do retorno do PM, e cabe com as de 32 do palco.md; a cena 05 desenha as 20 de antes, com 30 · a coluna de antes, na nota dos textos; e ' + MARCADOR,
+  '05-coluna-com-familias/coluna': 'a cena 05 desenha as 18 linhas da T13 com 30, e a coluna cabe com as de 32 do palco.md; e a coluna tem a consulta Alimentação · relendo, na nota dos textos; e ' + MARCADOR,
   'coluna-T07': 'a lista dos grupos: o nome do grupo na tinta e na letra do rótulo de 10, e não em --marca-limite e 1,4 (lei 11, PALCO-A15, PALCO-V4); e ' + MARCADOR,
 }
 const notaDe = (nome, nomePeca) => NOTAS[`${nome}/${nomePeca}`] ?? NOTAS[nomePeca]
 // o complemento do pacote 6 pôs o momento que nasce de um estado na coluna (o `depoisDe`): a
 // cena 02 já desenha o Atualizando o firmware, e a 03 e a 04 ainda não
-const DEPOIS_DE = 'a coluna põe o Atualizando o firmware logo depois do Firmware não homologado (o depoisDe do complemento do pacote 6), como a cena 02 desenha; este quadro ainda não'
-// o pacote 10 pôs a T07/12 na coluna da T07 (o estado novo), e nenhuma cena do palco a desenha ainda
-const ALIMENTACAO = 'a coluna da T07 tem a Alimentação abaixo da faixa, o estado novo do pacote 10, no grupo O MÓDULO; nenhuma cena do palco a desenha ainda'
+const DEPOIS_DE = 'a coluna põe o Atualizando o firmware logo depois do Firmware fora da lista (o depoisDe do complemento do pacote 6), como a cena 02 desenha; este quadro ainda não'
 // o pacote 12 pôs a T04/16, a fila parada, na coluna da T04, e o quadro 01 ainda não a desenha
 const FILA_PARADA = 'a coluna da T04 tem a Fila parada, o estado novo do pacote 12; o quadro 01 desenha a coluna sem ela'
-// a rodada 1 do retorno do PM (07/10) tirou da coluna da T13 a correção do cartão (a 27 e a 28), e o
-// homologado sem localização virou o aguardando autoteste: a cena 05 ainda desenha a coluna de antes
-const RODADA_1 = 'a rodada 1 do retorno do PM tirou a Seção E · correção pedida e o Finalizar com a Seção E falhando, e o Homologado sem localização virou o Registrado sem localização; a cena 05 ainda desenha a coluna de antes'
+// o complemento do 28 redesenhou a cena 05 com a coluna da T13 de hoje (sem a Seção E, com o Registrado sem
+// localização); as consultas paradas de 07/10 puseram a releitura da Alimentação na família, e a cena não a desenha
+const RELENDO = 'a coluna da T13 tem a consulta Alimentação · relendo (T13/29), que as consultas paradas de 07/10 puseram na família da Alimentação; a cena 05 não a desenha'
 const NOTAS_TEXTO = {
-  '05-coluna-com-familias/coluna': RODADA_1,
+  '05-coluna-com-familias/coluna': RELENDO,
   '01-no-fluxo/coluna': FILA_PARADA,
-  '02-num-estado/coluna': ALIMENTACAO,
-  '03-tela-com-muitos-estados/coluna': DEPOIS_DE + '; e ' + ALIMENTACAO,
-  '04-painel-aberto/coluna': NOTAS['04-painel-aberto/coluna'].split('; e ')[0] + '; e ' + DEPOIS_DE + '; e ' + ALIMENTACAO,
+  '03-tela-com-muitos-estados/coluna': DEPOIS_DE,
+  '04-painel-aberto/coluna': NOTAS['04-painel-aberto/coluna'].split('; e ')[0] + '; e ' + DEPOIS_DE,
   '04-painel-aberto/painel': 'o pé diz a data da última atualização (Atualizado em …), no lugar do Recomeçar do login, que saiu (o diretor, 04/10: a T01 do painel já zera o estado e abre o login); o quadro ainda desenha o botão',
 }
 
@@ -124,9 +120,10 @@ const SCRIPT = `<script>(()=>{new Promise(ok=>document.readyState==='complete'?o
     m.quadrados=spans.filter(e=>e.style.width==='44px'&&e.style.height==='44px').map(inteiro).map(cx);
     m.linhas=divs.filter(e=>e.style.width==='280px'&&e.style.height==='34px').map(inteiro).map(cx);
     const cols=divs.filter(e=>/dashed/.test(e.style.border)&&e.children.length>1).map(inteiro);m.colunas=cols.map(conteudo);m.listas=cols.map(e=>cx(e.lastElementChild));
-    // O CELULAR: a moldura em miniatura, com a tela vazia dentro (decisão 43; o pacote 4 não a redesenhou)
-    const ce=divs.find(e=>e.children.length===1&&e.style.borderRadius==='22px'&&e.firstElementChild.style.borderRadius);
-    if(ce){inteiro(ce);const s=getComputedStyle(ce);m.celular={celular:cx(ce),tela:cx(ce.firstElementChild),moldura:{metal:s.borderTopWidth,aro:s.paddingTop,raioFora:s.borderTopLeftRadius,raioTela:getComputedStyle(ce.firstElementChild).borderTopLeftRadius}}}
+    // O CELULAR: a moldura dos quadros, em escala (transform), com a tela do menu dentro (o complemento do 28);
+    // os raios saem na escala da foto
+    const ce=divs.find(e=>e.children.length===1&&e.firstElementChild.tagName==='IMG');
+    if(ce){inteiro(ce.parentElement.parentElement);const s=getComputedStyle(ce),k=cx(ce).w/ce.offsetWidth;m.celular={celular:cx(ce),tela:cx(ce.firstElementChild),moldura:{borda:parseFloat(s.paddingTop)*k+'px',raioFora:parseFloat(s.borderTopLeftRadius)*k+'px',raioTela:parseFloat(getComputedStyle(ce.firstElementChild).borderTopLeftRadius)*k+'px'}}}
   }else{
     m.quadrado=cx(document.querySelector('a[aria-label="Telas do protótipo"]'));
     // o celular: a caixa da moldura, com a imagem da tela dentro (decisão 43, revista no pacote 4: a borda da silhueta no recheio)

@@ -63,7 +63,7 @@ const JANELAS = [[1440, 900], [1920, 1080]]
 // os quatro modos, no lugar do palco que cada quadro desenha (o mesmo do scripts/palco.mjs)
 const MODOS = [
   { ref: '01-no-fluxo', url: '?tela=T04', o: 'no fluxo · a T04' },
-  { ref: '02-num-estado', url: '?tela=T07&estado=04-estado-firmware-nao-homologado', o: 'num estado · a T07, Firmware não homologado' },
+  { ref: '02-num-estado', url: '?tela=T07&estado=04-estado-firmware-fora-da-lista', o: 'num estado · a T07, Firmware fora da lista' },
   { ref: '03-tela-com-muitos-estados', url: '?tela=T07', o: 'tela com muitos estados · a T07, em O módulo e A CAN' },
   { ref: '04-painel-aberto', url: '?tela=T07&painel=1', o: 'painel aberto · a T07' },
 ]
