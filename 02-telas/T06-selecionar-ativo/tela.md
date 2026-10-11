@@ -115,3 +115,8 @@ Os textos exatos de cada referência estão em `textos.md`. Copie de lá — nun
 - **o conflito é sempre erro de projeto de instalação** (a 06): sem cabo, trocar o meio de conexão nunca resolve, e o técnico não escolhe o leitor · o estado com saída, *Usar leitor sem fio*, saiu
 - **o texto do conflito** (a 06): *O fio branco já está ocupado.* · o rótulo em cima já diz que é erro de projeto de instalação · nada de *porta*, que o PM proíbe, nem de leitor sem fio, que sugeria a saída que saiu
 - **no protótipo · a rodada 2:** o caso de pinos é só o `conflito-pinos-sem-saida`, e o par da faixa decide (G28), sem olhar o meio da sessão · saíram a trava com saída, o `Usar leitor sem fio` e o caso `conflito-pinos-resolvivel`
+
+## O cartão do vínculo (ajuste, 10/10)
+
+- **o cartão fica do tamanho do conteúdo**: antes ele esticava até o rodapé, com um vazio grande dentro · no *Confirmar o vínculo* (a 01, 10 e 11) e nos erros (a 04 e 06), a placa e o motivo ficam no alto e a tela fica mais leve
+- **no protótipo (construído, 11/10):** na T06, o escolhido e os dados do modelo não crescem mais (`flex-grow: 0`, da tela) · as peças continuam crescendo onde são o elemento principal (o escolhido da T05, a lei R-15)

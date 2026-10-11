@@ -23,3 +23,8 @@
  * como as referências desenham: a trava (04 a 06) por esta classe, e os dados do
  * modelo (01, 10 e 11) pela folga da própria peça (DadosDoModelo · antesDoRodape) */
 .t06-antes-do-rodape { margin-bottom: var(--respiro); }
+
+/* o 29c (lei R-15: o cartão de mensagem tem o tamanho do conteúdo): no Confirmar o vínculo (01, 10, 11) e
+ * nas travas (04, 06), o escolhido e os dados do modelo param de esticar até o rodapé — a placa e o motivo
+ * ficam no alto, o vazio fica fora deles · da tela: o escolhido que cresce continua valendo na T05 */
+.t06 .ds-escolhido, .t06 .ds-dados-modelo { flex-grow: 0; flex-shrink: 0; }

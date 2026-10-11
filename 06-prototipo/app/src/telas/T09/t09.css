@@ -37,8 +37,16 @@
   transition: transform var(--mov-solta) var(--mov-curva);
 }
 .t09-pergunta-deixar:active { transform: scale(var(--escala-toque)); transition: none; }
-/* o deixado para depois: *falta reenviar*, no lugar dos botões */
-.t09-pergunta-depois { margin-top: var(--e-8); font-size: var(--t-secundario); font-weight: 700; color: var(--tinta); }
+/* o 29c: o Deixar para depois tem 36 de desenho e 48 de toque, pela camada sem desenho, como o BotaoDaLinha */
+.t09-pergunta-deixar { position: relative; }
+.t09-pergunta-deixar::after { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: var(--alvo-min); transform: translateY(-50%); }
+/* o 29c (a 19 e a 20): *fica para depois* no lugar do link, 14/600 em --tinta; e o reenviado, o check
+ * de 16 numa caixa de 20, *confere* 14/700 e *· reenviado* 12/500 em --tinta-apagada, a 8 um do outro */
+.t09-pergunta-fica { display: flex; align-items: center; height: var(--e-36); padding: 0 var(--e-4); font-size: var(--t-corpo); font-weight: 600; color: var(--tinta); }
+.t09-pergunta-reenviado { gap: var(--e-8); height: var(--e-36); }
+.t09-pergunta-check { display: flex; align-items: center; justify-content: center; width: var(--e-20); height: var(--e-20); flex-shrink: 0; }
+.t09-pergunta-confere { font-size: var(--t-corpo); font-weight: 700; color: var(--tinta); }
+.t09-pergunta-marca { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-apagada); }
 /* ao vivo: a pergunta surge embaixo do check, e o Reenviar que liga acende no lugar · 150, esmaecendo */
 .t09-pergunta-surge, .t09-pergunta-acende { animation: t09-esmaece var(--mov-rapido) var(--mov-curva) backwards; }
 @keyframes t09-esmaece { from { opacity: 0; } }
@@ -52,3 +60,6 @@
   position: absolute; top: calc(var(--barra-sistema) + var(--faixa-sessao)); right: 0; bottom: 0; left: 0; z-index: 1;
   display: flex; flex-direction: column;
 }
+
+/* o 29c: a caixa dos 6 passos esmaece pra dentro em --mov-padrao (200), quando a Conexão confere na frente de quem olha */
+.t09 .t09-prova.ds-prova-surge { animation-duration: var(--mov-padrao); }

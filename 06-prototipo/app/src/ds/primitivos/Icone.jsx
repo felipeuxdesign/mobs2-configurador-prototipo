@@ -9,13 +9,13 @@ import {
   X, ChevronRight, ChevronDown, ChevronUp, RotateCw, Mail, UserRound, Search, Camera, Image, Check, ArrowUp,
   Bluetooth, Route, FileText,
 } from 'lucide-react'
-import { Risco, riscado } from './Riscado.jsx'
+import { ComRisco, riscado } from './Riscado.jsx'
 import './Icone.css'
 
 // A exceção da Lei 14: o olho da senha não é o do Lucide. É desenhado no app — a
 // amêndoa baixa e a pupila inteiras — e o riscado é o MESMO olho, com o Risco
-// por cima (lei 21, Riscado.jsx: o corte da cor do poço abre o fio escuro no
-// contorno onde o risco passa). O desenho é o do SVG da referência (T01/00 e 10)
+// por cima (lei 21, Riscado.jsx: o vão da máscara corta o contorno onde o risco
+// passa, em qualquer fundo · o 29c). O desenho é o do SVG da referência (T01/00 e 10)
 // e o da folha 6. O traço é o das ações, pela classe (1,8).
 function OlhoSenha() {
   return (
@@ -27,8 +27,7 @@ function OlhoSenha() {
 function OlhoSenhaRiscado() {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6-10-6-10-6z" /><circle cx="12" cy="12" r="3" />
-      <Risco />
+      <ComRisco><path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6-10-6-10-6z" /><circle cx="12" cy="12" r="3" /></ComRisco>
     </svg>
   )
 }

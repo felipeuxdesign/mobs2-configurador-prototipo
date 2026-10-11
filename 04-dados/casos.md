@@ -1,6 +1,6 @@
 # Os casos do mock
 
-O mock tem **63 casos**, contados nas chaves de `mocks.js.casos`. O índice contém 199 referências: algumas usam um caso, outras uma coleção, uma semente ou o resultado de um toque. IDs de ativo, modelo e pacote são dados, não casos adicionais.
+O mock tem **63 casos**, contados nas chaves de `mocks.js.casos`. O índice contém 201 referências: algumas usam um caso, outras uma coleção, uma semente ou o resultado de um toque. IDs de ativo, modelo e pacote são dados, não casos adicionais.
 
 ## Casos e referências declaradas
 

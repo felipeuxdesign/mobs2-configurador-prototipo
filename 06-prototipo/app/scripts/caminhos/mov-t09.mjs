@@ -131,7 +131,13 @@ export default [
   { desligado: 'Gravando · não interrompa' },
   // falou: a cadeia conclui — o check, a prova no lugar e o primário que acende
   { chega: 'T09', momento: CONCLUIDA, entre: BLOCO },
-  { anima: [GLIFO, esmaece('ds-prova'), TEXTO], naoAnima: [ACENDE, ...TROCA] },   // o endereço que passa ao 04 não é troca
+  // o 29c: a caixa dos 6 passos esmaece pra dentro em 200, logo abaixo do título, e a tela sobe sozinha até o
+  // topo em 300 (R-14: deu certo, o resultado primeiro) — a subida é por quadro, e o passo mede onde ela parou
+  { anima: [GLIFO, { prop: 'opacity', ms: 200, em: 'ds-prova', curva: C }, TEXTO], naoAnima: [ACENDE, ...TROCA] },   // o endereço que passa ao 04 não é troca
+  { dorme: 450 },
+  // no protótipo a cadeia cabe na tela enquanto corre: a concluída já nasce no topo, com a caixa à vista
+  { executa: `const m = document.querySelector('.t09 .tela-miolo'), p = document.querySelector('.t09 .ds-prova').getBoundingClientRect(), r = m.getBoundingClientRect()
+    return (m.scrollTop === 0 && p.top >= r.top && p.bottom <= r.bottom) || 'o resultado fora da vista: ' + m.scrollTop` },
   { ve: 'CONFERIDO NO MÓDULO\n6 passos' },
   { ve: 'O módulo falou com o servidor\nsim' },
   { ve: 'Eventos\nconfere' },

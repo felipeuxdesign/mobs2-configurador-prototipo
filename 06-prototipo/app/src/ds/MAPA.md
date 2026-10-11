@@ -164,6 +164,19 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 | o painel · vazio | src/ds/instrumentos/Calibracao.jsx · ValorAlvo (vazio: o traço em --marca-limite, sem o lima · a entrega de 25/09) |
 | o que não se aplica | src/ds/instrumentos/Declarado.jsx (linhas) |
 
+## Folha 9 · a manutenção e o rodapé (o 29c)
+
+| Peça | Componente |
+|---|---|
+| botão secundário | src/telas/comum/BotaoDaLinha.jsx (tam `pergunta` 36 no cartão dos dependentes, `teste` 30 dentro da linha, `resposta` 40 no bip; desligado em --fundo-faixa, --divisoria e --marca · a área de toque de 48 por uma camada sem desenho, centrada) |
+| folha de confirmação | src/telas/T09/FolhaDeConfirmacao.jsx (a Folha, com a Frase e as duas ações do diálogo · T09/13, 17, 18 e T11/06) |
+| cartão dos dependentes | src/telas/T09/Pergunta.jsx (um item por dependente, na ordem do script; o Reenviar liga depois do de cima) |
+| estado da ação na linha | src/telas/T09/Pergunta.jsx (decisao `depois`: *fica para depois* no lugar do link, o Reenviar ao lado · `reenviado`: o check, *confere* e *· reenviado* · T09/19, 20) |
+| linha "revisar em seguida" | src/ds/checklist/ItemDoChecklist.jsx (estado `revisar` · T13/43) · na T11, src/ds/linhas/LinhaChecagem.jsx (variante conferencia, pendente · T11/05) |
+| o rodapé, com traço no app e sem traço no login | src/ds/chrome/Rodape.jsx (`lugar`: 'tela' ou 'login'; o link com 44 de desenho e 48 de toque, crescendo pra baixo) |
+
+Os espécimes da folha 9 estão na vitrine (src/vitrine/especimes/f9-manutencao.jsx), fora da bancada: a régua lê o rótulo de 1,4 com a moldura tracejada, e a folha 9 desenha o rótulo de 1,5 com a moldura sólida.
+
 ## Peças internas, sem linha própria
 
 - chrome/CartaoDaConta.jsx, PrazoDaConta.jsx e BotaoDaFolha.jsx, o conteúdo da 'folha' da conta, T04/05
@@ -174,7 +187,7 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 - chrome/Faixa.jsx · `ausente` (a faixa que ainda não nasceu: quando as sete do módulo passam no diagnóstico, desce em --mov-padrao por baixo da barra, e o que ela empurra acompanha por deslocamento · T07 desde o pacote 1, era a pré-checagem da T05 · C12·24) e `revela` (a sem sessão que chega no lugar da aberta, que sobe em --mov-padrao · T16, C12·25) · a barra do sistema fica por cima do app (--camada-sistema) e troca a cor direto · espécimes mov-faixa-encerra e mov-faixa-encerrar (o mov-faixa-nasce saiu com a pré-checagem)
 - entrada/foco.js · `useFocoDoCampo`, um foco só: o que a tela diz, ou o do próprio campo, nunca o do que está dentro do poço (o olho, o xis) · o Campo, a Busca, o CampoTexto e o ValorAlvo · C12·21 · o traço de 2 por cima da borda de 1, a capa em scaleX (TracoFoco.css) · C12·22, C12·45
 - o movimento que as peças de linha já têm (C12): o `Glifo` esmaece o glifo que troca depois de montar (`esmaece`, `chave`), e quem liga é a LinhaChecagem, a LinhaContagem, o Trilho e o Aviso · C12·12; o `Aviso` ganhou `surge` (o aviso que aparece depois de a tela abrir) e `aguarda` + `aguardaUnidade` (o veredito que espera a prova, com a contagem · T11, T16/05 · C12·35, C12·44); a `Prova` ganhou `aguarda` ('legenda', ou a contagem no lugar da versão · T11/02, T16/02); a `Justificativa` esmaece o campo que abre e deixa o que fecha sair esmaecendo por cima · C12·47, C12·6; o `Encerramento` esmaece a legenda que passa ao passo que corre · C12·9; o `Tocavel` e o `Primario` não soltam o pressionado no que se desabilita no próprio toque · C12·18 · espécimes mov-check-* (mov-check.jsx)
-- primitivos/Riscado.jsx, o ícone riscado (lei 21): `riscado(IconeDoLucide)` e o `Risco` — o ícone inteiro, e por cima o risco de 3,5 a 20,5 com o corte da cor do poço por baixo (--risco-corte, que era --olho-corte) · o Wi-Fi (Glifo sem-conexao, T01/14), o Bluetooth (Icone bluetooth-desligado, T05/16 e 17), a câmera (Icone camera-negada, T10/11 e o item do checklist) e o olho da senha (Icone olho-riscado, T01/10) · o espécime f3-riscados, fora da bancada
+- primitivos/Riscado.jsx, o ícone riscado (lei 21 · a lei 14 revista no 29c): `riscado(IconeDoLucide)` e o `ComRisco`, com o vão do risco feito por máscara — o ícone inteiro, mascarado por uma faixa de --risco-corte em volta do risco de 3,5 a 20,5, que vem por cima (o vão funciona em qualquer fundo; antes, o corte era uma linha da cor do poço) · o Wi-Fi (Glifo sem-conexao, T01/14), o Bluetooth (Icone bluetooth-desligado, T05/16 e 17), a câmera (Icone camera-negada, T10/11 e o item do checklist) e o olho da senha (Icone olho-riscado, T01/10) · o espécime f3-riscados, fora da bancada
 - chrome/Camadas.jsx, interna (a camada do toque repete a frase por CSS, como o Link · C5)
 - chrome/Dialogo.jsx · Frase, Destaque; chrome/LinhaDeOpcao.jsx · CartaoDeOpcoes
 - linhas/Lista.jsx, o cartão de lista de todas as linhas (surge: a cascata da lista que a busca acha, uma linha a cada --mov-escalonar-lista, 150 cada — a T05/01 que volta da busca de novo, C12·28 e C12·41; ao abrir, parada)

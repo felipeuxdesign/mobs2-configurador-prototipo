@@ -1,6 +1,6 @@
 # Conferir contra o design
 
-São **199 pares HTML/PNG** em [02-telas](../02-telas/), listados no [índice](../02-telas/indice.json): 15 entradas, 103 momentos e 81 estados. Cada referência desenha o app em **360 × 800**; o PNG a 2× tem 720 × 1600. Esse gabarito vale para a stack escolhida pelo time.
+São **201 pares HTML/PNG** em [02-telas](../02-telas/), listados no [índice](../02-telas/indice.json): 15 entradas, 104 momentos e 82 estados. Cada referência desenha o app em **360 × 800**; o PNG a 2× tem 720 × 1600. Esse gabarito vale para a stack escolhida pelo time.
 
 ## Como medir
 
@@ -19,7 +19,7 @@ São **199 pares HTML/PNG** em [02-telas](../02-telas/), listados no [índice](.
 - [Documentação e login após recuperação](../06-prototipo/para-o-arquiteto/gate-documentacao-atual.md): escopo e verificações deste ciclo.
 - [Véu integral das folhas](../06-prototipo/para-o-arquiteto/gate-veu-integral.md): cobertura do fundo inteiro, incluindo tira, faixa e fundo da barra de status, nas folhas da T01, T04 e T11; os diálogos da T04 compartilham a cobertura. Hora e ícones oficiais ficam legíveis; caixas e painéis conservam suas posições.
 
-A rodada de consultas paradas não executou a comparação completa das 199 referências nem a suíte completa de 45 roteiros. Veja o estado de cobertura em [testes-prontos.md](testes-prontos.md).
+A rodada de consultas paradas não executou a comparação completa das 201 referências nem a suíte completa de 45 roteiros. Veja o estado de cobertura em [testes-prontos.md](testes-prontos.md).
 
 ## Diferenças com nome
 
@@ -28,6 +28,6 @@ O [CHANGELOG](../CHANGELOG.md), os gates e as notas *no protótipo* de cada fich
 ## Textos, peças e valores
 
 - Textos exatos: `textos.md` de cada tela.
-- Peças e variantes: [componentes.md](../03-design-system/componentes.md) e as [oito folhas](../03-design-system/referencias/). São 106 peças normativas; a vitrine do protótipo tem 114 espécimes comparáveis.
+- Peças e variantes: [componentes.md](../03-design-system/componentes.md) e as [nove folhas](../03-design-system/referencias/). São 110 peças normativas; a vitrine do protótipo tem 114 espécimes comparáveis.
 - Medidas, cores e tamanhos: [tokens.css](../03-design-system/tokens.css), com 295 tokens distintos; [tokens.json](../03-design-system/tokens.json) é gerado do CSS.
 - Movimento: [movimento.md](../03-design-system/movimento.md) e cada `animacao.md`.

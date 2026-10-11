@@ -24,14 +24,17 @@ q = ind['quadros']; c = ind['celular']; ext = ind.get('formato', 'jpg')
 # retângulo do celular vem em pixels CSS. Converte o recorte para a imagem.
 primeiro = Image.open(os.path.join(pasta, f"q{q[0]['n']:05d}.{ext}"))
 janela = ind.get('janela', primeiro.size)
-escala_x = primeiro.width / janela[0]; escala_y = primeiro.height / janela[1]
-# o recorte: o celular com a moldura, e uma folga em volta, no fundo do palco
-caixa = (max(0, int((c['left'] - FOLGA) * escala_x)), max(0, int((c['top'] - FOLGA) * escala_y)),
-         int((c['right'] + FOLGA) * escala_x), int((c['bottom'] + FOLGA) * escala_y))
+# o recorte: o celular com a moldura, e uma folga em volta, no fundo do palco · a escala sai do
+# tamanho de CADA quadro (o 29c: o primeiro quadro pode sair menor, com a janela ainda se
+# ajustando, e a escala dele cortava o pé do celular em todos os outros)
+def caixa_de(im):
+    ex = im.width / janela[0]; ey = im.height / janela[1]
+    return (max(0, int((c['left'] - FOLGA) * ex)), max(0, int((c['top'] - FOLGA) * ey)),
+            int((c['right'] + FOLGA) * ex), int((c['bottom'] + FOLGA) * ey))
 # o filme começa no primeiro quadro com o app desenhado: antes dele, o palco ainda sem o
 # celular (a capa do GIF no GitHub é o primeiro quadro, e ele tem de ser o login)
 def desenhado(n):
-    im = Image.open(os.path.join(pasta, f'q{n:05d}.{ext}')).convert('L').crop(caixa)
+    im = Image.open(os.path.join(pasta, f'q{n:05d}.{ext}')).convert('L'); im = im.crop(caixa_de(im))
     return ImageStat.Stat(im).stddev[0] > 15
 while len(q) > 1 and not desenhado(q[0]['n']): q = q[1:]
 # e, com --desde, alguns segundos depois: a fonte e a marca ainda carregando não entram
@@ -48,7 +51,7 @@ for n in quadros:
     if filme and filme[-1][0] == n: filme[-1][1] += 1
     else: filme.append([n, 1])
 def abre(n):
-    im = Image.open(os.path.join(pasta, f'q{n:05d}.{ext}')).convert('RGB').crop(caixa)
+    im = Image.open(os.path.join(pasta, f'q{n:05d}.{ext}')).convert('RGB'); im = im.crop(caixa_de(im))
     alt = round(im.height * LARG / im.width)
     return im.resize((LARG, alt), Image.LANCZOS)
 imgs = [abre(n) for n, _ in filme]

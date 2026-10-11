@@ -19,8 +19,9 @@ export const T = {
   // A limpeza diz o que apaga e o que preserva (decisão 47, HU-T09-3)
   descricao: {
     // a rodada 1 do retorno do PM: a limpeza da instalação nova apaga a rede também, e diz que ela
-    // volta no último passo (duas frases, duas linhas · componentes.md · Duas ideias numa linha)
-    limpeza: ['Apaga a configuração anterior, inclusive a rede do módulo.', 'A rede será gravada de novo no último passo.'],
+    // volta no último passo · o 29c: um texto só, correndo em duas linhas cheias, sem a quebra forçada
+    // que deixava *módulo.* sozinho numa linha (as mesmas palavras)
+    limpeza: 'Apaga a configuração anterior, inclusive a rede do módulo. A rede será gravada de novo no último passo.',
     ativo: 'quem é o veículo e a tradução da CAN',
     cercas: 'as regiões geográficas',
     leitor: 'como o cartão do motorista é lido',
@@ -112,6 +113,9 @@ export const T = {
   numerado: (n, rotulo) => `${n} · ${rotulo}`,
   liberaDepois: (rotulo) => `libera depois do ${rotulo.toLowerCase()}`,
   deixarParaDepois: 'Deixar para depois',
+  // o 29c (a 19 e a 20): o que a ação vira depois de decidida
+  ficaParaDepois: 'fica para depois',
+  reenviadoMarca: '· reenviado',
   // o que ficou para depois (16): na lista da manutenção, e no aviso
   faltaReenviarValor: 'falta reenviar',
   faltaReenviar: (blocos) => `Falta reenviar ${emLista(blocos.map((b) => COM_ARTIGO[b]))}.`,

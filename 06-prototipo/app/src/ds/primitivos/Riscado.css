@@ -1,3 +1,3 @@
-/* o ícone riscado (lei 21): o corte, por baixo do risco, da cor do poço e mais grosso que ele —
- * o fio escuro que separa o risco do desenho. O risco, por cima, herda o traço e a cor do ícone. */
-svg .ds-risco-corte { stroke: var(--poco); stroke-width: var(--risco-corte); }
+/* o ícone riscado (lei 21 · a lei 14 revista no 29c): o vão em volta do risco é da máscara — a faixa
+ * de --risco-corte que ela apaga do desenho, em qualquer fundo. O risco, por cima, herda o traço e a cor do ícone. */
+svg .ds-risco-vao { stroke-width: var(--risco-corte); }

@@ -103,12 +103,14 @@ const CASO_DO_ESTADO = {
 // os confirmados de cada fase da curta: a 09 é o quadro de 1 (a limpeza feita, o bloco gravando)
 const CONFIRMADOS_DA_CURTA = { escolher: 0, curta: 1, curtaFeita: CURTA }
 function daManutencao(q, par, falta = null) {
-  return { par, confirmados: CONFIRMADOS_DA_CURTA[q.fase], fase: q.fase, parou: null, bloco: q.bloco, folha: q.folha ?? null, decisoes: {}, faltaFixa: falta }
+  return { par, confirmados: CONFIRMADOS_DA_CURTA[q.fase], fase: q.fase, parou: null, bloco: q.bloco, folha: q.folha ?? null, decisoes: q.decisoes ?? {}, pai: null, faltaFixa: falta }
 }
 function inicio(momento, est, unico) {
   // A manutenção da coluna consulta o caso inteiro, sem herdar bloco ou avanço do fluxo (o retorno do
   // PM de 09/10: a folha de cada bloco, a pergunta pelos dependentes e o que ficou para depois)
   const parDaManutencao = parDoCaso('modulo-ja-deste-ativo')
+  // o 19 (o 29c): o leitor deixado para depois é a pendência do caso, na lista do que falta
+  if (est === REF.leitorDepois) return daManutencao(QUADRO_DA_MANUTENCAO[est], parDaManutencao, [{ bloco: 'leitor', por: 'cercas' }])
   if (QUADRO_DA_MANUTENCAO[est]) return daManutencao(QUADRO_DA_MANUTENCAO[est], parDaManutencao, [])
   if (est === REF.faltaReenviar) {
     const falta = manutencaoDoCaso('falta-reenviar').faltaReenviar
@@ -187,6 +189,13 @@ export default function T09({ momento, estado: est }) {
       const { fluxo: f, unico: u } = vivo.current
       if (f.fase === 'curta') {
         const confirmados = f.confirmados + 1
+        // o dependente reenviado pela pergunta (o 29c, a 20): conferido, ele sai do que falta, e a tela
+        // volta à pergunta de onde saiu, com ele *confere · reenviado* — as ações dão lugar ao check
+        if (confirmados >= CURTA && f.pai) {
+          despachar({ tipo: 'mesclar', parcial: { etapas: reenviado(u.etapas, f.bloco) } })
+          setFluxo({ ...f, bloco: f.pai.bloco, fase: 'curtaFeita', confirmados: CURTA, decisoes: { ...f.pai.decisoes, [f.bloco]: 'reenviado' }, pai: null, voltou: f.bloco })
+          return
+        }
         setFluxo({ ...f, confirmados, fase: confirmados >= CURTA ? 'curtaFeita' : 'curta' })
         return
       }
@@ -231,9 +240,11 @@ export default function T09({ momento, estado: est }) {
     if (est != null) return
     // a curta conferida: a pergunta de cada bloco tem o seu quadro (10, 14, 15); a dos eventos e a da
     // conexão, que nenhuma referência desenha, ficam no endereço da curta
-    const m = fluxo.fase === 'concluida' ? REF.concluida : fluxo.fase === 'curtaFeita' ? MOMENTO_DA_PERGUNTA[fluxo.bloco] ?? null : fluxo.fase === 'servidor' ? REF.conferindoServidor : null
+    // o leitor que volta reenviado à pergunta das cercas é a 20 (o 29c)
+    const daPergunta = fluxo.bloco === 'cercas' && fluxo.decisoes?.leitor === 'reenviado' ? REF.leitorReenviado : MOMENTO_DA_PERGUNTA[fluxo.bloco] ?? null
+    const m = fluxo.fase === 'concluida' ? REF.concluida : fluxo.fase === 'curtaFeita' ? daPergunta : fluxo.fase === 'servidor' ? REF.conferindoServidor : null
     if (m && vivo.current.momento !== m) despachar({ tipo: 'ir', tela: 'T09', momento: m })
-  }, [fluxo.fase, fluxo.bloco, est, despachar])
+  }, [fluxo.fase, fluxo.bloco, fluxo.decisoes, est, despachar])
   // o pedido já confirmado (o `agora` da T11) vale uma vez: a curta já está correndo
   useEffect(() => {
     const u = vivo.current.unico
@@ -245,11 +256,37 @@ export default function T09({ momento, estado: est }) {
   useTrocaDeQuadro(quadro)
   // a cadeia concluída e o servidor (a rodada 1): o quadro que a URL abre já rolado até o fim, como a
   // 04 e a 12 desenham — a prova e o que conferir à vista
+  // O 29c (lei R-14: a tela para onde está a próxima ação do técnico): a concluída (04) abre no topo,
+  // com o resultado à vista logo abaixo do título; o *ainda não* (12) abre embaixo, na falha e no que conferir
   useLayoutEffect(() => {
-    if (fluxo.fase !== 'concluida' && fluxo.fase !== 'semServidor') return
+    if (fluxo.fase !== 'semServidor') return
     const miolo = document.querySelector('.t09 .tela-miolo')
     if (miolo) miolo.scrollTop = miolo.scrollHeight
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  // e quando a Conexão confere na frente de quem olha, a tela sobe sozinha até o topo, em --mov-lento,
+  // desacelerando, e a caixa dos 6 passos esmaece pra dentro (animacao.md) · com reduzir, salta pro topo
+  const fase0 = useRef(fluxo.fase)
+  useEffect(() => {
+    const antes = fase0.current
+    fase0.current = fluxo.fase
+    if (!aoVivo || fluxo.fase !== 'concluida' || antes === 'concluida') return undefined
+    const miolo = document.querySelector('.t09 .tela-miolo')
+    if (!miolo || miolo.scrollTop <= 0) return undefined
+    const dura = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--mov-lento')) || 0
+    if (!dura) { miolo.scrollTop = 0; return undefined }
+    const de = miolo.scrollTop
+    // a curva desacelera (o --mov-curva, uma saída suave): a posição pelo tempo do próprio quadro
+    const desacelera = (t) => 1 - (1 - t) ** 3
+    let t0 = null, q = null
+    const passo = (agora) => {
+      if (t0 == null) t0 = agora
+      const t = Math.min(1, (agora - t0) / dura)
+      miolo.scrollTop = de * (1 - desacelera(t))
+      if (t < 1) q = requestAnimationFrame(passo)
+    }
+    q = requestAnimationFrame(passo)
+    return () => cancelAnimationFrame(q)
+  }, [fluxo.fase]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // os toques. Num estado da coluna o celular não toca; se tocasse, o quadro
   // vira fluxo na sessão do caso, e a recusa e a queda ficam consumidas (G21)
@@ -269,7 +306,12 @@ export default function T09({ momento, estado: est }) {
   }
   // Reenviar um bloco: a cadeia curta, pela limpeza só dele (09) · nenhum outro vai junto
   function reenviar(bloco) {
-    setFluxo((f) => ({ ...f, bloco: bloco ?? f.bloco, fase: 'curta', confirmados: 0, parou: null, folha: null, decisoes: {} }))
+    setFluxo((f) => ({ ...f, bloco: bloco ?? f.bloco, fase: 'curta', confirmados: 0, parou: null, folha: null, decisoes: {}, pai: null, voltou: null }))
+    ir('T09', { momento: REF.reenviando })
+  }
+  // o Reenviar de um dependente, na pergunta (o 29c): a curta só dele, e a volta à mesma pergunta
+  function reenviarDependente(b) {
+    setFluxo((f) => ({ ...f, pai: { bloco: f.bloco, decisoes: f.decisoes }, bloco: b, fase: 'curta', confirmados: 0, parou: null, folha: null, decisoes: {}, voltou: null }))
     ir('T09', { momento: REF.reenviando })
   }
   // O retorno do PM de 09/10: o bloco que tem dependente pede a confirmação antes (a folha, 13, 17 e
@@ -392,12 +434,14 @@ export default function T09({ momento, estado: est }) {
     // ── a manutenção: a cadeia curta (09) — a limpeza só do bloco, e o bloco · conferida, a pergunta
     // pelos dependentes, um por vez, na ordem do script (10, 14, 15) ──
     const dependentes = dependentesDe(fluxo.bloco)
-    const decididos = (i) => dependentes.slice(0, i).every((b) => fluxo.decisoes[b] === 'depois')
+    // o Reenviar de um só liga quando o de cima confere ou fica para depois (o 29c, a 19 e a 20)
+    const decididos = (i) => dependentes.slice(0, i).every((b) => fluxo.decisoes[b])
     const itens = dependentes.map((b, i) => {
       const anterior = !decididos(i) ? dependentes[i - 1] : null
       const motivo = motivoDe(b, fluxo.bloco)
       return {
         bloco: b, rotulo: rotuloDe(b), decisao: fluxo.decisoes[b] ?? null, liberado: decididos(i), acendeu: i > 0 && aoVivo,
+        voltou: aoVivo && fluxo.voltou === b,
         motivo: anterior ? `${motivo} · ${T.liberaDepois(rotuloDe(anterior))}` : motivo,
       }
     })
@@ -410,7 +454,7 @@ export default function T09({ momento, estado: est }) {
         <Cadeia elos={elosDaCurta(k, fluxo.bloco, conteudo)} altura="correndo" curta />
         {fase === 'curta' && <p className="t09-ficam">{depoisDaCurta(fluxo.bloco, dependentes, falta.map((x) => x.bloco))}</p>}
         {fase === 'curtaFeita' && dependentes.length > 0 && (
-          <Pergunta itens={itens} surge={aoVivo && !abriuNaPergunta} aoReenviar={reenviar} aoDeixar={deixar} />
+          <Pergunta itens={itens} surge={aoVivo && !abriuNaPergunta && !fluxo.voltou} aoReenviar={reenviarDependente} aoDeixar={deixar} aoVivo={aoVivo} />
         )}
       </>
     )
@@ -435,11 +479,12 @@ export default function T09({ momento, estado: est }) {
       <>
         {cabeca}
         {fase !== 'recusado' && pinos}
+        {/* o 29c: a cadeia concluída mostra o resultado primeiro, logo abaixo do título e dos pinos (a 04) */}
+        {fase === 'concluida' && <Prova className="t09-prova" surge={aoVivo && !abriuConcluida} rotulo={T.conferidoNoModulo} versao={T.passos(TOTAL)} legenda={T.devolveu(TOTAL)} />}
         {aviso}
         {/* no 01, a linha dos pinos vem logo depois do aviso, como na 06 (o pacote 3) */}
         {fase === 'recusado' && pinos}
         <Cadeia elos={elosDo(fluxo, conteudo)} justa={fase === 'recusado'} altura={altura} />
-        {fase === 'concluida' && <Prova surge={aoVivo && !abriuConcluida} rotulo={T.conferidoNoModulo} versao={T.passos(TOTAL)} legenda={T.devolveu(TOTAL)} />}
         {fase === 'semServidor' && <OQueConferir rotulo={T.oQueConferir} causas={T.conferirServidor} />}
       </>
     )

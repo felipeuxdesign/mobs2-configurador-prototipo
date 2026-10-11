@@ -4,7 +4,7 @@
 
 O app que técnicos de campo usam para **instalar e homologar rastreadores em ônibus** — conectar o módulo, gravar a configuração, calibrar, rodar o ciclo de testes e fechar o checklist, com **a evidência gerada pelo sistema, nunca digitada**.
 
-Esta pasta é a fonte única do produto. O design está **fechado e medido**: 15 telas, 103 momentos e 81 estados, um design system que cobre todo desenho que se repete, e o gabarito visual de cada um.
+Esta pasta é a fonte única do produto. O design está **fechado e medido**: 15 telas, 104 momentos e 82 estados, um design system que cobre todo desenho que se repete, e o gabarito visual de cada um.
 
 ## Quem é você
 
@@ -19,7 +19,7 @@ Esta pasta é a fonte única do produto. O design está **fechado e medido**: 15
 ```
 01-produto/          por que existe, pra quem, as regras de negócio, as histórias e os fluxos
 02-telas/            uma pasta por tela: ficha, estados, animação, textos e o gabarito visual
-03-design-system/    tokens, leis, movimento, componentes e as oito folhas desenhadas
+03-design-system/    tokens, leis, movimento, componentes e as nove folhas desenhadas
 04-dados/            o mock — o contrato de dado — e o gate que prova que ele não mente
 05-recursos/         a marca, a fonte e os ícones
 06-prototipo/        como construir o protótipo navegável e o palco em volta dele

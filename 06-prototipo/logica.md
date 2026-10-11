@@ -2,7 +2,7 @@
 
 Guia da versão de **08/10/2026**, conferido contra o código, o mock e as fichas das telas. Comportamento, textos e desenho continuam nas fontes normativas de [02-telas](../02-telas/README.md) e [03-design-system](../03-design-system/README.md). O [histórico até as consultas paradas](historico/logica-ate-consultas-paradas.md) preserva as anotações anteriores, incluindo regras já substituídas.
 
-Censo: **15 telas, 103 momentos, 81 estados e 199 pares HTML/PNG**. O produto tem 109 histórias, 295 tokens distintos, 106 peças normativas e 63 casos do mock. A vitrine tem 114 espécimes comparáveis; existem 45 roteiros, com a cobertura atual descrita em [testes-prontos.md](../08-para-o-dev/testes-prontos.md).
+Censo: **15 telas, 104 momentos, 82 estados e 201 pares HTML/PNG**. O produto tem 109 histórias, 295 tokens distintos, 110 peças normativas e 63 casos do mock. A vitrine tem 114 espécimes comparáveis; existem 45 roteiros, com a cobertura atual descrita em [testes-prontos.md](../08-para-o-dev/testes-prontos.md).
 
 ## O estado único
 
@@ -83,7 +83,7 @@ Essas sementes não acrescentam uma regra ao produto. O usuário real chega com 
 - T11/00 e 03: Não bate com o cadastro e sua folha.
 - T13/29: relendo depois de uma falha.
 
-As famílias T07/06 e T13/30–37 também ficam paradas pela coluna. A classificação normativa não muda: um momento oferecido para consulta continua momento no índice, sem inflar os 81 estados.
+As famílias T07/06 e T13/30–37 também ficam paradas pela coluna. A classificação normativa não muda: um momento oferecido para consulta continua momento no índice, sem inflar os 82 estados.
 
 A primeira consulta guarda o fluxo inteiro; trocar entre consultas conserva esse retorno. Toque, Esc e tempo não alteram o quadro. **Voltar ao fluxo** restaura o estado guardado; se não existe fluxo anterior, monta a entrada normal da tela. Links antigos dos 15 exemplos marcados como `consulta` abrem parados fora do print. Momentos normais continuam navegáveis; detalhes de família acessados por endereços antigos sem `consulta` conservam as limitações registradas no [palco](palco.md).
 
@@ -121,7 +121,7 @@ A CAN depende do ativo e do bloco Ativo já conferido. No herói, são seis linh
 
 ## A cadeia (T09·1)
 
-Limpeza e cinco blocos são enviados e relidos em ordem: Ativo, Cercas, Leitor, Eventos e Conexão. A capacidade usa contadores e pontos de cerca; regiões organizam as cercas. Limpeza preserva os identificadores. O pacote não leva cartões, e o módulo não guarda versão do pacote. As falhas e a retomada são descritas na [T09](../02-telas/T09-configurar-modulo/tela.md).
+Concluída, a tela mostra o resultado primeiro: a caixa *Conferido no módulo · 6 passos* logo depois do título, e os seis passos inteiros embaixo (a lei R-14, o 29c). Se a Conexão conferir com a tela rolada, ela sobe sozinha até o topo; o *ainda não* do servidor abre embaixo, na falha. Limpeza e cinco blocos são enviados e relidos em ordem: Ativo, Cercas, Leitor, Eventos e Conexão. A capacidade usa contadores e pontos de cerca; regiões organizam as cercas. Limpeza preserva os identificadores. O pacote não leva cartões, e o módulo não guarda versão do pacote. As falhas e a retomada são descritas na [T09](../02-telas/T09-configurar-modulo/tela.md).
 
 ## A conferência (T11·1, T11·2)
 
@@ -135,6 +135,7 @@ O arrastado nunca é reenviado sozinho. Quem depende de quem é do mock (`M.depe
 
 - na lista da manutenção (T09/08), todo bloco se escolhe; o que tem dependente abre a **folha de confirmação** (13, 17, 18) antes de enviar; o Cancelar só fecha;
 - a curta reenvia só o bloco, e diz quem precisa ser reenviado depois (09); conferida, o app **pergunta por cada dependente, um por vez, na ordem do script** (10, 14, 15). O Reenviar de um só liga quando o de cima confere ou fica para depois; a pergunta é a confirmação, sem outra folha;
+- na pergunta, **Deixar para depois** vira *fica para depois* no lugar do link, com o Reenviar ao lado; o **Reenviar** de um dependente corre a curta dele e volta à mesma pergunta, com ele *confere · reenviado* (o 29c, T09/19 e 20);
 - **Deixar para depois** e sair da pergunta com algo por decidir gravam `etapas.manutencao.faltaReenviar` (`{ bloco, por }`, na ordem do script). A T09 mostra *falta reenviar* na lista (16), a T11 mostra *revisar em seguida* (05), e a Seção D da T13 também (43), com o **Finalizar desligado** e a causa *Falta reenviar o leitor e os eventos.* Reenviar o bloco tira ele da lista;
 - na manutenção, a T09 abre na lista mesmo com a cadeia gravada; só uma cadeia de instalação pela metade retoma.
 

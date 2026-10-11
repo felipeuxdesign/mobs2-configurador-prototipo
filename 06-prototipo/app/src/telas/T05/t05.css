@@ -29,9 +29,9 @@
 /* C7 · T05/03 · a legenda solta embaixo do vazio da busca: quanto durou e qual tentativa */
 .t05-legenda { flex-shrink: 0; font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-apagada); }
 
-/* o mundo real · T05/16 e 17 · sem a legenda embaixo, o bloco desce até o rodapé:
- * o miolo não tem a folga de baixo, como as referências desenham */
-.t05 .t05-miolo-celular { padding-bottom: 0; }
+/* o mundo real · T05/16 e 17 · o 29c (a lei Folga até o rodapé): a caixa continua grande — é a área
+ * da lista, onde os módulos vão aparecer (R-15) —, mas para 16 antes do rodapé, com a folga do miolo,
+ * e não encosta mais no traço dele (antes ela descia até o rodapé, sem a folga) */
 
 /* as esperas da conexão (a rodada 2 do retorno do PM, a 18 e a 19): a frase embaixo da lista é neutra,
    nunca falha — 12/500 em --tinta-secundaria, sem o recheio da legenda, a 4 + 8 do botão */

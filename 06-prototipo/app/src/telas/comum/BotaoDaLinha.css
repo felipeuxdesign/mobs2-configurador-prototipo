@@ -7,6 +7,10 @@
   transition: transform var(--mov-solta) var(--mov-curva);
 }
 .t-botao-linha:active:not(:disabled) { transform: scale(var(--escala-toque)); transition: none; }
+/* o 29c (o alvo mínimo do Material 3): o desenho fica com 30, 36 ou 40, e o toque cresce até 48 por
+ * uma camada sem desenho, centrada, só na altura — a área cabe sem bater em outro alvo (medido pelo arquiteto) */
+.t-botao-linha { position: relative; }
+.t-botao-linha::after { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: var(--alvo-min); transform: translateY(-50%); }
 .t-botao-linha:disabled { color: var(--tinta-apagada); }
 .t-botao-linha-resposta { flex: 1; height: var(--e-40); }
 .t-botao-linha-teste { flex-shrink: 0; height: var(--poco-30); padding: 0 var(--e-12); }

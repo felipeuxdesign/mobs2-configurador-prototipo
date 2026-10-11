@@ -98,3 +98,8 @@ Os textos exatos de cada referência estão em `textos.md`. Copie de lá — nun
 - **pareando** (a 18): só na primeira conexão com um VL06 · *Confirme no celular. É só na primeira vez com este módulo.* · o VL08 não precisa
 - **reconectando** (a 19): a conexão sem fio cai depois de cerca de 30 segundos parada · *A conexão caiu por ficar parada. O app reconecta sozinho.* · texto neutro, nunca falha
 - **no protótipo · a rodada 2:** a 18 e a 19 abrem pela coluna, paradas (os casos `pareando` e `reconectando`, no herói): o quadro do *Conectando*, com a frase da espera embaixo da lista, neutra (12/500 em `--tinta-secundaria`, a 4 + 8 do botão), e o primário que diz *Pareando com o …* ou *Reconectando ao …* · no fluxo, a conexão do herói não pareia nem cai · a T05/04 ainda diz *1 · Cabo e conector* no *O que conferir*: é o cabo de alimentação do módulo, e não o de programação — fica, e vai ao arquiteto
+
+## A folga até o rodapé (ajuste, 11/10)
+
+- **o Bluetooth desligado e o sem permissão** (a 16 e a 17): a caixa da lista para 16px antes do rodapé, como a lei pede · antes ela encostava no traço · a caixa continua grande: é a área da lista, onde os módulos vão aparecer
+- **no protótipo (construído, 11/10):** a 16 e a 17 ganharam a folga de baixo do miolo (16), que antes era zerada pra caixa descer até o rodapé · a caixa continua crescendo: é a área da lista

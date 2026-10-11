@@ -48,35 +48,48 @@ export default [
   { ve: 'usa os cartões que as cercas apagaram' },
   { ve: 'usam as cercas e o leitor · libera depois do leitor' },
   { desligado: 'Reenviar os eventos' },
-  // ── Deixar para depois: o leitor fica falta reenviar, e o Reenviar dos eventos acende no lugar ──
+  // ── o 29c · Deixar para depois (19): o link vira *fica para depois* no lugar, o Reenviar do leitor
+  // continua do lado, e o Reenviar dos eventos acende no lugar ──
   { toca: 'Deixar para depois: Leitor', anima: ACENDE },
-  { ve: 'falta reenviar' },
+  { ve: 'fica para depois' },
   { naoVe: 'libera depois do leitor' },
+  { naoToca: 'Deixar para depois: Leitor' },
+  // ── o técnico muda de ideia: Reenviar o leitor envia só o leitor (09), e a pergunta volta com ele
+  // *confere · reenviado* (20) — as ações dão lugar ao check, e os eventos seguem acesos ──
+  { toca: 'Reenviar o leitor' },
+  { chega: 'T09', momento: '09-momento-manutencao-reenviando' },
+  { ve: 'Reenviando só o leitor.' },
+  { chega: 'T09', momento: '20-momento-manutencao-leitor-confere-eventos-liberados', ms: 8000 },
+  { anima: ACENDE },
+  { ve: 'Cercas conferem. Dois blocos dependem delas.' },
+  { ve: 'confere\n· reenviado' },
+  { naoToca: 'Reenviar o leitor' },
   { toca: 'Deixar para depois: Eventos' },
+  { ve: 'fica para depois' },
   { toca: 'Voltar ao menu' },
   { chega: 'T04' },
   { toca: 'Entendi' },                                   // o aviso do acesso vencendo, na primeira chegada ao menu
   // ── o checklist: a Seção D com o revisar em seguida, e o Finalizar travado com a causa ──
   { toca: 'Finalizar com checklist' },
   { chega: 'T13' },
-  { ve: 'Falta reenviar o leitor e os eventos.', ms: 8000 },
+  { ve: 'Falta reenviar os eventos.', ms: 8000 },
   { desligado: 'Finalizar instalação' },
   { toca: 'D · Configuração' },
   { ve: 'revisar em seguida' },
   { ve: 'roda ao encerrar' },
-  // ── o Reenviar do leitor, pela Seção D: a lista com o que falta (16) e a folha do leitor (18) ──
-  { toca: 'Reenviar: Leitor' },
+  // ── o Reenviar dos eventos, pela Seção D: a lista com o que falta (16); o leitor, que tem dependente,
+  // ainda abre a folha dele (18) antes de enviar ──
+  { toca: 'Reenviar: Eventos' },
   { chega: 'T09', momento: '08-momento-manutencao-escolher-o-bloco' },
-  { ve: 'Falta reenviar o leitor e os eventos.' },
+  { ve: 'Falta reenviar os eventos.' },
+  { toca: 'Leitor' },
   { toca: 'Reenviar o leitor', anima: FOLHA_SOBE },
   { chega: 'T09', momento: '18-momento-manutencao-folha-do-leitor' },
   { ve: 'Reenviar o leitor pede reenviar os eventos depois.' },
   { dorme: 300 },
-  { toca: 'Reenviar o leitor' },
-  { chega: 'T09', momento: '15-momento-manutencao-o-leitor-pergunta-pelos-eventos', ms: 8000 },
-  { ve: 'Leitor confere. Um bloco depende dele.' },
-  { ve: 'usam o leitor' },
-  // a pergunta é a confirmação: os eventos vão direto, sem folha
+  { toca: 'Cancelar', anima: FOLHA_DESCE },
+  { toca: 'Eventos' },
+  // os eventos não têm dependente: sem folha
   { toca: 'Reenviar os eventos' },
   { chega: 'T09', momento: '09-momento-manutencao-reenviando' },
   { ve: 'Reenviando só os eventos.' },

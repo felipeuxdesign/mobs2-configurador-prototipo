@@ -115,7 +115,11 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 | escolhido com trava · T06 | a placa com o motivo embaixo | T06 |
 | cartão que pede ação | o erro que precisa dele | T15 |
 | o que conferir | as causas de uma falha, numeradas, antes de tentar de novo · nome da causa em negrito, o que conferir depois | T05 T13 |
-| botão secundário | fundo --elevado · a ação da linha | T15 |
+| botão secundário | fundo --elevado · a ação da linha · **36px** no cartão dos dependentes, **30px** dentro de uma linha (Reenviar, Corrigir este bloco) · desligado: fundo `#16131D`, borda `#241F33`, texto `#4E475E` · **a área de toque cresce até 48px sem aparecer**, como o Material 3 pede pro alvo mínimo | T09 T11 T13 T15 |
+| folha de confirmação | antes de reenviar um bloco que tem dependente · o título diz a consequência, o texto diz o que vai precisar ser reenviado depois · `Reenviar <o bloco>` e `Cancelar` | T09 T11 · desenhada na folha 9 |
+| cartão dos dependentes | depois de um bloco conferir, um item por dependente, na ordem do script: o número e o nome, o motivo, `Reenviar` e `Deixar para depois` · o `Reenviar` de quem depende de outro bloco só liga depois dele | T09 · desenhada na folha 9 |
+| estado da ação na linha | no lugar da ação que já foi decidida: *fica para depois* (a ação de reenviar continua ao lado) · ou o check e *confere · reenviado* | T09 · desenhada na folha 9 |
+| linha "revisar em seguida" | o bloco deixado para depois: o relógio, o nome, *revisar em seguida*, o motivo e o `Reenviar` · enquanto existir, o *Finalizar* fica desligado, com a causa | T11 T13 · desenhada na folha 9 |
 | lista com contagem | o pacote baixando | T03 T07 T09 T16 |
 
 ## Folha 7 · checklist evidencia · `referencias/png/folha-7-checklist-evidencia.png`
@@ -154,7 +158,7 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 
 Anotação de construção. A tabela de cima é a do design; esta diz, só nas linhas em que o protótipo mediu diferente, o que o código usa — a regra com as variantes nomeadas (G11) e as telas que usam, corrigidas pelo medido no ciclo de cada tela (G10). A diferença vai pro arquiteto.
 
-O catálogo normativo acima contém **106 peças**, contadas linha a linha nas oito tabelas. A vitrine do protótipo contém **114 espécimes comparáveis**: os estados, variantes e grupos de átomos são registrados separadamente para a bancada, e não representam 114 componentes independentes. As notas abaixo documentam as diferenças medidas e o histórico das variantes; o mapa de cada peça para o componente está em [MAPA.md](../06-prototipo/app/src/ds/MAPA.md). As contagens antigas de 107/119 pertencem aos ciclos anteriores e não são o censo atual.
+O catálogo normativo acima contém **110 peças**, contadas linha a linha nas nove tabelas (as quatro da folha 9 entraram na tabela da folha 6, como o catálogo do arquiteto). A vitrine do protótipo contém **114 espécimes comparáveis**: os estados, variantes e grupos de átomos são registrados separadamente para a bancada, e não representam 114 componentes independentes. As notas abaixo documentam as diferenças medidas e o histórico das variantes; o mapa de cada peça para o componente está em [MAPA.md](../06-prototipo/app/src/ds/MAPA.md). As contagens antigas de 107/119 pertencem aos ciclos anteriores e não são o censo atual.
 
 - **peça nova no protótipo:** a folha desenha, e o design ainda não tem linha
 - **em outra folha:** o espécime está desenhado nesta folha, e não na que o design diz
@@ -307,7 +311,7 @@ O catálogo normativo acima contém **106 peças**, contadas linha a linha nas o
 | o lugar | **o do desenho oficial** — a barra inteira escalada pra 360 e cortada em 30 (`viewBox="0 12.90 412 34.33"`) · nada recolocado à mão |
 | a cor | **o branco do desenho oficial**, sobre o fundo da tela |
 
-**As barras são fixas** (lei 22): em cima, a barra oficial do Android, do kit do Material — o 9:30, o Wi-Fi, o sinal e a bateria —, escalada pra 360 de largura e cortada na altura de 30; o espaço da câmera fica reservado, sem desenhar. Embaixo, a navegação por gestos do Material — a pílula de 94×3,5px a 9px do pé — nas 199 referências de tela da versão atual, por cima de tudo, inclusive das folhas. O fundo das duas é o da tela. No componente, nenhuma propriedade.
+**As barras são fixas** (lei 22): em cima, a barra oficial do Android, do kit do Material — o 9:30, o Wi-Fi, o sinal e a bateria —, escalada pra 360 de largura e cortada na altura de 30; o espaço da câmera fica reservado, sem desenhar. Embaixo, a navegação por gestos do Material — a pílula de 94×3,5px a 9px do pé — nas 201 referências de tela da versão atual, por cima de tudo, inclusive das folhas. O fundo das duas é o da tela. No componente, nenhuma propriedade.
 
 Nunca na fonte do app, e nunca com ícone de notificação, operadora ou porcentagem — cada detalhe a mais é um que envelhece.
 

@@ -23,6 +23,8 @@
 | `16-estado-manutencao-falta-reenviar` | estado | o técnico deixou o leitor e os eventos para depois · a lista mostra o que falta e o motivo | `falta-reenviar` |
 | `17-momento-manutencao-folha-do-ativo` | momento | *Reenviar o ativo*, antes de enviar: os eventos dependem dele | `modulo-ja-deste-ativo` |
 | `18-momento-manutencao-folha-do-leitor` | momento | *Reenviar o leitor*, antes de enviar: os eventos dependem dele | `modulo-ja-deste-ativo` |
+| `19-estado-manutencao-leitor-fica-para-depois` | estado | o técnico deixou o leitor para depois · o leitor mostra *fica para depois* e continua com o Reenviar · os eventos acendem | `cercas-reenviadas` |
+| `20-momento-manutencao-leitor-confere-eventos-liberados` | momento | o leitor reenviado confere · os eventos acendem | `cercas-reenviadas` |
 
 A regra de todo estado: **ele muda o conteúdo, nunca o desenho.** Os blocos ficam onde estão; muda o que eles dizem. A falha mora no elemento que falhou.
 

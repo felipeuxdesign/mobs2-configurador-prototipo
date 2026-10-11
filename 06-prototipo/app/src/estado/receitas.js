@@ -52,6 +52,7 @@ export const RECEITAS = {
   'T09/07-estado-pontos-de-cerca-demais': { casos: ['pool-esgotado'], dados: ['matrizCapacidades'], obs: 'o OYS-7D93 com o M2C-0348 do cadastro: As cercas têm 6.410 pontos. Este módulo guarda 6.143. (a rodada 1 do retorno do PM)' },
   'T09/12-estado-o-modulo-ainda-nao-falou-com-o-servidor': { casos: ['servidor-ainda-nao'], obs: 'a Conexão gravada e conferida, e o módulo ainda não falou com o servidor: o que conferir, chip, antena e endereço (a rodada 1 do retorno do PM)' },
   'T09/16-estado-manutencao-falta-reenviar': { casos: ['falta-reenviar'], obs: 'o herói numa manutenção: as cercas reenviadas, o leitor e os eventos deixados para depois — falta reenviar, com o motivo, e o Reenviar o leitor (o retorno do PM de 09/10)' },
+  'T09/19-estado-manutencao-leitor-fica-para-depois': { casos: ['cercas-reenviadas'], obs: 'o herói numa manutenção: as cercas conferidas, o leitor deixado para depois (fica para depois, o Reenviar continua do lado) e o Reenviar dos eventos aceso (o 29c)' },
   'T10/02-estado-rotacao-caminhao-coletor': { dados: ['calibracao.porModelo'] },
   'T10/03-estado-ja-semeado': { dados: ['calibracao.ultimas'] },
   'T10/04-estado-modulo-sem-pulsos': { casos: ['grandeza-indisponivel'], dados: ['calibracao.bruto'] },

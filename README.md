@@ -49,11 +49,11 @@ As folhas escurecem todo o fundo do app, incluindo a faixa de sessão e o fundo 
 
 ## Como foi construído
 
-Cada tela, momento e estado tem uma referência desenhada, em HTML e PNG — 199 ao todo. O protótipo foi construído contra elas e comparado pixel a pixel; toda diferença que sobrou tem um nome e um motivo registrados.
+Cada tela, momento e estado tem uma referência desenhada, em HTML e PNG — 201 ao todo. O protótipo foi construído contra elas e comparado pixel a pixel; toda diferença que sobrou tem um nome e um motivo registrados.
 
 O comportamento vem da ficha de cada tela, os textos do `textos.md` dela e as medidas dos tokens. O repositório contém 46 roteiros de navegação e um gate que confere os dados de exemplo. O caminho principal usa o ônibus sem calibração; o roteiro historicamente chamado `heroi-sem-horimetro` verifica a entrada no ciclo pelo checklist.
 
-A última rodada (o retorno do PM de 09/10, a ordem do script) rodou os 46 roteiros: 37 aprovados, entre eles o caminho principal (239 passos), a conferência, o checklist e o fluxo das cercas inteiro na manutenção (`reenvio`, 64 passos). Os 10 que param são roteiros antigos que ainda usam exemplos que agora abrem parados (T02, T10, T13/29), e param igual no commit anterior. [Gate da rodada](06-prototipo/para-o-arquiteto/gate-ordem-do-script.md). O estado das verificações e a ordem de uso estão em [Testes para o dev](08-para-o-dev/testes-prontos.md).
+A última rodada (o pacote 29c, 11/10) rodou os 46 roteiros: 36 aprovados, entre eles o caminho principal (239 passos), a configuração (`mov-t09`, 240), o checklist e o fluxo das cercas inteiro na manutenção, com o *Deixar para depois* (`reenvio`, 73 passos). Os 10 que param são roteiros antigos que ainda usam exemplos que agora abrem parados (T02, T10, T13/29), e param igual desde antes do pacote 29. [Gate da rodada](06-prototipo/para-o-arquiteto/gate-29c.md).
 
 O ajuste posterior do véu integral passou pelos roteiros de menu, folhas e conferência e pela comparação das 12 referências afetadas. O GIF acima foi regravado com o mesmo percurso, incluindo o aviso do menu com a barra de status escurecida. [Validação do ajuste](06-prototipo/para-o-arquiteto/gate-veu-integral.md).
 
@@ -61,14 +61,14 @@ O ajuste posterior do véu integral passou pelos roteiros de menu, folhas e conf
 
 | telas | momentos | estados | referências | histórias de usuário | casos de dados | decisões registradas |
 |---|---|---|---|---|---|---|
-| 15 | 103 | 81 | 199 | 109 | 63 | 54 |
+| 15 | 104 | 82 | 201 | 109 | 63 | 54 |
 
 ## O repositório
 
 ```
 01-produto/          por que existe, pra quem, as regras de negócio, as histórias e os fluxos
 02-telas/            uma pasta por tela: ficha, estados, animação, textos e as referências
-03-design-system/    tokens, leis, movimento, componentes e as oito folhas
+03-design-system/    tokens, leis, movimento, componentes e as nove folhas
 04-dados/            os dados de exemplo (o contrato de dados) e o gate que confere
 05-recursos/         a marca, a fonte, os ícones e os desenhos do sistema
 06-prototipo/        o protótipo navegável, o palco e as ferramentas de verificação
@@ -95,7 +95,7 @@ node scripts/caminho.mjs heroi
 node scripts/testar-consultas.mjs
 ```
 
-Para a comparação visual, com os fotógrafos nas escalas 2 e 1 (`npm run fotografo` e `npm run fotografo:1`, um terminal por processo), `node scripts/tela.mjs todas` compara as 199 referências. `node scripts/caminho.mjs todos` executa os 45 roteiros; consulte as limitações dos roteiros históricos em [Testes para o dev](08-para-o-dev/testes-prontos.md) antes de usar o lote como aceite.
+Para a comparação visual, com os fotógrafos nas escalas 2 e 1 (`npm run fotografo` e `npm run fotografo:1`, um terminal por processo), `node scripts/tela.mjs todas` compara as 201 referências. `node scripts/caminho.mjs todos` executa os 45 roteiros; consulte as limitações dos roteiros históricos em [Testes para o dev](08-para-o-dev/testes-prontos.md) antes de usar o lote como aceite.
 
 ## Propriedade e uso
 

@@ -32,6 +32,10 @@ export const REF = {
   faltaReenviar: '16-estado-manutencao-falta-reenviar',
   folhaAtivo: '17-momento-manutencao-folha-do-ativo',
   folhaLeitor: '18-momento-manutencao-folha-do-leitor',
+  // o 29c: o Deixar para depois acontecendo — o leitor fica para depois (19, estado) ou volta reenviado,
+  // conferido (20, momento); nos dois, o Reenviar dos eventos acende
+  leitorDepois: '19-estado-manutencao-leitor-fica-para-depois',
+  leitorReenviado: '20-momento-manutencao-leitor-confere-eventos-liberados',
 }
 // o quadro de cada momento da manutenção: a lista (com a folha aberta, 13, 17 e 18), a curta
 // correndo (09) e a curta conferida, com a pergunta (10, 14 e 15)
@@ -44,6 +48,8 @@ export const QUADRO_DA_MANUTENCAO = {
   [REF.reenviado]: { fase: 'curtaFeita', bloco: 'cercas' },
   [REF.ativoPergunta]: { fase: 'curtaFeita', bloco: 'ativo' },
   [REF.leitorPergunta]: { fase: 'curtaFeita', bloco: 'leitor' },
+  [REF.leitorDepois]: { fase: 'curtaFeita', bloco: 'cercas', decisoes: { leitor: 'depois' } },
+  [REF.leitorReenviado]: { fase: 'curtaFeita', bloco: 'cercas', decisoes: { leitor: 'reenviado' } },
 }
 export const MOMENTO_DA_FOLHA = { cercas: REF.folhaCercas, ativo: REF.folhaAtivo, leitor: REF.folhaLeitor }
 export const MOMENTO_DA_PERGUNTA = { cercas: REF.reenviado, ativo: REF.ativoPergunta, leitor: REF.leitorPergunta }

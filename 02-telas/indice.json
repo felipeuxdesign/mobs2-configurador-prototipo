@@ -1,6 +1,6 @@
 {
   "telas": 15,
-  "referencias": 199,
+  "referencias": 201,
   "itens": [
     {
       "id": "T01/00-tela",
@@ -1513,6 +1513,37 @@
       "coluna": true,
       "consulta": true,
       "rotulo": "Manutenção · confirmar o leitor",
+      "colunaNoFim": true
+    },
+    {
+      "id": "T09/19-estado-manutencao-leitor-fica-para-depois",
+      "tela": "T09",
+      "pasta": "T09-configurar-modulo",
+      "tipo": "estado",
+      "nome": "19-estado-manutencao-leitor-fica-para-depois",
+      "titulo": "T09 · o leitor fica para depois · o Reenviar dos eventos acende",
+      "como": "o técnico deixou o leitor para depois · o leitor mostra *fica para depois* e continua com o Reenviar · os eventos acendem",
+      "caso": "cercas-reenviadas",
+      "html": "02-telas/T09-configurar-modulo/referencias/html/19-estado-manutencao-leitor-fica-para-depois.html",
+      "png": "02-telas/T09-configurar-modulo/referencias/png/19-estado-manutencao-leitor-fica-para-depois.png",
+      "coluna": true,
+      "rotulo": "Leitor fica para depois",
+      "rotuloOrigem": "proposto"
+    },
+    {
+      "id": "T09/20-momento-manutencao-leitor-confere-eventos-liberados",
+      "tela": "T09",
+      "pasta": "T09-configurar-modulo",
+      "tipo": "momento",
+      "nome": "20-momento-manutencao-leitor-confere-eventos-liberados",
+      "titulo": "T09 · o leitor reenviado confere · o Reenviar dos eventos acende",
+      "como": "o leitor reenviado confere · os eventos acendem",
+      "caso": "cercas-reenviadas",
+      "html": "02-telas/T09-configurar-modulo/referencias/html/20-momento-manutencao-leitor-confere-eventos-liberados.html",
+      "png": "02-telas/T09-configurar-modulo/referencias/png/20-momento-manutencao-leitor-confere-eventos-liberados.png",
+      "coluna": true,
+      "consulta": true,
+      "rotulo": "Manutenção · o leitor confere",
       "colunaNoFim": true
     },
     {

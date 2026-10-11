@@ -36,7 +36,7 @@ Gate sem espera. Por cima do pacote 28 (o véu, ec6cab6) e do complemento 28b (o
 
 Nenhuma entrada viva do palco leva à manutenção (os exemplos são consultas paradas desde 07/10): o roteiro semeia o vínculo de manutenção que a T06 gravaria (`etapas.ativo.modo`) e segue só com toques. O passo `executa` entrou no `caminho.mjs` pra isso.
 
-**Roteiros:** a suíte inteira (`todos`): **37 aprovados**, entre eles `reenvio`, `mov-t09` (com a manutenção reescrita, viva), `mov-t11`, `conferencia`, `checklist`, `mov-t13`, `mov-t12`, `mov-check`, `recebido`, `heroi`, `heroi-sem-horimetro` e `readme`. **10 param — `empresa`, `mov-faixa`, `mov-listas`, `mov-porcima`, `mov-t02`, `mov-t03`, `recarregar`, `reler`, `teclado` e `voltar` — e todos param no mesmo passo no commit anterior (7491bb8)**: são entradas da T02, da T10 e da T13/29 que viraram consultas paradas em 07/10, fora deste pacote.
+**Roteiros:** a suíte inteira (`todos`): **36 aprovados** (o texto original dizia 37, um erro de conta: 36 + 10 = 46; corrigido no 29c), entre eles `reenvio`, `mov-t09` (com a manutenção reescrita, viva), `mov-t11`, `conferencia`, `checklist`, `mov-t13`, `mov-t12`, `mov-check`, `recebido`, `heroi`, `heroi-sem-horimetro` e `readme`. **10 param — `empresa`, `mov-faixa`, `mov-listas`, `mov-porcima`, `mov-t02`, `mov-t03`, `recarregar`, `reler`, `teclado` e `voltar` — e todos param no mesmo passo no commit anterior (7491bb8)**: são entradas da T02, da T10 e da T13/29 que viraram consultas paradas em 07/10, fora deste pacote.
 
 `npm run checar` aprovado (217 checagens do mock, tokens, estados com rótulo, higiene) · build aprovado · a vitrine contra a base de espécimes (abaixo).
 
