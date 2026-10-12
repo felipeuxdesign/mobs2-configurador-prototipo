@@ -6,3 +6,6 @@
   pointer-events: none;
 }
 .ds-navegacao-gestos > svg { display: block; width: 100%; height: auto; }
+
+/* o pacote 30 · R-19: no claro, a pílula de gestos na cor do texto, como o Android faz com app claro */
+[data-tema="claro"] .ds-navegacao-gestos [fill="white"] { fill: var(--tinta); }

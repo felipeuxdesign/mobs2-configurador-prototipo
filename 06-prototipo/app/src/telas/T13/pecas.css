@@ -18,7 +18,7 @@
 .t13-instrumento .ds-escala { width: 100%; }
 .t13-instrumento-legendas {
   width: 100%; display: flex; justify-content: space-between;
-  font-size: var(--t-legenda); font-weight: 600; color: var(--tinta-apagada);
+  font-size: var(--t-legenda); line-height: var(--entrelinha-apoio); font-weight: 600; color: var(--tinta-apagada);
 }
 .t13-instrumento-faixa { color: var(--lima); }
 .t13-instrumento-texto { text-align: center; }

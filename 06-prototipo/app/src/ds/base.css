@@ -13,7 +13,18 @@
 :where(.app, .vitrine) :where(button) { font: inherit; color: inherit; background: none; border: 0; padding: 0; margin: 0; }
 :where(.app, .vitrine) :where(p, h1, h2, h3, ul, ol) { margin: 0; padding: 0; }
 
-:where(.app) { height: 100%; position: relative; }
+:where(.app) { height: 100%; position: relative; background: var(--fundo-pagina); }
+
+/* a troca do tema (pacote 30 · T04, movimento.md): o app inteiro troca as cores no lugar, em
+   --mov-lento, desacelerando — nada se move, só a cor · enquanto dura, toda cor transiciona; o
+   transform e a opacity continuam no tempo do interruptor (--mov-padrao), que se move junto ·
+   reduzir movimento: os dois são 0, e a troca é direta */
+.app[data-tema-trocando], .app[data-tema-trocando] *, .app[data-tema-trocando] *::before, .app[data-tema-trocando] *::after {
+  transition-property: background-color, color, border-color, fill, stroke, box-shadow, transform, opacity !important;
+  transition-duration: var(--mov-lento), var(--mov-lento), var(--mov-lento), var(--mov-lento), var(--mov-lento), var(--mov-lento), var(--mov-padrao), var(--mov-padrao) !important;
+  transition-timing-function: var(--mov-curva) !important;
+  transition-delay: 0ms !important;
+}
 
 /* o celular não mostra a barra de rolagem do navegador, em nenhuma tela: quem
    mostra a rolagem é o indicador do sistema (Rolagem), por cima do conteúdo (diretor, 24/09) */

@@ -8,11 +8,12 @@
 import { useEffect, useState } from 'react'
 import {
   BarraDoSistema, TopoDoMenu, TiraDeContexto, Faixa, GradeFerramentas, CartaoFerramenta,
-  Folha, CartaoDaConta, PrazoDaConta, BotaoDaFolha, Dialogo, Frase, Destaque,
+  Folha, CartaoDaConta, PrazoDaConta, BotaoDaFolha, Interruptor, Dialogo, Frase, Destaque,
   Aviso, Nota, Lista, LinhaGaragem, Link, PorCima, usePorCima,
 } from '../../ds/index.js'
 import { useEstado, estadoVazio } from '../../estado/estado.jsx'
 import { useVoltar } from '../../estado/voltar.js'
+import { useTema, definirTema } from '../../estado/tema.js'
 import { useEncerrar, ENCERRAR_SEM_HOMOLOGAR } from '../../estado/encerrar.jsx'
 import { EM_QUADRO } from '../../estado/quadro.js'
 import { SEMENTES } from '../../estado/sementes.js'
@@ -70,6 +71,7 @@ function sessaoDoEstado(sessao, est) {
 
 export default function T04({ momento, estado: est }) {
   const { estado: unico, despachar } = useEstado()
+  const { tema } = useTema()
   const [ajuste] = useState(() => ajusteDoMomento(momento, unico, est))
   const [aplicado, setAplicado] = useState(!ajuste)
   // o diálogo de trocar (o 09), no fluxo: pra qual unidade ({ uoId }), ou de empresa ({ empresa: true })
@@ -223,6 +225,9 @@ export default function T04({ momento, estado: est }) {
         <CartaoDaConta iniciais={sigla} nome={tecnico} detalhe={`${mundo.tecnico.usuario} · ${M.empresa.nome}`} />
         <PrazoDaConta rotulo="ACESSO VENCE EM" restam={restam} total={total} unidade="dias"
           resta={`RESTAM ${restam} DE ${total} DIAS`} legenda="Sincronize para renovar o acesso." />
+        {/* o pacote 30 · R-16: o Modo claro, entre o prazo e o Sair · desligado de fábrica, lembrado no
+            aparelho · o app troca as cores no lugar, com a folha ainda aberta (estado/tema.js) */}
+        <Interruptor rotulo="Modo claro" ligado={tema === 'claro'} aoTrocar={(l) => definirTema(l ? 'claro' : 'escuro')} />
         <BotaoDaFolha aoTocar={pedirSaida}>Sair da conta</BotaoDaFolha>
       </Folha>
     )

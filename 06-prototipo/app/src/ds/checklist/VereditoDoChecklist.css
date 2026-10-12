@@ -7,7 +7,7 @@
 }
 .ds-veredito-ck-texto { display: flex; flex-direction: column; gap: var(--e-2); min-width: 0; }
 .ds-veredito-ck-titulo { font-size: var(--t-link); font-weight: 700; color: var(--lima); }
-.ds-veredito-ck-relatorio { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-secundaria); }
+.ds-veredito-ck-relatorio { font-size: var(--t-legenda); line-height: var(--entrelinha-apoio); font-weight: 500; color: var(--tinta-secundaria); }
 /* nasce do toque no Finalizar: esmaece no lugar */
 .ds-veredito-ck-surge { animation: ds-veredito-ck-esmaece var(--mov-rapido) var(--mov-curva) backwards; }
 @keyframes ds-veredito-ck-esmaece { from { opacity: 0; } to { opacity: 1; } }

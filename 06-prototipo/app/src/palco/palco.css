@@ -47,7 +47,7 @@ body { background: var(--fundo-faixa); overflow: hidden; }
   height: calc(var(--palco-celular-altura) * var(--escala, 1)); overflow-y: auto;
   width: var(--palco-coluna); display: flex; flex-direction: column; justify-content: safe center; gap: var(--e-14); }
 .coluna-topo { flex-shrink: 0; height: var(--palco-topo-coluna); display: flex; align-items: center; }
-.coluna-no-fluxo { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-apagada); }
+.coluna-no-fluxo { font-size: var(--t-legenda); line-height: var(--entrelinha-apoio); font-weight: 500; color: var(--tinta-apagada); }
 .coluna-cabeca { display: flex; flex-direction: column; gap: var(--palco-cabeca-coluna-vao); }
 .coluna-tela { font-size: var(--t-secundario); font-weight: 600; color: var(--tinta-secundaria); }
 .coluna-voltar {
@@ -97,7 +97,7 @@ body { background: var(--fundo-faixa); overflow: hidden; }
 /* a tela aberta: o fundo do cartão e o traço claro à esquerda, sem lima (quadro 00 e 04); o pressionado sobe pra --elevado (movimento.md) */
 .painel-linha-aberta { background: var(--fundo-cartao); box-shadow: inset var(--traco-destaque) 0 0 var(--tinta); }
 .painel-linha:active { background: var(--elevado); }
-.painel-codigo { width: var(--palco-codigo); font-size: var(--t-legenda); font-weight: 700; color: var(--tinta-apagada); }
+.painel-codigo { width: var(--palco-codigo); font-size: var(--t-legenda); line-height: var(--entrelinha-apoio); font-weight: 700; color: var(--tinta-apagada); }
 .painel-nome { font-size: var(--t-corpo); font-weight: 500; color: var(--tinta-forte); }
 .painel-linha-aberta .painel-codigo { color: var(--tinta-secundaria); }
 .painel-linha-aberta .painel-nome { color: var(--tinta); font-weight: 700; }
@@ -128,7 +128,7 @@ body { background: var(--fundo-faixa); overflow: hidden; }
 /* 12 da linha do cabeçalho (decisão 17: nada encosta); embaixo, o recheio da lista e o do nome da parte já dão 16 até O CAMINHO.
    Nunca encolhe quando a lista não cabe e rola */
 .painel-voltar { flex-shrink: 0; margin: var(--e-12) var(--e-20) 0; }
-.painel-etiqueta { font-size: var(--t-legenda); color: var(--tinta-apagada); }
+.painel-etiqueta { font-size: var(--t-legenda); line-height: var(--entrelinha-apoio); color: var(--tinta-apagada); }
 .palco-pisca { animation: palco-pisca var(--mov-lento) var(--mov-curva) 1; }
 /* a rolagem do palco (diretor, 24/09): o painel e a coluna rolam com uma barra
    fina, nas cores do palco, sem trilho claro; no celular estreito, a rolagem

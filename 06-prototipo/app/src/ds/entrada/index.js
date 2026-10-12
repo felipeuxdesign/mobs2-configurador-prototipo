@@ -17,3 +17,4 @@ export { CartaoAcao } from './CartaoAcao.jsx'
 export { OQueConferir } from './OQueConferir.jsx'   // as causas de uma falha (folha 6 · o complemento do pacote 11 · T05/04, T13/09)
 export { BotaoSecundario } from './BotaoSecundario.jsx'
 export { LinhaContagem } from './LinhaContagem.jsx'
+export { Interruptor } from './Interruptor.jsx'   // a linha com o interruptor (folha 10 · o pacote 30 · T04/05, Modo claro)

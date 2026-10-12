@@ -1,5 +1,6 @@
 // Gera 03-design-system/tokens.json a partir do tokens.css, que é a norma (G3).
-// O JSON leva os valores do modo normal — o reduzir movimento fica só no CSS.
+// O JSON leva os valores do modo normal — o reduzir movimento fica só no CSS. O tema claro
+// (o bloco [data-tema="claro"], pacote 30) vai como extensão de cada cor: "mobs2.tema.claro".
 // Uso: npm run tokens            → escreve o JSON
 //      npm run tokens -- --checar → só confere (exit 1 se divergir)
 import { readFileSync, writeFileSync } from 'node:fs'
@@ -10,12 +11,21 @@ const raiz = resolve(dirname(fileURLToPath(import.meta.url)), '../../..')
 const cssPath = resolve(raiz, '03-design-system/tokens.css')
 const jsonPath = resolve(raiz, '03-design-system/tokens.json')
 
-export function tokensDoCss() {
-  const css = readFileSync(cssPath, 'utf8')
-  const root = css.slice(css.indexOf(':root'), css.indexOf('@media'))
+const semComentario = (s) => s.replace(/\/\*[\s\S]*?\*\//g, '')
+function bloco(css, seletor) {
+  const i = css.indexOf(seletor + ' {')
+  return i < 0 ? '' : css.slice(i, css.indexOf('}', i))
+}
+function declaracoes(trecho) {
   const out = {}
-  for (const m of root.matchAll(/--([a-z0-9-]+)\s*:\s*([^;]+);/g)) out[m[1]] = m[2].trim()
+  for (const m of trecho.matchAll(/--([a-z0-9-]+)\s*:\s*([^;]+);/g)) out[m[1]] = m[2].trim()
   return out
+}
+export function tokensDoCss() {
+  return declaracoes(bloco(semComentario(readFileSync(cssPath, 'utf8')), ':root'))
+}
+export function tokensDoClaro() {
+  return declaracoes(bloco(semComentario(readFileSync(cssPath, 'utf8')), '[data-tema="claro"]'))
 }
 
 function tipo(nome, valor) {
@@ -30,8 +40,12 @@ function tipo(nome, valor) {
 
 export function jsonDoCss() {
   const t = tokensDoCss()
+  const claro = tokensDoClaro()
   const o = {}
-  for (const [k, v] of Object.entries(t)) o[k] = { $type: tipo(k, v), $value: v }
+  for (const [k, v] of Object.entries(t)) {
+    o[k] = { $type: tipo(k, v), $value: v }
+    if (k in claro) o[k].$extensions = { 'mobs2.tema.claro': claro[k] }
+  }
   return JSON.stringify(o, null, 1) + '\n'
 }
 

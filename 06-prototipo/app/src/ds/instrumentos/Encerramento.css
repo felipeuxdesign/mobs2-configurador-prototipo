@@ -10,7 +10,7 @@
 .ds-encerramento-nome { font-size: var(--t-passo); font-weight: 600; color: var(--tinta); }
 .ds-encerramento-legenda {
   font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-secundaria);
-  line-height: var(--entrelinha-legenda); padding-bottom: var(--e-12);
+  line-height: var(--entrelinha-apoio); padding-bottom: var(--e-12);
 }
 .ds-encerramento-situacao { flex-shrink: 0; font-size: var(--t-secundario); font-weight: 700; color: var(--tinta-secundaria); }
 /* a legenda que passa ao passo que corre, na frente de quem olha (C12·9): esmaece no

@@ -6,7 +6,7 @@
 .vitrine-moldura-chrome .vitrine-ml-controles { padding: 0 var(--e-16) var(--e-16); }
 .vitrine-ml-controles { display: flex; flex-wrap: wrap; gap: var(--e-8); }
 .vitrine-ml-botao {
-  font: inherit; font-size: var(--t-legenda); font-weight: 600; color: var(--tinta-secundaria);
+  font: inherit; font-size: var(--t-legenda); line-height: var(--entrelinha-apoio); font-weight: 600; color: var(--tinta-secundaria);
   background: none; border: var(--traco-borda) dashed var(--borda); border-radius: var(--raio);
   padding: var(--e-6) var(--e-10); outline: none;
 }

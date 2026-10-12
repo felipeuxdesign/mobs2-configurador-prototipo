@@ -27,7 +27,7 @@
 .t05-frase { flex-shrink: 0; font-size: var(--t-link); font-weight: 500; line-height: var(--entrelinha-texto); color: var(--tinta-secundaria); }
 
 /* C7 · T05/03 · a legenda solta embaixo do vazio da busca: quanto durou e qual tentativa */
-.t05-legenda { flex-shrink: 0; font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-apagada); }
+.t05-legenda { flex-shrink: 0; font-size: var(--t-legenda); line-height: var(--entrelinha-apoio); font-weight: 500; color: var(--tinta-apagada); }
 
 /* o mundo real · T05/16 e 17 · o 29c (a lei Folga até o rodapé): a caixa continua grande — é a área
  * da lista, onde os módulos vão aparecer (R-15) —, mas para 16 antes do rodapé, com a folga do miolo,

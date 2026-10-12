@@ -15,4 +15,4 @@
  * 14/600 --tinta e, embaixo, a 2, a linha do que marcar pede, em 12 --tinta-secundaria */
 .ds-checkbox-textos { display: flex; flex-direction: column; gap: var(--e-2); }
 .ds-checkbox-titulo { font-size: var(--t-corpo); font-weight: 600; color: var(--tinta); }
-.ds-checkbox-legenda { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-secundaria); }
+.ds-checkbox-legenda { font-size: var(--t-legenda); line-height: var(--entrelinha-apoio); font-weight: 500; color: var(--tinta-secundaria); }

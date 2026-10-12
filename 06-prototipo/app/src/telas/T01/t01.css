@@ -80,7 +80,7 @@
   color: var(--tinta); font-family: inherit; font-size: var(--t-botao); font-weight: 700;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-.t01-motivo { font-size: var(--t-legenda); font-weight: 600; color: var(--vermelho); }
+.t01-motivo { font-size: var(--t-legenda); line-height: var(--entrelinha-apoio); font-weight: 600; color: var(--vermelho); }
 .t01-texto-fixo { font-size: var(--t-secundario); font-weight: 500; color: var(--tinta-secundaria); }
 
 /* 22 · o seletor de país: a busca e os países, num cartão de opções */
@@ -95,7 +95,7 @@
 .t01-linha-pais-codigo { font-size: var(--t-corpo); font-weight: 700; color: var(--tinta-secundaria); }
 .t01-linha-pais-marca { width: var(--glifo-30); display: flex; justify-content: center; }
 
-.t01-legenda-dupla { flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding-bottom: var(--e-6); font-size: var(--t-legenda); }
+.t01-legenda-dupla { flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding-bottom: var(--e-6); font-size: var(--t-legenda); line-height: var(--entrelinha-apoio); }
 .t01-legenda-dupla-fato { font-weight: 500; color: var(--tinta-apagada); }
 .t01-legenda-dupla-resta { font-weight: 700; color: var(--tinta-secundaria); }
 
@@ -115,9 +115,9 @@
   line-height: var(--entrelinha-numero); color: var(--tinta);
 }
 .t01-cartao-codigo-numero-falha { color: var(--vermelho); }
-.t01-cartao-codigo-frase { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-apagada); }
+.t01-cartao-codigo-frase { font-size: var(--t-legenda); line-height: var(--entrelinha-apoio); font-weight: 500; color: var(--tinta-apagada); }
 /* a legenda do prazo e do reenvio: a linha fica mesmo sem texto (Lei 3) */
-.t01-legenda { flex-shrink: 0; min-height: 1lh; font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-apagada); }
+.t01-legenda { flex-shrink: 0; min-height: 1lh; font-size: var(--t-legenda); line-height: var(--entrelinha-apoio); font-weight: 500; color: var(--tinta-apagada); }
 
 /* 08 · o código conferido, o campo e os seis requisitos */
 .t01-conferido-lugar { flex-shrink: 0; display: flex; flex-direction: column; }

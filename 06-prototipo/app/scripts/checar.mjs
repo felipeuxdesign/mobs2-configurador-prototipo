@@ -82,6 +82,8 @@ for (const p of src) {
   if (/Math\.random|Date\.now|new Date\s*\(|performance\.now/.test(s)) achados.relogio.push(r)
   if (/toLocale\w*String|\bIntl\./.test(s)) achados.locale.push(r)
   if (/#[0-9a-fA-F]{3,8}\b/.test(s.replace(/href="#[^"]*"/g, '').replace(/['"]#[a-z-]+['"]/g, ''))) achados.hex.push(r)
+  // o pacote 30: a cor escrita direto não troca com o tema — rgb, rgba, hsl e hsla também (o palco-tokens é do palco, fora do app)
+  else if (!/palco-tokens\.css$/.test(p) && /\b(rgba?|hsla?)\(/.test(s)) achados.hex.push(r + ' (rgb/hsl)')
   if (/\.css$/.test(p) && !/(palco-tokens|tokens-propostos)\.css$/.test(p)) {
     const px = s.split('\n').filter(l => /\d+(\.\d+)?px/.test(l) && !/var\(--/.test(l))
     if (px.length) achados.px.push(r + ' (' + px.length + ')')
@@ -89,7 +91,7 @@ for (const p of src) {
 }
 chk('zero relógio e acaso em app/src (Math.random, Date.now, new Date, performance.now)', !achados.relogio.length, achados.relogio.join(', '))
 chk('zero locale em app/src (toLocaleString, Intl)', !achados.locale.length, achados.locale.join(', '))
-chk('zero cor solta em app/src (hex)', !achados.hex.length, achados.hex.join(', '))
+chk('zero cor solta em app/src (hex, rgb, rgba, hsl)', !achados.hex.length, achados.hex.join(', '))
 chk('zero px solto no CSS do app (fora do palco-tokens)', !achados.px.length, achados.px.join(', '))
 
 console.log(falhas ? '\nCHECAR REPROVADO — ' + falhas + ' falha(s)' : '\nCHECAR APROVADO')

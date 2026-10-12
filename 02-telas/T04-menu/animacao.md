@@ -9,6 +9,8 @@ Vale o `03-design-system/movimento.md`. Entre telas, só o conteúdo esmaece em 
 | contador da fila e do checklist | o número muda | troca no lugar, sem pular | — | — | igual |
 | folhas | tocar na unidade ou nas iniciais | o painel sobe de baixo e o véu esmaece; fechar desce | 200ms · fecha em 150ms | desacelera | aparece |
 | cartão liberado | o módulo conecta | o poço ganha cor e o texto de espera some | 150ms | esmaece | troca direta |
+| o interruptor do Modo claro | tocar na linha *Modo claro* | a bolinha desliza pro outro lado e cresce de 16 pra 24, e o trilho se enche de roxo · enquanto o dedo está em cima, a bolinha cresce pra 28 | 200ms | desacelera | troca direta |
+| a troca do tema | o interruptor muda | o app inteiro troca as cores dos tokens no lugar, com a folha ainda aberta — nada se move, só a cor | 300ms | desacelera | troca direta |
 
 - no protótipo · a linha *faixa de sessão*, pelo padrão aprovado (a resposta do arquiteto ao gate, 02/10, até a errata dele corrigir esta linha, a `logica.md` e a decisão 44): a sessão nasce na conexão, na T05, e a faixa desce na T07, quando as sete linhas passam sem trava — é o que as referências desenham. No menu, nada se move: ele já chega com a faixa, e o conteúdo não desce junto, porque o layout não se move (C12·24, o `CLAUDE.md`)
 

@@ -29,5 +29,12 @@
 /* a rodada 2 do retorno do PM: embaixo do nome, a faixa do modelo vem antes do que a linha informa
    (a 12: *faixa 9,0 a 32,0 V* e *dá pra seguir · o checklist registra*) */
 .t07 .ds-checagem-titulo { order: -2; }
-.t07 .ds-checagem-nota { order: -1; line-height: normal; }
+.t07 .ds-checagem-nota { order: -1; line-height: var(--entrelinha-apoio); }   /* o pacote 30: o apoio de 12, com 16 (era normal) */
+/* o pacote 30 · a faixa e o que a linha informa são um apoio só, de duas linhas de 16, sem o vão de 2 do corpo
+   entre elas (a 12 desenha um texto com a quebra): a causa vem antes da nota no código, e sobe os 2 */
+.t07 .ds-checagem-causa:has(+ .ds-checagem-nota) { margin-top: calc(-1 * var(--e-2)); }
 .t07 .ds-checagem.ds-checagem-diagnostico.t07-linha-alta { height: auto; min-height: calc(var(--linha-dupla) + var(--e-4)); }
+/* o pacote 30 · a linha com a nota de uma linha só (a faixa, os satélites, as mensagens, o só informação):
+   1 entre o nome e a nota, como as referências desenham, com o apoio de 16 · a que tem a causa também (a 12)
+   e o Firmware fora da lista ficam com os 2 do corpo */
+.t07 .ds-checagem-corpo:has(> .ds-checagem-nota):not(:has(> .ds-checagem-causa + .ds-checagem-nota)) { gap: calc(var(--e-2) / 2); }

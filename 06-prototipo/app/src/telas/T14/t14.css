@@ -20,7 +20,7 @@
 .t14-respostas { padding: var(--e-2) 0 var(--e-10) 0; }
 .t14-explica {
   display: block; padding: 0 0 var(--e-8) calc(var(--poco-24) + var(--e-10));
-  font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-secundaria); line-height: var(--entrelinha-detalhe);
+  font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-secundaria); line-height: var(--entrelinha-apoio);
 }
 /* o cartão que não confere: o porquê embaixo em --tinta-secundaria (justifique no checklist), e o valor em vermelho */
 .t14 .t14-cartao-nao-confere .ds-checagem-causa { color: var(--tinta-secundaria); }

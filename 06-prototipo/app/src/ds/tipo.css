@@ -2,7 +2,7 @@
  * espaçamento de letra; o peso fica com a peça (DS-D9). */
 .t-rotulo-bloco { font-size: var(--t-rotulo-bloco); letter-spacing: var(--ls-rotulo-bloco); }
 .t-rotulo-topo  { font-size: var(--t-rotulo-topo); letter-spacing: var(--ls-rotulo-topo); }
-.t-legenda      { font-size: var(--t-legenda); }
+.t-legenda      { font-size: var(--t-legenda); line-height: var(--entrelinha-apoio); }
 .t-secundario   { font-size: var(--t-secundario); }
 .t-corpo        { font-size: var(--t-corpo); }
 .t-link         { font-size: var(--t-link); }
@@ -16,7 +16,7 @@
 .n-progresso    { font-size: var(--n-progresso); letter-spacing: var(--ls-n-progresso); }
 .n-destaque     { font-size: var(--n-destaque); letter-spacing: var(--ls-n-destaque); }
 .n-cronometro   { font-size: var(--n-cronometro); letter-spacing: var(--ls-n-cronometro); }
-.n-unidade-p    { font-size: var(--n-unidade-p); }
+.n-unidade-p    { font-size: var(--n-unidade-p); line-height: var(--entrelinha-apoio); }
 .n-unidade-g    { font-size: var(--n-unidade-g); }
 .peso-500 { font-weight: 500; } .peso-600 { font-weight: 600; } .peso-700 { font-weight: 700; }
 .tinta { color: var(--tinta); } .tinta-forte { color: var(--tinta-forte); }

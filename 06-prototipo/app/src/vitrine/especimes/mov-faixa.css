@@ -4,7 +4,7 @@
 .vitrine-mf-pilha { display: flex; flex-direction: column; gap: var(--e-12); }
 .vitrine-mf-controles { display: flex; flex-wrap: wrap; gap: var(--e-8); padding: var(--e-12) var(--e-16) 0; }
 .vitrine-mf-botao {
-  font: inherit; font-size: var(--t-legenda); font-weight: 600; color: var(--tinta-secundaria);
+  font: inherit; font-size: var(--t-legenda); line-height: var(--entrelinha-apoio); font-weight: 600; color: var(--tinta-secundaria);
   background: none; border: var(--traco-borda) dashed var(--borda); border-radius: var(--raio);
   padding: var(--e-6) var(--e-10); outline: none;
 }

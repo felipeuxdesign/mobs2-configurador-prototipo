@@ -12,4 +12,4 @@
 .ds-segmento-atual-feito { height: var(--segmento-atual); align-self: auto; background: var(--lima-feito); }
 /* o passo atual reprovado (T13/09): a altura do atual, em vermelho */
 .ds-segmento-atual-falha { height: var(--segmento-atual); align-self: auto; background: var(--vermelho); }
-.ds-segmentado-legenda { font-size: var(--t-legenda); font-weight: 600; color: var(--tinta-apagada); }
+.ds-segmentado-legenda { font-size: var(--t-legenda); line-height: var(--entrelinha-apoio); font-weight: 600; color: var(--tinta-apagada); }

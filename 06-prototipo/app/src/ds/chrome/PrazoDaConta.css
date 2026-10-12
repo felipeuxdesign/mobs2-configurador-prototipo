@@ -11,11 +11,14 @@
 .ds-prazo-conta-valor { font-size: var(--n-cartao); font-weight: 700; line-height: var(--entrelinha-numero); color: var(--tinta); }
 .ds-prazo-conta-unidade { padding-left: var(--e-4); font-size: var(--t-corpo); font-weight: 500; color: var(--tinta-secundaria); }
 
+/* o pacote 30 · a barra fecha como o poço, com as quatro bordas: as pontas marcam o 0 e o 7 */
 .ds-prazo-conta-barra {
   position: relative; height: var(--e-14); overflow: hidden;
   background: var(--poco);
   border-top: var(--traco-borda) solid var(--poco-fundo);
   border-bottom: var(--traco-borda) solid var(--borda-poco);
+  border-left: var(--traco-borda) solid var(--poco-lado);
+  border-right: var(--traco-borda) solid var(--poco-lado);
 }
 .ds-prazo-conta-resta {
   position: absolute; left: 0; top: 0; bottom: 0; width: var(--prazo-resta);
@@ -27,4 +30,4 @@
 
 .ds-prazo-conta-escala { display: flex; justify-content: space-between; font-size: var(--t-rotulo-topo); font-weight: 600; color: var(--tinta-apagada); }
 .ds-prazo-conta-escala-resta { color: var(--vermelho); }
-.ds-prazo-conta-legenda { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-secundaria); }
+.ds-prazo-conta-legenda { font-size: var(--t-legenda); line-height: var(--entrelinha-apoio); font-weight: 500; color: var(--tinta-secundaria); }

@@ -24,7 +24,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `05-momento-folha-conta`
 
-`GARAGEM VÁRZEA` · `RV` · `Conta` · `RV` · `Rafael Vieira` · `r.vieira · Viação Atlântico Sul` · `ACESSO VENCE EM` · `2` · `dias` · `0` · `RESTAM 2 DE 7 DIAS` · `7` · `Sincronize para renovar o acesso.` · `Sair da conta`
+`GARAGEM VÁRZEA` · `RV` · `Conta` · `RV` · `Rafael Vieira` · `r.vieira · Viação Atlântico Sul` · `ACESSO VENCE EM` · `2` · `dias` · `0` · `RESTAM 2 DE 7 DIAS` · `7` · `Sincronize para renovar o acesso.` · `Modo claro` · `Sair da conta`
 
 ## `06-momento-folha-conta-sair-com-sessao-aberta`
 

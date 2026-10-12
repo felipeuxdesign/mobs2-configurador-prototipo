@@ -11,7 +11,7 @@
 .ds-checagem-sem-divisoria { border-bottom: 0; }
 .ds-checagem-corpo { flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--e-2); }
 .ds-checagem-titulo { font-size: var(--t-corpo); font-weight: 500; color: var(--tinta-forte); }
-.ds-checagem-causa { font-size: var(--t-legenda); font-weight: 500; color: var(--vermelho); line-height: var(--entrelinha-detalhe); }
+.ds-checagem-causa { font-size: var(--t-legenda); font-weight: 500; color: var(--vermelho); line-height: var(--entrelinha-apoio); }
 .ds-checagem-valor { font-size: var(--t-secundario); font-weight: 700; color: var(--tinta-secundaria); flex-shrink: 0; }
 
 /* com a causa, a linha cresce: 6 em cima e embaixo, nunca menos de 38 */
@@ -83,8 +83,8 @@
  * o que o módulo tem em vermelho, o que o cadastro manda em --tinta-secundaria, a 3; a linha
  * cresce com 10 em cima e embaixo, e o corpo deixa a coluna de 74 do nome */
 .ds-checagem.ds-checagem-com-par { height: auto; padding: var(--e-10) 0; }
-.ds-checagem-com-par .ds-checagem-corpo { flex: 0 1 auto; width: auto; gap: var(--conferencia-par-folga); }
-.ds-checagem-par { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-secundaria); }
+.ds-checagem-com-par .ds-checagem-corpo { flex: 0 1 auto; width: auto; gap: var(--e-2); }   /* o pacote 30: 2 entre as linhas, como o título e a descrição da folha com opções (era o --conferencia-par-folga, 3, que fica com a pergunta da T09) */
+.ds-checagem-par { font-size: var(--t-legenda); line-height: var(--entrelinha-apoio); font-weight: 500; color: var(--tinta-secundaria); }
 .ds-checagem-par-modulo { color: var(--vermelho); }
 /* a entrega do checklist · T11/01 · o bloco que confere, com o valor em --tinta */
 .ds-checagem-conferencia.ds-checagem-valor-aceso .ds-checagem-valor { color: var(--tinta); }
@@ -112,7 +112,7 @@
  * teste do cartão, a última (T14/04) */
 .ds-checagem.ds-checagem-recheio-largo { padding: var(--e-8) 0; }
 .ds-checagem.ds-checagem-recheio-justo { padding: var(--e-4) 0; }
-.ds-checagem-recheio-largo .ds-checagem-causa, .ds-checagem-recheio-justo .ds-checagem-causa { line-height: normal; }
+.ds-checagem-recheio-largo .ds-checagem-causa, .ds-checagem-recheio-justo .ds-checagem-causa { line-height: var(--entrelinha-apoio); }   /* o pacote 30: o apoio de 12, com 16 (era normal) */
 /* C11 · T16 (G11) · a assertiva da sessão: o nome fica aceso em todo estado; o
  * veredito é do glifo e do valor. O 'ainda não' (na fila) leva o relógio e o valor
  * em --tinta-secundaria, e não apaga (T16/02 e 05) */
@@ -135,7 +135,7 @@
  * em vermelho — e o traço do indisponível em --marca-limite */
 .ds-checagem.ds-checagem-recebimento { gap: var(--e-10); height: auto; min-height: var(--linha-com-porque); padding: var(--e-8) 0; }
 .ds-checagem-recebimento .ds-checagem-titulo { font-weight: 600; color: var(--tinta); }
-.ds-checagem-porque { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-secundaria); }
+.ds-checagem-porque { font-size: var(--t-legenda); line-height: var(--entrelinha-apoio); font-weight: 500; color: var(--tinta-secundaria); }
 .ds-checagem-recebimento .ds-checagem-valor { color: var(--tinta); }
 .ds-checagem-recebimento.ds-checagem-indisponivel .ds-checagem-valor { color: var(--tinta-apagada); }
 .ds-checagem-recebimento.ds-checagem-pendente .ds-checagem-valor { color: var(--tinta-secundaria); }

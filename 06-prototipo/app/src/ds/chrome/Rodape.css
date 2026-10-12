@@ -22,7 +22,7 @@
 .ds-rodape.ds-rodape-com-link .ds-link.ds-rodape-link { height: var(--toque-desenho); margin: 0 0 calc(var(--link-recuo) * -1) 0; }
 .ds-rodape.ds-rodape-com-link .ds-link.ds-rodape-link::after { content: ''; position: absolute; left: 0; right: 0; top: 0; height: var(--alvo-min); }
 
-.ds-rodape-legenda { padding-bottom: var(--e-6); text-align: center; font-size: var(--t-legenda); font-weight: 600; color: var(--tinta-apagada); }
+.ds-rodape-legenda { padding-bottom: var(--e-6); text-align: center; font-size: var(--t-legenda); line-height: var(--entrelinha-apoio); font-weight: 600; color: var(--tinta-apagada); }
 /* a rodada 2 do retorno do PM: a legenda se afasta 4 do botão, no app inteiro — como as referências
    medem, 4 de margem por cima do vão do rodapé: a T05/01 e a T07/05 com 6 + 4 + 8, o checklist com 4 + 8 = 12 */
 .ds-rodape.ds-rodape-com-link .ds-rodape-legenda { margin-bottom: var(--e-4); }

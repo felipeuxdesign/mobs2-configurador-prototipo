@@ -10,7 +10,7 @@
 .ds-item-ck.ds-item-ck-com-linhas, .ds-tocavel.ds-item-ck.ds-item-ck-com-linhas { height: auto; min-height: var(--linha-padrao); padding: var(--e-6) 0; box-sizing: border-box; }
 .ds-item-ck-pilha { flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--e-2); }
 .ds-item-ck-pilha .ds-item-ck-nome { flex-grow: 0; }
-.ds-item-ck-linha { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-secundaria); }
+.ds-item-ck-linha { font-size: var(--t-legenda); line-height: var(--entrelinha-apoio); font-weight: 500; color: var(--tinta-secundaria); }
 .ds-item-ck-linha.ds-item-ck-linha-falha { color: var(--vermelho); }
 /* o retorno do PM de 09/10 (T13/43): o bloco deixado para depois — a 8 em cima e embaixo, e o *revisar em seguida* em --tinta */
 .ds-item-ck.ds-item-ck-com-linhas.ds-item-ck-revisar { padding: var(--e-8) 0; }
@@ -30,7 +30,7 @@
 /* o de tocar e o feito: o nome e a legenda empilhados, a 2 */
 .ds-item-ck-texto { flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--e-2); }
 .ds-item-ck-titulo { font-size: var(--t-corpo); font-weight: 600; color: var(--tinta); }
-.ds-item-ck-legenda { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-secundaria); }
+.ds-item-ck-legenda { font-size: var(--t-legenda); line-height: var(--entrelinha-apoio); font-weight: 500; color: var(--tinta-secundaria); }
 
 /* o glifo pelo dado: o que o técnico resolve em --tinta-secundaria, o que espera o servidor em --marca-limite */
 .ds-item-ck .ds-glifo.ds-item-ck-glifo-pendente { color: var(--tinta-secundaria); }

@@ -12,4 +12,4 @@
 .ds-cabecalho-com-subtitulo { display: flex; flex-direction: column; flex-shrink: 0; }
 .ds-cabecalho-folga-4 { gap: var(--e-4); }
 .ds-cabecalho-folga-6 { gap: var(--e-6); }
-.ds-cabecalho-subtitulo { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-apagada); }
+.ds-cabecalho-subtitulo { font-size: var(--t-legenda); line-height: var(--entrelinha-apoio); font-weight: 500; color: var(--tinta-apagada); }

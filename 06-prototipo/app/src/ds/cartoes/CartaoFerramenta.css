@@ -17,7 +17,7 @@
 .ds-ferramenta-topo { display: flex; align-items: flex-start; justify-content: space-between; }
 .ds-ferramenta-nome { display: flex; flex-direction: column; gap: var(--e-2); }
 .ds-ferramenta-titulo { font-size: var(--t-corpo); font-weight: 600; line-height: var(--entrelinha-cartao); color: var(--tinta); }
-.ds-ferramenta-causa { font-size: var(--t-legenda); font-weight: 600; color: var(--tinta-apagada); }
+.ds-ferramenta-causa { font-size: var(--t-legenda); line-height: var(--entrelinha-apoio); font-weight: 600; color: var(--tinta-apagada); }
 
 /* largo: o rótulo de topo e o valor */
 .ds-ferramenta-leitura { flex-grow: 1; display: flex; flex-direction: column; gap: var(--e-2); min-width: 0; }

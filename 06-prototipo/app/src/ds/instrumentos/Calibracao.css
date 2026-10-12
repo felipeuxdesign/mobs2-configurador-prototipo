@@ -2,7 +2,7 @@
 .ds-valor-poco { flex-shrink: 0; display: flex; align-items: center; justify-content: space-between; padding: var(--e-12) var(--e-14); }
 .ds-valor-poco-rotulo { font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--tinta-secundaria); }
 .ds-valor-poco-numero { font-size: var(--n-pequeno); font-weight: 700; letter-spacing: var(--ls-n-poco); }
-.ds-valor-poco-unidade { font-size: var(--n-unidade-p); font-weight: 500; color: var(--tinta-secundaria); padding-left: var(--e-4); }
+.ds-valor-poco-unidade { font-size: var(--n-unidade-p); line-height: var(--entrelinha-apoio); font-weight: 500; color: var(--tinta-secundaria); padding-left: var(--e-4); }
 .ds-valor-poco-apagado .ds-valor-poco-rotulo,
 .ds-valor-poco-apagado .ds-valor-poco-numero,
 .ds-valor-poco-apagado .ds-valor-poco-unidade { color: var(--tinta-apagada); }

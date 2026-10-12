@@ -19,3 +19,7 @@
 }
 .ds-barra-sistema-veu-folha::before { opacity: 1; transition-duration: var(--mov-padrao); }
 .ds-barra-sistema-veu-dialogo::before { opacity: 1; }
+
+/* o pacote 30 · R-19: no claro, a hora, o sinal, o Wi-Fi e a bateria na cor do texto, como o Android
+   faz com app claro · o desenho oficial vem em branco; só a cor dele troca, pelo token */
+[data-tema="claro"] .ds-barra-sistema path[fill="white"] { fill: var(--tinta); }

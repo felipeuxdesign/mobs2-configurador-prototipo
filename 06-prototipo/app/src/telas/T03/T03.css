@@ -28,7 +28,7 @@
 .t03-numero-unidade { padding-left: var(--e-6); font-size: var(--n-unidade-g); font-weight: 500; color: var(--tinta-secundaria); }
 .t03-numero-unidade-p { font-size: var(--n-unidade-progresso); }
 
-.t03-legendas { display: flex; justify-content: space-between; font-size: var(--t-legenda); font-weight: 600; color: var(--tinta-apagada); }
+.t03-legendas { display: flex; justify-content: space-between; font-size: var(--t-legenda); line-height: var(--entrelinha-apoio); font-weight: 600; color: var(--tinta-apagada); }
 
 /* a barra de idade do pacote: o poço sem os lados, o preenchido do tempo que
  * passou e o traço do limite, posicionados pela conta (--p, de 0 a 100) */
@@ -43,4 +43,4 @@
 .t03-idade-limite { position: absolute; top: 0; bottom: 0; left: calc(var(--p) * 1%); width: var(--traco-borda); background: var(--marca-limite); }
 
 /* a linha do pacote: a versão e o carimbo, solta embaixo do bloco */
-.t03-pacote { flex-shrink: 0; font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-apagada); }
+.t03-pacote { flex-shrink: 0; font-size: var(--t-legenda); line-height: var(--entrelinha-apoio); font-weight: 500; color: var(--tinta-apagada); }

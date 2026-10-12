@@ -1,7 +1,9 @@
 /* tokens.css — a fonte única de todo valor visual do App Configurador.
  * Derivado do design system (referencias/design-system/). Valor solto fora deste
  * arquivo é dívida: a auditoria procura hex, px e rgba fora daqui.
- * Dark-only. Barlow empacotada no app (os woff2 de 05-recursos/fontes), e a Google Sans recortada só na hora da barra de status (decisão 43) — nunca baixadas da internet. */
+ * Dois temas: o ESCURO é o padrão (:root) e o CLARO é escolha do técnico ([data-tema="claro"],
+ * na folha da Conta, lembrada no aparelho). Só as cores mudam de um tema pro outro — tipo,
+ * espaço e medidas são os mesmos. Barlow empacotada no app (os woff2 de 05-recursos/fontes), e a Google Sans recortada só na hora da barra de status (decisão 43) — nunca baixadas da internet. */
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -36,9 +38,10 @@
   --borda-neutra:      #3A3350;   /* caixa neutra */
 
   /* ── ação e veredito ────────────────────────────────── */
-  --lima:              #AAEF00;   /* veredito, escolhido, texto do primário — nunca enfeite */
+  --lima:              #AAEF00;   /* veredito e escolhido — nunca enfeite · o texto do botão principal tem token próprio, --texto-primario */
   --roxo:              #402070;   /* fundo do primário */
   --roxo-pressionado:  #4A2A80;   /* NOVO · validar no aparelho */
+  --texto-primario:    #AAEF00;   /* o texto do botão principal, sobre o roxo · lima no escuro, branco no claro */
   --vermelho:          #E06A5A;   /* falha */
 
   /* ── transparências com nome ────────────────────────── */
@@ -153,6 +156,7 @@
   --escala-surge: 0.8;   /* o que surge no lugar parte de 80% (o quadrado do checkbox, T01) */
   --entrelinha-texto: 1.4;    /* texto corrido de peça (o do checkbox, das linhas de opção) */
   --entrelinha-legenda: 1.45; /* legenda de 12px */
+  --entrelinha-apoio: 16px;   /* o texto de apoio de 12 — o apoio embaixo do título, a descrição, a legenda —, uma altura só no app inteiro, a do Material 3 pro texto pequeno (pacote 30, a lei do texto de apoio) · os rótulos em caixa alta, com espaçamento entre letras, ficam de fora */
 
   /* ── C2 · as peças das oito folhas (a revisão juntou as seis famílias; cada um com o papel e quem usa) ── */
 
@@ -323,7 +327,7 @@
   --t-preso: 18px;         /* a identidade do que a sessão prendeu, o serial ou a placa, no cartão da folha (T04/10, 11) · T04 (pecas.jsx, CartaoPreso) */
 
   /* ── a entrega do design de 24/09 · o olho riscado · e a última entrega (lei 21): todo ícone riscado ── */
-  --risco-corte: 4.6;         /* o corte por baixo do risco do ícone riscado, na cor do poço, que abre o fio escuro no desenho onde o risco passa: o olho da senha (T01/10, folha 6), o Wi-Fi do login sem conexão (T01/14), o Bluetooth da busca que não começa (T05/16, 17) e a câmera sem a permissão (T10/11) — em unidades do desenho de 24 (lei 21; era --olho-corte, só do olho) · Riscado */
+  --risco-corte: 4.6;         /* a largura do vão em volta do risco do ícone riscado — uma máscara que apaga o desenho onde o risco passa (lei 14, desde o 29c), sem pintar cor nenhuma, então vale no escuro e no claro: o olho da senha (T01/10, folha 6), o Wi-Fi do login sem conexão (T01/14), o Bluetooth da busca que não começa (T05/16, 17) e a câmera sem a permissão (T10/11) — em unidades do desenho de 24 (lei 21; era --olho-corte, só do olho) · Riscado */
 
   /* ── C10 · C11 · o que as telas T11, T13, T15 e T16 pediram (cada um com o papel e quem usa) ── */
   --linha-conferencia-fim: 72px; /* a última linha da lista de conferência, com a folga do pé do cartão: 22 a mais que as de 50 (T11/00–02, até o C11) · sem uso desde a entrega do checklist: a Conexão tem os 50 das outras */
@@ -348,10 +352,9 @@
   --visor-explicacao: 260px; /* a largura máxima da explicação embaixo da frase, no visor da câmera do app sem a permissão (T10/11: Sem a foto, a calibração não semeia.) · VisorCamera (semPermissao) */
 
   /* ── a entrega do checklist · o que as telas novas pediram (cada um com o papel e quem usa) ── */
-  --conferencia-par-folga: 3px; /* entre o nome do bloco e as duas linhas do par, no bloco que não bate (T11/00: no módulo · no cadastro) · LinhaChecagem (par) */
+  --conferencia-par-folga: 3px; /* entre o motivo e o resto do item, na pergunta pelos dependentes (T09/10) · era também o do par da T11/00, que o pacote 30 levou a 2 (--e-2) · T09 (t09-pergunta-item) */
   --secao-checklist: 58px;  /* o cartão de seção do checklist fechado, e a cabeça dele aberto; também o veredito do homologado (T13/00 a 14, folhas 4 e 7) · SecaoDoChecklist, VereditoDoChecklist */
   --barra-checklist: 6px;   /* a barra fina embaixo do título do checklist: o que já passou; o número fica no título (T13/00 a 14, folha 5) · BarraDoChecklist */
-  --lima-barra-checklist: rgba(170, 239, 0, 0.55); /* o lima do que já passou, na barra do checklist (T13/00 a 14, folha 5) · BarraDoChecklist */
 
   /* ── a otimização do design · o que o login de quem abre o app pediu (cada um com o papel e quem usa) ── */
   --traco-limpar: 2; /* o traço do xis de limpar do usuário lembrado, de 18 (T01/16, folha 6: stroke-width 2) — fora das classes da lei 14 · Icone (limpar), Campo (lembrado) */
@@ -365,6 +368,56 @@
   --folha-arraste-folga: 8px;   /* o quanto o dedo anda pra baixo na folha antes de o toque virar arraste — antes disso é toque, e a linha embaixo do dedo responde (o touch slop do Android, 8dp · proposta do protótipo, lei 20) · Folha */
   --folha-arraste-limite: 56px; /* o arraste que fecha a folha: soltando mais de 56 abaixo do lugar dela, ela fecha; antes disso, volta (o limiar de posição do ModalBottomSheet do Material 3, 56dp · proposta do protótipo, lei 20) · Folha */
   --linha-com-porque: 58px;     /* a linha de lista com a segunda linha de 12 embaixo do título — o porquê do critério —, 8 em cima e embaixo e o poço de 32: o que o servidor recebeu (T12/01, 04, 05) · LinhaChecagem (recebimento); a folha Outras ações (T11/03) usa a linha de opção de 72, como a T01 */
+
+  /* ── o pacote 30 · o modo claro (cada um com o papel e quem usa) ── */
+  --interruptor-largura: 52px;         /* o trilho do interruptor, o padrão do Material 3: 52 × 32 (a altura é o --poco-32) · Interruptor (folha 10, T04/05) */
+  --interruptor-desligado: 0.6667;     /* a bolinha desligada, 16 de 24: a bolinha tem 24 e encolhe por transform — o movimento só usa transform e opacity · Interruptor */
+  --interruptor-apertado: 1.1667;      /* a bolinha apertada, 28 de 24, enquanto o dedo está em cima · Interruptor */
+}
+
+/* ── o tema claro · só as cores ───────────────────────────────────────────
+ * Mesmos degraus de contraste do escuro (a inversão fiel) · no claro, o lima
+ * vira roxo — no veredito, no escolhido e nos preenchimentos — e o texto do
+ * botão principal fica branco · o vermelho escurece pra ler no branco · o véu
+ * continua preto a 32%. As barras do sistema (a hora, a pílula) ficam escuras.
+ * Os tokens que apontam pra outro token (--idade-preenchido, --rolagem-cor) se
+ * repetem aqui: um var() é resolvido onde o token é declarado, e no :root ele
+ * ficaria com a cor do escuro. */
+[data-tema="claro"] {
+  --fundo-pagina: #F3F1F7;
+  --fundo-faixa: #FFFFFF;
+  --fundo-cartao: #FFFFFF;
+  --fundo-apagado: #ECE9F2;
+  --poco: #E9E6F0;
+  --poco-fundo: #C9C3D8;
+  --borda-poco: #FFFFFF;
+  --borda: #DCD7E6;
+  --divisoria: #E6E2EE;
+  --separador: #D8D3E2;
+  --borda-rodape: #E2DEEA;
+  --poco-lado: #DAD5E4;
+  --elevado: #E7E3EF;
+  --tinta: #1A1625;
+  --tinta-forte: #3A3449;
+  --tinta-secundaria: #5A5370;
+  --tinta-apagada: #6E6683;
+  --marca-limite: #8A82A0;
+  --marca: #B3ACC4;
+  --marca-vazia: #A49BBE;
+  --borda-neutra: #CFC9DB;
+  --lima: #5B3A99;
+  --roxo: #402070;
+  --roxo-pressionado: #4A2A80;
+  --vermelho: #B5382A;
+  --lima-faixa: rgba(91, 58, 153, 0.14);
+  --lima-feito: rgba(91, 58, 153, 0.5);
+  --lima-borda: rgba(91, 58, 153, 0.6);
+  --vermelho-faixa: rgba(224, 106, 90, 0.18);
+  --vermelho-borda: rgba(224, 106, 90, 0.8);
+  --veu: rgba(6, 5, 10, 0.32);
+  --texto-primario: #FFFFFF;
+  --idade-preenchido: var(--borda-poco);
+  --rolagem-cor: var(--tinta-apagada);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -12,7 +12,7 @@
 .ds-cadeia-linha { display: flex; align-items: baseline; justify-content: space-between; gap: var(--e-10); }
 .ds-cadeia-nome { font-size: var(--t-destaque); font-weight: 600; color: var(--tinta); }
 .ds-cadeia-valor { font-size: var(--t-secundario); font-weight: 700; color: var(--tinta-secundaria); }
-.ds-cadeia-descricao { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-apagada); line-height: var(--entrelinha-detalhe); }
+.ds-cadeia-descricao { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-apagada); line-height: var(--entrelinha-apoio); }
 
 /* o pacote 5 · o valor aceso (`valorAceso`): o bloco relido no fim da cadeia curta (T09/10), em branco */
 .ds-cadeia-valor.ds-cadeia-valor-aceso { color: var(--tinta); }

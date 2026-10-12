@@ -177,10 +177,18 @@ Quando uma peça nova entrar, a linha entra aqui e no `componentes.md` no mesmo 
 
 Os espécimes da folha 9 estão na vitrine (src/vitrine/especimes/f9-manutencao.jsx), fora da bancada: a régua lê o rótulo de 1,4 com a moldura tracejada, e a folha 9 desenha o rótulo de 1,5 com a moldura sólida.
 
+## Folha 10 · o modo claro (o pacote 30)
+
+| Peça | Componente |
+|---|---|
+| interruptor | src/ds/entrada/Interruptor.jsx (a linha inteira é o botão, papel `switch` com `aria-checked`; o trilho de 52 × 32 e a bolinha de 24 que encolhe a 16 e cresce a 28 por transform; o roxo do trilho e a cor da bolinha ligada por opacity · T04/05, *Modo claro*) |
+| avatar da conta | src/ds/chrome/Avatar.jsx (o cartão redondo: `--fundo-cartao` e contorno `--borda`, 32 na tira e 52 na folha da Conta) |
+| o tema | src/estado/tema.js (a escolha, guardada no navegador) e o `data-tema` na raiz, em src/App.jsx · a troca de cor de 300 em src/ds/base.css · as barras do sistema na cor do texto, em BarraDoSistema.css e NavegacaoPorGestos.css |
+
 ## Peças internas, sem linha própria
 
 - chrome/CartaoDaConta.jsx, PrazoDaConta.jsx e BotaoDaFolha.jsx, o conteúdo da 'folha' da conta, T04/05
-- chrome/Avatar.jsx, na tira e no cartão da conta
+- chrome/Avatar.jsx, na tira e no cartão da conta (com linha própria na folha 10, desde o pacote 30)
 - chrome/Veu.jsx, o véu da folha e do diálogo (FechaPeloVeu: a folha que mora nele se registra, e o toque no véu a fecha · lei 20; troca e corte: na troca do PorCima, o véu fica aceso e parado, e onde ele cresce só o pedaço novo esmaece em --mov-rapido · C12·27, C12·43)
 - chrome/Troca.jsx, a troca, sem desenho próprio (C12): `RaizDaTroca` e `emToque` no App — entre telas, só o conteúdo (o miolo, o rodapé e o que está solto no fluxo) esmaece em --mov-rapido, e só num toque ou no voltar · C12·2, C12·3; `useTrocaDeQuadro(chave)` e `<TrocaDeQuadro chave>`, o mesmo esmaecer quando o quadro troca inteiro dentro da tela · C12·4 — o quadro que troca inteiro dá ao miolo e ao rodapé a chave dele, pra nascerem com ele, e o texto do primário não esmaecer de novo por dentro da troca (a T05; a T02, as empresas e as unidades, no fechamento da otimização 400); `useFimDaTroca()`, a espera do processo que só começa depois da troca (T07, T09, T11) · C12·35 · espécimes mov-troca e mov-troca-quadro
 - chrome/PorCima.jsx, a presença, sem desenho próprio (C12): `usePresenca` (uma coisa por cima: a folha ou o diálogo nascem fechados e abrem no mesmo quadro, e o que sai fica desenhado até acabar de sair) e `usePorCima` + `<PorCima>` (a folha e o diálogo que se revezam no mesmo véu, parado · C12·27, C12·43) — T01, T02, T04, T11, T13 e o Encerrar antes de terminar? de toda tela (src/estado/encerrar.jsx) · o src/telas/T01/presenca.js saiu · espécime mov-porcima (o `mov-registro-linha` e o `mov-registro-link` saíram com o pedido de correção, na rodada 1 do retorno do PM)

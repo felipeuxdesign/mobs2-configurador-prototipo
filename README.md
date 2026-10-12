@@ -47,28 +47,38 @@ No celular, o app ocupa a tela inteira.
 
 As folhas escurecem todo o fundo do app, incluindo a faixa de sessão e o fundo da barra de status, mantendo os ícones do Android legíveis. Os diálogos do menu usam a mesma cobertura, sem mudar de posição. [Registro do ajuste](06-prototipo/para-o-arquiteto/gate-veu-integral.md).
 
+## Os dois temas
+
+O app nasce **escuro**, e o **claro** é escolha do técnico: no menu, toque nas iniciais (o *RV*, no canto de cima), e na folha da Conta ligue o **Modo claro**. O app inteiro troca as cores no lugar, com a folha ainda aberta. O aparelho lembra da escolha — no protótipo, no armazenamento do navegador —, e na próxima vez o app já abre claro, inclusive no login. Pra voltar ao escuro, desligue a mesma linha.
+
+<p align="center">
+  <img src="05-recursos/readme/modo-claro.gif" alt="O modo claro no protótipo: o login e o menu no escuro, a folha da Conta com o Modo claro ligando e o app trocando as cores no lugar, e a volta pelas telas principais no claro: conectar, o diagnóstico, o vínculo, a configuração gravada, a CAN ao vivo e a sessão encerrada" width="330">
+</p>
+
+O claro não tem telas próprias: ele é o escuro invertido, degrau por degrau, com os mesmos contrastes, e nasce dos mesmos tokens — só as cores mudam (`03-design-system/tokens.css`, bloco `[data-tema="claro"]`). No claro, o lima vira roxo no veredito, no escolhido e nos preenchimentos, o texto do botão principal fica branco, as barras do sistema escurecem e o véu continua preto a 32%. A paleta está na folha 10 do design system, e as regras nas leis R-16 a R-19.
+
 ## Como foi construído
 
 Cada tela, momento e estado tem uma referência desenhada, em HTML e PNG — 201 ao todo. O protótipo foi construído contra elas e comparado pixel a pixel; toda diferença que sobrou tem um nome e um motivo registrados.
 
-O comportamento vem da ficha de cada tela, os textos do `textos.md` dela e as medidas dos tokens. O repositório contém 46 roteiros de navegação e um gate que confere os dados de exemplo. O caminho principal usa o ônibus sem calibração; o roteiro historicamente chamado `heroi-sem-horimetro` verifica a entrada no ciclo pelo checklist.
+O comportamento vem da ficha de cada tela, os textos do `textos.md` dela e as medidas dos tokens. O repositório contém 48 roteiros de navegação e um gate que confere os dados de exemplo. O caminho principal usa o ônibus sem calibração; o roteiro historicamente chamado `heroi-sem-horimetro` verifica a entrada no ciclo pelo checklist.
 
-A última rodada (o pacote 29c, 11/10) rodou os 46 roteiros: 36 aprovados, entre eles o caminho principal (239 passos), a configuração (`mov-t09`, 240), o checklist e o fluxo das cercas inteiro na manutenção, com o *Deixar para depois* (`reenvio`, 73 passos). Os 10 que param são roteiros antigos que ainda usam exemplos que agora abrem parados (T02, T10, T13/29), e param igual desde antes do pacote 29. [Gate da rodada](06-prototipo/para-o-arquiteto/gate-29c.md).
+A última rodada (o pacote 30, 12/10: o modo claro e as correções finas) rodou os 48 roteiros: 38 aprovados, entre eles o caminho principal (239 passos), a configuração (`mov-t09`, 240), o fluxo das cercas na manutenção (`reenvio`, 73) e o novo `claro` (424 passos): ele liga e desliga o Modo claro na folha da Conta, recarrega o app com o claro ligado e percorre as 201 referências no claro, conferindo as cores que o navegador calculou em cada elemento. Os 10 que param são roteiros antigos que ainda usam exemplos que agora abrem parados (T02, T10, T13/29), e param nos mesmos passos desde antes do pacote 29. [Gate da rodada](06-prototipo/para-o-arquiteto/gate-30.md).
 
-O ajuste posterior do véu integral passou pelos roteiros de menu, folhas e conferência e pela comparação das 12 referências afetadas. O GIF acima foi regravado com o mesmo percurso, incluindo o aviso do menu com a barra de status escurecida. [Validação do ajuste](06-prototipo/para-o-arquiteto/gate-veu-integral.md).
+O ajuste posterior do véu integral passou pelos roteiros de menu, folhas e conferência e pela comparação das 12 referências afetadas. O GIF do topo foi regravado no pacote 30 com o mesmo percurso — o caminho feliz —, pela altura de linha nova do texto de apoio, e o do modo claro foi gravado nele. [Validação do ajuste](06-prototipo/para-o-arquiteto/gate-veu-integral.md).
 
 **As tecnologias:** o protótipo é um app web em **React 18** com **Vite**, em JavaScript, sem biblioteca de componentes de fora: as peças são as do design system, construídas no próprio projeto, com os valores dos tokens em CSS. Os ícones são do **Lucide**, e a fonte é a **Barlow**. A comparação com as referências roda no **Chrome** sem tela, com o **pixelmatch** medindo a diferença pixel a pixel. Ele é publicado na **Vercel**.
 
-| telas | momentos | estados | referências | histórias de usuário | casos de dados | decisões registradas |
-|---|---|---|---|---|---|---|
-| 15 | 104 | 82 | 201 | 109 | 63 | 54 |
+| telas | momentos | estados | referências | folhas do design system | temas | histórias de usuário | casos de dados | decisões registradas |
+|---|---|---|---|---|---|---|---|---|
+| 15 | 104 | 82 | 201 | 10 | 2 | 109 | 63 | 54 |
 
 ## O repositório
 
 ```
 01-produto/          por que existe, pra quem, as regras de negócio, as histórias e os fluxos
 02-telas/            uma pasta por tela: ficha, estados, animação, textos e as referências
-03-design-system/    tokens, leis, movimento, componentes e as nove folhas
+03-design-system/    tokens (os dois temas), leis, movimento, componentes e as dez folhas
 04-dados/            os dados de exemplo (o contrato de dados) e o gate que confere
 05-recursos/         a marca, a fonte, os ícones e os desenhos do sistema
 06-prototipo/        o protótipo navegável, o palco e as ferramentas de verificação

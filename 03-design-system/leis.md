@@ -46,6 +46,7 @@ Cada lei tem o porquê. Uma lei sem motivo vira gosto, e gosto se discute; lei c
 | **A barra do sistema sangra no primeiro andar** | a cor dela é a do que está logo embaixo; com uma folha ou um diálogo aberto, o fundo escurece junto com a tira, a faixa e o conteúdo; o desenho oficial da hora e dos ícones continua legível | a tela começa na borda, e o topo do app não parece disponível atrás da folha |
 | **O traço do rodapé** | dentro do app, um traço separa o rodapé fixo do conteúdo · **no login (T01), sem traço**: o botão é o fim do formulário | dentro do app o conteúdo pode rolar por trás das ações · no login nada rola, e o traço partiria o formulário |
 | **O link do rodapé tem 48 de toque** | 44px de desenho e 48 de área de toque, crescendo pra baixo, no espaço que já sobra até a borda · 8px entre o botão e o link | o mínimo do Material 3, sem mudar o desenho |
+| **O texto de apoio tem 16 de altura de linha** | todo texto de 12 — o apoio embaixo do título, a descrição, a legenda — com 16 de altura de linha, como o Material 3 pede pro texto pequeno · os rótulos em caixa alta, com espaçamento entre letras, ficam de fora | com uma altura só, o par título e apoio senta no mesmo lugar em toda linha, e o apoio que quebra em duas linhas continua com respiro |
 | **Folga até o rodapé** | 16px no mínimo, em toda tela | o conteúdo não pode encostar nas ações |
 | **O marcador de escolha é um só** | poço de 24 no checkbox e na coluna do palco, 30 na linha de lista · quadrado vazado de 11, com borda `#4A4166`, no desmarcado · lima cheio de 11 no marcado | quatro versões do mesmo marcador liam como quatro peças diferentes |
 | **A faixa da sessão é uma peça só** | 52px com a linha de baixo, em toda tela · nunca encolhe quando o conteúdo passa da tela · no módulo em falha, a linha é vermelha, de 2px, nos mesmos 52 | desenhada de três jeitos, ela mudava de tamanho de uma tela pra outra |
@@ -56,7 +57,7 @@ Cada lei tem o porquê. Uma lei sem motivo vira gosto, e gosto se discute; lei c
 
 | # | Lei |
 |---|---|
-| R-01 | **Só o tema escuro.** O claro é outro projeto, se um dia existir |
+| R-01 | **O tema escuro é o padrão.** O app nasce escuro; o claro é escolha do técnico, pelas R-16 a R-19 (o pacote 30, 12/10) · *era: só o tema escuro, o claro era outro projeto* |
 | R-02 | Nome, saída e estado normal **nunca são lima** |
 | R-03 ◆ | O título da tela **nunca vira a falha**. Exceção declarada: no código de recuperação (T01), o título diz *Código inválido ou vencido*, a mensagem única do retorno do PM |
 | R-04 | **Momento é etapa do fluxo; estado depende do mundo.** A coluna do palco oferece ambos como consultas paradas quando o índice os inclui; isso não muda o tipo normativo da referência |
@@ -73,5 +74,9 @@ Cada lei tem o porquê. Uma lei sem motivo vira gosto, e gosto se discute; lei c
 | R-15 | **O cartão de mensagem tem o tamanho do conteúdo.** Não estica até o rodapé pra preencher a tela — o vazio fica fora dele · **a exceção é o elemento principal da tela, que ocupa o espaço**: o visor da câmera, a leitura com a régua, a entrada do painel, e **a área da lista** — vazia, procurando ou bloqueada (T05), porque é ali que os itens vão aparecer, sem a tela pular |
 | R-14 ◆ | **Escolher numa lista marca; quem avança é o botão.** Tocar numa linha que tem o marcador de escolha (o quadrado) só marca — o quadrado lima surge — e acende o primário; é o primário que segue. Tocar em outra linha troca a marca. A linha com chevron (uma opção, uma consulta) age no toque. *Decisão do diretor, 24/09* |
 | R-15 ◆ | **O celular não mostra a barra de rolagem do navegador.** O que rola mostra o indicador do sistema: fino, por cima do conteúdo, sem ocupar lugar, enquanto rola, e some depois. *Decisão do diretor, 24/09* |
+| R-16 | **O app nasce escuro; o claro é escolha.** Uma linha *Modo claro* com interruptor, na folha da Conta · desligado de fábrica · o aparelho lembra da escolha, inclusive no login, antes de entrar |
+| R-17 | **O claro é o escuro invertido, degrau por degrau.** A mesma estrutura, os mesmos degraus de contraste · só as cores mudam, pelo bloco `[data-tema="claro"]` dos tokens |
+| R-18 | **No claro, o lima vira roxo.** O veredito, o escolhido e os preenchimentos — o *confere*, a bolinha de conectado, o progresso, a régua — em `#5B3A99` · o texto do botão principal fica branco · o lima não aparece no claro: como texto ele não lê no branco, e sozinho no botão ficaria solto |
+| R-19 | **No claro, as barras do sistema escurecem.** A hora, o sinal, a bateria e a pílula de gestos na cor do texto, como o Android faz com app claro · o véu continua preto a 32% |
 
 **No protótipo · R-05** · a sessão nasce na conexão, e **a faixa desce na T07**, quando as oito verificações do módulo passam sem trava; as mensagens no módulo só informam — é o que as referências desenham: a T07/00, 01 e 07 a 10 têm a faixa; as travas e o firmware, 02 a 06, não. Padrão aprovado pelo arquiteto no gate do pacote 1; a errata dele acerta a `logica.md`, a decisão 44 e a animação da T04.

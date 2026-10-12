@@ -2,6 +2,7 @@
 // Mostra a tela do estado único; num estado do palco, a tela montada pelo caso.
 import { useLayoutEffect, useRef } from 'react'
 import { useEstado } from './estado/estado.jsx'
+import { useTema } from './estado/tema.js'
 import { useTeclado } from './estado/teclado.js'
 import { EM_QUADRO } from './estado/quadro.js'
 import { Rolagem, RaizDaTroca, NavegacaoPorGestos, esmaecerConteudo, emToque, consumirResposta } from './ds/index.js'
@@ -12,6 +13,9 @@ export function App() {
   const { id, momento, estado: est } = estado.tela
   const Tela = telaDe(id)
   const raiz = useRef(null)
+  // o tema (pacote 30 · R-16): o escuro é o padrão; o claro, escolha do técnico na folha da Conta,
+  // lembrada no aparelho (estado/tema.js) — o data-tema na raiz troca os tokens, e só eles
+  const { tema, trocando } = useTema()
   // o teclado nunca esconde o que importa (regra 10): o app encolhe até o que sobra acima dele
   useTeclado(raiz)
   // a troca entre telas (C12·2, C12·3 · src/ds/chrome/Troca.jsx): quando um toque leva a
@@ -33,7 +37,8 @@ export function App() {
   // aqui, num lugar só: no pé do celular, em todas as telas, por cima de tudo, inclusive das folhas e dos véus
   return (
     <RaizDaTroca raiz={raiz} parada={EM_QUADRO}>
-      <div className="app" aria-label="App Configurador" ref={raiz}>
+      <div className="app" aria-label="App Configurador" ref={raiz}
+        data-tema={tema === 'claro' ? 'claro' : undefined} data-tema-trocando={trocando ? '' : undefined}>
         <Tela key={`${id}·${estado.geracao}`} momento={momento} estado={est} />
         <Rolagem raiz={raiz} />
         <NavegacaoPorGestos />

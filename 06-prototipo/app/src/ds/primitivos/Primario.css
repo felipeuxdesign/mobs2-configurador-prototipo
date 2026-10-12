@@ -1,7 +1,7 @@
 .ds-primario {
   position: relative; height: var(--alvo-primario); width: 100%; border-radius: var(--raio);
   display: flex; align-items: center; justify-content: center;
-  font-size: var(--t-botao); font-weight: 700; color: var(--lima);
+  font-size: var(--t-botao); font-weight: 700; color: var(--texto-primario);
   background: var(--roxo); overflow: hidden; touch-action: manipulation; user-select: none;
   transition: transform var(--mov-solta) var(--mov-curva);
 }

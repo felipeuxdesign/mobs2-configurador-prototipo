@@ -2,7 +2,7 @@
 
 Guia da versão de **08/10/2026**, conferido contra o código, o mock e as fichas das telas. Comportamento, textos e desenho continuam nas fontes normativas de [02-telas](../02-telas/README.md) e [03-design-system](../03-design-system/README.md). O [histórico até as consultas paradas](historico/logica-ate-consultas-paradas.md) preserva as anotações anteriores, incluindo regras já substituídas.
 
-Censo: **15 telas, 104 momentos, 82 estados e 201 pares HTML/PNG**. O produto tem 109 histórias, 295 tokens distintos, 110 peças normativas e 63 casos do mock. A vitrine tem 114 espécimes comparáveis; existem 45 roteiros, com a cobertura atual descrita em [testes-prontos.md](../08-para-o-dev/testes-prontos.md).
+Censo: **15 telas, 104 momentos, 82 estados e 201 pares HTML/PNG**. O produto tem 109 histórias, 299 tokens distintos, 112 peças normativas, 10 folhas e 63 casos do mock, em dois temas (o escuro, padrão; o claro, escolha do técnico). A vitrine tem 114 espécimes comparáveis; existem 48 roteiros, com a cobertura atual descrita em [testes-prontos.md](../08-para-o-dev/testes-prontos.md).
 
 ## O estado único
 

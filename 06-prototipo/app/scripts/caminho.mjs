@@ -432,12 +432,20 @@ const VV_DE_MENTIRA = `(() => {
   Object.defineProperty(window, 'visualViewport', { get: () => vv, configurable: true })
 })()`
 
-const rotulo = (p) => Object.entries(p).filter(([k]) => !['ms', 'anima', 'naoAnima', 'entre'].includes(k)).map(([k, v]) => `${k} ${typeof v === 'string' ? v : JSON.stringify(v)}`).join(' · ')
+// o passo com `rotulo` (o pacote 30: o executa longo da varredura de cor) aparece pelo rótulo
+const rotulo = (p) => p.rotulo ? `${Object.keys(p).find((k) => k !== 'rotulo')} · ${p.rotulo}` : Object.entries(p).filter(([k]) => !['ms', 'anima', 'naoAnima', 'entre'].includes(k)).map(([k, v]) => `${k} ${typeof v === 'string' ? v : JSON.stringify(v)}`).join(' · ')
 
 async function roda(nome) {
   const passos = (await import(pathToFileURL(resolve(app, `scripts/caminhos/${nome}.mjs`)).href)).default
   const { targetId } = await cdp('Target.createTarget', { url: 'about:blank', newWindow: true })
   const { sessionId: s } = await cdp('Target.attachToTarget', { targetId, flatten: true })
+  // o pacote 30: todo roteiro começa num aparelho que nunca escolheu o tema — o app nasce escuro (R-16)
+  // · o Modo claro mora no armazenamento do navegador, que o perfil da régua guarda de um roteiro pro outro
+  // (limpo de dentro do próprio endereço, antes do primeiro abre: o Storage.clearDataForOrigin dá erro interno neste Chrome)
+  { const ss = s
+    await cdp('Page.navigate', { url: BASE + 'favicon.ico' }, ss).catch(() => {})
+    await new Promise((r) => setTimeout(r, 300))
+    await cdp('Runtime.evaluate', { expression: 'try { localStorage.clear() } catch {}' }, ss).catch(() => {}) }
   await cdp('Page.enable', {}, s); await cdp('Runtime.enable', {}, s)
   await cdp('Emulation.setFocusEmulationEnabled', { enabled: true }, s)
   await cdp('Emulation.setDeviceMetricsOverride', { width: GW || W, height: GH || H, deviceScaleFactor: 1, mobile: false }, s)

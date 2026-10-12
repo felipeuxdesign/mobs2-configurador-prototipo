@@ -71,7 +71,7 @@ export function Vitrine() {
     const e = TODOS.find((x) => x.id === id)
     return <div className="vitrine vitrine-um" ref={ref}>{e ? <Moldura e={e} /> : <p>sem o espécime {id}</p>}</div>
   }
-  const folhas = [...new Set(TODOS.map((e) => e.folha))].sort()
+  const folhas = [...new Set(TODOS.map((e) => e.folha))].sort((a, b) => a - b)   // a 10 depois da 9
   return (
     <div className="vitrine" ref={ref}>
       {folhas.map((f) => (

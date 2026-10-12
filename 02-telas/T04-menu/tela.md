@@ -151,3 +151,10 @@ Os textos exatos de cada referência estão em `textos.md`. Copie de lá — nun
 - **na troca entre folha e diálogo, o fundo continua escuro**, sem clarão
 - **atrás de cada folha e diálogo, a tela de onde ele saiu**, escurecida pelo véu a 32%, o padrão do Material 3: o menu sem sessão atrás da conta, da troca de garagem e da troca de unidade (a 05, 07, 08 e 14); o menu com a sessão atrás das outras (a 06, 09, 10 e 11)
 - **no protótipo:** o menu já ficava desenhado atrás do véu (G25); só o `--veu` mudou
+
+## O Modo claro na folha da Conta (12/10)
+
+- **uma linha *Modo claro*, com interruptor**, entre o prazo do acesso e o *Sair da conta*, no mesmo estilo de bloco do *Sair* · desligado de fábrica: o app nasce escuro (lei R-16) · a linha inteira liga e desliga · o aparelho lembra da escolha, inclusive no login
+- **o avatar *RV* preenchido**, com o fundo e a borda de cartão, nas 17 telas · no claro, ele fica branco sobre a faixa lilás
+- **a barra do prazo do acesso com as laterais**, como a régua: as pontas marcam o 0 e o 7
+- **no protótipo:** a linha é a peça `Interruptor` (`src/ds/entrada/Interruptor.jsx`), e a escolha mora em `src/estado/tema.js`, guardada no armazenamento do navegador (`mobs2-configurador.tema`) · ligar põe `data-tema="claro"` na raiz do app (`App.jsx`); desligar tira · como o app lê a escolha ao abrir, o login já nasce no tema escolhido · as referências desta pasta continuam no escuro: o claro nasce delas, pelos tokens (R-17)

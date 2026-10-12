@@ -7,7 +7,7 @@
 .ds-prova-rotulo { font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--lima); }
 .ds-prova-versao { font-size: var(--n-prova-cadeia); font-weight: 700; letter-spacing: var(--ls-versao); color: var(--tinta); }
 .ds-prova-sessao .ds-prova-versao { font-size: var(--n-prova-sessao); }
-.ds-prova-legenda { font-size: var(--t-legenda); font-weight: 500; color: var(--tinta-apagada); }
+.ds-prova-legenda { font-size: var(--t-legenda); line-height: var(--entrelinha-apoio); font-weight: 500; color: var(--tinta-apagada); }
 
 /* ── C12 · o veredito que espera a prova (C12·35, C12·44) ── */
 /* só a legenda espera (T11/02): guarda o lugar, sem texto */

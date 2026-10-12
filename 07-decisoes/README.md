@@ -7,6 +7,7 @@ Cada decisão com o contexto, a escolha, o que foi descartado e a consequência.
 - **33 e 52 · calibração:** a foto saiu da T10 e fica na Montagem da T13, obrigatória quando houve calibração; o ônibus do percurso normal mostra *Nada a calibrar neste ativo*. A calibração do caminhão fica disponível como consulta parada no palco.
 - **54 · ciclo:** os seis passos descritos nessa decisão foram reduzidos a no máximo quatro: ignição ligada, rotação quando aplicável, cartão quando há leitor e ignição desligada. Ré e porta saíram. Velocidade ficou apenas como calibração opcional na T10 do modelo com tacógrafo; o bip é respondido na T13. O código do cartão é conferido pelo técnico contra o número impresso.
 - **Encerramento e homologação:** a T13 registra o checklist e aguarda autoteste; a homologação aparece só na T16. O encerramento continua com oito passos, e o autoteste atual tem sete assertivas e três contadores separados. O evento do cartão pode ficar pendente por até 24 h sem bloquear a homologação.
+- **02 · tema (revista em 12/10/2026, o pacote 30):** o escuro continua o padrão e o único desenhado; o claro entrou como escolha do técnico, na folha da Conta, e nasce do escuro trocando só as cores dos tokens (leis R-16 a R-19, folha 10 do design system).
 - **06 e 23 · palco:** todos os quadros escolhidos em *Estados desta tela* ficam parados. Os exemplos especiais acrescentados à coluna em 07/10 preservam os tipos e o censo do índice; *Voltar ao fluxo* restaura o percurso anterior. Essa regra substitui descrições antigas de cenários de demonstração interativos pela coluna.
 
 Para implementar a regra atual, comece por `08-para-o-dev/`, `01-produto/fluxos.md` e a ficha da tela. Para entender como ela foi decidida, consulte o registro abaixo.
@@ -14,7 +15,7 @@ Para implementar a regra atual, comece por `08-para-o-dev/`, `01-produto/fluxos.
 | # | Decisão |
 |---|---|
 | [01](01-evidencia-gerada.md) | A evidência é gerada, nunca digitada |
-| [02](02-so-escuro.md) | Só o tema escuro |
+| [02](02-so-escuro.md) | Só o tema escuro · *revista em 12/10: o claro é escolha, nascido dos tokens* |
 | [03](03-lima-veredito.md) | O lima marca só veredito e escolhido |
 | [04](04-falha-no-elemento.md) | A falha mora no elemento, o título fica |
 | [05](05-nada-se-remonta.md) | O estado muda o conteúdo, nunca o desenho |
