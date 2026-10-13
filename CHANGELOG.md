@@ -1,5 +1,10 @@
 # Registro de mudanças
 
+## 2026-10-13 · a linha embaixo da barra de status, no claro
+
+- **O que era** (o diretor, 13/10): com uma folha ou um diálogo aberto, aparecia um fio claro embaixo da barra de status, no palco, com o celular em escala. A barra escurece com um véu próprio, e o app com outro, que começa onde ela termina; em escala, as duas bordas caíam no meio do mesmo pixel físico, e nenhuma o cobria inteiro. No escuro a diferença quase não se via; no claro, sim (medido na gravação do palco: 185 no fio contra 165 em volta).
+- **A correção**, sem mudar nada que se vê: o véu do app passa 2px por baixo da barra, que é opaca e os cobre (`Veu.css`), e a barra vira uma camada própria (`will-change` em `BarraDoSistema.css`), pra o fundo e o véu dela se juntarem antes da borda · medido em três escalas do palco: o fio sumiu (165 a 168, dentro do arredondamento) · no escuro, as referências com folha e diálogo iguais à base, e os roteiros `folhas`, `mov-t04`, `sair`, `mov-t11`, `mov-t13`, `claro` e `palco-claro` aprovados.
+
 ## 2026-10-13 · pacote 32: o que sumia no claro
 
 - **O pacote do arquiteto:** 66 arquivos de referência (os pares de 32 telas, a T01/18, a T02/00, 01, 02, 06 e 09, a T03/02, a T04/01, 02, 05, 07, 08 e 14, a T05/00, 01, 02, 04, 06, 07, 18 e 19, a T07/01, 08, 09 e 10, a T09/01, 02 e 03, a T12/01, 04 e 05 e a T13/02 e 12, e da folha 10, com a tabela de contraste) entraram inteiros. O `tokens.css`, o `tokens.json`, as leis, o catálogo e o CHANGELOG vieram de cópias antigas: entraram só as linhas deste pacote (os cinco valores do claro, as três leis novas e o tracinho vazio no catálogo). A entrada do CHANGELOG do pacote (*o que sumia no claro*) está resumida aqui; ela diz `--marca` a `#8E91A0` num item e a `#A3A6B3` em outro: vale o `#8E91A0`, o do `tokens.css` e do prompt.
