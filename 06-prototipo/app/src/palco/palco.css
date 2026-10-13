@@ -103,7 +103,13 @@ body { background: var(--fundo-faixa); overflow: hidden; }
 .painel-linha-aberta .painel-nome { color: var(--tinta); font-weight: 700; }
 /* o pé: a borda, e a data da última atualização (o diretor, 04/10: no lugar do Recomeçar do login,
  * que saiu, e da etiqueta do canto do palco) */
-.painel-pe { flex-shrink: 0; display: flex; flex-direction: column; padding: var(--e-12) var(--e-20) var(--e-20); border-top: var(--traco-borda) solid var(--borda); }
+.painel-pe { flex-shrink: 0; display: flex; flex-direction: column; padding: var(--e-8) var(--e-20) var(--e-20); border-top: var(--traco-borda) solid var(--borda); }
+/* o pacote 31 · a linha Modo claro no pé: 44 de alto, o sol de 16 em --tinta-secundaria, o texto 14/600 em
+   --tinta-forte e o interruptor à direita · a data fica 8 embaixo dela */
+.painel .ds-interruptor.painel-modo-claro { height: var(--linha-padrao); }
+.painel-modo-claro .ds-interruptor-rotulo { font-size: var(--t-corpo); font-weight: 600; color: var(--tinta-forte); }
+.painel-sol { color: var(--tinta-secundaria); stroke-width: var(--palco-traco-sol); }
+.painel-modo-claro + .painel-etiqueta { margin-top: var(--e-8); }
 
 /* ?print=1 — só a tela do app, no canto: o que se compara com o PNG */
 .palco-print { background: var(--fundo-pagina); }

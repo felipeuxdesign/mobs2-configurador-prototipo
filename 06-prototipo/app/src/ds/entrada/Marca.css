@@ -1,9 +1,10 @@
 .ds-marca { display: flex; flex-direction: column; align-items: center; gap: var(--marca-folga); }
-.ds-marca-logo { display: block; width: var(--marca-largura); height: auto; aspect-ratio: var(--marca-proporcao); }
+.ds-marca-logo { display: block; width: var(--marca-largura); height: auto; aspect-ratio: var(--marca-proporcao); color: var(--logo); }   /* o pacote 31: a cor é a do token */
+.ds-marca-logo > svg { display: block; width: 100%; height: 100%; }
 /* a assinatura (a otimização do design): o nome tem a largura exata da logo, e os
  * dois fios crescem até as bordas dela */
 .ds-marca-nome { display: flex; align-items: center; gap: var(--e-10); width: var(--marca-largura); }
-.ds-marca-traco { display: block; flex-grow: 1; height: var(--traco-borda); background: var(--borda-poco); }
+.ds-marca-traco { display: block; flex-grow: 1; height: var(--traco-borda); background: var(--borda-neutra); }   /* o pacote 31: era a luz do poço, cor de outra peça, que sumia no claro */
 /* o espaço que o letter-spacing deixa depois do último R sai, e o rótulo fica no
  * centro do olho, entre os dois fios iguais */
 .ds-marca-texto {

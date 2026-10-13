@@ -2,7 +2,7 @@
 
 Guia da versão de **08/10/2026**, conferido contra o código, o mock e as fichas das telas. Comportamento, textos e desenho continuam nas fontes normativas de [02-telas](../02-telas/README.md) e [03-design-system](../03-design-system/README.md). O [histórico até as consultas paradas](historico/logica-ate-consultas-paradas.md) preserva as anotações anteriores, incluindo regras já substituídas.
 
-Censo: **15 telas, 104 momentos, 82 estados e 201 pares HTML/PNG**. O produto tem 109 histórias, 299 tokens distintos, 112 peças normativas, 10 folhas e 63 casos do mock, em dois temas (o escuro, padrão; o claro, escolha do técnico). A vitrine tem 114 espécimes comparáveis; existem 48 roteiros, com a cobertura atual descrita em [testes-prontos.md](../08-para-o-dev/testes-prontos.md).
+Censo: **15 telas, 104 momentos, 82 estados e 201 pares HTML/PNG**. O produto tem 109 histórias, 300 tokens distintos, 113 peças normativas, 10 folhas e 63 casos do mock, em dois temas (o escuro, padrão; o claro, neutro frio, escolha do técnico). A vitrine tem 114 espécimes comparáveis; existem 48 roteiros, com a cobertura atual descrita em [testes-prontos.md](../08-para-o-dev/testes-prontos.md).
 
 ## O estado único
 
@@ -194,3 +194,7 @@ Ações indisponíveis ficam desabilitadas de verdade e em tinta apagada. Permis
 ## O que é provisório
 
 Tempos fixos, permissões, rádio, servidor, fotos e envio são simulações. Valores de bancada ainda pendentes e perguntas reais estão em [o que o produto ainda decide](../08-para-o-dev/o-que-o-produto-ainda-decide.md). Os adaptadores necessários estão em [integrações](../08-para-o-dev/integracoes.md). O histórico explica como a versão chegou aqui; não substitui as regras vigentes.
+
+## O tema (pacotes 30 e 31)
+
+O app nasce escuro. O claro, neutro frio, é escolha do técnico: a linha *Modo claro* da folha da Conta (T04/05) e, no palco, a mesma linha no pé do painel — **um estado só** (`app/src/estado/tema.js`), guardado no armazenamento do navegador e lido quando o app abre, então o login já nasce no tema escolhido. Ligar põe `data-tema="claro"` na raiz do app (`App.jsx`) e troca só as cores, pelos tokens; o palco e a moldura do celular continuam escuros. A troca acontece no lugar, em 300ms, com a folha aberta; com reduzir movimento, é direta. Todo roteiro de `scripts/caminhos` começa com o armazenamento limpo: o app nasce escuro em cada um.

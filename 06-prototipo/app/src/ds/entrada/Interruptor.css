@@ -6,7 +6,9 @@
   border: var(--traco-borda) solid var(--borda); border-radius: var(--raio);
   touch-action: manipulation; user-select: none; text-align: left;
 }
-.ds-interruptor-rotulo { font-size: var(--t-link); font-weight: 600; color: var(--tinta); }
+.ds-interruptor-rotulo { display: flex; align-items: center; gap: var(--e-10); font-size: var(--t-link); font-weight: 600; color: var(--tinta); }
+/* o pacote 31 · a linha solta (o pé do painel do palco): sem o cartão — quem dá a altura e a letra é quem usa */
+.ds-interruptor.ds-interruptor-solto { height: auto; padding: 0; background: none; border: 0; border-radius: 0; }
 
 /* o trilho: 52 × 32, o contorno de 2 em --marca-limite sobre o --poco · o roxo do ligado é uma
    camada por cima, que cobre o contorno e entra por opacity */

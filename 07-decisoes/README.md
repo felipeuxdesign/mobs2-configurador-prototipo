@@ -2,7 +2,7 @@
 
 Cada decisão com o contexto, a escolha, o que foi descartado e a consequência. **Uma decisão que não é registrada volta a ser discutida.**
 
-**Como ler a vigência (08/10/2026):** os arquivos individuais preservam o contexto de cada decisão. Uma regra ou contagem de uma rodada anterior não supera a ficha atual de `02-telas/`, o mock e as revisões do PM de 06/10. Em especial:
+**Como ler a vigência (08/10/2026):** os arquivos individuais preservam o contexto de cada decisão. Uma regra ou contagem de uma rodada anterior não supera a ficha atual de `02-telas/`, o mock e as revisões de 06/10. Em especial:
 
 - **33 e 52 · calibração:** a foto saiu da T10 e fica na Montagem da T13, obrigatória quando houve calibração; o ônibus do percurso normal mostra *Nada a calibrar neste ativo*. A calibração do caminhão fica disponível como consulta parada no palco.
 - **54 · ciclo:** os seis passos descritos nessa decisão foram reduzidos a no máximo quatro: ignição ligada, rotação quando aplicável, cartão quando há leitor e ignição desligada. Ré e porta saíram. Velocidade ficou apenas como calibração opcional na T10 do modelo com tacógrafo; o bip é respondido na T13. O código do cartão é conferido pelo técnico contra o número impresso.

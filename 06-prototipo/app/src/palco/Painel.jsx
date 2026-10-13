@@ -1,10 +1,14 @@
 // O painel (palco.md, decisão 25, quadro 04): em duas partes — o caminho, na
 // ordem do fluxo, e as consultas —, e no pé a data da última atualização (o diretor,
-// 04/10: o Recomeçar do login saiu — tocar na T01 já zera o estado e abre o login).
+// 04/10: o Recomeçar do login saiu — tocar na T01 já zera o estado e abre o login) · em cima
+// dela, o pacote 31: a linha Modo claro, que troca só o celular de tema — o mesmo estado do
+// interruptor da folha da Conta (estado/tema.js), lembrado no aparelho.
 // Desliza da esquerda por cima de tudo; fecha no X, tocando fora ou com Esc.
 // No modo estreito ele leva também o Voltar ao fluxo, no topo.
 import { useEffect } from 'react'
-import { X, Undo2 } from 'lucide-react'
+import { X, Undo2, Sun } from 'lucide-react'
+import { Interruptor } from '../ds/index.js'
+import { useTema, definirTema } from '../estado/tema.js'
 import { NOMES, CAMINHO, CONSULTAS } from './telas.js'
 import { atualizadoEm } from './versao.js'
 
@@ -17,6 +21,7 @@ function Linha({ id, aberta, aoIr }) {
 }
 
 export function Painel({ aberto, tela, aoIr, aoFechar, estreito, numEstado, aoVoltar }) {
+  const { tema } = useTema()
   useEffect(() => {
     if (!aberto) return
     // o Esc do painel vem antes do Esc do app (a captura) e para aí: com o painel e uma folha
@@ -45,6 +50,9 @@ export function Painel({ aberto, tela, aoIr, aoFechar, estreito, numEstado, aoVo
           </div>
         </div>
         <div className="painel-pe">
+          <Interruptor solto className="painel-modo-claro" rotulo="Modo claro" ligado={tema === 'claro'}
+            icone={<Sun aria-hidden="true" className="palco-icone-16 painel-sol" />}
+            aoTrocar={(l) => definirTema(l ? 'claro' : 'escuro')} />
           <span className="painel-etiqueta">Atualizado em {atualizadoEm()}</span>
         </div>
       </nav>

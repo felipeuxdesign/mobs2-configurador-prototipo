@@ -95,7 +95,7 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 | Peça | Regra | Telas que usam |
 |---|---|---|
 | com contador | o contador conta o que passou · lima quando completo | T05 T06 T07 T09 T12 T13 T14 T15 T16 |
-| a marca no login | o logo e CONFIGURADOR entre dois traços | T01 |
+| a marca no login | o logo e CONFIGURADOR entre dois traços de 1px em `--borda-neutra` — no claro eles continuam aparecendo, com o mesmo peso discreto do escuro | T01 |
 | campo | rótulo em cima · poço de 48 | T01 |
 | campo focado | rótulo e traço de baixo em lima | T01 |
 | senha visível | o olho riscado esconde de novo · o nome muda pra Ocultar a senha | T01 |
@@ -115,6 +115,7 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 | escolhido com trava · T06 | a placa com o motivo embaixo | T06 |
 | cartão que pede ação | o erro que precisa dele | T15 |
 | o que conferir | as causas de uma falha, numeradas, antes de tentar de novo · nome da causa em negrito, o que conferir depois | T05 T13 |
+| logo | o desenho da marca em uma cor só, pintado pelo token `--logo` — lima no escuro, o roxo institucional `#402070` no claro · nunca com a cor gravada dentro do arquivo, senão ele não troca com o tema | T01 |
 | interruptor | o padrão do Material 3: trilho de 52 × 32 · desligado, contorno de 2px e bolinha de 16 a 8px da borda, os dois em `--marca-limite`, trilho em `--poco` · ligado, trilho `--roxo` cheio e bolinha de 24 em `--texto-primario`, a 4px da borda · a linha inteira liga e desliga, não só a bolinha | T04 · a folha da Conta, *Modo claro* · desenhado na folha 10 |
 | avatar da conta | círculo com as iniciais — 32 no topo, 52 na folha da Conta · fundo `--fundo-cartao` e contorno `--borda` — um cartão redondo, com o fundo e a borda de cartão, que inverte sozinho no claro · quem identifica o botão são as iniciais | T04 |
 | botão secundário | fundo --elevado · a ação da linha · **36px** no cartão dos dependentes, **30px** dentro de uma linha (Reenviar, Corrigir este bloco) · desligado: fundo `#16131D`, borda `#241F33`, texto `#4E475E` · **a área de toque cresce até 48px sem aparecer**, como o Material 3 pede pro alvo mínimo | T09 T11 T13 T15 |
@@ -160,7 +161,7 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 
 Anotação de construção. A tabela de cima é a do design; esta diz, só nas linhas em que o protótipo mediu diferente, o que o código usa — a regra com as variantes nomeadas (G11) e as telas que usam, corrigidas pelo medido no ciclo de cada tela (G10). A diferença vai pro arquiteto.
 
-O catálogo normativo acima contém **112 peças**, contadas linha a linha nas nove tabelas (as quatro da folha 9 entraram na tabela da folha 6, como o catálogo do arquiteto; o interruptor e o avatar da conta, do pacote 30, também). A vitrine do protótipo contém **114 espécimes comparáveis**: os estados, variantes e grupos de átomos são registrados separadamente para a bancada, e não representam 114 componentes independentes. As notas abaixo documentam as diferenças medidas e o histórico das variantes; o mapa de cada peça para o componente está em [MAPA.md](../06-prototipo/app/src/ds/MAPA.md). As contagens antigas de 107/119 pertencem aos ciclos anteriores e não são o censo atual.
+O catálogo normativo acima contém **113 peças**, contadas linha a linha nas nove tabelas (as quatro da folha 9 entraram na tabela da folha 6, como o catálogo do arquiteto; o interruptor e o avatar da conta, do pacote 30, e o logo, do 31, também). A vitrine do protótipo contém **114 espécimes comparáveis**: os estados, variantes e grupos de átomos são registrados separadamente para a bancada, e não representam 114 componentes independentes. As notas abaixo documentam as diferenças medidas e o histórico das variantes; o mapa de cada peça para o componente está em [MAPA.md](../06-prototipo/app/src/ds/MAPA.md). As contagens antigas de 107/119 pertencem aos ciclos anteriores e não são o censo atual.
 
 - **peça nova no protótipo:** a folha desenha, e o design ainda não tem linha
 - **em outra folha:** o espécime está desenhado nesta folha, e não na que o design diz
@@ -431,3 +432,10 @@ Os espécimes de movimento, tocáveis, ficam na vitrine, fora da bancada: `mov-t
 - **o relógio de 16** já era o do item do checklist (o poço de 26) e o das linhas da T07/11 e da T11/04 · **a linha de rechecagem** continua com o relógio de 18 do poço de 30, como a T15/04 desenha: a folha 7 passou a desenhá-lo com 16, e a tela que usa a peça, não (desvio nomeado).
 - **o segmento feito** da barra do checklist e o que resta da fila que drena (T14/01) em `--lima-feito` · saiu o `--lima-barra-checklist`.
 - **o claro** é o `data-tema="claro"` na raiz do app (`App.jsx`), com a escolha em `src/estado/tema.js` · os dois tokens que apontam pra outro (`--idade-preenchido`, `--rolagem-cor`) se repetem no bloco do claro, porque um `var()` se resolve onde o token é declarado · as barras do sistema trocam o branco do desenho oficial pela `--tinta` só no claro · a vitrine ganhou a folha 10, com o interruptor nos dois estados e o primário, o confere e o avatar no claro (fora da bancada, como os da folha 9).
+
+## No protótipo · o pacote 31 (o claro neutro frio, o logo e o palco)
+
+- **o logo** é o mesmo arquivo de `05-recursos/marca`, desenhado inline pela peça `Marca`: o preenchimento dele vira `currentColor`, e a cor é a do `--logo` · o arquivo continua com o lima gravado, porque as referências HTML o mostram como imagem; o app nunca usa essa cor.
+- **os traços do CONFIGURADOR** em `--borda-neutra` (eram a `--borda-poco`, a luz do poço).
+- **o interruptor no palco:** a mesma peça `Interruptor`, solta (`solto`, sem o cartão) e com o sol antes do rótulo (`icone`), no pé do painel · o mesmo estado da folha da Conta (`src/estado/tema.js`) · o palco é sempre escuro, e a bolinha ligada lá é a lima do `--texto-primario` do escuro.
+- **o claro neutro frio** entrou só pelos valores do bloco `[data-tema="claro"]`: nenhuma peça mudou por ele.

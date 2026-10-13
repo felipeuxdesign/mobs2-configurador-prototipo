@@ -1,4 +1,5 @@
-// O pacote 30 · o modo claro, de ponta a ponta (leis R-16 a R-19): o app nasce escuro; na folha da
+// O pacote 30 · o modo claro, de ponta a ponta — e o 31, o claro neutro frio: nenhum lilás do claro do 30,
+// o logo roxo pelo token, os traços do CONFIGURADOR visíveis, o poço com a borda de baixo cinza (leis R-16 a R-19): o app nasce escuro; na folha da
 // Conta, a linha *Modo claro* liga o claro — a bolinha desliza e cresce (200) e o app inteiro troca as
 // cores no lugar (300), com a folha aberta; desligar volta; recarregar com o claro ligado abre claro,
 // o login também. Depois, a volta por TODAS as referências das 15 telas no claro, e em cada uma a
@@ -18,13 +19,21 @@ const chave = (v) => v.startsWith('#')
   ? [1, 3, 5].map((i) => parseInt(v.slice(i, i + 2), 16)).join(',')
   : v.match(/\(([^)]*)\)/)[1].split(',').slice(0, 3).map((x) => +x).join(',')
 const doClaro = new Set(cores(bloco('[data-tema="claro"]')).map(([, v]) => chave(v)))
+// o valor de cada token no claro, como o navegador escreve (rgb(…) ou rgba(…), sem espaços) — o esperado sai dos tokens
+const CLARO = Object.fromEntries(cores(bloco('[data-tema="claro"]')))
+const rgb = (nome) => { const v = CLARO[nome]; return v.startsWith('#') ? `rgb(${chave(v)})` : v.replace(/\s/g, '') }
 // as cores do escuro que o claro não tem: se uma delas aparece no claro, ela não veio do token do tema
 const SO_DO_ESCURO = [...new Set(cores(bloco(':root')).map(([, v]) => chave(v)))].filter((k) => !doClaro.has(k))
+// o pacote 31: o claro do 30, o lilás — se uma dessas aparece, sobrou do claro de antes (a paleta é a de
+// 12/10, antes do neutro frio: o que o neutro frio repetiu, como o branco e o roxo, não entra)
+const DO_CLARO_30 = ['#F3F1F7', '#ECE9F2', '#E9E6F0', '#C9C3D8', '#DCD7E6', '#E6E2EE', '#D8D3E2', '#E2DEEA', '#DAD5E4', '#E7E3EF',
+  '#1A1625', '#3A3449', '#5A5370', '#6E6683', '#8A82A0', '#B3ACC4', '#A49BBE', '#CFC9DB'].map(chave).filter((k) => !doClaro.has(k))
 
 export const AUDITA = `
   const app = document.querySelector('.app'); if (!app) return 'sem o app'
   if (app.dataset.tema !== 'claro') return 'o app não está no claro'
   const ESCURO = new Set(${JSON.stringify(SO_DO_ESCURO)})
+  const LILAS = new Set(${JSON.stringify(DO_CLARO_30)})
   const rgb = (c) => { const m = c && c.match(/rgba?\\(([^)]+)\\)/); if (!m) return null
     const p = m[1].split(/[\\s,\\/]+/).filter(Boolean).map(Number); return { k: p.slice(0, 3).join(','), a: p[3] ?? 1 } }
   const BRANCOS = new Set(['255,255,255', '242,240,247'])
@@ -47,18 +56,24 @@ export const AUDITA = `
     for (const [n, v] of props) {
       const c = rgb(v); if (!c || c.a === 0) continue
       if (ESCURO.has(c.k)) ruins.push(n + ' ' + v + ' em ' + nome(el).slice(0, 60))
+      if (LILAS.has(c.k)) ruins.push(n + ' lilás do claro do 30 ' + v + ' em ' + nome(el).slice(0, 60))
       if ((n === 'texto' || ((n === 'fill' || n === 'stroke') && !el.closest('.ds-barra-sistema, .ds-navegacao-gestos'))) && BRANCOS.has(c.k) && !el.closest('.ds-primario'))
         ruins.push(n + ' branco ' + v + ' em ' + nome(el).slice(0, 60))
     }
   }
   const igual = (sel, prop, esperado, ps) => { const el = app.querySelector(sel); if (!el) return
     const v = getComputedStyle(el, ps)[prop]; if (v.replace(/\\s/g, '') !== esperado) ruins.push(sel + ' ' + prop + ' ' + v + ', esperava ' + esperado) }
-  igual('.ds-barra-sistema path[fill="white"]', 'fill', 'rgb(26,22,37)')
-  igual('.ds-navegacao-gestos [fill="white"]', 'fill', 'rgb(26,22,37)')
-  igual('.ds-veu', 'backgroundColor', 'rgba(6,5,10,0.32)')
-  igual('.ds-primario:not(.ds-primario-desabilitado)', 'backgroundColor', 'rgb(64,32,112)')
-  igual('.ds-primario:not(.ds-primario-desabilitado)', 'color', 'rgb(255,255,255)')
-  igual('.ds-glifo-cor-lima', 'color', 'rgb(91,58,153)')
+  igual('.ds-barra-sistema path[fill="white"]', 'fill', '${rgb('tinta')}')
+  igual('.ds-navegacao-gestos [fill="white"]', 'fill', '${rgb('tinta')}')
+  igual('.ds-veu', 'backgroundColor', '${rgb('veu')}')
+  igual('.ds-primario:not(.ds-primario-desabilitado)', 'backgroundColor', '${rgb('roxo')}')
+  igual('.ds-primario:not(.ds-primario-desabilitado)', 'color', '${rgb('texto-primario')}')
+  igual('.ds-glifo-cor-lima', 'color', '${rgb('lima')}')
+  // o pacote 31: o logo roxo pelo token, os traços do CONFIGURADOR na --borda-neutra, o poço com a luz de baixo cinza
+  igual('.ds-marca-logo', 'color', '${rgb('logo')}')
+  igual('.ds-marca-logo path', 'fill', '${rgb('logo')}')
+  igual('.ds-marca-traco', 'backgroundColor', '${rgb('borda-neutra')}')
+  igual('.ds-poco', 'borderBottomColor', '${rgb('borda-poco')}')
   return ruins.length ? [...new Set(ruins)].slice(0, 6).join(' · ') : true`
 
 const ESCURO_AGORA = `const a = document.querySelector('.app'); return a && !a.dataset.tema ? true : 'o app devia estar no escuro'`

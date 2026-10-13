@@ -2,7 +2,7 @@
 
 Esta pasta orienta a construção do App Configurador no produto. O [protótipo navegável](https://configurador-mobs2-prototipo.vercel.app) permite experimentar o uso; comportamento, textos, medidas e referências estão nas fontes deste repositório. A stack fica a cargo do time.
 
-Censo conferido em 12/10/2026: **15 telas · 201 referências** (15 entradas, 104 momentos e 82 estados) · **109 histórias · 299 tokens · 112 peças de design · 10 folhas · 54 decisões · 63 casos de mock** · **dois temas**: o escuro, padrão, e o claro, escolha do técnico na folha da Conta, nascido dos tokens (leis R-16 a R-19). A bancada do protótipo tem 114 espécimes, incluindo variantes. Os 48 roteiros existentes têm o estado de validação descrito em [testes-prontos.md](testes-prontos.md).
+Censo conferido em 12/10/2026 (o pacote 31): **15 telas · 201 referências** (15 entradas, 104 momentos e 82 estados) · **109 histórias · 300 tokens · 113 peças de design · 10 folhas · 54 decisões · 63 casos de mock** · **dois temas**: o escuro, padrão, e o claro, neutro frio, escolha do técnico na folha da Conta, nascido dos tokens (leis R-16 a R-19) · o logo pelo token `--logo`. A bancada do protótipo tem 114 espécimes, incluindo variantes. Os 48 roteiros existentes têm o estado de validação descrito em [testes-prontos.md](testes-prontos.md).
 
 ## Por onde começar, pela tarefa
 
@@ -11,7 +11,7 @@ Censo conferido em 12/10/2026: **15 telas · 201 referências** (15 entradas, 10
 | **entender o produto** | [história](../01-produto/historia.md) → [usuário](../01-produto/usuario.md) → [domínio](../01-produto/dominio.md) → [109 histórias](../01-produto/historias.md) → [fluxos](../01-produto/fluxos.md) |
 | **construir uma tela** | a pasta dela em [02-telas](../02-telas/) (`tela.md`, `estados.md`, `animacao.md`, `textos.md`) → cada HTML e PNG da tela → [componentes](../03-design-system/componentes.md) → [contrato de dados](contrato-de-dados.md) |
 | **montar o design system** | [tokens.css](../03-design-system/tokens.css) → [tokens.json](../03-design-system/tokens.json), gerado do CSS → [leis](../03-design-system/leis.md) → [componentes](../03-design-system/componentes.md) → [movimento](../03-design-system/movimento.md) → [oito folhas de referência](../03-design-system/referencias/) |
-| **integrar módulo, CAN e servidor** | [integrações](integracoes.md) → [mock](../04-dados/mocks.js) → [gate do contrato](../04-dados/gate-cobertura.js) |
+| **integrar módulo, CAN e servidor** | [integrações](integracoes.md) → [mock](../04-dados/mocks.js) → [checagem do contrato](../04-dados/gate-cobertura.js) |
 | **testar** | [testes prontos](testes-prontos.md) → [conferir contra o design](conferir-contra-o-design.md) |
 | **entender uma escolha** | [54 decisões](../07-decisoes/README.md), observando as notas de decisões revistas ou superadas |
 | **conferir o que falta decidir** | [pendências e decisões já resolvidas](o-que-o-produto-ainda-decide.md) |
@@ -26,7 +26,7 @@ Censo conferido em 12/10/2026: **15 telas · 201 referências** (15 entradas, 10
 - Regras e histórias: [domínio](../01-produto/dominio.md) e [histórias](../01-produto/historias.md).
 - Aparência: os 201 pares HTML/PNG listados no [índice](../02-telas/indice.json).
 
-Os documentos preservam o histórico das rodadas. Para implementar, observe as revisões do PM de 06/10 e as notas vigentes no início das fichas: seis passos antigos com ré e porta, calibração obrigatória no ônibus e comparação do cartão com cadastro foram substituídos. As regras atuais estão resumidas em [integrações](integracoes.md) e em [decisões já resolvidas](o-que-o-produto-ainda-decide.md#já-definido).
+Os documentos preservam o histórico das rodadas. Para implementar, observe as revisões de 06/10 e as notas vigentes no início das fichas: seis passos antigos com ré e porta, calibração obrigatória no ônibus e comparação do cartão com cadastro foram substituídos. As regras atuais estão resumidas em [integrações](integracoes.md) e em [decisões já resolvidas](o-que-o-produto-ainda-decide.md#já-definido).
 
 ## O que é só do protótipo
 
@@ -34,11 +34,11 @@ Os documentos preservam o histórico das rodadas. Para implementar, observe as r
 - Cadências simuladas de processos. No produto, leituras e respostas vêm das integrações reais.
 - Relógio do produto congelado em 14:30; o 9:30 da barra é arte do Android.
 - Barras do sistema desenhadas: o aparelho apresenta as suas, conforme a lei 22.
-- Palco, painel, moldura do celular, sementes, coluna de consultas e `Recomeçar do login`.
+- Palco, painel, moldura do celular, sementes, coluna de consultas, a linha *Modo claro* e a data de atualização no pé do painel.
 - Login com a senha de exemplo preenchida ao terminar a recuperação, para seguir a demonstração; não salva a nova senha.
 - Estado mantido em memória durante a navegação. O protótipo não implementa armazenamento durável nem envio real.
 
-No palco, o painel abre o contexto do caminho normal; exemplos especiais ficam em **Estados desta tela**, parados. Isso facilita a inspeção e não remove os estados que o produto precisa implementar quando a condição real acontecer. [Gate e validação dessa organização](../06-prototipo/para-o-arquiteto/gate-consultas-paradas.md).
+No palco, o painel abre o contexto do caminho normal; exemplos especiais ficam em **Estados desta tela**, parados. Isso facilita a inspeção e não remove os estados que o produto precisa implementar quando a condição real acontecer.
 
 ## A stack
 

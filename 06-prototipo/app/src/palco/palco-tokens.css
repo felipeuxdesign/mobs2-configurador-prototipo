@@ -26,6 +26,7 @@
   --palco-linha-coluna-longa: var(--poco-30);                  /* o pacote 23 · a coluna longa (a T13, 20 linhas), como a cena 05 desenha: com 32 ela passa do pé do celular */
   --palco-recuo-coluna: calc(var(--poco-24) + var(--e-10));    /* o pacote 23 · o recuo da família: o poço embaixo do nome de cima (24 + 10 = 34) */
   --palco-linha-painel: var(--poco-34);                        /* as do painel, 34 */
+  --palco-traco-sol: 2;                                        /* o sol da linha Modo claro, no pé do painel (o pacote 31, a cena 04: stroke-width 2) */
   --palco-botao-voltar: var(--poco-34);
   --palco-x: 36px;
   --palco-codigo: var(--e-28);                                 /* a coluna do código T01 no painel */

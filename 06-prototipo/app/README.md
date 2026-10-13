@@ -17,7 +17,6 @@ npm run preview    # http://localhost:4173
 
 ```bash
 npm run checar     # mock, tokens, receitas, regras locais e higiene do app
-npm run gate       # somente o contrato do mock
 npm run tokens     # gera tokens.json a partir do CSS normativo
 ```
 
@@ -30,7 +29,7 @@ node scripts/caminho.mjs familias
 node scripts/testar-consultas.mjs
 ```
 
-O último script verifica os 15 exemplos especiais parados, os retornos ao percurso guardado e as três entradas normais do painel. Ele usa o Chrome do fotógrafo na escala 2. Os resultados do último aceite de navegação estão no [gate de consultas](../para-o-arquiteto/gate-consultas-paradas.md).
+O último script verifica os 15 exemplos especiais parados, os retornos ao percurso guardado e as três entradas normais do painel. Ele usa o Chrome do fotógrafo na escala 2.
 
 Há 45 roteiros em `scripts/caminhos`. Alguns roteiros históricos ainda usam acessos sintéticos que foram substituídos por consultas paradas. Antes de usar `node scripts/caminho.mjs todos` como aceite, leia [testes-prontos.md](../../08-para-o-dev/testes-prontos.md); a última rodada não executou o lote inteiro.
 

@@ -1,7 +1,7 @@
 /* tokens.css — a fonte única de todo valor visual do App Configurador.
  * Derivado do design system (referencias/design-system/). Valor solto fora deste
  * arquivo é dívida: a auditoria procura hex, px e rgba fora daqui.
- * Dois temas: o ESCURO é o padrão (:root) e o CLARO é escolha do técnico ([data-tema="claro"],
+ * Dois temas: o ESCURO é o padrão (:root) e o CLARO, neutro frio, é escolha do técnico ([data-tema="claro"],
  * na folha da Conta, lembrada no aparelho). Só as cores mudam de um tema pro outro — tipo,
  * espaço e medidas são os mesmos. Barlow empacotada no app (os woff2 de 05-recursos/fontes), e a Google Sans recortada só na hora da barra de status (decisão 43) — nunca baixadas da internet. */
 
@@ -42,6 +42,7 @@
   --roxo:              #402070;   /* fundo do primário */
   --roxo-pressionado:  #4A2A80;   /* NOVO · validar no aparelho */
   --texto-primario:    #AAEF00;   /* o texto do botão principal, sobre o roxo · lima no escuro, branco no claro */
+  --logo:              #AAEF00;   /* a cor do logo · lima no escuro, o roxo institucional no claro (o pacote 31) · Marca, pelo desenho pintado */
   --vermelho:          #E06A5A;   /* falha */
 
   /* ── transparências com nome ────────────────────────── */
@@ -375,36 +376,39 @@
   --interruptor-apertado: 1.1667;      /* a bolinha apertada, 28 de 24, enquanto o dedo está em cima · Interruptor */
 }
 
-/* ── o tema claro · só as cores ───────────────────────────────────────────
- * Mesmos degraus de contraste do escuro (a inversão fiel) · no claro, o lima
- * vira roxo — no veredito, no escolhido e nos preenchimentos — e o texto do
- * botão principal fica branco · o vermelho escurece pra ler no branco · o véu
- * continua preto a 32%. As barras do sistema (a hora, a pílula) ficam escuras.
+/* ── o tema claro · NEUTRO FRIO · só as cores ───────────────────────────
+ * Cinzas com um fio de azul-violeta, no espírito da Linear: branco nos cartões,
+ * a página em #F7F7F9, bordas finas, texto #1F2023 · o tom frio conversa com o
+ * roxo, que fica nos ícones, no veredito, no botão e no logo · o lima não aparece
+ * no claro · o poço continua rebaixado: a sombra em cima (--poco-fundo), as
+ * laterais no meio e a luz embaixo (--borda-poco), em cinza, pra ainda aparecer
+ * no branco · o véu continua preto a 32% · as barras do sistema ficam escuras.
+ * A estrutura é a mesma do escuro: só as cores mudam.
  * Os tokens que apontam pra outro token (--idade-preenchido, --rolagem-cor) se
  * repetem aqui: um var() é resolvido onde o token é declarado, e no :root ele
  * ficaria com a cor do escuro. */
 [data-tema="claro"] {
-  --fundo-pagina: #F3F1F7;
+  --fundo-pagina: #F7F7F9;
   --fundo-faixa: #FFFFFF;
   --fundo-cartao: #FFFFFF;
-  --fundo-apagado: #ECE9F2;
-  --poco: #E9E6F0;
-  --poco-fundo: #C9C3D8;
-  --borda-poco: #FFFFFF;
-  --borda: #DCD7E6;
-  --divisoria: #E6E2EE;
-  --separador: #D8D3E2;
-  --borda-rodape: #E2DEEA;
-  --poco-lado: #DAD5E4;
-  --elevado: #E7E3EF;
-  --tinta: #1A1625;
-  --tinta-forte: #3A3449;
-  --tinta-secundaria: #5A5370;
-  --tinta-apagada: #6E6683;
-  --marca-limite: #8A82A0;
-  --marca: #B3ACC4;
-  --marca-vazia: #A49BBE;
-  --borda-neutra: #CFC9DB;
+  --fundo-apagado: #F1F1F4;
+  --poco: #F0F0F3;
+  --poco-fundo: #C6C7D0;
+  --borda-poco: #E6E7EC;
+  --borda: #E2E3E8;
+  --divisoria: #ECEDF1;
+  --separador: #E2E3E8;
+  --borda-rodape: #E2E3E8;
+  --poco-lado: #DADBE2;
+  --elevado: #F0F0F3;
+  --tinta: #1F2023;
+  --tinta-forte: #2F3037;
+  --tinta-secundaria: #4B4D57;
+  --tinta-apagada: #686B78;
+  --marca-limite: #82859A;
+  --marca: #C3C5CF;
+  --marca-vazia: #ADB0BD;
+  --borda-neutra: #C9CBD4;
   --lima: #5B3A99;
   --roxo: #402070;
   --roxo-pressionado: #4A2A80;
@@ -416,6 +420,7 @@
   --vermelho-borda: rgba(224, 106, 90, 0.8);
   --veu: rgba(6, 5, 10, 0.32);
   --texto-primario: #FFFFFF;
+  --logo: #402070;
   --idade-preenchido: var(--borda-poco);
   --rolagem-cor: var(--tinta-apagada);
 }
