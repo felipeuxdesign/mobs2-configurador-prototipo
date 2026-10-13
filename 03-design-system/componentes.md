@@ -118,6 +118,7 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 | logo | o desenho da marca em uma cor só, pintado pelo token `--logo` — lima no escuro, o roxo institucional `#402070` no claro · nunca com a cor gravada dentro do arquivo, senão ele não troca com o tema | T01 |
 | interruptor | o padrão do Material 3: trilho de 52 × 32 · desligado, contorno de 2px e bolinha de 16 a 8px da borda, os dois em `--marca-limite`, trilho em `--poco` · ligado, trilho `--roxo` cheio e bolinha de 24 em `--texto-primario`, a 4px da borda · a linha inteira liga e desliga, não só a bolinha | T04 · a folha da Conta, *Modo claro* · desenhado na folha 10 |
 | avatar da conta | círculo com as iniciais — 32 no topo, 52 na folha da Conta · fundo `--fundo-cartao` e contorno `--borda` — um cartão redondo, com o fundo e a borda de cartão, que inverte sozinho no claro · quem identifica o botão são as iniciais | T04 |
+| tracinho vazio | o traço de 10 × 1 no meio de um poço sem conteúdo — a garagem vencida, o cartão do menu que ainda espera módulo ou ativo, a linha sem valor · sempre `--marca-vazia`, nunca a luz do poço, que some no claro | T02 · T04 · T09 |
 | botão secundário | fundo --elevado · a ação da linha · **36px** no cartão dos dependentes, **30px** dentro de uma linha (Reenviar, Corrigir este bloco) · desligado: fundo `#16131D`, borda `#241F33`, texto `#4E475E` · **a área de toque cresce até 48px sem aparecer**, como o Material 3 pede pro alvo mínimo | T09 T11 T13 T15 |
 | folha de confirmação | antes de reenviar um bloco que tem dependente · o título diz a consequência, o texto diz o que vai precisar ser reenviado depois · `Reenviar <o bloco>` e `Cancelar` | T09 T11 · desenhada na folha 9 |
 | cartão dos dependentes | depois de um bloco conferir, um item por dependente, na ordem do script: o número e o nome, o motivo, `Reenviar` e `Deixar para depois` · o `Reenviar` de quem depende de outro bloco só liga depois dele | T09 · desenhada na folha 9 |
@@ -161,7 +162,7 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 
 Anotação de construção. A tabela de cima é a do design; esta diz, só nas linhas em que o protótipo mediu diferente, o que o código usa — a regra com as variantes nomeadas (G11) e as telas que usam, corrigidas pelo medido no ciclo de cada tela (G10). A diferença vai pro arquiteto.
 
-O catálogo normativo acima contém **113 peças**, contadas linha a linha nas nove tabelas (as quatro da folha 9 entraram na tabela da folha 6, como o catálogo do arquiteto; o interruptor e o avatar da conta, do pacote 30, e o logo, do 31, também). A vitrine do protótipo contém **114 espécimes comparáveis**: os estados, variantes e grupos de átomos são registrados separadamente para a bancada, e não representam 114 componentes independentes. As notas abaixo documentam as diferenças medidas e o histórico das variantes; o mapa de cada peça para o componente está em [MAPA.md](../06-prototipo/app/src/ds/MAPA.md). As contagens antigas de 107/119 pertencem aos ciclos anteriores e não são o censo atual.
+O catálogo normativo acima contém **114 peças**, contadas linha a linha nas nove tabelas (as quatro da folha 9 entraram na tabela da folha 6, como o catálogo do arquiteto; o interruptor e o avatar da conta, do pacote 30, o logo, do 31, e o tracinho vazio, do 32, também). A vitrine do protótipo contém **114 espécimes comparáveis**: os estados, variantes e grupos de átomos são registrados separadamente para a bancada, e não representam 114 componentes independentes. As notas abaixo documentam as diferenças medidas e o histórico das variantes; o mapa de cada peça para o componente está em [MAPA.md](../06-prototipo/app/src/ds/MAPA.md). As contagens antigas de 107/119 pertencem aos ciclos anteriores e não são o censo atual.
 
 - **peça nova no protótipo:** a folha desenha, e o design ainda não tem linha
 - **em outra folha:** o espécime está desenhado nesta folha, e não na que o design diz
@@ -439,3 +440,10 @@ Os espécimes de movimento, tocáveis, ficam na vitrine, fora da bancada: `mov-t
 - **os traços do CONFIGURADOR** em `--borda-neutra` (eram a `--borda-poco`, a luz do poço).
 - **o interruptor no palco:** a mesma peça `Interruptor`, solta (`solto`, sem o cartão) e com o sol antes do rótulo (`icone`), no pé do painel · o mesmo estado da folha da Conta (`src/estado/tema.js`) · o palco é sempre escuro, e a bolinha ligada lá é a lima do `--texto-primario` do escuro.
 - **o claro neutro frio** entrou só pelos valores do bloco `[data-tema="claro"]`: nenhuma peça mudou por ele.
+
+## No protótipo · o pacote 32 (o que sumia no claro)
+
+- **o tracinho vazio** é o glifo `traco` (`Glifo.jsx`) e o traço da escala vazia (`Escala.jsx`), os dois em `--marca-vazia` · o do recebimento da T12 continua no `--marca-limite`, como a referência.
+- **a faixa *Sem sessão de configuração*** no menu fecha nos 50, com um traço em cima e um embaixo · **a última linha** da lista da T05 e do *Conferido na conexão* da T07 sem divisória.
+- **o fio de cima da folha** ganhou o token do papel, `--folha-topo` (o diretor, 13/10: no claro, ele aparecia como uma linha cinza em cima da folha branca): no escuro, o mesmo `#332C49` de antes; no claro, a cor da folha.
+- **ainda com a cor de outra peça** (a luz do poço, `--borda-poco`), medidos e propostos, não corrigidos: o trilho da cadeia antes de começar, a borda do diálogo, a borda do botão da linha, o traço e a capa do aviso que espera, a borda da nota do achado, o traço da prova que se desenha, e o tracejado e a marca do vazio da T05.

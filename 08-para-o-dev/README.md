@@ -2,7 +2,7 @@
 
 Esta pasta orienta a construção do App Configurador no produto. O [protótipo navegável](https://configurador-mobs2-prototipo.vercel.app) permite experimentar o uso; comportamento, textos, medidas e referências estão nas fontes deste repositório. A stack fica a cargo do time.
 
-Censo conferido em 12/10/2026 (o pacote 31): **15 telas · 201 referências** (15 entradas, 104 momentos e 82 estados) · **109 histórias · 300 tokens · 113 peças de design · 10 folhas · 54 decisões · 63 casos de mock** · **dois temas**: o escuro, padrão, e o claro, neutro frio, escolha do técnico na folha da Conta, nascido dos tokens (leis R-16 a R-19) · o logo pelo token `--logo`. A bancada do protótipo tem 114 espécimes, incluindo variantes. Os 48 roteiros existentes têm o estado de validação descrito em [testes-prontos.md](testes-prontos.md).
+Censo conferido em 12/10/2026 (o pacote 31): **15 telas · 201 referências** (15 entradas, 104 momentos e 82 estados) · **109 histórias · 301 tokens · 114 peças de design · 10 folhas · 54 decisões · 63 casos de mock** · **dois temas**: o escuro, padrão, e o claro, neutro frio, escolha do técnico na folha da Conta, nascido dos tokens (leis R-16 a R-19) · o logo pelo token `--logo`. A bancada do protótipo tem 114 espécimes, incluindo variantes. Os 48 roteiros existentes têm o estado de validação descrito em [testes-prontos.md](testes-prontos.md).
 
 ## Por onde começar, pela tarefa
 

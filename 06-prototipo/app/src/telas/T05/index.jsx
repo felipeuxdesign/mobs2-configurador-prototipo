@@ -269,8 +269,9 @@ export default function T05({ momento, estado: est }) {
         <CabecalhoConteudo titulo={TX.titulo} contagem={perto.length} unidade={TX.encontrados(perto.length)} />
         <span id="t05-escolha" className="t05-frase">{TX.escolhaNaMao}</span>
         <Lista className="t05-lista" surge={!!q.achou} role="radiogroup" aria-labelledby="t05-escolha">
-          {perto.map((p) => (
-            <LinhaModulo key={p.serial} escolha serial={p.serial} variante={varianteNaLista(p.serial)}
+          {/* o pacote 32 · a última linha não tem divisória: quem fecha a lista é a borda do cartão */}
+          {perto.map((p, i) => (
+            <LinhaModulo key={p.serial} escolha serial={p.serial} variante={varianteNaLista(p.serial)} divisoria={i < perto.length - 1}
               marcado={p.serial === escolhido} falha={trava && p.serial === escolhido ? TX.naoRespondeu : undefined}
               confirmada={!!q.conectado && p.serial === escolhido} desenha={!!q.desenha && !EM_QUADRO && est == null}
               aoTocar={() => escolher(p.serial)} />

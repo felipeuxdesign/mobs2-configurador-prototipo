@@ -9,9 +9,9 @@
 /* no menu (a entrega do checklist: a faixa é uma peça só), os mesmos 52 com a
  * linha de baixo, e a borda de cima --borda-rodape, embaixo da tira (T04/00) */
 .ds-faixa-menu { border-top: var(--traco-borda) solid var(--borda-rodape); }
-/* sem sessão, no menu, a faixa do T04/01 (a referência não mudou): 50 com a
- * borda de cima, e embaixo a linha do topo do menu, que agora é dela */
-.ds-faixa-menu.ds-faixa-sem-sessao { height: calc(var(--faixa-sessao-menu) + var(--traco-borda)); border-bottom: var(--traco-borda) solid var(--separador); }
+/* sem sessão, no menu (T04/01): o pacote 32 · um traço em cima e um embaixo, nos 50, como a faixa da sessão: a tira deixou de ter o
+   traço de baixo, que ficava colado no de cima desta faixa (a linha dupla) — e o 1 a mais que o compensava saiu */
+.ds-faixa-menu.ds-faixa-sem-sessao { height: var(--faixa-sessao-menu); border-bottom: var(--traco-borda) solid var(--separador); }
 /* em falha, a linha é vermelha, de 2, nos mesmos 52 — no menu também (T04/03) */
 .ds-faixa-falha { border-bottom: var(--traco-destaque) solid var(--vermelho); }
 

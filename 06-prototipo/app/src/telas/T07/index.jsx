@@ -323,8 +323,8 @@ export default function T07({ momento, estado: est }) {
 
   // as linhas (lei 23, o pacote 3): o módulo na medida da linha de conferência, 50
   // ('diagnostico'); a CAN e o *Conferido na conexão*, na lista longa, 44 ('longa')
-  const linha = (l, k, variante) => (
-    <LinhaChecagem key={k} variante={variante} estado={l.estado} titulo={l.titulo} valor={l.valor} causa={l.causa} nota={l.nota} glifo={l.glifo}
+  const linha = (l, k, variante, divisoria = true) => (
+    <LinhaChecagem key={k} variante={variante} estado={l.estado} titulo={l.titulo} valor={l.valor} causa={l.causa} nota={l.nota} glifo={l.glifo} divisoria={divisoria}
       className={variante === 'diagnostico' && ALTAS.includes(l.id) ? 't07-linha-alta' : undefined}
       nomeGlifo={l.estado === 'ainda-nao' ? ESTADOS.espera.nome : undefined} />
   )
@@ -357,7 +357,7 @@ export default function T07({ momento, estado: est }) {
           <span className="t07-rotulo-bloco">{T.oModulo}</span>
           <Lista>
             {q.can
-              ? linha({ estado: 'aprovada', titulo: T.conferido, valor: T.deTotal(modAprovadas, modTotal) }, 'conferido', 'longa')
+              ? linha({ estado: 'aprovada', titulo: T.conferido, valor: T.deTotal(modAprovadas, modTotal) }, 'conferido', 'longa', false)   // o pacote 32: a linha única é a última, sem divisória
               : linhas.map((l) => linha(l, l.id, 'diagnostico'))}
           </Lista>
         </div>

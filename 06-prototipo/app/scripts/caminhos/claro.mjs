@@ -1,5 +1,6 @@
 // O pacote 30 · o modo claro, de ponta a ponta — e o 31, o claro neutro frio: nenhum lilás do claro do 30,
-// o logo roxo pelo token, os traços do CONFIGURADOR visíveis, o poço com a borda de baixo cinza (leis R-16 a R-19): o app nasce escuro; na folha da
+// o logo roxo pelo token, os traços do CONFIGURADOR visíveis, o poço com a borda de baixo cinza · e o 32, o
+// tracinho vazio em --marca-vazia (leis R-16 a R-19): o app nasce escuro; na folha da
 // Conta, a linha *Modo claro* liga o claro — a bolinha desliza e cresce (200) e o app inteiro troca as
 // cores no lugar (300), com a folha aberta; desligar volta; recarregar com o claro ligado abre claro,
 // o login também. Depois, a volta por TODAS as referências das 15 telas no claro, e em cada uma a
@@ -74,6 +75,12 @@ export const AUDITA = `
   igual('.ds-marca-logo path', 'fill', '${rgb('logo')}')
   igual('.ds-marca-traco', 'backgroundColor', '${rgb('borda-neutra')}')
   igual('.ds-poco', 'borderBottomColor', '${rgb('borda-poco')}')
+  // o pacote 32: o tracinho vazio em --marca-vazia (o do recebimento, na T12, é o --marca-limite)
+  for (const t of app.querySelectorAll('.ds-glifo-traco, .ds-escala-vazia-traco')) {
+    const v = getComputedStyle(t).backgroundColor.split(' ').join('')
+    const ok = t.closest('.ds-checagem-recebimento') ? '${rgb('marca-limite')}' : '${rgb('marca-vazia')}'
+    if (v !== ok) ruins.push('o tracinho vazio em ' + v + ', esperava ' + ok)
+  }
   return ruins.length ? [...new Set(ruins)].slice(0, 6).join(' · ') : true`
 
 const ESCURO_AGORA = `const a = document.querySelector('.app'); return a && !a.dataset.tema ? true : 'o app devia estar no escuro'`

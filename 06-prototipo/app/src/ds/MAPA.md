@@ -183,6 +183,7 @@ Os espécimes da folha 9 estão na vitrine (src/vitrine/especimes/f9-manutencao.
 |---|---|
 | interruptor | src/ds/entrada/Interruptor.jsx (no pé do painel do palco também, solto e com o sol — o pacote 31 · a linha inteira é o botão, papel `switch` com `aria-checked`; o trilho de 52 × 32 e a bolinha de 24 que encolhe a 16 e cresce a 28 por transform; o roxo do trilho e a cor da bolinha ligada por opacity · T04/05, *Modo claro*) |
 | logo | src/ds/entrada/Marca.jsx (o pacote 31: o desenho de 05-recursos/marca/logo-mobs2.svg inline, importado como texto, com o preenchimento em currentColor e a cor do --logo · os traços do CONFIGURADOR em --borda-neutra) |
+| tracinho vazio | src/ds/primitivos/Glifo.jsx (o estado `traco`, o 10 × 1 no poço sem conteúdo) e src/ds/instrumentos/Escala.jsx (a escala vazia) · em --marca-vazia nos dois temas, desde o pacote 32 · o do recebimento da T12 é o --marca-limite (LinhaChecagem) |
 | avatar da conta | src/ds/chrome/Avatar.jsx (o cartão redondo: `--fundo-cartao` e contorno `--borda`, 32 na tira e 52 na folha da Conta) |
 | o tema | src/estado/tema.js (a escolha, guardada no navegador) e o `data-tema` na raiz, em src/App.jsx · a troca de cor de 300 em src/ds/base.css · as barras do sistema na cor do texto, em BarraDoSistema.css e NavegacaoPorGestos.css |
 

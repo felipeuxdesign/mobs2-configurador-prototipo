@@ -28,6 +28,6 @@ O [CHANGELOG](../CHANGELOG.md), os gates e as notas *no protótipo* de cada fich
 ## Textos, peças e valores
 
 - Textos exatos: `textos.md` de cada tela.
-- Peças e variantes: [componentes.md](../03-design-system/componentes.md) e as [dez folhas](../03-design-system/referencias/). São 113 peças normativas; a vitrine do protótipo tem 114 espécimes comparáveis.
-- Medidas, cores e tamanhos: [tokens.css](../03-design-system/tokens.css), com 300 tokens distintos e o tema claro no bloco `[data-tema="claro"]`; [tokens.json](../03-design-system/tokens.json) é gerado do CSS, com o valor do claro na extensão `mobs2.tema.claro` de cada cor. O claro não tem referência própria: confira a tela no escuro contra a referência, e o claro contra a paleta da folha 10 (o roteiro `claro` varre as cores de todas as telas).
+- Peças e variantes: [componentes.md](../03-design-system/componentes.md) e as [dez folhas](../03-design-system/referencias/). São 114 peças normativas; a vitrine do protótipo tem 114 espécimes comparáveis.
+- Medidas, cores e tamanhos: [tokens.css](../03-design-system/tokens.css), com 301 tokens distintos e o tema claro no bloco `[data-tema="claro"]`; [tokens.json](../03-design-system/tokens.json) é gerado do CSS, com o valor do claro na extensão `mobs2.tema.claro` de cada cor. O claro não tem referência própria: confira a tela no escuro contra a referência, e o claro contra a paleta da folha 10 (o roteiro `claro` varre as cores de todas as telas).
 - Movimento: [movimento.md](../03-design-system/movimento.md) e cada `animacao.md`.

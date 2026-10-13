@@ -12,7 +12,7 @@
 .ds-glifo-cor-vermelho { color: var(--vermelho); }
 .ds-glifo-cor-secundaria { color: var(--tinta-secundaria); }
 .ds-glifo-cor-marca { color: var(--marca); }
-.ds-glifo-traco { display: block; width: var(--e-10); height: var(--traco-borda); background: var(--borda-poco); }
+.ds-glifo-traco { display: block; width: var(--e-10); height: var(--traco-borda); background: var(--marca-vazia); }   /* o tracinho vazio (o pacote 32): o token do papel dele, nunca a luz do poço, que sumia no claro */
 .ds-glifo-agora { display: block; width: var(--e-12); height: var(--e-12); background: var(--tinta); }
 /* C12 · o check que nasce no poço (C12·7, C12·12): o glifo que troca depois de a peça
  * montar esmaece no lugar, em 150 (desacelera); o de antes já saiu. Ao abrir, parado.

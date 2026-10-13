@@ -374,6 +374,9 @@
   --interruptor-largura: 52px;         /* o trilho do interruptor, o padrão do Material 3: 52 × 32 (a altura é o --poco-32) · Interruptor (folha 10, T04/05) */
   --interruptor-desligado: 0.6667;     /* a bolinha desligada, 16 de 24: a bolinha tem 24 e encolhe por transform — o movimento só usa transform e opacity · Interruptor */
   --interruptor-apertado: 1.1667;      /* a bolinha apertada, 28 de 24, enquanto o dedo está em cima · Interruptor */
+
+  /* ── o pacote 32 · o token do papel (a lei: cada peça usa o token do seu papel) ── */
+  --folha-topo:        #332C49;   /* o fio de cima da folha que sobe (folha 2, T04/05 a 14, T01, T11/03): no escuro, o mesmo da luz do poço, que ela usava emprestado · no claro, a cor da folha — nenhuma linha em cima dela · Folha */
 }
 
 /* ── o tema claro · NEUTRO FRIO · só as cores ───────────────────────────
@@ -383,7 +386,9 @@
  * no claro · o poço continua rebaixado: a sombra em cima (--poco-fundo), as
  * laterais no meio e a luz embaixo (--borda-poco), em cinza, pra ainda aparecer
  * no branco · o véu continua preto a 32% · as barras do sistema ficam escuras.
- * A estrutura é a mesma do escuro: só as cores mudam.
+ * A estrutura é a mesma do escuro: só as cores mudam · o pacote 32: no claro,
+ * nada lê mais fraco que no escuro — os riscos (--marca, --marca-limite,
+ * --marca-vazia), a faixa da régua e o trecho feito (--lima-faixa, --lima-borda) sobem.
  * Os tokens que apontam pra outro token (--idade-preenchido, --rolagem-cor) se
  * repetem aqui: um var() é resolvido onde o token é declarado, e no :root ele
  * ficaria com a cor do escuro. */
@@ -405,22 +410,23 @@
   --tinta-forte: #2F3037;
   --tinta-secundaria: #4B4D57;
   --tinta-apagada: #686B78;
-  --marca-limite: #82859A;
-  --marca: #C3C5CF;
-  --marca-vazia: #ADB0BD;
+  --marca-limite: #6E7180;
+  --marca: #8E91A0;
+  --marca-vazia: #9EA1AF;
   --borda-neutra: #C9CBD4;
   --lima: #5B3A99;
   --roxo: #402070;
   --roxo-pressionado: #4A2A80;
   --vermelho: #B5382A;
-  --lima-faixa: rgba(91, 58, 153, 0.14);
+  --lima-faixa: rgba(91, 58, 153, 0.22);
   --lima-feito: rgba(91, 58, 153, 0.5);
-  --lima-borda: rgba(91, 58, 153, 0.6);
+  --lima-borda: rgba(91, 58, 153, 0.8);
   --vermelho-faixa: rgba(224, 106, 90, 0.18);
   --vermelho-borda: rgba(224, 106, 90, 0.8);
   --veu: rgba(6, 5, 10, 0.32);
   --texto-primario: #FFFFFF;
   --logo: #402070;
+  --folha-topo: #FFFFFF;
   --idade-preenchido: var(--borda-poco);
   --rolagem-cor: var(--tinta-apagada);
 }

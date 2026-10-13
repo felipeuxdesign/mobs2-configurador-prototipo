@@ -22,7 +22,7 @@
 .ds-escala-sem-lados { border-left: 0; border-right: 0; }
 /* C8 · T07 (G11): o poço vazio do sinal que não chegou, com o traço de 10 no meio (T07/02) */
 .ds-escala-vazia { display: flex; align-items: center; justify-content: center; }
-.ds-escala-vazia-traco { display: block; width: var(--e-10); height: var(--traco-borda); background: var(--borda-poco); }
+.ds-escala-vazia-traco { display: block; width: var(--e-10); height: var(--traco-borda); background: var(--marca-vazia); }   /* o tracinho vazio (o pacote 32) */
 
 /* a faixa esperada (ou o preenchido) */
 .ds-escala-faixa {
