@@ -13,6 +13,6 @@
 .ds-caixa-poco.ds-caixa-falha { border-bottom: var(--traco-destaque) solid var(--vermelho); }
 .ds-caixa-apagada {
   background: var(--fundo-apagado);
-  border: var(--traco-borda) dashed var(--divisoria);
+  border: var(--traco-borda) dashed var(--borda-neutra);   /* o tracejado do vazio (o pacote 33): era o --divisoria, que sumia */
   border-radius: var(--raio);
 }

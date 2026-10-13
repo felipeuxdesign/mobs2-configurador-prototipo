@@ -35,7 +35,7 @@
   --marca-limite:      #6E6683;   /* traço dos limites da faixa (3:1) */
   --marca:             #4E475E;   /* traço, poço vazio, ícone apagado */
   --marca-vazia:       #4A4166;   /* marcador de escolha vazio */
-  --borda-neutra:      #3A3350;   /* caixa neutra */
+  --borda-neutra:      #3A3350;   /* caixa neutra, e o tracejado do vazio */
 
   /* ── ação e veredito ────────────────────────────────── */
   --lima:              #AAEF00;   /* veredito e escolhido — nunca enfeite · o texto do botão principal tem token próprio, --texto-primario */

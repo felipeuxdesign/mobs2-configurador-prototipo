@@ -34,4 +34,4 @@ Você está num projeto cujo design já foi decidido, medido e aprovado. **Seu t
 
 ## Os números desta versão
 
-15 telas · 104 momentos · 82 estados · 109 histórias de usuário · 301 tokens · 114 peças no design system · 10 folhas · dois temas (o escuro, padrão; o claro, neutro frio, escolha do técnico) · 63 casos no mock.
+15 telas · 104 momentos · 82 estados · 109 histórias de usuário · 301 tokens · 115 peças no design system · 10 folhas · dois temas (o escuro, padrão; o claro, neutro frio, escolha do técnico) · 63 casos no mock.

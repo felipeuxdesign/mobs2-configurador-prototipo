@@ -1,5 +1,12 @@
 # Registro de mudanças
 
+## 2026-10-13 · pacote 33: o tracejado do vazio
+
+- **O pacote do arquiteto:** 62 arquivos de referência (os pares de 30 telas e das folhas 4 e 8) entraram inteiros. O `tokens.css`, o `tokens.json`, o catálogo e o CHANGELOG vieram de cópias antigas: entraram só o comentário novo do `--borda-neutra` e a linha *tracejado do vazio* no catálogo. A entrada do CHANGELOG do pacote está resumida aqui.
+- **O tracejado do vazio em `--borda-neutra`**, nos dois temas: o contorno tracejado dos cartões e espaços sem conteúdo usava o `--divisoria`, a cor das linhas de lista, e sumia (1,18:1 no escuro, 1,04:1 no claro) · agora 1,59:1 no escuro e 1,44:1 no claro, sobre o fundo apagado · no código, a caixa apagada (o vazio declarado, as notas tracejadas, a CAN que espera, a fila e as instalações vazias), o cartão de ferramenta que espera (o menu) e a marca do vazio da busca da T05, que usava a luz do poço · o traço de 14 dentro dessa marca continua como a referência desenha.
+- **O catálogo:** a linha *tracejado do vazio* (115 peças) · **o token:** o `--borda-neutra` diz *caixa neutra, e o tracejado do vazio*, no `tokens.css` e no `tokens.json`.
+- **Medido:** censo 201 referências (15 telas, 82 estados, 104 momentos), 10 folhas, 115 peças, 301 tokens · as 30 telas que mudaram iguais ao pacote 32, menos a T07/06 (1,61 a 1,73%): o deslocamento de alguns pixels que essa tela já tinha, que conta mais agora que o tracejado aparece · a vitrine igual à do 30 (as folhas 4 e 8 com o tracejado novo) · o `claro` aprovado · nenhum contorno tracejado com outra cor que não o `--borda-neutra` · `checar` e build aprovados.
+
 ## 2026-10-13 · a linha embaixo da barra de status, no claro
 
 - **O que era** (o diretor, 13/10): com uma folha ou um diálogo aberto, aparecia um fio claro embaixo da barra de status, no palco, com o celular em escala. A barra escurece com um véu próprio, e o app com outro, que começa onde ela termina; em escala, as duas bordas caíam no meio do mesmo pixel físico, e nenhuma o cobria inteiro. No escuro a diferença quase não se via; no claro, sim (medido na gravação do palco: 185 no fio contra 165 em volta).

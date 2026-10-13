@@ -11,7 +11,7 @@
 .t05-vazio-marca {
   width: var(--marca-vazio-busca); height: var(--marca-vazio-busca);
   display: flex; align-items: center; justify-content: center;
-  border: var(--traco-borda) dashed var(--borda-poco);
+  border: var(--traco-borda) dashed var(--borda-neutra);   /* o tracejado do vazio (o pacote 33): era a luz do poço */
 }
 .t05-vazio-marca::after { content: ''; display: block; width: var(--e-14); height: var(--traco-borda); background: var(--borda-poco); }
 .t05-vazio-titulo { font-size: var(--t-titulo-bloco); font-weight: 700; line-height: var(--entrelinha-cartao); color: var(--tinta); }
