@@ -5,16 +5,16 @@
   background: var(--veu);
   transition: opacity var(--mov-rapido) var(--mov-curva);
 }
-/* O fundo alcança o topo sem mudar o lugar da folha ou da caixa.
- * A extensão vem das medidas do chrome da tela; a barra escurece pela sua API. */
-.ds-veu::before {
-  content: ''; position: absolute; left: 0; right: 0; bottom: 100%;
-  height: var(--veu-topo, 0); box-sizing: content-box; padding-top: var(--traco-destaque); background: var(--veu);
+/* O fundo alcança o topo sem mudar o lugar da folha ou da caixa: o véu sobe sobre o chrome da tela
+ * (--veu-topo, as medidas da tira e da faixa) e mais 2 por baixo da barra do sistema, que é opaca e os
+ * cobre, com margem negativa, e devolve a mesma medida em padding — o layout não se mexe, e o véu é UM
+ * retângulo só. (13/10) Antes, a parte de cima era um ::before, e as duas partes, mais a barra, se
+ * encontravam no mesmo pixel: com o celular em escala no palco, sobrava um fio sem véu embaixo da barra.
+ * A barra escurece pela sua API. */
+.ds-veu {
+  --veu-acima: calc(var(--veu-topo, 0px) + var(--traco-destaque));
+  margin-top: calc(-1 * var(--veu-acima)); padding-top: var(--veu-acima);
 }
-/* (13/10) o véu passa 2 por baixo da barra do sistema, que é opaca e fica por cima: sem isso, com o
-   celular em escala no palco, a borda de baixo da barra e a de cima do véu caíam no mesmo pixel
-   físico, cada uma cobrindo só um pedaço dele, e sobrava um fio sem véu embaixo da barra — que no
-   claro aparecia como uma linha clara. Os 2 não se veem: a barra os cobre */
 .ds-veu-dialogo { justify-content: center; }
 .ds-veu-folha:not(.ds-veu-oculto) { transition-duration: var(--mov-padrao); }
 .ds-veu-oculto { opacity: 0; pointer-events: none; }
@@ -24,9 +24,9 @@
 .ds-veu-troca { position: relative; isolation: isolate; }
 /* Se outra composição ampliar o fundo pintado, só o trecho novo esmaece.
  * Na T04, a cobertura já é integral, e a troca não usa --veu-corte. */
-.ds-veu-cresce { background: linear-gradient(to bottom, transparent var(--veu-corte), var(--veu) var(--veu-corte)); }
+.ds-veu-cresce { background: linear-gradient(to bottom, var(--veu) var(--veu-acima), transparent var(--veu-acima), transparent calc(var(--veu-acima) + var(--veu-corte)), var(--veu) calc(var(--veu-acima) + var(--veu-corte))); }
 .ds-veu-cresce-pedaco {
-  position: absolute; top: 0; left: 0; right: 0; height: var(--veu-corte); z-index: -1;
+  position: absolute; top: var(--veu-acima); left: 0; right: 0; height: var(--veu-corte); z-index: -1;
   background: var(--veu); pointer-events: none;
   animation: ds-veu-cresce var(--mov-rapido) var(--mov-curva);
 }

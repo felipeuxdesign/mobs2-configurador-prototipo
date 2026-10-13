@@ -46,7 +46,7 @@
 
 /* No aviso e no ENCERRAR, a composição já começa abaixo da barra do sistema,
  * sem extensão ou borda extra. O diálogo conserva seu centro. */
-.t04-sobre-tudo { --veu-topo: 0; top: var(--barra-sistema); border-top: 0; }
+.t04-sobre-tudo { --veu-topo: initial; top: var(--barra-sistema); border-top: 0; }   /* initial: o véu usa o 0 de reserva, uma medida (o 0 sem unidade não entra no calc) */
 
 /* o Trocar de empresa no fim da folha de trocar de unidade (T04/14, decisão
  * 37): o link de 48 a 6 da lista, comendo 4 em cima e embaixo, como a

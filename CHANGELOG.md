@@ -13,10 +13,14 @@
 - **O catálogo:** a linha *tracejado do vazio* (115 peças) · **o token:** o `--borda-neutra` diz *caixa neutra, e o tracejado do vazio*, no `tokens.css` e no `tokens.json`.
 - **Medido:** censo 201 referências (15 telas, 82 estados, 104 momentos), 10 folhas, 115 peças, 301 tokens · as 30 telas que mudaram iguais ao pacote 32, menos a T07/06 (1,61 a 1,73%): o deslocamento de alguns pixels que essa tela já tinha, que conta mais agora que o tracejado aparece · a vitrine igual à do 30 (as folhas 4 e 8 com o tracejado novo) · o `claro` aprovado · nenhum contorno tracejado com outra cor que não o `--borda-neutra` · `checar` e build aprovados.
 
-## 2026-10-13 · a linha embaixo da barra de status, no claro
+## 2026-10-13 · a linha embaixo da barra de status
 
-- **O que era** (o diretor, 13/10): com uma folha ou um diálogo aberto, aparecia um fio claro embaixo da barra de status, no palco, com o celular em escala. A barra escurece com um véu próprio, e o app com outro, que começa onde ela termina; em escala, as duas bordas caíam no meio do mesmo pixel físico, e nenhuma o cobria inteiro. No escuro a diferença quase não se via; no claro, sim (medido na gravação do palco: 185 no fio contra 165 em volta).
-- **A correção**, sem mudar nada que se vê: o véu do app passa 2px por baixo da barra, que é opaca e os cobre (`Veu.css`), e a barra vira uma camada própria (`will-change` em `BarraDoSistema.css`), pra o fundo e o véu dela se juntarem antes da borda · medido em três escalas do palco: o fio sumiu (165 a 168, dentro do arredondamento) · no escuro, as referências com folha e diálogo iguais à base, e os roteiros `folhas`, `mov-t04`, `sair`, `mov-t11`, `mov-t13`, `claro` e `palco-claro` aprovados.
+- **O que era** (o diretor, 13/10): um fio embaixo da barra de status, no palco, com o celular em escala — no claro, com uma folha ou um diálogo aberto; durante a troca de tema; e às vezes depois dela, no escuro também. Medido na gravação do palco em três escalas: um fio claro de até +20 parado, e, durante a troca, um fio quase preto (5 a 7, a cor da moldura) que às vezes ficava depois.
+- **As causas, e a correção** (sem mudar nada que se vê):
+  - **o véu era duas peças** (o corpo e um `::before` que subia sobre a tira e a faixa), e as duas se encontravam no pé da barra · agora é um retângulo só: o véu sobe pela margem negativa e devolve a medida em padding, mais 2px por baixo da barra, que é opaca (`Veu.css`); o `PorCima` mede a extensão pelo padding;
+  - **o navegador separava a barra numa camada própria** sempre que algo animava por baixo (o interruptor, a folha), e entre as camadas sobrava um fio sem tinta · a tela do celular passou a ser desenhada como uma camada só, no palco (`.celular-tela`, `will-change`) · medido: a nitidez do texto é a mesma, parado e depois de redimensionar a janela, nas densidades 1 e 2;
+  - **a correção de antes** (a barra numa camada própria, ba4636e) era ela mesma uma emenda, que deixava um fio em pedaços em algumas telas: saiu.
+- **Medido:** parado, o pé da barra uniforme nas três escalas (165 em todas as linhas, no claro) · na troca de tema, de 130–158 a no máximo 7–8, por um instante, quando a folha fecha · as referências com folha e diálogo iguais à base · os roteiros `folhas`, `mov-t04`, `sair`, `mov-t11`, `mov-t13`, `claro`, `palco-claro`, `pisca` e `mov-troca` aprovados · a régua ganhou a densidade da janela (`DENSIDADE=2`), pra ver o que só aparece numa tela retina.
 
 ## 2026-10-13 · pacote 32: o que sumia no claro
 

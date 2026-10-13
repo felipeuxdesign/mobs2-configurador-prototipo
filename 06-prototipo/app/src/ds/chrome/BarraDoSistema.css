@@ -4,7 +4,6 @@
    O fundo é o da tela (lei 22): a barra sangra */
 .ds-barra-sistema {
   position: relative; isolation: isolate; z-index: var(--camada-sistema);
-  will-change: transform;   /* (13/10) uma camada só: o fundo e o véu dela se juntam antes da borda, e a borda de baixo, em escala, não clareia */
   height: var(--barra-sistema); flex-shrink: 0;
   background: var(--fundo-faixa);
 }

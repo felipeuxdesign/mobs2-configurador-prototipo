@@ -18,7 +18,7 @@
 //   guarda o último desenho de cada um), mudo pro leitor e sem toque, fora do fluxo, por baixo
 //   do que entra, até acabar de sair. `lugar` é a caixa em volta do véu (a classe da tela que
 //   conserva a região de composição), de cada coisa. O fundo pode se estender acima dela
-//   por --veu-topo; a medida considera essa extensão. Na T04, folha e diálogo já cobrem
+//   por --veu-topo (o padding de cima do véu); a medida considera essa extensão. Na T04, folha e diálogo já cobrem
 //   todo o fundo, e a troca mantém o véu parado. Se outra composição ampliar o fundo,
 //   só o pedaço novo esmaece junto com o diálogo.
 //
@@ -114,7 +114,8 @@ export function PorCima({ camada, lugar, children }) {
   useLayoutEffect(() => {
     const el = caixa.current
     const veuEl = el?.querySelector('.ds-veu')
-    const extensao = veuEl ? parseFloat(getComputedStyle(veuEl, '::before').height) || 0 : 0
+    // o véu sobe sobre o chrome pela margem negativa e devolve a medida em padding (Veu.css, 13/10)
+    const extensao = veuEl ? parseFloat(getComputedStyle(veuEl).paddingTop) || 0 : 0
     // Mede o fundo pintado: folhas do menu já cobrem o topo inteiro (08/10).
     const agora = el ? { lugar: lugarAgora, top: el.offsetTop + el.clientTop - extensao, bottom: el.offsetTop + el.offsetHeight } : null
     const a = antes.current

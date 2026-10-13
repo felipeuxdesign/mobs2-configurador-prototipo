@@ -16,14 +16,19 @@
 :where(.app) { height: 100%; position: relative; background: var(--fundo-pagina); }
 
 /* a troca do tema (pacote 30 · T04, movimento.md): o app inteiro troca as cores no lugar, em
-   --mov-lento, desacelerando — nada se move, só a cor · enquanto dura, toda cor transiciona; o
-   transform e a opacity continuam no tempo do interruptor (--mov-padrao), que se move junto ·
-   reduzir movimento: os dois são 0, e a troca é direta */
+   --mov-lento, desacelerando — nada se move, só a cor · enquanto dura, toda cor transiciona · o
+   interruptor, que se move junto, guarda o transform e a opacity dele no --mov-padrao (13/10: a regra
+   dava transform e opacity a todas as peças, e no palco em escala isso abria um fio embaixo da barra
+   durante a troca) · reduzir movimento: os dois são 0, e a troca é direta */
 .app[data-tema-trocando], .app[data-tema-trocando] *, .app[data-tema-trocando] *::before, .app[data-tema-trocando] *::after {
-  transition-property: background-color, color, border-color, fill, stroke, box-shadow, transform, opacity !important;
-  transition-duration: var(--mov-lento), var(--mov-lento), var(--mov-lento), var(--mov-lento), var(--mov-lento), var(--mov-lento), var(--mov-padrao), var(--mov-padrao) !important;
+  transition-property: background-color, color, border-color, fill, stroke, box-shadow, text-decoration-color !important;
+  transition-duration: var(--mov-lento) !important;
   transition-timing-function: var(--mov-curva) !important;
   transition-delay: 0ms !important;
+}
+.app[data-tema-trocando] .ds-interruptor-bolinha, .app[data-tema-trocando] .ds-interruptor-bolinha::before, .app[data-tema-trocando] .ds-interruptor-trilho::before {
+  transition-property: transform, opacity !important;
+  transition-duration: var(--mov-padrao) !important;
 }
 
 /* o celular não mostra a barra de rolagem do navegador, em nenhuma tela: quem

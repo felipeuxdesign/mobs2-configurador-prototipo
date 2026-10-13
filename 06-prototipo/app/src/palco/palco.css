@@ -39,6 +39,11 @@ body { background: var(--fundo-faixa); overflow: hidden; }
 }
 /* uma moldura só: num estado, ela é a mesma do fluxo — o que avisa que o app está parado é o Voltar ao fluxo, que pisca (decisão 43) */
 .celular-tela { width: var(--tela-largura); height: var(--tela-altura); border-radius: var(--palco-raio-tela); overflow: hidden; background: var(--fundo-pagina); position: relative; cursor: default; }
+/* (13/10) a tela do celular é desenhada como uma camada só. Com o celular em escala, o navegador
+   separava a barra do sistema numa camada própria sempre que algo animava por baixo (o interruptor, a
+   folha), e entre as duas camadas sobrava um fio sem tinta, por onde aparecia a moldura — às vezes ele
+   ficava depois da animação. Numa camada só, não há emenda. Medido: a nitidez do texto é a mesma */
+.celular-tela { will-change: transform; }
 .celular-tela * { cursor: default; }
 
 /* a coluna tem a altura do celular (na escala dele), e o conteúdo fica no meio (palco.md, decisão 30) */

@@ -330,7 +330,7 @@ async function passo(s, p) {
   }
   if (p.janela !== undefined) {
     const [width, height] = p.janela
-    await cdp('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile: false }, s)
+    await cdp('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: +(process.env.DENSIDADE || 1), mobile: false }, s)
     // o resize chega, o palco desenha de novo e a peça do teclado ajusta no quadro seguinte
     return espera(() => na(s, `return new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(() => r(innerWidth === ${width} && innerHeight === ${height} || 'a janela está em ' + innerWidth + ' × ' + innerHeight), 50))))`), ms, `janela ${width} × ${height}`)
   }
@@ -448,7 +448,8 @@ async function roda(nome) {
     await cdp('Runtime.evaluate', { expression: 'try { localStorage.clear() } catch {}' }, ss).catch(() => {}) }
   await cdp('Page.enable', {}, s); await cdp('Runtime.enable', {}, s)
   await cdp('Emulation.setFocusEmulationEnabled', { enabled: true }, s)
-  await cdp('Emulation.setDeviceMetricsOverride', { width: GW || W, height: GH || H, deviceScaleFactor: 1, mobile: false }, s)
+  // DENSIDADE=2 (13/10): a janela com a densidade de uma tela retina, pra ver o que só aparece nela
+  await cdp('Emulation.setDeviceMetricsOverride', { width: GW || W, height: GH || H, deviceScaleFactor: +(process.env.DENSIDADE || 1), mobile: false }, s)
   const quadros = []
   let grava = null
   if (GRAVA) {
@@ -461,7 +462,7 @@ async function roda(nome) {
       cdp('Page.screencastFrameAck', { sessionId: m.params.sessionId }, s).catch(() => {})
     }
     ouvintes.add(grava)
-    await cdp('Page.startScreencast', { format: 'jpeg', quality: 95, everyNthFrame: 1 }, s)
+    await cdp('Page.startScreencast', { format: 'jpeg', quality: 95, everyNthFrame: 1, ...(process.env.DENSIDADE ? { maxWidth: (GW || W) * +process.env.DENSIDADE, maxHeight: (GH || H) * +process.env.DENSIDADE } : {}) }, s)
   }
   // o teclado por cima da página (o Safari do iPhone): um visualViewport de mentira, que acompanha a janela
   // e encolhe no { sobreposto } — o Chrome não tem como emular isso
