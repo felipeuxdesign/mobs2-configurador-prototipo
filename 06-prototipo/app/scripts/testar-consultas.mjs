@@ -117,7 +117,7 @@ try {
   await tocarApp('Voltar ao menu'); await tocarApp('Entendi'); await tocarApp('Conferir configuração'); await dorme(1800)
   const concluido = await estado()
   await tocar('Não bate com o cadastro')
-  assert.match((await quadro()).texto, /M2C-0438/); assert.match((await quadro()).texto, /4 de 4/)
+  assert.match((await quadro()).texto, /M2C-0438/); assert.match((await quadro()).texto, /4 de 5/)   // desde o pacote 29, a T11 tem cinco blocos (o Ativo entrou)
   await tocar('Voltar ao fluxo'); await dorme(1800)
   assert.deepEqual(await estado(), concluido)
   resultados.push({ cadeiaConcluida: 'consulta mantém 4 divergências e devolve os blocos concluídos' })

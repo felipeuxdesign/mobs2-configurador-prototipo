@@ -19,7 +19,7 @@ Existem **45 arquivos** em [scripts/caminhos](../06-prototipo/app/scripts/caminh
 | `conferencia.mjs` | **100 passos aprovados** naquele ciclo: fechar a folha por quatro caminhos, registrar, reenviar e inspecionar as consultas bloqueadas. |
 | `mov-t11.mjs`, `mov-t10.mjs` | **132 e 78 passos aprovados**, respectivamente, naquele ciclo. |
 | `familias.mjs` | **28 passos aprovados** naquele ciclo, conferindo a organização e os acessos da coluna. |
-| [testar-consultas.mjs](../06-prototipo/app/scripts/testar-consultas.mjs) | Aprova 15 consultas pela coluna e URL, inércia após toque/Esc/tempo, cinco retornos e três entradas normais do painel. |
+| [testar-consultas.mjs](../06-prototipo/app/scripts/testar-consultas.mjs) | Aprova as consultas paradas pela coluna e URL (22 quadros), inércia após toque/Esc/tempo, cinco retornos e três entradas normais do painel. |
 | `portas.mjs`, `abortada.mjs`, `lembrar.mjs`, `recuperar.mjs`, `mov-<tela>.mjs` e os demais | Cenários reutilizáveis, com resultados de suas rodadas nos gates. Não têm aceite coletivo na versão atual apenas por estarem nesta pasta. |
 
 A evidência dessa rodada está no [gate de consultas paradas](../06-prototipo/para-o-arquiteto/gate-consultas-paradas.md). A documentação e o retorno do login têm a validação registrada no [gate da recuperação](../06-prototipo/para-o-arquiteto/gate-documentacao-atual.md).

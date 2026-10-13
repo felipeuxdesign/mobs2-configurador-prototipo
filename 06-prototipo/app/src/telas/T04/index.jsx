@@ -64,6 +64,8 @@ function ajusteDoMomento(momento, unico, est) {
 function sessaoDoEstado(sessao, est) {
   // no print, o 08 e o 14 abrem sobre o menu sem sessão, como a referência desenha (09/10)
   if (EM_QUADRO && (est === REF.envio || est === REF.empresa)) return null
+  // a consulta parada *Sem módulo* da coluna (o diretor, 13/10): o menu antes de conectar, sem sessão
+  if (est === REF.semModulo) return null
   const precisa = est === REF.falha || est === REF.checklist || est === REF.trocar || est === REF.semConexao
   const base = precisa && !sessao?.ativoId ? HEROI : sessao
   return est === REF.falha && M.casos['link-perdido'] ? { ...base, saude: 'falha' } : base

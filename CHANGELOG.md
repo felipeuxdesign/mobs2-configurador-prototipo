@@ -1,5 +1,11 @@
 # Registro de mudanças
 
+## 2026-10-13 · o *Sem módulo* na coluna do menu
+
+- **A coluna *Estados desta tela* da T04 abre o *Sem módulo*** (o diretor, 13/10): o menu antes de conectar, sem sessão de configuração, que só se via passando pelo login · entra em primeiro e abre parado, como todo quadro da coluna (o toque faz o *Voltar ao fluxo* piscar, e ele devolve o menu de antes) · pelo link do momento, o menu continua vivo, com o aviso do acesso · no `indice.json`, o `01-momento-sem-modulo` com `coluna` e `rotulo` (sem `consulta`, que é só dos cenários especiais); na T04, a sessão desse quadro é nenhuma.
+- **O teste das consultas** (`testar-consultas.mjs`) aprovado, com os 22 quadros · uma conferência dele estava velha desde o pacote 29: esperava *4 de 4* na consulta da T11, que tem cinco blocos desde então (*4 de 5*) · corrigida.
+- **Desvio nomeado:** as cenas 01 e 00 do palco desenham a coluna do menu com os 5 estados de antes · com o *Sem módulo*, a peça da coluna passa de 0,89% a 3,17% (cena 01) e de 2,4–2,7% a 4,3–5,1% (cena 00), até o arquiteto redesenhá-las.
+
 ## 2026-10-13 · pacote 33: o tracejado do vazio
 
 - **O pacote do arquiteto:** 62 arquivos de referência (os pares de 30 telas e das folhas 4 e 8) entraram inteiros. O `tokens.css`, o `tokens.json`, o catálogo e o CHANGELOG vieram de cópias antigas: entraram só o comentário novo do `--borda-neutra` e a linha *tracejado do vazio* no catálogo. A entrada do CHANGELOG do pacote está resumida aqui.

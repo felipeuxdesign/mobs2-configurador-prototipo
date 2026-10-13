@@ -29,7 +29,7 @@ node scripts/caminho.mjs familias
 node scripts/testar-consultas.mjs
 ```
 
-O último script verifica os 15 exemplos especiais parados, os retornos ao percurso guardado e as três entradas normais do painel. Ele usa o Chrome do fotógrafo na escala 2.
+O último script verifica os exemplos especiais parados (22 quadros), os retornos ao percurso guardado e as três entradas normais do painel. Ele usa o Chrome do fotógrafo na escala 2.
 
 Há 45 roteiros em `scripts/caminhos`. Alguns roteiros históricos ainda usam acessos sintéticos que foram substituídos por consultas paradas. Antes de usar `node scripts/caminho.mjs todos` como aceite, leia [testes-prontos.md](../../08-para-o-dev/testes-prontos.md); a última rodada não executou o lote inteiro.
 

@@ -549,7 +549,9 @@
       "como": "o menu antes de conectar",
       "caso": "",
       "html": "02-telas/T04-menu/referencias/html/01-momento-sem-modulo.html",
-      "png": "02-telas/T04-menu/referencias/png/01-momento-sem-modulo.png"
+      "png": "02-telas/T04-menu/referencias/png/01-momento-sem-modulo.png",
+      "coluna": true,
+      "rotulo": "Sem módulo"
     },
     {
       "id": "T04/02-momento-modulo-sem-ativo",

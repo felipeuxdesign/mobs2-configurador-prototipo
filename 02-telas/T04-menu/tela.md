@@ -158,3 +158,7 @@ Os textos exatos de cada referência estão em `textos.md`. Copie de lá — nun
 - **o avatar *RV* preenchido**, com o fundo e a borda de cartão, nas 17 telas · no claro, ele fica branco sobre a faixa lilás
 - **a barra do prazo do acesso com as laterais**, como a régua: as pontas marcam o 0 e o 7
 - **no protótipo:** a linha é a peça `Interruptor` (`src/ds/entrada/Interruptor.jsx`), e a escolha mora em `src/estado/tema.js`, guardada no armazenamento do navegador (`mobs2-configurador.tema`) · ligar põe `data-tema="claro"` na raiz do app (`App.jsx`); desligar tira · como o app lê a escolha ao abrir, o login já nasce no tema escolhido · as referências desta pasta continuam no escuro: o claro nasce delas, pelos tokens (R-17)
+
+## No palco · o *Sem módulo* na coluna (13/10)
+
+- **a coluna *Estados desta tela* do menu abre também o *Sem módulo*** (`01-momento-sem-modulo`): o menu antes de conectar, sem sessão de configuração, parado como os outros quadros da coluna · é um momento do fluxo, e entra na coluna pelo `coluna: true` do `indice.json`, em primeiro · pelo link (`?tela=T04&momento=01-momento-sem-modulo`) ele continua vivo, com o aviso do acesso na primeira chegada · no protótipo, a sessão do quadro da coluna é nenhuma (`sessaoDoEstado`)

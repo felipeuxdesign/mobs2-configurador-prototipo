@@ -20,6 +20,30 @@
     "consulta": "parada · toque/Esc/tempo bloqueados · link igual"
   },
   {
+    "id": "T09/13-momento-manutencao-folha-de-confirmacao",
+    "consulta": "parada · toque/Esc/tempo bloqueados · link igual"
+  },
+  {
+    "id": "T09/14-momento-manutencao-o-ativo-pergunta-pelos-eventos",
+    "consulta": "parada · toque/Esc/tempo bloqueados · link igual"
+  },
+  {
+    "id": "T09/15-momento-manutencao-o-leitor-pergunta-pelos-eventos",
+    "consulta": "parada · toque/Esc/tempo bloqueados · link igual"
+  },
+  {
+    "id": "T09/17-momento-manutencao-folha-do-ativo",
+    "consulta": "parada · toque/Esc/tempo bloqueados · link igual"
+  },
+  {
+    "id": "T09/18-momento-manutencao-folha-do-leitor",
+    "consulta": "parada · toque/Esc/tempo bloqueados · link igual"
+  },
+  {
+    "id": "T09/20-momento-manutencao-leitor-confere-eventos-liberados",
+    "consulta": "parada · toque/Esc/tempo bloqueados · link igual"
+  },
+  {
     "id": "T10/00-tela",
     "consulta": "parada · toque/Esc/tempo bloqueados · link igual"
   },
@@ -53,6 +77,10 @@
   },
   {
     "id": "T11/03-momento-outras-acoes",
+    "consulta": "parada · toque/Esc/tempo bloqueados · link igual"
+  },
+  {
+    "id": "T11/06-momento-folha-de-confirmacao",
     "consulta": "parada · toque/Esc/tempo bloqueados · link igual"
   },
   {
