@@ -55,7 +55,9 @@ node scripts/caminho.mjs heroi
 node scripts/testar-consultas.mjs
 ```
 
-`caminho.mjs` usa uma aba própria do Chrome do fotógrafo, ou abre um Chrome próprio quando ele não está disponível. Para os scripts de comparação que pedem escala 1×, use também `npm run fotografo:1`. `node scripts/caminho.mjs todos` executa os 45 arquivos, com as limitações de migração descritas acima. Os comandos e saídas de comparação estão em [conferir-contra-o-design.md](conferir-contra-o-design.md).
+`caminho.mjs` usa uma aba própria do Chrome do fotógrafo, ou abre um Chrome próprio quando ele não está disponível. Para os scripts de comparação que pedem escala 1×, use também `npm run fotografo:1`. `node scripts/caminho.mjs todos` executa os 48 roteiros, com as limitações de migração descritas acima.
+
+Para a comparação visual, com os fotógrafos nas escalas 2 e 1 (`npm run fotografo` e `npm run fotografo:1`, um terminal por processo), `node scripts/tela.mjs todas` compara as 201 referências. Os comandos e saídas de comparação estão em [conferir-contra-o-design.md](conferir-contra-o-design.md).
 
 O pacote 29c (11/10) rodou de novo os 46: 36 aprovados — o `reenvio` com o *Deixar para depois* acontecendo (73 passos) e o `mov-t09` com a cadeia concluída no topo (240) —, e os mesmos 10 param nos mesmos passos. A bancada das 201 referências e a vitrine (114 espécimes) não pioraram. [Gate](../06-prototipo/para-o-arquiteto/gate-29c.md).
 
