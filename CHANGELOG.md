@@ -1,5 +1,15 @@
 # Registro de mudanças
 
+## 2026-10-15 · pacote 35: o Voltar ao fluxo do palco
+
+- **o "Voltar ao fluxo" do palco**, também botão secundário, com o fill e a borda do app (`#241F33` e `#3A3350`): usava o fundo da folha e a luz do poço, cor emprestada · o palco é sempre escuro, então só os valores do escuro
+- **No protótipo:** a coluna e o painel do modo estreito usam a mesma peça (`.coluna-voltar`, `palco.css`), agora com `--fundo-botao` e `--borda-botao` · como o tema claro só vale dentro do celular (o `data-tema` é do app), o palco fica com os valores do escuro mesmo com o modo claro ligado · altura, texto, o pressionado e a piscada não mudam · as três referências do palco (00, 02, 05) e a linha do topo da coluna no `palco.md` · o `palco.md` e o `CHANGELOG.md` do pacote vieram de cópias antigas: entraram só a linha nova e esta entrada
+- **Medido (o gate):**
+  - **O botão:** num estado, ele mede `#241F33` de fundo e `#3A3350` de borda, com 34 de altura. Com o modo claro ligado, igual: só o celular muda.
+  - **A varredura:** nenhum botão secundário, no app ou no palco, sem o fill e a borda do secundário. O quadrado e o X do painel têm o desenho do poço, como as referências do palco.
+  - **Os roteiros do palco:** `palco-claro`, `pisca`, `coluna-momentos` e `claro` aprovados.
+  - **A régua do palco:** as 25 peças sem erro, as 47 conferências da moldura batendo. Contra a base de 13/10, a moldura desenhada passa de 0% a 1,23% em três quadros, e a coluna do 05 de 4,26% a 4,32%. Não vem deste pacote: com o CSS dele desfeito, a régua dá o mesmo. A base é anterior à correção da linha embaixo da barra (122af70), que passou a desenhar a tela do celular numa camada só.
+
 ## 2026-10-14 · as outras empresas, a idade do pacote no caminho e cinco momentos na coluna
 
 - **As outras duas empresas andam (o diretor):**

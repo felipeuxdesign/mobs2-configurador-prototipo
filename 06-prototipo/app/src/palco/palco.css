@@ -57,7 +57,7 @@ body { background: var(--fundo-faixa); overflow: hidden; }
 .coluna-tela { font-size: var(--t-secundario); font-weight: 600; color: var(--tinta-secundaria); }
 .coluna-voltar {
   height: var(--palco-botao-voltar); display: flex; align-items: center; gap: var(--e-8); padding: 0 var(--e-12); align-self: flex-start;
-  background: var(--fundo-faixa); border: var(--traco-borda) solid var(--borda-poco); border-radius: var(--raio);
+  background: var(--fundo-botao); border: var(--traco-borda) solid var(--borda-botao); border-radius: var(--raio);   /* o pacote 35: o desenho do botão secundário · o palco é sempre escuro, então os valores do escuro */
   font-size: var(--t-secundario); font-weight: 700; color: var(--tinta);
 }
 .coluna-voltar:active { background: var(--elevado); }
