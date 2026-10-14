@@ -48,8 +48,6 @@ O ônibus não calibra. Seu ciclo tem quatro passos, com cartão conferido pelo 
 
 [heroi.mjs](app/scripts/caminhos/heroi.mjs) aprovou **239 passos** na rodada de consultas paradas. [heroi-sem-horimetro.mjs](app/scripts/caminhos/heroi-sem-horimetro.mjs) conserva o nome histórico, mas hoje entra no ciclo pela Seção E depois de voltar da calibração ao menu. A lista de verificações aprovadas e as limitações dos roteiros antigos estão em [testes-prontos.md](../08-para-o-dev/testes-prontos.md).
 
-**O caminho é sempre o feliz** (o diretor, 13/10): qualquer módulo, ônibus ou unidade escolhidos no caminho seguem o caminho do herói, só com os nomes deles; os desvios do mock pra esses pares abrem só pela coluna. A sessão aberta no caminho leva `caminho`, e as decisões usam o par do herói ([caminho.js](app/src/estado/caminho.js)). [caminho-feliz.mjs](app/scripts/caminhos/caminho-feliz.mjs) percorre o caminho inteiro com qualquer par (`MODULO`, `PLACA`, `UNIDADE`).
-
 ## As sementes
 
 O painel monta o contexto mínimo para navegar. [sementes.js](app/src/estado/sementes.js) preserva os exemplos das referências; `semeado` escolhe a entrada normal quando o acesso é de fluxo.

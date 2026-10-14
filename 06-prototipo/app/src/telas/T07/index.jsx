@@ -69,8 +69,6 @@ import {
   ativoDe, ativoPrevisto, serialDoCaso, casosDoEstado, casosDoModulo, contextoDe, rotuloDeTopo, faltas, avisoDaTrava,
   resultados, sinaisDoModelo, tituloDaCan, leituraDaCan, canLidaNoFluxo, sessaoDo,
 } from './diagnostico.js'
-import { parQueDecide, noCaminho } from '../../estado/caminho.js'
-import { HEROI } from '../../estado/sementes.js'
 import './t07.css'
 
 // com reduzir movimento (o --mov-lento vale 0), a CAN ao vivo para no último valor
@@ -110,7 +108,7 @@ function inicio(momento, unico) {
   // agora. Com o ativo na sessão (o pulo do palco pra uma tela de depois, que semeia só a sessão),
   // o módulo já passou: a faixa, que já estava lá, não some
   const corre = !EM_QUADRO && !s.ativoId && !conferido(unico.etapas.preChecagem, s.moduloSerial)
-  return quadro({ feitas: corre ? 0 : LIDAS, casos: casosDoModulo(parQueDecide(s, s).moduloSerial, unico.casosConsumidos) })
+  return quadro({ feitas: corre ? 0 : LIDAS, casos: casosDoModulo(s.moduloSerial, unico.casosConsumidos) })
 }
 
 // os estados da coluna, montados pela receita e parados: o módulo do caso, na
@@ -153,11 +151,7 @@ export default function T07({ momento, estado: est }) {
 
   // ── as sete linhas: as que terminaram dizem o resultado; a que corre mostra o
   // quadrado de agora; as outras esperam, com o relógio apagado e o traço ──
-  const proprio = contextoDe(serial, est != null ? [] : unico.casosConsumidos)
-  // no caminho (estado/caminho.js), o módulo que travaria — fora do cadastro, sem driver, firmware
-  // fora da matriz — lê como o do herói, com o serial dele: a trava fica na coluna (02 a 05)
-  const comoHeroi = est == null && q.serial === undefined && noCaminho(sessao) && Object.values(faltas(proprio)).some(Boolean)
-  const c = comoHeroi ? { ...contextoDe(HEROI.moduloSerial, unico.casosConsumidos), serial, previsto: proprio.previsto } : proprio
+  const c = contextoDe(serial, est != null ? [] : unico.casosConsumidos)
   const res = resultados(c, q.casos)
   const corre = !q.can && q.atualizando == null && q.feitas < LIDAS
   const concluido = !q.can && q.atualizando == null && q.feitas >= LIDAS

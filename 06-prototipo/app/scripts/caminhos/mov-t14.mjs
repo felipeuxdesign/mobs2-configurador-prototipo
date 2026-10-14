@@ -115,9 +115,8 @@ export default [
   { quieto: true },
   { reduzir: false },
 
-  // ── o par do caso evento-sem-resposta (o KHT-4B08 com o M2C-0335): no caminho, o ciclo segue o do
-  // herói (o diretor, 13/10 · src/estado/caminho.js) — o evento chega no prazo · o prazo estourado,
-  // com o Disparar outro evento, é a T14/02, só pela coluna ──
+  // ── o prazo que estoura e o Disparar outro evento (C12·4): pela sessão do KHT-4B08, o caso
+  // evento-sem-resposta (G28) — a revisão de 27/09: a troca dos dois só se media no estado da coluna ──
   { abre: '?tela=T05&momento=01-momento-nenhum-escolhido' },
   { toca: 'M2C-0335' },
   { dorme: 250 },
@@ -148,13 +147,27 @@ export default [
   { ve: 'FILA DRENADA', entre: [2400, 3300] },
   { dorme: 300 },
   { toca: 'Disparar evento de teste', anima: [TEXTO, EVENTO] },
-  { ve: 'O EVENTO CHEGOU EM', ms: 15000 },
-  { naoVe: 'Disparar outro evento' },
-  { naoVe: 'A Seção F reprova · os passos continuam valendo.' },
-  { chega: 'T14', momento: M08, ms: 15000 },
+  // o prazo acaba sem o evento (1 s real vale 4 s: 2:00 em 30 s): a frase da Seção F entra e o rodapé
+  // troca inteiro — o conteúdo esmaece, pelo processo; o Disparar outro evento entra com ele
+  { ve: 'Disparar outro evento', ms: 40000, entre: [28500, 32500] },
+  { anima: TROCA, naoAnima: [ACENDE, TEXTO_NASCE, CHECK] },
+  { ve: 'A Seção F reprova · os passos continuam valendo.' },
+  { dorme: 300 },
+  { quieto: true },
+  // Disparar outro evento: o prazo volta cheio com o quadro, sem encher por dentro, e drena dali
+  { toca: 'Disparar outro evento', anima: TROCA, naoAnima: [...PRAZO, TEXTO_NASCE] },
+  { ve: '1:59', entre: [100, 450] },
+  { anima: PRAZO, naoAnima: SEM_LARGURA },
+  { ve: 'O EVENTO CHEGOU EM', entre: [4500, 6500] },
+  { anima: [EVENTO] },
+  { ve: 'Encerrar o ciclo' },   // o evento chegou: o Encerrar o ciclo acende
+  // o cartão, lido na 1ª tentativa, segue esperando o técnico: os passos continuam valendo
+  { chega: 'T14', momento: M08 },
+  // o Confere: o prazo recomeçou no Disparar outro, e a ignição desligada não vem antes da vez dela
+  // no ciclo (os 48 do prazo, 12 s do disparo): uns 5,7 s depois do toque
   { toca: 'Confere com o cartão' },
-  { chega: 'T14', momento: M05, ms: 15000 },
-  { naoVe: 'Disparar outro evento' },
+  { chega: 'T14', momento: M05, entre: [5000, 6500] },
+  { anima: TROCA, naoAnima: [CHECK] },
   { dorme: 300 },
   { quieto: true },
 

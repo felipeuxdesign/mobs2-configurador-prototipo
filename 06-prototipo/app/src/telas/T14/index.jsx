@@ -56,7 +56,6 @@ import {
   passosDo, passosNaEntrada, passosFeitos, passosDoRegistro, passosAte, tiqueDe, CHAVE, passoDaVez, FILA_NO_QUADRO_01,
 } from './ciclo.js'
 import { T } from './textos.js'
-import { parQueDecide } from '../../estado/caminho.js'
 import './t14.css'
 
 
@@ -67,8 +66,7 @@ function inicio(momento, est, unico) {
   const doCaso = { [REF.estourado]: CASO_SEM_RESPOSTA, [REF.segundaFalha]: CASO_DE_NOVO, [REF.fora]: CASO_MOTOR, [REF.semLeitor]: CASO_SEM_LEITOR }[est] ?? null
   const par = doCaso ? parDoCaso(doCaso) : parDaSessao(unico.sessao)
   // num estado da coluna, o caso vale sempre (a receita); no fluxo, uma vez por sessão
-  // no caminho, o par decide como o do herói: o ciclo que estoura e o motor desligado ficam na coluna (estado/caminho.js)
-  const casos = casosDoPar(est || doCaso ? par : parQueDecide(par, unico.sessao), est ? [] : unico.casosConsumidos)
+  const casos = casosDoPar(par, est ? [] : unico.casosConsumidos)
   // os passos do par: os que se aplicam, e a velocidade com tacógrafo digital (D3) · a 12, sem o cartão
   const lista = passosDo(par, { semLeitor: doCaso === CASO_SEM_LEITOR })
   // resposta: o que o técnico disse do cartão ('aprovada' · 'reprovada') e o tique em que disse

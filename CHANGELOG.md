@@ -1,5 +1,26 @@
 # Registro de mudanças
 
+## 2026-10-14 · os fluxos alternativos de volta
+
+- **O diretor (14/10):** desfeita a regra do caminho sempre feliz, do mesmo dia (79f54af). Cada escolha volta a seguir o que o mock guarda para ela. Os fluxos alternativos ficam no caminho, e os 82 estados continuam na coluna, parados. Os momentos voltam a ser alcançados tocando no caminho, como antes. Um mapa de "escolha isto para ver aquilo" fica para depois.
+- **A reversão:** o código, os roteiros e a documentação voltam ao que eram antes do 79f54af. Ficam de fora dela:
+  - este registro;
+  - a nota da receita da T07/13, que mandava conectar no M2C-0362 no caminho, o que nunca levou a esse estado;
+  - o rascunho `zz-fluxo.mjs`, que tinha entrado por engano e sai.
+- **Medido, sem beco sem saída:** cada fluxo alternativo foi percorrido ao vivo até uma saída.
+
+  | Escolha | Onde desvia | Saída |
+  |---|---|---|
+  | M2C-0999 | T07, serial fora do cadastro | *Procurar outro módulo* |
+  | OCT-2J85 | T09, não cabe | *Procurar outro módulo*, *Voltar ao menu*, ENCERRAR |
+  | OYS-7D93 | T09, cercas demais | as mesmas |
+  | QJF-2C61 | T14, motor desligado | *Encerrar o ciclo*, *Ir para o checklist* |
+  | KHT-4B08 com o M2C-0335 | T14, o prazo estoura | segue esperando o evento, ou *Ir para o checklist* |
+  | KJC-7N23 (Garagem Ibura) | T16, homologação bloqueada | *Voltar ao menu* |
+  | Pátio Caruaru | T03, a baixa cai | *Reconectar*, *Voltar ao contexto* |
+
+  O caminhão KNB-5H39 calibra (o hodômetro semeado, o horímetro pulado), faz o ciclo, tira a quinta foto (a do painel), assina a ciência da Seção F e chega à instalação homologada. A calibração que o gate do C0 achou sem saída não trava mais.
+
 ## 2026-10-14 · o caminho é sempre o feliz
 
 - **O diretor (13/10):** no palco, quem escolhe outro módulo, outro ônibus ou outra unidade segue o mesmo caminho do herói, só com os nomes que escolheu. Os desvios ficam na coluna *Estados desta tela*, parados, pra quem apresenta nunca cair num deles sem querer.

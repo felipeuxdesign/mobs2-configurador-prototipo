@@ -1,7 +1,7 @@
 // C11 · as portas naturais (logica.md, "As portas naturais"; G28, R-11) e a R-14 em
 // toda lista de escolha: tocar na linha só marca, e só o botão avança.
 // Na T05, marcar e conectar o M2C-0999, o fora do cadastro: a conexão abre o diagnóstico
-// (T07), que no caminho passa como o do herói (o diretor, 13/10). Só por toque, do login.
+// (T07), que trava no serial (o quadro da T07/02). Só por toque, do login.
 // Com o pacote 1 saíram as portas da pré-checagem da T05 (o M2C-0394, o 11; o M2C-0362,
 // o 13; o M2C-0335, o 15) e a do chassi da T06 (o KNB-5H39, o 03).
 const A_LISTA = [
@@ -65,9 +65,9 @@ export default [
   { ve: 'Conectar ao M2C-0394' },
   { naoVe: 'Conectar ao M2C-0417' },
 
-  // a porta do M2C-0999: fora do cadastro, ele se marca e conecta como os outros, e no
-  // caminho o diagnóstico (T07) passa como o do herói, com o serial dele (o diretor, 13/10):
-  // a trava pelo serial é a T07/02, só pela coluna
+  // a porta do M2C-0999: fora do cadastro, ele se marca e conecta como os outros; o
+  // diagnóstico (T07) trava pelo serial, a faixa não desce, e o Procurar outro módulo
+  // volta à lista sem nada escolhido (o quadro da T07/02)
   { marca: 'M2C-0999' },
   { fica: 'T05', ms: 600 },
   { chega: 'T05', momento: null },
@@ -75,12 +75,13 @@ export default [
   { naoVe: 'Conectar ao M2C-0394' },
   { toca: 'Conectar ao M2C-0999' },
   { chega: 'T07', momento: null },
-  { ve: 'ENCERRAR', ms: 8000 },
-  { ve: 'M2C-0999' },
-  { naoVe: 'Peça ao gestor pra cadastrar o M2C-0999.' },
-  { naoVe: 'Procurar outro módulo' },
-  // de volta à lista sem nada escolhido, pelo endereço
-  { abre: '?tela=T05&momento=01-momento-nenhum-escolhido' },
+  { ve: 'Peça ao gestor pra cadastrar o M2C-0999.' }, // pacote 3: o aviso da trava
+  { ve: 'não está no cadastro', ms: 8000 },
+  { ve: 'Procurar outro módulo', ms: 8000 },
+  { naoVe: 'ENCERRAR' },
+  { naoToca: 'Selecionar ativo' },
+  { fica: 'T07', ms: 600 },
+  { toca: 'Procurar outro módulo' },
   { chega: 'T05', momento: '01-momento-nenhum-escolhido' },
   { desligado: 'Conectar' },
 

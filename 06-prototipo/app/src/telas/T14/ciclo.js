@@ -112,8 +112,7 @@ export const CARTAO_LIDO = M.identificadores.cartoes[0].codigoEsperado.replace(/
 
 // os casos que valem neste par (o da faixa, G28). O motor desligado é fato do
 // veículo: vale toda vez. O evento sem resposta vale uma vez por sessão (G21): a 1ª
-// tentativa estoura, a 2ª confirma. No caminho, a tela pergunta pelo par do herói
-// (o diretor, 13/10 · estado/caminho.js), e os dois ficam na coluna.
+// tentativa estoura, a 2ª confirma.
 export function casosDoPar(par, consumidos = []) {
   const bate = (k) => {
     const c = M.casos[k]

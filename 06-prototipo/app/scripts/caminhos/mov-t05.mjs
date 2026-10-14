@@ -11,7 +11,7 @@
 //   · conectar (C12·2): a sessão nasce, e a tela vai pra T07 com a troca entre telas — o conteúdo
 //     esmaece em 150, e a barra fica parada. A faixa não desce na conexão: desce na T07, quando as
 //     sete linhas passam sem trava (o padrão aprovado no gate do pacote 1). O M2C-0999 conecta como
-//     os outros, e no caminho a T07 lê como a do herói (o diretor, 13/10): a trava é só da coluna (T07/02);
+//     os outros, e a T07 trava pelo serial fora do cadastro (T07/02), lido da sessão;
 //   · entre quadros, só a troca esmaece: o texto do primário não esmaece de novo por dentro dela.
 // A tela abre parada pela URL, em cada momento e estado, e no print. Com reduzir, o mesmo ritmo, e
 // nada anda.
@@ -111,8 +111,7 @@ export default [
   // o módulo respondeu (o pacote 9): o Conectado ao …, e o traço se desenha embaixo da linha
   { chega: 'T05', momento: '07-momento-conectado', entre: [900, 1700] },
   { chega: 'T07', entre: [900, 1700] },
-  // o M2C-0999 conecta como os outros, e no caminho a T07 lê como a do herói, com o serial dele (o
-  // diretor, 13/10): a trava pelo serial fora do cadastro (T07/02) é só da coluna
+  // o M2C-0999 conecta como os outros, e a T07 trava pelo serial fora do cadastro, lido da sessão (T07/02)
   { abre: `?tela=T05&momento=${M01}` },
   { toca: 'M2C-0999' },
   { dorme: 250 },
@@ -124,8 +123,8 @@ export default [
   // o módulo respondeu (o pacote 9): o Conectado ao …, e o traço se desenha embaixo da linha
   { chega: 'T05', momento: '07-momento-conectado', entre: [900, 1700] },
   { chega: 'T07', entre: [900, 1700] },
-  { ve: 'ENCERRAR', ms: 8000 },
-  { naoVe: 'Peça ao gestor pra cadastrar o M2C-0999.' },
+  { ve: 'Peça ao gestor pra cadastrar o M2C-0999.', ms: 8000 }, // pacote 3: o topo só com o serial, e o aviso da trava
+  { naoVe: 'ENCERRAR' },
 
   // ── com reduzir movimento: o mesmo ritmo, e nada anda ──
   { reduzir: true },

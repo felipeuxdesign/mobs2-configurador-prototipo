@@ -64,7 +64,6 @@ import {
   REF, grandezaDe, ativoDe, grandezasDoPar, nadaACalibrar, moduloConta, painelMostra, semeadoHa, releitura, mundoDoEstado, digitos, quadroDe,
 } from './calibracao.js'
 import { T } from './textos.js'
-import { parQueDecide } from '../../estado/caminho.js'
 import './t10.css'
 
 const HORA = M.HORA_NOMINAL
@@ -181,8 +180,7 @@ function sessaoDoQuadro(est, unico) {
 export default function T10(props) {
   const { estado: unico } = useEstado()
   const { sessao } = sessaoDoQuadro(props.estado, unico)
-  // no caminho, o ativo decide como o do herói, que não calibra nada: a calibração fica na coluna (estado/caminho.js)
-  const frase = nadaACalibrar(parQueDecide(sessao, sessao).ativoId)
+  const frase = nadaACalibrar(sessao.ativoId)
   return frase ? <NadaACalibrar {...props} sessao={sessao} frase={frase} /> : <Calibracao {...props} />
 }
 
