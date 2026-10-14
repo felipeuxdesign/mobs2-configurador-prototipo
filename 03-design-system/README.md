@@ -4,7 +4,7 @@
 
 | Arquivo | O que tem |
 |---|---|
-| [tokens.css](tokens.css) · [tokens.json](tokens.json) | 301 tokens de cor, tipo, espaço, medida e movimento, e o tema claro: as 31 cores do escuro, o `--texto-primario` e o `--logo` com o par claro, no bloco `[data-tema="claro"]` do CSS e na extensão `mobs2.tema.claro` de cada cor no JSON. O CSS é a norma; o JSON é gerado dele por `npm run tokens`, na pasta `06-prototipo/app`. |
+| [tokens.css](tokens.css) · [tokens.json](tokens.json) | 306 tokens de cor, tipo, espaço, medida e movimento, e o tema claro: as 31 cores do escuro, o `--texto-primario` e o `--logo` com o par claro, no bloco `[data-tema="claro"]` do CSS e na extensão `mobs2.tema.claro` de cada cor no JSON. O CSS é a norma; o JSON é gerado dele por `npm run tokens`, na pasta `06-prototipo/app`. |
 | [leis.md](leis.md) | As leis visuais, as de medida (com *O texto de apoio tem 16 de altura de linha*) e as regras de produto R-01 a R-19 (as do modo claro, R-16 a R-19), com as revisões declaradas. |
 | [movimento.md](movimento.md) | Movimento das peças e cadência de apresentação dos processos. No produto, as leituras dependem do equipamento e dos serviços. |
 | [componentes.md](componentes.md) | 115 peças normativas nas dez folhas (o interruptor e o avatar da conta entraram no pacote 30; o logo, no 31; o tracinho vazio, no 32; o tracejado do vazio, no 33); em seção própria, as variantes medidas na construção do protótipo. |

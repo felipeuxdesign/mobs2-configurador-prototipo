@@ -1,11 +1,13 @@
 .ds-secundario {
   flex-shrink: 0; width: 100%; height: var(--botao-secundario);
   display: flex; align-items: center; justify-content: center;
-  background: var(--elevado); border: var(--traco-borda) solid var(--borda-neutra); border-radius: var(--raio);
+  background: var(--fundo-botao); border: var(--traco-borda) solid var(--borda-botao); border-radius: var(--raio);
   font-size: var(--t-destaque); font-weight: 700; color: var(--tinta);
   touch-action: manipulation; user-select: none;
   transition: transform var(--mov-solta) var(--mov-curva);
 }
+/* o pacote 34: desligado, sem o fill · fundo e borda de cartão, texto apagado */
+.ds-secundario:disabled { background: var(--fundo-cartao); border-color: var(--borda); color: var(--tinta-apagada); }
 .ds-secundario:active:not(:disabled), .ds-secundario.ds-forca-toque { transform: scale(var(--escala-toque)); transition: none; }
 /* C11 · T15/02 (G11): o compacto, dentro do cartão com dois erros — 46 de
    desenho e 15 de letra; o toque de 48 é uma área invisível por fora (G14) */

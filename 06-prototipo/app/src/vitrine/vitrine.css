@@ -24,3 +24,5 @@
 
 /* o pacote 30 · a folha 10: o espécime no claro, numa caixa com o data-tema da raiz do app e o fundo da página do claro */
 .vitrine-claro { padding: var(--e-16); background: var(--fundo-pagina); color: var(--tinta); }
+/* o pacote 34 · a folha 10: o secundário ligado e o desligado, um embaixo do outro, a 8 */
+.vitrine-coluna { display: flex; flex-direction: column; gap: var(--e-8); }

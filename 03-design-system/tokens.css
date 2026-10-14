@@ -13,6 +13,7 @@
   --fundo-faixa:       #16131D;   /* faixa de sessão, folha */
   --fundo-cartao:      #1A1726;   /* cartão e lista */
   --fundo-apagado:     #131019;   /* vazio declarado, tracejado */
+  --fundo-botao:       #241F33;   /* o fill do botão secundário · um degrau fora do cartão */
   --poco:              #0B0910;   /* o poço */
   --poco-fundo:        #06050A;   /* a borda funda do poço (topo) */
 
@@ -23,7 +24,7 @@
   --separador:         #2E2840;   /* separador curto */
   --borda-rodape:      #221D2E;   /* topo do rodapé */
   --poco-lado:         #14111C;   /* laterais do poço */
-  --elevado:           #1E1A29;   /* pressionado, botão secundário */
+  --elevado:           #1E1A29;   /* pressionado · a linha tocável, sob o dedo · nenhum botão usa de fundo */
 
   /* ── tinta de texto · nada abaixo de --tinta-apagada ─── */
   --tinta:             #F2F0F7;
@@ -36,6 +37,7 @@
   --marca:             #4E475E;   /* traço, poço vazio, ícone apagado */
   --marca-vazia:       #4A4166;   /* marcador de escolha vazio */
   --borda-neutra:      #3A3350;   /* caixa neutra, e o tracejado do vazio */
+  --borda-botao:       #3A3350;   /* a borda do botão secundário · um tom acima da dos cartões, a mesma intensidade nos dois temas */
 
   /* ── ação e veredito ────────────────────────────────── */
   --lima:              #AAEF00;   /* veredito e escolhido — nunca enfeite · o texto do botão principal tem token próprio, --texto-primario */
@@ -377,6 +379,11 @@
 
   /* ── o pacote 32 · o token do papel (a lei: cada peça usa o token do seu papel) ── */
   --folha-topo:        #332C49;   /* o fio de cima da folha que sobe (folha 2, T04/05 a 14, T01, T11/03): no escuro, o mesmo da luz do poço, que ela usava emprestado · no claro, a cor da folha — nenhuma linha em cima dela · Folha */
+  /* o pacote 34: no claro, a luz do poço vira branco (o poço mais fundo) · três peças a usavam emprestada e
+   * sumiriam no branco: cada uma ganha o token do seu papel, igual no escuro, e no claro o valor que já tinha */
+  --trilho-antes:      #332C49;   /* o trilho da cadeia antes de gravar (T09/05, 06, 07) · Cadeia */
+  --traco-vazio-busca: #332C49;   /* o tracinho dentro do vazio da busca (T05/02, 03) · T05 (VazioDaBusca) */
+  --borda-dialogo:     #332C49;   /* a borda do diálogo · Dialogo */
 }
 
 /* ── o tema claro · NEUTRO FRIO · só as cores ───────────────────────────
@@ -384,8 +391,8 @@
  * a página em #F7F7F9, bordas finas, texto #1F2023 · o tom frio conversa com o
  * roxo, que fica nos ícones, no veredito, no botão e no logo · o lima não aparece
  * no claro · o poço continua rebaixado: a sombra em cima (--poco-fundo), as
- * laterais no meio e a luz embaixo (--borda-poco), em cinza, pra ainda aparecer
- * no branco · o véu continua preto a 32% · as barras do sistema ficam escuras.
+ * laterais no meio e a luz embaixo (--borda-poco), em branco (o pacote 34: o poço
+ * mais fundo, #E5E6EB, com a sombra #BCBEC8, volta a parecer afundado) · o véu continua preto a 32% · as barras do sistema ficam escuras.
  * A estrutura é a mesma do escuro: só as cores mudam · o pacote 32: no claro,
  * nada lê mais fraco que no escuro — os riscos (--marca, --marca-limite,
  * --marca-vazia), a faixa da régua e o trecho feito (--lima-faixa, --lima-borda) sobem.
@@ -397,9 +404,10 @@
   --fundo-faixa: #FFFFFF;
   --fundo-cartao: #FFFFFF;
   --fundo-apagado: #F1F1F4;
-  --poco: #F0F0F3;
-  --poco-fundo: #C6C7D0;
-  --borda-poco: #E6E7EC;
+  --fundo-botao: #F3F3F7;
+  --poco: #E5E6EB;
+  --poco-fundo: #BCBEC8;
+  --borda-poco: #FFFFFF;
   --borda: #E2E3E8;
   --divisoria: #ECEDF1;
   --separador: #E2E3E8;
@@ -409,11 +417,12 @@
   --tinta: #1F2023;
   --tinta-forte: #2F3037;
   --tinta-secundaria: #4B4D57;
-  --tinta-apagada: #686B78;
+  --tinta-apagada: #62656F;
   --marca-limite: #6E7180;
   --marca: #8E91A0;
-  --marca-vazia: #9EA1AF;
+  --marca-vazia: #9A9DAB;
   --borda-neutra: #C9CBD4;
+  --borda-botao: #D2D4DA;
   --lima: #5B3A99;
   --roxo: #402070;
   --roxo-pressionado: #4A2A80;
@@ -427,6 +436,9 @@
   --texto-primario: #FFFFFF;
   --logo: #402070;
   --folha-topo: #FFFFFF;
+  --trilho-antes: #E6E7EC;
+  --traco-vazio-busca: #E6E7EC;
+  --borda-dialogo: #E6E7EC;
   --idade-preenchido: var(--borda-poco);
   --rolagem-cor: var(--tinta-apagada);
 }

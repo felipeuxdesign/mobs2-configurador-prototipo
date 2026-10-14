@@ -1,7 +1,7 @@
 // O botão de saída da folha (folha 2, o Sair da conta · T04/05): 52 de alto,
-// fundo de cartão com a borda, texto 15/700 em --tinta. Tocável inteiro: no
-// toque, a camada --elevado por cima, sem sangrar (G14). Não é o secundário
-// da folha 6 (--elevado com borda neutra, 16px): é o desenho da folha da conta.
+// com as cores do botão secundário (o pacote 34, um desenho só: o fill
+// --fundo-botao e a borda --borda-botao), texto 15/700 em --tinta. Tocável
+// inteiro: no toque, a camada --elevado por cima, sem sangrar (G14).
 import { Tocavel } from '../primitivos/Tocavel.jsx'
 import './BotaoDaFolha.css'
 

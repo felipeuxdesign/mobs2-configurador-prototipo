@@ -13,7 +13,7 @@
   display: flex; align-items: center; justify-content: center;
   border: var(--traco-borda) dashed var(--borda-neutra);   /* o tracejado do vazio (o pacote 33): era a luz do poço */
 }
-.t05-vazio-marca::after { content: ''; display: block; width: var(--e-14); height: var(--traco-borda); background: var(--borda-poco); }
+.t05-vazio-marca::after { content: ''; display: block; width: var(--e-14); height: var(--traco-borda); background: var(--traco-vazio-busca); }   /* o pacote 34: o token do papel, era a luz do poço */
 .t05-vazio-titulo { font-size: var(--t-titulo-bloco); font-weight: 700; line-height: var(--entrelinha-cartao); color: var(--tinta); }
 .t05-vazio-frase { font-size: var(--t-corpo); font-weight: 500; line-height: var(--entrelinha-frase-busca); color: var(--tinta-secundaria); }
 /* o mundo real · T05/16 e 17 · no lugar da marca, o poço de 44 com o Bluetooth

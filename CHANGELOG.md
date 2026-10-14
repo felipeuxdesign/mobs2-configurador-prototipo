@@ -1,5 +1,18 @@
 # Registro de mudanças
 
+## 2026-10-13 · pacote 34: o claro, polido
+
+- **o botão secundário com um desenho só**: um fill um degrau fora do cartão, o token novo `--fundo-botao` (`#241F33` no escuro, `#F3F3F7` no claro, o mesmo degrau de 1,1:1 nos dois temas), e o token `--borda-botao`, um tom acima da borda dos cartões, com a mesma intensidade nos dois temas: `#3A3350` no escuro e `#D2D4DA` no claro · antes eram três desenhos, alguns com cores emprestadas (o fundo das divisórias, a luz do poço, o `--elevado`), e no claro o botão parecia desligado ou sumia · vale pros de rodapé e de folha, os de resposta (*Ouvi*, *Confere com o cartão*) e os compactos · o desligado não tem fill: fundo e borda de cartão, texto apagado
+- **o `--elevado` fica só com o papel de pressionado**: a linha tocável, sob o dedo
+- **o poço mais fundo no claro**: `--poco` em `#E5E6EB`, a sombra de cima em `#BCBEC8` e a luz de baixo em branco · ele volta a parecer afundado no cartão, e não uma caixinha · com isso, o texto apagado desce a `#62656F` e o marcador vazio a `#9A9DAB`, pra continuarem passando dentro do poço
+- **a lei de contraste ajustada**: o 3:1 fica pro que indica estado (o interruptor, o veredito, o traço de limite) · o botão secundário é reconhecido pelo texto e pelo fill, com a borda `--borda-botao` · a tabela da folha 10 refeita, e as nove cores passam
+- **No protótipo:**
+  - os três desenhos viraram um: o `BotaoSecundario` (T15), o `BotaoDaLinha` (os de resposta, os compactos e o *Reenviar* de cada dependente da T09) e o `BotaoDaFolha` (*Sair da conta*, *Encerrar a sessão*) usam `--fundo-botao` e `--borda-botao` · o desligado, fundo e borda de cartão com o texto apagado (o *Tocando…* da T13/39) · o *Reenviar* desligado da T09 (10, 14, 15) segue a referência, que não mudou: o fundo da folha, a borda da divisória e o texto em `--marca`
+  - **três tokens do papel** (o padrão do `--folha-topo`, do pacote 32): com a luz do poço branca no claro, três peças que a usavam emprestada sumiriam no branco · `--trilho-antes` (a cadeia antes de gravar, T09/05 a 07), `--traco-vazio-busca` (o tracinho do vazio da busca, T05) e `--borda-dialogo` (a borda do diálogo) · iguais no escuro (`#332C49`) e, no claro, o valor que já tinham (`#E6E7EC`) · 306 tokens
+  - **desvio nomeado:** nas referências, o *Sair da conta* e o *Encerrar a sessão* da T04 (05, 10, 11) e da folha 2 continuam com fundo e borda de cartão · o código segue o pacote, que os põe no desenho do secundário · a bancada não acusa (a diferença fica abaixo da tolerância de cor dela)
+  - o catálogo do protótipo: o secundário compacto e o desligado na folha 6, o secundário e o poço no claro na folha 10
+- **Medido:** as 201 referências contra a base do pacote 33: 42 em 0% contra o HTML (eram 34), nenhuma com erro · T13/05, 40 e 43 sobem de 0,1 a 0,2 ponto: o deslocamento de 1 a 2px que a seção aberta já tinha, agora com a borda do botão mais visível · as cores dos botões iguais às da referência, pixel a pixel · a tabela de contraste recomputada bate com a da folha 1
+
 ## 2026-10-13 · o *Sem módulo* na coluna do menu
 
 - **A coluna *Estados desta tela* da T04 abre o *Sem módulo*** (o diretor, 13/10): o menu antes de conectar, sem sessão de configuração, que só se via passando pelo login · entra em primeiro e abre parado, como todo quadro da coluna (o toque faz o *Voltar ao fluxo* piscar, e ele devolve o menu de antes) · pelo link do momento, o menu continua vivo, com o aviso do acesso · no `indice.json`, o `01-momento-sem-modulo` com `coluna` e `rotulo` (sem `consulta`, que é só dos cenários especiais); na T04, a sessão desse quadro é nenhuma.

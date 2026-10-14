@@ -2,9 +2,8 @@
 // que mora na própria linha do passo ou do item, fora do rodapé — o Confere com o
 // cartão e o Não confere da T14/08, o Ouvi e o Não ouvi da T13/40, e o Testar bip
 // da T13/05. Nenhuma folha desenha esta peça: ela é das telas (como o instrumento
-// do item, T13/pecas.jsx), montada com os tokens do botão secundário — o fundo em
-// --divisoria e a borda em --borda-poco, como as referências — e vai ao
-// arquiteto pra entrar na folha 6. Sem roxo e sem lima (não é o primário); no
+// do item, T13/pecas.jsx), montada com os tokens do botão secundário — o fill em
+// --fundo-botao e a borda em --borda-botao (o pacote 34: um desenho só). Sem roxo e sem lima (não é o primário); no
 // toque afunda, como o secundário.
 // · `tam`: 'resposta' (40 de alto, os dois lado a lado, cada um com a metade) e
 //   'teste' (30 de alto, o Testar bip, do tamanho do texto, à direita do título).

@@ -6,7 +6,7 @@
   display: flex; flex-direction: column; gap: var(--e-12);
   padding: var(--e-20) var(--sobreposto-recheio) var(--e-12) var(--sobreposto-recheio);
   background: var(--fundo-faixa);
-  border: var(--traco-borda) solid var(--borda-poco); border-radius: var(--raio);
+  border: var(--traco-borda) solid var(--borda-dialogo); border-radius: var(--raio);   /* o pacote 34: o token do papel, era a luz do poço */
   transition: opacity var(--mov-rapido) var(--mov-curva), transform var(--mov-rapido) var(--mov-curva);
 }
 .ds-dialogo-fechado { opacity: 0; transform: scale(var(--escala-dialogo)); }

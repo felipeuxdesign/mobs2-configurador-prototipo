@@ -97,8 +97,13 @@ export const especimes = [
         { titulo: '3 · Ponto de ligação', texto: '— direto na bateria, sem queda' },
       ]} />
     ) },
-  { id: 'f6-secundario', folha: 6, rotulo: 'botão secundário', legenda: 'fundo --elevado · a ação da linha',
+  { id: 'f6-secundario', folha: 6, rotulo: 'botão secundário', legenda: 'fill --fundo-botao, borda --borda-botao, texto --tinta · um desenho só em todo o app (o pacote 34)',
     render: () => <BotaoSecundario>Ressincronizar e reenviar</BotaoSecundario> },
+  // o pacote 34: os tamanhos e o desligado, que a folha 6 não desenha (fora da bancada)
+  { id: 'f6-secundario-compacto', folha: 6, semBancada: true, rotulo: 'botão secundário · compacto', legenda: '46 de desenho e 15 de letra, o toque de 48 por fora (T15/02) · o mesmo fill e a mesma borda',
+    render: () => <BotaoSecundario compacto>Ressincronizar e reenviar</BotaoSecundario> },
+  { id: 'f6-secundario-desligado', folha: 6, semBancada: true, rotulo: 'botão secundário · desligado', legenda: 'sem o fill: fundo e borda de cartão, texto --tinta-apagada · o fill e a borda separam o ligado do desligado',
+    render: () => <BotaoSecundario desabilitado>Ressincronizar e reenviar</BotaoSecundario> },
 
   // a lista com contagem · a baixa do pacote (T03/01): a divisória entre as linhas e
   // nenhuma depois da última, a regra da peça; a folha desenha só a dos Ativos (o

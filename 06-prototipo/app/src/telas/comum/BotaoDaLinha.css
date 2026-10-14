@@ -1,7 +1,7 @@
-/* o botão de dentro da linha (BotaoDaLinha.jsx): o fundo da divisória, a borda do poço, o texto em --tinta */
+/* o botão de dentro da linha (BotaoDaLinha.jsx): o desenho do botão secundário (o pacote 34) · o fill --fundo-botao, a borda --borda-botao, o texto em --tinta */
 .t-botao-linha {
   display: flex; align-items: center; justify-content: center; white-space: nowrap;
-  background: var(--divisoria); border: var(--traco-borda) solid var(--borda-poco); border-radius: var(--raio);
+  background: var(--fundo-botao); border: var(--traco-borda) solid var(--borda-botao); border-radius: var(--raio);
   font-weight: 700; color: var(--tinta);
   touch-action: manipulation; user-select: none;
   transition: transform var(--mov-solta) var(--mov-curva);
@@ -11,7 +11,8 @@
  * uma camada sem desenho, centrada, só na altura — a área cabe sem bater em outro alvo (medido pelo arquiteto) */
 .t-botao-linha { position: relative; }
 .t-botao-linha::after { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: var(--alvo-min); transform: translateY(-50%); }
-.t-botao-linha:disabled { color: var(--tinta-apagada); }
+/* desligado, sem o fill: fundo e borda de cartão, texto apagado (T13/39, o Tocando…) */
+.t-botao-linha:disabled { background: var(--fundo-cartao); border-color: var(--borda); color: var(--tinta-apagada); }
 .t-botao-linha-resposta { flex: 1; height: var(--e-40); }
 .t-botao-linha-teste { flex-shrink: 0; height: var(--poco-30); padding: 0 var(--e-12); }
 .t-botao-linha-letra-secundario { font-size: var(--t-secundario); }
