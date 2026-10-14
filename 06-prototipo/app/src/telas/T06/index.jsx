@@ -137,7 +137,7 @@ export default function T06({ momento, estado: est }) {
   // abre pelo modo: o que vai ser gravado (05) ou o escolher o bloco (08)
   const vincular = (registro) => {
     despachar({ tipo: 'mesclar', parcial: {
-      sessao: { ...sessao, ativoId: ativo.id },
+      sessao: { ...sessao, ativoId: ativo.id, caminho: true },   // o ativo escolhido decide como o do herói (estado/caminho.js)
       etapas: { ...unico.etapas, ativo: { ativoId: ativo.id, ...registro, as: M.HORA_NOMINAL } },
     } })
     ir('T09')

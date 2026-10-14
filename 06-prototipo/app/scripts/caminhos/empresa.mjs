@@ -165,14 +165,8 @@ export default [
   esc,
   ...NO_07,
   ...AS_UNIDADES,
-  // a T03 que volta ao contexto: as unidades da atual, sem nada escolhido (o quadro do 06).
-  // A primeira baixa do Pátio Caruaru cai na rede (o caso sync-falha-rede)
-  { marca: 'Pátio Caruaru' },
-  { chega: 'T02', momento: COM_TROCA },
-  { toca: 'Sincronizar Pátio Caruaru' },
-  { chega: 'T03' },
-  { ve: 'A BAIXA PAROU ONDE ESTAVA', ms: 8000 },
-  { toca: 'Voltar ao contexto' },
+  // as unidades da atual, sem nada escolhido (o quadro do 06) · a baixa que cai no Pátio Caruaru
+  // (o caso sync-falha-rede) e o Voltar ao contexto dela são a T03/01, só pela coluna (o diretor, 13/10)
   { chega: 'T02', momento: null },
   { ve: 'Onde você está hoje?' },
   { ve: 'Trocar de empresa' },
@@ -360,13 +354,15 @@ export default [
   esc,
   { fica: 'T02', ms: 500 },
   { chega: 'T02', momento: UMA_ESCOLHIDA },
-  // a T03 que volta ao contexto: a 00 de novo, nesse mundo. A primeira baixa do Pátio Caruaru cai na rede
+  // no caminho, a baixa do Pátio Caruaru não cai (o diretor, 13/10): conclui, como as outras
   { marca: 'Pátio Caruaru' },
   { chega: 'T02', momento: UMA_ESCOLHIDA },
   { toca: 'Sincronizar Pátio Caruaru' },
   { chega: 'T03' },
-  { ve: 'A BAIXA PAROU ONDE ESTAVA', ms: 8000 },
-  { toca: 'Voltar ao contexto' },
+  { chega: 'T03', momento: '02-momento-concluido', ms: 8000 },
+  { naoVe: 'A BAIXA PAROU ONDE ESTAVA' },
+  // e a 00 de novo, pelo endereço
+  { abre: '?tela=T02' },
   ...NA_00,
   // → T03 → o menu, com a folha sem o Trocar de empresa (o quadro da T04/07)
   { marca: 'Garagem Várzea' },

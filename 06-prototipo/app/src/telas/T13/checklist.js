@@ -31,6 +31,7 @@ import { conteudoDo } from '../T09/cadeia.js'
 import { faltaReenviarDe, motivoDe, manutencaoDoCaso } from '../../estado/reenvio.js'
 import { T } from './textos.js'
 import { T as T14 } from '../T14/textos.js'
+import { parQueDecide } from '../../estado/caminho.js'
 
 export const REF = {
   tela: '00-tela',
@@ -235,6 +236,8 @@ export function mundoDe({ unico, est, semente, releituras = 0 }) {
   const guardado = proprias.checklist?.ativoId === sessao.ativoId ? proprias.checklist : null
   return {
     sessao, etapas, fila: [...M.filaSaida, ...unico.fila], casosConsumidos: unico.casosConsumidos,
+    // o par com que o checklist decide: no caminho, o do herói (estado/caminho.js) · os nomes seguem a sessão
+    decide: parQueDecide(sessao, sessao),
     registro: guardado ? { ...registroVazio(sessao.ativoId), ...guardado } : registroVazio(sessao.ativoId),
     casos: [], semLocalizacao: false, releituras,
   }
@@ -293,7 +296,7 @@ function relidoDo(mundo, caso) {
   return { ...caso, ...lista[Math.min(mundo.releituras, lista.length) - 1] }
 }
 function alimentacaoDoCaso(mundo) {
-  const { moduloSerial } = mundo.sessao
+  const { moduloSerial } = mundo.decide ?? mundo.sessao
   const k = Object.keys(M.casos).find((x) => M.casos[x].alimentacao != null && M.casos[x].moduloSerial === moduloSerial)
   return k && !mundo.casosConsumidos.includes(k) ? relidoDo(mundo, M.casos[k]).alimentacao : null
 }
@@ -307,7 +310,8 @@ function lidoDoSinal(mundo, id) {
   const { ativoId } = mundo.sessao
   const s = sinalDe(ativoId, id)
   if (!s) return null
-  const casoId = Object.keys(M.casos).find((k) => k.startsWith('can-estatico-') && k !== 'can-estatico-dominio' && M.casos[k].ativoId === ativoId)
+  const quemDecide = (mundo.decide ?? mundo.sessao).ativoId
+  const casoId = Object.keys(M.casos).find((k) => k.startsWith('can-estatico-') && k !== 'can-estatico-dominio' && M.casos[k].ativoId === quemDecide)
   const lidos = casoId && !mundo.casosConsumidos.includes(casoId) ? M.casos[casoId].lidos ?? {} : {}
   const lido = Object.prototype.hasOwnProperty.call(lidos, id) ? lidos[id] : s.lido
   return { sinal: s, lido }
@@ -370,7 +374,7 @@ function passoDoCiclo(mundo, item) {
 // Seção F reprova.') ou um item desta sessão que o servidor recusou
 function secaoFFalhando(mundo) {
   const pf = M.casos['pronto-para-fechar']
-  if (pf && pf.ativoId === mundo.sessao.ativoId && pf.recebimento === 'sem resposta') return true
+  if (pf && pf.ativoId === (mundo.decide ?? mundo.sessao).ativoId && pf.recebimento === 'sem resposta') return true
   return cicloDaSessao(mundo)?.evento === 'nao-chegou'
 }
 

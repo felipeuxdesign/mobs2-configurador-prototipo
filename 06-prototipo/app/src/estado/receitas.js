@@ -39,7 +39,7 @@ export const RECEITAS = {
   'T07/02-estado-serial-nao-cadastrado': { casos: ['serial-nao-cadastrado'], obs: 'o M2C-0999 fora do cadastro: o serial trava, o firmware e as entradas ficam sem cadastro, e a faixa não desce · no fluxo, conectar no M2C-0999 da T05/01 (a errata)' },
   'T07/03-estado-modelo-sem-suporte': { casos: ['modelo-sem-driver'], obs: 'o M2C-0497, VC07 sem driver nesta versão: o serial trava · o módulo não está por perto, só pela coluna' },
   'T07/04-estado-firmware-fora-da-lista': { casos: ['firmware-fora-matriz'], obs: 'o M2C-0451 com o 2.4.1, fora da lista do VL06 FULL: o firmware trava, e Atualizar firmware leva à 06 · só pela coluna' },
-  'T07/13-estado-sessao-anterior-mal-encerrada': { casos: ['modulo-com-pendencias'], obs: 'o M2C-0362 com o canal aberto: o app fecha o acesso e avisa, e as 12 mensagens guardadas aparecem na linha delas (a rodada 2) · no fluxo, conectar no M2C-0362' },
+  'T07/13-estado-sessao-anterior-mal-encerrada': { casos: ['modulo-com-pendencias'], obs: 'o M2C-0362 com o canal aberto: o app fecha o acesso e avisa, e as 12 mensagens guardadas aparecem na linha delas (a rodada 2) · só pela coluna' },
   'T07/05-estado-firmware-sem-rede-no-modulo': { casos: ['firmware-sem-rede-no-modulo'], obs: 'o firmware-fora-matriz com o modem sem rede, que só informa: Gravar a conexão grava só a conexão, e o firmware atualiza (a 06) · só pela coluna' },
   'T07/07-estado-modem-sem-sinal': { casos: ['modem-sem-sinal'], obs: 'o M2C-0417 com o modem sem sinal, que só informa: a faixa desce, 6 de 7 · só pela coluna (D1)' },
   'T07/08-estado-sinal-da-can-sem-leitura': { casos: ['can-estatico-ausente'], obs: 'a CAN lida do RKT-8H42 (a-01), com a rotação sem leitura, a ligação: 14 de 15 · só pela coluna (D1)' },

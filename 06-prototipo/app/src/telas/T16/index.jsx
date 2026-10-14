@@ -50,12 +50,14 @@ import {
   interrompida,
 } from './dados.js'
 import { T, PASSOS } from './textos.js'
+import { parQueDecide } from '../../estado/caminho.js'
 import './t16.css'
 
 // o par módulo × ativo da sessão; sem sessão, o da semente (o herói)
 const parDe = (s) => {
   const base = s?.moduloSerial ? s : SEMENTES.T16.sessao
-  return { moduloSerial: base.moduloSerial, ativoId: base.ativoId }
+  // o `caminho` viaja no par: a sessão some ao encerrar, e o fim ainda decide como o herói (estado/caminho.js)
+  return { moduloSerial: base.moduloSerial, ativoId: base.ativoId, ...(base.caminho ? { caminho: true } : {}) }
 }
 
 // O quadro em que a tela abre, pelo momento ou pelo estado (a URL, o palco).
@@ -160,7 +162,8 @@ export default function T16({ momento, estado: est }) {
       }
       // a última assertiva: o fim — a 02, ou, com a falha, a tela sem momento (a 05 é estado)
       if (f.fase === 'autoteste' && n.fase === 'encerrada') {
-        const falha = assertivas(f.par.ativoId).some((a) => a.estado === 'reprovada')
+        // no caminho, o par decide como o do herói: a homologação bloqueada fica na coluna (05 · estado/caminho.js)
+        const falha = assertivas(parQueDecide(f.par, f.par).ativoId).some((a) => a.estado === 'reprovada')
         despachar({ tipo: 'ir', tela: 'T16', momento: falha ? undefined : REF.encerrada })
       }
       if (f.fase === 'abortando' && n.fase === 'abortada') {
@@ -232,7 +235,7 @@ export default function T16({ momento, estado: est }) {
     rodape = <Rodape primario={T.encerrandoNaoDesconecte} primarioDesabilitado explicacao={T.saidaDesconectar} />
   } else if (fase === 'autoteste' || fase === 'encerrada') {
     // as 8 assertivas, cada uma com o valor lido; a falha mora na assertiva (Lei 2)
-    const lista = assertivas(par.ativoId)
+    const lista = assertivas(parQueDecide(par, par).ativoId)
     const acesas = fase === 'encerrada' ? lista.length : fluxo.acesas
     const pronta = fase === 'encerrada'
     const reprovadas = lista.filter((a) => a.estado === 'reprovada')

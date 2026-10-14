@@ -3,7 +3,7 @@
 // Estas sementes preservam as referências (G21); semeado({ fluxo: true }) monta a entrada normal do palco para T02, T10 e T11.
 import { M } from '../dados/mock.js'
 
-const HEROI = { moduloSerial: 'M2C-0417', ativoId: 'a-01' }
+export const HEROI = { moduloSerial: 'M2C-0417', ativoId: 'a-01' }
 // as linhas do diagnóstico que contam (a rodada 2 do retorno do PM: as mensagens no módulo só informam)
 const CONTAM = M.diagnostico.modulo.filter((l) => !l.soInforma).length
 const pacote = (id) => { const p = M.pacotes.find((x) => x.id === id); return { id: p.id, diasAtras: p.diasAtras, hora: p.hora } }

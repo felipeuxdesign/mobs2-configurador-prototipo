@@ -1,5 +1,38 @@
 # Registro de mudanças
 
+## 2026-10-14 · o caminho é sempre o feliz
+
+- **O diretor (13/10):** no palco, quem escolhe outro módulo, outro ônibus ou outra unidade segue o mesmo caminho do herói, só com os nomes que escolheu. Os desvios ficam na coluna *Estados desta tela*, parados, pra quem apresenta nunca cair num deles sem querer.
+- **O que desviava antes, pela escolha:**
+  - **Módulo:** o M2C-0999 travava o serial na T07.
+  - **Ônibus:**
+    - **OCT-2J85:** a configuração não cabia (T09/06).
+    - **OYS-7D93:** cercas demais (T09/07).
+    - **PCX-9A17:** a gravação caía no meio (T09/02).
+    - **KNB-5H39:** calibrava na T10, em vez do *Nada a calibrar*.
+    - **QJF-2C61:** o motor desligado no ciclo (T14/03).
+    - **KHT-4B08 com o M2C-0335:** o ciclo estourava o prazo (T14/02), e a Seção F reprovava.
+    - **KJC-7N23 (Garagem Ibura):** a homologação ficava bloqueada (T16/05).
+  - **Unidade:** a baixa do Pátio Caruaru caía (T03/01).
+
+  Todos já estavam na coluna, e continuam lá.
+- **No código:**
+  - A sessão que o técnico abre no caminho (o módulo que ele conecta na T05 e o ativo que ele vincula na T06) leva `caminho`. Cada decisão usa o par do herói (`src/estado/caminho.js`), em T07, T09, T10, T13, T14 e T16, e a baixa da T03 não cai mais no caminho.
+  - Os nomes seguem a escolha.
+  - As sementes da fotografia, do endereço, do pulo do palco e da coluna decidem pelo próprio par, e as referências ficam como são.
+- **O que muda de verdade por veículo continua:** o caminhão e o ônibus cujo leitor não tem bip não mostram o *Testar bip*, e a Seção E já vem resolvida.
+- **O roteiro novo `caminho-feliz`** percorre o caminho inteiro, do login ao encerramento homologado, com qualquer par (`MODULO`, `PLACA`, `UNIDADE`, e `SEM_BIP` pro leitor sem bip). Aprovado no herói e nas onze combinações que desviavam.
+- **Documentação:** a regra entrou no `palco.md`, no `logica.md` e nas decisões do diretor. As notas *no protótipo* da T03, da T07 e da T09 que diziam o contrário foram corrigidas, assim como a nota velha da receita da T07/13, que mandava conectar no M2C-0362.
+- **Roteiros:**
+  - Cinco testavam, pelo caminho, os desvios que saíram dele, e foram reescritos com a regra nova:
+    - `empresa`: a baixa de Caruaru agora conclui;
+    - `mov-t05`, `mov-t07` e `portas`: o M2C-0999 passa como o herói;
+    - `mov-t14`: o evento do KHT-4B08 chega no prazo.
+  - Com isso, dois movimentos deixam de ser vistos ao vivo, porque só aconteciam no desvio: a trava da T07 esmaecendo o aviso quando a leitura fecha, e o *Disparar outro evento* da T14. Os estados deles continuam na coluna, parados.
+  - O rascunho `zz-fluxo.mjs`, que tinha entrado por engano no commit da linha da barra, saiu.
+  - Dez continuam falhando como já falhavam antes da mudança, no mesmo passo: `empresa` (mais adiante, depois das partes reescritas), `mov-faixa`, `mov-listas`, `mov-porcima`, `mov-t02`, `mov-t03`, `recarregar`, `reler`, `teclado` e `voltar`.
+- **Fica como era:** a placa de outra garagem digitada na busca da T06 continua dizendo *fora do pacote* (T06/04). Ali o técnico não escolhe da lista: ele digita, e a tela responde ao que ele digitou.
+
 ## 2026-10-13 · pacote 34: o claro, polido
 
 - **o botão secundário com um desenho só**: um fill um degrau fora do cartão, o token novo `--fundo-botao` (`#241F33` no escuro, `#F3F3F7` no claro, o mesmo degrau de 1,1:1 nos dois temas), e o token `--borda-botao`, um tom acima da borda dos cartões, com a mesma intensidade nos dois temas: `#3A3350` no escuro e `#D2D4DA` no claro · antes eram três desenhos, alguns com cores emprestadas (o fundo das divisórias, a luz do poço, o `--elevado`), e no claro o botão parecia desligado ou sumia · vale pros de rodapé e de folha, os de resposta (*Ouvi*, *Confere com o cartão*) e os compactos · o desligado não tem fill: fundo e borda de cartão, texto apagado

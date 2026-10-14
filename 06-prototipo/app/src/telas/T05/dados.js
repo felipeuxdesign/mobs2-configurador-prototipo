@@ -28,7 +28,8 @@ export const varianteNaLista = (serial) => { const m = informado(serial); return
 // a sessão que nasce na conexão (logica.md · O estado único; o padrão aprovado no gate do
 // pacote 1): o módulo, sem ativo ainda, aberta na hora nominal, com o meio em que a busca o
 // achou. A faixa ainda não desce: desce na T07, quando as sete linhas passam sem trava
-export const sessaoNova = (serial) => ({ moduloSerial: serial, ativoId: null, saude: 'ok', abertaAs: M.HORA_NOMINAL, meio: meioDe(serial) })
+// `caminho`: a sessão que o técnico abriu no caminho decide como a do herói (estado/caminho.js)
+export const sessaoNova = (serial) => ({ moduloSerial: serial, ativoId: null, saude: 'ok', abertaAs: M.HORA_NOMINAL, meio: meioDe(serial), caminho: true })
 
 // ── C7 · os estados da busca ──
 export const CASO_BUSCA_VAZIA = 'busca-vazia'

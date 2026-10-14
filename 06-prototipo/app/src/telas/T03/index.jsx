@@ -3,8 +3,8 @@
 // · No fluxo, a sincronização sempre corre (G27): um item por tick, nos cinco
 //   grupos do pacote — Ativos → Conexões → Modelos de ativo → Eventos → Cercas,
 //   os ativos primeiro —, 4 s no total (T03·1). O poço acompanha os
-//   ativos (T03·5). A primeira baixa do pacote do caso sync-falha-rede cai no
-//   item do caso (G21), e Reconectar segue de onde parou. Ao terminar, o
+//   ativos (T03·5). No caminho, a baixa nunca cai (o diretor, 13/10): a do
+//   caso sync-falha-rede é o estado 01, e o Reconectar dele segue de onde parou. Ao terminar, o
 //   pacote novo vai pro estado único (T03·7) e a URL passa a dizer 02. A
 //   unidade que só o caso lista-longa-garagens tem baixa o pacote que o caso
 //   declara pra ela (pacote.js · src/dados/garagens.js).
@@ -90,14 +90,10 @@ export default function T03({ momento, estado: est }) {
     if (parado) return undefined
     const p = pacoteDaUo(fluxo.uoId)
     const relogio = setInterval(() => {
-      const { fluxo: f, estado: e } = vivo.current
+      const { fluxo: f } = vivo.current
       const proximo = f.baixados + 1
-      const caso = casoFalha()
-      if (p.id === caso.pacoteId && proximo === caso.falhaNoTick && !e.casosConsumidos.includes(CASO_FALHA)) {
-        despachar({ tipo: 'mesclar', parcial: { casosConsumidos: [...e.casosConsumidos, CASO_FALHA] } })
-        setFluxo({ ...f, fase: 'falha' })
-        return
-      }
+      // no caminho, a baixa nunca cai, em nenhuma unidade (o diretor, 13/10 · estado/caminho.js):
+      // a falha de rede do caso sync-falha-rede é o estado 01, na coluna
       setFluxo({ ...f, baixados: proximo, fase: proximo >= totalDe(p) ? 'concluido' : 'baixando' })
     }, tickMs(p))
     return () => clearInterval(relogio)

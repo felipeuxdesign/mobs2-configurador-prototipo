@@ -8,15 +8,13 @@
 //   · as sete passam sem trava: a faixa desce de cima em 200, e o miolo acompanha só por
 //     deslocamento; o rótulo de cima sai, e o primário diz Selecionar ativo, o texto esmaecendo no
 //     lugar, com o roxo direto (C12·23);
-//   · a trava (o M2C-0999, fora do cadastro): a faixa não desce; o topo diz só o serial, e o aviso
-//     (SERIAL FORA DO CADASTRO) esmaece no lugar quando a sétima fecha (o pacote 3); o Procurar outro
-//     módulo volta à T05/01, a lista sem nada escolhido;
+//   · o M2C-0999, fora do cadastro: no caminho, passa como o do herói, com o serial dele, e a faixa
+//     desce (o diretor, 13/10) · a trava (T07/02) é só da coluna;
 //   · a atualização do firmware (D4, o 06 pela URL): os 62% parados por 1 s (RITMOS.cadeiaBlocoMs), e
 //     o diagnóstico recomeça das sete, com o firmware disponível — passando, a faixa desce;
 //   · o Ler de novo (01 → 10 → 01): a CAN relê uma linha a cada 600 ms, no lugar, sem troca de quadro
 //     (movimento.md: o Ler de novo move só a peça); relendo, o ENCERRAR fica apagado (a lei 17);
-//   · o voltar do Android: lendo, atualizando e relendo, nada; na trava, o Procurar outro módulo; sem
-//     trava e com a CAN lida, o Voltar ao menu.
+//   · o voltar do Android: lendo, atualizando e relendo, nada; com a CAN lida, o Voltar ao menu.
 // A tela abre parada pela URL, em cada estado e no print. Com reduzir, o mesmo ritmo, e nada anda.
 const C = 'cubic-bezier(0.2, 0.8, 0.2, 1)'
 const esmaece = (em, extra = {}) => ({ prop: 'opacity', ms: 150, em, curva: C, ...extra })
@@ -103,38 +101,19 @@ export default [
   { chega: 'T06' },
   { dorme: 300 },
 
-  // ── a trava (o M2C-0999, fora do cadastro): a faixa não desce, e o voltar é o Procurar outro módulo ──
+  // ── o M2C-0999, fora do cadastro: no caminho, lê como o do herói, com o serial dele (o diretor,
+  // 13/10 · src/estado/caminho.js) · a trava, o topo só com o serial e o Procurar outro módulo são
+  // a T07/02, só pela coluna ──
   ...CONECTA('M2C-0999'),
-  // o pacote 3: o topo só identifica o módulo, e a trava fica com o aviso, que só vem no fim
   { ve: 'M2C-0999' },
-  { naoVe: 'M2C-0999 · ' },
+  { ve: 'ENCERRAR', ms: 8000 },
+  { anima: [DESCE, MIOLO], naoAnima: BARRA },
+  { ve: '8 de 8' },
   { naoVe: 'SERIAL FORA DO CADASTRO' },
-  // lendo, o voltar não faz nada
-  { tecla: 'Escape' },
-  { fica: 'T07', ms: 300 },
-  { ve: 'não está no cadastro', ms: 2000 },
-  { naoVe: 'SERIAL FORA DO CADASTRO' },
-  // fechada a leitura na trava: o aviso abre a tela com o porquê, esmaecendo no lugar (Aviso · surge, 150)
-  // a nona fecha na trava (a rodada 2: as mensagens são a última, e não contam): o aviso abre a tela
-  { ve: 'SERIAL FORA DO CADASTRO', ms: 8000 },
-  { anima: [esmaece('ds-aviso ds-caixa-poco ds-caixa-falha')] },
-  { ve: '5 de 8' },   // o número do chip também passa
-  { ve: 'Peça ao gestor pra cadastrar o M2C-0999.' },
+  { naoVe: 'Peça ao gestor pra cadastrar o M2C-0999.' },
+  { naoVe: 'Procurar outro módulo' },
   { dorme: 400 },
   { quieto: true },
-  { naoVe: 'ENCERRAR' },
-  { naoToca: 'Selecionar ativo' },
-  { tecla: 'Escape' },
-  { chega: 'T05', momento: LISTA_T05 },
-  { desligado: 'Conectar' },   // a lista volta sem nada escolhido
-  // de novo, pelo Procurar outro módulo, o primário da trava
-  { marca: 'M2C-0999' },
-  { dorme: 250 },
-  { toca: 'Conectar ao M2C-0999' },
-  { chega: 'T07', momento: null },
-  { toca: 'Procurar outro módulo', ms: 8000, anima: TROCA },
-  { chega: 'T05', momento: LISTA_T05 },
-  { naoVe: 'ENCERRAR' },
 
   // ── o firmware que atualiza (o 06 pela URL): 1 s nos 62%, e o diagnóstico recomeça das sete ──
   { abre: `?tela=T07&momento=${M06}` },

@@ -83,6 +83,7 @@ import {
   QUADRO_DA_MANUTENCAO, MOMENTO_DA_FOLHA, MOMENTO_DA_PERGUNTA,
 } from './cadeia.js'
 import { T } from './textos.js'
+import { parQueDecide } from '../../estado/caminho.js'
 import './t09.css'
 
 // o par módulo × ativo da sessão; sem sessão, o da semente
@@ -202,7 +203,8 @@ export default function T09({ momento, estado: est }) {
       // a rodada 1: o módulo prova que falou com o servidor, um bloco depois da Conexão
       if (f.fase === 'servidor') { setFluxo({ ...f, fase: 'concluida' }); return }
       if (f.fase !== 'gravando') return
-      const caso = casoDoPar(f.par, u.casosConsumidos)
+      // no caminho, o par decide como o do herói: a queda e a recusa ficam na coluna (estado/caminho.js)
+      const caso = casoDoPar(parQueDecide(f.par, u.sessao), u.casosConsumidos)
       const parada = caso ? paradaDoCaso(caso) : null
       if (parada && parada.bloco === ORDEM[f.confirmados]) {
         despachar({ tipo: 'mesclar', parcial: { casosConsumidos: [...u.casosConsumidos, caso] } })
@@ -392,7 +394,8 @@ export default function T09({ momento, estado: est }) {
   const mov = { primarioAcende: true, primarioTrocaTexto: true }
   if (fase === 'antes') {
     // ── o que vai ser gravado (05) e as travas do envio (06, 07) ──
-    const envio = envioDo(par)
+    // no caminho, o que vai ser gravado é o do herói: o que não cabe fica na coluna (06, 07 · estado/caminho.js)
+    const envio = envioDo(est == null ? parQueDecide(par, unico.sessao) : par)
     const trava = travaDo(envio)
     miolo = (
       <>
