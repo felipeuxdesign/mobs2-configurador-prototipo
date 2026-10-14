@@ -32,11 +32,29 @@ const doCaso = (p) => ({
 })
 const PACOTES_DO_CASO = (caso.pacotes ?? []).map(doCaso)
 
-/** a garagem, do mundo do herói ou do caso da lista longa */
-export const garagemDe = (uoId) => M.uos.find((u) => u.id === uoId) ?? caso.uos.find((u) => u.id === uoId)
+// As garagens das outras duas empresas do herói (o diretor, 14/10): cada uma é espelho de uma
+// garagem da Viação — o mesmo pacote, os mesmos ônibus e os mesmos casos, só com outro nome
+// (M.empresas[].garagens). No contexto, o id é o da espelho (tudo o que lê pacote e ônibus
+// segue igual), e o contexto guarda a garagem escolhida (`unidade`), pelo nome dela.
+const ESPELHADAS = M.empresas.flatMap((e) => (e.garagens ?? []).map((g) => ({ ...g, empresaId: e.id })))
 
-/** o pacote da garagem: o de M.pacotes, ou o que o caso declara pra garagem que só ele tem */
-export const pacoteDaGaragem = (uoId) => M.pacotes.find((p) => p.uoId === uoId) ?? PACOTES_DO_CASO.find((p) => p.uoId === uoId)
+/** a garagem, do mundo do herói, do caso da lista longa ou das outras empresas */
+export const garagemDe = (uoId) => M.uos.find((u) => u.id === uoId) ?? caso.uos.find((u) => u.id === uoId) ?? ESPELHADAS.find((u) => u.id === uoId)
+
+/** a garagem da Viação cujos dados ela usa: a espelho, ou ela mesma */
+export const espelhoDe = (uoId) => ESPELHADAS.find((u) => u.id === uoId)?.espelho ?? uoId
+
+/** as garagens de uma das outras empresas (nenhuma, pra Viação: ela tem M.uos) */
+export const garagensDaEmpresa = (empresaId) => ESPELHADAS.filter((g) => g.empresaId === empresaId)
+
+/** o pacote da garagem: o de M.pacotes, ou o que o caso declara pra garagem que só ele tem; a espelhada, o da espelho */
+export const pacoteDaGaragem = (uoId) => M.pacotes.find((p) => p.uoId === espelhoDe(uoId)) ?? PACOTES_DO_CASO.find((p) => p.uoId === uoId)
+
+/** o contexto que a garagem escolhida monta: o id da espelho e, na espelhada, a garagem escolhida (o nome dela) */
+export const contextoDaGaragem = (uoId) => ({ uoId: espelhoDe(uoId), unidade: espelhoDe(uoId) !== uoId ? { id: uoId, nome: garagemDe(uoId).nome } : null })
+
+/** o nome da garagem do contexto: o da escolhida, se for espelhada; senão o da própria garagem */
+export const nomeDaGaragem = (contexto, uoId) => (contexto?.unidade && espelhoDe(contexto.unidade.id) === uoId ? contexto.unidade.nome : garagemDe(uoId)?.nome)
 
 /** as UCs e as garagens do caso da lista longa (o estado 02 e os momentos 03 e 04 da T02) */
 export const mundoDaListaLonga = () => ({ ucs: caso.ucs, uos: caso.uos, limiteSemBusca: caso.limiteSemBusca })

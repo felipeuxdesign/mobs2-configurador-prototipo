@@ -25,6 +25,9 @@ As perguntas que os ciclos deixaram, cada uma com o padrão que o protótipo ado
 
 - **O zoom do celular:** hoje o celular fica em 360 × 800, e cresce só até caber na janela. Você quis rever isso no fim (C13 ou C14). · **decidido pelo diretor (26/09): o zoom morre.** O celular fica no tamanho real — a tela de 360 × 800 dentro da moldura nova do arquiteto, que chega com a `otimizacao300000000` (decisão 43) — e só diminui pra caber numa janela pequena, nunca cresce. O foco são as telas
 - **O celular deitado (regra 11, o app não gira):** no modo estreito com a janela mais larga que alta, o palco põe o celular de 360 × 800 no centro, com a moldura e em escala pra caber, como no palco largo. Num celular deitado ele fica pequeno (a escala dá uns 0,4), mas o desenho é o das referências e o toque funciona. A alternativa é o app com 360 de largura e a altura da janela, rolando: maior pro dedo, com o miolo apertado entre a barra e o rodapé. Fica o celular em escala, que é o mais simples e não mexe no desenho.
+- **Os fluxos alternativos (14/10):** a regra do caminho sempre feliz, do dia 13, foi desfeita. Cada escolha segue o mock, os fluxos alternativos acontecem no caminho, cada um com uma saída (medido), e os estados ficam na coluna. Um mapa de *escolha isto para ver aquilo* fica para depois.
+- **As garagens das outras duas empresas (14/10):** a Transportes Capibaribe e a Expresso Caruaruense ganham garagens, cada uma espelho de uma da Viação: o mesmo pacote, os mesmos ônibus e os mesmos casos, só com outro nome. Os nomes são decisão do diretor. O *Ver as unidades* acende, e o caminho segue igual.
+- **Cinco momentos na coluna (14/10):** os que são difíceis de pegar ao vivo (T13/13, T13/20, T16/01, T16/08, T11/04). Os outros momentos se alcançam com um toque.
 
 ## As telas
 

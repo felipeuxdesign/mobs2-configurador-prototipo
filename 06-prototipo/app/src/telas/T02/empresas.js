@@ -12,8 +12,9 @@
 //    semente. O painel e o endereço simples abrem as três empresas do herói.
 //  · o da lista longa (o caso `lista-longa-garagens`), de uma empresa só também:
 //    as nove unidades com a busca (o `02`, o `03` e o `04`, garagens.js).
-// Das outras duas empresas do herói, o mock traz só a contagem: elas se escolhem,
-// e o `Ver as unidades` espera (padrão a, confirmado pelo arquiteto em 26/09).
+// As outras duas empresas do herói têm as garagens delas (o diretor, 14/10), cada uma espelho
+// de uma garagem da Viação: o Ver as unidades acende, e o caminho segue igual, com os nomes
+// delas. Antes, o mock trazia só a contagem, e o Ver as unidades esperava (o padrão a de 26/09).
 //
 // Funções puras, sem React: a tela monta cada quadro e responde a cada toque com
 // elas, e `scripts/testar-empresa.mjs` as prova no node. Os estados (05, 06, 08)
@@ -27,7 +28,8 @@
 // (contextoDoQuadro): o Voltar ao fluxo do palco devolve o quadro de antes, no
 // mesmo mundo (palco.md · o instante de antes do primeiro estado aberto).
 import { M } from '../../dados/mock.js'
-import { gruposDo, LISTA_LONGA, SEM_RESULTADO, ESCONDE } from './garagens.js'
+import { gruposDo, gruposDaEmpresa, LISTA_LONGA, SEM_RESULTADO, ESCONDE } from './garagens.js'
+import { contextoDaGaragem } from '../../dados/garagens.js'
 import { TX } from './textos.js'
 
 // os mundos: o nome de cada um é o que vai no estado único (contexto.empresas.caso)
@@ -133,11 +135,11 @@ export const linhasDasEmpresas = (mundo, q) => empresasDo(mundo).map((e) => ({
  *  herói, as do mundo dele; nas outras, nenhuma — o mock traz só a contagem (padrão a) */
 export function unidadesDa(mundo, empresaId) {
   if (mundo === LONGA) return gruposDo(true)
-  return empresaId === M.empresa.id ? gruposDo(false) : null
+  return empresaId === M.empresa.id ? gruposDo(false) : gruposDaEmpresa(empresaId)
 }
 /** o primário: apagado até escolher (Escolha uma empresa); escolhida, Ver as unidades.
  *  Com a empresa que o mock não traz as unidades, ele espera — desabilitado de
- *  verdade e em tinta apagada, como na busca que esconde a escolha (padrão a) */
+ *  verdade e em tinta apagada (padrão a). Hoje as três trazem (o diretor, 14/10) */
 export function primarioDasEmpresas(mundo, q) {
   if (!q.empresaId) return { texto: TX.escolhaEmpresa, desabilitado: true }
   return { texto: TX.verUnidades, desabilitado: !unidadesDa(mundo, q.empresaId) }
@@ -164,7 +166,8 @@ export const trocarDeEmpresa = (q) => nasEmpresas(q.empresaId)
  *  escolha no toque está com o diretor (a Várzea do 01 e do 09, index.jsx) */
 export const contextoDoQuadro = (mundo, q, contexto) => ({ ...contexto, empresas: mundoDasEmpresas(mundo, q.empresaId, q.passo) })
 /** o Sincronizar: a unidade, e o mundo junto, com a empresa dela, pro menu (sem o passo) */
-export const contextoDoCaso = (mundo, q, contexto, uoId) => ({ ...contexto, uoId, pacote: null, empresas: mundoDasEmpresas(mundo, q.empresaId) })
+// a garagem espelhada (as outras empresas do herói) entra com o id da espelho e o nome dela (src/dados/garagens.js)
+export const contextoDoCaso = (mundo, q, contexto, uoId) => ({ ...contexto, ...contextoDaGaragem(uoId), pacote: null, empresas: mundoDasEmpresas(mundo, q.empresaId) })
 
 /** o voltar do Android (logica.md · O voltar do Android): nas unidades de quem tem
  *  várias empresas (o 06, o 09), o mesmo que o Trocar de empresa, a saída desenhada;

@@ -1,5 +1,33 @@
 # Registro de mudanças
 
+## 2026-10-14 · as outras empresas, a idade do pacote no caminho e cinco momentos na coluna
+
+- **As outras duas empresas andam (o diretor):**
+  - **O que muda:** a Transportes Capibaribe e a Expresso Caruaruense ganham garagens no mock (`M.empresas[].garagens`). Cada uma é espelho de uma garagem da Viação: o mesmo pacote, os mesmos ônibus e os mesmos casos, só com outro nome.
+    - **Capibaribe:** Casa Amarela (Várzea), Afogados (Ibura, 4 dias), Jaboatão (Várzea de novo) e Pátio Santa Cruz (Caruaru, vencido).
+    - **Caruaruense:** Pátio Bezerros (Várzea) e Pátio Toritama (Ibura).
+  - **No caminho:** o *Ver as unidades* acende, e o caminho segue igual, com o nome delas na T02, no cabeçalho da T03, na tira e na folha de trocar de unidade do menu.
+  - **No código:** o contexto guarda o id da espelho (tudo o que lê pacote e ônibus segue igual) e a garagem escolhida, pelo nome (`src/dados/garagens.js`).
+  - **Desvio nomeado:** os nomes das garagens são decisão do diretor, não do cadastro. Pro arquiteto: se quiser, troca os nomes no mock.
+  - **Testes:** o gate do mock ganhou a conferência das espelhos; o `testar-empresa` e o roteiro `empresa` passam a esperar o botão aceso; o roteiro novo `outras-empresas` percorre uma delas.
+- **A idade do pacote no caminho (o diretor):**
+  - **Ibura (4 dias):** escolhida na T02 ou trocada pela folha do menu, abre na T03/03 — *Sincronizar agora* ou *Continuar com este pacote*.
+  - **Caruaru (vencido):** abre na T03/04 — *Sincronizar agora* ou *Trocar de unidade*. Sincronizando, a primeira baixa ainda cai na rede (o caso), e o *Reconectar* conclui.
+  - **Várzea (de ontem):** baixa direto, como antes. O pulo do palco e a fotografia não mudam.
+  - **Testes:** o roteiro novo `idade-do-pacote`.
+- **Cinco momentos na coluna (o diretor):** os difíceis de pegar ao vivo.
+  - **Quais:**
+    - T13: *Seção E resolvida* e *Caminhão · a foto do painel*;
+    - T16: *Reiniciando o módulo* e *Reconectando no reinício*;
+    - T11: *Conferindo*.
+  - **Como abrem:** pela coluna, parados, no quadro da fotografia. Medido: menos de 1% contra a foto da bancada, só o serrilhado das letras. O endereço do momento continua abrindo o momento vivo.
+  - **Os outros momentos** se alcançam com um toque no caminho e ficam fora.
+  - **Testes:** o roteiro novo `coluna-momentos`.
+- **Medido:**
+  - **Roteiros:** 41 de 51 aprovados. Os outros dez falham como antes da mudança, no mesmo passo: `empresa` (mais adiante), `mov-faixa`, `mov-listas`, `mov-porcima`, `mov-t02`, `mov-t03`, `recarregar`, `reler`, `teclado` e `voltar`.
+  - **`sair` e `outras-empresas`:** ganharam o passo da pergunta do pacote de 4 dias.
+  - **Bancada:** as 201 referências iguais às do pacote 34, nenhuma com erro. As quatro diferenças contra a base são as já conhecidas. A checagem e o gate do mock aprovados.
+
 ## 2026-10-14 · os fluxos alternativos de volta
 
 - **O diretor (14/10):** desfeita a regra do caminho sempre feliz, do mesmo dia (79f54af). Cada escolha volta a seguir o que o mock guarda para ela. Os fluxos alternativos ficam no caminho, e os 82 estados continuam na coluna, parados. Os momentos voltam a ser alcançados tocando no caminho, como antes. Um mapa de "escolha isto para ver aquilo" fica para depois.

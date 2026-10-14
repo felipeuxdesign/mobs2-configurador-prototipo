@@ -8,7 +8,7 @@
 //    Sincronizar → T03 → o menu, com o Trocar de empresa na folha de trocar de
 //    unidade (o quadro da T04/14), que volta ao 07 com a atual marcada; com a sessão
 //    aberta, pela confirmação e pelos 4 passos da T16. As outras duas empresas se
-//    escolhem, e o Ver as unidades espera (só a do herói anda, o arquiteto, 26/09).
+//    escolhem, e o Ver as unidades acende: as garagens delas espelham as da Viação (o diretor, 14/10).
 //    O Trocar de empresa e o voltar, nas unidades, levam ao 07; nas empresas, o
 //    voltar não faz nada
 //  · o de uma empresa só (o caso uma-empresa): o 08, a empresa já marcada, parado
@@ -133,13 +133,15 @@ export default [
   esc,
   { fica: 'T02', ms: 500 },
   ...NO_05,
-  // as outras duas se escolhem, e o Ver as unidades espera: o mock só traz a contagem delas
+  // as outras duas se escolhem, e o Ver as unidades acende: as garagens delas são espelho das da
+  // Viação (o diretor, 14/10 · o roteiro outras-empresas percorre uma delas)
   { marca: 'Transportes Capibaribe' },
   { chega: 'T02', momento: ESCOLHIDA },
-  { desligado: 'Ver as unidades' },
+  { ve: 'Ver as unidades' },
+  { naoVe: 'Escolha uma empresa' },
   { marca: 'Expresso Caruaruense' },
   { chega: 'T02', momento: ESCOLHIDA },
-  { desligado: 'Ver as unidades' },
+  { ve: 'Ver as unidades' },
   // a Viação: o 07, com o primário aceso
   { marca: 'Viação Atlântico Sul' },
   ...NO_07,
@@ -171,6 +173,9 @@ export default [
   { chega: 'T02', momento: COM_TROCA },
   { toca: 'Sincronizar Pátio Caruaru' },
   { chega: 'T03' },
+  // o pacote vencido pergunta antes de baixar (o diretor, 14/10 · o roteiro idade-do-pacote)
+  { ve: 'ENQUANTO NÃO SINCRONIZAR' },
+  { toca: 'Sincronizar agora' },
   { ve: 'A BAIXA PAROU ONDE ESTAVA', ms: 8000 },
   { toca: 'Voltar ao contexto' },
   { chega: 'T02', momento: null },
@@ -365,6 +370,9 @@ export default [
   { chega: 'T02', momento: UMA_ESCOLHIDA },
   { toca: 'Sincronizar Pátio Caruaru' },
   { chega: 'T03' },
+  // o pacote vencido pergunta antes de baixar (o diretor, 14/10 · o roteiro idade-do-pacote)
+  { ve: 'ENQUANTO NÃO SINCRONIZAR' },
+  { toca: 'Sincronizar agora' },
   { ve: 'A BAIXA PAROU ONDE ESTAVA', ms: 8000 },
   { toca: 'Voltar ao contexto' },
   ...NA_00,

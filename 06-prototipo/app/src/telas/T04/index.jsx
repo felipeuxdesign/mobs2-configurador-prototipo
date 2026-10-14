@@ -25,6 +25,7 @@ import {
   enviando, checklistPendentes, prazoDoAcesso, avisoDoAcesso, avisoDaFila, garagens, moduloPreso, ativoPreso, temVariasEmpresas,
   mundoDoMenu, TROCA_DE_EMPRESA, destinoDaTroca, depoisDoTrocar, temRede,
 } from './dados.js'
+import { nomeDaGaragem } from '../../dados/garagens.js'
 import './t04.css'
 
 // as cinco ferramentas que dependem do módulo e do ativo, na ordem da grade (pacote 1,
@@ -259,14 +260,14 @@ export default function T04({ momento, estado: est }) {
   } else if (sobre === 'garagem') {
     // 07 · 08 · 14 · a folha de trocar de unidade; com várias empresas — o herói —, o
     // Trocar de empresa no fim (14, decisão 37); no 08, bloqueada, não (o arquiteto, 26/09)
-    const lista = garagens()
+    const lista = garagens(mundo.contexto.empresas?.atual)
     porCima = (
       <Folha titulo="Trocar de unidade" rotuloFechar="Fechar" folga={12} aoFechar={fechar}
         subtitulo={subindo ? undefined : 'Trocar recarrega os ativos e o pacote desta unidade.'}>
         {subindo === 1 && <Aviso tom="neutro" semPoco titulo="UMA EVIDÊNCIA ESTÁ SUBINDO" frase="Troque de unidade quando a fila terminar." />}
         <Lista role="radiogroup" aria-label="Trocar de unidade">
           {lista.map((g, i) => {
-            const atual = g.id === uoId
+            const atual = g.id === (mundo.contexto.unidade?.id ?? uoId)
             const estadoLinha = atual ? 'atual' : g.vencida ? 'vencida' : subindo ? 'espera' : 'disponivel'
             return (
               <LinhaGaragem key={g.id} nome={g.nome} estado={estadoLinha}
@@ -287,7 +288,7 @@ export default function T04({ momento, estado: est }) {
   } else if (sobre === 'trocar') {
     // 09 · trocar com a sessão aberta: de unidade, ou de empresa (a mesma
     // confirmação, com a empresa no lugar da unidade · logica.md · A empresa e a unidade)
-    const alvo = trocarPara ?? { uoId: garagens().find((g) => g.id !== uoId && !g.vencida)?.id }
+    const alvo = trocarPara ?? { uoId: garagens(mundo.contexto.empresas?.atual).find((g) => g.id !== (mundo.contexto.unidade?.id ?? uoId) && !g.vencida)?.id }
     const deEmpresa = Boolean(alvo.empresa)
     porCima = (
       <Dialogo titulo={deEmpresa ? 'Trocar de empresa' : 'Trocar de unidade'} primario="Encerrar a sessão e trocar"
@@ -345,8 +346,8 @@ export default function T04({ momento, estado: est }) {
       <div className="t04-fundo">
         <fieldset className="t04-topo" role="presentation" disabled={montado} inert={atras}>
           <TopoDoMenu>
-            <TiraDeContexto garagem={caixaAlta(uoDe(uoId).nome)} aoTrocarGaragem={() => abrir('garagem')}
-              rotuloGaragem={`Trocar de unidade — ${uoDe(uoId).nome}`}
+            <TiraDeContexto garagem={caixaAlta(nomeDaGaragem(mundo.contexto, uoId))} aoTrocarGaragem={() => abrir('garagem')}
+              rotuloGaragem={`Trocar de unidade — ${nomeDaGaragem(mundo.contexto, uoId)}`}
               iniciais={sigla} rotuloConta={`Conta — ${tecnico}`} aoAbrirConta={() => abrir('conta')} />
             <div inert={sobFaixa ? undefined : atras}>{faixa}</div>
           </TopoDoMenu>

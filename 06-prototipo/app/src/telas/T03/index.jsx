@@ -24,6 +24,7 @@ import {
   uoDe, pacoteDaUo, pacotePorId, casoFalha, CASO_FALHA, pacoteQueAvisa, pacoteQueBloqueia, avisa, bloqueia,
   ORDEM_LISTA, totalDe, tickMs, conteudos, faltamSeg, versao, diaMes, HOJE, pacoteNovo, fimDaIdade,
 } from './pacote.js'
+import { nomeDaGaragem } from '../../dados/garagens.js'
 import './T03.css'
 
 const M02 = '02-momento-concluido'
@@ -53,15 +54,22 @@ function quadroDoEstado(estado) {
 
 // o quadro em que a tela abre no fluxo: o concluído (02) ou a baixa, do começo
 // (ou, no print, no quadro da 00)
-function inicio(momento, uoId) {
+function inicio(momento, uoId, contexto) {
   if (momento === M02) return { fase: 'concluido', uoId, baixados: totalDe(pacoteDaUo(uoId)) }
+  // no caminho (o diretor, 14/10): a unidade escolhida na T02 ou na folha do menu, cujo pacote no
+  // aparelho é de 4 dias (Ibura) ou vencido (Caruaru), pergunta antes de baixar — os quadros do 03 e
+  // do 04: Sincronizar agora, ou Continuar com este pacote / Trocar de unidade · o de ontem baixa direto
+  if (!EM_QUADRO && !contexto?.pacote) {
+    const p = pacoteDaUo(uoId)
+    if (avisa(p) || bloqueia(p)) return { fase: 'idade', uoId, baixados: 0 }
+  }
   return { fase: 'baixando', uoId, baixados: EM_QUADRO ? QUADRO_00 : 0 }
 }
 
 export default function T03({ momento, estado: est }) {
   const { estado, despachar } = useEstado()
   const uoContexto = estado.contexto.uoId ?? M.contextoAtivo.uoId
-  const [fluxo, setFluxo] = useState(() => inicio(momento, uoContexto))
+  const [fluxo, setFluxo] = useState(() => inicio(momento, uoContexto, estado.contexto))
   const vivo = useRef(null)
   vivo.current = { fluxo, estado }
 
@@ -76,12 +84,12 @@ export default function T03({ momento, estado: est }) {
     if (est != null) return
     const deFora = estado.tela !== telaVista.current && !euLevei.current
     telaVista.current = estado.tela; euLevei.current = false
-    if (deFora) setFluxo(inicio(momento, uoContexto))
+    if (deFora) setFluxo(inicio(momento, uoContexto, estado.contexto))
   }, [estado.tela]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // a unidade do contexto mudou com a tela montada: a baixa recomeça nela
   useEffect(() => {
-    if (uoContexto !== vivo.current.fluxo.uoId) setFluxo(inicio(momento, uoContexto))
+    if (uoContexto !== vivo.current.fluxo.uoId) setFluxo(inicio(momento, uoContexto, estado.contexto))
   }, [uoContexto]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // a sincronização anda um item por tick; para no print, num estado da coluna e fora da baixa
@@ -128,7 +136,8 @@ export default function T03({ momento, estado: est }) {
   function baixar(uoId, baixados) {
     const e = vivo.current.estado
     if (est != null || e.contexto.uoId !== uoId) {
-      despachar({ tipo: 'mesclar', parcial: { contexto: { ...e.contexto, uoId, pacote: pacoteAtual(pacoteDaUo(uoId)) } } })
+      // a garagem espelhada do caminho não vai junto pra outra garagem (a da coluna): o nome volta a ser o dela
+      despachar({ tipo: 'mesclar', parcial: { contexto: { ...e.contexto, uoId, unidade: e.contexto.uoId === uoId ? e.contexto.unidade : null, pacote: pacoteAtual(pacoteDaUo(uoId)) } } })
       euLevei.current = true; despachar({ tipo: 'ir', tela: 'T03' })
     }
     setFluxo({ fase: 'baixando', uoId, baixados })
@@ -206,7 +215,7 @@ export default function T03({ momento, estado: est }) {
       <BarraDoSistema fundo="pagina" />
       <div className="tela-miolo">
         <div className="t03-cabeca">
-          <span className="t03-cabeca-rotulo">{caixaAlta(uo.nome)}</span>
+          <span className="t03-cabeca-rotulo">{caixaAlta(est == null ? nomeDaGaragem(estado.contexto, q.uoId) : uo.nome)}</span>
           <h1 className="t03-cabeca-titulo">{TITULOS[q.fase]}</h1>
         </div>
         {instrumento}

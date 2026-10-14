@@ -18,6 +18,7 @@ Baixar o pacote da unidade e dizer se dá pra trabalhar com ele.
 - pacote vencido: `Sincronizar agora` ou `Trocar de unidade`
   - no protótipo · a nossa versão desta linha, antes desta entrega: pacote vencido: `Sincronizar agora` ou `Trocar de unidade` → T02
 - pacote de 4 dias: `Sincronizar agora` ou `Continuar com este pacote`
+  - no protótipo (o diretor, 14/10): as duas telas da idade também aparecem **no caminho** — a unidade escolhida na T02 ou na folha do menu cujo pacote no aparelho é de 4 dias (Ibura) ou vencido (Caruaru) pergunta antes de baixar; a de ontem (Várzea) baixa direto · o roteiro `idade-do-pacote`
   - no protótipo · a nossa versão desta linha, antes desta entrega: pacote de 4 dias: `Sincronizar agora` ou `Continuar com este pacote` → T04, o menu antes de conectar, com o pacote de Ibura
 - no protótipo · a nossa linha, que saiu do pacote desta entrega (o protótipo segue com ela): o voltar do sistema (no computador, o Esc) faz o mesmo que o link do rodapé — `Voltar ao contexto`, `Trocar de unidade`, `Continuar com este pacote` —, e no concluído o `Ir para o menu`, a saída que ele tem. Baixando, a tela diz *não saia da tela* e não tem saída: ele não faz nada (`06-prototipo/logica.md` · O voltar do Android)
 

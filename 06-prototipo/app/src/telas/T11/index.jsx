@@ -97,12 +97,15 @@ const parDaSessao = (s) => (s?.ativoId ? { ativoId: s.ativoId, moduloSerial: s.m
 // único uma vez, ao montar, como a T04 faz com os momentos dela.
 // A 04 (o pacote 5) é a conferência do herói, que confere, parada no meio.
 function ajusteDoMomento(momento, est, unico) {
-  if (est != null || (momento !== REF.confere && momento !== REF.conferindo)) return null
+  if ((est != null && est !== REF.conferindo) || (momento !== REF.confere && momento !== REF.conferindo)) return null
   if (divergenciasDo(parDaSessao(unico.sessao), unico.etapas).length === 0) return null
   return mundoQueConfere(unico.sessao ?? SEMENTE)
 }
 
-export default function T11({ momento, estado: est }) {
+export default function T11({ momento: daUrl, estado: est }) {
+  // o conferindo, aberto pela coluna (14/10): a 04 parada nos Eventos, como no print
+  const daColuna = est === REF.conferindo
+  const momento = daColuna ? est : daUrl
   const { estado: unico, despachar } = useEstado()
   const [ajuste] = useState(() => ajusteDoMomento(momento, est, unico))
   const [aplicado, setAplicado] = useState(!ajuste)
@@ -146,9 +149,9 @@ export default function T11({ momento, estado: est }) {
   // a leitura: uma linha a cada 400 ms, na ordem da tela; parada no print, na
   // coluna e na folha aberta pelo endereço (o 03 é um quadro depois da leitura)
   const nLinhas = LINHAS.length
-  const [nasceuLida] = useState(() => EM_QUADRO || est != null || outrasPedida || confirmacaoPedida)
+  const [nasceuLida] = useState(() => EM_QUADRO || (est != null && !daColuna) || outrasPedida || confirmacaoPedida)
   // a 04 pelo endereço: parada nos Eventos, como todo momento
-  const [parada] = useState(() => est == null && momento === REF.conferindo)
+  const [parada] = useState(() => (est == null || daColuna) && momento === REF.conferindo)
   const [lidas, setLidas] = useState(() => (parada ? QUADRO_04 : nasceuLida ? nLinhas : 0))
   const lendo = lidas < nLinhas
   // o relógio só liga depois da troca entre telas que trouxe a tela (C12·35 b): pelo menu,

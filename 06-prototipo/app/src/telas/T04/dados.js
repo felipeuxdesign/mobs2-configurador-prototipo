@@ -4,7 +4,7 @@
 import { M } from '../../dados/mock.js'
 import { caixaAlta, pacotePassouDoBloqueio, idadeNaLinhaDaGaragem } from '../../dados/formato.js'
 import { filaDoMundo } from '../../estado/fila.js'
-import { garagemDe } from '../../dados/garagens.js'
+import { garagemDe, garagensDaEmpresa, contextoDaGaragem, espelhoDe } from '../../dados/garagens.js'
 import { EMPRESA_ESCOLHIDA, HEROI, UMA_EMPRESA, mundoDasEmpresas, temVariasEmpresas as variasNoContexto } from '../T02/empresas.js'
 import { dadosDoModelo } from '../T06/dados.js'
 
@@ -132,10 +132,12 @@ export function avisoDoAcesso(acesso) {
 // passou do limite e quantos ativos ele traz. A idade deriva na tela, pelos
 // limiares do próprio pacote (mocks.js · pacote de sincronização). A vencida
 // diz só a causa, como na T02 e pela mesma função: "pacote vencido há 8 dias",
-// sem o limite e sem a ação (a entrega do checklist, T04/07 e 08)
-export function garagens() {
-  return M.uos.map((uo) => {
-    const p = M.pacotes.find((x) => x.uoId === uo.id)
+// sem o limite e sem a ação (a entrega do checklist, T04/07 e 08) · nas outras
+// empresas do herói, as garagens delas, cada uma com o pacote da espelho (o diretor, 14/10)
+export function garagens(empresaId) {
+  const daEmpresa = empresaId ? garagensDaEmpresa(empresaId) : []
+  return (daEmpresa.length ? daEmpresa : M.uos).map((uo) => {
+    const p = M.pacotes.find((x) => x.uoId === espelhoDe(uo.id))
     const idade = p.diasAtras === 1 ? `carregado ontem, ${p.hora}` : `carregado há ${p.diasAtras} dias`
     const vencida = pacotePassouDoBloqueio(p) // a mesma regra da T02 (C4 · T02·6)
     return { id: uo.id, nome: uo.nome, ativos: p.contem.ativos, vencida,
@@ -178,9 +180,9 @@ export function mundoDoMenu(momento, contexto) {
 // (aberto pela coluna, o 14), o mundo é o do herói, com a empresa dele como a atual
 export const TROCA_DE_EMPRESA = { empresa: true }
 export function destinoDaTroca(alvo, contexto = {}) {
-  if (!alvo.empresa) return { tela: 'T03', contexto: { ...contexto, uoId: alvo.uoId, pacote: null } }
+  if (!alvo.empresa) return { tela: 'T03', contexto: { ...contexto, ...contextoDaGaragem(alvo.uoId), pacote: null } }
   const empresas = contexto.empresas ?? mundoDasEmpresas(HEROI, M.empresa.id)
-  return { tela: 'T02', momento: EMPRESA_ESCOLHIDA, contexto: { ...contexto, uoId: null, pacote: null, empresas } }
+  return { tela: 'T02', momento: EMPRESA_ESCOLHIDA, contexto: { ...contexto, uoId: null, unidade: null, pacote: null, empresas } }
 }
 // o toque: com a sessão aberta, o diálogo (confirma); sem ela, o destino (vai)
 export const depoisDoTrocar = (sessao, alvo, contexto) => (sessao ? { confirma: alvo } : { vai: destinoDaTroca(alvo, contexto) })

@@ -113,6 +113,9 @@ export default [
   // fechado o 4º passo, a sincronização da unidade nova
   { chega: 'T03', entre: [1500, 3500] },
   { ve: 'GARAGEM IBURA' },
+  // o pacote de 4 dias de Ibura pergunta antes de baixar (o diretor, 14/10 · o roteiro idade-do-pacote)
+  { ve: 'PACOTE DE 4 DIAS' },
+  { toca: 'Sincronizar agora' },
   { ve: 'Baixando o pacote' },
   { chega: 'T03', momento: '02-momento-concluido', entre: [3000, 6000] },
   { ve: 'Pacote de hoje' },

@@ -33,7 +33,9 @@ const { SEMENTES } = await import(resolve(app, 'src/estado/sementes.js'))
 
 let falhas = 0
 const chk = (n, ok, d) => { console.log((ok ? 'OK     ' : 'FALHA  ') + n + (d ? ' — ' + d : '')); if (!ok) falhas++ }
-const igual = (a, b) => JSON.stringify(a) === JSON.stringify(b)
+// igual sem depender da ordem das chaves (o contexto ganhou a `unidade`, a garagem espelhada, 14/10)
+const ordena = (v) => (Array.isArray(v) ? v.map(ordena) : v && typeof v === 'object' ? Object.fromEntries(Object.keys(v).sort().map((k) => [k, ordena(v[k])])) : v)
+const igual = (a, b) => JSON.stringify(ordena(a)) === JSON.stringify(ordena(b))
 const nomesDas = (grupos) => grupos.flatMap((g) => g.linhas.map((l) => l.uo.nome))
 const { HEROI, UMA_EMPRESA, LONGA } = E
 const LISTA_LONGA = '02-estado-lista-longa-com-busca'
@@ -125,7 +127,7 @@ chk('09 · Trocar de empresa: o 07, com a atual marcada — a escolha da unidade
 chk('09 · Sincronizar → T03: a Várzea tem pacote, e a T03 baixa ele', !!pacoteDaGaragem(varzea.id), pacoteDaGaragem(varzea.id)?.id)
 const ctxHeroi = E.contextoDoCaso(HEROI, q09, vazio, varzea.id)
 chk('09 · Sincronizar: a unidade no contexto, e o mundo do herói junto, com a atual',
-  igual(ctxHeroi, { uoId: varzea.id, pacote: null, empresas: { caso: HEROI, atual: viacao.id } }) && E.temVariasEmpresas(ctxHeroi), JSON.stringify(ctxHeroi))
+  igual(ctxHeroi, { uoId: varzea.id, unidade: null, pacote: null, empresas: { caso: HEROI, atual: viacao.id } }) && E.temVariasEmpresas(ctxHeroi), JSON.stringify(ctxHeroi))
 // outra unidade: a URL segue o 09
 const ibura = M.uos.find((u) => u.id !== varzea.id)
 chk('09 · outra unidade escolhida: a URL segue no 09, e o primário diz o nome dela', E.momentoDoCaso(HEROI, E.escolherUnidade(q06, ibura.id)) === E.UNIDADE_COM_TROCA && TX.sincronizar(ibura.nome) === `Sincronizar ${ibura.nome}`)
@@ -160,14 +162,21 @@ chk('o Sincronizar depois do Ver as unidades: o contexto sai sem o passo', igual
 chk('a T03 voltando ao contexto depois do Ver as unidades gravado: as unidades da atual, como antes',
   igual(E.inicioDoMundo(HEROI, null, null, { ...ctx06, uoId: varzea.id }), q06) && igual(E.inicioDoMundo(HEROI, null, null, { ...ctx07, uoId: varzea.id }), q06))
 
-// ── as outras duas empresas: o mock só traz a contagem, e o primário espera (padrão a) ──
+// ── as outras duas empresas (o diretor, 14/10): as garagens delas, cada uma espelho de uma da
+// Viação — o primário acende, e o caminho segue igual, com o nome delas ──
 for (const e of E.empresasDo(HEROI).filter((x) => x.id !== M.empresa.id)) {
   const q = E.escolherEmpresa(q05, e.id)
   const p = E.primarioDasEmpresas(HEROI, q)
-  chk(`${e.nome} · se escolhe, e o mock não traz as unidades dela (só a contagem, ${e.unidades})`, E.linhasDasEmpresas(HEROI, q).find((l) => l.id === e.id).escolhida && E.unidadesDa(HEROI, e.id) === null)
-  chk(`${e.nome} · o primário espera: Ver as unidades, desabilitado de verdade (lei 17, regra 12)`, p.desabilitado && p.texto === TX.verUnidades)
-  chk(`${e.nome} · Ver as unidades não faz nada: nenhum quadro inventado`, igual(E.verAsUnidades(HEROI, q), q))
-  chk(`${e.nome} → a Viação: o primário acende de novo`, !E.primarioDasEmpresas(HEROI, E.escolherEmpresa(q, viacao.id)).desabilitado)
+  const linhas = (E.unidadesDa(HEROI, e.id) ?? []).flatMap((g) => g.linhas)
+  chk(`${e.nome} · se escolhe, e o mock traz as ${e.unidades} unidades dela`, E.linhasDasEmpresas(HEROI, q).find((l) => l.id === e.id).escolhida && linhas.length === e.unidades, linhas.map((l) => l.uo.nome).join(', '))
+  chk(`${e.nome} · o primário acende: Ver as unidades`, !p.desabilitado && p.texto === TX.verUnidades)
+  chk(`${e.nome} · Ver as unidades abre as unidades dela`, E.verAsUnidades(HEROI, q).passo === 'unidades' && E.verAsUnidades(HEROI, q).empresaId === e.id)
+  for (const l of linhas) {
+    const g = M.empresas.find((x) => x.id === e.id).garagens.find((x) => x.id === l.uo.id)
+    chk(`${e.nome} · ${l.uo.nome}: o pacote da espelho (${g.espelho})`, pacoteDaGaragem(l.uo.id)?.uoId === g.espelho && M.uos.some((u) => u.id === g.espelho))
+    const ctx = E.contextoDoCaso(HEROI, E.escolherUnidade(E.verAsUnidades(HEROI, q), l.uo.id), vazio, l.uo.id)
+    chk(`${e.nome} · Sincronizar ${l.uo.nome}: o contexto com o id da espelho e o nome dela`, ctx.uoId === g.espelho && ctx.unidade?.id === l.uo.id && ctx.unidade?.nome === l.uo.nome, JSON.stringify(ctx))
+  }
 }
 
 // ══ uma empresa só (o caso uma-empresa): 08 → 00 → 01 → T03 ══
@@ -201,7 +210,7 @@ chk('01 · o primário diz Sincronizar Garagem Várzea, sem o Trocar de empresa,
 chk('01 · o voltar do Android não faz nada', E.voltarNoCaso(UMA_EMPRESA, q01) === null)
 const ctxUma = E.contextoDoCaso(UMA_EMPRESA, q01, semente, varzea.id)
 chk('01 · Sincronizar: a unidade no contexto, e o mundo de uma empresa só junto — a folha do menu fica sem o Trocar de empresa',
-  igual(ctxUma, { uoId: varzea.id, pacote: null, empresas: { caso: UMA_EMPRESA, atual: M.empresa.id } }) && !E.temVariasEmpresas(ctxUma), JSON.stringify(ctxUma))
+  igual(ctxUma, { uoId: varzea.id, unidade: null, pacote: null, empresas: { caso: UMA_EMPRESA, atual: M.empresa.id } }) && !E.temVariasEmpresas(ctxUma), JSON.stringify(ctxUma))
 chk('a T03 voltando ao contexto, nesse mundo: a 00, sem nada escolhido', E.mundoAoAbrir(null, null, ctxUma) === UMA_EMPRESA && igual(E.inicioDoMundo(UMA_EMPRESA, null, null, ctxUma), q00))
 
 // ══ a lista longa, de uma empresa só ══

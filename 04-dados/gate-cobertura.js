@@ -695,6 +695,14 @@ var empHeroi = emps.filter(function (e) { return e.id === M.empresa.id; });
 chk("design · T02 as empresas do herói: a dele está entre elas, com o mesmo nome, e conta as unidades do mundo dele",
   empHeroi.length === 1 && empHeroi[0].nome === M.empresa.nome && empHeroi[0].unidades === M.uos.length,
   empHeroi.length ? empHeroi[0].nome + ": " + empHeroi[0].unidades + " em M.empresas, " + M.uos.length + " em M.uos" : "sem a empresa do herói");
+/* as outras duas empresas (o diretor, 14/10): as garagens delas, cada uma espelho de uma garagem da Viação */
+var outras = emps.filter(function (e) { return e.id !== M.empresa.id; });
+var idsUo = M.uos.map(function (u) { return u.id; });
+chk("design · T02 as outras empresas: as garagens batem com a contagem, cada uma espelho de uma garagem da Viação, numa região do mock, sem id repetido",
+  outras.every(function (e) { return (e.garagens || []).length === e.unidades && e.garagens.every(function (g) {
+    return !!g.id && !!g.nome && idsUo.indexOf(g.espelho) >= 0 && idsUo.indexOf(g.id) < 0 && M.ucs.some(function (c) { return c.id === g.ucId; }); }); }) &&
+  (function () { var ids = []; outras.forEach(function (e) { (e.garagens || []).forEach(function (g) { ids.push(g.id); }); }); return ids.length === new Set(ids).size; })(),
+  outras.map(function (e) { return e.nome + ": " + (e.garagens || []).map(function (g) { return g.nome + " → " + g.espelho; }).join(", "); }).join(" / "));
 var ue = M.casos["uma-empresa"] || null;
 var ueEmpresas = ue && ue.empresas ? ue.empresas : [];
 chk("design · T02 uma empresa só: o caso uma-empresa traz uma empresa, a do herói, com o mesmo nome e as unidades do mundo dele",

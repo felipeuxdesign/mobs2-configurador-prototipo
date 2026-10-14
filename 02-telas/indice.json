@@ -1804,7 +1804,11 @@
       "como": "a conferência correndo · 400ms por linha",
       "caso": "diff-divergente, invertido",
       "html": "02-telas/T11-conferir-configuracao/referencias/html/04-momento-conferindo.html",
-      "png": "02-telas/T11-conferir-configuracao/referencias/png/04-momento-conferindo.png"
+      "png": "02-telas/T11-conferir-configuracao/referencias/png/04-momento-conferindo.png",
+      "coluna": true,
+      "rotulo": "Conferindo",
+      "rotuloOrigem": "proposto",
+      "colunaNoFim": true
     },
     {
       "id": "T11/05-estado-revisar-em-seguida",
@@ -2094,7 +2098,11 @@
       "como": "voltar do ciclo de testes com os seis passos feitos",
       "caso": "",
       "html": "02-telas/T13-checklist/referencias/html/13-momento-e-resolvida.html",
-      "png": "02-telas/T13-checklist/referencias/png/13-momento-e-resolvida.png"
+      "png": "02-telas/T13-checklist/referencias/png/13-momento-e-resolvida.png",
+      "coluna": true,
+      "rotulo": "Seção E resolvida",
+      "rotuloOrigem": "proposto",
+      "colunaNoFim": true
     },
     {
       "id": "T13/14-estado-aguardando-autoteste-sem-localizacao",
@@ -2184,7 +2192,11 @@
       "como": "só quando houve calibração: o caminhão coletor, a quinta foto da Montagem · o ônibus não calibra e não tem essa foto",
       "caso": "calibracao",
       "html": "02-telas/T13-checklist/referencias/html/20-momento-foto-do-painel.html",
-      "png": "02-telas/T13-checklist/referencias/png/20-momento-foto-do-painel.png"
+      "png": "02-telas/T13-checklist/referencias/png/20-momento-foto-do-painel.png",
+      "coluna": true,
+      "rotulo": "Caminhão · a foto do painel",
+      "rotuloOrigem": "proposto",
+      "colunaNoFim": true
     },
     {
       "id": "T13/21-estado-secao-c-com-gps-reprovado",
@@ -2724,7 +2736,11 @@
       "como": "o passo do reinício: automático, \"Reiniciando o módulo…\", sem ação do técnico",
       "caso": "autotesteEncerramento",
       "html": "02-telas/T16-sessao/referencias/html/01-momento-reiniciando-o-modulo.html",
-      "png": "02-telas/T16-sessao/referencias/png/01-momento-reiniciando-o-modulo.png"
+      "png": "02-telas/T16-sessao/referencias/png/01-momento-reiniciando-o-modulo.png",
+      "coluna": true,
+      "rotulo": "Reiniciando o módulo",
+      "rotuloOrigem": "proposto",
+      "colunaNoFim": true
     },
     {
       "id": "T16/02-momento-instalacao-homologada",
@@ -2814,7 +2830,11 @@
       "como": "a conexão cai enquanto o módulo reinicia: Reconectando…, nunca falha",
       "caso": "autotesteEncerramento",
       "html": "02-telas/T16-sessao/referencias/html/08-momento-reconectando-no-reinicio.html",
-      "png": "02-telas/T16-sessao/referencias/png/08-momento-reconectando-no-reinicio.png"
+      "png": "02-telas/T16-sessao/referencias/png/08-momento-reconectando-no-reinicio.png",
+      "coluna": true,
+      "rotulo": "Reconectando no reinício",
+      "rotuloOrigem": "proposto",
+      "colunaNoFim": true
     }
   ]
 }

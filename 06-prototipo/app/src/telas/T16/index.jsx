@@ -115,7 +115,9 @@ const RITMO = { encerrando: RITMOS.encerramentoPassoMs, autoteste: RITMOS.autote
 // muda dentro de uma fase move só a peça.
 const QUADRO = { encerrando: 'encerrando', autoteste: 'autoteste', encerrada: 'encerrada', abortando: 'abortando', abortada: 'abortada', interrompida: 'interrompida' }
 
-export default function T16({ momento, estado: est }) {
+export default function T16({ momento: daUrl, estado: est }) {
+  // o reinício e o reconectando, abertos pela coluna (14/10): o quadro do momento, parado, como no print
+  const momento = est === REF.reiniciando || est === REF.reconectando ? est : daUrl
   const { estado: unico, despachar } = useEstado()
   const [fluxo, setFluxo] = useState(() => inicio(momento, est, unico))
   const vivo = useRef(null)

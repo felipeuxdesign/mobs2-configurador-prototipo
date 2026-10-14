@@ -12,7 +12,7 @@
 // (6), e filtra por nome ou cidade (entrega do design de 24/09, que muda o T02·7).
 import { M } from '../../dados/mock.js'
 import { chaveDeBusca, idadeNaLinhaDaGaragem, passouDoBloqueio } from '../../dados/formato.js'
-import { pacoteDaGaragem, mundoDaListaLonga } from '../../dados/garagens.js'
+import { pacoteDaGaragem, mundoDaListaLonga, garagensDaEmpresa } from '../../dados/garagens.js'
 import { TX } from './textos.js'
 
 export const LISTA_LONGA = '02-estado-lista-longa-com-busca'
@@ -41,6 +41,13 @@ const LONGA = agrupar(caso.ucs, caso.uos)
 
 /** os grupos do mundo que o quadro mostra: o do caso no estado 02 e nos momentos 03 e 04, o do herói no resto */
 export const gruposDo = (doCaso) => (doCaso ? LONGA : HEROI)
+
+/** as garagens de uma das outras empresas do herói, nas regiões delas (o diretor, 14/10): cada uma
+ *  mostra o pacote da garagem da Viação que ela espelha (src/dados/garagens.js) */
+export const gruposDaEmpresa = (empresaId) => {
+  const gs = garagensDaEmpresa(empresaId)
+  return gs.length ? agrupar(M.ucs, gs).filter((g) => g.linhas.length) : null
+}
 
 /** a busca aparece com mais garagens que o limite sem busca do caso (mais de 6) */
 export const temBusca = (grupos) => grupos.reduce((n, g) => n + g.linhas.length, 0) > caso.limiteSemBusca

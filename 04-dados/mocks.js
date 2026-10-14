@@ -1318,12 +1318,23 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
 
     empresa: { id: "emp-01", nome: "Viação Atlântico Sul" },
     /* as empresas que o técnico atende — a empresa vem sempre antes da
-       unidade (decisão 37). O herói é terceirizado: três empresas, e só
-       a dele tem o mundo do protótipo. */
+       unidade (decisão 37). O herói é terceirizado: três empresas. A dele
+       tem o mundo do protótipo (M.uos). As outras duas (o diretor, 14/10)
+       têm as garagens delas, e cada uma é ESPELHO de uma garagem da Viação:
+       o mesmo pacote, os mesmos ônibus e os mesmos casos, só com outro nome
+       — os nomes são decisão do diretor, não do cadastro. A ordem repete a
+       da Viação: a 1ª com o pacote de ontem, a 2ª com o de 4 dias, a 3ª
+       vencida, e a 4ª da Capibaribe repete a 1ª. */
     empresas: [
       { id: "emp-01", nome: "Viação Atlântico Sul", unidades: 3 },
-      { id: "emp-02", nome: "Transportes Capibaribe", unidades: 4 },
-      { id: "emp-03", nome: "Expresso Caruaruense", unidades: 2 }
+      { id: "emp-02", nome: "Transportes Capibaribe", unidades: 4, garagens: [
+        { id: "uo-21", ucId: "uc-01", nome: "Garagem Casa Amarela", espelho: "uo-01" },
+        { id: "uo-22", ucId: "uc-01", nome: "Garagem Afogados",     espelho: "uo-02" },
+        { id: "uo-24", ucId: "uc-01", nome: "Garagem Jaboatão",     espelho: "uo-01" },
+        { id: "uo-23", ucId: "uc-02", nome: "Pátio Santa Cruz",     espelho: "uo-03" } ] },
+      { id: "emp-03", nome: "Expresso Caruaruense", unidades: 2, garagens: [
+        { id: "uo-31", ucId: "uc-02", nome: "Pátio Bezerros",       espelho: "uo-01" },
+        { id: "uo-32", ucId: "uc-02", nome: "Pátio Toritama",       espelho: "uo-02" } ] }
     ],
     ucs: [
       { id: "uc-01", nome: "RMR – Recife" },

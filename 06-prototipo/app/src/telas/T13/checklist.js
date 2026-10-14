@@ -198,7 +198,7 @@ const fotosDeB = () => Object.fromEntries(itensDa('B').map((i) => [i.id, HORA]))
 // A rodada 2 do retorno do PM: o Painel só entra quando houve calibração, e o ônibus do herói não
 // calibra nada — a foto do Painel (o 20) é do caminhão coletor, o ativo da garagem que calibra (o
 // KNB-5H39). Pelo endereço, o 20 abre na sessão dele, como a T16/01 abre no par da referência
-const QUADRO_DO_PAINEL = '20-momento-foto-do-painel'
+export const QUADRO_DO_PAINEL = '20-momento-foto-do-painel'
 export function sessaoDoQuadro(unico, momento, semente) {
   if (momento !== QUADRO_DO_PAINEL) return unico
   const a = M.ativos.find((x) => x.uoId === semente.contexto.uoId && x.moduloSerial
