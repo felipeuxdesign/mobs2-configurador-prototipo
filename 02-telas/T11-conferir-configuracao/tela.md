@@ -8,7 +8,7 @@ Comparar o que o módulo tem gravado com o que o cadastro manda — em linguagem
 | **Chrome** | faixa de sessão |
 | **Semente no protótipo** | M2C-0417 + RKT-8H42 · caso `conferencia-confere` · a leitura chega ao `02`, Tudo confere |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 3 · 2 — ver `estados.md` |
+| **Momentos · estados** | 4 · 2 — ver `estados.md` |
 
 ## O que se toca · regra vigente
 

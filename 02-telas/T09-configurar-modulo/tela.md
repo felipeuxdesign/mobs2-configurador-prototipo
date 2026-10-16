@@ -8,7 +8,7 @@ Gravar no módulo o que ele precisa: todos os blocos, na instalação nova; um b
 | **Chrome** | faixa de sessão · a linha dos pinos embaixo do título |
 | **Semente no protótipo** | sessão M2C-0417 + RKT-8H42 · os blocos do mock |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 6 · 6 — ver `estados.md` |
+| **Momentos · estados** | 12 · 8 — ver `estados.md` |
 
 ## As consultas da manutenção no palco
 

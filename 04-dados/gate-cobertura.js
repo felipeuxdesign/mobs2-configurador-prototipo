@@ -787,5 +787,27 @@ chk("p3: a Seção E se chama Ciclo de testes", M.checklist.secoes.filter(functi
     Object.keys(passa).every(function (k) { var l = C[k].releituras; return l && l.length === 2 && !passa[k](l[0]) && passa[k](l[1]); }));
 })();
 
+/* ── o pacote 36 · as fichas batendo com as referências: pra cada tela, cada referência tem a linha
+   dela no estados.md, e a ficha (tela.md) conta os momentos e os estados que as referências têm ── */
+(function () {
+  var fs = require("fs"), path = require("path");
+  var raiz = path.join(__dirname, "..", "02-telas");
+  var telas = fs.readdirSync(raiz).filter(function (d) { return /^T\d\d-/.test(d); }).sort();
+  var refs = 0, semLinha = [], contagem = [];
+  telas.forEach(function (d) {
+    var pngs = fs.readdirSync(path.join(raiz, d, "referencias", "png")).filter(function (f) { return /\.png$/.test(f); });
+    refs += pngs.length;
+    var est = fs.readFileSync(path.join(raiz, d, "estados.md"), "utf8");
+    pngs.forEach(function (f) { var n = f.slice(0, -4); if (n !== "00-tela" && est.indexOf("`" + n + "`") < 0) semLinha.push(d.slice(0, 3) + "/" + n); });
+    var m = pngs.filter(function (f) { return f.indexOf("-momento-") >= 0; }).length;
+    var e = pngs.filter(function (f) { return f.indexOf("-estado-") >= 0; }).length;
+    var ficha = /\*\*Momentos · estados\*\* \| (\d+) · (\d+)/.exec(fs.readFileSync(path.join(raiz, d, "tela.md"), "utf8"));
+    if (!ficha || +ficha[1] !== m || +ficha[2] !== e) contagem.push(d.slice(0, 3) + ": ficha " + (ficha ? ficha[1] + " · " + ficha[2] : "sem a linha") + ", referências " + m + " · " + e);
+  });
+  chk("fichas · o censo: 15 telas e 201 referências", telas.length === 15 && refs === 201, telas.length + " telas · " + refs + " referências");
+  chk("fichas · cada referência tem a linha dela no estados.md da tela", semLinha.length === 0, semLinha.join(", ") || "todas");
+  chk("fichas · a ficha de cada tela conta os momentos e os estados que as referências têm", contagem.length === 0, contagem.join(" / ") || "as 15 batem");
+})();
+
 console.log(falhas ? "\nGATE REPROVADO — " + falhas + " falha(s)" : "\nGATE APROVADO — todas as âncoras recomputadas conferem");
 if (typeof process !== "undefined") process.exitCode = falhas ? 1 : 0;

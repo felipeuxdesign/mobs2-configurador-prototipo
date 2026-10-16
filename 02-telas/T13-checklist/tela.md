@@ -10,7 +10,7 @@ Fechar a homologação: o que o app já provou sozinho, e o que o técnico ainda
 | **Chrome** | faixa de sessão |
 | **Semente no protótipo** | sessão M2C-0417 + RKT-8H42 · 27 itens |
 | **Referência da tela** | `referencias/html/00-tela.html` · `referencias/png/00-tela.png` |
-| **Momentos · estados** | 30 · 10 — ver `estados.md` |
+| **Momentos · estados** | 30 · 11 — ver `estados.md` |
 
 ## Regra vigente · retorno do PM e protótipo atual
 

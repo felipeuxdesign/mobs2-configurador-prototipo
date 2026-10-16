@@ -1,5 +1,20 @@
 # Registro de mudanças
 
+## 2026-10-16 · pacote 36: as fichas batendo com as referências
+
+- **As fichas contavam momentos e estados de antes**, achado ao montar as sections do canvas. Corrigidas: T09 (12 · 8), T11 (4 · 2) e T13 (30 · 11).
+- **No protótipo:**
+  - **A T16** já dizia 6 · 2.
+  - **O `estados.md` da T01** já tinha as linhas dos momentos 20, 21 e 22 desde um ciclo anterior, com o texto e o caso do mock que os produz. Ficou o nosso.
+  - **Os arquivos do pacote vieram de cópias antigas:** a ficha de quatro telas, o `estados.md` da T01 e o registro. Entraram só as três contagens e esta entrada.
+- **O gate do mock ganhou as fichas** (`04-dados/gate-cobertura.js`):
+  - **o censo:** 15 telas e 201 referências;
+  - **cada referência** tem a linha dela no `estados.md` da tela;
+  - **a ficha de cada tela** conta os momentos e os estados que as referências têm.
+
+  Provado que pega: com a ficha antiga da T09, o gate reprova (*T09: ficha 6 · 6, referências 12 · 8*).
+- **Os READMEs:** a contagem dos roteiros (51, com os três do dia 14) e a checagem, que agora confere também as fichas.
+
 ## 2026-10-15 · pacote 35: o Voltar ao fluxo do palco
 
 - **o "Voltar ao fluxo" do palco**, também botão secundário, com o fill e a borda do app (`#241F33` e `#3A3350`): usava o fundo da folha e a luz do poço, cor emprestada · o palco é sempre escuro, então só os valores do escuro
