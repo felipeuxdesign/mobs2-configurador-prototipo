@@ -11,7 +11,7 @@ export { SoIcone } from './primitivos/SoIcone.jsx'
 export { Link } from './primitivos/Link.jsx'
 export { Checkbox } from './primitivos/Checkbox.jsx'
 export { Rolagem } from './primitivos/Rolagem.jsx'
-export { Desenho, DESENHOS, SETAS, DAS_FOLHAS } from './primitivos/Desenho.jsx'
+export { Desenho, DESENHOS } from './primitivos/Desenho.jsx'
 
 // as seis famílias (C2) — as telas importam tudo daqui
 export * from './chrome/index.js'

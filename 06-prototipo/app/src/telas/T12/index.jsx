@@ -5,8 +5,8 @@
 //   (T12·3 a). A i-01, de hoje às 11:47, fica ao lado da sessão aberta (G22).
 // · Tocar numa instalação abre o detalhe (01) e a URL diz 01: em cima, o que o
 //   servidor recebeu — posicionamento e eventos (a viagem saiu, decisão 54), cada um com o veredito
-//   e o porquê (decisão 41) —, e embaixo a instalação: a i-01 com as seis
-//   etapas; as outras com só as linhas que o resumo sustenta (T12·2 a). O 01
+//   e o porquê (decisão 41) —, e embaixo a instalação: a i-01 e a i-02 (o 37b) com
+//   as seis etapas; as outras com só as linhas que o resumo sustenta (T12·2 a). O 01
 //   aberto pelo endereço mostra a mais nova da garagem — a i-01 em Várzea.
 // · Os estados da coluna, parados, pela receita: a 02 pela consulta vazia do
 //   caso (AC-21), sem sessão; a 03 com o aviso da consulta anterior em cima da

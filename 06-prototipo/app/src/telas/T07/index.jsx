@@ -336,11 +336,11 @@ export default function T07({ momento, estado: est }) {
   if (corre) avisoVivo.current = true
 
   return (
-    // a leitura do módulo (a 11, o pacote 5): a barra já no fundo da faixa, sem o rótulo
-    // de topo, e as linhas que esperam com o título aceso — como a 11 desenha (o desvio
-    // da 06 e da 10, que apagam o título, vai nomeado no gate do pacote 5)
+    // a leitura do módulo (a 11, o pacote 5): sem o rótulo de topo, e as linhas que esperam
+    // com o título aceso, como a 11 desenha · a barra na cor da página: a faixa da sessão
+    // ainda não nasceu, e é a página que está embaixo dela (o 37b, R-23)
     <div className={`t07 ${corre ? 't07-lendo' : ''}`}>
-      <BarraDoSistema fundo={comFaixa || corre ? 'faixa' : 'pagina'} veu={enc.veu} />
+      <BarraDoSistema fundo={comFaixa ? 'faixa' : 'pagina'} veu={enc.veu} />
       {faixa}
       <div className="tela-miolo t07-miolo">
         <div className="t07-cabeca">

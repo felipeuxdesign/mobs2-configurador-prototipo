@@ -371,7 +371,24 @@ var AUTOTESTE_ENCERRAMENTO = [ /* retorno do PM, 06/10: as sete, nesta ordem · 
       } },
     { id: "i-02", ativoId: "a-03", moduloSerial: "M2C-0312", diasAtras: 1,  hora: "16:05",
       estado: "aguardando-validacao", ressalva: null,
-      resumo: { blocos: "6/6", checklist: "27/27", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado" } },
+      resumo: { blocos: "6/6", checklist: "27/27", autoteste: "5 aprovadas · 1 não se aplica · 1 pendente", recebimento: "confirmado" },
+      etapas: { /* pacote 37b · a referência vence (T12/04 e 05): o detalhe da PCX-9A17
+                   mostra a instalação inteira, como a i-01, com os números que a
+                   referência desenha · o `resumo` continua, pra a lista da T12 */
+        preChecagem: { checagens: 8, passaram: 8 },
+        cadeia: [
+          { bloco: "limpeza", hora: "15:21", readBack: "confirmado" },
+          { bloco: "ativo",   hora: "15:25", readBack: "confirmado" },
+          { bloco: "cercas",  hora: "15:30", readBack: "confirmado" },
+          { bloco: "leitor",  hora: "15:34", readBack: "confirmado" },
+          { bloco: "eventos", hora: "15:39", readBack: "confirmado" },
+          { bloco: "conexao", hora: "15:44", readBack: "confirmado" }
+        ],
+        calibracao: { semeadas: [], puladas: [], nadaACalibrar: true },
+        cicloDinamico: { completo: true, passos: ["Ignição ligada", "Rotação", "Cartão do motorista", "Ignição desligada"], confirmados: 4 },
+        checklist: { itens: 27, concluidos: 27 }, autoteste: { aprovadas: 5, naoSeAplicam: 1, pendentes: 1 },
+        recebimento: { confirmado: true, hora: "16:05" }
+      } },
     { id: "i-03", ativoId: "a-12", moduloSerial: "M2C-0402", diasAtras: 2,  hora: "10:22",
       estado: "aguardando-validacao",
       ressalva: { item: "Fixação da antena", justificativa: "Suporte original quebrado — fixada com abraçadeira reforçada" },

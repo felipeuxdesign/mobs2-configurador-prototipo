@@ -1,5 +1,28 @@
 # Registro de mudanças
 
+## 2026-10-17 · pacote 37b: as respostas do gate do 37
+
+- **a fila sem erro tem cinco envios** (T15/01): a referência dizia *5 neste aparelho* e desenhava quatro · ganhou a quinta, *Checklist · PCX-9A17 · recebida · ontem 16:40* (a f-07 do mock), como última linha, com a altura da última (62) · a do *09:14* passou a linha do meio · o bloco do que está subindo encolhe pra caber
+- **o detalhe da PCX-9A17 mostra a instalação inteira** (T12/04 e 05): a referência vence, e a i-02 ganhou no mock as `etapas`, com os números que ela desenha (*Diagnóstico 8 de 8*, *Configuração 6 passos*, *Calibração nada a calibrar*, *Ciclo de testes 4 de 4*, *Checklist 27 de 27*, o autoteste com os três contadores) · o `resumo` dela continua, pra lista · o gate confere: a i-01 e a i-02 têm as etapas
+- **na cadeia parada, quem espera leva o traço** (T09/02 e 03): os blocos que ainda vão gravar levam o traço no poço, como na cadeia recusada · o círculo vazio é só da cadeia correndo
+- **a barra de status da T07/11 acompanha a página**: na leitura, a faixa da sessão ainda não nasceu, e a barra estava na cor da faixa · agora na da página, nos dois temas (R-23)
+- **a moldura do achado da T11/01 no `--borda-neutra`**, nos dois temas, como a referência desenha desde o 33 · o `--borda-achado` sai
+- **a régua de idade no claro** (T03/03): o preenchido aponta pro `--poco-fundo` do claro, `#BCBEC8`, o mesmo contraste contra o trilho que ele tem no escuro (1,5:1)
+- **o jogo de ícones com 48**: as três setas das linhas (`seta-seguir`, `seta-fechar` e `seta-abrir`, na grade de 20), e os quatro desenhos das folhas (`energia`, `lua`, `email` e `camera-sem-permissao`) · o ponto do `sem-rede` em `currentColor` · a folha de ícones refeita
+- **No protótipo:**
+  - **As setas e os desenhos das folhas** saíram do código (`Desenho.jsx`): o `Icone` aponta pros arquivos do jogo, a `seta-seguir`, a `seta-fechar` e a `seta-abrir`, e a câmera sem permissão é a `camera-sem-permissao`. O app não desenha mais nenhum ícone; fora do jogo ficam só os quatro do palco.
+  - **A T09:** com a cadeia parada (recusada, pausada ou na recuperação), quem ainda vai gravar leva o traço (`cadeia.js`).
+  - **A T07:** na leitura, a barra fica na cor da página; a faixa só pinta a barra quando nasce.
+  - **A T11/01:** a nota do achado usa o `--borda-neutra`, e o `--borda-achado` saiu. São 315 tokens.
+  - **A T12:** o detalhe já lia as etapas de qualquer instalação; com as da i-02 no mock, a PCX-9A17 mostra as seis linhas e o nome. Saíram os comentários do desvio.
+  - **Os READMEs, o LEIA-PRIMEIRO, o catálogo e o mapa do design system** dizem 48 ícones, com as setas no jogo.
+- **Medido:**
+  - **O escuro, as 201 telas antes e depois, pixel a pixel:** mudaram 6, as das respostas: a barra da T07/11, o traço da T09/02 e 03, a moldura da T11/01 e o detalhe da T12/04 e 05. As setas trocadas pelo jogo não mudaram nenhum pixel.
+  - **Contra a referência:** a T09/03, a T11/01 e a T15/01 em 0% contra o HTML (a T15/01 estava em 4,83% na base do 33, contra a referência antiga); a T12/04 e a 05 em 0,13% (eram 1,46% e 1,47%); a T07/11 em 0,08%; a T09/02 em 2,05%, a sobra antiga do rodapé (era 2,10%).
+  - **O claro:** a régua da T03/03 com o preenchido em `#BCBEC8` sobre o trilho em `#E5E6EB`.
+  - **Os ícones:** nenhum desenhado no código fora do jogo, e os 48 do jogo com `currentColor` (o gate do mock confere).
+  - **Os roteiros das telas que mudaram** (`mov-t04`, `mov-t07`, `mov-t09`, `mov-t11`, `mov-t12`, `mov-t13`, `mov-t15`, `heroi`, `conferencia`, `checklist`, `claro` e `abortada`) aprovados, e a vitrine igual à do 37, espécime por espécime (96 de 114 em 0%). A checagem, o gate do mock e o build aprovados.
+
 ## 2026-10-16 · pacote 37: o claro mais leve, e os ícones são os nossos
 
 - **O rebaixado separado do poço** (decisão 55): no claro, o cinza do poço pintava todas as superfícies rebaixadas e pesava a tela inteira (um quarto da fila de saída). Agora as superfícies grandes usam o token novo `--fundo-rebaixado`, com as bordas `--rebaixado-sombra`, `--rebaixado-lado` e `--rebaixado-luz`: o campo (de qualquer largura, as casinhas do código também), o painel, o bloco de aviso, a faixa do topo do menu, a busca e a área da foto. O poço fica só pro quadradinho do ícone, o check, o trilho e o marcador, e é ele que dá a personalidade do claro.

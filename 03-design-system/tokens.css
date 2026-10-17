@@ -307,7 +307,7 @@
   --instrumento-recheio: 18px;         /* o recheio de cima e de baixo do poço dos instrumentos da T03: o download, o concluído e a idade do pacote (T03-V2) · T03 */
   --n-unidade-progresso: 17px;         /* a unidade junto do número de 40 no concluído e na idade do pacote (T03/02, 03, 04); no download (00) ela é --n-unidade-g (T03-V3) · T03 */
   --barra-idade: 14px;                 /* a altura da barra de idade do pacote, o elemento-assinatura (T03/03, 04) · T03 */
-  --idade-preenchido: var(--borda-poco); /* o preenchido da régua de idade, o tempo que passou, no pacote que ainda vale (T03/03): o cinza da borda do poço, #332C49 · T03 */
+  --idade-preenchido: var(--borda-poco); /* o preenchido da régua de idade, o tempo que passou, no pacote que ainda vale (T03/03): o cinza da borda do poço, #332C49 · no claro, a borda funda do poço, #BCBEC8, o mesmo contraste contra o trilho (1,5:1) · T03 */
   --entrelinha-nota-secundaria: 1.55;  /* a frase de 13 da nota tracejada que diz o bloqueio (T03/04, T03-V6) · Nota (corpo secundario) */
 
   /* ── C6 · C8 · o que as telas T05 a T08 pediram (cada um com o papel e quem usa) ── */
@@ -396,7 +396,6 @@
   --traco-vazio-busca: #332C49;   /* o tracinho dentro do vazio da busca (T05/02, 03) · T05 (VazioDaBusca) */
   --borda-dialogo:     #332C49;   /* a borda do diálogo · Dialogo */
   /* o pacote 37: a quarta peça que usava a luz do poço emprestada, e sumia no claro desde o 34 */
-  --borda-achado:      #332C49;   /* a moldura tracejada do achado (T11/01) · no escuro, o cinza que ela já tinha (a referência, refeita no pacote 33, desenha o --borda-neutra: pro arquiteto) · no claro, o tracejado do vazio · Nota */
 }
 
 /* ── o tema claro · NEUTRO FRIO · só as cores ───────────────────────────
@@ -463,8 +462,7 @@
   --trilho-antes: #E6E7EC;
   --traco-vazio-busca: #E6E7EC;
   --borda-dialogo: #E6E7EC;
-  --borda-achado: var(--borda-neutra);
-  --idade-preenchido: var(--borda-poco);
+  --idade-preenchido: var(--poco-fundo);
   --rolagem-cor: var(--tinta-apagada);
 }
 

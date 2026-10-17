@@ -435,8 +435,8 @@ chk("P·C4 · T01 o trecho da regra 5 é 3, e a senha nova não tem sequência n
   chk("P·C11 · T12 a 03: a consulta anterior é de hoje, a uma hora do dia antes das 14:30 (11:47)",
     sr.diasAtras === 0 && /^\d\d:\d\d$/.test(sr.consultadoAs) && sr.consultadoAs < M.HORA_NOMINAL, sr.consultadoAs);
   var h = M.instalacoes.filter(function (i) { return !!i.etapas; });
-  chk("P·C11 · T12 o 01: só a i-01 tem as etapas do detalhe (T12·2: as outras abrem só com o que o resumo sustenta)",
-    h.length === 1 && h[0].id === varzea[0].id && M.instalacoes.every(function (i) { return !!i.etapas || !!i.resumo; }), h.map(function (i) { return i.id; }).join(","));
+  chk("P·C11 · T12 o 01 e o 04: a i-01 e a i-02 têm as etapas do detalhe (pacote 37b: a referência da T12/04 vence) · as outras abrem só com o que o resumo sustenta",
+    h.length === 2 && h[0].id === varzea[0].id && h[1].id === "i-02" && M.instalacoes.every(function (i) { return !!i.etapas || !!i.resumo; }), h.map(function (i) { return i.id; }).join(","));
 })();
 
 /* ── P·C11 · T15 · fila de saída: os rótulos curtos (AC-14), a janela da re-checagem (AC-15) e os três recortes (AC-22, G21) ── */
@@ -805,11 +805,11 @@ chk("p3: a Seção E se chama Ciclo de testes", M.checklist.secoes.filter(functi
     if (!ficha || +ficha[1] !== m || +ficha[2] !== e) contagem.push(d.slice(0, 3) + ": ficha " + (ficha ? ficha[1] + " · " + ficha[2] : "sem a linha") + ", referências " + m + " · " + e);
   });
   chk("fichas · o censo: 15 telas e 201 referências", telas.length === 15 && refs === 201, telas.length + " telas · " + refs + " referências");
-  // o pacote 37 · o jogo de ícones: 41 desenhos, um SVG por ícone, com a cor por currentColor (o token na hora de usar)
+  // o pacote 37 · o jogo de ícones, um SVG por ícone, com a cor por currentColor (o token na hora de usar) · o 37b: 48 desenhos, com as três setas das linhas e os quatro das folhas
   var pastaIcones = path.join(__dirname, "..", "03-design-system", "icones");
   var icones = fs.readdirSync(pastaIcones).filter(function (f) { return /\.svg$/.test(f); });
   var semCorDoToken = icones.filter(function (f) { return fs.readFileSync(path.join(pastaIcones, f), "utf8").indexOf('stroke="currentColor"') < 0; });
-  chk("fichas · o jogo de ícones: 41 desenhos, cada um com o traço em currentColor", icones.length === 41 && semCorDoToken.length === 0, icones.length + " ícones" + (semCorDoToken.length ? " · sem currentColor: " + semCorDoToken.join(", ") : ""));
+  chk("fichas · o jogo de ícones: 48 desenhos, cada um com o traço em currentColor", icones.length === 48 && semCorDoToken.length === 0, icones.length + " ícones" + (semCorDoToken.length ? " · sem currentColor: " + semCorDoToken.join(", ") : ""));
   chk("fichas · cada referência tem a linha dela no estados.md da tela", semLinha.length === 0, semLinha.join(", ") || "todas");
   chk("fichas · a ficha de cada tela conta os momentos e os estados que as referências têm", contagem.length === 0, contagem.join(" / ") || "as 15 batem");
 })();

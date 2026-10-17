@@ -15,7 +15,7 @@ export const ICONES = {
   calibracao: ['calibracao', 'acao'], conferir: ['ferramenta', 'acao'], checklist: ['checklist', 'acao'],
   fila: ['fila-de-saida', 'acao'], instalacoes: ['ultimas-instalacoes', 'acao'],
   // ação
-  fechar: ['fechar', 'fechar'], avancar: ['seta-avancar', 'fechar'], abrir: ['seta-abrir', 'fechar'], recolher: ['seta-recolher', 'fechar'],
+  fechar: ['fechar', 'fechar'], avancar: ['seta-seguir', 'fechar'], abrir: ['seta-abrir', 'fechar'], recolher: ['seta-fechar', 'fechar'],
   // a seta da linha de opção da T01 (o reenvio, T01/11) e a da lista do país (T01/02, 20, 22): os desenhos de 24 da T01
   seguir: ['seguir', 'fechar'], 'abrir-lista': ['abrir-lista', 'fino'],
   reenviar: ['reenviar', 'acao'], olho: ['olho', 'acao'], 'olho-riscado': ['olho-riscado', 'acao'],
@@ -34,9 +34,9 @@ export const ICONES = {
   limpar: ['fechar-a-folha', 'limpar'],
   // a rodada 3 do retorno do PM · T01/04 e 11: a seta que volta, do *Usar outro dado*
   'voltar-etapa': ['outro-canal', 'acao'],
-  // fora das telas (Desenho.jsx · os das folhas): o e-mail da linha de opção (folhas 2 e 6) e a câmera do
-  // visor sem a permissão (a T13 sem a câmera), a câmera do visor com o risco
-  email: ['email', 'acao'], 'camera-negada': ['foto-riscada', 'acao'],
+  // fora das 201 telas, prontos no jogo (o 37b): o e-mail da linha de opção (folhas 2 e 6) e a câmera
+  // sem a permissão (a T13 sem a câmera)
+  email: ['email', 'acao'], 'camera-negada': ['camera-sem-permissao', 'acao'],
 }
 
 // tam: o lado do ícone, por token (--icone-*)

@@ -1,10 +1,10 @@
 # Os ícones
 
-O app tem **41 ícones**, e cada um é um desenho exato, guardado aqui como SVG. **O ícone é este desenho**, nunca o parecido de uma biblioteca: 37 são desenhos próprios do app e 4 vêm do Lucide, já copiados pra cá.
+O app tem **48 ícones**, e cada um é um desenho exato, guardado aqui como SVG. **O ícone é este desenho**, nunca o parecido de uma biblioteca: 44 são desenhos próprios do app e 4 vêm do Lucide, já copiados pra cá. Três deles, as setas das linhas, são desenhados numa grade de 20, e não de 24; e quatro (`energia`, `lua`, `email` e `camera-sem-permissao`) estão nas folhas do design system, sem tela que os use ainda.
 
 - **a cor vem do token**: o SVG usa `currentColor`, e o componente pinta com o token do papel (o veredito, a marca, a tinta) · assim o mesmo desenho serve no escuro e no claro
 - **o traço segue a lei 14**: 2,2 nos glifos de estado, 1,8 nas ferramentas do menu e nas folhas · o tamanho é o da referência de cada lugar, listado abaixo
-- **o fio que separa um risco** (o olho riscado, o Bluetooth desligado, a rede) usa `var(--poco)`, a cor do fundo onde o ícone mora
+- **o fio que separa um risco** (o olho riscado, o Bluetooth desligado, a câmera sem permissão, a rede) usa `var(--poco)`, a cor do fundo onde o ícone mora
 - **ícone novo**: desenha-se primeiro aqui, numa piloto aprovada, e só depois ele entra no código · o Lucide pode ser o ponto de partida, nunca o atalho
 
 | ícone | origem | aparece em | tamanho | traço |
@@ -50,9 +50,16 @@ O app tem **41 ícones**, e cada um é um desenho exato, guardado aqui como SVG.
 | `sem-rede-no-login` | desenho próprio | T01/14 | 16px | 2.2 |
 | `refazer` | desenho próprio | T11/03 | 18px | 1.8 |
 | `documento` | desenho próprio | T11/03 | 18px | 1.8 |
+| `seta-seguir` | desenho próprio, na grade de 20 | a seta › das linhas que abrem: T11/03, T13/00 a T13/42 e mais | 16px, na caixa de 20 | 2.2 |
+| `seta-fechar` | desenho próprio, na grade de 20 | a seta ˄ da seção aberta do checklist: T13/01 a T13/42 | 16px | 2.2 |
+| `seta-abrir` | desenho próprio, na grade de 20 | a seta ˅ que abre a garagem e a lista: T04/00 a T04/16 e mais | 14px | 2.2 |
+| `energia` | desenho próprio | as folhas 3 e 5, a energia que é com o técnico · nenhuma tela ainda | 20px | 2.2 |
+| `lua` | desenho próprio | a folha 3, o módulo em repouso · nenhuma tela ainda | 20px | 2.2 |
+| `email` | desenho próprio | as folhas 2 e 6, mandar pro e-mail · nenhuma tela ainda | 18px | 1.8 |
+| `camera-sem-permissao` | desenho próprio: a `camera` com o risco do jogo | a câmera sem permissão · nenhuma tela ainda | 16px | 1.8 |
 
 ## Os pares parecidos
 
 Seis desenhos têm uma segunda versão, de rodadas diferentes: `sem-rede` e `sem-rede-no-login`, `fechar` e `fechar-a-folha`, `busca` e `busca-de-pais`, `modulo` e `modulo-na-folha`, `falhou` e `falhou-no-texto`, `escolhido` e `requisito-cumprido`. **Cada um vale no lugar dele**, como está nas referências. Unificar é uma decisão de desenho, pra uma rodada futura.
 
-A folha `folha-de-icones.png` mostra todos, no poço, no escuro e no claro.
+A folha `folha-de-icones.png` mostra os 48, no poço, no escuro e no claro. O `sem-rede` tem o ponto da antena em `currentColor`: ele segue a cor do ícone, o vermelho na T03/01 e o cinza nas outras.

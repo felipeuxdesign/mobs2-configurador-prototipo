@@ -8,7 +8,7 @@ Tirados das referências, na ordem em que aparecem. Pontuação, maiúsculas e a
 
 ## `01-estado-sem-erro`
 
-`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Fila de saída` · `5` · `neste aparelho` · `SUBINDO AGORA` · `Evidências · KNB-5H39` · `62` · `%` · `de 8,4 MB` · `Nada aqui precisa de você.` · `NA FILA E RECEBIDAS` · `Evidências` · `PCX-9A17 · na fila` · `há 2 min` · `Checklist` · `RKT-8H42 · recebida` · `09:15` · `Evidências` · `RKT-8H42 · recebida` · `09:14` · `Voltar ao menu`
+`M2C-0417` · `RKT-8H42` · `ENCERRAR` · `Fila de saída` · `5` · `neste aparelho` · `SUBINDO AGORA` · `Evidências · KNB-5H39` · `62` · `%` · `de 8,4 MB` · `Nada aqui precisa de você.` · `NA FILA E RECEBIDAS` · `Evidências` · `PCX-9A17 · na fila` · `há 2 min` · `Checklist` · `RKT-8H42 · recebida` · `09:15` · `Evidências` · `RKT-8H42 · recebida` · `09:14` · `Checklist` · `PCX-9A17 · recebida` · `ontem 16:40` · `Voltar ao menu`
 
 ## `02-estado-dois-erros`
 

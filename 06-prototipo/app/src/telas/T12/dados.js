@@ -78,9 +78,8 @@ export function detalheDaLinha(i) {
 // nunca quem está logado agora: com outro usuário no aparelho (T01/18, HU-T01-4,
 // decisão 42) o nome segue o do herói (a revisão de 26/09, ultima-conserto,
 // padrão 2). As outras chegam do servidor só com o resumo, que não diz quem
-// instalou: sem nome (T12-V5, sem inventar autor). A T12/04 e a 05 desenham
-// 'Rafael Vieira' na PCX-9A17, cuja i-02 só tem o resumo: o nome entra quando o
-// mock der as etapas dela (desvio nomeado, pro arquiteto)
+// instalou: sem nome (T12-V5, sem inventar autor). A i-02, a PCX-9A17 da T12/04 e
+// 05, ganhou as etapas no 37b, e com elas o nome
 export function linhaDoDetalhe(i) {
   const g = M.criteriosRegra.gruposIdade
   if (i.diasAtras > g.ontem) return detalheDaLinha(i).texto
@@ -180,11 +179,10 @@ function calibracaoDe(i) {
 }
 const contagem = (titulo, feito, total, extra = {}) => ({ titulo, valor: TX.deN(feito, total), ok: feito === total, ...extra })
 
-// as linhas da instalação (T12·2 a): as seis etapas da i-01, lidas das etapas; nas
-// outras, só as três que o resumo sustenta — nada se inventa. O recebimento, que
-// era a sétima (e a quarta do resumo), agora é a seção de cima (decisão 41). A
-// T12/04 e a 05 desenham as seis na PCX-9A17, cuja i-02 só tem o resumo: as
-// outras três entram quando o mock der as etapas dela (desvio nomeado)
+// as linhas da instalação (T12·2 a): as seis etapas da i-01 e da i-02 (o 37b), lidas
+// das etapas; nas outras, só as três que o resumo sustenta, nada se inventa. O
+// recebimento, que era a sétima (e a quarta do resumo), agora é a seção de cima
+// (decisão 41)
 export function linhasDoDetalhe(i) {
   const E = TX.etapas
   const e = i.etapas

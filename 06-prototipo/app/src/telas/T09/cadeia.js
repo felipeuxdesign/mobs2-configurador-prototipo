@@ -212,8 +212,9 @@ export function elosDo({ confirmados: k, fase, parou }, conteudo, envio) {
       if (parou === 'recusa') return { ...base, estado: 'xis', valor: T.naoConfere, descricao: T.causa[b] ?? null }
       return { ...base, estado: parou === 'queda' ? 'sem-sinal-neutro' : 'pausa', valor: T.pausado, nomeGlifo: PAROU }
     }
-    // depois da recusa, os que nem começaram levam o traço (a 01); com a cadeia pausada, o relógio
-    return { ...base, estado: fase === 'recusado' ? 'traco' : 'espera', valor: T.aguardando, nomeGlifo: AINDA_NAO }
+    // com a cadeia parada, recusada (01), pausada (02) ou na recuperação (03), os que ainda vão
+    // gravar levam o traço: não estão na fila de ninguém (o 37b) · o círculo vazio é só da que corre
+    return { ...base, estado: 'traco', valor: T.aguardando, nomeGlifo: AINDA_NAO }
   })
 }
 
