@@ -74,7 +74,7 @@ const bloquear = async () => {
   assert.deepEqual(await quadro(), q, 'consulta mudou com toque, Esc ou tempo')
 }
 const resultados = []
-const saida = resolve(app, '../para-o-arquiteto/consultas-paradas')
+const saida = resolve(app, 'prints/consultas-paradas')   // as fotos são prova da rodada, fora do repositório
 mkdirSync(saida, { recursive: true })
 const fotografar = async (nome) => {
   const { data } = await cdp('Page.captureScreenshot', { format: 'png' }, s)

@@ -12,12 +12,7 @@ São **201 pares HTML/PNG** em [02-telas](../02-telas/), listados no [índice](.
 
 ## Qual evidência ler
 
-[conferencia-final](../06-prototipo/para-o-arquiteto/conferencia-final/) preserva uma rodada histórica; não é a comparação mais recente de todas as referências atuais. Consulte os gates por alteração:
-
-- [Folha da T11](../06-prototipo/para-o-arquiteto/gate-padronizacao-folha-t11.md): espaçamento e referência aprovados.
-- [Consultas paradas](../06-prototipo/para-o-arquiteto/gate-consultas-paradas.md): 15 referências comparadas contra a base, sem piora; resultados e prints em [consultas-paradas](../06-prototipo/para-o-arquiteto/consultas-paradas/).
-- [Documentação e login após recuperação](../06-prototipo/para-o-arquiteto/gate-documentacao-atual.md): escopo e verificações deste ciclo.
-- [Véu integral das folhas](../06-prototipo/para-o-arquiteto/gate-veu-integral.md): cobertura do fundo inteiro, incluindo tira, faixa e fundo da barra de status, nas folhas da T01, T04 e T11; os diálogos da T04 compartilham a cobertura. Hora e ícones oficiais ficam legíveis; caixas e painéis conservam suas posições.
+Cada rodada registra o que comparou, o que mudou e o que piorou na entrada dela do [registro de mudanças](../CHANGELOG.md). Pra conferir o estado de agora, rode a bancada inteira (`node scripts/tela.mjs todas`) e a vitrine (`node scripts/especime.mjs todos`).
 
 A rodada de consultas paradas não executou a comparação completa das 201 referências nem a suíte completa de 45 roteiros. Veja o estado de cobertura em [testes-prontos.md](testes-prontos.md).
 

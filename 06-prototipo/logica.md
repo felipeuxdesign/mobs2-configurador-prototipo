@@ -87,7 +87,7 @@ As famílias T07/06 e T13/30–37 também ficam paradas pela coluna. A classific
 
 A primeira consulta guarda o fluxo inteiro; trocar entre consultas conserva esse retorno. Toque, Esc e tempo não alteram o quadro. **Voltar ao fluxo** restaura o estado guardado; se não existe fluxo anterior, monta a entrada normal da tela. Links antigos dos 15 exemplos marcados como `consulta` abrem parados fora do print. Momentos normais continuam navegáveis; detalhes de família acessados por endereços antigos sem `consulta` conservam as limitações registradas no [palco](palco.md).
 
-Fontes: [telas.js](app/src/palco/telas.js), [estado.jsx](app/src/estado/estado.jsx) e [gate de consultas paradas](para-o-arquiteto/gate-consultas-paradas.md).
+Fontes: [telas.js](app/src/palco/telas.js), [estado.jsx](app/src/estado/estado.jsx) e o registro de mudanças das consultas paradas (07/10).
 
 ## As portas naturais
 
@@ -171,9 +171,9 @@ No computador, Esc simula voltar. A camada aberta tem prioridade: folha ou diál
 
 ## A folha que fecha (lei 20)
 
-X, véu, voltar e arraste fecham a folha. O arraste começa depois de 8px e fecha ao soltar além de 56px, pelos tokens; antes disso, volta. Arrastar uma linha não executa sua ação. A folha Outras ações da T11 usa o espaçamento aprovado da folha Não recebi o código: [gate da padronização](para-o-arquiteto/gate-padronizacao-folha-t11.md).
+X, véu, voltar e arraste fecham a folha. O arraste começa depois de 8px e fecha ao soltar além de 56px, pelos tokens; antes disso, volta. Arrastar uma linha não executa sua ação. A folha Outras ações da T11 usa o espaçamento aprovado da folha Não recebi o código.
 
-Desde a revisão autorizada em **08/10/2026**, toda folha escurece o fundo inteiro do app: conteúdo, tira de contexto, faixa de sessão e fundo da barra de status. O SVG oficial da hora e dos ícones continua legível; as posições, medidas, ações e consultas paradas permanecem as mesmas. Na T04, os diálogos `06`, `09`, `12`, `13` e `16` compartilham a cobertura, e a troca entre folha e diálogo preserva o véu sem clarear o topo. Desde **09/10/2026** (o véu como o Material 3 oficial), o `--veu` é a cor do tema a 32% e a cobertura vale pra todo diálogo: o aviso de outra sessão da T02, *A Seção F não passou* da T13 (o véu se estende sobre a faixa por `--veu-topo`, e a faixa fica inerte) e o *Encerrar antes de terminar?* de toda tela com a faixa (`useEncerrar` devolve o `veu`, que a tela passa pra `BarraDoSistema`). Toda folha e diálogo abre por cima da tela de onde saiu, que continua desenhada atrás. [Gate do véu integral](para-o-arquiteto/gate-veu-integral.md).
+Desde a revisão autorizada em **08/10/2026**, toda folha escurece o fundo inteiro do app: conteúdo, tira de contexto, faixa de sessão e fundo da barra de status. O SVG oficial da hora e dos ícones continua legível; as posições, medidas, ações e consultas paradas permanecem as mesmas. Na T04, os diálogos `06`, `09`, `12`, `13` e `16` compartilham a cobertura, e a troca entre folha e diálogo preserva o véu sem clarear o topo. Desde **09/10/2026** (o véu como o Material 3 oficial), o `--veu` é a cor do tema a 32% e a cobertura vale pra todo diálogo: o aviso de outra sessão da T02, *A Seção F não passou* da T13 (o véu se estende sobre a faixa por `--veu-topo`, e a faixa fica inerte) e o *Encerrar antes de terminar?* de toda tela com a faixa (`useEncerrar` devolve o `veu`, que a tela passa pra `BarraDoSistema`). Toda folha e diálogo abre por cima da tela de onde saiu, que continua desenhada atrás.
 
 ## O teclado (regra 10)
 

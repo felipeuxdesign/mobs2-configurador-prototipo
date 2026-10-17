@@ -2,7 +2,7 @@
 
 O painel das ferramentas: o que está pronto pra usar, o que espera o quê.
 
-**Cobertura vigente · 08/10/2026:** nas folhas `05`, `07`, `08`, `10`, `11` e `14`, o véu escurece todo o fundo do app: menu, tira, faixa e fundo da barra de status. A hora e os ícones oficiais continuam legíveis. Os diálogos `06`, `09`, `12`, `13` e `16` usam a mesma cobertura, preservando o véu na troca com uma folha. Painéis e caixas mantêm suas posições, medidas e ações. As medições históricas abaixo que descrevem tira ou faixa acesas registram a versão anterior; vale agora o [gate do véu integral](../../06-prototipo/para-o-arquiteto/gate-veu-integral.md).
+**Cobertura vigente · 08/10/2026:** nas folhas `05`, `07`, `08`, `10`, `11` e `14`, o véu escurece todo o fundo do app: menu, tira, faixa e fundo da barra de status. A hora e os ícones oficiais continuam legíveis. Os diálogos `06`, `09`, `12`, `13` e `16` usam a mesma cobertura, preservando o véu na troca com uma folha. Painéis e caixas mantêm suas posições, medidas e ações. As medições históricas abaixo que descrevem tira ou faixa acesas registram a versão anterior; vale agora a cobertura desta revisão.
 
 | | |
 |---|---|

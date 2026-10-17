@@ -16,7 +16,7 @@ E espera o *vai*.
 
 ## Os ciclos
 
-Revisado no C0 (`gate-C0.md`, parte 8): cada tela entra **com os seus estados**, o mock cresce com a tela que o lê, o C1 cria o repositório e a ferramenta de print, o C2 constrói as peças que as folhas desenham (não as linhas da tabela), e a T05 ocupa dois ciclos. Continuam 15 ciclos.
+Revisado no C0 (o gate dele, parte 8): cada tela entra **com os seus estados**, o mock cresce com a tela que o lê, o C1 cria o repositório e a ferramenta de print, o C2 constrói as peças que as folhas desenham (não as linhas da tabela), e a T05 ocupa dois ciclos. Continuam 15 ciclos.
 
 ### C0 · Estudo
 - **entra:** ler a pasta inteira, abrir as 147 referências e devolver o gate de entendimento
@@ -59,7 +59,7 @@ Em cada ciclo de tela entram também os acréscimos do mock que as telas dele le
 ### C14 · No ar
 - **entra:** o build de produção, a prévia local e a publicação na Vercel — **com o ok do diretor**, porque é publicação
 - **está pronto quando:** o link público abrindo no computador e no celular, com a etiqueta da versão
-- **no protótipo (27/09):** a publicação veio antes, em 25/09, com o ok do diretor, e cada ciclo desde então subiu com um push. O C14 ficou com o fecho: o `README.md` na raiz (o GIF do caminho do herói, o link sem senha, como rodar), o `LEIA-PRIMEIRO.md` apontando pra ele, os relatórios pro arquiteto juntos em `06-prototipo/para-o-arquiteto/`, e a `08-produto-real/` pelo critério combinado com o arquiteto (fica o que é útil ao dev e não está em outro lugar: os cinco arquivos, sem o jeito de pergunta pro PM) · `gate-C14.md`
+- **no protótipo (27/09):** a publicação veio antes, em 25/09, com o ok do diretor, e cada ciclo desde então subiu com um push. O C14 ficou com o fecho: o `README.md` na raiz (o GIF do caminho do herói, o link sem senha, como rodar), o `LEIA-PRIMEIRO.md` apontando pra ele, os relatórios pro arquiteto juntos numa pasta (desde 17/10, cada relatório sai do repositório depois do push da rodada), e a `08-produto-real/` pelo critério combinado com o arquiteto (fica o que é útil ao dev e não está em outro lugar: os cinco arquivos, sem o jeito de pergunta pro PM) · o gate do C14
 
 **Depois do C14 · o pacote 1 do retorno do PM (29/09).** As rodadas 1 e 2 do PM, com as decisões 44 a 49: a T05 só conecta, e perde os 11 estados da pré-checagem · a T07 vira o Diagnóstico do módulo, com 11 referências, e a T08 sai · a T06 confirma o vínculo, sem chassi, e o vínculo decide o modo · a T09 ganha o que vai ser gravado, as duas travas do envio e a manutenção · o menu começa com rede, e o sem rede vira a T04/15 · no palco, a regra dos seis agrupa a coluna da T07 em *o módulo* e *a CAN*. O `ciclos.md` do pacote trazia o plano original do C0; vale a numeração acima, a dos commits. Depois do pacote: 145 referências · 15 telas · 64 momentos · 66 estados.
 

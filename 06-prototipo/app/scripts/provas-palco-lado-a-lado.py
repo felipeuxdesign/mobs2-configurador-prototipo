@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-# O lado a lado do palco, pro arquiteto: a referência à esquerda, o protótipo à
+# O lado a lado do palco: a referência à esquerda, o protótipo à
 # direita, com um título curto em cima de cada lado. Lê as fotos que o
 # scripts/provas-palco.mjs tirou (prints/provas-palco/) e as medidas dele
-# (prints/provas-palco/medidas.json), e grava em ../para-o-arquiteto/palco/:
+# (prints/provas-palco/medidas.json), e grava em prints/provas-palco/lado-a-lado/:
 #   01-no-fluxo.png · 02-num-estado.png · 03-tela-com-muitos-estados.png ·
 #   04-painel-aberto.png — o quadro da referência (1440 × 900, 1×) contra o palco
 #   rodando na mesma janela, a 1×, sem reescalar;
@@ -20,7 +20,7 @@ APP = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RAIZ = os.path.normpath(os.path.join(APP, '..', '..'))
 REF = os.path.join(RAIZ, '06-prototipo', 'palco', 'referencias', 'png')
 FOTOS = os.path.join(APP, 'prints', 'provas-palco')
-SAIDA = os.path.join(RAIZ, '06-prototipo', 'para-o-arquiteto', 'palco')
+SAIDA = os.path.join(FOTOS, 'lado-a-lado')
 FONTES = os.path.join(RAIZ, '05-recursos', 'fontes')
 os.makedirs(SAIDA, exist_ok=True)
 

@@ -1,6 +1,6 @@
 # O que espera o diretor
 
-As perguntas que os ciclos deixaram, cada uma com o padrão que o protótipo adotou enquanto a resposta não vem. Nenhuma trava o protótipo: ele roda com o padrão, e a resposta muda o que está escrito aqui e no código. As perguntas de produto, pro PM, ficam em `08-para-o-dev/o-que-o-produto-ainda-decide.md`; as do desenho, pro arquiteto, em `diferencas-para-o-arquiteto.md`, na raiz.
+As perguntas que os ciclos deixaram, cada uma com o padrão que o protótipo adotou enquanto a resposta não vem. Nenhuma trava o protótipo: ele roda com o padrão, e a resposta muda o que está escrito aqui e no código. As perguntas de produto, pro PM, ficam em `08-para-o-dev/o-que-o-produto-ainda-decide.md`; as do desenho vão ao arquiteto no relatório de cada rodada, que sai do repositório depois do push.
 
 ## Respondidas pelo diretor (25/09)
 
@@ -10,7 +10,7 @@ As perguntas que os ciclos deixaram, cada uma com o padrão que o protótipo ado
 - **T10 · o voltar no meio do semear: (b).** O semear grava no módulo e não para: nos 2 s de *Gravando no módulo…* e *Relendo…*, o *Voltar ao menu* e o voltar do Android não fazem nada, como a releitura da T08
 - **o celular deitado (regra 11): (a).** O celular de 360 × 800 no centro, sem girar
 - **o zoom do celular no palco:** depois de o protótipo subir na Vercel · **decidido pelo diretor (26/09): o zoom morre** — o celular fica no tamanho real e só diminui pra caber numa janela pequena, nunca cresce (ver *O palco*, abaixo)
-- **as outras perguntas** ficam no padrão (a), até o diretor dizer outra coisa · o que muda desenho vai ao arquiteto (06-prototipo/para-o-arquiteto/alinhamento.md)
+- **as outras perguntas** ficam no padrão (a), até o diretor dizer outra coisa · o que muda desenho vai ao arquiteto
 
 ## Publicar
 
@@ -53,7 +53,7 @@ As perguntas que os ciclos deixaram, cada uma com o padrão que o protótipo ado
 | T15 | a evidência do RSW-9L02: o mock diz 2 dias, a referência diz ontem | o mock (2 dias); a proposta é alinhar o mock · **respondida pelo arquiteto (26/09):** a data do RSW-9L02 é *10/03, 10:05* — o recebido de mais de um dia diz o dia (`02-telas/T15-fila-de-saida/estados.md`) |
 | T15 | o traço lima e a barra lima do *Subindo agora*, com o envio ainda correndo (Lei 1) | como a referência; são duas exceções à lei |
 | T15 | o item que a sessão acabou de criar aparece *há 0 min*, sem texto pra *agora* | *há 0 min* |
-| T15 | o contador da T15 conta os recebidos (3), e o do menu só os pendentes (2) | os dois como estão · a decisão 42 (26/09, *a fila é do aparelho*) reabre o do menu, que conta os pendentes da unidade ativa: a pergunta foi ao arquiteto (`diferencas-para-o-arquiteto.md` · *A última entrega*) |
+| T15 | o contador da T15 conta os recebidos (3), e o do menu só os pendentes (2) | os dois como estão · a decisão 42 (26/09, *a fila é do aparelho*) reabre o do menu, que conta os pendentes da unidade ativa: a pergunta foi ao arquiteto (*A última entrega*) |
 | T15 | o que o envio que recomeça mostra, depois do `Ressincronizar e reenviar` | o cartão sai e o item entra na lista como *na fila*; nenhum vira o *Subindo agora*, porque o progresso e o tamanho só existem no f-04 do mock. A espera passa de uma hora sem texto pra horas: *há 145 min*, pela forma *há N min* |
 | T16 | os textos que faltam: a assertiva Pontos de cerca aplicada, a palavra da direita enquanto correm os passos 1, 2, 4, 6 e 7, o *feito* da releitura, o registro do Descarte | como as referências; a de cerca fica *não se aplica*, e o passo fica sem a palavra |
 | T16 | a legenda do passo 2 manda desligar a alimentação, e o herói reinicia por comando (T16·1) | no herói, o passo 2 corre sem legenda; a dele só aparece no corte (T16·7) |

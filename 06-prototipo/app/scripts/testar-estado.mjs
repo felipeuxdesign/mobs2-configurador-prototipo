@@ -20,7 +20,7 @@ const foraDaColuna = indice.filter((r) => r.tela === 'T07' && r.tipo === 'estado
 chk(`todo estado da T07 está num grupo da coluna (${gruposT07.join(', ')})`, gruposT07.length > 0 && !foraDaColuna.length, foraDaColuna.join(', '))
 // a coluna escreve o `rotulo` de cada estado (src/palco/Coluna.jsx): sem ele, a linha fica em branco e o
 // radio fica sem nome pro leitor de tela (a revisão de 26/09) — todo estado tem rótulo e a origem dele
-// (gate-C3, achado 3: 'quadro' ou 'proposto')
+// (o gate do C3, achado 3: 'quadro' ou 'proposto')
 const semRotulo = indice.filter((r) => r.tipo === 'estado' && !(r.rotulo?.trim() && ['quadro', 'proposto'].includes(r.rotuloOrigem))).map((r) => r.id)
 chk('todo estado tem rótulo na coluna, com a origem', !semRotulo.length, semRotulo.join(', '))
 const cam = (p) => p.split('.').reduce((o, k) => (o == null ? undefined : o[k]), M)

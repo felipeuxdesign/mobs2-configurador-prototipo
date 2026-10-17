@@ -2,7 +2,7 @@
 
 Vale o `03-design-system/movimento.md`. Entre telas, só o conteúdo esmaece em 150ms — a barra do sistema e a faixa da sessão ficam paradas. Aqui está o que se move **dentro** desta tela.
 
-**Cobertura vigente · 08/10/2026:** o véu das folhas e dos diálogos desta tela escurece todo o fundo do app, incluindo tira, faixa e fundo da barra de status. A hora e os ícones oficiais ficam legíveis. O painel e a caixa conservam seus lugares; não há deslocamento do topo. [Gate do véu integral](../../06-prototipo/para-o-arquiteto/gate-veu-integral.md).
+**Cobertura vigente · 08/10/2026:** o véu das folhas e dos diálogos desta tela escurece todo o fundo do app, incluindo tira, faixa e fundo da barra de status. A hora e os ícones oficiais ficam legíveis. O painel e a caixa conservam seus lugares; não há deslocamento do topo.
 
 | Elemento | Quando | O que muda | Tempo | Curva | Com reduzir movimento |
 |---|---|---|---|---|---|
