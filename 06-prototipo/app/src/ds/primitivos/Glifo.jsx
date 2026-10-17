@@ -1,9 +1,8 @@
 // O glifo de estado (folha 3). A cor carrega a natureza: lima é veredito,
-// vermelho é falha, cinza é fato. Ícones do Lucide (G5), com o traço do
-// token por classe. O nome pro leitor de tela é a legenda da folha 3 (G15).
-// 'traco' e 'agora' não são ícones: são marcas (DS-V3).
-import { CircleCheck, CircleX, Circle, Wifi, Power, Pause, Clock, Moon, CircleMinus, Info } from 'lucide-react'
-import { riscado } from './Riscado.jsx'
+// vermelho é falha, cinza é fato. O desenho é o do jogo de ícones (o pacote 37,
+// Desenho.jsx), com o traço do token por classe. O nome pro leitor de tela é a
+// legenda da folha 3 (G15). 'traco' e 'agora' não são ícones: são marcas (DS-V3).
+import { Desenho } from './Desenho.jsx'
 import { useVez } from './vez.js'
 import './Glifo.css'
 
@@ -22,24 +21,31 @@ import './Glifo.css'
 //   embaixo do título, cinza, na pré-condição (Precondicao) — a versão que não se
 //   lê. Sem nome (null): a frase ao lado já diz tudo, e o glifo fica mudo pro
 //   leitor (aria-hidden), em vez de um nome que nenhuma legenda da folha 3 dá.
+// · os pares do jogo (o pacote 37): o mesmo glifo com o desenho que a referência daquele
+//   lugar usa — 'xis-texto' (o xis das linhas da divergência, T11/00, 03 e 06), 'horario' (o
+//   relógio do revisar em seguida, T11/05, T12/05 e T13/43) e os do requisito da senha nova
+//   (T01/08 e 09: o círculo e o check dele)
 const FORA_DA_FOLHA = {
-  'traco-circulo':  { Icone: CircleMinus, cor: 'marca',     nome: 'não se aplica' },
-  'sem-conexao':    { Icone: riscado(Wifi), cor: 'secundaria', nome: 'sem conexão' },
-  info:             { Icone: Info,        cor: 'secundaria', nome: null },
+  'traco-circulo':  { desenho: 'nao-se-aplica', cor: 'marca',     nome: 'não se aplica' },
+  'sem-conexao':    { desenho: 'sem-rede-no-login', cor: 'secundaria', nome: 'sem conexão' },
+  info:             { desenho: 'info',        cor: 'secundaria', nome: null },
+  'xis-texto':      { desenho: 'falhou-no-texto', cor: 'vermelho', nome: 'falha' },
+  horario:          { desenho: 'horario',     cor: 'secundaria', nome: 'em andamento' },
+  'requisito-falta': { desenho: 'requisito-pendente', cor: 'marca', nome: 'ainda não' },
 }
 
 export const ESTADOS = {
-  ok:               { Icone: CircleCheck, cor: 'lima',      nome: 'aprovado' },
-  'ok-cinza':       { Icone: CircleCheck, cor: 'secundaria', nome: 'feito' },
-  xis:              { Icone: CircleX,     cor: 'vermelho',  nome: 'falha' },
+  ok:               { desenho: 'confere',     cor: 'lima',      nome: 'aprovado' },
+  'ok-cinza':       { desenho: 'confere',     cor: 'secundaria', nome: 'feito' },
+  xis:              { desenho: 'falhou',      cor: 'vermelho',  nome: 'falha' },
   traco:            { marca: 'traco',                        nome: 'não se aplica' },
-  espera:           { Icone: Circle,      cor: 'marca',     nome: 'ainda não' },
-  'sem-sinal':      { Icone: riscado(Wifi), cor: 'vermelho',  nome: 'o link caiu' },
-  'sem-sinal-neutro': { Icone: riscado(Wifi), cor: 'secundaria', nome: 'sem conexão' },
-  energia:          { Icone: Power,       cor: 'lima',      nome: 'é com você' },
-  pausa:            { Icone: Pause,       cor: 'secundaria', nome: 'parou' },
-  relogio:          { Icone: Clock,       cor: 'secundaria', nome: 'em andamento' },
-  lua:              { Icone: Moon,        cor: 'secundaria', nome: 'em repouso' },
+  espera:           { desenho: 'vazio',       cor: 'marca',     nome: 'ainda não' },
+  'sem-sinal':      { desenho: 'sem-rede',    cor: 'vermelho',  nome: 'o link caiu' },
+  'sem-sinal-neutro': { desenho: 'sem-rede',  cor: 'secundaria', nome: 'sem conexão' },
+  energia:          { desenho: 'energia',     cor: 'lima',      nome: 'é com você' },
+  pausa:            { desenho: 'pausa',       cor: 'secundaria', nome: 'parou' },
+  relogio:          { desenho: 'aguardando',  cor: 'secundaria', nome: 'em andamento' },
+  lua:              { desenho: 'lua',         cor: 'secundaria', nome: 'em repouso' },
   agora:            { marca: 'agora',                        nome: 'o passo que corre' },
 }
 
@@ -49,19 +55,20 @@ export const ESTADOS = {
 // por opacity; o de antes sai de uma vez). Ao abrir, parado. `chave`: o que conta
 // como troca, quando não é só o estado (o 'lendo' da linha, o veredito que espera);
 // sem ela, o estado. Quem liga: a LinhaChecagem, a LinhaContagem, o Trilho e o Aviso.
-export function Glifo({ estado = 'ok', poco = 24, nome, className = '', esmaece = false, chave }) {
+// `fino`: o traço de 2 que a referência daquele lugar usa (o relógio do critério pendente, T12/05)
+export function Glifo({ estado = 'ok', poco = 24, nome, className = '', esmaece = false, chave, fino = false }) {
   const troca = useVez(chave ?? estado)
   const nasce = esmaece && troca.vez > 0 ? ' ds-glifo-nasce' : ''
   const vez = esmaece ? troca.vez : undefined
   const e = ESTADOS[estado] ?? FORA_DA_FOLHA[estado]
   const rotulo = nome ?? e.nome
   if (e.marca) return <span key={vez} role="img" aria-label={rotulo} className={`ds-glifo-marca ds-glifo-${e.marca} ${className}${nasce}`} />
-  const { Icone } = e
+  const { desenho } = e
   // o glifo sem nome é só desenho: mudo pro leitor (o 'info')
   const papel = rotulo == null ? { 'aria-hidden': 'true' } : { role: 'img', 'aria-label': rotulo }
   return (
-    <span key={vez} {...papel} className={`ds-glifo ds-glifo-cor-${e.cor} ds-glifo-${poco} ${className}${nasce}`}>
-      <Icone aria-hidden="true" absoluteStrokeWidth={false} />
+    <span key={vez} {...papel} className={`ds-glifo ds-glifo-cor-${e.cor} ds-glifo-${poco}${fino ? ' ds-glifo-fino' : ''} ${className}${nasce}`}>
+      <Desenho nome={desenho} />
     </span>
   )
 }

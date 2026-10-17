@@ -1,8 +1,8 @@
 .ds-prova {
   flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: var(--e-6);
-  padding: var(--e-12) var(--e-14); background: var(--poco);
-  border-top: var(--traco-borda) solid var(--poco-fundo); border-bottom: var(--traco-destaque) solid var(--lima);
-  border-left: var(--traco-borda) solid var(--poco-lado); border-right: var(--traco-borda) solid var(--poco-lado);
+  padding: var(--e-12) var(--e-14); background: var(--fundo-rebaixado);
+  border-top: var(--traco-borda) solid var(--rebaixado-sombra); border-bottom: var(--traco-destaque) solid var(--lima);
+  border-left: var(--traco-borda) solid var(--rebaixado-lado); border-right: var(--traco-borda) solid var(--rebaixado-lado);
 }
 .ds-prova-rotulo { font-size: var(--t-rotulo-bloco); font-weight: 700; letter-spacing: var(--ls-rotulo-bloco); color: var(--lima); }
 .ds-prova-versao { font-size: var(--n-prova-cadeia); font-weight: 700; letter-spacing: var(--ls-versao); color: var(--tinta); }
@@ -43,7 +43,7 @@
 
 /* o pacote 9 · o traço que se desenha (T16/02): a borda lima vira o cinza do poço por baixo, e o
  * lima vem por uma camada exatamente em cima dela, que se desenha da esquerda pra direita */
-.ds-prova.ds-prova-desenha { position: relative; border-bottom-color: var(--borda-poco); }
+.ds-prova.ds-prova-desenha { position: relative; border-bottom-color: var(--rebaixado-luz); }
 .ds-prova-traco {
   position: absolute; pointer-events: none;
   left: calc(-1 * var(--traco-borda)); right: calc(-1 * var(--traco-borda)); bottom: calc(-1 * var(--traco-destaque)); height: var(--traco-destaque);

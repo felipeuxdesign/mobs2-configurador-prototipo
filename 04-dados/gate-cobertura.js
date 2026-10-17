@@ -805,6 +805,11 @@ chk("p3: a Seção E se chama Ciclo de testes", M.checklist.secoes.filter(functi
     if (!ficha || +ficha[1] !== m || +ficha[2] !== e) contagem.push(d.slice(0, 3) + ": ficha " + (ficha ? ficha[1] + " · " + ficha[2] : "sem a linha") + ", referências " + m + " · " + e);
   });
   chk("fichas · o censo: 15 telas e 201 referências", telas.length === 15 && refs === 201, telas.length + " telas · " + refs + " referências");
+  // o pacote 37 · o jogo de ícones: 41 desenhos, um SVG por ícone, com a cor por currentColor (o token na hora de usar)
+  var pastaIcones = path.join(__dirname, "..", "03-design-system", "icones");
+  var icones = fs.readdirSync(pastaIcones).filter(function (f) { return /\.svg$/.test(f); });
+  var semCorDoToken = icones.filter(function (f) { return fs.readFileSync(path.join(pastaIcones, f), "utf8").indexOf('stroke="currentColor"') < 0; });
+  chk("fichas · o jogo de ícones: 41 desenhos, cada um com o traço em currentColor", icones.length === 41 && semCorDoToken.length === 0, icones.length + " ícones" + (semCorDoToken.length ? " · sem currentColor: " + semCorDoToken.join(", ") : ""));
   chk("fichas · cada referência tem a linha dela no estados.md da tela", semLinha.length === 0, semLinha.join(", ") || "todas");
   chk("fichas · a ficha de cada tela conta os momentos e os estados que as referências têm", contagem.length === 0, contagem.join(" / ") || "as 15 batem");
 })();

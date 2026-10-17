@@ -24,7 +24,7 @@ export function SeletorDoPais({ sigla, codigo, rotulo, aoTocar }) {
     <Tocavel className="t01-pais ds-caixa-poco" rotulo={rotulo} aoTocar={aoTocar}>
       <span className="t01-pais-sigla" aria-hidden="true">{sigla}</span>
       <span className="t01-pais-codigo" aria-hidden="true">{codigo}</span>
-      <Icone nome="abrir" tam={14} cor="apagada" />
+      <Icone nome="abrir-lista" tam={14} cor="apagada" />
     </Tocavel>
   )
 }
@@ -75,7 +75,7 @@ export function LinhaConferido({ texto, valor }) {
     <div className="t01-conferido-lugar">
       <div className="t01-conferido">
         <span className="t01-conferido-marca" role="img" aria-label={ESTADOS.ok.nome}>
-          <Icone nome="check" tam={16} cor="lima" />
+          <Icone nome="requisito" tam={16} cor="lima" />
         </span>
         <span className="t01-conferido-texto">{texto}</span>
         <span className="t01-conferido-valor">{valor}</span>

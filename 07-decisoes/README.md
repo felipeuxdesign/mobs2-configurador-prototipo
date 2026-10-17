@@ -68,3 +68,4 @@ Para implementar a regra atual, comece por `08-para-o-dev/`, `01-produto/fluxos.
 | [52](52-a-calibracao-sem-foto.md) | A calibração não fotografa; o horímetro é opcional |
 | [53](53-a-conferencia-por-conteudo.md) | A conferência compara conteúdo, e corrige um bloco por vez |
 | [54](54-o-ciclo-parado.md) | O ciclo de testes é parado, e o servidor não confere viagem |
+| [55](55-o-claro-mais-leve-e-os-icones.md) | O claro mais leve, com o rebaixado separado do poço, e os ícones são os nossos |

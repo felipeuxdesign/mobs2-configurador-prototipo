@@ -13,7 +13,7 @@
 .ds-traco-foco::after {
   content: ''; position: absolute; left: 0; right: 0; pointer-events: none;
   bottom: calc(-1 * var(--traco-borda)); height: var(--traco-destaque);
-  background: var(--poco); border-bottom: var(--traco-borda) solid var(--borda-poco);
+  background: var(--fundo-rebaixado); border-bottom: var(--traco-borda) solid var(--rebaixado-luz);
   transform-origin: right; transform: scaleX(1);
   transition: transform var(--mov-rapido) var(--mov-curva);
 }

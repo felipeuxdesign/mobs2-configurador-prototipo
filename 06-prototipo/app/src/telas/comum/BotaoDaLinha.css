@@ -22,3 +22,5 @@
  * 14/700 · desligado, o fundo da faixa, a borda da divisória e o texto em --marca, como a referência */
 .t-botao-linha-pergunta { flex-shrink: 0; height: var(--e-36); padding: 0 var(--e-14); }
 .t-botao-linha-pergunta:disabled { background: var(--fundo-faixa); border-color: var(--divisoria); color: var(--marca); }
+/* o pacote 37 (R-21): em cima do rebaixado, o fill do rebaixado (como o BotaoSecundario) */
+:is(.ds-cartao-acao, .ds-caixa-poco, .ds-prova) .t-botao-linha:not(:disabled) { background: var(--fundo-botao-no-rebaixado); }

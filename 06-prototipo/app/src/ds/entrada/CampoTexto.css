@@ -5,11 +5,11 @@
 .ds-campo-texto-poco {
   min-height: var(--alvo-min);
   padding: var(--e-10) var(--e-12) calc(var(--e-10) + var(--traco-destaque) - var(--traco-borda));
-  background: var(--poco);
-  border-top: var(--traco-borda) solid var(--poco-fundo);
-  border-bottom: var(--traco-borda) solid var(--borda-poco);
-  border-left: var(--traco-borda) solid var(--poco-lado);
-  border-right: var(--traco-borda) solid var(--poco-lado);
+  background: var(--fundo-rebaixado);
+  border-top: var(--traco-borda) solid var(--rebaixado-sombra);
+  border-bottom: var(--traco-borda) solid var(--rebaixado-luz);
+  border-left: var(--traco-borda) solid var(--rebaixado-lado);
+  border-right: var(--traco-borda) solid var(--rebaixado-lado);
 }
 /* o recheio de baixo é o mesmo no foco: o traço de 2 é desenhado por cima da borda de 1 (TracoFoco.css, C12·22) */
 .ds-campo-texto-entrada {

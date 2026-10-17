@@ -1,10 +1,10 @@
 .ds-busca {
   flex-shrink: 0; height: var(--alvo-min); display: flex; align-items: center; gap: var(--e-10); padding: 0 var(--e-12);
-  background: var(--poco);
-  border-top: var(--traco-borda) solid var(--poco-fundo);
-  border-bottom: var(--traco-borda) solid var(--borda-poco);
-  border-left: var(--traco-borda) solid var(--poco-lado);
-  border-right: var(--traco-borda) solid var(--poco-lado);
+  background: var(--fundo-rebaixado);
+  border-top: var(--traco-borda) solid var(--rebaixado-sombra);
+  border-bottom: var(--traco-borda) solid var(--rebaixado-luz);
+  border-left: var(--traco-borda) solid var(--rebaixado-lado);
+  border-right: var(--traco-borda) solid var(--rebaixado-lado);
 }
 /* o que se digita sai com os números tabulares da base, como o termo da referência
  * (T06/08: ABC-1234) — o campo do navegador não herda a letra sozinho */

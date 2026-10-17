@@ -7,7 +7,7 @@
 .ds-segmentado-segmentos { display: flex; gap: var(--e-2); align-items: stretch; height: var(--segmento-atual); }
 .ds-segmento { display: block; flex-grow: 1; height: var(--segmento); align-self: center; background: var(--borda); }
 .ds-segmento-feito { background: var(--lima-feito); }
-.ds-segmento-atual { height: var(--segmento-atual); align-self: auto; background: var(--tinta); }
+.ds-segmento-atual { height: var(--segmento-atual); align-self: auto; background: var(--andamento); }   /* a etapa atual (R-22) */
 /* o passo atual já feito (T10/01): a altura do atual, a cor do feito */
 .ds-segmento-atual-feito { height: var(--segmento-atual); align-self: auto; background: var(--lima-feito); }
 /* o passo atual reprovado (T13/09): a altura do atual, em vermelho */

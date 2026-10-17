@@ -14,8 +14,15 @@
   --fundo-cartao:      #1A1726;   /* cartão e lista */
   --fundo-apagado:     #131019;   /* vazio declarado, tracejado */
   --fundo-botao:       #241F33;   /* o fill do botão secundário · um degrau fora do cartão */
+  --fundo-botao-no-rebaixado: #241F33;   /* o fill do botão secundário em cima do rebaixado · um degrau acima dele (R-21) */
   --poco:              #0B0910;   /* o poço */
   --poco-fundo:        #06050A;   /* a borda funda do poço (topo) */
+  /* o pacote 37 · o rebaixado: a superfície rebaixada GRANDE (campo, painel, bloco, faixa do topo,
+   * busca, área da foto) · o poço fica só pro quadradinho · no escuro, os valores do poço (R-24) */
+  --fundo-rebaixado:   #0B0910;   /* a superfície rebaixada grande · no escuro, o mesmo do poço */
+  --rebaixado-sombra:  #06050A;   /* a borda de cima do rebaixado · no escuro, a mesma do poço */
+  --rebaixado-lado:    #14111C;   /* as laterais do rebaixado */
+  --rebaixado-luz:     #332C49;   /* a borda de baixo do rebaixado */
 
   /* ── bordas e elevação ──────────────────────────────── */
   --borda-poco:        #332C49;   /* borda de baixo do poço */
@@ -38,6 +45,9 @@
   --marca-vazia:       #4A4166;   /* marcador de escolha vazio */
   --borda-neutra:      #3A3350;   /* caixa neutra, e o tracejado do vazio */
   --borda-botao:       #3A3350;   /* a borda do botão secundário · um tom acima da dos cartões, a mesma intensidade nos dois temas */
+  --borda-interruptor: #6E6683;   /* o contorno do interruptor desligado · quem marca o estado é a bolinha (no escuro, o --marca-limite) */
+  --andamento:         #F2F0F7;   /* o que marca o andamento: a etapa atual, o "agora" na régua, o item da vez (R-22) · no escuro, o creme */
+  --andamento-alerta:  #F2F0F7;   /* o mesmo marcador dentro de uma barra em alerta · no claro, acompanha o vermelho */
 
   /* ── ação e veredito ────────────────────────────────── */
   --lima:              #AAEF00;   /* veredito e escolhido — nunca enfeite · o texto do botão principal tem token próprio, --texto-primario */
@@ -112,6 +122,7 @@
   --traco-glifo:       2.2;   /* glifos de estado */
   --traco-icone:       1.8;   /* ícones de ferramenta e ícones de 22px ou mais */
   --traco-mini:        2.6;   /* ícones abaixo de 14px */
+  --traco-fino:        2;     /* o traço de 2 que as referências usam fora das classes da lei 14: a seta e a busca do país (T01/02, 20, 22) e o relógio do critério pendente (T12/05) · Icone, Glifo · o pacote 37 */
 
   /* ── movimento · só transform e opacity ─────────────── */
   --mov-rapido:        150ms;
@@ -330,7 +341,7 @@
   --t-preso: 18px;         /* a identidade do que a sessão prendeu, o serial ou a placa, no cartão da folha (T04/10, 11) · T04 (pecas.jsx, CartaoPreso) */
 
   /* ── a entrega do design de 24/09 · o olho riscado · e a última entrega (lei 21): todo ícone riscado ── */
-  --risco-corte: 4.6;         /* a largura do vão em volta do risco do ícone riscado — uma máscara que apaga o desenho onde o risco passa (lei 14, desde o 29c), sem pintar cor nenhuma, então vale no escuro e no claro: o olho da senha (T01/10, folha 6), o Wi-Fi do login sem conexão (T01/14), o Bluetooth da busca que não começa (T05/16, 17) e a câmera sem a permissão (T10/11) — em unidades do desenho de 24 (lei 21; era --olho-corte, só do olho) · Riscado */
+  --risco-corte: 4.6;         /* a largura do vão em volta do risco do ícone riscado (lei 14 e 21) · desde o pacote 37 o vão vem desenhado no jogo de ícones (03-design-system/icones: o fio de 4,6 na cor do fundo onde o ícone mora) · sem uso no CSS: o valor é o do desenho */
 
   /* ── C10 · C11 · o que as telas T11, T13, T15 e T16 pediram (cada um com o papel e quem usa) ── */
   --linha-conferencia-fim: 72px; /* a última linha da lista de conferência, com a folga do pé do cartão: 22 a mais que as de 50 (T11/00–02, até o C11) · sem uso desde a entrega do checklist: a Conexão tem os 50 das outras */
@@ -384,6 +395,8 @@
   --trilho-antes:      #332C49;   /* o trilho da cadeia antes de gravar (T09/05, 06, 07) · Cadeia */
   --traco-vazio-busca: #332C49;   /* o tracinho dentro do vazio da busca (T05/02, 03) · T05 (VazioDaBusca) */
   --borda-dialogo:     #332C49;   /* a borda do diálogo · Dialogo */
+  /* o pacote 37: a quarta peça que usava a luz do poço emprestada, e sumia no claro desde o 34 */
+  --borda-achado:      #332C49;   /* a moldura tracejada do achado (T11/01) · no escuro, o cinza que ela já tinha (a referência, refeita no pacote 33, desenha o --borda-neutra: pro arquiteto) · no claro, o tracejado do vazio · Nota */
 }
 
 /* ── o tema claro · NEUTRO FRIO · só as cores ───────────────────────────
@@ -393,6 +406,9 @@
  * no claro · o poço continua rebaixado: a sombra em cima (--poco-fundo), as
  * laterais no meio e a luz embaixo (--borda-poco), em branco (o pacote 34: o poço
  * mais fundo, #E5E6EB, com a sombra #BCBEC8, volta a parecer afundado) · o véu continua preto a 32% · as barras do sistema ficam escuras.
+ * O pacote 37: as superfícies rebaixadas GRANDES (campo, painel, bloco, faixa do topo, busca)
+ * usam --fundo-rebaixado, bem mais leve que o poço · o poço fica só pro quadradinho do
+ * ícone, o check e o trilho, e é ele que dá a personalidade.
  * A estrutura é a mesma do escuro: só as cores mudam · o pacote 32: no claro,
  * nada lê mais fraco que no escuro — os riscos (--marca, --marca-limite,
  * --marca-vazia), a faixa da régua e o trecho feito (--lima-faixa, --lima-borda) sobem.
@@ -405,8 +421,13 @@
   --fundo-cartao: #FFFFFF;
   --fundo-apagado: #F1F1F4;
   --fundo-botao: #F3F3F7;
+  --fundo-botao-no-rebaixado: #FFFFFF;
   --poco: #E5E6EB;
   --poco-fundo: #BCBEC8;
+  --fundo-rebaixado: #F2F3F6;
+  --rebaixado-sombra: #D6D8DE;
+  --rebaixado-lado: #E4E5EA;
+  --rebaixado-luz: #FFFFFF;
   --borda-poco: #FFFFFF;
   --borda: #E2E3E8;
   --divisoria: #ECEDF1;
@@ -417,12 +438,15 @@
   --tinta: #1F2023;
   --tinta-forte: #2F3037;
   --tinta-secundaria: #4B4D57;
-  --tinta-apagada: #62656F;
+  --tinta-apagada: #686B78;
   --marca-limite: #6E7180;
   --marca: #8E91A0;
   --marca-vazia: #9A9DAB;
   --borda-neutra: #C9CBD4;
-  --borda-botao: #D2D4DA;
+  --borda-botao: #E2E3E8;
+  --borda-interruptor: #B5B7C2;
+  --andamento: #402070;
+  --andamento-alerta: #8E2C21;
   --lima: #5B3A99;
   --roxo: #402070;
   --roxo-pressionado: #4A2A80;
@@ -439,6 +463,7 @@
   --trilho-antes: #E6E7EC;
   --traco-vazio-busca: #E6E7EC;
   --borda-dialogo: #E6E7EC;
+  --borda-achado: var(--borda-neutra);
   --idade-preenchido: var(--borda-poco);
   --rolagem-cor: var(--tinta-apagada);
 }

@@ -7,7 +7,7 @@ const linha = { display: 'flex', flexWrap: 'wrap', gap: 'var(--e-12)', alignItem
 const FERRAMENTAS = ['conectar', 'ativo', 'can', 'configurar', 'refazer', 'calibracao', 'conferir', 'checklist', 'fila', 'instalacoes']
 
 export const especimes = [
-  { id: 'f3-glifos', folha: 3, rotulo: 'os glifos por natureza', semBancada: true, legenda: 'no poço de 32 · Lucide, com o nome pro leitor de tela',
+  { id: 'f3-glifos', folha: 3, rotulo: 'os glifos por natureza', semBancada: true, legenda: 'no poço de 32 · o desenho do jogo, com o nome pro leitor de tela',
     render: () => <div style={linha}>{Object.keys(ESTADOS).map((e) => <Poco key={e} tam={32}><Glifo estado={e} poco={32} /></Poco>)}</div> },
   { id: 'f3-ferramentas', folha: 3, rotulo: 'os ícones das ferramentas', semBancada: true, legenda: 'no poço de 30 · traço 1,8',
     render: () => <div style={linha}>{FERRAMENTAS.map((n) => <Poco key={n} tam={30}><Icone nome={n} tam={18} /></Poco>)}</div> },

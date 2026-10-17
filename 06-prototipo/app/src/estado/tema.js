@@ -11,6 +11,12 @@ import { useSyncExternalStore } from 'react'
 const CHAVE = 'mobs2-configurador.tema'
 
 function lerGuardado() {
+  // a fotografia (?print=1) pode pedir o claro pelo endereço, &tema=claro: as réguas do claro (o pacote 37,
+  // scripts/fotos.mjs e varre-claro.mjs) fotografam no mesmo Chrome da bancada, que não guarda nada
+  try {
+    const q = new URLSearchParams(window.location.search)
+    if (q.get('print') === '1' && q.get('tema')) return q.get('tema') === 'claro' ? 'claro' : 'escuro'
+  } catch { /* sem endereço: segue o guardado */ }
   try { return window.localStorage.getItem(CHAVE) === 'claro' ? 'claro' : 'escuro' } catch { return 'escuro' }
 }
 

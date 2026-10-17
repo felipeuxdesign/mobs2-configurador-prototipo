@@ -137,7 +137,10 @@ export function LinhaChecagem({
   const neutro = tom === 'neutro' && estado === 'parou'
   // a conferência que ainda lê este bloco: o relógio no poço, à vista e com nome
   const relogio = lendo && variante === 'conferencia'
-  const estadoDoGlifo = relogio ? 'relogio' : glifo ?? (neutro ? 'lua' : GLIFO[estado])
+  // os pares do jogo (o pacote 37): o xis das linhas da conferência é o do texto (T11/00, 03 e 06), e o
+  // relógio do que espera revisão é o horário (T11/05, T12/05) — o da leitura que corre segue o aguardando
+  const doPar = (g) => (g === 'xis' && variante === 'conferencia' ? 'xis-texto' : g === 'relogio' && estado === 'pendente' ? 'horario' : g)
+  const estadoDoGlifo = relogio ? 'relogio' : glifo ?? doPar(neutro ? 'lua' : GLIFO[estado])
   // a leitura desta linha: o estado e o lendo — quando troca depois de montar, o que chega com ela esmaece
   const leitura = useVez(`${estado}·${lendo}`)
   const cValor = useChega(valor, leitura)
@@ -158,7 +161,7 @@ export function LinhaChecagem({
   return (
     <div className={classes}>
       <Poco tam={tam} aria-hidden={(lendo && !relogio) || variante === 'recebimento' ? 'true' : undefined}>
-        <Glifo estado={estadoDoGlifo} poco={glifoDoPoco(variante, estado, tam)} nome={relogio ? undefined : nomeGlifo}
+        <Glifo estado={estadoDoGlifo} poco={glifoDoPoco(variante, estado, tam)} nome={relogio ? undefined : nomeGlifo} fino={estadoDoGlifo === 'horario' && variante === 'recebimento'}
           esmaece chave={lendo && !relogio ? 'lendo' : estadoDoGlifo} />
       </Poco>
       <span className="ds-checagem-corpo">

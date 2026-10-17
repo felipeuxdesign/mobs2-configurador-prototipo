@@ -10,12 +10,12 @@
 /* o pacote 31 · a linha solta (o pé do painel do palco): sem o cartão — quem dá a altura e a letra é quem usa */
 .ds-interruptor.ds-interruptor-solto { height: auto; padding: 0; background: none; border: 0; border-radius: 0; }
 
-/* o trilho: 52 × 32, o contorno de 2 em --marca-limite sobre o --poco · o roxo do ligado é uma
+/* o trilho: 52 × 32, o contorno de 2 em --borda-interruptor sobre o --poco · o roxo do ligado é uma
    camada por cima, que cobre o contorno e entra por opacity */
 .ds-interruptor-trilho {
   position: relative; flex-shrink: 0; display: block;
   width: var(--interruptor-largura); height: var(--poco-32); border-radius: var(--poco-32);
-  background: var(--poco); border: var(--traco-destaque) solid var(--marca-limite);
+  background: var(--poco); border: var(--traco-destaque) solid var(--borda-interruptor);   /* o pacote 37: o contorno tem token próprio; a bolinha segue em --marca-limite */
 }
 .ds-interruptor-trilho::before {
   content: ''; position: absolute; inset: calc(-1 * var(--traco-destaque)); border-radius: inherit;

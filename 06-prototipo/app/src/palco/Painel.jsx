@@ -6,7 +6,7 @@
 // Desliza da esquerda por cima de tudo; fecha no X, tocando fora ou com Esc.
 // No modo estreito ele leva também o Voltar ao fluxo, no topo.
 import { useEffect } from 'react'
-import { X, Undo2, Sun } from 'lucide-react'
+import { Xis, Volta, Sol } from './icones.jsx'
 import { Interruptor } from '../ds/index.js'
 import { useTema, definirTema } from '../estado/tema.js'
 import { NOMES, CAMINHO, CONSULTAS } from './telas.js'
@@ -35,12 +35,12 @@ export function Painel({ aberto, tela, aoIr, aoFechar, estreito, numEstado, aoVo
       <nav className={`painel ${aberto ? 'painel-aberto' : ''}`} aria-label="Telas do protótipo" aria-hidden={!aberto} inert={aberto ? undefined : ''}>
         <div className="painel-cabeca">
           <span className="painel-titulo"><span className="palco-rotulo">PROTÓTIPO</span><span className="painel-telas">Telas</span></span>
-          <button type="button" className="painel-x" aria-label="Fechar" onClick={aoFechar}><X aria-hidden="true" className="palco-icone-16" /></button>
+          <button type="button" className="painel-x" aria-label="Fechar" onClick={aoFechar}><Xis className="palco-icone-16" /></button>
         </div>
         {/* a linha de baixo do cabeçalho é o topo do corpo: o cabeçalho tem os seus 68 por dentro, como o quadro desenha */}
         <div className="painel-corpo">
           {estreito && numEstado && (
-            <button type="button" className="coluna-voltar painel-voltar" onClick={aoVoltar}><Undo2 aria-hidden="true" className="palco-icone-14" />Voltar ao fluxo</button>
+            <button type="button" className="coluna-voltar painel-voltar" onClick={aoVoltar}><Volta className="palco-icone-14" />Voltar ao fluxo</button>
           )}
           <div className="painel-lista">
             <div className="painel-parte">O CAMINHO</div>
@@ -51,7 +51,7 @@ export function Painel({ aberto, tela, aoIr, aoFechar, estreito, numEstado, aoVo
         </div>
         <div className="painel-pe">
           <Interruptor solto className="painel-modo-claro" rotulo="Modo claro" ligado={tema === 'claro'}
-            icone={<Sun aria-hidden="true" className="palco-icone-16 painel-sol" />}
+            icone={<Sol className="palco-icone-16 painel-sol" />}
             aoTrocar={(l) => definirTema(l ? 'claro' : 'escuro')} />
           <span className="painel-etiqueta">Atualizado em {atualizadoEm()}</span>
         </div>

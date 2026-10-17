@@ -14,11 +14,12 @@ import { useFocoDoCampo } from './foco.js'
 import './TracoFoco.css'
 import './Busca.css'
 
-export function Busca({ dica, valor = '', aoMudar, rotulo, focado = false }) {
+// `icone` e `tamIcone`: a busca do país da T01/22 desenha a lupa dela, de 16 e traço 2 (o par do jogo)
+export function Busca({ dica, valor = '', aoMudar, rotulo, focado = false, icone = 'busca', tamIcone = 18 }) {
   const foco = useFocoDoCampo(focado)
   return (
     <label className={`ds-busca ds-traco-foco ${foco.aceso ? 'ds-foco' : ''}`}>
-      <Icone nome="busca" tam={18} cor="apagada" />
+      <Icone nome={icone} tam={tamIcone} cor="apagada" />
       <span className="ds-busca-lugar">
         <input
           className="ds-busca-entrada"

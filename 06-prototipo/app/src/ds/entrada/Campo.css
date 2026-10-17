@@ -2,13 +2,15 @@
 .ds-campo-rotulo { font-size: var(--t-rotulo-topo); font-weight: 700; letter-spacing: var(--ls-rotulo-topo); color: var(--tinta-secundaria); }
 .ds-foco .ds-campo-rotulo { color: var(--lima); }
 
+/* o pacote 37: o campo é rebaixado; o vão do olho riscado (o desenho do jogo) é pintado na cor dele */
 .ds-campo-poco {
+  --fundo-do-icone: var(--fundo-rebaixado);
   height: var(--campo); display: flex; align-items: center;
-  background: var(--poco);
-  border-top: var(--traco-borda) solid var(--poco-fundo);
-  border-bottom: var(--traco-borda) solid var(--borda-poco);
-  border-left: var(--traco-borda) solid var(--poco-lado);
-  border-right: var(--traco-borda) solid var(--poco-lado);
+  background: var(--fundo-rebaixado);
+  border-top: var(--traco-borda) solid var(--rebaixado-sombra);
+  border-bottom: var(--traco-borda) solid var(--rebaixado-luz);
+  border-left: var(--traco-borda) solid var(--rebaixado-lado);
+  border-right: var(--traco-borda) solid var(--rebaixado-lado);
 }
 /* sem ação, o texto ocupa o poço inteiro, a 14 da borda (a folha: o próprio input é o poço) */
 .ds-campo-entrada {

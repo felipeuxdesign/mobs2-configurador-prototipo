@@ -20,7 +20,6 @@
     "fotografo:1": "ESCALA=1 node scripts/fotografo.mjs"
   },
   "dependencies": {
-    "lucide-react": "1.47.0",
     "react": "18.3.1",
     "react-dom": "18.3.1"
   },

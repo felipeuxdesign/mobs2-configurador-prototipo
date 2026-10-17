@@ -242,7 +242,7 @@ export default function T04({ momento, estado: est }) {
     const preso = doModulo ? moduloPreso(sessao?.moduloSerial) : ativoPreso(sessao?.ativoId)
     porCima = (
       <Folha titulo={doModulo ? 'Módulo conectado' : 'Ativo da sessão'} rotuloFechar="Fechar" aoFechar={fechar}>
-        <CartaoPreso icone={doModulo ? 'conectar' : 'ativo'} identidade={preso.identidade} detalhes={preso.detalhes} />
+        <CartaoPreso icone={doModulo ? 'conectar-na-folha' : 'ativo'} identidade={preso.identidade} detalhes={preso.detalhes} />
         <Nota tom="fato" titulo="TRAVADO NA SESSÃO" frase={doModulo
           ? 'Enquanto a sessão estiver aberta, o módulo não troca. Pra trocar de módulo, encerre a sessão.'
           : 'Enquanto a sessão estiver aberta, o ativo não troca. Pra trocar de ativo, encerre a sessão.'} />

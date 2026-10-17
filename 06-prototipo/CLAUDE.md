@@ -10,7 +10,7 @@ Vale junto com o `CLAUDE.md` da raiz. Esta lei é só do protótipo navegável.
 
 - **Vite + React 18, em JavaScript**
 - CSS com as variáveis de `03-design-system/tokens.css` — nenhum valor solto
-- a Barlow dos woff2 de `05-recursos/fontes/` pra fonte, os mesmos das referências, e as duas barras do sistema são os desenhos oficiais do Android, de `05-recursos/sistema/`, cenário fixo — a hora vem desenhada na barra (lei 22, decisão 43 revista no pacote 4) · `lucide-react` pros ícones
+- a Barlow dos woff2 de `05-recursos/fontes/` pra fonte, os mesmos das referências, e as duas barras do sistema são os desenhos oficiais do Android, de `05-recursos/sistema/`, cenário fixo — a hora vem desenhada na barra (lei 22, decisão 43 revista no pacote 4) · os ícones do jogo, em `03-design-system/icones/`, o SVG exato de cada um · **o `lucide-react` não entra**: ícone novo nasce primeiro no jogo (o pacote 37, lei 14)
 - nada de biblioteca de componentes de fora: **os componentes são os do design system**, construídos aqui
 
 ## A estrutura em `app/`

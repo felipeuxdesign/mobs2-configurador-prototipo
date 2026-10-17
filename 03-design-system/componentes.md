@@ -96,7 +96,7 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 |---|---|---|
 | com contador | o contador conta o que passou · lima quando completo | T05 T06 T07 T09 T12 T13 T14 T15 T16 |
 | a marca no login | o logo e CONFIGURADOR entre dois traços de 1px em `--borda-neutra` — no claro eles continuam aparecendo, com o mesmo peso discreto do escuro | T01 |
-| campo | rótulo em cima · poço de 48 | T01 |
+| campo | rótulo em cima · superfície rebaixada de 48, `--fundo-rebaixado` com as bordas `--rebaixado-*` · **campo é rebaixado qualquer que seja a largura**: as casinhas do código também | T01 |
 | campo focado | rótulo e traço de baixo em lima | T01 |
 | senha visível | o olho riscado esconde de novo · o nome muda pra Ocultar a senha | T01 |
 | requisitos da senha | cada regra vira check quando a senha cumpre | T01 |
@@ -116,11 +116,11 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 | cartão que pede ação | o erro que precisa dele | T15 |
 | o que conferir | as causas de uma falha, numeradas, antes de tentar de novo · nome da causa em negrito, o que conferir depois | T05 T13 |
 | logo | o desenho da marca em uma cor só, pintado pelo token `--logo` — lima no escuro, o roxo institucional `#402070` no claro · nunca com a cor gravada dentro do arquivo, senão ele não troca com o tema | T01 |
-| interruptor | o padrão do Material 3: trilho de 52 × 32 · desligado, contorno de 2px e bolinha de 16 a 8px da borda, os dois em `--marca-limite`, trilho em `--poco` · ligado, trilho `--roxo` cheio e bolinha de 24 em `--texto-primario`, a 4px da borda · a linha inteira liga e desliga, não só a bolinha | T04 · a folha da Conta, *Modo claro* · desenhado na folha 10 |
+| interruptor | o padrão do Material 3: trilho de 52 × 32 · desligado, contorno de 2px em `--borda-interruptor` e bolinha de 16 a 8px da borda em `--marca-limite`, trilho em `--poco` · é a bolinha que marca o estado, por isso o contorno pode ser mais leve no claro · ligado, trilho `--roxo` cheio e bolinha de 24 em `--texto-primario`, a 4px da borda · a linha inteira liga e desliga, não só a bolinha | T04 · a folha da Conta, *Modo claro* · desenhado na folha 10 |
 | avatar da conta | círculo com as iniciais — 32 no topo, 52 na folha da Conta · fundo `--fundo-cartao` e contorno `--borda` — um cartão redondo, com o fundo e a borda de cartão, que inverte sozinho no claro · quem identifica o botão são as iniciais | T04 |
 | tracinho vazio | o traço de 10 × 1 no meio de um poço sem conteúdo — a garagem vencida, o cartão do menu que ainda espera módulo ou ativo, a linha sem valor · sempre `--marca-vazia`, nunca a luz do poço, que some no claro | T02 · T04 · T09 |
 | tracejado do vazio | o contorno tracejado de 1px de um cartão ou espaço que ainda não tem conteúdo · sempre `--borda-neutra`, a caixa neutra · sutil de propósito: diz "vazio" baixinho, com o mesmo peso nos dois temas · nunca o `--divisoria`, que some | T04 · T07 · T12 · T15 |
-| botão secundário | fill `--fundo-botao`, um degrau fora do cartão (`#241F33` no escuro, `#F3F3F7` no claro), borda `--borda-botao`, um tom acima da dos cartões, com a mesma intensidade nos dois temas (`#3A3350` no escuro, `#D2D4DA` no claro) · ela desenha a beirada do botão e o separa do desligado, que tem a borda dos cartões, texto `--tinta` · um desenho só em todo o app: os de rodapé e de folha, os de resposta (*Ouvi*, *Confere com o cartão*) e os compactos · **36px** no cartão dos dependentes, **30px** dentro de uma linha (*Reenviar*, *Corrigir este bloco*, *Testar bip*) · desligado: sem o fill, fundo e borda de cartão, texto apagado, e por isso se distingue do ligado · **a área de toque cresce até 48px sem aparecer**, como o Material 3 pede pro alvo mínimo | T04 T09 T11 T13 T14 T15 |
+| botão secundário | fill `--fundo-botao`, um degrau fora do cartão (`#241F33` no escuro, `#F3F3F7` no claro), borda `--borda-botao` (`#3A3350` no escuro, `#E2E3E8` no claro, o mesmo tom do contorno do cartão) · **em cima de uma superfície rebaixada, o fill é `--fundo-botao-no-rebaixado`**: o botão sobe um degrau em relação ao que está embaixo dele, branco no claro · ela desenha a beirada do botão e o separa do desligado, que tem a borda dos cartões, texto `--tinta` · um desenho só em todo o app: os de rodapé e de folha, os de resposta (*Ouvi*, *Confere com o cartão*) e os compactos · **36px** no cartão dos dependentes, **30px** dentro de uma linha (*Reenviar*, *Corrigir este bloco*, *Testar bip*) · desligado: sem o fill, fundo e borda de cartão, texto apagado, e por isso se distingue do ligado · **a área de toque cresce até 48px sem aparecer**, como o Material 3 pede pro alvo mínimo | T04 T09 T11 T13 T14 T15 |
 | folha de confirmação | antes de reenviar um bloco que tem dependente · o título diz a consequência, o texto diz o que vai precisar ser reenviado depois · `Reenviar <o bloco>` e `Cancelar` | T09 T11 · desenhada na folha 9 |
 | cartão dos dependentes | depois de um bloco conferir, um item por dependente, na ordem do script: o número e o nome, o motivo, `Reenviar` e `Deixar para depois` · o `Reenviar` de quem depende de outro bloco só liga depois dele | T09 · desenhada na folha 9 |
 | estado da ação na linha | no lugar da ação que já foi decidida: *fica para depois* (a ação de reenviar continua ao lado) · ou o check e *confere · reenviado* | T09 · desenhada na folha 9 |
@@ -153,7 +153,7 @@ Cada peça abaixo está **desenhada numa folha** de `referencias/` e foi **recor
 
 | Peça | Regra | Telas que usam |
 |---|---|---|
-| valor em poço | o que o módulo conta hoje | T10 |
+| valor rebaixado | o que o módulo conta hoje · `--fundo-rebaixado` | T10 |
 | régua da diferença | a distância entre os dois · vira "confere" depois | T10 |
 | o valor alvo | o número do painel, o que vai pro módulo | T10 |
 | o painel · vazio | antes de digitar · o traço em tinta apagada, sem o lima | T10 |
@@ -205,7 +205,7 @@ O catálogo normativo acima contém **115 peças**, contadas linha a linha nas n
 |---|---|---|
 | escolha numa lista | o marcador de escolha no poço de 30: o vazado de 11, e o quadrado lima cheio de 11 é o escolhido · variante: escolhível, a unidade vencida também se escolhe (T02) · variante: sem o valor à direita, a linha da empresa — o nome e a contagem de unidades (T02/05) | T02 |
 | os glifos de estado | doze, um por natureza · com o nome pro leitor de tela · variante: o círculo com o traço, fora dos doze, o não se aplica da assertiva da sessão, apagado e com o nome 'não se aplica' (T16) — desde o pacote 1, a folha 4 o desenha, na linha *não se aplica* · variante: o Wi-Fi riscado, fora dos doze, o ícone inteiro com o risco por cima e o fio escuro (lei 21), cinza, no *SEM CONEXÃO* do login (T01/14) — o *sem sinal* e o *sem sinal neutro* dos doze levam o mesmo Wi-Fi riscado (a revisão de 26/09, lei 21: a versão *-off* saiu); as referências deles (T03/01, T09/02 e 03, T12/03, folhas 3 e 4) desenham o risco sem o fio escuro (pro arquiteto) · variante: o i no círculo, fora dos doze, cinza e mudo pro leitor (a frase ao lado já diz), na linha de condição da versão ilegível (T11/04, a última entrega) — desde o pacote 1, a folha 4 o desenha, na linha *só informa* · **peça nova no protótipo** | todas, dentro das peças · sem uso nas 105: ok cinza |
-| os ícones de ferramenta | dez, do Lucide, no traço dos tokens · variante: subindo, fora das dez, a seta do SUBINDO AGORA, com o traço 2,2 do glifo (T15) · variante: xis-mini, o xis solto de 14 do não confere, com traço 2,6 (T10) · variante: ciclo, fora das dez, o route do Lucide no poço de 32 da ação da Seção E, traço 1,8 (T13/05) · variante: riscado, o ícone inteiro com o risco por cima e um fio escuro da cor do poço separando (lei 21, a última entrega) — o Bluetooth da busca que não começa (T05/16, 17) e a câmera sem a permissão (o item do checklist; a T10/11 saiu com a decisão 52), no lugar da versão *-off* do Lucide; o olho da senha leva o mesmo risco (T01/10) · variante: diagnóstico, o file-text do Lucide de 18 no poço de 30 da folha *Outras ações* (T11/03, a mesma medida das opções da T01) · no checklist, o automático que falta leva o ícone da ferramenta da tela que resolve (T13) · **peça nova no protótipo** | T04 T10 T13 T15 e as telas das ferramentas · sem uso nas 105: o ativo de Últimas instalações |
+| os ícones de ferramenta | dez, do jogo de ícones (`icones/`), no traço dos tokens · variante: subindo, fora das dez, a seta do SUBINDO AGORA, com o traço 2,2 do glifo (T15) · variante: xis-mini, o xis solto de 14 do não confere, com traço 2,6 (T10) · variante: ciclo, fora das dez, a rota do jogo no poço de 32 da ação da Seção E, traço 1,8 (T13/05) · variante: riscado, o ícone inteiro com o risco por cima e um fio na cor do fundo onde ele mora separando, como o jogo desenha (lei 21, o pacote 37) — o Bluetooth da busca que não começa (T05/16, 17) e a câmera sem a permissão (o item do checklist; a T10/11 saiu com a decisão 52; a câmera riscada ainda não está no jogo, pro arquiteto); o olho da senha leva o mesmo risco (T01/10) · variante: diagnóstico, o documento do jogo, de 18, no poço de 30 da folha *Outras ações* (T11/03, a mesma medida das opções da T01) · no checklist, o automático que falta leva o ícone da ferramenta da tela que resolve (T13) · **peça nova no protótipo** | T04 T10 T13 T15 e as telas das ferramentas · sem uso nas 105: o ativo de Últimas instalações |
 | os poços | oito tamanhos, de 22 a 44 · **peça nova no protótipo** | todas, dentro das peças · sem uso nas 105: 22, 28 e 44 · o de 44 entrou na T04 (10 e 11) e na T10 (a foto, que passou ao checklist com a decisão 52) |
 | os marcadores | o marcador de escolha, um só: o quadrado vazado de 11 no desmarcado e o lima de 11 no escolhido · e os LEDs · **peça nova no protótipo** | T01 T02 T04 T05 T06 T07 T09 T10 T11 T12 T13 T14 T15 T16 |
 
@@ -257,7 +257,7 @@ O catálogo normativo acima contém **115 peças**, contadas linha a linha nas n
 |---|---|---|
 | com contador | o contador conta o que passou · lima quando completo (o pacote 1 juntou o *neutro* e o *de falha*, e o veredito em lima da pré-checagem aprovada passou à regra) · variante: só a palavra, a unidade sem a contagem, quando a busca não acha nada (T05) · variante: forte, o contador em 700, o veredito de uma coisa só, como o aprovada em lima do detalhe (T12) · variante: com subtítulo, a linha de 12 em --tinta-apagada embaixo do título, no bloco dele, a 4 (T16/03 e 06, como as duas referências desenham desde a otimizacao300000000; a folga de 6 da T16/03 ficou sem uso) · variante: de falha, quantos reprovaram, em vermelho (T12) | T05 T06 T07 T09 T11 T12 T13 T14 T15 T16 |
 | a marca no login | o logo e CONFIGURADOR entre dois traços | T01 |
-| campo | rótulo em cima · poço de 48 | T01 |
+| campo | rótulo em cima · superfície rebaixada de 48 (`--fundo-rebaixado`, o pacote 37) · campo é rebaixado qualquer que seja a largura | T01 |
 | campo focado | rótulo e traço de baixo em lima | T01 T13 |
 | código · seis células | uma célula por dígito · variante: o foco numa célula dada, fora do próximo dígito, como no código expirado (T01) | T01 |
 | botões só de ícone | fechar e mostrar a senha · 44 de desenho, 48 de toque · com nome pro leitor de tela · **peça nova no protótipo** | T01 T04 |
@@ -271,7 +271,7 @@ O catálogo normativo acima contém **115 peças**, contadas linha a linha nas n
 | escolhido com trava · T06 | a placa com o motivo embaixo · variante: neutro, a trava que tem saída, o rótulo cinza e o traço neutro (T06) | T06 |
 | cartão que pede ação | o erro que precisa dele · variante: compacto, com mais de um erro, o título de 17, a causa de 13 e o botão compacto num bloco com a divisória embaixo, e depois dele o que a tela põe (T15) | T15 |
 | o que conferir | as causas de uma falha, numeradas, antes de tentar de novo · a caixa de poço, o rótulo de 10 e as causas de 13, o nome da causa em 700 e --tinta, o que conferir em --tinta-secundaria · variante: com falha, o traço vermelho de 2 embaixo (T05/04, a conexão que falhou); sem ele, a caixa de poço comum (T13/09, o item reprovado, que já leva a falha na régua) · `src/ds/entrada/OQueConferir.jsx` (o complemento do pacote 11) | T05 T13 |
-| botão secundário | fill --fundo-botao e borda --borda-botao, o desenho de todo secundário (o pacote 34) · a ação da linha · variante: compacto, 46 de desenho e 15 de letra, com o toque de 48 por fora (T15) | T15 |
+| botão secundário | fill --fundo-botao e borda --borda-botao, o desenho de todo secundário (o pacote 34) · a ação da linha · variante: compacto, 46 de desenho e 15 de letra, com o toque de 48 por fora (T15) · em cima do rebaixado, o fill `--fundo-botao-no-rebaixado` (o pacote 37) | T15 |
 | lista com contagem | o pacote baixando · os cinco grupos do pacote 1, com a divisória entre as linhas e nenhuma depois da última, a regra da peça — a folha 6 desenha só a dos Ativos (o desvio A da T03, na tela.md dela) · variante: o nome pro leitor segue o dado, na baixa que parou a linha diz que parou (T03) | T03 |
 
 ### Folha 7 · checklist evidencia
@@ -296,7 +296,7 @@ O catálogo normativo acima contém **115 peças**, contadas linha a linha nas n
 
 | Peça | Regra, medida | Telas que usam, medido |
 |---|---|---|
-| valor em poço | o que o módulo conta hoje · variante: aceso, depois de semear e reler, o que o módulo conta agora em --tinta (T10) · variante: falha, a releitura que não confere, com o número em vermelho (T10/10) | T10 |
+| valor rebaixado | o que o módulo conta hoje · variante: aceso, depois de semear e reler, o que o módulo conta agora em --tinta (T10) · variante: falha, a releitura que não confere, com o número em vermelho (T10/10) | T10 |
 | régua da diferença | a distância entre os dois · vira "confere" depois · variante: o confere desenhado, o check lima solto, sem poço, no lugar da diferença (T10) · variante: falha, o xis-mini solto de 14 e a frase em vermelho, o não confere (T10/10) | T10 |
 | o valor alvo | o número do painel, o que vai pro módulo · variante: cumprido, o número fora do foco ou semeado, sem o traço lima e com o rótulo apagado (T10/01, 09, 10) · variante: foco, o lima de volta por cima (T10/05) · variante: campo, o input numérico invisível por cima do poço, com o rótulo como nome (T10) | T10 |
 | o painel · vazio | antes de digitar · o traço e o rótulo em --marca-limite, sem o lima · a folha 8 escreve *tinta apagada* e desenha --marca-limite: o código segue o desenho | T10 |
@@ -365,6 +365,25 @@ Numa lista de leituras que o app confere sozinho, **o que passou é leitura**: o
 Quando o técnico relê alguma coisa depois de consertar, **a releitura acontece na própria tela**: o botão `Reler…` vira *Relendo…*, desligado, e o resultado fica ali mesmo, com **relido às 14:42** e o veredito, ao lado do check pequeno. Deu certo, sai o que estava vermelho e fica um botão pra seguir; não deu, fica o valor novo, ainda vermelho, e no lugar da frase de baixo **o xis pequeno com *relido às 14:41* e o que ainda falta** — sem ele, o técnico vê a mesma tela e não sabe se o app releu; o que estava pra conferir continua, e o botão volta a ser `Reler…`. **Sem toast, e nada muda de tela sozinho**: quem decide seguir é o técnico. Na calibração (T10) e no detalhe de um item reprovado da Seção C (T13/29 a 37).
 
 **No protótipo** · a T13 usa as peças que existem: o `Rodape` com o `primarioTrocaTexto` (o texto troca no lugar) e o `linkDesabilitado`, e o instrumento do item com a variante `relido` (`app/src/telas/T13/pecas.jsx`): sem a falha no poço, o rótulo em `--tinta-secundaria`, a marca branca da `Escala`, e o check de `--glifo-confere` com o texto de 13 em 700, descido `--traco-borda`, como o `ReguaDiferenca` confere da T10 · o relido e o não resolvido dizem a hora do relógio parado, *14:30*, como a T10 · o não resolvido (o pacote 23) é a variante `naoResolvido` do mesmo instrumento: o poço em falha, como antes, e o xis de `--glifo-confere` com o texto de 13 em 700, em `--vermelho`, como o `ReguaDiferenca` não confere da T10/10 · o rodapé de um botão só fecha em `--rodape-pe-com-botao` (32), a regra da peça: as referências 30 a 33 deixaram o pé de 24 do rodapé com link (pro arquiteto) · o tempo do *Relendo o módulo…* é o do *Relendo…* da T10, 1 s (`RITMOS.relerModuloMs`).
+
+
+## As superfícies rebaixadas e o poço
+
+Duas peças rebaixadas, com papéis diferentes. No escuro elas têm os mesmos valores; no claro, não:
+
+| peça | o que é | token |
+|---|---|---|
+| **poço** | o quadradinho fundo: o do ícone, o do check, o trilho das barras e da régua, o marcador | `--poco`, `--poco-fundo`, `--poco-lado`, `--borda-poco` · é ele que dá a personalidade do claro |
+| **rebaixado** | a superfície grande: o campo (de qualquer largura), o painel, o bloco de aviso, a faixa do topo do menu, a busca, a área da foto | `--fundo-rebaixado`, `--rebaixado-sombra`, `--rebaixado-lado`, `--rebaixado-luz` · no claro, um cinza leve, quase da página |
+
+- **a barra de status acompanha a superfície de baixo**: no menu, o rebaixado da faixa do topo; nas outras telas, a página ou o cartão · nunca o poço direto
+- **o botão em cima do rebaixado** usa `--fundo-botao-no-rebaixado`
+
+## O andamento
+
+O que marca o andamento tem cor própria, `--andamento`: a etapa atual da barra de etapas, o "agora" na régua, o quadrado do item da vez na leitura. No escuro, o creme do texto; no claro, o roxo da marca.
+
+**Dentro de uma barra em alerta**, no acesso vencendo e no pacote vencido, o marcador usa `--andamento-alerta`: a barra inteira fala a língua do alerta. No escuro, o mesmo creme; no claro, o vermelho escuro.
 
 ## No protótipo · as variantes da rodada 1 do retorno do PM
 

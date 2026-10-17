@@ -19,9 +19,9 @@ Esta pasta é a fonte única do produto. O design está **fechado e medido**: 15
 ```
 01-produto/          por que existe, pra quem, as regras de negócio, as histórias e os fluxos
 02-telas/            uma pasta por tela: ficha, estados, animação, textos e o gabarito visual
-03-design-system/    tokens (os dois temas), leis, movimento, componentes e as dez folhas desenhadas
+03-design-system/    tokens (os dois temas), leis, movimento, componentes, as dez folhas desenhadas e os 41 ícones
 04-dados/            o mock — o contrato de dado — e o gate que prova que ele não mente
-05-recursos/         a marca, a fonte e os ícones
+05-recursos/         a marca, a fonte e as barras do sistema
 06-prototipo/        como construir o protótipo navegável e o palco em volta dele
 07-decisoes/         o porquê de cada escolha, com o que foi descartado
 08-para-o-dev/       pro dev do produto: por onde começar, o contrato de dados, as integrações, os testes e o que ainda decide

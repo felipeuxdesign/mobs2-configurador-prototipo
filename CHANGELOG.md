@@ -1,5 +1,47 @@
 # Registro de mudanças
 
+## 2026-10-16 · pacote 37: o claro mais leve, e os ícones são os nossos
+
+- **O rebaixado separado do poço** (decisão 55): no claro, o cinza do poço pintava todas as superfícies rebaixadas e pesava a tela inteira (um quarto da fila de saída). Agora as superfícies grandes usam o token novo `--fundo-rebaixado`, com as bordas `--rebaixado-sombra`, `--rebaixado-lado` e `--rebaixado-luz`: o campo (de qualquer largura, as casinhas do código também), o painel, o bloco de aviso, a faixa do topo do menu, a busca e a área da foto. O poço fica só pro quadradinho do ícone, o check, o trilho e o marcador, e é ele que dá a personalidade do claro.
+- **O botão em cima do rebaixado** usa `--fundo-botao-no-rebaixado`, branco no claro: o botão sobe um degrau em relação ao que está embaixo dele.
+- **O andamento com cor própria:** a etapa atual, o "agora" na régua e o item da vez usam `--andamento`, o roxo da marca no claro, e não mais o preto do texto. Dentro de uma barra em alerta, `--andamento-alerta`, o vermelho escuro.
+- **A barra de status acompanha a superfície de baixo:** no menu, o rebaixado da faixa do topo.
+- **As cores do claro mais macias:** o texto apagado em `#686B78`, a borda do botão secundário no tom do contorno do cartão (`#E2E3E8`) e o contorno do interruptor desligado em `#B5B7C2`, no token novo `--borda-interruptor` (é a bolinha que marca o estado).
+- **O escuro não muda:** os oito tokens novos nascem, no escuro, com o valor que o escuro já usava (R-24).
+- **As leis R-20 a R-24** e as seções do rebaixado e do andamento no catálogo.
+- **A folha 10 refeita:** a paleta com os tokens novos, a tabela de contraste medindo o texto contra o rebaixado, as linhas do andamento e a seção nova *As superfícies do claro*.
+- **26 amostras do claro** em `03-design-system/claro-amostras/`, com o que conferir em cada uma. São gabarito, não referência oficial.
+- **Os ícones são os nossos:** 37 dos 41 ícones das referências são desenhos próprios. O jogo completo, os 41 SVGs, está em `03-design-system/icones/`. A lei 14 foi reescrita (o ícone é o desenho do jogo), e o `lucide-react` saiu do protótipo.
+- **No protótipo:**
+  - **O rebaixado:** o campo, as casinhas do código, o campo de texto, a busca, o bloco escolhido, o cartão de ação, a caixa de poço (o aviso, o painel, o valor), a tira do topo do menu e da barra, a prova, o tambor e o bloco do prazo da conta. O poço fica no quadradinho e nos trilhos: a régua, a idade do pacote, a barra do prazo da conta, a fila do prazo e o interruptor, que tem a borda em `--borda-interruptor`. O quadrado do vazio da T05/16 também é rebaixado, como a amostra desenha.
+  - **O andamento:** o glifo de agora, o segmento atual, o trecho que corre do trilho e o marcador da régua em `--andamento`; o agora da barra do prazo da conta em `--andamento-alerta`.
+  - **O secundário sobre o rebaixado** (no cartão de ação, na caixa de poço e na prova) e o botão da linha, em `--fundo-botao-no-rebaixado`.
+  - **Os ícones:** a peça nova `Desenho` lê o SVG exato do jogo, e o `Icone` e o `Glifo` usam ela. Cada lugar usa o ícone que a referência desenha ali, no tamanho e no traço dela: a lupa de 16 da busca do país, o relógio do recebimento com traço 2, o seguir do reenvio, o refazer da T11, o horário do item a revisar, a câmera do visor e as outras trocas por lugar. O `Riscado` saiu: o vão do risco vem desenhado no jogo e é pintado na cor da superfície onde o ícone mora.
+  - **O palco** tem os quatro ícones dele (a grade, o X, a volta e o sol) copiados do Lucide em `src/palco/icones.jsx`, sob a licença ISC, como diz o README.
+  - **Dois tokens nossos:** `--traco-fino` (2, o traço que a referência dá aos ícones pequenos fora das classes da lei 14) e `--borda-achado` (a moldura tracejada da T11/01, que usava a luz do poço emprestada e sumia no claro desde o 34). São 316 tokens.
+  - **O tema pelo endereço:** `?print=1&tema=claro` abre o app parado, no claro, pra fotografar.
+  - **Duas ferramentas novas:** `scripts/fotos.mjs` fotografa as 201 telas e compara o antes e o depois; `scripts/sonda.mjs` mede os ícones, as superfícies, a barra (olhando embaixo do véu), os botões, o contraste e o andamento.
+  - **O gate do mock** confere os 41 desenhos do jogo, cada um com o traço em `currentColor`.
+  - **A documentação:** o catálogo (a linha dos ícones de ferramenta), as fichas da T04 (a chave) e da T16 (a pausa, que agora é a das referências), o `publicar.md`, o `CLAUDE.md` do protótipo, os READMEs e o LEIA-PRIMEIRO.
+  - **Os arquivos do pacote vieram de cópias antigas** de novo: o `tokens.css`, o `tokens.json`, o `leis.md`, o `componentes.md`, os READMEs, o LEIA-PRIMEIRO e este registro. Entrou só o que é novo; o `tokens.json` sai do CSS pelo `npm run tokens` (o do pacote trazia o movimento em 0ms).
+- **Medido:**
+  - **As 26 amostras** batem. A conferência fina achou duas: a T05/16, corrigida, e a T01/03, cuja contagem fica em 10:00 (a decisão da ficha da T01).
+  - **O escuro, antes e depois, nas 201 telas, pixel a pixel:** depois das cores, nenhuma diferença; depois dos ícones, 145 telas mudaram, só nos ícones (na T01/22, o texto da busca andou 2px e ficou onde a referência o desenha); depois das duas correções do fim, a T11 sem nenhuma diferença.
+  - **Os ícones:** 997 no app, 968 trocados e 29 que já eram o desenho do jogo; os 41 do jogo em uso. Em 194 das 201 telas, o conjunto de ícones é o da referência; as outras sete são de conteúdo.
+  - **As varreduras no claro:** nenhuma superfície grande no poço, nenhum andamento na cor do texto, nenhum secundário sobre o rebaixado com `--fundo-botao` (35 secundários: 33 sobre o cartão, 2 sobre o rebaixado), a barra na cor da superfície de baixo em 200 das 201 (a exceção é a T07/11, da referência) e nenhuma cor fora dos tokens. O texto apagado passa em todo lugar (o mais baixo é 4,8, sobre o rebaixado).
+  - **Roteiros:** 41 de 51 aprovados. Os outros dez falham como antes, no mesmo passo: `empresa`, `mov-faixa`, `mov-listas`, `mov-porcima` (conferido no código do 36: o mesmo passo, a mesma mensagem), `mov-t02`, `mov-t03`, `recarregar`, `reler`, `teclado` e `voltar`. Com a máquina carregada (o Spotlight e a Siri reindexando), alguns param numa janela de tempo e passam rodados de novo: o `mov-t06` nesta rodada, e sete numa primeira, com carga de 38 a 45.
+  - **Bancada:** as 201 referências, 94 em 0% contra o HTML (eram 42 na base do 33), nenhuma com erro. 102 melhoraram, todas pelos ícones, e só pioraram as quatro já conhecidas (a T07/06 e a T13/05, 40 e 43).
+  - **O palco:** as 25 peças sem erro, as 47 conferências da moldura batendo e os seis textos sem falha.
+  - **A vitrine:** 114 espécimes, 96 em 0% contra as folhas (no código do 36, 59). Nenhum piorou; 49 melhoraram, pelos ícones.
+  - **A checagem, o gate do mock e o build** aprovados.
+- **Desvios nomeados, pro arquiteto** (no relatório do pacote, com as provas):
+  - **três perguntas pra resposta definitiva:** a T15/01 (quatro ou cinco envios), a T12/04 e 05 (a instalação inteira ou só o resumo) e a T09/02 e 03 (o traço ou o círculo vazio na cadeia pausada);
+  - as três setas das linhas fora do jogo, e os quatro desenhos que nenhuma tela usa (a energia, a lua, o e-mail e a câmera sem a permissão);
+  - o ponto do `sem-rede.svg` gravado em cinza;
+  - a barra da T07/11;
+  - o tracejado da T11/01 no escuro, que a referência do 33 desenha em `--borda-neutra`;
+  - a régua de idade da T03/03 no claro.
+
 ## 2026-10-16 · pacote 36: as fichas batendo com as referências
 
 - **As fichas contavam momentos e estados de antes**, achado ao montar as sections do canvas. Corrigidas: T09 (12 · 8), T11 (4 · 2) e T13 (30 · 11).

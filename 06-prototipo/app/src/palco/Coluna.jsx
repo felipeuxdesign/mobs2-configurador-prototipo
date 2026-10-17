@@ -3,7 +3,7 @@
 // grupos (só a T07, pela regra dos seis · pacote 1). O que nasce de outro quadro (`depoisDe`) fica recuado
 // embaixo dele, um nível só, sem linhas (o pacote 23, as famílias). O topo tem um lugar fixo (decisão 30): a frase do fluxo, ou
 // o "Voltar ao fluxo" com um estado aberto. A coluna fica no meio da altura do celular.
-import { Undo2 } from 'lucide-react'
+import { Volta } from './icones.jsx'
 import { NOMES, estadosDa, GRUPOS } from './telas.js'
 import { Poco, Quadrado } from '../ds/index.js'
 
@@ -34,7 +34,7 @@ export function Coluna({ tela, estado, aoAbrir, aoVoltar, pisca, escala = 1 }) {
       <div className="coluna-topo">
         {estado ? (
           <button type="button" key={pisca} className={`coluna-voltar ${pisca ? 'coluna-voltar-pisca' : ''}`} onClick={aoVoltar}>
-            <Undo2 aria-hidden="true" className="palco-icone-14" />Voltar ao fluxo
+            <Volta className="palco-icone-14" />Voltar ao fluxo
           </button>
         ) : <span className="coluna-no-fluxo">no fluxo · toque num estado pra ver</span>}
       </div>

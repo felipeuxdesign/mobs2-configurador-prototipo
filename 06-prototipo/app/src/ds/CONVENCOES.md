@@ -4,7 +4,7 @@ O que vale pra toda peça em `src/ds/`. Vem das leis (`03-design-system/leis.md`
 
 ## Onde mora
 
-- **Primitivos** em `src/ds/primitivos/`: `Poco`, `Glifo`, `Icone`, `Riscado` (o `ComRisco` e o `riscado()` · lei 21: o vão do risco é uma máscara, nunca uma linha na cor do fundo), `Quadrado` e `Led` (marcadores), `Tocavel`, `Primario`, `SoIcone`, `Link`, `Checkbox`. Importe de `src/ds/index.js`.
+- **Primitivos** em `src/ds/primitivos/`: `Poco`, `Glifo`, `Icone`, `Desenho` (o SVG exato do jogo de ícones, `03-design-system/icones` · o pacote 37: o riscado vem no desenho, com o fio do vão na cor do fundo onde o ícone mora), `Quadrado` e `Led` (marcadores), `Tocavel`, `Primario`, `SoIcone`, `Link`, `Checkbox`. Importe de `src/ds/index.js`.
 - **Cada família** em `src/ds/<familia>/`: um `.jsx` e um `.css` por peça, e um `index.js` da família. Classes com prefixo `ds-`.
 - **Os espécimes da vitrine** em `src/vitrine/especimes/f<folha>-<familia>.jsx`, exportando `especimes = [{ id, folha, rotulo, legenda, chrome?, render }]`. O `rotulo` é o texto exato do rótulo do espécime na folha. `chrome: true` quando a moldura da folha tem recheio 0. `nome`, opcional: o nome que a vitrine mostra no lugar do `rotulo`, quando o `componentes.md` já renomeou a peça e a folha ainda não (a *linha de unidade* da folha 4, que ainda rotula *linha de garagem* · a lei 18, decisão 37); a bancada segue achando a moldura pelo `rotulo`.
 
@@ -15,8 +15,8 @@ O que vale pra toda peça em `src/ds/`. Vem das leis (`03-design-system/leis.md`
 - **Sem hover. Sem foco desenhado.** O que responde é o pressionado, com `:active` — por `Tocavel` (camada `--elevado`), `Primario` (roxo pressionado e escala), `Link` (duas camadas). Pra fotografar o pressionado parado, a classe `ds-forca-toque`.
 - **Só transform e opacity se movem.** Cor não anima: duas camadas, e a de cima entra por opacity. Tempos: `--mov-rapido` 150 · `--mov-padrao` 200 · `--mov-lento` 300 · `--mov-solta` 100, curva `--mov-curva`. O reduzir movimento zera os tempos sozinho.
 - **O marcador de escolha é um só, o `Quadrado`** (decisão 29): vazado de 11 no desmarcado, lima de 11 no marcado, que surge por opacidade e escala. Quem escolhe — o `Checkbox`, as linhas de escolha, a coluna do palco — põe o `Quadrado` num `Poco`: 24 no checkbox e na coluna, 30 na linha de lista. Nenhum poço de escolha fica vazio.
-- **Glifo sempre pelo `Glifo`** (Lucide, com o nome pro leitor de tela), dentro de um `Poco` do tamanho da linha: 38 → 24, 44 → 30, 50 → 32. **Ícone pelo `Icone`**.
-- **Ícone riscado pelo `Riscado`** (lei 21): `riscado(IconeDoLucide)` pro `Icone` e pro `Glifo`, e o `ComRisco` em volta dos traços de um desenho do app — o ícone inteiro, com o risco por cima e o vão em volta dele feito por máscara (a faixa de `--risco-corte`), nunca pintado na cor do fundo. Nunca a versão *-off* do Lucide.
+- **Glifo sempre pelo `Glifo`** (o desenho do jogo de ícones, com o nome pro leitor de tela), dentro de um `Poco` do tamanho da linha: 38 → 24, 44 → 30, 50 → 32. **Ícone pelo `Icone`**.
+- **Ícone riscado pelo desenho do jogo** (lei 21, o pacote 37): o olho riscado e o Bluetooth desligado são SVGs do jogo, o ícone inteiro com o risco por cima e o fio do vão pintado na cor do fundo onde ele mora (`--fundo-do-icone`, o poço por padrão; o campo e o vazio da busca dizem o deles) · **nunca o lucide-react**, que saiu do app
 - **Folha fecha dos quatro jeitos** (lei 20): o X, o toque fora e o arraste moram na `Folha` e chamam o `aoFechar` dela, que tem de fechar a folha; o voltar do Android é da tela que a abriu (`useVoltar`, com o mesmo fechar).
 
 ## A peça
@@ -27,4 +27,4 @@ O que vale pra toda peça em `src/ds/`. Vem das leis (`03-design-system/leis.md`
 
 ## A bancada
 
-Com `npm run dev` rodando: `node scripts/especime.mjs compara <folha> "<rótulo>" <id>`. Ela renderiza o espécime da folha e o da vitrine no mesmo Chrome, a 1×, e dá a diferença em %. Antes da foto, a moldura da folha vai pro pixel inteiro (a posição fracionária dela rasterizava o texto meio pixel deslocado), e a vitrine mede depois das fontes. `node scripts/especime.mjs todos` roda todos, folha a folha, e grava `prints/especimes/relatorio.json`. **A meta é 0%.** A exceção é o glifo desenhado à mão na folha, que o Lucide desenha um pouco diferente (G5): aí a diferença fica só no glifo, e isso se confirma olhando o `prints/especimes/<id>-diff.png`.
+Com `npm run dev` rodando: `node scripts/especime.mjs compara <folha> "<rótulo>" <id>`. Ela renderiza o espécime da folha e o da vitrine no mesmo Chrome, a 1×, e dá a diferença em %. Antes da foto, a moldura da folha vai pro pixel inteiro (a posição fracionária dela rasterizava o texto meio pixel deslocado), e a vitrine mede depois das fontes. `node scripts/especime.mjs todos` roda todos, folha a folha, e grava `prints/especimes/relatorio.json`. **A meta é 0%.** Desde o pacote 37 o glifo é o desenho do jogo de ícones, o mesmo das referências das telas; onde a folha desenha um glifo que o jogo não tem (o relógio e as últimas instalações da folha 3), a diferença fica só no glifo, e isso se confirma olhando o `prints/especimes/<id>-diff.png`.

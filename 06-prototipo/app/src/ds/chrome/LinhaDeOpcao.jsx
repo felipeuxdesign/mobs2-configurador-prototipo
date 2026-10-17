@@ -33,7 +33,8 @@ export function CartaoDeOpcoes({ children }) {
 // da folha do código: 72 no mínimo, recheio 10, folga 12, ícone de 18 no poço
 // de 30, título em 16/600 e efeito em 13/500. O efeito pode quebrar linha,
 // inteiro, e a seta fica em --tinta-secundaria. Não há variante compacta.
-export function LinhaDeOpcao({ icone, titulo, detalhe, aoTocar, rotulo, forcaToque = false, espera, variante }) {
+// `seta`: a da T01 é o seguir, de 24 (T01/11); a das outras folhas, a seta das linhas (o pacote 37)
+export function LinhaDeOpcao({ icone, titulo, detalhe, aoTocar, rotulo, forcaToque = false, espera, variante, seta = 'avancar' }) {
   if (espera === undefined) {
     const efeito = variante === 'efeito'
     return (
@@ -43,7 +44,7 @@ export function LinhaDeOpcao({ icone, titulo, detalhe, aoTocar, rotulo, forcaToq
           <span className="ds-linha-opcao-titulo">{titulo}</span>
           <span className="ds-linha-opcao-detalhe">{detalhe}</span>
         </span>
-        <Icone nome="avancar" tam={16} cor={efeito ? 'secundaria' : 'apagada'} />
+        <Icone nome={seta} tam={16} cor={efeito ? 'secundaria' : 'apagada'} />
       </Tocavel>
     )
   }
@@ -69,7 +70,7 @@ export function LinhaDeOpcao({ icone, titulo, detalhe, aoTocar, rotulo, forcaToq
       </span>
       <span className="ds-linha-opcao-fim">
         {esperando && <span className="ds-linha-opcao-contagem">{espera}</span>}
-        <Icone nome="avancar" tam={16} cor="apagada" className="ds-linha-opcao-acesa" />
+        <Icone nome={seta} tam={16} cor="apagada" className="ds-linha-opcao-acesa" />
       </span>
     </Tocavel>
   )

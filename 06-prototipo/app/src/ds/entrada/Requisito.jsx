@@ -12,9 +12,9 @@ export function Requisito({ texto, cumprido = false, nota }) {
   return (
     <div className={`ds-requisito ${cumprido ? 'ds-requisito-cumprido' : ''}`}>
       <span className="ds-requisito-marca">
-        <span className="ds-requisito-falta" aria-hidden={cumprido || undefined}><Glifo estado="espera" poco={26} /></span>
+        <span className="ds-requisito-falta" aria-hidden={cumprido || undefined}><Glifo estado="requisito-falta" poco={26} /></span>
         <span className="ds-requisito-check" role="img" aria-label={ESTADOS.ok.nome} aria-hidden={!cumprido || undefined}>
-          <Icone nome="check" tam={16} cor="lima" />
+          <Icone nome="requisito" tam={16} cor="lima" />
         </span>
       </span>
       {/* C4 · T01: o texto do documento é um só (o que o leitor e a régua dos

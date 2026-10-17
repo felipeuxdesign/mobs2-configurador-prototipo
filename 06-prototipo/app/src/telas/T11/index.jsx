@@ -237,7 +237,7 @@ export default function T11({ momento: daUrl, estado: est }) {
   const espera = { aguarda, aguardaUnidade: conta, aguardaTitulo: T.conferindo }
   let cabeca = <Aviso tom="veredito" titulo={T.confere} numero={total} unidade={conta} {...espera} />
   if (naoBatem) cabeca = <Aviso glifo="xis" titulo={T.naoBate} numero={naoBatem} unidade={conta} {...espera} />
-  else if (aRevisar) cabeca = <Aviso tom="neutro" glifo="relogio" titulo={T.revisarCabecalho} numero={aRevisar} {...espera} />
+  else if (aRevisar) cabeca = <Aviso tom="neutro" glifo="horario" titulo={T.revisarCabecalho} numero={aRevisar} {...espera} />   // o relógio do revisar em seguida é o horário (T11/05, o pacote 37)
   else if (!bate) cabeca = <Aviso glifo="xis" titulo={T.naoBate} numero={naoReconhecidos} unidade={T.aMais} {...espera} />
 
   // O rodapé (decisão 53, lei 19 · a rodada 2 do retorno do PM): a ação de cada bloco mora na linha
@@ -296,7 +296,7 @@ export default function T11({ momento: daUrl, estado: est }) {
           <Veu de="folha" visivel={outras.visivel}>
             <Folha titulo={T.outrasAcoes} rotuloFechar={T.fechar} aoFechar={fecharOutras} aberta={outras.visivel}>
               <CartaoDeOpcoes>
-                <LinhaDeOpcao variante="efeito" icone="reenviar" titulo={T.reenviar(blocos)} detalhe={T.efeitoReenviar} aoTocar={reenviar} />
+                <LinhaDeOpcao variante="efeito" icone="refazer" titulo={T.reenviar(blocos)} detalhe={T.efeitoReenviar} aoTocar={reenviar} />
                 <LinhaDeOpcao variante="efeito" icone="diagnostico" titulo={T.registrar} detalhe={T.efeitoRegistrar} aoTocar={registrar} />
               </CartaoDeOpcoes>
             </Folha>

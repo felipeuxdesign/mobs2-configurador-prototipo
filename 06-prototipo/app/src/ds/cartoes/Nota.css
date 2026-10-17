@@ -5,7 +5,7 @@
 .ds-nota-fato .ds-nota-titulo { color: var(--tinta-secundaria); }
 .ds-nota-fato .ds-nota-frase { font-size: var(--t-secundario); line-height: var(--entrelinha-legenda); color: var(--tinta-forte); }   /* a de 13 fica na entrelinha dela: a de 16 é do apoio de 12 */
 /* C11 · T11/01 (G11): o achado da leitura, o conteúdo que o app não classifica */
-.ds-nota.ds-nota-achado { gap: var(--e-2); padding: var(--e-10) var(--e-12); border-color: var(--borda-poco); }
+.ds-nota.ds-nota-achado { gap: var(--e-2); padding: var(--e-10) var(--e-12); border-color: var(--borda-achado); }   /* o pacote 37: era a luz do poço, branca no claro */
 .ds-nota-achado .ds-nota-titulo { color: var(--tinta-secundaria); }
 .ds-nota-achado .ds-nota-frase { font-size: var(--t-secundario); line-height: var(--entrelinha-texto); color: var(--tinta-secundaria); }
 /* C4 · T03 (G11): a frase de 13, em 400, da nota que diz o bloqueio (T03/04) */

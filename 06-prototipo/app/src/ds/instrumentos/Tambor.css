@@ -4,9 +4,9 @@
 .ds-tambor-celula {
   position: relative; flex-grow: 1; height: var(--tambor-celula);
   display: flex; align-items: center; justify-content: center;
-  background: var(--poco);
-  border-top: var(--traco-borda) solid var(--poco-fundo);
-  border-bottom: var(--traco-borda) solid var(--borda-poco);
+  background: var(--fundo-rebaixado);
+  border-top: var(--traco-borda) solid var(--rebaixado-sombra);
+  border-bottom: var(--traco-borda) solid var(--rebaixado-luz);
   font-size: var(--n-tambor); font-weight: 700; letter-spacing: var(--ls-n-tambor);
 }
 .ds-tambor-celula-unidade { background: var(--fundo-apagado); color: var(--lima); }

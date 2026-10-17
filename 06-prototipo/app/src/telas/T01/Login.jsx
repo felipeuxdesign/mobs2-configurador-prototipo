@@ -390,7 +390,7 @@ export function Login({ momento, estado, irMomento }) {
         <Veu de="folha" visivel={seletor.visivel}>
           <Folha titulo={TX.pais} rotuloFechar={TX.fechar} aoFechar={fecharSeletor} aberta={seletor.visivel}>
             <div className="t01-seletor">
-              <Busca dica={TX.buscarPais} valor={s.busca} aoMudar={(v) => muda({ busca: v })} />
+              <Busca dica={TX.buscarPais} valor={s.busca} aoMudar={(v) => muda({ busca: v })} icone="busca-de-pais" tamIcone={16} />
               {lista.length > 0 && (
                 <CartaoDeOpcoes>
                   {lista.map((d) => (
@@ -468,8 +468,8 @@ export function Login({ momento, estado, irMomento }) {
         <Veu de="folha" visivel={folha.visivel}>
           <Folha titulo={TX.naoRecebi} rotuloFechar={TX.fechar} aoFechar={fecharFolha} aberta={folha.visivel}>
             <CartaoDeOpcoes>
-              <LinhaDeOpcao icone="reenviar" titulo={TX.reenviarCodigo} detalhe={TX.paraOMesmo} espera={espera} aoTocar={() => reenviar()} />
-              <LinhaDeOpcao icone="voltar-etapa" titulo={TX.usarOutro} detalhe={TX.voltaPrimeira} espera={espera} aoTocar={usarOutroDado} />
+              <LinhaDeOpcao icone="reenviar" seta="seguir" titulo={TX.reenviarCodigo} detalhe={TX.paraOMesmo} espera={espera} aoTocar={() => reenviar()} />
+              <LinhaDeOpcao icone="voltar-etapa" seta="seguir" titulo={TX.usarOutro} detalhe={TX.voltaPrimeira} espera={espera} aoTocar={usarOutroDado} />
             </CartaoDeOpcoes>
           </Folha>
         </Veu>

@@ -43,7 +43,7 @@ import { Glifo } from '../primitivos/Glifo.jsx'
 import { Icone } from '../primitivos/Icone.jsx'
 import './ItemDoChecklist.css'
 
-const GLIFO = { ok: 'ok', pendente: 'espera', aguarda: 'relogio', reprovado: 'xis', nsa: 'traco', lendo: 'agora', espera: 'relogio', revisar: 'relogio' }
+const GLIFO = { ok: 'ok', pendente: 'espera', aguarda: 'relogio', reprovado: 'xis', nsa: 'traco', lendo: 'agora', espera: 'relogio', revisar: 'horario' }   // o revisar em seguida é o relógio do horário (T13/43, o pacote 37)
 
 function GlifoDoItem({ estado, nomeGlifo }) {
   return <Glifo estado={GLIFO[estado] ?? 'ok'} poco={26} nome={nomeGlifo} className={`ds-item-ck-glifo ds-item-ck-glifo-${estado}`} />

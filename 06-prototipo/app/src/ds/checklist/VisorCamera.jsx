@@ -16,7 +16,7 @@ import './VisorCamera.css'
 export function VisorCamera({ frase, explicacao, semPermissao = false }) {
   return (
     <div className="ds-visor ds-caixa-poco">
-      <Icone nome={semPermissao ? 'camera-negada' : 'camera'} cor="marca" className="ds-visor-camera" />
+      <Icone nome={semPermissao ? 'camera-negada' : 'foto'} cor="marca" className="ds-visor-camera" />
       {frase && <span className="ds-visor-frase">{frase}</span>}
       {explicacao && <span className="ds-visor-explicacao">{explicacao}</span>}
     </div>

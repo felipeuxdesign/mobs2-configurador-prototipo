@@ -2,10 +2,10 @@
   flex-grow: 1; min-height: 0;
   display: flex; flex-direction: column; justify-content: center; gap: var(--cartao-acao-folga);
   padding: var(--e-20) var(--e-16);
-  background: var(--poco);
-  border-top: var(--traco-borda) solid var(--poco-fundo);
-  border-left: var(--traco-borda) solid var(--poco-lado);
-  border-right: var(--traco-borda) solid var(--poco-lado);
+  background: var(--fundo-rebaixado);
+  border-top: var(--traco-borda) solid var(--rebaixado-sombra);
+  border-left: var(--traco-borda) solid var(--rebaixado-lado);
+  border-right: var(--traco-borda) solid var(--rebaixado-lado);
   border-bottom: var(--traco-destaque) solid var(--vermelho);
 }
 .ds-cartao-acao-cabeca { display: flex; align-items: center; gap: var(--e-10); }

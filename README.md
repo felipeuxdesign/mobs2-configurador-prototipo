@@ -51,7 +51,7 @@ Cada tela, momento e estado tem uma referência desenhada, em HTML e PNG, 201 ao
 
 O comportamento vem da ficha de cada tela, os textos do `textos.md` dela e as medidas dos tokens. O repositório contém 51 roteiros de navegação e uma checagem que confere os dados de exemplo e as fichas das telas contra as referências.
 
-**As tecnologias:** o protótipo é um app web em **React 18** com **Vite**, em JavaScript, sem biblioteca de componentes de fora: as peças são as do design system, construídas no próprio projeto, com os valores dos tokens em CSS. Os ícones são do **Lucide**, e a fonte é a **Barlow**. A comparação com as referências roda no **Chrome** sem tela, com o **pixelmatch** medindo a diferença pixel a pixel. Ele é publicado na **Vercel**.
+**As tecnologias:** o protótipo é um app web em **React 18** com **Vite**, em JavaScript, sem biblioteca de componentes de fora: as peças são as do design system, construídas no próprio projeto, com os valores dos tokens em CSS. Os ícones são o jogo de 41 SVGs do design system, e a fonte é a **Barlow**. A comparação com as referências roda no **Chrome** sem tela, com o **pixelmatch** medindo a diferença pixel a pixel. Ele é publicado na **Vercel**.
 
 | telas | momentos | estados | referências | folhas do design system | temas | histórias de usuário | casos de dados | decisões registradas |
 |---|---|---|---|---|---|---|---|---|
@@ -62,9 +62,9 @@ O comportamento vem da ficha de cada tela, os textos do `textos.md` dela e as me
 ```
 01-produto/          por que existe, pra quem, as regras de negócio, as histórias e os fluxos
 02-telas/            uma pasta por tela: ficha, estados, animação, textos e as referências
-03-design-system/    tokens (os dois temas), leis, movimento, componentes e as dez folhas
+03-design-system/    tokens (os dois temas), leis, movimento, componentes, os ícones e as dez folhas
 04-dados/            os dados de exemplo (o contrato de dados) e a checagem que os confere
-05-recursos/         a marca, a fonte, os ícones e os desenhos do sistema
+05-recursos/         a marca, a fonte e os desenhos do sistema
 06-prototipo/        o protótipo navegável, o palco e as ferramentas de verificação
 07-decisoes/         o porquê de cada escolha, com o que foi descartado
 08-para-o-dev/       por onde começar a construir o produto
@@ -101,7 +101,7 @@ Estar visível não significa estar liberado para uso. Os termos completos estã
 
 **O que é de terceiros** segue a licença de cada um, e não é da empresa:
 - as fontes **Barlow** e o recorte da **Google Sans**, sob a SIL Open Font License 1.1, com o texto da licença em [`05-recursos/fontes/`](05-recursos/fontes/);
-- os ícones do **Lucide**, sob a licença ISC;
+- os desenhos de oito ícones que vêm do **Lucide** (quatro do app e os quatro do palco), sob a licença ISC;
 - as barras do sistema, do kit do **Material 3**, do Google.
 
 **Autoria:** design de produto e protótipo por [Luiz Felipe Silva Correia](https://www.linkedin.com/in/lfelipe-scorreia/), para a MOBS2.

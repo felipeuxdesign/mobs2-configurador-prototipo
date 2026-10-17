@@ -13,3 +13,6 @@
    desenho e 15 de letra; o toque de 48 é uma área invisível por fora (G14) */
 .ds-secundario-compacto { position: relative; height: var(--botao-secundario-compacto); font-size: var(--t-link); }
 .ds-secundario-compacto::before { content: ''; position: absolute; inset: calc((var(--botao-secundario-compacto) - var(--alvo-min)) / 2 - var(--traco-borda)) 0; }
+/* o pacote 37 (R-21): o botão sobe um degrau em relação ao que está embaixo · em cima do rebaixado
+   (o cartão que pede ação da T15, as caixas), o fill do rebaixado: branco no claro, o mesmo no escuro */
+:is(.ds-cartao-acao, .ds-caixa-poco, .ds-prova) .ds-secundario:not(:disabled) { background: var(--fundo-botao-no-rebaixado); }

@@ -2,9 +2,9 @@
 .ds-codigo-celula {
   flex: 1 1 0; min-width: 0; height: var(--celula-codigo);
   display: flex; align-items: center; justify-content: center;
-  background: var(--poco);
-  border-top: var(--traco-borda) solid var(--poco-fundo);
-  border-bottom: var(--traco-borda) solid var(--borda-poco);
+  background: var(--fundo-rebaixado);
+  border-top: var(--traco-borda) solid var(--rebaixado-sombra);
+  border-bottom: var(--traco-borda) solid var(--rebaixado-luz);
   font-size: var(--t-titulo-proc); font-weight: 700; color: var(--tinta);
 }
 /* o traço de 2 desenhado por cima da borda de 1 (C12·22): a borda troca só a cor e 1 por dentro a

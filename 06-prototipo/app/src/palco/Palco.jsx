@@ -2,7 +2,7 @@
 // Separado do app no código: o App não sabe que o palco existe.
 // Três peças e o painel: o quadrado, o celular, a coluna (G18, G19, G20).
 import { useCallback, useEffect, useState } from 'react'
-import { LayoutGrid } from 'lucide-react'
+import { Grade } from './icones.jsx'
 import '../ds/index.js'
 import { App } from '../App.jsx'
 import { Vitrine } from '../vitrine/Vitrine.jsx'
@@ -153,7 +153,7 @@ function PalcoApp() {
     <main className={`palco ${estreito ? 'palco-estreito' : ''} ${deitada ? 'palco-deitado' : ''} ${celular ? 'palco-celular' : ''}`}>
       {!celular && (
         <button type="button" key={piscaQuadrado} className={`palco-quadrado ${piscaQuadrado ? 'palco-pisca' : ''}`} aria-label="Telas do protótipo" onClick={() => setPainel(true)}>
-          <LayoutGrid aria-hidden="true" className="palco-icone-18" />
+          <Grade className="palco-icone-18" />
         </button>
       )}
       <div className="palco-cena">

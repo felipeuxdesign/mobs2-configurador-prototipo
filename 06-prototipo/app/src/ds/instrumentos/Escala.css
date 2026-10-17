@@ -46,7 +46,7 @@
 .ds-escala-marcador {
   position: absolute; top: 0; bottom: 0; width: var(--ds-marcador);
   left: min(calc(var(--pos) * 1%), calc(100% - var(--ds-marcador)));
-  background: var(--tinta);
+  background: var(--andamento);   /* o "agora" na régua (R-22): o creme no escuro, o roxo no claro */
 }
 .ds-escala-falha .ds-escala-marcador { background: var(--vermelho); }
 
